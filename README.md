@@ -8,18 +8,9 @@
     <a href="https://arxiv.org/abs/2602.00685">
       <img src="https://img.shields.io/badge/arXiv-Paper-b31b1b?logo=arxiv&logoColor=white" alt="Read the Paper" />
     </a>
-    &nbsp;
-    <a href="https://github.com/AISmithLab/HumanStudy-Bench">
-      <img src="https://img.shields.io/badge/Original-Research%20Repo-8A2BE2?logo=github&logoColor=white" alt="Original Research Repo" />
-    </a>
-    &nbsp;
-    <a href="https://huggingface.co/fuyyckwhy/HS-Bench-results">
-      <img src="https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-yellow" alt="Hugging Face" />
-    </a>
   </h3>
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
   [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?logo=opensourceinitiative&logoColor=white)](https://github.com/HumanStudy-Hub/HumanStudy-Bench/pulls)
 
 </div>
