@@ -93,10 +93,6 @@ If you use HumanStudy-Bench, please cite:
 
 **Hugging Face:** Benchmark and resources are available on the [Hugging Face Hub](https://huggingface.co/) — `fuyyckwhy/HS-Bench-results`.
 
-## Reproduction (Paper Results)
-
-To reproduce the exact benchmark and results reported in the paper, see the [original research repo](https://github.com/AISmithLab/HumanStudy-Bench) at tag `v1.0.0`.
-
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.

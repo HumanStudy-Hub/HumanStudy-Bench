@@ -55,8 +55,7 @@ Each level of this tree maps to a part of our file format. Keep this picture in 
 
 ---
 
-<details>
-<summary><strong>Extraction checklist and file mapping</strong></summary>
+### Extraction checklist and file mapping
 
 Here's what to extract and where it typically ends up:
 
@@ -72,12 +71,11 @@ These file names and structures are conventions from existing studies, not enfor
 
 For a complete real-world example, browse `studies/study_001/source/`.
 
-</details>
+---
 
-<details>
-<summary><strong>AI-assisted extraction prompt</strong></summary>
+### AI-assisted extraction prompt
 
-Reading a 20-page methods section cover to cover is slow. Here's a prompt you can give to an LLM (with the paper attached) to extract most of what you need in one shot:
+Reading a 20-page methods section cover to cover is slow. Here's a prompt you can give to an LLM (with the paper attached) to extract most of what you need in one shot. Copy the entire block below:
 
 > **Identify all findings in [PAPER TITLE] and identify all statistical tests supporting the findings. Include every single replication detail of each experiment, including the tests, participants, and raw data.**
 >
@@ -114,8 +112,6 @@ Reading a 20-page methods section cover to cover is slow. Here's a prompt you ca
 > - **location**: Page and section, e.g. "Page 489, Table 1"
 
 You'll still want to double-check the output against the paper — LLMs occasionally hallucinate statistics, which is exactly the kind of thing you don't want in a benchmark.
-
-</details>
 
 ---
 
