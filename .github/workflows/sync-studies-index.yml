@@ -1,0 +1,27 @@
+name: Sync studies index
+on:
+  push:
+    branches: [main]
+    paths:
+      - "studies/**"
+      - "scripts/build_studies_index.py"
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build studies index
+        run: python scripts/build_studies_index.py
+      - name: Commit updated index
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: rebuild studies_index.json"
+          file_pattern: co_website/data/studies_index.json

@@ -1,0 +1,134 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme {
+  --font-serif: var(--font-serif), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Keeping it light/academic as per request even in dark mode preference */
+    --background: #ffffff; 
+    --foreground: #171717;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* GitHub-style callouts (Note / Tip / Warning) */
+.callout {
+  border-left: 3px solid;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 24px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.callout-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.callout-svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.callout-body {
+  flex: 1;
+  min-width: 0;
+}
+.callout-body strong {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+.callout-body > p:first-of-type {
+  margin-top: 0;
+}
+.callout-body > p:last-of-type {
+  margin-bottom: 0;
+}
+.callout-tip {
+  border-color: #22c55e;
+  background: #f0fdf4;
+}
+.callout-tip .callout-svg {
+  color: #16a34a;
+}
+.callout-info {
+  border-color: #0ea5e9;
+  background: #f0f9ff;
+}
+.callout-info .callout-svg {
+  color: #0284c7;
+}
+.callout-warning {
+  border-color: #eab308;
+  background: #fefce8;
+}
+.callout-warning .callout-svg {
+  color: #ca8a04;
+}
+
+/* Collapsible details/summary sections */
+.prose details {
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 0;
+  margin: 16px 0;
+}
+.prose details > summary {
+  padding: 12px 16px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  background: #f6f8fa;
+  border-radius: 6px;
+  font-size: 0.925rem;
+  color: #1F2328;
+  transition: background-color 0.15s;
+}
+.prose details[open] > summary {
+  border-bottom: 1px solid #d0d7de;
+  border-radius: 6px 6px 0 0;
+}
+.prose details > summary:hover {
+  background: #eef1f5;
+}
+.prose details > summary::-webkit-details-marker {
+  display: none;
+}
+.prose details > summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 0.7em;
+  transition: transform 0.15s;
+  color: #656d76;
+}
+.prose details[open] > summary::before {
+  transform: rotate(90deg);
+}
+.prose details > :not(summary) {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.prose details > :last-child {
+  padding-bottom: 16px;
+}
+.prose details > :nth-child(2) {
+  padding-top: 16px;
+}

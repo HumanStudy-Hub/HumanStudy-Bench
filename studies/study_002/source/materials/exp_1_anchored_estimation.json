@@ -1,0 +1,449 @@
+{
+  "sub_study_id": "exp_1_anchored_estimation",
+  "instructions": "For each of the following 15 quantities, you will perform two tasks: 1. Judge whether the true value is higher or lower than a specified anchor value. 2. Provide your best numerical estimate of the quantity. Finally, rate your confidence in your estimate on a scale from 1 to 10.",
+  "items": [
+    {
+      "id": "1_judgment",
+      "question": "Is the Length of Mississippi River (in miles) higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Length of Mississippi River",
+        "low_anchor": 70,
+        "high_anchor": 2000,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Length of Mississippi River"
+      }
+    },
+    {
+      "id": "1_estimate",
+      "question": "What is your best estimate for the Length of Mississippi River (in miles)?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Length of Mississippi River",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Length of Mississippi River"
+      }
+    },
+    {
+      "id": "2_judgment",
+      "question": "Is the Height of Mount Everest (in feet) higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Height of Mount Everest",
+        "low_anchor": 2000,
+        "high_anchor": 45500,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Height of Mount Everest"
+      }
+    },
+    {
+      "id": "2_estimate",
+      "question": "What is your best estimate for the Height of Mount Everest (in feet)?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Height of Mount Everest",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Height of Mount Everest"
+      }
+    },
+    {
+      "id": "3_judgment",
+      "question": "Is the Amount of meat eaten per year by average American (in pounds) higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Meat eaten per year",
+        "low_anchor": 50,
+        "high_anchor": 1000,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Meat eaten per year"
+      }
+    },
+    {
+      "id": "3_estimate",
+      "question": "What is your best estimate for the Amount of meat eaten per year by average American (in pounds)?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Meat eaten per year",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Meat eaten per year"
+      }
+    },
+    {
+      "id": "4_judgment",
+      "question": "Is the Distance from San Francisco to New York City (in miles) higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Distance SF to NYC",
+        "low_anchor": 1500,
+        "high_anchor": 6000,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Distance SF to NYC"
+      }
+    },
+    {
+      "id": "4_estimate",
+      "question": "What is your best estimate for the Distance from San Francisco to New York City (in miles)?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Distance SF to NYC",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Distance SF to NYC"
+      }
+    },
+    {
+      "id": "5_judgment",
+      "question": "Is the Height of tallest redwood (in feet) higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Height of tallest redwood",
+        "low_anchor": 65,
+        "high_anchor": 550,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Height of tallest redwood"
+      }
+    },
+    {
+      "id": "5_estimate",
+      "question": "What is your best estimate for the Height of tallest redwood (in feet)?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Height of tallest redwood",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Height of tallest redwood"
+      }
+    },
+    {
+      "id": "6_judgment",
+      "question": "Is the Number of United Nations members higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Number of UN members",
+        "low_anchor": 14,
+        "high_anchor": 127,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Number of UN members"
+      }
+    },
+    {
+      "id": "6_estimate",
+      "question": "What is your best estimate for the Number of United Nations members?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Number of UN members",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Number of UN members"
+      }
+    },
+    {
+      "id": "7_judgment",
+      "question": "Is the Number of female professors at the University of California, Berkeley higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Female professors at UC Berkeley",
+        "low_anchor": 25,
+        "high_anchor": 130,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Female professors at UC Berkeley"
+      }
+    },
+    {
+      "id": "7_estimate",
+      "question": "What is your best estimate for the Number of female professors at the University of California, Berkeley?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Female professors at UC Berkeley",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Female professors at UC Berkeley"
+      }
+    },
+    {
+      "id": "8_judgment",
+      "question": "Is the Population of Chicago (in millions) higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Population of Chicago",
+        "low_anchor": 0.2,
+        "high_anchor": 5.0,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Population of Chicago"
+      }
+    },
+    {
+      "id": "8_estimate",
+      "question": "What is your best estimate for the Population of Chicago (in millions)?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Population of Chicago",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Population of Chicago"
+      }
+    },
+    {
+      "id": "9_judgment",
+      "question": "Is the Year telephone was invented higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Year telephone invented",
+        "low_anchor": 1850,
+        "high_anchor": 1920,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Year telephone invented"
+      }
+    },
+    {
+      "id": "9_estimate",
+      "question": "What is your best estimate for the Year telephone was invented?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Year telephone invented",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Year telephone invented"
+      }
+    },
+    {
+      "id": "10_judgment",
+      "question": "Is the Average number of babies born per day in the United States higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Babies born per day in US",
+        "low_anchor": 100,
+        "high_anchor": 50000,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Babies born per day in US"
+      }
+    },
+    {
+      "id": "10_estimate",
+      "question": "What is your best estimate for the Average number of babies born per day in the United States?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Babies born per day in US",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Babies born per day in US"
+      }
+    },
+    {
+      "id": "11_judgment",
+      "question": "Is the Maximum speed of house cat (in miles per hour) higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Speed of house cat",
+        "low_anchor": 7,
+        "high_anchor": 30,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Speed of house cat"
+      }
+    },
+    {
+      "id": "11_estimate",
+      "question": "What is your best estimate for the Maximum speed of house cat (in miles per hour)?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Speed of house cat",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Speed of house cat"
+      }
+    },
+    {
+      "id": "12_judgment",
+      "question": "Is the Amount of gas used per month by average American (in gallons) higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Gas used per month",
+        "low_anchor": 20,
+        "high_anchor": 80,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Gas used per month"
+      }
+    },
+    {
+      "id": "12_estimate",
+      "question": "What is your best estimate for the Amount of gas used per month by average American (in gallons)?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Gas used per month",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Gas used per month"
+      }
+    },
+    {
+      "id": "13_judgment",
+      "question": "Is the Number of bars in Berkeley, CA higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Number of bars in Berkeley",
+        "low_anchor": 10,
+        "high_anchor": 85,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Number of bars in Berkeley"
+      }
+    },
+    {
+      "id": "13_estimate",
+      "question": "What is your best estimate for the Number of bars in Berkeley, CA?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Number of bars in Berkeley",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Number of bars in Berkeley"
+      }
+    },
+    {
+      "id": "14_judgment",
+      "question": "Is the Number of state colleges and universities in California higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "State colleges in California",
+        "low_anchor": 20,
+        "high_anchor": 100,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "State colleges in California"
+      }
+    },
+    {
+      "id": "14_estimate",
+      "question": "What is your best estimate for the Number of state colleges and universities in California?",
+      "type": "estimation",
+      "metadata": {
+        "label": "State colleges in California",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "State colleges in California"
+      }
+    },
+    {
+      "id": "15_judgment",
+      "question": "Is the Number of Lincoln's presidency higher or lower than [ANCHOR]?",
+      "options": [
+        "Higher",
+        "Lower"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "label": "Lincoln presidency number",
+        "low_anchor": 7,
+        "high_anchor": 17,
+        "low_anchor_label": "low_anchors",
+        "high_anchor_label": "high_anchors",
+        "gt_key": "Lincoln presidency number"
+      }
+    },
+    {
+      "id": "15_estimate",
+      "question": "What is your best estimate for the Number of Lincoln's presidency?",
+      "type": "estimation",
+      "metadata": {
+        "label": "Lincoln presidency number",
+        "high_anchor_extreme_label": "high_anchor_extreme",
+        "low_anchor_extreme_label": "low_anchor_extreme",
+        "gt_key": "Lincoln presidency number"
+      }
+    },
+    {
+      "id": "confidence_rating",
+      "question": "Rate your confidence in your estimates on a 10-point scale.",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "type": "likert",
+      "metadata": {
+        "label": "anchored_group_confidence",
+        "high_anchor_confidence_correlation_label": "high_anchor_confidence_correlation",
+        "low_anchor_confidence_correlation_label": "low_anchor_confidence_correlation",
+        "gt_key": "anchored_group_confidence"
+      }
+    }
+  ]
+}

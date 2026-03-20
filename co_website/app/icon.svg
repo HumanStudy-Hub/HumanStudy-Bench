@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <!-- Elegant dark blue to deep cyan gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" /> <!-- slate-900 -->
+      <stop offset="100%" stop-color="#164E63" /> <!-- cyan-900 -->
+    </linearGradient>
+    
+    <!-- Subtle metallic/silver text gradient -->
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+
+    <!-- Drop shadow for the letter to add depth -->
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Smooth rounded square background -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+  
+  <!-- Subtle inner stroke for a premium "glass" or embossed edge feel -->
+  <rect x="16" y="16" width="480" height="480" rx="112" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="4" />
+
+  <!-- Refined Serif "H" representing HumanStudy-Bench -->
+  <text 
+    x="50%" 
+    y="52%" 
+    dominant-baseline="central" 
+    text-anchor="middle" 
+    fill="url(#textGrad)" 
+    font-family="Georgia, 'Times New Roman', serif" 
+    font-size="340" 
+    font-weight="normal"
+    filter="url(#dropShadow)"
+  >H</text>
+</svg>

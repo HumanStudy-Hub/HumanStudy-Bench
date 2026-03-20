@@ -1,0 +1,653 @@
+{
+  "study_id": "dictator_game",
+  "title": "Fairness in Simple Bargaining Experiments",
+  "authors": [
+    "ROBERT FORSYTHE",
+    "JOEL L. HOROWITZ",
+    "N. E. SAVIN",
+    "AND MARTIN SEFTON"
+  ],
+  "year": 1994,
+  "studies": [
+    {
+      "study_id": "Experiment 1",
+      "study_name": "$5 Dictator Game with Pay (DG-P)",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "The distribution of offers is the same across different experimental sessions (April vs. September).",
+          "statistical_tests": [
+            {
+              "test_name": "Anderson-Darling (AD) test",
+              "statistical_hypothesis": "Distribution(April) = Distribution(September)",
+              "reported_statistics": "AD=0.58, p=0.66, n=45",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            },
+            {
+              "test_name": "Characteristic Function (CF) test",
+              "statistical_hypothesis": "Distribution(April) = Distribution(September)",
+              "reported_statistics": "CF=1.14, p=0.89, n=45",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of offers between April and September sessions for the $5 Dictator Game with Pay.",
+            "data": {
+              "April Session Offers ($)": {
+                "mean": 1.0,
+                "sd": 1.01,
+                "n": 21
+              },
+              "September Session Offers ($)": {
+                "mean": 1.17,
+                "sd": 0.99,
+                "n": 24
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F2",
+          "main_hypothesis": "The distribution of offers in the Dictator Game is identical to the distribution of offers in the Ultimatum Game.",
+          "statistical_tests": [
+            {
+              "test_name": "Anderson-Darling (AD) test",
+              "statistical_hypothesis": "Distribution(DG-P) = Distribution(UG-P)",
+              "reported_statistics": "AD=13.00, p=0.00, n=88",
+              "significance_level": 0.05,
+              "expected_direction": "negative"
+            },
+            {
+              "test_name": "Characteristic Function (CF) test",
+              "statistical_hypothesis": "Distribution(DG-P) = Distribution(UG-P)",
+              "reported_statistics": "CF=43.58, p=0.00, n=88",
+              "significance_level": 0.05,
+              "expected_direction": "negative"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of pooled offers between Dictator and Ultimatum games with pay.",
+            "data": {
+              "Pooled $5 DG-P": {
+                "mean": 1.09,
+                "sd": 0.99,
+                "n": 45
+              },
+              "Pooled $5 UG-P": {
+                "mean": 2.33,
+                "sd": 0.49,
+                "n": 43
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Experiment 2",
+      "study_name": "$5 Ultimatum Game with Pay (UG-P)",
+      "findings": [
+        {
+          "finding_id": "F3",
+          "main_hypothesis": "The distribution of offers is the same across different experimental sessions.",
+          "statistical_tests": [
+            {
+              "test_name": "Anderson-Darling (AD) test",
+              "statistical_hypothesis": "Distribution(April) = Distribution(September)",
+              "reported_statistics": "AD=0.74, p=0.52, n=43",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            },
+            {
+              "test_name": "Characteristic Function (CF) test",
+              "statistical_hypothesis": "Distribution(April) = Distribution(September)",
+              "reported_statistics": "CF=2.10, p=0.72, n=43",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of offers between April and September sessions for the $5 Ultimatum Game with Pay.",
+            "data": {
+              "April Session Offers ($)": {
+                "mean": 2.29,
+                "sd": 0.54,
+                "n": 20
+              },
+              "September Session Offers ($)": {
+                "mean": 2.37,
+                "sd": 0.46,
+                "n": 23
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Experiment 3",
+      "study_name": "$5 Dictator Game without Pay (DG-NP)",
+      "findings": [
+        {
+          "finding_id": "F4",
+          "main_hypothesis": "The distribution of offers is consistent across sessions.",
+          "statistical_tests": [
+            {
+              "test_name": "Anderson-Darling (AD) test",
+              "statistical_hypothesis": "Distribution(April) = Distribution(September)",
+              "reported_statistics": "AD=0.83, p=0.45, n=46",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of offers between April and September sessions for the $5 Dictator Game without Pay.",
+            "data": {
+              "April Session Offers ($)": {
+                "mean": 2.11,
+                "sd": 0.86,
+                "n": 22
+              },
+              "September Session Offers ($)": {
+                "mean": 1.73,
+                "sd": 0.88,
+                "n": 24
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F5",
+          "main_hypothesis": "Monetary incentives do not affect the distribution of offers in Dictator games.",
+          "statistical_tests": [
+            {
+              "test_name": "Anderson-Darling (AD) test",
+              "statistical_hypothesis": "Distribution(DG-P) = Distribution(DG-NP)",
+              "reported_statistics": "AD=6.72, p=0.00, n=91",
+              "significance_level": 0.05,
+              "expected_direction": "negative"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of pooled offers between Pay and No-Pay conditions in the Dictator Game.",
+            "data": {
+              "Pooled $5 DG-P": {
+                "mean": 1.09,
+                "sd": 0.99,
+                "n": 45
+              },
+              "Pooled $5 DG-NP": {
+                "mean": 1.91,
+                "sd": 0.89,
+                "n": 46
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Experiment 4",
+      "study_name": "$5 Ultimatum Game without Pay (UG-NP)",
+      "findings": [
+        {
+          "finding_id": "F6",
+          "main_hypothesis": "The distribution of offers is consistent across sessions.",
+          "statistical_tests": [
+            {
+              "test_name": "Anderson-Darling (AD) test",
+              "statistical_hypothesis": "Distribution(April) = Distribution(September)",
+              "reported_statistics": "AD=5.09, p=0.00, n=48",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of offers between April and September sessions for the $5 Ultimatum Game without Pay.",
+            "data": {
+              "April Session Offers ($)": {
+                "mean": 2.48,
+                "sd": 0.68,
+                "n": 24
+              },
+              "September Session Offers ($)": {
+                "mean": 1.98,
+                "sd": 0.63,
+                "n": 24
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F7",
+          "main_hypothesis": "Monetary incentives do not affect the distribution of offers in Ultimatum games.",
+          "statistical_tests": [
+            {
+              "test_name": "Anderson-Darling (AD) test",
+              "statistical_hypothesis": "Distribution(UG-P) = Distribution(UG-NP)",
+              "reported_statistics": "AD=0.53, p=0.71, n=91",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of pooled offers between Pay and No-Pay conditions in the Ultimatum Game.",
+            "data": {
+              "Pooled $5 UG-P": {
+                "mean": 2.33,
+                "sd": 0.49,
+                "n": 43
+              },
+              "Pooled $5 UG-NP": {
+                "mean": 2.23,
+                "sd": 0.7,
+                "n": 48
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Experiment 5",
+      "study_name": "$10 Dictator Game with Pay ($10 DG-P)",
+      "findings": [
+        {
+          "finding_id": "F8",
+          "main_hypothesis": "The distribution of proportions offered is the same for $5 and $10 pies in the Dictator game.",
+          "statistical_tests": [
+            {
+              "test_name": "Anderson-Darling (AD) test",
+              "statistical_hypothesis": "Distribution(Proportion $5) = Distribution(Proportion $10)",
+              "reported_statistics": "AD=0.46, p=0.76, n=68",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of proportions offered between $5 and $10 pies in the Dictator Game.",
+            "data": {
+              "Pooled $5 DG-P": {
+                "mean": 1.09,
+                "sd": 0.99,
+                "n": 45
+              },
+              "November Session Offers ($)": {
+                "mean": 2.26,
+                "sd": 1.84,
+                "n": 23
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Experiment 6",
+      "study_name": "$10 Ultimatum Game with Pay ($10 UG-P)",
+      "findings": [
+        {
+          "finding_id": "F9",
+          "main_hypothesis": "The distribution of proportions offered is the same for $5 and $10 pies in the Ultimatum game.",
+          "statistical_tests": [
+            {
+              "test_name": "Anderson-Darling (AD) test",
+              "statistical_hypothesis": "Distribution(Proportion $5) = Distribution(Proportion $10)",
+              "reported_statistics": "AD=0.65, p=0.60, n=67",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of proportions offered between $5 and $10 pies in the Ultimatum Game.",
+            "data": {
+              "Pooled $5 UG-P": {
+                "mean": 2.33,
+                "sd": 0.49,
+                "n": 43
+              },
+              "November Session Offers ($)": {
+                "mean": 4.67,
+                "sd": 0.76,
+                "n": 24
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F10",
+          "main_hypothesis": "The distribution of offers in the Dictator Game is identical to the distribution of offers in the Ultimatum Game for $10 pies.",
+          "statistical_tests": [
+            {
+              "test_name": "Anderson-Darling (AD) test",
+              "statistical_hypothesis": "Distribution($10 DG-P) = Distribution($10 UG-P)",
+              "reported_statistics": "AD=10.02, p=0.00, n=47",
+              "significance_level": 0.05,
+              "expected_direction": "negative"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of offers between $10 Dictator and $10 Ultimatum games.",
+            "data": {
+              "$10 DG-P November": {
+                "mean": 2.26,
+                "sd": 1.84,
+                "n": 23
+              },
+              "$10 UG-P November": {
+                "mean": 4.67,
+                "sd": 0.76,
+                "n": 24
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_original_results": {
+    "description": "Summary of statistical tests for replicability, fairness, pay, and pie-size hypotheses.",
+    "data_tables": [
+      {
+        "table_name": "Table I: Replicability Tests (April vs Sept)",
+        "headers": [
+          "Game",
+          "Test",
+          "Statistic",
+          "p-value"
+        ],
+        "rows": [
+          [
+            "DG-P",
+            "AD",
+            "0.58",
+            "0.66"
+          ],
+          [
+            "DG-P",
+            "CF",
+            "1.14",
+            "0.89"
+          ],
+          [
+            "UG-P",
+            "AD",
+            "0.74",
+            "0.52"
+          ],
+          [
+            "UG-P",
+            "CF",
+            "2.10",
+            "0.72"
+          ],
+          [
+            "DG-NP",
+            "AD",
+            "0.83",
+            "0.45"
+          ],
+          [
+            "UG-NP",
+            "AD",
+            "5.09",
+            "0.00"
+          ]
+        ]
+      }
+    ],
+    "all_raw_data": {
+      "DG_P_April": [
+        0,
+        1,
+        1,
+        2.5,
+        0,
+        2.5,
+        0,
+        0,
+        0,
+        1,
+        3,
+        1,
+        2,
+        1.5,
+        2.5,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "DG_P_Sept": [
+        0,
+        2,
+        0,
+        1,
+        0,
+        0,
+        3,
+        0,
+        1,
+        2.5,
+        0,
+        1,
+        2.5,
+        2.5,
+        0,
+        0,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1.5,
+        2
+      ],
+      "UG_P_April": [
+        2,
+        2.5,
+        2.5,
+        1,
+        2.5,
+        1,
+        3,
+        3,
+        2.5,
+        2,
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        2,
+        2.75,
+        2,
+        2,
+        2.5
+      ],
+      "UG_P_Sept": [
+        2.5,
+        2,
+        1.5,
+        3,
+        2,
+        2,
+        2.5,
+        1,
+        2.5,
+        2,
+        2.5,
+        2.5,
+        2.5,
+        3,
+        2.5,
+        2,
+        2.5,
+        2,
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        3
+      ],
+      "DG_NP_April": [
+        2,
+        2,
+        1,
+        0,
+        2.5,
+        2.5,
+        2,
+        2.5,
+        2.5,
+        2.5,
+        2,
+        2.5,
+        2.5,
+        2.5,
+        2,
+        2,
+        2.5,
+        2.5,
+        4,
+        2.5,
+        0,
+        2
+      ],
+      "DG_NP_Sept": [
+        2,
+        2,
+        1,
+        2,
+        2.5,
+        2.5,
+        0,
+        2,
+        2.5,
+        0,
+        0,
+        0,
+        2.5,
+        1,
+        2.5,
+        1,
+        1,
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        2,
+        2.5,
+        1
+      ],
+      "UG_NP_April": [
+        2.5,
+        3,
+        2.5,
+        2.5,
+        0,
+        2,
+        3,
+        3,
+        2.5,
+        3.5,
+        2.5,
+        2.25,
+        2,
+        2.5,
+        2.5,
+        2.75,
+        2.5,
+        2,
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        3,
+        2.5
+      ],
+      "UG_NP_Sept": [
+        2.5,
+        2,
+        2,
+        0,
+        2.5,
+        2.5,
+        1,
+        2.5,
+        2,
+        2.5,
+        2.5,
+        2.5,
+        2,
+        2.25,
+        2,
+        1.75,
+        2,
+        2,
+        2,
+        2,
+        1,
+        2.5,
+        1,
+        2.5
+      ],
+      "DG_P_10": [
+        5,
+        3,
+        1,
+        0,
+        2,
+        3,
+        0,
+        2,
+        3,
+        5,
+        5,
+        3,
+        1,
+        5,
+        1,
+        3,
+        3,
+        0,
+        0,
+        0,
+        1,
+        5,
+        2
+      ],
+      "UG_P_10": [
+        4,
+        2,
+        5,
+        5,
+        6,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        4,
+        5,
+        5,
+        4,
+        5,
+        4,
+        5,
+        3,
+        5
+      ]
+    }
+  }
+}

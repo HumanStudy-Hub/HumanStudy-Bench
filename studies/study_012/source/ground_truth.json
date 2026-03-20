@@ -1,0 +1,539 @@
+{
+  "study_id": "berg_geb95",
+  "title": "Trust, Reciprocity, and Social History",
+  "authors": [
+    "Joyce Berg",
+    "John Dickhaut",
+    "Kevin McCabe"
+  ],
+  "year": 1995,
+  "studies": [
+    {
+      "study_id": "Experiment 1",
+      "study_name": "No History Treatment",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "Trust exists (A0: Ma > 0 for some a) and the distribution of amounts sent is not uniform.",
+          "statistical_tests": [
+            {
+              "test_name": "Approximate Randomization Test",
+              "statistical_hypothesis": "The sample of Room A decisions was drawn from a uniform distribution (N0).",
+              "reported_statistics": "p = 0.29",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            }
+          ],
+          "original_data_points": {
+            "description": "Investment decisions (amount sent) by Room A subjects.",
+            "data": {
+              "No History Room A": {
+                "mean": 5.16,
+                "n": 32
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F2",
+          "main_hypothesis": "Reciprocity exists as a socially stable norm (A2: Average kb(3Ma) > Ma).",
+          "statistical_tests": [
+            {
+              "test_name": "Mean Comparison",
+              "statistical_hypothesis": "Average amount returned (kb(3Ma)) > Average amount sent (Ma).",
+              "reported_statistics": "Mean Sent = $5.16, Mean Returned = $4.66",
+              "significance_level": null,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of average investment vs average payback.",
+            "data": {
+              "Room A (Sent)": {
+                "mean": 5.16,
+                "n": 32
+              },
+              "Room B (Returned)": {
+                "mean": 4.66,
+                "n": 32
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F3",
+          "main_hypothesis": "Amounts sent and payback decisions are positively correlated (A3).",
+          "statistical_tests": [
+            {
+              "test_name": "Spearman's rank correlation coefficient",
+              "statistical_hypothesis": "Correlation (rs) between Ma and kb(Ma) > 0.",
+              "reported_statistics": "rs = 0.01",
+              "significance_level": null,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Correlation between the amount sent by Room A and the amount returned by Room B.",
+            "data": {
+              "No History Pairs": {
+                "n": 32,
+                "correlation": 0.01
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Experiment 2",
+      "study_name": "Social History Treatment",
+      "findings": [
+        {
+          "finding_id": "F4",
+          "main_hypothesis": "Trust exists and is influenced by social history, leading to a non-uniform distribution of amounts sent.",
+          "statistical_tests": [
+            {
+              "test_name": "Approximate Randomization Test",
+              "statistical_hypothesis": "The sample of Room A decisions was drawn from a uniform distribution (N0).",
+              "reported_statistics": "p = 0.06",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            }
+          ],
+          "original_data_points": {
+            "description": "Investment decisions by Room A subjects provided with social history.",
+            "data": {
+              "Social History Room A": {
+                "mean": 5.36,
+                "n": 28
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F5",
+          "main_hypothesis": "Social history increases the level of reciprocity (paybacks) compared to the No History treatment.",
+          "statistical_tests": [
+            {
+              "test_name": "Wilcoxon rank-sum test",
+              "statistical_hypothesis": "Paybacks in Social History > Paybacks in No History.",
+              "reported_statistics": "r = 776, p = 0.1",
+              "significance_level": 0.1,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of payback amounts between Experiment 1 and Experiment 2.",
+            "data": {
+              "No History Payback": {
+                "mean": 4.66,
+                "n": 32
+              },
+              "Social History Payback": {
+                "mean": 6.46,
+                "n": 28
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F6",
+          "main_hypothesis": "Social history strengthens the correlation between trust and reciprocity.",
+          "statistical_tests": [
+            {
+              "test_name": "Spearman's rank correlation coefficient",
+              "statistical_hypothesis": "Correlation (rs) in Social History > 0.",
+              "reported_statistics": "rs = 0.34",
+              "significance_level": null,
+              "expected_direction": "positive"
+            },
+            {
+              "test_name": "Resampling test",
+              "statistical_hypothesis": "Correlation (Social History) > Correlation (No History).",
+              "reported_statistics": "p = 0.06",
+              "significance_level": 0.1,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Correlation between amount sent and amount returned in the Social History condition.",
+            "data": {
+              "Social History Pairs": {
+                "n": 28,
+                "correlation": 0.34
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Combined Analysis",
+      "study_name": "Joint Earnings & Behavioral Types",
+      "findings": [
+        {
+          "finding_id": "F7",
+          "main_hypothesis": "Room B's behavior follows specific fairness norms or strategies (k=0, k=1/3, k=1/2, k=2/3).",
+          "statistical_tests": [
+            {
+              "test_name": "Strategy Type Classification",
+              "statistical_hypothesis": "Over 90% of data points can be explained by four strategy types (k=0, k=1/3, k=1/2, k=2/3) within $1 tolerance.",
+              "reported_statistics": ">90% of pairs follow one of four strategies",
+              "significance_level": null,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Classification of Room B return strategies based on k = Return / (3 * Sent).",
+            "data": {
+              "Strategy Types": {
+                "k=0": "Selfish (Return = 0)",
+                "k=1/3": "Return principal (Return = Sent)",
+                "k=1/2": "Split total (Return = 1.5 * Sent)",
+                "k=2/3": "Equal earnings (Return makes final earnings equal)"
+              },
+              "Coverage": ">90% of 60 pairs"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_original_results": {
+    "description": "Complete item-level results for both experiments, showing the amount sent by Room A and returned by Room B for every pair.",
+    "data_tables": [
+      {
+        "table_name": "Experiment 1: No History Item-Level Data",
+        "headers": [
+          "Pair Index",
+          "Amount Sent (Ma)",
+          "Amount Returned (kb)"
+        ],
+        "rows": [
+          [
+            1,
+            7.0,
+            1.0
+          ],
+          [
+            2,
+            3.0,
+            0.0
+          ],
+          [
+            3,
+            7.0,
+            6.0
+          ],
+          [
+            4,
+            5.0,
+            11.0
+          ],
+          [
+            5,
+            3.0,
+            1.0
+          ],
+          [
+            6,
+            2.0,
+            4.0
+          ],
+          [
+            7,
+            6.0,
+            0.0
+          ],
+          [
+            8,
+            4.0,
+            1.0
+          ],
+          [
+            9,
+            10.0,
+            20.0
+          ],
+          [
+            10,
+            5.0,
+            5.0
+          ],
+          [
+            11,
+            5.0,
+            7.0
+          ],
+          [
+            12,
+            10.0,
+            0.0
+          ],
+          [
+            13,
+            5.0,
+            0.0
+          ],
+          [
+            14,
+            8.0,
+            4.0
+          ],
+          [
+            15,
+            5.0,
+            15.0
+          ],
+          [
+            16,
+            0.0,
+            0.0
+          ],
+          [
+            17,
+            7.0,
+            1.0
+          ],
+          [
+            18,
+            1.0,
+            0.0
+          ],
+          [
+            19,
+            3.0,
+            5.0
+          ],
+          [
+            20,
+            2.0,
+            0.0
+          ],
+          [
+            21,
+            6.0,
+            12.0
+          ],
+          [
+            22,
+            10.0,
+            15.0
+          ],
+          [
+            23,
+            3.0,
+            6.0
+          ],
+          [
+            24,
+            6.0,
+            8.0
+          ],
+          [
+            25,
+            6.0,
+            1.0
+          ],
+          [
+            26,
+            10.0,
+            15.0
+          ],
+          [
+            27,
+            10.0,
+            1.0
+          ],
+          [
+            28,
+            6.0,
+            3.0
+          ],
+          [
+            29,
+            4.0,
+            1.0
+          ],
+          [
+            30,
+            0.0,
+            0.0
+          ],
+          [
+            31,
+            5.0,
+            5.0
+          ],
+          [
+            32,
+            1.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "table_name": "Experiment 2: Social History Item-Level Data",
+        "headers": [
+          "Pair Index",
+          "Amount Sent (Ma)",
+          "Amount Returned (kb)"
+        ],
+        "rows": [
+          [
+            1,
+            5.0,
+            11.0
+          ],
+          [
+            2,
+            10.0,
+            15.0
+          ],
+          [
+            3,
+            2.0,
+            2.0
+          ],
+          [
+            4,
+            5.0,
+            8.0
+          ],
+          [
+            5,
+            0.0,
+            0.0
+          ],
+          [
+            6,
+            2.0,
+            1.0
+          ],
+          [
+            7,
+            10.0,
+            16.0
+          ],
+          [
+            8,
+            10.0,
+            15.0
+          ],
+          [
+            9,
+            5.0,
+            5.0
+          ],
+          [
+            10,
+            9.0,
+            0.0
+          ],
+          [
+            11,
+            3.0,
+            0.0
+          ],
+          [
+            12,
+            2.0,
+            0.0
+          ],
+          [
+            13,
+            10.0,
+            5.0
+          ],
+          [
+            14,
+            2.0,
+            0.0
+          ],
+          [
+            15,
+            5.0,
+            0.0
+          ],
+          [
+            16,
+            5.0,
+            10.0
+          ],
+          [
+            17,
+            8.0,
+            3.0
+          ],
+          [
+            18,
+            5.0,
+            8.0
+          ],
+          [
+            19,
+            0.0,
+            0.0
+          ],
+          [
+            20,
+            1.0,
+            1.0
+          ],
+          [
+            21,
+            10.0,
+            20.0
+          ],
+          [
+            22,
+            7.0,
+            14.0
+          ],
+          [
+            23,
+            10.0,
+            15.0
+          ],
+          [
+            24,
+            3.0,
+            6.0
+          ],
+          [
+            25,
+            10.0,
+            10.0
+          ],
+          [
+            26,
+            6.0,
+            8.0
+          ],
+          [
+            27,
+            5.0,
+            8.0
+          ],
+          [
+            28,
+            0.0,
+            0.0
+          ]
+        ]
+      }
+    ],
+    "all_raw_data": {
+      "Experiment_1_Summary": {
+        "mean_sent": 5.16,
+        "mean_returned": 4.66,
+        "n_pairs": 32
+      },
+      "Experiment_2_Summary": {
+        "mean_sent": 5.36,
+        "mean_returned": 6.46,
+        "n_pairs": 28
+      }
+    }
+  }
+}

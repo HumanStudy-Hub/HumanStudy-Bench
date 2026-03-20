@@ -1,0 +1,295 @@
+{
+  "study_id": "socialcateg",
+  "title": "Social categorization and similarity in intergroup behaviour",
+  "authors": [
+    "Michael Billig",
+    "Henri Tajfel"
+  ],
+  "year": 1973,
+  "studies": [
+    {
+      "study_id": "Experiment 1",
+      "study_name": "Social Categorization and Similarity in Intergroup Behaviour",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "Both similarity and social categorization should positively affect ingroup favouritism.",
+          "statistical_tests": [
+            {
+              "test_name": "ANOVA (2x2) on Overall FAV scores",
+              "statistical_hypothesis": "Main effect of Categorization and Main effect of Similarity on FAV scores",
+              "reported_statistics": "Categorization F(1, 72) = 14.96; Similarity F(1, 72) = 4.13",
+              "significance_level": 0.05,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Overall FAV rank means across the 2x2 factorial design conditions.",
+            "data": {
+              "Categorization: Similarity": {
+                "mean": 191.68,
+                "n": 75
+              },
+              "Categorization: Non-similarity": {
+                "mean": 159.16,
+                "n": 75
+              },
+              "Non-categorization: Similarity": {
+                "mean": 138.74,
+                "n": 75
+              },
+              "Non-categorization: Non-similarity": {
+                "mean": 126.05,
+                "n": 75
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F2",
+          "main_hypothesis": "Social categorization per se (even when based on explicitly random criteria) is sufficient to produce ingroup favouritism over maximum joint profit.",
+          "statistical_tests": [
+            {
+              "test_name": "Wilcoxon Matched Pairs Test (Matrix 2 FAV vs MJP)",
+              "statistical_hypothesis": "FAV score > MJP score in categorization conditions",
+              "reported_statistics": "Difference = 3.87 (Cat: Sim), p < .01; Difference = 1.98 (Cat: Non-sim), p < .05",
+              "significance_level": 0.05,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Mean difference scores between Ingroup Favouritism (FAV) and Maximum Joint Profit (MJP) for Matrix 2.",
+            "data": {
+              "Categorization: Similarity": {
+                "mean_diff": 3.87
+              },
+              "Categorization: Non-similarity": {
+                "mean_diff": 1.98
+              },
+              "Non-categorization: Similarity": {
+                "mean_diff": 1.03
+              },
+              "Non-categorization: Non-similarity": {
+                "mean_diff": -0.18
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F3",
+          "main_hypothesis": "Categorization conditions show significant ingroup favouritism even when in conflict with fairness.",
+          "statistical_tests": [
+            {
+              "test_name": "Wilcoxon Matched Pairs Test (Matrix 3 FAV vs Fairness)",
+              "statistical_hypothesis": "FAV score > Fairness score in categorization conditions",
+              "reported_statistics": "Difference = 4.00 (Cat: Sim), p < .01; Difference = 2.67 (Cat: Non-sim), p < .01",
+              "significance_level": 0.01,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Mean difference scores between Ingroup Favouritism (FAV) and Fairness (F) for Matrix 3.",
+            "data": {
+              "Categorization: Similarity": {
+                "mean_diff": 4.0
+              },
+              "Categorization: Non-similarity": {
+                "mean_diff": 2.67
+              },
+              "Non-categorization: Similarity": {
+                "mean_diff": -0.26
+              },
+              "Non-categorization: Non-similarity": {
+                "mean_diff": 0.84
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F4",
+          "main_hypothesis": "Only the Categorization: Similarity condition's scores significantly differ from the point of no bias (6.5) in straightforward reward allocation.",
+          "statistical_tests": [
+            {
+              "test_name": "One-sample t-test (Matrix 1 vs no-bias point 6.5)",
+              "statistical_hypothesis": "Mean of Matrix 1 < 6.5 (indicating ingroup favouritism)",
+              "reported_statistics": "Mean = 4.38 (Cat: Sim), p < .01",
+              "significance_level": 0.01,
+              "expected_direction": "negative"
+            }
+          ],
+          "original_data_points": {
+            "description": "Mean scores for Matrix 1 (Straightforward FAV). Lower scores indicate higher ingroup favouritism.",
+            "data": {
+              "Categorization: Similarity": {
+                "mean": 4.38
+              },
+              "Categorization: Non-similarity": {
+                "mean": 5.92
+              },
+              "Non-categorization: Similarity": {
+                "mean": 6.09
+              },
+              "Non-categorization: Non-similarity": {
+                "mean": 6.62
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_original_results": {
+    "description": "Consolidated numerical results from the 2x2 factorial design across all primary dependent measures.",
+    "data_tables": [
+      {
+        "table_name": "Table 4: Mean Results by Experimental Condition",
+        "headers": [
+          "Condition",
+          "Matrix 1 Mean (FAV)",
+          "Matrix 2 Diff (FAV-MJP)",
+          "Matrix 3 Diff (FAV-F)",
+          "Overall FAV Rank Mean"
+        ],
+        "rows": [
+          [
+            "Categorization: Similarity",
+            4.38,
+            3.87,
+            4.0,
+            191.68
+          ],
+          [
+            "Categorization: Non-similarity",
+            5.92,
+            1.98,
+            2.67,
+            159.16
+          ],
+          [
+            "Non-categorization: Similarity",
+            6.09,
+            1.03,
+            -0.26,
+            138.74
+          ],
+          [
+            "Non-categorization: Non-similarity",
+            6.62,
+            -0.18,
+            0.84,
+            126.05
+          ]
+        ]
+      }
+    ],
+    "all_raw_data": {
+      "matrix_definitions": {
+        "Matrix_1": {
+          "top_row": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "bottom_row": [
+            14,
+            13,
+            12,
+            11,
+            10,
+            9,
+            8,
+            7,
+            6,
+            5,
+            4,
+            3,
+            2,
+            1
+          ],
+          "neutral_point": 6.5
+        },
+        "Matrix_2": {
+          "top_row": [
+            19,
+            18,
+            17,
+            16,
+            15,
+            14,
+            13,
+            12,
+            11,
+            10,
+            9,
+            8,
+            7
+          ],
+          "bottom_row": [
+            1,
+            3,
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25
+          ]
+        },
+        "Matrix_3": {
+          "top_row": [
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "bottom_row": [
+            14,
+            13,
+            12,
+            11,
+            10,
+            9,
+            8,
+            7,
+            6,
+            5,
+            4,
+            3,
+            2
+          ]
+        }
+      },
+      "participant_demographics": {
+        "total_n": 75,
+        "age": "14-16",
+        "gender": "male",
+        "population": "Schoolboys from Bristol"
+      }
+    }
+  }
+}

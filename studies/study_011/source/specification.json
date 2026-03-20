@@ -1,0 +1,84 @@
+{
+  "study_id": "study_011",
+  "title": "Fairness in Simple Bargaining Experiments",
+  "participants": {
+    "n": 230,
+    "population": "Students (undergraduate Econ/Accounting and MBA)",
+    "recruitment_source": "University of Iowa",
+    "demographics": {},
+    "by_sub_study": {
+      "Experiment 1": {
+        "n": 45,
+        "description": "April session (n=21), September session (n=24)"
+      },
+      "Experiment 2": {
+        "n": 43,
+        "description": "April session (n=20), September session (n=23)"
+      },
+      "Experiment 3": {
+        "n": 46,
+        "description": "April session (n=22), September session (n=24)"
+      },
+      "Experiment 4": {
+        "n": 48,
+        "description": "April session (n=24), September session (n=24)"
+      },
+      "Experiment 5": {
+        "n": 24,
+        "description": "November 1988 session"
+      },
+      "Experiment 6": {
+        "n": 24,
+        "description": "November 1988 session"
+      }
+    }
+  },
+  "design": {
+    "type": "Between-Subjects",
+    "factors": [
+      {
+        "name": "Game Type",
+        "levels": [
+          "Dictator Game",
+          "Ultimatum Game"
+        ],
+        "type": "Between-Subjects"
+      },
+      {
+        "name": "Pay Condition",
+        "levels": [
+          "Pay (real monetary payoffs)",
+          "No Pay (hypothetical)"
+        ],
+        "type": "Between-Subjects"
+      },
+      {
+        "name": "Pie Size",
+        "levels": [
+          "$5",
+          "$10"
+        ],
+        "type": "Between-Subjects"
+      },
+      {
+        "name": "Session Timing",
+        "levels": [
+          "April",
+          "September",
+          "November"
+        ],
+        "type": "Between-Subjects"
+      }
+    ]
+  },
+  "procedure": {
+    "steps": [
+      "Participants are assigned to pairs consisting of a Proposer (Player 1) in Room A and an anonymous Receiver (Player 2) in Room B.",
+      "Proposers are asked to divide a pie ($5 or $10) between themselves and the Receiver using a proposal form.",
+      "In the Ultimatum Game condition, the Receiver is given the chance to accept or reject the proposal. If accepted, the money is divided as specified; if rejected, both receive zero.",
+      "In the Dictator Game condition, the Receiver has no power to reject the offer, and the Proposer's division is automatically enforced.",
+      "In the Pay condition, participants are paid their share of the pie in cash plus a $3 participation fee.",
+      "In the No Pay condition, participants are informed the division is hypothetical and they only receive the $3 participation fee."
+    ]
+  }
+}

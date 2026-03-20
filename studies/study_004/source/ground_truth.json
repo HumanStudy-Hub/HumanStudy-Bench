@@ -1,0 +1,325 @@
+{
+  "study_id": "subjective_probability_a_judgment_of_rep",
+  "title": "Subjective Probability: A Judgment of Representativeness",
+  "authors": [
+    "Daniel Kahneman",
+    "Amos Tversky"
+  ],
+  "year": 1972,
+  "studies": [
+    {
+      "study_id": "Study 1",
+      "study_name": "Similarity of Sample to Population: Birth Sequences",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "The subjective probability of a sample is determined by its similarity to the population proportion; sequences that deviate from the population ratio (0.50) are judged less likely.",
+          "statistical_tests": [
+            {
+              "test_name": "Sign test",
+              "statistical_hypothesis": "Number of participants judging BGBBBB as less likely than GBGBBG > 50%",
+              "reported_statistics": "p < .01",
+              "significance_level": 0.01,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of birth sequences GBGBBG (given frequency 72) and BGBBBB.",
+            "data": {
+              "BGBBBB_estimate": {
+                "median": 30,
+                "n_judged_less_likely": 75,
+                "total_n": 92
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F2",
+          "main_hypothesis": "The subjective probability of a sample is determined by how well it reflects the randomness of the generating process; ordered sequences are judged less likely than disordered ones.",
+          "statistical_tests": [
+            {
+              "test_name": "Sign test",
+              "statistical_hypothesis": "Sequence BBBGGG is judged less likely than GBBGBG",
+              "reported_statistics": "p < .01",
+              "significance_level": 0.01,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of perceived randomness in birth sequences.",
+            "data": {
+              "BBBGGG_vs_GBBGBG": {
+                "finding": "Significantly less likely",
+                "total_n": 92
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Study 2",
+      "study_name": "Majority-Minority Relation: High School Programs",
+      "findings": [
+        {
+          "finding_id": "F3",
+          "main_hypothesis": "People judge a sample to belong to a population if the sample proportion is more representative of that population's majority/minority status, even when the distance to both population means is equal.",
+          "statistical_tests": [
+            {
+              "test_name": "Sign test",
+              "statistical_hypothesis": "Participants guess Program A (majority) more often than Program B (minority) for a 55% sample.",
+              "reported_statistics": "p < .01",
+              "significance_level": 0.01,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Guessing program origin for a class with 55% boys (Program A: 65% boys; Program B: 45% boys).",
+            "data": {
+              "Program_A_Guess": {
+                "count": 67,
+                "total_n": 89
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Study 4",
+      "study_name": "Replicability of Significance",
+      "findings": [
+        {
+          "finding_id": "F4",
+          "main_hypothesis": "Experts believe in the 'Law of Small Numbers,' overestimating the likelihood that a significant result in a small sample will be replicated in an even smaller sample.",
+          "statistical_tests": [],
+          "original_data_points": {
+            "description": "Subjective probability of replication (n=10) after initial significant result (n=20, p < .05).",
+            "data": {
+              "Replication_Probability": {
+                "median_subjective": 0.85,
+                "objective_realistic": 0.5
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Study 5",
+      "study_name": "Reflection of Randomness: Marble Distribution",
+      "findings": [
+        {
+          "finding_id": "F5",
+          "main_hypothesis": "Distributions that appear more 'random' or 'uniform' are judged more likely than those that appear perfectly symmetric or patterned, even if the latter are objectively more probable.",
+          "statistical_tests": [
+            {
+              "test_name": "Sign test",
+              "statistical_hypothesis": "Distribution I (4,4,5,4,3) is judged more likely than Distribution II (4,4,4,4,4).",
+              "reported_statistics": "p < .01",
+              "significance_level": 0.01,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of two marble distributions among five children.",
+            "data": {
+              "Distribution_I_Preference": {
+                "count": 36,
+                "total_n": 52
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Study 6",
+      "study_name": "Subjective Sampling Distributions (N-Invariance)",
+      "findings": [
+        {
+          "finding_id": "F6",
+          "main_hypothesis": "Subjective sampling distributions are independent of sample size (N-invariance), as sample size is not a representative property of the population.",
+          "statistical_tests": [
+            {
+              "test_name": "Descriptive comparison",
+              "statistical_hypothesis": "Distributions for N=10, N=100, and N=1000 are identical.",
+              "reported_statistics": "Indistinguishable (Figs 1a, 1b, 1c)",
+              "significance_level": null,
+              "expected_direction": "none"
+            }
+          ],
+          "original_data_points": {
+            "description": "Subjective sampling distributions for three populations across three sample sizes.",
+            "data": {
+              "Universal_Variance_p50": {
+                "value": 0.048
+              },
+              "Universal_Variance_p80": {
+                "value": 0.068
+              },
+              "Total_N": 1500
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Study 9",
+      "study_name": "Posterior Probability: Height Odds",
+      "findings": [
+        {
+          "finding_id": "F7",
+          "main_hypothesis": "Posterior odds are determined by the representativeness of the sample mean rather than the sample size, leading to higher confidence in smaller, more extreme samples.",
+          "statistical_tests": [
+            {
+              "test_name": "Median test",
+              "statistical_hypothesis": "Subjective odds for Case (i) > Subjective odds for Case (ii)",
+              "reported_statistics": "p < .01",
+              "significance_level": 0.01,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Odds that a sample came from a male vs female population based on height.",
+            "data": {
+              "Case_i_Single_Person_5ft10": {
+                "median_subjective_odds": 8.0,
+                "correct_odds": 16.0
+              },
+              "Case_ii_Six_Persons_5ft8": {
+                "median_subjective_odds": 2.5,
+                "correct_odds": 29.0
+              },
+              "Higher_Odds_for_Case_i": {
+                "count": 86,
+                "total_n": 115
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_original_results": {
+    "description": "Consolidated numerical findings across all representativeness and sample size studies.",
+    "data_tables": [
+      {
+        "table_name": "Study 7: Ordinal Judgments of Sample Size (N=97)",
+        "headers": [
+          "Problem",
+          "Larger Sample More Likely",
+          "Smaller Sample More Likely",
+          "Same Likelihood (Modal)"
+        ],
+        "rows": [
+          [
+            "Hospital (>60% boys)",
+            "12",
+            "10",
+            "28"
+          ],
+          [
+            "Hospital (<60% boys)",
+            "9",
+            "11",
+            "25"
+          ],
+          [
+            "Word Length (>6 letters)",
+            "8",
+            "21",
+            "20"
+          ],
+          [
+            "Word Length (<6 letters)",
+            "10",
+            "15",
+            "23"
+          ],
+          [
+            "Heights (>5'11\")",
+            "7",
+            "18",
+            "23"
+          ],
+          [
+            "Heights (<5'11\")",
+            "14",
+            "17",
+            "17"
+          ]
+        ]
+      },
+      {
+        "table_name": "Study 8: Median Posterior Probability Estimates (N=560)",
+        "headers": [
+          "Sample (Successes:Failures)",
+          "Difference",
+          "Ratio",
+          "Median Estimate (p=5/6)",
+          "Median Estimate (p=2/3)"
+        ],
+        "rows": [
+          [
+            "4:2",
+            "2",
+            "2:1",
+            "0.70",
+            "0.68"
+          ],
+          [
+            "18:14",
+            "4",
+            "1.3:1",
+            "0.60",
+            "0.58"
+          ],
+          [
+            "8:4",
+            "4",
+            "2:1",
+            "0.70",
+            "0.70"
+          ],
+          [
+            "5:1",
+            "4",
+            "5:1",
+            "0.83",
+            "0.85"
+          ],
+          [
+            "40:20",
+            "20",
+            "2:1",
+            "0.70",
+            "0.70"
+          ]
+        ]
+      }
+    ],
+    "all_raw_data": {
+      "study_1": {
+        "n": 92,
+        "median_BGBBBB": 30,
+        "count_less_likely": 75
+      },
+      "study_2": {
+        "n": 89,
+        "count_A": 67
+      },
+      "study_5": {
+        "n": 52,
+        "count_I": 36
+      },
+      "study_9": {
+        "n": 115,
+        "case_i_median": 8.0,
+        "case_ii_median": 2.5,
+        "count_i_gt_ii": 86
+      }
+    }
+  }
+}

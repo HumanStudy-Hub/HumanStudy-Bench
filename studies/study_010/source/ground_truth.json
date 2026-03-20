@@ -1,0 +1,200 @@
+{
+  "study_id": "prisoner",
+  "title": "Thinking through Uncertainty: Nonconsequential Reasoning and Choice",
+  "authors": [
+    "Eldar Shafir",
+    "Amos Tversky"
+  ],
+  "year": 1992,
+  "studies": [
+    {
+      "study_id": "Experiment 1",
+      "study_name": "One-shot Prisoner's Dilemma Triads",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "People exhibit a greater rate of cooperation in the disjunctive condition (when the other player's strategy is not known) than when the other player's strategy is known to be either 'compete' or 'cooperate'.",
+          "statistical_tests": [
+            {
+              "test_name": "Chi-square or proportion test (implied)",
+              "statistical_hypothesis": "Cooperation Rate (Unknown) ≠ Cooperation Rate (Known Cooperate) ≠ Cooperation Rate (Known Compete)",
+              "reported_statistics": "p < .001",
+              "significance_level": 0.05,
+              "expected_direction": "positive"
+            },
+            {
+              "test_name": "Descriptive frequency analysis",
+              "statistical_hypothesis": "Frequency of Disjunction Pattern (Compete if Known, Cooperate if Unknown) > 0",
+              "reported_statistics": "25% (113/444)",
+              "significance_level": null,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Cooperation rates across 444 triads of Prisoner's Dilemma games played by 80 subjects.",
+            "data": {
+              "Other Player Competes": {
+                "percentage": 3.0,
+                "count": 14,
+                "n": 444
+              },
+              "Other Player Cooperates": {
+                "percentage": 16.0,
+                "count": 73,
+                "n": 444
+              },
+              "Other Player Strategy Unknown": {
+                "percentage": 37.0,
+                "count": 164,
+                "n": 444
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Experiment 2",
+      "study_name": "Newcomb's Problem (Computer Program Version)",
+      "findings": [
+        {
+          "finding_id": "F2",
+          "main_hypothesis": "A majority of subjects will choose a single box (Box B) in a version of Newcomb's problem that lacks supernatural elements, despite the dominance of taking both boxes.",
+          "statistical_tests": [
+            {
+              "test_name": "Descriptive percentage",
+              "statistical_hypothesis": "Percentage choosing Box B only > 50%",
+              "reported_statistics": "65%",
+              "significance_level": null,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Choices in a computer-simulated Newcomb's Problem.",
+            "data": {
+              "Both boxes": {
+                "percentage": 35.0,
+                "count": 14,
+                "n": 40
+              },
+              "Box B only": {
+                "percentage": 65.0,
+                "count": 26,
+                "n": 40
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Experiment 3",
+      "study_name": "Prisoner's Dilemma with Information Seeking",
+      "findings": [
+        {
+          "finding_id": "F3",
+          "main_hypothesis": "People will pay to obtain information that they do not use to change their decision, seeking it to clarify reasons rather than to inform choice.",
+          "statistical_tests": [
+            {
+              "test_name": "Descriptive percentage",
+              "statistical_hypothesis": "Percentage of subjects paying for information > 0%",
+              "reported_statistics": "81%",
+              "significance_level": null,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Information seeking behavior and subsequent choice in PD games.",
+            "data": {
+              "Chose to pay for information": {
+                "percentage": 81.0
+              },
+              "Choice after seeing information": {
+                "observation": "Great majority chose to compete regardless of opponent's decision"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_original_results": {
+    "description": "A comprehensive repository of numerical findings from the PD triads, Newcomb's problem, and information-seeking tasks.",
+    "data_tables": [
+      {
+        "table_name": "Experiment 1: Cooperation Rates in PD Triads",
+        "headers": [
+          "Condition",
+          "Cooperation Rate (%)",
+          "Count (n/444)"
+        ],
+        "rows": [
+          [
+            "Other Player Competes",
+            "3%",
+            "14/444"
+          ],
+          [
+            "Other Player Cooperates",
+            "16%",
+            "73/444"
+          ],
+          [
+            "Other Player Strategy Unknown",
+            "37%",
+            "164/444"
+          ]
+        ]
+      },
+      {
+        "table_name": "Experiment 2: Choices in Newcomb's Problem",
+        "headers": [
+          "Choice",
+          "Percentage",
+          "Count (n/40)"
+        ],
+        "rows": [
+          [
+            "Both boxes",
+            "35%",
+            "14/40"
+          ],
+          [
+            "Box B only",
+            "65%",
+            "26/40"
+          ]
+        ]
+      },
+      {
+        "table_name": "Experiment 3: Information Seeking",
+        "headers": [
+          "Behavior",
+          "Result"
+        ],
+        "rows": [
+          [
+            "Paid for information",
+            "81%"
+          ],
+          [
+            "Decision after info",
+            "Majority competed regardless of info"
+          ]
+        ]
+      }
+    ],
+    "all_raw_data": {
+      "exp_1_triad_patterns": {
+        "disjunction_effect_pattern": "25% (113/444)"
+      },
+      "exp_1_sample_size": {
+        "total_subjects": 80,
+        "total_triads": 444
+      },
+      "exp_2_sample_size": {
+        "total_subjects": 40
+      }
+    }
+  }
+}

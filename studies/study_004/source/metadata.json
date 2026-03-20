@@ -1,0 +1,111 @@
+{
+  "id": "study_004",
+  "title": "Subjective Probability: A Judgment of Representativeness",
+  "authors": [
+    "Daniel Kahneman",
+    "Amos Tversky"
+  ],
+  "year": null,
+  "domain": "cognitive_psychology",
+  "subdomain": "judgment_and_decision_making",
+  "keywords": [
+    "representativeness heuristic",
+    "subjective probability",
+    "judgment under uncertainty",
+    "sample size neglect",
+    "heuristics"
+  ],
+  "difficulty": "medium",
+  "description": "This paper explores a heuristic—representativeness—according to which the subjective probability of an event, or a sample, is determined by the degree to which it: (i) is similar in essential characteristics to its parent population; and (ii) reflects the salient features of the process by which it is generated. This heuristic is explicated in a series of empirical examples demonstrating predictable and systematic errors in the evaluation of uncertain events. In particular, since sample size does not represent any property of the population, it is expected to have little or no effect on judgment of likelihood. This prediction is confirmed in studies showing that subjective sampling distributions and posterior probability judgments are determined by the most salient characteristic of the sample (e.g., proportion, mean) without regard to the size of the sample. The present heuristic approach is contrasted with the normative (Bayesian) approach to the analysis of the judgment of uncertainty....",
+  "scenarios": [
+    "study_1_proportion",
+    "study_1_randomness",
+    "study_2_programs",
+    "study_3_binomial",
+    "study_4_psychologists",
+    "study_5_marbles",
+    "study_6_sampling_distributions",
+    "study_7_ordinal",
+    "study_8_posterior",
+    "study_9_heights"
+  ],
+  "findings": [
+    {
+      "finding_id": "F1",
+      "main_hypothesis": "The subjective probability of a sample is determined by its similarity to the population proportion; sequences that deviate from the population ratio (0.50) are judged less likely.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Sign test",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F2",
+      "main_hypothesis": "The subjective probability of a sample is determined by how well it reflects the randomness of the generating process; ordered sequences are judged less likely than disordered ones.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Sign test",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F3",
+      "main_hypothesis": "People judge a sample to belong to a population if the sample proportion is more representative of that population's majority/minority status, even when the distance to both population means is equal.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Sign test",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F4",
+      "main_hypothesis": "Experts believe in the 'Law of Small Numbers,' overestimating the likelihood that a significant result in a small sample will be replicated in an even smaller sample.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Implicit test from data points",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F5",
+      "main_hypothesis": "Distributions that appear more 'random' or 'uniform' are judged more likely than those that appear perfectly symmetric or patterned, even if the latter are objectively more probable.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Sign test",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F6",
+      "main_hypothesis": "Subjective sampling distributions are independent of sample size (N-invariance), as sample size is not a representative property of the population.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Descriptive comparison",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F7",
+      "main_hypothesis": "Posterior odds are determined by the representativeness of the sample mean rather than the sample size, leading to higher confidence in smaller, more extreme samples.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Median test",
+          "weight": 1.0
+        }
+      ]
+    }
+  ]
+}

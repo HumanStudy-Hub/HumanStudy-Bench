@@ -1,0 +1,77 @@
+{
+  "study_id": "jacowitz_kahneman_1995_measures_of_anchoring_in_estimation_tasks",
+  "title": "Measures of Anchoring in Estimation Tasks",
+  "participants": {
+    "n": 156,
+    "population": "Students",
+    "recruitment_source": "University of California, Berkeley",
+    "demographics": {},
+    "by_sub_study": {
+      "exp_1_calibration": {
+        "n": 53,
+        "population": "Students at the University of California, Berkeley"
+      },
+      "exp_1_anchored_estimation": {
+        "n": 103,
+        "population": "Students at the University of California, Berkeley"
+      },
+      "exp_2_discredited_anchor": {
+        "n": 0,
+        "population": "Not specified"
+      },
+      "exp_3_wtp_estimation": {
+        "n": 0,
+        "population": "Referenced from Green, Jacowitz, Kahneman, & McFadden (1995)"
+      }
+    }
+  },
+  "design": {
+    "type": "Mixed",
+    "factors": [
+      {
+        "name": "Condition",
+        "levels": [
+          "Calibration Group",
+          "Experimental (Anchored) Group"
+        ],
+        "type": "Between-Subjects"
+      },
+      {
+        "name": "Anchor Level",
+        "levels": [
+          "Low (15th percentile)",
+          "High (85th percentile)"
+        ],
+        "type": "Between-Subjects"
+      },
+      {
+        "name": "Anchor Credibility",
+        "levels": [
+          "Standard",
+          "Discredited"
+        ],
+        "type": "Between-Subjects"
+      },
+      {
+        "name": "Task Type",
+        "levels": [
+          "Quantitative Estimation",
+          "Willingness to Pay (WTP)"
+        ],
+        "type": "Between-Subjects"
+      }
+    ]
+  },
+  "procedure": {
+    "steps": [
+      "A calibration group provides numerical estimates and confidence ratings for 15 uncertain quantities.",
+      "Baseline distributions are established, and anchors are set at the 15th and 85th percentiles of the calibration estimates.",
+      "Experimental participants are presented with a quantity and a specified anchor (high or low).",
+      "Participants judge whether the true value of the quantity is higher or lower than the specified anchor.",
+      "Participants provide a numerical estimate for the quantity.",
+      "Participants rate their confidence in their estimate on a 10-point scale.",
+      "In a replication study (Exp 2), a manipulation is added to discredit the informational value of the anchor.",
+      "In a public goods study (Exp 3), participants perform a dichotomous judgment (referendum) before providing a numerical Willingness to Pay (WTP) estimate."
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+name: Validate studies
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "studies/**"
+      - "scripts/build_studies_index.py"
+      - "scripts/verify_study.sh"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Build studies index
+        run: python scripts/build_studies_index.py
+      - name: Verify changed studies
+        run: |
+          # Find study directories changed in this PR
+          CHANGED_STUDIES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- studies/ | grep -oP 'studies/[^/]+' | sort -u)
+          if [ -z "$CHANGED_STUDIES" ]; then
+            echo "No study directories changed."
+            exit 0
+          fi
+          for study_path in $CHANGED_STUDIES; do
+            study_id=$(basename "$study_path")
+            echo "--- Verifying $study_id ---"
+            bash scripts/verify_study.sh "$study_id"
+            echo ""
+          done
+      - name: Verify contributor attribution
+        env:
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          CHANGED_STUDIES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- studies/ | grep -oP 'studies/[^/]+' | sort -u)
+          if [ -z "$CHANGED_STUDIES" ]; then
+            exit 0
+          fi
+          FAILED=0
+          for study_path in $CHANGED_STUDIES; do
+            INDEX="$study_path/index.json"
+            if [ ! -f "$INDEX" ]; then
+              continue
+            fi
+            # Check if any contributor github field contains the PR author's username
+            MATCH=$(python3 -c "
+          import json, sys
+          with open('$INDEX') as f:
+              data = json.load(f)
+          contributors = data.get('contributors', [])
+          if not contributors:
+              print('MISSING')
+              sys.exit(0)
+          author = '$PR_AUTHOR'.lower()
+          for c in contributors:
+              gh = c.get('github', '').lower()
+              # Match 'username' or 'https://github.com/username'
+              if gh.rstrip('/').split('/')[-1] == author:
+                  print('MATCH')
+                  sys.exit(0)
+          print('MISMATCH')
+          ")
+            study_id=$(basename "$study_path")
+            if [ "$MATCH" = "MISSING" ] || [ "$MATCH" = "MISMATCH" ]; then
+              echo "::error file=$INDEX::Contributor check failed for $study_id. Your GitHub username is '$PR_AUTHOR'. Please add the following to your index.json:%0A%0A\"contributors\": [%0A  { \"name\": \"Your Name\", \"github\": \"$PR_AUTHOR\" }%0A]"
+              FAILED=1
+            else
+              echo "$study_id: Contributor @$PR_AUTHOR verified."
+            fi
+          done
+          if [ "$FAILED" -eq 1 ]; then
+            exit 1
+          fi

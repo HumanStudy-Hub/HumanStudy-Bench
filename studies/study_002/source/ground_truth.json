@@ -1,0 +1,398 @@
+{
+  "study_id": "jacowitz_kahneman_1995",
+  "title": "Measures of Anchoring in Estimation Tasks",
+  "authors": [
+    "Karen E. Jacowitz",
+    "Daniel Kahneman"
+  ],
+  "year": 1995,
+  "studies": [
+    {
+      "study_id": "Experiment 1",
+      "study_name": "Main Study: Anchoring in Quantitative Estimation",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "The initial judgment of the anchor is susceptible to an anchoring-like bias.",
+          "statistical_tests": [
+            {
+              "test_name": "Mean Anchoring Index (AI)",
+              "statistical_hypothesis": "The subject moved toward the anchor from the estimate they would have made without it.",
+              "reported_statistics": "AI=0.49, n=103",
+              "significance_level": 0.05,
+              "expected_direction": "positive"
+            },
+            {
+              "test_name": "Point-Biserial Correlation",
+              "statistical_hypothesis": "Correlation between subjects' estimates and the anchor seen.",
+              "reported_statistics": "r=0.42, n=103",
+              "significance_level": 0.05,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Item-level anchoring indices and median estimates for 15 quantities.",
+            "data": {
+              "Length of Mississippi River": {
+                "low_anchor_median": 300,
+                "high_anchor_median": 1500,
+                "anchoring_index": 0.62
+              },
+              "Height of Mount Everest": {
+                "low_anchor_median": 8000,
+                "high_anchor_median": 42550,
+                "anchoring_index": 0.79
+              },
+              "Meat eaten per year": {
+                "low_anchor_median": 100,
+                "high_anchor_median": 500,
+                "anchoring_index": 0.42
+              },
+              "Distance SF to NYC": {
+                "low_anchor_median": 2600,
+                "high_anchor_median": 4000,
+                "anchoring_index": 0.31
+              },
+              "Height of tallest redwood": {
+                "low_anchor_median": 100,
+                "high_anchor_median": 400,
+                "anchoring_index": 0.62
+              },
+              "Number of UN members": {
+                "low_anchor_median": 26,
+                "high_anchor_median": 100,
+                "anchoring_index": 0.65
+              },
+              "Female professors at UC Berkeley": {
+                "low_anchor_median": 50,
+                "high_anchor_median": 95,
+                "anchoring_index": 0.43
+              },
+              "Population of Chicago": {
+                "low_anchor_median": 0.6,
+                "high_anchor_median": 5.05,
+                "anchoring_index": 0.93
+              },
+              "Year telephone invented": {
+                "low_anchor_median": 1870,
+                "high_anchor_median": 1900,
+                "anchoring_index": 0.43
+              },
+              "Babies born per day in US": {
+                "low_anchor_median": 1000,
+                "high_anchor_median": 40000,
+                "anchoring_index": 0.78
+              },
+              "Speed of house cat": {
+                "low_anchor_median": 10,
+                "high_anchor_median": 20,
+                "anchoring_index": 0.43
+              },
+              "Gas used per month": {
+                "low_anchor_median": 40,
+                "high_anchor_median": 60,
+                "anchoring_index": 0.33
+              },
+              "Number of bars in Berkeley": {
+                "low_anchor_median": 20,
+                "high_anchor_median": 40,
+                "anchoring_index": 0.27
+              },
+              "State colleges in California": {
+                "low_anchor_median": 30,
+                "high_anchor_median": 50,
+                "anchoring_index": 0.25
+              },
+              "Lincoln presidency number": {
+                "low_anchor_median": 16,
+                "high_anchor_median": 16,
+                "anchoring_index": 0.0
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F2",
+          "main_hypothesis": "The anchoring effect is larger for high anchors than for low anchors (asymmetry).",
+          "statistical_tests": [
+            {
+              "test_name": "Student's t-test (Asymmetry of Anchoring)",
+              "statistical_hypothesis": "Effect of high anchors > effect of low anchors.",
+              "reported_statistics": "t(102)=7.99, p=0.01",
+              "significance_level": 0.01,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Transformed scores for high and low anchors.",
+            "data": {
+              "high_anchors": {
+                "median_transformed_score": 76
+              },
+              "low_anchors": {
+                "median_transformed_score": 36
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F3",
+          "main_hypothesis": "High anchors yield more extreme estimates than low anchors.",
+          "statistical_tests": [
+            {
+              "test_name": "Student's t-test (Extreme Estimates)",
+              "statistical_hypothesis": "Proportion of estimates beyond high anchor > proportion beyond low anchor.",
+              "reported_statistics": "t(102)=6.12, p=0.001",
+              "significance_level": 0.001,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Percentage of estimates falling beyond the anchor.",
+            "data": {
+              "high_anchor_extreme": {
+                "percentage": 27
+              },
+              "low_anchor_extreme": {
+                "percentage": 14
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F4",
+          "main_hypothesis": "The anchoring effect varies inversely with subjects' confidence.",
+          "statistical_tests": [
+            {
+              "test_name": "Pearson Correlation (AI vs. Confidence)",
+              "statistical_hypothesis": "Correlation between AI and mean confidence across 15 problems.",
+              "reported_statistics": "r=-0.68, p=0.05",
+              "significance_level": 0.05,
+              "expected_direction": "negative"
+            },
+            {
+              "test_name": "Student's t-test (High Anchor vs. Confidence)",
+              "statistical_hypothesis": "Correlation between transformed estimates and confidence when anchor is high.",
+              "reported_statistics": "t(14)=2.37, p=0.05",
+              "significance_level": 0.05,
+              "expected_direction": "negative"
+            },
+            {
+              "test_name": "Student's t-test (Low Anchor vs. Confidence)",
+              "statistical_hypothesis": "Correlation between transformed estimates and confidence when anchor is low.",
+              "reported_statistics": "t(14)=4.80, p=0.001",
+              "significance_level": 0.001,
+              "expected_direction": "positive"
+            },
+            {
+              "test_name": "Student's t-test (Confidence Ratings Comparison)",
+              "statistical_hypothesis": "Confidence in anchored groups > confidence in calibration group.",
+              "reported_statistics": "t(154)=3.53, p=0.001",
+              "significance_level": 0.001,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Mean confidence ratings and correlations.",
+            "data": {
+              "anchored_group_confidence": {
+                "mean": 3.85
+              },
+              "calibration_group_confidence": {
+                "mean": 2.99
+              },
+              "high_anchor_confidence_correlation": {
+                "mean_r": -0.14
+              },
+              "low_anchor_confidence_correlation": {
+                "mean_r": 0.27
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Experiment 2",
+      "study_name": "Replication with Discredited Anchor",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "Discrediting the informational value of the anchor will not reduce the anchoring effect.",
+          "statistical_tests": [
+            {
+              "test_name": "Percentage of judgments (High judged low)",
+              "statistical_hypothesis": "Proportion of high anchors judged as too low.",
+              "reported_statistics": "p=null, n=null, percentage=28",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            },
+            {
+              "test_name": "Percentage of judgments (Low judged high)",
+              "statistical_hypothesis": "Proportion of low anchors judged as too high.",
+              "reported_statistics": "p=null, n=null, percentage=15",
+              "significance_level": 0.05,
+              "expected_direction": "none"
+            }
+          ],
+          "original_data_points": {
+            "description": "Percentage of judgments indicating the anchor was in the wrong direction despite discrediting.",
+            "data": {
+              "high_judged_low": {
+                "percentage": 28
+              },
+              "low_judged_high": {
+                "percentage": 15
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "Experiment 3",
+      "study_name": "Anchoring in Estimation vs. Willingness to Pay (WTP)",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "Anchoring effects occur in Willingness to Pay (WTP) tasks as they do in estimation tasks.",
+          "statistical_tests": [
+            {
+              "test_name": "Percentage of anchored estimates (High)",
+              "statistical_hypothesis": "Proportion of estimates exceeding high anchor in WTP.",
+              "reported_statistics": "p=null, n=null, percentage=24",
+              "significance_level": 0.05,
+              "expected_direction": "positive"
+            },
+            {
+              "test_name": "Percentage of anchored estimates (Low)",
+              "statistical_hypothesis": "Proportion of estimates judged high for low anchor in WTP.",
+              "reported_statistics": "p=null, n=null, percentage=15",
+              "significance_level": 0.05,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Comparison of WTP anchoring percentages against calibration group baselines.",
+            "data": {
+              "high_anchor_wtp": {
+                "percentage": 24,
+                "calibration_baseline": 4.2
+              },
+              "low_anchor_wtp": {
+                "percentage": 15,
+                "calibration_baseline": 4.6
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_original_results": {
+    "description": "Baseline calibration data and experimental item-level results.",
+    "data_tables": [
+      {
+        "table_name": "Calibration Group Baseline (n=53)",
+        "headers": [
+          "Question",
+          "Median",
+          "Low Anchor (15th)",
+          "High Anchor (85th)"
+        ],
+        "rows": [
+          [
+            "Mississippi River",
+            "800",
+            "70",
+            "2000"
+          ],
+          [
+            "Mount Everest",
+            "12000",
+            "2000",
+            "45500"
+          ],
+          [
+            "Meat eaten",
+            "180",
+            "50",
+            "1000"
+          ],
+          [
+            "SF to NYC",
+            "3200",
+            "1500",
+            "6000"
+          ],
+          [
+            "Redwood height",
+            "200",
+            "65",
+            "550"
+          ],
+          [
+            "UN members",
+            "50",
+            "14",
+            "127"
+          ],
+          [
+            "Female professors",
+            "50",
+            "25",
+            "130"
+          ],
+          [
+            "Chicago population",
+            "1.0",
+            "0.2",
+            "5.0"
+          ],
+          [
+            "Telephone year",
+            "1889",
+            "1850",
+            "1920"
+          ],
+          [
+            "Babies born",
+            "2000",
+            "100",
+            "50000"
+          ],
+          [
+            "Cat speed",
+            "18",
+            "7",
+            "30"
+          ],
+          [
+            "Gas used",
+            "50",
+            "20",
+            "80"
+          ],
+          [
+            "Berkeley bars",
+            "20",
+            "10",
+            "85"
+          ],
+          [
+            "State colleges",
+            "30",
+            "20",
+            "100"
+          ],
+          [
+            "Lincoln presidency",
+            "16",
+            "7",
+            "17"
+          ]
+        ]
+      }
+    ]
+  }
+}

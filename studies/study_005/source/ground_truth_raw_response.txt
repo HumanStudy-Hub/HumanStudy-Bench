@@ -1,0 +1,185 @@
+{
+    "study_id": "knobe",
+    "title": "Intentional Action and Side-Effects in Ordinary Language",
+    "authors": [
+        "Joshua Knobe"
+    ],
+    "year": null,
+    "studies": [
+        {
+            "study_id": "Experiment 1",
+            "study_name": "Corporate Chairman Vignette",
+            "findings": [
+                {
+                    "finding_id": "Finding 1",
+                    "main_hypothesis": "A person’s intuitions as to whether or not a given side-effect was produced 'intentionally' can be influenced by that person’s attitude toward the specific side-effect in question (specifically whether it is good or bad).",
+                    "statistical_tests": [
+                        {
+                            "test_name": "Chi-square test",
+                            "statistical_hypothesis": "Intentionality judgments differ between harm and help conditions.",
+                            "reported_statistics": "chi2(1, N=78)=27.2, p=0.001",
+                            "significance_level": 0.05,
+                            "expected_direction": "positive"
+                        }
+                    ],
+                    "original_data_points": {
+                        "description": "Percentage of participants judging the side-effect as intentional.",
+                        "data": {
+                            "Harm condition": {
+                                "percentage": 82.0,
+                                "n": 39
+                            },
+                            "Help condition": {
+                                "percentage": 23.0,
+                                "n": 39
+                            }
+                        }
+                    }
+                },
+                {
+                    "finding_id": "Finding 2",
+                    "main_hypothesis": "People are considerably more willing to blame the agent for bad side-effects than to praise the agent for good side-effects.",
+                    "statistical_tests": [
+                        {
+                            "test_name": "t-test (Combined with Exp 2)",
+                            "statistical_hypothesis": "Mean blame in harm condition > Mean praise in help condition.",
+                            "reported_statistics": "t(120)=8.4, p=0.001",
+                            "significance_level": 0.05,
+                            "expected_direction": "positive"
+                        }
+                    ],
+                    "original_data_points": {
+                        "description": "Mean praise/blame scores on a 0-6 scale.",
+                        "data": {
+                            "harm_condition_blame": {
+                                "mean": 4.8
+                            },
+                            "help_condition_praise": {
+                                "mean": 1.4
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "study_id": "Experiment 2",
+            "study_name": "Military Lieutenant Vignette",
+            "findings": [
+                {
+                    "finding_id": "Finding 1",
+                    "main_hypothesis": "The effect observed in Experiment 1 is general and not specific to corporations or environmental damage.",
+                    "statistical_tests": [
+                        {
+                            "test_name": "Chi-square test",
+                            "statistical_hypothesis": "Intentionality judgments differ between harm and help conditions in a military context.",
+                            "reported_statistics": "chi2(1, N=42)=9.5, p=0.01",
+                            "significance_level": 0.05,
+                            "expected_direction": "positive"
+                        }
+                    ],
+                    "original_data_points": {
+                        "description": "Percentage of participants judging the side-effect as intentional.",
+                        "data": {
+                            "Harm condition": {
+                                "percentage": 77.0,
+                                "n": 21
+                            },
+                            "Help condition": {
+                                "percentage": 30.0,
+                                "n": 21
+                            }
+                        }
+                    }
+                },
+                {
+                    "finding_id": "Finding 3",
+                    "main_hypothesis": "The asymmetry in praise and blame assignment may be at the root of the asymmetry in the application of the concept intentional.",
+                    "statistical_tests": [
+                        {
+                            "test_name": "Correlation (Combined with Exp 1)",
+                            "statistical_hypothesis": "Praise/blame scores are correlated with intentionality judgments.",
+                            "reported_statistics": "r(120)=0.53, p=0.001",
+                            "significance_level": 0.05,
+                            "expected_direction": "positive"
+                        }
+                    ],
+                    "original_data_points": {
+                        "description": "Correlation between moral judgment and intentionality judgment across both experiments.",
+                        "data": {
+                            "total_sample": {
+                                "n": 120,
+                                "r": 0.53
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "overall_original_results": {
+        "description": "Summary of intentionality judgments and moral evaluations across two experiments.",
+        "data_tables": [
+            {
+                "table_name": "Intentionality Judgments",
+                "headers": [
+                    "Experiment",
+                    "Condition",
+                    "Percentage Intentional",
+                    "N (Approx)"
+                ],
+                "rows": [
+                    [
+                        "Exp 1",
+                        "Harm",
+                        "82%",
+                        "39"
+                    ],
+                    [
+                        "Exp 1",
+                        "Help",
+                        "23%",
+                        "39"
+                    ],
+                    [
+                        "Exp 2",
+                        "Harm",
+                        "77%",
+                        "21"
+                    ],
+                    [
+                        "Exp 2",
+                        "Help",
+                        "30%",
+                        "21"
+                    ]
+                ]
+            },
+            {
+                "table_name": "Moral Responsibility (Combined)",
+                "headers": [
+                    "Condition",
+                    "Mean Score (0-6)"
+                ],
+                "rows": [
+                    [
+                        "Harm (Blame)",
+                        "4.8"
+                    ],
+                    [
+                        "Help (Praise)",
+                        "1.4"
+                    ]
+                ]
+            }
+        ],
+        "all_raw_data": {
+            "exp1_chi2": 27.2,
+            "exp1_p": 0.001,
+            "exp2_chi2": 9.5,
+            "exp2_p": 0.01,
+            "combined_t": 8.4,
+            "combined_r": 0.53
+        }
+    }
+}

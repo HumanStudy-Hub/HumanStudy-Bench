@@ -1,0 +1,210 @@
+code
+JSON
+
+download
+
+content_copy
+
+expand_less
+{
+    "study_id": "jacowitz_kahneman_1995_measures_of_anchoring_in_estimation_tasks",
+    "title": "Measures of Anchoring in Estimation Tasks",
+    "authors": [
+        "Karen E. Jacowitz",
+        "Daniel Kahneman"
+    ],
+    "year": 1995,
+    "studies": [
+        {
+            "study_id": "Study 1",
+            "study_name": "Anchoring in Estimation Tasks",
+            "findings": [
+                {
+                    "finding_id": "anchoring_magnitude_and_asymmetry",
+                    "main_hypothesis": "High and low anchors induce anchoring effects, but high anchors are stronger than low anchors.",
+                    "statistical_tests": [
+                        {
+                            "test_name": "Paired t-test (implied by design and df)",
+                            "statistical_hypothesis": "Mean transformed score for high anchors != Mean transformed score for low anchors",
+                            "reported_statistics": "t(102) = 7.99, p < .01",
+                            "significance_level": 0.01,
+                            "expected_direction": "positive"
+                        }
+                    ],
+                    "original_data_points": {
+                        "description": "Comparison of anchoring indices and transformed estimates (percentiles) for high and low anchors.",
+                        "data": {
+                            "high_anchors": {
+                                "mean_AI": 0.51,
+                                "median_transformed_score": 76,
+                                "description": "High anchors located at 85th percentile"
+                            },
+                            "low_anchors": {
+                                "mean_AI": 0.40,
+                                "median_transformed_score": 36,
+                                "description": "Low anchors located at 15th percentile"
+                            },
+                            "overall": {
+                                "mean_AI": 0.49
+                            }
+                        }
+                    }
+                },
+                {
+                    "finding_id": "extreme_estimates_frequency",
+                    "main_hypothesis": "High anchors cause more estimates to exceed the anchor than low anchors cause estimates to fall below the anchor.",
+                    "statistical_tests": [
+                        {
+                            "test_name": "Paired t-test (implied by df)",
+                            "statistical_hypothesis": "Frequency of extreme estimates High != Frequency of extreme estimates Low",
+                            "reported_statistics": "t(102) = 6.12, p < .001",
+                            "significance_level": 0.001,
+                            "expected_direction": "positive"
+                        }
+                    ],
+                    "original_data_points": {
+                        "description": "Percentage of estimates more extreme than the anchor (judged low for high anchors, judged high for low anchors).",
+                        "data": {
+                            "high_anchors": {
+                                "percentage_extreme_estimates": 27,
+                                "description": "Estimates judged low (exceeding high anchor)"
+                            },
+                            "low_anchors": {
+                                "percentage_extreme_estimates": 14,
+                                "description": "Estimates judged high (below low anchor)"
+                            }
+                        }
+                    }
+                },
+                {
+                    "finding_id": "anchoring_vs_confidence_problem_level",
+                    "main_hypothesis": "Anchoring is stronger for questions that are generally answered with low confidence.",
+                    "statistical_tests": [
+                        {
+                            "test_name": "Pearson Correlation",
+                            "statistical_hypothesis": "Correlation between AI and Calibration Confidence != 0",
+                            "reported_statistics": "r = -0.68, p < .05",
+                            "significance_level": 0.05,
+                            "expected_direction": "negative"
+                        }
+                    ],
+                    "original_data_points": {
+                        "description": "Correlation computed over the 15 problems listed in Table 1.",
+                        "data": {
+                            "problems": {
+                                "n": 15
+                            }
+                        }
+                    }
+                },
+                {
+                    "finding_id": "anchoring_vs_confidence_individual_level_high",
+                    "main_hypothesis": "Susceptibility to anchoring is associated with low confidence (High Anchor Condition).",
+                    "statistical_tests": [
+                        {
+                            "test_name": "One-sample t-test",
+                            "statistical_hypothesis": "Mean correlation between transformed estimates and confidence != 0",
+                            "reported_statistics": "t(14) = 2.37, p < .05",
+                            "significance_level": 0.05,
+                            "expected_direction": "negative"
+                        }
+                    ],
+                    "original_data_points": {
+                        "description": "Mean correlation across 15 problems between transformed estimate and confidence for high anchors.",
+                        "data": {
+                            "high_anchors": {
+                                "mean_correlation": -0.14
+                            }
+                        }
+                    }
+                },
+                {
+                    "finding_id": "anchoring_vs_confidence_individual_level_low",
+                    "main_hypothesis": "Susceptibility to anchoring is associated with low confidence (Low Anchor Condition).",
+                    "statistical_tests": [
+                        {
+                            "test_name": "One-sample t-test",
+                            "statistical_hypothesis": "Mean correlation between transformed estimates and confidence != 0",
+                            "reported_statistics": "t(14) = 4.80, p < .001",
+                            "significance_level": 0.001,
+                            "expected_direction": "positive"
+                        }
+                    ],
+                    "original_data_points": {
+                        "description": "Mean correlation across 15 problems between transformed estimate and confidence for low anchors. (Positive correlation implies higher confidence = higher percentile = further from low anchor).",
+                        "data": {
+                            "low_anchors": {
+                                "mean_correlation": 0.27
+                            }
+                        }
+                    }
+                },
+                {
+                    "finding_id": "effect_of_anchor_on_confidence",
+                    "main_hypothesis": "Estimates are made with greater confidence in the anchored groups than in the calibration group.",
+                    "statistical_tests": [
+                        {
+                            "test_name": "Independent samples t-test",
+                            "statistical_hypothesis": "Mean Confidence Anchored != Mean Confidence Calibration",
+                            "reported_statistics": "t(154) = 3.53, p < .001",
+                            "significance_level": 0.001,
+                            "expected_direction": "positive"
+                        }
+                    ],
+                    "original_data_points": {
+                        "description": "Comparison of mean confidence ratings on 10-point scale.",
+                        "data": {
+                            "anchored_group": {
+                                "mean_confidence": 3.85,
+                                "n": 103
+                            },
+                            "calibration_group": {
+                                "mean_confidence": 2.99,
+                                "n": 53
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "overall_original_results": {
+        "description": "Data extracted from Table 1: Summary Statistics for Calibration and Anchored Estimates.",
+        "data_tables": [
+            {
+                "table_name": "Summary Statistics for Calibration and Anchored Estimates (Table 1)",
+                "headers": [
+                    "Question",
+                    "Calibration Median",
+                    "Low Anchor",
+                    "High Anchor",
+                    "Low Anchor Median Estimate",
+                    "High Anchor Median Estimate",
+                    "Low Anchor Transformed Median",
+                    "High Anchor Transformed Median",
+                    "Low Anchor Extreme Values %",
+                    "High Anchor Extreme Values %",
+                    "Anchoring Index"
+                ],
+                "rows": [
+                    ["Length of Mississippi River", "800", "70", "2000", "300", "1500", "33.96", "76.42", "10", "37", ".62"],
+                    ["Height of Mount Everest", "12000", "2000", "45500", "8000", "42550", "36.79", "83.02", "16", "48", ".79"],
+                    ["Amount of meat eaten per year", "180", "50", "1000", "100", "500", "37.74", "80.19", "10", "16", ".42"],
+                    ["Distance from San Francisco to NYC", "3200", "1500", "6000", "2600", "4000", "37.74", "74.53", "6", "18", ".31"],
+                    ["Height of tallest redwood", "200", "65", "550", "100", "400", "31.13", "77.36", "12", "31", ".62"],
+                    ["Number of United Nations members", "50", "14", "127", "26", "100", "28.30", "78.30", "20", "24", ".65"],
+                    ["Number of female professors at Berkeley", "50", "25", "130", "50", "95", "41.51", "60.38", "18", "28", ".43"],
+                    ["Population of Chicago", "1.0", "0.2", "5.0", "0.6", "5.05", "33.65", "88.46", "8", "52", ".93"],
+                    ["Year telephone was invented", "1889", "1850", "1920", "1870", "1900", "27.55", "64.29", "28", "8", ".43"],
+                    ["Average number of babies born per day", "2000", "100", "50000", "1000", "40000", "37.74", "84.91", "8", "42", ".78"],
+                    ["Maximum speed of house cat", "18", "7", "30", "10", "20", "25.00", "61.25", "18", "20", ".43"],
+                    ["Amount of gas used per month", "50", "20", "80", "40", "60", "35.90", "74.36", "4", "30", ".33"],
+                    ["Number of bars in Berkeley", "20", "10", "85", "20", "40", "45.00", "68.75", "14", "12", ".27"],
+                    ["Number of state colleges and universities", "30", "20", "100", "30", "50", "55.00", "72.50", "22", "20", ".25"],
+                    ["Number of Lincoln's presidency", "16", "7", "17", "16", "16", "64.10", "64.10", "10", "12", ".00"]
+                ]
+            }
+        ],
+        "all_raw_data": {}
+    }
+}

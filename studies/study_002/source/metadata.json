@@ -1,0 +1,117 @@
+{
+  "id": "study_002",
+  "title": "Measures of Anchoring in Estimation Tasks",
+  "authors": [
+    "Karen E. Jacowitz",
+    "Daniel Kahneman"
+  ],
+  "year": null,
+  "domain": "social_psychology",
+  "subdomain": "judgment_and_decision_making",
+  "keywords": [
+    "anchoring_effect",
+    "estimation_tasks",
+    "subjective_confidence",
+    "cognitive_bias"
+  ],
+  "difficulty": "medium",
+  "description": "The authors describe a method for the quantitative study of anchoring effects in estimation tasks. A calibration group provides estimates of a set of uncertain quantities. Subjects in the anchored condition first judge whether a specified number (the anchor) is higher or lower than the true value before estimating each quantity. The anchors are set at predetermined percentiles of the distribution of estimates in the calibration group (15th and 85th percentiles in this study). This procedure permits the transformation of anchored estimates into percentiles in the calibration group, allows pooling of results across problems, and provides a natural measure of the size of the effect. The authors illustrate the method by a demonstration that the initial judgment of the anchor is susceptible to an anchoring-like bias and by an analysis of the relation between anchoring and subjective confidence....",
+  "scenarios": [
+    "exp_1_calibration",
+    "exp_1_anchored_estimation",
+    "exp_2_discredited_anchor",
+    "exp_3_wtp_estimation"
+  ],
+  "findings": [
+    {
+      "finding_id": "F1",
+      "main_hypothesis": "The initial judgment of the anchor is susceptible to an anchoring-like bias.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Mean Anchoring Index (AI)",
+          "weight": 1.0
+        },
+        {
+          "test_name": "Point-Biserial Correlation",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F2",
+      "main_hypothesis": "The anchoring effect is larger for high anchors than for low anchors (asymmetry).",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Student's t-test (Asymmetry of Anchoring)",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F3",
+      "main_hypothesis": "High anchors yield more extreme estimates than low anchors.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Student's t-test (Extreme Estimates)",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F4",
+      "main_hypothesis": "The anchoring effect varies inversely with subjects' confidence.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Pearson Correlation (AI vs. Confidence)",
+          "weight": 1.0
+        },
+        {
+          "test_name": "Student's t-test (High Anchor vs. Confidence)",
+          "weight": 1.0
+        },
+        {
+          "test_name": "Student's t-test (Low Anchor vs. Confidence)",
+          "weight": 1.0
+        },
+        {
+          "test_name": "Student's t-test (Confidence Ratings Comparison)",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F1",
+      "main_hypothesis": "Discrediting the informational value of the anchor will not reduce the anchoring effect.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Percentage of judgments (High judged low)",
+          "weight": 1.0
+        },
+        {
+          "test_name": "Percentage of judgments (Low judged high)",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F1",
+      "main_hypothesis": "Anchoring effects occur in Willingness to Pay (WTP) tasks as they do in estimation tasks.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Percentage of anchored estimates (High)",
+          "weight": 1.0
+        },
+        {
+          "test_name": "Percentage of anchored estimates (Low)",
+          "weight": 1.0
+        }
+      ]
+    }
+  ]
+}

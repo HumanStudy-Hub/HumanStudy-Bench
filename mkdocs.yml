@@ -1,0 +1,45 @@
+site_name: HumanStudy-Bench
+site_url: https://HumanStudy-Hub.github.io/HumanStudy-Bench/
+repo_url: https://github.com/HumanStudy-Hub/HumanStudy-Bench
+repo_name: HS_bench
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - Contributing: contributing.md
+  - Study Walkthrough: study_walkthrough.md
+  - Data Extraction Guide: extraction_guide.md
+  - File Reference: file_reference.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true

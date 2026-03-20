@@ -1,0 +1,100 @@
+{
+  "id": "study_009",
+  "title": "Unraveling in Guessing Games: An Experimental Study",
+  "authors": [
+    "Rosemarie Nagel"
+  ],
+  "year": null,
+  "domain": "cognitive_psychology",
+  "subdomain": "judgment_and_decision_making",
+  "keywords": [
+    "p-beauty_contest",
+    "iterated_reasoning",
+    "bounded_rationality",
+    "game_theory",
+    "depth_of_reasoning"
+  ],
+  "difficulty": "medium",
+  "description": "Consider the following game: a large number of players have to state simultaneously a number in the closed interval [0, 100]. The winner is the person whose chosen number is closest to the mean of all chosen numbers multiplied by a parameter $p$. For $0 \\leq p < 1$, the unique Nash equilibrium is zero. This experimental study investigates how players incorporate the behavior of others, focusing on finite depth of reasoning. Experiments were conducted using $p = 1/2, 2/3$, and $4/3$. First-period choices suggest boundedly rational behavior starting from an initial reference point of 50, with clustering around iteration steps 1 and 2 ($50p^n$), accounting for the difference in distributions across parameter values. Over four periods, choices converge toward the equilibrium (0 for $p < 1$, 100 for $p = 4/3$). The modal depth of reasoning does not increase over time. A qualitative learning-direction theory, based on individual experience (adjusting choice direction based on whether the previous adjustment factor was above or below the optimal factor), is proposed as a better explanation for the adjustment process over time than increasing depth of reasoning....",
+  "scenarios": [
+    "p_0.5_condition",
+    "p_0.66_condition",
+    "p_1.33_condition"
+  ],
+  "findings": [
+    {
+      "finding_id": "F1",
+      "main_hypothesis": "Distributions of choices in the first period are significantly influenced by the parameter p, suggesting players engage in a finite depth of reasoning based on p.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Mann-Whitney U test",
+          "weight": 1.0
+        },
+        {
+          "test_name": "Mann-Whitney U test",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F2",
+      "main_hypothesis": "Observed choices are more concentrated in neighborhood intervals corresponding to iteration steps (50*p^n) than expected by chance.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "One-sided Binomial Test",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F3",
+      "main_hypothesis": "In repeated rounds, choices move toward the Nash equilibrium (unraveling). For p < 1, choices decrease over time; for p > 1, choices increase over time.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Binomial Test",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F4",
+      "main_hypothesis": "The rate of decrease (convergence speed) differs between p=1/2 and p=2/3 conditions, with p=1/2 converging faster.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Mann-Whitney U test",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F5",
+      "main_hypothesis": "In Periods 2-4, players' choices relative to p × mean_{t-1} (the theoretical Step 1 target).",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Binomial Test (Weak Hypothesis)",
+          "weight": 1.0
+        },
+        {
+          "test_name": "Binomial Test (Strong Hypothesis - Period 4)",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F6",
+      "main_hypothesis": "Players adjust their choices according to Learning Direction Theory: if their adjustment factor (choice/previous_mean) was above the optimal, they decrease it; if below, they increase it.",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "Binomial Test (Session-level)",
+          "weight": 1.0
+        }
+      ]
+    }
+  ]
+}

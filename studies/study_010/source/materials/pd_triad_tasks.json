@@ -1,0 +1,42 @@
+{
+  "sub_study_id": "pd_triad_tasks",
+  "instructions": "Welcome to the Intercollegiate Computer Game. In this game you will be presented with situations involving you and one other player. Each situation will require that you make a strategic decision: to cooperate or to compete with the other player. The other player will have to make a similar decision. Each situation will present a payoff-matrix that will determine how many points each of you earns depending on whether you compete or cooperate.\n\nExample Matrix:\nIf both cooperate: You: 75, Other: 75\nIf you cooperate, other competes: You: 25, Other: 85\nIf you compete, other cooperates: You: 85, Other: 25\nIf both compete: You: 30, Other: 30\n\nYou will be playing with other students who are currently on the computer system. For each new matrix you will be matched with a different person. Thus, you will never play against the same person more than once. The points you accumulate will be converted to actual money at the end of the session.\n\nIn some trials, you may be informed of the strategy the other player has already chosen before you make your decision.",
+  "items": [
+    {
+      "id": "pd_unknown",
+      "question": "The other player's strategy is currently unknown. What is your choice?",
+      "options": [
+        "Cooperate",
+        "Compete"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "condition": "disjunctive/unknown"
+      }
+    },
+    {
+      "id": "pd_known_compete",
+      "question": "The computer informs you that the other player has already chosen to COMPETE. What is your choice?",
+      "options": [
+        "Cooperate",
+        "Compete"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "condition": "known_compete"
+      }
+    },
+    {
+      "id": "pd_known_cooperate",
+      "question": "The computer informs you that the other player has already chosen to COOPERATE. What is your choice?",
+      "options": [
+        "Cooperate",
+        "Compete"
+      ],
+      "type": "multiple_choice",
+      "metadata": {
+        "condition": "known_cooperate"
+      }
+    }
+  ]
+}
