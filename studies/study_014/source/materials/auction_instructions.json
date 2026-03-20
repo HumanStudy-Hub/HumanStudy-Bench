@@ -1,0 +1,65 @@
+{
+  "sub_study_id": "second_price_auction",
+  "instructions": "You are a seller of a fictitious product. To make money, you must sell that product in an auction. In each auction, you will be selling your product to a different number of computerized buyers. To sell the product, you enter the minimum value that you are willing to sell this product for; this amount is your Reservation Price.\n\nBefore entering your Reservation Price, you will know the number of computerized buyers participating in your auction for each round. Each of these buyers will have a maximum willingness to pay for your product. The maximum willingness to pay is an integer between 0 and 100.\n\nIn each auction, bids ascend until all buyers reach their maximum willingness to pay. Some buyers will be forced to stop bidding as their limits are reached. The auction ends when one buyer remains. The amount where each buyer stops bidding in the auction is called the Drop-Out Price.\n\nThe buyer with the highest Drop-Out Price wins so long as that amount is equal to or above your Reservation Price. If all of the Drop-Out Prices are below your Reservation Price, your product will not be sold, and you will earn zero in that round. The profit calculation is as follows:\n\nYour Profit = Second Highest Drop-Out Price if the second highest Drop-Out Price is equal to or above your Reservation Price.\nYour Profit = Reservation Price if the highest Drop-Out Price is above the Reservation Price, but the second highest Drop-Out Price is below the Reservation Price.\nYour Profit = 0 if all the Drop-Out Prices are below the Reservation Price.\nEach auction round, you will have one unit of the product to sell, regardless of whether or not you sold it in the previous round. You will participate in 60 consecutive auctions.\n\nFor each round, the number of buyers is randomly drawn as 1, 4, 7, or 10, each number being equally likely. The maximum amount a buyer is willing to pay is a whole number from 0 to 100.",
+  "items": [
+    {
+      "id": "auction_round",
+      "type": "sequential_decision",
+      "description": "Seller sets a reserve price each round in a second-price sealed-bid auction (described as English auction) with computerized bidders.",
+      "response_format": "integer 0-100",
+      "metadata": {
+        "n_rounds": 60,
+        "bidder_counts": [1, 4, 7, 10],
+        "value_distribution": {
+          "name": "Cuberoot",
+          "cdf": "F(v) = (v/100)^(1/3)",
+          "mean": 25,
+          "sd": 28.4,
+          "support": [0, 100]
+        },
+        "seller_personal_valuation": 0,
+        "optimal_reserve_risk_neutral": 42,
+        "profit_rules": {
+          "case_1": "Second highest drop-out price, if second highest drop-out price >= reserve price",
+          "case_2": "Reserve price, if highest drop-out price >= reserve but second highest < reserve",
+          "case_3": "0, if all drop-out prices < reserve price"
+        },
+        "examples": [
+          {
+            "reserve": 60,
+            "second_highest": 75,
+            "profit": 75
+          },
+          {
+            "reserve": 40,
+            "second_highest": 30,
+            "highest": 60,
+            "profit": 40
+          },
+          {
+            "reserve": 60,
+            "highest": 55,
+            "profit": 0
+          }
+        ],
+        "sample_dropout_prices": [
+          [4, 32, 0, 16, 67, 47, 0, 12, 0, 0],
+          [1, 5, 39, 0, 21, 81, 5, 0, 7, 1],
+          [2, 1, 1, 7, 3, 4, 1, 84, 8, 58],
+          [2, 0, 62, 2, 1, 0, 68, 20, 92, 8],
+          [5, 0, 4, 0, 16, 43, 1, 50, 2, 0],
+          [43, 7, 39, 7, 6, 0, 23, 25, 14, 12],
+          [71, 0, 17, 44, 15, 15, 3, 0, 84, 54],
+          [1, 91, 11, 60, 1, 36, 91, 30, 3, 0],
+          [1, 1, 0, 15, 0, 57, 3, 9, 93, 5],
+          [10, 2, 18, 71, 0, 12, 79, 64, 19, 10]
+        ],
+        "distribution_summary": {
+          "average": 25,
+          "min": 0,
+          "max": 100
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "study_id": "davis_et_al_2011_reserve_prices",
+  "title": "Do Auctioneers Pick Optimal Reserve Prices?",
+  "participants": {
+    "n": 40,
+    "population": "University students",
+    "recruitment_source": null,
+    "demographics": {
+      "profile_fields": ["age", "gender", "race", "program"]
+    }
+  },
+  "design": {
+    "type": "Within-subjects",
+    "factors": [
+      {
+        "name": "Number of Bidders",
+        "levels": [1, 4, 7, 10],
+        "type": "Within-Subjects"
+      },
+      {
+        "name": "Round",
+        "levels": "1-60",
+        "type": "Within-Subjects"
+      }
+    ],
+    "mechanism": "Second-price sealed-bid auction (described as English auction)",
+    "bidder_type": "Computerized bidders following weakly dominant strategy (bid equal to valuation)",
+    "value_distribution": {
+      "name": "Cuberoot",
+      "cdf": "F(v) = (v/100)^(1/3)",
+      "support": [0, 100],
+      "mean": 25,
+      "sd": 28.4
+    },
+    "seller_personal_valuation": 0,
+    "optimal_reserve_price_risk_neutral": 42,
+    "reserve_price_range": [0, 100],
+    "n_rounds": 60,
+    "information_condition": "NoInfo"
+  },
+  "procedure": {
+    "steps": [
+      "Seller receives complete auction instructions including rules, profit calculation examples, and a table and histogram of the drop-out price distribution.",
+      "Seller is assigned a demographic profile (age, gender, race, academic program).",
+      "Each round, seller observes the number of computerized bidders (randomly drawn from 1, 4, 7, or 10, equally likely).",
+      "Seller sets a reserve price (integer 0-100).",
+      "Computerized bidders bid up to their private valuations (drawn from the Cuberoot distribution). Bidders with valuations below the reserve price do not participate.",
+      "Seller receives feedback: drop-out prices for bidders above the reserve, whether some bidders were below the reserve, the winning bid, and profit for the round.",
+      "Seller sees cumulative history of all previous rounds before making the next decision.",
+      "Process repeats for 60 consecutive rounds."
+    ]
+  }
+}
