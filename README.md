@@ -4,11 +4,23 @@
   <h1>HumanStudy-Bench: Community Edition</h1>
   <p><em>Open community-driven expansion of the HumanStudy-Bench benchmark</em></p>
 
-  <h3><a href="https://arxiv.org/abs/2602.00685">📖 Read the Paper</a> | <a href="https://github.com/AISmithLab/HumanStudy-Bench">🔬 Original Research Repo</a></h3>
+  <h3>
+    <a href="https://arxiv.org/abs/2602.00685">
+      <img src="https://img.shields.io/badge/arXiv-Paper-b31b1b?logo=arxiv&logoColor=white" alt="Read the Paper" />
+    </a>
+    &nbsp;
+    <a href="https://github.com/AISmithLab/HumanStudy-Bench">
+      <img src="https://img.shields.io/badge/Original-Research%20Repo-8A2BE2?logo=github&logoColor=white" alt="Original Research Repo" />
+    </a>
+    &nbsp;
+    <a href="https://huggingface.co/fuyyckwhy/HS-Bench-results">
+      <img src="https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-yellow" alt="Hugging Face" />
+    </a>
+  </h3>
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-  [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/HumanStudy-Hub/HumanStudy-Bench/pulls)
+  [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
+  [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?logo=opensourceinitiative&logoColor=white)](https://github.com/HumanStudy-Hub/HumanStudy-Bench/pulls)
 
 </div>
 
@@ -16,11 +28,11 @@
 
 > LLMs are increasingly used to simulate human participants in social science research, but existing evaluations conflate base model capabilities with agent design choices, making it unclear whether results reflect the model or the configuration.
 
-## 👋 Overview
+## <img src="https://api.iconify.design/lucide/book-open.svg?color=%230891b2" width="20" height="20" /> Overview
 
 HumanStudy-Bench treats participant simulation as an *agent design problem* and provides a **standardized testbed** — combining an **Execution Engine** that reconstructs full experimental protocols from published studies and a **Benchmark** with standardized evaluation metrics — for *replaying human-subject experiments end-to-end* with alignment evaluation at the level of scientific inference.
 
-## How to Contribute a Study
+## <img src="https://api.iconify.design/lucide/git-pull-request.svg?color=%230891b2" width="20" height="20" /> How to Contribute a Study
 
 ### 1. Fork and clone
 
@@ -71,11 +83,11 @@ Open a PR on GitHub targeting the `main` branch. Maintainers assign final `study
 
 You can also submit a study via **web upload** at [hs-bench.clawder.ai/contribute](https://www.hs-bench.clawder.ai/contribute).
 
-## Existing Studies
+## <img src="https://api.iconify.design/lucide/flask-conical.svg?color=%230891b2" width="20" height="20" /> Existing Studies
 
 The 12 foundational studies (cognition, strategic interaction, social psychology) serve as reference examples. Browse them on the [website](https://www.hs-bench.clawder.ai/contribute#studies) or locally under `studies/`.
 
-## Citation & Hugging Face
+## <img src="https://api.iconify.design/lucide/quote.svg?color=%230891b2" width="20" height="20" /> Citation
 
 If you use HumanStudy-Bench, please cite:
 
@@ -91,8 +103,6 @@ If you use HumanStudy-Bench, please cite:
 }
 ```
 
-**Hugging Face:** Benchmark and resources are available on the [Hugging Face Hub](https://huggingface.co/) — `fuyyckwhy/HS-Bench-results`.
-
-## License
+## <img src="https://api.iconify.design/lucide/scale.svg?color=%230891b2" width="20" height="20" /> License
 
 MIT License. See [LICENSE](LICENSE) for details.
