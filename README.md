@@ -4,14 +4,10 @@
   <h1>HumanStudy-Bench: Community Edition</h1>
   <p><em>Open community-driven expansion of the HumanStudy-Bench benchmark</em></p>
 
-  <h3>
-    <a href="https://arxiv.org/abs/2602.00685">
-      <img src="https://img.shields.io/badge/arXiv-Paper-b31b1b?logo=arxiv&logoColor=white" alt="Read the Paper" />
-    </a>
-  </h3>
-
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?logo=opensourceinitiative&logoColor=white)](https://github.com/HumanStudy-Hub/HumanStudy-Bench/pulls)
+  <a href="https://arxiv.org/abs/2602.00685"><img src="https://img.shields.io/badge/arXiv-Paper-b31b1b?logo=arxiv&logoColor=white" alt="Read the Paper" /></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
+  <a href="https://github.com/HumanStudy-Hub/HumanStudy-Bench/pulls"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?logo=opensourceinitiative&logoColor=white" alt="Contributions Welcome" /></a>
+  <a href="https://www.hs-bench.clawder.ai"><img src="https://img.shields.io/badge/docs-website-blue?logo=readthedocs&logoColor=white" alt="Docs" /></a>
 
 </div>
 
