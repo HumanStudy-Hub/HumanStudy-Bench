@@ -1,0 +1,68 @@
+{
+  "study_id": "davis_et_al_2011_reserve_prices",
+  "title": "Do Auctioneers Pick Optimal Reserve Prices?",
+  "authors": [
+    "Andrew M. Davis",
+    "Elena Katok",
+    "Anthony M. Kwasnica"
+  ],
+  "year": 2011,
+  "studies": [
+    {
+      "study_id": "second_price_auction",
+      "study_name": "Second-price sealed-bid auction with Cuberoot distribution and variable bidder counts",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "The optimal reserve price should not depend on the number of participating bidders (under risk neutrality). However, sellers systematically increase reserve prices as the number of bidders grows.",
+          "statistical_tests": [
+            {
+              "test_name": "Random-effects regression",
+              "statistical_hypothesis": "Positive coefficient on number of bidders in a regression of reserve price on bidder count",
+              "reported_statistics": "coefficient on n = 2.98, p < .001 (original); Pearson r = 0.42, p < .001",
+              "significance_level": 0.05,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Mean reserve prices by number of bidders. Original experiment at Penn State (Davis et al. 2011), replicated at University of Michigan (Davis et al. 2023). Data below from UMich replication, Cuberoot distribution, n in {1,4,7,10}, NoInfo condition.",
+            "data": {
+              "overall": {
+                "mean_reserve_price": 27.31,
+                "sd_reserve_price": 23.23,
+                "n_subjects": 40,
+                "n_rounds": 60,
+                "n_observations": 2400,
+                "sell_through_rate": 0.74,
+                "mean_profit": 32.83,
+                "entropy": 5.08,
+                "pearson_r": 0.42,
+                "optimal_reserve_price_risk_neutral": 42
+              },
+              "1_bidder": {
+                "mean_reserve_price": 14.85,
+                "sd_reserve_price": 19.15,
+                "n_observations": 716
+              },
+              "4_bidders": {
+                "mean_reserve_price": 24.30,
+                "sd_reserve_price": 17.90,
+                "n_observations": 566
+              },
+              "7_bidders": {
+                "mean_reserve_price": 32.93,
+                "sd_reserve_price": 21.25,
+                "n_observations": 458
+              },
+              "10_bidders": {
+                "mean_reserve_price": 39.50,
+                "sd_reserve_price": 25.12,
+                "n_observations": 660
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
