@@ -1,0 +1,175 @@
+{
+  "study_id": "study_013",
+  "title": "Opportunity Evaluation under Risky Conditions: The Cognitive Processes of Entrepreneurs",
+  "authors": ["Hean Tat Keh", "Maw Der Foo", "Boon Chong Lim"],
+  "year": 2002,
+  "studies": [
+    {
+      "study_id": "keh_foo_lim_opportunity_evaluation",
+      "study_name": "Cognitive Biases and Opportunity Evaluation",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "Entrepreneurs are overconfident: the mean number of confidence-interval items where the correct answer falls outside the stated 90% range is significantly greater than 1 (the calibrated baseline).",
+          "statistical_tests": [
+            {
+              "test_name": "One-sample t-test (overconfidence score vs. calibrated baseline of 1)",
+              "statistical_hypothesis": "Mean overconfidence score (number of items outside 90% CI out of 10) > 1",
+              "reported_statistics": "Mean = 5.17, SD = 2.64, N = 77",
+              "significance_level": 0.05,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Overconfidence scores from Table 3.",
+            "data": {
+              "overconfidence": {
+                "mean": 5.17,
+                "sd": 2.64,
+                "n": 77,
+                "baseline": 1,
+                "note": "Number of items (out of 10) where the correct answer fell outside the respondent's stated 90% confidence interval."
+              }
+            }
+          }
+        },
+        {
+          "finding_id": "F2",
+          "main_hypothesis": "Risk perception negatively predicts opportunity evaluation (H1).",
+          "statistical_tests": [
+            {
+              "test_name": "OLS regression (opportunity_evaluation ~ risk_perception)",
+              "statistical_hypothesis": "The regression coefficient on risk_perception is negative.",
+              "reported_statistics": "beta = -0.50, t = -5.98, p < .001 (Table 4, H1)",
+              "reported_coefficient": -0.5,
+              "reported_t_value": -5.98,
+              "significance_level": 0.05,
+              "expected_direction": "negative"
+            }
+          ],
+          "original_data_points": {
+            "description": "Bivariate regression and descriptive statistics from Tables 3 and 4.",
+            "data": {
+              "risk_perception": {
+                "mean": 19.04,
+                "sd": 4.92,
+                "n": 77
+              },
+              "opportunity_evaluation": {
+                "mean": 12.97,
+                "sd": 4.1,
+                "n": 77
+              },
+              "correlation": -0.58,
+              "regression_beta": -0.5,
+              "regression_t": -5.98,
+              "regression_R2": 0.36
+            }
+          }
+        },
+        {
+          "finding_id": "F3",
+          "main_hypothesis": "Illusion of control negatively predicts risk perception when the other cognitive-bias measures, age, and risk propensity are controlled (H5 / Model 1).",
+          "statistical_tests": [
+            {
+              "test_name": "OLS regression (risk_perception ~ overconfidence + small_numbers + planning_fallacy + illusion_of_control + risk_propensity + age)",
+              "statistical_hypothesis": "The regression coefficient on illusion_of_control is negative.",
+              "reported_statistics": "beta = -0.76, t = -3.34, p < .01 (Table 4, Model 1)",
+              "reported_coefficient": -0.76,
+              "reported_t_value": -3.34,
+              "significance_level": 0.05,
+              "expected_direction": "negative"
+            }
+          ],
+          "original_data_points": {
+            "description": "Model 1 coefficient plus Table 3 descriptives.",
+            "data": {
+              "illusion_of_control": {
+                "mean": 12.94,
+                "sd": 3.29,
+                "n": 77
+              },
+              "risk_perception": {
+                "mean": 19.04,
+                "sd": 4.92,
+                "n": 77
+              },
+              "correlation": -0.44,
+              "regression_beta": -0.76,
+              "regression_t": -3.34,
+              "model_controls": ["overconfidence", "small_numbers", "planning_fallacy", "risk_propensity", "age"]
+            }
+          }
+        },
+        {
+          "finding_id": "F4",
+          "main_hypothesis": "Illusion of control positively predicts opportunity evaluation before the mediator is added, controlling for the other cognitive-bias measures, age, and risk propensity (Model 2).",
+          "statistical_tests": [
+            {
+              "test_name": "OLS regression (opportunity_evaluation ~ overconfidence + small_numbers + planning_fallacy + illusion_of_control + risk_propensity + age)",
+              "statistical_hypothesis": "The regression coefficient on illusion_of_control is positive.",
+              "reported_statistics": "beta = 0.40, t = 2.23, p < .05 (Table 4, Model 2)",
+              "reported_coefficient": 0.4,
+              "reported_t_value": 2.23,
+              "significance_level": 0.05,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Model 2 coefficient plus Table 3 descriptives.",
+            "data": {
+              "illusion_of_control": {
+                "mean": 12.94,
+                "sd": 3.29,
+                "n": 77
+              },
+              "opportunity_evaluation": {
+                "mean": 12.97,
+                "sd": 4.1,
+                "n": 77
+              },
+              "correlation": 0.34,
+              "regression_beta": 0.4,
+              "regression_t": 2.23,
+              "model_controls": ["overconfidence", "small_numbers", "planning_fallacy", "risk_propensity", "age"]
+            }
+          }
+        },
+        {
+          "finding_id": "F5",
+          "main_hypothesis": "Belief in the law of small numbers positively predicts opportunity evaluation before the mediator is added, controlling for the other cognitive-bias measures, age, and risk propensity (Model 2).",
+          "statistical_tests": [
+            {
+              "test_name": "OLS regression (opportunity_evaluation ~ overconfidence + small_numbers + planning_fallacy + illusion_of_control + risk_propensity + age)",
+              "statistical_hypothesis": "The regression coefficient on small_numbers is positive.",
+              "reported_statistics": "beta = 1.17, t = 1.91, p < .06 (Table 4, Model 2)",
+              "reported_coefficient": 1.17,
+              "reported_t_value": 1.91,
+              "significance_level": 0.06,
+              "expected_direction": "positive"
+            }
+          ],
+          "original_data_points": {
+            "description": "Model 2 coefficient plus Table 3 descriptives.",
+            "data": {
+              "small_numbers": {
+                "mean": -0.08,
+                "sd": 0.99,
+                "n": 77
+              },
+              "opportunity_evaluation": {
+                "mean": 12.97,
+                "sd": 4.1,
+                "n": 77
+              },
+              "correlation": 0.32,
+              "regression_beta": 1.17,
+              "regression_t": 1.91,
+              "model_controls": ["overconfidence", "planning_fallacy", "illusion_of_control", "risk_propensity", "age"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

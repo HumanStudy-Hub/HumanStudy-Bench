@@ -1,0 +1,85 @@
+{
+  "id": "study_013",
+  "title": "Opportunity Evaluation under Risky Conditions: The Cognitive Processes of Entrepreneurs",
+  "authors": [
+    "Hean Tat Keh",
+    "Maw Der Foo",
+    "Boon Chong Lim"
+  ],
+  "year": 2002,
+  "domain": "entrepreneurship",
+  "subdomain": "entrepreneurial_cognition",
+  "keywords": [
+    "overconfidence",
+    "illusion_of_control",
+    "planning_fallacy",
+    "belief_in_small_numbers",
+    "opportunity_evaluation",
+    "risk_perception",
+    "cognitive_biases",
+    "entrepreneurship",
+    "heuristics"
+  ],
+  "difficulty": "medium",
+  "description": "This study examines how cognitive biases affect entrepreneurs' opportunity evaluation under risky conditions. The benchmark reconstructs the paper's calibration test and its reported regression findings: entrepreneurs are overconfident, risk perception negatively predicts opportunity evaluation, illusion of control lowers risk perception and increases opportunity evaluation before the mediator is introduced, and belief in the law of small numbers increases opportunity evaluation in the pre-mediation model.",
+  "scenarios": [
+    "keh_foo_lim_opportunity_evaluation"
+  ],
+  "findings": [
+    {
+      "finding_id": "F1",
+      "main_hypothesis": "Entrepreneurs are overconfident: the mean number of confidence-interval items where the correct answer falls outside the stated 90% range is significantly greater than 1 (the calibrated baseline).",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "One-sample t-test (overconfidence score vs. calibrated baseline of 1)",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F2",
+      "main_hypothesis": "Risk perception negatively predicts opportunity evaluation (H1).",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "OLS regression (opportunity_evaluation ~ risk_perception)",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F3",
+      "main_hypothesis": "Illusion of control negatively predicts risk perception when the other cognitive-bias measures, age, and risk propensity are controlled (H5 / Model 1).",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "OLS regression (risk_perception ~ overconfidence + small_numbers + planning_fallacy + illusion_of_control + risk_propensity + age)",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F4",
+      "main_hypothesis": "Illusion of control positively predicts opportunity evaluation before the mediator is added, controlling for the other cognitive-bias measures, age, and risk propensity (Model 2).",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "OLS regression (opportunity_evaluation ~ overconfidence + small_numbers + planning_fallacy + illusion_of_control + risk_propensity + age)",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "finding_id": "F5",
+      "main_hypothesis": "Belief in the law of small numbers positively predicts opportunity evaluation before the mediator is added, controlling for the other cognitive-bias measures, age, and risk propensity (Model 2).",
+      "weight": 1.0,
+      "tests": [
+        {
+          "test_name": "OLS regression (opportunity_evaluation ~ overconfidence + small_numbers + planning_fallacy + illusion_of_control + risk_propensity + age)",
+          "weight": 1.0
+        }
+      ]
+    }
+  ]
+}

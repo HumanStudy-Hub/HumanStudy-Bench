@@ -1,0 +1,81 @@
+{
+  "sub_study_id": "section_d_case_vignette",
+  "instructions": "Please answer the following questions after reading the case study.",
+  "vignette_text": "Mr. Tan is a successful manager with four years of experience at a multi-national corporation (MNC). Before that he worked in a medium sized local company for five years. The idea of being his own boss, taking calculated risks, and making a fortune all appeal to him. Hence he is thinking of starting his own business.\n\nHe has an idea for a new business and decides to ask around to see if it is a good idea. He has some very positive feedback from some potential customers and some associates who know the industry well. Mr. Tan does not have the resources to do an in-depth market research to find out whether the business is going to work and published data are too general to be useful. However he feels that there is money to be made based on the positive feedback from potential customers and his associates. He is enthusiastic about starting the business even though he has no experience in this industry or starting his own business.\n\nThere are a few MNCs in the same industry but they have not targeted the market segment that Mr. Tan is aiming for. He feels that the MNCs are likely to move into the market as long as the new business is successful and he will not be able to fend off this major threat. He is unsure whether the market is still growing or matured. If the market has reached maturity, it is likely for a new business to be squeezed out of the market. If the market is still growing, the new business will be able to survive the entry of MNCs into this market segment. He finds out that there are only a few small businesses that are still surviving in the industry.\n\nMr. Tan estimates he will need at least S$150,000 to finance the new business. As he has only S$40,000 in savings, he has to borrow from the bank or find partners to get the rest of the investment funds needed.",
+  "scale": {
+    "min": 1,
+    "max": 7,
+    "labels": {
+      "1": "Strongly Disagree",
+      "7": "Strongly Agree"
+    }
+  },
+  "items": [
+    {
+      "id": "D1",
+      "question": "The overall risk of the business is high.",
+      "type": "likert_7",
+      "metadata": {
+        "construct": "risk_perception"
+      }
+    },
+    {
+      "id": "D2",
+      "question": "The probability of failure is high.",
+      "type": "likert_7",
+      "metadata": {
+        "construct": "risk_perception"
+      }
+    },
+    {
+      "id": "D3",
+      "question": "The founder stands to lose a lot financially.",
+      "type": "likert_7",
+      "metadata": {
+        "construct": "risk_perception"
+      }
+    },
+    {
+      "id": "D4",
+      "question": "There is a lot uncertainty when predicting how well the business will do.",
+      "type": "likert_7",
+      "metadata": {
+        "construct": "risk_perception"
+      }
+    },
+    {
+      "id": "D5",
+      "question": "I will consider this business an opportunity.",
+      "type": "likert_7",
+      "metadata": {
+        "construct": "opportunity_evaluation"
+      }
+    },
+    {
+      "id": "D6",
+      "question": "This business is worth considering.",
+      "type": "likert_7",
+      "metadata": {
+        "construct": "opportunity_evaluation"
+      }
+    },
+    {
+      "id": "D7",
+      "question": "This business is feasible given the situation.",
+      "type": "likert_7",
+      "metadata": {
+        "construct": "opportunity_evaluation"
+      }
+    },
+    {
+      "id": "D8",
+      "question": "State issues that influenced your view on whether Mr. Tan should start the above business or not. (Include whatever additional information you may need to make a better decision)",
+      "type": "open_ended",
+      "metadata": {
+        "construct": "belief_in_small_numbers",
+        "coding_scheme": "Responses requesting broader evidence such as market research, larger samples, statistical data, or surveys indicate statistical reasoning (coded -1). Responses that rely on the vignette as sufficient, including statements that no additional information is needed, indicate belief in the law of small numbers (coded +1).",
+        "note": "This item is optional in the prompt. Blank or explicitly skipped responses are treated as missing during scoring; 'no additional information needed' is a substantive response and should not be treated as missing."
+      }
+    }
+  ]
+}
