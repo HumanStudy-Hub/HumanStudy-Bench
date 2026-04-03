@@ -1,0 +1,453 @@
+{
+  "study_id": "stoffel_2023_decoy_effect_survey_participation",
+  "title": "Testing the decoy effect to improve online survey participation: Evidence from a field experiment",
+  "authors": [
+    "Sandro T. Stoffel",
+    "Yining Sun",
+    "Yasemin Hirst",
+    "Christian von Wagner",
+    "Ivo Vlaev"
+  ],
+  "year": 2023,
+  "preliminary_study_findings": [
+    {
+      "finding_id": "F1_prelim",
+      "description": "Respondents generally preferred close-ended questions over open-ended questions.",
+      "hypothesis": "Open-ended questions would be perceived as less attractive than close-ended questions and therefore could function as an inferior decoy attribute.",
+      "statistical_tests": [],
+      "raw_outcomes": "Among N=210 preliminary questionnaire respondents: close-ended questions 61.4% (n~129), open-ended questions 7.9% (n~17), indifferent 30.7% (n~64). Exact counts NOT PROVIDED in paper."
+    },
+    {
+      "finding_id": "F2_prelim",
+      "description": "Most respondents indicated they would not participate if remuneration were received only after four weeks.",
+      "hypothesis": "Delayed remuneration would be perceived as less attractive than sooner remuneration and therefore could function as an inferior decoy attribute.",
+      "statistical_tests": [],
+      "raw_outcomes": "Among N=210 preliminary questionnaire respondents: Definitely not 1.0% (n~2), Probably not 85.1% (n~179), Probably yes 1.5% (n~3), Definitely yes 12.4% (n~26). Overall 86.1% would not respond if remuneration in four weeks."
+    }
+  ],
+  "main_study": {
+    "study_id": "main_field_experiment",
+    "study_name": "Field experiment on the decoy effect in survey participation",
+    "period": "One week after preliminary questionnaire (August 2022)",
+    "n_randomized": 210,
+    "n_with_valid_email": 203,
+    "findings": [
+      {
+        "finding_id": "F1",
+        "description": "Randomization produced similar groups on most sociodemographic variables, except ethnicity.",
+        "hypothesis": "No explicit hypothesis; balance checks were used to compare control and decoy groups.",
+        "statistical_tests": [
+          {
+            "test_name": "Chi-square test of independence",
+            "test_id": "balance_age",
+            "variable": "Age",
+            "statistic": "χ² (reported as p-value)",
+            "p_value": "p = 0.165",
+            "raw_data": {
+              "control_n": 101,
+              "control_age_20_24": 33,
+              "control_age_25_29": 45,
+              "control_age_30_35": 23,
+              "decoy_n": 102,
+              "decoy_age_20_24": 22,
+              "decoy_age_25_29": 57,
+              "decoy_age_30_35": 23
+            },
+            "claim": "No age difference between control and decoy groups.",
+            "location": "Main paper Table 1"
+          },
+          {
+            "test_name": "Chi-square test of independence",
+            "test_id": "balance_gender",
+            "variable": "Gender",
+            "statistic": "χ² (reported as p-value)",
+            "p_value": "p = 0.441",
+            "raw_data": {
+              "control_male": 50,
+              "control_female": 51,
+              "decoy_male": 56,
+              "decoy_female": 46
+            },
+            "claim": "No gender difference between control and decoy groups.",
+            "location": "Main paper Table 1"
+          },
+          {
+            "test_name": "Fisher's exact test",
+            "test_id": "balance_ethnicity",
+            "variable": "Ethnicity",
+            "statistic": "Fisher exact p-value",
+            "p_value": "p = 0.004",
+            "raw_data": {
+              "control_white": 48,
+              "control_asian": 25,
+              "control_black": 25,
+              "control_other": 3,
+              "decoy_white": 69,
+              "decoy_asian": 23,
+              "decoy_black": 9,
+              "decoy_other": 1
+            },
+            "claim": "Ethnicity differed between conditions; the decoy condition contained more White participants (67.7% vs 47.5%).",
+            "location": "Main paper Table 1"
+          },
+          {
+            "test_name": "Chi-square test of independence",
+            "test_id": "balance_religion",
+            "variable": "Religion",
+            "statistic": "χ² (reported as p-value)",
+            "p_value": "p = 0.063",
+            "raw_data": {
+              "control_christian": 67,
+              "control_other_religion": 8,
+              "control_no_religion": 26,
+              "decoy_christian": 79,
+              "decoy_other_religion": 10,
+              "decoy_no_religion": 13
+            },
+            "claim": "No religion difference between control and decoy groups at conventional significance levels.",
+            "location": "Main paper Table 1"
+          },
+          {
+            "test_name": "Chi-square test of independence",
+            "test_id": "balance_education",
+            "variable": "Education",
+            "statistic": "χ² (reported as p-value)",
+            "p_value": "p = 0.233",
+            "raw_data": {
+              "control_bachelors": 48,
+              "control_graduate": 53,
+              "decoy_bachelors": 57,
+              "decoy_graduate": 45
+            },
+            "claim": "No education difference between control and decoy groups.",
+            "location": "Main paper Table 1"
+          }
+        ]
+      },
+      {
+        "finding_id": "F2",
+        "description": "The presence of the decoy option increased completion of the target survey.",
+        "hypothesis": "Among those likely to take part in a survey, the presence of a decoy version of the same survey on the invitation will increase the chances of completing the target version.",
+        "statistical_tests": [
+          {
+            "test_name": "Chi-square test of independence",
+            "test_id": "primary_outcome_unadjusted",
+            "variable": "Target survey completion",
+            "statistic": "χ²(1, N = 203) = 11.08",
+            "p_value": "p < 0.001",
+            "raw_data": {
+              "total_n": 203,
+              "control_completed": 33,
+              "control_n": 101,
+              "control_completion_rate": 0.327,
+              "decoy_completed": 57,
+              "decoy_n": 102,
+              "decoy_completion_rate": 0.559,
+              "note": "Table 2 / Table S3 reports decoy as 59.8%, but text, flow diagram, and participant-level data imply 57/102 = 55.9%"
+            },
+            "claim": "Target-survey completion was significantly higher in the decoy condition (55.9%) than in the control condition (32.7%).",
+            "location": "Main paper Results section 3.2.2 and Fig. 3"
+          },
+          {
+            "test_name": "Binary logistic regression",
+            "test_id": "primary_unadjusted_OR",
+            "model": "Model 1 - unadjusted",
+            "variable": "Decoy condition (vs control)",
+            "statistic": "OR = 2.610",
+            "confidence_interval": "95% CI 1.475-4.618",
+            "p_value": "p < 0.01",
+            "raw_data": {
+              "overall_completion": 0.443,
+              "control_reference": 0.327,
+              "decoy_row_reported": 0.598,
+              "note": "As reported in Table 2, Model 1; Supplementary Table S3"
+            },
+            "claim": "In the unadjusted model, the decoy condition significantly increased the odds of completing the target survey relative to control.",
+            "location": "Main paper Table 2, Model 1; Supplementary Table S3"
+          },
+          {
+            "test_name": "Binary logistic regression",
+            "test_id": "primary_adjusted_aOR",
+            "model": "Model 1 - adjusted",
+            "variable": "Decoy condition (vs control)",
+            "statistic": "aOR = 2.584",
+            "confidence_interval": "95% CI 1.415-4.718",
+            "p_value": "p < 0.01",
+            "covariates": ["Age", "Gender", "Ethnicity", "Religion", "Education"],
+            "claim": "The decoy effect on target-survey completion remained statistically significant after adjustment for sociodemographic variables.",
+            "location": "Main paper Table 2, Model 1; Supplementary Table S3"
+          }
+        ]
+      },
+      {
+        "finding_id": "F3",
+        "description": "A strong order effect was observed within the decoy condition: the decoy increased participation only when the target survey was presented first.",
+        "hypothesis": "Presentation order may influence the decoy effect because responses can favor options appearing earlier in a list.",
+        "statistical_tests": [
+          {
+            "test_name": "Binary logistic regression",
+            "test_id": "order_target_first_unadjusted",
+            "model": "Model 2 - unadjusted, target first vs control",
+            "variable": "Decoy-target-first condition (vs control)",
+            "statistic": "OR = 9.845",
+            "confidence_interval": "95% CI 4.293-22.580",
+            "p_value": "p < 0.01",
+            "raw_data": {
+              "control_completed": 33,
+              "control_n": 101,
+              "control_completion_rate": 0.327,
+              "decoy_target_first_completed": 43,
+              "decoy_target_first_n": 52,
+              "decoy_target_first_completion_rate": 0.827
+            },
+            "claim": "Showing the target first greatly increased target-survey completion (82.7%) relative to control (32.7%).",
+            "location": "Main paper Table 2, Model 2; Supplementary Table S4"
+          },
+          {
+            "test_name": "Binary logistic regression",
+            "test_id": "order_target_first_adjusted",
+            "model": "Model 2 - adjusted, target first vs control",
+            "variable": "Decoy-target-first condition (vs control)",
+            "statistic": "aOR = 11.177",
+            "confidence_interval": "95% CI 4.571-27.330",
+            "p_value": "p < 0.01",
+            "covariates": ["Age", "Gender", "Ethnicity", "Religion", "Education"],
+            "claim": "The target-first order effect remained large and significant after adjustment for sociodemographics.",
+            "location": "Main paper Table 2, Model 2; Supplementary Table S4"
+          },
+          {
+            "test_name": "Binary logistic regression",
+            "test_id": "order_decoy_first_unadjusted",
+            "model": "Model 2 - unadjusted, decoy first vs control",
+            "variable": "Decoy-decoy-first condition (vs control)",
+            "statistic": "OR = 0.801",
+            "confidence_interval": "95% CI 0.381-1.687",
+            "p_value": "NOT PROVIDED",
+            "raw_data": {
+              "control_completed": 33,
+              "control_n": 101,
+              "control_completion_rate": 0.327,
+              "decoy_decoy_first_completed": 14,
+              "decoy_decoy_first_n": 50,
+              "decoy_decoy_first_completion_rate": 0.280
+            },
+            "claim": "There was no evidence that showing the decoy first increased target-survey completion (28.0%) relative to control (32.7%).",
+            "location": "Main paper Table 2, Model 2; Supplementary Table S4"
+          },
+          {
+            "test_name": "Binary logistic regression",
+            "test_id": "order_decoy_first_adjusted",
+            "model": "Model 2 - adjusted, decoy first vs control",
+            "variable": "Decoy-decoy-first condition (vs control)",
+            "statistic": "aOR = 0.746",
+            "confidence_interval": "95% CI 0.341-1.631",
+            "p_value": "NOT PROVIDED",
+            "covariates": ["Age", "Gender", "Ethnicity", "Religion", "Education"],
+            "claim": "There was no decoy effect when the decoy was shown before the target, even after adjustment.",
+            "location": "Main paper Results section 3.2.2 and Table 2; Supplementary Table S4"
+          }
+        ]
+      },
+      {
+        "finding_id": "F4",
+        "description": "Most target-survey completers in the decoy condition reported that the decoy had at least somewhat influenced their decision to participate.",
+        "hypothesis": "The decoy option should be perceived as influencing participation decisions.",
+        "statistical_tests": [],
+        "raw_outcomes": "Among the 57 individuals in the decoy condition who completed the target survey, 33/57 (57.9%) at least somewhat agreed that the decoy survey had influenced their decision to participate."
+      },
+      {
+        "finding_id": "F5",
+        "description": "There was little evidence for adverse question-response behavior or non-response bias, except for ethnicity differences.",
+        "hypothesis": "The decoy should increase participation without negatively influencing question response behavior or inducing substantial non-response bias.",
+        "statistical_tests": [
+          {
+            "test_name": "Fisher's exact test",
+            "test_id": "completers_ethnicity",
+            "variable": "Ethnicity among target completers",
+            "statistic": "Fisher exact p-value",
+            "p_value": "p = 0.006",
+            "raw_data": {
+              "control_completers": 33,
+              "control_white": 12,
+              "control_asian": 14,
+              "control_black": 7,
+              "control_other": 0,
+              "decoy_completers": 57,
+              "decoy_white": 40,
+              "decoy_asian": 10,
+              "decoy_black": 6,
+              "decoy_other": 1
+            },
+            "claim": "Among target-survey completers, ethnicity differed between conditions: more White participants in the decoy condition (70.2% vs 36.4%).",
+            "location": "Main paper section 3.2.3; Supplementary Table S5"
+          },
+          {
+            "test_name": "Chi-square test",
+            "test_id": "completers_age",
+            "variable": "Age among target completers",
+            "statistic": "χ²",
+            "p_value": "p = 0.122",
+            "raw_data": {
+              "control_completers": 33,
+              "control_age_20_24": 13,
+              "control_age_25_29": 13,
+              "control_age_30_35": 7,
+              "decoy_completers": 57,
+              "decoy_age_20_24": 12,
+              "decoy_age_25_29": 34,
+              "decoy_age_30_35": 11
+            },
+            "claim": "No age difference among target completers across conditions.",
+            "location": "Supplementary Table S5"
+          },
+          {
+            "test_name": "Chi-square test",
+            "test_id": "completers_gender",
+            "variable": "Gender among target completers",
+            "statistic": "χ²",
+            "p_value": "p = 0.589",
+            "raw_data": {
+              "control_male": 16,
+              "control_female": 17,
+              "decoy_male": 31,
+              "decoy_female": 26
+            },
+            "claim": "No gender difference among target completers across conditions.",
+            "location": "Supplementary Table S5"
+          },
+          {
+            "test_name": "Chi-square test",
+            "test_id": "completers_religion",
+            "variable": "Religion among target completers",
+            "statistic": "χ²",
+            "p_value": "p = 0.329",
+            "raw_data": {
+              "control_christian": 20,
+              "control_non_christian": 5,
+              "control_no_religion": 8,
+              "decoy_christian": 43,
+              "decoy_non_christian": 5,
+              "decoy_no_religion": 9
+            },
+            "claim": "No religion difference among target completers across conditions.",
+            "location": "Supplementary Table S5"
+          },
+          {
+            "test_name": "Chi-square test",
+            "test_id": "completers_education",
+            "variable": "Education among target completers",
+            "statistic": "χ²",
+            "p_value": "p = 0.310",
+            "raw_data": {
+              "control_bachelors": 21,
+              "control_graduate": 12,
+              "decoy_bachelors": 30,
+              "decoy_graduate": 27
+            },
+            "claim": "No education difference among target completers across conditions.",
+            "location": "Supplementary Table S5"
+          },
+          {
+            "test_name": "Wilcoxon-Mann-Whitney test",
+            "test_id": "fcq_score_distribution",
+            "variable": "FCQ total score (8-40) among target completers",
+            "statistic": "z = 0.488",
+            "p_value": "p = 0.629",
+            "raw_data": {
+              "control_completers": 33,
+              "decoy_completers": 57,
+              "note": "Exact group means and SDs NOT PROVIDED"
+            },
+            "claim": "There was no statistically significant difference in FCQ score distributions across the two experimental conditions.",
+            "location": "Main paper section 3.2.3; Supplementary Fig. S4"
+          },
+          {
+            "test_name": "Chi-square test",
+            "test_id": "nonresponse_bias_age",
+            "variable": "Age comparing completers vs non-completers",
+            "statistic": "χ²",
+            "p_value": "p = 0.719",
+            "raw_data": {
+              "completers_20_24": 25,
+              "completers_25_29": 47,
+              "completers_30_35": 18,
+              "total_completers": 90,
+              "non_completers_20_24": 30,
+              "non_completers_25_29": 55,
+              "non_completers_30_35": 28,
+              "total_non_completers": 113
+            },
+            "claim": "No age difference between completers and non-completers.",
+            "location": "Supplementary Table S6"
+          },
+          {
+            "test_name": "Chi-square test",
+            "test_id": "nonresponse_bias_gender",
+            "variable": "Gender comparing completers vs non-completers",
+            "statistic": "χ²",
+            "p_value": "p = 0.999",
+            "raw_data": {
+              "completers_male": 47,
+              "completers_female": 43,
+              "non_completers_male": 59,
+              "non_completers_female": 54
+            },
+            "claim": "No gender difference between completers and non-completers.",
+            "location": "Supplementary Table S6"
+          },
+          {
+            "test_name": "Fisher's exact test",
+            "test_id": "nonresponse_bias_ethnicity",
+            "variable": "Ethnicity comparing completers vs non-completers",
+            "statistic": "Fisher exact p-value",
+            "p_value": "p = 0.661",
+            "raw_data": {
+              "completers_white": 52,
+              "completers_asian": 24,
+              "completers_black": 13,
+              "completers_other": 1,
+              "non_completers_white": 65,
+              "non_completers_asian": 24,
+              "non_completers_black": 21,
+              "non_completers_other": 3
+            },
+            "claim": "No overall ethnicity difference between completers and non-completers.",
+            "location": "Supplementary Table S6"
+          },
+          {
+            "test_name": "Chi-square test",
+            "test_id": "nonresponse_bias_religion",
+            "variable": "Religion comparing completers vs non-completers",
+            "statistic": "χ²",
+            "p_value": "p = 0.603",
+            "raw_data": {
+              "completers_christian": 63,
+              "completers_non_christian": 10,
+              "completers_no_religion": 17,
+              "non_completers_christian": 83,
+              "non_completers_non_christian": 8,
+              "non_completers_no_religion": 22
+            },
+            "claim": "No religion difference between completers and non-completers.",
+            "location": "Supplementary Table S6"
+          },
+          {
+            "test_name": "Chi-square test",
+            "test_id": "nonresponse_bias_education",
+            "variable": "Education comparing completers vs non-completers",
+            "statistic": "χ²",
+            "p_value": "p = 0.209",
+            "raw_data": {
+              "completers_bachelors": 51,
+              "completers_graduate": 39,
+              "non_completers_bachelors": 54,
+              "non_completers_graduate": 59
+            },
+            "claim": "No education difference between completers and non-completers.",
+            "location": "Supplementary Table S6"
+          }
+        ]
+      }
+    ]
+  }
+}

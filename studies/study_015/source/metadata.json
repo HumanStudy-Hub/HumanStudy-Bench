@@ -1,0 +1,144 @@
+{
+  "study_id": "stoffel_2023_decoy_effect_survey_participation",
+  "title": "Testing the decoy effect to improve online survey participation: Evidence from a field experiment",
+  "authors": [
+    "Sandro T. Stoffel",
+    "Yining Sun",
+    "Yasemin Hirst",
+    "Christian von Wagner",
+    "Ivo Vlaev"
+  ],
+  "year": 2023,
+  "journal": "Journal of Behavioral Decision Making",
+  "publication_type": "peer_reviewed_journal",
+  "paper_url": "https://doi.org/...",
+  "preprint_url": "NOT PROVIDED",
+  "study_registration": "NOT PROVIDED",
+  "data_availability": "Participant-level data available in exp.csv; analysis code in analysis_18082022.do (Stata)",
+  "ethical_approval": "NOT PROVIDED in paper",
+  "key_concepts": [
+    "decoy effect",
+    "attraction effect",
+    "choice architecture",
+    "survey participation",
+    "response rates",
+    "behavioral economics",
+    "online experiments",
+    "order effects",
+    "presentation order"
+  ],
+  "relevant_theories": [
+    "Choice overload",
+    "Decoy attraction effect",
+    "Choice presentation order effects"
+  ],
+  "replication_feasibility": {
+    "difficulty": "moderate",
+    "rationale": "Online survey administration with binary/multi-question stimuli is straightforward. The key complexities are: (1) simulating realistic choice between two survey options with different attributes, (2) capturing the LLM's willingness to complete open-ended responses (100+ word minimum), (3) accurately measuring the order effect with presentation order manipulation.",
+    "critical_factors": [
+      "Agent must realistically evaluate trade-offs between question type and payment timing",
+      "Presentation order must be manipulated within-subject (target first vs decoy first)",
+      "Open-ended responses must meet word count constraint (100+ words)",
+      "Debrief questions (e.g., 'did the decoy influence your choice?') must be credible",
+      "Fear of Coronavirus Questionnaire must be presented with realistic 5-point Likert scale"
+    ]
+  },
+  "known_limitations": {
+    "ethnicity_imbalance": "Significant imbalance in ethnicity between randomized groups (p=0.004); decoy condition had more White participants. This imbalance persisted among completers (p=0.006).",
+    "missing_religion_question": "Religion is analyzed in tables but exact question wording in the preliminary questionnaire is NOT PROVIDED in the paper supplement.",
+    "moderate_sample": "N=203 valid emails; 90 target completers provide reasonable power but limits subgroup analyses.",
+    "single_context": "Study conducted in UK with UK university students; generalizability to other contexts unknown.",
+    "short_followup": "No long-term follow-up; unclear if decoy effect persists for future survey invitations."
+  },
+  "comparison_to_other_studies": {
+    "similar_studies": [
+      "Decoy effect / attraction effect studies in consumer choice (Ariely, Huber & Puto)",
+      "Survey response rate improvement literature (Groves, Singer, Corning)"
+    ],
+    "novelty": "This appears to be one of the first applications of the decoy effect to survey participation contexts, with a focus on presentation order effects."
+  },
+  "simulation_requirements": {
+    "agent_decision_points": [
+      "Preliminary survey: preference for question type and willingness to wait for payment",
+      "Main experiment: choice between target and decoy survey options (or decline to participate in control)",
+      "Target survey completion: FCQ Likert responses, demographics, debrief rankings",
+      "Decoy survey completion: open-ended text responses (100+ words each), debrief rankings"
+    ],
+    "evaluation_metrics": [
+      "Primary: binary outcome (target survey completion)",
+      "Secondary: FCQ score distribution (sum of 8 Likert items)",
+      "Secondary: perceived influence of decoy (debrief response)",
+      "Analysis: replication of chi-square tests, logistic regression ORs, order effect contrast"
+    ],
+    "expected_challenges": [
+      "Open-ended responses may be difficult for LLM to provide realistically within 100-word constraints",
+      "Decoy effect presumes realistic cost-benefit trade-off evaluation; some agents may complete both surveys or neither",
+      "Large order effect (11:1 ratio for target-first vs decoy-first) is strong; difficult to achieve with LLM agents unless prompt construction is highly realistic"
+    ]
+  },
+  "data_structure": {
+    "participants": 203,
+    "variables_collected": 36,
+    "raw_data_file": "exp.csv",
+    "participant_id": "ParticipantNumber",
+    "condition_variable": "Condition (Decoy Condition, Control Condition)",
+    "order_variable": "conditiongroup (Decoy: target 1st vs Control)",
+    "demographics": [
+      "Age",
+      "Gender",
+      "Race/Ethnicity",
+      "Religion",
+      "Education"
+    ],
+    "outcome_variables": [
+      "Participate (binary: yes/no)",
+      "ValidEmail (binary: yes/no for receiving invitation)",
+      "QuestionTypePrefer (multiple choice)",
+      "AttitudetoLatePayment (multiple choice)"
+    ]
+  },
+  "statistical_methods_used": [
+    "Chi-square test of independence",
+    "Fisher's exact test",
+    "Binary logistic regression (unadjusted and adjusted)",
+    "Wilcoxon-Mann-Whitney test (for FCQ score distributions)"
+  ],
+  "reproducibility_notes": "The paper provides detailed tables with raw numbers, odds ratios, confidence intervals, and p-values. The participant-level data (exp.csv) and Stata analysis script (analysis_18082022.do) are available, enabling full reproducibility. Order effects are clearly reported, with separate analysis for target-first and decoy-first conditions.",
+  "findings": [
+    {
+      "finding_id": "F1_prelim",
+      "description": "Preference for closed-ended questions validation",
+      "weight": 0.05
+    },
+    {
+      "finding_id": "F2_prelim",
+      "description": "Aversion to delayed payment validation",
+      "weight": 0.05
+    },
+    {
+      "finding_id": "F1",
+      "description": "Randomization balance checks",
+      "weight": 0.01
+    },
+    {
+      "finding_id": "F2",
+      "description": "Primary: Decoy effect on target survey completion",
+      "weight": 0.35
+    },
+    {
+      "finding_id": "F3",
+      "description": "Primary: Order effect (target-first vs decoy-first vs control)",
+      "weight": 0.35
+    },
+    {
+      "finding_id": "F4",
+      "description": "Secondary: Perceived influence of decoy on decision",
+      "weight": 0.10
+    },
+    {
+      "finding_id": "F5",
+      "description": "Secondary: Non-response bias and response behavior checks",
+      "weight": 0.14
+    }
+  ]
+}

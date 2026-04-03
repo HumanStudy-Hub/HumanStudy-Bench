@@ -1,0 +1,105 @@
+{
+  "sub_study_id": "preliminary_questionnaire",
+  "sub_study_name": "Preliminary questionnaire for recruitment and manipulation validation",
+  "instructions": "This questionnaire is to recruit participants. The main questionnaire will be sent via email in one week. Would you like to provide your email address for further study?",
+  "items": [
+    {
+      "id": "email_opt_in",
+      "question": "This questionnaire is to recruit participants. The main questionnaire will be sent via email in one week. Would you like to provide your email address for further study?",
+      "type": "binary_choice",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "q_idx": "Q1"
+    },
+    {
+      "id": "email_address",
+      "question": "What is your email address?",
+      "type": "text_entry",
+      "q_idx": "Q2",
+      "note": "Conditional on Q1 = Yes"
+    },
+    {
+      "id": "year_of_birth",
+      "question": "What is your year of birth?",
+      "type": "text_entry",
+      "q_idx": "Q3"
+    },
+    {
+      "id": "gender",
+      "question": "What gender do you identify as?",
+      "type": "multiple_choice",
+      "options": [
+        "Female",
+        "Male",
+        "Other, please specify"
+      ],
+      "q_idx": "Q4"
+    },
+    {
+      "id": "race_ethnicity",
+      "question": "Choose one or more races that you consider yourself to be",
+      "type": "multiple_select",
+      "options": [
+        "White",
+        "Black or African American",
+        "American Indian or Alaska Native",
+        "Asian",
+        "Native Hawaiian or Pacific Islander",
+        "Other"
+      ],
+      "q_idx": "Q5"
+    },
+    {
+      "id": "education_level",
+      "question": "What is your current education level?",
+      "type": "multiple_choice",
+      "options": [
+        "Some University but no degree",
+        "University - Bachelors Degree",
+        "Graduate or professional degree (MA, MS, MBA, PhD, Law Degree, Medical Degree etc)",
+        "Prefer not to say"
+      ],
+      "q_idx": "Q6"
+    },
+    {
+      "id": "preferred_question_type",
+      "question": "When you are invited to fill in a questionnaire, which question type would you prefer to answer?",
+      "type": "multiple_choice",
+      "options": [
+        "Close-ended questions (e.g. multiple choice)",
+        "Open-ended questions (e.g. text entry)",
+        "There is no difference between the two options for me"
+      ],
+      "q_idx": "Q7",
+      "note": "This item is used to validate that closed-ended questions are perceived as more attractive than open-ended questions, supporting the use of open-ended questions as a decoy attribute."
+    },
+    {
+      "id": "delay_payment_willingness",
+      "question": "If you are invited to fill in a questionnaire, but you need to wait four weeks to receive your participation payment, will you still participate in the study?",
+      "type": "multiple_choice",
+      "options": [
+        "Yes",
+        "I may consider",
+        "No"
+      ],
+      "q_idx": "Q8",
+      "note": "This item is used to validate that immediate payment is perceived as more attractive than delayed payment, supporting the use of delayed payment as a decoy attribute."
+    },
+    {
+      "id": "religion",
+      "question": "NOT PROVIDED in paper supplement",
+      "type": "multiple_choice",
+      "note": "Religion is analyzed in study tables but exact question wording is NOT PROVIDED in the paper."
+    }
+  ],
+  "metadata": {
+    "recruitment_venue": "Students at UK-based university via Facebook, WhatsApp, and WeChat",
+    "completion_incentive": "£2 Amazon voucher for providing email to participate in main study",
+    "n_started": 241,
+    "n_completed": 216,
+    "n_with_email": 210,
+    "purpose": "To recruit participants for main experiment and to validate that open-ended questions and delayed payment would be perceived as inferior attributes suitable for use as a decoy"
+  }
+}

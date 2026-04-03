@@ -1,0 +1,169 @@
+{
+  "sub_study_id": "main_experiment_control",
+  "sub_study_name": "Main experiment - Control condition",
+  "design_notes": "Participants receive email invitation with only the target survey option (no decoy).",
+  "instructions": "Invitation email (control condition) sent one week after preliminary questionnaire. No reminder emails sent.",
+  "invitation_email": {
+    "subject": "Survey: Your Mental Health Status During the Pandemic",
+    "body": "Hi there,\n\nThank you for signing up for our study earlier! We hope you will participate in the survey about your mental health status during the pandemic. It takes 15 minutes. You will be asked to answer some demographic questions and the main questionnaire includes 8 closed-ended (Scale Multiple Choice Questions). For your time, we will email you two £1 UK Amazon e-vouchers.\n\nTake the Survey.\n\nPlease complete the survey by Monday, August 15th.\n\nAbout this survey: Your answers will remain anonymous and will be used by the researcher's graduation thesis. I hope you'll take 15 minutes to complete the survey and enjoy your gift!"
+  },
+  "items": [
+    {
+      "id": "demographics_birth_year",
+      "question": "What is your year of birth?",
+      "type": "text_entry",
+      "q_idx": "Q1"
+    },
+    {
+      "id": "demographics_gender",
+      "question": "What gender do you identify as?",
+      "type": "multiple_choice",
+      "options": [
+        "Female",
+        "Male",
+        "Other, please specify"
+      ],
+      "q_idx": "Q2"
+    },
+    {
+      "id": "demographics_race",
+      "question": "Choose one or more races that you consider yourself to be",
+      "type": "multiple_select",
+      "options": [
+        "White",
+        "Black or African American",
+        "American Indian or Alaska Native",
+        "Asian",
+        "Native Hawaiian or Pacific Islander",
+        "Other"
+      ],
+      "q_idx": "Q3"
+    },
+    {
+      "id": "demographics_education",
+      "question": "What is your current education level?",
+      "type": "multiple_choice",
+      "options": [
+        "Some University but no degree",
+        "University - Bachelor Degree",
+        "Graduate or professional degree (MA, MS, MBA, PhD, Law Degree, Medical Degree etc)",
+        "Prefer not to say"
+      ],
+      "q_idx": "Q4"
+    },
+    {
+      "id": "fcq_prompt",
+      "question": "Please select the extent to which the following thoughts, feelings and behaviors apply to you:",
+      "instruction": "Scale: 1 = Strongly disagree, 5 = Strongly agree",
+      "type": "likert_scale",
+      "scale_min": 1,
+      "scale_max": 5
+    },
+    {
+      "id": "fcq_item_1",
+      "question": "I am very worried about the corona virus outbreak.",
+      "type": "likert_5",
+      "q_idx": "Q5a",
+      "scale": [1, 2, 3, 4, 5],
+      "scale_labels": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+    },
+    {
+      "id": "fcq_item_2",
+      "question": "I am taking precautions to prevent infection (e.g., washing hands, avoiding contact with people, avoiding door handles).",
+      "type": "likert_5",
+      "q_idx": "Q5b",
+      "scale": [1, 2, 3, 4, 5],
+      "scale_labels": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+    },
+    {
+      "id": "fcq_item_3",
+      "question": "I am constantly following all news updates regarding the virus.",
+      "type": "likert_5",
+      "q_idx": "Q5c",
+      "scale": [1, 2, 3, 4, 5],
+      "scale_labels": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+    },
+    {
+      "id": "fcq_item_4",
+      "question": "I have stocked up on supplies to prepare for problems related to the coronavirus outbreak.",
+      "type": "likert_5",
+      "q_idx": "Q5d",
+      "scale": [1, 2, 3, 4, 5],
+      "scale_labels": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+    },
+    {
+      "id": "fcq_item_5",
+      "question": "For my personal health I find the virus to be much more dangerous than the seasonal flu.",
+      "type": "likert_5",
+      "q_idx": "Q5e",
+      "scale": [1, 2, 3, 4, 5],
+      "scale_labels": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+    },
+    {
+      "id": "fcq_item_6",
+      "question": "I feel that the health authorities are not doing enough to deal with the virus.",
+      "type": "likert_5",
+      "q_idx": "Q5f",
+      "scale": [1, 2, 3, 4, 5],
+      "scale_labels": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+    },
+    {
+      "id": "fcq_item_7",
+      "question": "I am worried that friends or family will be infected.",
+      "type": "likert_5",
+      "q_idx": "Q5g",
+      "scale": [1, 2, 3, 4, 5],
+      "scale_labels": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+    },
+    {
+      "id": "fcq_item_8",
+      "question": "I take more precautions compared to most people to not become infected.",
+      "type": "likert_5",
+      "q_idx": "Q5h",
+      "scale": [1, 2, 3, 4, 5],
+      "scale_labels": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+    },
+    {
+      "id": "debrief_ranking_1",
+      "question": "Rank the reasons why you choose to respond to this survey",
+      "type": "ranking",
+      "options": [
+        "I'm interested in this topic",
+        "I can receive an incentive from completing this survey",
+        "I can accept the length of the survey",
+        "I am assured of anonymity",
+        "I like the question type (closed-ended)"
+      ],
+      "q_idx": "Q6"
+    },
+    {
+      "id": "debrief_ranking_2",
+      "question": "Rank the reasons why you choose to respond to an online survey",
+      "type": "ranking",
+      "options": [
+        "Interest in the Topic",
+        "Rewards",
+        "Length of Survey",
+        "Value Privacy (e.g. anonymity)",
+        "The Question Types (closed-ended or open-ended)"
+      ],
+      "q_idx": "Q7"
+    }
+  ],
+  "fcq_scoring": {
+    "description": "Fear of Coronavirus Questionnaire total score",
+    "items_to_sum": ["Q5a", "Q5b", "Q5c", "Q5d", "Q5e", "Q5f", "Q5g", "Q5h"],
+    "score_range": [8, 40],
+    "note": "Total is sum of 8 Likert items each ranging 1-5"
+  },
+  "condition_metadata": {
+    "condition": "Control",
+    "condition_id": "control",
+    "n_randomized": 101,
+    "n_with_valid_email": 101,
+    "n_completed_target": 33,
+    "completion_rate": 0.327,
+    "incentive": "£2 Amazon voucher (two £1 e-vouchers) received after 1 week upon completion",
+    "deadline": "Monday, August 15th"
+  }
+}

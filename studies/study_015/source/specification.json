@@ -1,0 +1,137 @@
+{
+  "study_id": "stoffel_2023_decoy_effect_survey_participation",
+  "title": "Testing the decoy effect to improve online survey participation: Evidence from a field experiment",
+  "participants": {
+    "preliminary_questionnaire": {
+      "n": 210,
+      "details": "241 individuals clicked the survey link and started the preliminary questionnaire; 216 completed the questionnaire; 210 provided an email address to be invited to the experiment. Recruited in August 2022 from students registered at a UK-based university through Facebook, WhatsApp, and WeChat.",
+      "demographics_reported": {
+        "age_20_24": 56,
+        "age_25_29": 107,
+        "age_30_35": 47,
+        "male": 110,
+        "female": 100,
+        "white": 120,
+        "asian": 50,
+        "black": 36,
+        "other_ethnicity": 4,
+        "christian": 151,
+        "other_religion": 41,
+        "no_religion": 18,
+        "bachelors_degree": 109,
+        "graduate_degree": 101
+      }
+    },
+    "main_experiment": {
+      "n": 203,
+      "details": "210 invitation emails sent; 7 emails bounced (4 from control, 3 from decoy), leaving 203 who received the experimental invitation. Randomized in Microsoft Excel. Sample characteristics among the 203 valid-email participants: age 20-24: 55 (27.1%), 25-29: 102 (50.2%), 30-35: 46 (22.7%); male: 106 (52.2%), female: 97 (47.8%); White: 117 (57.6%), Asian: 48 (23.7%), Black: 34 (16.7%), Other: 4 (2.0%); Christian: 146 (71.9%), Other religion: 18 (8.9%), No religion: 39 (19.2%); Bachelor's degree: 105 (51.7%), Graduate/professional degree: 98 (48.3%).",
+      "control_group": {
+        "n": 101,
+        "description": "Received email invitation with only the target survey option"
+      },
+      "decoy_group": {
+        "n": 102,
+        "description": "Received email invitation with both target and decoy survey options",
+        "decoy_target_first": {
+          "n": 52,
+          "description": "Decoy group randomized to see target survey first in the comparison table"
+        },
+        "decoy_decoy_first": {
+          "n": 50,
+          "description": "Decoy group randomized to see decoy survey first in the comparison table"
+        }
+      }
+    }
+  },
+  "design": {
+    "type": "between-subjects field experiment with nested randomization of option order within the decoy condition",
+    "primary_factor": "Invitation condition (control vs decoy)",
+    "secondary_factor": "Presentation order within decoy condition (target first vs decoy first)",
+    "randomization": "Microsoft Excel random function",
+    "conditions": [
+      {
+        "condition_id": "control",
+        "name": "Control",
+        "description": "Email invitation offers only the target survey (Fear of Coronavirus Questionnaire with 8 closed-ended questions; £2 Amazon voucher after 1 week)"
+      },
+      {
+        "condition_id": "decoy_target_first",
+        "name": "Decoy - Target First",
+        "description": "Email invitation offers both target (closed-ended, £2 after 1 week) and decoy (open-ended, £2 after 4 weeks) surveys in table format with target shown first"
+      },
+      {
+        "condition_id": "decoy_decoy_first",
+        "name": "Decoy - Decoy First",
+        "description": "Email invitation offers both target (closed-ended, £2 after 1 week) and decoy (open-ended, £2 after 4 weeks) surveys in table format with decoy shown first"
+      }
+    ]
+  },
+  "procedure": [
+    {
+      "stage": 1,
+      "name": "Preliminary questionnaire recruitment",
+      "duration": "August 2022",
+      "details": "Students at a UK-based university were contacted via social media (Facebook, WhatsApp, WeChat) with a survey on fear of coronavirus. Participants completed a preliminary questionnaire assessing attitudes toward question type (close-ended vs open-ended) and payment delay (1 week vs 4 weeks) and provided demographics. At the end, participants could provide their email address for an Amazon voucher of £2 to participate in the main survey."
+    },
+    {
+      "stage": 2,
+      "name": "Main field experiment",
+      "duration": "One week after preliminary questionnaire",
+      "details": "Individuals who had provided email addresses were sent an email invitation to the main questionnaire. Participants were randomized in Microsoft Excel into control or decoy conditions. Within the decoy condition, participants were further randomized with equal probability to one of two presentation orders: target first or decoy first. No reminder emails were sent."
+    },
+    {
+      "stage": 3,
+      "name": "Target survey completion (if selected)",
+      "details": "Target survey consisted of: (1) Demographics (4 items); (2) Fear of Coronavirus Questionnaire (8 items, 1-5 Likert scale); (3) Debrief questions (2-3 items depending on condition). Reward: £2 Amazon voucher after 1 week."
+    },
+    {
+      "stage": 4,
+      "name": "Decoy survey completion (if selected in decoy condition)",
+      "details": "Decoy survey consisted of: (1) Demographics (4 items); (2) Two open-ended questions requiring minimum 100 words each on coronavirus attitudes and precautions; (3) Debrief questions (4-5 items). Reward: £2 Amazon voucher after 4 weeks (stated reason: responses need to be coded)."
+    }
+  ],
+  "primary_outcomes": [
+    {
+      "outcome_id": "target_completion",
+      "name": "Completion of target questionnaire",
+      "measurement": "Binary (yes/no)",
+      "unit_of_analysis": "Per participant"
+    }
+  ],
+  "secondary_outcomes": [
+    {
+      "outcome_id": "fcq_score",
+      "name": "Fear of Coronavirus Questionnaire total score",
+      "measurement": "Summed Likert scale (8-40)",
+      "unit_of_analysis": "Per participant (among target completers)"
+    },
+    {
+      "outcome_id": "perceived_influence",
+      "name": "Perceived influence of decoy on decision",
+      "measurement": "Binary/categorical response to debrief question",
+      "unit_of_analysis": "Per target completer in decoy condition"
+    },
+    {
+      "outcome_id": "decoy_completion",
+      "name": "Completion of decoy questionnaire",
+      "measurement": "Binary (yes/no)",
+      "unit_of_analysis": "Per participant (in decoy condition)"
+    }
+  ],
+  "independent_variables": [
+    {
+      "name": "Invitation condition",
+      "levels": ["Control (target only)", "Decoy (both options)"]
+    },
+    {
+      "name": "Presentation order (within decoy condition)",
+      "levels": ["Target first", "Decoy first"]
+    }
+  ],
+  "dependent_variables": [
+    "Completion of target survey (primary)",
+    "Fear of Coronavirus Questionnaire responses (secondary)",
+    "Demographic composition of completers vs non-completers (secondary)",
+    "Self-reported influence of decoy on participation decision (secondary)"
+  ]
+}
