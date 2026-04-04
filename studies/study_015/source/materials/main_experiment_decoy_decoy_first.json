@@ -1,0 +1,324 @@
+{
+  "sub_study_id": "main_experiment_decoy_decoy_first",
+  "sub_study_name": "Main experiment - Decoy condition with decoy shown first",
+  "design_notes": "Participants receive email invitation presenting both target and decoy survey options in a comparison table with the decoy survey shown first.",
+  "instructions": "Invitation email (decoy condition, decoy first) sent one week after preliminary questionnaire. No reminder emails sent.",
+  "invitation_email": {
+    "subject": "Survey: Your Mental Health Status During the Pandemic",
+    "body": "Hi there,\n\nThank you for signing up for our study earlier! We hope you will participate in the survey about your mental health status during the pandemic. The survey may take you 15 minutes and there are two types of questionnaires you can choose."
+  },
+  "comparison_table": {
+    "presentation_order": "decoy_first",
+    "note": "Decoy survey options presented first, target survey options presented second",
+    "columns": [
+      {
+        "title": "Open-ended questions",
+        "question_type": "Two open-ended questions (answer each question with no less than 100 words)",
+        "reward": "£2 UK Amazon e-vouchers",
+        "reward_timing": "4 weeks after you finish the survey (as we need to check your answer)",
+        "survey_type": "decoy"
+      },
+      {
+        "title": "Closed-ended questions",
+        "question_type": "Eight scale multiple choice questions",
+        "reward": "£2 UK Amazon e-vouchers",
+        "reward_timing": "1 week after you finish the survey",
+        "survey_type": "target"
+      }
+    ],
+    "footer": "Please complete one questionnaire by 8 PM (UK Time), Tuesday, August 16th. About this survey: Your answers will remain anonymous and will be used in the researcher's graduation thesis. I hope you'll take 15 minutes to complete the survey and enjoy your gift!"
+  },
+  "decoy_questionnaire": {
+    "description": "Open-ended questions survey - the decoy option designed to be less attractive",
+    "items": [
+      {
+        "id": "demographics_birth_year",
+        "question": "What is your year of birth?",
+        "type": "text_entry",
+        "q_idx": "Q1"
+      },
+      {
+        "id": "demographics_gender",
+        "question": "What gender do you identify as?",
+        "type": "multiple_choice",
+        "options": [
+          "Female",
+          "Male",
+          "Other, please specify"
+        ],
+        "q_idx": "Q2"
+      },
+      {
+        "id": "demographics_race",
+        "question": "Choose one or more races that you consider yourself to be",
+        "type": "multiple_select",
+        "options": [
+          "White",
+          "Black or African American",
+          "American Indian or Alaska Native",
+          "Asian",
+          "Native Hawaiian or Pacific Islander",
+          "Other"
+        ],
+        "q_idx": "Q3"
+      },
+      {
+        "id": "demographics_education",
+        "question": "What is your current education level?",
+        "type": "multiple_choice",
+        "options": [
+          "Some University but no degree",
+          "University - Bachelors Degree",
+          "Graduate or professional degree (MA, MS, MBA, PhD, Law Degree, Medical Degree etc)",
+          "Prefer not to say"
+        ],
+        "q_idx": "Q4"
+      },
+      {
+        "id": "open_ended_1",
+        "question": "Can you describe how your attitude towards coronavirus has changed from the beginning until now?",
+        "type": "open_ended_text",
+        "constraint": "no less than 100 words",
+        "q_idx": "Q5"
+      },
+      {
+        "id": "open_ended_2",
+        "question": "Can you describe what precautions you know to prevent infection? Which ones have you done? Do you continue doing them?",
+        "type": "open_ended_text",
+        "constraint": "no less than 100 words",
+        "q_idx": "Q6"
+      },
+      {
+        "id": "debrief_choice_reason",
+        "question": "Why did you choose to answer the open-ended questions instead of the closed-ended questions?",
+        "type": "open_ended_text",
+        "constraint": "no less than five words",
+        "q_idx": "Q7"
+      },
+      {
+        "id": "debrief_ranking_1",
+        "question": "Rank the reasons why you choose to respond to this survey",
+        "type": "ranking",
+        "options": [
+          "I'm interested in this topic",
+          "I can receive an incentive from completing this survey",
+          "I can accept the length of the survey",
+          "I am assured of anonymity",
+          "I like the question type (open-ended)"
+        ],
+        "q_idx": "Q8"
+      },
+      {
+        "id": "debrief_ranking_2",
+        "question": "Rank the reasons why you choose to respond to an online survey",
+        "type": "ranking",
+        "options": [
+          "Interest in the Topic",
+          "Rewards",
+          "Length of Survey",
+          "Value Privacy (e.g. anonymity)",
+          "The Question Types (closed-ended or open-ended)"
+        ],
+        "q_idx": "Q9"
+      },
+      {
+        "id": "preference_open_ended",
+        "question": "Open-ended questions are more appealing to me than the closed-ended questions.",
+        "type": "likert_5",
+        "options": [
+          "Strongly agree",
+          "Somewhat agree",
+          "Disagree",
+          "Somewhat disagree",
+          "Strongly disagree"
+        ],
+        "q_idx": "Q10"
+      },
+      {
+        "id": "preference_delayed_payment",
+        "question": "Late payment of incentives is more appealing to me than immediate payment.",
+        "type": "likert_5",
+        "options": [
+          "Strongly agree",
+          "Somewhat agree",
+          "Disagree",
+          "Somewhat disagree",
+          "Strongly disagree"
+        ],
+        "q_idx": "Q11"
+      }
+    ]
+  },
+  "target_questionnaire": {
+    "description": "Closed-ended questions survey - the preferred option",
+    "items": [
+      {
+        "id": "demographics_birth_year",
+        "question": "What is your year of birth?",
+        "type": "text_entry",
+        "q_idx": "Q1"
+      },
+      {
+        "id": "demographics_gender",
+        "question": "What gender do you identify as?",
+        "type": "multiple_choice",
+        "options": [
+          "Female",
+          "Male",
+          "Other, please specify"
+        ],
+        "q_idx": "Q2"
+      },
+      {
+        "id": "demographics_race",
+        "question": "Choose one or more races that you consider yourself to be",
+        "type": "multiple_select",
+        "options": [
+          "White",
+          "Black or African American",
+          "American Indian or Alaska Native",
+          "Asian",
+          "Native Hawaiian or Pacific Islander",
+          "Other"
+        ],
+        "q_idx": "Q3"
+      },
+      {
+        "id": "demographics_education",
+        "question": "What is your current education level?",
+        "type": "multiple_choice",
+        "options": [
+          "Some University but no degree",
+          "University - Bachelors Degree",
+          "Graduate or professional degree (MA, MS, MBA, PhD, Law Degree, Medical Degree etc)",
+          "Prefer not to say"
+        ],
+        "q_idx": "Q4"
+      },
+      {
+        "id": "fcq_prompt",
+        "question": "Please select the extent to which the following thoughts, feelings and behaviors apply to you:",
+        "instruction": "Scale: 1 = Strongly disagree, 5 = Strongly agree",
+        "type": "likert_scale",
+        "scale_min": 1,
+        "scale_max": 5
+      },
+      {
+        "id": "fcq_item_1",
+        "question": "I am very worried about the corona virus outbreak.",
+        "type": "likert_5",
+        "q_idx": "Q5a",
+        "scale": [1, 2, 3, 4, 5]
+      },
+      {
+        "id": "fcq_item_2",
+        "question": "I am taking precautions to prevent infection (e.g., washing hands, avoiding contact with people, avoiding door handles).",
+        "type": "likert_5",
+        "q_idx": "Q5b",
+        "scale": [1, 2, 3, 4, 5]
+      },
+      {
+        "id": "fcq_item_3",
+        "question": "I am constantly following all news updates regarding the virus.",
+        "type": "likert_5",
+        "q_idx": "Q5c",
+        "scale": [1, 2, 3, 4, 5]
+      },
+      {
+        "id": "fcq_item_4",
+        "question": "I have stocked up on supplies to prepare for problems related to the coronavirus outbreak.",
+        "type": "likert_5",
+        "q_idx": "Q5d",
+        "scale": [1, 2, 3, 4, 5]
+      },
+      {
+        "id": "fcq_item_5",
+        "question": "For my personal health I find the virus to be much more dangerous than the seasonal flu.",
+        "type": "likert_5",
+        "q_idx": "Q5e",
+        "scale": [1, 2, 3, 4, 5]
+      },
+      {
+        "id": "fcq_item_6",
+        "question": "I feel that the health authorities are not doing enough to deal with the virus.",
+        "type": "likert_5",
+        "q_idx": "Q5f",
+        "scale": [1, 2, 3, 4, 5]
+      },
+      {
+        "id": "fcq_item_7",
+        "question": "I am worried that friends or family will be infected.",
+        "type": "likert_5",
+        "q_idx": "Q5g",
+        "scale": [1, 2, 3, 4, 5]
+      },
+      {
+        "id": "fcq_item_8",
+        "question": "I take more precautions compared to most people to not become infected.",
+        "type": "likert_5",
+        "q_idx": "Q5h",
+        "scale": [1, 2, 3, 4, 5]
+      },
+      {
+        "id": "debrief_choice_reason",
+        "question": "Why did you choose to answer the closed-ended questions instead of the open-ended questions?",
+        "type": "multiple_choice",
+        "options": [
+          "Closed-ended questions take me less time",
+          "The payment of this type questionnaire is faster",
+          "Both of them",
+          "Neither of them (please write your reason)"
+        ],
+        "q_idx": "Q6"
+      },
+      {
+        "id": "debrief_ranking_1",
+        "question": "Rank the reasons why you choose to respond to this survey",
+        "type": "ranking",
+        "options": [
+          "I'm interested in this topic",
+          "I can receive an incentive from completing this survey",
+          "I can accept the length of the survey",
+          "I am assured of anonymity",
+          "I like the question type (closed-ended)"
+        ],
+        "q_idx": "Q7"
+      },
+      {
+        "id": "debrief_ranking_2",
+        "question": "Rank the reasons why you choose to respond to an online survey",
+        "type": "ranking",
+        "options": [
+          "Interest in the Topic",
+          "Rewards",
+          "Length of Survey",
+          "Value Privacy (e.g. anonymity)",
+          "The Question Types (closed-ended or open-ended)"
+        ],
+        "q_idx": "Q8"
+      },
+      {
+        "id": "debrief_decoy_influence",
+        "question": "Being offered an inferior choice (like the open question and late payment in this case) can stimulate me to respond to a survey.",
+        "type": "likert_5",
+        "options": [
+          "Strongly agree",
+          "Somewhat agree",
+          "Disagree",
+          "Somewhat disagree",
+          "Strongly disagree"
+        ],
+        "q_idx": "Q9"
+      }
+    ]
+  },
+  "condition_metadata": {
+    "condition": "Decoy - Decoy First",
+    "condition_id": "decoy_decoy_first",
+    "n_randomized": 50,
+    "n_completed_target": 14,
+    "completion_rate": 0.280,
+    "incentive": "£2 Amazon voucher (two £1 e-vouchers) for completing either survey; received after 1 week (target) or 4 weeks (decoy)",
+    "deadline": "Tuesday, August 16th, 8 PM UK Time"
+  }
+}
