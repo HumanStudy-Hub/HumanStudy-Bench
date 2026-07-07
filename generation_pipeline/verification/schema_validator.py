@@ -693,19 +693,64 @@ def _normalize_direction(effect: dict[str, Any], path: str, report: SchemaValida
 
 
 def _normalize_effecttype(effect: dict[str, Any], path: str, report: SchemaValidationReport, repair: bool) -> None:
+    value = effect.get("effecttype")
+    if _is_null_string(value) or value is None:
+        inferred = _infer_effecttype(effect)
+        _replace(
+            effect,
+            "effecttype",
+            inferred,
+            path,
+            report,
+            repair,
+            f"effecttype missing value inferred as {inferred!r}",
+        )
+        return
+
     mapping = {
         "interaction": "int",
         "interactions": "int",
         "moderation": "int",
+        "moderating": "int",
+        "moderated": "int",
         "main effect": "main",
         "main_effect": "main",
         "simple effect": "simple",
         "simple_effect": "simple",
+        "simple slope": "simple",
+        "simple slopes": "simple",
+        "indirect": "mediation",
+        "indirect effect": "mediation",
+        "mediated": "mediation",
+        "mediator": "mediation",
         "pearson": "correlation",
         "corr": "correlation",
         "r": "correlation",
+        "association": "correlation",
     }
     _normalize_enum(effect, "effecttype", VALID_EFFECT_TYPES, mapping, path, report, repair, nullable=False)
+
+
+def _infer_effecttype(effect: dict[str, Any]) -> str:
+    text_parts = [
+        effect.get("IV"),
+        effect.get("DV"),
+        effect.get("materials_notes"),
+        effect.get("table_or_page_location"),
+    ]
+    text = " ".join(str(part) for part in text_parts if part is not None).lower()
+
+    if re.search(r"\b(mediation|mediator|mediated|indirect effect)\b", text):
+        return "mediation"
+    if re.search(r"\b(simple effect|simple slope|within[- ]level)\b", text):
+        return "simple"
+    if re.search(r"\b(interaction|moderation|moderator|moderated)\b", text):
+        return "int"
+    if re.search(r"\b(correlation|correlated|association|associated|pearson)\b", text):
+        return "correlation"
+    if re.search(r"\b\w+\s*[x×]\s*\w+\b", text):
+        return "int"
+    return "main"
 
 
 def _normalize_slot_status(slot: dict[str, Any], path: str, report: SchemaValidationReport, repair: bool) -> None:

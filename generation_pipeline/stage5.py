@@ -114,6 +114,12 @@ def _choose_trial_mode(
     return int(n_default), False
 
 
+def _cap_trials(trials: List[Dict[str, Any]], requested_n: Optional[int]) -> List[Dict[str, Any]]:
+    if requested_n is None or len(trials) <= requested_n:
+        return trials
+    return trials[:requested_n]
+
+
 def _cache_path(options: Stage5Options, study_id: str, model: str, repeat_idx: int) -> Optional[Path]:
     if not options.use_cache:
         return None
@@ -141,6 +147,7 @@ def _run_single_repeat(
 
     requested_n = options.requested_participants()
     trials = study_config.create_trials(n_trials=requested_n)
+    trials = _cap_trials(trials, requested_n)
     instructions = study_config.get_instructions()
     builder = study_config.get_prompt_builder()
 

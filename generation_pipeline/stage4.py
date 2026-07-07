@@ -2039,7 +2039,7 @@ def build_human_study_package(
     config_status = "skipped"
     config_error = None
     if generate_config:
-        if not use_llm:
+        if not api_key:
             config_status = "skipped_no_llm"
         else:
             config_path = (study_root / "scripts" / "config.py") if hub_layout else config_dir / f"{resolved_study_id}_config.py"
