@@ -18,6 +18,11 @@ class ValidationError(HumanStudyBenchError):
     pass
 
 
+class SchemaError(HumanStudyBenchError):
+    """Raised when schema validation fails."""
+    pass
+
+
 class AgentError(HumanStudyBenchError):
     """Raised when agent execution fails."""
     pass

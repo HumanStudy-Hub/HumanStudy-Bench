@@ -69,6 +69,22 @@ logs/
 .env
 .env.local
 
+# Local pipeline settings may contain API keys
+config/settings.yaml
+config/settings.yml
+config/settings.json
+
+# Generated pipeline outputs and simulation runs
+generation_pipeline/outputs/*
+!generation_pipeline/outputs/.gitkeep
+generation_pipeline/old_outputs/
+generation_pipeline/**/__pycache__/
+runs/
+runs_*/
+experiments/
+experiments_*/
+.cache/stage5/
+
 # OS
 Thumbs.db
 
