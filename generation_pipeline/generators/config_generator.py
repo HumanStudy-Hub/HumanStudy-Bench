@@ -92,6 +92,7 @@ class ConfigGenerator:
         class_name = f"Study{study_id.replace('_', '').capitalize()}Config"
         if standalone:
             imports = """import json
+import os
 import random
 import re
 import numpy as np
@@ -103,6 +104,7 @@ from study_utils import BaseStudyConfig, PromptBuilder
 """
         else:
             imports = """import json
+import os
 import random
 import re
 import numpy as np
