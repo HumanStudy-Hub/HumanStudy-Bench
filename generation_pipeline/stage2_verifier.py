@@ -11,6 +11,7 @@ from generation_pipeline.utils.pdf_extractor import extract_pdf_text
 
 PDF_TEXT_MAX_CHARS = 180000
 DEFAULT_MAX_TOKENS = 8000
+DEFAULT_TIMEOUT = 300.0
 RAW_PREVIEW_CHARS = 700
 
 
@@ -184,7 +185,7 @@ def verify_stage2_findings(
     llm_client: Any,
     *,
     pdf_text: Optional[str] = None,
-    timeout: Optional[float] = 60.0,
+    timeout: Optional[float] = DEFAULT_TIMEOUT,
     max_tokens: Optional[int] = DEFAULT_MAX_TOKENS,
     max_attempts: int = 2,
     retry_delay: float = 1.0,

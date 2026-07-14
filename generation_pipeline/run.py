@@ -30,6 +30,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from generation_pipeline.stage2_verifier import DEFAULT_TIMEOUT as STAGE2_VERIFIER_TIMEOUT
+
 
 def find_pdf(pdf_arg: str | list[str] | None) -> Path:
     if isinstance(pdf_arg, list):
@@ -187,8 +189,11 @@ def main():
     parser.add_argument(
         "--stage2-verifier-timeout",
         type=float,
-        default=60.0,
-        help="Stage 2 verifier request timeout in seconds; <=0 disables timeout",
+        default=STAGE2_VERIFIER_TIMEOUT,
+        help=(
+            "Stage 2 verifier request timeout in seconds "
+            f"(default: {STAGE2_VERIFIER_TIMEOUT:g}); <=0 disables timeout"
+        ),
     )
     parser.add_argument(
         "--stage2-auto-refine-attempts",

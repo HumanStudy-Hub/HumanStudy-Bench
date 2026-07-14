@@ -16,7 +16,10 @@ from generation_pipeline.patchers.patch_runner import run_patch
 from generation_pipeline.stage1_study_contract import apply_stage1_study_contract
 from generation_pipeline.stage2_findings import annotate_stage2_findings
 from generation_pipeline.stage1_verifier import verify_stage1_inventory
-from generation_pipeline.stage2_verifier import verify_stage2_findings
+from generation_pipeline.stage2_verifier import (
+    DEFAULT_TIMEOUT as STAGE2_VERIFIER_TIMEOUT,
+    verify_stage2_findings,
+)
 from generation_pipeline.stage4 import build_human_study_package
 from generation_pipeline.stage5 import Stage5Options, run_stage5
 from generation_pipeline.utils.output_formatter import OutputFormatter
@@ -395,7 +398,7 @@ class GenerationPipeline:
         ground_timeout: float | None = 60.0,
         ground_workers: int = 4,
         verify_findings: bool = True,
-        verifier_timeout: float | None = 60.0,
+        verifier_timeout: float | None = STAGE2_VERIFIER_TIMEOUT,
         auto_refine_attempts: int = 1,
     ) -> Tuple[Path, Path, Dict[str, Any]]:
         print(f"Running Stage 2: Ethics Effect Extraction for {pdf_path.name}")
