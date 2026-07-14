@@ -24,6 +24,7 @@ class BaseFilter(ABC):
         self,
         pdf_path: Path,
         regeneration_instructions: Optional[Dict[str, Any]] = None,
+        **kwargs: Any,
     ) -> Dict[str, Any]:
         """
         Process PDF and return filter results.
@@ -32,6 +33,7 @@ class BaseFilter(ABC):
             pdf_path: Path to PDF file
             regeneration_instructions: Optional verifier feedback from a prior
                 extraction attempt.
+            kwargs: Stage-specific parser, cache, timeout, and worker controls.
 
         Returns:
             Dictionary with filter results

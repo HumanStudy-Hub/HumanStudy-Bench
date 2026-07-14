@@ -4,7 +4,11 @@ import hashlib
 import importlib.metadata
 import json
 import re
+from difflib import SequenceMatcher
 from pathlib import Path
+import shutil
+import subprocess
+import tempfile
 from typing import Any, Dict, List, Optional, Tuple
 
 from generation_pipeline.pdf.models import DocumentBlock, ParsedPdfDocument
@@ -12,7 +16,7 @@ from generation_pipeline.utils.pdf_chunker import clean_text, split_pages
 from generation_pipeline.utils.pdf_extractor import extract_pdf_text
 
 
-PARSER_CACHE_VERSION = "pdf-parser-v3"
+PARSER_CACHE_VERSION = "pdf-parser-v8"
 IMAGE_DOMINANT_MIN_CHARS = 1500
 IMAGE_DOMINANT_CHARS_PER_PAGE = 250
 _HEADING_RE = re.compile(
@@ -69,13 +73,24 @@ def parse_pdf_document(
                 )
             document = _merge_text_baseline(document, baseline)
             document = _prepare_image_dominant_document(document, baseline)
+            document = _repair_systematic_text_layer_artifacts(document)
+            document = _repair_ambiguous_numeric_ocr(
+                document,
+                pdf_path,
+                artifacts_dir=cache_dir,
+            )
             if cache_dir is not None:
                 _write_artifacts(cache_dir, document, raw_document=raw_document)
             return document
         except Exception as exc:
             errors.append(f"docling_failed:{type(exc).__name__}:{exc}")
 
-    document = baseline
+    document = _repair_systematic_text_layer_artifacts(baseline)
+    document = _repair_ambiguous_numeric_ocr(
+        document,
+        pdf_path,
+        artifacts_dir=cache_dir,
+    )
     document.warnings.extend(errors)
     if cache_dir is not None:
         _write_artifacts(cache_dir, document, raw_document=None)
@@ -368,6 +383,368 @@ def _needs_full_page_ocr(document: ParsedPdfDocument) -> bool:
         document.page_count * IMAGE_DOMINANT_CHARS_PER_PAGE,
     )
     return document.page_count > 0 and document.text_chars < threshold
+
+
+_BROKEN_N_BRACKET_RE = re.compile(
+    r"(\[\s*N\s*=\s*)(\d{1,6})1(\s*[:.])",
+    re.IGNORECASE,
+)
+_BROKEN_THIRDS_RE = re.compile(
+    r"\b([12])13(\s+probabil(?:ity|ities|i-))",
+    re.IGNORECASE,
+)
+_BROKEN_BRACKET_PERCENT_RE = re.compile(
+    r"(?<!\[)\b1(\d{2})(\s+percent\])",
+    re.IGNORECASE,
+)
+_BROKEN_BRACKET_CURRENCY_RE = re.compile(r"\[\$?I(\d{2,3})1(?=\s)")
+
+
+def _repair_systematic_text_layer_artifacts(
+    document: ParsedPdfDocument,
+) -> ParsedPdfDocument:
+    """Repair repeated impossible glyph substitutions in a PDF text layer.
+
+    The trailing-N repair is enabled only when the same malformed bracket
+    pattern occurs at least three times in one document. This avoids treating a
+    single genuine sample size ending in 1 as a corrupted closing bracket.
+    """
+    broken_n_count = sum(len(_BROKEN_N_BRACKET_RE.findall(block.text)) for block in document.blocks)
+    thirds_count = sum(len(_BROKEN_THIRDS_RE.findall(block.text)) for block in document.blocks)
+    bracket_percent_count = sum(
+        len(_BROKEN_BRACKET_PERCENT_RE.findall(block.text))
+        for block in document.blocks
+    )
+    bracket_currency_count = sum(
+        len(_BROKEN_BRACKET_CURRENCY_RE.findall(block.text))
+        for block in document.blocks
+    )
+    if broken_n_count < 3 and thirds_count == 0 and bracket_currency_count == 0:
+        return document
+
+    def repair(text: str) -> str:
+        if broken_n_count >= 3:
+            text = _BROKEN_N_BRACKET_RE.sub(r"\1\2]\3", text)
+            text = _BROKEN_BRACKET_PERCENT_RE.sub(r"[\1\2", text)
+        text = _BROKEN_THIRDS_RE.sub(r"\1/3\2", text)
+        return _BROKEN_BRACKET_CURRENCY_RE.sub(
+            lambda match: f"[$1{match.group(1)}]",
+            text,
+        )
+
+    for block in document.blocks:
+        block.text = repair(block.text)
+    document.markdown = repair(document.markdown)
+    if broken_n_count >= 3:
+        document.warnings.append(
+            f"systematic_n_bracket_glyph_repaired:{broken_n_count}"
+        )
+    if thirds_count:
+        document.warnings.append(f"systematic_fraction_glyph_repaired:{thirds_count}")
+    if broken_n_count >= 3 and bracket_percent_count:
+        document.warnings.append(
+            f"systematic_bracket_percent_glyph_repaired:{bracket_percent_count}"
+        )
+    if bracket_currency_count:
+        document.warnings.append(
+            f"systematic_currency_bracket_glyph_repaired:{bracket_currency_count}"
+        )
+    return document
+
+
+_AMBIGUOUS_DECIMAL_RE = re.compile(
+    r"(?<![\w.])\.(?P<body>[OoIiLlSsBbGg][0-9OoIiLlSsBbGg]{0,2})(?!\w)"
+)
+_OCR_DECIMAL_RE = re.compile(r"(?<![\w.])(?:\.\d{1,3}|0\d{1,2})(?!\d)")
+_AMBIGUOUS_STATISTIC_RE = re.compile(
+    r"\b(?P<label>[tzrx])\s*=\s*(?P<number>\d{3,})"
+    r"(?=\s*,?\s*p\s*[<=>])",
+    re.IGNORECASE,
+)
+_OCR_STATISTIC_RE = re.compile(
+    r"\b(?P<label>[tzrx])\s*=\s*(?P<number>\d+(?:\.\d+)?)",
+    re.IGNORECASE,
+)
+_CONTEXT_WORD_RE = re.compile(r"[a-z0-9]+", re.IGNORECASE)
+
+
+def _repair_ambiguous_numeric_ocr(
+    document: ParsedPdfDocument,
+    pdf_path: Path,
+    *,
+    artifacts_dir: Optional[Path],
+) -> ParsedPdfDocument:
+    suspicious = [block for block in document.blocks if _has_suspicious_numeric_ocr(block.text)]
+    if not suspicious:
+        return document
+    tesseract = shutil.which("tesseract")
+    if not tesseract:
+        document.warnings.append(
+            f"ambiguous_numeric_ocr_unresolved:{sum(_suspicious_numeric_count(block.text) for block in suspicious)}:tesseract_unavailable"
+        )
+        return document
+    try:
+        import pypdfium2 as pdfium
+    except ImportError:
+        document.warnings.append(
+            f"ambiguous_numeric_ocr_unresolved:{sum(_suspicious_numeric_count(block.text) for block in suspicious)}:pypdfium2_unavailable"
+        )
+        return document
+
+    pages = sorted(
+        {
+            page
+            for block in suspicious
+            for page in range(block.page_start, block.page_end + 1)
+            if 1 <= page <= document.page_count
+        }
+    )
+    if not pages:
+        return document
+
+    temporary: Optional[tempfile.TemporaryDirectory[str]] = None
+    if artifacts_dir is None:
+        temporary = tempfile.TemporaryDirectory(prefix="humanstudy_numeric_ocr_")
+        image_dir = Path(temporary.name)
+    else:
+        image_dir = Path(artifacts_dir) / "page_images"
+        image_dir.mkdir(parents=True, exist_ok=True)
+
+    page_text: Dict[int, str] = {}
+    try:
+        pdf = pdfium.PdfDocument(str(pdf_path))
+        try:
+            for page_no in pages:
+                page = pdf[page_no - 1]
+                bitmap = page.render(scale=3.0)
+                image = bitmap.to_pil()
+                image_path = image_dir / f"page_{page_no:03d}_numeric_ocr.png"
+                try:
+                    image.save(image_path)
+                finally:
+                    image.close()
+                    bitmap.close()
+                    page.close()
+                completed = subprocess.run(
+                    [tesseract, str(image_path), "stdout", "--psm", "3", "-l", "eng"],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                    timeout=60,
+                )
+                if completed.returncode == 0 and completed.stdout.strip():
+                    page_text[page_no] = completed.stdout
+        finally:
+            pdf.close()
+    except (OSError, subprocess.SubprocessError, RuntimeError) as exc:
+        document.warnings.append(
+            f"ambiguous_numeric_ocr_failed:{type(exc).__name__}:{exc}"
+        )
+    finally:
+        if temporary is not None:
+            temporary.cleanup()
+
+    repair_count = 0
+    unresolved_count = 0
+    markdown_replacements: List[Tuple[str, str]] = []
+    for block in suspicious:
+        original_text = block.text
+        repairs: List[Dict[str, Any]] = []
+        for page_no in range(block.page_start, block.page_end + 1):
+            if not _has_suspicious_numeric_ocr(block.text):
+                break
+            ocr_text = page_text.get(page_no)
+            if not ocr_text:
+                continue
+            block.text, page_repairs = _repair_ambiguous_decimal_tokens(
+                block.text,
+                ocr_text,
+            )
+            block.text, statistic_repairs = _repair_ambiguous_statistic_tokens(
+                block.text,
+                ocr_text,
+            )
+            page_repairs.extend(statistic_repairs)
+            for item in page_repairs:
+                item["page"] = page_no
+                item["engine"] = "tesseract_context_alignment"
+            repairs.extend(page_repairs)
+        remaining = [
+            *[match.group(0) for match in _AMBIGUOUS_DECIMAL_RE.finditer(block.text)],
+            *[match.group(0) for match in _AMBIGUOUS_STATISTIC_RE.finditer(block.text)],
+        ]
+        if repairs:
+            block.metadata["numeric_ocr_repairs"] = repairs
+            repair_count += len(repairs)
+            markdown_replacements.extend(
+                (str(item["original"]), str(item["replacement"])) for item in repairs
+            )
+        if remaining:
+            block.metadata["numeric_ocr_ambiguities"] = remaining
+            unresolved_count += len(remaining)
+        if block.text != original_text:
+            block.metadata["text_before_numeric_ocr_repair"] = original_text
+
+    for original, replacement in markdown_replacements:
+        document.markdown = document.markdown.replace(original, replacement, 1)
+    if repair_count:
+        document.warnings.append(f"ambiguous_numeric_ocr_repaired:{repair_count}")
+    if unresolved_count:
+        document.warnings.append(f"ambiguous_numeric_ocr_unresolved:{unresolved_count}")
+    return document
+
+
+def _repair_ambiguous_decimal_tokens(
+    text: str,
+    ocr_text: str,
+) -> Tuple[str, List[Dict[str, Any]]]:
+    repairs: List[Dict[str, Any]] = []
+    replacements: List[Tuple[int, int, str, float, str]] = []
+    ocr_candidates = list(_OCR_DECIMAL_RE.finditer(ocr_text))
+    for match in _AMBIGUOUS_DECIMAL_RE.finditer(text):
+        left_words = _context_words(text[max(0, match.start() - 140) : match.start()])[-8:]
+        right_words = _context_words(text[match.end() : match.end() + 140])[:8]
+        scored_by_replacement: Dict[str, float] = {}
+        for candidate in ocr_candidates:
+            replacement = candidate.group(0)
+            if replacement.startswith("0") and not replacement.startswith("0."):
+                replacement = "." + replacement
+            try:
+                if not 0 <= float(replacement) <= 1:
+                    continue
+            except ValueError:
+                continue
+            candidate_left = _context_words(
+                ocr_text[max(0, candidate.start() - 180) : candidate.start()]
+            )[-8:]
+            candidate_right = _context_words(
+                ocr_text[candidate.end() : candidate.end() + 180]
+            )[:8]
+            score = _context_alignment_score(
+                left_words,
+                right_words,
+                candidate_left,
+                candidate_right,
+            )
+            scored_by_replacement[replacement] = max(
+                score,
+                scored_by_replacement.get(replacement, 0.0),
+            )
+        scored = sorted(
+            ((score, replacement) for replacement, score in scored_by_replacement.items()),
+            reverse=True,
+        )
+        if not scored:
+            continue
+        best_score, replacement = scored[0]
+        second_score = scored[1][0] if len(scored) > 1 else 0.0
+        if best_score < 0.68 or best_score - second_score < 0.08:
+            continue
+        replacements.append(
+            (match.start(), match.end(), replacement, best_score, match.group(0))
+        )
+
+    for start, end, replacement, score, original in reversed(replacements):
+        text = text[:start] + replacement + text[end:]
+        repairs.append(
+            {
+                "original": original,
+                "replacement": replacement,
+                "context_alignment_score": round(score, 3),
+            }
+        )
+    repairs.reverse()
+    return text, repairs
+
+
+def _repair_ambiguous_statistic_tokens(
+    text: str,
+    ocr_text: str,
+) -> Tuple[str, List[Dict[str, Any]]]:
+    repairs: List[Dict[str, Any]] = []
+    replacements: List[Tuple[int, int, str, float, str]] = []
+    ocr_candidates = list(_OCR_STATISTIC_RE.finditer(ocr_text))
+    for match in _AMBIGUOUS_STATISTIC_RE.finditer(text):
+        left_words = _context_words(text[max(0, match.start() - 140) : match.start()])[-8:]
+        right_words = _context_words(text[match.end() : match.end() + 140])[:8]
+        scored_by_replacement: Dict[str, float] = {}
+        for candidate in ocr_candidates:
+            number = candidate.group("number")
+            if "." not in number:
+                continue
+            replacement = f"{candidate.group('label')} = {number}"
+            candidate_left = _context_words(
+                ocr_text[max(0, candidate.start() - 180) : candidate.start()]
+            )[-8:]
+            candidate_right = _context_words(
+                ocr_text[candidate.end() : candidate.end() + 180]
+            )[:8]
+            score = _context_alignment_score(
+                left_words,
+                right_words,
+                candidate_left,
+                candidate_right,
+            )
+            scored_by_replacement[replacement] = max(
+                score,
+                scored_by_replacement.get(replacement, 0.0),
+            )
+        scored = sorted(
+            ((score, replacement) for replacement, score in scored_by_replacement.items()),
+            reverse=True,
+        )
+        if not scored:
+            continue
+        best_score, replacement = scored[0]
+        second_score = scored[1][0] if len(scored) > 1 else 0.0
+        if best_score < 0.68 or best_score - second_score < 0.08:
+            continue
+        replacements.append(
+            (match.start(), match.end(), replacement, best_score, match.group(0))
+        )
+
+    for start, end, replacement, score, original in reversed(replacements):
+        text = text[:start] + replacement + text[end:]
+        repairs.append(
+            {
+                "original": original,
+                "replacement": replacement,
+                "context_alignment_score": round(score, 3),
+            }
+        )
+    repairs.reverse()
+    return text, repairs
+
+
+def _has_suspicious_numeric_ocr(text: str) -> bool:
+    return bool(
+        _AMBIGUOUS_DECIMAL_RE.search(text)
+        or _AMBIGUOUS_STATISTIC_RE.search(text)
+    )
+
+
+def _suspicious_numeric_count(text: str) -> int:
+    return len(_AMBIGUOUS_DECIMAL_RE.findall(text)) + len(
+        _AMBIGUOUS_STATISTIC_RE.findall(text)
+    )
+
+
+def _context_words(value: str) -> List[str]:
+    return [token.lower() for token in _CONTEXT_WORD_RE.findall(value)]
+
+
+def _context_alignment_score(
+    expected_left: List[str],
+    expected_right: List[str],
+    actual_left: List[str],
+    actual_right: List[str],
+) -> float:
+    left = SequenceMatcher(None, expected_left, actual_left).ratio()
+    right = SequenceMatcher(None, expected_right, actual_right).ratio()
+    expected = set(expected_left + expected_right)
+    actual = set(actual_left + actual_right)
+    overlap = len(expected & actual) / max(1, len(expected))
+    return (left + right + overlap) / 3.0
 
 
 def _write_artifacts(

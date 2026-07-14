@@ -14,6 +14,10 @@ RETRIEVAL_CONTEXT_MAX_CHARS = 64000
 FACET_K = 4
 
 FACETS: Dict[str, Dict[str, Any]] = {
+    "sample": {
+        "terms": ["participants", "sample", "recruited", "excluded", "demographic"],
+        "description": "sample size, recruitment, exclusions, demographics, and analyzed population",
+    },
     "design": {
         "terms": ["method", "design", "randomly assigned", "between subjects", "within subjects"],
         "description": "experimental design, assignment, arms, factors, and all condition levels",
@@ -42,6 +46,10 @@ FACETS: Dict[str, Dict[str, Any]] = {
         "terms": ["appendix", "supplement", "questionnaire", "instrument", "full wording"],
         "description": "appendix or supplement containing exact materials and item wording",
     },
+    "results": {
+        "terms": ["results", "analysis", "regression", "significant", "p <", "p ="],
+        "description": "quantitative findings, statistical tests, effect directions, and result tables",
+    },
 }
 
 GAP_TO_FACETS: Dict[str, Sequence[str]] = {
@@ -52,6 +60,7 @@ GAP_TO_FACETS: Dict[str, Sequence[str]] = {
     "conditions": ("design", "stimuli", "procedure"),
     "visual_material": ("tables_figures",),
     "source_evidence": tuple(FACETS),
+    "findings": ("design", "sample", "results", "tables_figures"),
 }
 
 
@@ -73,11 +82,23 @@ class PdfEvidenceIndex:
         *,
         stage1_json: Optional[Dict[str, Any]] = None,
         gaps: Optional[Iterable[str]] = None,
+        allow_full_document: bool = True,
+        anchor_refs: Optional[Iterable[str]] = None,
+        anchor_radius: int = 1,
+        use_facet_retrieval: bool = True,
+        max_chars: Optional[int] = None,
     ) -> EvidenceContext:
         selected_facets = self._facets_for_gaps(gaps)
-        if gaps is None and self.document.text_chars <= FULL_DOCUMENT_MAX_CHARS:
+        if (
+            allow_full_document
+            and gaps is None
+            and self.document.text_chars <= FULL_DOCUMENT_MAX_CHARS
+        ):
             blocks = self._blocks
-            text, included = self._render_with_budget(blocks, FULL_DOCUMENT_MAX_CHARS + 24000)
+            text, included = self._render_with_budget(
+                blocks,
+                max_chars or FULL_DOCUMENT_MAX_CHARS + 24000,
+            )
             return EvidenceContext(
                 text=text,
                 mode="full_document",
@@ -90,8 +111,25 @@ class PdfEvidenceIndex:
 
         study_query = self._study_query(study, stage1_json)
         selected: Dict[str, DocumentBlock] = {}
+        prioritized: List[DocumentBlock] = []
+        anchor_blocks: List[DocumentBlock] = []
+        for ref in anchor_refs or []:
+            block = self._by_id.get(str(ref))
+            if block is None:
+                continue
+            if block.block_id not in selected:
+                selected[block.block_id] = block
+                prioritized.append(block)
+                anchor_blocks.append(block)
+        # Exact citations are authoritative. Add their surrounding blocks only
+        # after every citation has been prioritized so a large neighbor cannot
+        # consume the budget before a later cited block is rendered.
+        for block in anchor_blocks:
+            for neighbor in self._neighbors(block, radius=max(0, int(anchor_radius))):
+                selected[neighbor.block_id] = neighbor
         facet_blocks: Dict[str, List[str]] = {}
-        for facet in selected_facets:
+        facets_to_retrieve = selected_facets if use_facet_retrieval or not selected else []
+        for facet in facets_to_retrieve:
             config = FACETS[facet]
             query = f"{study_query} {config['description']} {' '.join(config['terms'])}"
             ranked = retrieve(
@@ -110,16 +148,26 @@ class PdfEvidenceIndex:
                         ids.append(neighbor.block_id)
             facet_blocks[facet] = ids
 
-        ordered = sorted(selected.values(), key=lambda block: block.order)
-        text, included = self._render_with_budget(ordered, RETRIEVAL_CONTEXT_MAX_CHARS)
+        remaining = sorted(
+            (block for block in selected.values() if block not in prioritized),
+            key=lambda block: block.order,
+        )
+        ordered = [*prioritized, *remaining]
+        text, included = self._render_with_budget(
+            ordered,
+            max_chars or RETRIEVAL_CONTEXT_MAX_CHARS,
+        )
         included_ids = {block.block_id for block in included}
         facet_blocks = {
             facet: [block_id for block_id in block_ids if block_id in included_ids]
             for facet, block_ids in facet_blocks.items()
         }
+        mode = "facet_retrieval"
+        if prioritized:
+            mode = "anchored_facet_retrieval" if facets_to_retrieve else "anchored_retrieval"
         return EvidenceContext(
             text=text,
-            mode="facet_retrieval",
+            mode=mode,
             block_ids=[block.block_id for block in included],
             pages=sorted({page for block in included for page in range(block.page_start, block.page_end + 1)}),
             facets=facet_blocks,

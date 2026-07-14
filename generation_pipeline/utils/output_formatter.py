@@ -22,8 +22,11 @@ class OutputFormatter:
         if quality:
             md += f"""## Quality Audit
 - **Experiments total**: {quality.get('experiments_total', 0)}
+- **Comparison groups total**: {quality.get('comparison_groups_total', 0)}
+- **Material variants total**: {quality.get('material_variants_total', 0)}
 - **Eligible / uncertain**: {quality.get('eligible_or_uncertain', 0)}
 - **Missing materials count**: {quality.get('missing_materials_count', 0)}
+- **Rejected candidates / relations**: {quality.get('rejected_candidates_total', 0)} / {quality.get('rejected_comparison_relations_total', 0)}
 - **Study contract ready / needs review**: {quality.get('study_contract_ready', 'N/A')} / {quality.get('study_contract_needs_review', 'N/A')}
 - **Study contract blocking issues**: {quality.get('study_contract_blocking_issues', 'N/A')}
 - **Verifier status / overall**: {quality.get('verifier_status', 'N/A')} / {quality.get('verifier_overall', 'N/A')}
@@ -43,9 +46,41 @@ class OutputFormatter:
 - **Ready studies**: {contract.get('ready', 0)}/{contract.get('total_studies', 0)}
 - **Eligible / uncertain**: {contract.get('eligible_or_uncertain', 0)}
 - **Needs review**: {contract.get('needs_review', 0)}
+- **Study / comparison-group blocking issues**: {contract.get('study_blocking_issue_count', 0)} / {contract.get('comparison_group_blocking_issue_count', 0)}
 - **Missing by field**: `{json.dumps(contract.get('missing_by_field', {}), ensure_ascii=False)}`
 
 """
+
+        evidence = filter_result.get("stage1_evidence") if isinstance(filter_result.get("stage1_evidence"), dict) else {}
+        if evidence:
+            md += f"""## Evidence Pipeline
+- **Parser**: {evidence.get('parser', 'N/A')} ({evidence.get('parser_version', 'N/A')})
+- **Pages / parsed characters**: {evidence.get('page_count', 'N/A')} / {evidence.get('text_chars', 'N/A')}
+- **Discovery windows**: {evidence.get('discovery_window_count', 0)}
+- **Raw mentions / reconciled studies**: {evidence.get('raw_mention_count', 0)} / {evidence.get('reconciled_study_count', 0)}
+- **Accepted / rejected empirical units**: {evidence.get('accepted_empirical_unit_count', 0)} / {evidence.get('rejected_candidate_count', 0)}
+- **Raw relations / comparison groups / rejected / intra-or-excluded relations**: {evidence.get('raw_comparison_relation_count', 0)} / {evidence.get('comparison_group_count', 0)} / {evidence.get('rejected_comparison_relation_count', 0)} / {evidence.get('ignored_comparison_relation_count', 0)}
+- **All mentions assigned**: {evidence.get('all_mentions_assigned', False)}
+- **All comparison relations resolved**: {evidence.get('all_comparison_relations_resolved', False)}
+- **Study extraction complete**: {evidence.get('extraction_complete', False)}
+- **Full-document LLM calls**: {evidence.get('full_document_llm_calls', 'N/A')}
+- **Extraction errors**: `{json.dumps(evidence.get('extraction_errors', []), ensure_ascii=False)}`
+
+"""
+            rejected = evidence.get("rejected_candidates")
+            rejected = rejected if isinstance(rejected, list) else []
+            if rejected:
+                md += "### Rejected Discovery Candidates\n"
+                for item in rejected:
+                    if not isinstance(item, dict):
+                        continue
+                    md += (
+                        f"- `{item.get('study_id', 'N/A')}` "
+                        f"provenance={item.get('unit_provenance', 'N/A')} "
+                        f"distinct={item.get('is_distinct_empirical_unit', 'N/A')}: "
+                        f"{item.get('reason', '')}\n"
+                    )
+                md += "\n"
 
         refinement = filter_result.get("stage1_refinement") if isinstance(filter_result.get("stage1_refinement"), dict) else {}
         history = filter_result.get("stage1_refinement_history")
@@ -70,10 +105,16 @@ class OutputFormatter:
 
         verifier = filter_result.get("stage1_verification") if isinstance(filter_result.get("stage1_verification"), dict) else {}
         if verifier:
+            window_audit = verifier.get("window_audit") if isinstance(verifier.get("window_audit"), dict) else {}
+            study_audit = verifier.get("study_audit") if isinstance(verifier.get("study_audit"), dict) else {}
             md += f"""## Verifier Report
 - **Status**: {verifier.get('status', 'N/A')}
 - **Overall**: {verifier.get('overall', 'N/A')}
 - **Confidence**: {verifier.get('confidence', 'N/A')}
+- **Boundary windows audited**: {window_audit.get('window_count', 0)}
+- **Study fields audited**: {study_audit.get('study_count', 0)}
+- **All cited study evidence included**: {study_audit.get('all_cited_evidence_included', False)}
+- **Verifier full-document LLM calls**: {int(window_audit.get('full_document_llm_calls') or 0) + int(study_audit.get('full_document_llm_calls') or 0)}
 - **Notes**: {verifier.get('notes', '')}
 
 """
@@ -92,13 +133,52 @@ class OutputFormatter:
                         f"expected={check.get('expected_label', 'N/A')} - {check.get('issue', '')} "
                         f"{check.get('evidence', '')}\n"
                     )
-            if verifier.get("inventory_checks") or verifier.get("eligibility_checks"):
+            for check in verifier.get("comparison_group_checks", []):
+                if isinstance(check, dict):
+                    md += (
+                        f"- Comparison group `{', '.join(check.get('member_study_ids', []) or [])}`: "
+                        f"{check.get('verdict', 'needs_review')} - {check.get('issue', '')} "
+                        f"{check.get('evidence', '')}\n"
+                    )
+            for check in verifier.get("field_checks", []):
+                if isinstance(check, dict):
+                    md += (
+                        f"- Field `{check.get('study', 'N/A')}.{check.get('field', 'other')}`: "
+                        f"expected={check.get('expected_value', 'N/A')} - "
+                        f"{check.get('issue', '')} {check.get('evidence', '')}\n"
+                    )
+            if (
+                verifier.get("inventory_checks")
+                or verifier.get("comparison_group_checks")
+                or verifier.get("field_checks")
+                or verifier.get("eligibility_checks")
+            ):
                 md += "\n"
+
+        comparison_groups = [
+            group
+            for group in filter_result.get("comparison_groups", []) or []
+            if isinstance(group, dict)
+        ]
+        if comparison_groups:
+            md += "## Source-Explicit Comparison Groups\n\n"
+            for group in comparison_groups:
+                md += f"""### {group.get('comparison_group_id', 'Comparison group')}
+- **Members**: {', '.join(group.get('member_study_ids', []) or [])}
+- **Relationship**: {group.get('relationship_kind', 'other')}
+- **Comparison target**: {group.get('comparison_target', '')}
+- **Evidence**: {group.get('evidence_summary', '')}
+- **Evidence blocks**: {', '.join(group.get('evidence_refs', []) or []) or 'None'}
+
+"""
 
         for i, exp in enumerate(filter_result.get("experiments", []), 1):
             source_hints = exp.get("candidate_source_hints") if isinstance(exp.get("candidate_source_hints"), list) else []
+            material_variants = exp.get("material_variants") if isinstance(exp.get("material_variants"), list) else []
+            simulation_barriers = exp.get("simulation_barriers") if isinstance(exp.get("simulation_barriers"), list) else []
             md += f"""### Experiment {i}: {exp.get('experiment_name', exp.get('experiment_id', 'Unknown'))}
 - **Study ID**: {exp.get('study_id', 'N/A')}
+- **Material variants**: `{json.dumps(material_variants, ensure_ascii=False)}`
 - **Design type**: {exp.get('design_type', 'N/A')}
 - **Conditions / factors**: {_format_stage1_conditions(exp.get('conditions_or_factors'))}
 - **Input**: {exp.get('input', 'N/A')}
@@ -107,9 +187,15 @@ class OutputFormatter:
 - **Output**: {exp.get('output', 'N/A')}
 - **Candidate source hints**: `{json.dumps(source_hints, ensure_ascii=False)}`
 - **Replicable**: {exp.get('replicable', 'UNCERTAIN')}
+- **Unit provenance / distinct**: {exp.get('unit_provenance', 'N/A')} / {exp.get('is_distinct_empirical_unit', 'N/A')}
+- **Provenance evidence**: {exp.get('unit_provenance_evidence', '')}
+- **Empirical support (sample / task / quantitative result)**: {(exp.get('empirical_support') or {}).get('own_sample_or_assignment', 'N/A')} / {(exp.get('empirical_support') or {}).get('participant_facing_task', 'N/A')} / {(exp.get('empirical_support') or {}).get('quantitative_result', 'N/A')}
+- **Simulation barriers**: `{json.dumps(simulation_barriers, ensure_ascii=False)}`
 - **Self-contained materials**: {exp.get('has_self_contained_materials', 'N/A')}
 - **Missing materials**: {exp.get('missing_materials', '')}
 - **Exclusion reasons**: {', '.join(exp.get('exclusion_reasons', [])) or 'None'}
+- **Evidence blocks**: {', '.join(exp.get('evidence_refs', []) or []) or 'None'}
+- **Evidence pages**: {', '.join(str(page) for page in exp.get('evidence_pages', []) or []) or 'None'}
 
 #### Checklist:
 - [ ] Human participant task is representable in HumanStudy-Bench
@@ -203,6 +289,16 @@ class OutputFormatter:
 
 """
 
+        evidence = extraction.get("stage2_evidence") if isinstance(extraction.get("stage2_evidence"), dict) else {}
+        if evidence:
+            contexts = evidence.get("study_contexts") if isinstance(evidence.get("study_contexts"), dict) else {}
+            md += f"""## Evidence Pipeline
+- **Parser**: {evidence.get('parser', 'N/A')}
+- **Per-study contexts**: {len(contexts)}
+- **Full-document LLM calls**: {evidence.get('full_document_llm_calls', 'N/A')}
+
+"""
+
         refinement = extraction.get("stage2_refinement") if isinstance(extraction.get("stage2_refinement"), dict) else {}
         history = extraction.get("stage2_refinement_history")
         history = history if isinstance(history, list) else []
@@ -280,6 +376,7 @@ class OutputFormatter:
 - **Stats**: B={stats.get('B')} t={stats.get('t')} F={stats.get('f')} eta²={stats.get('eta_square')} p={stats.get('p_value')} ({stats.get('sig')})
 - **CI**: {stats.get('ci')}
 - **Location**: {eff.get('table_or_page_location', 'N/A')}
+- **Evidence blocks**: {', '.join(eff.get('evidence_refs', []) or []) or 'None'}
 - **Notes**: {eff.get('materials_notes', '')}
 
 #### Checklist:

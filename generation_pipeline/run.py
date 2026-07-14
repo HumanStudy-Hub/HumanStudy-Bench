@@ -159,15 +159,32 @@ def main():
     parser.add_argument("--regeneration-instructions", type=str, help="Path to regeneration feedback JSON (stage 2)")
     parser.add_argument("--no-stage1-verifier", action="store_true", help="Stage 1: skip LLM study-inventory verifier pass")
     parser.add_argument(
+        "--stage1-timeout",
+        type=float,
+        default=300.0,
+        help="Stage 1 discovery/extraction timeout per bounded LLM call; <=0 disables timeout",
+    )
+    parser.add_argument(
+        "--stage1-workers",
+        type=int,
+        default=4,
+        help="Stage 1 bounded discovery/extraction workers; use 1 for serial execution",
+    )
+    parser.add_argument(
+        "--force-stage1",
+        action="store_true",
+        help="Stage 1: rebuild PDF parse and LLM caches instead of resuming cached calls",
+    )
+    parser.add_argument(
         "--stage1-verifier-timeout",
         type=float,
-        default=60.0,
+        default=300.0,
         help="Stage 1 verifier request timeout in seconds; <=0 disables timeout",
     )
     parser.add_argument(
         "--stage1-auto-refine-attempts",
         type=int,
-        default=1,
+        default=2,
         help="Stage 1: automatically rerun inventory extraction with verifier feedback this many times",
     )
     parser.add_argument(
@@ -205,6 +222,23 @@ def main():
         "--no-stage2-auto-refine",
         action="store_true",
         help="Stage 2: disable automatic verifier-feedback reruns",
+    )
+    parser.add_argument(
+        "--stage2-timeout",
+        type=float,
+        default=300.0,
+        help="Stage 2 per-study evidence extraction timeout; <=0 disables timeout",
+    )
+    parser.add_argument(
+        "--stage2-workers",
+        type=int,
+        default=4,
+        help="Stage 2 parallel per-study extraction workers; use 1 for serial execution",
+    )
+    parser.add_argument(
+        "--force-stage2",
+        action="store_true",
+        help="Stage 2: rebuild per-study LLM caches instead of resuming cached calls",
     )
     parser.add_argument("--ground-threshold", type=float, default=90.0, help="Legacy Stage 2 grounding verbatim threshold")
     parser.add_argument("--ground-k", type=int, default=8, help="Legacy Stage 2 grounding retrieval chunks per slot")
@@ -581,10 +615,13 @@ def main():
             pipeline.run_stage1(
                 pdf_path,
                 verify_inventory=not args.no_stage1_verifier,
+                extraction_timeout=None if args.stage1_timeout <= 0 else args.stage1_timeout,
                 verifier_timeout=None if args.stage1_verifier_timeout <= 0 else args.stage1_verifier_timeout,
+                workers=args.stage1_workers,
                 auto_refine_attempts=0
                 if args.no_stage1_auto_refine
                 else args.stage1_auto_refine_attempts,
+                force=args.force_stage1,
             )
             if args.fetch_sources:
                 from generation_pipeline.connectors.registry import fetch_json_sources
@@ -620,11 +657,14 @@ def main():
                 ground_k=args.ground_k,
                 ground_timeout=args.ground_timeout,
                 ground_workers=args.ground_workers,
+                extraction_timeout=None if args.stage2_timeout <= 0 else args.stage2_timeout,
+                extraction_workers=args.stage2_workers,
                 verify_findings=not args.no_stage2_verifier,
                 verifier_timeout=None if args.stage2_verifier_timeout <= 0 else args.stage2_verifier_timeout,
                 auto_refine_attempts=0
                 if args.no_stage2_auto_refine
                 else args.stage2_auto_refine_attempts,
+                force=args.force_stage2,
             )
 
     except Exception as e:

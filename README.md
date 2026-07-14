@@ -26,7 +26,8 @@ folder from a paper PDF and optional OSF/supplementary sources.
 
 The pipeline is intentionally human-in-the-loop:
 
-- Stage 1 identifies paper metadata and study inventory.
+- Stage 1 compiles a source-grounded inventory of empirical units and
+  source-explicit comparison groups from any social-science topic.
 - Stage 2 extracts study-level findings, effects, samples, and statistics.
 - Stage 3 assembles and audits participant-facing materials from
   OSF/QSF/SAV/PDF sources.
@@ -54,15 +55,95 @@ cp config/settings.example.yaml config/settings.yaml
 
 Do not commit `config/settings.yaml`.
 
-### Stage 1 scope
+### Stage 1: evidence-grounded study inventory
 
-Stage 1 inventories every empirical unit in a quantitative social-science paper
-and classifies whether its human-participant task can be represented in
-HumanStudy-Bench. Eligibility is independent of topic or discipline. Missing
-exact questionnaire wording or supplementary files is recorded for Stage 3 and
-does not by itself exclude an otherwise simulatable study. `replicable` remains
-the legacy JSON field name; it means simulation eligibility, not a guarantee
-that the original result will reproduce.
+Stage 1 is domain-independent. It inventories every reported empirical unit in
+a social-science paper, including experiments, surveys, pilots, validation
+samples, field studies, and observational studies. It then determines whether
+each human-participant task can be represented in HumanStudy-Bench. Psychology,
+behavioral economics, organizational behavior, political science, sociology,
+communication, marketing, education, and HCI use the same task definition; no
+ethics-specific topic or outcome filter remains.
+
+The complete PDF is never placed in one LLM prompt. Stage 1 instead uses this
+evidence compiler:
+
+```text
+Docling layout-aware parse (once)
+  -> targeted second OCR only for ambiguous numeric/statistical tokens
+  -> bounded overlapping windows covering every parsed block
+  -> parallel high-recall empirical-unit and relationship discovery
+  -> deterministic reconciliation by source labels and assigned variants
+  -> bounded global candidate-ledger adjudication of simulation task families
+  -> shared sample/procedure evidence attached without merging different tasks
+  -> one bounded, evidence-anchored extraction per task family
+  -> provenance and empirical-support gate
+  -> task families + nested material variants + source-explicit comparison groups
+  -> bounded-window coverage audit; global ledger remains boundary authority
+  -> complete cited-evidence verifier for each study's fields and eligibility
+  -> deterministic numeric/OCR conflict hints that every study audit must adjudicate
+  -> typed field and eligibility repair with boundary-audit reuse
+  -> full recompilation only for grounded missing-unit or boundary changes
+  -> accept a refinement only when deterministic audit quality improves
+```
+
+The three output levels are intentional. `experiments[]` contains coherent
+simulation task families, `experiments[].material_variants[]` preserves stories,
+forms, orders, stimuli, and conditions that Stage 3 may need to reconstruct
+separately, and `comparison_groups[]` records task families that the paper
+explicitly combines in one contrast or finding. Different tasks remain separate
+even when they share one questionnaire and participant pool; repeated or
+parameterized items remain together when they use one task template and response
+format. Questionnaire-wide sample/procedure evidence is retained under
+`shared_contexts` instead of becoming a fake study or comparison group. Table
+rows, outcome groups, and individual effects are never promoted to studies. A
+material variant must be a genuine alternative version assigned across
+participants or occasions; response options shown together inside one question
+remain part of that question rather than becoming separate variants.
+
+Every accepted unit records PDF block/page evidence, `unit_provenance`, whether
+it is a distinct empirical unit, and direct support for its sample, participant
+task, and quantitative target. Cited prior work and isolated result fragments
+are rejected from the current-paper inventory. Missing exact questionnaire
+wording or supplementary files is recorded as a Stage 3 material gap and does
+not by itself exclude an otherwise simulatable unit. A real task with no exact
+numeric response result remains in the inventory but is labeled `NO`; stimulus
+amounts, response-scale endpoints, and qualitative majority/significance claims
+do not count as quantitative target results. `replicable` remains the legacy
+JSON field name; it means simulation eligibility, not a guarantee that the
+original result will reproduce.
+
+`simulation_barriers` separately records source-grounded execution requirements
+such as observed physical action or live interaction. A barrier only forces a
+`NO` label when it affects the paper's original quantitative target; it cannot
+be bypassed by silently replacing that target with a hypothetical proxy.
+
+Run Stage 1 with the default four bounded-call workers:
+
+```bash
+python generation_pipeline/run.py \
+  --settings config/settings.yaml \
+  --stage 1 \
+  --pdf /absolute/path/to/paper.pdf \
+  --provider openai \
+  --model gpt-5-mini \
+  --stage1-workers 4 \
+  --stage1-timeout 300 \
+  --stage1-verifier-timeout 300
+```
+
+Inspect `generation_pipeline/outputs/<paper_id>/stage1.json` and `stage1.md`.
+The JSON is ready to pass to Stage 2 only when
+`stage1_evidence.extraction_complete` and
+`stage1_evidence.all_comparison_relations_resolved` are true,
+`stage1_study_contract.blocking_issue_count` is zero, and
+`stage1_verification.study_audit.all_cited_evidence_included` is true, and
+`stage1_verification.overall` is `pass`. A paper window is never allowed to
+invalidate a study field merely because that field's evidence appears in a
+different section; field checks run against the study's complete cited-evidence
+bundle instead. Field-only refinement never reruns discovery or changes the
+accepted boundary audit, and a failed refinement candidate cannot replace the
+last valid result.
 
 ### PDF-only Stage 3
 
