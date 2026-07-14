@@ -39,6 +39,18 @@ def _item_has_scale(item: Dict[str, Any]) -> bool:
     return False
 
 
+def _item_has_matrix(item: Dict[str, Any]) -> bool:
+    matrix = item.get("matrix")
+    if isinstance(matrix, dict) and matrix.get("rows") and matrix.get("columns"):
+        return True
+    response_format = item.get("response_format")
+    return bool(
+        isinstance(response_format, dict)
+        and response_format.get("rows")
+        and response_format.get("columns")
+    )
+
+
 def _unique(values: List[Any]) -> List[str]:
     return sorted({text for value in values if (text := _text(value))})
 
@@ -220,7 +232,7 @@ def audit_material_contract(material: Dict[str, Any]) -> Dict[str, Any]:
 
         item_type = _text(item.get("type")).lower()
         requires_options = item_type in _RESPONSE_OPTION_TYPES
-        has_contract = bool(_item_options(item) or _item_has_scale(item))
+        has_contract = bool(_item_options(item) or _item_has_scale(item) or _item_has_matrix(item))
         if has_contract:
             options_present += 1
         elif requires_options:

@@ -700,6 +700,8 @@ class GenerationPipeline:
             f"study_id={summary['study_id']} json_generation={summary['json_generation']} "
             f"config={summary['config_status']}"
         )
+        if summary.get("config_error"):
+            print(f"  Stage 4 config error: {summary['config_error']}")
         print(f"  Study package: {summary['study_dir']}")
         return summary
 

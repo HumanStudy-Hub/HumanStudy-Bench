@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import ast
 import json
 import re
 import shutil
+import subprocess
+import sys
 from copy import deepcopy
 from datetime import date
 from pathlib import Path
@@ -722,6 +725,12 @@ def _select_runtime_instructions(
 ) -> tuple[str, Dict[str, Any]]:
     if not isinstance(base_material, dict):
         return fallback_instructions, {}
+    if _preserve_full_runtime_instrument(base_material):
+        return fallback_instructions, {
+            "mode": "full_source_instrument_preserved",
+            "source_instruction_chars": len(fallback_instructions),
+            "runtime_instruction_chars": len(fallback_instructions),
+        }
     raw_blocks = base_material.get("instruction_blocks")
     instruction_blocks = [block for block in raw_blocks if isinstance(block, dict)] if isinstance(raw_blocks, list) else []
     if not instruction_blocks:
@@ -1093,6 +1102,15 @@ def _study_prompt_material(
             "runtime_instruction_chars": len(instructions),
         },
     }
+    for key in (
+        "instruction_blocks",
+        "source_structures",
+        "study_instrument",
+        "coverage_ledger",
+        "preserve_full_instrument_for_runtime",
+    ):
+        if key in base_material:
+            material[key] = deepcopy(base_material[key])
     if isinstance(base_material.get("selection"), dict):
         material["selection"] = deepcopy(base_material["selection"])
 
@@ -1359,7 +1377,7 @@ def _deterministic_metadata(extraction: Dict[str, Any], study_id: str) -> Dict[s
         "subdomain": None,
         "keywords": [],
         "difficulty": "medium",
-        "description": extraction.get("paper_abstract", ""),
+        "description": extraction.get("paper_abstract") or extraction.get("paper_title", ""),
         "scenarios": scenarios,
         "findings": findings,
     }
@@ -1382,7 +1400,7 @@ def _deterministic_specification(extraction: Dict[str, Any], study_id: str) -> D
                 n_int = int(n or 0)
             except (TypeError, ValueError):
                 n_int = 0
-            total_n += n_int
+            total_n = max(total_n, n_int)
             population = population or sub_sample.get("population") or sub_sample.get("platform")
             recruitment_source = recruitment_source or sub_sample.get("recruitment_source") or sub_sample.get("platform")
             by_sub_study[sub_id] = {
@@ -1391,6 +1409,40 @@ def _deterministic_specification(extraction: Dict[str, Any], study_id: str) -> D
                 "recruitment_source": sub_sample.get("recruitment_source") or sub_sample.get("platform"),
             }
 
+    factors: List[Dict[str, Any]] = []
+    seen_factors: set[tuple[str, str, tuple[str, ...]]] = set()
+    source_materials = (
+        extraction.get("study_materials")
+        if isinstance(extraction.get("study_materials"), dict)
+        else {}
+    )
+    for material in source_materials.values():
+        if not isinstance(material, dict):
+            continue
+        for condition in material.get("conditions", []) or []:
+            if not isinstance(condition, dict) or not str(condition.get("name") or "").strip():
+                continue
+            levels = [str(value) for value in condition.get("levels", []) or []]
+            assignment = str(condition.get("assignment") or "")
+            key = (str(condition["name"]), assignment, tuple(levels))
+            if key in seen_factors:
+                continue
+            seen_factors.add(key)
+            factors.append(
+                {
+                    "name": condition["name"],
+                    "levels": levels,
+                    "type": assignment,
+                    "sub_study_id": material.get("sub_study_id"),
+                }
+            )
+
+    assignments = {str(value.get("type") or "").lower() for value in factors}
+    has_between = any("between" in value for value in assignments)
+    has_within = any("within" in value for value in assignments)
+    design_type = "Mixed" if has_between and has_within else (
+        "Between-Subjects" if has_between else "Within-Subjects" if has_within else None
+    )
     return {
         "study_id": study_id,
         "title": extraction.get("paper_title", ""),
@@ -1401,7 +1453,7 @@ def _deterministic_specification(extraction: Dict[str, Any], study_id: str) -> D
             "demographics": {},
             "by_sub_study": by_sub_study,
         },
-        "design": {"type": None, "factors": []},
+        "design": {"type": design_type, "factors": factors},
         "procedure": {"steps": []},
     }
 
@@ -1601,7 +1653,19 @@ def _deterministic_materials(
                 "source_trace": {"primary_source": "stage4_legacy_fallback"},
             }
             if source_material is not None:
-                for key in ("instructions", "items", "readiness", "source_trace", "response_schema", "conditions"):
+                for key in (
+                    "instructions",
+                    "instruction_blocks",
+                    "items",
+                    "readiness",
+                    "source_trace",
+                    "response_schema",
+                    "conditions",
+                    "source_structures",
+                    "study_instrument",
+                    "coverage_ledger",
+                    "preserve_full_instrument_for_runtime",
+                ):
                     if key in source_material:
                         material[key] = source_material[key]
             path = materials_dir / f"{sub_id}.json"
@@ -1638,10 +1702,25 @@ def _runtime_material_issues(material: Dict[str, Any]) -> List[str]:
         if not isinstance(question, str) or not question.strip():
             issues.append(f"item_{idx}_missing_question")
         item_type = str(item.get("type") or "").strip().lower()
-        options = item.get("options")
-        response_format = material.get("response_format") if isinstance(material.get("response_format"), dict) else {}
-        if item_type in {"multiple_choice", "likert", "scale", "matrix"} and not (options or response_format.get("scale")):
+        options = item.get("options") if isinstance(item.get("options"), list) else []
+        scale = item.get("scale") if isinstance(item.get("scale"), dict) else {}
+        matrix = item.get("matrix") if isinstance(item.get("matrix"), dict) else {}
+        response_format = item.get("response_format") if isinstance(item.get("response_format"), dict) else {}
+        if not response_format and isinstance(material.get("response_format"), dict):
+            response_format = material["response_format"]
+        has_scale = bool(
+            (scale.get("min") is not None and scale.get("max") is not None)
+            or response_format.get("scale_min") is not None
+            or response_format.get("scale_max") is not None
+        )
+        has_matrix = bool(
+            (matrix.get("rows") and matrix.get("columns"))
+            or (response_format.get("rows") and response_format.get("columns"))
+        )
+        if item_type in {"multiple_choice", "likert", "scale", "slider", "ranking"} and not (options or has_scale):
             issues.append(f"item_{idx}_missing_options")
+        if item_type == "matrix" and not has_matrix:
+            issues.append(f"item_{idx}_missing_matrix_contract")
     return issues
 
 
@@ -1655,6 +1734,8 @@ def _participant_item_signature(item: Dict[str, Any]) -> str:
         "type": str(item.get("type") or "").strip().lower(),
         "options": item.get("options") if isinstance(item.get("options"), list) else [],
         "scale": item.get("scale") if isinstance(item.get("scale"), dict) else {},
+        "matrix": item.get("matrix") if isinstance(item.get("matrix"), dict) else {},
+        "response_format": item.get("response_format") if isinstance(item.get("response_format"), dict) else {},
     }
     return json.dumps(payload, ensure_ascii=False, sort_keys=True)
 
@@ -1994,6 +2075,29 @@ def _build_package_audit(
                 }
             )
 
+        material = material_by_id.get(material_id, {})
+        coverage = material.get("coverage_ledger") if isinstance(material.get("coverage_ledger"), dict) else {}
+        if coverage and coverage.get("ready") is not True:
+            issues.append(
+                {
+                    "severity": "error",
+                    "path": f"materials/{material_id}.json.coverage_ledger",
+                    "message": "source-grounded instrument coverage failed: "
+                    + ", ".join(str(value) for value in coverage.get("blocking_issues", []) or []),
+                }
+            )
+        source_trace = material.get("source_trace") if isinstance(material.get("source_trace"), dict) else {}
+        if source_trace.get("extractor") == "pdf_evidence_provider_v1":
+            verifier = source_trace.get("semantic_verifier") if isinstance(source_trace.get("semantic_verifier"), dict) else {}
+            if verifier.get("status") != "pass":
+                issues.append(
+                    {
+                        "severity": "error",
+                        "path": f"materials/{material_id}.json.source_trace.semantic_verifier",
+                        "message": f"PDF instrument semantic verifier did not pass: {verifier.get('status')!r}",
+                    }
+                )
+
     material_patch_required = bool(materials_audit.get("materials_needing_patch"))
     loadable = not any(
         issue["severity"] == "error"
@@ -2169,37 +2273,28 @@ def _build_json_package(
     pdf_path: Optional[Path],
     selection_llm_client: Any = None,
 ) -> Dict[str, Any]:
-    if use_llm:
-        try:
-            generator = JSONGenerator(provider=provider, model=model, api_key=api_key, api_base=api_base)
-            print("  Stage 4 generating metadata.json", flush=True)
-            metadata = generator.generate_metadata(extraction, study_id, pdf_path=pdf_path)
-            _write_json(study_dir / "metadata.json", metadata)
-            print("  Stage 4 generating specification.json", flush=True)
-            specification = generator.generate_specification(extraction, study_id)
-            _write_json(study_dir / "specification.json", specification)
-            print("  Stage 4 generating ground_truth.json", flush=True)
-            ground_truth = generator.generate_ground_truth(extraction, study_id, debug_dir=study_dir)
-            _write_json(study_dir / "ground_truth.json", ground_truth)
-            print("  Stage 4 compiling Stage 3 materials/*.json", flush=True)
-            material_paths = _deterministic_materials(
-                extraction,
-                study_dir,
-                selection_llm_client=selection_llm_client,
-            )
-            return {
-                "metadata": metadata,
-                "specification": specification,
-                "ground_truth": ground_truth,
-                "material_paths": material_paths,
-                "json_generation": "llm_metadata_deterministic_materials",
-            }
-        except Exception as exc:
-            print(f"Warning: HumanStudy-Bench JSON generator failed, using deterministic fallback: {exc}")
-
     metadata = _deterministic_metadata(extraction, study_id)
     specification = _deterministic_specification(extraction, study_id)
     ground_truth = _deterministic_ground_truth(extraction, study_id)
+    json_generation = "deterministic_contracts"
+    if use_llm:
+        try:
+            generator = JSONGenerator(provider=provider, model=model, api_key=api_key, api_base=api_base)
+            print("  Stage 4 enriching metadata domain/keywords", flush=True)
+            enrichment = generator.generate_metadata(
+                _metadata_enrichment_input(extraction),
+                study_id,
+                pdf_path=None,
+            )
+            for key in ("domain", "subdomain", "keywords"):
+                value = enrichment.get(key)
+                if value not in (None, "", [], {}):
+                    metadata[key] = value
+            json_generation = "deterministic_contracts_llm_metadata"
+        except Exception as exc:
+            print(f"Warning: Stage 4 metadata enrichment failed; using deterministic metadata: {exc}")
+
+    print("  Stage 4 writing deterministic metadata/specification/ground_truth contracts", flush=True)
     material_paths = _deterministic_materials(extraction, study_dir, selection_llm_client=selection_llm_client)
     _write_json(study_dir / "metadata.json", metadata)
     _write_json(study_dir / "specification.json", specification)
@@ -2209,7 +2304,40 @@ def _build_json_package(
         "specification": specification,
         "ground_truth": ground_truth,
         "material_paths": material_paths,
-        "json_generation": "deterministic",
+        "json_generation": json_generation,
+    }
+
+
+def _metadata_enrichment_input(extraction: Dict[str, Any]) -> Dict[str, Any]:
+    studies: List[Dict[str, Any]] = []
+    for study in extraction.get("studies", []) or []:
+        if not isinstance(study, dict):
+            continue
+        studies.append(
+            {
+                "study_id": study.get("study_id"),
+                "study_name": study.get("study_name"),
+                "phenomenon": study.get("phenomenon"),
+                "effects": [
+                    {
+                        "IV": effect.get("IV"),
+                        "DV": effect.get("DV"),
+                        "effecttype": effect.get("effecttype"),
+                    }
+                    for effect in study.get("effects", []) or []
+                    if isinstance(effect, dict)
+                ],
+                "sub_studies": [
+                    {"sub_study_id": sub.get("sub_study_id")}
+                    for sub in study.get("sub_studies", []) or []
+                    if isinstance(sub, dict) and sub.get("sub_study_id")
+                ],
+            }
+        )
+    return {
+        "paper_title": extraction.get("paper_title"),
+        "paper_abstract": extraction.get("paper_abstract"),
+        "studies": studies,
     }
 
 
@@ -2275,6 +2403,11 @@ def build_human_study_package(
                 shutil.copy2(pdf_path, pdf_dest)
             hub_files.append(pdf_dest)
 
+    expected_config_path = (
+        study_root / "scripts" / "config.py"
+        if hub_layout
+        else config_dir / f"{resolved_study_id}_config.py"
+    )
     config_path = None
     config_status = "skipped"
     config_error = None
@@ -2282,7 +2415,7 @@ def build_human_study_package(
         if not api_key:
             config_status = "skipped_no_llm"
         else:
-            config_path = (study_root / "scripts" / "config.py") if hub_layout else config_dir / f"{resolved_study_id}_config.py"
+            config_path = expected_config_path
             try:
                 print(f"  Stage 4 generating StudyConfig adapter: {config_path}", flush=True)
                 ConfigGenerator(provider=provider, model=model, api_key=api_key, api_base=api_base).generate(
@@ -2298,6 +2431,53 @@ def build_human_study_package(
                 config_path = None
                 config_status = "failed"
                 config_error = str(exc)
+
+    adapter_validation: Dict[str, Any] = {}
+    adapter_ready = False
+    if config_status == "generated":
+        adapter_ready, validation_error, adapter_validation = _validate_study_config_adapter(
+            expected_config_path,
+            study_root=study_root,
+            package_dir=package_dir,
+            material_ids=[path.stem for path in package["material_paths"]],
+            hub_layout=hub_layout,
+        )
+        if not adapter_ready:
+            config_status = "failed_validation"
+            config_error = validation_error
+    package_audit = audit.setdefault("package_audit", {})
+    package_audit["adapter"] = {
+        "required": True,
+        "ready": adapter_ready,
+        "path": str(expected_config_path),
+        "generation_status": config_status,
+        "error": config_error,
+        "validation": adapter_validation,
+    }
+    if not adapter_ready:
+        issues = package_audit.setdefault("issues", [])
+        if not any(
+            issue == "study_config_adapter_unavailable"
+            or (
+                isinstance(issue, dict)
+                and issue.get("code") == "study_config_adapter_unavailable"
+            )
+            for issue in issues
+        ):
+            issues.append(
+                {
+                    "severity": "error",
+                    "path": "scripts/config.py",
+                    "code": "study_config_adapter_unavailable",
+                    "message": config_error
+                    or f"StudyConfig adapter generation status is {config_status!r}.",
+                }
+            )
+        package_audit["ready_for_simulation"] = False
+        package_audit["human_patch_required"] = True
+    _write_json(audit_path, audit)
+    if hub_layout:
+        _write_hub_root_files(study_root, package["metadata"], extraction, audit)
 
     generated_files = [
         source_path,
@@ -2329,6 +2509,212 @@ def build_human_study_package(
         "json_generation": package["json_generation"],
         "generated_files": [str(path) for path in generated_files],
     }
+
+
+def _python_source_is_valid(path: Path) -> bool:
+    try:
+        ast.parse(path.read_text(encoding="utf-8"))
+    except (OSError, SyntaxError, UnicodeDecodeError):
+        return False
+    return True
+
+
+def _validate_study_config_adapter(
+    config_path: Path,
+    *,
+    study_root: Path,
+    package_dir: Path,
+    material_ids: List[str],
+    hub_layout: bool,
+) -> tuple[bool, Optional[str], Dict[str, Any]]:
+    """Import and exercise a generated adapter in an isolated Python process."""
+    config_path = Path(config_path).resolve()
+    study_root = Path(study_root).resolve()
+    package_dir = Path(package_dir).resolve()
+    if not config_path.is_file() or not _python_source_is_valid(config_path):
+        return False, "Generated StudyConfig is missing or invalid Python.", {}
+
+    smoke_script = r'''
+import copy
+import importlib.util
+import json
+import re
+import sys
+from pathlib import Path
+
+config_path = Path(sys.argv[1])
+study_root = Path(sys.argv[2])
+package_dir = Path(sys.argv[3])
+expected_material_ids = set(json.loads(sys.argv[4]))
+hub_layout = sys.argv[5] == "1"
+
+if hub_layout:
+    sys.path.insert(0, str(config_path.parent))
+else:
+    sys.path.insert(0, str(Path.cwd()))
+
+specification = json.loads((package_dir / "specification.json").read_text(encoding="utf-8"))
+specification = copy.deepcopy(specification)
+participants = specification.setdefault("participants", {})
+participants["n"] = 1
+for value in (participants.get("by_sub_study") or {}).values():
+    if isinstance(value, dict):
+        value["n"] = 1
+
+module_spec = importlib.util.spec_from_file_location("generated_study_config", config_path)
+if module_spec is None or module_spec.loader is None:
+    raise RuntimeError("could not load generated config module")
+module = importlib.util.module_from_spec(module_spec)
+module_spec.loader.exec_module(module)
+config_classes = [
+    value
+    for value in vars(module).values()
+    if isinstance(value, type)
+    and value.__module__ == module.__name__
+    and value.__name__.endswith("Config")
+    and callable(getattr(value, "create_trials", None))
+]
+if len(config_classes) != 1:
+    raise RuntimeError(f"expected one generated StudyConfig class, found {len(config_classes)}")
+
+config = config_classes[0](study_root, specification)
+original_load_material = config.load_material
+loaded_materials = {}
+
+def tracked_load_material(material_id):
+    value = original_load_material(material_id)
+    loaded_materials[str(material_id)] = value
+    return value
+
+config.load_material = tracked_load_material
+probe_trial_count = max(1, len(expected_material_ids))
+trials = config.create_trials(n_trials=probe_trial_count)
+if not isinstance(trials, list) or not trials:
+    raise RuntimeError(
+        f"create_trials(n_trials={probe_trial_count}) returned no trials"
+    )
+if len(trials) != probe_trial_count:
+    raise RuntimeError(
+        f"create_trials(n_trials={probe_trial_count}) returned {len(trials)} trials; "
+        "n_trials must be a total package-level budget"
+    )
+if len(trials) > max(100, len(expected_material_ids) * 20):
+    raise RuntimeError(f"smoke run produced an unreasonable {len(trials)} trials")
+missing_loads = expected_material_ids - set(loaded_materials)
+if missing_loads:
+    raise RuntimeError("adapter did not load materials: " + ", ".join(sorted(missing_loads)))
+
+covered_materials = set()
+prompt_summaries = []
+prompt_builder = config.get_prompt_builder()
+for trial_index, trial in enumerate(trials):
+    if not isinstance(trial, dict):
+        raise RuntimeError(f"trial {trial_index} is not an object")
+    material_id = next(
+        (
+            str(trial.get(key))
+            for key in ("sub_study_id", "material_id", "scenario_id", "scenario")
+            if str(trial.get(key) or "") in expected_material_ids
+        ),
+        "",
+    )
+    if material_id:
+        covered_materials.add(material_id)
+    runtime_payload = trial.get("material") if isinstance(trial.get("material"), dict) else trial
+    trial_items = runtime_payload.get("items")
+    if not isinstance(trial_items, list) or not trial_items:
+        raise RuntimeError(f"trial {trial_index} has no executable items")
+
+    if material_id and isinstance(loaded_materials.get(material_id), dict):
+        source_items = [
+            value
+            for value in loaded_materials[material_id].get("items", []) or []
+            if isinstance(value, dict)
+        ]
+        source_by_unit = {}
+        for item in source_items:
+            condition = item.get("condition") if isinstance(item.get("condition"), dict) else {}
+            unit_id = str(condition.get("runtime_unit_id") or item.get("runtime_unit_id") or "")
+            if unit_id:
+                source_by_unit.setdefault(unit_id, set()).add(str(item.get("id") or ""))
+        trial_by_unit = {}
+        for item in trial_items:
+            if not isinstance(item, dict):
+                continue
+            condition = item.get("condition") if isinstance(item.get("condition"), dict) else {}
+            unit_id = str(condition.get("runtime_unit_id") or item.get("runtime_unit_id") or "")
+            if unit_id:
+                trial_by_unit.setdefault(unit_id, set()).add(str(item.get("id") or ""))
+        for unit_id, selected_ids in trial_by_unit.items():
+            expected_ids = source_by_unit.get(unit_id, set())
+            if expected_ids and not expected_ids.issubset(selected_ids):
+                missing_ids = expected_ids - selected_ids
+                raise RuntimeError(
+                    f"trial {trial_index} cropped runtime unit {unit_id}: "
+                    + ", ".join(sorted(missing_ids))
+                )
+
+    prompt = prompt_builder.build_trial_prompt(trial)
+    if not isinstance(prompt, str) or not prompt.strip():
+        raise RuntimeError(f"trial {trial_index} produced an empty prompt")
+    response_spec_headers = re.findall(r"(?mi)^\s*RESPONSE_SPEC\s*:", prompt)
+    if len(response_spec_headers) != 1 or "no response fields detected" in prompt.lower():
+        raise RuntimeError(f"trial {trial_index} has an invalid RESPONSE_SPEC")
+    prompt_summaries.append(
+        {
+            "material_id": material_id,
+            "item_count": len(trial_items),
+            "prompt_chars": len(prompt),
+        }
+    )
+
+missing_trials = expected_material_ids - covered_materials
+if missing_trials:
+    raise RuntimeError("adapter produced no trial for materials: " + ", ".join(sorted(missing_trials)))
+
+summary = {
+    "status": "pass",
+    "trial_count": len(trials),
+    "loaded_material_ids": sorted(loaded_materials),
+    "prompt_summaries": prompt_summaries[:20],
+}
+print("ADAPTER_SMOKE_JSON=" + json.dumps(summary, ensure_ascii=False))
+'''
+    try:
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                smoke_script,
+                str(config_path),
+                str(study_root),
+                str(package_dir),
+                json.dumps(sorted(set(material_ids))),
+                "1" if hub_layout else "0",
+            ],
+            cwd=str(_repo_root()),
+            capture_output=True,
+            text=True,
+            timeout=60,
+            check=False,
+        )
+    except subprocess.TimeoutExpired:
+        return False, "Generated StudyConfig smoke test exceeded 60 seconds.", {}
+    if completed.returncode != 0:
+        detail = (completed.stderr or completed.stdout or "unknown adapter error").strip()
+        return False, f"Generated StudyConfig smoke test failed: {detail[-2000:]}", {}
+    marker = "ADAPTER_SMOKE_JSON="
+    line = next(
+        (value for value in reversed(completed.stdout.splitlines()) if value.startswith(marker)),
+        "",
+    )
+    if not line:
+        return False, "Generated StudyConfig smoke test returned no validation summary.", {}
+    try:
+        summary = json.loads(line[len(marker):])
+    except json.JSONDecodeError as exc:
+        return False, f"Generated StudyConfig smoke summary was invalid JSON: {exc}", {}
+    return True, None, summary
 
 
 def build_stage4_experiments(

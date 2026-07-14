@@ -15,6 +15,10 @@ KEEP a study when an LLM participant can faithfully complete it:
 - Message / article reading studies (read text, then rate attitudes/openness).
 - Clean experimental manipulations delivered as written instructions / assignment
   to a between-subjects condition, measured by ratings / Likert / a single choice.
+- Written predictions, ratings, or choices remain simulatable even when the
+  scenario concerns money, donation, work, or another real-world behavior.
+- When a study mixes a written prediction task with a later physical action,
+  keep the written task and explain which component is simulatable.
 - Keep BOTH an original and its replication when the replication adds a new
   measure/construct/population and is NOT described as fixing the earlier one.
 
@@ -137,15 +141,6 @@ _SELF_CONTAINED_EXPERIMENT_RE = re.compile(
     re.IGNORECASE,
 )
 
-_REAL_ACTION_RE = re.compile(
-    r"\b("
-    r"behavioral\s+paradigm|economic\s+game|donat(?:e|ion)|bonus|30\s*¢|30\s*cents?|"
-    r"real[- ]?money|binary\s+donation|public\s+vs\.?\s+private|observability"
-    r")\b",
-    re.IGNORECASE,
-)
-
-
 def _deterministic_drop(exp: Dict[str, Any], reason: str = "") -> Optional[str]:
     """Hard vetoes for cases the LLM sometimes labels keep despite its reason.
 
@@ -161,8 +156,6 @@ def _deterministic_drop(exp: Dict[str, Any], reason: str = "") -> Optional[str]:
         str(exp.get(key) or "")
         for key in ("experiment_name", "design_type", "conditions_or_factors", "input", "participant_task", "output")
     )
-    if _REAL_ACTION_RE.search(text):
-        return "deterministic-drop: real behavioral/money action not self-contained written response"
     if _FIELD_STUDY_RE.search(text) and not _SELF_CONTAINED_EXPERIMENT_RE.search(text):
         return "deterministic-drop: field/longitudinal study without self-contained scenario"
     return None

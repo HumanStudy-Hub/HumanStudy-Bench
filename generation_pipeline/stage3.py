@@ -12,8 +12,12 @@ from generation_pipeline.parsers.effect_consolidator import annotate_study
 from generation_pipeline.parsers.material_assembler import assemble_study_materials
 from generation_pipeline.parsers.source_linker import LinkResult, link_sources
 from generation_pipeline.parsers.stage3_adapter import match_stage3_study
+from generation_pipeline.pdf.provider import extract_pdf_study_materials
 from generation_pipeline.stage3_material_contract import apply_material_contracts
-from generation_pipeline.stage3_pdf_materials import PDF_TEXT_MAX_CHARS, extract_pdf_study_materials
+from generation_pipeline.stage3_pdf_materials import (
+    PDF_TEXT_MAX_CHARS,
+    extract_pdf_study_materials as extract_linked_source_materials,
+)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -603,6 +607,7 @@ def build_study_materials(
                     llm_client,
                     timeout=pdf_material_timeout,
                     stage1_json=stage1_json,
+                    artifacts_dir=paper_dir / "pdf_artifacts",
                 ),
             )
         except Exception as exc:
@@ -681,7 +686,7 @@ def _merge_linked_source_materials(
             }
             attempts.append(attempt)
             try:
-                extracted = extract_pdf_study_materials(
+                extracted = extract_linked_source_materials(
                     data,
                     source.path,
                     llm_client,
@@ -1494,7 +1499,7 @@ def _complete_sparse_materials_from_siblings(
     study_map = _study_by_sub_id(eligible)
     for sid, material in materials.items():
         source_trace = material.get("source_trace") if isinstance(material.get("source_trace"), dict) else {}
-        if source_trace.get("stimulus_source") == "pdf_llm" or source_trace.get("primary_source") == "pdf_llm":
+        if source_trace.get("extractor") == "pdf_evidence_provider_v1":
             continue
         if not _instructions_sparse(material):
             continue
