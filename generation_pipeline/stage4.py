@@ -1216,8 +1216,8 @@ def _materials_from_human_studies(studies: List[Dict[str, Any]]) -> Dict[str, Di
 
 def normalize_to_human_extraction(payload: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Convert either HumanStudy-Bench extraction JSON or ai-ethics Stage 2 JSON into
-    the HumanStudy-Bench extraction shape consumed by the study generators.
+    Convert either HumanStudy-Bench extraction JSON or generation-pipeline JSON
+    into the HumanStudy-Bench extraction shape consumed by the study generators.
     """
     if isinstance(payload.get("studies"), list):
         normalized = dict(payload)
@@ -1234,7 +1234,7 @@ def normalize_to_human_extraction(payload: Dict[str, Any]) -> Dict[str, Any]:
     eligible = payload.get("eligible_studies")
     if not isinstance(eligible, list):
         raise ValueError(
-            "Stage 4 input must contain HumanStudy-Bench 'studies' or ai-ethics 'eligible_studies'."
+            "Stage 4 input must contain HumanStudy-Bench 'studies' or generation-pipeline 'eligible_studies'."
         )
 
     stage3_materials = _canonicalize_material_map(payload.get("study_materials"))
@@ -1316,7 +1316,11 @@ def normalize_to_human_extraction(payload: Dict[str, Any]) -> Dict[str, Any]:
         "paper_authors": _metadata_value(payload, "authors", []),
         "paper_year": _metadata_value(payload, "year"),
         "paper_abstract": _metadata_value(payload, "abstract", ""),
-        "source_schema": "ai_ethics_stage3" if stage3_materials else "ai_ethics_stage2",
+        "source_schema": (
+            "generation_pipeline_stage3"
+            if stage3_materials
+            else "generation_pipeline_stage2"
+        ),
         "studies": studies,
         "study_materials": filtered_stage3_materials or stage3_materials,
         "simulation_targets": simulation_targets,
