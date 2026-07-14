@@ -7,6 +7,7 @@ from unittest.mock import patch
 
 from generation_pipeline.extractors.study_data_extractor import StudyDataExtractor
 from generation_pipeline.pdf.models import DocumentBlock, ParsedPdfDocument
+from generation_pipeline.stage2_findings import annotate_stage2_findings
 from generation_pipeline.stage2_verifier import verify_stage2_findings
 
 
@@ -178,6 +179,61 @@ class _Stage2Client:
 
 
 class Stage2EvidenceTests(unittest.TestCase):
+    def test_findings_preserve_stage1_canonical_study_id(self):
+        paper = {
+            "eligible_studies": [
+                {
+                    "study": "Asian disease framing task",
+                    "study_id": "study_problem_1",
+                    "effects": [
+                        {
+                            "effecttype": "main",
+                            "IV": "gain versus loss frame",
+                            "DV": "program choice",
+                            "direction": "pos",
+                            "table_or_page_location": "Problem 1",
+                            "stats": {"p_value": ".01", "sig": "sig"},
+                        }
+                    ],
+                }
+            ]
+        }
+
+        annotate_stage2_findings(paper)
+
+        study = paper["eligible_studies"][0]
+        self.assertEqual(study["study_id"], "study_problem_1")
+        self.assertEqual(study["findings"][0]["study_id"], "study_problem_1")
+        self.assertTrue(
+            study["findings"][0]["finding_id"].startswith("study_problem_1__")
+        )
+
+    def test_findings_generate_canonical_id_only_when_missing(self):
+        paper = {
+            "eligible_studies": [
+                {
+                    "study": "Asian disease framing task",
+                    "effects": [
+                        {
+                            "effecttype": "main",
+                            "IV": "gain versus loss frame",
+                            "DV": "program choice",
+                            "direction": "pos",
+                            "table_or_page_location": "Problem 1",
+                            "stats": {"p_value": ".01", "sig": "sig"},
+                        }
+                    ],
+                }
+            ]
+        }
+
+        annotate_stage2_findings(paper)
+
+        self.assertEqual(
+            paper["eligible_studies"][0]["study_id"],
+            "study_asian_disease_framing_task",
+        )
+
     def test_stage2_extracts_each_candidate_from_its_own_context(self):
         document = _document()
         stage1 = _stage1()

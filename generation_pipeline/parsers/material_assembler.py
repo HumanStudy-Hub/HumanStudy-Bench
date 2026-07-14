@@ -623,7 +623,7 @@ def assemble_study_materials(
                 base["source_trace"]["legacy_slot_summary"] = s3["slot_summary"]
         return base
 
-    # --- 1/2. OSF instrument present -----------------------------------------
+    # 1/2. OSF instrument present
     src_rel = _relpath(primary.path, repo_root)
     try:
         if primary.kind == "qsf":
@@ -644,7 +644,7 @@ def assemble_study_materials(
             "Skipped non-response SAV fields: " + ", ".join(built["skipped_items"])
         )
 
-    # --- 2. enrich .sav (no stimulus) with Stage 3 PDF material --------------
+    # 2. enrich .sav (no stimulus) with Stage 3 PDF material
     if primary.kind == "sav" and not base["instructions"]:
         if allow_pdf_slot_fallback and s3 and s3["instructions"]:
             base["instructions"] = s3["instructions"]

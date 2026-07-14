@@ -26,10 +26,6 @@ def _eligible_of(data: Dict[str, Any]) -> List[Dict[str, Any]]:
     return data.get("eligible_studies") or data.get("studies") or []
 
 
-# --------------------------------------------------------------------------- #
-# Unified Stage 3 entry: stage2.json -> stage3.json (+ stage3.md)
-# --------------------------------------------------------------------------- #
-
 def _find_stage_file(paper_dir: Path, stem: str) -> Optional[Path]:
     """Locate a stage file by canonical name only."""
     canonical = paper_dir / f"{stem}.json"

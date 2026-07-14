@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from typing import Any, Dict, List
 
+from generation_pipeline.identifiers import canonical_sub_study_id
 from generation_pipeline.parsers.effect_consolidator import annotate_study
 from generation_pipeline.stage2_finding_contract import apply_stage2_finding_contract
 
@@ -142,8 +143,13 @@ def annotate_stage2_findings(
 
     for study_index, study in enumerate(studies, start=1):
         study_name = str(study.get("study") or study.get("name") or f"Study {study_index}")
-        study_id = _slug(study_name, f"study_{study_index}")
-        study["study_id"] = study_id
+        study_id = str(study.get("study_id") or "").strip()
+        if not study_id:
+            study_id = canonical_sub_study_id(
+                study_name,
+                fallback=f"study_{study_index}",
+            )
+            study["study_id"] = study_id
         study["study_name"] = study_name
         if recompute_consolidation or not isinstance(study.get("consolidation_summary"), dict):
             annotate_study(study, study_id=study_id)

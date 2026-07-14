@@ -1,11 +1,3 @@
-"""Evidence-driven Stage 1 compiler.
-
-The compiler never sends the complete paper in one LLM request. It first maps
-every parsed PDF block through bounded discovery windows, reconciles the
-resulting study mentions, and then extracts one study at a time from anchored
-evidence contexts.
-"""
-
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -696,10 +688,8 @@ def _reconcile_mentions(
     groups = [grouped[key] for key in order]
     actions: List[Dict[str, Any]] = []
 
-    # Overlapping windows often describe the same unlabeled task with a short
-    # label in one window and a qualified label in another. Merge only when the
-    # evidence overlaps and the labels/names semantically contain one another;
-    # distinct numbered source labels are never merged by this rule.
+    # Overlapping windows often describe the same unlabeled task with a short label in one window and a qualified label in another.
+    # Merge only when the evidence overlaps and the labels/names semantically contain one another
     group_index = 0
     while group_index < len(groups):
         other_index = group_index + 1
@@ -719,10 +709,6 @@ def _reconcile_mentions(
             other_index += 1
         group_index += 1
 
-    # A weakly named group/table/form that cites evidence already owned by one
-    # formal parent is subordinate to that parent. Requiring exactly one parent
-    # keeps shared tables that mention several experiments ambiguous rather than
-    # assigning them arbitrarily.
     weak_index = 0
     while weak_index < len(groups):
         weak_group = groups[weak_index]
@@ -953,9 +939,7 @@ def _mention_has_source_anchor(mention: Dict[str, Any]) -> bool:
         return True
     if _SOURCE_ANCHOR_RE.search(label):
         return True
-    # Discovery-generated study names can clarify an unlabeled problem/survey,
-    # but a generic word such as "experiment" in a paraphrase is not itself a
-    # source label.
+
     return bool(_FALLBACK_ANCHOR_RE.search(str(mention.get("study_name") or "")))
 
 

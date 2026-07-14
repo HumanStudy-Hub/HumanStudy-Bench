@@ -1,6 +1,4 @@
-"""
-Config Generator - Generates StudyConfig classes from extraction results using LLM
-"""
+""" Config Generator - Generates StudyConfig classes from extraction results using LLM """
 
 import ast
 import json

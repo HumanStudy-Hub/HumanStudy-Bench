@@ -119,7 +119,7 @@ class GroundedSlotExtractor:
         self._source_paths_by_study_non_prereg: dict[str, set[str]] = {}
         self._shared_source_paths: set[str] = set()
 
-    # -- preparation -------------------------------------------------------
+    # preparation
     def prepare(self, pdf_path: Path) -> None:
         """Parse + chunk the PDF once; cache normalized raw source for verification."""
         pdf_path = Path(pdf_path)
@@ -189,7 +189,7 @@ class GroundedSlotExtractor:
         self._source_paths_by_study_non_prereg = by_study_non_prereg
         self._shared_source_paths = shared
 
-    # -- core --------------------------------------------------------------
+    # -- core-------
     def extract_slot(
         self,
         *,
@@ -240,8 +240,7 @@ class GroundedSlotExtractor:
         if not self._has_source_metadata():
             query_parts = (study, *query_parts)
         query = " ".join(str(x) for x in query_parts if x)
-        # Multi-span assembly retrieves a WIDER candidate set so pieces scattered
-        # across blocks/conditions all enter the evidence window.
+        # Multi-span assembly retrieves a WIDER candidate set so pieces scattered across blocks/conditions all enter the evidence window.
         eff_k = min(self.k * 3, len(self._chunks)) if assemble else self.k
         scored = self._retrieve_scoped(study, query, k=eff_k, keywords=profile["keywords"])
         if not scored:
@@ -257,7 +256,7 @@ class GroundedSlotExtractor:
         evidence = format_evidence(scored)
         evidence_pages = sorted({c.page_start for c, _ in scored} | {c.page_end for c, _ in scored})
 
-        # ---- Multi-span assembly (primary path for composite materials) ------
+        # Multi-span assembly
         if assemble and paraphrase_threshold is not None:
             assembled = self._assemble_spans(
                 slot, study, iv, dv, profile["desc"], evidence,
@@ -325,11 +324,6 @@ class GroundedSlotExtractor:
                 evidence_pages=evidence_pages,
             )
 
-        # Paraphrase tier B: verbatim extraction returned NOT_PRESENT, but the
-        # caller allows paraphrasing (e.g. OSF/QSF sources with piped text).
-        # Fall back to a "describe from evidence" prompt that doesn't require
-        # a clean verbatim span — suitable for QSF survey format and
-        # pre-registration prose descriptions.
         if paraphrase_threshold is not None:
             described = self._ask_describe(slot, study, dv, profile["desc"], evidence)
             if described.get("error"):
@@ -515,7 +509,7 @@ Respond with JSON exactly:
             return {"found": False, "description": "", "reason": "bad_response"}
         return data
 
-    # -- multi-span assembly -----------------------------------------------
+    # multi-span assembly
     def _assemble_spans(
         self,
         slot: str,

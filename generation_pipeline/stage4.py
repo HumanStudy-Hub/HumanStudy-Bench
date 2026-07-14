@@ -1128,7 +1128,52 @@ def _target_material_id(target: Dict[str, Any], fallback: str) -> str:
     )
 
 
-def _canonicalize_material_map(raw_materials: Any) -> Dict[str, Dict[str, Any]]:
+def _authoritative_sub_study_id(study: Dict[str, Any], *, fallback: str) -> str:
+    return canonical_sub_study_id(
+        study.get("study_id")
+        or study.get("experiment_id")
+        or study.get("study")
+        or study.get("name"),
+        fallback=fallback,
+    )
+
+
+def _study_id_aliases(studies: List[Dict[str, Any]]) -> Dict[str, set[str]]:
+    aliases: Dict[str, set[str]] = {}
+    for index, study in enumerate(studies, start=1):
+        if not isinstance(study, dict):
+            continue
+        authoritative = _authoritative_sub_study_id(study, fallback=f"study_{index}")
+        for value in (
+            authoritative,
+            study.get("study_id"),
+            study.get("experiment_id"),
+            study.get("study"),
+            study.get("name"),
+            study.get("study_name"),
+        ):
+            if value in (None, ""):
+                continue
+            alias = canonical_sub_study_id(value)
+            aliases.setdefault(alias, set()).add(authoritative)
+    return aliases
+
+
+def _resolve_sub_study_id(value: Any, aliases: Dict[str, set[str]]) -> str:
+    normalized = canonical_sub_study_id(value)
+    matches = aliases.get(normalized, set())
+    if len(matches) > 1:
+        raise ValueError(
+            f"Ambiguous sub-study alias {value!r}; matches canonical IDs {sorted(matches)}"
+        )
+    return next(iter(matches)) if matches else normalized
+
+
+def _canonicalize_material_map(
+    raw_materials: Any,
+    *,
+    aliases: Optional[Dict[str, set[str]]] = None,
+) -> Dict[str, Dict[str, Any]]:
     if not isinstance(raw_materials, dict):
         return {}
     normalized: Dict[str, Dict[str, Any]] = {}
@@ -1136,7 +1181,10 @@ def _canonicalize_material_map(raw_materials: Any) -> Dict[str, Dict[str, Any]]:
         if not isinstance(raw_material, dict):
             continue
         material = deepcopy(raw_material)
-        sub_id = canonical_sub_study_id(material.get("sub_study_id") or raw_key)
+        sub_id = _resolve_sub_study_id(
+            material.get("sub_study_id") or raw_key,
+            aliases or {},
+        )
         if sub_id in normalized:
             raise ValueError(f"Duplicate Stage 3 material after canonical ID normalization: {sub_id}")
         material["sub_study_id"] = sub_id
@@ -1146,7 +1194,11 @@ def _canonicalize_material_map(raw_materials: Any) -> Dict[str, Dict[str, Any]]:
     return normalized
 
 
-def _canonicalize_targets(raw_targets: Any) -> List[Dict[str, Any]]:
+def _canonicalize_targets(
+    raw_targets: Any,
+    *,
+    aliases: Optional[Dict[str, set[str]]] = None,
+) -> List[Dict[str, Any]]:
     if not isinstance(raw_targets, list):
         return []
     targets: List[Dict[str, Any]] = []
@@ -1154,8 +1206,9 @@ def _canonicalize_targets(raw_targets: Any) -> List[Dict[str, Any]]:
         if not isinstance(raw_target, dict):
             continue
         target = deepcopy(raw_target)
-        sub_id = canonical_sub_study_id(
-            target.get("sub_study_id") or target.get("material_id") or target.get("study_name")
+        sub_id = _resolve_sub_study_id(
+            target.get("sub_study_id") or target.get("material_id") or target.get("study_name"),
+            aliases or {},
         )
         target["sub_study_id"] = sub_id
         target_id = str(target.get("target_id") or "").strip()
@@ -1237,8 +1290,15 @@ def normalize_to_human_extraction(payload: Dict[str, Any]) -> Dict[str, Any]:
             "Stage 4 input must contain HumanStudy-Bench 'studies' or generation-pipeline 'eligible_studies'."
         )
 
-    stage3_materials = _canonicalize_material_map(payload.get("study_materials"))
-    simulation_targets = _canonicalize_targets(payload.get("simulation_targets"))
+    study_aliases = _study_id_aliases(eligible)
+    stage3_materials = _canonicalize_material_map(
+        payload.get("study_materials"),
+        aliases=study_aliases,
+    )
+    simulation_targets = _canonicalize_targets(
+        payload.get("simulation_targets"),
+        aliases=study_aliases,
+    )
     if not simulation_targets and stage3_materials:
         from generation_pipeline.simulation_targets import build_simulation_targets
 
@@ -1254,7 +1314,7 @@ def normalize_to_human_extraction(payload: Dict[str, Any]) -> Dict[str, Any]:
         if not isinstance(study, dict):
             continue
         study_name = study.get("study") or study.get("name") or f"Study {study_index}"
-        sub_id = canonical_sub_study_id(study_name, fallback=f"study_{study_index}")
+        sub_id = _authoritative_sub_study_id(study, fallback=f"study_{study_index}")
         effects = [effect for effect in study.get("effects", []) if isinstance(effect, dict)]
         sample = study.get("sample") if isinstance(study.get("sample"), dict) else {}
 
@@ -1289,7 +1349,7 @@ def normalize_to_human_extraction(payload: Dict[str, Any]) -> Dict[str, Any]:
 
         studies.append(
             {
-                "study_id": study_name,
+                "study_id": sub_id,
                 "study_name": study_name,
                 "phenomenon": payload.get("paper_title") or study_name,
                 "sample": sample,

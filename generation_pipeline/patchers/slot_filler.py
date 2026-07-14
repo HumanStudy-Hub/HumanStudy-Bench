@@ -1,17 +1,3 @@
-"""
-Slot Filler - legacy Stage 3 source recovery
-
-Patches existing per-paper JSON files (the `输出/*.json` corpus) by:
-  1. Filling empty `materials / manipulation / items` slots (status == null)
-     with verbatim/paraphrased content from the PDF.
-  2. Upgrading the `sample` field from a string to a structured participants
-     object. Current canonical schema stores this object at study level; this
-     class still accepts old effect-level `sample` strings for migration.
-
-The patcher only writes slots that are currently empty (status == null);
-human-reviewed slots are preserved.
-"""
-
 import json
 import re
 import sys
@@ -94,11 +80,7 @@ def _make_patch_update(
         "content_chars": _content_chars(content),
     }
 
-
-# ---------------------------------------------------------------------------
-# Section locator: pull a window around "Study N" / first Method section
-# ---------------------------------------------------------------------------
-
+# Section locator: pull a window around "Study N"
 def find_study_section(pdf_text: str, study_label: str, window: int = STUDY_SECTION_CHARS) -> str:
     """Return a substring of PDF text centered on the study's Method section.
 
@@ -220,13 +202,7 @@ class SlotFiller:
 
     @staticmethod
     def _load_supplementary_sources(source_dirs: Optional[list]) -> list[dict[str, str]]:
-        """Load source text records while preserving source-file provenance.
-
-        Preferred input is ``source_text_index.json`` written by the connector
-        registry; it maps each original source file to its extracted text file.
-        Fall back to the legacy anonymous ``combined_sources.txt`` only when the
-        index is unavailable.
-        """
+        """Load source text records while preserving source-file provenance. """
         if not source_dirs:
             return []
         records: list[dict[str, str]] = []
@@ -272,8 +248,6 @@ class SlotFiller:
         return records
 
     # Lower fuzzy-match threshold for OSF supplementary content.
-    # QSF piped text (${e://Field/text}) and pre-registration prose won't
-    # score ≥90 against the PDF, but ≥75 indicates the content is present.
     OSF_PARAPHRASE_THRESHOLD = 75.0
 
     def _patch_from_sources(
@@ -283,21 +257,10 @@ class SlotFiller:
         *,
         on_update: Optional[Callable[[Dict[str, Any], Any], None]] = None,
     ) -> None:
-        """Paper-qa-style grounded fill from OSF/supplementary source text.
-
-        Chunks the source text and uses GroundedSlotExtractor (with a two-tier
-        threshold: ≥90 → verbatim, ≥75 → paraphrased) to fill slots that
-        were previously unfillable from the PDF alone.
-
-        OSF supplementary files come in several formats:
-        - DOCX (e.g. manipulation scripts) → clean text, often verbatim-matchable
-        - Pre-registration PDFs → abstract prose, often paraphrase-tier
-        - QSF Qualtrics surveys → piped variables, needs assembly → paraphrase-tier
-        """
         try:
             from generation_pipeline.extractors.grounded_slot_extractor import GroundedSlotExtractor
         except ImportError:
-            return  # grounded extractor unavailable — degrade gracefully
+            return  # grounded extractor unavailable, degrade gracefully
 
         extractor = GroundedSlotExtractor(
             self.client,
@@ -335,7 +298,7 @@ class SlotFiller:
                     content = obj.get("content")
                     if status not in self.OSF_RETRYABLE_STATUSES:
                         continue
-                    if content:  # already has content (e.g. human-filled)
+                    if content:  # already has content
                         continue
                     source_tasks.append(
                         {
