@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 from xml.etree import ElementTree as ET
 
+from generation_pipeline.identifiers import canonical_sub_study_id
 from generation_pipeline.parsers.effect_consolidator import annotate_study
 from generation_pipeline.parsers.material_assembler import assemble_study_materials
 from generation_pipeline.parsers.source_linker import LinkResult, link_sources
@@ -987,10 +988,9 @@ _CONDITION_DETAIL_RE = re.compile(
 
 
 def _material_slug(text: Any) -> str:
-    value = re.sub(r"[^a-z0-9]+", "_", str(text or "").lower()).strip("_")
-    if value and not value.startswith(("study", "pilot")):
-        value = f"study_{value}"
-    return value
+    if text in (None, ""):
+        return ""
+    return canonical_sub_study_id(text)
 
 
 def _stem(token: str) -> str:

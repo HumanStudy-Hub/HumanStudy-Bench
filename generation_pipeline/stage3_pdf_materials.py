@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional
 
 from src.llm.helpers import call_with_timeout
 
+from generation_pipeline.identifiers import canonical_sub_study_id
 from generation_pipeline.utils.pdf_extractor import extract_pdf_text
 
 
@@ -56,10 +57,7 @@ def _slug(text: Any, fallback: str = "study") -> str:
 
 
 def _sub_study_id(value: Any) -> str:
-    slug = _slug(value)
-    if not slug.startswith(("study", "pilot")):
-        slug = f"study_{slug}"
-    return slug
+    return canonical_sub_study_id(value)
 
 
 def _loads_json(text: str) -> Dict[str, Any]:

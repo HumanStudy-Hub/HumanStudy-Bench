@@ -9,11 +9,13 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from generation_pipeline.generators.config_generator import ConfigGenerator
+from generation_pipeline.identifiers import canonical_sub_study_id
 from generation_pipeline.utils.json_generator import JSONGenerator
 from src.llm.helpers import generate_json
 
 
 STUDY_ID_MAX_LEN = 80
+NON_PARTICIPANT_SOURCE_KINDS = {"stage2_scaffold", "stage4_legacy_fallback"}
 
 
 def _slugify(value: Any, *, fallback: str = "study") -> str:
@@ -1103,7 +1105,95 @@ def _study_prompt_material(
 
 
 def _target_material_id(target: Dict[str, Any], fallback: str) -> str:
-    return str(target.get("sub_study_id") or target.get("material_id") or target.get("target_id") or fallback)
+    return canonical_sub_study_id(
+        target.get("sub_study_id") or target.get("material_id") or fallback
+    )
+
+
+def _canonicalize_material_map(raw_materials: Any) -> Dict[str, Dict[str, Any]]:
+    if not isinstance(raw_materials, dict):
+        return {}
+    normalized: Dict[str, Dict[str, Any]] = {}
+    for raw_key, raw_material in raw_materials.items():
+        if not isinstance(raw_material, dict):
+            continue
+        material = deepcopy(raw_material)
+        sub_id = canonical_sub_study_id(material.get("sub_study_id") or raw_key)
+        if sub_id in normalized:
+            raise ValueError(f"Duplicate Stage 3 material after canonical ID normalization: {sub_id}")
+        material["sub_study_id"] = sub_id
+        if material.get("material_id"):
+            material["material_id"] = sub_id
+        normalized[sub_id] = material
+    return normalized
+
+
+def _canonicalize_targets(raw_targets: Any) -> List[Dict[str, Any]]:
+    if not isinstance(raw_targets, list):
+        return []
+    targets: List[Dict[str, Any]] = []
+    for raw_target in raw_targets:
+        if not isinstance(raw_target, dict):
+            continue
+        target = deepcopy(raw_target)
+        sub_id = canonical_sub_study_id(
+            target.get("sub_study_id") or target.get("material_id") or target.get("study_name")
+        )
+        target["sub_study_id"] = sub_id
+        target_id = str(target.get("target_id") or "").strip()
+        suffix = target_id.split("__", 1)[1] if "__" in target_id else ""
+        target["target_id"] = f"{sub_id}__{suffix}" if suffix else f"{sub_id}__effect_01"
+        targets.append(target)
+    return targets
+
+
+def _canonicalize_human_studies(raw_studies: Any) -> List[Dict[str, Any]]:
+    studies = deepcopy(raw_studies) if isinstance(raw_studies, list) else []
+    for study in studies:
+        if not isinstance(study, dict):
+            continue
+        for sub_study in study.get("sub_studies", []) or []:
+            if not isinstance(sub_study, dict):
+                continue
+            sub_study["sub_study_id"] = canonical_sub_study_id(
+                sub_study.get("sub_study_id") or sub_study.get("name")
+            )
+    return studies
+
+
+def _materials_from_human_studies(studies: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+    materials: Dict[str, Dict[str, Any]] = {}
+    for study in studies:
+        if not isinstance(study, dict):
+            continue
+        for sub_study in study.get("sub_studies", []) or []:
+            if not isinstance(sub_study, dict):
+                continue
+            sub_id = canonical_sub_study_id(
+                sub_study.get("sub_study_id") or sub_study.get("name")
+            )
+            instructions = str(
+                sub_study.get("instructions") or sub_study.get("content") or ""
+            ).strip()
+            items = deepcopy(sub_study.get("items")) if isinstance(sub_study.get("items"), list) else []
+            ready = bool(instructions and items)
+            materials[sub_id] = {
+                "sub_study_id": sub_id,
+                "instructions": instructions,
+                "items": items,
+                "conditions": deepcopy(sub_study.get("conditions")) if isinstance(sub_study.get("conditions"), list) else [],
+                "response_schema": deepcopy(sub_study.get("response_schema")) if isinstance(sub_study.get("response_schema"), dict) else {},
+                "readiness": {
+                    "ready": ready,
+                    "blocking_issues": [] if ready else ["incomplete_human_extraction_material"],
+                    "warnings": [],
+                },
+                "source_trace": {
+                    "primary_source": "human_extraction",
+                    "source_file": "input_json",
+                },
+            }
+    return materials
 
 
 def normalize_to_human_extraction(payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -1113,11 +1203,14 @@ def normalize_to_human_extraction(payload: Dict[str, Any]) -> Dict[str, Any]:
     """
     if isinstance(payload.get("studies"), list):
         normalized = dict(payload)
+        normalized["studies"] = _canonicalize_human_studies(payload.get("studies"))
         normalized.setdefault("paper_authors", _metadata_value(payload, "authors", []))
         normalized.setdefault("paper_year", _metadata_value(payload, "year"))
         normalized.setdefault("paper_abstract", _metadata_value(payload, "abstract", ""))
-        normalized.setdefault("study_materials", payload.get("study_materials", {}))
-        normalized.setdefault("simulation_targets", payload.get("simulation_targets", []))
+        normalized["study_materials"] = _canonicalize_material_map(payload.get("study_materials"))
+        if not normalized["study_materials"]:
+            normalized["study_materials"] = _materials_from_human_studies(normalized["studies"])
+        normalized["simulation_targets"] = _canonicalize_targets(payload.get("simulation_targets"))
         return normalized
 
     eligible = payload.get("eligible_studies")
@@ -1126,8 +1219,16 @@ def normalize_to_human_extraction(payload: Dict[str, Any]) -> Dict[str, Any]:
             "Stage 4 input must contain HumanStudy-Bench 'studies' or ai-ethics 'eligible_studies'."
         )
 
-    stage3_materials = payload.get("study_materials")
-    stage3_materials = stage3_materials if isinstance(stage3_materials, dict) else {}
+    stage3_materials = _canonicalize_material_map(payload.get("study_materials"))
+    simulation_targets = _canonicalize_targets(payload.get("simulation_targets"))
+    if not simulation_targets and stage3_materials:
+        from generation_pipeline.simulation_targets import build_simulation_targets
+
+        simulation_targets = build_simulation_targets(
+            eligible,
+            stage3_materials,
+            paper_title=str(payload.get("paper_title") or ""),
+        )
 
     studies: List[Dict[str, Any]] = []
     filtered_stage3_materials: Dict[str, Any] = {}
@@ -1135,7 +1236,7 @@ def normalize_to_human_extraction(payload: Dict[str, Any]) -> Dict[str, Any]:
         if not isinstance(study, dict):
             continue
         study_name = study.get("study") or study.get("name") or f"Study {study_index}"
-        sub_id = _slugify(study_name, fallback=f"study_{study_index}")
+        sub_id = canonical_sub_study_id(study_name, fallback=f"study_{study_index}")
         effects = [effect for effect in study.get("effects", []) if isinstance(effect, dict)]
         sample = study.get("sample") if isinstance(study.get("sample"), dict) else {}
 
@@ -1197,10 +1298,10 @@ def normalize_to_human_extraction(payload: Dict[str, Any]) -> Dict[str, Any]:
         "paper_authors": _metadata_value(payload, "authors", []),
         "paper_year": _metadata_value(payload, "year"),
         "paper_abstract": _metadata_value(payload, "abstract", ""),
-        "source_schema": "ai_ethics_stage2",
+        "source_schema": "ai_ethics_stage3" if stage3_materials else "ai_ethics_stage2",
         "studies": studies,
         "study_materials": filtered_stage3_materials or stage3_materials,
-        "simulation_targets": payload.get("simulation_targets", []),
+        "simulation_targets": simulation_targets,
     }
 
 
@@ -1544,6 +1645,125 @@ def _runtime_material_issues(material: Dict[str, Any]) -> List[str]:
     return issues
 
 
+def _normalized_contract_text(value: Any) -> str:
+    return re.sub(r"\s+", " ", str(value or "")).strip()
+
+
+def _participant_item_signature(item: Dict[str, Any]) -> str:
+    payload = {
+        "question": _normalized_contract_text(item.get("question")),
+        "type": str(item.get("type") or "").strip().lower(),
+        "options": item.get("options") if isinstance(item.get("options"), list) else [],
+        "scale": item.get("scale") if isinstance(item.get("scale"), dict) else {},
+    }
+    return json.dumps(payload, ensure_ascii=False, sort_keys=True)
+
+
+def _material_derivation_contract(
+    runtime: Dict[str, Any],
+    source: Optional[Dict[str, Any]],
+) -> Dict[str, Any]:
+    """Verify that runtime participant content is derived from Stage 3 evidence.
+
+    This is deliberately language-independent. It checks data lineage and exact
+    content preservation instead of maintaining a phrase blacklist.
+    """
+    issues: List[str] = []
+    source = source if isinstance(source, dict) else None
+    if source is None:
+        return {
+            "valid": False,
+            "source_ready": False,
+            "source_primary": None,
+            "issues": ["missing_stage3_source_material"],
+        }
+
+    source_readiness = source.get("readiness") if isinstance(source.get("readiness"), dict) else {}
+    source_ready = source_readiness.get("ready") is True
+    if not source_ready:
+        issues.append("stage3_source_material_not_ready")
+
+    source_trace = source.get("source_trace") if isinstance(source.get("source_trace"), dict) else {}
+    source_primary = source_trace.get("primary_source")
+    if not source_primary:
+        issues.append("missing_stage3_source_provenance")
+    elif source_primary in NON_PARTICIPANT_SOURCE_KINDS:
+        issues.append("non_participant_source_provenance")
+
+    source_schema = source.get("response_schema") if isinstance(source.get("response_schema"), dict) else {}
+    if source_schema.get("placeholder") is True:
+        issues.append("stage3_placeholder_response_schema")
+
+    source_items = [item for item in source.get("items", []) or [] if isinstance(item, dict)]
+    runtime_items = [item for item in runtime.get("items", []) or [] if isinstance(item, dict)]
+    source_by_id = {
+        str(item.get("id") or item.get("data_export_tag")): _participant_item_signature(item)
+        for item in source_items
+        if item.get("id") or item.get("data_export_tag")
+    }
+    source_signatures = {
+        _participant_item_signature(item)
+        for item in source_items
+        if _normalized_contract_text(item.get("question"))
+    }
+    for item in runtime_items:
+        item_id = str(item.get("id") or item.get("data_export_tag") or "")
+        signature = _participant_item_signature(item)
+        id_match = bool(item_id and source_by_id.get(item_id) == signature)
+        if not id_match and signature not in source_signatures:
+            issues.append("runtime_item_not_derived_from_stage3")
+            break
+        metadata = item.get("metadata") if isinstance(item.get("metadata"), dict) else {}
+        if metadata.get("placeholder") is True:
+            issues.append("runtime_item_is_placeholder")
+            break
+
+    runtime_instructions = _normalized_contract_text(
+        runtime.get("instructions") or runtime.get("stimulus")
+    )
+    source_instructions = _normalized_contract_text(
+        source.get("instructions") or source.get("stimulus")
+    )
+    source_blocks = {
+        _normalized_contract_text(block.get("text"))
+        for block in source.get("instruction_blocks", []) or []
+        if isinstance(block, dict) and _normalized_contract_text(block.get("text"))
+    }
+    if runtime_instructions:
+        derived_instructions = runtime_instructions == source_instructions
+        if not derived_instructions and source_blocks:
+            remaining = runtime_instructions
+            while remaining:
+                prefix = max(
+                    (
+                        block
+                        for block in source_blocks
+                        if remaining == block or remaining.startswith(block + " ")
+                    ),
+                    key=len,
+                    default=None,
+                )
+                if prefix is None:
+                    break
+                remaining = remaining[len(prefix):].strip()
+            derived_instructions = not remaining
+        if not derived_instructions:
+            issues.append("runtime_instructions_not_derived_from_stage3")
+
+    runtime_conditions = runtime.get("conditions") if isinstance(runtime.get("conditions"), list) else []
+    source_conditions = source.get("conditions") if isinstance(source.get("conditions"), list) else []
+    if runtime_conditions != source_conditions:
+        issues.append("runtime_conditions_not_derived_from_stage3")
+
+    issues = sorted(dict.fromkeys(issues))
+    return {
+        "valid": not issues,
+        "source_ready": source_ready,
+        "source_primary": source_primary,
+        "issues": issues,
+    }
+
+
 def _read_json_for_audit(path: Path) -> tuple[Optional[Dict[str, Any]], Optional[str]]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
@@ -1752,6 +1972,17 @@ def _build_package_audit(
             }
         )
 
+    for material_id, item in materials_audit.get("materials", {}).items():
+        derivation = item.get("derivation_contract") if isinstance(item, dict) else {}
+        for issue in derivation.get("issues", []) if isinstance(derivation, dict) else []:
+            issues.append(
+                {
+                    "severity": "error",
+                    "path": f"materials/{material_id}.json",
+                    "message": f"Stage 3 derivation contract failed: {issue}",
+                }
+            )
+
     material_file_audit = _material_file_audit(material_by_id)
     for material_id, item in material_file_audit["materials"].items():
         if item["runtime_issues"]:
@@ -1783,14 +2014,12 @@ def _build_package_audit(
 
 
 def _build_audit(
-    payload: Dict[str, Any],
     extraction: Dict[str, Any],
     study_id: str,
     study_dir: Path,
     material_paths: List[Path],
 ) -> Dict[str, Any]:
-    source_materials = payload.get("study_materials")
-    source_materials = source_materials if isinstance(source_materials, dict) else {}
+    source_materials = _canonicalize_material_map(extraction.get("study_materials"))
     material_by_id: Dict[str, Dict[str, Any]] = {}
     for path in material_paths:
         try:
@@ -1802,8 +2031,13 @@ def _build_audit(
             }
             continue
         if isinstance(material, dict):
-            key = material.get("material_id") or material.get("target_id") or material.get("sub_study_id") or Path(path).stem
-            material_by_id[str(key)] = material
+            key = canonical_sub_study_id(
+                material.get("material_id") or material.get("sub_study_id") or Path(path).stem
+            )
+            material["sub_study_id"] = key
+            if material.get("material_id"):
+                material["material_id"] = key
+            material_by_id[key] = material
 
     materials_audit: Dict[str, Any] = {}
     targets = [target for target in extraction.get("simulation_targets", []) or [] if isinstance(target, dict)]
@@ -1811,7 +2045,7 @@ def _build_audit(
     if targets:
         grouped_targets: Dict[str, List[Dict[str, Any]]] = {}
         for target in targets:
-            sub_id = str(target.get("sub_study_id") or "")
+            sub_id = canonical_sub_study_id(target.get("sub_study_id"))
             if sub_id:
                 grouped_targets.setdefault(sub_id, []).append(target)
         for sub_id, grouped in grouped_targets.items():
@@ -1819,7 +2053,7 @@ def _build_audit(
     else:
         for study in extraction.get("studies", []):
             for sub_study in study.get("sub_studies", []):
-                sub_id = str(sub_study.get("sub_study_id") or "")
+                sub_id = canonical_sub_study_id(sub_study.get("sub_study_id"))
                 if sub_id:
                     audit_units.append({"audit_id": sub_id, "sub_study_id": sub_id, "targets": []})
 
@@ -1832,9 +2066,10 @@ def _build_audit(
         source_readiness = source.get("readiness") if isinstance(source.get("readiness"), dict) else {}
         runtime_readiness = runtime.get("readiness") if isinstance(runtime.get("readiness"), dict) else {}
         runtime_issues = _runtime_material_issues(runtime)
-        source_ready = source_readiness.get("ready")
-        runtime_ready = runtime_readiness.get("ready")
-        ready = (source_ready is not False) and (runtime_ready is not False) and not runtime_issues
+        derivation_contract = _material_derivation_contract(runtime, source or None)
+        source_ready = source_readiness.get("ready") is True
+        runtime_ready = runtime_readiness.get("ready") is True
+        ready = source_ready and runtime_ready and not runtime_issues and derivation_contract["valid"]
         material_path = study_dir / "materials" / f"{audit_id}.json"
         materials_audit[audit_id] = {
             "ready": ready,
@@ -1843,6 +2078,7 @@ def _build_audit(
             "runtime_issues": runtime_issues,
             "runtime_readiness": runtime_readiness,
             "source_readiness": source_readiness,
+            "derivation_contract": derivation_contract,
             "selection": source.get("selection", {}),
             "targets": unit.get("targets", []),
             "target_ids": [
@@ -1945,14 +2181,18 @@ def _build_json_package(
             print("  Stage 4 generating ground_truth.json", flush=True)
             ground_truth = generator.generate_ground_truth(extraction, study_id, debug_dir=study_dir)
             _write_json(study_dir / "ground_truth.json", ground_truth)
-            print("  Stage 4 generating materials/*.json", flush=True)
-            material_paths = generator.generate_materials(extraction, study_dir, pdf_path=pdf_path)
+            print("  Stage 4 compiling Stage 3 materials/*.json", flush=True)
+            material_paths = _deterministic_materials(
+                extraction,
+                study_dir,
+                selection_llm_client=selection_llm_client,
+            )
             return {
                 "metadata": metadata,
                 "specification": specification,
                 "ground_truth": ground_truth,
                 "material_paths": material_paths,
-                "json_generation": "llm",
+                "json_generation": "llm_metadata_deterministic_materials",
             }
         except Exception as exc:
             print(f"Warning: HumanStudy-Bench JSON generator failed, using deterministic fallback: {exc}")
@@ -2021,7 +2261,7 @@ def build_human_study_package(
         pdf_path=pdf_path,
         selection_llm_client=selection_llm_client,
     )
-    audit = _build_audit(payload, extraction, resolved_study_id, package_dir, package["material_paths"])
+    audit = _build_audit(extraction, resolved_study_id, package_dir, package["material_paths"])
     audit_path = _write_json(package_dir / "audit.json", audit)
 
     registry_path = None if hub_layout else (_update_registry(data_dir, package["metadata"]) if update_registry else None)

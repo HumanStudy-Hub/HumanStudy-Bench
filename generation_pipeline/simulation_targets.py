@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from typing import Any, Dict, List, Optional
 
+from generation_pipeline.identifiers import canonical_sub_study_id
 
 _TOKEN_RE = re.compile(r"[a-z][a-z0-9]+", re.IGNORECASE)
 _STOP = {
@@ -282,7 +283,7 @@ def build_simulation_targets(
         if not isinstance(study, dict) or not _study_selected(study):
             continue
         study_name = str(study.get("study") or study.get("study_id") or study.get("experiment_id") or "")
-        sub_id = _slug(study_name, "study")
+        sub_id = canonical_sub_study_id(study_name)
         material = materials.get(sub_id)
         if not isinstance(material, dict) or not _material_selected(material):
             continue

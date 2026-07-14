@@ -4,6 +4,8 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+from generation_pipeline.identifiers import canonical_sub_study_id
+
 from generation_pipeline.parsers.qsf_parser import ParsedSurvey, parse_qsf_file
 from generation_pipeline.parsers.sav_parser import ParsedDataset, parse_sav_file
 from generation_pipeline.parsers.source_linker import LinkedFile, LinkResult
@@ -575,9 +577,7 @@ def assemble_study_materials(
                                         `ready=false` instead of treating
                                         per-effect slots as final materials.
     """
-    sub_id = _slug(study_id, "study")
-    if not sub_id.startswith("study") and not sub_id.startswith("pilot"):
-        sub_id = f"study_{sub_id}"
+    sub_id = canonical_sub_study_id(study_id)
 
     mats = link_result.material_files(study_id)
     base = {

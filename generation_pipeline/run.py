@@ -287,6 +287,11 @@ def main():
     parser.add_argument("--system-prompt-preset", help="Stage 5 system prompt preset")
     parser.add_argument("--reasoning", help="Stage 5 reasoning setting for compatible models")
     parser.add_argument("--enable-reasoning", action="store_true", help="Stage 5 force reasoning for compatible models")
+    parser.add_argument(
+        "--allow-unready",
+        action="store_true",
+        help="Stage 5: explicitly allow a generated package whose audit requires human patching",
+    )
     args = parser.parse_args()
 
     from generation_pipeline.settings import (
@@ -416,6 +421,7 @@ def main():
             ),
             reasoning=_first_cli_or_setting(args.reasoning, stage5_settings.get("reasoning"), "default"),
             enable_reasoning=bool(args.enable_reasoning or stage5_settings.get("enable_reasoning", False)),
+            allow_unready=bool(args.allow_unready),
             api_key=stage5_cfg.api_key,
             api_base=stage5_cfg.api_base,
         )

@@ -31,6 +31,7 @@ class Stage5Options:
     system_prompt_preset: str = "v3_human_plus_demo"
     reasoning: str = "default"
     enable_reasoning: bool = False
+    allow_unready: bool = False
     api_key: Optional[str] = None
     api_base: Optional[str] = None
 
@@ -100,6 +101,43 @@ def _resolve_study(study: str | Path, data_dir: Path) -> Tuple[str, Path, Option
         if (candidate / "registry.json").exists():
             raise ValueError("When passing a data directory to Stage 5, also pass --study-id.")
     return str(study), data_dir, None
+
+
+def _package_readiness(study_path: Path) -> Dict[str, Any]:
+    package_dir = study_path / "source" if (study_path / "source").is_dir() else study_path
+    audit_path = package_dir / "audit.json"
+    generated_marker = package_dir / "source_extraction.json"
+    if not audit_path.exists():
+        if generated_marker.exists():
+            return {
+                "ready": False,
+                "status": "generated_package_missing_audit",
+                "audit_path": str(audit_path),
+            }
+        return {
+            "ready": True,
+            "status": "curated_package_without_pipeline_audit",
+            "audit_path": None,
+        }
+    try:
+        audit = json.loads(audit_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return {
+            "ready": False,
+            "status": "invalid_audit",
+            "audit_path": str(audit_path),
+            "error": f"{type(exc).__name__}: {exc}",
+        }
+    package_audit = audit.get("package_audit") if isinstance(audit.get("package_audit"), dict) else {}
+    ready = package_audit.get("ready_for_simulation") is True
+    return {
+        "ready": ready,
+        "status": "ready" if ready else "human_patch_required",
+        "audit_path": str(audit_path),
+        "materials_total": audit.get("materials_total"),
+        "materials_ready": audit.get("materials_ready"),
+        "materials_needing_patch": audit.get("materials_needing_patch"),
+    }
 
 
 def _choose_trial_mode(
@@ -220,6 +258,16 @@ def run_stage5(
         benchmark = HumanStudyBench(resolved_data_dir)
         loaded_study = benchmark.load_study(study_id)
         study_path = resolved_data_dir / "studies" / study_id
+    package_readiness = _package_readiness(study_path)
+    if not package_readiness["ready"] and not options.allow_unready:
+        raise ValueError(
+            "Stage 5 refused to run an unready generated package: "
+            f"status={package_readiness['status']} audit={package_readiness.get('audit_path')}. "
+            "Repair Stage 3/4 materials or pass --allow-unready for an explicit debugging run."
+        )
+    package_readiness["override_used"] = bool(
+        options.allow_unready and not package_readiness["ready"]
+    )
     study_config = get_study_config(study_id, study_path, loaded_study.specification)
 
     profiles = _load_profiles(options.profiles_json)
@@ -261,6 +309,7 @@ def run_stage5(
             "system_prompt_preset": options.system_prompt_preset,
             "reasoning": options.reasoning,
             "random_seed": options.seed,
+            "package_readiness": package_readiness,
             "repeats": len(raw_runs),
             "elapsed_time": time.time() - start_time,
             "descriptive_statistics": aggregate.get("descriptive_statistics", {}),
@@ -292,5 +341,6 @@ def run_stage5(
         "run_count": sum(item["repeats"] for item in all_model_runs),
         "completed": len(all_model_runs),
         "use_real_llm": options.use_real_llm,
+        "package_readiness": package_readiness,
         "runs": all_model_runs,
     }

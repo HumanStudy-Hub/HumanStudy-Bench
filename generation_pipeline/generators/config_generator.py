@@ -2,6 +2,7 @@
 Config Generator - Generates StudyConfig classes from extraction results using LLM
 """
 
+import ast
 import json
 import re
 import sys
@@ -88,7 +89,33 @@ class ConfigGenerator:
             raise RuntimeError(f"LLM Error: {e}")
 
         logic_code = self._extract_code_from_response(response)
+        final_code = self._assemble_final_code(logic_code, study_id, standalone)
+        validation_error = self._validate_generated_code(final_code)
+        if validation_error:
+            repair_prompt = self._build_repair_prompt(
+                study_id=study_id,
+                logic_code=logic_code,
+                validation_error=validation_error,
+            )
+            try:
+                repair_response = self.client.generate_content(prompt=repair_prompt)
+            except Exception as e:
+                raise RuntimeError(f"LLM config repair error: {e}") from e
 
+            logic_code = self._extract_code_from_response(repair_response)
+            final_code = self._assemble_final_code(logic_code, study_id, standalone)
+            validation_error = self._validate_generated_code(final_code)
+            if validation_error:
+                raise ValueError(
+                    "Generated StudyConfig remained invalid after one repair attempt: "
+                    f"{validation_error}"
+                )
+
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(final_code, encoding='utf-8')
+        return output_path
+
+    def _assemble_final_code(self, logic_code: str, study_id: str, standalone: bool) -> str:
         class_name = f"Study{study_id.replace('_', '').capitalize()}Config"
         if standalone:
             imports = """import json
@@ -138,9 +165,54 @@ from src.agents.prompt_builder import PromptBuilder
         elif f'@StudyConfigRegistry.register("{study_id}")' not in final_code:
             final_code = final_code.replace(f"class {class_name}", f'@StudyConfigRegistry.register("{study_id}")\nclass {class_name}')
 
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_text(final_code, encoding='utf-8')
-        return output_path
+        return final_code
+
+    @staticmethod
+    def _validate_generated_code(code: str) -> Optional[str]:
+        try:
+            tree = ast.parse(code)
+        except SyntaxError as exc:
+            return f"syntax error at line {exc.lineno}: {exc.msg}"
+
+        config_classes = []
+        for node in tree.body:
+            if not isinstance(node, ast.ClassDef):
+                continue
+            base_names = {
+                base.id
+                for base in node.bases
+                if isinstance(base, ast.Name)
+            }
+            if "BaseStudyConfig" in base_names:
+                config_classes.append(node)
+
+        if not config_classes:
+            return "missing a class that subclasses BaseStudyConfig"
+        if not any(
+            isinstance(member, (ast.FunctionDef, ast.AsyncFunctionDef))
+            and member.name == "create_trials"
+            for config_class in config_classes
+            for member in config_class.body
+        ):
+            return "BaseStudyConfig subclass is missing create_trials()"
+        return None
+
+    @staticmethod
+    def _build_repair_prompt(study_id: str, logic_code: str, validation_error: str) -> str:
+        return f"""You generated invalid core Python logic for a HumanStudyBench StudyConfig.
+
+STUDY ID: {study_id}
+VALIDATION ERROR: {validation_error}
+
+Repair the code while preserving its study design, canonical material IDs, trial structure,
+and response format. Escape line breaks inside Python string literals as \\n. The corrected
+code must define a class that subclasses BaseStudyConfig and implements create_trials().
+Return only the corrected core logic. Do not include imports, markdown fences, or a registry
+decorator.
+
+INVALID CORE LOGIC:
+{logic_code}
+"""
 
     def _build_logic_only_prompt(self, extraction_summary, study_id, context_summary, material_context):
         # Use a template string and manual replacement to avoid f-string curly brace errors with JSON/Code
