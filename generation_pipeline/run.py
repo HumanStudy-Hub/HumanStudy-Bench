@@ -1,5 +1,5 @@
 """
-CLI for ai-ethics Generation Pipeline (Stages 1 & 2).
+CLI for the HumanStudy-Bench generation pipeline.
 
 Usage:
     # Stage 1 — filter a single PDF in current dir or data/papers/
@@ -115,10 +115,10 @@ def _optional_float(value):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="ai-ethics extraction pipeline (stages 1, 2, 3, 4, 5)")
+    parser = argparse.ArgumentParser(description="HumanStudy-Bench generation pipeline (stages 1, 2, 3, 4, 5)")
     parser.add_argument("--settings", type=Path, help="Path to settings YAML/JSON (default: config/settings.yaml if present)")
     parser.add_argument("--stage", choices=["1", "2", "3", "4", "5"],
-                        help="1=Filter, 2=Extraction, 3=Patch, 4=Human study package, 5=Human simulation")
+                        help="1=Inventory, 2=Findings, 3=Materials, 4=Study package, 5=Simulation")
     parser.add_argument("--pdf", nargs="*", help="Path to PDF file(s)")
     parser.add_argument("--json", nargs="+", help="Per-paper JSON file(s), used by --verify")
     parser.add_argument(

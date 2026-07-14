@@ -82,13 +82,22 @@ def _normalize_report(report: Dict[str, Any]) -> Dict[str, Any]:
 
 def build_verifier_prompt(stage1_json: Dict[str, Any], pdf_text: str) -> str:
     """Build the Stage 1 verifier prompt. Exposed for unit tests."""
-    return f"""You are verifying a Stage 1 study inventory from a psychology/management paper.
+    return f"""You are verifying a Stage 1 study inventory from a social-science paper.
 
-Check whether the extracted inventory covers the paper's empirical studies and
-whether each eligibility label is defensible for an automated HumanStudy-Bench
-pipeline. Focus on study coverage, split/merge errors, design/sample anchors,
-and eligibility labels. Do NOT require complete participant-facing materials;
-Stage 3 handles material source recovery.
+Check whether the extracted inventory covers every empirical study and whether
+each eligibility label is defensible for an automated HumanStudy-Bench pipeline.
+Eligibility is topic-independent and means that a human participant task plus a
+quantitative target result can be represented with text, static images, choices,
+scales, matrices, rankings, numeric answers, or free text. Focus on study
+coverage, split/merge errors, design/sample anchors, and executable task
+boundaries. Do NOT require complete participant-facing materials; Stage 3 owns
+material source recovery and may later mark an eligible study unready.
+
+Treat these as label errors:
+- excluding a study because of its scientific topic or discipline;
+- marking a study NO only because exact questionnaire wording is absent;
+- marking a study YES when it has no participant-facing task or quantitative target;
+- returning exclusion_reasons for a YES/UNCERTAIN study.
 
 PAPER TEXT:
 {pdf_text}

@@ -1,9 +1,4 @@
-"""
-Replicability Filter - Stage 1 (ai-ethics)
-
-Identifies which experiments in a moral / ethical / prosocial-behavior paper
-are eligible for our extraction corpus, and pulls paper metadata.
-"""
+"""Stage 1 inventory and simulation-eligibility filter."""
 
 import json
 import re
@@ -23,7 +18,7 @@ PDF_TEXT_MAX_CHARS = 400000
 
 
 class ReplicabilityFilter(BaseFilter):
-    """Stage 1 filter for ethics papers."""
+    """Inventory empirical studies and classify HumanStudy-Bench eligibility."""
 
     def process(
         self,
@@ -80,18 +75,43 @@ class ReplicabilityFilter(BaseFilter):
                         feedback_section += f"  - {item}\n"
             feedback_section += "=" * 80 + "\n\n"
 
-        return f"""Analyze the research paper in the attached PDF: {pdf_name} ({num_pages} pages).
+        return f"""Analyze the social-science research paper in the attached PDF: {pdf_name} ({num_pages} pages).
 
-This corpus studies MORAL, ETHICAL, and PROSOCIAL BEHAVIOR in psychology / management.
-Identify each experiment/study and decide whether it is ELIGIBLE for our extraction.
+First inventory EVERY distinct empirical study, experiment, survey, pilot, and
+validation study in the paper, including studies that will later be excluded.
+Then classify whether each unit can be represented as an executable
+HumanStudy-Bench participant task. Topic is unrestricted: psychology,
+behavioral economics, organizational behavior, political science, sociology,
+communication, marketing, education, and HCI are all in scope.
 {feedback_section}
 
-ELIGIBILITY CRITERIA (a study is eligible only if ALL hold):
-- Empirical / experimental / quasi-experimental — not purely theoretical or qualitative.
-- Reports at least one quantitative effect with a usable statistic (t, F, B/b, chi-square, z, d, eta_square, etc.).
-- Outcome variable concerns moral / ethical / prosocial / norm-related behavior, judgment, intention, or perception
-  (e.g. cheating, lying, helping, fairness, punishment, moral judgment, ethical leadership, CSR perception, etc.).
-- Sample size and design are recoverable from the paper.
+SIMULATION ELIGIBILITY:
+- `YES`: human participants received a recoverable input, instruction, stimulus,
+  scenario, task, survey, or choice set and produced a response that can be
+  represented with text, static images, structured options, scales, matrices,
+  rankings, or numeric/free-text answers. The paper reports at least one
+  quantitative target result and provides enough design/sample structure to
+  define what should be simulated.
+- `UNCERTAIN`: the study is probably participant-simulatable, but the paper is
+  ambiguous about the study boundary, task, assignment, outcome, or source of
+  participant-facing materials. Preserve it for review rather than guessing.
+- `NO`: theoretical/review/qualitative-only work; non-human or purely archival
+  analysis with no participant task; no quantitative target result; or the
+  target fundamentally depends on unrepresented real-world exposure, physical
+  apparatus, long-term behavior, or live multi-person interaction that cannot
+  be reduced to the paper's participant-facing information.
+
+IMPORTANT BOUNDARIES:
+- Scientific topic is NEVER an exclusion criterion.
+- Inventory field, longitudinal, observational, and correlational studies too;
+  classify them from their executable participant task, not their discipline.
+- Missing exact wording, options, images, or questionnaire files does NOT by
+  itself make an otherwise simulatable study `NO`. Record those gaps in
+  `missing_materials` and source hints; Stage 3 decides material readiness.
+- `replicable` is the legacy field name for simulation eligibility, not a claim
+  that the original scientific result will necessarily reproduce.
+- `exclusion_reasons` MUST be empty for `YES` and `UNCERTAIN`. For `NO`, provide
+  at least one concrete execution-related reason.
 
 For EACH study/experiment, report:
 - experiment_id (e.g. "Study 1", "Experiment 2a")
@@ -116,9 +136,11 @@ For EACH study/experiment, report:
   {{"kind": "paper|appendix|supplement|osf|cited_scale|unknown",
     "description": "short source hint",
     "expected_fields": ["instructions", "stimulus", "items", "options", "conditions"]}}
-- replicable: YES / NO / UNCERTAIN
+- replicable: YES / NO / UNCERTAIN using the simulation criteria above
 - has_self_contained_materials: true/false (full stimulus / scale items present in paper or supplement)
-- exclusion_reasons: [] if eligible, else list of reasons (e.g. "no quantitative outcome", "outcome not moral/ethical")
+- exclusion_reasons: [] for YES/UNCERTAIN; for NO, concrete reasons such as
+  "no participant-facing task", "no quantitative target result", or
+  "requires unrepresented longitudinal real-world behavior"
 - missing_materials: empty string or description of what is missing (e.g. "scale items referenced from Reynolds 2008")
 
 Also extract: paper_title, paper_authors, paper_abstract.
@@ -200,6 +222,16 @@ def _normalize_experiments(result: Dict[str, Any]) -> None:
         exp["study_name"] = name
         exp.setdefault("experiment_name", name)
         exp.setdefault("design_type", None)
+        exp["replicable"] = str(exp.get("replicable") or "UNCERTAIN").strip().upper()
+        reasons = exp.get("exclusion_reasons")
+        if isinstance(reasons, str):
+            exp["exclusion_reasons"] = [reasons.strip()] if reasons.strip() else []
+        elif isinstance(reasons, list):
+            exp["exclusion_reasons"] = [
+                str(reason).strip() for reason in reasons if str(reason).strip()
+            ]
+        else:
+            exp["exclusion_reasons"] = []
         conditions = exp.get("conditions_or_factors", [])
         if conditions is None:
             exp["conditions_or_factors"] = []
@@ -215,6 +247,11 @@ def _normalize_experiments(result: Dict[str, Any]) -> None:
             exp["conditions_or_factors"] = [text] if text else []
         exp["participant_task"] = _normalize_participant_task(exp)
         exp["candidate_source_hints"] = _normalize_source_hints(exp)
+
+    result["overall_replicable"] = any(
+        isinstance(exp, dict) and exp.get("replicable") in {"YES", "UNCERTAIN"}
+        for exp in experiments
+    )
 
 
 def _normalize_participant_task(exp: Dict[str, Any]) -> str:

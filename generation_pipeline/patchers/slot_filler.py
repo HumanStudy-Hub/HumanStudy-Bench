@@ -1,5 +1,5 @@
 """
-Slot Filler - Stage 3 (ai-ethics)
+Slot Filler - legacy Stage 3 source recovery
 
 Patches existing per-paper JSON files (the `输出/*.json` corpus) by:
   1. Filling empty `materials / manipulation / items` slots (status == null)
@@ -625,7 +625,7 @@ class SlotFiller:
   "notes": "<other participant/sample info as verbatim source text or null>"
 }"""
 
-        return f"""You are extracting research-study details from a PDF text excerpt for the ai-ethics corpus.
+        return f"""You are extracting research-study details from a PDF text excerpt for HumanStudy-Bench.
 
 STUDY: {study_label}
 KNOWN EFFECT (for context — do not re-extract):

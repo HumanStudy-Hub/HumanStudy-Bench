@@ -1,6 +1,4 @@
-"""
-Generation Pipeline Orchestrator for ai-ethics.
-"""
+"""HumanStudy-Bench generation-pipeline orchestrator."""
 
 import json
 import sys
@@ -237,7 +235,7 @@ def _schema_error_preview(schema_report: Any, *, limit: int = 8) -> str:
 
 
 class GenerationPipeline:
-    """Two-stage ethics-extraction pipeline."""
+    """Source-grounded social-science study generation pipeline."""
 
     def __init__(
         self,
@@ -284,7 +282,7 @@ class GenerationPipeline:
         verifier_timeout: float | None = 60.0,
         auto_refine_attempts: int = 1,
     ) -> Tuple[Path, Path, Dict[str, Any]]:
-        print(f"Running Stage 1: Replicability Filter for {pdf_path.name}")
+        print(f"Running Stage 1: Study Inventory and Simulation Eligibility for {pdf_path.name}")
         paper_id = paper_id_from_pdf(pdf_path)
         paper_dir = self.paper_output_dir(paper_id)
 
@@ -401,7 +399,7 @@ class GenerationPipeline:
         verifier_timeout: float | None = STAGE2_VERIFIER_TIMEOUT,
         auto_refine_attempts: int = 1,
     ) -> Tuple[Path, Path, Dict[str, Any]]:
-        print(f"Running Stage 2: Ethics Effect Extraction for {pdf_path.name}")
+        print(f"Running Stage 2: Study and Finding Extraction for {pdf_path.name}")
         if not stage1_json_path.exists():
             raise FileNotFoundError(f"Stage1 JSON not found: {stage1_json_path}")
         stage1_result = json.loads(stage1_json_path.read_text(encoding="utf-8"))

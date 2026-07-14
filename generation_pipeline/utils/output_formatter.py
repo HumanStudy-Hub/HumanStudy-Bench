@@ -1,6 +1,4 @@
-"""
-Output Formatter (ai-ethics): formats extraction results as markdown review files.
-"""
+"""Format generation-pipeline results as Markdown review files."""
 
 import json
 from typing import Any, Dict
@@ -10,7 +8,7 @@ class OutputFormatter:
 
     @staticmethod
     def format_stage1_review(filter_result: Dict[str, Any]) -> str:
-        md = f"""# Stage 1: Replicability Filter Review
+        md = f"""# Stage 1: Study Inventory and Simulation Eligibility Review
 
 ## Paper Information
 - **Title**: {filter_result.get('paper_title', 'N/A')}
@@ -114,7 +112,7 @@ class OutputFormatter:
 - **Exclusion reasons**: {', '.join(exp.get('exclusion_reasons', [])) or 'None'}
 
 #### Checklist:
-- [ ] Outcome is moral / ethical / prosocial
+- [ ] Human participant task is representable in HumanStudy-Bench
 - [ ] Has quantitative statistic
 - [ ] Sample / design recoverable
 - [ ] Stimuli / scales accounted for (in-paper, OSF, or cited)
@@ -126,7 +124,7 @@ class OutputFormatter:
 
 """
         md += f"""## Overall Assessment
-- **Overall Replicable**: {'YES' if filter_result.get('overall_replicable', False) else 'NO'}
+- **Any simulation candidate**: {'YES' if filter_result.get('overall_replicable', False) else 'NO'}
 - **Confidence**: {filter_result.get('confidence', 0.0)}
 - **Notes**: {filter_result.get('notes', 'N/A')}
 
@@ -142,7 +140,7 @@ class OutputFormatter:
         if not isinstance(extraction, dict):
             raise ValueError(f"extraction is not a dict: {type(extraction)}")
 
-        md = f"""# Stage 2: Ethics Effect Extraction Review
+        md = f"""# Stage 2: Study and Finding Extraction Review
 
 ## Paper
 - **Title**: {extraction.get('paper_title', 'N/A')}

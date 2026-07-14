@@ -1,7 +1,8 @@
 """
-Study & Data Extractor - Stage 2 (ai-ethics)
+Study & Data Extractor - Stage 2
 
-Extracts study-level samples plus effect/finding/statistics records. The legacy
+Extracts study-level samples plus effect/finding/statistics records for
+HumanStudy-Bench simulation candidates. The legacy
 `materials / manipulation / items` effect slots remain in the schema for
 backward compatibility, but participant-facing material recovery is a Stage 3
 study-level responsibility.
@@ -16,6 +17,7 @@ from typing import Any, Dict, Optional
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from generation_pipeline.extractors.base_extractor import BaseExtractor
+from generation_pipeline.identifiers import canonical_sub_study_id
 from generation_pipeline.utils.document_loader import DocumentLoader
 from generation_pipeline.utils.pdf_extractor import extract_pdf_text
 
@@ -24,7 +26,7 @@ PDF_TEXT_MAX_CHARS = 400000
 
 
 class StudyDataExtractor(BaseExtractor):
-    """Extract ethics findings/effect records for downstream material search."""
+    """Extract findings/effect records for downstream material search."""
 
     def process(
         self,
@@ -52,6 +54,7 @@ class StudyDataExtractor(BaseExtractor):
             raise ValueError("LLM returned None response.")
 
         result = self._parse_response(response, stage1_json)
+        _retain_stage1_candidates(result, stage1_json)
         if _effect_count(result) == 0:
             raise ValueError(
                 "Stage 2 extraction returned zero effects for eligible Stage 1 studies. "
@@ -107,7 +110,11 @@ class StudyDataExtractor(BaseExtractor):
         num_pages: int,
         regeneration_instructions: Optional[Dict[str, Any]] = None,
     ) -> str:
-        experiments_info = json.dumps(stage1_json.get("experiments", []), indent=2, ensure_ascii=False)
+        experiments_info = json.dumps(
+            _eligible_stage1_experiments(stage1_json),
+            indent=2,
+            ensure_ascii=False,
+        )
 
         feedback_section = ""
         if regeneration_instructions:
@@ -131,12 +138,12 @@ class StudyDataExtractor(BaseExtractor):
 STAGE 1 FILTER RESULTS (only extract studies that were marked replicable / eligible):
 {experiments_info}
 {feedback_section}
-This corpus tracks moral / ethical / prosocial behavior effects. Stage 2 is
-responsible for study/effect/finding/statistics extraction, not final
-participant-facing materials. The output JSON must match the project schema
-exactly. For EACH eligible study, list every reported statistical effect
-separately under `effects[]`; downstream code will consolidate those rows into
-study-level findings and simulation targets.
+Stage 2 is topic-independent and is responsible for study/effect/finding/
+statistics extraction, not final participant-facing materials. The output JSON
+must match the project schema exactly. Extract ONLY the Stage 1 candidates shown
+above. Preserve their `study_id` values exactly. For EACH candidate, list every
+reported statistical effect separately under `effects[]`; downstream code will
+consolidate those rows into study-level findings and simulation targets.
 
 CRITICAL RULES:
 - Numeric fields that are not reported MUST be `null` (not omitted, not empty string).
@@ -174,9 +181,8 @@ SAMPLE FIELD — CRITICAL RULES:
     Lab | Organizational | Online | Field | Archival | Mixed | Other
   WRONG: "we recruited subjects via the platform CloudResearch."
   RIGHT: "CloudResearch"
-  Guide: political/moral psychology online → MTurk or Prolific;
-         campus samples → Undergraduate; workplace studies → Organizational;
-         real-world interventions → Field; secondary records → Archival.
+  Do not infer a platform from the paper topic. Use only the recruitment/sample
+  description; use Other when no more specific controlled value is supported.
 - `inclusion_criteria`: VERBATIM quote of who was eligible (e.g. "self-identified
   Democrats", "U.S. adults who had been fired from a job"). null if not stated.
 - `exclusion_criteria`: VERBATIM quote about who was excluded (attention checks,
@@ -209,6 +215,7 @@ OUTPUT FORMAT — respond with ONLY this JSON (no markdown fences):
   "eligible_studies": [
     {{
       "study": "Study 1",
+      "study_id": "study_1",
       "eligibility_rationale": "...",
       "sample": {{
         "total_n": 183,
@@ -273,6 +280,54 @@ OUTPUT FORMAT — respond with ONLY this JSON (no markdown fences):
             result = {}
         result.setdefault("paper_id", stage1_json.get("paper_id", "unknown"))
         return result
+
+
+def _eligible_stage1_experiments(stage1_json: Dict[str, Any]) -> list[Dict[str, Any]]:
+    return [
+        experiment
+        for experiment in stage1_json.get("experiments", []) or []
+        if isinstance(experiment, dict)
+        and str(experiment.get("replicable") or "").strip().upper() in {"YES", "UNCERTAIN"}
+    ]
+
+
+def _identity_keys(record: Dict[str, Any], fields: tuple[str, ...]) -> set[str]:
+    return {
+        canonical_sub_study_id(record.get(field))
+        for field in fields
+        if record.get(field)
+    }
+
+
+def _retain_stage1_candidates(result: Dict[str, Any], stage1_json: Dict[str, Any]) -> None:
+    """Fail closed when Stage 2 invents or reintroduces an excluded study."""
+    candidates = _eligible_stage1_experiments(stage1_json)
+    indexed = [
+        (
+            experiment,
+            _identity_keys(
+                experiment,
+                ("study_id", "experiment_id", "study_name", "experiment_name"),
+            ),
+        )
+        for experiment in candidates
+    ]
+    retained: list[Dict[str, Any]] = []
+    for study in result.get("eligible_studies", []) or []:
+        if not isinstance(study, dict):
+            continue
+        keys = _identity_keys(
+            study,
+            ("study_id", "study", "name", "study_name", "experiment_id"),
+        )
+        matches = [experiment for experiment, candidate_keys in indexed if keys & candidate_keys]
+        if len(matches) != 1:
+            continue
+        stage1_study_id = str(matches[0].get("study_id") or "").strip()
+        if stage1_study_id:
+            study["study_id"] = stage1_study_id
+        retained.append(study)
+    result["eligible_studies"] = retained
 
 
 def _effect_count(result: Dict[str, Any]) -> int:

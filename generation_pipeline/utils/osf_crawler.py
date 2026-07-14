@@ -1,5 +1,5 @@
 """
-OSF crawler for ai-ethics stage4 corpus.
+OSF crawler for HumanStudy-Bench source packages.
 
 Scans per-paper JSON files, finds effects whose experiment materials live on OSF
 (not in the paper PDF), resolves OSF node/registration URLs, and downloads

@@ -1089,7 +1089,7 @@ def _paths_from_args(paths: Iterable[str]) -> list[Path]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Validate and normalize ai-ethics paper JSON schema")
+    parser = argparse.ArgumentParser(description="Validate and normalize generation-pipeline paper JSON")
     parser.add_argument("json", nargs="*", help="One or more per-paper JSON files")
     parser.add_argument("--stage4-dir", type=Path, help="Scan a stage4 tree instead of explicit JSON files")
     parser.add_argument("--write", action="store_true", help="Write deterministic repairs back to JSON files")

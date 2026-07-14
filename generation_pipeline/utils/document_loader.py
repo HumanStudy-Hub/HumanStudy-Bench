@@ -1,5 +1,5 @@
 """
-Document Loader (ai-ethics): inlined — no `legacy/` dependency.
+Document loader shared by the generation pipeline.
 Only the methods used by the filter / extractor.
 """
 

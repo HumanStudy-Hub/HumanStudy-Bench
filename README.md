@@ -54,6 +54,16 @@ cp config/settings.example.yaml config/settings.yaml
 
 Do not commit `config/settings.yaml`.
 
+### Stage 1 scope
+
+Stage 1 inventories every empirical unit in a quantitative social-science paper
+and classifies whether its human-participant task can be represented in
+HumanStudy-Bench. Eligibility is independent of topic or discipline. Missing
+exact questionnaire wording or supplementary files is recorded for Stage 3 and
+does not by itself exclude an otherwise simulatable study. `replicable` remains
+the legacy JSON field name; it means simulation eligibility, not a guarantee
+that the original result will reproduce.
+
 ### PDF-only Stage 3
 
 OSF and supplementary material handling remains the preferred path when those

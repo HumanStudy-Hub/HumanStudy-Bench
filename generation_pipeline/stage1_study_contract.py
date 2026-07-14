@@ -67,6 +67,22 @@ def audit_stage1_study_contract(stage1_json: Dict[str, Any]) -> Dict[str, Any]:
             blocking.append("invalid_replicable_label")
             _add_missing(missing_by_field, "replicable", study_ref)
 
+        exclusion_reasons = exp.get("exclusion_reasons")
+        if isinstance(exclusion_reasons, list):
+            reasons = [
+                str(reason).strip()
+                for reason in exclusion_reasons
+                if str(reason).strip()
+            ]
+        else:
+            reasons = []
+        if is_downstream_candidate and reasons:
+            blocking.append("candidate_has_exclusion_reasons")
+            _add_missing(missing_by_field, "eligibility_consistency", study_ref)
+        if replicable == "NO" and not reasons:
+            blocking.append("excluded_without_reason")
+            _add_missing(missing_by_field, "exclusion_reasons", study_ref)
+
         if is_downstream_candidate:
             for field in ("design_type", "participant_task", "input", "participants", "output"):
                 if not _has_text(exp.get(field)):
@@ -93,6 +109,7 @@ def audit_stage1_study_contract(stage1_json: Dict[str, Any]) -> Dict[str, Any]:
             "experiment_id": exp.get("experiment_id"),
             "study_name": exp.get("study_name"),
             "replicable": replicable,
+            "exclusion_reasons": reasons,
             "ready": not blocking,
             "downstream_candidate": is_downstream_candidate,
             "blocking_issues": sorted(set(blocking)),
