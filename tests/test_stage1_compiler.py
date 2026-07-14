@@ -9,6 +9,7 @@ from generation_pipeline.pdf.evidence import PdfEvidenceIndex
 from generation_pipeline.pdf.models import DocumentBlock, ParsedPdfDocument
 from generation_pipeline.stage1_compiler import (
     BOUNDARY_ADJUDICATION_MAX_CONTEXT_CHARS,
+    _adjudicate_candidate_boundaries,
     _apply_boundary_adjudication,
     _attach_discovered_shared_sample_contexts,
     _augment_relation_problem_family_merges,
@@ -22,6 +23,7 @@ from generation_pipeline.stage1_compiler import (
     _reconcile_comparison_groups,
     _reconcile_mentions,
     _validate_boundary_adjudication_payload,
+    _validate_discovery_payload,
     DiscoveryWindow,
     build_discovery_windows,
     cached_json_call,
@@ -191,6 +193,113 @@ class _CompilerClient:
 
 
 class Stage1CompilerTests(unittest.TestCase):
+    def test_discovery_validation_allows_duplicate_parent_mentions_for_reconciliation(self):
+        window = DiscoveryWindow(
+            window_id="window_001",
+            text="Problem 3 was presented twice with different payoff details.",
+            block_ids=["p001_text", "p002_text"],
+            pages=[1, 2],
+            char_count=59,
+        )
+        payload = {
+            "paper_metadata": {},
+            "candidate_mentions": [
+                {
+                    "reported_label": "Problem 3",
+                    "material_variants": [],
+                    "evidence_block_ids": ["p001_text"],
+                },
+                {
+                    "reported_label": "Modified version of Problem 3",
+                    "material_variants": [],
+                    "evidence_block_ids": ["p002_text"],
+                },
+            ],
+            "comparison_relations": [],
+        }
+
+        _validate_discovery_payload(payload, window)
+
+    def test_prime_suffixed_problem_labels_remain_distinct_units(self):
+        window = DiscoveryWindow(
+            window_id="window_001",
+            text="Problem 13 and Problem 13 prime used different prospects.",
+            block_ids=["p001_text", "p002_text"],
+            pages=[1, 2],
+            char_count=58,
+        )
+        payload = {
+            "paper_metadata": {},
+            "candidate_mentions": [
+                {
+                    "reported_label": "Problem 13",
+                    "material_variants": [],
+                    "evidence_block_ids": ["p001_text"],
+                },
+                {
+                    "reported_label": "Problem 13\u2032",
+                    "material_variants": [],
+                    "evidence_block_ids": ["p002_text"],
+                },
+            ],
+            "comparison_relations": [
+                {
+                    "member_refs": [
+                        {"reported_label": "Problem 13"},
+                        {"reported_label": "Problem 13'"},
+                    ],
+                    "members_are_distinct_empirical_units": True,
+                    "relationship_kind": "paired_contrast",
+                    "comparison_target": "choice pattern",
+                    "evidence_block_ids": ["p001_text", "p002_text"],
+                }
+            ],
+        }
+
+        _validate_discovery_payload(payload, window)
+        mentions = [
+            _normalize_mention(raw, window, index)
+            for index, raw in enumerate(payload["candidate_mentions"], start=1)
+        ]
+        candidates, _ = _reconcile_mentions(mentions)
+
+        self.assertEqual(
+            [candidate["study_id"] for candidate in candidates],
+            ["study_problem_13", "study_problem_13_prime"],
+        )
+        self.assertEqual(
+            [candidate["reported_label"] for candidate in candidates],
+            ["Problem 13", "Problem 13'"],
+        )
+
+    def test_discovery_validation_repairs_unique_shortened_block_ids(self):
+        window = DiscoveryWindow(
+            window_id="window_001",
+            text="A participant task and result.",
+            block_ids=["p013_text_00140", "p013_text_00141"],
+            pages=[13],
+            char_count=30,
+        )
+        payload = {
+            "paper_metadata": {},
+            "candidate_mentions": [
+                {
+                    "reported_label": "Heart attack problem",
+                    "material_variants": [],
+                    "evidence_block_ids": ["p013_text_40", "p013_text_41"],
+                }
+            ],
+            "comparison_relations": [],
+        }
+
+        _validate_discovery_payload(payload, window)
+
+        self.assertEqual(
+            payload["candidate_mentions"][0]["evidence_block_ids"],
+            ["p013_text_00140", "p013_text_00141"],
+        )
+        self.assertEqual(len(payload["_evidence_ref_repairs"]), 2)
+
     def test_material_variants_exclude_joint_options_and_keep_alternative_forms(self):
         variants = _normalize_material_variants(
             [
@@ -698,6 +807,45 @@ class Stage1CompilerTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "not a connected task family"):
             _validate_boundary_adjudication_payload(payload, candidates=candidates)
+
+    def test_boundary_adjudication_preserves_candidates_after_invalid_llm_output(self):
+        candidates = [
+            {
+                "study_id": "birth_task",
+                "reported_label": "Birth sequence estimate",
+                "study_name": "Birth sequence probability task",
+                "participant_task_hint": "Estimate a birth sequence frequency.",
+                "evidence_block_ids": ["p001_text"],
+            },
+            {
+                "study_id": "program_task",
+                "reported_label": "School program choice",
+                "study_name": "School program classification",
+                "participant_task_hint": "Choose program A or program B.",
+                "evidence_block_ids": ["p002_text"],
+            },
+        ]
+        index = PdfEvidenceIndex(_document(["Birth task.", "Program task."]))
+
+        with patch(
+            "generation_pipeline.stage1_compiler.cached_json_call",
+            side_effect=ValueError("not a connected task family"),
+        ):
+            reconciled, report = _adjudicate_candidate_boundaries(
+                candidates,
+                relations=[],
+                index=index,
+                llm_client=object(),
+                pdf_path=Path("paper.pdf"),
+                artifacts_dir=None,
+                timeout=30,
+                force=False,
+            )
+
+        self.assertEqual(reconciled, candidates)
+        self.assertEqual(report["status"], "invalid_llm_output")
+        self.assertEqual(report["candidate_count_after"], 2)
+        self.assertIn("not a connected task family", report["validation_error"])
 
     def test_two_disconnected_unlabeled_tasks_cannot_be_merged(self):
         candidates = [

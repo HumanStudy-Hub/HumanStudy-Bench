@@ -774,10 +774,11 @@ def _reconcile_mentions(
     for source_mentions in groups:
         first = _preferred_parent_mention(source_mentions)
         reported_label = first.get("reported_label")
+        canonical_label = _canonical_reported_label(reported_label)
         key = (
-            canonical_sub_study_id(_canonical_reported_label(reported_label))
-            if _explicit_unit_labels(reported_label)
-            else _mention_identity_key(first)
+            _mention_identity_key(first)
+            if "'" in canonical_label
+            else canonical_sub_study_id(canonical_label)
         )
         source_anchor = _mention_has_source_anchor(first)
         candidate = _candidate_from_mentions(
@@ -812,7 +813,7 @@ def _reconcile_mentions(
 
 _EXPLICIT_UNIT_RE = re.compile(
     r"\b(study|experiment|problem|survey|pilot|validation)\s*[-:#]?\s*"
-    r"(\d+[a-z]?|[ivxlcdm]+[a-z]?)\b",
+    r"(\d+[a-z]?(?:['\u2019\u2032]+)?|[ivxlcdm]+[a-z]?(?:['\u2019\u2032]+)?)(?=\W|$)",
     re.IGNORECASE,
 )
 _VALID_ROMAN_RE = re.compile(
@@ -869,7 +870,10 @@ def _explicit_unit_labels(value: Any) -> List[str]:
     for match in _EXPLICIT_UNIT_RE.finditer(str(value or "")):
         kind = match.group(1).lower().title()
         number = match.group(2)
-        number = number.upper() if number.isalpha() else number.lower()
+        prime_match = re.search(r"(['\u2019\u2032]+)$", number)
+        primes = "'" * len(prime_match.group(1)) if prime_match else ""
+        base = number[: -len(prime_match.group(1))] if prime_match else number
+        number = (base.upper() if base.isalpha() else base.lower()) + primes
         label = f"{kind} {number}"
         if label not in labels:
             labels.append(label)
@@ -891,19 +895,23 @@ def _normalized_explicit_unit_labels(value: Any) -> List[str]:
 def canonical_unit_number(value: Any) -> str:
     """Normalize Arabic/Roman source labels while preserving letter suffixes."""
     token = str(value or "").strip()
+    prime_match = re.search(r"(['\u2019\u2032]+)$", token)
+    primes = "'" * len(prime_match.group(1)) if prime_match else ""
+    if prime_match:
+        token = token[: -len(prime_match.group(1))]
     digit_match = re.fullmatch(r"0*(\d+)([a-z]?)", token, re.IGNORECASE)
     if digit_match:
-        return f"{int(digit_match.group(1))}{digit_match.group(2).upper()}"
+        return f"{int(digit_match.group(1))}{digit_match.group(2).upper()}{primes}"
 
     upper = token.upper()
     roman_value = _roman_value(upper)
     if roman_value is not None:
-        return str(roman_value)
+        return f"{roman_value}{primes}"
     if len(upper) > 1:
         roman_value = _roman_value(upper[:-1])
         if roman_value is not None:
-            return f"{roman_value}{upper[-1]}"
-    return upper
+            return f"{roman_value}{upper[-1]}{primes}"
+    return f"{upper}{primes}"
 
 
 def _roman_value(value: str) -> Optional[int]:
@@ -928,7 +936,12 @@ def _mention_identity_key(mention: Dict[str, Any]) -> str:
     label = str(mention.get("reported_label") or mention.get("study_name") or "empirical_unit")
     labels = _normalized_explicit_unit_labels(label)
     if len(labels) == 1:
-        return canonical_sub_study_id(labels[0])
+        identifier_label = re.sub(
+            r"'+",
+            lambda match: " " + " ".join("prime" for _ in match.group(0)),
+            labels[0],
+        )
+        return canonical_sub_study_id(identifier_label)
     normalized = re.sub(r"\bn\s*=\s*\d+\b", "", label, flags=re.IGNORECASE)
     normalized = re.sub(r"\s+", " ", normalized).strip()
     return canonical_sub_study_id(normalized)
@@ -1084,22 +1097,44 @@ def _adjudicate_candidate_boundaries(
         for item in relation_ledger
         if str(item.get("relation_mention_id") or "")
     }
-    raw = cached_json_call(
-        llm_client,
-        prompt,
-        cache_path=cache_path,
-        prompt_version=BOUNDARY_ADJUDICATION_PROMPT_VERSION,
-        timeout=timeout,
-        max_tokens=BOUNDARY_ADJUDICATION_MAX_TOKENS,
-        force=force,
-        validator=lambda value: _validate_boundary_adjudication_payload(
-            value,
-            candidates=candidates,
-            relation_ledger=relation_ledger,
-            allowed_refs_by_candidate=allowed_refs_by_candidate,
-            allowed_refs_by_relation=allowed_refs_by_relation,
-        ),
-    )
+    try:
+        raw = cached_json_call(
+            llm_client,
+            prompt,
+            cache_path=cache_path,
+            prompt_version=BOUNDARY_ADJUDICATION_PROMPT_VERSION,
+            timeout=timeout,
+            max_tokens=BOUNDARY_ADJUDICATION_MAX_TOKENS,
+            force=force,
+            validator=lambda value: _validate_boundary_adjudication_payload(
+                value,
+                candidates=candidates,
+                relation_ledger=relation_ledger,
+                allowed_refs_by_candidate=allowed_refs_by_candidate,
+                allowed_refs_by_relation=allowed_refs_by_relation,
+            ),
+        )
+    except ValueError as exc:
+        print(
+            "  Stage 1 boundary adjudication ignored invalid LLM output; "
+            "preserving all candidates",
+            flush=True,
+        )
+        return list(candidates), {
+            "status": "invalid_llm_output",
+            "prompt_version": BOUNDARY_ADJUDICATION_PROMPT_VERSION,
+            "llm_call_count": 1,
+            "full_document_llm_calls": 0,
+            "candidate_count_before": len(candidates),
+            "candidate_count_after": len(candidates),
+            "context_chars": len(prompt),
+            "context_char_limit": BOUNDARY_ADJUDICATION_MAX_CONTEXT_CHARS,
+            "context_strategy": context_strategy,
+            "actions": [],
+            "rejected_candidates": [],
+            "validation_error": f"{type(exc).__name__}: {exc}",
+            "notes": "All candidates were preserved because boundary adjudication did not pass validation.",
+        }
     raw = _augment_relation_problem_family_merges(
         raw,
         candidates=candidates,
@@ -3390,6 +3425,7 @@ def _validate_discovery_payload(
     if not isinstance(mentions, list):
         raise ValueError("candidate_mentions must be an array")
     valid_refs = set(window.block_ids)
+    _repair_discovery_evidence_refs(payload, valid_refs=valid_refs)
     candidate_relation_keys: set[str] = set()
     for position, mention in enumerate(mentions):
         if not isinstance(mention, dict):
@@ -3412,11 +3448,6 @@ def _validate_discovery_payload(
                 f"candidate_mentions[{position}] has invalid evidence refs: {invalid}"
             )
         candidate_key = _mention_identity_key({"reported_label": reported_label})
-        if candidate_key in candidate_relation_keys:
-            raise ValueError(
-                f"candidate_mentions[{position}] duplicates parent empirical unit "
-                f"{_canonical_reported_label(reported_label)!r}; merge its variants"
-            )
         candidate_relation_keys.add(candidate_key)
         material_variants = mention.get("material_variants")
         if not isinstance(material_variants, list):
@@ -3484,6 +3515,89 @@ def _validate_discovery_payload(
             raise ValueError(
                 f"comparison_relations[{position}] has invalid evidence refs: {invalid}"
             )
+
+
+_BLOCK_REF_RE = re.compile(r"^p0*(\d+)_(.+)_0*(\d+)$", re.IGNORECASE)
+
+
+def _repair_discovery_evidence_refs(
+    payload: Dict[str, Any],
+    *,
+    valid_refs: set[str],
+) -> None:
+    """Repair shortened block IDs only when the window has one exact suffix match."""
+    parsed_valid: List[tuple[str, int, str, str]] = []
+    for valid_ref in valid_refs:
+        match = _BLOCK_REF_RE.fullmatch(valid_ref)
+        if match:
+            parsed_valid.append(
+                (valid_ref, int(match.group(1)), match.group(2).lower(), match.group(3))
+            )
+
+    repairs: List[Dict[str, str]] = []
+
+    def repair_list(owner: Dict[str, Any], key: str, path: str) -> None:
+        values = owner.get(key)
+        if not isinstance(values, list):
+            return
+        repaired: List[Any] = []
+        owner_repairs: List[Dict[str, str]] = []
+        for value in values:
+            raw_ref = str(value)
+            if raw_ref in valid_refs:
+                repaired.append(raw_ref)
+                continue
+            match = _BLOCK_REF_RE.fullmatch(raw_ref)
+            matches: List[str] = []
+            if match:
+                page = int(match.group(1))
+                block_type = match.group(2).lower()
+                order_suffix = match.group(3)
+                matches = [
+                    valid_ref
+                    for valid_ref, valid_page, valid_type, valid_order in parsed_valid
+                    if valid_page == page
+                    and valid_type == block_type
+                    and valid_order.endswith(order_suffix)
+                ]
+            if len(matches) == 1:
+                replacement = matches[0]
+                repaired.append(replacement)
+                record = {
+                    "path": path,
+                    "original": raw_ref,
+                    "replacement": replacement,
+                }
+                repairs.append(record)
+                owner_repairs.append(record)
+            else:
+                repaired.append(raw_ref)
+        owner[key] = repaired
+        if owner_repairs:
+            owner["_evidence_ref_repairs"] = [
+                *(owner.get("_evidence_ref_repairs") or []),
+                *owner_repairs,
+            ]
+
+    for mention_index, mention in enumerate(payload.get("candidate_mentions") or []):
+        if not isinstance(mention, dict):
+            continue
+        repair_list(mention, "evidence_block_ids", f"candidate_mentions[{mention_index}]")
+        for variant_index, variant in enumerate(mention.get("material_variants") or []):
+            if isinstance(variant, dict):
+                repair_list(
+                    variant,
+                    "evidence_block_ids",
+                    f"candidate_mentions[{mention_index}].material_variants[{variant_index}]",
+                )
+    for relation_index, relation in enumerate(payload.get("comparison_relations") or []):
+        if isinstance(relation, dict):
+            repair_list(
+                relation,
+                "evidence_block_ids",
+                f"comparison_relations[{relation_index}]",
+            )
+    payload["_evidence_ref_repairs"] = repairs
 
 
 def _validate_study_payload(
