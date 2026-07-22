@@ -1,0 +1,90 @@
+{
+  "study_id": "study_017",
+  "title": "Preferences for Advisor Agreement and Accuracy",
+  "study_type": "stateful_judge_advisor_dates_task",
+  "participants": {
+    "n": 60,
+    "population": "Online adult participants recruited through Prolific",
+    "recruitment_source": "Prolific",
+    "demographics": {
+      "reported": false,
+      "note": "The authors deliberately did not collect demographic data."
+    },
+    "by_sub_study": {
+      "dates_task_3b_no_feedback": {
+        "n": 29,
+        "feedback": false
+      },
+      "dates_task_3c_feedback": {
+        "n": 31,
+        "feedback": true
+      }
+    }
+  },
+  "design": {
+    "type": "mixed design with repeated judgments and a between-participant feedback condition",
+    "factors": [
+      {
+        "name": "feedback",
+        "levels": [
+          "no_feedback",
+          "feedback"
+        ],
+        "type": "between-participant"
+      },
+      {
+        "name": "advisor_type",
+        "levels": [
+          "accurate",
+          "agreeing"
+        ],
+        "type": "within-participant"
+      },
+      {
+        "name": "advisor_order",
+        "levels": [
+          "accurate_first",
+          "agreeing_first"
+        ],
+        "type": "counterbalanced between-participant"
+      }
+    ],
+    "timeline_year_min": 1890,
+    "timeline_year_max": 2010,
+    "participant_marker_widths": [
+      7,
+      13,
+      21
+    ],
+    "participant_marker_points": {
+      "7": 25,
+      "13": 10,
+      "21": 5
+    },
+    "advisor_marker_width": 6,
+    "advice_standard_deviation_years": 5,
+    "reflected_control_probability": 0.135
+  },
+  "procedure": {
+    "core_trials": 40,
+    "steps": [
+      "Randomize the public question bank without replacement for each participant.",
+      "Assign the participant to feedback/no-feedback and one of two advisor orders.",
+      "Run 15 familiarisation trials with the first advisor and 15 with the second advisor.",
+      "On every trial, collect an initial year estimate and marker width.",
+      "Generate a six-year-wide advisor marker from the advisor's hidden policy.",
+      "Collect a final year estimate and marker width while preserving the initial estimate and advice in context.",
+      "In Experiment 3C, reveal the correct year only after the final estimate; in Experiment 3B, do not reveal it during the task.",
+      "Run 10 test trials in which the participant chooses one of the two anonymous advisors after the initial estimate and before receiving advice."
+    ]
+  },
+  "runtime": {
+    "adapter": "scripts/config.py",
+    "requires_group_trials": true,
+    "group_semantics": "custom stateful participant runner; participants are independent and may run in parallel",
+    "default_participants": 60,
+    "minimum_participants": 1,
+    "core_trials_per_participant": 40,
+    "llm_calls_per_participant_without_repairs": 90
+  }
+}

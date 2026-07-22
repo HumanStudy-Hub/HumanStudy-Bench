@@ -1,0 +1,119 @@
+{
+  "study_id": "study_017",
+  "title": "Preferences for Advisor Agreement and Accuracy",
+  "authors": [
+    "Matt Jaquiery",
+    "Nick Yeung"
+  ],
+  "year": 2024,
+  "studies": [
+    {
+      "study_id": "dates_task_3b_no_feedback",
+      "study_name": "Experiment 3B: accurate versus agreeing advisor without feedback",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "The group-level agreeing-advisor pick rate did not differ from chance, despite wide individual differences.",
+          "reported_statistics": {
+            "n": 29,
+            "agreeing_advisor_pick_rate": 0.51,
+            "confidence_interval_95": [
+              0.39,
+              0.64
+            ],
+            "t": 0.19,
+            "df": 28,
+            "p": 0.853,
+            "cohens_d": 0.03,
+            "location": "Results, Advisor choice"
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "dates_task_3c_feedback",
+      "study_name": "Experiment 3C: accurate versus agreeing advisor with feedback",
+      "findings": [
+        {
+          "finding_id": "F2",
+          "main_hypothesis": "Participants strongly preferred the accurate advisor, producing a low agreeing-advisor pick rate.",
+          "reported_statistics": {
+            "n": 31,
+            "agreeing_advisor_pick_rate": 0.17,
+            "confidence_interval_95": [
+              0.08,
+              0.25
+            ],
+            "t": -7.63,
+            "df": 30,
+            "p": "<0.001",
+            "cohens_d": -1.37,
+            "location": "Results, Advisor choice"
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "dates_task_3b_3c_pooled",
+      "study_name": "Experiments 3B and 3C: advice use",
+      "findings": [
+        {
+          "finding_id": "F3",
+          "main_hypothesis": "Final estimates were more accurate than initial estimates.",
+          "reported_statistics": {
+            "mean_initial_absolute_error_years": 15.84,
+            "mean_final_absolute_error_years": 10.28,
+            "F": 69.02,
+            "df": [
+              1,
+              32
+            ],
+            "p": "<0.001",
+            "location": "Results, Task accuracy and advice usage"
+          }
+        },
+        {
+          "finding_id": "F4",
+          "main_hypothesis": "Error reduction was substantially larger after accurate advice than after agreeing advice.",
+          "reported_statistics": {
+            "mean_error_reduction_accurate_years": 9.67,
+            "mean_error_reduction_agreeing_years": 1.46,
+            "F": 60.26,
+            "df": [
+              1,
+              32
+            ],
+            "p": "<0.001",
+            "location": "Results, Task accuracy and advice usage"
+          }
+        }
+      ]
+    }
+  ],
+  "validation_criteria": {
+    "pass_threshold": 0.7,
+    "required_tests": [
+      {
+        "test_id": "stateful_execution_integrity",
+        "description": "Every participant completes two 15-trial familiarisation blocks and one 10-trial advisor-choice block without pre-response answer leakage.",
+        "weight": 0.4
+      },
+      {
+        "test_id": "feedback_choice_alignment",
+        "description": "Compare agreeing-advisor pick rates in feedback and no-feedback conditions with the reported 0.17 and 0.51 rates.",
+        "weight": 0.35
+      },
+      {
+        "test_id": "advice_use_alignment",
+        "description": "Compare error reduction after accurate and agreeing advice with the reported directional contrast.",
+        "weight": 0.25
+      }
+    ]
+  },
+  "source_limitations": [
+    "The article combines pilot and preregistered replication data for the continuous Dates Task; participant counts and some pooled analyses therefore have different denominators.",
+    "The benchmark reproduces the published behavioral mechanism, not the browser's motor interaction with draggable timeline markers.",
+    "Practice trials, attention-check termination, avatar art, and unanalysed debrief ratings are outside the implemented runtime.",
+    "The article reports 13.5% reflected-control trials; this published rate is treated as authoritative where historical code snapshots are not self-explanatory."
+  ]
+}

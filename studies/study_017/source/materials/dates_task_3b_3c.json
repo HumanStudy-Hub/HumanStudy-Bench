@@ -1,0 +1,88 @@
+{
+  "sub_study_id": "dates_task_3b_3c",
+  "sub_study_name": "Continuous Dates Task: accurate versus agreeing advisor",
+  "source": {
+    "document": "jaquiery_yeung_2024_preferences_advisor_agreement_accuracy.pdf",
+    "locations": [
+      "Materials and methods, Task structure",
+      "Materials and methods, Continuous dates task",
+      "Materials and methods, Advice"
+    ],
+    "question_bank": "question_bank.json",
+    "experiment_code_commit": "ed13951c488e1996df7ff53d48629843bacfd074",
+    "fidelity": "faithful stateful reconstruction from article and public experiment materials"
+  },
+  "instructions": "Estimate when each historical event occurred without looking up the answer. Place a marker centered on your estimated year and choose a width of 7, 13, or 21 years. A correct marker earns 25, 10, or 5 points respectively when it covers the true year. Most trials include advice from one of two anonymous advisors followed by a final estimate. Advisors may behave differently, so learn how useful each is. In the final block, choose which advisor to consult after making your initial estimate.",
+  "conditions": [
+    {
+      "name": "feedback",
+      "levels": [
+        {
+          "id": "dates_task_3b_no_feedback",
+          "description": "Do not reveal the correct year during core trials."
+        },
+        {
+          "id": "dates_task_3c_feedback",
+          "description": "Reveal the correct year only after the participant submits the final estimate."
+        }
+      ]
+    },
+    {
+      "name": "advisor_order",
+      "levels": [
+        "accurate_first",
+        "agreeing_first"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "initial_estimate",
+      "question": "In what year did this event occur, and how wide should your confidence marker be?",
+      "type": "year_and_marker_width",
+      "options": {
+        "year": {
+          "min": 1890,
+          "max": 2010
+        },
+        "width": [
+          7,
+          13,
+          21
+        ]
+      },
+      "response_format": "YEAR=<1890-2010>; WIDTH=<7|13|21>"
+    },
+    {
+      "id": "advisor_choice",
+      "question": "Which anonymous advisor would you like to consult?",
+      "type": "single_choice",
+      "options": [
+        "Advisor A",
+        "Advisor B"
+      ],
+      "response_format": "ADVISOR=A or ADVISOR=B"
+    },
+    {
+      "id": "final_estimate",
+      "question": "After seeing the advisor's estimate, what is your final year estimate and marker width?",
+      "type": "year_and_marker_width",
+      "options": {
+        "year": {
+          "min": 1890,
+          "max": 2010
+        },
+        "width": [
+          7,
+          13,
+          21
+        ]
+      },
+      "response_format": "YEAR=<1890-2010>; WIDTH=<7|13|21>"
+    }
+  ],
+  "response_schema": {
+    "initial_and_final": "YEAR=<1890-2010>; WIDTH=<7|13|21>",
+    "advisor_choice": "ADVISOR=<A|B>"
+  }
+}

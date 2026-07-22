@@ -1,0 +1,83 @@
+{
+  "id": "study_017",
+  "paper_id": "jaquiery_yeung_2024_advisor_agreement_accuracy",
+  "title": "Preferences for Advisor Agreement and Accuracy",
+  "authors": [
+    "Matt Jaquiery",
+    "Nick Yeung"
+  ],
+  "year": 2024,
+  "journal": "PLOS ONE",
+  "doi": "10.1371/journal.pone.0311211",
+  "domain": "social_psychology",
+  "subdomain": "advice_taking_and_source_selection",
+  "keywords": [
+    "advice taking",
+    "advisor choice",
+    "accuracy",
+    "agreement",
+    "trust",
+    "judge-advisor system"
+  ],
+  "tags": [
+    "stateful",
+    "multi_turn",
+    "text_task",
+    "within_subject",
+    "feedback_manipulation"
+  ],
+  "difficulty": "hard",
+  "description": "Participants estimate dates of twentieth-century events, learn from two anonymous computer-generated advisors, and then choose which advisor to consult. One advisor is centered on the correct answer; the other is centered on the participant's initial estimate.",
+  "scenarios": [
+    "dates_task_3b_no_feedback",
+    "dates_task_3c_feedback"
+  ],
+  "implementation_scope": {
+    "status": "core_treatments_complete",
+    "included": [
+      "Experiments 3B and 3C continuous Dates Task",
+      "complete 74-item public historical-event question bank",
+      "15-trial familiarisation block per advisor",
+      "10 advisor-choice trials",
+      "counterbalanced advisor order",
+      "feedback versus no-feedback manipulation",
+      "7-, 13-, and 21-year participant markers",
+      "6-year advisor markers",
+      "accuracy-, agreement-, and reflected-control advice generation",
+      "initial and final estimates in a persistent participant conversation"
+    ],
+    "excluded": [
+      "ten unaided practice trials",
+      "two practice-advisor trials",
+      "browser drag-and-drop interface",
+      "attention-check termination logic",
+      "advisor avatar artwork",
+      "post-study advisor ratings not analysed in the paper",
+      "Dots Task and categorical Dates Task experiments"
+    ],
+    "reason": "The benchmark targets the paper's text-native, agent-simulable 3B/3C mechanism. UI motor behavior and screening controls do not define the advisor-choice effect and are not simulated."
+  },
+  "sources": {
+    "article": "https://doi.org/10.1371/journal.pone.0311211",
+    "experiment_code": "https://github.com/oxacclab/ExploringSocialMetacognition/tree/ed13951c488e1996df7ff53d48629843bacfd074/ACv2",
+    "data": "https://zenodo.org/records/5543803",
+    "license": "Article: CC BY; experiment software and materials: MIT"
+  },
+  "findings": [
+    {
+      "finding_id": "F1",
+      "main_hypothesis": "Without objective feedback, participants show no consistent group-level preference between the accurate and agreeing advisors, with substantial individual differences.",
+      "weight": 0.3
+    },
+    {
+      "finding_id": "F2",
+      "main_hypothesis": "With objective feedback, participants strongly prefer the accurate advisor over the agreeing advisor.",
+      "weight": 0.4
+    },
+    {
+      "finding_id": "F3",
+      "main_hypothesis": "Advice reduces date-estimation error more when it comes from the accurate advisor than from the agreeing advisor.",
+      "weight": 0.3
+    }
+  ]
+}
