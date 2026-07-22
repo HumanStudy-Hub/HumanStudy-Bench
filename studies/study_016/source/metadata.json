@@ -1,0 +1,63 @@
+{
+  "id": "study_016",
+  "paper_id": "anderson_holt_1997_information_cascades",
+  "title": "Information Cascades in the Laboratory",
+  "authors": [
+    "Lisa R. Anderson",
+    "Charles A. Holt"
+  ],
+  "year": 1997,
+  "domain": "behavioral_economics",
+  "subdomain": "social_learning_and_information_cascades",
+  "keywords": [
+    "information cascades",
+    "social learning",
+    "Bayesian decision making",
+    "sequential decisions",
+    "herding"
+  ],
+  "tags": [
+    "multi_agent",
+    "stateful",
+    "sequential",
+    "economic_experiment"
+  ],
+  "difficulty": "hard",
+  "description": "Participants sequentially predict which urn generated private light or dark draws. Later participants observe earlier public predictions but not earlier private draws, allowing rational information cascades to form.",
+  "scenarios": [
+    "symmetric_baseline"
+  ],
+  "implementation_scope": {
+    "status": "core_treatment_complete",
+    "included": [
+      "symmetric urn composition",
+      "equal prior probability of urn A and urn B",
+      "six decision makers per session",
+      "private draws with replacement",
+      "random decision order in every period",
+      "sequential public predictions",
+      "15 paid periods",
+      "$2 payoff for a correct prediction"
+    ],
+    "excluded": [
+      "practice periods",
+      "monitor role",
+      "public-draw symmetric variants",
+      "asymmetric urn treatment",
+      "physical room and cash-payment implementation"
+    ],
+    "reason": "The published appendix fully specifies the symmetric baseline. It does not provide the complete session-level schedule or raw data needed to reproduce every public-draw variant exactly."
+  },
+  "findings": [
+    {
+      "finding_id": "F1",
+      "main_hypothesis": "When prior public decisions create a sufficiently strong imbalance, later participants often follow the cascade even when their private signal points to the other urn.",
+      "weight": 1.0
+    },
+    {
+      "finding_id": "F2",
+      "main_hypothesis": "Sequential public decisions improve information-use efficiency relative to decisions based only on private signals.",
+      "weight": 0.5
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "study_id": "study_016",
+  "title": "Information Cascades in the Laboratory",
+  "study_type": "sequential_information_cascade",
+  "participants": {
+    "n": 18,
+    "population": "University of Virginia undergraduate economics students",
+    "recruitment_source": "Undergraduate economics courses",
+    "age_range": [
+      18,
+      25
+    ],
+    "demographics": {},
+    "by_sub_study": {
+      "symmetric_baseline": {
+        "n": 18,
+        "sessions": 3,
+        "participants_per_session": 6,
+        "note": "The paper reports three baseline symmetric sessions. Three additional symmetric sessions used public draws and are outside this adapter's evidence-complete scope."
+      }
+    }
+  },
+  "design": {
+    "type": "repeated-measures sequential group experiment",
+    "factors": [
+      {
+        "name": "private_signal",
+        "levels": [
+          "light",
+          "dark"
+        ],
+        "type": "stochastic within-session"
+      },
+      {
+        "name": "public_decision_history",
+        "levels": [
+          "none",
+          "one or more prior decisions"
+        ],
+        "type": "endogenous sequential context"
+      }
+    ],
+    "sessions": 3,
+    "periods_per_session": 15,
+    "participants_per_session": 6,
+    "decision_order": "randomized independently each period"
+  },
+  "procedure": {
+    "steps": [
+      "Select urn A or urn B with equal probability.",
+      "Generate one private light or dark draw with replacement for each of six participants.",
+      "Randomize the order in which the six participants decide.",
+      "Ask each participant to predict urn A or urn B after showing only their private draw and earlier public predictions.",
+      "Announce each prediction before approaching the next participant.",
+      "Reveal the true urn after all six predictions and award $2 to each correct participant.",
+      "Repeat for 15 paid periods."
+    ]
+  },
+  "runtime": {
+    "adapter": "scripts/config.py",
+    "requires_group_trials": true,
+    "minimum_participants": 6,
+    "participant_multiple": 6,
+    "default_participants": 18,
+    "api_calls_per_session": 90
+  }
+}

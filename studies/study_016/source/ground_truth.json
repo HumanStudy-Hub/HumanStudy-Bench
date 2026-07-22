@@ -1,0 +1,71 @@
+{
+  "study_id": "study_016",
+  "title": "Information Cascades in the Laboratory",
+  "authors": [
+    "Lisa R. Anderson",
+    "Charles A. Holt"
+  ],
+  "year": 1997,
+  "studies": [
+    {
+      "study_id": "symmetric_design",
+      "study_name": "Symmetric information-cascade sessions",
+      "implementation_scope": "The runtime implements the three baseline sessions. Reported aggregate findings below pool all six symmetric sessions, including public-draw variants.",
+      "findings": [
+        {
+          "finding_id": "F1",
+          "main_hypothesis": "Participants follow a rational cascade when the public evidence dominates a conflicting private signal.",
+          "reported_statistics": {
+            "cascade_opportunities": 56,
+            "cascade_behavior": 41,
+            "cascade_following_rate": 0.7321428571,
+            "location": "Results, pp. 9-10"
+          }
+        },
+        {
+          "finding_id": "F2",
+          "main_hypothesis": "Participants use public information efficiently rather than relying only on their private draw.",
+          "reported_statistics": {
+            "actual_efficiency_percent": 91.4,
+            "private_information_efficiency_percent": 72.1,
+            "subjects_with_perfect_actual_efficiency": 22,
+            "symmetric_subjects": 36,
+            "location": "Results, p. 12"
+          }
+        },
+        {
+          "finding_id": "F3",
+          "main_hypothesis": "When the posterior is tied, participants generally follow their private signal rather than the preceding public decision.",
+          "reported_statistics": {
+            "tie_cases_with_conflicting_private_signal": 68,
+            "private_signal_choices": 57,
+            "private_signal_choice_rate": 0.8382352941,
+            "location": "Biases, pp. 16-17"
+          }
+        }
+      ]
+    }
+  ],
+  "validation_criteria": {
+    "pass_threshold": 0.7,
+    "required_tests": [
+      {
+        "test_id": "valid_sequential_execution",
+        "description": "All decisions are valid A/B choices and each decision receives only its private signal plus prior public choices.",
+        "weight": 0.4
+      },
+      {
+        "test_id": "cascade_following_alignment",
+        "description": "Compare agent cascade-following behavior with the reported symmetric aggregate rate of 41/56.",
+        "reported_rate": 0.7321428571,
+        "weight": 0.6,
+        "scope_warning": "The published rate includes public-draw sessions that are not implemented in the baseline runtime."
+      }
+    ]
+  },
+  "source_limitations": [
+    "The paper states that a complete data appendix was available from the authors on request; it was not included in the public PDF.",
+    "The exact public-draw schedule for every symmetric variant is not fully specified in the article.",
+    "No participant-level original data are included, so numerical alignment is evaluated as a behavioral benchmark rather than an exact rerun."
+  ]
+}

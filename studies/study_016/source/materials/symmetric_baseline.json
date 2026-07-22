@@ -1,0 +1,47 @@
+{
+  "sub_study_id": "symmetric_baseline",
+  "sub_study_name": "Symmetric baseline information-cascade experiment",
+  "source": {
+    "document": "anderson_holt_1997_information_cascades.pdf",
+    "locations": [
+      "Procedures, pp. 7-9",
+      "Appendix instructions, pp. 23-25"
+    ],
+    "fidelity": "faithful structured reconstruction"
+  },
+  "instructions": "You are one of six decision makers. In each of 15 paid periods, urn A or urn B is selected with equal probability. Urn A contains two light balls and one dark ball; urn B contains one light ball and two dark balls. Each participant privately sees one draw, with the ball replaced after every draw. Participants decide in a newly randomized order. Before deciding, you observe all predictions announced earlier in that period, but not the private draws that produced them. Predict urn A or urn B. After all six decisions, the true urn is revealed. A correct prediction earns $2 and an incorrect prediction earns $0.",
+  "conditions": [
+    {
+      "name": "urn_composition",
+      "level": "symmetric",
+      "urn_a": {
+        "light": 2,
+        "dark": 1
+      },
+      "urn_b": {
+        "light": 1,
+        "dark": 2
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "urn_prediction",
+      "question": "Which urn do you predict was selected?",
+      "type": "single_choice",
+      "options": [
+        "A",
+        "B"
+      ],
+      "response_format": "CHOICE=A or CHOICE=B"
+    }
+  ],
+  "response_schema": {
+    "answer_type": "categorical",
+    "options": [
+      "A",
+      "B"
+    ],
+    "required_format": "CHOICE=<A|B>"
+  }
+}
