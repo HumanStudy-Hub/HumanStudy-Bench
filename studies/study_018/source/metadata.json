@@ -1,0 +1,104 @@
+{
+  "id": "study_018",
+  "paper_id": "molleman_et_al_2020_disparate_social_information",
+  "title": "Strategies for Integrating Disparate Social Information",
+  "authors": [
+    "Lucas Molleman",
+    "Alan N. Tump",
+    "Andrea Gradassi",
+    "Stefan M. Herzog",
+    "Bertrand Jayles",
+    "Ralf H. J. M. Kurvers",
+    "Wouter van den Bos"
+  ],
+  "year": 2020,
+  "journal": "Proceedings of the Royal Society B: Biological Sciences",
+  "volume": "287",
+  "issue": "1939",
+  "article_number": "20202413",
+  "doi": "10.1098/rspb.2020.2413",
+  "domain": "social_psychology",
+  "subdomain": "social_information_integration",
+  "keywords": [
+    "social information use",
+    "peer consensus",
+    "confirmation bias",
+    "advice taking",
+    "belief revision",
+    "wisdom of crowds"
+  ],
+  "tags": [
+    "multimodal",
+    "multi_turn",
+    "within_subject",
+    "visual_numerosity",
+    "social_influence"
+  ],
+  "difficulty": "hard",
+  "description": "Participants make a visual numerosity estimate, see three prerecorded peer estimates with experimentally controlled variance and skewness, and revise their estimate. Four-peer controls measure aggregation without a personal prior estimate.",
+  "scenarios": [
+    "main_task",
+    "four_peer_control"
+  ],
+  "implementation_scope": {
+    "status": "core_behavioral_experiment_complete",
+    "included": [
+      "30-round visual estimation main block",
+      "published fixed species, true-count, and treatment schedule",
+      "five rounds per LN, HN, HF, and HC condition plus ten fillers",
+      "exact three-peer lookup for every round and every valid initial estimate",
+      "five-round four-peer control block",
+      "published control anchor pools with invalid zero sentinels rejected",
+      "randomized order of the two included blocks",
+      "accuracy points for one randomly selected round per included block",
+      "strategy and social-information-use measures",
+      "multimodal image input for the first estimate only"
+    ],
+    "excluded": [
+      "separate five-round one-peer control block not analyzed in the focal paper",
+      "browser sliders and six-second client-side timer",
+      "instruction comprehension gate",
+      "post-task individual-difference questionnaires",
+      "cognitive model fitting and downstream belief-dynamics simulations",
+      "original animal sprite artwork referenced through now-unavailable external URLs"
+    ],
+    "reason": "The package targets the paper's complete focal behavioral manipulation and its four-peer aggregation control. The omitted one-peer block is explicitly outside the paper's focal analysis; UI motor behavior and post-task questionnaires do not define the reported social-information effect."
+  },
+  "sources": {
+    "article": "https://doi.org/10.1098/rspb.2020.2413",
+    "open_article": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7739494/",
+    "supplement_collection": "https://doi.org/10.6084/m9.figshare.c.5202231",
+    "osf_project": "https://osf.io/rmcuy/",
+    "experiment_software": "https://osf.io/download/jgk2q/",
+    "data": "https://osf.io/download/dasn2/",
+    "article_license": "CC BY 4.0",
+    "license_note": "See source/SOURCE_PROVENANCE.md for per-artifact provenance and the regenerated-stimulus boundary."
+  },
+  "source_checksums": {
+    "lioness_experiment_zip_sha256": "ea0b6e8908abb8c42cf3d06c0d7f72eeaac4e6ca22f0ce82bea50d4b9f7d9d8e",
+    "human_data_csv_sha256": "ef7757e63f133e53327a64d0ab074b6dcf3df4964a5c7848e83c104b8415f5e3",
+    "paper_with_supplement_sha256": "dfcaa01ffe678dfd614a9c1ee068d194d68b3b6314376e569cb672c07fb5f6bb"
+  },
+  "findings": [
+    {
+      "finding_id": "F1",
+      "main_hypothesis": "Peer disagreement reduces social information use: adjustment is larger in low-variance LN than high-variance HN.",
+      "weight": 0.35
+    },
+    {
+      "finding_id": "F2",
+      "main_hypothesis": "With variance held high, participants adjust more when two peers are close to their initial estimate (HC) than when two peers are far from it (HF).",
+      "weight": 0.4
+    },
+    {
+      "finding_id": "F3",
+      "main_hypothesis": "The distribution of peer estimates changes adjustment strategies, especially compromise versus other responses.",
+      "weight": 0.15
+    },
+    {
+      "finding_id": "F4",
+      "main_hypothesis": "Without a personal prior estimate, four-peer control judgments lie closer to the peers' arithmetic mean than main-task revisions.",
+      "weight": 0.1
+    }
+  ]
+}

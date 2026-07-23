@@ -1,0 +1,168 @@
+{
+  "study_id": "study_018",
+  "source": {
+    "article": "Molleman et al. (2020), Strategies for Integrating Disparate Social Information",
+    "article_doi": "10.1098/rspb.2020.2413",
+    "supplement": "Tables S1 and S2 and Supplementary Methods",
+    "data": "OSF rmcuy"
+  },
+  "sample": {
+    "n": 95,
+    "participant_condition_observations": 380,
+    "male_percent": 57,
+    "age_mean": 35.8,
+    "age_sd": 10.7
+  },
+  "findings": [
+    {
+      "finding_id": "F1",
+      "main_hypothesis": "Social information use is highest when peer estimates have low variance and no skew.",
+      "reported_statistics": {
+        "mean_adjustment": {
+          "LN": 0.415,
+          "HN": 0.29,
+          "HF": 0.279,
+          "HC": 0.365
+        },
+        "model_estimates_relative_to_LN": {
+          "LN_intercept": {
+            "estimate": 0.39,
+            "credible_interval_95": [
+              0.2,
+              0.57
+            ]
+          },
+          "HN_minus_LN": {
+            "estimate": -0.13,
+            "credible_interval_95": [
+              -0.15,
+              -0.1
+            ]
+          },
+          "HF_minus_LN": {
+            "estimate": -0.14,
+            "credible_interval_95": [
+              -0.16,
+              -0.11
+            ]
+          },
+          "HC_minus_LN": {
+            "estimate": -0.05,
+            "credible_interval_95": [
+              -0.08,
+              -0.02
+            ]
+          }
+        },
+        "location": "Main text Figure 1F and Supplementary Table S1"
+      }
+    },
+    {
+      "finding_id": "F2",
+      "main_hypothesis": "With high peer variance, participants adjust more when two peers cluster close to their first estimate than when two peers cluster far from it.",
+      "reported_statistics": {
+        "HC_minus_HF": {
+          "estimate": 0.09,
+          "credible_interval_95": [
+            0.06,
+            0.11
+          ]
+        },
+        "HC_minus_HN": {
+          "estimate": 0.08,
+          "credible_interval_95": [
+            0.05,
+            0.1
+          ]
+        },
+        "HF_minus_HN": {
+          "estimate": -0.01,
+          "credible_interval_95": [
+            -0.03,
+            0.02
+          ]
+        },
+        "location": "Supplementary Table S1"
+      }
+    },
+    {
+      "finding_id": "F3",
+      "main_hypothesis": "Peer distributions shift the frequencies of keeping, adopting the nearest estimate, compromising, and other revisions.",
+      "reported_statistics": {
+        "strategy_probabilities": {
+          "LN": {
+            "keep": 0.07,
+            "compromise": 0.79,
+            "adopt_nearest": 0.02,
+            "other": 0.12
+          },
+          "HN": {
+            "keep": 0.16,
+            "compromise": 0.26,
+            "adopt_nearest": 0.07,
+            "other": 0.51
+          },
+          "HF": {
+            "keep": 0.16,
+            "compromise": 0.08,
+            "adopt_nearest": 0.09,
+            "other": 0.67
+          },
+          "HC": {
+            "keep": 0.06,
+            "compromise": 0.67,
+            "adopt_nearest": 0.06,
+            "other": 0.21
+          }
+        },
+        "location": "Supplementary Table S2"
+      }
+    },
+    {
+      "finding_id": "F4",
+      "main_hypothesis": "Four-peer control estimates are closer to the arithmetic mean than revisions made after participants form their own visual estimate.",
+      "reported_statistics": {
+        "direction": "control absolute deviation from arithmetic mean is lower than main-task deviation",
+        "location": "Main text and Supplementary Figures S2-S4"
+      }
+    }
+  ],
+  "reliability": {
+    "repeatability_R": 0.79,
+    "credible_interval_95": [
+      0.697,
+      0.839
+    ]
+  },
+  "validation_criteria": {
+    "pass_threshold": 0.7,
+    "required_tests": [
+      {
+        "test_id": "execution_integrity",
+        "description": "Every participant completes 30 main and five four-peer control rounds using the published condition schedule and lookup tables.",
+        "weight": 0.45
+      },
+      {
+        "test_id": "condition_adjustment_alignment",
+        "description": "Condition means approximate reported social-information-use values and preserve LN > HC > HN/HF.",
+        "weight": 0.3575
+      },
+      {
+        "test_id": "strategy_direction_alignment",
+        "description": "Compromise is more frequent in LN than HN and in HC than HF.",
+        "weight": 0.09625
+      },
+      {
+        "test_id": "four_peer_control_alignment",
+        "description": "Control estimates are closer to the peers' arithmetic mean than main-task revisions.",
+        "weight": 0.09625
+      }
+    ]
+  },
+  "source_limitations": [
+    "The public LIONESS package references animal sprites hosted outside OSF; those URLs no longer resolve. The runtime uses deterministic regenerated silhouettes while preserving exact species and counts.",
+    "The original browser displayed each image for six seconds and collected slider movement. A vision-capable LLM receives the image in one turn, so the semantic task is preserved but visual exposure duration and motor behavior are not.",
+    "The separate one-peer control block is excluded because the paper states that its data are not the focus of the analysis.",
+    "The package evaluates behavioral condition patterns and does not fit the paper's hierarchical cognitive model."
+  ]
+}

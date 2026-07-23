@@ -1,0 +1,89 @@
+{
+  "sub_study_id": "main_and_four_peer_control",
+  "sub_study_name": "BEAST with three disparate peers and four-peer control",
+  "source": {
+    "document": "molleman_et_al_2020_strategies_disparate_social_information.pdf",
+    "locations": [
+      "Methods, Behavioral experiment",
+      "Supplementary Methods, Definition of experimental conditions",
+      "Supplementary Information, Experimental materials"
+    ],
+    "osf_project": "https://osf.io/rmcuy/",
+    "peer_lookup": "peer_lookup.json",
+    "stimulus_manifest": "stimulus_manifest.json",
+    "lookup_builder": "build_peer_lookup.py",
+    "stimulus_builder": "../stimuli/generate_stimuli.py",
+    "fidelity": "source-grounded multimodal reconstruction using original schedules and participant-contingent lookup tables"
+  },
+  "instructions": "This experiment contains two estimation tasks. In the main task, view an image of animals, estimate the number shown, then observe estimates from three previous participants and provide a second estimate. You may retain or revise your first answer. In the control task, infer the number from four previous participants' estimates without seeing the image. Estimates must be integers from 1 through 150. The true answer and accuracy feedback are not shown during the task.",
+  "conditions": [
+    {
+      "id": "LN",
+      "name": "low variance, no skew",
+      "source_treatment": 2,
+      "description": "The three peers strongly agree with one another."
+    },
+    {
+      "id": "HN",
+      "name": "high variance, no skew",
+      "source_treatment": 3,
+      "description": "The three peers disagree symmetrically."
+    },
+    {
+      "id": "HF",
+      "name": "high variance, two-peer cluster far from E1",
+      "source_treatment": 4,
+      "description": "One peer is near the participant's initial estimate and two peers form a farther cluster."
+    },
+    {
+      "id": "HC",
+      "name": "high variance, two-peer cluster close to E1",
+      "source_treatment": 5,
+      "description": "Two peers form a cluster moderately close to the participant's initial estimate and one peer is farther away."
+    },
+    {
+      "id": "filler",
+      "name": "random prerecorded peers",
+      "source_treatment": 6,
+      "description": "Three estimates are selected from the prerecorded pool without targeting the four experimental distributions."
+    }
+  ],
+  "items": [
+    {
+      "id": "initial_visual_estimate",
+      "question": "How many animals are shown in the attached image?",
+      "type": "integer_slider_equivalent",
+      "options": {
+        "min": 1,
+        "max": 150,
+        "step": 1
+      },
+      "response_format": "ESTIMATE=<1-150>"
+    },
+    {
+      "id": "revised_estimate",
+      "question": "After observing three previous participants' estimates, what is your second estimate?",
+      "type": "integer_slider_equivalent",
+      "options": {
+        "min": 1,
+        "max": 150,
+        "step": 1
+      },
+      "response_format": "ESTIMATE=<1-150>"
+    },
+    {
+      "id": "four_peer_control_estimate",
+      "question": "What is your estimate after observing four previous participants' estimates without seeing the image?",
+      "type": "integer_slider_equivalent",
+      "options": {
+        "min": 1,
+        "max": 150,
+        "step": 1
+      },
+      "response_format": "ESTIMATE=<1-150>"
+    }
+  ],
+  "response_schema": {
+    "estimate": "ESTIMATE=<integer from 1 through 150>"
+  }
+}

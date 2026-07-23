@@ -220,7 +220,21 @@ class LLMParticipantAgent:
                 "content": system_prompt
             })
 
-    def continue_conversation(self, user_message: str, max_tokens: int = 8192) -> Dict[str, Any]:
+    @staticmethod
+    def _text_from_message_content(content: Any) -> str:
+        """Extract text from unified string or multimodal message content."""
+
+        if isinstance(content, str):
+            return content
+        if not isinstance(content, list):
+            return str(content)
+        return "\n".join(
+            str(part.get("text", ""))
+            for part in content
+            if isinstance(part, dict) and part.get("type") == "text"
+        )
+
+    def continue_conversation(self, user_message: Any, max_tokens: int = 8192) -> Dict[str, Any]:
         """
         Continue an existing conversation by adding a user message and getting a response.
 
@@ -231,7 +245,8 @@ class LLMParticipantAgent:
         4. Returns the assistant's response and usage info
 
         Args:
-            user_message: User message to add to the conversation
+            user_message: String or unified multimodal content parts. Image parts use
+                          {"type": "image", "image": <path, bytes, or data URL>}.
             max_tokens: Maximum tokens for the response
 
         Returns:
@@ -261,7 +276,8 @@ class LLMParticipantAgent:
         else:
             # Simulated response for testing - try to extract round number from user message
             import re
-            round_match = re.search(r"Round (\d+)", user_message)
+            text_message = self._text_from_message_content(user_message)
+            round_match = re.search(r"Round (\d+)", text_message)
             round_num = round_match.group(1) if round_match else "1"
 
             # Simple heuristic for simulated choices
@@ -635,7 +651,7 @@ FORMATTED OUTPUT:"""
         # All trials use 8192 (4096 * 2) max tokens
         return 8192
 
-    def _call_llm_with_history(self, messages: List[Dict[str, str]], max_retries: int = 3, max_tokens: int = 8192) -> Dict[str, Any]:
+    def _call_llm_with_history(self, messages: List[Dict[str, Any]], max_retries: int = 3, max_tokens: int = 8192) -> Dict[str, Any]:
         """
         Make actual API call to LLM with conversation history.
 
@@ -714,9 +730,19 @@ FORMATTED OUTPUT:"""
                     time.sleep(wait_time)
 
                 # Prepare request parameters
+                from src.llm.openai_client import _normalize_content
+
+                api_messages = []
+                for message in messages:
+                    api_message = dict(message)
+                    content = api_message.get("content", "")
+                    if isinstance(content, list):
+                        api_message["content"] = _normalize_content(content)
+                    api_messages.append(api_message)
+
                 kwargs = {
                     "model": self.model,
-                    "messages": messages,
+                    "messages": api_messages,
                 }
                 _apply_openai_chat_generation_params(
                     kwargs,
@@ -918,7 +944,7 @@ FORMATTED OUTPUT:"""
             raise last_exception
         raise RuntimeError("Failed to call LLM: unknown error")
 
-    def _call_anthropic_with_history(self, messages: List[Dict[str, str]], max_retries: int = 3, max_tokens: int = 8192) -> Dict[str, Any]:
+    def _call_anthropic_with_history(self, messages: List[Dict[str, Any]], max_retries: int = 3, max_tokens: int = 8192) -> Dict[str, Any]:
         """
         Call Anthropic Claude API with conversation history.
 
@@ -945,12 +971,16 @@ FORMATTED OUTPUT:"""
         # Convert messages to Anthropic format (extract system, ensure user/assistant alternation)
         system_msg = None
         claude_messages = []
+        from src.llm.anthropic_client import _content_to_anthropic
+
         for m in messages:
             role = m.get("role", "user")
             content = m.get("content", "")
             if role == "system":
-                system_msg = content
+                system_msg = self._text_from_message_content(content)
             elif role in ("user", "assistant"):
+                if isinstance(content, list):
+                    content = _content_to_anthropic(content)
                 claude_messages.append({"role": role, "content": content})
 
         if not claude_messages or claude_messages[0].get("role") != "user":

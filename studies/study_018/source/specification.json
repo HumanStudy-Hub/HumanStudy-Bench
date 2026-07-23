@@ -1,0 +1,113 @@
+{
+  "study_id": "study_018",
+  "title": "Strategies for Integrating Disparate Social Information",
+  "study_type": "multimodal_social_information_revision",
+  "participants": {
+    "n": 95,
+    "population": "United States Amazon Mechanical Turk workers",
+    "recruitment_source": "Amazon Mechanical Turk",
+    "age": {
+      "mean": 35.8,
+      "sd": 10.7
+    },
+    "demographics": {
+      "male_percent": 57
+    },
+    "eligibility": [
+      "United States citizen",
+      "at least 95% prior MTurk approval rate"
+    ],
+    "attrition": {
+      "recruited": 100,
+      "dropped_out_unpaid": 5,
+      "analyzed": 95
+    }
+  },
+  "design": {
+    "type": "within-participant repeated visual estimation and belief revision",
+    "main_rounds": 30,
+    "four_peer_control_rounds": 5,
+    "factors": [
+      {
+        "name": "peer_variance",
+        "levels": [
+          "low",
+          "high"
+        ],
+        "type": "within-participant"
+      },
+      {
+        "name": "peer_skewness",
+        "levels": [
+          "none",
+          "clustered_close",
+          "clustered_far"
+        ],
+        "type": "within-participant"
+      }
+    ],
+    "conditions": {
+      "LN": "low variance and no skew",
+      "HN": "high variance and no skew",
+      "HF": "high variance with peers clustered far from the participant",
+      "HC": "high variance with peers clustered close to the participant",
+      "filler": "additional distributions outside the focal 2-by-skew comparisons"
+    },
+    "round_allocation": {
+      "LN": 5,
+      "HN": 5,
+      "HF": 5,
+      "HC": 5,
+      "filler": 10
+    }
+  },
+  "procedure": {
+    "main_task": [
+      "Show a deterministic animal image for six seconds in the human interface.",
+      "Collect an independent first estimate from 1 through 150.",
+      "Remove the image.",
+      "Use the published round-by-estimate lookup to show three prerecorded MTurk estimates.",
+      "Collect a second estimate from 1 through 150 without accuracy feedback."
+    ],
+    "four_peer_control": [
+      "Do not show an image or elicit a personal first estimate.",
+      "Sample one valid prerecorded anchor from the published round-specific pool.",
+      "Use the published lookup to add three more estimates.",
+      "Collect one estimate integrating the four displayed estimates."
+    ],
+    "block_order": "The two included blocks are randomized for each simulated participant.",
+    "feedback": "No accuracy feedback is shown between rounds."
+  },
+  "response_measures": {
+    "first_estimate": "E1",
+    "second_estimate": "E2",
+    "peer_mean": "mean of three peer estimates",
+    "social_information_use": "(E2 - E1) / (peer_mean - E1)",
+    "strategy_categories": [
+      "keep",
+      "adopt_nearest",
+      "compromise",
+      "other"
+    ]
+  },
+  "payment": {
+    "participation_fee_usd": 4.5,
+    "points_for_exact_answer": 100,
+    "points_lost_per_animal_error": 5,
+    "minimum_points": 0,
+    "conversion": "100 points = 1 USD",
+    "selection": "One round per original task block was randomly selected for payment."
+  },
+  "runtime": {
+    "adapter": "scripts/config.py",
+    "requires_group_trials": true,
+    "default_participants": 95,
+    "responses_per_participant": 35,
+    "minimum_model_calls_per_participant": 65,
+    "model_calls": {
+      "main_task": "two per round: visual first estimate and text-only revision",
+      "four_peer_control": "one per round"
+    },
+    "requires_vision_capable_model": true
+  }
+}
