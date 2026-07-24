@@ -1,20 +1,19 @@
 {
-  "sub_study_id": "symmetric_baseline",
-  "sub_study_name": "Symmetric baseline information-cascade sessions",
+  "sub_study_id": "symmetric_public_draw_after_position_4",
+  "sub_study_name": "Symmetric sessions with two public draws after the fourth prediction",
   "source": {
     "document": "anderson_holt_1997_information_cascades.pdf",
     "locations": [
       "Procedures, pp. 7-9",
-      "Appendix instructions, pp. 23-25"
+      "Representativeness treatment, pp. 17-18"
     ],
     "fidelity": "decision-complete structured reconstruction"
   },
   "published_session_numbers": [
-    1,
-    2,
-    3
+    4,
+    5
   ],
-  "instructions": "For this treatment, urn A contains two light balls and one dark ball, while urn B contains one light ball and two dark balls. The two urns have equal prior probability. During each paid period, only your own draw and predictions announced before your turn are visible when you decide. There are no additional public draws.",
+  "instructions": "Urn A contains two light balls and one dark ball, while urn B contains one light ball and two dark balls. The urns have equal prior probability. Positions 1-4 decide from their private draw and earlier public predictions. After the fourth prediction, two additional draws are made with replacement and publicly revealed. Positions 5 and 6 observe both public draws, their own private draw, and all earlier predictions before deciding.",
   "urns": {
     "A": {
       "light": 2,
@@ -26,9 +25,13 @@
     }
   },
   "public_draws": {
-    "count": 0,
-    "reveal_after_decision_position": null,
-    "visible_to_positions": []
+    "count": 2,
+    "reveal_after_decision_position": 4,
+    "visible_to_positions": [
+      5,
+      6
+    ],
+    "replacement": true
   },
   "conditions": [
     {
@@ -45,7 +48,7 @@
     },
     {
       "name": "additional_public_draws",
-      "level": "none"
+      "level": "two_after_position_4"
     }
   ],
   "items": [

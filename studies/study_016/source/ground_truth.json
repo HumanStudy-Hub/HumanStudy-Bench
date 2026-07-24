@@ -10,11 +10,11 @@
     {
       "study_id": "symmetric_design",
       "study_name": "Symmetric information-cascade sessions",
-      "implementation_scope": "The runtime implements the three baseline sessions. Reported aggregate findings below pool all six symmetric sessions, including public-draw variants.",
+      "implementation_scope": "The runtime includes three baseline sessions and the two public-draw sessions whose timing is specified. The reported aggregate findings pool all six symmetric sessions, including one under-described public-draw session that is not implemented.",
       "findings": [
         {
           "finding_id": "F1",
-          "main_hypothesis": "Participants follow a rational cascade when the public evidence dominates a conflicting private signal.",
+          "main_hypothesis": "Participants follow a rational cascade when public evidence dominates a conflicting private signal.",
           "reported_statistics": {
             "cascade_opportunities": 56,
             "cascade_behavior": 41,
@@ -35,7 +35,7 @@
         },
         {
           "finding_id": "F3",
-          "main_hypothesis": "When the posterior is tied, participants generally follow their private signal rather than the preceding public decision.",
+          "main_hypothesis": "When the posterior is tied, participants generally follow their private signal rather than the preceding public prediction.",
           "reported_statistics": {
             "tie_cases_with_conflicting_private_signal": 68,
             "private_signal_choices": 57,
@@ -44,28 +44,109 @@
           }
         }
       ]
+    },
+    {
+      "study_id": "symmetric_public_draw_after_position_4",
+      "study_name": "Representativeness test with public draws",
+      "implementation_scope": "Published sessions 4 and 5 are implemented because the article specifies exactly when and to whom the two public draws were revealed.",
+      "findings": [
+        {
+          "finding_id": "F4",
+          "main_hypothesis": "Decision makers continue to use Bayesian posterior information when a three-draw sample is representative of the lower-posterior urn.",
+          "reported_statistics": {
+            "three_draw_samples_matching_an_urn": 36,
+            "representative_but_lower_posterior_cases": 10,
+            "bayesian_choices_in_conflict_cases": 10,
+            "location": "Representativeness, pp. 17-18"
+          }
+        }
+      ]
+    },
+    {
+      "study_id": "asymmetric_baseline",
+      "study_name": "Asymmetric urn sessions",
+      "implementation_scope": "All six reported asymmetric sessions are implemented using the urn compositions and common 15-period sequential procedure specified in the article.",
+      "findings": [
+        {
+          "finding_id": "F5",
+          "main_hypothesis": "Information cascades remain prevalent when light and dark signals have unequal informativeness.",
+          "reported_statistics": {
+            "cascade_opportunities": 66,
+            "cascade_behavior": 46,
+            "cascade_following_rate": 0.696969697,
+            "reverse_cascades": 18,
+            "location": "Asymmetric design, p. 20"
+          }
+        },
+        {
+          "finding_id": "F6",
+          "main_hypothesis": "When Bayesian updating and simple signal counting disagree, participants choose the Bayesian prediction about half of the time.",
+          "reported_statistics": {
+            "bayes_counting_conflict_cases": 82,
+            "bayesian_choices": 41,
+            "location": "Asymmetric design, p. 21"
+          }
+        },
+        {
+          "finding_id": "F7",
+          "main_hypothesis": "Counting explains a substantial subset, but not all, of the asymmetric treatment's deviations from Bayesian choice.",
+          "reported_statistics": {
+            "total_decisions": 540,
+            "decisions_inconsistent_with_bayes": 115,
+            "share_of_deviations_explained_by_counting": "more than one third",
+            "location": "Asymmetric design, p. 21"
+          }
+        }
+      ]
     }
   ],
   "validation_criteria": {
-    "pass_threshold": 0.7,
+    "pass_threshold": 1.0,
+    "scoring_target": "environment_integrity",
     "required_tests": [
       {
-        "test_id": "valid_sequential_execution",
-        "description": "All decisions are valid A/B choices and each decision receives only its private signal plus prior public choices.",
-        "weight": 0.4
+        "test_id": "valid_choices",
+        "description": "Every paid response is a valid A/B prediction."
       },
       {
-        "test_id": "cascade_following_alignment",
-        "description": "Compare agent cascade-following behavior with the reported symmetric aggregate rate of 41/56.",
-        "reported_rate": 0.7321428571,
-        "weight": 0.6,
-        "scope_warning": "The published rate includes public-draw sessions that are not implemented in the baseline runtime."
+        "test_id": "complete_six_person_fifteen_period_sessions",
+        "description": "Every executed session contains six ordered decisions in each of 15 paid periods."
+      },
+      {
+        "test_id": "public_history_matches_announced_order",
+        "description": "Each decision maker sees exactly the predictions announced before their position."
+      },
+      {
+        "test_id": "private_signal_and_post_period_reveal_recorded",
+        "description": "The current private signal is available at decision time and the selected urn is revealed after the period."
+      },
+      {
+        "test_id": "payoff_matches_revealed_urn",
+        "description": "Each correct prediction earns $2 and each incorrect prediction earns $0."
+      },
+      {
+        "test_id": "instructions_and_practice_shown_before_first_paid_choice",
+        "description": "Every decision maker receives the complete rules and public practice transcript before their first paid prediction."
+      },
+      {
+        "test_id": "practice_covers_both_urns_without_decisions_or_pay",
+        "description": "Practice continues until both urns appear, all draws are public, and no practice prediction or payoff is produced."
+      },
+      {
+        "test_id": "published_treatment_schedule_and_urns_match",
+        "description": "Executed sessions follow the evidence-complete prefix of the published treatment schedule and use the correct urn compositions."
+      },
+      {
+        "test_id": "public_draws_visible_only_to_positions_five_and_six",
+        "description": "Only positions 5 and 6 in published sessions 4 and 5 see the same two public draws introduced after prediction 4."
       }
-    ]
+    ],
+    "behavioral_results": "diagnostic_only"
   },
   "source_limitations": [
-    "The paper states that a complete data appendix was available from the authors on request; it was not included in the public PDF.",
-    "The exact public-draw schedule for every symmetric variant is not fully specified in the article.",
-    "No participant-level original data are included, so numerical alignment is evaluated as a behavioral benchmark rather than an exact rerun."
+    "The paper states that a complete data appendix was available from the authors on request; it is not included in the public PDF.",
+    "The article reports three symmetric sessions with public draws but specifies the insertion of two draws after the fourth prediction only for sessions 4 and 5.",
+    "The unspecified public-draw session is omitted, leaving 66 implemented decision makers across 11 sessions rather than the reported 72 across 12 sessions.",
+    "Participant-level original decisions are unavailable, but those decisions are not required to recreate the randomized experimental environment and information timing."
   ]
 }

@@ -1,0 +1,66 @@
+{
+  "material_id": "experiment_instructions",
+  "material_name": "Common participant procedure",
+  "source": {
+    "document": "anderson_holt_1997_information_cascades.pdf",
+    "locations": [
+      "Procedures, pp. 7-9",
+      "Appendix instructions, pp. 23-25",
+      "Practice-period note, p. 8 n.15"
+    ],
+    "fidelity": "decision-complete semantic reconstruction"
+  },
+  "instructions": "This is a 15-period experiment in decision making. In the original laboratory protocol, decision makers first received a $5 participation payment and one additional person served as a monitor who helped roll the die, draw balls, and verify the procedure; the simulator automates those monitor actions while preserving what decision makers observe. At the start of each period, a six-sided die selects urn A on rolls 1-3 and urn B on rolls 4-6, so each urn is equally likely. The selected urn is transferred to the same neutral container. Participant identifiers are randomly drawn to create a new decision order. In that order, each decision maker is approached, receives one draw, records it as Light or Dark, and predicts urn A or urn B. The ball is replaced after each draw, and that draw is private during paid periods. The first prediction is publicly announced. Each later decision maker records all earlier predictions, but not the private draws that produced them, before making a prediction that is also announced. After all six predictions, the monitor reveals the selected urn. Each correct prediction earns $2 and each incorrect prediction earns $0. Decision makers record the selected urn, period earnings, and cumulative task earnings; the original protocol paid earnings privately in cash after the session. Before paid periods begin, public practice demonstrations continue until urn A and urn B have each been selected at least once. During practice, the die result and selected urn are visible, all draws are public, the record-sheet procedure is demonstrated, no prediction is requested, and practice is unpaid. Participants must remain silent and may not communicate with one another during the experiment.",
+  "procedure": {
+    "paid_periods": 15,
+    "participants_per_session": 6,
+    "urn_selection": {
+      "mechanism": "six-sided die",
+      "urn_a_rolls": [
+        1,
+        2,
+        3
+      ],
+      "urn_b_rolls": [
+        4,
+        5,
+        6
+      ],
+      "prior_probability_each_urn": 0.5
+    },
+    "sampling": {
+      "replacement": true,
+      "private_draws_per_participant": 1
+    },
+    "decision_order": "randomized independently in every paid period",
+    "announcement": "Each prediction is announced before the next decision maker acts.",
+    "feedback": "The selected urn and earnings are revealed after all six predictions.",
+    "payoff": {
+      "correct_dollars": 2,
+      "incorrect_dollars": 0
+    },
+    "practice": {
+      "stopping_rule": "Continue until urn A and urn B have each been selected at least once.",
+      "urn_selection_visible": true,
+      "draws_public": true,
+      "decisions_required": false,
+      "paid": false
+    },
+    "communication_between_participants": false,
+    "administration": {
+      "decision_makers_per_session": 6,
+      "human_monitor_in_original_protocol": 1,
+      "monitor_actions_automated_by_runtime": true,
+      "participation_payment_dollars": 5,
+      "task_earnings_paid_privately_in_original_protocol": true,
+      "record_sheet_fields": [
+        "private Light or Dark draw",
+        "six announced A/B predictions",
+        "own prediction marked at decision position",
+        "selected urn revealed after the period",
+        "period earnings",
+        "cumulative task earnings"
+      ]
+    }
+  }
+}

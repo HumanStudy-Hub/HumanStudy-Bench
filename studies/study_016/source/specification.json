@@ -3,26 +3,77 @@
   "title": "Information Cascades in the Laboratory",
   "study_type": "sequential_information_cascade",
   "participants": {
-    "n": 18,
+    "n": 66,
+    "original_reported_n": 72,
     "population": "University of Virginia undergraduate economics students",
     "recruitment_source": "Undergraduate economics courses",
-    "age_range": [
-      18,
-      25
-    ],
+    "age_range": null,
     "demographics": {},
     "by_sub_study": {
       "symmetric_baseline": {
         "n": 18,
         "sessions": 3,
         "participants_per_session": 6,
-        "note": "The paper reports three baseline symmetric sessions. Three additional symmetric sessions used public draws and are outside this adapter's evidence-complete scope."
+        "published_session_numbers": [
+          1,
+          2,
+          3
+        ]
+      },
+      "symmetric_public_draw_after_position_4": {
+        "n": 12,
+        "sessions": 2,
+        "participants_per_session": 6,
+        "published_session_numbers": [
+          4,
+          5
+        ],
+        "note": "The article explicitly states that two public draws were inserted after the fourth prediction in sessions 4 and 5."
+      },
+      "asymmetric_baseline": {
+        "n": 36,
+        "sessions": 6,
+        "participants_per_session": 6,
+        "published_session_numbers": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "unimplemented_public_draw_session": {
+        "n": 6,
+        "sessions": 1,
+        "participants_per_session": 6,
+        "published_session_numbers": [
+          6
+        ],
+        "implemented": false,
+        "reason": "The paper reports a third public-draw session but does not describe its public-draw timing or participant-facing procedure."
       }
     }
   },
   "design": {
     "type": "repeated-measures sequential group experiment",
     "factors": [
+      {
+        "name": "urn_composition",
+        "levels": [
+          "symmetric_2_to_1",
+          "asymmetric_6_to_1_vs_5_to_2"
+        ],
+        "type": "between-session"
+      },
+      {
+        "name": "additional_public_draws",
+        "levels": [
+          "none",
+          "two_after_fourth_prediction"
+        ],
+        "type": "between-session"
+      },
       {
         "name": "private_signal",
         "levels": [
@@ -32,28 +83,32 @@
         "type": "stochastic within-session"
       },
       {
-        "name": "public_decision_history",
+        "name": "public_prediction_history",
         "levels": [
           "none",
-          "one or more prior decisions"
+          "one or more earlier predictions"
         ],
         "type": "endogenous sequential context"
       }
     ],
-    "sessions": 3,
+    "implemented_sessions": 11,
+    "original_reported_sessions": 12,
     "periods_per_session": 15,
     "participants_per_session": 6,
-    "decision_order": "randomized independently each period"
+    "decision_order": "randomized independently each paid period"
   },
   "procedure": {
     "steps": [
-      "Select urn A or urn B with equal probability.",
-      "Generate one private light or dark draw with replacement for each of six participants.",
-      "Randomize the order in which the six participants decide.",
-      "Ask each participant to predict urn A or urn B after showing only their private draw and earlier public predictions.",
-      "Announce each prediction before approaching the next participant.",
-      "Reveal the true urn after all six predictions and award $2 to each correct participant.",
-      "Repeat for 15 paid periods."
+      "Read the participant instructions and explain the treatment-specific urn composition.",
+      "Run unpaid public practice periods until urn A and urn B have each been selected at least once; show the die result, selected urn, and all draws, and request no predictions.",
+      "For each of 15 paid periods, select urn A or urn B with equal probability.",
+      "Generate one private light or dark draw with replacement for each of six decision makers.",
+      "Randomize the order in which the six decision makers act.",
+      "Ask each decision maker to predict urn A or urn B after showing only their private draw, earlier public predictions, and any public draws available at that position.",
+      "In published sessions 4 and 5, reveal two additional draws after prediction 4 and before positions 5 and 6 decide.",
+      "Announce each prediction before approaching the next decision maker.",
+      "Reveal the selected urn after all six predictions and award $2 to each correct decision maker.",
+      "Prevent communication among decision makers during the experiment."
     ]
   },
   "runtime": {
@@ -61,7 +116,11 @@
     "requires_group_trials": true,
     "minimum_participants": 6,
     "participant_multiple": 6,
-    "default_participants": 18,
-    "api_calls_per_session": 90
+    "maximum_evidence_complete_participants": 66,
+    "default_participants": 66,
+    "api_calls_per_session": 90,
+    "api_calls_for_default_run": 990,
+    "practice_agent_calls": 0,
+    "partial_runs": "A requested multiple of six executes a prefix of the published evidence-complete session schedule."
   }
 }

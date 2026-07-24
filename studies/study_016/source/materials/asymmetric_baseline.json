@@ -1,27 +1,29 @@
 {
-  "sub_study_id": "symmetric_baseline",
-  "sub_study_name": "Symmetric baseline information-cascade sessions",
+  "sub_study_id": "asymmetric_baseline",
+  "sub_study_name": "Asymmetric urn information-cascade sessions",
   "source": {
     "document": "anderson_holt_1997_information_cascades.pdf",
     "locations": [
-      "Procedures, pp. 7-9",
-      "Appendix instructions, pp. 23-25"
+      "Asymmetric design and Table 4, pp. 18-21"
     ],
     "fidelity": "decision-complete structured reconstruction"
   },
   "published_session_numbers": [
-    1,
-    2,
-    3
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
   ],
-  "instructions": "For this treatment, urn A contains two light balls and one dark ball, while urn B contains one light ball and two dark balls. The two urns have equal prior probability. During each paid period, only your own draw and predictions announced before your turn are visible when you decide. There are no additional public draws.",
+  "instructions": "For this treatment, urn A contains six light balls and one dark ball, while urn B contains five light balls and two dark balls. The two urns remain equally likely to be selected. A light draw favors urn A only weakly, while a dark draw is more informative in favor of urn B. During each paid period, only your own draw and predictions announced before your turn are visible when you decide. There are no additional public draws.",
   "urns": {
     "A": {
-      "light": 2,
+      "light": 6,
       "dark": 1
     },
     "B": {
-      "light": 1,
+      "light": 5,
       "dark": 2
     }
   },
@@ -33,13 +35,13 @@
   "conditions": [
     {
       "name": "urn_composition",
-      "level": "symmetric",
+      "level": "asymmetric",
       "urn_a": {
-        "light": 2,
+        "light": 6,
         "dark": 1
       },
       "urn_b": {
-        "light": 1,
+        "light": 5,
         "dark": 2
       }
     },

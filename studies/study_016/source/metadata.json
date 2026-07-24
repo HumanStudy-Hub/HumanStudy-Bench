@@ -14,7 +14,9 @@
     "social learning",
     "Bayesian decision making",
     "sequential decisions",
-    "herding"
+    "herding",
+    "representativeness",
+    "counting heuristic"
   ],
   "tags": [
     "multi_agent",
@@ -23,40 +25,54 @@
     "economic_experiment"
   ],
   "difficulty": "hard",
-  "description": "Participants sequentially predict which urn generated private light or dark draws. Later participants observe earlier public predictions but not earlier private draws, allowing rational information cascades to form.",
+  "description": "Six decision makers sequentially predict which urn generated private light or dark draws. Later decision makers observe earlier public predictions but not earlier private draws. Treatments alter whether two public draws appear after the fourth prediction and whether the two urns have symmetric or asymmetric compositions.",
   "scenarios": [
-    "symmetric_baseline"
+    "symmetric_baseline",
+    "symmetric_public_draw_after_position_4",
+    "asymmetric_baseline"
   ],
   "implementation_scope": {
-    "status": "core_treatment_complete",
+    "status": "evidence_complete_treatments_implemented",
+    "implemented_decision_makers": 66,
+    "reported_decision_makers": 72,
+    "implemented_sessions": 11,
+    "reported_sessions": 12,
     "included": [
-      "symmetric urn composition",
+      "participant-facing procedure reconstructed from the published Appendix",
+      "public unpaid practice until urn A and urn B have each appeared",
+      "three symmetric baseline sessions",
+      "two symmetric sessions with two public draws after the fourth prediction",
+      "six asymmetric sessions with urn A containing 6 light and 1 dark ball and urn B containing 5 light and 2 dark balls",
       "equal prior probability of urn A and urn B",
       "six decision makers per session",
       "private draws with replacement",
-      "random decision order in every period",
+      "new random decision order in every paid period",
       "sequential public predictions",
       "15 paid periods",
       "$2 payoff for a correct prediction"
     ],
     "excluded": [
-      "practice periods",
-      "monitor role",
-      "public-draw symmetric variants",
-      "asymmetric urn treatment",
-      "physical room and cash-payment implementation"
+      "the third symmetric public-draw session, because its draw timing and treatment procedure are not specified",
+      "a seventh human monitor as an agent role",
+      "physical partitions, marbles, envelopes, room logistics, and cash handling",
+      "replay of unavailable participant-level raw decisions"
     ],
-    "reason": "The published appendix fully specifies the symmetric baseline. It does not provide the complete session-level schedule or raw data needed to reproduce every public-draw variant exactly."
+    "reason": "All treatments whose participant information and timing can be recovered from the article are implemented as generative environments. Raw outcome data are not required to recreate randomized urn selections and draws. The one public-draw session whose procedure is not described remains excluded so the package does not invent participant-facing information."
   },
   "findings": [
     {
       "finding_id": "F1",
-      "main_hypothesis": "When prior public decisions create a sufficiently strong imbalance, later participants often follow the cascade even when their private signal points to the other urn.",
+      "main_hypothesis": "When prior public information dominates a conflicting private signal, later participants often follow an information cascade.",
       "weight": 1.0
     },
     {
       "finding_id": "F2",
-      "main_hypothesis": "Sequential public decisions improve information-use efficiency relative to decisions based only on private signals.",
+      "main_hypothesis": "Sequential public predictions improve information-use efficiency relative to decisions based only on private signals.",
+      "weight": 0.5
+    },
+    {
+      "finding_id": "F3",
+      "main_hypothesis": "With asymmetric signal informativeness, simple counting explains a substantial subset of deviations from Bayesian choice.",
       "weight": 0.5
     }
   ]
