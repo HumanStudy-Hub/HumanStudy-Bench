@@ -1,0 +1,203 @@
+{
+  "study_id": "study_019",
+  "source": {
+    "article": "Schöbel, Rieskamp, and Huber (2016), Social Influences in Sequential Decision Making",
+    "article_doi": "10.1371/journal.pone.0146536",
+    "raw_data": "10.6084/m9.figshare.1597662.v1"
+  },
+  "study_1": {
+    "analyzed_n": 40,
+    "findings": [
+      {
+        "finding_id": "S1_F1",
+        "metric": "bayesian_choice_rate_non_indifference",
+        "reported_value": 0.869,
+        "location": "Study 1 Results"
+      },
+      {
+        "finding_id": "S1_F2",
+        "metric": "bayesian_choice_rate_when_private_supported",
+        "reported_value": 0.902,
+        "location": "Study 1 Results"
+      },
+      {
+        "finding_id": "S1_F3",
+        "metric": "cascade_choice_rate",
+        "reported_value": 0.755,
+        "reported_count": {
+          "consistent": 120,
+          "total": 160
+        },
+        "article_scenarios": [
+          6,
+          8
+        ],
+        "location": "Study 1 Results"
+      },
+      {
+        "finding_id": "S1_F4",
+        "metric": "private_choice_rate_at_bayesian_indifference",
+        "reported_value": 0.799,
+        "article_scenarios": [
+          10,
+          11,
+          12
+        ],
+        "location": "Study 1 Results"
+      },
+      {
+        "finding_id": "S1_F5",
+        "metric": "social_information_weight_beta_soc",
+        "reported_median": 0.78,
+        "hdi_95": [
+          0.71,
+          0.86
+        ],
+        "location": "Study 1 social influence model"
+      }
+    ]
+  },
+  "study_2": {
+    "analyzed_n": 40,
+    "findings": [
+      {
+        "finding_id": "S2_F1",
+        "metric": "bayesian_choice_rate_non_indifference",
+        "reported_value": 0.92,
+        "article_scenarios": "1-30",
+        "location": "Study 2 Informational social influence"
+      },
+      {
+        "finding_id": "S2_F2",
+        "metric": "bayesian_choice_rate_when_private_supported",
+        "reported_value": 0.951,
+        "location": "Study 2 Informational social influence"
+      },
+      {
+        "finding_id": "S2_F3",
+        "metric": "cascade_choice_rate",
+        "reported_value": 0.821,
+        "reported_count": {
+          "consistent": 230,
+          "total": 280
+        },
+        "article_scenarios": [
+          3,
+          4,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "location": "Study 2 Informational social influence"
+      },
+      {
+        "finding_id": "S2_F4",
+        "metric": "private_choice_rate_at_bayesian_indifference",
+        "reported_value": 0.497,
+        "article_scenarios": "31-40",
+        "location": "Study 2 Informational social influence"
+      },
+      {
+        "finding_id": "S2_F5",
+        "metric": "medical_director_alignment_rate",
+        "reported_value": 0.7489,
+        "reported_count": {
+          "aligned": 838,
+          "total": 1119
+        },
+        "location": "Study 2 Authority influence"
+      }
+    ],
+    "authority_condition_means": {
+      "posterior_0.67": {
+        "private_choice_rate": {
+          "baseline": 0.59,
+          "medical_director_supports_private": 0.94,
+          "medical_director_opposes_private": 0.36
+        },
+        "probability_judgment": {
+          "baseline": 0.65,
+          "medical_director_supports_private": 0.69,
+          "medical_director_opposes_private": 0.66
+        }
+      },
+      "posterior_0.80": {
+        "private_choice_rate": {
+          "baseline": 0.97,
+          "medical_director_supports_private": 0.97,
+          "medical_director_opposes_private": 0.86
+        },
+        "probability_judgment": {
+          "baseline": 0.77,
+          "medical_director_supports_private": 0.79,
+          "medical_director_opposes_private": 0.67
+        }
+      },
+      "posterior_0.89": {
+        "private_choice_rate": {
+          "baseline": 0.98,
+          "medical_director_supports_private": 1.0
+        },
+        "probability_judgment": {
+          "baseline": 0.85,
+          "medical_director_supports_private": 0.88
+        }
+      },
+      "posterior_0.50": {
+        "private_choice_rate": {
+          "baseline": 0.57,
+          "medical_director_supports_private": 0.67,
+          "medical_director_opposes_private": 0.39
+        },
+        "probability_judgment": {
+          "baseline": 0.63,
+          "medical_director_supports_private": 0.69,
+          "medical_director_opposes_private": 0.65
+        }
+      }
+    }
+  },
+  "validation_criteria": {
+    "pass_threshold": 0.7,
+    "pass_policy": "fail closed on environment integrity; report behavioral alignment as diagnostics",
+    "required_tests": [
+      {
+        "test_id": "source_scenario_integrity",
+        "description": "Every participant receives the complete source-derived scenario set once, and all stored scenario identifiers, signatures, and fingerprints match the compiled public materials.",
+        "weight": 0.4
+      },
+      {
+        "test_id": "randomized_execution_integrity",
+        "description": "Both sub-studies receive balanced participant assignments, each participant's scenario order is randomized, and the original response domains are enforced.",
+        "weight": 0.2
+      },
+      {
+        "test_id": "participant_information_integrity",
+        "description": "Prompts include all participant-facing private and public evidence but do not expose Bayesian answers, source outcomes, or data labels.",
+        "weight": 0.25
+      },
+      {
+        "test_id": "procedure_integrity",
+        "description": "Instructions are shown before the first scenario, no trial-level answer feedback is provided, and confidence judgments remain in the published 50-100 range.",
+        "weight": 0.15
+      }
+    ],
+    "required_environment_checks": [
+      "each Study 1 participant receives all 24 source scenarios exactly once",
+      "each Study 2 participant receives all 40 source scenarios exactly once",
+      "scenario order is a deterministic participant-level shuffle",
+      "choices and confidence judgments are parseable and in range",
+      "agent-visible prompts contain only participant-facing evidence",
+      "stored scenario fields match the compiled source materials",
+      "no trial-level answer feedback is provided"
+    ]
+  },
+  "source_limitations": [
+    "The public archive contains raw data and variable coding but not the original questionnaire file or original German wording.",
+    "The participant-facing English instructions are a faithful semantic reconstruction from the article's Procedure sections, not a verbatim questionnaire transcription.",
+    "The runtime does not fit the paper's participant-level JAGS cognitive models; it reports directly observable choice and confidence diagnostics.",
+    "The Figshare Study 1 data recode mirrored scenarios to the corresponding base orientation. The material compiler reverses that recoding when constructing visible Urn A versus Urn B rates."
+  ]
+}

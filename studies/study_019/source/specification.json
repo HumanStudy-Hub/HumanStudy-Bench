@@ -1,0 +1,107 @@
+{
+  "study_id": "study_019",
+  "title": "Social Influences in Sequential Decision Making",
+  "study_type": "randomized_social_influence_scenario_tasks",
+  "participants": {
+    "n": 80,
+    "population": "Students from different departments at the University of Basel",
+    "recruitment_source": "University of Basel",
+    "by_sub_study": {
+      "study_1_urn_scenarios": {
+        "recruited_n": 42,
+        "analyzed_n": 40,
+        "exclusions": 2,
+        "duration_minutes": 30
+      },
+      "study_2_medical_authority_scenarios": {
+        "recruited_n": 40,
+        "analyzed_n": 40,
+        "exclusions": 0,
+        "duration_minutes": 60
+      }
+    }
+  },
+  "design": {
+    "type": "two within-participant randomized scenario experiments",
+    "study_1": {
+      "scenario_count": 24,
+      "base_information_structures": 12,
+      "mirrored_presentations": 12,
+      "urn_prior": {
+        "A": 0.5,
+        "B": 0.5
+      },
+      "urns": {
+        "A": {
+          "white": 2,
+          "black": 1
+        },
+        "B": {
+          "white": 1,
+          "black": 2
+        }
+      },
+      "maximum_decision_makers": 4,
+      "confidence_range_percent": [
+        50,
+        100
+      ]
+    },
+    "study_2": {
+      "scenario_count": 40,
+      "diseases": [
+        "appendicitis",
+        "sigmoid diverticulitis"
+      ],
+      "disease_prior": {
+        "appendicitis": 0.5,
+        "sigmoid_diverticulitis": 0.5
+      },
+      "private_signal_accuracy": 0.67,
+      "previous_decision_accuracy": 0.67,
+      "authority_roles": [
+        "assistant physician",
+        "medical director"
+      ],
+      "authority_conditions": [
+        "baseline",
+        "medical_director_supports_private",
+        "medical_director_opposes_private"
+      ],
+      "confidence_range_percent": [
+        50,
+        100
+      ]
+    }
+  },
+  "procedure": {
+    "study_1": [
+      "Explain the two equally likely urns and their white/black ball compositions.",
+      "Explain that up to four people draw privately with replacement and publicly announce only their urn prediction.",
+      "Randomize all 24 scenarios independently for each participant.",
+      "For each scenario, show the previous public urn predictions and the participant's private ball color.",
+      "Collect an Urn A or Urn B prediction and a 50-100 confidence judgment.",
+      "Provide no trial-level correctness feedback."
+    ],
+    "study_2": [
+      "Ask the participant to take the role of an assistant physician.",
+      "Explain the equal disease priors, symptom likelihoods, and equal two-in-three independent accuracy of assistant physicians and the medical director.",
+      "Randomize all 40 scenarios independently for each participant.",
+      "For each scenario, show the patient's private symptom and the ordered diagnoses in the patient record.",
+      "Collect an appendicitis or sigmoid diverticulitis diagnosis and a 50-100 confidence judgment.",
+      "Provide no trial-level correctness feedback."
+    ]
+  },
+  "runtime": {
+    "adapter": "scripts/config.py",
+    "requires_group_trials": true,
+    "group_semantics": "participants are independent and may run in parallel; each participant receives one complete randomized sub-study",
+    "default_participants": 80,
+    "minimum_participants": 2,
+    "participant_count_constraint": "must be even so both sub-studies receive the same number of participants",
+    "model_calls_per_study_1_participant": 24,
+    "model_calls_per_study_2_participant": 40,
+    "model_calls_full_original_sample": 2560,
+    "requires_vision_capable_model": false
+  }
+}

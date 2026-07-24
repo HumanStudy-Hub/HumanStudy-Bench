@@ -1,0 +1,84 @@
+{
+  "id": "study_019",
+  "paper_id": "schoebel_rieskamp_huber_2016_social_influences",
+  "title": "Social Influences in Sequential Decision Making",
+  "authors": [
+    "Markus Schöbel",
+    "Jörg Rieskamp",
+    "Rafael Huber"
+  ],
+  "year": 2016,
+  "journal": "PLOS ONE",
+  "doi": "10.1371/journal.pone.0146536",
+  "domain": "social_psychology",
+  "subdomain": "informational_and_authority_social_influence",
+  "keywords": [
+    "social influence",
+    "information cascades",
+    "authority",
+    "sequential decision making",
+    "confidence judgments",
+    "Bayesian integration"
+  ],
+  "tags": [
+    "scenario_task",
+    "text_task",
+    "within_subject",
+    "randomized_order",
+    "confidence_rating"
+  ],
+  "difficulty": "medium",
+  "description": "Participants combine private evidence with previous decisions. The abstract urn task isolates informational influence; the medical task additionally varies whether a higher-status medical director supports or opposes the participant's private evidence.",
+  "scenarios": [
+    "study_1_urn_scenarios",
+    "study_2_medical_authority_scenarios"
+  ],
+  "implementation_scope": {
+    "status": "complete_source_grounded_scenario_tasks",
+    "included": [
+      "all 24 Study 1 scenarios, including the 12 mirrored presentations",
+      "all 40 Study 2 medical scenarios",
+      "the published random scenario order within participant",
+      "the exact private signals, previous decisions, role labels, and Bayesian information structures",
+      "binary decisions and 50-100 confidence judgments",
+      "Study 1 and Study 2 original analyzed sample sizes of 40 participants each",
+      "source-derived behavioral diagnostics from the public Figshare raw data"
+    ],
+    "excluded": [
+      "paper questionnaire typography and physical page layout",
+      "the original German wording when it is not publicly archived",
+      "course-credit and book-voucher administration",
+      "JAGS fitting of participant-level cognitive-model parameters"
+    ],
+    "reason": "The complete participant-facing information structure is recoverable from the article tables and the public variable-coding documents. The environment reproduces the two scenario tasks without inventing missing trials. It evaluates environment integrity separately from optional cognitive-model fitting."
+  },
+  "sources": {
+    "article": "https://doi.org/10.1371/journal.pone.0146536",
+    "article_xml": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0146536&type=manuscript",
+    "supporting_text": "https://doi.org/10.1371/journal.pone.0146536.s001",
+    "raw_data": "https://doi.org/10.6084/m9.figshare.1597662.v1",
+    "license": "Article and Figshare dataset: CC BY 4.0"
+  },
+  "findings": [
+    {
+      "finding_id": "F1",
+      "main_hypothesis": "Participants use socially inferred information but overweight private information relative to public information in the abstract urn task.",
+      "weight": 0.3
+    },
+    {
+      "finding_id": "F2",
+      "main_hypothesis": "Information cascades occur when previous decisions normatively outweigh a conflicting private signal.",
+      "weight": 0.25
+    },
+    {
+      "finding_id": "F3",
+      "main_hypothesis": "A medical director's diagnosis exerts authority influence beyond the informational value shared with assistant physicians.",
+      "weight": 0.3
+    },
+    {
+      "finding_id": "F4",
+      "main_hypothesis": "Authority influence is strongest when the medical director's diagnosis conflicts with the participant's private information.",
+      "weight": 0.15
+    }
+  ]
+}
