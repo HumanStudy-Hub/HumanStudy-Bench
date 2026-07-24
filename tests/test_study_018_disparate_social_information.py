@@ -54,9 +54,13 @@ class ScriptedParticipant:
     def continue_conversation(self, message, max_tokens=24):
         del max_tokens
         self.messages.append(message)
-        estimate = 60 if isinstance(message, list) else 52
+        if isinstance(message, str) and "ANSWERS=" in message:
+            response_text = "ANSWERS=C,I,C,C"
+        else:
+            estimate = 60 if isinstance(message, list) else 52
+            response_text = f"ESTIMATE={estimate}"
         return {
-            "response_text": f"ESTIMATE={estimate}",
+            "response_text": response_text,
             "usage": {
                 "prompt_tokens": 1,
                 "completion_tokens": 1,
@@ -64,6 +68,24 @@ class ScriptedParticipant:
                 "cost": 0.0,
             },
         }
+
+
+class FailingComprehensionParticipant(ScriptedParticipant):
+    def continue_conversation(self, message, max_tokens=24):
+        if isinstance(message, str) and (
+            "ANSWERS=" in message or "statement(s)" in message
+        ):
+            self.messages.append(message)
+            return {
+                "response_text": "ANSWERS=C,C,C,C",
+                "usage": {
+                    "prompt_tokens": 1,
+                    "completion_tokens": 1,
+                    "total_tokens": 2,
+                    "cost": 0.0,
+                },
+            }
+        return super().continue_conversation(message, max_tokens=max_tokens)
 
 
 class DisparateSocialInformationTests(unittest.TestCase):
@@ -82,7 +104,7 @@ class DisparateSocialInformationTests(unittest.TestCase):
         )
         self.assertEqual(
             self.study.metadata["implementation_scope"]["status"],
-            "core_behavioral_experiment_complete",
+            "complete_three_block_behavioral_task",
         )
         self.assertEqual(self.study.specification["participants"]["n"], 95)
         self.assertTrue(
@@ -112,6 +134,19 @@ class DisparateSocialInformationTests(unittest.TestCase):
             ),
             [62, 71, 80],
         )
+        self.assertEqual(
+            self.config._sample_one_peer(
+                self.lookup["one_peer_control"],
+                round_index=0,
+                initial_estimate=60,
+                rng=__import__("random").Random(3),
+            )[0],
+            72,
+        )
+        self.assertEqual(
+            self.lookup["one_peer_control"]["source_pool_lengths"],
+            [96, 96, 96, 96, 96],
+        )
         for block_name in ("main_task", "four_peer_control"):
             block = self.lookup[block_name]
             self.assertTrue(
@@ -124,16 +159,22 @@ class DisparateSocialInformationTests(unittest.TestCase):
 
     def test_stimuli_exist_without_counts_in_filenames(self):
         manifest = self.config.load_material("stimulus_manifest")
-        self.assertEqual(len(manifest["items"]), 30)
+        self.assertEqual(len(manifest["items"]), 35)
         self.assertEqual(manifest["background_rgb"], [204, 204, 255])
         self.assertEqual(manifest["source_period_seed"], 1)
-        lookup_by_round = {
-            int(row["round"]): row for row in self.lookup["main_task"]["rounds"]
+        lookup_by_block_and_round = {
+            (block, int(row["round"])): row
+            for block in ("one_peer_control", "main_task")
+            for row in self.lookup[block]["rounds"]
         }
         for item in manifest["items"]:
             round_number = int(item["round"])
             filename = str(item["file"])
-            true_count = str(lookup_by_round[round_number]["true_count"])
+            true_count = str(
+                lookup_by_block_and_round[
+                    (str(item["block"]), round_number)
+                ]["true_count"]
+            )
             self.assertNotIn(true_count, filename)
             image_path = STUDY_PATH / "source" / "stimuli" / filename
             self.assertTrue(image_path.exists())
@@ -255,6 +296,88 @@ class DisparateSocialInformationTests(unittest.TestCase):
             response["trial_info"]["answer_revealed_before_response"]
         )
 
+    def test_one_peer_round_uses_source_rule_and_removes_image(self):
+        participant = ScriptedParticipant()
+        response = self.config._run_one_peer_round(
+            participant=participant,
+            prompt_builder=self.config.prompt_builder,
+            rng=__import__("random").Random(3),
+            participant_id=0,
+            global_trial_number=1,
+            round_data=self.lookup["one_peer_control"]["rounds"][0],
+            one_peer_lookup=self.lookup["one_peer_control"],
+        )
+        self.assertEqual(participant.starts, 2)
+        self.assertEqual(participant.clears, 2)
+        self.assertIsInstance(participant.messages[0], list)
+        self.assertIsInstance(participant.messages[1], str)
+        self.assertEqual(response["trial_info"]["initial_estimate"], 60)
+        self.assertEqual(response["trial_info"]["peer_estimates"], [72])
+        self.assertEqual(
+            response["trial_info"]["one_peer_selection"]["target_multiplier"],
+            1.2,
+        )
+        self.assertNotIn(
+            str(response["correct_answer"]),
+            " ".join(response["trial_info"]["agent_visible_prompts"].values()),
+        )
+
+    def test_source_comprehension_checks_are_gated(self):
+        material = self.config.load_material("disparate_social_information")
+        participant = ScriptedParticipant()
+        record = self.config._run_comprehension_check(
+            participant=participant,
+            prompt_builder=self.config.prompt_builder,
+            block_name="one_peer_control",
+            instructions=material["block_instructions"]["one_peer_control"],
+            quiz=material["comprehension_checks"]["one_peer_control"],
+        )
+        self.assertTrue(record["passed"])
+        self.assertEqual(record["attempts"], 1)
+        self.assertEqual(record["answers"], [True, False, True, True])
+
+    def test_comprehension_failure_terminates_before_block(self):
+        trial = self.config.create_trials(n_trials=1)[0]
+        participant = FailingComprehensionParticipant()
+        result = self.config._run_one_participant(
+            trial,
+            participant=participant,
+            profile={"participant_id": 0},
+            prompt_builder=self.config.prompt_builder,
+            base_seed=13,
+            lookup=self.lookup,
+        )
+        self.assertTrue(result["terminated_early"])
+        self.assertEqual(
+            result["termination_reason"],
+            "failed_comprehension_check:one_peer_control",
+        )
+        self.assertEqual(result["responses"], [])
+        self.assertIsNone(result["payment"])
+        self.assertEqual(result["comprehension_checks"][0]["attempts"], 3)
+
+    def test_scripted_participant_completes_all_three_blocks(self):
+        trial = self.config.create_trials(n_trials=1)[0]
+        participant = ScriptedParticipant()
+        result = self.config._run_one_participant(
+            trial,
+            participant=participant,
+            profile={"participant_id": 0},
+            prompt_builder=self.config.prompt_builder,
+            base_seed=13,
+            lookup=self.lookup,
+        )
+        self.assertFalse(result["terminated_early"])
+        self.assertEqual(len(result["responses"]), 40)
+        self.assertEqual(
+            result["profile"]["block_order"],
+            ["one_peer_control", "main_task", "four_peer_control"],
+        )
+        self.assertEqual(len(result["comprehension_checks"]), 3)
+        self.assertTrue(all(check["passed"] for check in result["comprehension_checks"]))
+        self.assertEqual(participant.starts, 78)
+        self.assertEqual(participant.clears, 79)
+
     def test_zero_control_anchors_are_rejected(self):
         pools = self.lookup["four_peer_control"]["anchor_pools"]
         self.assertEqual(sum(value == 0 for pool in pools for value in pool), 2)
@@ -286,17 +409,37 @@ class DisparateSocialInformationTests(unittest.TestCase):
                     len(participant["responses"])
                     for participant in output["individual_data"]
                 ),
-                3325,
+                3800,
             )
             self.assertEqual(
                 output["descriptive_statistics"]["main_task_responses"],
                 2850,
             )
             self.assertEqual(
+                output["descriptive_statistics"]["one_peer_control_responses"],
+                475,
+            )
+            self.assertEqual(
                 output["descriptive_statistics"]["four_peer_control_responses"],
                 475,
             )
+            self.assertEqual(
+                output["descriptive_statistics"]["comprehension_checks_passed"],
+                285,
+            )
             self.assertEqual(output["descriptive_statistics"]["parse_failures"], 0)
+            self.assertTrue(
+                all(
+                    participant["profile"]["block_order_code"]
+                    == participant["participant_id"] % 6 + 1
+                    and len(participant["comprehension_checks"]) == 3
+                    and all(
+                        check["passed"]
+                        for check in participant["comprehension_checks"]
+                    )
+                    for participant in output["individual_data"]
+                )
+            )
             self.assertTrue(
                 all(
                     response["trial_info"]["study_type"]

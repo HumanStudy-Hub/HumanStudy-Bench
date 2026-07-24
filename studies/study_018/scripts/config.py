@@ -17,9 +17,13 @@ from study_utils import BaseStudyConfig, PromptBuilder
 
 ESTIMATE_MIN = 1
 ESTIMATE_MAX = 150
+ONE_PEER_ROUNDS = 5
 MAIN_ROUNDS = 30
-CONTROL_ROUNDS = 5
-CORE_RESPONSES_PER_PARTICIPANT = MAIN_ROUNDS + CONTROL_ROUNDS
+FOUR_PEER_ROUNDS = 5
+CORE_RESPONSES_PER_PARTICIPANT = (
+    ONE_PEER_ROUNDS + MAIN_ROUNDS + FOUR_PEER_ROUNDS
+)
+COMPREHENSION_MAX_ATTEMPTS = 3
 STUDY_TYPE = "multimodal_social_information_revision"
 CONDITION_NAMES = {
     "LN": "low variance, no skew",
@@ -127,8 +131,7 @@ class DisparateSocialInformationPromptBuilder(PromptBuilder):
             {
                 "type": "text",
                 "text": (
-                    f"Round {round_number}, part A. Observe the image as though it "
-                    "were available for six seconds. Estimate how many "
+                    f"Round {round_number}, part A. Observe the image once. Estimate how many "
                     f"{plural} it contains. The allowed range is 1 through 150. "
                     "After this response the image will be removed. "
                     "Output exactly: ESTIMATE=<1-150>"
@@ -151,10 +154,14 @@ class DisparateSocialInformationPromptBuilder(PromptBuilder):
     ) -> str:
         plural = self._PLURALS[species]
         peers = ", ".join(str(value) for value in peer_estimates)
+        peer_count = len(peer_estimates)
+        peer_label = "One previous participant estimated" if peer_count == 1 else (
+            f"{peer_count} previous participants estimated"
+        )
         return (
             f"Round {round_number}, part B. The image of the {plural} is no longer "
-            f"visible. Your part A estimate was {initial_estimate}. Three previous "
-            f"participants estimated: {peers}. Give your second estimate from 1 "
+            f"visible. Your part A estimate was {initial_estimate}. {peer_label}: "
+            f"{peers}. Give your second estimate from 1 "
             "through 150. You may keep or revise your estimate. "
             "Output exactly: ESTIMATE=<1-150>"
         )
@@ -173,9 +180,28 @@ class DisparateSocialInformationPromptBuilder(PromptBuilder):
             "from 1 through 150. Output exactly: ESTIMATE=<1-150>"
         )
 
+    def build_comprehension_prompt(
+        self,
+        *,
+        block_label: str,
+        instructions: str,
+        statements: Sequence[str],
+    ) -> str:
+        numbered = "\n".join(
+            f"{index}. {statement}"
+            for index, statement in enumerate(statements, start=1)
+        )
+        return (
+            f"Instructions for the {block_label} block:\n{instructions}\n\n"
+            "Check your understanding. Mark each statement C if it is correct "
+            "according to the instructions or I if it is incorrect.\n"
+            f"{numbered}\n\n"
+            f"Output exactly: ANSWERS=<{len(statements)} comma-separated C or I values>"
+        )
+
 
 class StudyStudy018Config(BaseStudyConfig):
-    """Independent participants complete the 30-round task and five controls."""
+    """Independent participants complete all three counterbalanced task blocks."""
 
     prompt_builder_class = DisparateSocialInformationPromptBuilder
     REQUIRES_GROUP_TRIALS = True
@@ -192,8 +218,10 @@ class StudyStudy018Config(BaseStudyConfig):
                 "trial_number": participant_index + 1,
                 "participant_index": participant_index,
                 "study_type": STUDY_TYPE,
-                "sub_study_id": "main_and_four_peer_control",
+                "sub_study_id": "complete_three_block_session",
                 "instructions": material["instructions"],
+                "block_instructions": material["block_instructions"],
+                "comprehension_checks": material["comprehension_checks"],
             }
             for participant_index in range(participant_count)
         ]
@@ -214,6 +242,42 @@ class StudyStudy018Config(BaseStudyConfig):
             return None
         value = int(match.group(1))
         return value if ESTIMATE_MIN <= value <= ESTIMATE_MAX else None
+
+    @staticmethod
+    def parse_comprehension_answers(
+        response_text: str,
+        *,
+        expected_count: int,
+    ) -> Optional[List[bool]]:
+        if not response_text:
+            return None
+        match = re.search(
+            r"\bANSWERS\s*[:=]\s*([A-Za-z,\s]+)",
+            str(response_text),
+            re.IGNORECASE,
+        )
+        if match is None:
+            return None
+        tokens = [
+            token.strip().lower()
+            for token in match.group(1).split(",")
+            if token.strip()
+        ]
+        if len(tokens) != expected_count:
+            return None
+        mapping = {
+            "c": True,
+            "correct": True,
+            "true": True,
+            "t": True,
+            "i": False,
+            "incorrect": False,
+            "false": False,
+            "f": False,
+        }
+        if any(token not in mapping for token in tokens):
+            return None
+        return [mapping[token] for token in tokens]
 
     @staticmethod
     def _merge_usage(total: Dict[str, Any], new_usage: Dict[str, Any]) -> None:
@@ -246,6 +310,83 @@ class StudyStudy018Config(BaseStudyConfig):
             raise ValueError("participant returned no valid estimate from 1 through 150")
         return estimate, response_text
 
+    def _run_comprehension_check(
+        self,
+        *,
+        participant: Optional[Any],
+        prompt_builder: DisparateSocialInformationPromptBuilder,
+        block_name: str,
+        instructions: str,
+        quiz: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        statements = [str(item["statement"]) for item in quiz["items"]]
+        expected = [bool(item["correct"]) for item in quiz["items"]]
+        prompt = prompt_builder.build_comprehension_prompt(
+            block_label=block_name.replace("_", " "),
+            instructions=instructions,
+            statements=statements,
+        )
+        usage: Dict[str, Any] = {}
+        raw_responses: List[str] = []
+
+        if participant is None:
+            parsed = list(expected)
+            raw_responses.append(
+                "ANSWERS="
+                + ",".join("C" if answer else "I" for answer in parsed)
+            )
+        else:
+            participant.start_conversation()
+            parsed = None
+            current_prompt = prompt
+            for attempt in range(1, COMPREHENSION_MAX_ATTEMPTS + 1):
+                result = participant.continue_conversation(
+                    current_prompt,
+                    max_tokens=64,
+                )
+                self._merge_usage(usage, result.get("usage", {}))
+                response_text = str(result.get("response_text", ""))
+                raw_responses.append(response_text)
+                parsed = self.parse_comprehension_answers(
+                    response_text,
+                    expected_count=len(expected),
+                )
+                if parsed == expected:
+                    break
+                if parsed is None:
+                    feedback = "Your response did not match the required format."
+                else:
+                    wrong = [
+                        str(index)
+                        for index, (answer, correct) in enumerate(
+                            zip(parsed, expected),
+                            start=1,
+                        )
+                        if answer != correct
+                    ]
+                    feedback = (
+                        "Your answers to statement(s) "
+                        + ", ".join(wrong)
+                        + " were incorrect."
+                    )
+                current_prompt = (
+                    f"{feedback} Re-read the instructions and answer all "
+                    f"{len(expected)} statements. Output exactly: "
+                    "ANSWERS=<comma-separated C or I values>"
+                )
+            participant.clear_conversation()
+
+        return {
+            "block": block_name,
+            "source_stages": list(quiz.get("source_stages", [])),
+            "passed": parsed == expected,
+            "attempts": len(raw_responses),
+            "max_attempts": COMPREHENSION_MAX_ATTEMPTS,
+            "answers": parsed,
+            "raw_responses": raw_responses,
+            "usage": usage,
+        }
+
     @staticmethod
     def _peer_estimates(
         lookup_block: Dict[str, Any],
@@ -264,6 +405,53 @@ class StudyStudy018Config(BaseStudyConfig):
         return peers
 
     @staticmethod
+    def _sample_one_peer(
+        lookup_block: Dict[str, Any],
+        *,
+        round_index: int,
+        initial_estimate: int,
+        rng: random.Random,
+    ) -> Tuple[int, Dict[str, Any]]:
+        if not ESTIMATE_MIN <= initial_estimate <= ESTIMATE_MAX:
+            raise ValueError("initial estimate cannot select one-peer information")
+        true_count = int(lookup_block["rounds"][round_index]["true_count"])
+        if initial_estimate < true_count:
+            direction = "higher"
+            multiplier = 1.2
+        elif initial_estimate > true_count:
+            direction = "lower"
+            multiplier = 0.8
+        elif rng.random() < 0.5:
+            direction = "lower"
+            multiplier = 0.8
+        else:
+            direction = "higher"
+            multiplier = 1.2
+
+        target = initial_estimate * multiplier
+        pool = [int(value) for value in lookup_block["peer_pools"][round_index]]
+        minimum_distance = float("inf")
+        candidates: List[int] = []
+        for value in pool:
+            distance = abs(value - target)
+            if distance < minimum_distance:
+                minimum_distance = distance
+                candidates = [value]
+            if distance == minimum_distance:
+                # The source uses consecutive `if` statements, so the first
+                # value establishing the final minimum is inserted twice.
+                candidates.append(value)
+        peer = int(rng.choice(candidates))
+        if not ESTIMATE_MIN <= peer <= ESTIMATE_MAX:
+            raise ValueError("one-peer source selection returned an invalid estimate")
+        return peer, {
+            "target": target,
+            "direction": direction,
+            "target_multiplier": multiplier,
+            "candidate_peers": candidates,
+        }
+
+    @staticmethod
     def _mock_initial(rng: random.Random, true_count: int) -> int:
         return clamp_estimate(rng.gauss(true_count, 19.0))
 
@@ -275,8 +463,8 @@ class StudyStudy018Config(BaseStudyConfig):
         initial: int,
         peers: Sequence[int],
     ) -> int:
-        keep_probability = REPORTED_KEEP_PROBABILITY[condition]
-        adopt_probability = REPORTED_ADOPT_NEAREST_PROBABILITY[condition]
+        keep_probability = REPORTED_KEEP_PROBABILITY.get(condition, 0.10)
+        adopt_probability = REPORTED_ADOPT_NEAREST_PROBABILITY.get(condition, 0.05)
         draw = rng.random()
         if draw < keep_probability:
             return initial
@@ -399,6 +587,9 @@ class StudyStudy018Config(BaseStudyConfig):
                 "stimulus_file": image_path.name,
                 "stimulus_presented": True,
                 "stimulus_seconds_in_human_interface": 6,
+                "visual_exposure_emulation": (
+                    "single multimodal first-estimate call; image absent from revision"
+                ),
                 "condition": condition,
                 "condition_description": CONDITION_NAMES[condition],
                 "treatment_code": int(round_data["treatment_code"]),
@@ -410,6 +601,128 @@ class StudyStudy018Config(BaseStudyConfig):
                 "peer_skewness": distribution_skew(peers),
                 "final_estimate": final,
                 "social_information_use": social_information_use(initial, final, peers),
+                "strategy": classify_adjustment(initial, final, peers),
+                "initial_absolute_error": abs(initial - true_count),
+                "final_absolute_error": abs(final - true_count),
+                "points": self._score_estimate(final, true_count),
+                "answer_revealed_before_response": False,
+                "peer_lookup_verified": True,
+                "agent_visible_prompts": {
+                    "initial": self._prompt_text(initial_prompt),
+                    "social_revision": social_prompt,
+                },
+            },
+        }
+
+    def _run_one_peer_round(
+        self,
+        *,
+        participant: Optional[Any],
+        prompt_builder: DisparateSocialInformationPromptBuilder,
+        rng: random.Random,
+        participant_id: int,
+        global_trial_number: int,
+        round_data: Dict[str, Any],
+        one_peer_lookup: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        round_number = int(round_data["round"])
+        species = str(round_data["species"])
+        true_count = int(round_data["true_count"])
+        image_path = (
+            self.source_path
+            / "stimuli"
+            / f"one_peer_round_{round_number:02d}_{species}.png"
+        )
+        if not image_path.exists():
+            raise FileNotFoundError(f"one-peer stimulus image not found: {image_path}")
+
+        initial_prompt = prompt_builder.build_initial_prompt(
+            round_number=round_number,
+            species=species,
+            image_path=image_path,
+        )
+        usage: Dict[str, Any] = {}
+        if participant is not None:
+            participant.start_conversation()
+            initial, initial_response_text = self._call_estimate(
+                participant,
+                initial_prompt,
+                usage,
+            )
+            participant.clear_conversation()
+        else:
+            initial = self._mock_initial(rng, true_count)
+            initial_response_text = f"ESTIMATE={initial}"
+
+        peer, selection = self._sample_one_peer(
+            one_peer_lookup,
+            round_index=round_number - 1,
+            initial_estimate=initial,
+            rng=rng,
+        )
+        peers = [peer]
+        social_prompt = prompt_builder.build_social_prompt(
+            round_number=round_number,
+            species=species,
+            initial_estimate=initial,
+            peer_estimates=peers,
+        )
+        if participant is not None:
+            participant.start_conversation()
+            final, final_response_text = self._call_estimate(
+                participant,
+                social_prompt,
+                usage,
+            )
+            participant.clear_conversation()
+        else:
+            final = self._mock_social_revision(
+                rng,
+                condition="one_peer_control",
+                initial=initial,
+                peers=peers,
+            )
+            final_response_text = f"ESTIMATE={final}"
+
+        return {
+            "participant_id": participant_id,
+            "trial_number": global_trial_number,
+            "response": final,
+            "response_text": final_response_text,
+            "raw_response_text": final_response_text,
+            "usage": usage,
+            "correct_answer": true_count,
+            "is_correct": final == true_count,
+            "trial_info": {
+                "study_type": STUDY_TYPE,
+                "sub_study_id": "one_peer_control",
+                "block": "one_peer_control",
+                "one_peer_round": round_number,
+                "species": species,
+                "stimulus_file": image_path.name,
+                "stimulus_presented": True,
+                "stimulus_seconds_in_human_interface": 6,
+                "visual_exposure_emulation": (
+                    "single multimodal first-estimate call; image absent from revision"
+                ),
+                "condition": "one_peer_control",
+                "condition_description": (
+                    "one previous participant estimate selected by the published rule"
+                ),
+                "treatment_code": 1,
+                "initial_estimate": initial,
+                "initial_response_text": initial_response_text,
+                "peer_estimates": peers,
+                "peer_mean": float(peer),
+                "peer_variance": 0.0,
+                "peer_skewness": 0.0,
+                "one_peer_selection": selection,
+                "final_estimate": final,
+                "social_information_use": social_information_use(
+                    initial,
+                    final,
+                    peers,
+                ),
                 "strategy": classify_adjustment(initial, final, peers),
                 "initial_absolute_error": abs(initial - true_count),
                 "final_absolute_error": abs(final - true_count),
@@ -514,11 +827,27 @@ class StudyStudy018Config(BaseStudyConfig):
         participant_id = int(trial["participant_index"])
         rng = random.Random(base_seed + 100_003 * participant_id)
         main_rounds = lookup["main_task"]["rounds"]
-        block_order = ["main_task", "four_peer_control"]
-        rng.shuffle(block_order)
+        order_code = participant_id % 6 + 1
+        block_order = list(lookup["block_orders"]["orders"][str(order_code)])
 
         responses: List[Dict[str, Any]] = []
+        comprehension_checks: List[Dict[str, Any]] = []
+        terminated_early = False
+        termination_reason: Optional[str] = None
         for block in block_order:
+            check = self._run_comprehension_check(
+                participant=participant,
+                prompt_builder=prompt_builder,
+                block_name=block,
+                instructions=str(trial["block_instructions"][block]),
+                quiz=trial["comprehension_checks"][block],
+            )
+            comprehension_checks.append(check)
+            if not check["passed"]:
+                terminated_early = True
+                termination_reason = f"failed_comprehension_check:{block}"
+                break
+
             if block == "main_task":
                 for round_data in main_rounds:
                     responses.append(
@@ -532,8 +861,21 @@ class StudyStudy018Config(BaseStudyConfig):
                             main_lookup=lookup["main_task"],
                         )
                     )
-            else:
-                for round_index in range(CONTROL_ROUNDS):
+            elif block == "one_peer_control":
+                for round_data in lookup["one_peer_control"]["rounds"]:
+                    responses.append(
+                        self._run_one_peer_round(
+                            participant=participant,
+                            prompt_builder=prompt_builder,
+                            rng=rng,
+                            participant_id=participant_id,
+                            global_trial_number=len(responses) + 1,
+                            round_data=round_data,
+                            one_peer_lookup=lookup["one_peer_control"],
+                        )
+                    )
+            elif block == "four_peer_control":
+                for round_index in range(FOUR_PEER_ROUNDS):
                     responses.append(
                         self._run_control_round(
                             participant=participant,
@@ -546,49 +888,69 @@ class StudyStudy018Config(BaseStudyConfig):
                             main_rounds=main_rounds,
                         )
                     )
+            else:
+                raise ValueError(f"unknown study_018 block: {block}")
 
+        if not terminated_early and len(responses) != CORE_RESPONSES_PER_PARTICIPANT:
+            raise RuntimeError(
+                "study_018 completed without the expected 40 behavioral responses"
+            )
         if participant is not None:
             participant.clear_conversation()
 
-        main_responses = [
-            response
-            for response in responses
-            if response["trial_info"]["block"] == "main_task"
-        ]
-        control_responses = [
-            response
-            for response in responses
-            if response["trial_info"]["block"] == "four_peer_control"
-        ]
-        paid_main = rng.choice(main_responses)
-        paid_control = rng.choice(control_responses)
-        paid_points = (
-            int(paid_main["trial_info"]["points"])
-            + int(paid_control["trial_info"]["points"])
-        )
+        by_block = {
+            block: [
+                response
+                for response in responses
+                if response["trial_info"]["block"] == block
+            ]
+            for block in block_order
+        }
+        payment: Optional[Dict[str, Any]]
+        if terminated_early:
+            payment = None
+        else:
+            paid_responses = {
+                block: rng.choice(block_responses)
+                for block, block_responses in by_block.items()
+            }
+            paid_points = sum(
+                int(response["trial_info"]["points"])
+                for response in paid_responses.values()
+            )
+            payment = {
+                "participation_fee_usd": 4.50,
+                "paid_rounds": {
+                    "one_peer_control": int(
+                        paid_responses["one_peer_control"]["trial_info"][
+                            "one_peer_round"
+                        ]
+                    ),
+                    "main_task": int(
+                        paid_responses["main_task"]["trial_info"]["main_round"]
+                    ),
+                    "four_peer_control": int(
+                        paid_responses["four_peer_control"]["trial_info"][
+                            "control_round"
+                        ]
+                    ),
+                },
+                "bonus_points": paid_points,
+                "bonus_usd": paid_points / 100.0,
+                "note": "One round from each of the three original task blocks.",
+            }
         return {
             "participant_id": participant_id,
             "profile": {
                 **profile,
+                "block_order_code": order_code,
                 "block_order": block_order,
             },
-            "sub_study_id": "main_and_four_peer_control",
-            "payment": {
-                "participation_fee_usd": 4.50,
-                "included_paid_rounds": {
-                    "main_task": int(paid_main["trial_info"]["main_round"]),
-                    "four_peer_control": int(
-                        paid_control["trial_info"]["control_round"]
-                    ),
-                },
-                "included_bonus_points": paid_points,
-                "included_bonus_usd": paid_points / 100.0,
-                "note": (
-                    "The paper paid one round from each of three blocks. This package "
-                    "excludes the separate one-peer control block, so this field "
-                    "reports only the two included blocks."
-                ),
-            },
+            "sub_study_id": "complete_three_block_session",
+            "comprehension_checks": comprehension_checks,
+            "terminated_early": terminated_early,
+            "termination_reason": termination_reason,
+            "payment": payment,
             "responses": responses,
         }
 
@@ -608,6 +970,20 @@ class StudyStudy018Config(BaseStudyConfig):
         lookup = self.load_material(self.LOOKUP_ID)
         if len(lookup["main_task"]["rounds"]) != MAIN_ROUNDS:
             raise ValueError("study_018 peer lookup must define exactly 30 main rounds")
+        if len(lookup["one_peer_control"]["rounds"]) != ONE_PEER_ROUNDS:
+            raise ValueError("study_018 lookup must define exactly five one-peer rounds")
+        if len(lookup["four_peer_control"]["rounds"]) != FOUR_PEER_ROUNDS:
+            raise ValueError("study_018 lookup must define exactly five four-peer rounds")
+        published_orders = {
+            tuple(order)
+            for order in lookup["block_orders"]["orders"].values()
+        }
+        if len(published_orders) != 6 or any(
+            set(order)
+            != {"one_peer_control", "main_task", "four_peer_control"}
+            for order in published_orders
+        ):
+            raise ValueError("study_018 lookup must define all six three-block orders")
 
         use_real_llm = bool(participant_pool_kwargs.get("use_real_llm", False))
         participants: Dict[int, Any] = {}
@@ -698,6 +1074,11 @@ class StudyStudy018Config(BaseStudyConfig):
             for response in valid
             if response.get("trial_info", {}).get("block") == "main_task"
         ]
+        one_peer = [
+            response
+            for response in valid
+            if response.get("trial_info", {}).get("block") == "one_peer_control"
+        ]
         control = [
             response
             for response in valid
@@ -754,8 +1135,22 @@ class StudyStudy018Config(BaseStudyConfig):
             "descriptive_statistics": {
                 "participants": len(participants),
                 "responses": len(valid),
+                "complete_participants": sum(
+                    not participant.get("terminated_early", False)
+                    for participant in participants
+                ),
+                "terminated_participants": sum(
+                    participant.get("terminated_early", False)
+                    for participant in participants
+                ),
                 "main_task_responses": len(main),
+                "one_peer_control_responses": len(one_peer),
                 "four_peer_control_responses": len(control),
+                "comprehension_checks_passed": sum(
+                    check.get("passed") is True
+                    for participant in participants
+                    for check in participant.get("comprehension_checks", [])
+                ),
                 "parse_failures": len(responses) - len(valid),
                 "mean_initial_absolute_error": (
                     mean(

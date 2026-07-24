@@ -32,6 +32,9 @@ The committed article-plus-supplement PDF had SHA-256:
 
 `materials/peer_lookup.json` is compiled without executing PHP or JavaScript from:
 
+- `stage32726.php`: cyclic assignment to all six task-order permutations
+- `stage32732.php`: one-peer species and true-count schedule
+- `stage32734.php`: one-peer source pools and target-based selection rule
 - `stage32741.php`: fixed species, true counts, and condition schedule
 - `stage32743.php`: main-task peer estimates indexed by round and first estimate
 - `stage32725.php`: four-peer control anchor pools
@@ -47,6 +50,18 @@ records original row lengths and removes unreachable trailing values.
 the downloaded PHP or JavaScript. It also checks dimensions, estimate ranges,
 and the identity of control rows with their corresponding main rounds.
 
+The block-specific instructions and four-item correct/incorrect checks in
+`materials/disparate_social_information.json` are transcribed from:
+
+- `stage32727.php` through `stage32730.php` for the one-peer block;
+- `stage32736.php` through `stage32739.php` for the main block;
+- `stage32745.php` through `stage32749.php` for the four-peer block.
+
+The original quiz pages require every answer to be correct before proceeding.
+The agent runtime retains that gate, allows at most three attempts to avoid an
+unbounded API loop, and terminates the participant session if the gate remains
+unsatisfied.
+
 Two control anchor pools contain a zero sentinel. Zero is outside the slider
 domain and cannot safely index the published lookup. The runtime rejects those
 two values rather than reproducing the known invalid historical row.
@@ -54,7 +69,7 @@ two values rather than reproducing the known invalid historical row.
 ## Visual Stimuli
 
 The LIONESS source references external animal sprites that are not included in
-the OSF archive and whose historical URLs no longer resolve. The 30 committed
+the OSF archive and whose historical URLs no longer resolve. The 35 committed
 PNGs are deterministic regenerated stimuli, not copies of the original art.
 They preserve:
 
@@ -66,8 +81,11 @@ They preserve:
 - no count in the image file name or agent-visible prompt.
 
 Because the original canvas used half of each participant's screen dimensions,
-the committed PNGs use a documented 1920 by 1080 reference screen. Runtime
-semantics do not depend on that reference viewport.
+the committed PNGs use a documented 1920 by 1080 reference screen and a fixed
+source-period seed for benchmark repeatability. Runtime semantics do not depend
+on that reference viewport. The original six-second browser display is adapted
+to a single multimodal first-estimate call followed by an image-free revision;
+the package does not claim to enforce visual wall-clock exposure through an API.
 
 Run `source/stimuli/generate_stimuli.py` to regenerate them from the compiled
 lookup.

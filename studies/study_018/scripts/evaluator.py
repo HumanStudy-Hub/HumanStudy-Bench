@@ -13,6 +13,14 @@ REPORTED_ADJUSTMENT = {
     "HF": 0.279,
     "HC": 0.365,
 }
+BLOCK_ORDERS = {
+    1: ["one_peer_control", "main_task", "four_peer_control"],
+    2: ["one_peer_control", "four_peer_control", "main_task"],
+    3: ["main_task", "four_peer_control", "one_peer_control"],
+    4: ["main_task", "one_peer_control", "four_peer_control"],
+    5: ["four_peer_control", "main_task", "one_peer_control"],
+    6: ["four_peer_control", "one_peer_control", "main_task"],
+}
 
 
 def _flatten(results: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -35,11 +43,13 @@ def _execution_checks(
     tests: List[Dict[str, Any]] = []
 
     complete = bool(participants) and all(
-        len(participant.get("responses", [])) == 35 for participant in participants
+        len(participant.get("responses", [])) == 40
+        and participant.get("terminated_early") is False
+        for participant in participants
     )
     tests.append(
         {
-            "test_id": "complete_included_blocks",
+            "test_id": "complete_three_block_session",
             "passed": complete,
             "participants": len(participants),
             "responses": len(responses),
@@ -51,13 +61,48 @@ def _execution_checks(
             response.get("trial_info", {}).get("block")
             for response in participant.get("responses", [])
         )
-        == Counter({"main_task": 30, "four_peer_control": 5})
+        == Counter(
+            {
+                "one_peer_control": 5,
+                "main_task": 30,
+                "four_peer_control": 5,
+            }
+        )
         for participant in participants
     )
     tests.append(
         {
-            "test_id": "thirty_main_and_five_control_rounds",
+            "test_id": "published_round_counts_for_all_three_blocks",
             "passed": block_counts_valid,
+        }
+    )
+
+    block_orders_valid = bool(participants) and all(
+        int(participant.get("profile", {}).get("block_order_code", 0))
+        == int(participant.get("participant_id", -1)) % 6 + 1
+        and participant.get("profile", {}).get("block_order")
+        == BLOCK_ORDERS[int(participant.get("participant_id", -1)) % 6 + 1]
+        for participant in participants
+    )
+    tests.append(
+        {
+            "test_id": "published_six_order_counterbalancing",
+            "passed": block_orders_valid,
+        }
+    )
+
+    comprehension_valid = bool(participants) and all(
+        len(participant.get("comprehension_checks", [])) == 3
+        and all(
+            check.get("passed") is True
+            for check in participant.get("comprehension_checks", [])
+        )
+        for participant in participants
+    )
+    tests.append(
+        {
+            "test_id": "all_block_comprehension_checks_passed",
+            "passed": comprehension_valid,
         }
     )
 
@@ -115,18 +160,19 @@ def _execution_checks(
         }
     )
 
-    main_visual_only = bool(responses) and all(
+    visual_first_estimate_blocks = bool(responses) and all(
         (
             response.get("trial_info", {}).get("stimulus_presented") is True
-            if response.get("trial_info", {}).get("block") == "main_task"
+            if response.get("trial_info", {}).get("block")
+            in {"one_peer_control", "main_task"}
             else response.get("trial_info", {}).get("stimulus_presented") is False
         )
         for response in responses
     )
     tests.append(
         {
-            "test_id": "visual_stimuli_confined_to_main_first_estimates",
-            "passed": main_visual_only,
+            "test_id": "visual_stimuli_confined_to_visual_first_estimate_blocks",
+            "passed": visual_first_estimate_blocks,
         }
     )
     return sum(test["passed"] for test in tests) / len(tests), tests

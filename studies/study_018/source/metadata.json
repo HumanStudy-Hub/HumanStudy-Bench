@@ -35,34 +35,36 @@
     "social_influence"
   ],
   "difficulty": "hard",
-  "description": "Participants make a visual numerosity estimate, see three prerecorded peer estimates with experimentally controlled variance and skewness, and revise their estimate. Four-peer controls measure aggregation without a personal prior estimate.",
+  "description": "Participants complete counterbalanced one-peer, three-peer, and four-peer estimation blocks. The visual blocks collect an initial numerosity estimate before social revision; the four-peer block measures aggregation without a personal prior estimate.",
   "scenarios": [
+    "one_peer_control",
     "main_task",
     "four_peer_control"
   ],
   "implementation_scope": {
-    "status": "core_behavioral_experiment_complete",
+    "status": "complete_three_block_behavioral_task",
     "included": [
+      "five-round one-peer visual estimation and revision block",
+      "published one-peer species, counts, source pools, and selection algorithm",
       "30-round visual estimation main block",
       "published fixed species, true-count, and treatment schedule",
       "five rounds per LN, HN, HF, and HC condition plus ten fillers",
       "exact three-peer lookup for every round and every valid initial estimate",
       "five-round four-peer control block",
       "published control anchor pools with invalid zero sentinels rejected",
-      "randomized order of the two included blocks",
-      "accuracy points for one randomly selected round per included block",
+      "all six published block-order permutations assigned cyclically",
+      "source-derived instructions and comprehension checks before every block",
+      "accuracy points for one randomly selected round per original block",
       "strategy and social-information-use measures",
       "multimodal image input for the first estimate only"
     ],
     "excluded": [
-      "separate five-round one-peer control block not analyzed in the focal paper",
       "browser sliders and six-second client-side timer",
-      "instruction comprehension gate",
       "post-task individual-difference questionnaires",
       "cognitive model fitting and downstream belief-dynamics simulations",
       "original animal sprite artwork referenced through now-unavailable external URLs"
     ],
-    "reason": "The package targets the paper's complete focal behavioral manipulation and its four-peer aggregation control. The omitted one-peer block is explicitly outside the paper's focal analysis; UI motor behavior and post-task questionnaires do not define the reported social-information effect."
+    "reason": "The package reconstructs the complete 40-round three-block behavioral task. Browser motor behavior, wall-clock response timing, post-task questionnaires, and downstream modeling are outside the agent-experiment runtime."
   },
   "sources": {
     "article": "https://doi.org/10.1098/rspb.2020.2413",

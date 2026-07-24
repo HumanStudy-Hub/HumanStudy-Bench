@@ -4,19 +4,22 @@
 
 **Year:** 2020
 
-This package implements the paper's focal visual-estimation experiment. A participant first estimates the number of animals in an image, then sees three prerecorded peer estimates and revises the judgment. Peer variance and skewness vary across four core conditions. The package also includes the four-peer control with no image or personal first estimate.
+This package implements the paper's complete three-block behavioral task. The one-peer and main blocks ask participants to estimate animals in an image, observe one or three prerecorded estimates, and revise their judgment. The four-peer block asks participants to aggregate four estimates without seeing the image or forming a personal first estimate.
 
 ## Implemented Scope
 
+- Five one-peer rounds with the exact species, counts, source pools, and peer-selection rule
 - Thirty main rounds with the exact species, counts, and treatment order
 - Five rounds each of LN, HN, HF, and HC, plus ten fillers
 - Exact peer estimates for every valid first estimate from 1 through 150
 - Five four-peer control rounds and published anchor pools
+- All six original block-order permutations, assigned cyclically by participant number
+- Original block-specific instructions and four-item comprehension checks
 - Multimodal first-estimate prompts followed by text-only revisions
 - Published social-information-use and strategy measures
 - Condition-level evaluator and execution audit
 
-The one-peer control, browser slider motor behavior, comprehension checks, post-task scales, cognitive-model fitting, and downstream simulations are excluded.
+Browser slider motor behavior, enforced client-side response timers, post-task scales, cognitive-model fitting, and downstream simulations are excluded.
 
 ## Run
 
@@ -41,11 +44,11 @@ Real vision-capable model:
       --n-agents 1 \
       --seed 42
 
-A full participant requires at least 65 model calls. Start with one participant before scaling.
+A full participant requires at least 78 model calls: three comprehension checks, 10 one-peer calls, 60 main-task calls, and five four-peer calls. Start with one participant before scaling.
 
 ## Fidelity Boundary
 
-The exact peer distributions come from the public LIONESS code, not an LLM reconstruction. The historical animal sprite URLs are unavailable, so the package contains deterministic regenerated silhouettes with the exact published species and counts. The placement follows the original seeded JavaScript formula using a documented reference viewport, but the silhouettes are not the original artwork. The runtime sends the image only for the first estimate and starts the social revision in a new, image-free conversation.
+The schedules, block orders, comprehension checks, and peer distributions come from the public LIONESS code, not an LLM reconstruction. The historical animal sprite URLs are unavailable, so the package contains deterministic regenerated silhouettes with the exact published species and counts. The placement follows the original seeded JavaScript formula using a documented reference viewport, but the silhouettes are not the original artwork. The runtime sends the image only for the first estimate and starts the social revision in a new, image-free conversation; the original six-second browser exposure and slider motor behavior are documented adaptations rather than simulated timing claims.
 
 ## Files
 

@@ -139,7 +139,7 @@
     "required_tests": [
       {
         "test_id": "execution_integrity",
-        "description": "Every participant completes 30 main and five four-peer control rounds using the published condition schedule and lookup tables.",
+        "description": "Every participant passes the three source-derived comprehension checks and completes five one-peer, 30 main, and five four-peer rounds in the published counterbalanced order using source-derived peer rules.",
         "weight": 0.45
       },
       {
@@ -162,7 +162,8 @@
   "source_limitations": [
     "The public LIONESS package references animal sprites hosted outside OSF; those URLs no longer resolve. The runtime uses deterministic regenerated silhouettes while preserving exact species and counts.",
     "The original browser displayed each image for six seconds and collected slider movement. A vision-capable LLM receives the image in one turn, so the semantic task is preserved but visual exposure duration and motor behavior are not.",
-    "The separate one-peer control block is excluded because the paper states that its data are not the focus of the analysis.",
+    "The original one-peer block is included for session fidelity but is excluded from focal behavioral-alignment scoring because the paper states that its results are not reported.",
+    "The original comprehension pages allowed participants to correct answers interactively. The agent runtime permits three attempts and then terminates the session fail-closed.",
     "The package evaluates behavioral condition patterns and does not fit the paper's hierarchical cognitive model."
   ]
 }

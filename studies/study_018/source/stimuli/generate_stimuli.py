@@ -166,23 +166,30 @@ def main() -> None:
         "items": [],
     }
 
-    for round_data in lookup["main_task"]["rounds"]:
-        round_number = int(round_data["round"])
-        species = str(round_data["species"])
-        filename = f"round_{round_number:02d}_{species}.png"
-        generate_image(
-            species=species,
-            count=int(round_data["true_count"]),
-            output=args.output_dir / filename,
-        )
-        manifest["items"].append(
-            {
-                "round": round_number,
-                "species": species,
-                "file": filename,
-                "true_count_source": "peer_lookup.json main_task.rounds",
-            }
-        )
+    for block_name, filename_prefix in (
+        ("one_peer_control", "one_peer_round"),
+        ("main_task", "round"),
+    ):
+        for round_data in lookup[block_name]["rounds"]:
+            round_number = int(round_data["round"])
+            species = str(round_data["species"])
+            filename = f"{filename_prefix}_{round_number:02d}_{species}.png"
+            generate_image(
+                species=species,
+                count=int(round_data["true_count"]),
+                output=args.output_dir / filename,
+            )
+            manifest["items"].append(
+                {
+                    "block": block_name,
+                    "round": round_number,
+                    "species": species,
+                    "file": filename,
+                    "true_count_source": (
+                        f"peer_lookup.json {block_name}.rounds"
+                    ),
+                }
+            )
 
     manifest_path = args.output_dir.parent / "materials" / "stimulus_manifest.json"
     manifest_path.write_text(

@@ -1,12 +1,13 @@
 {
-  "sub_study_id": "main_and_four_peer_control",
-  "sub_study_name": "BEAST with three disparate peers and four-peer control",
+  "sub_study_id": "complete_three_block_session",
+  "sub_study_name": "BEAST one-peer, three-peer, and four-peer tasks",
   "source": {
     "document": "molleman_et_al_2020_strategies_disparate_social_information.pdf",
     "locations": [
       "Methods, Behavioral experiment",
       "Supplementary Methods, Definition of experimental conditions",
-      "Supplementary Information, Experimental materials"
+      "Supplementary Information, Experimental materials",
+      "LIONESS stages 32727-32752"
     ],
     "osf_project": "https://osf.io/rmcuy/",
     "peer_lookup": "peer_lookup.json",
@@ -15,7 +16,93 @@
     "stimulus_builder": "../stimuli/generate_stimuli.py",
     "fidelity": "source-grounded multimodal reconstruction using original schedules and participant-contingent lookup tables"
   },
-  "instructions": "This experiment contains two estimation tasks. In the main task, view an image of animals, estimate the number shown, then observe estimates from three previous participants and provide a second estimate. You may retain or revise your first answer. In the control task, infer the number from four previous participants' estimates without seeing the image. Estimates must be integers from 1 through 150. The true answer and accuracy feedback are not shown during the task.",
+  "instructions": "This experiment contains three estimation tasks in one of six counterbalanced orders. In the one-peer and main tasks, view an image of animals, estimate the number shown, then observe estimates from one or three previous participants and provide a second estimate. In the four-peer task, infer the number from four previous participants' estimates without seeing the image. Estimates must be integers from 1 through 150. The true answer and accuracy feedback are not shown during the tasks.",
+  "block_instructions": {
+    "one_peer_control": "This task has 5 rounds. In each round, observe an animal image, make a first estimate, then see the first estimate of one previous participant who saw the same image. Give a second estimate, which may be the same as or different from the first. More accurate estimates earn more points; one of the 5 rounds is selected for the bonus.",
+    "main_task": "This task has 30 rounds. In each round, observe an animal image, make a first estimate, then see the first estimates of three previous participants who saw the same image. Give a second estimate, which may be the same as or different from the first. More accurate estimates earn more points; one of the 30 rounds is selected for the bonus.",
+    "four_peer_control": "This task has 5 rounds. You do not see the animal image. In each round, see estimates from four previous participants who all saw the same image, then estimate the number of animals yourself. More accurate estimates earn more points; one of the 5 rounds is selected for the bonus."
+  },
+  "comprehension_checks": {
+    "one_peer_control": {
+      "source_stages": [
+        "stage32727.php",
+        "stage32728.php",
+        "stage32729.php",
+        "stage32730.php"
+      ],
+      "items": [
+        {
+          "statement": "In each round of this task you will view an image. You have to estimate how many animals were displayed in it.",
+          "correct": true
+        },
+        {
+          "statement": "Once you have entered your estimate, the round is over.",
+          "correct": false
+        },
+        {
+          "statement": "Once you have entered your estimate, you can observe the estimate of another MTurker who completed this task before. You can then make a second estimate.",
+          "correct": true
+        },
+        {
+          "statement": "The more accurate your estimates, the more points you can earn.",
+          "correct": true
+        }
+      ]
+    },
+    "main_task": {
+      "source_stages": [
+        "stage32736.php",
+        "stage32737.php",
+        "stage32738.php",
+        "stage32739.php"
+      ],
+      "items": [
+        {
+          "statement": "In each round of this task you will view an image. You have to estimate how many animals were displayed in it.",
+          "correct": true
+        },
+        {
+          "statement": "Once you have entered your estimate, the round is over.",
+          "correct": false
+        },
+        {
+          "statement": "Once you have entered your estimate, you can observe the estimate of three other MTurkers who completed this task before. You can then make a second estimate.",
+          "correct": true
+        },
+        {
+          "statement": "The more accurate your estimates, the more points you can earn.",
+          "correct": true
+        }
+      ]
+    },
+    "four_peer_control": {
+      "source_stages": [
+        "stage32745.php",
+        "stage32746.php",
+        "stage32747.php",
+        "stage32748.php",
+        "stage32749.php"
+      ],
+      "items": [
+        {
+          "statement": "In each round of this task you have to estimate how many animals were shown to previous MTurkers.",
+          "correct": true
+        },
+        {
+          "statement": "In each round, you will see the estimates of one MTurker who saw the same picture.",
+          "correct": false
+        },
+        {
+          "statement": "In each round, you will see the estimates of four MTurkers who all saw the same picture.",
+          "correct": true
+        },
+        {
+          "statement": "Like yourself, the previous MTurkers could earn more points the more accurate their estimates were.",
+          "correct": true
+        }
+      ]
+    }
+  },
   "conditions": [
     {
       "id": "LN",
@@ -52,6 +139,17 @@
     {
       "id": "initial_visual_estimate",
       "question": "How many animals are shown in the attached image?",
+      "type": "integer_slider_equivalent",
+      "options": {
+        "min": 1,
+        "max": 150,
+        "step": 1
+      },
+      "response_format": "ESTIMATE=<1-150>"
+    },
+    {
+      "id": "one_peer_revised_estimate",
+      "question": "After observing one previous participant's estimate, what is your second estimate?",
       "type": "integer_slider_equivalent",
       "options": {
         "min": 1,
