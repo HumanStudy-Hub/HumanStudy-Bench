@@ -73,6 +73,11 @@ class AdvisorChoiceDatesTaskTests(unittest.TestCase):
         self.assertIsNone(self.config.parse_estimate("YEAR=2054; WIDTH=7"))
         self.assertEqual(self.config.parse_advisor_choice("ADVISOR=b"), "B")
         module = importlib.import_module(self.config.__class__.__module__)
+        self.assertEqual(module.number_to_digit_words(1954), "one nine five four")
+        self.assertTrue(self.config.attention_check_passed(1954, 7, 1954))
+        self.assertTrue(self.config.attention_check_passed(1952, 7, 1954))
+        self.assertFalse(self.config.attention_check_passed(1954, 13, 1954))
+        self.assertFalse(self.config.attention_check_passed(1950, 7, 1954))
         rng = __import__("random").Random(3)
         year, mode = module.StudyStudy017Config._sample_advice(
             rng,
@@ -106,6 +111,41 @@ class AdvisorChoiceDatesTaskTests(unittest.TestCase):
         self.assertNotIn("accurate advisor", visible)
         self.assertNotIn("agreeing advisor", visible)
 
+    def test_attention_check_failure_terminates_and_preserves_record(self):
+        class FailingAttentionParticipant:
+            def start_conversation(self):
+                return None
+
+            def clear_conversation(self):
+                return None
+
+            def continue_conversation(self, prompt, max_tokens):
+                del max_tokens
+                if "ADVISOR=A or ADVISOR=B" in prompt:
+                    response = "ADVISOR=A"
+                elif "smallest marker" in prompt:
+                    response = "YEAR=1950; WIDTH=13"
+                else:
+                    response = "YEAR=1950; WIDTH=7"
+                return {"response_text": response, "usage": {}}
+
+        trial = self.config.create_trials(n_trials=1)[0]
+        questions = self.config.load_material("question_bank")["questions"]
+        result = self.config._run_one_participant(
+            trial,
+            participant=FailingAttentionParticipant(),
+            profile={"participant_id": 0},
+            prompt_builder=self.config.prompt_builder,
+            base_seed=19,
+            question_bank=questions,
+        )
+        self.assertTrue(result["terminated_early"])
+        self.assertEqual(len(result["responses"]), 17)
+        failed = result["responses"][-1]["trial_info"]
+        self.assertEqual(failed["global_trial_index"], 16)
+        self.assertTrue(failed["attention_check"])
+        self.assertFalse(failed["attention_check_passed"])
+
     def test_mock_stage5_runs_all_core_trials(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             summary = run_stage5(
@@ -119,16 +159,56 @@ class AdvisorChoiceDatesTaskTests(unittest.TestCase):
             output = json.loads(output_path.read_text(encoding="utf-8"))
             self.assertEqual(len(output["individual_data"]), 4)
             self.assertEqual(
-                sum(len(row["responses"]) for row in output["individual_data"]), 160
+                sum(len(row["responses"]) for row in output["individual_data"]), 208
             )
             self.assertEqual(output["descriptive_statistics"]["choice_trials"], 40)
+            self.assertEqual(
+                output["descriptive_statistics"]["unaided_practice_trials"], 40
+            )
+            self.assertEqual(
+                output["descriptive_statistics"]["practice_advisor_trials"], 8
+            )
+            self.assertEqual(output["descriptive_statistics"]["attention_checks"], 8)
+            self.assertEqual(
+                output["descriptive_statistics"]["core_historical_trials"], 152
+            )
             self.assertEqual(output["descriptive_statistics"]["parse_failures"], 0)
             for participant in output["individual_data"]:
                 feedback = participant["profile"]["feedback_condition"]
+                self.assertFalse(participant["terminated_early"])
+                self.assertEqual(
+                    [
+                        response["trial_info"]["global_trial_index"]
+                        for response in participant["responses"]
+                        if response["trial_info"]["attention_check"]
+                    ],
+                    [16, 36],
+                )
+                self.assertEqual(
+                    sum(
+                        response["trial_info"]["phase"] == "unaided_practice"
+                        for response in participant["responses"]
+                    ),
+                    10,
+                )
+                self.assertEqual(
+                    sum(
+                        response["trial_info"]["phase"] == "practice_advisor"
+                        for response in participant["responses"]
+                    ),
+                    2,
+                )
                 self.assertTrue(
                     all(
                         response["trial_info"]["correct_year_revealed_after_final"]
-                        is feedback
+                        is (
+                            True
+                            if response["trial_info"]["phase"]
+                            in {"unaided_practice", "practice_advisor"}
+                            else feedback
+                            if response["trial_info"]["phase"] == "core"
+                            else False
+                        )
                         for response in participant["responses"]
                     )
                 )

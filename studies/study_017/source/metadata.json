@@ -33,12 +33,16 @@
     "dates_task_3c_feedback"
   ],
   "implementation_scope": {
-    "status": "core_treatments_complete",
+    "status": "text_native_experiment_complete",
     "included": [
       "Experiments 3B and 3C continuous Dates Task",
       "complete 74-item public historical-event question bank",
-      "15-trial familiarisation block per advisor",
+      "10 unaided practice trials with feedback",
+      "2 practice-with-advice trials with the original correct Practice advisor",
+      "two 15-slot familiarisation blocks, including the original attention-check replacements",
       "10 advisor-choice trials",
+      "attention checks at original global trial indices 16 and 36",
+      "immediate termination and failure-record preservation after an incorrect attention check",
       "counterbalanced advisor order",
       "feedback versus no-feedback manipulation",
       "7-, 13-, and 21-year participant markers",
@@ -47,15 +51,12 @@
       "initial and final estimates in a persistent participant conversation"
     ],
     "excluded": [
-      "ten unaided practice trials",
-      "two practice-advisor trials",
       "browser drag-and-drop interface",
-      "attention-check termination logic",
       "advisor avatar artwork",
       "post-study advisor ratings not analysed in the paper",
       "Dots Task and categorical Dates Task experiments"
     ],
-    "reason": "The benchmark targets the paper's text-native, agent-simulable 3B/3C mechanism. UI motor behavior and screening controls do not define the advisor-choice effect and are not simulated."
+    "reason": "The text-native experimental procedure, including practice and screening controls, is reconstructed from the exact code commit linked by the paper's S1 supplement. Only visual/motor browser mechanics and unanalysed post-study content remain outside the runtime."
   },
   "sources": {
     "article": "https://doi.org/10.1371/journal.pone.0311211",

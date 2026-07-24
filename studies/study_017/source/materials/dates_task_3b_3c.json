@@ -6,13 +6,41 @@
     "locations": [
       "Materials and methods, Task structure",
       "Materials and methods, Continuous dates task",
-      "Materials and methods, Advice"
+      "Materials and methods, Advice",
+      "S1 File software link for the high accuracy versus high agreement Dates Task",
+      "ACv2/ac.html at commit ed13951c488e1996df7ff53d48629843bacfd074"
     ],
     "question_bank": "question_bank.json",
     "experiment_code_commit": "ed13951c488e1996df7ff53d48629843bacfd074",
     "fidelity": "faithful stateful reconstruction from article and public experiment materials"
   },
-  "instructions": "Estimate when each historical event occurred without looking up the answer. Place a marker centered on your estimated year and choose a width of 7, 13, or 21 years. A correct marker earns 25, 10, or 5 points respectively when it covers the true year. Most trials include advice from one of two anonymous advisors followed by a final estimate. Advisors may behave differently, so learn how useful each is. In the final block, choose which advisor to consult after making your initial estimate.",
+  "instructions": "Estimate when each historical event occurred without looking up the answer. Place a marker centered on your estimated year and choose a width of 7, 13, or 21 years. A correct marker earns 25, 10, or 5 points respectively when it covers the true year. Begin with 10 unaided practice questions with answer feedback, then complete 2 practice-with-advice questions using a separate Practice advisor, again with feedback. In the main experiment, most trials include advice from one of two anonymous advisors followed by a final estimate. Advisors may behave differently, so learn how useful each is. In the final block, choose which advisor to consult after making your initial estimate. Follow any direct instruction to use a particular marker and cover a stated year; failure of such an instruction ends participation.",
+  "trial_schedule": {
+    "total_slots": 52,
+    "unaided_practice": 10,
+    "practice_with_advisor": 2,
+    "main_experiment_slots": 40,
+    "attention_check_global_indices_zero_based": [
+      16,
+      36
+    ],
+    "attention_checks_replace_main_experiment_questions": true,
+    "historical_event_questions_consumed": 50,
+    "main_historical_event_trials": 38
+  },
+  "practice_advisor": {
+    "display_name": "Practice advisor",
+    "advice_policy": "correct",
+    "marker_width": 8,
+    "center_variation_years": 3,
+    "feedback_after_final_response": true
+  },
+  "attention_check": {
+    "instruction": "Use the smallest marker to cover a specified year written digit by digit in words.",
+    "required_marker_width": 7,
+    "pass_rule": "The 7-year marker must cover the specified year.",
+    "failure_action": "Terminate participation immediately and retain the failed check record."
+  },
   "conditions": [
     {
       "name": "feedback",

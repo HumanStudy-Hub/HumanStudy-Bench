@@ -63,14 +63,42 @@
     },
     "advisor_marker_width": 6,
     "advice_standard_deviation_years": 5,
-    "reflected_control_probability": 0.135
+    "reflected_control_probability": 0.135,
+    "practice_advisor": {
+      "display_name": "Practice advisor",
+      "marker_width": 8,
+      "center_variation_years": 3,
+      "advice_policy": "correct"
+    },
+    "attention_checks": {
+      "global_trial_indices_zero_based": [
+        16,
+        36
+      ],
+      "required_marker_width": 7,
+      "target_year_range": [
+        1890,
+        2009
+      ],
+      "target_wording": "digits written individually as words",
+      "failure_action": "terminate participant and preserve failed record"
+    }
   },
   "procedure": {
-    "core_trials": 40,
+    "total_trial_slots": 52,
+    "historical_question_trials": 50,
+    "unaided_practice_trials": 10,
+    "practice_advisor_trials": 2,
+    "main_experiment_slots": 40,
+    "main_historical_question_trials": 38,
+    "attention_check_trials": 2,
     "steps": [
       "Randomize the public question bank without replacement for each participant.",
       "Assign the participant to feedback/no-feedback and one of two advisor orders.",
-      "Run 15 familiarisation trials with the first advisor and 15 with the second advisor.",
+      "Run 10 unaided practice trials and reveal the correct year after each response.",
+      "Run 2 practice-with-advice trials using the separate correct Practice advisor and reveal the correct year after each final response.",
+      "Run 15 familiarisation slots with the first advisor and 15 with the second advisor.",
+      "Replace global trial indices 16 and 36 with attention checks requiring the smallest marker to cover a stated year; terminate immediately on failure.",
       "On every trial, collect an initial year estimate and marker width.",
       "Generate a six-year-wide advisor marker from the advisor's hidden policy.",
       "Collect a final year estimate and marker width while preserving the initial estimate and advice in context.",
@@ -84,7 +112,10 @@
     "group_semantics": "custom stateful participant runner; participants are independent and may run in parallel",
     "default_participants": 60,
     "minimum_participants": 1,
-    "core_trials_per_participant": 40,
-    "llm_calls_per_participant_without_repairs": 90
+    "total_trial_slots_per_completed_participant": 52,
+    "main_experiment_slots_per_participant": 40,
+    "main_historical_trials_per_completed_participant": 38,
+    "attention_checks_per_completed_participant": 2,
+    "llm_calls_per_completed_participant_without_repairs": 102
   }
 }

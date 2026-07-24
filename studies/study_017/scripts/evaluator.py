@@ -8,6 +8,8 @@ from typing import Any, Dict, List, Optional, Tuple
 
 REPORTED_NO_FEEDBACK_AGREEING_RATE = 0.51
 REPORTED_FEEDBACK_AGREEING_RATE = 0.17
+TOTAL_TRIAL_SLOTS = 52
+ATTENTION_CHECK_GLOBAL_INDICES = [16, 36]
 
 
 def _flatten(results: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -24,15 +26,44 @@ def _execution_checks(
     participants = results.get("individual_data", [])
     tests: List[Dict[str, Any]] = []
 
-    complete = bool(participants) and all(
-        len(participant.get("responses", [])) == 40 for participant in participants
-    )
+    valid_schedules = bool(participants)
+    schedule_details: Dict[str, Any] = {}
+    for participant in participants:
+        participant_responses = participant.get("responses", [])
+        observed_indices = [
+            response.get("trial_info", {}).get("global_trial_index")
+            for response in participant_responses
+        ]
+        terminated = bool(participant.get("terminated_early"))
+        if terminated:
+            last = participant_responses[-1] if participant_responses else {}
+            last_info = last.get("trial_info", {})
+            expected_indices = list(range(int(last_info.get("global_trial_index", -1)) + 1))
+            valid = (
+                last_info.get("attention_check") is True
+                and last_info.get("attention_check_passed") is False
+                and last_info.get("global_trial_index") in ATTENTION_CHECK_GLOBAL_INDICES
+                and observed_indices == expected_indices
+            )
+        else:
+            valid = (
+                len(participant_responses) == TOTAL_TRIAL_SLOTS
+                and observed_indices == list(range(TOTAL_TRIAL_SLOTS))
+            )
+        schedule_details[str(participant.get("participant_id"))] = {
+            "responses": len(participant_responses),
+            "terminated_early": terminated,
+            "valid": valid,
+        }
+        if not valid:
+            valid_schedules = False
     tests.append(
         {
-            "test_id": "complete_core_blocks",
-            "passed": complete,
+            "test_id": "complete_schedule_or_valid_attention_termination",
+            "passed": valid_schedules,
             "participants": len(participants),
             "responses": len(responses),
+            "details": schedule_details,
         }
     )
 
@@ -49,12 +80,103 @@ def _execution_checks(
         }
     )
 
+    practice_complete = bool(participants)
+    for participant in participants:
+        participant_responses = participant.get("responses", [])
+        unaided = [
+            response
+            for response in participant_responses
+            if response.get("trial_info", {}).get("phase") == "unaided_practice"
+        ]
+        advised = [
+            response
+            for response in participant_responses
+            if response.get("trial_info", {}).get("phase") == "practice_advisor"
+        ]
+        if (
+            len(unaided) != 10
+            or len(advised) != 2
+            or any(
+                response.get("trial_info", {}).get(
+                    "correct_year_revealed_after_response"
+                )
+                is not True
+                for response in unaided + advised
+            )
+            or any(
+                response.get("trial_info", {}).get("advisor_display_name")
+                != "Practice advisor"
+                or response.get("trial_info", {}).get("advice_mode")
+                != "practice_correct"
+                or response.get("trial_info", {}).get("advice_width") != 8
+                for response in advised
+            )
+        ):
+            practice_complete = False
+    tests.append(
+        {
+            "test_id": "original_ten_plus_two_practice_sequence",
+            "passed": practice_complete,
+        }
+    )
+
+    attention_checks_complete = bool(participants)
+    for participant in participants:
+        checks = [
+            response
+            for response in participant.get("responses", [])
+            if response.get("trial_info", {}).get("attention_check") is True
+        ]
+        terminated = bool(participant.get("terminated_early"))
+        if terminated:
+            expected_count = (
+                1
+                if checks
+                and checks[-1].get("trial_info", {}).get("global_trial_index") == 16
+                else 2
+            )
+            valid = (
+                len(checks) == expected_count
+                and checks[-1].get("trial_info", {}).get("attention_check_passed")
+                is False
+            )
+        else:
+            valid = (
+                [
+                    response.get("trial_info", {}).get("global_trial_index")
+                    for response in checks
+                ]
+                == ATTENTION_CHECK_GLOBAL_INDICES
+                and all(
+                    response.get("trial_info", {}).get("attention_check_passed")
+                    is True
+                    for response in checks
+                )
+            )
+        for response in checks:
+            info = response.get("trial_info", {})
+            prompt = info.get("agent_visible_prompts", {}).get("initial", "")
+            valid = (
+                valid
+                and info.get("attention_check_required_width") == 7
+                and info.get("attention_check_target_words") in prompt
+                and "smallest marker" in prompt
+            )
+        if not valid:
+            attention_checks_complete = False
+    tests.append(
+        {
+            "test_id": "attention_checks_at_original_slots_and_fail_closed",
+            "passed": attention_checks_complete,
+        }
+    )
+
     ten_choices = bool(participants) and all(
         sum(
             response.get("trial_info", {}).get("advisor_choice") in {"A", "B"}
             for response in participant.get("responses", [])
         )
-        == 10
+        == (0 if participant.get("terminated_early") else 10)
         for participant in participants
     )
     tests.append(
@@ -64,9 +186,14 @@ def _execution_checks(
         }
     )
 
-    no_answer_leak = bool(responses) and all(
-        response.get("trial_info", {}).get("answer_revealed_before_final") is False
+    core_responses = [
+        response
         for response in responses
+        if response.get("trial_info", {}).get("analysis_included") is True
+    ]
+    no_answer_leak = bool(core_responses) and all(
+        response.get("trial_info", {}).get("answer_revealed_before_final") is False
+        for response in core_responses
     )
     tests.append(
         {
@@ -75,11 +202,16 @@ def _execution_checks(
         }
     )
 
-    anonymous = bool(responses) and all(
+    advised_core_responses = [
+        response
+        for response in core_responses
+        if response.get("trial_info", {}).get("advisor_type") in {"accurate", "agreeing"}
+    ]
+    anonymous = bool(advised_core_responses) and all(
         str(response.get("trial_info", {}).get("advisor_display_name", "")).startswith(
             "Advisor #"
         )
-        for response in responses
+        for response in advised_core_responses
     )
     tests.append(
         {
