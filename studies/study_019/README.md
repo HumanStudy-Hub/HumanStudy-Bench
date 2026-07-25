@@ -23,7 +23,9 @@ fixed scenario evidence taken from the published variable-coding documents.
 
 Urn A contains two white and one black ball; Urn B contains one white and two
 black balls. The urn prior is equal. Participants see predecessors' public urn
-predictions but never their private draws.
+predictions but never their private draws. Every predecessor saw all earlier
+public predictions before deciding, so later predictions may already reflect
+earlier ones and are not independent ball draws.
 
 ### Study 2: Medical Authority Scenarios
 
@@ -35,9 +37,11 @@ predictions but never their private draws.
 - Appendicitis/sigmoid diverticulitis diagnosis
 - Confidence judgment from 50% through 100%
 
-The private symptom and every independent physician diagnosis are described as
-67% accurate. Hierarchical role therefore changes authority while holding the
-stated informational accuracy constant.
+The private symptom and a physician diagnosing without prior diagnoses are
+described as 67% accurate. Physicians act sequentially and see diagnoses
+already entered in the patient record, so later diagnoses are not independent
+medical tests. Hierarchical role therefore changes authority while holding the
+stated baseline diagnostic accuracy constant.
 
 ## Source Boundary
 
@@ -85,11 +89,18 @@ original sample makes 2,560 model calls before any response repairs.
 
 ## Evaluation Boundary
 
-Pass/fail checks scenario completeness, source-material integrity, randomized
-order, response domains, prompt visibility, and absence of answer feedback.
-Behavioral rates are reported separately as diagnostics. The runtime does not
-claim to reproduce the paper merely because the source-derived mock agent
-matches published aggregates.
+`environment_passed` checks scenario completeness, source-material integrity,
+randomized order, response domains, prompt visibility, and absence of answer
+feedback. Top-level `passed` additionally requires at least 40 participants in
+each sub-study and source-grounded alignment for broad choices, Study 1
+probability-judgment groups, and Study 2 authority-condition choice and
+probability-judgment cells.
+
+Stage 5 writes both `behavioral_diagnostics` and the package evaluator result
+to `full_benchmark.json`. A two-agent smoke run is not behaviorally evaluable
+and therefore cannot report replication success. The source-derived mock policy
+is only an execution regression fixture; its behavioral agreement is not
+independent replication evidence.
 
 ## Files
 

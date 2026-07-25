@@ -15,7 +15,7 @@
   },
   "study_1": {
     "sub_study_id": "study_1_urn_scenarios",
-    "instructions": "Two urns are equally likely. Urn A contains two white balls and one black ball. Urn B contains one white ball and two black balls. Up to four people act in sequence. Each person privately observes one ball, replaces it, and publicly announces only an urn prediction. You play the final person shown in each scenario. Use the public predictions and your own private ball to predict the selected urn. One scenario may be selected for payment: a correct decision earns CHF 2, and a confidence judgment within five percentage points of the normative probability earns an additional CHF 2.",
+    "instructions": "Two urns are equally likely. Urn A contains two white balls and one black ball. Urn B contains one white ball and two black balls. Up to four people act in sequence. Each person privately observes one ball, replaces it, sees every urn prediction already announced by earlier people, and then publicly announces only an urn prediction. Thus, a later public prediction may already reflect earlier public predictions and must not be treated as an independent ball draw. You play the final person shown in each scenario. Use the ordered public predictions and your own private ball to predict the selected urn. One scenario may be selected for payment: a correct decision earns CHF 2, and a confidence judgment within five percentage points of the normative probability earns an additional CHF 2.",
     "scenarios": [
       {
         "scenario_id": "study1_raw_01",
@@ -35,6 +35,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.95,
           "private_choice_rate": 0.95,
@@ -71,6 +74,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.875,
           "private_choice_rate": 0.875,
@@ -108,6 +114,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 39,
+          "n_choice": 39,
+          "n_confidence": 39,
+          "n_paired": 39,
           "option_1": "A",
           "option_1_rate": 0.8717948717948718,
           "private_choice_rate": 0.8717948717948718,
@@ -146,6 +155,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.775,
           "private_choice_rate": 0.775,
@@ -185,6 +197,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.825,
           "private_choice_rate": 0.825,
@@ -224,6 +239,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.65,
           "private_choice_rate": 0.65,
@@ -260,10 +278,13 @@
         "cascade_scenario": false,
         "indifference_scenario": true,
         "human_raw_data": {
-          "n": 39,
+          "n": 40,
+          "n_choice": 40,
+          "n_confidence": 39,
+          "n_paired": 39,
           "option_1": "A",
-          "option_1_rate": 0.10256410256410256,
-          "private_choice_rate": 0.8974358974358975,
+          "option_1_rate": 0.125,
+          "private_choice_rate": 0.875,
           "bayesian_choice_rate": null,
           "authority_choice_rate": null,
           "mean_confidence": 59.53846153846154,
@@ -296,11 +317,14 @@
         "cascade_scenario": true,
         "indifference_scenario": false,
         "human_raw_data": {
-          "n": 39,
+          "n": 40,
+          "n_choice": 40,
+          "n_confidence": 39,
+          "n_paired": 39,
           "option_1": "A",
-          "option_1_rate": 0.6923076923076923,
-          "private_choice_rate": 0.3076923076923077,
-          "bayesian_choice_rate": 0.6923076923076923,
+          "option_1_rate": 0.7,
+          "private_choice_rate": 0.3,
+          "bayesian_choice_rate": 0.7,
           "authority_choice_rate": null,
           "mean_confidence": 65,
           "mean_probability_assigned_to_bayesian_choice": 0.5505128205128205
@@ -334,6 +358,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.075,
           "private_choice_rate": 0.925,
@@ -372,6 +399,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.75,
           "private_choice_rate": 0.25,
@@ -411,6 +441,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.125,
           "private_choice_rate": 0.875,
@@ -450,6 +483,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.05,
           "private_choice_rate": 0.95,
@@ -487,6 +523,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.125,
           "private_choice_rate": 0.875,
@@ -523,6 +562,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.075,
           "private_choice_rate": 0.925,
@@ -560,6 +602,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.05,
           "private_choice_rate": 0.95,
@@ -598,6 +643,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.075,
           "private_choice_rate": 0.925,
@@ -637,6 +685,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.125,
           "private_choice_rate": 0.875,
@@ -676,6 +727,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.35,
           "private_choice_rate": 0.65,
@@ -713,6 +767,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.925,
           "private_choice_rate": 0.925,
@@ -749,6 +806,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.275,
           "private_choice_rate": 0.275,
@@ -786,6 +846,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.975,
           "private_choice_rate": 0.975,
@@ -824,6 +887,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 39,
+          "n_choice": 39,
+          "n_confidence": 39,
+          "n_paired": 39,
           "option_1": "A",
           "option_1_rate": 0.15384615384615385,
           "private_choice_rate": 0.15384615384615385,
@@ -863,6 +929,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 39,
+          "n_choice": 39,
+          "n_confidence": 39,
+          "n_paired": 39,
           "option_1": "A",
           "option_1_rate": 0.8205128205128205,
           "private_choice_rate": 0.8205128205128205,
@@ -902,6 +971,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "A",
           "option_1_rate": 0.925,
           "private_choice_rate": 0.925,
@@ -925,7 +997,7 @@
   },
   "study_2": {
     "sub_study_id": "study_2_medical_authority_scenarios",
-    "instructions": "Imagine that you are an assistant physician diagnosing either appendicitis or sigmoid diverticulitis; the diseases are equally likely. Regurgitation occurs with probability 0.67 under sigmoid diverticulitis and 0.33 under appendicitis. Twinges in the lower left abdomen occur with probability 0.67 under appendicitis and 0.33 under sigmoid diverticulitis. Independent diagnoses by assistant physicians and the medical director are each correct in two of three cases. The patient record shows previous diagnoses in their original order. One scenario may be selected for payment: a correct diagnosis earns CHF 2, and a confidence judgment within five percentage points of the normative probability earns an additional CHF 2.",
+    "instructions": "Imagine that you are an assistant physician diagnosing either appendicitis or sigmoid diverticulitis; the diseases are equally likely. Regurgitation occurs with probability 0.67 under sigmoid diverticulitis and 0.33 under appendicitis. Twinges in the lower left abdomen occur with probability 0.67 under appendicitis and 0.33 under sigmoid diverticulitis. An assistant physician or medical director is correct in two of three cases when diagnosing without seeing another physician's diagnosis. In this sequential task, each physician sees the diagnoses already entered in the patient record before adding a diagnosis. Consequently, a later diagnosis may already reflect earlier diagnoses and is not an independent medical test. The patient record shows those diagnoses in their original order, and you make the final diagnosis. One scenario may be selected for payment: a correct diagnosis earns CHF 2, and a confidence judgment within five percentage points of the normative probability earns an additional CHF 2.",
     "scenarios": [
       {
         "scenario_id": "study2_raw_01",
@@ -949,6 +1021,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.975,
           "private_choice_rate": 0.975,
@@ -992,6 +1067,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.975,
           "private_choice_rate": 0.975,
@@ -1040,6 +1118,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 1,
           "private_choice_rate": 1,
@@ -1093,6 +1174,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 1,
           "private_choice_rate": 1,
@@ -1146,6 +1230,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 1,
           "private_choice_rate": 1,
@@ -1199,6 +1286,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.95,
           "private_choice_rate": 0.95,
@@ -1252,6 +1342,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.825,
           "private_choice_rate": 0.825,
@@ -1305,6 +1398,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.95,
           "private_choice_rate": 0.95,
@@ -1363,6 +1459,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 1,
           "private_choice_rate": 1,
@@ -1426,6 +1525,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 1,
           "private_choice_rate": 1,
@@ -1489,6 +1591,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 1,
           "private_choice_rate": 1,
@@ -1552,6 +1657,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.975,
           "private_choice_rate": 0.975,
@@ -1615,6 +1723,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.95,
           "private_choice_rate": 0.95,
@@ -1678,6 +1789,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.9,
           "private_choice_rate": 0.9,
@@ -1741,6 +1855,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.975,
           "private_choice_rate": 0.975,
@@ -1804,6 +1921,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.95,
           "private_choice_rate": 0.95,
@@ -1867,6 +1987,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.75,
           "private_choice_rate": 0.75,
@@ -1930,6 +2053,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.4,
           "private_choice_rate": 0.4,
@@ -1993,6 +2119,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.3,
           "private_choice_rate": 0.3,
@@ -2056,6 +2185,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.4,
           "private_choice_rate": 0.4,
@@ -2109,6 +2241,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.3,
           "private_choice_rate": 0.7,
@@ -2152,6 +2287,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.625,
           "private_choice_rate": 0.375,
@@ -2200,12 +2338,15 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 39,
+          "n_choice": 39,
+          "n_confidence": 40,
+          "n_paired": 39,
           "option_1": "appendicitis",
           "option_1_rate": 0.8461538461538461,
           "private_choice_rate": 0.15384615384615385,
           "bayesian_choice_rate": 0.8461538461538461,
           "authority_choice_rate": 0.8461538461538461,
-          "mean_confidence": 68.07692307692308,
+          "mean_confidence": 68.35,
           "mean_probability_assigned_to_bayesian_choice": 0.6674358974358975
         },
         "source_signature": {
@@ -2253,6 +2394,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.825,
           "private_choice_rate": 0.175,
@@ -2306,6 +2450,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.75,
           "private_choice_rate": 0.25,
@@ -2359,6 +2506,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.125,
           "private_choice_rate": 0.875,
@@ -2412,6 +2562,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.075,
           "private_choice_rate": 0.925,
@@ -2465,12 +2618,15 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 39,
+          "n_choice": 39,
+          "n_confidence": 40,
+          "n_paired": 39,
           "option_1": "appendicitis",
           "option_1_rate": 0.05128205128205128,
           "private_choice_rate": 0.9487179487179487,
           "bayesian_choice_rate": 0.9487179487179487,
           "authority_choice_rate": null,
-          "mean_confidence": 68.43589743589743,
+          "mean_confidence": 68.025,
           "mean_probability_assigned_to_bayesian_choice": 0.6453846153846154
         },
         "source_signature": {
@@ -2523,6 +2679,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.875,
           "private_choice_rate": 0.125,
@@ -2586,6 +2745,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.875,
           "private_choice_rate": 0.125,
@@ -2649,6 +2811,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.85,
           "private_choice_rate": 0.15,
@@ -2712,6 +2877,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.75,
           "private_choice_rate": 0.25,
@@ -2775,6 +2943,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.525,
           "private_choice_rate": 0.475,
@@ -2838,6 +3009,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.4,
           "private_choice_rate": 0.6,
@@ -2901,6 +3075,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.625,
           "private_choice_rate": 0.375,
@@ -2964,6 +3141,9 @@
         "indifference_scenario": true,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.4,
           "private_choice_rate": 0.6,
@@ -3027,6 +3207,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.175,
           "private_choice_rate": 0.825,
@@ -3090,6 +3273,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.05,
           "private_choice_rate": 0.95,
@@ -3152,12 +3338,15 @@
         "cascade_scenario": false,
         "indifference_scenario": false,
         "human_raw_data": {
-          "n": 39,
+          "n": 40,
+          "n_choice": 40,
+          "n_confidence": 39,
+          "n_paired": 39,
           "option_1": "appendicitis",
-          "option_1_rate": 0.02564102564102564,
-          "private_choice_rate": 0.9743589743589743,
-          "bayesian_choice_rate": 0.9743589743589743,
-          "authority_choice_rate": 0.9743589743589743,
+          "option_1_rate": 0.025,
+          "private_choice_rate": 0.975,
+          "bayesian_choice_rate": 0.975,
+          "authority_choice_rate": 0.975,
           "mean_confidence": 78.28205128205128,
           "mean_probability_assigned_to_bayesian_choice": 0.7746153846153846
         },
@@ -3216,6 +3405,9 @@
         "indifference_scenario": false,
         "human_raw_data": {
           "n": 40,
+          "n_choice": 40,
+          "n_confidence": 40,
+          "n_paired": 40,
           "option_1": "appendicitis",
           "option_1_rate": 0.025,
           "private_choice_rate": 0.975,

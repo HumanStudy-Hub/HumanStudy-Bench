@@ -1,3 +1,4 @@
+import copy
 import importlib.util
 import json
 import tempfile
@@ -7,6 +8,7 @@ from pathlib import Path
 from generation_pipeline.stage5 import Stage5Options, run_stage5
 from src.core.study import Study
 from src.core.study_config import get_study_config
+from src.evaluation.evaluator_runner import find_evaluator_path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -119,6 +121,62 @@ class SequentialSocialInfluenceTests(unittest.TestCase):
         )
         self.assertEqual(scenario["posterior_probability_appendicitis"], 0.5)
         self.assertEqual(scenario["human_raw_data"]["option_1_rate"], 0.625)
+
+        cascade = scenarios["study2_raw_25"]
+        self.assertEqual(cascade["article_scenario_id"], 3)
+        self.assertAlmostEqual(
+            cascade["human_raw_data"]["mean_confidence"] / 100.0,
+            0.65925,
+        )
+        self.assertAlmostEqual(
+            cascade["human_raw_data"][
+                "mean_probability_assigned_to_bayesian_choice"
+            ],
+            0.60075,
+        )
+
+    def test_choice_and_confidence_missingness_are_kept_separate(self):
+        study_1 = {
+            row["scenario_id"]: row["human_raw_data"]
+            for row in self.material["study_1"]["scenarios"]
+        }
+        self.assertEqual(
+            (
+                study_1["study1_raw_07"]["n_choice"],
+                study_1["study1_raw_07"]["n_confidence"],
+                study_1["study1_raw_07"]["n_paired"],
+            ),
+            (40, 39, 39),
+        )
+        self.assertEqual(
+            (
+                study_1["study1_raw_08"]["n_choice"],
+                study_1["study1_raw_08"]["n_confidence"],
+                study_1["study1_raw_08"]["n_paired"],
+            ),
+            (40, 39, 39),
+        )
+
+        study_2 = {
+            row["scenario_id"]: row["human_raw_data"]
+            for row in self.material["study_2"]["scenarios"]
+        }
+        self.assertEqual(
+            (
+                study_2["study2_raw_23"]["n_choice"],
+                study_2["study2_raw_23"]["n_confidence"],
+                study_2["study2_raw_23"]["n_paired"],
+            ),
+            (39, 40, 39),
+        )
+        self.assertEqual(
+            (
+                study_2["study2_raw_39"]["n_choice"],
+                study_2["study2_raw_39"]["n_confidence"],
+                study_2["study2_raw_39"]["n_paired"],
+            ),
+            (40, 39, 39),
+        )
 
     def test_compiled_raw_data_recovers_the_published_behavioral_rates(self):
         def weighted_rate(rows, key):
@@ -253,10 +311,19 @@ class SequentialSocialInfluenceTests(unittest.TestCase):
             private_symptom="regurgitation",
         )
         visible = (study_1_prompt + "\n" + study_2_prompt).lower()
+        study_1_instructions = self.material["study_1"]["instructions"].lower()
+        study_2_instructions = self.material["study_2"]["instructions"].lower()
         self.assertIn("predicted urn a", visible)
         self.assertIn("private ball is black", visible)
         self.assertIn("medical director diagnosed appendicitis", visible)
         self.assertIn("patient has this symptom: regurgitation", visible)
+        self.assertIn("sees every urn prediction", study_1_instructions)
+        self.assertIn(
+            "must not be treated as an independent ball draw",
+            study_1_instructions,
+        )
+        self.assertIn("each physician sees the diagnoses", study_2_instructions)
+        self.assertIn("is not an independent medical test", study_2_instructions)
         for hidden in (
             "posterior probability",
             "bayesian choice",
@@ -266,7 +333,7 @@ class SequentialSocialInfluenceTests(unittest.TestCase):
         ):
             self.assertNotIn(hidden, visible)
 
-    def test_small_mock_stage5_passes_fail_closed_evaluator(self):
+    def test_small_mock_stage5_passes_environment_but_not_replication(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             summary = run_stage5(
                 STUDY_PATH,
@@ -283,9 +350,21 @@ class SequentialSocialInfluenceTests(unittest.TestCase):
                 sum(len(row["responses"]) for row in output["individual_data"]),
                 64,
             )
-            evaluation = self.evaluator.evaluate_study(output)
-            self.assertTrue(evaluation["passed"])
+            evaluation = output["evaluation"]
+            self.assertTrue(evaluation["environment_passed"])
+            self.assertFalse(evaluation["behavioral_evaluable"])
+            self.assertFalse(evaluation["behavioral_passed"])
+            self.assertFalse(evaluation["passed"])
+            self.assertIsNone(evaluation["behavioral_alignment_score"])
+            self.assertIsNotNone(
+                evaluation["provisional_behavioral_alignment_score"]
+            )
             self.assertEqual(evaluation["execution_score"], 1.0)
+            self.assertTrue(output["behavioral_diagnostics"])
+            self.assertEqual(
+                Path(evaluation["evaluator_path"]),
+                find_evaluator_path("study_019", STUDY_PATH),
+            )
 
     def test_full_original_mock_sample_produces_all_2560_responses(self):
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -317,8 +396,37 @@ class SequentialSocialInfluenceTests(unittest.TestCase):
                 },
             )
             evaluation = self.evaluator.evaluate_study(output)
+            stage5_evaluation = output["evaluation"]
             self.assertTrue(evaluation["passed"])
+            self.assertTrue(stage5_evaluation["passed"])
+            self.assertTrue(stage5_evaluation["environment_passed"])
+            self.assertTrue(stage5_evaluation["behavioral_passed"])
             self.assertEqual(evaluation["execution_score"], 1.0)
+            self.assertGreater(evaluation["behavioral_alignment_score"], 0.95)
+            authority_cells = output["behavioral_diagnostics"][
+                "study_2_medical_authority_scenarios"
+            ]["authority_condition_cells"]
+            self.assertIn("posterior_0.67", authority_cells)
+            self.assertIn(
+                "medical_director_opposes_private",
+                authority_cells["posterior_0.67"],
+            )
+
+            constant = copy.deepcopy(output)
+            for participant in constant["individual_data"]:
+                for response in participant["responses"]:
+                    if (
+                        response["trial_info"]["sub_study_id"]
+                        == "study_1_urn_scenarios"
+                    ):
+                        response["response"] = "A"
+                    else:
+                        response["response"] = "appendicitis"
+                    response["trial_info"]["confidence"] = 50
+            constant_evaluation = self.evaluator.evaluate_study(constant)
+            self.assertTrue(constant_evaluation["environment_passed"])
+            self.assertFalse(constant_evaluation["behavioral_passed"])
+            self.assertFalse(constant_evaluation["passed"])
 
 
 if __name__ == "__main__":

@@ -106,19 +106,32 @@ def _number(value: Any) -> Optional[float]:
     return float(str(value).replace(",", "."))
 
 
-def _workbook_columns(path: Path, scenario_count: int) -> Dict[int, List[Tuple[int, int]]]:
+def _workbook_columns(
+    path: Path,
+    scenario_count: int,
+) -> Dict[int, List[Tuple[Optional[int], Optional[int]]]]:
     workbook = openpyxl.load_workbook(path, data_only=True)
     sheet = workbook.active
     rows = list(sheet.iter_rows(values_only=True))[1:]
-    output: Dict[int, List[Tuple[int, int]]] = {}
+    output: Dict[int, List[Tuple[Optional[int], Optional[int]]]] = {}
     for scenario_id in range(1, scenario_count + 1):
-        values: List[Tuple[int, int]] = []
+        values: List[Tuple[Optional[int], Optional[int]]] = []
         for row in rows:
-            choice = _number(row[2 * scenario_id - 1])
-            confidence = _number(row[2 * scenario_id])
-            if choice is None or confidence is None or choice == 9 or confidence == 9:
+            raw_choice = _number(row[2 * scenario_id - 1])
+            raw_confidence = _number(row[2 * scenario_id])
+            choice = (
+                None
+                if raw_choice is None or raw_choice == 9
+                else int(raw_choice)
+            )
+            confidence = (
+                None
+                if raw_confidence is None or raw_confidence == 9
+                else int(raw_confidence)
+            )
+            if choice is None and confidence is None:
                 continue
-            values.append((int(choice), int(confidence)))
+            values.append((choice, confidence))
         output[scenario_id] = values
     return output
 
@@ -146,22 +159,34 @@ def _fingerprint(payload: Dict[str, Any]) -> str:
 
 
 def _human_stats(
-    observations: Sequence[Tuple[str, int]],
+    observations: Sequence[Tuple[Optional[str], Optional[int]]],
     *,
     option_1: str,
     private_choice: str,
     bayesian_choice: Optional[str],
     authority_choice: Optional[str] = None,
 ) -> Dict[str, Any]:
-    choices = [choice for choice, _ in observations]
-    confidences = [confidence for _, confidence in observations]
+    choices = [choice for choice, _ in observations if choice is not None]
+    confidences = [
+        confidence
+        for _, confidence in observations
+        if confidence is not None
+    ]
+    paired = [
+        (choice, confidence)
+        for choice, confidence in observations
+        if choice is not None and confidence is not None
+    ]
     target_probabilities = [
         confidence / 100.0 if choice == bayesian_choice else 1.0 - confidence / 100.0
-        for choice, confidence in observations
+        for choice, confidence in paired
         if bayesian_choice is not None
     ]
     return {
-        "n": len(observations),
+        "n": len(choices),
+        "n_choice": len(choices),
+        "n_confidence": len(confidences),
+        "n_paired": len(paired),
         "option_1": option_1,
         "option_1_rate": _mean_or_none(choice == option_1 for choice in choices),
         "private_choice_rate": _mean_or_none(
@@ -184,7 +209,9 @@ def _human_stats(
     }
 
 
-def _compile_study_1(raw: Dict[int, List[Tuple[int, int]]]) -> List[Dict[str, Any]]:
+def _compile_study_1(
+    raw: Dict[int, List[Tuple[Optional[int], Optional[int]]]],
+) -> List[Dict[str, Any]]:
     scenarios: List[Dict[str, Any]] = []
     for raw_id in range(1, 25):
         base_id = raw_id if raw_id <= 12 else raw_id - 12
@@ -201,14 +228,13 @@ def _compile_study_1(raw: Dict[int, List[Tuple[int, int]]]) -> List[Dict[str, An
         probability_a = (
             round(1.0 - base_probability_a, 2) if mirrored else base_probability_a
         )
-        visible_observations = [
-            (
-                (_flip("A" if choice_code == 1 else "B") if mirrored else
-                 ("A" if choice_code == 1 else "B")),
-                confidence,
-            )
-            for choice_code, confidence in raw[raw_id]
-        ]
+        visible_observations: List[Tuple[Optional[str], Optional[int]]] = []
+        for choice_code, confidence in raw[raw_id]:
+            visible_choice: Optional[str] = None
+            if choice_code is not None:
+                coded_choice = "A" if choice_code == 1 else "B"
+                visible_choice = _flip(coded_choice) if mirrored else coded_choice
+            visible_observations.append((visible_choice, confidence))
         bayesian = _bayesian_choice(probability_a)
         source_signature = {
             "previous_decisions": list(previous),
@@ -253,7 +279,9 @@ def _authority_condition(
     return "medical_director_opposes_private"
 
 
-def _compile_study_2(raw: Dict[int, List[Tuple[int, int]]]) -> List[Dict[str, Any]]:
+def _compile_study_2(
+    raw: Dict[int, List[Tuple[Optional[int], Optional[int]]]],
+) -> List[Dict[str, Any]]:
     scenarios: List[Dict[str, Any]] = []
     for raw_id, article_id, coded_previous, private_code, probability_ap in STUDY_2_SCENARIOS:
         previous = [
@@ -265,10 +293,16 @@ def _compile_study_2(raw: Dict[int, List[Tuple[int, int]]]) -> List[Dict[str, An
             for index, (role, disease) in enumerate(coded_previous, start=1)
         ]
         private_disease = DISEASE_NAMES[private_code]
-        observations = [
-            (DISEASE_NAMES["AP"] if choice_code == 1 else DISEASE_NAMES["SI"], confidence)
-            for choice_code, confidence in raw[raw_id]
-        ]
+        observations: List[Tuple[Optional[str], Optional[int]]] = []
+        for choice_code, confidence in raw[raw_id]:
+            diagnosis = (
+                None
+                if choice_code is None
+                else DISEASE_NAMES["AP"]
+                if choice_code == 1
+                else DISEASE_NAMES["SI"]
+            )
+            observations.append((diagnosis, confidence))
         bayesian = _bayesian_choice(
             probability_ap,
             DISEASE_NAMES["AP"],
@@ -349,12 +383,15 @@ def build(study_1_path: Path, study_2_path: Path) -> Dict[str, Any]:
                 "Two urns are equally likely. Urn A contains two white balls and one "
                 "black ball. Urn B contains one white ball and two black balls. Up to "
                 "four people act in sequence. Each person privately observes one ball, "
-                "replaces it, and publicly announces only an urn prediction. You play "
-                "the final person shown in each scenario. Use the public predictions "
-                "and your own private ball to predict the selected urn. One scenario "
-                "may be selected for payment: a correct decision earns CHF 2, and a "
-                "confidence judgment within five percentage points of the normative "
-                "probability earns an additional CHF 2."
+                "replaces it, sees every urn prediction already announced by earlier "
+                "people, and then publicly announces only an urn prediction. Thus, a "
+                "later public prediction may already reflect earlier public predictions "
+                "and must not be treated as an independent ball draw. You play the final "
+                "person shown in each scenario. Use the ordered public predictions and "
+                "your own private ball to predict the selected urn. One scenario may be "
+                "selected for payment: a correct decision earns CHF 2, and a confidence "
+                "judgment within five percentage points of the normative probability "
+                "earns an additional CHF 2."
             ),
             "scenarios": study_1,
         },
@@ -366,12 +403,17 @@ def build(study_1_path: Path, study_2_path: Path) -> Dict[str, Any]:
                 "likely. Regurgitation occurs with probability 0.67 under sigmoid "
                 "diverticulitis and 0.33 under appendicitis. Twinges in the lower left "
                 "abdomen occur with probability 0.67 under appendicitis and 0.33 under "
-                "sigmoid diverticulitis. Independent diagnoses by assistant physicians "
-                "and the medical director are each correct in two of three cases. The "
-                "patient record shows previous diagnoses in their original order. One "
-                "scenario may be selected for payment: a correct diagnosis earns CHF 2, "
-                "and a confidence judgment within five percentage points of the "
-                "normative probability earns an additional CHF 2."
+                "sigmoid diverticulitis. An assistant physician or medical director is "
+                "correct in two of three cases when diagnosing without seeing another "
+                "physician's diagnosis. In this "
+                "sequential task, each physician sees the diagnoses already entered in "
+                "the patient record before adding a diagnosis. Consequently, a later "
+                "diagnosis may already reflect earlier diagnoses and is not an independent "
+                "medical test. The patient record shows those diagnoses in their original "
+                "order, and you make the final diagnosis. One scenario may be selected "
+                "for payment: a correct diagnosis earns CHF 2, and a confidence judgment "
+                "within five percentage points of the normative probability earns an "
+                "additional CHF 2."
             ),
             "scenarios": study_2,
         },

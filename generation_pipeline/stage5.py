@@ -11,6 +11,7 @@ from src.agents.llm_participant_agent import ParticipantPool
 from src.core.benchmark import HumanStudyBench
 from src.core.study import Study
 from src.core.study_config import get_study_config
+from src.evaluation.evaluator_runner import find_evaluator_path, run_evaluator
 
 
 @dataclass
@@ -295,6 +296,18 @@ def run_stage5(
             aggregate = study_config.aggregate_results(raw_runs[0] if raw_runs else {"individual_data": []})
         except Exception as exc:
             aggregate = {"descriptive_statistics": {}, "inferential_statistics": {}, "error": str(exc)}
+        evaluator_path = find_evaluator_path(study_id, study_path)
+        evaluation = (
+            run_evaluator(study_id, aggregate, study_path)
+            if evaluator_path is not None
+            else {
+                "status": "not_available",
+                "passed": None,
+                "evaluator_path": None,
+            }
+        )
+        if evaluator_path is not None:
+            evaluation["evaluator_path"] = str(evaluator_path)
 
         model_dir = Path(runs_dir) / study_id / _safe_model_slug(model)
         model_dir.mkdir(parents=True, exist_ok=True)
@@ -314,6 +327,8 @@ def run_stage5(
             "elapsed_time": time.time() - start_time,
             "descriptive_statistics": aggregate.get("descriptive_statistics", {}),
             "inferential_statistics": aggregate.get("inferential_statistics", {}),
+            "behavioral_diagnostics": aggregate.get("behavioral_diagnostics", {}),
+            "evaluation": evaluation,
             "individual_data": raw_runs[0].get("individual_data", []) if raw_runs else [],
             "all_runs_raw_results": [
                 {"individual_data": run.get("individual_data", [])}
@@ -328,6 +343,8 @@ def run_stage5(
                 "repeats": len(raw_runs),
                 "responses": sum(len(run.get("individual_data", [])) for run in raw_runs),
                 "aggregate_error": aggregate.get("error"),
+                "evaluation_passed": evaluation.get("passed"),
+                "environment_passed": evaluation.get("environment_passed"),
             }
         )
 

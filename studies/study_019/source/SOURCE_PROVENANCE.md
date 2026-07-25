@@ -40,6 +40,22 @@ scenario ID. Medical roles, diagnoses, private symptoms, and posterior groups
 are transcribed from the public coding document and checked against the PLOS
 JATS tables.
 
+## Missing Values
+
+The public workbooks encode missing values as `9`. Choice and confidence
+missingness are independent in five source cells. The compiler therefore keeps
+separate `n_choice`, `n_confidence`, and `n_paired` counts. Choice rates use all
+valid choices, confidence means use all valid confidence judgments, and
+choice-conditioned probability judgments require a valid pair. This recovers
+the reported `838/1119` medical-director alignment count without imputing data.
+
+The article reports nominal cascade denominators (`120/160` for Study 1 and
+`230/280` for Study 2), while the workbooks contain 159 and 279 valid cascade
+choices respectively. The valid raw-data rates are therefore `120/159` and
+`230/279`. The package preserves the article values as reported ground truth
+and the independently counted workbook denominators in compiled material
+statistics.
+
 ## Wording Limitation
 
 The public archive does not include the original questionnaire or German

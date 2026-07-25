@@ -55,7 +55,13 @@
         ],
         "location": "Study 1 social influence model"
       }
-    ]
+    ],
+    "probability_judgment_by_bayesian_probability": {
+      "posterior_0.50": 0.59,
+      "posterior_0.67": 0.61,
+      "posterior_0.80": 0.69,
+      "posterior_0.89": 0.74
+    }
   },
   "study_2": {
     "analyzed_n": 40,
@@ -161,7 +167,14 @@
   },
   "validation_criteria": {
     "pass_threshold": 0.7,
-    "pass_policy": "fail closed on environment integrity; report behavioral alignment as diagnostics",
+    "pass_policy": "pass only when environment integrity and source-grounded behavioral checks both pass; report environment_passed separately for small smoke tests",
+    "behavioral_validation": {
+      "minimum_participants_per_sub_study": 40,
+      "broad_choice_mae_tolerance": 0.08,
+      "study_1_probability_judgment_mae_tolerance": 0.08,
+      "study_2_authority_choice_mae_tolerance": 0.1,
+      "study_2_authority_probability_judgment_mae_tolerance": 0.08
+    },
     "required_tests": [
       {
         "test_id": "source_scenario_integrity",
@@ -198,6 +211,7 @@
     "The public archive contains raw data and variable coding but not the original questionnaire file or original German wording.",
     "The participant-facing English instructions are a faithful semantic reconstruction from the article's Procedure sections, not a verbatim questionnaire transcription.",
     "The runtime does not fit the paper's participant-level JAGS cognitive models; it reports directly observable choice and confidence diagnostics.",
-    "The Figshare Study 1 data recode mirrored scenarios to the corresponding base orientation. The material compiler reverses that recoding when constructing visible Urn A versus Urn B rates."
+    "The Figshare Study 1 data recode mirrored scenarios to the corresponding base orientation. The material compiler reverses that recoding when constructing visible Urn A versus Urn B rates.",
+    "Choice and confidence missingness are handled independently. Choice rates use every valid choice, confidence means use every valid confidence judgment, and choice-conditioned probability judgments use only paired observations."
   ]
 }

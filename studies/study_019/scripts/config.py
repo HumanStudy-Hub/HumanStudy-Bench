@@ -487,6 +487,34 @@ class StudyStudy019Config(BaseStudyConfig):
     def _rate(rows: Sequence[Dict[str, Any]], predicate: Any) -> Optional[float]:
         return mean(bool(predicate(row)) for row in rows) if rows else None
 
+    @staticmethod
+    def _probability_judgment_for_target(row: Dict[str, Any]) -> float:
+        confidence = row["trial_info"]["confidence"] / 100.0
+        bayesian_choice = row["trial_info"]["bayesian_choice"]
+        if bayesian_choice is None:
+            return confidence
+        return (
+            confidence
+            if row["response"] == bayesian_choice
+            else 1.0 - confidence
+        )
+
+    @classmethod
+    def _mean_probability_judgment(
+        cls,
+        rows: Sequence[Dict[str, Any]],
+    ) -> Optional[float]:
+        return (
+            mean(cls._probability_judgment_for_target(row) for row in rows)
+            if rows
+            else None
+        )
+
+    @staticmethod
+    def _posterior_group(row: Dict[str, Any]) -> str:
+        confidence = float(row["trial_info"]["bayesian_confidence"])
+        return f"posterior_{confidence:.2f}"
+
     def aggregate_results(self, raw_results: Dict[str, Any]) -> Dict[str, Any]:
         participants = raw_results.get("individual_data", [])
         responses = [
@@ -509,13 +537,24 @@ class StudyStudy019Config(BaseStudyConfig):
             cascades = [
                 row for row in rows if row["trial_info"]["cascade_scenario"]
             ]
+            private_supported = [
+                row
+                for row in non_ties
+                if row["trial_info"]["bayesian_choice"]
+                == row["trial_info"]["private_information_favors"]
+            ]
             study_stats: Dict[str, Any] = {
                 "bayesian_choice_rate_non_indifference": self._rate(
                     non_ties,
                     lambda row: row["response"]
                     == row["trial_info"]["bayesian_choice"],
                 ),
-                "private_choice_rate_at_indifference": self._rate(
+                "bayesian_choice_rate_when_private_supported": self._rate(
+                    private_supported,
+                    lambda row: row["response"]
+                    == row["trial_info"]["bayesian_choice"],
+                ),
+                "private_choice_rate_at_bayesian_indifference": self._rate(
                     ties,
                     lambda row: row["response"]
                     == row["trial_info"]["private_information_favors"],
@@ -531,6 +570,19 @@ class StudyStudy019Config(BaseStudyConfig):
                     else None
                 ),
             }
+            posterior_groups = sorted(
+                {self._posterior_group(row) for row in rows}
+            )
+            study_stats["probability_judgment_by_bayesian_probability"] = {
+                group: self._mean_probability_judgment(
+                    [
+                        row
+                        for row in rows
+                        if self._posterior_group(row) == group
+                    ]
+                )
+                for group in posterior_groups
+            }
             if sub_study_id == STUDY_2_ID:
                 director_rows = [
                     row
@@ -542,6 +594,38 @@ class StudyStudy019Config(BaseStudyConfig):
                     lambda row: row["response"]
                     == row["trial_info"]["medical_director_diagnosis"],
                 )
+                authority_cells: Dict[str, Dict[str, Dict[str, Any]]] = {}
+                for group in posterior_groups:
+                    group_rows = [
+                        row
+                        for row in rows
+                        if self._posterior_group(row) == group
+                    ]
+                    conditions = sorted(
+                        {
+                            str(row["trial_info"]["authority_condition"])
+                            for row in group_rows
+                        }
+                    )
+                    authority_cells[group] = {}
+                    for condition in conditions:
+                        cell_rows = [
+                            row
+                            for row in group_rows
+                            if row["trial_info"]["authority_condition"] == condition
+                        ]
+                        authority_cells[group][condition] = {
+                            "responses": len(cell_rows),
+                            "private_choice_rate": self._rate(
+                                cell_rows,
+                                lambda row: row["response"]
+                                == row["trial_info"]["private_information_favors"],
+                            ),
+                            "probability_judgment": (
+                                self._mean_probability_judgment(cell_rows)
+                            ),
+                        }
+                study_stats["authority_condition_cells"] = authority_cells
             diagnostics[sub_study_id] = study_stats
 
         return {
