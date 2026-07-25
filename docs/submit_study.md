@@ -1,14 +1,24 @@
 # How to Submit Your Study
 
-You've extracted the data and built the files. The hard part is over — now you just need to get it into the repo.
+There are two ways to contribute a study to HumanStudy-Bench.
 
----
+## Build Study
 
-## Option A: GitHub Pull Request
+HumanStudy-Hub is developing a guided Build Study workflow for social-science
+researchers. It is designed to accept a published paper and optional open
+materials, pause for researcher review, and produce a runnable experiment
+folder that can be downloaded as a ZIP or saved to HumanStudy-Bench.
 
-### 1. Fork & clone
+Build Study is currently available through the private-beta HumanStudy-Hub web
+application. Direct pull requests remain available to every contributor and are
+the preferred path when authors want full control over each study file.
 
-Fork the [HumanStudy-Bench](https://github.com/HumanStudy-Hub/HumanStudy-Bench) repo on GitHub first, then clone your fork. If you haven't already:
+## Direct pull request
+
+### 1. Fork and clone
+
+Fork [HumanStudy-Bench](https://github.com/HumanStudy-Hub/HumanStudy-Bench),
+then clone your fork:
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/HumanStudy-Bench.git
@@ -19,45 +29,47 @@ git remote add upstream https://github.com/HumanStudy-Hub/HumanStudy-Bench.git
 ### 2. Create a branch
 
 ```bash
-git checkout -b contrib-yourgithubid-013
+git checkout -b contrib-yourgithubid-study-name
 ```
 
-### 3. Commit & push
+### 3. Add and verify the study
+
+Follow [What should I submit?](what_to_submit.md) and
+[How to build study files](build_study_files.md), then run:
 
 ```bash
-git add studies/study_XXX/
-git commit -m "Add study: Your Study Title"
-git push origin contrib-yourgithubid-013
+bash scripts/verify_study.sh yourgithubid_study_id
 ```
 
-### 4. Open a Pull Request
+### 4. Commit and push
 
-Head to GitHub and open a **Pull Request** targeting the `main` branch. Include a brief description of the study and any notes for reviewers.
+```bash
+git add studies/yourgithubid_study_id/
+git commit -m "Add study: Your Study Title"
+git push origin contrib-yourgithubid-study-name
+```
 
-Make sure your `index.json` includes a `contributors` field with your name, GitHub link, and institution — CI will verify your GitHub ID matches the PR author:
+### 5. Open a pull request
+
+Open a pull request targeting `main`. Include a short study description and
+anything reviewers should inspect carefully.
+
+Your `index.json` must identify the contributor:
 
 ```json
 "contributors": [
   {
     "name": "Your Name",
     "github": "https://github.com/your-username",
-    "institution": "Stanford University"
+    "institution": "Your Institution"
   }
 ]
 ```
 
-If you are not affiliated with a university or organization, use `"Independent Researcher"` as your institution.
+Use `"Independent Researcher"` when no institution applies.
 
-### What happens after you hit "Create PR"
+After submission:
 
-- **CI** runs `verify_study.sh` and `build_studies_index.py` automatically. It also checks that the `contributors` GitHub ID in your `index.json` matches the PR author.
-- **Human review**: A maintainer will look over your study structure, data quality, and description.
-- **Merge**: Once approved, your PR gets merged. The studies index rebuilds, and your study goes live on the [project website](https://www.hs-bench.clawder.ai). Maintainers assign the final `study_XXX` number by merge order.
-
----
-
-## Option B: Web upload
-
-Head to [hs-bench.clawder.ai/contribute](https://www.hs-bench.clawder.ai/contribute), upload a `.zip` of your study folder, and we'll create a GitHub PR on your behalf.
-
----
+- CI runs the study validator and rebuilds the study index.
+- A maintainer reviews structure, source fidelity, and data quality.
+- After approval, the study is merged and receives its final repository ID.
