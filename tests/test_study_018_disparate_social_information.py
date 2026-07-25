@@ -18,7 +18,7 @@ from src.llm.openai_client import _normalize_content
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-STUDY_PATH = REPO_ROOT / "studies" / "study_018"
+STUDY_PATH = REPO_ROOT / "archived_study" / "study_018"
 
 
 def load_evaluator():

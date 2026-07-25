@@ -12,7 +12,7 @@ from src.evaluation.evaluator_runner import find_evaluator_path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-STUDY_PATH = REPO_ROOT / "studies" / "study_019"
+STUDY_PATH = REPO_ROOT / "extended_study" / "study_019"
 
 
 def load_module(name: str, path: Path):

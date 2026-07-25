@@ -1,5 +1,9 @@
 # Strategies for Integrating Disparate Social Information
 
+> Archived: this complete environment is retained for reference but is not an
+> active extension candidate because the original task depends on controlled
+> six-second visual exposure and browser interaction.
+
 **Authors:** Lucas Molleman, Alan N. Tump, Andrea Gradassi, Stefan M. Herzog, Bertrand Jayles, Ralf H. J. M. Kurvers, and Wouter van den Bos
 
 **Year:** 2020
@@ -28,7 +32,7 @@ Mock smoke test:
     .venv/bin/python generation_pipeline/run.py \
       --settings config/settings.example.yaml \
       --stage 5 \
-      --experiment studies/study_018 \
+      --experiment archived_study/study_018 \
       --sim-models mock \
       --n-agents 4 \
       --mock-agent \
@@ -39,7 +43,7 @@ Real vision-capable model:
     .venv/bin/python generation_pipeline/run.py \
       --settings config/settings.yaml \
       --stage 5 \
-      --experiment studies/study_018 \
+      --experiment archived_study/study_018 \
       --sim-models gpt-5 \
       --n-agents 1 \
       --seed 42

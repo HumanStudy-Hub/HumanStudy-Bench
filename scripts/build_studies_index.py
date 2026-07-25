@@ -76,6 +76,7 @@ def write_index(studies: list[dict]) -> None:
     INDEX_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     with open(INDEX_OUTPUT, "w", encoding="utf-8") as f:
         json.dump({"studies": studies}, f, ensure_ascii=False, indent=2)
+        f.write("\n")
     print(f"Wrote {len(studies)} studies to {INDEX_OUTPUT}")
 
 

@@ -63,7 +63,7 @@ Small mock test covering both studies:
 .venv/bin/python generation_pipeline/run.py \
   --settings config/settings.example.yaml \
   --stage 5 \
-  --experiment studies/study_019 \
+  --experiment extended_study/study_019 \
   --sim-models mock \
   --n-agents 2 \
   --mock-agent \
@@ -76,7 +76,7 @@ Full original analyzed sample:
 .venv/bin/python generation_pipeline/run.py \
   --settings config/settings.example.yaml \
   --stage 5 \
-  --experiment studies/study_019 \
+  --experiment extended_study/study_019 \
   --sim-models mock \
   --n-agents 80 \
   --mock-agent \

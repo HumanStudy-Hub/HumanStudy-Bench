@@ -35,6 +35,12 @@ The pipeline is intentionally human-in-the-loop:
 - Stage 5 can run simulation after `scripts/config.py` exists and the materials
   pass the package-readiness gate.
 
+Only accepted benchmark packages belong under `studies/`. Packages still being
+evaluated for inclusion live under `extended_study/`; complete packages that
+are no longer active candidates live under `archived_study/`. Neither directory
+is included in the default benchmark index. Run those packages by passing their
+directory directly to Stage 5.
+
 Install the LLM and layout-aware PDF dependencies for generation:
 
 ```bash

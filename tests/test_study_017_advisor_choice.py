@@ -11,7 +11,7 @@ from src.core.study_config import get_study_config
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-STUDY_PATH = REPO_ROOT / "studies" / "study_017"
+STUDY_PATH = REPO_ROOT / "extended_study" / "study_017"
 
 
 def load_evaluator():

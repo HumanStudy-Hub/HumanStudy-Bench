@@ -39,7 +39,7 @@ Mock smoke test with four participants:
     .venv/bin/python generation_pipeline/run.py \
       --settings config/settings.example.yaml \
       --stage 5 \
-      --experiment studies/study_017 \
+      --experiment extended_study/study_017 \
       --sim-models mock \
       --n-agents 4 \
       --mock-agent \

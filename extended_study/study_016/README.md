@@ -55,7 +55,7 @@ One-session mock smoke test:
 .venv/bin/python generation_pipeline/run.py \
   --settings config/settings.example.yaml \
   --stage 5 \
-  --experiment studies/study_016 \
+  --experiment extended_study/study_016 \
   --sim-models mock \
   --n-agents 6 \
   --mock-agent \
@@ -68,7 +68,7 @@ Full 11-session environment test:
 .venv/bin/python generation_pipeline/run.py \
   --settings config/settings.example.yaml \
   --stage 5 \
-  --experiment studies/study_016 \
+  --experiment extended_study/study_016 \
   --sim-models mock \
   --n-agents 66 \
   --mock-agent \
