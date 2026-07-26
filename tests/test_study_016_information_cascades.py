@@ -112,9 +112,15 @@ class InformationCascadeStudyTests(unittest.TestCase):
             self.assertEqual(output["descriptive_statistics"]["periods"], 15)
             self.assertEqual(output["descriptive_statistics"]["parse_failures"], 0)
 
-            evaluation = load_evaluator().evaluate_study(output)
-            self.assertEqual(evaluation["execution_score"], 1.0)
-            self.assertTrue(evaluation["passed"])
+            manual_evaluation = load_evaluator().evaluate_study(output)
+            embedded_evaluation = output["evaluation"]
+            self.assertEqual(
+                embedded_evaluation["test_results"],
+                manual_evaluation["test_results"],
+            )
+            self.assertEqual(embedded_evaluation["execution_score"], 1.0)
+            self.assertTrue(embedded_evaluation["passed"])
+            self.assertTrue(summary["runs"][0]["evaluation_passed"])
             practice = output["individual_data"][0]["profile"]["practice_periods"]
             self.assertEqual({period["true_urn"] for period in practice}, {"A", "B"})
             self.assertTrue(all(period["decisions_required"] is False for period in practice))
@@ -199,9 +205,14 @@ class InformationCascadeStudyTests(unittest.TestCase):
                 },
             )
 
-            evaluation = load_evaluator().evaluate_study(output)
-            self.assertEqual(evaluation["execution_score"], 1.0)
-            self.assertTrue(evaluation["passed"])
+            manual_evaluation = load_evaluator().evaluate_study(output)
+            embedded_evaluation = output["evaluation"]
+            self.assertEqual(
+                embedded_evaluation["test_results"],
+                manual_evaluation["test_results"],
+            )
+            self.assertEqual(embedded_evaluation["execution_score"], 1.0)
+            self.assertTrue(embedded_evaluation["passed"])
 
 
 if __name__ == "__main__":

@@ -401,6 +401,10 @@ class SequentialSocialInfluenceTests(unittest.TestCase):
             self.assertTrue(stage5_evaluation["passed"])
             self.assertTrue(stage5_evaluation["environment_passed"])
             self.assertTrue(stage5_evaluation["behavioral_passed"])
+            self.assertEqual(
+                stage5_evaluation["test_results"],
+                evaluation["test_results"],
+            )
             self.assertEqual(evaluation["execution_score"], 1.0)
             self.assertGreater(evaluation["behavioral_alignment_score"], 0.95)
             authority_cells = output["behavioral_diagnostics"][

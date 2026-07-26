@@ -292,22 +292,17 @@ def run_stage5(
                 )
             )
 
-        try:
-            aggregate = study_config.aggregate_results(raw_runs[0] if raw_runs else {"individual_data": []})
-        except Exception as exc:
-            aggregate = {"descriptive_statistics": {}, "inferential_statistics": {}, "error": str(exc)}
-        evaluator_path = find_evaluator_path(study_id, study_path)
-        evaluation = (
-            run_evaluator(study_id, aggregate, study_path)
-            if evaluator_path is not None
-            else {
-                "status": "not_available",
-                "passed": None,
-                "evaluator_path": None,
-            }
+        primary_results = (
+            raw_runs[0] if raw_runs else {"individual_data": []}
         )
-        if evaluator_path is not None:
-            evaluation["evaluator_path"] = str(evaluator_path)
+        try:
+            aggregate = study_config.aggregate_results(primary_results)
+        except Exception as exc:
+            aggregate = {
+                "descriptive_statistics": {},
+                "inferential_statistics": {},
+                "error": str(exc),
+            }
 
         model_dir = Path(runs_dir) / study_id / _safe_model_slug(model)
         model_dir.mkdir(parents=True, exist_ok=True)
@@ -328,13 +323,25 @@ def run_stage5(
             "descriptive_statistics": aggregate.get("descriptive_statistics", {}),
             "inferential_statistics": aggregate.get("inferential_statistics", {}),
             "behavioral_diagnostics": aggregate.get("behavioral_diagnostics", {}),
-            "evaluation": evaluation,
-            "individual_data": raw_runs[0].get("individual_data", []) if raw_runs else [],
+            "individual_data": primary_results.get("individual_data", []),
             "all_runs_raw_results": [
                 {"individual_data": run.get("individual_data", [])}
                 for run in raw_runs
             ],
         }
+        evaluator_path = find_evaluator_path(study_id, study_path)
+        evaluation = (
+            run_evaluator(study_id, save_data, study_path)
+            if evaluator_path is not None
+            else {
+                "status": "not_available",
+                "passed": None,
+                "evaluator_path": None,
+            }
+        )
+        if evaluator_path is not None:
+            evaluation["evaluator_path"] = str(evaluator_path)
+        save_data["evaluation"] = evaluation
         output_path.write_text(json.dumps(save_data, indent=2, ensure_ascii=False), encoding="utf-8")
         all_model_runs.append(
             {
