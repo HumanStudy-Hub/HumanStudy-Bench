@@ -251,6 +251,14 @@ smoke run, pass `--allow-unready`; the override is recorded in the Stage 5 JSON.
 Stage 4 also imports and validates the generated config adapter. Missing or
 invalid adapter code makes the package unready even when its JSON files exist.
 
+## Effect A + B -> C Experiment
+
+The [`effect_algebra/`](effect_algebra/) workspace provides a Colab-ready,
+source-grounded experiment for training separate LoRA parameters on
+`study_016` and `study_017`, composing them, and evaluating transfer on
+`study_019`. See its [Chinese runbook](effect_algebra/README.md) or open
+[`colab_effect_algebra.ipynb`](effect_algebra/colab_effect_algebra.ipynb).
+
 ## <img src="https://api.iconify.design/lucide/git-pull-request.svg?color=%230891b2" width="20" height="20" /> How to Contribute a Study
 
 ### 1. Fork and clone

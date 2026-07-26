@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 import random
 import re
 import sys
@@ -113,13 +114,15 @@ def _choice_from_private_posterior(
     urns: Dict[str, Dict[str, int]],
 ) -> Tuple[str, float]:
     posterior_a = _posterior_after_signal(prior_a, private_signal, urns)
+    if math.isclose(posterior_a, 0.5, rel_tol=0.0, abs_tol=1e-12):
+        # Floating-point updates can produce 0.4999999999999999 for an exact
+        # Bayesian tie. The paper's tie rule follows the private draw.
+        return ("A" if private_signal == "L" else "B"), posterior_a
     if posterior_a > 0.5:
         return "A", posterior_a
     if posterior_a < 0.5:
         return "B", posterior_a
-    # At an exact tie, following the private draw matches the behavior discussed
-    # in the paper and avoids adding a label-based preference.
-    return ("A" if private_signal == "L" else "B"), posterior_a
+    raise AssertionError("unreachable posterior comparison")
 
 
 def _cascade_direction(
