@@ -1,7 +1,7 @@
 import json
 import re
 from abc import ABC, abstractmethod
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Dict, Any, List, Optional, Sequence, Tuple
 from pathlib import Path
 
 from src.agents.prompt_builder import PromptBuilder
@@ -9,6 +9,7 @@ from src.agents.prompt_builder import PromptBuilder
 
 class BaseStudyConfig(ABC):
     prompt_builder_class = PromptBuilder
+    SUPPORTED_SUB_STUDIES: Optional[Tuple[str, ...]] = None
 
     def __init__(self, study_path: Path, specification: Dict[str, Any]):
         study_root = Path(study_path)
@@ -18,8 +19,47 @@ class BaseStudyConfig(ABC):
         self.source_path = source_path
         self.specification = specification
         self.study_id = specification["study_id"]
+        self.selected_sub_studies: Tuple[str, ...] = ()
 
         self.prompt_builder = self.prompt_builder_class(self.study_path)
+
+    def get_supported_sub_studies(self) -> Optional[Tuple[str, ...]]:
+        return self.SUPPORTED_SUB_STUDIES
+
+    def configure_sub_studies(
+        self,
+        sub_studies: Optional[Sequence[str]],
+    ) -> Tuple[str, ...]:
+        if not sub_studies:
+            self.selected_sub_studies = ()
+            return self.selected_sub_studies
+
+        requested = [sub_studies] if isinstance(sub_studies, str) else list(sub_studies)
+        normalized: List[str] = []
+        for value in requested:
+            sub_study_id = str(value).strip()
+            if not sub_study_id:
+                raise ValueError("sub-study identifiers cannot be empty")
+            if sub_study_id not in normalized:
+                normalized.append(sub_study_id)
+
+        supported = self.get_supported_sub_studies()
+        if supported is None:
+            raise ValueError(
+                f"{self.study_id} does not declare sub-study selection support"
+            )
+        invalid = [value for value in normalized if value not in supported]
+        if invalid:
+            raise ValueError(
+                f"Unsupported sub-study selection for {self.study_id}: {invalid}. "
+                f"Available: {list(supported)}"
+            )
+
+        requested_set = set(normalized)
+        self.selected_sub_studies = tuple(
+            value for value in supported if value in requested_set
+        )
+        return self.selected_sub_studies
 
     def load_material(self, sub_study_id: str) -> Dict[str, Any]:
         file_path = self.study_path / "materials" / f"{sub_study_id}.json"
@@ -234,6 +274,14 @@ class GenericGeneratedStudyConfig(BaseStudyConfig):
     prompt_builder_class = GeneratedStudyPromptBuilder
     DEFAULT_TRIAL_COUNT = 30
 
+    def get_supported_sub_studies(self) -> Optional[Tuple[str, ...]]:
+        sub_study_ids: List[str] = []
+        for material in self._load_ready_materials(apply_scope=False):
+            sub_study_id = material.get("sub_study_id")
+            if sub_study_id and sub_study_id not in sub_study_ids:
+                sub_study_ids.append(str(sub_study_id))
+        return tuple(sub_study_ids)
+
     def create_trials(self, n_trials: Optional[int] = None) -> List[Dict[str, Any]]:
         materials = self._load_ready_materials()
         if not materials:
@@ -294,7 +342,11 @@ class GenericGeneratedStudyConfig(BaseStudyConfig):
         result.setdefault("inferential_statistics", {})
         return result
 
-    def _load_ready_materials(self) -> List[Dict[str, Any]]:
+    def _load_ready_materials(
+        self,
+        *,
+        apply_scope: bool = True,
+    ) -> List[Dict[str, Any]]:
         materials = []
         for path in sorted((self.study_path / "materials").glob("*.json")):
             material = json.loads(path.read_text(encoding="utf-8"))
@@ -304,6 +356,12 @@ class GenericGeneratedStudyConfig(BaseStudyConfig):
             if isinstance(readiness, dict) and readiness.get("ready") is False:
                 continue
             material.setdefault("material_id", path.stem)
+            if (
+                apply_scope
+                and self.selected_sub_studies
+                and material.get("sub_study_id") not in self.selected_sub_studies
+            ):
+                continue
             materials.append(material)
         return materials
 

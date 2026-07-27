@@ -10,6 +10,9 @@ REPORTED_NO_FEEDBACK_AGREEING_RATE = 0.51
 REPORTED_FEEDBACK_AGREEING_RATE = 0.17
 TOTAL_TRIAL_SLOTS = 52
 ATTENTION_CHECK_GLOBAL_INDICES = [16, 36]
+NO_FEEDBACK_ID = "dates_task_3b_no_feedback"
+FEEDBACK_ID = "dates_task_3c_feedback"
+SUPPORTED_SUB_STUDIES = (NO_FEEDBACK_ID, FEEDBACK_ID)
 
 
 def _flatten(results: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -20,11 +23,72 @@ def _flatten(results: Dict[str, Any]) -> List[Dict[str, Any]]:
     ]
 
 
+def _scope_test(
+    results: Dict[str, Any],
+    participants: List[Dict[str, Any]],
+    responses: List[Dict[str, Any]],
+) -> Dict[str, Any]:
+    requested = results.get("selected_sub_studies")
+    participant_observed = {
+        str(participant.get("sub_study_id"))
+        for participant in participants
+        if participant.get("sub_study_id") is not None
+    }
+    response_observed = {
+        str(response.get("trial_info", {}).get("sub_study_id"))
+        for response in responses
+        if response.get("trial_info", {}).get("sub_study_id") is not None
+    }
+    recorded = results.get("executed_sub_studies")
+    recorded_observed = (
+        {str(value) for value in recorded}
+        if isinstance(recorded, list)
+        else None
+    )
+    observed = participant_observed | response_observed
+    recognized = observed.issubset(set(SUPPORTED_SUB_STUDIES))
+    internally_consistent = (
+        bool(participants)
+        and bool(responses)
+        and bool(observed)
+        and participant_observed == response_observed
+        and (
+            recorded_observed is None
+            or recorded_observed == observed
+        )
+    )
+    if requested is None:
+        valid = internally_consistent and recognized
+    elif not isinstance(requested, list) or not requested:
+        valid = False
+    else:
+        normalized = set(str(value) for value in requested)
+        valid = (
+            internally_consistent
+            and normalized.issubset(set(SUPPORTED_SUB_STUDIES))
+            and observed == normalized
+        )
+    return {
+        "test_id": "selected_sub_study_scope",
+        "passed": valid,
+        "requested": requested,
+        "observed": sorted(observed),
+        "participant_observed": sorted(participant_observed),
+        "response_observed": sorted(response_observed),
+        "recorded_observed": (
+            sorted(recorded_observed)
+            if recorded_observed is not None
+            else None
+        ),
+    }
+
+
 def _execution_checks(
     results: Dict[str, Any], responses: List[Dict[str, Any]]
 ) -> Tuple[float, List[Dict[str, Any]]]:
     participants = results.get("individual_data", [])
     tests: List[Dict[str, Any]] = []
+    tests.append(_scope_test(results, participants, responses))
 
     valid_schedules = bool(participants)
     schedule_details: Dict[str, Any] = {}
@@ -256,6 +320,7 @@ def evaluate_study(results: Dict[str, Any]) -> Dict[str, Any]:
     participants = results.get("individual_data", [])
     responses = _flatten(results)
     execution_score, tests = _execution_checks(results, responses)
+    environment_passed = bool(tests) and all(test["passed"] for test in tests)
 
     no_feedback_rate = _condition_pick_rate(participants, False)
     feedback_rate = _condition_pick_rate(participants, True)
@@ -322,8 +387,10 @@ def evaluate_study(results: Dict[str, Any]) -> Dict[str, Any]:
     )
     return {
         "total_score": total_score,
-        "passed": total_score >= 0.7,
+        "passed": environment_passed and total_score >= 0.7,
+        "environment_passed": environment_passed,
         "execution_score": execution_score,
+        "evaluated_sub_studies": results.get("executed_sub_studies"),
         "behavioral_alignment_score": (
             0.35 * choice_alignment + 0.25 * advice_use_alignment
         )

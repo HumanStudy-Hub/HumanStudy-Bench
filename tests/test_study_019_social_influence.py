@@ -287,6 +287,23 @@ class SequentialSocialInfluenceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.config.create_trials(n_trials=3)
 
+    def test_medical_authority_scope_uses_study_2_only(self):
+        scoped = get_study_config(
+            "study_019",
+            STUDY_PATH,
+            self.study.specification,
+        )
+        scoped.configure_sub_studies(
+            ["study_2_medical_authority_scenarios"]
+        )
+        trials = scoped.create_trials()
+        self.assertEqual(len(trials), 40)
+        self.assertEqual(
+            {trial["sub_study_id"] for trial in trials},
+            {"study_2_medical_authority_scenarios"},
+        )
+        self.assertEqual(len(scoped.create_trials(n_trials=1)), 1)
+
     def test_prompts_contain_evidence_without_hidden_source_answers(self):
         builder = self.config.prompt_builder
         study_1_prompt = builder.build_urn_prompt(
@@ -431,6 +448,55 @@ class SequentialSocialInfluenceTests(unittest.TestCase):
             self.assertTrue(constant_evaluation["environment_passed"])
             self.assertFalse(constant_evaluation["behavioral_passed"])
             self.assertFalse(constant_evaluation["passed"])
+
+    def test_effect_c_scoped_original_sample_is_fully_evaluable(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            summary = run_stage5(
+                STUDY_PATH,
+                runs_dir=Path(temp_dir),
+                models=["mock"],
+                options=Stage5Options(
+                    n_participants=40,
+                    sub_studies=["study_2_medical_authority_scenarios"],
+                    mock=True,
+                    seed=29,
+                ),
+                data_dir=REPO_ROOT,
+            )
+            output_path = Path(summary["runs"][0]["output_path"])
+            output = json.loads(output_path.read_text(encoding="utf-8"))
+            self.assertIn(
+                "scope_study_2_medical_authority_scenarios",
+                output_path.parts,
+            )
+            self.assertEqual(
+                output["selected_sub_studies"],
+                ["study_2_medical_authority_scenarios"],
+            )
+            self.assertEqual(
+                output["executed_sub_studies"],
+                ["study_2_medical_authority_scenarios"],
+            )
+            stats = output["descriptive_statistics"]
+            self.assertEqual(stats["participants"], 40)
+            self.assertEqual(
+                stats["participants_by_sub_study"],
+                {
+                    "study_1_urn_scenarios": 0,
+                    "study_2_medical_authority_scenarios": 40,
+                },
+            )
+            self.assertEqual(stats["responses"], 1600)
+            evaluation = output["evaluation"]
+            self.assertTrue(evaluation["environment_passed"])
+            self.assertTrue(evaluation["behavioral_evaluable"])
+            self.assertTrue(evaluation["behavioral_passed"])
+            self.assertTrue(evaluation["passed"])
+            test_ids = {
+                test["test_id"] for test in evaluation["test_results"]
+            }
+            self.assertIn("study_2_authority_choice_alignment", test_ids)
+            self.assertNotIn("study_1_probability_judgment_alignment", test_ids)
 
 
 if __name__ == "__main__":

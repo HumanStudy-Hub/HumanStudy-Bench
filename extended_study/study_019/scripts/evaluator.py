@@ -76,6 +76,28 @@ def _flatten(results: Dict[str, Any]) -> List[Dict[str, Any]]:
     ]
 
 
+def _requested_sub_studies(
+    results: Dict[str, Any],
+) -> Tuple[Tuple[str, ...], bool]:
+    requested = results.get("selected_sub_studies")
+    if requested is None:
+        return tuple(EXPECTED_COUNTS), True
+    if not isinstance(requested, list) or not requested:
+        return tuple(EXPECTED_COUNTS), False
+
+    requested_set = {str(value) for value in requested}
+    if not requested_set.issubset(set(EXPECTED_COUNTS)):
+        return tuple(EXPECTED_COUNTS), False
+    return (
+        tuple(
+            sub_study_id
+            for sub_study_id in EXPECTED_COUNTS
+            if sub_study_id in requested_set
+        ),
+        True,
+    )
+
+
 def _test(test_id: str, passed: bool, **details: Any) -> Dict[str, Any]:
     return {"test_id": test_id, "passed": bool(passed), **details}
 
@@ -118,6 +140,7 @@ def _execution_checks(
     participants = results.get("individual_data", [])
     material_index = _load_material_index()
     tests: List[Dict[str, Any]] = []
+    selected_sub_studies, scope_definition_valid = _requested_sub_studies(results)
 
     assignment_counts = {
         sub_study_id: sum(
@@ -126,15 +149,26 @@ def _execution_checks(
         )
         for sub_study_id in EXPECTED_COUNTS
     }
-    assignments_valid = (
-        len(participants) >= 2
-        and len(participants) % 2 == 0
-        and assignment_counts[STUDY_1_ID] == assignment_counts[STUDY_2_ID]
-    )
+    unselected = set(EXPECTED_COUNTS) - set(selected_sub_studies)
+    if len(selected_sub_studies) == 1:
+        assignments_valid = (
+            scope_definition_valid
+            and bool(participants)
+            and assignment_counts[selected_sub_studies[0]] == len(participants)
+            and all(assignment_counts[sub_study_id] == 0 for sub_study_id in unselected)
+        )
+    else:
+        assignments_valid = (
+            scope_definition_valid
+            and len(participants) >= 2
+            and len(participants) % 2 == 0
+            and assignment_counts[STUDY_1_ID] == assignment_counts[STUDY_2_ID]
+        )
     tests.append(
         _test(
-            "balanced_sub_study_assignment",
+            "selected_sub_study_assignment",
             assignments_valid,
+            requested=results.get("selected_sub_studies"),
             participants=len(participants),
             assignment_counts=assignment_counts,
         )
@@ -449,6 +483,7 @@ def _alignment_test(
 def _behavioral_diagnostics(
     participants: List[Dict[str, Any]],
     responses: List[Dict[str, Any]],
+    selected_sub_studies: Sequence[str],
 ) -> Tuple[
     Dict[str, Any],
     Optional[float],
@@ -474,16 +509,18 @@ def _behavioral_diagnostics(
     sample_test = _test(
         "minimum_original_behavioral_sample",
         all(
-            count >= MINIMUM_PARTICIPANTS_PER_STUDY
-            for count in participant_counts.values()
+            participant_counts[sub_study_id] >= MINIMUM_PARTICIPANTS_PER_STUDY
+            for sub_study_id in selected_sub_studies
         ),
         required_per_sub_study=MINIMUM_PARTICIPANTS_PER_STUDY,
+        required_sub_studies=list(selected_sub_studies),
         observed=participant_counts,
     )
 
     broad_observed = {
         sub_study_id: _broad_observed(rows)
         for sub_study_id, rows in by_study.items()
+        if sub_study_id in selected_sub_studies
     }
     broad_comparisons = [
         {
@@ -492,6 +529,7 @@ def _behavioral_diagnostics(
             "reported": reported,
         }
         for sub_study_id, reported_metrics in REPORTED.items()
+        if sub_study_id in selected_sub_studies
         for metric, reported in reported_metrics.items()
     ]
     broad_test = _alignment_test(
@@ -500,57 +538,81 @@ def _behavioral_diagnostics(
         tolerance=BROAD_CHOICE_MAE_TOLERANCE,
     )
 
-    study_1_probability_judgment = _study_1_probability_judgment_observed(
-        by_study[STUDY_1_ID]
-    )
-    study_1_probability_judgment_test = _alignment_test(
-        "study_1_probability_judgment_alignment",
-        [
-            {
-                "metric": group,
-                "observed": study_1_probability_judgment.get(group),
-                "reported": reported,
+    alignment_tests = [broad_test]
+    diagnostics: Dict[str, Any] = {
+        "broad_choice": {
+            sub_study_id: {
+                "observed": broad_observed[sub_study_id],
+                "reported": REPORTED[sub_study_id],
             }
-            for group, reported in STUDY_1_PROBABILITY_JUDGMENT.items()
-        ],
-        tolerance=STUDY_1_PROBABILITY_JUDGMENT_MAE_TOLERANCE,
-    )
+            for sub_study_id in selected_sub_studies
+        },
+    }
 
-    authority_observed = _study_2_authority_observed(by_study[STUDY_2_ID])
-    authority_choice_comparisons: List[Dict[str, Any]] = []
-    authority_probability_judgment_comparisons: List[Dict[str, Any]] = []
-    for group, metrics in STUDY_2_AUTHORITY.items():
-        for metric, conditions in metrics.items():
-            target = (
-                authority_choice_comparisons
-                if metric == "private_choice_rate"
-                else authority_probability_judgment_comparisons
-            )
-            for condition, reported in conditions.items():
-                target.append(
-                    {
-                        "metric": f"{group}.{metric}.{condition}",
-                        "observed": authority_observed[group][metric].get(condition),
-                        "reported": reported,
-                    }
+    if STUDY_1_ID in selected_sub_studies:
+        study_1_probability_judgment = _study_1_probability_judgment_observed(
+            by_study[STUDY_1_ID]
+        )
+        study_1_probability_judgment_test = _alignment_test(
+            "study_1_probability_judgment_alignment",
+            [
+                {
+                    "metric": group,
+                    "observed": study_1_probability_judgment.get(group),
+                    "reported": reported,
+                }
+                for group, reported in STUDY_1_PROBABILITY_JUDGMENT.items()
+            ],
+            tolerance=STUDY_1_PROBABILITY_JUDGMENT_MAE_TOLERANCE,
+        )
+        alignment_tests.append(study_1_probability_judgment_test)
+        diagnostics["study_1_probability_judgment"] = {
+            "observed": study_1_probability_judgment,
+            "reported": STUDY_1_PROBABILITY_JUDGMENT,
+        }
+
+    if STUDY_2_ID in selected_sub_studies:
+        authority_observed = _study_2_authority_observed(by_study[STUDY_2_ID])
+        authority_choice_comparisons: List[Dict[str, Any]] = []
+        authority_probability_judgment_comparisons: List[Dict[str, Any]] = []
+        for group, metrics in STUDY_2_AUTHORITY.items():
+            for metric, conditions in metrics.items():
+                target = (
+                    authority_choice_comparisons
+                    if metric == "private_choice_rate"
+                    else authority_probability_judgment_comparisons
                 )
-    authority_choice_test = _alignment_test(
-        "study_2_authority_choice_alignment",
-        authority_choice_comparisons,
-        tolerance=STUDY_2_AUTHORITY_CHOICE_MAE_TOLERANCE,
-    )
-    authority_probability_judgment_test = _alignment_test(
-        "study_2_authority_probability_judgment_alignment",
-        authority_probability_judgment_comparisons,
-        tolerance=STUDY_2_AUTHORITY_PROBABILITY_JUDGMENT_MAE_TOLERANCE,
-    )
+                for condition, reported in conditions.items():
+                    target.append(
+                        {
+                            "metric": f"{group}.{metric}.{condition}",
+                            "observed": authority_observed[group][metric].get(
+                                condition
+                            ),
+                            "reported": reported,
+                        }
+                    )
+        authority_choice_test = _alignment_test(
+            "study_2_authority_choice_alignment",
+            authority_choice_comparisons,
+            tolerance=STUDY_2_AUTHORITY_CHOICE_MAE_TOLERANCE,
+        )
+        authority_probability_judgment_test = _alignment_test(
+            "study_2_authority_probability_judgment_alignment",
+            authority_probability_judgment_comparisons,
+            tolerance=STUDY_2_AUTHORITY_PROBABILITY_JUDGMENT_MAE_TOLERANCE,
+        )
+        alignment_tests.extend(
+            [
+                authority_choice_test,
+                authority_probability_judgment_test,
+            ]
+        )
+        diagnostics["study_2_authority_conditions"] = {
+            "observed": authority_observed,
+            "reported": STUDY_2_AUTHORITY,
+        }
 
-    alignment_tests = [
-        broad_test,
-        study_1_probability_judgment_test,
-        authority_choice_test,
-        authority_probability_judgment_test,
-    ]
     all_errors = [
         abs(float(comparison["observed"]) - float(comparison["reported"]))
         for test in alignment_tests
@@ -567,23 +629,6 @@ def _behavioral_diagnostics(
     behavioral_passed = behavioral_evaluable and all(
         test["passed"] for test in alignment_tests
     )
-    diagnostics = {
-        "broad_choice": {
-            sub_study_id: {
-                "observed": broad_observed[sub_study_id],
-                "reported": REPORTED[sub_study_id],
-            }
-            for sub_study_id in EXPECTED_COUNTS
-        },
-        "study_1_probability_judgment": {
-            "observed": study_1_probability_judgment,
-            "reported": STUDY_1_PROBABILITY_JUDGMENT,
-        },
-        "study_2_authority_conditions": {
-            "observed": authority_observed,
-            "reported": STUDY_2_AUTHORITY,
-        },
-    }
     return (
         diagnostics,
         alignment_score,
@@ -598,6 +643,7 @@ def evaluate_study(results: Dict[str, Any]) -> Dict[str, Any]:
 
     participants = results.get("individual_data", [])
     responses = _flatten(results)
+    selected_sub_studies, _ = _requested_sub_studies(results)
     execution_score, tests = _execution_checks(results, responses)
     (
         diagnostics,
@@ -605,7 +651,11 @@ def evaluate_study(results: Dict[str, Any]) -> Dict[str, Any]:
         behavioral_evaluable,
         behavioral_passed,
         behavioral_tests,
-    ) = _behavioral_diagnostics(participants, responses)
+    ) = _behavioral_diagnostics(
+        participants,
+        responses,
+        selected_sub_studies,
+    )
     environment_passed = bool(tests) and all(test["passed"] for test in tests)
     passed = environment_passed and behavioral_passed
     reported_behavioral_alignment = (
@@ -621,6 +671,7 @@ def evaluate_study(results: Dict[str, Any]) -> Dict[str, Any]:
         "passed": passed,
         "environment_passed": environment_passed,
         "execution_score": execution_score,
+        "evaluated_sub_studies": list(selected_sub_studies),
         "behavioral_evaluable": behavioral_evaluable,
         "behavioral_passed": behavioral_passed,
         "behavioral_alignment_score": reported_behavioral_alignment,

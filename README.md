@@ -251,6 +251,12 @@ smoke run, pass `--allow-unready`; the override is recorded in the Stage 5 JSON.
 Stage 4 also imports and validates the generated config adapter. Missing or
 invalid adapter code makes the package unready even when its JSON files exist.
 
+Curated adapters can declare independently runnable sub-studies. Select one
+with repeatable `--sub-study <id>` arguments. Stage 5 rejects undeclared IDs,
+records requested and executed scopes in `full_benchmark.json`, and isolates
+scoped outputs under `runs/<study_id>/scope_<id>/` so they cannot overwrite a
+full-paper run.
+
 ## Effect A + B -> C Experiment
 
 The [`effect_algebra/`](effect_algebra/) workspace provides a Colab-ready,

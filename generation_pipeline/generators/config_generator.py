@@ -445,12 +445,14 @@ STUDY ID: [[STUDY_ID]]
 6. **Keep runtime content source-only** - Render `instructions`, item questions, options, scales, and matrices from material JSON. Never expose researcher metadata, option-role labels, findings, means, or statistics.
 7. **Use a package-level trial budget** - `n_trials` is the total number of returned trials, not a per-study count. Distribute that budget across canonical materials; when `n_trials >= number_of_materials`, return at least one trial for every material. Never append all trials for the first material and then truncate the combined list.
 8. **Emit one response header** - Every rendered trial prompt must contain exactly one line-starting `RESPONSE_SPEC:` header. Do not repeat that exact header in prose, examples, mappings, or closing reminders.
+9. **Declare runnable scopes** - Set `SUPPORTED_SUB_STUDIES` to the canonical independently runnable sub-study IDs. When `self.selected_sub_studies` is nonempty, `create_trials()` must emit only those IDs and must fail rather than silently substituting another sub-study.
 
 ### Available Methods (from BaseStudyConfig)
 - `self.load_material(sub_id)` - Load material JSON (sub_id is filename without .json extension)
 - `self.load_specification()` - Returns `{"participants": {"n": ..., "by_sub_study": {...}}, ...}`
 - `self.load_ground_truth()` - Returns `{"studies": [{"findings": [...]}], ...}`
 - `self.extract_numeric(text)`, `self.extract_choice(text, options)` - Parse responses
+- `self.selected_sub_studies` - Empty for a full-package run, otherwise the validated IDs requested by Stage 5
 
 ### Note on Findings
 - The study's `metadata.json` contains a `findings` array with finding-level weights (used for evaluation aggregation)

@@ -114,6 +114,19 @@ def _optional_float(value):
     return float(value)
 
 
+def _optional_string_list(value):
+    if value is None:
+        return None
+    values = [value] if isinstance(value, str) else list(value)
+    normalized = []
+    for item in values:
+        for candidate in str(item).split(","):
+            candidate = candidate.strip()
+            if candidate and candidate not in normalized:
+                normalized.append(candidate)
+    return normalized or None
+
+
 def main():
     parser = argparse.ArgumentParser(description="HumanStudy-Bench generation pipeline (stages 1, 2, 3, 4, 5)")
     parser.add_argument("--settings", type=Path, help="Path to settings YAML/JSON (default: config/settings.yaml if present)")
@@ -309,6 +322,15 @@ def main():
     parser.add_argument("--experiment", type=Path, help="Deprecated Stage 5 alias for --study-id or study directory")
     parser.add_argument("--sim-models", nargs="+", help="Stage 5 agent model(s); defaults to stage5_llm.model")
     parser.add_argument("--n-agents", type=int, help="Override Stage 5 agent count")
+    parser.add_argument(
+        "--sub-study",
+        dest="sub_studies",
+        action="append",
+        help=(
+            "Stage 5 sub-study ID to execute; repeat for multiple IDs. "
+            "The selected study adapter must explicitly support scoped execution."
+        ),
+    )
     parser.add_argument("--max-agents", type=int, help="Explicit Stage 5 cost cap; omitted means no cap")
     parser.add_argument("--repeats", type=int, help="Stage 5 repeats per persona")
     parser.add_argument("--temperature", type=float, help="Stage 5 agent LLM temperature")
@@ -442,6 +464,13 @@ def main():
         options = Stage5Options(
             n_participants=_first_cli_or_setting(args.n_agents, stage5_settings.get("n_participants")),
             n_agents=_first_cli_or_setting(args.n_agents, stage5_settings.get("n_agents")),
+            sub_studies=_optional_string_list(
+                _first_cli_or_setting(
+                    args.sub_studies,
+                    stage5_settings.get("sub_studies"),
+                    stage5_settings.get("sub_study"),
+                )
+            ),
             max_agents=_first_cli_or_setting(args.max_agents, stage5_settings.get("max_agents")),
             repeats=int(_first_cli_or_setting(args.repeats, stage5_settings.get("repeats"), 1)),
             temperature=_optional_float(_first_cli_or_setting(args.temperature, stage5_settings.get("temperature"))) or 1.0,
@@ -477,6 +506,11 @@ def main():
             f"study_id={summary['study_id']} models={summary['completed']} "
             f"runs={summary['run_count']} use_real_llm={summary['use_real_llm']}"
         )
+        if summary["selected_sub_studies"]:
+            print(
+                "  Sub-studies: "
+                + ", ".join(summary["selected_sub_studies"])
+            )
         print(f"  Runs: {runs_dir / summary['study_id']}")
         return
 

@@ -39,6 +39,27 @@ EXPECTED_URNS = {
 }
 
 
+def _requested_schedule(
+    results: Dict[str, Any],
+) -> Tuple[Tuple[Tuple[str, int], ...], bool, bool]:
+    requested = results.get("selected_sub_studies")
+    if requested is None:
+        return EXPECTED_SESSION_SCHEDULE, False, True
+    if not isinstance(requested, list) or not requested:
+        return EXPECTED_SESSION_SCHEDULE, True, False
+
+    supported = tuple(EXPECTED_URNS)
+    normalized = tuple(dict.fromkeys(str(value) for value in requested))
+    if any(value not in supported for value in normalized):
+        return EXPECTED_SESSION_SCHEDULE, True, False
+    schedule = tuple(
+        entry
+        for entry in EXPECTED_SESSION_SCHEDULE
+        if entry[0] in normalized
+    )
+    return schedule, True, bool(schedule)
+
+
 def _flatten_responses(results: Dict[str, Any]) -> List[Dict[str, Any]]:
     return [
         response
@@ -107,6 +128,31 @@ def _execution_checks(
 ) -> Tuple[float, List[Dict[str, Any]]]:
     tests: List[Dict[str, Any]] = []
     participants = results.get("individual_data", [])
+    expected_schedule, explicit_scope, scope_definition_valid = _requested_schedule(
+        results
+    )
+    observed_treatments = {
+        str(response.get("trial_info", {}).get("sub_study_id"))
+        for response in responses
+        if response.get("trial_info", {}).get("sub_study_id") is not None
+    }
+    expected_treatments = {treatment for treatment, _ in expected_schedule}
+    scope_valid = (
+        scope_definition_valid
+        and observed_treatments.issubset(expected_treatments)
+        and (
+            not explicit_scope
+            or observed_treatments == expected_treatments
+        )
+    )
+    tests.append(
+        _test(
+            "selected_sub_study_scope",
+            bool(responses) and scope_valid,
+            requested=results.get("selected_sub_studies"),
+            observed=sorted(observed_treatments),
+        )
+    )
 
     valid_choices = bool(responses) and all(
         response.get("response") in {"A", "B"} for response in responses
@@ -211,10 +257,10 @@ def _execution_checks(
     schedule_complete = observed_sessions == list(range(len(observed_sessions)))
     treatment_details: Dict[str, Any] = {}
     for session_index in observed_sessions:
-        if session_index >= len(EXPECTED_SESSION_SCHEDULE):
+        if session_index >= len(expected_schedule):
             schedule_complete = False
             continue
-        expected_treatment, expected_published_number = EXPECTED_SESSION_SCHEDULE[session_index]
+        expected_treatment, expected_published_number = expected_schedule[session_index]
         period_responses = [
             response
             for (candidate_session, _), rows in grouped.items()
@@ -258,10 +304,10 @@ def _execution_checks(
 
     public_draw_timing = bool(grouped)
     for (session_index, _), period_responses in grouped.items():
-        if session_index < 0 or session_index >= len(EXPECTED_SESSION_SCHEDULE):
+        if session_index < 0 or session_index >= len(expected_schedule):
             public_draw_timing = False
             continue
-        treatment = EXPECTED_SESSION_SCHEDULE[session_index][0]
+        treatment = expected_schedule[session_index][0]
         visible_after_four: List[str] = []
         for response in period_responses:
             info = response.get("trial_info", {})
@@ -331,7 +377,9 @@ def evaluate_study(results: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "total_score": execution_score,
         "passed": all_required_passed,
+        "environment_passed": all_required_passed,
         "execution_score": execution_score,
+        "evaluated_sub_studies": results.get("executed_sub_studies"),
         "behavioral_alignment_score": None,
         "behavioral_diagnostics": behavioral_diagnostics,
         "test_results": tests,

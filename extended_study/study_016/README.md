@@ -62,6 +62,20 @@ One-session mock smoke test:
   --seed 42
 ```
 
+Effect A symmetric-baseline scope:
+
+```bash
+.venv/bin/python generation_pipeline/run.py \
+  --settings config/settings.example.yaml \
+  --stage 5 \
+  --experiment extended_study/study_016 \
+  --sub-study symmetric_baseline \
+  --sim-models mock \
+  --n-agents 18 \
+  --mock-agent \
+  --seed 42
+```
+
 Full 11-session environment test:
 
 ```bash

@@ -35,6 +35,12 @@ ATTENTION_CHECK_CORE_INDICES = tuple(
 )
 TOTAL_TRIAL_SLOTS = UNAIDED_PRACTICE_TRIALS + PRACTICE_ADVISOR_TRIALS + CORE_SLOTS
 HISTORICAL_QUESTION_TRIALS = TOTAL_TRIAL_SLOTS - len(ATTENTION_CHECK_GLOBAL_INDICES)
+NO_FEEDBACK_ID = "dates_task_3b_no_feedback"
+FEEDBACK_ID = "dates_task_3c_feedback"
+ORIGINAL_CONDITION_COUNTS = {
+    NO_FEEDBACK_ID: 29,
+    FEEDBACK_ID: 31,
+}
 
 
 def marker_contains(center: int, width: int, target: int) -> bool:
@@ -167,31 +173,45 @@ class StudyStudy017Config(BaseStudyConfig):
     prompt_builder_class = DatesAdvisorPromptBuilder
     REQUIRES_GROUP_TRIALS = True
     MATERIAL_ID = "dates_task_3b_3c"
+    SUPPORTED_SUB_STUDIES = (NO_FEEDBACK_ID, FEEDBACK_ID)
 
     def create_trials(self, n_trials: Optional[int] = None) -> List[Dict[str, Any]]:
-        participant_count = self.get_n_participants() if n_trials is None else int(n_trials)
+        if n_trials is None and len(self.selected_sub_studies) == 1:
+            participant_count = ORIGINAL_CONDITION_COUNTS[
+                self.selected_sub_studies[0]
+            ]
+        else:
+            participant_count = (
+                self.get_n_participants() if n_trials is None else int(n_trials)
+            )
         if participant_count < 1:
             raise ValueError("study_017 requires at least one participant")
         material = self.load_material(self.MATERIAL_ID)
-        return [
-            {
+        trials = []
+        for participant_index in range(participant_count):
+            condition = self._condition_assignment(
+                participant_index,
+                participant_count,
+            )
+            trials.append({
                 "trial_number": participant_index + 1,
                 "participant_index": participant_index,
                 "study_type": "stateful_judge_advisor_dates_task",
-                "sub_study_id": self._condition_assignment(participant_index, participant_count)[
-                    "sub_study_id"
-                ],
-                "condition_assignment": self._condition_assignment(
-                    participant_index, participant_count
-                ),
+                "sub_study_id": condition["sub_study_id"],
+                "condition_assignment": condition,
                 "instructions": material["instructions"],
-            }
-            for participant_index in range(participant_count)
-        ]
+            })
+        return trials
 
-    @staticmethod
-    def _condition_assignment(participant_index: int, participant_count: int) -> Dict[str, Any]:
-        if participant_count == 60:
+    def _condition_assignment(
+        self,
+        participant_index: int,
+        participant_count: int,
+    ) -> Dict[str, Any]:
+        if len(self.selected_sub_studies) == 1:
+            feedback = self.selected_sub_studies[0] == FEEDBACK_ID
+            accurate_first = participant_index % 2 == 0
+        elif participant_count == 60:
             feedback = participant_index >= 29
             within_condition_index = participant_index if not feedback else participant_index - 29
             accurate_first = within_condition_index % 2 == 0
@@ -202,9 +222,7 @@ class StudyStudy017Config(BaseStudyConfig):
         return {
             "feedback": feedback,
             "advisor_order": "accurate_first" if accurate_first else "agreeing_first",
-            "sub_study_id": (
-                "dates_task_3c_feedback" if feedback else "dates_task_3b_no_feedback"
-            ),
+            "sub_study_id": FEEDBACK_ID if feedback else NO_FEEDBACK_ID,
         }
 
     @staticmethod

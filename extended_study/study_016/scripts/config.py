@@ -35,8 +35,6 @@ IMPLEMENTED_SESSION_SCHEDULE: Tuple[Tuple[str, int], ...] = (
     ("asymmetric_baseline", 11),
     ("asymmetric_baseline", 12),
 )
-DEFAULT_IMPLEMENTED_PARTICIPANTS = len(IMPLEMENTED_SESSION_SCHEDULE) * PARTICIPANTS_PER_SESSION
-
 SYMMETRIC_URNS: Dict[str, Dict[str, int]] = {
     "A": {"light": 2, "dark": 1},
     "B": {"light": 1, "dark": 2},
@@ -298,10 +296,22 @@ class StudyStudy016Config(BaseStudyConfig):
 
     prompt_builder_class = InformationCascadePromptBuilder
     REQUIRES_GROUP_TRIALS = True
+    SUPPORTED_SUB_STUDIES = tuple(
+        dict.fromkeys(treatment for treatment, _ in IMPLEMENTED_SESSION_SCHEDULE)
+    )
 
     def create_trials(self, n_trials: Optional[int] = None) -> List[Dict[str, Any]]:
+        schedule = tuple(
+            entry
+            for entry in IMPLEMENTED_SESSION_SCHEDULE
+            if not self.selected_sub_studies
+            or entry[0] in self.selected_sub_studies
+        )
+        if not schedule:
+            raise ValueError("study_016 selected scope contains no runnable sessions")
+        available_participants = len(schedule) * PARTICIPANTS_PER_SESSION
         participant_count = (
-            DEFAULT_IMPLEMENTED_PARTICIPANTS if n_trials is None else int(n_trials)
+            available_participants if n_trials is None else int(n_trials)
         )
         if participant_count < PARTICIPANTS_PER_SESSION:
             raise ValueError(
@@ -311,18 +321,18 @@ class StudyStudy016Config(BaseStudyConfig):
             raise ValueError(
                 "study_016 participant count must be a multiple of 6 so no partial session is run"
             )
-        if participant_count > DEFAULT_IMPLEMENTED_PARTICIPANTS:
+        if participant_count > available_participants:
             raise ValueError(
-                "study_016 implements 66 evidence-complete decision-maker slots. "
-                "The article does not specify the remaining public-draw session well enough "
-                "to create participants 67-72 without inventing a treatment."
+                f"study_016 selected scope provides {available_participants} "
+                "evidence-complete decision-maker slots. Requesting more would "
+                "invent sessions outside that scope."
             )
 
         common = self.load_material("experiment_instructions")
         trials: List[Dict[str, Any]] = []
         session_count = participant_count // PARTICIPANTS_PER_SESSION
         for session_index, (treatment, published_session_number) in enumerate(
-            IMPLEMENTED_SESSION_SCHEDULE[:session_count]
+            schedule[:session_count]
         ):
             material = self.load_material(treatment)
             combined_instructions = (

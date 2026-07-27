@@ -113,12 +113,22 @@ class StudyStudy019Config(BaseStudyConfig):
     prompt_builder_class = SequentialSocialInfluencePromptBuilder
     REQUIRES_GROUP_TRIALS = True
     MATERIAL_ID = "scenarios"
+    SUPPORTED_SUB_STUDIES = (STUDY_1_ID, STUDY_2_ID)
 
     def create_trials(self, n_trials: Optional[int] = None) -> List[Dict[str, Any]]:
-        participant_count = self.get_n_participants() if n_trials is None else int(n_trials)
-        if participant_count < 2:
-            raise ValueError("study_019 requires at least two participants")
-        if participant_count % 2:
+        selected = self.selected_sub_studies or self.SUPPORTED_SUB_STUDIES
+        if n_trials is not None:
+            participant_count = int(n_trials)
+        elif len(selected) == 1:
+            participant_count = 40
+        else:
+            participant_count = self.get_n_participants()
+        minimum = 1 if len(selected) == 1 else 2
+        if participant_count < minimum:
+            raise ValueError(
+                f"study_019 selected scope requires at least {minimum} participant(s)"
+            )
+        if len(selected) > 1 and participant_count % 2:
             raise ValueError(
                 "study_019 participant count must be even so both studies are represented"
             )
@@ -127,7 +137,7 @@ class StudyStudy019Config(BaseStudyConfig):
                 "trial_number": participant_index + 1,
                 "participant_index": participant_index,
                 "study_type": "randomized_social_influence_scenario_tasks",
-                "sub_study_id": STUDY_1_ID if participant_index % 2 == 0 else STUDY_2_ID,
+                "sub_study_id": selected[participant_index % len(selected)],
             }
             for participant_index in range(participant_count)
         ]

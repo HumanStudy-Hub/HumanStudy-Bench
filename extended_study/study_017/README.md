@@ -50,6 +50,24 @@ participant requires 102 model calls before any response repairs: one response
 for each unaided practice trial and attention check, and an initial plus final
 response for each advisor trial. Validate with a small participant count first.
 
+Effect B uses only Experiment 3C with feedback:
+
+```bash
+.venv/bin/python generation_pipeline/run.py \
+  --settings config/settings.example.yaml \
+  --stage 5 \
+  --experiment extended_study/study_017 \
+  --sub-study dates_task_3c_feedback \
+  --sim-models mock \
+  --n-agents 31 \
+  --mock-agent \
+  --seed 42
+```
+
+Omitting `--n-agents` with this scope also uses the original 31-participant
+sample. Experiment 3B remains available as the explicit
+`dates_task_3b_no_feedback` control.
+
 ## Fidelity Boundary
 
 Advisor identities shown to participants are anonymous and stable. The runtime

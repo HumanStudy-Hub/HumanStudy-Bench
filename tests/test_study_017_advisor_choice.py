@@ -68,6 +68,30 @@ class AdvisorChoiceDatesTaskTests(unittest.TestCase):
             31,
         )
 
+    def test_feedback_scope_uses_experiment_3c_only(self):
+        scoped = get_study_config(
+            "study_017",
+            STUDY_PATH,
+            self.study.specification,
+        )
+        scoped.configure_sub_studies(["dates_task_3c_feedback"])
+        trials = scoped.create_trials()
+        self.assertEqual(len(trials), 31)
+        self.assertTrue(
+            all(trial["condition_assignment"]["feedback"] for trial in trials)
+        )
+        self.assertEqual(
+            {trial["sub_study_id"] for trial in trials},
+            {"dates_task_3c_feedback"},
+        )
+        self.assertEqual(
+            {
+                trial["condition_assignment"]["advisor_order"]
+                for trial in trials
+            },
+            {"accurate_first", "agreeing_first"},
+        )
+
     def test_parsers_and_advice_generation(self):
         self.assertEqual(self.config.parse_estimate("YEAR=1954; WIDTH=7"), (1954, 7))
         self.assertIsNone(self.config.parse_estimate("YEAR=2054; WIDTH=7"))
@@ -229,6 +253,60 @@ class AdvisorChoiceDatesTaskTests(unittest.TestCase):
             self.assertEqual(embedded_evaluation["execution_score"], 1.0)
             self.assertTrue(embedded_evaluation["passed"])
             self.assertTrue(summary["runs"][0]["evaluation_passed"])
+
+    def test_effect_b_scoped_stage5_run_contains_feedback_only(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            summary = run_stage5(
+                STUDY_PATH,
+                runs_dir=Path(temp_dir),
+                models=["mock"],
+                options=Stage5Options(
+                    n_participants=4,
+                    sub_studies=["dates_task_3c_feedback"],
+                    mock=True,
+                    seed=21,
+                ),
+                data_dir=REPO_ROOT,
+            )
+            output_path = Path(summary["runs"][0]["output_path"])
+            output = json.loads(output_path.read_text(encoding="utf-8"))
+            self.assertIn("scope_dates_task_3c_feedback", output_path.parts)
+            self.assertEqual(
+                output["selected_sub_studies"],
+                ["dates_task_3c_feedback"],
+            )
+            self.assertEqual(
+                output["executed_sub_studies"],
+                ["dates_task_3c_feedback"],
+            )
+            self.assertTrue(
+                all(
+                    participant["profile"]["feedback_condition"] is True
+                    for participant in output["individual_data"]
+                )
+            )
+            self.assertIsNone(
+                output["descriptive_statistics"][
+                    "agreeing_advisor_pick_rate_no_feedback"
+                ]
+            )
+            self.assertTrue(output["evaluation"]["passed"])
+            self.assertTrue(output["evaluation"]["environment_passed"])
+            self.assertEqual(output["evaluation"]["execution_score"], 1.0)
+
+            tampered = json.loads(json.dumps(output))
+            tampered["selected_sub_studies"] = ["dates_task_3b_no_feedback"]
+            rejected = load_evaluator().evaluate_study(tampered)
+            self.assertFalse(rejected["environment_passed"])
+            self.assertFalse(rejected["passed"])
+
+            tampered_response = json.loads(json.dumps(output))
+            tampered_response["individual_data"][0]["responses"][0][
+                "trial_info"
+            ]["sub_study_id"] = "dates_task_3b_no_feedback"
+            rejected_response = load_evaluator().evaluate_study(tampered_response)
+            self.assertFalse(rejected_response["environment_passed"])
+            self.assertFalse(rejected_response["passed"])
 
 
 if __name__ == "__main__":

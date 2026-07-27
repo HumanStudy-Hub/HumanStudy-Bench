@@ -6,7 +6,7 @@ import json
 import re
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Sequence, Tuple
 
 
 class PromptBuilder:
@@ -78,13 +78,42 @@ class BaseStudyConfig(ABC):
     """Study config base. study_path = study root (e.g. studies/study_001); data under source/."""
 
     prompt_builder_class = PromptBuilder
+    SUPPORTED_SUB_STUDIES: Optional[Tuple[str, ...]] = None
 
     def __init__(self, study_path: Path, specification: Dict[str, Any]):
         self.study_path = Path(study_path)
         self.source_path = self.study_path / "source"
         self.specification = specification
         self.study_id = specification["study_id"]
+        self.selected_sub_studies: Tuple[str, ...] = ()
         self.prompt_builder = self.prompt_builder_class(self.source_path)
+
+    def configure_sub_studies(
+        self,
+        sub_studies: Optional[Sequence[str]],
+    ) -> Tuple[str, ...]:
+        if not sub_studies:
+            self.selected_sub_studies = ()
+            return self.selected_sub_studies
+        requested = tuple(dict.fromkeys(str(value).strip() for value in sub_studies))
+        if any(not value for value in requested):
+            raise ValueError("sub-study identifiers cannot be empty")
+        supported = self.SUPPORTED_SUB_STUDIES
+        if supported is None:
+            raise ValueError(
+                f"{self.study_id} does not declare sub-study selection support"
+            )
+        invalid = [value for value in requested if value not in supported]
+        if invalid:
+            raise ValueError(
+                f"Unsupported sub-study selection for {self.study_id}: {invalid}. "
+                f"Available: {list(supported)}"
+            )
+        requested_set = set(requested)
+        self.selected_sub_studies = tuple(
+            value for value in supported if value in requested_set
+        )
+        return self.selected_sub_studies
 
     def load_material(self, sub_study_id: str) -> Dict[str, Any]:
         file_path = self.source_path / "materials" / f"{sub_study_id}.json"

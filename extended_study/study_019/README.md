@@ -70,6 +70,23 @@ Small mock test covering both studies:
   --seed 42
 ```
 
+Effect C medical-authority scope:
+
+```bash
+.venv/bin/python generation_pipeline/run.py \
+  --settings config/settings.example.yaml \
+  --stage 5 \
+  --experiment extended_study/study_019 \
+  --sub-study study_2_medical_authority_scenarios \
+  --sim-models mock \
+  --n-agents 40 \
+  --mock-agent \
+  --seed 42
+```
+
+Omitting `--n-agents` with this scope uses the original 40-participant Study 2
+sample and evaluates only the source-grounded medical-authority cells.
+
 Full original analyzed sample:
 
 ```bash

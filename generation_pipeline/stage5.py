@@ -5,7 +5,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from src.agents.llm_participant_agent import ParticipantPool
 from src.core.benchmark import HumanStudyBench
@@ -35,6 +35,7 @@ class Stage5Options:
     allow_unready: bool = False
     api_key: Optional[str] = None
     api_base: Optional[str] = None
+    sub_studies: Optional[Sequence[str]] = None
 
     def requested_participants(self) -> Optional[int]:
         value = self.n_participants if self.n_participants is not None else self.n_agents
@@ -44,6 +45,23 @@ class Stage5Options:
         if self.max_agents is not None:
             value = min(value, int(self.max_agents))
         return max(value, 1)
+
+    def requested_sub_studies(self) -> Tuple[str, ...]:
+        if not self.sub_studies:
+            return ()
+        values = (
+            (self.sub_studies,)
+            if isinstance(self.sub_studies, str)
+            else self.sub_studies
+        )
+        normalized: List[str] = []
+        for value in values:
+            sub_study_id = str(value).strip()
+            if not sub_study_id:
+                raise ValueError("sub-study identifiers cannot be empty")
+            if sub_study_id not in normalized:
+                normalized.append(sub_study_id)
+        return tuple(normalized)
 
     @property
     def use_real_llm(self) -> bool:
@@ -159,12 +177,78 @@ def _cap_trials(trials: List[Dict[str, Any]], requested_n: Optional[int]) -> Lis
     return trials[:requested_n]
 
 
-def _cache_path(options: Stage5Options, study_id: str, model: str, repeat_idx: int) -> Optional[Path]:
+def _scope_slug(sub_studies: Sequence[str]) -> Optional[str]:
+    if not sub_studies:
+        return None
+    return "__".join(_safe_model_slug(value) for value in sub_studies)
+
+
+def _cache_path(
+    options: Stage5Options,
+    study_id: str,
+    model: str,
+    repeat_idx: int,
+    sub_studies: Sequence[str],
+) -> Optional[Path]:
     if not options.use_cache:
         return None
     cache_dir = Path(options.cache_dir or ".cache/stage5")
     cache_dir.mkdir(parents=True, exist_ok=True)
-    return cache_dir / f"{study_id}_{_safe_model_slug(model)}_repeat_{repeat_idx}.json"
+    scope = _scope_slug(sub_studies)
+    scope_suffix = f"_scope_{scope}" if scope else ""
+    return (
+        cache_dir
+        / f"{study_id}_{_safe_model_slug(model)}{scope_suffix}_repeat_{repeat_idx}.json"
+    )
+
+
+def _executed_sub_studies(raw_results: Dict[str, Any]) -> List[str]:
+    observed = set()
+    for participant in raw_results.get("individual_data", []):
+        participant_sub_study = participant.get("sub_study_id")
+        if participant_sub_study:
+            observed.add(str(participant_sub_study))
+        participant_trial_sub_study = participant.get("trial_info", {}).get(
+            "sub_study_id"
+        )
+        if participant_trial_sub_study:
+            observed.add(str(participant_trial_sub_study))
+        for response in participant.get("responses", []):
+            sub_study_id = response.get("trial_info", {}).get("sub_study_id")
+            if sub_study_id:
+                observed.add(str(sub_study_id))
+    return sorted(observed)
+
+
+def _configure_sub_studies(
+    study_config: Any,
+    requested_sub_studies: Sequence[str],
+) -> Tuple[str, ...]:
+    configure = getattr(study_config, "configure_sub_studies", None)
+    if callable(configure):
+        return tuple(configure(requested_sub_studies))
+
+    if not requested_sub_studies:
+        study_config.selected_sub_studies = ()
+        return ()
+
+    supported = getattr(study_config, "SUPPORTED_SUB_STUDIES", None)
+    if not supported:
+        raise ValueError(
+            f"{study_config.study_id} does not declare sub-study selection support"
+        )
+    invalid = [
+        value for value in requested_sub_studies if value not in supported
+    ]
+    if invalid:
+        raise ValueError(
+            f"Unsupported sub-study selection for {study_config.study_id}: "
+            f"{invalid}. Available: {list(supported)}"
+        )
+    requested_set = set(requested_sub_studies)
+    selected = tuple(value for value in supported if value in requested_set)
+    study_config.selected_sub_studies = selected
+    return selected
 
 
 def _run_single_repeat(
@@ -177,8 +261,15 @@ def _run_single_repeat(
     options: Stage5Options,
     profiles: Optional[List[Dict[str, Any]]],
     system_prompt_override: Optional[str],
+    selected_sub_studies: Sequence[str],
 ) -> Dict[str, Any]:
-    cache_path = _cache_path(options, study_id, model, repeat_idx)
+    cache_path = _cache_path(
+        options,
+        study_id,
+        model,
+        repeat_idx,
+        selected_sub_studies,
+    )
     if cache_path and cache_path.exists():
         cached = json.loads(cache_path.read_text(encoding="utf-8"))
         if isinstance(cached, dict) and cached.get("raw_results"):
@@ -270,6 +361,10 @@ def run_stage5(
         options.allow_unready and not package_readiness["ready"]
     )
     study_config = get_study_config(study_id, study_path, loaded_study.specification)
+    selected_sub_studies = _configure_sub_studies(
+        study_config,
+        options.requested_sub_studies()
+    )
 
     profiles = _load_profiles(options.profiles_json)
     system_prompt_override = _read_optional_text(options.system_prompt_file)
@@ -289,6 +384,7 @@ def run_stage5(
                     options=options,
                     profiles=profiles,
                     system_prompt_override=system_prompt_override,
+                    selected_sub_studies=selected_sub_studies,
                 )
             )
 
@@ -304,9 +400,14 @@ def run_stage5(
                 "error": str(exc),
             }
 
-        model_dir = Path(runs_dir) / study_id / _safe_model_slug(model)
+        study_run_dir = Path(runs_dir) / study_id
+        scope = _scope_slug(selected_sub_studies)
+        if scope:
+            study_run_dir = study_run_dir / f"scope_{scope}"
+        model_dir = study_run_dir / _safe_model_slug(model)
         model_dir.mkdir(parents=True, exist_ok=True)
         output_path = model_dir / "full_benchmark.json"
+        executed_sub_studies = _executed_sub_studies(primary_results)
         save_data = {
             "timestamp": datetime.now().strftime("%Y%m%d_%H%M%S"),
             "stage5_version": "human-study-bench",
@@ -317,6 +418,10 @@ def run_stage5(
             "system_prompt_preset": options.system_prompt_preset,
             "reasoning": options.reasoning,
             "random_seed": options.seed,
+            "selected_sub_studies": (
+                list(selected_sub_studies) if selected_sub_studies else None
+            ),
+            "executed_sub_studies": executed_sub_studies,
             "package_readiness": package_readiness,
             "repeats": len(raw_runs),
             "elapsed_time": time.time() - start_time,
@@ -350,6 +455,10 @@ def run_stage5(
                 "repeats": len(raw_runs),
                 "responses": sum(len(run.get("individual_data", [])) for run in raw_runs),
                 "aggregate_error": aggregate.get("error"),
+                "selected_sub_studies": (
+                    list(selected_sub_studies) if selected_sub_studies else None
+                ),
+                "executed_sub_studies": executed_sub_studies,
                 "evaluation_passed": evaluation.get("passed"),
                 "environment_passed": evaluation.get("environment_passed"),
             }
@@ -362,6 +471,9 @@ def run_stage5(
         "study_path": str(study_path),
         "runs_dir": str(runs_dir),
         "models": model_names,
+        "selected_sub_studies": (
+            list(selected_sub_studies) if selected_sub_studies else None
+        ),
         "run_count": sum(item["repeats"] for item in all_model_runs),
         "completed": len(all_model_runs),
         "use_real_llm": options.use_real_llm,

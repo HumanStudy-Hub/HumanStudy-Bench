@@ -1,4 +1,5 @@
 import importlib.util
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -58,6 +59,29 @@ class InformationCascadeStudyTests(unittest.TestCase):
             self.config.create_trials(n_trials=7)
         with self.assertRaises(ValueError):
             self.config.create_trials(n_trials=72)
+
+    def test_symmetric_baseline_scope_has_exact_original_sessions(self):
+        scoped = get_study_config(
+            "study_016",
+            STUDY_PATH,
+            self.study.specification,
+        )
+        self.assertEqual(
+            scoped.configure_sub_studies(["symmetric_baseline"]),
+            ("symmetric_baseline",),
+        )
+        trials = scoped.create_trials()
+        self.assertEqual(len(trials), 18)
+        self.assertEqual(
+            {trial["published_session_number"] for trial in trials},
+            {1, 2, 3},
+        )
+        self.assertEqual(
+            {trial["sub_study_id"] for trial in trials},
+            {"symmetric_baseline"},
+        )
+        with self.assertRaises(ValueError):
+            scoped.configure_sub_studies(["not_a_treatment"])
 
     def test_public_evidence_and_tie_breaking(self):
         module = importlib.import_module(self.config.__class__.__module__)
@@ -124,6 +148,35 @@ class InformationCascadeStudyTests(unittest.TestCase):
             practice = output["individual_data"][0]["profile"]["practice_periods"]
             self.assertEqual({period["true_urn"] for period in practice}, {"A", "B"})
             self.assertTrue(all(period["decisions_required"] is False for period in practice))
+
+    def test_effect_a_scoped_stage5_run_is_isolated_and_evaluable(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            summary = run_stage5(
+                STUDY_PATH,
+                runs_dir=Path(temp_dir),
+                models=["mock"],
+                options=Stage5Options(
+                    n_participants=18,
+                    sub_studies=["symmetric_baseline"],
+                    mock=True,
+                    seed=19,
+                ),
+                data_dir=REPO_ROOT,
+            )
+            output_path = Path(summary["runs"][0]["output_path"])
+            output = json.loads(output_path.read_text(encoding="utf-8"))
+            self.assertIn("scope_symmetric_baseline", output_path.parts)
+            self.assertEqual(output["selected_sub_studies"], ["symmetric_baseline"])
+            self.assertEqual(output["executed_sub_studies"], ["symmetric_baseline"])
+            self.assertEqual(len(output["individual_data"]), 18)
+            self.assertEqual(output["descriptive_statistics"]["decisions"], 270)
+            self.assertEqual(
+                set(output["descriptive_statistics"]["by_treatment"]),
+                {"symmetric_baseline"},
+            )
+            self.assertTrue(output["evaluation"]["passed"])
+            self.assertTrue(output["evaluation"]["environment_passed"])
+            self.assertEqual(output["evaluation"]["execution_score"], 1.0)
 
     def test_full_mock_run_covers_all_evidence_complete_treatments(self):
         with tempfile.TemporaryDirectory() as temp_dir:
