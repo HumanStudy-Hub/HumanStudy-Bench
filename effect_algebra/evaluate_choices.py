@@ -190,11 +190,16 @@ def merge_mirror_pairs(
     """Average each item over both letter assignments to cancel letter bias.
 
     Every evaluation item is scored twice, once with each mapping of response
-    codes onto the two options. Averaging the probability assigned to the *same
-    option* across the two orders removes any preference for the letter, because
-    that preference enters both orders with opposite sign. What survives is the
-    content signal, which is the thing being compared against the human
-    proportion.
+    codes onto the two options. The letter preference is an additive term in log
+    odds: writing b for it and c for the content signal, one frame scores b + c
+    and the mirror scores c - b, so averaging *log odds* returns exactly c.
+
+    Averaging probabilities instead only works while b is small. Qwen2.5-14B
+    carries b = +8.2 on the B probes, where the sigmoid is saturated: both
+    frames read as near-certainty, their probabilities average to 0.5 whatever
+    the content, and the signal is destroyed rather than recovered. That showed
+    up as a probe MAE of 0.338, which is just |0.5 - 0.83| against the human
+    rate.
 
     Items with no mirror pass through unchanged, so a partially mirrored set
     still evaluates, and the report says how many items were actually paired.
@@ -221,10 +226,11 @@ def merge_mirror_pairs(
             merged.extend(dict(row) for row in group)
             continue
         # Express every member in the first row's code frame before averaging.
-        probability_reference = mean(
-            float(row["probability_by_code"][str(row["reference_code"])])
+        mean_log_odds = mean(
+            logit(float(row["probability_by_code"][str(row["reference_code"])]))
             for row in group
         )
+        probability_reference = 1.0 / (1.0 + math.exp(-max(min(mean_log_odds, 700.0), -700.0)))
         other = "Y" if reference_code == "X" else "X"
         frame["probability_by_code"] = {
             reference_code: probability_reference,
@@ -234,6 +240,7 @@ def merge_mirror_pairs(
             reference_code: math.log(max(probability_reference, 1e-12)),
             other: math.log(max(1.0 - probability_reference, 1e-12)),
         }
+        frame["mean_log_odds_reference"] = mean_log_odds
         frame["predicted_code"] = (
             reference_code if probability_reference >= 0.5 else other
         )

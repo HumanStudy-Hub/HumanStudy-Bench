@@ -27,6 +27,23 @@ def _load(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _summary_of(payload: Mapping[str, Any]) -> Optional[Dict[str, Any]]:
+    """Recompute the summary from the stored per-item scores when possible.
+
+    Scoring logic changes after results are written, and the per-item
+    probabilities are the raw measurement while the summary is a derived view.
+    Recomputing means a corrected metric applies to every run already on disk
+    instead of requiring the GPU work to be repeated.
+    """
+
+    rows = payload.get("rows")
+    if rows:
+        from .evaluate_choices import summarize_scored_rows
+
+        return summarize_scored_rows(rows)
+    return payload.get("summary")
+
+
 def digest_suite(results_dir: Path, reference_dir: Optional[Path]) -> List[str]:
     lines: List[str] = []
     files = sorted(results_dir.glob("*.json"))
@@ -59,7 +76,7 @@ def digest_suite(results_dir: Path, reference_dir: Optional[Path]) -> List[str]:
         if path.name == "knowledge_probe.json":
             continue
         payload = _load(path)
-        summary = payload.get("summary")
+        summary = _summary_of(payload)
         if not summary:
             continue
         label = path.stem
@@ -95,8 +112,8 @@ def digest_conditions(results_dir: Path) -> List[str]:
         path = results_dir / "{}.json".format(name)
         if not path.exists():
             continue
-        summary = _load(path)["summary"]
-        calibration = summary["calibration"]
+        summary = _summary_of(_load(path)) or {}
+        calibration = summary.get("calibration", {})
         lines.append("")
         lines.append("{} by condition:".format(name))
         for key, group in sorted(calibration.get("by_authority_condition", {}).items()):
