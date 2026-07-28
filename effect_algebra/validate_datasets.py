@@ -609,8 +609,17 @@ def validate_dataset_tree(root: Path) -> Dict[str, Any]:
         errors.append("exactly one C_test.jsonl is required")
     else:
         c_rows = load_jsonl(c_paths[0])
-        if len(c_rows) != 40:
-            errors.append("C_test.jsonl must contain the 40 study_019 Study 2 scenarios")
+        scenarios = {
+            str(row["metadata"]["scenario_id"]) for row in c_rows
+        }
+        if len(scenarios) != 40:
+            errors.append("C_test.jsonl must cover the 40 study_019 Study 2 scenarios")
+        # Each scenario appears once per letter assignment so the letter bias
+        # can be averaged out at scoring time.
+        if len(c_rows) != 2 * len(scenarios):
+            errors.append(
+                "C_test.jsonl must contain both letter assignments of every scenario"
+            )
         if any(row.get("trainable") for row in c_rows):
             errors.append("C_test.jsonl contains a trainable row")
 

@@ -73,19 +73,34 @@ def build_tree(args: argparse.Namespace) -> Dict[str, Any]:
         args.seed + 5000,
         rounds_per_advisor=args.rounds_per_advisor,
     )
+    # Evaluation sets carry both letter assignments of every item. Scoring an
+    # item under only one assignment confounds the content signal with the
+    # model's preference for a letter, which on the base model is large enough
+    # to dominate the calibration metric outright.
     b_test = build_b_rows(
         "test",
         args.b_test,
         args.seed + 6000,
         rounds_per_advisor=args.rounds_per_advisor,
+    ) + build_b_rows(
+        "test",
+        args.b_test,
+        args.seed + 6000,
+        rounds_per_advisor=args.rounds_per_advisor,
+        mirror=True,
     )
     b_control = build_b_control_rows(
         args.b_control,
         args.seed + 7000,
         rounds_per_advisor=args.rounds_per_advisor,
+    ) + build_b_control_rows(
+        args.b_control,
+        args.seed + 7000,
+        rounds_per_advisor=args.rounds_per_advisor,
+        mirror=True,
     )
-    c_test = build_c_rows(scenarios_path)
-    d_test = build_d_rows(scenarios_path)
+    c_test = build_c_rows(scenarios_path) + build_c_rows(scenarios_path, mirror=True)
+    d_test = build_d_rows(scenarios_path) + build_d_rows(scenarios_path, mirror=True)
 
     file_rows = {
         "A_train": ("dpo/A_train.jsonl", a_train),
@@ -122,7 +137,8 @@ def build_tree(args: argparse.Namespace) -> Dict[str, Any]:
         )
         file_rows["C_cv_fold{}_test".format(fold_index)] = (
             "cv/C_fold{}_test.jsonl".format(fold_index),
-            build_c_rows(scenarios_path, scenario_ids=held_out),
+            build_c_rows(scenarios_path, scenario_ids=held_out)
+            + build_c_rows(scenarios_path, scenario_ids=held_out, mirror=True),
         )
 
     files: Dict[str, Dict[str, Any]] = {}

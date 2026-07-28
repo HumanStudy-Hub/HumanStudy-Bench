@@ -645,6 +645,84 @@ class SoftLabelObjectiveTests(unittest.TestCase):
         self.assertGreater(overshot, at_target + 1.0)
 
 
+class LetterBiasTests(unittest.TestCase):
+    """Forced-choice answers carry a preference for the letter itself."""
+
+    def _pair(self, p_x_first, p_x_mirror):
+        # Same item under both letter assignments. In the first row the
+        # reference option is X; in the mirror it is Y.
+        return [
+            {
+                "id": "row", "effect": "C", "split": "test", "pair_id": "state",
+                "reference_code": "X", "target_code": "X",
+                "predicted_code": "X" if p_x_first >= 0.5 else "Y",
+                "probability_by_code": {"X": p_x_first, "Y": 1 - p_x_first},
+                "log_probability_by_code": {"X": 0.0, "Y": 0.0},
+                "human_probability_by_code": {"X": 0.7, "Y": 0.3}, "human_n": 40,
+            },
+            {
+                "id": "row_m", "effect": "C", "split": "test", "pair_id": "state",
+                "reference_code": "Y", "target_code": "Y",
+                "predicted_code": "X" if p_x_mirror >= 0.5 else "Y",
+                "probability_by_code": {"X": p_x_mirror, "Y": 1 - p_x_mirror},
+                "log_probability_by_code": {"X": 0.0, "Y": 0.0},
+                "human_probability_by_code": {"X": 0.3, "Y": 0.7}, "human_n": 40,
+            },
+        ]
+
+    def test_pure_letter_bias_cancels_to_chance(self):
+        from effect_algebra.evaluate_choices import merge_mirror_pairs
+
+        # A model that always answers Y regardless of content.
+        merged, report = merge_mirror_pairs(self._pair(0.02, 0.02))
+        self.assertEqual(report["paired_items"], 1)
+        self.assertEqual(len(merged), 1)
+        self.assertAlmostEqual(merged[0]["probability_by_code"]["X"], 0.5, places=6)
+
+    def test_content_signal_survives_symmetrization(self):
+        from effect_algebra.evaluate_choices import merge_mirror_pairs
+
+        # Reference option favoured in both frames: 0.8 as X, 0.8 as Y.
+        merged, _ = merge_mirror_pairs(self._pair(0.8, 0.2))
+        self.assertAlmostEqual(merged[0]["probability_by_code"]["X"], 0.8, places=6)
+
+    def test_symmetrization_lowers_mae_against_a_biased_model(self):
+        from effect_algebra.evaluate_choices import summarize_scored_rows
+
+        rows = self._pair(0.02, 0.02)
+        biased = summarize_scored_rows(rows, symmetrize=False)["calibration"]["mae"]
+        fixed = summarize_scored_rows(rows, symmetrize=True)["calibration"]["mae"]
+        # |0.02 - 0.7| and |0.02 - 0.3| average to 0.48.
+        self.assertAlmostEqual(biased, 0.48, places=6)
+        self.assertAlmostEqual(fixed, 0.2, places=6)
+        self.assertLess(fixed, biased)
+
+    def test_unpaired_rows_pass_through(self):
+        from effect_algebra.evaluate_choices import merge_mirror_pairs
+
+        rows = self._pair(0.8, 0.2)
+        del rows[1]
+        merged, report = merge_mirror_pairs(rows)
+        self.assertEqual(len(merged), 1)
+        self.assertEqual(report["paired_items"], 0)
+
+    def test_evaluation_sets_carry_both_letter_assignments(self):
+        from collections import Counter
+
+        rows = build_c_rows(STUDY_019_SCENARIOS) + build_c_rows(
+            STUDY_019_SCENARIOS, mirror=True
+        )
+        self.assertEqual(len(rows), 80)
+        groups = Counter(row["metadata"]["state_hash"] for row in rows)
+        self.assertEqual(set(groups.values()), {2})
+        codes = Counter(
+            (row["metadata"]["state_hash"], row["metadata"]["reference_code"])
+            for row in rows
+        )
+        self.assertEqual(set(codes.values()), {1})
+        self.assertEqual(len({row["id"] for row in rows}), 80)
+
+
 class CalibrationScaleTests(unittest.TestCase):
     def test_noise_floor_is_positive_and_below_trivial_baselines(self):
         scenarios = load_c_scenarios(STUDY_019_SCENARIOS)

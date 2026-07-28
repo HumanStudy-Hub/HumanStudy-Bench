@@ -770,6 +770,7 @@ def build_b_rows(
     rounds_per_advisor: int = 15,
     minimum_error_margin: float = 5.0,
     experiment: str = "3C",
+    mirror: bool = False,
 ) -> List[Dict[str, Any]]:
     """Build feedback-grounded effect-B rows carrying the human pick rate.
 
@@ -798,7 +799,9 @@ def build_b_rows(
         specs.append(
             {
                 "bucket": prior.bucket,
-                "reference_code": RESPONSE_CODES[index % len(RESPONSE_CODES)],
+                "reference_code": RESPONSE_CODES[
+                    (index + int(mirror)) % len(RESPONSE_CODES)
+                ],
                 "human_probability": prior.probability,
             }
         )
@@ -859,8 +862,9 @@ def build_b_rows(
         }
         rows.append(
             _make_preference_row(
-                row_id="B-{}-{:05d}-{}".format(
+                row_id="B-{}-{}{:05d}-{}".format(
                     split,
+                    "m" if mirror else "",
                     index,
                     _hash_payload(state_payload)[:10],
                 ),
@@ -884,6 +888,7 @@ def build_b_control_rows(
     seed: int,
     rounds_per_advisor: int = 15,
     experiment: str = "3B",
+    mirror: bool = False,
 ) -> List[Dict[str, Any]]:
     """Build no-feedback B controls: a calibration target, never a training set.
 
@@ -905,7 +910,7 @@ def build_b_control_rows(
             minimum_error_margin=0.0,
         )
         advisor_names = sorted(episode["name_to_type"])
-        if index % 2:
+        if (index + int(mirror)) % 2:
             advisor_names.reverse()
         code_to_advisor = {"X": advisor_names[0], "Y": advisor_names[1]}
         prompt_text = _format_b_prompt(
@@ -946,7 +951,8 @@ def build_b_control_rows(
         }
         rows.append(
             _make_preference_row(
-                row_id="B-control-{:05d}-{}".format(
+                row_id="B-control-{}{:05d}-{}".format(
+                    "m" if mirror else "",
                     index,
                     _hash_payload(state_payload)[:10],
                 ),
@@ -1149,6 +1155,7 @@ def _c_metadata(
 def build_c_rows(
     scenarios_path: Path,
     scenario_ids: Optional[Sequence[str]] = None,
+    mirror: bool = False,
 ) -> List[Dict[str, Any]]:
     """Build the C evaluation set from study_019's source-grounded scenarios.
 
@@ -1165,7 +1172,7 @@ def build_c_rows(
         ]
     rows: List[Dict[str, Any]] = []
     for index, scenario in enumerate(scenarios):
-        reference_code = RESPONSE_CODES[index % len(RESPONSE_CODES)]
+        reference_code = RESPONSE_CODES[(index + int(mirror)) % len(RESPONSE_CODES)]
         view = _c_scenario_view(scenario, reference_code)
         metadata = _c_metadata(
             scenario,
@@ -1175,7 +1182,8 @@ def build_c_rows(
         )
         rows.append(
             _make_preference_row(
-                row_id="C-test-{:03d}-{}".format(
+                row_id="C-test-{}{:03d}-{}".format(
+                    "m" if mirror else "",
                     index,
                     metadata["state_hash"][:10],
                 ),
@@ -1418,6 +1426,7 @@ def _d_metadata(
 def build_d_rows(
     scenarios_path: Path,
     scenario_ids: Optional[Sequence[str]] = None,
+    mirror: bool = False,
 ) -> List[Dict[str, Any]]:
     """Build the D evaluation set; never trainable, same contract as C."""
 
@@ -1429,7 +1438,7 @@ def build_d_rows(
         ]
     rows: List[Dict[str, Any]] = []
     for index, scenario in enumerate(scenarios):
-        reference_code = RESPONSE_CODES[index % len(RESPONSE_CODES)]
+        reference_code = RESPONSE_CODES[(index + int(mirror)) % len(RESPONSE_CODES)]
         view = _d_scenario_view(scenario, reference_code)
         metadata = _d_metadata(
             scenario,
@@ -1439,7 +1448,9 @@ def build_d_rows(
         )
         rows.append(
             _make_preference_row(
-                row_id="D-test-{:03d}-{}".format(index, metadata["state_hash"][:10]),
+                row_id="D-test-{}{:03d}-{}".format(
+                    "m" if mirror else "", index, metadata["state_hash"][:10]
+                ),
                 effect="D",
                 split="test",
                 prompt_text=_d_prompt(scenario, view["code_to_urn"]),

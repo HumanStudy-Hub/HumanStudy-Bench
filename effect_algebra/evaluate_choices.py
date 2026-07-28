@@ -151,6 +151,106 @@ def score_completion(
     return float(selected.sum().item())
 
 
+def response_code_bias(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
+    """How much of the model's answer is decided by the letter, not the content.
+
+    Response codes are assigned independently of the label, so a content-driven
+    model should sit at P(X) = 0.5 on average. Any systematic departure is a
+    preference for the letter itself, and it corrupts both the calibration
+    metric and any forced-choice probe. Reported in log odds because that is the
+    scale on which it is additive with the content signal.
+    """
+
+    if not rows:
+        return {"rows": 0}
+    log_odds = sorted(
+        logit(float(row["probability_by_code"]["X"])) for row in rows
+    )
+    middle = len(log_odds) // 2
+    median = (
+        log_odds[middle]
+        if len(log_odds) % 2
+        else 0.5 * (log_odds[middle - 1] + log_odds[middle])
+    )
+    return {
+        "rows": len(rows),
+        "mean_probability_x": mean(
+            float(row["probability_by_code"]["X"]) for row in rows
+        ),
+        "median_log_odds_x": median,
+        "argmax_x_rate": mean(
+            1.0 if row["predicted_code"] == "X" else 0.0 for row in rows
+        ),
+    }
+
+
+def merge_mirror_pairs(
+    rows: Sequence[Mapping[str, Any]],
+) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """Average each item over both letter assignments to cancel letter bias.
+
+    Every evaluation item is scored twice, once with each mapping of response
+    codes onto the two options. Averaging the probability assigned to the *same
+    option* across the two orders removes any preference for the letter, because
+    that preference enters both orders with opposite sign. What survives is the
+    content signal, which is the thing being compared against the human
+    proportion.
+
+    Items with no mirror pass through unchanged, so a partially mirrored set
+    still evaluates, and the report says how many items were actually paired.
+    """
+
+    groups: Dict[str, List[Mapping[str, Any]]] = defaultdict(list)
+    unpaired: List[Dict[str, Any]] = []
+    for row in rows:
+        pair_id = row.get("pair_id")
+        if pair_id:
+            groups[str(pair_id)].append(row)
+        else:
+            unpaired.append(dict(row))
+
+    merged: List[Dict[str, Any]] = list(unpaired)
+    paired_groups = 0
+    for _pair_id, group in sorted(groups.items()):
+        if len(group) == 1:
+            merged.append(dict(group[0]))
+            continue
+        frame = dict(group[0])
+        reference_code = frame.get("reference_code")
+        if reference_code not in {"X", "Y"}:
+            merged.extend(dict(row) for row in group)
+            continue
+        # Express every member in the first row's code frame before averaging.
+        probability_reference = mean(
+            float(row["probability_by_code"][str(row["reference_code"])])
+            for row in group
+        )
+        other = "Y" if reference_code == "X" else "X"
+        frame["probability_by_code"] = {
+            reference_code: probability_reference,
+            other: 1.0 - probability_reference,
+        }
+        frame["log_probability_by_code"] = {
+            reference_code: math.log(max(probability_reference, 1e-12)),
+            other: math.log(max(1.0 - probability_reference, 1e-12)),
+        }
+        frame["predicted_code"] = (
+            reference_code if probability_reference >= 0.5 else other
+        )
+        if frame.get("target_code") in {"X", "Y"}:
+            frame["correct"] = frame["predicted_code"] == frame["target_code"]
+        frame["mirror_size"] = len(group)
+        merged.append(frame)
+        paired_groups += 1
+
+    return merged, {
+        "input_rows": len(rows),
+        "merged_rows": len(merged),
+        "paired_items": paired_groups,
+        "unpaired_items": len(merged) - paired_groups,
+    }
+
+
 def _mean_or_none(values: Iterable[float]) -> Optional[float]:
     materialized = list(values)
     return mean(materialized) if materialized else None
@@ -280,7 +380,19 @@ def _grouped(
     return {name: _group_metrics(group) for name, group in sorted(buckets.items())}
 
 
-def summarize_scored_rows(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
+def summarize_scored_rows(
+    scored_rows: Sequence[Mapping[str, Any]],
+    *,
+    symmetrize: bool = True,
+) -> Dict[str, Any]:
+    # Letter bias is measured on the raw rows and removed before anything else,
+    # because it inflates every calibration number downstream.
+    raw_bias = response_code_bias(scored_rows)
+    if symmetrize:
+        rows, mirror_report = merge_mirror_pairs(scored_rows)
+    else:
+        rows, mirror_report = list(scored_rows), {"paired_items": 0}
+
     authority_rows = [
         row for row in rows if row.get("medical_director_code") in {"X", "Y"}
     ]
@@ -290,6 +402,14 @@ def summarize_scored_rows(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
     indifference_rows = [row for row in rows if row.get("indifference_scenario")]
 
     summary: Dict[str, Any] = {
+        "response_code_bias": {
+            # Measured on the raw rows only. After merging, the "X" slot holds
+            # the item's reference *option*, not the letter X, so the same
+            # statistic there would measure content preference, not bias.
+            "raw": raw_bias,
+            "mirror": mirror_report,
+            "symmetrized": symmetrize,
+        },
         "calibration": {
             **_calibration_metrics(rows),
             "scale": _calibration_scale(rows),
@@ -411,6 +531,7 @@ def evaluate_rows(
                     "X": probability_x,
                     "Y": 1.0 - probability_x,
                 },
+                "pair_id": metadata.get("state_hash"),
                 "bucket": metadata.get("bucket"),
                 "scenario_id": metadata.get("scenario_id"),
                 "authority_condition": metadata.get("authority_condition"),

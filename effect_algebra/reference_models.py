@@ -213,6 +213,7 @@ def score_reference_model(
                 "predicted_code": "X" if probability_x >= 0.5 else "Y",
                 "log_probability_by_code": {"X": 0.0, "Y": 0.0},
                 "probability_by_code": {"X": probability_x, "Y": 1.0 - probability_x},
+                "pair_id": metadata.get("state_hash"),
                 "bucket": metadata.get("bucket"),
                 "scenario_id": metadata.get("scenario_id"),
                 "authority_condition": metadata.get("authority_condition"),

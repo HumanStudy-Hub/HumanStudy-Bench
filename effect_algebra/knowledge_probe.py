@@ -183,33 +183,48 @@ def _forced_choice_probability(
     *,
     true_code: str,
 ) -> float:
-    """Probability assigned to the true statement, from the answer-token logits."""
+    """Probability assigned to the true statement, from the answer-token logits.
+
+    Scored under both letter assignments and averaged. Without this the probe
+    measures the model's preference for a letter rather than its knowledge: on
+    the base model the letter effect is large enough to make every item whose
+    truth sits on the disfavoured letter come out wrong.
+    """
 
     from .evaluate_choices import score_answer_tokens
     from .datasets import preference_probability
 
-    decoy_code = "Y" if true_code == "X" else "X"
-    statements = {true_code: true_value, decoy_code: decoy_value}
-    prompt = [
-        {"role": "system", "content": PROBE_SYSTEM_PROMPT},
-        {
-            "role": "user",
-            "content": (
-                "{}\n\n"
-                "DECISION=X means: {}\n"
-                "DECISION=Y means: {}\n\n"
-                "Output exactly DECISION=X or DECISION=Y."
-            ).format(question, statements["X"], statements["Y"]),
-        },
-    ]
-    log_probabilities = score_answer_tokens(
-        model,
-        tokenizer,
-        prompt,
-        {"X": "DECISION=X", "Y": "DECISION=Y"},
-    )
-    probability_x = preference_probability(log_probabilities["X"], log_probabilities["Y"])
-    return probability_x if true_code == "X" else 1.0 - probability_x
+    probabilities = []
+    for assigned_true_code in ("X", "Y"):
+        statements = {
+            assigned_true_code: true_value,
+            ("Y" if assigned_true_code == "X" else "X"): decoy_value,
+        }
+        prompt = [
+            {"role": "system", "content": PROBE_SYSTEM_PROMPT},
+            {
+                "role": "user",
+                "content": (
+                    "{}\n\n"
+                    "DECISION=X means: {}\n"
+                    "DECISION=Y means: {}\n\n"
+                    "Output exactly DECISION=X or DECISION=Y."
+                ).format(question, statements["X"], statements["Y"]),
+            },
+        ]
+        log_probabilities = score_answer_tokens(
+            model,
+            tokenizer,
+            prompt,
+            {"X": "DECISION=X", "Y": "DECISION=Y"},
+        )
+        probability_x = preference_probability(
+            log_probabilities["X"], log_probabilities["Y"]
+        )
+        probabilities.append(
+            probability_x if assigned_true_code == "X" else 1.0 - probability_x
+        )
+    return sum(probabilities) / len(probabilities)
 
 
 def run_probes(
@@ -237,10 +252,9 @@ def run_probes(
             record["matched_patterns"] = matched
             record["recall_score"] = len(matched) / len(probe["accept_patterns"])
         else:
-            # Alternate which letter carries the true statement so a positional
-            # or letter bias cannot masquerade as knowledge.
-            true_code = "X" if index % 2 == 0 else "Y"
-            record["true_code"] = true_code
+            # Both letter assignments are scored and averaged, so no letter can
+            # masquerade as knowledge.
+            record["scored_both_letter_assignments"] = True
             record["true_value"] = probe["true_value"]
             record["decoy_value"] = probe["decoy_value"]
             record["true_statement_probability"] = _forced_choice_probability(
@@ -249,7 +263,7 @@ def run_probes(
                 probe["question"],
                 probe["true_value"],
                 probe["decoy_value"],
-                true_code=true_code,
+                true_code="X",
             )
         results.append(record)
         print(json.dumps(record, ensure_ascii=False)[:400], flush=True)
