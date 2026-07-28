@@ -27,6 +27,9 @@ def result_row(path: Path) -> Dict[str, Any]:
     overshoot = summary.get("overshoot", {})
     advisor_agreement = summary.get("advisor_agreement", {})
     scale = calibration.get("scale", {})
+    bias = summary.get("response_code_bias", {})
+    raw_bias = bias.get("raw", {})
+    mirror = bias.get("mirror", {})
     return {
         "model": payload["model_label"],
         "dataset": Path(payload["dataset"]).name,
@@ -55,6 +58,11 @@ def result_row(path: Path) -> Dict[str, Any]:
             "mean_agreeing_choice_probability"
         ),
         "dpo_unreachable_rate": overshoot.get("dpo_unreachable_rate"),
+        # Letter bias is measured before symmetrization; a large value means the
+        # raw scores were decided by the response code rather than the task.
+        "letter_bias_logodds": raw_bias.get("median_log_odds_x"),
+        "raw_argmax_x_rate": raw_bias.get("argmax_x_rate"),
+        "paired_items": mirror.get("paired_items"),
         "source": str(path),
     }
 
@@ -85,6 +93,8 @@ def main() -> None:
         "authority_alignment",
         "human_authority_alignment",
         "dpo_unreachable_rate",
+        "letter_bias_logodds",
+        "paired_items",
     ]
     lines = [
         "| " + " | ".join(headers) + " |",
