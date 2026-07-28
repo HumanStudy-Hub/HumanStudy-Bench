@@ -699,6 +699,18 @@ class LetterBiasTests(unittest.TestCase):
         self.assertAlmostEqual(fixed, 0.2, places=6)
         self.assertLess(fixed, biased)
 
+    def test_a_no_information_model_scores_chance_not_perfect(self):
+        from effect_algebra.evaluate_choices import summarize_scored_rows
+
+        # Both orders identical at 0.5: the model carries no information.
+        summary = summarize_scored_rows(self._pair(0.5, 0.5))["normative"]
+        self.assertAlmostEqual(summary["accuracy"], 0.5)
+        self.assertEqual(summary["tied_rows"], 1)
+        # A model that does identify the target still scores 1.0.
+        confident = summarize_scored_rows(self._pair(0.9, 0.1))["normative"]
+        self.assertAlmostEqual(confident["accuracy"], 1.0)
+        self.assertEqual(confident["tied_rows"], 0)
+
     def test_unpaired_rows_pass_through(self):
         from effect_algebra.evaluate_choices import merge_mirror_pairs
 

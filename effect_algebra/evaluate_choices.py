@@ -238,7 +238,11 @@ def merge_mirror_pairs(
             reference_code if probability_reference >= 0.5 else other
         )
         if frame.get("target_code") in {"X", "Y"}:
-            frame["correct"] = frame["predicted_code"] == frame["target_code"]
+            frame["correct"] = (
+                None
+                if probability_reference == 0.5
+                else frame["predicted_code"] == frame["target_code"]
+            )
         frame["mirror_size"] = len(group)
         merged.append(frame)
         paired_groups += 1
@@ -336,14 +340,33 @@ def _overshoot_diagnostic(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
     }
 
 
+def _tie_aware_correctness(row: Mapping[str, Any]) -> float:
+    """Score a forced choice, splitting an exact tie instead of awarding it.
+
+    Taking the argmax of two equal probabilities silently resolves the tie in a
+    fixed direction. Where the target happens to sit in that direction, a model
+    carrying no information at all scores a perfect 1.0, which is how a constant
+    0.5 predictor came out looking flawless on the B probes.
+    """
+
+    probability_target = float(row["probability_by_code"][str(row["target_code"])])
+    if probability_target > 0.5:
+        return 1.0
+    if probability_target < 0.5:
+        return 0.0
+    return 0.5
+
+
 def _normative_metrics(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
     labeled = [row for row in rows if row.get("target_code") in {"X", "Y"}]
     return {
         "rows": len(rows),
         "labeled_rows": len(labeled),
-        "accuracy": _mean_or_none(
-            1.0 if row["predicted_code"] == row["target_code"] else 0.0
+        "accuracy": _mean_or_none(_tie_aware_correctness(row) for row in labeled),
+        "tied_rows": sum(
+            1
             for row in labeled
+            if float(row["probability_by_code"][str(row["target_code"])]) == 0.5
         ),
         "mean_target_probability": _mean_or_none(
             float(row["probability_by_code"][row["target_code"]])
@@ -522,9 +545,9 @@ def evaluate_rows(
                 "target_code": row.get("target_code"),
                 "predicted_code": predicted_code,
                 "correct": (
-                    predicted_code == row["target_code"]
-                    if row.get("target_code") in {"X", "Y"}
-                    else None
+                    None
+                    if probability_x == 0.5 or row.get("target_code") not in {"X", "Y"}
+                    else predicted_code == row["target_code"]
                 ),
                 "log_probability_by_code": {"X": logp_x, "Y": logp_y},
                 "probability_by_code": {
