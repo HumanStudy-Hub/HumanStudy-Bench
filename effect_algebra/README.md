@@ -1,248 +1,172 @@
-# Effect A + B -> C: Colab 训练与评估
+# A + B → C:社会影响的行为校准与迁移
 
-这个目录把三个已经实现的实验环境转成一个可运行的参数组合实验：
+把三个已实现的实验环境转成一个校准实验:在 A、B 上训练"像人",零样本迁移到 C。
 
-- **A / `study_016`**：顺序观察他人的公开选择，再结合自己的私有信号。
-- **B / `study_017` Task 3C**：通过完整反馈历史区分“准确 advisor”和“仅仅同意自己
-  的 advisor”。
-- **C / `study_019` Study 2**：在顺序诊断中加入 `medical director` 的权威身份。
+- **A / `study_016`**:信息级联。顺序观察他人的公开选择,再结合自己的私有信号。
+- **B / `study_017` Task 3C**:顾问选择。从完整反馈历史里区分"准确"和"只会同意你"。
+- **C / `study_019` Study 2**:医疗权威。顺序诊断中加入 `medical director` 的权威身份。
+- **D / `study_019` Study 1**:urn 级联。和 C 同一批被试,但**没有**权威操纵。
 
-目标是分别训练 `Delta_A` 和 `Delta_B`，然后测试
-`theta_0 + alpha * Delta_A + beta * Delta_B` 在 C 上是否产生可测量的迁移。
+完整实验设计见 [`EXPERIMENT_PLAN.md`](EXPERIMENT_PLAN.md)。
 
-这不是数学意义上的严格 `A+B=C`。C 新增了 A/B 中没有直接监督的 authority cue，
-所以实验检验的是跨任务机制组合，而不是预先保证成立的恒等式。
+## 这是校准问题,不是正确性问题
 
-## 方法选择
+目标是匹配**人类反应分布**,不是给出贝叶斯最优答案。主指标是
+**MAE(模型分布 vs 人类分布)**,准确率只作次要指标——因为"更像人"和"更理性"
+经常是相反方向,合成一个数会把这件事藏起来。
 
-| 名称 | 实际含义 | 是否作为主方法 |
-| --- | --- | --- |
-| 全参数 DPO | 更新 7B 模型全部参数 | 否，Colab 成本高，也失去独立 delta |
-| LoRA-SFT | 只最大化正确答案 likelihood | 只作为 baseline |
-| DPO + LoRA / LoRA-DPO | 用 DPO loss 训练 LoRA adapter | 两者是同一种组合 |
-| QLoRA-DPO | 4-bit 冻结 base + LoRA 参数 + DPO loss | **是，主方法** |
-| QDPO | Quantization-aware DPO，用全精度输出修复量化模型 | 否，目标不是学习 A/B effect |
+每一行数据都带着它那个状态的人类比例,全部来自原论文:
 
-主方法因此是 **Qwen2.5-7B-Instruct + 4-bit NF4 QLoRA + DPO**。A、B 必须：
+| 效应 | 人类比例粒度 | 来源 |
+|---|---|---|
+| A | bucket 级(4 个已校准 bucket,覆盖 126 个状态中的 114 个) | Anderson & Holt 1997 正文统计 |
+| B | 实验级(3C = 0.17 agreeing pick rate) | Jaquiery & Yeung 2024 |
+| C | **逐场景**(40 场景 × n=40) | Figshare 原始 workbook |
+| D | **逐场景**(24 场景 × n≈40) | 同上,Study 1 |
 
-1. 从同一个 base checkpoint 开始；
-2. 使用完全相同的 LoRA rank、alpha、target modules；
-3. 分别保存 adapter；
-4. 在看 C 结果之前固定合并方式和权重。
+没有公开比例的状态标记为未校准,**排除出训练**,不编造标签。A 的覆盖率
+(114/126 = 90.5%)写在 manifest 里。
 
-默认配置为 rank 16、alpha 32、dropout 0.05、DPO beta 0.1、学习率
-`2e-5`、两轮训练。
-这是一组适合单卡 Colab 的首轮参数，不应在 C test 上调参。
+## 主方法:soft-label 分布匹配
 
-## 为什么不让 OpenAI API 生成标签
-
-A 和 B 都不需要 LLM 做 judge：
-
-- A 的 chosen/rejected 可以从公开历史和私有信号精确计算。
-- B 的 chosen advisor 可以从完整反馈 ledger 中重新计算平均绝对误差。
-- C 是真正的 held-out test，绝不能进入生成或训练 prompt。
-
-用 `gpt-4o-mini` 或 `gpt-5-mini` 生成几千个标签会引入 judge bias，并让所谓的
-effect 参数变成对 OpenAI 模型偏好的蒸馏。当前实现只用程序化状态生成器产生数据。
-后续确实需要语言鲁棒性时，可以让便宜模型生成**中性措辞模板**，但数值状态、标签和
-split 都必须由本地 validator 重新验证。
-
-## 数据边界
-
-运行默认构建命令会生成：
-
-| 文件 | 行数 | 用途 |
-| --- | ---: | --- |
-| `dpo/A_train.jsonl` | 512 | 训练 `Delta_A` |
-| `dpo/A_dev.jsonl` | 128 | A 开发集 |
-| `eval/A_test.jsonl` | 256 | A held-out wording |
-| `dpo/B_train.jsonl` | 1024 | 训练 `Delta_B` |
-| `dpo/B_dev.jsonl` | 256 | B 开发集 |
-| `eval/B_test.jsonl` | 256 | B held-out episodes |
-| `eval/B_no_feedback_control.jsonl` | 256 | 3B 控制，不含偏好标签 |
-| `eval/C_test.jsonl` | 40 | `study_019` 的全部医疗场景 |
-
-`AB_train/dev` 只是 A 和 B 的交错联合视图，用于 joint-training baseline；它们不是
-额外数据。默认整棵数据树共 4648 行（包含联合视图），约 31 MB。
-
-关键保护：
-
-- A 系统枚举有限状态，不用重复样本伪造规模。
-- X/Y response code 每条随机映射并严格平衡，防止学习固定 token。
-- B 每条样本包含两位 advisor 各 15 轮的完整 episode。
-- B ledger 的正确年份、误差和 chosen advisor 会在训练前重算。
-- B 3B/no-feedback 没有 chosen/rejected，代码禁止把它送入训练。
-- C 的 40 个材料 fingerprint 来自 `study_019`; 其中 10 个 Bayesian tie 保持
-  `target_code=null`，不会被强行标注。
-- 训练脚本发现 B prompt 超过 token limit 时直接失败，不允许静默裁剪早期历史。
-
-## Colab 快速运行
-
-推荐直接打开：
-
-[`colab_effect_algebra.ipynb`](colab_effect_algebra.ipynb)
-
-在 Colab 中选择 `Runtime > Change runtime type > GPU`。A100/L4 使用默认 7B；
-如果只拿到 16 GB T4，先把模型改成 `Qwen/Qwen2.5-3B-Instruct`，并保证 A、B、
-merge 和所有 baseline 都使用同一个 3B base。
-
-### 1. 获取代码并安装
-
-```bash
-git clone --branch pipeline https://github.com/HumanStudy-Hub/HumanStudy-Bench.git
-cd HumanStudy-Bench
-pip install -q -r effect_algebra/requirements-colab.txt
+```
+loss = − Σ_c  p_human(c) · log softmax([logit_X, logit_Y])[c]
 ```
 
-如果仓库仍是私有仓库，不要把 GitHub token 写进 notebook。通过 Colab 的 GitHub
-授权打开 notebook，或把 checkout 放进 Google Drive 后设置 `REPO_DIR`。
+最优点**恰好**是人类分布。不需要 reference model(显存减半、约 2× 吞吐),
+不需要 β,而且训练和评估是同一个口径。
 
-### 2. 生成并验证数据
+**DPO 是对照方法,不是主方法。** 在 DPO 最优点处
 
-```bash
-python -m effect_algebra.build_datasets \
-  --repo-root . \
-  --output-dir /content/drive/MyDrive/effect_algebra_ab_c/data
-
-python -m effect_algebra.validate_datasets \
-  --data-dir /content/drive/MyDrive/effect_algebra_ab_c/data
+```
+logit(p_model) = logit(p_base) + logit(p_human) / β
 ```
 
-必须看到 `"errors": 0` 和 `"C_used_for_training": false`。
+位移的符号永远跟随人类多数派。所以当 base 已经比人类更极端(同方向过冲)时,
+**任何正 β 都够不到目标,只会推得更远**——比例化 DPO 只能锐化,不能软化。
+Gate 0 的 `dpo_unreachable_rate` 会在花 GPU 之前告诉你有多少比例的评估集
+结构上够不到。这个 negative result 本身值得报告。
 
-### 3. 训练 A adapter
+## 参照标尺(不需要 GPU,先跑)
 
-```bash
-python -m effect_algebra.train_dpo \
-  --train-file /content/drive/MyDrive/effect_algebra_ab_c/data/dpo/A_train.jsonl \
-  --eval-file /content/drive/MyDrive/effect_algebra_ab_c/data/dpo/A_dev.jsonl \
-  --output-dir /content/drive/MyDrive/effect_algebra_ab_c/adapters/A_dpo \
-  --run-name effect-A-dpo \
-  --base-model Qwen/Qwen2.5-7B-Instruct
-```
+MAE 单看没有意义。`reference_models.py` 用闭式预测器把标尺两端钉死:
 
-### 4. 训练 B adapter
+| 参照模型 | C_test | A_test | B_test | B_control | D_test |
+|---|---:|---:|---:|---:|---:|
+| 噪声地板(完美模型) | **0.035** | 0.024 | 0.054 | 0.074 | 0.041 |
+| `bayesian_hard` 完全理性 | **0.091** | 0.156 | 0.170 | 0.510 | 0.173 |
+| `bayesian_soft` 概率匹配 | 0.151 | 0.205 | — | — | 0.166 |
+| `uniform_half` 恒定 0.5 | 0.350 | 0.366 | 0.330 | **0.010** | 0.352 |
 
-先重启 runtime 或执行 notebook 中的 GPU 清理 cell，再运行：
+**要打败的是 0.091,不是 0.35。** 一个完全理性的 agent 在 C 上离人类只有 0.091,
+地板是 0.035,总头寸只有 0.056。拿 uniform 当基线会严重夸大改进。
 
-```bash
-python -m effect_algebra.train_dpo \
-  --train-file /content/drive/MyDrive/effect_algebra_ab_c/data/dpo/B_train.jsonl \
-  --eval-file /content/drive/MyDrive/effect_algebra_ab_c/data/dpo/B_dev.jsonl \
-  --output-dir /content/drive/MyDrive/effect_algebra_ab_c/adapters/B_dpo \
-  --run-name effect-B-dpo \
-  --base-model Qwen/Qwen2.5-7B-Instruct
-```
+`oracle` 标记的参照模型读取了评估集自己的人类比例,只能当参考线,**不能当模型分数**。
 
-不要把 B 切成单轮样本。最终 advisor choice 的学习信号依赖前面所有反馈。
+## 防泄漏:split 级,不是 effect 级
 
-### 5. 精确组合 A+B adapter
+Gate 1 必须在 C 的场景上训练(那是 ceiling),所以按 effect 名字一刀切要么挡住
+测量、要么被人绕过。改成两把独立的锁:
 
-```bash
-python -m effect_algebra.merge_adapters \
-  --adapter-a /content/drive/MyDrive/effect_algebra_ab_c/adapters/A_dpo \
-  --adapter-b /content/drive/MyDrive/effect_algebra_ab_c/adapters/B_dpo \
-  --output-dir /content/drive/MyDrive/effect_algebra_ab_c/adapters/A_plus_B_cat \
-  --base-model Qwen/Qwen2.5-7B-Instruct \
-  --weight-a 1.0 \
-  --weight-b 1.0 \
-  --combination-type cat
-```
+1. 每行一个 `trainable` 布尔字段,由所在目录交叉验证(`dpo/` 和 `cv/*_train` 可训练,
+   `eval/` 和 `cv/*_test` 不可);
+2. 不可训练的行**根本不带 chosen/rejected**,训练入口读不到东西。
 
-`cat` 保存的是精确的 `Delta_A + Delta_B`，代价是合并 adapter 的 rank 从 16
-增加到 32。`linear` 维持 rank，但不是同样的矩阵级精确表示；`ties` 应当作为后续
-消融，不应替代第一条基线。
+`eval/C_test.jsonl` 永远不可训练;`cv/` 的每一折都会校验 train/test 场景不相交。
 
-### 6. 一次加载模型并评估 A/B/C
-
-下面以 A+B 为例：
+## 快速开始
 
 ```bash
-python -m effect_algebra.evaluate_suite \
-  --model-label A_plus_B \
-  --base-model Qwen/Qwen2.5-7B-Instruct \
-  --adapter /content/drive/MyDrive/effect_algebra_ab_c/adapters/A_plus_B_cat \
-  --dataset A_test=/content/drive/MyDrive/effect_algebra_ab_c/data/eval/A_test.jsonl \
-  --dataset B_test=/content/drive/MyDrive/effect_algebra_ab_c/data/eval/B_test.jsonl \
-  --dataset B_control=/content/drive/MyDrive/effect_algebra_ab_c/data/eval/B_no_feedback_control.jsonl \
-  --dataset C_test=/content/drive/MyDrive/effect_algebra_ab_c/data/eval/C_test.jsonl \
-  --output-dir /content/drive/MyDrive/effect_algebra_ab_c/results/A_plus_B
+python -m effect_algebra.run_plan --format shell --output run_all.sh
 ```
 
-对 `base`、`A_dpo`、`B_dpo` 和 `A_plus_B` 分别运行一次。`evaluate_suite` 对每个
-模型只加载一次权重，然后连续跑四个数据集。
+会按顺序生成全部命令,每个阶段前带停止条件和预算估计(当前总计 12.5 GPU-h)。
+前两个阶段不需要 GPU,**先在本地跑完再开 Colab**:
 
-## 最小实验矩阵
+```bash
+python -m effect_algebra.build_datasets --repo-root . --output-dir effect_algebra/data
+python -m effect_algebra.reference_models \
+  --dataset C_test=effect_algebra/data/eval/C_test.jsonl \
+  --output-dir results/reference
+```
 
-必须至少保留：
+必须看到 `errors: 0` 和 `c_test_used_for_training: false`。
 
-| 模型 | A test | B test | B no-feedback | C test |
-| --- | --- | --- | --- | --- |
-| Base | 必跑 | 必跑 | 必跑 | 必跑 |
-| A-only | 必跑 | 必跑 | 必跑 | 必跑 |
-| B-only | 必跑 | 必跑 | 必跑 | 必跑 |
-| A+B exact `cat` | 必跑 | 必跑 | 必跑 | 必跑 |
-| Joint A+B DPO | 推荐 | 推荐 | 推荐 | 推荐 |
-| LoRA-SFT A/B | 可选 baseline | 可选 | 可选 | 可选 |
+## Colab
 
-Joint DPO 命令使用 `dpo/AB_train.jsonl` 和 `dpo/AB_dev.jsonl`。SFT baseline 使用
-`python -m effect_algebra.train_sft`，其余参数与 DPO 相同。
+A100/L4 用默认 7B;只拿到 16 GB T4 就换 `Qwen/Qwen2.5-3B-Instruct`,
+但 **A、B、C、D 和所有 baseline 必须用同一个 base**,中途不能换。
 
-权重搜索只能看 A/B dev。建议第二轮再尝试
-`alpha,beta in {0.5, 1.0, 1.5}`，先按 A/B dev 的最小值或调和平均数选一个组合，
-冻结权重后只运行一次 C test。不能依据 C 结果挑权重。
+实测 prompt 长度:A 227 token、B 897、C 267、D ~250,所以
+`--max-prompt-length 1024` 足够,不必用 2048。
 
-## 如何读结果
+纪律:一个 gate 一个 session;adapter 和结果直接写 Drive;A 和 B 之间清 GPU;
+超参只能看 dev 和 Gate 1 的 fold 0,**任何情况下不能看 C_test 调参**。
 
-`evaluate_suite` 不依赖生成文本或 parser，而是计算两个允许 completion 的条件
-log-prob，因此比采样一次 `DECISION=X/Y` 稳定。
+## 三个 Gate
 
-- `accuracy`：A/B 或 C 非 tie 场景的目标选择准确率。
-- `mean_target_probability`：模型分配给目标选项的平均概率。
-- `mean_preference_margin`：目标 completion 与另一个 completion 的 log-prob 差。
-- `decision_x_rate`：检查随机 response code 是否仍有 token 偏置。
-- `advisor_agreement`：B 控制中选择 agreeing advisor 的概率；3B 不作为正确率。
-- `human_distribution.weighted_probability_mae`：C 模型分布与原始人类选择率的差。
-- `authority.hard_alignment_rate`：存在 medical director 时模型跟随权威诊断的比例。
+| Gate | 内容 | 停止条件 |
+|---|---|---|
+| 0 | base 画像 + 知识探针 + 过冲诊断 | MAE 已经很低 → 没有差距可补;探针显示模型不知道这些论文 → framing 站不住 |
+| 1 | C 直训,5 折分层 CV → ceiling | ceiling 相对 base 的改进小于噪声地板 → 方法不成立,不要测迁移 |
+| 2 | A+B 单个联合 adapter → C 零样本 | 先确认 A-only 在 A_test、B-only 在 B_test 上确实提升了 |
 
-C 必须同时报告两类结果：
+```
+recovery fraction = (base − transfer) / (base − ceiling)
+```
 
-1. **normative**：是否符合 source-grounded Bayesian choice；
-2. **human-like**：是否接近人类 authority alignment 分布。
+Gate 1 用 CV 而不是单次 20/20 划分,因为 Gate 0 和 Gate 2 都在全部 40 个场景上
+评估;单次划分会让 ceiling 落在另一个测试集上,recovery fraction 混两个集合。
 
-这两个方向可能相反。模型更“服从权威”不等于 Bayesian 表现更好。
+## 数据飞轮
 
-## 推荐运行顺序与 credit 使用
+`flywheel.py` 回答:**来源数据变多时,对未见范式的零样本校准会变好吗?
+是"更多样"还是"更多量"?**
 
-先做主线，不要一开始跑完整网格：
+- **多样性轴**:A / B / D / A+B / A+D / B+D / A+B+D,**所有条件训练行数相同**。
+  不固定行数的话,A+B 比 A 多一倍数据,提升归因不清。
+- **数据量轴**:A+B+D 池的 12.5% / 25% / 50% / 100%,范式集固定。
 
-1. 生成和验证数据；
-2. Base 在 A/B/C 上的 pre-test；
-3. 训练 A DPO；
-4. 训练 B DPO；
-5. 合并 1.0A + 1.0B；
-6. 对 Base/A/B/A+B 跑同一套测试；
-7. 只有结果显示 A、B 各自学成功后，再跑 Joint DPO、SFT 和权重网格。
+子采样按 (label_group, response_code, label_side) 分层,所以人类比例和 X/Y 平衡
+是构造性精确的,不是期望意义上的。
 
-如果 A-only 在 A test 或 B-only 在 B test 上没有稳定提升，停止解释 C；此时
-`A+B` 没有可验证的组成基础，应先检查训练曲线、token limit 和数据分布。
+怎么读:多样性升、数据量平 → 该加论文;数据量升、多样性平 → 先扩样本;
+两条都平 → 是方法问题,回去看 Gate 1。
 
-## 主要文件
+## 报告纪律
 
-- `datasets.py`：A/B 程序化状态、C source-grounded 转换。
-- `build_datasets.py`：生成 manifest 和 JSONL。
-- `validate_datasets.py`：标签重算、防泄漏和训练边界。
-- `train_dpo.py`：主 QLoRA-DPO。
-- `train_sft.py`：QLoRA-SFT baseline。
-- `merge_adapters.py`：PEFT adapter arithmetic。
-- `evaluate_choices.py`：forced-choice log-prob 与指标。
-- `evaluate_suite.py`：一次加载，多数据集评估。
-- `compare_results.py`：汇总 CSV/Markdown。
+不要把 C 折叠成一个"变好了"的数字。同时报:
 
-技术依据：
+1. 到人类分布的距离(MAE),分条件拆开——`opposes_private` 和 `indifference`
+   两个子集是主战场,`supports_private` 已接近地板;
+2. 残差里权威偏差是**过冲还是不足**。
 
-- [TRL DPOTrainer 数据格式与 PEFT 支持](https://huggingface.co/docs/trl/dpo_trainer)
+更"服从权威"不等于更 Bayesian,这两个方向可能相反。
+
+## 文件
+
+| 文件 | 作用 |
+|---|---|
+| `human_priors.py` | 三篇论文的人类比例常量;噪声地板;DPO 可达性判据 |
+| `datasets.py` | A/B/C/D 的行生成、分桶、比例化标签、CV 划分 |
+| `build_datasets.py` | 生成 manifest 和全部 JSONL |
+| `validate_datasets.py` | 标签重算、比例校验、split 级防泄漏 |
+| `train_soft.py` | **主方法**:soft-label 分布匹配 |
+| `train_dpo.py` | 对照:成对 DPO(带方向盲区说明) |
+| `train_sft.py` | 对照:QLoRA-SFT |
+| `evaluate_choices.py` | 单次 forward 读答案 token;MAE 为主指标 |
+| `evaluate_suite.py` | 一次加载,多数据集评估 |
+| `reference_models.py` | 免 GPU 的参照标尺 |
+| `knowledge_probe.py` | Gate 0 知识探针 |
+| `flywheel.py` | 数据飞轮的子集构造与 run plan |
+| `run_plan.py` | 生成全部 Colab 命令 |
+| `plot_calibration.py` | 校准散点图(纯 SVG,无依赖) |
+| `compare_results.py` | 汇总 CSV / Markdown |
+| `merge_adapters.py` | adapter 算术(消融用) |
+
+技术依据:
+
+- [TRL DPOTrainer](https://huggingface.co/docs/trl/dpo_trainer)
 - [Transformers 4-bit NF4/QLoRA](https://huggingface.co/docs/transformers/quantization/bitsandbytes)
 - [PEFT model merging](https://huggingface.co/docs/peft/developer_guides/model_merging)
-- [QDPO 原论文](https://arxiv.org/abs/2407.03051)
-- [Qwen2.5-7B-Instruct model card](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)
+- [Qwen2.5-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)

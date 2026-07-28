@@ -1,4 +1,19 @@
-"""Train one A, B, or joint A+B QLoRA adapter with the DPO objective."""
+"""Pairwise DPO baseline against the soft-label objective in `train_soft`.
+
+Labels here already encode the human proportion: within a bucket the chosen
+side is flipped for the share of rows that deviated in the published data, so
+no prompt is duplicated to express a ratio.
+
+This is a *baseline*, not the main method. At the DPO optimum,
+
+    logit(p_model) = logit(p_base) + logit(p_human) / beta,
+
+and the shift always carries the sign of the human majority. When the base
+model is already more extreme than the humans in that direction, no positive
+beta reaches the target; it only overshoots further. Sweep beta, but read the
+Gate 0 overshoot diagnostic first: it says how much of the evaluation set is
+structurally out of reach before any compute is spent.
+"""
 
 from __future__ import annotations
 
@@ -24,18 +39,33 @@ def _sha256(path: Path) -> str:
 
 
 def _training_records(path: Path) -> List[Dict[str, Any]]:
+    """Read preference pairs, refusing anything an evaluation set produced.
+
+    The guard is the per-row `trainable` flag rather than the effect name.
+    Gate 1 trains on C scenarios on purpose, so banning effect C outright would
+    either block the ceiling measurement or invite someone to disable the check;
+    the flag distinguishes a cross-validation training fold from the held-out
+    evaluation set, which is the distinction that actually matters. Evaluation
+    rows also carry no chosen/rejected pair at all, so this is the second of two
+    independent locks.
+    """
+
     rows = load_jsonl(path)
     records: List[Dict[str, Any]] = []
     for row in rows:
-        if row.get("effect") not in {"A", "B"}:
+        if not row.get("trainable"):
             raise ValueError(
-                "{} contains held-out effect {}; C and B_control cannot train adapters".format(
+                "{} [{}] is not trainable; evaluation rows cannot train adapters".format(
                     path,
-                    row.get("effect"),
+                    row.get("id"),
                 )
             )
         if row.get("target_code") not in {"X", "Y"}:
             raise ValueError("{} [{}] has no preference label".format(path, row.get("id")))
+        if "chosen" not in row or "rejected" not in row:
+            raise ValueError(
+                "{} [{}] carries no preference pair".format(path, row.get("id"))
+            )
         records.append(
             {
                 "prompt": row["prompt"],
@@ -49,7 +79,7 @@ def _training_records(path: Path) -> List[Dict[str, Any]]:
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--train-file", type=Path, required=True)
-    parser.add_argument("--eval-file", type=Path, required=True)
+    parser.add_argument("--eval-file", type=Path)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--run-name", required=True)
     parser.add_argument("--base-model", default=DEFAULT_BASE_MODEL)
@@ -63,7 +93,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--batch-size", type=int, default=1)
     parser.add_argument("--eval-batch-size", type=int, default=1)
     parser.add_argument("--gradient-accumulation", type=int, default=16)
-    parser.add_argument("--max-prompt-length", type=int, default=2048)
+    parser.add_argument("--max-prompt-length", type=int, default=1024)
     parser.add_argument("--max-completion-length", type=int, default=8)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--logging-steps", type=int, default=10)
@@ -84,9 +114,7 @@ def main() -> None:
     from trl import DPOConfig, DPOTrainer
 
     train_rows = load_jsonl(args.train_file)
-    eval_rows = load_jsonl(args.eval_file)
     train_records = _training_records(args.train_file)
-    eval_records = _training_records(args.eval_file)
     tokenizer = load_tokenizer(args.base_model)
     token_lengths = {
         "train": enforce_prompt_limit(
@@ -95,13 +123,18 @@ def main() -> None:
             args.max_prompt_length,
             dataset_name=str(args.train_file),
         ),
-        "eval": enforce_prompt_limit(
+    }
+    # Optional: the cross-validation folds have no trainable dev split, and
+    # their real measurement is `evaluate_suite` on the held-out fold anyway.
+    eval_records = None
+    if args.eval_file is not None:
+        eval_records = _training_records(args.eval_file)
+        token_lengths["eval"] = enforce_prompt_limit(
             tokenizer,
-            eval_rows,
+            load_jsonl(args.eval_file),
             args.max_prompt_length,
             dataset_name=str(args.eval_file),
-        ),
-    }
+        )
     model = load_4bit_base(
         args.base_model,
         for_training=True,
@@ -137,7 +170,7 @@ def main() -> None:
         lr_scheduler_type="cosine",
         logging_steps=args.logging_steps,
         logging_first_step=True,
-        eval_strategy="epoch",
+        eval_strategy="epoch" if args.eval_file is not None else "no",
         save_strategy="epoch",
         save_total_limit=2,
         report_to="none",
@@ -152,7 +185,9 @@ def main() -> None:
         ref_model=None,
         args=config,
         train_dataset=Dataset.from_list(train_records),
-        eval_dataset=Dataset.from_list(eval_records),
+        eval_dataset=(
+            Dataset.from_list(eval_records) if eval_records is not None else None
+        ),
         processing_class=tokenizer,
         peft_config=peft_config,
     )
@@ -167,9 +202,9 @@ def main() -> None:
         "train_file": str(args.train_file.resolve()),
         "train_sha256": _sha256(args.train_file),
         "train_rows": len(train_records),
-        "eval_file": str(args.eval_file.resolve()),
-        "eval_sha256": _sha256(args.eval_file),
-        "eval_rows": len(eval_records),
+        "eval_file": str(args.eval_file.resolve()) if args.eval_file else None,
+        "eval_sha256": _sha256(args.eval_file) if args.eval_file else None,
+        "eval_rows": len(eval_records) if eval_records is not None else 0,
         "token_lengths": token_lengths,
         "dpo": {
             "loss_type": args.loss_type,

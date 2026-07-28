@@ -1,4 +1,15 @@
-"""Evaluate base or adapter models with forced-choice conditional log probabilities."""
+"""Score models against human response distributions with forced-choice logits.
+
+The primary metric is distance to the human distribution (MAE), not accuracy
+against a normative answer. Accuracy is still reported, because "closer to
+humans" and "more Bayesian" can move in opposite directions and collapsing them
+into one number hides that.
+
+Scoring reads the two answer-token logits from a single forward pass. The two
+completions differ in exactly one token, so one pass yields both, and the
+normalized two-way probability is exactly the quantity being compared against
+the human proportion.
+"""
 
 from __future__ import annotations
 
@@ -9,9 +20,10 @@ import math
 from collections import defaultdict
 from pathlib import Path
 from statistics import mean
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
 from .datasets import load_jsonl, preference_probability
+from .human_priors import binomial_noise_floor, dpo_reachable, logit, trivial_baselines
 from .modeling import (
     DEFAULT_BASE_MODEL,
     load_4bit_base,
@@ -28,13 +40,85 @@ def _device(model: Any) -> Any:
     return next(model.parameters()).device
 
 
+def answer_token_plan(
+    tokenizer: Any,
+    prompt: Sequence[Mapping[str, str]],
+    options: Mapping[str, str],
+) -> Tuple[List[int], Dict[str, int]]:
+    """Locate the single token position where the two completions diverge.
+
+    Returns the shared context to run a forward pass on, plus the token id each
+    response code contributes at the next position. Raising here rather than
+    guessing keeps a tokenizer change from silently corrupting every score.
+    """
+
+    encoded: Dict[str, List[int]] = {}
+    for code in ("X", "Y"):
+        encoded[code] = tokenizer.apply_chat_template(
+            list(prompt) + [{"role": "assistant", "content": options[code]}],
+            tokenize=True,
+            add_generation_prompt=False,
+        )
+    ids_x, ids_y = encoded["X"], encoded["Y"]
+    if len(ids_x) != len(ids_y):
+        raise ValueError(
+            "the two completions tokenize to different lengths ({} vs {}); "
+            "single-pass scoring needs them to differ in one position".format(
+                len(ids_x),
+                len(ids_y),
+            )
+        )
+    divergent = [index for index in range(len(ids_x)) if ids_x[index] != ids_y[index]]
+    if len(divergent) != 1:
+        raise ValueError(
+            "expected exactly one divergent token between completions, found {}".format(
+                len(divergent)
+            )
+        )
+    position = divergent[0]
+    prompt_ids = tokenizer.apply_chat_template(
+        list(prompt),
+        tokenize=True,
+        add_generation_prompt=True,
+    )
+    if ids_x[: len(prompt_ids)] != prompt_ids:
+        raise ValueError("chat template does not preserve the prompt prefix")
+    if position < len(prompt_ids):
+        raise ValueError("completions diverge inside the prompt, not the answer")
+    return ids_x[:position], {"X": ids_x[position], "Y": ids_y[position]}
+
+
+def score_answer_tokens(
+    model: Any,
+    tokenizer: Any,
+    prompt: Sequence[Mapping[str, str]],
+    options: Mapping[str, str],
+) -> Dict[str, float]:
+    """Log probabilities of the two answer tokens from one forward pass."""
+
+    import torch
+
+    context, token_ids = answer_token_plan(tokenizer, prompt, options)
+    input_ids = torch.tensor([context], dtype=torch.long, device=_device(model))
+    attention_mask = torch.ones_like(input_ids)
+    with torch.inference_mode():
+        logits = model(input_ids=input_ids, attention_mask=attention_mask).logits
+        log_probs = torch.log_softmax(logits[0, -1].float(), dim=-1)
+    return {code: float(log_probs[token_id].item()) for code, token_id in token_ids.items()}
+
+
 def score_completion(
     model: Any,
     tokenizer: Any,
     prompt: Sequence[Mapping[str, str]],
     completion: str,
 ) -> float:
-    """Return summed assistant-token log probability for one completion."""
+    """Summed assistant-token log probability for one completion.
+
+    Kept as a cross-check for `score_answer_tokens`: it costs one forward pass
+    per option instead of one per row, and additionally scores the turn-ending
+    tokens, which are not part of the choice.
+    """
 
     import torch
 
@@ -72,8 +156,88 @@ def _mean_or_none(values: Iterable[float]) -> Optional[float]:
     return mean(materialized) if materialized else None
 
 
-def _group_metrics(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
-    labeled = [row for row in rows if row["target_code"] in {"X", "Y"}]
+def _calibration_metrics(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
+    """Distance between the model distribution and the human distribution."""
+
+    scored = [
+        row for row in rows if isinstance(row.get("human_probability_by_code"), dict)
+    ]
+    if not scored:
+        return {"rows": 0, "mae": None, "rmse": None, "cross_entropy": None}
+
+    absolute = []
+    squared = []
+    cross_entropy = []
+    for row in scored:
+        model_x = float(row["probability_by_code"]["X"])
+        human_x = float(row["human_probability_by_code"]["X"])
+        human_y = float(row["human_probability_by_code"]["Y"])
+        absolute.append(abs(model_x - human_x))
+        squared.append((model_x - human_x) ** 2)
+        cross_entropy.append(
+            -human_x * math.log(max(model_x, 1e-12))
+            - human_y * math.log(max(1.0 - model_x, 1e-12))
+        )
+    return {
+        "rows": len(scored),
+        "mae": mean(absolute),
+        "rmse": math.sqrt(mean(squared)),
+        "cross_entropy": mean(cross_entropy),
+    }
+
+
+def _calibration_scale(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
+    """The floor and the trivial ceilings any MAE has to be read against."""
+
+    scored = [
+        row for row in rows if isinstance(row.get("human_probability_by_code"), dict)
+    ]
+    if not scored:
+        return {}
+    proportions = [
+        float(row["human_probability_by_code"]["X"]) for row in scored
+    ]
+    counts = [int(row.get("human_n") or 0) for row in scored]
+    scale: Dict[str, Any] = {"trivial_baselines": trivial_baselines(proportions)}
+    if all(count > 0 for count in counts):
+        scale["noise_floor_mae"] = binomial_noise_floor(proportions, counts)
+    return scale
+
+
+def _overshoot_diagnostic(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
+    """How often proportional DPO structurally cannot reach the human value.
+
+    At the DPO optimum the model log-odds move by logit(p_human)/beta, whose
+    sign follows the human majority. When the model already sits further from
+    0.5 than the humans do in that same direction, no positive beta closes the
+    gap; it only widens it. Counting those rows before training decides whether
+    the pairwise objective is usable at all.
+    """
+
+    scored = [
+        row for row in rows if isinstance(row.get("human_probability_by_code"), dict)
+    ]
+    if not scored:
+        return {"rows": 0}
+    unreachable = []
+    signed_gap = []
+    for row in scored:
+        model_x = float(row["probability_by_code"]["X"])
+        human_x = float(row["human_probability_by_code"]["X"])
+        unreachable.append(0.0 if dpo_reachable(human_x, model_x) else 1.0)
+        signed_gap.append(abs(logit(model_x)) - abs(logit(human_x)))
+    return {
+        "rows": len(scored),
+        "dpo_unreachable_rate": mean(unreachable),
+        "mean_excess_confidence_logits": mean(signed_gap),
+        "model_more_extreme_rate": mean(
+            1.0 if value > 0 else 0.0 for value in signed_gap
+        ),
+    }
+
+
+def _normative_metrics(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
+    labeled = [row for row in rows if row.get("target_code") in {"X", "Y"}]
     return {
         "rows": len(rows),
         "labeled_rows": len(labeled),
@@ -98,105 +262,128 @@ def _group_metrics(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
     }
 
 
-def summarize_scored_rows(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
-    by_effect: Dict[str, List[Mapping[str, Any]]] = defaultdict(list)
-    by_category: Dict[str, List[Mapping[str, Any]]] = defaultdict(list)
-    by_authority: Dict[str, List[Mapping[str, Any]]] = defaultdict(list)
+def _group_metrics(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
+    metrics = _normative_metrics(rows)
+    metrics.update(_calibration_metrics(rows))
+    return metrics
+
+
+def _grouped(
+    rows: Sequence[Mapping[str, Any]],
+    key: str,
+) -> Dict[str, Dict[str, Any]]:
+    buckets: Dict[str, List[Mapping[str, Any]]] = defaultdict(list)
     for row in rows:
-        by_effect[str(row["effect"])].append(row)
-        category = row.get("category")
-        if category:
-            by_category[str(category)].append(row)
-        condition = row.get("authority_condition")
-        if condition:
-            by_authority[str(condition)].append(row)
+        value = row.get(key)
+        if value:
+            buckets[str(value)].append(row)
+    return {name: _group_metrics(group) for name, group in sorted(buckets.items())}
 
-    human_rows = [
-        row for row in rows if isinstance(row.get("human_probability_by_code"), dict)
-    ]
-    human_weight = sum(float(row.get("human_n") or 0) for row in human_rows)
-    human_mae = None
-    human_cross_entropy = None
-    if human_rows and human_weight:
-        human_mae = sum(
-            float(row["human_n"])
-            * abs(
-                float(row["probability_by_code"]["X"])
-                - float(row["human_probability_by_code"]["X"])
-            )
-            for row in human_rows
-        ) / human_weight
-        human_cross_entropy = sum(
-            float(row["human_n"])
-            * (
-                -float(row["human_probability_by_code"]["X"])
-                * math.log(max(float(row["probability_by_code"]["X"]), 1e-12))
-                -float(row["human_probability_by_code"]["Y"])
-                * math.log(max(float(row["probability_by_code"]["Y"]), 1e-12))
-            )
-            for row in human_rows
-        ) / human_weight
 
+def summarize_scored_rows(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
     authority_rows = [
         row for row in rows if row.get("medical_director_code") in {"X", "Y"}
     ]
     agreement_rows = [
         row for row in rows if row.get("agreeing_advisor_code") in {"X", "Y"}
     ]
-    return {
+    indifference_rows = [row for row in rows if row.get("indifference_scenario")]
+
+    summary: Dict[str, Any] = {
+        "calibration": {
+            **_calibration_metrics(rows),
+            "scale": _calibration_scale(rows),
+            "by_bucket": {
+                name: _calibration_metrics(group)
+                for name, group in sorted(
+                    _collect(rows, "bucket").items()
+                )
+            },
+            "by_authority_condition": {
+                name: _calibration_metrics(group)
+                for name, group in sorted(
+                    _collect(rows, "authority_condition").items()
+                )
+            },
+            "indifference_subset": _calibration_metrics(indifference_rows),
+        },
+        "overshoot": _overshoot_diagnostic(rows),
+        "normative": _normative_metrics(rows),
         "overall": _group_metrics(rows),
-        "by_effect": {
-            key: _group_metrics(value) for key, value in sorted(by_effect.items())
-        },
-        "by_category": {
-            key: _group_metrics(value) for key, value in sorted(by_category.items())
-        },
-        "by_authority_condition": {
-            key: _group_metrics(value) for key, value in sorted(by_authority.items())
-        },
-        "human_distribution": {
-            "rows": len(human_rows),
-            "weighted_probability_mae": human_mae,
-            "weighted_cross_entropy": human_cross_entropy,
-        },
+        "by_effect": _grouped(rows, "effect"),
+        "by_bucket": _grouped(rows, "bucket"),
+        "by_authority_condition": _grouped(rows, "authority_condition"),
         "authority": {
             "rows": len(authority_rows),
             "hard_alignment_rate": _mean_or_none(
-                1.0
-                if row["predicted_code"] == row["medical_director_code"]
-                else 0.0
+                1.0 if row["predicted_code"] == row["medical_director_code"] else 0.0
                 for row in authority_rows
             ),
             "mean_alignment_probability": _mean_or_none(
                 float(row["probability_by_code"][row["medical_director_code"]])
                 for row in authority_rows
             ),
+            "human_mean_alignment_probability": _mean_or_none(
+                float(row["human_probability_by_code"][row["medical_director_code"]])
+                for row in authority_rows
+                if isinstance(row.get("human_probability_by_code"), dict)
+            ),
         },
         "advisor_agreement": {
             "rows": len(agreement_rows),
             "hard_agreeing_choice_rate": _mean_or_none(
-                1.0
-                if row["predicted_code"] == row["agreeing_advisor_code"]
-                else 0.0
+                1.0 if row["predicted_code"] == row["agreeing_advisor_code"] else 0.0
                 for row in agreement_rows
             ),
             "mean_agreeing_choice_probability": _mean_or_none(
                 float(row["probability_by_code"][row["agreeing_advisor_code"]])
                 for row in agreement_rows
             ),
+            "human_agreeing_choice_probability": _mean_or_none(
+                float(row["human_probability_by_code"][row["agreeing_advisor_code"]])
+                for row in agreement_rows
+                if isinstance(row.get("human_probability_by_code"), dict)
+            ),
         },
     }
+    return summary
+
+
+def _collect(
+    rows: Sequence[Mapping[str, Any]],
+    key: str,
+) -> Dict[str, List[Mapping[str, Any]]]:
+    buckets: Dict[str, List[Mapping[str, Any]]] = defaultdict(list)
+    for row in rows:
+        value = row.get(key)
+        if value:
+            buckets[str(value)].append(row)
+    return buckets
 
 
 def evaluate_rows(
     model: Any,
     tokenizer: Any,
     rows: Sequence[Mapping[str, Any]],
+    *,
+    scoring: str = "answer_token",
 ) -> List[Dict[str, Any]]:
     scored: List[Dict[str, Any]] = []
     for index, row in enumerate(rows, start=1):
-        logp_x = score_completion(model, tokenizer, row["prompt"], row["options"]["X"])
-        logp_y = score_completion(model, tokenizer, row["prompt"], row["options"]["Y"])
+        if scoring == "answer_token":
+            log_probabilities = score_answer_tokens(
+                model,
+                tokenizer,
+                row["prompt"],
+                row["options"],
+            )
+            logp_x, logp_y = log_probabilities["X"], log_probabilities["Y"]
+        elif scoring == "full_completion":
+            logp_x = score_completion(model, tokenizer, row["prompt"], row["options"]["X"])
+            logp_y = score_completion(model, tokenizer, row["prompt"], row["options"]["Y"])
+        else:
+            raise ValueError("unknown scoring mode: {!r}".format(scoring))
+
         probability_x = preference_probability(logp_x, logp_y)
         predicted_code = "X" if probability_x >= 0.5 else "Y"
         metadata = row.get("metadata", {})
@@ -224,12 +411,15 @@ def evaluate_rows(
                     "X": probability_x,
                     "Y": 1.0 - probability_x,
                 },
-                "category": metadata.get("category"),
+                "bucket": metadata.get("bucket"),
+                "scenario_id": metadata.get("scenario_id"),
                 "authority_condition": metadata.get("authority_condition"),
+                "indifference_scenario": metadata.get("indifference_scenario"),
                 "medical_director_code": metadata.get("medical_director_code"),
+                "reference_code": metadata.get("reference_code"),
                 "agreeing_advisor_code": agreeing_advisor_code,
-                "human_probability_by_code": metadata.get("human_probability_by_code"),
-                "human_n": metadata.get("human_n"),
+                "human_probability_by_code": row.get("human_probability_by_code"),
+                "human_n": metadata.get("human_n") or metadata.get("human_denominator"),
             }
         )
         if index % 25 == 0 or index == len(rows):
@@ -245,6 +435,11 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--base-model", default=DEFAULT_BASE_MODEL)
     parser.add_argument("--adapter", type=Path)
     parser.add_argument("--max-rows", type=int)
+    parser.add_argument(
+        "--scoring",
+        default="answer_token",
+        choices=("answer_token", "full_completion"),
+    )
     return parser
 
 
@@ -256,14 +451,15 @@ def main() -> None:
     tokenizer = load_tokenizer(args.base_model)
     model = load_4bit_base(args.base_model, for_training=False)
     model = load_adapter_for_evaluation(model, args.adapter)
-    scored_rows = evaluate_rows(model, tokenizer, rows)
+    scored_rows = evaluate_rows(model, tokenizer, rows, scoring=args.scoring)
     result = {
-        "schema_version": 1,
+        "schema_version": 2,
         "model_label": args.model_label,
         "base_model": args.base_model,
         "adapter": str(args.adapter.resolve()) if args.adapter else None,
         "dataset": str(args.dataset.resolve()),
         "dataset_sha256": _sha256(args.dataset),
+        "scoring": args.scoring,
         "summary": summarize_scored_rows(scored_rows),
         "rows": scored_rows,
     }

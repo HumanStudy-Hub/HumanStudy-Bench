@@ -13,26 +13,48 @@ def _fmt(value: Optional[float]) -> str:
     return "" if value is None else "{:.4f}".format(value)
 
 
+def _condition_mae(summary: Dict[str, Any], condition: str) -> Optional[float]:
+    group = summary["calibration"]["by_authority_condition"].get(condition)
+    return group["mae"] if group else None
+
+
 def result_row(path: Path) -> Dict[str, Any]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     summary = payload["summary"]
-    overall = summary["overall"]
-    human = summary["human_distribution"]
+    calibration = summary["calibration"]
+    normative = summary["normative"]
     authority = summary["authority"]
+    overshoot = summary.get("overshoot", {})
     advisor_agreement = summary.get("advisor_agreement", {})
+    scale = calibration.get("scale", {})
     return {
         "model": payload["model_label"],
         "dataset": Path(payload["dataset"]).name,
-        "rows": overall["rows"],
-        "accuracy": overall["accuracy"],
-        "target_probability": overall["mean_target_probability"],
-        "preference_margin": overall["mean_preference_margin"],
-        "x_rate": overall["decision_x_rate"],
-        "human_probability_mae": human["weighted_probability_mae"],
+        "rows": normative["rows"],
+        # Primary metric: distance to the human distribution.
+        "mae": calibration["mae"],
+        "rmse": calibration["rmse"],
+        "cross_entropy": calibration["cross_entropy"],
+        "mae_noise_floor": (scale.get("noise_floor_mae") or {}).get("mean"),
+        "mae_always_half": (scale.get("trivial_baselines") or {}).get("always_half"),
+        "mae_opposes_private": _condition_mae(
+            summary, "medical_director_opposes_private"
+        ),
+        "mae_supports_private": _condition_mae(
+            summary, "medical_director_supports_private"
+        ),
+        "mae_indifference": calibration["indifference_subset"]["mae"],
+        # Secondary: normative agreement, reported separately on purpose.
+        "accuracy": normative["accuracy"],
+        "x_rate": normative["decision_x_rate"],
         "authority_alignment": authority["hard_alignment_rate"],
+        "human_authority_alignment": authority.get(
+            "human_mean_alignment_probability"
+        ),
         "advisor_agreement": advisor_agreement.get(
             "mean_agreeing_choice_probability"
         ),
+        "dpo_unreachable_rate": overshoot.get("dpo_unreachable_rate"),
         "source": str(path),
     }
 
@@ -54,12 +76,15 @@ def main() -> None:
     headers = [
         "model",
         "dataset",
+        "mae",
+        "mae_noise_floor",
+        "mae_opposes_private",
+        "mae_indifference",
+        "cross_entropy",
         "accuracy",
-        "target_probability",
-        "preference_margin",
-        "human_probability_mae",
         "authority_alignment",
-        "advisor_agreement",
+        "human_authority_alignment",
+        "dpo_unreachable_rate",
     ]
     lines = [
         "| " + " | ".join(headers) + " |",

@@ -45,6 +45,11 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--base-model", default=DEFAULT_BASE_MODEL)
     parser.add_argument("--adapter", type=Path)
     parser.add_argument("--max-rows", type=int)
+    parser.add_argument(
+        "--scoring",
+        default="answer_token",
+        choices=("answer_token", "full_completion"),
+    )
     return parser
 
 
@@ -68,15 +73,16 @@ def main() -> None:
             ),
             flush=True,
         )
-        scored_rows = evaluate_rows(model, tokenizer, rows)
+        scored_rows = evaluate_rows(model, tokenizer, rows, scoring=args.scoring)
         result = {
-            "schema_version": 1,
+            "schema_version": 2,
             "model_label": args.model_label,
             "base_model": args.base_model,
             "adapter": str(args.adapter.resolve()) if args.adapter else None,
             "dataset_label": label,
             "dataset": str(dataset_path.resolve()),
             "dataset_sha256": _sha256(dataset_path),
+            "scoring": args.scoring,
             "summary": summarize_scored_rows(scored_rows),
             "rows": scored_rows,
         }

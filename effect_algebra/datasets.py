@@ -1,11 +1,23 @@
 """Deterministic datasets for the A+B->C social-influence experiment.
 
-A is sequential Bayesian information integration (study_016).
+A is sequential social information integration (study_016).
 B is learning advisor reliability from outcome feedback (study_017, Task 3C).
-C is the held-out medical-authority environment (study_019, Study 2).
+C is the medical-authority environment (study_019, Study 2).
 
-The generators produce preference pairs with randomized response codes. Labels
-are calculated from the task state; no language model is used as a labeler.
+Every row carries the *human* response distribution for its state, taken from
+the published article via `human_priors`. That distribution is the training
+target: the goal is matching how people actually answered, not answering
+optimally. Rows whose state has no published proportion stay uncalibrated and
+are excluded from training rather than given a guessed label.
+
+Two training signals are derived from the same rows:
+
+* `human_probability_by_code` feeds the soft-label objective directly.
+* `target_code` feeds the pairwise DPO baseline. Within a bucket the labels are
+  split so that the empirical fraction reproduces the human proportion, which
+  avoids duplicating every prompt N times just to express a ratio.
+
+No language model is used as a labeler.
 """
 
 from __future__ import annotations
@@ -19,8 +31,10 @@ from pathlib import Path
 from statistics import mean
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
+from .human_priors import A_PRIORS, C_CITATION, HumanPrior, b_prior
 
-SCHEMA_VERSION = 1
+
+SCHEMA_VERSION = 2
 SYSTEM_PROMPT = (
     "Act as a participant in a controlled decision experiment. Use only the "
     "information in the task, preserve the stated order of observations, and "
@@ -195,21 +209,34 @@ def a_normative_choice(
     return choice, posterior_a, public_prior_a
 
 
-def _a_category(
+def a_bucket(
     history: Sequence[str],
     private_signal: str,
-    target: str,
+    posterior_a: float,
     public_prior_a: float,
     accuracy: float,
 ) -> str:
+    """Classify an A state into a bucket that Anderson & Holt actually report.
+
+    The previous `public_private_conflict` branch was unreachable: outside a
+    cascade the posterior always flips with the private signal, so the Bayesian
+    choice and the private draw can only diverge when the public history
+    dominates, which is the cascade branch. The buckets below instead follow the
+    partition the article reports proportions for, and `tie_conflict` matches
+    its stated condition exactly (posterior 1/2 *and* the private draw
+    disagreeing with the previous public decision).
+    """
+
     choice_a, _ = _choice_after_signal(public_prior_a, "A", accuracy)
     choice_b, _ = _choice_after_signal(public_prior_a, "B", accuracy)
     if choice_a == choice_b:
         return "cascade"
+    if math.isclose(posterior_a, 0.5, rel_tol=0.0, abs_tol=1e-12):
+        if history and private_signal != history[-1]:
+            return "tie_conflict"
+        return "tie_no_conflict"
     if not history:
         return "private_only"
-    if target != private_signal:
-        return "public_private_conflict"
     return "evidence_integration"
 
 
@@ -221,6 +248,46 @@ def _response_map(target_semantic: str, desired_code: str) -> Dict[str, str]:
     }
 
 
+def proportional_label_flags(count: int, probability: float) -> List[bool]:
+    """Split `count` slots so the True fraction matches `probability`.
+
+    This is what makes proportional DPO affordable. The naive scheme emits N
+    duplicate pairs per prompt to express a ratio, multiplying the dataset by N.
+    Instead the ratio is carried across the rows a bucket already has, so a
+    70:30 human split costs exactly as many rows as a deterministic label.
+
+    The True slots come first; callers are responsible for shuffling the
+    assignment against a seeded generator so the split does not line up with
+    prompt order.
+    """
+
+    if count < 0:
+        raise ValueError("count cannot be negative")
+    if not 0.0 <= probability <= 1.0:
+        raise ValueError("probability must be within [0, 1]")
+    positives = int(round(count * probability))
+    return [index < positives for index in range(count)]
+
+
+def balanced_codes(count: int, *, offset: int = 0) -> List[str]:
+    """Alternate X and Y so response codes stay balanced within a group.
+
+    Code assignment has to be independent of the label. Tying them together
+    (the previous `RESPONSE_CODES[index % 2]` scheme) means that flipping a
+    label to express a human proportion also unbalances the codes, which
+    reintroduces exactly the token bias the randomization exists to prevent.
+    """
+
+    return [RESPONSE_CODES[(index + offset) % len(RESPONSE_CODES)] for index in range(count)]
+
+
+def _human_probability_by_code(reference_code: str, probability: float) -> Dict[str, float]:
+    return {
+        reference_code: probability,
+        _other_code(reference_code): 1.0 - probability,
+    }
+
+
 def _make_preference_row(
     *,
     row_id: str,
@@ -229,24 +296,115 @@ def _make_preference_row(
     prompt_text: str,
     target_code: Optional[str],
     metadata: Dict[str, Any],
+    human_probability_by_code: Optional[Mapping[str, float]] = None,
+    trainable: bool = True,
 ) -> Dict[str, Any]:
+    """Assemble one row.
+
+    `trainable` is the leak guard. A row that is not trainable carries no
+    chosen/rejected pair at all, so a training entry point cannot consume it
+    even if a file name or effect filter is wrong. It may still carry
+    `target_code` for the normative accuracy metric and a human distribution for
+    calibration scoring, because reading those is evaluation, not training.
+    """
+
     row: Dict[str, Any] = {
         "id": row_id,
         "schema_version": SCHEMA_VERSION,
         "effect": effect,
         "split": split,
+        "trainable": bool(trainable),
         "prompt": _messages(prompt_text),
         "options": {
             "X": "DECISION=X",
             "Y": "DECISION=Y",
         },
         "target_code": target_code,
+        "human_probability_by_code": (
+            dict(human_probability_by_code)
+            if human_probability_by_code is not None
+            else None
+        ),
         "metadata": metadata,
     }
-    if target_code is not None:
+    if target_code is not None and trainable:
         row["chosen"] = _assistant(target_code)
         row["rejected"] = _assistant(_other_code(target_code))
     return row
+
+
+def a_state_bucket(
+    history: Sequence[str],
+    private_signal: str,
+    accuracy: float = 2.0 / 3.0,
+) -> str:
+    """Bucket one A state without the caller recomputing the posterior."""
+
+    _target, posterior_a, public_prior_a = a_normative_choice(
+        history,
+        private_signal,
+        accuracy,
+    )
+    return a_bucket(history, private_signal, posterior_a, public_prior_a, accuracy)
+
+
+def a_bucket_coverage(accuracy: float = 2.0 / 3.0) -> Dict[str, Any]:
+    """Report how many of the 126 A states carry a published human proportion."""
+
+    counts: Dict[str, int] = {}
+    for history_length in range(6):
+        for history in itertools.product(("A", "B"), repeat=history_length):
+            for private_signal in ("A", "B"):
+                bucket = a_state_bucket(list(history), private_signal, accuracy)
+                counts[bucket] = counts.get(bucket, 0) + 1
+    calibrated = sum(
+        value for key, value in counts.items() if A_PRIORS[key].calibrated
+    )
+    total = sum(counts.values())
+    return {
+        "states_by_bucket": dict(sorted(counts.items())),
+        "calibrated_states": calibrated,
+        "total_states": total,
+        "coverage": calibrated / total if total else 0.0,
+        "uncalibrated_buckets": sorted(
+            key for key in counts if not A_PRIORS[key].calibrated
+        ),
+    }
+
+
+def _assign_reference_labels(
+    specs: Sequence[Mapping[str, Any]],
+    *,
+    seed: int,
+    effect: str,
+) -> List[Optional[bool]]:
+    """Decide, per row, whether the DPO label follows the reference behaviour.
+
+    Rows are grouped by (bucket, reference_code) and the human proportion is
+    applied inside each group. Grouping on the response code as well as the
+    bucket keeps `target_code` exactly balanced: flipping labels to express a
+    ratio can no longer skew which letter is correct.
+    """
+
+    groups: Dict[Tuple[str, str], List[int]] = {}
+    for index, spec in enumerate(specs):
+        key = (str(spec["bucket"]), str(spec["reference_code"]))
+        groups.setdefault(key, []).append(index)
+
+    flags: List[Optional[bool]] = [None] * len(specs)
+    for (bucket, reference_code), indices in sorted(groups.items()):
+        probability = specs[indices[0]]["human_probability"]
+        if probability is None:
+            continue
+        order = list(indices)
+        random.Random(
+            "{}|{}|{}|{}".format(effect, seed, bucket, reference_code)
+        ).shuffle(order)
+        for position, flag in enumerate(
+            proportional_label_flags(len(order), float(probability))
+        ):
+            flags[order[position]] = flag
+    return flags
 
 
 def build_a_rows(
@@ -254,8 +412,15 @@ def build_a_rows(
     count: int,
     seed: int,
     accuracy: float = 2.0 / 3.0,
+    include_uncalibrated: bool = False,
 ) -> List[Dict[str, Any]]:
-    """Build effect-A DPO pairs with held-out wording families by split."""
+    """Build effect-A rows with held-out wording families by split.
+
+    Labels reproduce the proportions Anderson & Holt report per bucket rather
+    than the Bayesian answer. States in buckets the article gives no proportion
+    for are dropped unless `include_uncalibrated` is set, in which case they are
+    emitted without a label for coverage reporting only.
+    """
 
     if split not in {"train", "dev", "test"}:
         raise ValueError("A split must be train, dev, or test")
@@ -268,6 +433,14 @@ def build_a_rows(
         for history in itertools.product(("A", "B"), repeat=history_length)
         for private_signal in ("A", "B")
     ]
+    if not include_uncalibrated:
+        states = [
+            state
+            for state in states
+            if A_PRIORS[a_state_bucket(state[0], state[1], accuracy)].calibrated
+        ]
+        if not states:
+            raise ValueError("no calibrated A states remain")
     random.Random(seed).shuffle(states)
     state_template_pairs = [
         (state_index, (state_index + template_offset) % len(templates))
@@ -277,16 +450,16 @@ def build_a_rows(
     capacity = len(state_template_pairs) * len(RESPONSE_CODES)
     if count > capacity:
         raise ValueError(
-            "A {} count {} exceeds {} unique prompt/label mappings".format(
+            "A {} count {} exceeds {} unique calibrated prompt/label mappings".format(
                 split,
                 count,
                 capacity,
             )
         )
-    rows: List[Dict[str, Any]] = []
 
+    specs: List[Dict[str, Any]] = []
     for index in range(count):
-        desired_code = RESPONSE_CODES[index % len(RESPONSE_CODES)]
+        reference_code = RESPONSE_CODES[index % len(RESPONSE_CODES)]
         pair_index = index // len(RESPONSE_CODES)
         state_index, template_index = state_template_pairs[pair_index]
         history, private_signal = states[state_index]
@@ -295,8 +468,58 @@ def build_a_rows(
             private_signal,
             accuracy,
         )
-        code_to_choice = _response_map(target, desired_code)
-        template = templates[template_index]
+        bucket = a_bucket(history, private_signal, posterior_a, public_prior_a, accuracy)
+        prior = A_PRIORS[bucket]
+        specs.append(
+            {
+                "reference_code": reference_code,
+                "template_index": template_index,
+                "history": history,
+                "private_signal": private_signal,
+                "target": target,
+                "posterior_a": posterior_a,
+                "public_prior_a": public_prior_a,
+                "bucket": bucket,
+                "human_probability": prior.probability,
+                "prior": prior,
+            }
+        )
+
+    label_flags = _assign_reference_labels(specs, seed=seed, effect="A")
+    rows: List[Dict[str, Any]] = []
+
+    for index, spec in enumerate(specs):
+        reference_code = str(spec["reference_code"])
+        history = spec["history"]
+        private_signal = str(spec["private_signal"])
+        target = str(spec["target"])
+        posterior_a = float(spec["posterior_a"])
+        public_prior_a = float(spec["public_prior_a"])
+        bucket = str(spec["bucket"])
+        prior: HumanPrior = spec["prior"]
+        # The reference behaviour is always the choice `a_normative_choice`
+        # returns: the Bayesian pick in a cascade, and the private draw at a
+        # posterior tie, which is what the article's tie statistic scores.
+        code_to_choice = _response_map(target, reference_code)
+        # Evaluation splits keep the source-grounded choice as `target_code` so
+        # the normative accuracy metric stays meaningful, but carry no
+        # preference pair, so they cannot be trained on.
+        trainable = split != "test"
+        follow_reference = label_flags[index] if trainable else None
+        if not trainable:
+            target_code = reference_code
+        elif follow_reference is None:
+            target_code = None
+        else:
+            target_code = (
+                reference_code if follow_reference else _other_code(reference_code)
+            )
+        human_probability_by_code = (
+            None
+            if prior.probability is None
+            else _human_probability_by_code(reference_code, float(prior.probability))
+        )
+        template = templates[spec["template_index"]]
 
         visible_history = (
             ", ".join(
@@ -347,22 +570,25 @@ def build_a_rows(
         metadata = {
             "source_study": "study_016",
             "source_treatment": "symmetric_baseline",
-            "label_source": "normative_bayesian_calculation",
+            "label_source": "human_response_proportion",
             "accuracy": accuracy,
             "prior_choices": history,
             "private_signal": private_signal,
             "public_prior_a": public_prior_a,
             "posterior_a": posterior_a,
-            "target_semantic": target,
+            "bayesian_semantic": target,
+            "reference_semantic": target,
+            "reference_code": reference_code,
             "code_to_choice": code_to_choice,
             "template_family": template["family"],
-            "category": _a_category(
-                history,
-                private_signal,
-                target,
-                public_prior_a,
-                accuracy,
-            ),
+            "bucket": bucket,
+            "label_group": bucket,
+            "position": len(history) + 1,
+            "human_probability": prior.probability,
+            "human_denominator": prior.denominator,
+            "human_prior_citation": prior.citation,
+            "calibrated": prior.calibrated,
+            "follows_reference": follow_reference,
             "state_hash": _hash_payload(state_payload),
         }
         rows.append(
@@ -375,8 +601,10 @@ def build_a_rows(
                 effect="A",
                 split=split,
                 prompt_text=prompt_text,
-                target_code=desired_code,
+                target_code=target_code,
                 metadata=metadata,
+                human_probability_by_code=human_probability_by_code,
+                trainable=trainable,
             )
         )
     return rows
@@ -541,19 +769,23 @@ def build_b_rows(
     seed: int,
     rounds_per_advisor: int = 15,
     minimum_error_margin: float = 5.0,
+    experiment: str = "3C",
 ) -> List[Dict[str, Any]]:
-    """Build feedback-grounded effect-B preference pairs.
+    """Build feedback-grounded effect-B rows carrying the human pick rate.
 
-    Each pair contains one complete episode. The chosen source is the accurate
-    advisor, and the generated ledger is rejected unless its observed mean
-    absolute error is clearly lower than the agreeing advisor's.
+    Each row contains one complete episode. The accurate advisor is the
+    reference behaviour, but the labels are *not* uniformly "pick the accurate
+    advisor": Jaquiery & Yeung report that 17% of Experiment 3C choices went to
+    the agreeing advisor, and that ratio is reproduced across the rows.
     """
 
     if split not in {"train", "dev", "test"}:
         raise ValueError("B split must be train, dev, or test")
     if count < 1 or rounds_per_advisor < 1:
         raise ValueError("B count and rounds_per_advisor must be positive")
-    rows: List[Dict[str, Any]] = []
+    prior = b_prior(experiment)
+    episodes: List[Dict[str, Any]] = []
+    specs: List[Dict[str, Any]] = []
     for index in range(count):
         rng = random.Random(seed + 130_363 * index)
         episode = _b_episode(
@@ -562,8 +794,30 @@ def build_b_rows(
             include_feedback=True,
             minimum_error_margin=minimum_error_margin,
         )
-        target_code = RESPONSE_CODES[index % 2]
-        code_to_advisor = _b_code_map(episode, target_code)
+        episodes.append(episode)
+        specs.append(
+            {
+                "bucket": prior.bucket,
+                "reference_code": RESPONSE_CODES[index % len(RESPONSE_CODES)],
+                "human_probability": prior.probability,
+            }
+        )
+
+    label_flags = _assign_reference_labels(specs, seed=seed, effect="B")
+    rows: List[Dict[str, Any]] = []
+    for index, (episode, spec) in enumerate(zip(episodes, specs)):
+        reference_code = str(spec["reference_code"])
+        trainable = split != "test"
+        follow_reference = label_flags[index] if trainable else None
+        if not trainable:
+            target_code: Optional[str] = reference_code
+        elif follow_reference is None:
+            target_code = None
+        else:
+            target_code = (
+                reference_code if follow_reference else _other_code(reference_code)
+            )
+        code_to_advisor = _b_code_map(episode, reference_code)
         prompt_text = _format_b_prompt(
             episode,
             split=split,
@@ -578,14 +832,23 @@ def build_b_rows(
         metadata = {
             "source_study": "study_017",
             "source_condition": "dates_task_3c_feedback",
-            "label_source": "observed_feedback_accuracy",
+            "source_experiment": experiment,
+            "label_source": "human_response_proportion",
             "rounds_per_advisor": rounds_per_advisor,
             "complete_episode": True,
             "feedback_available": True,
             "ledger": episode["ledger"],
             "advisor_name_to_type": episode["name_to_type"],
             "code_to_advisor": code_to_advisor,
-            "target_semantic": "accurate",
+            "reference_semantic": "accurate",
+            "reference_code": reference_code,
+            "bucket": prior.bucket,
+            "label_group": prior.bucket,
+            "human_probability": prior.probability,
+            "human_denominator": prior.denominator,
+            "human_prior_citation": prior.citation,
+            "calibrated": prior.calibrated,
+            "follows_reference": follow_reference,
             "mean_absolute_error": episode["mean_absolute_error"],
             "accuracy_margin": (
                 episode["mean_absolute_error"]["agreeing"]
@@ -606,6 +869,11 @@ def build_b_rows(
                 prompt_text=prompt_text,
                 target_code=target_code,
                 metadata=metadata,
+                human_probability_by_code=_human_probability_by_code(
+                    reference_code,
+                    float(prior.probability),
+                ),
+                trainable=trainable,
             )
         )
     return rows
@@ -615,9 +883,18 @@ def build_b_control_rows(
     count: int,
     seed: int,
     rounds_per_advisor: int = 15,
+    experiment: str = "3B",
 ) -> List[Dict[str, Any]]:
-    """Build no-feedback B controls without inventing a preference label."""
+    """Build no-feedback B controls: a calibration target, never a training set.
 
+    Experiment 3B has a published pick rate (0.51 for the agreeing advisor), so
+    these rows carry a human distribution and contribute to MAE. They stay
+    without a preference label so no code path can train on them: 3B is where
+    humans are at chance with wide individual spread, which is a distribution to
+    reproduce, not a preference to imitate.
+    """
+
+    prior = b_prior(experiment)
     rows: List[Dict[str, Any]] = []
     for index in range(count):
         rng = random.Random(seed + 154_858_63 * index)
@@ -642,9 +919,14 @@ def build_b_control_rows(
             "ledger": episode["ledger"],
             "name_to_type": episode["name_to_type"],
         }
+        accurate_name = str(episode["type_to_name"]["accurate"])
+        reference_code = next(
+            code for code, name in code_to_advisor.items() if name == accurate_name
+        )
         metadata = {
             "source_study": "study_017",
             "source_condition": "dates_task_3b_no_feedback",
+            "source_experiment": experiment,
             "label_source": None,
             "rounds_per_advisor": rounds_per_advisor,
             "complete_episode": True,
@@ -652,7 +934,14 @@ def build_b_control_rows(
             "ledger": episode["ledger"],
             "advisor_name_to_type": episode["name_to_type"],
             "code_to_advisor": code_to_advisor,
-            "target_semantic": None,
+            "reference_semantic": "accurate",
+            "reference_code": reference_code,
+            "bucket": prior.bucket,
+            "label_group": prior.bucket,
+            "human_probability": prior.probability,
+            "human_denominator": prior.denominator,
+            "human_prior_citation": prior.citation,
+            "calibrated": prior.calibrated,
             "state_hash": _hash_payload(state_payload),
         }
         rows.append(
@@ -666,6 +955,11 @@ def build_b_control_rows(
                 prompt_text=prompt_text,
                 target_code=None,
                 metadata=metadata,
+                human_probability_by_code=_human_probability_by_code(
+                    reference_code,
+                    float(prior.probability),
+                ),
+                trainable=False,
             )
         )
     return rows
@@ -706,87 +1000,529 @@ def _c_prompt(
     )
 
 
-def build_c_rows(scenarios_path: Path) -> List[Dict[str, Any]]:
-    """Build the held-out C test set from study_019's source-grounded scenarios."""
+C_DIAGNOSES = ("appendicitis", "sigmoid diverticulitis")
 
+
+def load_c_scenarios(scenarios_path: Path) -> List[Dict[str, Any]]:
     payload = json.loads(Path(scenarios_path).read_text(encoding="utf-8"))
-    scenarios = payload["study_2"]["scenarios"]
+    return list(payload["study_2"]["scenarios"])
+
+
+def c_stratum(scenario: Mapping[str, Any]) -> str:
+    """Bayesian-posterior bucket crossed with the director condition."""
+
+    posterior = float(scenario["posterior_probability_appendicitis"])
+    folded = posterior if posterior >= 0.5 else 1.0 - posterior
+    return "p{:.2f}|{}".format(round(folded, 2), scenario["authority_condition"])
+
+
+def c_stratified_folds(
+    scenarios: Sequence[Mapping[str, Any]],
+    folds: int = 5,
+    seed: int = 0,
+) -> List[List[str]]:
+    """Split C scenarios into stratified folds by posterior x director condition.
+
+    Cross-validation rather than one train/test cut, for two reasons. The
+    stratum crosstab has cells with only two scenarios, so a single split puts
+    strata of size one in the test set. More importantly, Gate 0 and Gate 2
+    score all 40 scenarios; a single 20/20 cut would score the ceiling on a
+    different set, and the recovery fraction would mix two test sets.
+    """
+
+    if folds < 2:
+        raise ValueError("folds must be at least 2")
+    if len(scenarios) < folds:
+        raise ValueError("cannot build more folds than scenarios")
+    by_stratum: Dict[str, List[str]] = {}
+    for scenario in scenarios:
+        by_stratum.setdefault(c_stratum(scenario), []).append(
+            str(scenario["scenario_id"])
+        )
+    assignments: List[List[str]] = [[] for _ in range(folds)]
+    cursor = 0
+    for stratum, scenario_ids in sorted(by_stratum.items()):
+        ordered = list(scenario_ids)
+        random.Random("C|{}|{}".format(seed, stratum)).shuffle(ordered)
+        for scenario_id in ordered:
+            assignments[cursor % folds].append(scenario_id)
+            cursor += 1
+    return [sorted(fold) for fold in assignments]
+
+
+def _c_scenario_view(
+    scenario: Mapping[str, Any],
+    reference_code: str,
+) -> Dict[str, Any]:
+    """Shared code/diagnosis mapping for one scenario under a chosen code."""
+
+    human = dict(scenario["human_raw_data"])
+    option_1 = str(human["option_1"])
+    other = C_DIAGNOSES[1] if option_1 == C_DIAGNOSES[0] else C_DIAGNOSES[0]
+    code_to_diagnosis = {
+        reference_code: option_1,
+        _other_code(reference_code): other,
+    }
+    director_diagnosis = scenario.get("medical_director_diagnosis")
+    director_code = (
+        next(
+            code
+            for code, diagnosis in code_to_diagnosis.items()
+            if diagnosis == director_diagnosis
+        )
+        if director_diagnosis
+        else None
+    )
+    bayesian_choice = scenario["bayesian_choice"]
+    bayesian_code = (
+        next(
+            code
+            for code, diagnosis in code_to_diagnosis.items()
+            if diagnosis == str(bayesian_choice)
+        )
+        if bayesian_choice
+        else None
+    )
+    return {
+        "human": human,
+        "option_1": option_1,
+        "option_1_rate": float(human["option_1_rate"]),
+        "code_to_diagnosis": code_to_diagnosis,
+        "director_diagnosis": director_diagnosis,
+        "director_code": director_code,
+        "bayesian_choice": str(bayesian_choice) if bayesian_choice else None,
+        "bayesian_code": bayesian_code,
+    }
+
+
+def _c_metadata(
+    scenario: Mapping[str, Any],
+    view: Mapping[str, Any],
+    reference_code: str,
+    label_source: str,
+) -> Dict[str, Any]:
+    return {
+        "source_study": "study_019",
+        "source_condition": "study_2_medical_authority_scenarios",
+        "label_source": label_source,
+        "scenario_id": scenario["scenario_id"],
+        "article_scenario_id": scenario["article_scenario_id"],
+        "previous_diagnoses": scenario["previous_diagnoses"],
+        "private_symptom": scenario["private_symptom"],
+        "private_information_favors": scenario["private_information_favors"],
+        "authority_condition": scenario["authority_condition"],
+        "posterior_probability_appendicitis": scenario[
+            "posterior_probability_appendicitis"
+        ],
+        "indifference_scenario": scenario.get("indifference_scenario", False),
+        "cascade_scenario": scenario.get("cascade_scenario", False),
+        "stratum": c_stratum(scenario),
+        "bucket": c_stratum(scenario),
+        "label_group": "scenario|{}".format(scenario["scenario_id"]),
+        "medical_director_diagnosis": view["director_diagnosis"],
+        "medical_director_code": view["director_code"],
+        "bayesian_choice": view["bayesian_choice"],
+        "bayesian_code": view["bayesian_code"],
+        "bayesian_confidence": scenario["bayesian_confidence"],
+        "code_to_diagnosis": view["code_to_diagnosis"],
+        "reference_semantic": view["option_1"],
+        "reference_code": reference_code,
+        "human_probability": view["option_1_rate"],
+        "human_denominator": view["human"]["n_choice"],
+        "human_prior_citation": C_CITATION,
+        "calibrated": True,
+        "human_n": view["human"]["n_choice"],
+        "human_option_1": view["option_1"],
+        "human_option_1_rate": view["option_1_rate"],
+        "human_mean_confidence": view["human"].get("mean_confidence"),
+        "state_hash": _hash_payload(
+            {
+                "scenario_id": scenario["scenario_id"],
+                "source_signature": scenario["source_signature"],
+                "material_fingerprint": scenario["material_fingerprint"],
+            }
+        ),
+        "source_material_fingerprint": scenario["material_fingerprint"],
+    }
+
+
+def build_c_rows(
+    scenarios_path: Path,
+    scenario_ids: Optional[Sequence[str]] = None,
+) -> List[Dict[str, Any]]:
+    """Build the C evaluation set from study_019's source-grounded scenarios.
+
+    These rows are never trainable. `target_code` stays the source Bayesian
+    choice so the normative metric survives, but no chosen/rejected pair is
+    emitted, so a training entry point physically cannot consume them.
+    """
+
+    scenarios = load_c_scenarios(scenarios_path)
+    if scenario_ids is not None:
+        wanted = set(scenario_ids)
+        scenarios = [
+            scenario for scenario in scenarios if scenario["scenario_id"] in wanted
+        ]
     rows: List[Dict[str, Any]] = []
-    diagnoses = ("appendicitis", "sigmoid diverticulitis")
     for index, scenario in enumerate(scenarios):
-        target = scenario["bayesian_choice"]
-        if target is None:
-            target_code: Optional[str] = None
-            code_to_diagnosis = {
-                "X": diagnoses[index % 2],
-                "Y": diagnoses[(index + 1) % 2],
-            }
-        else:
-            target = str(target)
-            target_code = RESPONSE_CODES[index % 2]
-            other = diagnoses[1] if target == diagnoses[0] else diagnoses[0]
-            code_to_diagnosis = {
-                target_code: target,
-                _other_code(target_code): other,
-            }
-        human = dict(scenario["human_raw_data"])
-        option_1 = str(human["option_1"])
-        option_1_code = next(
-            code for code, diagnosis in code_to_diagnosis.items() if diagnosis == option_1
+        reference_code = RESPONSE_CODES[index % len(RESPONSE_CODES)]
+        view = _c_scenario_view(scenario, reference_code)
+        metadata = _c_metadata(
+            scenario,
+            view,
+            reference_code,
+            "source_grounded_bayesian_choice",
         )
-        option_1_rate = float(human["option_1_rate"])
-        human_probability_by_code = {
-            option_1_code: option_1_rate,
-            _other_code(option_1_code): 1.0 - option_1_rate,
-        }
-        director_diagnosis = scenario.get("medical_director_diagnosis")
-        director_code = (
-            next(
-                code
-                for code, diagnosis in code_to_diagnosis.items()
-                if diagnosis == director_diagnosis
-            )
-            if director_diagnosis
-            else None
-        )
-        state_payload = {
-            "scenario_id": scenario["scenario_id"],
-            "source_signature": scenario["source_signature"],
-            "material_fingerprint": scenario["material_fingerprint"],
-        }
-        metadata = {
-            "source_study": "study_019",
-            "source_condition": "study_2_medical_authority_scenarios",
-            "label_source": "source_grounded_bayesian_choice",
-            "scenario_id": scenario["scenario_id"],
-            "article_scenario_id": scenario["article_scenario_id"],
-            "previous_diagnoses": scenario["previous_diagnoses"],
-            "private_symptom": scenario["private_symptom"],
-            "private_information_favors": scenario["private_information_favors"],
-            "authority_condition": scenario["authority_condition"],
-            "medical_director_diagnosis": director_diagnosis,
-            "medical_director_code": director_code,
-            "bayesian_choice": target,
-            "bayesian_confidence": scenario["bayesian_confidence"],
-            "code_to_diagnosis": code_to_diagnosis,
-            "human_probability_by_code": human_probability_by_code,
-            "human_n": human["n_choice"],
-            "human_option_1": option_1,
-            "human_option_1_rate": option_1_rate,
-            "state_hash": _hash_payload(state_payload),
-            "source_material_fingerprint": scenario["material_fingerprint"],
-        }
         rows.append(
             _make_preference_row(
                 row_id="C-test-{:03d}-{}".format(
                     index,
-                    _hash_payload(state_payload)[:10],
+                    metadata["state_hash"][:10],
                 ),
                 effect="C",
                 split="test",
-                prompt_text=_c_prompt(scenario, code_to_diagnosis),
+                prompt_text=_c_prompt(scenario, view["code_to_diagnosis"]),
+                target_code=view["bayesian_code"],
+                metadata=metadata,
+                human_probability_by_code=_human_probability_by_code(
+                    reference_code,
+                    view["option_1_rate"],
+                ),
+                trainable=False,
+            )
+        )
+    return rows
+
+
+def build_c_training_rows(
+    scenarios_path: Path,
+    scenario_ids: Sequence[str],
+    *,
+    replicas: int = 20,
+    seed: int = 0,
+    split: str = "train",
+    fold: Optional[int] = None,
+) -> List[Dict[str, Any]]:
+    """Build in-domain C training rows for the Gate 1 ceiling.
+
+    Only the scenarios named in `scenario_ids` are emitted, so the caller's fold
+    definition is the single place that decides what is trainable. Each scenario
+    is repeated `replicas` times because C has a distinct human proportion per
+    scenario rather than per bucket, so the ratio needs several rows to express;
+    20 replicas resolve to 0.05, finer than the 1/40 resolution of the human
+    estimate itself.
+    """
+
+    if not scenario_ids:
+        raise ValueError("C training rows require at least one scenario id")
+    if replicas < 2:
+        raise ValueError("C replicas must be at least 2")
+    scenarios = {
+        str(scenario["scenario_id"]): scenario
+        for scenario in load_c_scenarios(scenarios_path)
+    }
+    missing = [key for key in scenario_ids if key not in scenarios]
+    if missing:
+        raise ValueError("unknown C scenario ids: {}".format(", ".join(missing)))
+
+    specs: List[Dict[str, Any]] = []
+    for scenario_index, scenario_id in enumerate(scenario_ids):
+        scenario = scenarios[scenario_id]
+        rate = float(scenario["human_raw_data"]["option_1_rate"])
+        for replica in range(replicas):
+            specs.append(
+                {
+                    "scenario_id": scenario_id,
+                    "scenario": scenario,
+                    "replica": replica,
+                    "bucket": "scenario|{}".format(scenario_id),
+                    "reference_code": RESPONSE_CODES[
+                        (scenario_index + replica) % len(RESPONSE_CODES)
+                    ],
+                    "human_probability": rate,
+                }
+            )
+
+    label_flags = _assign_reference_labels(specs, seed=seed, effect="C")
+    rows: List[Dict[str, Any]] = []
+    for index, spec in enumerate(specs):
+        scenario = spec["scenario"]
+        reference_code = str(spec["reference_code"])
+        view = _c_scenario_view(scenario, reference_code)
+        follow_reference = bool(label_flags[index])
+        target_code = (
+            reference_code if follow_reference else _other_code(reference_code)
+        )
+        metadata = _c_metadata(
+            scenario,
+            view,
+            reference_code,
+            "human_response_proportion",
+        )
+        metadata["replica"] = spec["replica"]
+        metadata["follows_reference"] = follow_reference
+        if fold is not None:
+            metadata["fold"] = fold
+        rows.append(
+            _make_preference_row(
+                row_id="C-{}-{:04d}-{}".format(
+                    split,
+                    index,
+                    metadata["state_hash"][:10],
+                ),
+                effect="C",
+                split=split,
+                prompt_text=_c_prompt(scenario, view["code_to_diagnosis"]),
                 target_code=target_code,
                 metadata=metadata,
+                human_probability_by_code=_human_probability_by_code(
+                    reference_code,
+                    view["option_1_rate"],
+                ),
+                trainable=True,
+            )
+        )
+    return rows
+
+
+# --------------------------------------------------------------------------
+# Effect D: study_019 Study 1. Same sequential-social-information paradigm as
+# A, from the same participants and workbook as C, but with no authority
+# manipulation and with a published proportion for every one of its 24
+# scenarios. That combination makes it useful three ways: a fourth training
+# environment for the data-flywheel scaling curve, an item-level check on A's
+# bucket-level proportions, and the control that isolates whether the authority
+# cue specifically is what fails to transfer.
+# --------------------------------------------------------------------------
+D_URNS = ("A", "B")
+
+
+def load_d_scenarios(scenarios_path: Path) -> List[Dict[str, Any]]:
+    payload = json.loads(Path(scenarios_path).read_text(encoding="utf-8"))
+    return list(payload["study_1"]["scenarios"])
+
+
+def d_stratum(scenario: Mapping[str, Any]) -> str:
+    posterior = float(scenario["posterior_probability_urn_a"])
+    folded = posterior if posterior >= 0.5 else 1.0 - posterior
+    kind = (
+        "cascade"
+        if scenario.get("cascade_scenario")
+        else "indifference"
+        if scenario.get("indifference_scenario")
+        else "standard"
+    )
+    return "p{:.2f}|{}".format(round(folded, 2), kind)
+
+
+def _d_prompt(
+    scenario: Mapping[str, Any],
+    code_to_urn: Mapping[str, str],
+) -> str:
+    decisions = "\n".join(
+        "{}. Participant {} predicted Urn {}.".format(position, position, choice)
+        for position, choice in enumerate(scenario["previous_decisions"], start=1)
+    )
+    mapping = "; ".join(
+        "DECISION={} means predict Urn {}".format(code, urn)
+        for code, urn in sorted(code_to_urn.items())
+    )
+    return (
+        "Urn A and Urn B are equally likely to have been chosen. Urn A holds "
+        "two white balls and one black ball; Urn B holds one white ball and two "
+        "black balls, so a single draw indicates its urn in two of three cases.\n"
+        "Participants predict in sequence and see the predictions already made, "
+        "so a later prediction is not an independent draw.\n\n"
+        "Predictions already made, in order:\n{}\n\n"
+        "Your private draw: a {} ball.\n\n"
+        "{}.\n"
+        "Which urn is more likely? Output exactly DECISION=X or DECISION=Y."
+    ).format(
+        decisions if decisions else "none; you predict first",
+        scenario["private_ball"],
+        mapping,
+    )
+
+
+def _d_scenario_view(
+    scenario: Mapping[str, Any],
+    reference_code: str,
+) -> Dict[str, Any]:
+    human = dict(scenario["human_raw_data"])
+    option_1 = str(human["option_1"])
+    other = D_URNS[1] if option_1 == D_URNS[0] else D_URNS[0]
+    code_to_urn = {reference_code: option_1, _other_code(reference_code): other}
+    bayesian_choice = scenario["bayesian_choice"]
+    bayesian_code = (
+        next(code for code, urn in code_to_urn.items() if urn == str(bayesian_choice))
+        if bayesian_choice
+        else None
+    )
+    return {
+        "human": human,
+        "option_1": option_1,
+        "option_1_rate": float(human["option_1_rate"]),
+        "code_to_urn": code_to_urn,
+        "bayesian_choice": str(bayesian_choice) if bayesian_choice else None,
+        "bayesian_code": bayesian_code,
+    }
+
+
+def _d_metadata(
+    scenario: Mapping[str, Any],
+    view: Mapping[str, Any],
+    reference_code: str,
+    label_source: str,
+) -> Dict[str, Any]:
+    return {
+        "source_study": "study_019",
+        "source_condition": "study_1_urn_scenarios",
+        "label_source": label_source,
+        "scenario_id": scenario["scenario_id"],
+        "article_scenario_id": scenario["article_scenario_id"],
+        "previous_decisions": scenario["previous_decisions"],
+        "private_ball": scenario["private_ball"],
+        "private_information_favors": scenario["private_information_favors"],
+        "posterior_probability_urn_a": scenario["posterior_probability_urn_a"],
+        "indifference_scenario": scenario.get("indifference_scenario", False),
+        "cascade_scenario": scenario.get("cascade_scenario", False),
+        "stratum": d_stratum(scenario),
+        "bucket": d_stratum(scenario),
+        "label_group": "scenario|{}".format(scenario["scenario_id"]),
+        "bayesian_choice": view["bayesian_choice"],
+        "bayesian_code": view["bayesian_code"],
+        "bayesian_confidence": scenario["bayesian_confidence"],
+        "code_to_urn": view["code_to_urn"],
+        "reference_semantic": view["option_1"],
+        "reference_code": reference_code,
+        "human_probability": view["option_1_rate"],
+        "human_denominator": view["human"]["n_choice"],
+        "human_prior_citation": (
+            "Schoebel, Rieskamp & Huber 2016, Study 1 raw data (Figshare 1597662)"
+        ),
+        "calibrated": True,
+        "human_n": view["human"]["n_choice"],
+        "human_option_1": view["option_1"],
+        "human_option_1_rate": view["option_1_rate"],
+        "state_hash": _hash_payload(
+            {
+                "scenario_id": scenario["scenario_id"],
+                "source_signature": scenario["source_signature"],
+                "material_fingerprint": scenario["material_fingerprint"],
+            }
+        ),
+        "source_material_fingerprint": scenario["material_fingerprint"],
+    }
+
+
+def build_d_rows(
+    scenarios_path: Path,
+    scenario_ids: Optional[Sequence[str]] = None,
+) -> List[Dict[str, Any]]:
+    """Build the D evaluation set; never trainable, same contract as C."""
+
+    scenarios = load_d_scenarios(scenarios_path)
+    if scenario_ids is not None:
+        wanted = set(scenario_ids)
+        scenarios = [
+            scenario for scenario in scenarios if scenario["scenario_id"] in wanted
+        ]
+    rows: List[Dict[str, Any]] = []
+    for index, scenario in enumerate(scenarios):
+        reference_code = RESPONSE_CODES[index % len(RESPONSE_CODES)]
+        view = _d_scenario_view(scenario, reference_code)
+        metadata = _d_metadata(
+            scenario,
+            view,
+            reference_code,
+            "source_grounded_bayesian_choice",
+        )
+        rows.append(
+            _make_preference_row(
+                row_id="D-test-{:03d}-{}".format(index, metadata["state_hash"][:10]),
+                effect="D",
+                split="test",
+                prompt_text=_d_prompt(scenario, view["code_to_urn"]),
+                target_code=view["bayesian_code"],
+                metadata=metadata,
+                human_probability_by_code=_human_probability_by_code(
+                    reference_code,
+                    view["option_1_rate"],
+                ),
+                trainable=False,
+            )
+        )
+    return rows
+
+
+def build_d_training_rows(
+    scenarios_path: Path,
+    scenario_ids: Optional[Sequence[str]] = None,
+    *,
+    replicas: int = 20,
+    seed: int = 0,
+    split: str = "train",
+) -> List[Dict[str, Any]]:
+    """Build trainable D rows carrying each scenario's own human proportion."""
+
+    if replicas < 2:
+        raise ValueError("D replicas must be at least 2")
+    scenarios = {
+        str(scenario["scenario_id"]): scenario
+        for scenario in load_d_scenarios(scenarios_path)
+    }
+    selected = list(scenario_ids) if scenario_ids is not None else sorted(scenarios)
+    missing = [key for key in selected if key not in scenarios]
+    if missing:
+        raise ValueError("unknown D scenario ids: {}".format(", ".join(missing)))
+
+    specs: List[Dict[str, Any]] = []
+    for scenario_index, scenario_id in enumerate(selected):
+        scenario = scenarios[scenario_id]
+        rate = float(scenario["human_raw_data"]["option_1_rate"])
+        for replica in range(replicas):
+            specs.append(
+                {
+                    "scenario_id": scenario_id,
+                    "scenario": scenario,
+                    "replica": replica,
+                    "bucket": "scenario|{}".format(scenario_id),
+                    "reference_code": RESPONSE_CODES[
+                        (scenario_index + replica) % len(RESPONSE_CODES)
+                    ],
+                    "human_probability": rate,
+                }
+            )
+
+    label_flags = _assign_reference_labels(specs, seed=seed, effect="D")
+    rows: List[Dict[str, Any]] = []
+    for index, spec in enumerate(specs):
+        scenario = spec["scenario"]
+        reference_code = str(spec["reference_code"])
+        view = _d_scenario_view(scenario, reference_code)
+        follow_reference = bool(label_flags[index])
+        target_code = reference_code if follow_reference else _other_code(reference_code)
+        metadata = _d_metadata(
+            scenario,
+            view,
+            reference_code,
+            "human_response_proportion",
+        )
+        metadata["replica"] = spec["replica"]
+        metadata["follows_reference"] = follow_reference
+        rows.append(
+            _make_preference_row(
+                row_id="D-{}-{:04d}-{}".format(split, index, metadata["state_hash"][:10]),
+                effect="D",
+                split=split,
+                prompt_text=_d_prompt(scenario, view["code_to_urn"]),
+                target_code=target_code,
+                metadata=metadata,
+                human_probability_by_code=_human_probability_by_code(
+                    reference_code,
+                    view["option_1_rate"],
+                ),
+                trainable=True,
             )
         )
     return rows
