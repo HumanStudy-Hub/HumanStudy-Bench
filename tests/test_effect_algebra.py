@@ -287,6 +287,8 @@ class EffectAlgebraDatasetTests(unittest.TestCase):
                 b_test=8,
                 b_control=8,
                 rounds_per_advisor=4,
+                b_probe_rounds="2,4",
+                b_probe_count=8,
                 c_folds=5,
                 c_replicas=20,
                 seed=777,

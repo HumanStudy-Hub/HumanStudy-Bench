@@ -37,6 +37,12 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--b-test", type=int, default=256)
     parser.add_argument("--b-control", type=int, default=256)
     parser.add_argument("--rounds-per-advisor", type=int, default=15)
+    parser.add_argument(
+        "--b-probe-rounds",
+        default="3,5,15",
+        help="Ledger lengths to emit as B readability probes; empty to skip.",
+    )
+    parser.add_argument("--b-probe-count", type=int, default=128)
     parser.add_argument("--c-folds", type=int, default=5)
     parser.add_argument("--c-replicas", type=int, default=20)
     parser.add_argument("--seed", type=int, default=20260727)
@@ -115,6 +121,32 @@ def build_tree(args: argparse.Namespace) -> Dict[str, Any]:
         "C_test": ("eval/C_test.jsonl", c_test),
         "D_test": ("eval/D_test.jsonl", d_test),
     }
+
+    # B readability probes. The base model scored at chance on the 15-round
+    # ledger, which can mean either that it cannot weigh advisors at all or
+    # that it cannot do the arithmetic over that many rounds in one forward
+    # pass. Scoring the same mechanism at several ledger lengths separates the
+    # two: if accuracy rises as the ledger shortens, the mechanism is intact and
+    # the length is the binding constraint.
+    for rounds in [
+        int(value) for value in str(args.b_probe_rounds).split(",") if value.strip()
+    ]:
+        file_rows["B_probe_r{}".format(rounds)] = (
+            "eval/B_probe_r{}.jsonl".format(rounds),
+            build_b_rows(
+                "test",
+                args.b_probe_count,
+                args.seed + 9000 + rounds,
+                rounds_per_advisor=rounds,
+            )
+            + build_b_rows(
+                "test",
+                args.b_probe_count,
+                args.seed + 9000 + rounds,
+                rounds_per_advisor=rounds,
+                mirror=True,
+            ),
+        )
 
     # Gate 1 cross-validation. Every scenario is held out in exactly one fold,
     # so the ceiling is measured on all 40 scenarios, the same set Gate 0 and
