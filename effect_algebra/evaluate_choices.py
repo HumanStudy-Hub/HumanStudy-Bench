@@ -184,6 +184,27 @@ def response_code_bias(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
     }
 
 
+def _reference_log_odds(row: Mapping[str, Any], reference_code: str) -> float:
+    """Log odds favouring the reference option, taken from raw log probabilities.
+
+    The scorer keeps the two answer-token log probabilities, whose difference is
+    the log odds exactly. Recovering it from the normalized probability instead
+    loses precision once the model saturates: at a log-odds of 17 the probability
+    rounds to 1.0 and the magnitude is gone. Reference predictors carry no real
+    log probabilities, so those fall back to the probability.
+    """
+
+    other = "Y" if reference_code == "X" else "X"
+    log_probabilities = row.get("log_probability_by_code") or {}
+    first = log_probabilities.get(reference_code)
+    second = log_probabilities.get(other)
+    # Two log probabilities of exactly 0.0 would mean both options are certain,
+    # which only happens for the placeholder a reference predictor writes.
+    if first is not None and second is not None and (first != 0.0 or second != 0.0):
+        return float(first) - float(second)
+    return logit(float(row["probability_by_code"][reference_code]))
+
+
 def merge_mirror_pairs(
     rows: Sequence[Mapping[str, Any]],
 ) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
@@ -227,8 +248,7 @@ def merge_mirror_pairs(
             continue
         # Express every member in the first row's code frame before averaging.
         mean_log_odds = mean(
-            logit(float(row["probability_by_code"][str(row["reference_code"])]))
-            for row in group
+            _reference_log_odds(row, str(row["reference_code"])) for row in group
         )
         probability_reference = 1.0 / (1.0 + math.exp(-max(min(mean_log_odds, 700.0), -700.0)))
         other = "Y" if reference_code == "X" else "X"

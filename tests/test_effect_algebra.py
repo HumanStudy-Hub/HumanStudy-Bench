@@ -720,21 +720,22 @@ class LetterBiasTests(unittest.TestCase):
 
         def saturated(bias, content):
             # One frame scores bias + content, the mirror scores content - bias.
-            first = sigmoid(bias + content)
-            second = sigmoid(-bias + content)
+            # Log probabilities are what the scorer actually records, so supply
+            # them the way a real run would.
+            first, second = bias + content, -bias + content
             return [
                 {
                     "id": "a", "effect": "C", "split": "test", "pair_id": "s",
                     "reference_code": "X", "target_code": "X", "predicted_code": "X",
-                    "probability_by_code": {"X": first, "Y": 1 - first},
-                    "log_probability_by_code": {"X": 0.0, "Y": 0.0},
+                    "probability_by_code": {"X": sigmoid(first), "Y": 1 - sigmoid(first)},
+                    "log_probability_by_code": {"X": first, "Y": 0.0},
                     "human_probability_by_code": {"X": 0.8, "Y": 0.2}, "human_n": 40,
                 },
                 {
                     "id": "b", "effect": "C", "split": "test", "pair_id": "s",
                     "reference_code": "Y", "target_code": "Y", "predicted_code": "X",
-                    "probability_by_code": {"X": 1 - second, "Y": second},
-                    "log_probability_by_code": {"X": 0.0, "Y": 0.0},
+                    "probability_by_code": {"X": 1 - sigmoid(second), "Y": sigmoid(second)},
+                    "log_probability_by_code": {"X": 0.0, "Y": second},
                     "human_probability_by_code": {"X": 0.2, "Y": 0.8}, "human_n": 40,
                 },
             ]
@@ -742,7 +743,7 @@ class LetterBiasTests(unittest.TestCase):
         # Averaging probabilities would collapse the large-bias cases to 0.5,
         # because both frames read as near-certainty. Averaging log odds is
         # exact at every bias magnitude.
-        for bias in (1.0, 3.5, 8.19, 15.0):
+        for bias in (1.0, 3.5, 8.19, 15.0, 30.0):
             merged, _ = merge_mirror_pairs(saturated(bias, 2.0))
             self.assertAlmostEqual(
                 merged[0]["probability_by_code"]["X"],
