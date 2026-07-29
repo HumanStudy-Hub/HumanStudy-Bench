@@ -231,26 +231,37 @@ python -m effect_algebra.collect_results --summary
 需要一个 GitHub personal access token。**这个 token 只贴进 Colab,不要贴进聊天、
 不要写进任何会提交的文件。** 建议用 fine-grained token,权限只给
 `HumanStudy-Bench` 一个仓库的 `Contents: Read and write`,并设一个短的过期时间。
+组织仓库还可能需要管理员在 Settings → Third-party Access 里批准该 token。
 
-在 **notebook cell** 里(用 `getpass` 输入,不会留在输出里):
-
-```python
-import getpass, os
-os.environ["GH_TOKEN"] = getpass.getpass("GitHub token: ")
-```
-
-然后在终端里:
+先在**终端**里提交(不需要 token):
 
 ```bash
 cd /content/HumanStudy-Bench && git config user.email "you@example.com" && git config user.name "Your Name"
 ```
 
 ```bash
-cd /content/HumanStudy-Bench && git add effect_algebra/records && git commit -m "results: gate0 and gate1 on qwen14b" && git push https://$GH_TOKEN@github.com/HumanStudy-Hub/HumanStudy-Bench.git pipeline
+cd /content/HumanStudy-Bench && git add effect_algebra/records && git commit -m "results: gate0 and gate1 on qwen14b"
 ```
 
-> 用完 `unset GH_TOKEN`。token 出现在 `git push` 的 URL 里会进 shell 历史,
-> 所以**用完就在 GitHub 上撤销它**是最稳妥的做法。
+然后在 **notebook cell**(不是终端)里推送:
+
+```python
+import getpass, subprocess
+token = getpass.getpass("GitHub token: ")
+url = f"https://{token}@github.com/HumanStudy-Hub/HumanStudy-Bench.git"
+r = subprocess.run(["git", "-C", "/content/HumanStudy-Bench", "push", url, "pipeline"],
+                   capture_output=True, text=True)
+print((r.stdout + r.stderr).replace(token, "***"))
+del token
+```
+
+> **必须在 notebook cell 里推,不能在终端。** Colab 的终端是独立进程,
+> 不继承 notebook kernel 的环境变量,在 cell 里 `os.environ["GH_TOKEN"]=...`
+> 之后到终端里 `$GH_TOKEN` 是空的,URL 会退化成 `https://@github.com/...`,
+> git 转而提示输入用户名密码并失败。
+>
+> 上面的写法把 token 作为 `subprocess` 的参数传递而非经过 shell,所以
+> **不会进入 shell 历史**,并且在打印前被替换成 `***`。
 
 ### 不想碰 token 的话
 
