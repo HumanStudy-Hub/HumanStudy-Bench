@@ -372,6 +372,110 @@ def a_bucket_coverage(accuracy: float = 2.0 / 3.0) -> Dict[str, Any]:
     }
 
 
+def _build_a_row(
+    *,
+    split: str,
+    index: int,
+    reference_code: str,
+    target_code: Optional[str],
+    template: Mapping[str, str],
+    accuracy: float,
+    spec: Mapping[str, Any],
+    trainable: bool,
+) -> Dict[str, Any]:
+    """Render one A row. Shared by the full and the diversity-matched builders."""
+
+    history = spec["history"]
+    private_signal = str(spec["private_signal"])
+    target = str(spec["target"])
+    prior: HumanPrior = spec["prior"]
+    code_to_choice = _response_map(target, reference_code)
+    visible_history = (
+        ", ".join(
+            "{} chose {}".format(position, choice)
+            for position, choice in enumerate(history, start=1)
+        )
+        if history
+        else "none; you act first"
+    )
+    signal_name = template["signal_a"] if private_signal == "A" else template["signal_b"]
+    mapping_text = "; ".join(
+        "DECISION={} means choose {}".format(
+            code,
+            template["source_a"] if semantic == "A" else template["source_b"],
+        )
+        for code, semantic in sorted(code_to_choice.items())
+    )
+    prompt_text = (
+        "Two hidden sources, {source_a} and {source_b}, are equally likely.\n"
+        "When {source_a} is selected, a private observation is {signal_a} with "
+        "probability {accuracy:.6f} and {signal_b} otherwise. Under {source_b}, "
+        "these probabilities are reversed.\n"
+        "The {actor}s decide sequentially. Each earlier {actor} observed the "
+        "public decisions before them plus one private observation and used the "
+        "same Bayesian decision rule. A public decision made during a cascade "
+        "may therefore add no independent evidence.\n\n"
+        "Earlier public decisions: {history}.\n"
+        "Your private observation: {signal}.\n\n"
+        "{mapping}.\n"
+        "Which source is more likely? Output exactly DECISION=X or DECISION=Y."
+    ).format(
+        source_a=template["source_a"],
+        source_b=template["source_b"],
+        signal_a=template["signal_a"],
+        signal_b=template["signal_b"],
+        accuracy=accuracy,
+        actor=template["actor"],
+        history=visible_history,
+        signal=signal_name,
+        mapping=mapping_text,
+    )
+    state_payload = {
+        "accuracy": accuracy,
+        "history": history,
+        "private_signal": private_signal,
+        "template_family": template["family"],
+    }
+    metadata = {
+        "source_study": "study_016",
+        "source_treatment": "symmetric_baseline",
+        "label_source": "human_response_proportion",
+        "accuracy": accuracy,
+        "prior_choices": history,
+        "private_signal": private_signal,
+        "public_prior_a": float(spec["public_prior_a"]),
+        "posterior_a": float(spec["posterior_a"]),
+        "bayesian_semantic": target,
+        "reference_semantic": target,
+        "reference_code": reference_code,
+        "code_to_choice": code_to_choice,
+        "template_family": template["family"],
+        "bucket": str(spec["bucket"]),
+        "label_group": str(spec["bucket"]),
+        "position": len(history) + 1,
+        "human_probability": prior.probability,
+        "human_denominator": prior.denominator,
+        "human_prior_citation": prior.citation,
+        "calibrated": prior.calibrated,
+        "follows_reference": spec.get("follows_reference"),
+        "state_hash": _hash_payload(state_payload),
+    }
+    return _make_preference_row(
+        row_id="A-{}-{:05d}-{}".format(split, index, _hash_payload(state_payload)[:10]),
+        effect="A",
+        split=split,
+        prompt_text=prompt_text,
+        target_code=target_code,
+        metadata=metadata,
+        human_probability_by_code=(
+            None
+            if prior.probability is None
+            else _human_probability_by_code(reference_code, float(prior.probability))
+        ),
+        trainable=trainable,
+    )
+
+
 def _assign_reference_labels(
     specs: Sequence[Mapping[str, Any]],
     *,
@@ -519,94 +623,118 @@ def build_a_rows(
             if prior.probability is None
             else _human_probability_by_code(reference_code, float(prior.probability))
         )
-        template = templates[spec["template_index"]]
-
-        visible_history = (
-            ", ".join(
-                "{} chose {}".format(position, choice)
-                for position, choice in enumerate(history, start=1)
-            )
-            if history
-            else "none; you act first"
-        )
-        signal_name = template["signal_a"] if private_signal == "A" else template["signal_b"]
-        mapping_text = "; ".join(
-            "DECISION={} means choose {}".format(
-                code,
-                template["source_a"] if semantic == "A" else template["source_b"],
-            )
-            for code, semantic in sorted(code_to_choice.items())
-        )
-        prompt_text = (
-            "Two hidden sources, {source_a} and {source_b}, are equally likely.\n"
-            "When {source_a} is selected, a private observation is {signal_a} with "
-            "probability {accuracy:.6f} and {signal_b} otherwise. Under {source_b}, "
-            "these probabilities are reversed.\n"
-            "The {actor}s decide sequentially. Each earlier {actor} observed the "
-            "public decisions before them plus one private observation and used the "
-            "same Bayesian decision rule. A public decision made during a cascade "
-            "may therefore add no independent evidence.\n\n"
-            "Earlier public decisions: {history}.\n"
-            "Your private observation: {signal}.\n\n"
-            "{mapping}.\n"
-            "Which source is more likely? Output exactly DECISION=X or DECISION=Y."
-        ).format(
-            source_a=template["source_a"],
-            source_b=template["source_b"],
-            signal_a=template["signal_a"],
-            signal_b=template["signal_b"],
-            accuracy=accuracy,
-            actor=template["actor"],
-            history=visible_history,
-            signal=signal_name,
-            mapping=mapping_text,
-        )
-        state_payload = {
-            "accuracy": accuracy,
-            "history": history,
-            "private_signal": private_signal,
-            "template_family": template["family"],
-        }
-        metadata = {
-            "source_study": "study_016",
-            "source_treatment": "symmetric_baseline",
-            "label_source": "human_response_proportion",
-            "accuracy": accuracy,
-            "prior_choices": history,
-            "private_signal": private_signal,
-            "public_prior_a": public_prior_a,
-            "posterior_a": posterior_a,
-            "bayesian_semantic": target,
-            "reference_semantic": target,
-            "reference_code": reference_code,
-            "code_to_choice": code_to_choice,
-            "template_family": template["family"],
-            "bucket": bucket,
-            "label_group": bucket,
-            "position": len(history) + 1,
-            "human_probability": prior.probability,
-            "human_denominator": prior.denominator,
-            "human_prior_citation": prior.citation,
-            "calibrated": prior.calibrated,
-            "follows_reference": follow_reference,
-            "state_hash": _hash_payload(state_payload),
-        }
         rows.append(
-            _make_preference_row(
-                row_id="A-{}-{:05d}-{}".format(
-                    split,
-                    index,
-                    _hash_payload(state_payload)[:10],
-                ),
-                effect="A",
+            _build_a_row(
                 split=split,
-                prompt_text=prompt_text,
+                index=index,
+                reference_code=reference_code,
                 target_code=target_code,
-                metadata=metadata,
-                human_probability_by_code=human_probability_by_code,
+                template=templates[spec["template_index"]],
+                accuracy=accuracy,
+                spec={**spec, "follows_reference": follow_reference},
                 trainable=trainable,
             )
         )
+    return rows
+
+
+def build_a_narrow_rows(
+    split: str,
+    states: int,
+    replicas: int,
+    seed: int,
+    accuracy: float = 2.0 / 3.0,
+) -> List[Dict[str, Any]]:
+    """Effect A restricted to D's prompt diversity, at the same row count.
+
+    A and D were matched on rows, not on distinct items: A_train carries 512
+    unique prompts while D_train carries 36 repeated fourteen times, because D
+    only has 24 published scenarios. A comparison between them therefore
+    confounds how close the paradigm is to the target with how varied the source
+    is. This builds the missing control: the same paradigm as A_train, cut down
+    to D's item count and replicated to D's row count, so the two differ in
+    diversity alone.
+    """
+
+    if states < 1 or replicas < 1:
+        raise ValueError("states and replicas must be positive")
+    templates = A_TEMPLATES[split]
+    enumerated = [
+        (list(history), private_signal)
+        for history_length in range(6)
+        for history in itertools.product(("A", "B"), repeat=history_length)
+        for private_signal in ("A", "B")
+    ]
+    calibrated = [
+        state
+        for state in enumerated
+        if A_PRIORS[a_state_bucket(state[0], state[1], accuracy)].calibrated
+    ]
+    # Stratify by bucket so the narrow source keeps A's mix of behaviours and
+    # differs from the full source only in how many states it covers.
+    by_bucket: Dict[str, List[Any]] = {}
+    for state in calibrated:
+        by_bucket.setdefault(a_state_bucket(state[0], state[1], accuracy), []).append(state)
+    chosen: List[Any] = []
+    for bucket, group in sorted(by_bucket.items()):
+        ordered = list(group)
+        random.Random("A-narrow|{}|{}".format(seed, bucket)).shuffle(ordered)
+        take = max(1, round(states * len(group) / len(calibrated)))
+        chosen.extend(ordered[:take])
+    random.Random("A-narrow|{}".format(seed)).shuffle(chosen)
+    chosen = chosen[:states]
+
+    specs: List[Dict[str, Any]] = []
+    for state_index, (history, private_signal) in enumerate(chosen):
+        target, posterior_a, public_prior_a = a_normative_choice(
+            history, private_signal, accuracy
+        )
+        bucket = a_bucket(history, private_signal, posterior_a, public_prior_a, accuracy)
+        prior = A_PRIORS[bucket]
+        for replica in range(replicas):
+            specs.append(
+                {
+                    "reference_code": RESPONSE_CODES[
+                        (state_index + replica) % len(RESPONSE_CODES)
+                    ],
+                    "template_index": 0,
+                    "history": history,
+                    "private_signal": private_signal,
+                    "target": target,
+                    "posterior_a": posterior_a,
+                    "public_prior_a": public_prior_a,
+                    "bucket": bucket,
+                    "replica": replica,
+                    "human_probability": prior.probability,
+                    "prior": prior,
+                }
+            )
+
+    label_flags = _assign_reference_labels(specs, seed=seed, effect="A_narrow")
+    rows: List[Dict[str, Any]] = []
+    for index, spec in enumerate(specs):
+        reference_code = str(spec["reference_code"])
+        follow_reference = bool(label_flags[index])
+        target_code = (
+            reference_code if follow_reference else _other_code(reference_code)
+        )
+        template = templates[spec["template_index"]]
+        row = _build_a_row(
+            split=split,
+            index=index,
+            reference_code=reference_code,
+            target_code=target_code,
+            template=template,
+            accuracy=accuracy,
+            spec=spec,
+            trainable=True,
+        )
+        row["metadata"]["replica"] = spec["replica"]
+        row["metadata"]["source_variant"] = "narrow"
+        # The states are a subset of the full source, so the ids would collide
+        # with A_train's; mark the variant so every row id stays unique.
+        row["id"] = row["id"].replace("A-{}-".format(split), "A-{}-narrow-".format(split), 1)
+        rows.append(row)
     return rows
 
 

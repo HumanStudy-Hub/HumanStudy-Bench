@@ -10,6 +10,7 @@ from typing import Any, Dict, List
 from .datasets import (
     SCHEMA_VERSION,
     a_bucket_coverage,
+    build_a_narrow_rows,
     build_a_rows,
     build_b_control_rows,
     build_b_rows,
@@ -132,6 +133,17 @@ def build_tree(args: argparse.Namespace) -> Dict[str, Any]:
         replicas=args.d_replicas,
         seed=args.seed + 8000,
     )
+    # Diversity-matched control for the A-versus-D comparison. A_train has 512
+    # distinct prompts, D_train has 36 repeated fourteen times because D only
+    # publishes 24 scenarios, so comparing them confounds paradigm proximity
+    # with source diversity. This is A cut to D's item count and row count, so
+    # the two differ in diversity alone.
+    a_narrow = build_a_narrow_rows(
+        "train",
+        len(d_source_ids),
+        args.d_replicas,
+        args.seed + 1000,
+    )
     d_holdout = build_d_rows(scenarios_path, scenario_ids=d_holdout_ids) + build_d_rows(
         scenarios_path, scenario_ids=d_holdout_ids, mirror=True
     )
@@ -145,6 +157,7 @@ def build_tree(args: argparse.Namespace) -> Dict[str, Any]:
         "B_test": ("eval/B_test.jsonl", b_test),
         "AB_train": ("dpo/AB_train.jsonl", interleave_rows(a_train, b_train)),
         "AB_dev": ("dpo/AB_dev.jsonl", interleave_rows(a_dev, b_dev)),
+        "A_narrow_train": ("dpo/A_narrow_train.jsonl", a_narrow),
         "D_train": ("dpo/D_train.jsonl", d_train),
         # Scenarios D_train never saw, so a D-trained adapter can be checked for
         # generalization within D. eval/D_test.jsonl keeps all 24 scenarios and
@@ -232,6 +245,7 @@ def build_tree(args: argparse.Namespace) -> Dict[str, Any]:
             "B_control": "extended_study/study_017 Dates Task 3B; scored, never trained",
             "C": str(scenarios_path.relative_to(repo_root)),
             "D": "study_019 Study 1; per-scenario rates, no authority manipulation",
+            "A_narrow_train": "study_016 cut to D's 36 distinct prompts and 504 rows; diversity control",
             "D_train": "study_019 Study 1, 18 of 24 scenarios; transfer source for Gate 2b",
             "D_heldout": "study_019 Study 1, the 6 scenarios D_train never sees",
         },

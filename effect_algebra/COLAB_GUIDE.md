@@ -155,7 +155,7 @@ python -m effect_algebra.train_soft --train-file /content/ea/data/cv/C_fold4_tra
 
 ### 6a. A → C(远迁移)— ✅ 已完成,recovery = 53.0%
 
-### 6b. D → C(近迁移)— 下一步,约 0.7 h
+### 6b. D → C(近迁移)— ✅ 已完成,recovery = 22.6%
 
 D 和 C 同出一篇论文、同一范式,**只差权威操纵**。所以 D→C 的 recovery 若显著高于
 A→C 的 53%,说明差距主要来自领域表面;若差不多,说明瓶颈是权威 cue 本身。
@@ -184,7 +184,26 @@ tail -f /content/gate2b.log
 cd /content/HumanStudy-Bench && python -m effect_algebra.evaluate_suite --model-label D_soft --base-model Qwen/Qwen2.5-14B-Instruct --adapter /content/ea/adapters/D_soft --dataset C_test=/content/ea/data/eval/C_test.jsonl --dataset D_heldout=/content/ea/data/eval/D_heldout.jsonl --dataset D_test=/content/ea/data/eval/D_test.jsonl --dataset A_test=/content/ea/data/eval/A_test.jsonl --output-dir /content/ea/results/D_soft && python -m effect_algebra.collect_results --from /content/ea/results/D_soft --label gate2b_D_to_C
 ```
 
-### 6c. A+D → C(两源合并)— 约 0.7 h
+### 6c. `A_narrow` → C(多样性对照)— **下一步**,约 0.7 h
+
+D→C 只回收 22.6%,和全局温度对照持平,而更远的 A 回收 52.9%。原因是两者按**行数**
+对齐了预算,但不同 prompt 数差 14 倍(A 512 个、D 36 个)。`A_narrow_train` 把 A 裁到
+和 D 完全相同的规模(504 行 / 36 个不同 prompt / 每个重复 14 次),
+所以它和 D **只在范式上不同**。
+
+```bash
+cd /content/HumanStudy-Bench && git pull && python -m effect_algebra.build_datasets --repo-root . --output-dir /content/ea/data
+```
+
+```bash
+cd /content/HumanStudy-Bench && nohup python -m effect_algebra.train_soft --train-file /content/ea/data/dpo/A_narrow_train.jsonl --eval-file /content/ea/data/dpo/A_dev.jsonl --output-dir /content/ea/adapters/A_narrow_soft --run-name a-narrow-soft --base-model Qwen/Qwen2.5-14B-Instruct > /content/gate2d.log 2>&1 &
+```
+
+```bash
+cd /content/HumanStudy-Bench && python -m effect_algebra.evaluate_suite --model-label A_narrow_soft --base-model Qwen/Qwen2.5-14B-Instruct --adapter /content/ea/adapters/A_narrow_soft --dataset C_test=/content/ea/data/eval/C_test.jsonl --dataset A_test=/content/ea/data/eval/A_test.jsonl --dataset D_test=/content/ea/data/eval/D_test.jsonl --output-dir /content/ea/results/A_narrow_soft && python -m effect_algebra.collect_results --from /content/ea/results/A_narrow_soft --label gate2d_A_narrow_to_C
+```
+
+### 6d. A+D → C(两源合并)— 约 0.7 h
 
 `dpo/AD_train.jsonl` 是 A 和 D 的交错并集(1016 行)。回答"两个源都有时更好吗"。
 注意它**不是等预算**对照——等预算的多样性 vs 数据量问题由 `flywheel.py` 负责。
