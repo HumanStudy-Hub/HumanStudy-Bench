@@ -151,19 +151,50 @@ python -m effect_algebra.train_soft --train-file /content/ea/data/cv/C_fold4_tra
 
 ---
 
-## 6. Gate 2:迁移 — 下一步
+## 6. Gate 2:迁移
 
-`A → C`(远迁移,不同论文不同领域)和 `D → C`(近迁移,同范式只差权威操纵)。
-`D_train` 的数据生成正在实现中,本节会随代码更新。
+### 6a. A → C(远迁移)— ✅ 已完成,recovery = 53.0%
 
-**A → C 现在就能跑**(A 的训练集已存在):
+### 6b. D → C(近迁移)— 下一步,约 0.7 h
+
+D 和 C 同出一篇论文、同一范式,**只差权威操纵**。所以 D→C 的 recovery 若显著高于
+A→C 的 53%,说明差距主要来自领域表面;若差不多,说明瓶颈是权威 cue 本身。
+
+数据已生成:`dpo/D_train.jsonl` 是 D 的 **18 个场景 × 28 副本 = 504 行**
+(A_train 是 512 行,差 2%,所以 A 与 D 的比较不被数据量混淆)。
+另外 6 个场景留在 `eval/D_heldout.jsonl`,用来检查 D 训练出的 adapter
+是否在 D 内部泛化——**D 没有措辞变体,留出场景是唯一可行的做法**。
 
 ```bash
-python -m effect_algebra.train_soft --train-file /content/ea/data/dpo/A_train.jsonl --eval-file /content/ea/data/eval/C_test.jsonl --output-dir /content/ea/adapters/A_soft --run-name a-soft --base-model Qwen/Qwen2.5-14B-Instruct
+cd /content/HumanStudy-Bench && git pull && python -m effect_algebra.build_datasets --repo-root . --output-dir /content/ea/data
 ```
 
 ```bash
-python -m effect_algebra.evaluate_suite --model-label A_soft --base-model Qwen/Qwen2.5-14B-Instruct --adapter /content/ea/adapters/A_soft --dataset C_test=/content/ea/data/eval/C_test.jsonl --dataset A_test=/content/ea/data/eval/A_test.jsonl --dataset D_test=/content/ea/data/eval/D_test.jsonl --output-dir /content/ea/results/A_soft
+cd /content/HumanStudy-Bench && nohup python -m effect_algebra.train_soft --train-file /content/ea/data/dpo/D_train.jsonl --eval-file /content/ea/data/eval/D_heldout.jsonl --output-dir /content/ea/adapters/D_soft --run-name d-soft --base-model Qwen/Qwen2.5-14B-Instruct > /content/gate2b.log 2>&1 &
+```
+
+```bash
+tail -f /content/gate2b.log
+```
+
+评估 + 归档。**注意 `D_test` 对 D 训练过的模型是部分 in-sample**(含那 18 个训练场景),
+所以 D 内部的泛化看 `D_heldout`:
+
+```bash
+cd /content/HumanStudy-Bench && python -m effect_algebra.evaluate_suite --model-label D_soft --base-model Qwen/Qwen2.5-14B-Instruct --adapter /content/ea/adapters/D_soft --dataset C_test=/content/ea/data/eval/C_test.jsonl --dataset D_heldout=/content/ea/data/eval/D_heldout.jsonl --dataset D_test=/content/ea/data/eval/D_test.jsonl --dataset A_test=/content/ea/data/eval/A_test.jsonl --output-dir /content/ea/results/D_soft && python -m effect_algebra.collect_results --from /content/ea/results/D_soft --label gate2b_D_to_C
+```
+
+### 6c. A+D → C(两源合并)— 约 0.7 h
+
+`dpo/AD_train.jsonl` 是 A 和 D 的交错并集(1016 行)。回答"两个源都有时更好吗"。
+注意它**不是等预算**对照——等预算的多样性 vs 数据量问题由 `flywheel.py` 负责。
+
+```bash
+cd /content/HumanStudy-Bench && nohup python -m effect_algebra.train_soft --train-file /content/ea/data/dpo/AD_train.jsonl --eval-file /content/ea/data/eval/D_heldout.jsonl --output-dir /content/ea/adapters/AD_soft --run-name ad-soft --base-model Qwen/Qwen2.5-14B-Instruct > /content/gate2c.log 2>&1 &
+```
+
+```bash
+cd /content/HumanStudy-Bench && python -m effect_algebra.evaluate_suite --model-label AD_soft --base-model Qwen/Qwen2.5-14B-Instruct --adapter /content/ea/adapters/AD_soft --dataset C_test=/content/ea/data/eval/C_test.jsonl --dataset D_heldout=/content/ea/data/eval/D_heldout.jsonl --dataset A_test=/content/ea/data/eval/A_test.jsonl --output-dir /content/ea/results/AD_soft && python -m effect_algebra.collect_results --from /content/ea/results/AD_soft --label gate2c_AD_to_C
 ```
 
 ---

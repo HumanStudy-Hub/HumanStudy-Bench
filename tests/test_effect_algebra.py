@@ -289,6 +289,8 @@ class EffectAlgebraDatasetTests(unittest.TestCase):
                 rounds_per_advisor=4,
                 b_probe_rounds="2,4",
                 b_probe_count=8,
+                d_replicas=20,
+                d_holdout=6,
                 c_folds=5,
                 c_replicas=20,
                 seed=777,
@@ -312,6 +314,21 @@ class EffectAlgebraDatasetTests(unittest.TestCase):
                 self.assertNotIn("chosen", row)
             for fold in report["summary"]["cv_folds"].values():
                 self.assertEqual(fold["overlap"], 0)
+            # The transfer claim needs D's source disjoint from both its own
+            # held-out scenarios and from the C evaluation set.
+            self.assertEqual(report["summary"]["d_split"]["overlap"], 0)
+            self.assertEqual(report["summary"]["d_split"]["source_scenarios"], 18)
+            c_scenarios = {
+                row["metadata"]["scenario_id"]
+                for row in load_jsonl(output_dir / "eval" / "C_test.jsonl")
+            }
+            for path in (output_dir / "dpo").glob("*.jsonl"):
+                training = {
+                    row["metadata"]["scenario_id"]
+                    for row in load_jsonl(path)
+                    if "scenario_id" in row.get("metadata", {})
+                }
+                self.assertEqual(training & c_scenarios, set(), str(path))
 
     def test_training_entry_point_refuses_evaluation_rows(self):
         from effect_algebra.train_dpo import _training_records

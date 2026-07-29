@@ -16,7 +16,10 @@ from .datasets import (
     build_c_rows,
     build_c_training_rows,
     build_d_rows,
+    build_d_training_rows,
     c_stratified_folds,
+    d_stratified_holdout,
+    load_d_scenarios,
     interleave_rows,
     load_c_scenarios,
     write_jsonl,
@@ -43,6 +46,13 @@ def _parser() -> argparse.ArgumentParser:
         help="Ledger lengths to emit as B readability probes; empty to skip.",
     )
     parser.add_argument("--b-probe-count", type=int, default=128)
+    parser.add_argument(
+        "--d-replicas",
+        type=int,
+        default=28,
+        help="Replicas per D scenario; 28 x 18 = 504 rows, within 2%% of A_train.",
+    )
+    parser.add_argument("--d-holdout", type=int, default=6)
     parser.add_argument("--c-folds", type=int, default=5)
     parser.add_argument("--c-replicas", type=int, default=20)
     parser.add_argument("--seed", type=int, default=20260727)
@@ -107,6 +117,24 @@ def build_tree(args: argparse.Namespace) -> Dict[str, Any]:
     )
     c_test = build_c_rows(scenarios_path) + build_c_rows(scenarios_path, mirror=True)
     d_test = build_d_rows(scenarios_path) + build_d_rows(scenarios_path, mirror=True)
+    # D as a transfer source. Six scenarios are held out so a D-trained adapter
+    # can be checked for generalization within D; D has no wording variation, so
+    # unlike A there is no held-out-wording split to use instead. 28 replicas on
+    # the remaining 18 scenarios put the row count within 2% of A_train, so an
+    # A-versus-D comparison is not confounded by dataset size.
+    d_scenarios = load_d_scenarios(scenarios_path)
+    d_source_ids, d_holdout_ids = d_stratified_holdout(
+        d_scenarios, holdout=args.d_holdout, seed=args.seed
+    )
+    d_train = build_d_training_rows(
+        scenarios_path,
+        d_source_ids,
+        replicas=args.d_replicas,
+        seed=args.seed + 8000,
+    )
+    d_holdout = build_d_rows(scenarios_path, scenario_ids=d_holdout_ids) + build_d_rows(
+        scenarios_path, scenario_ids=d_holdout_ids, mirror=True
+    )
 
     file_rows = {
         "A_train": ("dpo/A_train.jsonl", a_train),
@@ -117,6 +145,15 @@ def build_tree(args: argparse.Namespace) -> Dict[str, Any]:
         "B_test": ("eval/B_test.jsonl", b_test),
         "AB_train": ("dpo/AB_train.jsonl", interleave_rows(a_train, b_train)),
         "AB_dev": ("dpo/AB_dev.jsonl", interleave_rows(a_dev, b_dev)),
+        "D_train": ("dpo/D_train.jsonl", d_train),
+        # Scenarios D_train never saw, so a D-trained adapter can be checked for
+        # generalization within D. eval/D_test.jsonl keeps all 24 scenarios and
+        # stays the right file for models not trained on D.
+        "D_heldout": ("eval/D_heldout.jsonl", d_holdout),
+        # Plain union, so it answers "given both sources, is it better?".
+        # The matched-budget question of whether diversity beats volume is the
+        # flywheel's job and is built separately.
+        "AD_train": ("dpo/AD_train.jsonl", interleave_rows(a_train, d_train)),
         "B_no_feedback_control": ("eval/B_no_feedback_control.jsonl", b_control),
         "C_test": ("eval/C_test.jsonl", c_test),
         "D_test": ("eval/D_test.jsonl", d_test),
@@ -195,10 +232,17 @@ def build_tree(args: argparse.Namespace) -> Dict[str, Any]:
             "B_control": "extended_study/study_017 Dates Task 3B; scored, never trained",
             "C": str(scenarios_path.relative_to(repo_root)),
             "D": "study_019 Study 1; per-scenario rates, no authority manipulation",
+            "D_train": "study_019 Study 1, 18 of 24 scenarios; transfer source for Gate 2b",
+            "D_heldout": "study_019 Study 1, the 6 scenarios D_train never sees",
         },
         "label_policy": {
             "objective": "match published human response proportions",
             "a_bucket_coverage": a_bucket_coverage(),
+            "d_split": {
+                "source_scenarios": len(d_source_ids),
+                "holdout_scenarios": d_holdout_ids,
+                "replicas_per_scenario": args.d_replicas,
+            },
             "c_folds": {
                 "count": args.c_folds,
                 "replicas_per_scenario": args.c_replicas,

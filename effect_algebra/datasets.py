@@ -1323,6 +1323,39 @@ def d_stratum(scenario: Mapping[str, Any]) -> str:
     return "p{:.2f}|{}".format(round(folded, 2), kind)
 
 
+def d_stratified_holdout(
+    scenarios: Sequence[Mapping[str, Any]],
+    holdout: int = 6,
+    seed: int = 0,
+) -> Tuple[List[str], List[str]]:
+    """Split D's scenarios into a training source and a held-out check.
+
+    D has no wording variation, so unlike A there is no held-out-wording split
+    available; holding out scenarios is the only way to tell whether a
+    D-trained adapter generalizes within D rather than memorizing 24 items.
+    The held-out set is small on purpose: the measurement that matters for
+    transfer is C, and every scenario spent here is signal the source loses.
+    """
+
+    by_stratum: Dict[str, List[str]] = {}
+    for scenario in scenarios:
+        by_stratum.setdefault(d_stratum(scenario), []).append(
+            str(scenario["scenario_id"])
+        )
+    held: List[str] = []
+    for stratum, scenario_ids in sorted(by_stratum.items()):
+        ordered = list(scenario_ids)
+        random.Random("D|{}|{}".format(seed, stratum)).shuffle(ordered)
+        held.extend(ordered[: max(1, round(holdout * len(ordered) / len(scenarios)))])
+    held = sorted(held)[:holdout]
+    train = sorted(
+        str(scenario["scenario_id"])
+        for scenario in scenarios
+        if str(scenario["scenario_id"]) not in set(held)
+    )
+    return train, sorted(held)
+
+
 def _d_prompt(
     scenario: Mapping[str, Any],
     code_to_urn: Mapping[str, str],

@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from collections import Counter
 from pathlib import Path
 from statistics import mean
@@ -557,7 +558,10 @@ def validate_dataset_tree(root: Path) -> Dict[str, Any]:
             for key, value in report.items()
             if key not in {"errors", "ids", "prompt_hashes"}
         }
-        is_joint_view = path.name.startswith("AB_")
+        # A joint view interleaves other files rather than adding rows, so its
+        # ids are duplicates by construction. Two or more effect letters before
+        # the underscore marks one: AB_train and AD_train, but not A_train.
+        is_joint_view = bool(re.match(r"^[A-Z]{2,}_", path.name))
         # Folds deliberately reuse scenarios across the cross-validation, so
         # they are excluded from the global split comparison and checked
         # per fold instead.
@@ -573,6 +577,13 @@ def validate_dataset_tree(root: Path) -> Dict[str, Any]:
             if not is_joint_view and not is_cross_validation:
                 all_ids.add(row_id)
             if is_joint_view or is_cross_validation:
+                continue
+            # C and D are indexed by published scenario, not by generated
+            # wording, so "train and test must not share a prompt" is the wrong
+            # question for them: a source and its evaluation set legitimately
+            # describe the same scenarios in different roles. Their isolation is
+            # checked at the scenario level instead, just below.
+            if row.get("effect") in {"C", "D"}:
                 continue
             split = str(row["split"])
             split_prompts.setdefault(split, set()).add(
@@ -623,6 +634,46 @@ def validate_dataset_tree(root: Path) -> Dict[str, Any]:
         if any(row.get("trainable") for row in c_rows):
             errors.append("C_test.jsonl contains a trainable row")
 
+    # The transfer claim rests on C never being trained on outside its own
+    # cross-validation folds, and D is drawn from the same paper, so the
+    # scenario identifiers are checked directly rather than trusted to differ.
+    c_scenarios: Set[str] = set()
+    for path in _jsonl_files(root):
+        if path.name == "C_test.jsonl":
+            c_scenarios = _scenario_ids(load_jsonl(path))
+    if c_scenarios:
+        for path in sorted(root.glob("dpo/*.jsonl")):
+            overlap = _scenario_ids(load_jsonl(path)) & c_scenarios
+            if overlap:
+                errors.append(
+                    "{}: {} held-out C scenarios appear in a training file".format(
+                        path,
+                        len(overlap),
+                    )
+                )
+
+    # D's held-out scenarios must be absent from the D training source, which
+    # is the only thing that makes a D-trained adapter's D score meaningful.
+    d_holdout_path = root / "eval" / "D_heldout.jsonl"
+    d_train_path = root / "dpo" / "D_train.jsonl"
+    d_report: Dict[str, Any] = {}
+    if d_holdout_path.exists() and d_train_path.exists():
+        held = _scenario_ids(load_jsonl(d_holdout_path))
+        source = _scenario_ids(load_jsonl(d_train_path))
+        overlap = held & source
+        if overlap:
+            errors.append(
+                "{}: {} held-out D scenarios appear in the D training source".format(
+                    d_holdout_path,
+                    len(overlap),
+                )
+            )
+        d_report = {
+            "source_scenarios": len(source),
+            "holdout_scenarios": len(held),
+            "overlap": len(overlap),
+        }
+
     fold_report = _validate_cv_folds(root, errors)
 
     trainable_rows = sum(
@@ -641,6 +692,7 @@ def validate_dataset_tree(root: Path) -> Dict[str, Any]:
             "errors": len(errors),
             "c_test_used_for_training": False,
             "cv_folds": fold_report,
+            "d_split": d_report,
         },
         "files": reports,
     }
