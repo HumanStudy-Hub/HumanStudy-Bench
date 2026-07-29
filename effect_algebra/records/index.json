@@ -148,6 +148,52 @@
       ],
       "label": "gate2a_A_to_C"
     },
+    "gate2b_D_to_C": {
+      "adapter": "/content/ea/adapters/D_soft",
+      "base_model": "Qwen/Qwen2.5-14B-Instruct",
+      "datasets": {
+        "A_test": {
+          "accuracy": 0.9140625,
+          "cross_entropy": 0.5052028512781194,
+          "letter_bias_logodds": 0.3749999999999996,
+          "mae": 0.20136089160788576,
+          "paired_items": 128,
+          "rows": 128
+        },
+        "C_test": {
+          "accuracy": 0.9,
+          "cross_entropy": 0.46709954274812476,
+          "letter_bias_logodds": 0.24999999999999992,
+          "mae": 0.16490699275004378,
+          "paired_items": 40,
+          "rows": 40
+        },
+        "D_heldout": {
+          "accuracy": 1.0,
+          "cross_entropy": 0.4919277090971228,
+          "letter_bias_logodds": -0.12499997019767767,
+          "mae": 0.06095111489344217,
+          "paired_items": 6,
+          "rows": 6
+        },
+        "D_test": {
+          "accuracy": 1.0,
+          "cross_entropy": 0.39410189984106925,
+          "letter_bias_logodds": -0.06249997019767767,
+          "mae": 0.023045531607272112,
+          "paired_items": 24,
+          "rows": 24
+        }
+      },
+      "files": [
+        "A_test.json",
+        "C_test.json",
+        "D_heldout.json",
+        "D_test.json",
+        "suite_manifest.json"
+      ],
+      "label": "gate2b_D_to_C"
+    },
     "qwen14b_gate0": {
       "adapter": null,
       "base_model": "Qwen/Qwen2.5-14B-Instruct",
