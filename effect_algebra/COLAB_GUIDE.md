@@ -117,7 +117,7 @@ python -m effect_algebra.digest --results-dir /content/ea/results/qwen14b --refe
 
 ---
 
-## 5. Gate 1:C 直训 5 折 CV(A100 约 1.2 h)
+## 5. Gate 1:C 直训 5 折 CV(A100 约 1.2 h)— ✅ 已完成,ceiling = 0.0459
 
 **长任务一定用 `nohup` 挂后台**,终端断了也不影响:
 
@@ -151,12 +151,12 @@ python -m effect_algebra.train_soft --train-file /content/ea/data/cv/C_fold4_tra
 
 ---
 
-## 6. Gate 2:迁移(尚未实现,等代码更新)
+## 6. Gate 2:迁移 — 下一步
 
-计划是 `A → C`(远迁移)和 `D → C`(近迁移)。`D_train` 的数据生成还没写,
-等 Gate 1 的 ceiling 确认后再加。届时本节会更新。
+`A → C`(远迁移,不同论文不同领域)和 `D → C`(近迁移,同范式只差权威操纵)。
+`D_train` 的数据生成正在实现中,本节会随代码更新。
 
-现在可以先跑的是 A 单源:
+**A → C 现在就能跑**(A 的训练集已存在):
 
 ```bash
 python -m effect_algebra.train_soft --train-file /content/ea/data/dpo/A_train.jsonl --eval-file /content/ea/data/eval/C_test.jsonl --output-dir /content/ea/adapters/A_soft --run-name a-soft --base-model Qwen/Qwen2.5-14B-Instruct
