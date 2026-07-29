@@ -22,7 +22,10 @@
 | 数据树 | 58 MB | 1 分钟重建,不用存 |
 | 代码 | — | 在 GitHub 上 |
 
-**两个选项,挑一个,别裸奔:**
+**首选:把结果同步进 Git 仓库。** 结果 JSON 一整套只有约 1 MB,进版本控制正合适,
+而且这样每次分析都能直接从仓库拉最新的,不用来回贴数字。见 §9。
+
+**另外两个选项(只保 adapter 用):**
 
 **选项 A(推荐):挂 Drive,所有输出直接写进去。** 在 **notebook cell**(不是终端)里运行:
 
@@ -196,6 +199,72 @@ python -m effect_algebra.evaluate_suite --model-label A_soft --base-model Qwen/Q
 | digest 输出是空表 | 结果目录不存在或为空 | 检查 `--results-dir` 路径 |
 | 训练日志 loss 约 2.6 | 已知的日志缩放问题 | 见 REPORT_CN §6,不影响训练 |
 | 终端显示 `[disconnected]` | 终端断了,VM 可能还活着 | 先 `ls /content/ea/adapters/` 确认 |
+
+---
+
+## 9. 把结果同步进仓库
+
+评估结果是**唯一无法重新生成**的产物(数据确定性重建、adapter 可从数据重训),
+而且一整套只有约 1 MB。收集脚本会把它们归档到 `effect_algebra/records/<标签>/`,
+并刷新一份跨运行的索引。
+
+每跑完一个阶段:
+
+```bash
+cd /content/HumanStudy-Bench && python -m effect_algebra.collect_results --from /content/ea/results/qwen14b --label qwen14b_gate0
+```
+
+Gate 1 的五折:
+
+```bash
+cd /content/HumanStudy-Bench && for f in 0 1 2 3 4; do python -m effect_algebra.collect_results --from /content/ea/results/C_fold$f --label gate1_C_fold$f; done
+```
+
+看跨运行汇总表:
+
+```bash
+python -m effect_algebra.collect_results --summary
+```
+
+### 推送到 GitHub
+
+需要一个 GitHub personal access token。**这个 token 只贴进 Colab,不要贴进聊天、
+不要写进任何会提交的文件。** 建议用 fine-grained token,权限只给
+`HumanStudy-Bench` 一个仓库的 `Contents: Read and write`,并设一个短的过期时间。
+
+在 **notebook cell** 里(用 `getpass` 输入,不会留在输出里):
+
+```python
+import getpass, os
+os.environ["GH_TOKEN"] = getpass.getpass("GitHub token: ")
+```
+
+然后在终端里:
+
+```bash
+cd /content/HumanStudy-Bench && git config user.email "you@example.com" && git config user.name "Your Name"
+```
+
+```bash
+cd /content/HumanStudy-Bench && git add effect_algebra/records && git commit -m "results: gate0 and gate1 on qwen14b" && git push https://$GH_TOKEN@github.com/HumanStudy-Hub/HumanStudy-Bench.git pipeline
+```
+
+> 用完 `unset GH_TOKEN`。token 出现在 `git push` 的 URL 里会进 shell 历史,
+> 所以**用完就在 GitHub 上撤销它**是最稳妥的做法。
+
+### 不想碰 token 的话
+
+打包下载,把 tgz 放到本机仓库目录下,剩下的交给本地处理:
+
+```bash
+cd /content/ea && tar czf /content/records.tgz results && ls -la /content/records.tgz
+```
+
+在 Colab 左侧文件浏览器里右键 Download,存到本机的 `HumanStudy-Bench/` 目录即可。
+
+---
+
+## 10. 其他
 
 **评分逻辑修好之后不用重跑 GPU**:`digest` 会从保存的逐行分数重新计算指标。
 拉一下代码再跑一次 `digest` 就是最新口径。

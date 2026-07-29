@@ -1,0 +1,61 @@
+{
+  "runs": {
+    "qwen7b_gate0_unsymmetrized": {
+      "adapter": null,
+      "base_model": "Qwen/Qwen2.5-7B-Instruct",
+      "datasets": {
+        "A_test": {
+          "accuracy": 0.779296875,
+          "cross_entropy": 1.3749233314052711,
+          "letter_bias_logodds": -1.874999888241291,
+          "mae": 0.2567736897866368,
+          "paired_items": 0,
+          "rows": 256
+        },
+        "B_control": {
+          "accuracy": null,
+          "cross_entropy": 1.831808375634168,
+          "letter_bias_logodds": -3.3749999459832907,
+          "mae": 0.4100588348704247,
+          "paired_items": 0,
+          "rows": 256
+        },
+        "B_test": {
+          "accuracy": 0.5625,
+          "cross_entropy": 1.7574322697181828,
+          "letter_bias_logodds": -3.1250000204890966,
+          "mae": 0.3855754584799572,
+          "paired_items": 0,
+          "rows": 256
+        },
+        "C_test": {
+          "accuracy": 0.6666666666666666,
+          "cross_entropy": 2.2697651443276405,
+          "letter_bias_logodds": -5.9999998153653,
+          "mae": 0.36570184720212107,
+          "paired_items": 0,
+          "rows": 40
+        },
+        "D_test": {
+          "accuracy": 0.8333333333333334,
+          "cross_entropy": 0.8512714036037874,
+          "letter_bias_logodds": 0.8125000149011612,
+          "mae": 0.18483844418938425,
+          "paired_items": 0,
+          "rows": 24
+        }
+      },
+      "files": [
+        "A_test.json",
+        "B_control.json",
+        "B_test.json",
+        "C_test.json",
+        "D_test.json",
+        "knowledge_probe.json",
+        "suite_manifest.json"
+      ],
+      "knowledge_probe": 0.3333333333333333,
+      "label": "qwen7b_gate0_unsymmetrized"
+    }
+  }
+}

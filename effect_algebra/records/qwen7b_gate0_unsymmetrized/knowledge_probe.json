@@ -1,0 +1,130 @@
+{
+  "adapter": null,
+  "base_model": "Qwen/Qwen2.5-7B-Instruct",
+  "model_label": "base",
+  "probes": [
+    {
+      "answer": "In their 1997 paper \"Information Cascades in the Laboratory\" published in the American Economic Review, Anderson and Holt investigated the phenomenon of information cascades using a laboratory experiment. An information cascade occurs when individuals make decisions based on the actions of others rather than their own private information, leading to a situation where the initial decision is followed by subsequent individuals even if they have different information.\n\nThe main quantitative result from their study was that the probability of an individual following the majority decision in the final round of the experiment was approximately 80%. This high rate of conformity to the majority decision, even when individuals had private information suggesting a different choice, provided empirical evidence for the existence and strength of information cascades in laboratory settings.",
+      "effect": "A",
+      "kind": "open",
+      "matched_patterns": [
+        "cascade"
+      ],
+      "probe_id": "A_citation",
+      "question": "What did Anderson and Holt (1997), 'Information Cascades in the Laboratory', American Economic Review, report? Name the phenomenon and the main quantitative result.",
+      "recall_score": 0.5
+    },
+    {
+      "decoy_value": "about 31 percent (17 of 56 periods)",
+      "effect": "A",
+      "kind": "forced_choice",
+      "probe_id": "A_cascade_rate",
+      "question": "In Anderson & Holt (1997), cascade behaviour was observed in what share of the periods where a cascade was possible?",
+      "true_code": "Y",
+      "true_statement_probability": 0.9999869928715347,
+      "true_value": "about 73 percent (41 of 56 periods)"
+    },
+    {
+      "decoy_value": "followed the previous public decision in 57 of 68 cases",
+      "effect": "A",
+      "kind": "forced_choice",
+      "probe_id": "A_tie_rule",
+      "question": "In Anderson & Holt (1997), when the Bayesian posterior was exactly 1/2 and the private draw conflicted with the previous decision, what did subjects mostly do?",
+      "true_code": "X",
+      "true_statement_probability": 0.3775406687981454,
+      "true_value": "followed their own private signal in 57 of 68 cases"
+    },
+    {
+      "answer": "Jaquiery and Yeung (2024) in their study \"Preferences for Advisor Agreement and Accuracy\" published in PLOS ONE, found that individuals generally prefer advice that is both accurate and aligned with their own views or preferences, but the weight given to agreement versus accuracy can vary depending on the context and the individual's decision-making style.\n\nThe study likely involved participants making decisions where they could seek advice from two advisors: one who was highly accurate but disagreed with the participant's initial preference, and another who agreed with the participant but was less accurate. The results suggested that while people value accuracy, there is a significant tendency to also seek advice that aligns with their own opinions or beliefs, even if it means accepting slightly less accurate advice. This finding supports the idea of a bias towards confirmation and agreement in decision-making processes, which can sometimes lead to suboptimal choices if the primary goal is to make the most accurate decision.\n\nHowever, without access to the full study, these details are based on a general understanding of the research area and the typical findings reported in similar studies. For precise",
+      "effect": "B",
+      "kind": "open",
+      "matched_patterns": [
+        "accur",
+        "agree"
+      ],
+      "probe_id": "B_citation",
+      "question": "What did Jaquiery and Yeung (2024), 'Preferences for Advisor Agreement and Accuracy', PLOS ONE, find about how people choose between an accurate advisor and an advisor who agrees with them?",
+      "recall_score": 0.6666666666666666
+    },
+    {
+      "decoy_value": "usually, about 71 percent of choices",
+      "effect": "B",
+      "kind": "forced_choice",
+      "probe_id": "B_3c_pick_rate",
+      "question": "In Jaquiery & Yeung (2024) Experiment 3C, the Dates task with feedback, how often did participants pick the agreeing advisor over the accurate one?",
+      "true_code": "X",
+      "true_statement_probability": 1.670142781833854e-05,
+      "true_value": "rarely, about 17 percent of choices"
+    },
+    {
+      "decoy_value": "without feedback participants strongly preferred the accurate advisor, with feedback the choice was near chance",
+      "effect": "B",
+      "kind": "forced_choice",
+      "probe_id": "B_feedback_contrast",
+      "question": "In Jaquiery & Yeung (2024), how did the availability of outcome feedback change the preference between an accurate and an agreeing advisor in the Dates task?",
+      "true_code": "Y",
+      "true_statement_probability": 0.43782349911420193,
+      "true_value": "without feedback the choice was near chance, with feedback participants strongly preferred the accurate advisor"
+    },
+    {
+      "answer": "In the study by Schoebel, Rieskamp, and Huber (2016) titled \"Social Influences in Sequential Decision Making,\" published in PLOS ONE, they investigated how the presence of a medical director influences the diagnostic decisions made by junior doctors. The key finding was that the presence of a medical director led to more conservative diagnostic choices among the junior doctors. Specifically, the researchers found that when a medical director was present during the decision-making process, junior doctors were less likely to choose a more costly or invasive diagnostic test, even when such tests might have been more appropriate based on the patient's symptoms. This suggests that social influence can play a significant role in clinical decision-making, potentially leading to more cautious but possibly less optimal choices.",
+      "effect": "C",
+      "kind": "open",
+      "matched_patterns": [
+        "authorit|director",
+        "influenc|weight|follow"
+      ],
+      "probe_id": "C_citation",
+      "question": "What did Schoebel, Rieskamp, and Huber (2016), 'Social Influences in Sequential Decision Making', PLOS ONE, find about the influence of a medical director on diagnostic choices?",
+      "recall_score": 1.0
+    },
+    {
+      "decoy_value": "about 45 percent of the time",
+      "effect": "C",
+      "kind": "forced_choice",
+      "probe_id": "C_director_alignment",
+      "question": "In Schoebel et al. (2016) Study 2, how often did participants' diagnoses align with the medical director's stated diagnosis?",
+      "true_code": "Y",
+      "true_statement_probability": 0.9980732653926399,
+      "true_value": "about 75 percent of the time"
+    },
+    {
+      "decoy_value": "the director was more accurate: 0.80 against 0.67",
+      "effect": "C",
+      "kind": "forced_choice",
+      "probe_id": "C_equal_accuracy",
+      "question": "In Schoebel et al. (2016), how did the stated diagnostic accuracy of the medical director compare with that of the assistant physician?",
+      "true_code": "X",
+      "true_statement_probability": 0.0002611904025399259,
+      "true_value": "identical: both were correct in two of three cases"
+    }
+  ],
+  "schema_version": 1,
+  "summary": {
+    "by_effect": {
+      "A": {
+        "forced_choice_accuracy": 0.5,
+        "forced_choice_probes": 2,
+        "mean_open_recall": 0.5,
+        "mean_true_statement_probability": 0.68876383083484,
+        "open_probes": 1
+      },
+      "B": {
+        "forced_choice_accuracy": 0.0,
+        "forced_choice_probes": 2,
+        "mean_open_recall": 0.6666666666666666,
+        "mean_true_statement_probability": 0.21892010027101014,
+        "open_probes": 1
+      },
+      "C": {
+        "forced_choice_accuracy": 0.5,
+        "forced_choice_probes": 2,
+        "mean_open_recall": 1.0,
+        "mean_true_statement_probability": 0.4991672278975899,
+        "open_probes": 1
+      }
+    },
+    "interpretation": "High forced-choice accuracy with a large behavioural MAE supports the claim that the gap is behavioural rather than a knowledge gap. Low accuracy invalidates that claim and the framing must change.",
+    "overall_forced_choice_accuracy": 0.3333333333333333
+  }
+}
