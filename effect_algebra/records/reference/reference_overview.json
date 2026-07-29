@@ -1,0 +1,368 @@
+{
+  "A_test": {
+    "models": {
+      "bayesian_hard": {
+        "accuracy": 0.9375,
+        "cross_entropy": 1.6532586388857757,
+        "mae": 0.15567387406629318,
+        "oracle": false,
+        "rows": 128
+      },
+      "bayesian_soft": {
+        "accuracy": 0.9375,
+        "cross_entropy": 0.497258282646973,
+        "mae": 0.20509935224089634,
+        "oracle": false,
+        "rows": 128
+      },
+      "condition_mean_oracle": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.36638407446311855,
+        "oracle": true,
+        "rows": 128
+      },
+      "grand_mean_oracle": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.36638407446311855,
+        "oracle": true,
+        "rows": 128
+      },
+      "human_oracle": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.34451878903588895,
+        "mae": 1.734723475976807e-18,
+        "oracle": true,
+        "rows": 128
+      },
+      "uniform_half": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.36638407446311855,
+        "oracle": false,
+        "rows": 128
+      }
+    },
+    "scale": {
+      "noise_floor_mae": {
+        "ci95_high": 0.02718050224214591,
+        "ci95_low": 0.021404175024677972,
+        "mean": 0.02429233863341194,
+        "scenarios": 256.0,
+        "standard_error": 0.0014735528615989636
+      },
+      "rows_with_human_data": 256,
+      "trivial_baselines": {
+        "always_grand_mean": 0.36638407446311855,
+        "always_half": 0.36638407446311855,
+        "grand_mean": 0.5
+      }
+    }
+  },
+  "B_control": {
+    "models": {
+      "bayesian_hard": {
+        "accuracy": null,
+        "cross_entropy": 7.045910874547359,
+        "mae": 0.509999,
+        "oracle": false,
+        "rows": 256
+      },
+      "bayesian_soft": {
+        "accuracy": null,
+        "cross_entropy": null,
+        "mae": null,
+        "oracle": false,
+        "rows": 0
+      },
+      "condition_mean_oracle": {
+        "accuracy": null,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.010000000000000009,
+        "oracle": true,
+        "rows": 256
+      },
+      "grand_mean_oracle": {
+        "accuracy": null,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.010000000000000009,
+        "oracle": true,
+        "rows": 256
+      },
+      "human_oracle": {
+        "accuracy": null,
+        "cross_entropy": 0.6929471672244782,
+        "mae": 0.0,
+        "oracle": true,
+        "rows": 256
+      },
+      "uniform_half": {
+        "accuracy": null,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.010000000000000009,
+        "oracle": false,
+        "rows": 256
+      }
+    },
+    "scale": {
+      "noise_floor_mae": {
+        "ci95_high": 0.07909899309050242,
+        "ci95_low": 0.06945281815787821,
+        "mean": 0.07427590562419031,
+        "scenarios": 512.0,
+        "standard_error": 0.0024607589113837297
+      },
+      "rows_with_human_data": 512,
+      "trivial_baselines": {
+        "always_grand_mean": 0.010000000000000009,
+        "always_half": 0.010000000000000009,
+        "grand_mean": 0.5
+      }
+    }
+  },
+  "B_probe_r5": {
+    "models": {
+      "bayesian_hard": {
+        "accuracy": 1.0,
+        "cross_entropy": 2.3486376248494536,
+        "mae": 0.169999,
+        "oracle": false,
+        "rows": 128
+      },
+      "bayesian_soft": {
+        "accuracy": null,
+        "cross_entropy": null,
+        "mae": null,
+        "oracle": false,
+        "rows": 0
+      },
+      "condition_mean_oracle": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.32999999999999996,
+        "oracle": true,
+        "rows": 128
+      },
+      "grand_mean_oracle": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.32999999999999996,
+        "oracle": true,
+        "rows": 128
+      },
+      "human_oracle": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.45588621302735843,
+        "mae": 0.0,
+        "oracle": true,
+        "rows": 128
+      },
+      "uniform_half": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.32999999999999996,
+        "oracle": false,
+        "rows": 128
+      }
+    },
+    "scale": {
+      "noise_floor_mae": {
+        "ci95_high": 0.059078416579465054,
+        "ci95_low": 0.04921874432912761,
+        "mean": 0.05414858045429633,
+        "scenarios": 256.0,
+        "standard_error": 0.002515222512841186
+      },
+      "rows_with_human_data": 256,
+      "trivial_baselines": {
+        "always_grand_mean": 0.32999999999999996,
+        "always_half": 0.32999999999999996,
+        "grand_mean": 0.5
+      }
+    }
+  },
+  "B_test": {
+    "models": {
+      "bayesian_hard": {
+        "accuracy": 1.0,
+        "cross_entropy": 2.3486376248494536,
+        "mae": 0.169999,
+        "oracle": false,
+        "rows": 256
+      },
+      "bayesian_soft": {
+        "accuracy": null,
+        "cross_entropy": null,
+        "mae": null,
+        "oracle": false,
+        "rows": 0
+      },
+      "condition_mean_oracle": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.32999999999999996,
+        "oracle": true,
+        "rows": 256
+      },
+      "grand_mean_oracle": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.32999999999999996,
+        "oracle": true,
+        "rows": 256
+      },
+      "human_oracle": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.45588621302735843,
+        "mae": 0.0,
+        "oracle": true,
+        "rows": 256
+      },
+      "uniform_half": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.32999999999999996,
+        "oracle": false,
+        "rows": 256
+      }
+    },
+    "scale": {
+      "noise_floor_mae": {
+        "ci95_high": 0.05763450100854155,
+        "ci95_low": 0.050662659900051116,
+        "mean": 0.05414858045429633,
+        "scenarios": 512.0,
+        "standard_error": 0.0017785308950230708
+      },
+      "rows_with_human_data": 512,
+      "trivial_baselines": {
+        "always_grand_mean": 0.32999999999999996,
+        "always_half": 0.32999999999999996,
+        "grand_mean": 0.5
+      }
+    }
+  },
+  "C_test": {
+    "models": {
+      "bayesian_hard": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.9780852573696263,
+        "mae": 0.09137775512820513,
+        "oracle": false,
+        "rows": 40
+      },
+      "bayesian_soft": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.4310634598487185,
+        "mae": 0.15137179487179486,
+        "oracle": false,
+        "rows": 40
+      },
+      "condition_mean_oracle": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.3498717948717949,
+        "oracle": true,
+        "rows": 40
+      },
+      "grand_mean_oracle": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.3498717948717949,
+        "oracle": true,
+        "rows": 40
+      },
+      "human_oracle": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.33692723761256965,
+        "mae": 1.5000000003302303e-07,
+        "oracle": true,
+        "rows": 40
+      },
+      "uniform_half": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.3498717948717949,
+        "oracle": false,
+        "rows": 40
+      }
+    },
+    "scale": {
+      "noise_floor_mae": {
+        "ci95_high": 0.04196643306915089,
+        "ci95_low": 0.02797794033134338,
+        "mean": 0.03497218670024713,
+        "scenarios": 80.0,
+        "standard_error": 0.0035684930453590584
+      },
+      "rows_with_human_data": 80,
+      "trivial_baselines": {
+        "always_grand_mean": 0.3498717948717949,
+        "always_half": 0.3498717948717949,
+        "grand_mean": 0.5
+      }
+    }
+  },
+  "D_test": {
+    "models": {
+      "bayesian_hard": {
+        "accuracy": 1.0,
+        "cross_entropy": 1.5301152332959138,
+        "mae": 0.17302275427350428,
+        "oracle": false,
+        "rows": 24
+      },
+      "bayesian_soft": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.4972946787157539,
+        "mae": 0.16576923076923075,
+        "oracle": false,
+        "rows": 24
+      },
+      "condition_mean_oracle": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.3516025641025641,
+        "oracle": true,
+        "rows": 24
+      },
+      "grand_mean_oracle": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.3516025641025641,
+        "oracle": true,
+        "rows": 24
+      },
+      "human_oracle": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.38601149659710393,
+        "mae": 1.9371078815074345e-17,
+        "oracle": true,
+        "rows": 24
+      },
+      "uniform_half": {
+        "accuracy": 0.5,
+        "cross_entropy": 0.6931471805599453,
+        "mae": 0.3516025641025641,
+        "oracle": false,
+        "rows": 24
+      }
+    },
+    "scale": {
+      "noise_floor_mae": {
+        "ci95_high": 0.05059718425171814,
+        "ci95_low": 0.031587952893193584,
+        "mean": 0.04109256857245586,
+        "scenarios": 48.0,
+        "standard_error": 0.004849293713909326
+      },
+      "rows_with_human_data": 48,
+      "trivial_baselines": {
+        "always_grand_mean": 0.35160256410256413,
+        "always_half": 0.35160256410256413,
+        "grand_mean": 0.5
+      }
+    }
+  }
+}

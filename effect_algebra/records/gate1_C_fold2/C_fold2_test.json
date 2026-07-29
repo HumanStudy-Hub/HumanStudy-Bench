@@ -1,0 +1,778 @@
+{
+  "adapter": "/content/ea/adapters/C_fold2",
+  "base_model": "Qwen/Qwen2.5-14B-Instruct",
+  "dataset": "/content/ea/data/cv/C_fold2_test.jsonl",
+  "dataset_label": "C_fold2_test",
+  "dataset_sha256": "12f349354bf1f5b3551c2fd4d58a18ead7c09df32a418a3594ff0cdab1bee4de",
+  "model_label": "C_fold2",
+  "rows": [
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_supports_private",
+      "bucket": "p0.67|medical_director_supports_private",
+      "correct": true,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 0.95,
+        "Y": 0.050000000000000044
+      },
+      "id": "C-test-000-41fc7e63b0",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -0.0701349601149559,
+        "Y": -3.0701348781585693
+      },
+      "medical_director_code": "X",
+      "pair_id": "41fc7e63b0423eb8333a54e33825c64771860b6344965180e84adc049ed39df0",
+      "predicted_code": "X",
+      "probability_by_code": {
+        "X": 0.9525741231199173,
+        "Y": 0.04742587688008271
+      },
+      "reference_code": "X",
+      "scenario_id": "study2_raw_06",
+      "split": "test",
+      "target_code": "X"
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_supports_private",
+      "bucket": "p0.89|medical_director_supports_private",
+      "correct": true,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 0.0,
+        "Y": 1.0
+      },
+      "id": "C-test-001-21b8474abd",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -5.016110897064209,
+        "Y": -0.01611071638762951
+      },
+      "medical_director_code": "Y",
+      "pair_id": "21b8474abd4bfff6ed6546b427a9d822ef13eaf7c69861ca1136473cf8f707f5",
+      "predicted_code": "Y",
+      "probability_by_code": {
+        "X": 0.006692849723136824,
+        "Y": 0.9933071502768632
+      },
+      "reference_code": "Y",
+      "scenario_id": "study2_raw_10",
+      "split": "test",
+      "target_code": "Y"
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_opposes_private",
+      "bucket": "p0.50|medical_director_opposes_private",
+      "correct": null,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 0.4,
+        "Y": 0.6
+      },
+      "id": "C-test-002-1b18f45a13",
+      "indifference_scenario": true,
+      "log_probability_by_code": {
+        "X": -0.8425094485282898,
+        "Y": -0.5925094485282898
+      },
+      "medical_director_code": "Y",
+      "pair_id": "1b18f45a13016f324979f0e7242667156519ced1f3beb135205107d13f542c83",
+      "predicted_code": "Y",
+      "probability_by_code": {
+        "X": 0.43782349911420193,
+        "Y": 0.5621765008857981
+      },
+      "reference_code": "X",
+      "scenario_id": "study2_raw_18",
+      "split": "test",
+      "target_code": null
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_opposes_private",
+      "bucket": "p0.67|medical_director_opposes_private",
+      "correct": true,
+      "effect": "C",
+      "human_n": 39,
+      "human_probability_by_code": {
+        "X": 0.15384615384615385,
+        "Y": 0.8461538461538461
+      },
+      "id": "C-test-003-233206bd5b",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -2.03674054145813,
+        "Y": -0.1617404669523239
+      },
+      "medical_director_code": "Y",
+      "pair_id": "233206bd5bcf3609f2791482008ce48d02bafa87bd887a4c98aee714b0e2accc",
+      "predicted_code": "Y",
+      "probability_by_code": {
+        "X": 0.1329642316084462,
+        "Y": 0.8670357683915538
+      },
+      "reference_code": "Y",
+      "scenario_id": "study2_raw_23",
+      "split": "test",
+      "target_code": "Y"
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "baseline",
+      "bucket": "p0.67|baseline",
+      "correct": true,
+      "effect": "C",
+      "human_n": 39,
+      "human_probability_by_code": {
+        "X": 0.05128205128205128,
+        "Y": 0.9487179487179487
+      },
+      "id": "C-test-004-c898d33ea3",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -2.143232583999634,
+        "Y": -0.1432325541973114
+      },
+      "medical_director_code": null,
+      "pair_id": "c898d33ea3a8c2cef575fa7641604cbc1bf73db685a03dc65e3896259fff8f51",
+      "predicted_code": "Y",
+      "probability_by_code": {
+        "X": 0.1192029188930649,
+        "Y": 0.8807970811069351
+      },
+      "reference_code": "X",
+      "scenario_id": "study2_raw_28",
+      "split": "test",
+      "target_code": "Y"
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "baseline",
+      "bucket": "p0.50|baseline",
+      "correct": null,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 0.6,
+        "Y": 0.4
+      },
+      "id": "C-test-005-25cc210801",
+      "indifference_scenario": true,
+      "log_probability_by_code": {
+        "X": -0.8424218893051147,
+        "Y": -0.5924218893051147
+      },
+      "medical_director_code": null,
+      "pair_id": "25cc210801e8c702b8f0026f428e7a9defb3d1ab2bf18b5b1d3877006f6fefa2",
+      "predicted_code": "Y",
+      "probability_by_code": {
+        "X": 0.43782349911420193,
+        "Y": 0.5621765008857981
+      },
+      "reference_code": "Y",
+      "scenario_id": "study2_raw_36",
+      "split": "test",
+      "target_code": null
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_opposes_private",
+      "bucket": "p0.80|medical_director_opposes_private",
+      "correct": true,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 0.175,
+        "Y": 0.825
+      },
+      "id": "C-test-006-b9624cecd4",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -2.7094645500183105,
+        "Y": -0.08446446061134338
+      },
+      "medical_director_code": "X",
+      "pair_id": "b9624cecd4e460e6ae77580eebe7a8a16a2906c8693da11d6a0fef9b803f60e2",
+      "predicted_code": "Y",
+      "probability_by_code": {
+        "X": 0.06754668550840877,
+        "Y": 0.9324533144915912
+      },
+      "reference_code": "X",
+      "scenario_id": "study2_raw_37",
+      "split": "test",
+      "target_code": "Y"
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_supports_private",
+      "bucket": "p0.80|medical_director_supports_private",
+      "correct": true,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 0.95,
+        "Y": 0.05
+      },
+      "id": "C-test-007-da38b91ced",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -0.04061559960246086,
+        "Y": -3.7906155586242676
+      },
+      "medical_director_code": "X",
+      "pair_id": "da38b91ced4259721ccd738dd4816cb8a4670ed1f6a289a9c860b1ad4c397307",
+      "predicted_code": "X",
+      "probability_by_code": {
+        "X": 0.9770226291700381,
+        "Y": 0.022977370829961874
+      },
+      "reference_code": "Y",
+      "scenario_id": "study2_raw_38",
+      "split": "test",
+      "target_code": "X"
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_supports_private",
+      "bucket": "p0.67|medical_director_supports_private",
+      "correct": true,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 0.050000000000000044,
+        "Y": 0.95
+      },
+      "id": "C-test-m000-41fc7e63b0",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -3.1791086196899414,
+        "Y": -0.05410857871174812
+      },
+      "medical_director_code": "Y",
+      "pair_id": "41fc7e63b0423eb8333a54e33825c64771860b6344965180e84adc049ed39df0",
+      "predicted_code": "Y",
+      "probability_by_code": {
+        "X": 0.04208772626352765,
+        "Y": 0.9579122737364724
+      },
+      "reference_code": "Y",
+      "scenario_id": "study2_raw_06",
+      "split": "test",
+      "target_code": "Y"
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_supports_private",
+      "bucket": "p0.89|medical_director_supports_private",
+      "correct": true,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 1.0,
+        "Y": 0.0
+      },
+      "id": "C-test-m001-21b8474abd",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -0.029553912580013275,
+        "Y": -4.9045538902282715
+      },
+      "medical_director_code": "X",
+      "pair_id": "21b8474abd4bfff6ed6546b427a9d822ef13eaf7c69861ca1136473cf8f707f5",
+      "predicted_code": "X",
+      "probability_by_code": {
+        "X": 0.992422758564058,
+        "Y": 0.0075772414359419615
+      },
+      "reference_code": "X",
+      "scenario_id": "study2_raw_10",
+      "split": "test",
+      "target_code": "X"
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_opposes_private",
+      "bucket": "p0.50|medical_director_opposes_private",
+      "correct": null,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 0.6,
+        "Y": 0.4
+      },
+      "id": "C-test-m002-1b18f45a13",
+      "indifference_scenario": true,
+      "log_probability_by_code": {
+        "X": -0.5930715799331665,
+        "Y": -0.8430715799331665
+      },
+      "medical_director_code": "X",
+      "pair_id": "1b18f45a13016f324979f0e7242667156519ced1f3beb135205107d13f542c83",
+      "predicted_code": "X",
+      "probability_by_code": {
+        "X": 0.5621765008857981,
+        "Y": 0.43782349911420193
+      },
+      "reference_code": "Y",
+      "scenario_id": "study2_raw_18",
+      "split": "test",
+      "target_code": null
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_opposes_private",
+      "bucket": "p0.67|medical_director_opposes_private",
+      "correct": true,
+      "effect": "C",
+      "human_n": 39,
+      "human_probability_by_code": {
+        "X": 0.8461538461538461,
+        "Y": 0.15384615384615385
+      },
+      "id": "C-test-m003-233206bd5b",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -0.1880360245704651,
+        "Y": -1.9380359649658203
+      },
+      "medical_director_code": "X",
+      "pair_id": "233206bd5bcf3609f2791482008ce48d02bafa87bd887a4c98aee714b0e2accc",
+      "predicted_code": "X",
+      "probability_by_code": {
+        "X": 0.8519527944504226,
+        "Y": 0.1480472055495774
+      },
+      "reference_code": "X",
+      "scenario_id": "study2_raw_23",
+      "split": "test",
+      "target_code": "X"
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "baseline",
+      "bucket": "p0.67|baseline",
+      "correct": true,
+      "effect": "C",
+      "human_n": 39,
+      "human_probability_by_code": {
+        "X": 0.9487179487179487,
+        "Y": 0.05128205128205128
+      },
+      "id": "C-test-m004-c898d33ea3",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -0.13313540816307068,
+        "Y": -2.2581353187561035
+      },
+      "medical_director_code": null,
+      "pair_id": "c898d33ea3a8c2cef575fa7641604cbc1bf73db685a03dc65e3896259fff8f51",
+      "predicted_code": "X",
+      "probability_by_code": {
+        "X": 0.8933093975331751,
+        "Y": 0.10669060246682494
+      },
+      "reference_code": "Y",
+      "scenario_id": "study2_raw_28",
+      "split": "test",
+      "target_code": "X"
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "baseline",
+      "bucket": "p0.50|baseline",
+      "correct": null,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 0.4,
+        "Y": 0.6
+      },
+      "id": "C-test-m005-25cc210801",
+      "indifference_scenario": true,
+      "log_probability_by_code": {
+        "X": -0.6489671468734741,
+        "Y": -0.7739671468734741
+      },
+      "medical_director_code": null,
+      "pair_id": "25cc210801e8c702b8f0026f428e7a9defb3d1ab2bf18b5b1d3877006f6fefa2",
+      "predicted_code": "X",
+      "probability_by_code": {
+        "X": 0.5312093733737563,
+        "Y": 0.4687906266262437
+      },
+      "reference_code": "X",
+      "scenario_id": "study2_raw_36",
+      "split": "test",
+      "target_code": null
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_opposes_private",
+      "bucket": "p0.80|medical_director_opposes_private",
+      "correct": true,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 0.825,
+        "Y": 0.175
+      },
+      "id": "C-test-m006-b9624cecd4",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -0.08316200226545334,
+        "Y": -2.8331620693206787
+      },
+      "medical_director_code": "Y",
+      "pair_id": "b9624cecd4e460e6ae77580eebe7a8a16a2906c8693da11d6a0fef9b803f60e2",
+      "predicted_code": "X",
+      "probability_by_code": {
+        "X": 0.9399133536130195,
+        "Y": 0.06008664638698047
+      },
+      "reference_code": "Y",
+      "scenario_id": "study2_raw_37",
+      "split": "test",
+      "target_code": "X"
+    },
+    {
+      "agreeing_advisor_code": null,
+      "authority_condition": "medical_director_supports_private",
+      "bucket": "p0.80|medical_director_supports_private",
+      "correct": true,
+      "effect": "C",
+      "human_n": 40,
+      "human_probability_by_code": {
+        "X": 0.05,
+        "Y": 0.95
+      },
+      "id": "C-test-m007-da38b91ced",
+      "indifference_scenario": false,
+      "log_probability_by_code": {
+        "X": -3.538336992263794,
+        "Y": -0.038336992263793945
+      },
+      "medical_director_code": "Y",
+      "pair_id": "da38b91ced4259721ccd738dd4816cb8a4670ed1f6a289a9c860b1ad4c397307",
+      "predicted_code": "Y",
+      "probability_by_code": {
+        "X": 0.02931223075135632,
+        "Y": 0.9706877692486436
+      },
+      "reference_code": "X",
+      "scenario_id": "study2_raw_38",
+      "split": "test",
+      "target_code": "Y"
+    }
+  ],
+  "schema_version": 2,
+  "scoring": "answer_token",
+  "summary": {
+    "advisor_agreement": {
+      "hard_agreeing_choice_rate": null,
+      "human_agreeing_choice_probability": null,
+      "mean_agreeing_choice_probability": null,
+      "rows": 0
+    },
+    "authority": {
+      "hard_alignment_rate": 0.8333333333333334,
+      "human_mean_alignment_probability": 0.753525641025641,
+      "mean_alignment_probability": 0.7346325974717625,
+      "rows": 6
+    },
+    "by_authority_condition": {
+      "baseline": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.4708670936739718,
+        "decision_x_rate": 0.0,
+        "labeled_rows": 1,
+        "mae": 0.10412575498392589,
+        "mean_preference_margin": 2.0624999701976776,
+        "mean_target_probability": 0.8872045907347108,
+        "rmse": 0.11250772964164198,
+        "rows": 2,
+        "tied_rows": 0
+      },
+      "medical_director_opposes_private": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.5473824640112271,
+        "decision_x_rate": 0.0,
+        "labeled_rows": 2,
+        "mae": 0.05420613826135561,
+        "mean_preference_margin": 2.250000042840839,
+        "mean_target_probability": 0.8979743809118556,
+        "rmse": 0.06830687658962956,
+        "rows": 3,
+        "tied_rows": 0
+      },
+      "medical_director_supports_private": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.13784397608128954,
+        "decision_x_rate": 0.6666666666666666,
+        "labeled_rows": 3,
+        "mae": 0.012161066440983062,
+        "mean_preference_margin": 3.875000012728078,
+        "mean_target_probability": 0.9740801143169828,
+        "rmse": 0.014799285108468585,
+        "rows": 3,
+        "tied_rows": 0
+      }
+    },
+    "by_bucket": {
+      "p0.50|baseline": {
+        "accuracy": null,
+        "cross_entropy": 0.7162852895555948,
+        "decision_x_rate": 0.0,
+        "labeled_rows": 0,
+        "mae": 0.14673815198461382,
+        "mean_preference_margin": null,
+        "mean_target_probability": null,
+        "rmse": 0.14673815198461382,
+        "rows": 1,
+        "tied_rows": 0
+      },
+      "p0.50|medical_director_opposes_private": {
+        "accuracy": null,
+        "cross_entropy": 0.6759394198788435,
+        "decision_x_rate": 0.0,
+        "labeled_rows": 0,
+        "mae": 0.03782349911420191,
+        "mean_preference_margin": null,
+        "mean_target_probability": null,
+        "rmse": 0.03782349911420191,
+        "rows": 1,
+        "tied_rows": 0
+      },
+      "p0.67|baseline": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.22544889779234878,
+        "decision_x_rate": 0.0,
+        "labeled_rows": 1,
+        "mae": 0.061513357983237954,
+        "mean_preference_margin": 2.0624999701976776,
+        "mean_target_probability": 0.8872045907347108,
+        "rmse": 0.061513357983237954,
+        "rows": 1,
+        "tied_rows": 0
+      },
+      "p0.67|medical_director_opposes_private": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.43006010791621185,
+        "decision_x_rate": 0.0,
+        "labeled_rows": 1,
+        "mae": 0.013509905254923571,
+        "mean_preference_margin": 1.8125000074505813,
+        "mean_target_probability": 0.8596637514087697,
+        "rmse": 0.013509905254923571,
+        "rows": 1,
+        "tied_rows": 0
+      },
+      "p0.67|medical_director_supports_private": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.1988348269600947,
+        "decision_x_rate": 1.0,
+        "labeled_rows": 1,
+        "mae": 0.005319128852783295,
+        "mean_preference_margin": 3.0624999795109056,
+        "mean_target_probability": 0.9553191288527833,
+        "rmse": 0.005319128852783295,
+        "rows": 1,
+        "tied_rows": 0
+      },
+      "p0.80|medical_director_opposes_private": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.536147864238626,
+        "decision_x_rate": 0.0,
+        "labeled_rows": 1,
+        "mae": 0.11128501041494135,
+        "mean_preference_margin": 2.6875000782310963,
+        "mean_target_probability": 0.9362850104149414,
+        "rmse": 0.11128501041494135,
+        "rows": 1,
+        "tied_rows": 0
+      },
+      "p0.80|medical_director_supports_private": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.20755019469426328,
+        "decision_x_rate": 1.0,
+        "labeled_rows": 1,
+        "mae": 0.02404264228416564,
+        "mean_preference_margin": 3.6249999795109034,
+        "mean_target_probability": 0.9740426422841656,
+        "rmse": 0.02404264228416564,
+        "rows": 1,
+        "tied_rows": 0
+      },
+      "p0.89|medical_director_supports_private": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.007146906589510637,
+        "decision_x_rate": 0.0,
+        "labeled_rows": 1,
+        "mae": 0.007121428186000256,
+        "mean_preference_margin": 4.937500079162425,
+        "mean_target_probability": 0.9928785718139997,
+        "rmse": 0.007121428186000256,
+        "rows": 1,
+        "tied_rows": 0
+      }
+    },
+    "by_effect": {
+      "C": {
+        "accuracy": 1.0,
+        "cross_entropy": 0.3746766884531867,
+        "decision_x_rate": 0.25,
+        "labeled_rows": 6,
+        "mae": 0.050919140509358474,
+        "mean_preference_margin": 3.031250015677265,
+        "mean_target_probability": 0.9342322825848951,
+        "rmse": 0.07068461921246683,
+        "rows": 8,
+        "tied_rows": 0
+      }
+    },
+    "calibration": {
+      "by_authority_condition": {
+        "baseline": {
+          "cross_entropy": 0.4708670936739718,
+          "mae": 0.10412575498392589,
+          "rmse": 0.11250772964164198,
+          "rows": 2
+        },
+        "medical_director_opposes_private": {
+          "cross_entropy": 0.5473824640112271,
+          "mae": 0.05420613826135561,
+          "rmse": 0.06830687658962956,
+          "rows": 3
+        },
+        "medical_director_supports_private": {
+          "cross_entropy": 0.13784397608128954,
+          "mae": 0.012161066440983062,
+          "rmse": 0.014799285108468585,
+          "rows": 3
+        }
+      },
+      "by_bucket": {
+        "p0.50|baseline": {
+          "cross_entropy": 0.7162852895555948,
+          "mae": 0.14673815198461382,
+          "rmse": 0.14673815198461382,
+          "rows": 1
+        },
+        "p0.50|medical_director_opposes_private": {
+          "cross_entropy": 0.6759394198788435,
+          "mae": 0.03782349911420191,
+          "rmse": 0.03782349911420191,
+          "rows": 1
+        },
+        "p0.67|baseline": {
+          "cross_entropy": 0.22544889779234878,
+          "mae": 0.061513357983237954,
+          "rmse": 0.061513357983237954,
+          "rows": 1
+        },
+        "p0.67|medical_director_opposes_private": {
+          "cross_entropy": 0.43006010791621185,
+          "mae": 0.013509905254923571,
+          "rmse": 0.013509905254923571,
+          "rows": 1
+        },
+        "p0.67|medical_director_supports_private": {
+          "cross_entropy": 0.1988348269600947,
+          "mae": 0.005319128852783295,
+          "rmse": 0.005319128852783295,
+          "rows": 1
+        },
+        "p0.80|medical_director_opposes_private": {
+          "cross_entropy": 0.536147864238626,
+          "mae": 0.11128501041494135,
+          "rmse": 0.11128501041494135,
+          "rows": 1
+        },
+        "p0.80|medical_director_supports_private": {
+          "cross_entropy": 0.20755019469426328,
+          "mae": 0.02404264228416564,
+          "rmse": 0.02404264228416564,
+          "rows": 1
+        },
+        "p0.89|medical_director_supports_private": {
+          "cross_entropy": 0.007146906589510637,
+          "mae": 0.007121428186000256,
+          "rmse": 0.007121428186000256,
+          "rows": 1
+        }
+      },
+      "cross_entropy": 0.3746766884531867,
+      "indifference_subset": {
+        "cross_entropy": 0.6961123547172192,
+        "mae": 0.09228082554940786,
+        "rmse": 0.10715106703412164,
+        "rows": 2
+      },
+      "mae": 0.050919140509358474,
+      "rmse": 0.07068461921246683,
+      "rows": 8,
+      "scale": {
+        "noise_floor_mae": {
+          "ci95_high": 0.05964407722533715,
+          "ci95_low": 0.01420128227812057,
+          "mean": 0.03692267975172886,
+          "scenarios": 8.0,
+          "standard_error": 0.0115925497314328
+        },
+        "trivial_baselines": {
+          "always_grand_mean": 0.31748798076923074,
+          "always_half": 0.3399839743589743,
+          "grand_mean": 0.4100160256410256
+        }
+      }
+    },
+    "normative": {
+      "accuracy": 1.0,
+      "decision_x_rate": 0.25,
+      "labeled_rows": 6,
+      "mean_preference_margin": 3.031250015677265,
+      "mean_target_probability": 0.9342322825848951,
+      "rows": 8,
+      "tied_rows": 0
+    },
+    "overall": {
+      "accuracy": 1.0,
+      "cross_entropy": 0.3746766884531867,
+      "decision_x_rate": 0.25,
+      "labeled_rows": 6,
+      "mae": 0.050919140509358474,
+      "mean_preference_margin": 3.031250015677265,
+      "mean_target_probability": 0.9342322825848951,
+      "rmse": 0.07068461921246683,
+      "rows": 8,
+      "tied_rows": 0
+    },
+    "overshoot": {
+      "dpo_unreachable_rate": 0.5,
+      "mean_excess_confidence_logits": -1.0079292343979078,
+      "model_more_extreme_rate": 0.5,
+      "rows": 8
+    },
+    "response_code_bias": {
+      "mirror": {
+        "input_rows": 16,
+        "merged_rows": 8,
+        "paired_items": 8,
+        "unpaired_items": 0
+      },
+      "raw": {
+        "argmax_x_rate": 0.5,
+        "mean_probability_x": 0.4983771607304081,
+        "median_log_odds_x": -0.06249999999999982,
+        "rows": 16
+      },
+      "symmetrized": true
+    }
+  }
+}
