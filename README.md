@@ -42,7 +42,8 @@ paper PDF + optional OSF/open materials
 
 Build Study is currently operated through the private HumanStudy-Hub web
 application. The direct contribution documentation remains supported for
-researchers who prefer to author or inspect every file themselves.
+researchers who prefer to author or inspect every file themselves. The manual
+entry point is the [direct pull request guide](docs/submit_study.md).
 
 ### Direct pull request
 
