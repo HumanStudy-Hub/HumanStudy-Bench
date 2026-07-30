@@ -1,0 +1,133 @@
+name: Run HumanStudy pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_id:
+        description: Private jobs repository job ID
+        required: true
+        type: string
+      stage:
+        description: Pipeline stage to run
+        required: true
+        type: choice
+        options: ["1", "2", "3", "4"]
+      jobs_repo:
+        description: Private repository containing job inputs and outputs
+        required: true
+        default: HumanStudy-Hub/humanstudy-hub-jobs
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out benchmark pipeline
+        uses: actions/checkout@v4
+
+      - name: Check out private job storage
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.jobs_repo }}
+          token: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
+          path: job-storage
+          ref: jobs/${{ inputs.job_id }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pipeline dependencies
+        run: pip install -e ".[llm,pdf]"
+
+      - name: Configure pipeline
+        run: cp config/settings.example.yaml config/settings.yaml
+
+      - name: Mark job running
+        env:
+          JOB_ID: ${{ inputs.job_id }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p = Path("job-storage/jobs") / os.environ["JOB_ID"] / "job.json"
+          data = json.loads(p.read_text())
+          data.update({"status": "running", "message": f"Running stage {os.environ['STAGE']}"})
+          p.write_text(json.dumps(data, indent=2) + "\n")
+          PY
+        env:
+          STAGE: ${{ inputs.stage }}
+
+      - name: Run stage
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          JOB_ID: ${{ inputs.job_id }}
+          STAGE: ${{ inputs.stage }}
+        run: |
+          set -o pipefail
+          job="job-storage/jobs/$JOB_ID"
+          mkdir -p "$job/output" "$job/logs"
+          pdf="$job/input/paper.pdf"
+          args=(generation_pipeline/run.py --settings config/settings.yaml --stage "$STAGE" --output-dir "$job/output")
+          if [ "$STAGE" = "1" ]; then args+=(--pdf "$pdf"); fi
+          if [ "$STAGE" = "2" ]; then args+=(--pdf "$pdf"); fi
+          if [ "$STAGE" = "3" ]; then args+=(--json "$job/output/paper/stage2.json" --pdf "$pdf" --no-backup); fi
+          if [ "$STAGE" = "4" ]; then args+=(--json "$job/output/paper/stage3.json" --pdf "$pdf" --study-id "$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["experimentId"])' "$job/job.json")" --hub-layout --hub-studies-dir "$job/package"); fi
+          printf '%q ' "${args[@]}" | tee "$job/logs/stage$STAGE.log"
+          "${args[@]}" 2>&1 | tee -a "$job/logs/stage$STAGE.log"
+
+      - name: Prepare result and mark review
+        if: success()
+        env:
+          JOB_ID: ${{ inputs.job_id }}
+          STAGE: ${{ inputs.stage }}
+        run: |
+          python - <<'PY'
+          import json, os, shutil
+          from pathlib import Path
+          job = Path("job-storage/jobs") / os.environ["JOB_ID"]
+          data = json.loads((job / "job.json").read_text())
+          stage = int(os.environ["STAGE"])
+          if stage == 4:
+              package = job / "package"
+              if package.exists():
+                  import shutil
+                  shutil.make_archive(str(job / "output" / "study"), "zip", package)
+              data.update({"status": "complete", "message": "Study package is ready"})
+          else:
+              data.update({"status": "review", "currentStage": stage, "message": f"Stage {stage} is ready for researcher review"})
+          (job / "job.json").write_text(json.dumps(data, indent=2) + "\n")
+          PY
+
+      - name: Mark failed
+        if: failure()
+        env:
+          JOB_ID: ${{ inputs.job_id }}
+          STAGE: ${{ inputs.stage }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          job = Path("job-storage/jobs") / os.environ["JOB_ID"]
+          p = job / "job.json"
+          data = json.loads(p.read_text())
+          data.update({"status": "failed", "message": f"Stage {os.environ['STAGE']} failed"})
+          p.write_text(json.dumps(data, indent=2) + "\n")
+          PY
+
+      - name: Commit job state and outputs
+        if: always()
+        working-directory: job-storage
+        env:
+          JOB_ID: ${{ inputs.job_id }}
+          TOKEN: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
+        run: |
+          git config user.name "HumanStudy-Hub Pipeline"
+          git config user.email "pipeline@humanstudy-hub.org"
+          git add "jobs/$JOB_ID"
+          git commit -m "pipeline: update $JOB_ID stage ${{ inputs.stage }}" || true
+          git push "https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git" "HEAD:jobs/$JOB_ID"
