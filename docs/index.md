@@ -1,30 +1,26 @@
 # HumanStudy-Bench Documentation
 
-Welcome to the HumanStudy-Bench docs. This site is for **contributors** who want to add or understand studies in the benchmark.
+HumanStudy-Bench is a standardized testbed for replaying human-subject
+experiments with AI agents. Each runnable study lives under `studies/` with
+source materials, metadata, execution code, and evaluation logic.
 
-## What is HumanStudy-Bench?
+## Contribution paths
 
-HumanStudy-Bench is a standardized testbed for *replaying human-subject experiments* with LLM-simulated participants. It combines:
+**Build Study** is a private-beta HumanStudy-Hub workflow for researchers who
+begin with a paper PDF and optional open materials. It runs the staged pipeline,
+persists researcher decisions, and produces a ZIP or GitHub pull request.
 
-- An **Execution Engine** that reconstructs full experimental protocols from published studies
-- A **Benchmark** with standardized evaluation metrics and alignment at the level of scientific inference
+**Direct pull requests** are available now and remain fully supported:
 
-Each study lives under `studies/study_XXX/` with source data, scripts for trial generation and evaluation, and metadata.
+1. Fork and clone the repository.
+2. Add a new folder under `studies/`.
+3. Run `bash scripts/verify_study.sh <study-folder>`.
+4. Push the branch and open a pull request.
+5. Complete automated checks and human review.
 
-## Where to start
+## Guides
 
-| If you want to… | Go to |
-|-----------------|--------|
-| **Contribute a new study** (fork → create files → PR) | [Contributing](contributing.md) |
-| **Follow a step-by-step guide** to create a study (with examples) | [Study Walkthrough](study_walkthrough.md) |
-| **Extract data from a paper** (with AI assistance) | [Data Extraction Guide](extraction_guide.md) |
-| **Look up required files and API contracts** | [File Reference](file_reference.md) |
-
-## Quick contribution flow
-
-1. Fork the repo and clone it.
-2. Create a branch (e.g. `study_013`) and add `studies/study_013/` with the required files.
-3. Run `bash scripts/verify_study.sh study_013`.
-4. Open a Pull Request. After review, your study is merged and appears in the index and on the website.
-
-For full details and the exact file layout, see the [Contributing](contributing.md) guide.
+- [What should I submit?](what_to_submit.md)
+- [How to extract data from a paper](extract_from_paper.md)
+- [How to build study files](build_study_files.md)
+- [How to submit a study](submit_study.md)

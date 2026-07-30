@@ -13,7 +13,9 @@ class PromptBuilder:
     """Build prompts from study specification and materials. study_path = source directory."""
 
     def __init__(self, study_path: Path):
-        self.study_path = Path(study_path)
+        base_path = Path(study_path)
+        source_path = base_path / "source"
+        self.study_path = source_path if (source_path / "specification.json").exists() else base_path
         self.materials_path = self.study_path / "materials"
         with open(self.study_path / "specification.json", "r", encoding="utf-8", errors="replace") as f:
             self.specification = json.load(f)
@@ -81,7 +83,8 @@ class BaseStudyConfig(ABC):
 
     def __init__(self, study_path: Path, specification: Dict[str, Any]):
         self.study_path = Path(study_path)
-        self.source_path = self.study_path / "source"
+        source_path = self.study_path / "source"
+        self.source_path = source_path if (source_path / "specification.json").exists() else self.study_path
         self.specification = specification
         self.study_id = specification["study_id"]
         self.prompt_builder = self.prompt_builder_class(self.source_path)

@@ -15,6 +15,10 @@ seaborn>=0.11.0
 
 # Progress bars and utilities
 tqdm>=4.62.0
+pyyaml>=6.0
+python-dotenv>=1.0.0
+rapidfuzz>=3.0.0
+chardet>=5.0.0
 
 # Testing
 pytest>=7.0.0
@@ -34,6 +38,7 @@ openai>=1.0.0  # Required for OpenRouter and OpenAI API
 anthropic>=0.3.0  # For Claude (Anthropic API)
 pypdf>=3.0.0  # PDF text extraction for generation pipeline (multi-provider)
 PyPDF2>=3.0.0  # Used by legacy DocumentLoader.get_pdf_pages (generation pipeline)
+pyreadstat>=1.2.0  # Optional but needed for OSF/SPSS .sav codebook parsing
 
 # Optional: For uploading results to Hugging Face Hub
 huggingface_hub>=0.20.0
