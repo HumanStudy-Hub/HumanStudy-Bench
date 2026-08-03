@@ -71,7 +71,7 @@ jobs:
           job="job-storage/jobs/$JOB_ID"
           mkdir -p "$job/output" "$job/logs"
           pdf="$job/input/paper.pdf"
-          args=(generation_pipeline/run.py --settings config/settings.yaml --stage "$STAGE" --output-dir "$job/output")
+          args=(python generation_pipeline/run.py --settings config/settings.yaml --stage "$STAGE" --output-dir "$job/output")
           if [ "$STAGE" = "1" ]; then args+=(--pdf "$pdf"); fi
           if [ "$STAGE" = "2" ]; then args+=(--pdf "$pdf"); fi
           if [ "$STAGE" = "3" ]; then args+=(--json "$job/output/paper/stage2.json" --pdf "$pdf" --no-backup); fi
