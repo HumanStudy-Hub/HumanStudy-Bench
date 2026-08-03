@@ -50,6 +50,7 @@ jobs:
       - name: Mark job running
         env:
           JOB_ID: ${{ inputs.job_id }}
+          STAGE: ${{ inputs.stage }}
         run: |
           python - <<'PY'
           import json, os
@@ -59,8 +60,6 @@ jobs:
           data.update({"status": "running", "message": f"Running stage {os.environ['STAGE']}"})
           p.write_text(json.dumps(data, indent=2) + "\n")
           PY
-        env:
-          STAGE: ${{ inputs.stage }}
 
       - name: Run stage
         env:
