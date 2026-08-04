@@ -50,14 +50,13 @@ jobs:
       - name: Mark job running
         env:
           JOB_ID: ${{ inputs.job_id }}
-          STAGE: ${{ inputs.stage }}
         run: |
           python - <<'PY'
           import json, os
           from pathlib import Path
           p = Path("job-storage/jobs") / os.environ["JOB_ID"] / "job.json"
           data = json.loads(p.read_text())
-          data.update({"status": "running", "message": f"Running stage {os.environ['STAGE']}"})
+          data.update({"status": "running", "message": "Running the full study extraction pipeline"})
           p.write_text(json.dumps(data, indent=2) + "\n")
           PY
 
@@ -65,40 +64,34 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           JOB_ID: ${{ inputs.job_id }}
-          STAGE: ${{ inputs.stage }}
         run: |
           set -o pipefail
           job="job-storage/jobs/$JOB_ID"
           mkdir -p "$job/output" "$job/logs"
           pdf="$job/input/paper.pdf"
-          args=(python generation_pipeline/run.py --settings config/settings.yaml --stage "$STAGE" --output-dir "$job/output")
-          if [ "$STAGE" = "1" ]; then args+=(--pdf "$pdf"); fi
-          if [ "$STAGE" = "2" ]; then args+=(--pdf "$pdf"); fi
-          if [ "$STAGE" = "3" ]; then args+=(--json "$job/output/paper/stage2.json" --pdf "$pdf" --no-backup); fi
-          if [ "$STAGE" = "4" ]; then args+=(--json "$job/output/paper/stage3.json" --pdf "$pdf" --study-id "$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["experimentId"])' "$job/job.json")" --hub-layout --hub-studies-dir "$job/package"); fi
-          printf '%q ' "${args[@]}" | tee "$job/logs/stage$STAGE.log"
-          "${args[@]}" 2>&1 | tee -a "$job/logs/stage$STAGE.log"
+          for stage in 1 2 3 4; do
+            args=(python generation_pipeline/run.py --settings config/settings.yaml --stage "$stage" --output-dir "$job/output")
+            if [ "$stage" = "1" ] || [ "$stage" = "2" ]; then args+=(--pdf "$pdf"); fi
+            if [ "$stage" = "3" ]; then args+=(--json "$job/output/paper/stage2.json" --pdf "$pdf" --no-backup); fi
+            if [ "$stage" = "4" ]; then args+=(--json "$job/output/paper/stage3.json" --pdf "$pdf" --study-id "$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["experimentId"])' "$job/job.json")" --hub-layout --hub-studies-dir "$job/package"); fi
+            printf '%q ' "${args[@]}" | tee "$job/logs/stage$stage.log"
+            "${args[@]}" 2>&1 | tee -a "$job/logs/stage$stage.log"
+          done
 
       - name: Prepare result and mark review
         if: success()
         env:
           JOB_ID: ${{ inputs.job_id }}
-          STAGE: ${{ inputs.stage }}
         run: |
           python - <<'PY'
           import json, os, shutil
           from pathlib import Path
           job = Path("job-storage/jobs") / os.environ["JOB_ID"]
           data = json.loads((job / "job.json").read_text())
-          stage = int(os.environ["STAGE"])
-          if stage == 4:
-              package = job / "package"
-              if package.exists():
-                  import shutil
-                  shutil.make_archive(str(job / "output" / "study"), "zip", package)
-              data.update({"status": "complete", "message": "Study package is ready"})
-          else:
-              data.update({"status": "review", "currentStage": stage, "message": f"Stage {stage} is ready for researcher review"})
+          package = job / "package"
+          if package.exists():
+              shutil.make_archive(str(job / "output" / "study"), "zip", package)
+          data.update({"status": "review", "currentStage": 4, "message": "Final study package is ready for researcher review"})
           (job / "job.json").write_text(json.dumps(data, indent=2) + "\n")
           PY
 
@@ -106,7 +99,6 @@ jobs:
         if: failure()
         env:
           JOB_ID: ${{ inputs.job_id }}
-          STAGE: ${{ inputs.stage }}
         run: |
           python - <<'PY'
           import json, os
@@ -114,7 +106,7 @@ jobs:
           job = Path("job-storage/jobs") / os.environ["JOB_ID"]
           p = job / "job.json"
           data = json.loads(p.read_text())
-          data.update({"status": "failed", "message": f"Stage {os.environ['STAGE']} failed"})
+          data.update({"status": "failed", "message": "Study extraction pipeline failed"})
           p.write_text(json.dumps(data, indent=2) + "\n")
           PY
 
@@ -128,5 +120,5 @@ jobs:
           git config user.name "HumanStudy-Hub Pipeline"
           git config user.email "pipeline@humanstudy-hub.org"
           git add "jobs/$JOB_ID"
-          git commit -m "pipeline: update $JOB_ID stage ${{ inputs.stage }}" || true
+          git commit -m "pipeline: update $JOB_ID full extraction" || true
           git push "https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git" "HEAD:jobs/$JOB_ID"
