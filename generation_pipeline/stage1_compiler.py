@@ -3777,7 +3777,9 @@ def cached_json_call(
                 llm_client,
                 current_prompt,
                 timeout=timeout,
-                max_tokens=max_tokens if attempt == 1 else min(max_tokens * 2, 32000),
+                # Keep retries within the 16k completion limit used by the
+                # configured OpenAI-compatible models.
+                max_tokens=max_tokens if attempt == 1 else min(max_tokens * 2, 16000),
             )
             payload = _loads_json(response)
             if validator is not None:
