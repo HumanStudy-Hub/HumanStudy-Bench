@@ -1432,18 +1432,30 @@ def _deterministic_metadata(extraction: Dict[str, Any], study_id: str) -> Dict[s
                             "tests": [{"test_name": stat.get("test_name") or "reported_effect", "weight": 1.0}],
                         }
                     )
+    authors = [str(author).strip() for author in (extraction.get("paper_authors") or []) if str(author).strip()]
+    authors = [author for author in authors if author.lower() not in {"author a", "author b", "unknown", "n/a"}]
     return {
         "id": study_id,
         "title": extraction.get("paper_title", ""),
-        "authors": extraction.get("paper_authors", []),
+        "authors": authors,
         "year": extraction.get("paper_year"),
-        "domain": None,
+        "domain": extraction.get("domain") or extraction.get("paper_domain"),
         "subdomain": None,
         "keywords": [],
         "difficulty": "medium",
         "description": extraction.get("paper_abstract") or extraction.get("paper_title", ""),
         "scenarios": scenarios,
         "findings": findings,
+        "study_specific": _study_specific_fields(extraction),
+    }
+
+
+def _study_specific_fields(extraction: Dict[str, Any]) -> Dict[str, Any]:
+    """Preserve paper-specific structure without forcing it into the core schema."""
+    return {
+        "studies": extraction.get("studies", []),
+        "study_materials": extraction.get("study_materials", {}),
+        "simulation_targets": extraction.get("simulation_targets", []),
     }
 
 
@@ -1507,6 +1519,18 @@ def _deterministic_specification(extraction: Dict[str, Any], study_id: str) -> D
     design_type = "Mixed" if has_between and has_within else (
         "Between-Subjects" if has_between else "Within-Subjects" if has_within else None
     )
+    steps = []
+    for study in extraction.get("studies", []):
+        for sub_study in study.get("sub_studies", []):
+            sub_id = sub_study.get("sub_study_id")
+            instruction = sub_study.get("instructions") or sub_study.get("content") or sub_study.get("procedure")
+            if isinstance(instruction, dict):
+                instruction = instruction.get("steps") or instruction.get("text")
+            if isinstance(instruction, list):
+                for index, item in enumerate(instruction, start=1):
+                    if str(item).strip(): steps.append({"step": len(steps) + 1, "sub_study_id": sub_id, "instruction": str(item)})
+            elif isinstance(instruction, str) and instruction.strip():
+                steps.append({"step": len(steps) + 1, "sub_study_id": sub_id, "instruction": instruction.strip()})
     return {
         "study_id": study_id,
         "title": extraction.get("paper_title", ""),
@@ -1518,7 +1542,8 @@ def _deterministic_specification(extraction: Dict[str, Any], study_id: str) -> D
             "by_sub_study": by_sub_study,
         },
         "design": {"type": design_type, "factors": factors},
-        "procedure": {"steps": []},
+        "procedure": {"steps": steps},
+        "study_specific": _study_specific_fields(extraction),
     }
 
 
@@ -1650,6 +1675,7 @@ def _deterministic_ground_truth(extraction: Dict[str, Any], study_id: str) -> Di
         "year": extraction.get("paper_year"),
         "studies": studies,
         "overall_original_results": {"description": "", "data_tables": [], "all_raw_data": {}},
+        "study_specific": _study_specific_fields(extraction),
     }
 
 
@@ -2082,6 +2108,22 @@ def _build_package_audit(
     metadata = loaded.get("metadata.json", {})
     specification = loaded.get("specification.json", {})
     ground_truth = loaded.get("ground_truth.json", {})
+    authors = metadata.get("authors") if isinstance(metadata.get("authors"), list) else []
+    if not authors:
+        issues.append({"severity": "error", "path": "metadata.json.authors", "message": "No verified authors were extracted; review against the paper."})
+    if any(str(author).strip().lower() in {"author a", "author b", "unknown", "n/a"} for author in authors):
+        issues.append({"severity": "error", "path": "metadata.json.authors", "message": "Placeholder author names remain in the package."})
+    if not str(metadata.get("domain") or "").strip():
+        issues.append({"severity": "warning", "path": "metadata.json.domain", "message": "Research domain is missing and requires researcher confirmation."})
+    procedure = specification.get("procedure") if isinstance(specification.get("procedure"), dict) else {}
+    if not procedure.get("steps"):
+        issues.append({"severity": "error", "path": "specification.json.procedure.steps", "message": "No procedure steps were extracted."})
+    metadata_findings = metadata.get("findings") if isinstance(metadata.get("findings"), list) else []
+    ground_truth_findings = _iter_ground_truth_findings(ground_truth)
+    if not metadata_findings:
+        issues.append({"severity": "error", "path": "metadata.json.findings", "message": "No findings were generated."})
+    if metadata_findings and ground_truth_findings and len(metadata_findings) != len(ground_truth_findings):
+        issues.append({"severity": "error", "path": "ground_truth.json.studies", "message": f"Finding count mismatch: metadata has {len(metadata_findings)}, ground truth has {len(ground_truth_findings)}."})
     for name, payload, key in (
         ("metadata.json", metadata, "id"),
         ("specification.json", specification, "study_id"),
