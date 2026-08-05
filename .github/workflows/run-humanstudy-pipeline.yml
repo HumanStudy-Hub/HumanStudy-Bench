@@ -91,11 +91,11 @@ jobs:
           ANTHROPIC_BASE_URL: https://openrouter.ai/api
           ANTHROPIC_AUTH_TOKEN: ${{ secrets.OPENROUTER_API_KEY }}
           ANTHROPIC_API_KEY: ""
-          ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
-          ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
-          ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
-          CLAUDE_CODE_SUBAGENT_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
-          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
+          ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
+          ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
+          ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
+          CLAUDE_CODE_SUBAGENT_MODEL: ${{ vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
           AGENT_TIMEOUT_MINUTES: ${{ vars.AGENT_TIMEOUT_MINUTES || '25' }}
           PIPELINE_PROGRESS_TOKEN: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
         run: |

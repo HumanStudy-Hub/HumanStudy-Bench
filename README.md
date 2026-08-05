@@ -90,7 +90,7 @@ extracts the study, builds a runnable package, validates it, and then opens one
 final researcher review in HumanStudy-Hub.
 
 Claude Code is routed through OpenRouter. The default model is
-`moonshotai/kimi-k3`; it can be changed without editing the workflow.
+`anthropic/claude-sonnet-5`; it can be changed without editing the workflow.
 
 Repository settings required by
 [`run-humanstudy-pipeline.yml`](.github/workflows/run-humanstudy-pipeline.yml):
@@ -99,7 +99,7 @@ Repository settings required by
 |---|---|---|
 | Actions secret | `OPENROUTER_API_KEY` | OpenRouter API key |
 | Actions secret | `HUMANSTUDY_PIPELINE_TOKEN` | Fine-grained GitHub token with read/write access to the private jobs repository |
-| Actions variable | `OPENROUTER_MODEL` | Optional; defaults to `moonshotai/kimi-k3` |
+| Actions variable | `OPENROUTER_MODEL` | Optional; defaults to `anthropic/claude-sonnet-5` |
 
 The agent instructions and package contract live in
 [`agent_pipeline/CLAUDE.md`](agent_pipeline/CLAUDE.md). The validator requires a
