@@ -50,6 +50,32 @@ def test_build_prompt_includes_job_inputs(tmp_path: Path) -> None:
     assert "Do not invent study facts" in prompt
 
 
+def test_build_prompt_disables_search_without_user_url(tmp_path: Path) -> None:
+    job = tmp_path / "jobs" / "paper-only"
+    (job / "input").mkdir(parents=True)
+    (job / "input" / "paper.pdf").write_bytes(b"%PDF-test")
+    (job / "job.json").write_text(json.dumps({
+        "paperName": "paper.pdf",
+        "contributorName": "Researcher",
+    }))
+    output = job / "agent-prompt.md"
+
+    subprocess.run([
+        sys.executable,
+        str(ROOT / "agent_pipeline/build_prompt.py"),
+        "--contract",
+        str(ROOT / "agent_pipeline/CLAUDE.md"),
+        "--job",
+        str(job),
+        "--output",
+        str(output),
+    ], check=True)
+
+    prompt = output.read_text()
+    assert "Network research is not authorized" in prompt
+    assert "Use only the uploaded PDF" in prompt
+
+
 def test_validate_complete_agent_package(tmp_path: Path) -> None:
     package = tmp_path / "package"
     study = package / "paper-name"

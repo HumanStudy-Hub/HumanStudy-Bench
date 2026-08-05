@@ -13,7 +13,12 @@ def main() -> None:
 
     job = json.loads((args.job / "job.json").read_text())
     contract = args.contract.read_text()
-    osf = job.get("osfUrl") or "No OSF URL was supplied. Search for open materials, then continue from the PDF if none exist."
+    osf = job.get("osfUrl")
+    external_rule = (
+        f"External material was explicitly supplied: `{osf}`. You may access this URL and links directly contained in its materials."
+        if osf
+        else "No external URL was supplied. Network research is not authorized: do not search, browse, fetch websites, resolve the DOI, or discover OSF materials. Use only the uploaded PDF."
+    )
     prompt = f"""{contract}
 
 ## Current job
@@ -22,7 +27,7 @@ def main() -> None:
 - Paper: `{(args.job / 'input/paper.pdf').resolve()}`
 - Original filename: `{job.get('paperName', 'paper.pdf')}`
 - Contributor: `{job.get('contributorName', 'Unknown')}`
-- OSF/open materials: `{osf}`
+- External-source policy: {external_rule}
 
 Complete the full extraction and package build now. Write all deliverables under
 `{(args.job / 'package').resolve()}`. Do not modify files outside the job directory.
