@@ -1,4 +1,4 @@
-name: Run HumanStudy pipeline
+name: Build HumanStudy package with Claude Code
 
 on:
   workflow_dispatch:
@@ -7,11 +7,6 @@ on:
         description: Private jobs repository job ID
         required: true
         type: string
-      stage:
-        description: Pipeline stage to run
-        required: true
-        type: choice
-        options: ["1", "2", "3", "4"]
       jobs_repo:
         description: Private repository containing job inputs and outputs
         required: true
@@ -21,12 +16,19 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: humanstudy-agent-${{ inputs.job_id }}
+  cancel-in-progress: false
+
 jobs:
-  run:
+  build-study:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
-      - name: Check out benchmark pipeline
+      - name: Check out package contract and validation tools
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Check out private job storage
         uses: actions/checkout@v4
@@ -35,17 +37,23 @@ jobs:
           token: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
           path: job-storage
           ref: jobs/${{ inputs.job_id }}
+          persist-credentials: false
 
-      - name: Set up Python
+      - name: Set up runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Set up Python utilities
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install pipeline dependencies
-        run: pip install -e ".[llm,pdf]"
-
-      - name: Configure pipeline
-        run: cp config/settings.example.yaml config/settings.yaml
+      - name: Install Claude Code and document tools
+        run: |
+          npm install --global @anthropic-ai/claude-code@latest
+          sudo apt-get update
+          sudo apt-get install --yes poppler-utils tesseract-ocr jq unzip
 
       - name: Mark job running
         env:
@@ -54,45 +62,76 @@ jobs:
           python - <<'PY'
           import json, os
           from pathlib import Path
-          p = Path("job-storage/jobs") / os.environ["JOB_ID"] / "job.json"
-          data = json.loads(p.read_text())
-          data.update({"status": "running", "message": "Running the full study extraction pipeline"})
-          p.write_text(json.dumps(data, indent=2) + "\n")
+          path = Path("job-storage/jobs") / os.environ["JOB_ID"] / "job.json"
+          data = json.loads(path.read_text())
+          data.update({
+              "status": "running",
+              "currentStage": 1,
+              "packageReady": False,
+              "message": "Claude Code is extracting the paper and building the study",
+          })
+          path.write_text(json.dumps(data, indent=2) + "\n")
           PY
 
-      - name: Run stage
+      - name: Publish running state
+        working-directory: job-storage
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           JOB_ID: ${{ inputs.job_id }}
+          TOKEN: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
+        run: |
+          git config user.name "HumanStudy-Hub Agent"
+          git config user.email "pipeline@humanstudy-hub.org"
+          git add "jobs/$JOB_ID/job.json"
+          git commit -m "agent: start $JOB_ID"
+          git push "https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git" "HEAD:jobs/$JOB_ID"
+
+      - name: Run Claude Code through OpenRouter
+        env:
+          JOB_ID: ${{ inputs.job_id }}
+          ANTHROPIC_BASE_URL: https://openrouter.ai/api
+          ANTHROPIC_AUTH_TOKEN: ${{ secrets.OPENROUTER_API_KEY }}
+          ANTHROPIC_API_KEY: ""
+          ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
+          ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
+          ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
+          CLAUDE_CODE_SUBAGENT_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
         run: |
           set -o pipefail
-          job="job-storage/jobs/$JOB_ID"
-          mkdir -p "$job/output" "$job/logs"
-          pdf="$job/input/paper.pdf"
-          for stage in 1 2 3 4; do
-            args=(python generation_pipeline/run.py --settings config/settings.yaml --stage "$stage" --output-dir "$job/output")
-            if [ "$stage" = "1" ] || [ "$stage" = "2" ]; then args+=(--pdf "$pdf"); fi
-            if [ "$stage" = "3" ]; then args+=(--json "$job/output/paper/stage2.json" --pdf "$pdf" --no-backup); fi
-            if [ "$stage" = "4" ]; then args+=(--json "$job/output/paper/stage3.json" --pdf "$pdf" --study-id "$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["experimentId"])' "$job/job.json")" --hub-layout --hub-studies-dir "$job/package"); fi
-            printf '%q ' "${args[@]}" | tee "$job/logs/stage$stage.log"
-            "${args[@]}" 2>&1 | tee -a "$job/logs/stage$stage.log"
-          done
+          job="$GITHUB_WORKSPACE/job-storage/jobs/$JOB_ID"
+          mkdir -p "$job/logs" "$job/package"
+          python agent_pipeline/build_prompt.py \
+            --contract agent_pipeline/CLAUDE.md \
+            --job "$job" \
+            --output "$job/agent-prompt.md"
+          claude --print \
+            --model "$OPENROUTER_MODEL" \
+            --add-dir "$job" \
+            --dangerously-skip-permissions \
+            "$(cat "$job/agent-prompt.md")" 2>&1 | tee "$job/logs/agent.log"
 
-      - name: Prepare result and mark review
+      - name: Validate package and prepare review
         if: success()
         env:
           JOB_ID: ${{ inputs.job_id }}
         run: |
+          job="job-storage/jobs/$JOB_ID"
+          python agent_pipeline/validate_package.py "$job/package"
           python - <<'PY'
           import json, os, shutil
           from pathlib import Path
           job = Path("job-storage/jobs") / os.environ["JOB_ID"]
-          data = json.loads((job / "job.json").read_text())
-          package = job / "package"
-          if package.exists():
-              shutil.make_archive(str(job / "output" / "study"), "zip", package)
-          data.update({"status": "review", "currentStage": 4, "message": "Final study package is ready for researcher review"})
-          (job / "job.json").write_text(json.dumps(data, indent=2) + "\n")
+          (job / "output").mkdir(exist_ok=True)
+          shutil.make_archive(str(job / "output" / "study"), "zip", job / "package")
+          path = job / "job.json"
+          data = json.loads(path.read_text())
+          data.update({
+              "status": "review",
+              "currentStage": 1,
+              "packageReady": True,
+              "message": "Study package is ready for researcher review",
+          })
+          path.write_text(json.dumps(data, indent=2) + "\n")
           PY
 
       - name: Mark failed
@@ -104,10 +143,14 @@ jobs:
           import json, os
           from pathlib import Path
           job = Path("job-storage/jobs") / os.environ["JOB_ID"]
-          p = job / "job.json"
-          data = json.loads(p.read_text())
-          data.update({"status": "failed", "message": "Study extraction pipeline failed"})
-          p.write_text(json.dumps(data, indent=2) + "\n")
+          path = job / "job.json"
+          data = json.loads(path.read_text())
+          data.update({
+              "status": "failed",
+              "packageReady": False,
+              "message": "The agent could not build a valid study package",
+          })
+          path.write_text(json.dumps(data, indent=2) + "\n")
           PY
 
       - name: Commit job state and outputs
@@ -117,8 +160,8 @@ jobs:
           JOB_ID: ${{ inputs.job_id }}
           TOKEN: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
         run: |
-          git config user.name "HumanStudy-Hub Pipeline"
+          git config user.name "HumanStudy-Hub Agent"
           git config user.email "pipeline@humanstudy-hub.org"
           git add "jobs/$JOB_ID"
-          git commit -m "pipeline: update $JOB_ID full extraction" || true
+          git commit -m "agent: build study for $JOB_ID" || true
           git push "https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git" "HEAD:jobs/$JOB_ID"

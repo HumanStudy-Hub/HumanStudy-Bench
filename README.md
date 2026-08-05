@@ -82,49 +82,41 @@ Contributor guides:
 - [How to build study files](docs/build_study_files.md)
 - [How to submit a study](docs/submit_study.md)
 
-## Generation pipeline
+## Agent study builder
 
-This repository includes a human-in-the-loop pipeline for drafting a study
-folder from a paper PDF and optional OSF or supplementary sources.
+Build Study uses Claude Code as an agent runtime in GitHub Actions. The agent
+reads the submitted PDF, searches for optional OSF and supplementary material,
+extracts the study, builds a runnable package, validates it, and then opens one
+final researcher review in HumanStudy-Hub.
 
-1. Inventory empirical units and comparison groups.
-2. Extract findings, effects, samples, and statistics.
-3. Assemble and audit participant-facing materials.
-4. Write a package under `studies/<study_id>/`.
-5. Run a simulation only after the package passes readiness review.
+Claude Code is routed through OpenRouter. The default model is
+`moonshotai/kimi-k3`; it can be changed without editing the workflow.
 
-Install the generation dependencies:
+Repository settings required by
+[`run-humanstudy-pipeline.yml`](.github/workflows/run-humanstudy-pipeline.yml):
 
-```bash
-python -m pip install -e ".[llm,pdf]"
-cp config/settings.example.yaml config/settings.yaml
-```
+| Type | Name | Value |
+|---|---|---|
+| Actions secret | `OPENROUTER_API_KEY` | OpenRouter API key |
+| Actions secret | `HUMANSTUDY_PIPELINE_TOKEN` | Fine-grained GitHub token with read/write access to the private jobs repository |
+| Actions variable | `OPENROUTER_MODEL` | Optional; defaults to `moonshotai/kimi-k3` |
 
-Do not commit `config/settings.yaml`.
+The agent instructions and package contract live in
+[`agent_pipeline/CLAUDE.md`](agent_pipeline/CLAUDE.md). The validator requires a
+single paper folder containing the study overview, source evidence, materials,
+runnable task adapter, evaluation logic, provenance, and a researcher-facing
+missing-information checklist.
 
-Run a stage with:
-
-```bash
-python generation_pipeline/run.py \
-  --settings config/settings.yaml \
-  --stage 1 \
-  --pdf /absolute/path/to/paper.pdf \
-  --provider openai \
-  --model gpt-5-mini
-```
-
-Generated evidence and review artifacts are written under
-`generation_pipeline/outputs/<paper_id>/`. Pipeline-generated packages remain
-blocked from simulation until `source/audit.json` marks them ready. The pipeline
-entry point is [`generation_pipeline/run.py`](generation_pipeline/run.py); run
-it with `--help` for the full stage and review options.
+The older staged Python implementation remains in `generation_pipeline/` for
+reference and migration tests, but the web builder no longer dispatches it.
 
 ## Repository structure
 
 ```text
 studies/               Runnable benchmark studies
 src/                   Execution and evaluation code
-generation_pipeline/   PDF/material extraction and package generation
+agent_pipeline/        Claude Code package contract and validation
+generation_pipeline/   Legacy staged extraction implementation
 scripts/               Study validation and index utilities
 docs/                  Manual contribution guides
 tests/                 Pipeline and benchmark tests
