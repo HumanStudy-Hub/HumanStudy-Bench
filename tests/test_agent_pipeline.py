@@ -4,7 +4,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from agent_pipeline.run_agent import package_progress
+from agent_pipeline.run_agent import ProgressPublisher, package_progress
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -132,6 +132,22 @@ def test_watchdog_progress_counts_required_files(tmp_path: Path) -> None:
     assert "task/adapter.py" in missing
 
 
+def test_progress_publisher_updates_existing_progress(monkeypatch) -> None:
+    calls = []
+
+    def fake_request(self, method, body=None):
+        calls.append((method, body))
+        return {"sha": "old-sha"} if method == "GET" else {"content": {"sha": "new-sha"}}
+
+    monkeypatch.setattr(ProgressPublisher, "_request", fake_request)
+    publisher = ProgressPublisher("secret", "owner/jobs", "jobs/example", "jobs/example/progress.json")
+    publisher.publish({"completedRequired": 4, "totalRequired": 13})
+
+    assert publisher.sha == "new-sha"
+    assert calls[1][1]["sha"] == "old-sha"
+    assert calls[1][1]["branch"] == "jobs/example"
+
+
 def test_watchdog_stops_agent_after_validation(tmp_path: Path) -> None:
     job = tmp_path / "job"
     (job / "logs").mkdir(parents=True)
@@ -142,8 +158,9 @@ def test_watchdog_stops_agent_after_validation(tmp_path: Path) -> None:
     fake_claude = bin_dir / "claude"
     fake_claude.write_text(
         "#!/usr/bin/env python3\n"
-        "import json, pathlib, sys, time\n"
+        "import json, os, pathlib, sys, time\n"
         "job = pathlib.Path(sys.argv[sys.argv.index('--add-dir') + 1])\n"
+        "(job / 'claude-env.json').write_text(json.dumps({'pipeline_token_visible': 'PIPELINE_PROGRESS_TOKEN' in os.environ}))\n"
         "root = job / 'package' / 'paper'\n"
         f"required = {REQUIRED!r}\n"
         "for relative in required:\n"
@@ -159,7 +176,7 @@ def test_watchdog_stops_agent_after_validation(tmp_path: Path) -> None:
         "time.sleep(60)\n"
     )
     fake_claude.chmod(0o755)
-    env = {**os.environ, "PATH": f"{bin_dir}:{os.environ['PATH']}"}
+    env = {**os.environ, "PATH": f"{bin_dir}:{os.environ['PATH']}", "PIPELINE_PROGRESS_TOKEN": "private-test-token"}
 
     result = subprocess.run([
         sys.executable,
@@ -182,3 +199,4 @@ def test_watchdog_stops_agent_after_validation(tmp_path: Path) -> None:
     watchdog = json.loads((job / "logs/watchdog.json").read_text())
     assert watchdog["reason"] == "validator_passed"
     assert watchdog["package_valid"] is True
+    assert json.loads((job / "claude-env.json").read_text())["pipeline_token_visible"] is False
