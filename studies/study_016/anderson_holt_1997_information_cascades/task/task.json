@@ -1,0 +1,105 @@
+{
+  "_description": "Defines the runnable agent interaction that reconstructs Anderson & Holt (1997)'s sequential urn-prediction cascade task. The agent under test stands in, one decision at a time, for the human 'decision maker' role described in materials/materials.json: on every call it receives one private ball draw plus the public record of decisions already announced earlier in that period, and must announce an urn prediction (A or B). task/adapter.py implements the surrounding simulation (die rolls, ball draws with replacement, bookkeeping, payment) and calls the agent once per decision point.",
+  "package_entry_point": "task/adapter.py",
+  "evaluation_entry_point": "evaluation/evaluation.py",
+  "materials_reference": "materials/materials.json",
+
+  "studies": {
+    "study_1_symmetric": {
+      "conditions": {
+        "baseline_private_draws_only": {
+          "urn_A": {"a_balls": 2, "b_balls": 1, "die_rolls": [1, 2, 3]},
+          "urn_B": {"a_balls": 1, "b_balls": 2, "die_rolls": [4, 5, 6]},
+          "public_draws_after_round": null,
+          "n_sessions_in_paper": 3,
+          "instructions_key": "study_1_symmetric.instructions_full_text"
+        },
+        "public_draws_after_round4": {
+          "urn_A": {"a_balls": 2, "b_balls": 1, "die_rolls": [1, 2, 3]},
+          "urn_B": {"a_balls": 1, "b_balls": 2, "die_rolls": [4, 5, 6]},
+          "public_draws_after_round": 4,
+          "n_public_draws_inserted": 2,
+          "n_sessions_in_paper": 3,
+          "instructions_key": "study_1_symmetric.instructions_full_text",
+          "researcher_decision_flag": "public-draw insertion procedure confirmed verbatim/reported only for a subset of sessions ('sessions 4 and 5'); see audit/missing_information.json"
+        }
+      },
+      "n_decision_makers_per_session": 6,
+      "n_paid_periods_per_session": 15,
+      "payoff_per_correct_decision_usd": 2,
+      "payoff_per_incorrect_decision_usd": 0,
+      "showup_fee_usd": 5
+    },
+    "study_2_asymmetric": {
+      "conditions": {
+        "asymmetric_urns": {
+          "urn_A": {"a_balls": 6, "b_balls": 1, "die_rolls": [1, 2, 3]},
+          "urn_B": {"a_balls": 5, "b_balls": 2, "die_rolls": [4, 5, 6]},
+          "public_draws_after_round": null,
+          "n_sessions_in_paper": 6,
+          "instructions_key": "study_2_asymmetric.instructions_full_text",
+          "instructions_evidence_label": "derived"
+        }
+      },
+      "n_decision_makers_per_session": 6,
+      "n_paid_periods_per_session": 15,
+      "payoff_per_correct_decision_usd": 2,
+      "payoff_per_incorrect_decision_usd": 0,
+      "showup_fee_usd": 5
+    }
+  },
+
+  "condition_assignment": {
+    "how_urn_is_chosen": "For each period, a fair 6-sided die roll (simulated with a seeded PRNG in task/adapter.py) selects urn A (rolls 1-3) or urn B (rolls 4-6), each with probability 1/2, matching the paper's procedure. The realized urn is held fixed for all 6 rounds within that period and is never shown to the agent during the period -- only revealed in the round-result record after round 6, matching the human procedure of the monitor announcing the true urn at period end.",
+    "how_private_draws_are_generated": "Each round, a ball is drawn with replacement from the period's urn using the urn's a:b ball ratio as the draw probability (e.g. baseline symmetric urn A -> P(a)=2/3, P(b)=1/3). This is the single piece of private information given to the agent for that round.",
+    "how_round_order_is_chosen": "A random permutation of decision-maker seats (1..6) is drawn once per period (uniformly, matching the paper's colored-marble draw), fixing the order in which rounds occur within the period.",
+    "agent_role_across_a_session": "The agent under test plays every decision-maker seat, one at a time and one call at a time -- there is no single continuous human 'self' to imitate across rounds, since in the original study each of the 6 seats was a different, mutually anonymous person who only ever saw their own single private draw. Consequently the adapter does NOT give the agent any memory of a prior round's private draw when calling it for a later round; it only ever passes (a) the current round's own private draw and (b) the public decision history announced so far this period, exactly as a newly-approached human subject would see it."
+  },
+
+  "per_round_interaction": {
+    "input_to_agent": {
+      "study": "study_1_symmetric | study_2_asymmetric",
+      "condition": "one of the condition keys above",
+      "instructions_text": "verbatim (study 1) or derived (study 2) oral instructions from materials.json, shown once per session before round 1",
+      "period": "integer, 1-15",
+      "round": "integer, 1-6 (this decision-maker's position in this period's random order)",
+      "private_draw": "'light' | 'dark' (called 'a'/'b' in the paper's notation)",
+      "decisions_so_far_this_period": "ordered list of {round, decision} for rounds 1..round-1 of the current period, decision in {'A','B'}",
+      "extra_public_draws": "present only under study_1_symmetric/public_draws_after_round4, populated for rounds 5 and 6 with the 2 draws revealed after round 4"
+    },
+    "output_expected_from_agent": {
+      "decision": "'A' | 'B'",
+      "schema_note": "task/adapter.py's agent_fn callable must return exactly one of the two strings; adapter.py records it, has the simulated announcer relay it to subsequent rounds, and scores it against the period's true urn once round 6 completes."
+    }
+  },
+
+  "session_and_run_structure": {
+    "unit_of_replication": "one 'session' = 1 condition x 15 paid periods x 6 rounds/period = 90 agent calls, matching one human experimental session",
+    "full_replication_recommendation": "run 3 sessions of baseline_private_draws_only, 3 of public_draws_after_round4, and 6 of asymmetric_urns to mirror the paper's 12-session sample; task/adapter.py exposes n_sessions as a parameter so smaller runs are possible for cheaper/faster smoke-testing",
+    "smoke_test": "task/adapter.py --smoke-test runs 1 session x 3 periods x 6 rounds per condition using a built-in deterministic baseline policy (no external agent needed) purely to verify the simulation mechanics, JSON I/O, and scoring pipeline execute end-to-end without network access"
+  },
+
+  "outputs_consumed_by_evaluation": {
+    "session_log_schema": {
+      "study": "string",
+      "condition": "string",
+      "session_id": "string",
+      "periods": [
+        {
+          "period": "integer",
+          "true_urn": "'A' | 'B'",
+          "rounds": [
+            {"round": "integer", "private_draw": "'light'|'dark'", "decision": "'A'|'B'", "correct": "boolean"}
+          ]
+        }
+      ]
+    },
+    "note": "evaluation/evaluation.py consumes exactly this schema (as emitted by task/adapter.py's run_session()) to compute cascade formation rates, efficiency measures, and bias checks against the benchmarks recorded in source/evidence.json."
+  },
+
+  "known_limitations": [
+    "The adapter cannot reproduce genuine multi-human anonymity/social dynamics (footnote 14's report of subjects using visual/voice cues to detect agonizing decisions); it only reproduces the informational structure of the task.",
+    "Practice periods are omitted from the runnable task (they carried no decisions or payment in the original study; see materials.json) -- the agent's very first scored call in a session is period 1 with no prior practice.",
+    "study_2_asymmetric's instructions_text is a derived reconstruction, not a verbatim transcript (see audit/missing_information.json)."
+  ]
+}

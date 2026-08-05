@@ -1,0 +1,99 @@
+{
+  "_description": "Researcher-facing overview of this package. Full provenance for every claim below is in source/evidence.json; participant-facing text is in materials/materials.json; the runnable task is task/task.json + task/adapter.py; scoring is evaluation/evaluation.py; open items are audit/missing_information.json.",
+
+  "paper": {
+    "title": "Information Cascades in the Laboratory",
+    "authors": ["Lisa R. Anderson", "Charles A. Holt"],
+    "publication_year": 1997,
+    "source_file": "input/paper.pdf",
+    "note": "Bibliographic details beyond title/authors/year (journal, volume, pages, DOI) are not present anywhere in the extracted PDF text and are marked missing in source/paper_metadata.json."
+  },
+
+  "external_sources_consulted": [],
+  "external_source_policy": "No OSF or open-materials URL was supplied for this job, so no web search, web fetch, DOI resolution, or repository/author-page lookup was performed. This package was built solely from input/paper.pdf.",
+
+  "empirical_studies": [
+    {
+      "id": "study_1_symmetric",
+      "name": "Symmetric-design information cascade experiment",
+      "sessions": 6,
+      "conditions": [
+        {
+          "id": "baseline_private_draws_only",
+          "n_sessions": 3,
+          "description": "Standard sequential urn-prediction task with only private draws; no public information beyond announced decisions."
+        },
+        {
+          "id": "public_draws_after_round4",
+          "n_sessions": 3,
+          "description": "Same task, but two additional balls are drawn and their colors announced PUBLICLY after the 4th decision-maker's round (procedure fully confirmed in-text only for 2 of these 3 sessions; see audit/missing_information.json)."
+        }
+      ],
+      "sample": "36 decision-making undergraduate subjects (6 per session, University of Virginia economics courses, no prior experience with this experiment) plus 1 non-deciding 'monitor' per session.",
+      "task_summary": "Each period, a fair 6-sided die (simulated) selects urn A (2 light/1 dark balls) or urn B (1 light/2 dark balls), equally likely. Six subjects are approached in random order, each sees one private ball draw with replacement, then announces an A/B urn prediction, observable by later subjects. $2 for a correct prediction, $0 otherwise, plus a $5 show-up fee; 15 paid periods per session after unpaid practice periods.",
+      "key_measures": [
+        "Cascade formation rate among periods where a cascade was possible (paper: 41/56)",
+        "Reverse-cascade share of formed cascades (paper: 13 of 41 formed cascades)",
+        "Actual efficiency (paper: 91.4%) and private-information-only efficiency (paper: 72.1%)",
+        "Status-quo bias check: does the subject follow the preceding decision or their own signal when the posterior is exactly 1/2? (paper: 57 of 68 followed own signal -- no bias detected)",
+        "Representativeness bias check, public-draw condition only (paper: 10 of 10 qualifying cases followed Bayes' rule, not representativeness -- no bias detected)"
+      ],
+      "key_findings_reported": "Cascades, including reverse cascades, formed rationally in most possible periods. A round-by-round logit analysis of decision errors (Table 3) shows small but non-negligible error rates that do not change any period's cascade classification. No support was found for status-quo bias or representativeness bias in this setting."
+    },
+    {
+      "id": "study_2_asymmetric",
+      "name": "Asymmetric-design information cascade experiment (counting-heuristic test)",
+      "sessions": 6,
+      "conditions": [
+        {
+          "id": "asymmetric_urns",
+          "n_sessions": 6,
+          "description": "Same sequential task, but urn A contains 6 a-balls/1 b-ball and urn B contains 5 a-balls/2 b-balls, so a b-signal is much more diagnostic than an a-signal and a simple count of signal types can disagree with Bayes' rule."
+        }
+      ],
+      "sample": "36 decision-making undergraduate subjects (6 per session) plus 1 monitor per session; same subject pool/recruitment as study_1.",
+      "task_summary": "Identical mechanics to study_1's baseline condition, with the asymmetric urn contents above and no public-draw insertion.",
+      "key_measures": [
+        "Cascade formation rate (paper: 46/66) and reverse-cascade share (paper: 18 of 46 formed cascades)",
+        "Actual efficiency (paper: 67.6%) and private-information-only efficiency (paper: 45.2%)",
+        "Counting-heuristic check: when Bayes' rule and simple signal-counting disagree, does the subject follow Bayes' rule? (paper: 41 of 82 disagreement cases, i.e. 50%)",
+        "Counting efficiency (paper: approximately equal to actual efficiency, averaged over subjects; 21 of 36 subjects exceeded their own counting efficiency)"
+      ],
+      "key_findings_reported": "Cascades remained prevalent but reverse cascades were relatively more common than in the symmetric design. About a third of all deviations from Bayes' rule can be explained by a simple counting heuristic rather than correct Bayesian updating."
+    }
+  ],
+
+  "participant_flow": {
+    "recruitment": "Undergraduate economics students at the University of Virginia, no previous experience with this experiment.",
+    "per_session_composition": "6 decision-making subjects + 1 randomly chosen monitor (assists with dice/marbles, does not make predictions).",
+    "session_structure": "Show-up payment ($5) -> instructions read aloud -> monitor selection -> seating behind partitions -> several unpaid practice periods (until each urn selected at least once) -> 15 paid periods, each consisting of a die roll (urn selection, hidden), 6 sequential private-draw-then-announce rounds, and a public reveal of the true urn -> private cash payment at the end (average ~$20 total, monitor +$15).",
+    "isolation_and_conduct": "Physical partitions and spacing enforced anonymity; subjects were required to remain silent, with early dismissal (paid only cumulative earnings) as the penalty for communicating."
+  },
+
+  "conditions_overview": {
+    "study_1_symmetric": ["baseline_private_draws_only", "public_draws_after_round4"],
+    "study_2_asymmetric": ["asymmetric_urns"]
+  },
+
+  "outcomes_overview": [
+    "Binary per-period cascade classification (none possible / formed normal cascade / formed reverse cascade / possible but not formed)",
+    "Per-round decision correctness against the true urn",
+    "Expected-payoff-based efficiency measures: actual, private-information-only, optimal, random-choice, and (asymmetric design only) counting-rule efficiency",
+    "Status-quo bias and representativeness bias indicator rates (symmetric design)",
+    "Counting-heuristic-vs-Bayes' rule indicator rate (asymmetric design)",
+    "Round-by-round logit decision-error rates (Table 3) -- reported in the paper, but marked not_ready in evaluation.py because the raw per-subject dataset needed to refit it is not published in the paper and was not sought (no external source authorized)"
+  ],
+
+  "package_entry_point": {
+    "task": "task/task.json (interaction contract) + task/adapter.py (runnable simulation; supports `python task/adapter.py --smoke-test`)",
+    "evaluation": "evaluation/evaluation.py (consumes task/adapter.py's session logs; supports `python evaluation/evaluation.py --smoke-test`)"
+  },
+
+  "readiness_status": {
+    "status": "needs_researcher_review",
+    "reason": "The package is fully runnable end-to-end (adapter + evaluation smoke tests pass with no network access) and every required file is present, but two categories of researcher decision remain open before this should be treated as a verified, citation-ready replication: (1) study_2_asymmetric's participant-facing instructions are a derived reconstruction, not a verbatim transcript, and (2) the paper's Table 3 logit error-rate analysis cannot be replicated without the authors' unpublished raw dataset. See audit/missing_information.json for the full list (9 items) and suggested next steps.",
+    "safe_to_run_task_smoke_test": true,
+    "safe_to_run_full_replication": true,
+    "safe_to_claim_exact_replication_of_table_3": false
+  }
+}

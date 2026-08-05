@@ -1,0 +1,121 @@
+{
+  "_description": "Participant-visible materials for the two studies extracted from this paper (study_1_symmetric, study_2_asymmetric). Every item carries an evidence_label and a source pointer into source/evidence.json / input/paper.pdf. Studies share the same procedural mechanics (oral instructions read aloud, then a paper record sheet updated by hand each round); they differ only in urn contents and (for study_1's public-draw condition) two extra publicly-revealed draws inserted after round 4.",
+
+  "study_1_symmetric": {
+    "label": "Symmetric-design cascade experiment (6 sessions: 3 baseline / private-draws-only, 3 with public draws inserted after round 4)",
+    "conditions": ["baseline_private_draws_only", "public_draws_after_round4"],
+
+    "urn_setup": {
+      "evidence_label": "verbatim",
+      "source": "ev-design-1, ev-mat-4 in source/evidence.json",
+      "urn_A": {"selected_if_die_roll_in": [1, 2, 3], "contents": "2 light (a) balls, 1 dark (b) ball"},
+      "urn_B": {"selected_if_die_roll_in": [4, 5, 6], "contents": "1 light (a) ball, 2 dark (b) balls"},
+      "note": "'Light'/'Dark' are the labels actually shown to subjects during the experiment; 'a'/'b' are the paper's analytical labels for the same two ball colors."
+    },
+
+    "instructions_full_text": {
+      "evidence_label": "verbatim",
+      "source": "ev-mat-1 in source/evidence.json; input/paper.pdf pp.23-25 (Appendix)",
+      "audience": "read aloud by the experimenter to all 6 decision-making subjects plus the monitor before the session begins",
+      "text": "This is an experiment in the economics of decision making. Various agencies have provided funds for the experiment. Your earnings will depend partly on your decisions and partly on chance. If you are careful and make good decisions, you may earn a considerable amount of money, which will be paid to you, privately, in cash, at the end of the experiment. At this time, we will give you $5. This payment is to compensate you for showing up today.\n\nBefore beginning, we will choose one of you to assist us in the experiment today. This person, who will be called the monitor, will help us by throwing dice and drawing colored balls from a container. The monitor will also observe procedures to insure that the instructions are followed. The monitor will be paid $15 at the end of the experiment in addition to the $5 already paid. We will now assign each of you a number, and we will throw a multi-sided die to select the monitor.\n\nIn this experiment, you will be asked to predict from which randomly chosen urn a ball was drawn. We will begin by rolling a 6 sided die. If the roll of the die yields a 1, 2, or 3, we will draw from urn A which contains 2 light balls and 1 dark ball. If the roll of the die yields a 4, 5, or 6, we will draw from urn B which contains 1 light ball and 2 dark balls. Therefore, it is equally likely that either urn will be selected.\n\nUrn A (used if the die is 1, 2, or 3): 2 Light Balls, 1 Dark Ball.\nUrn B (used if the die is 4, 5, or 6): 1 Light Ball, 2 Dark Balls.\n\nOnce an urn is determined by the roll of the die we will empty the contents of that urn into a container. (The container is always the same, regardless of which urn is being used.) Then we will come around to each of you and draw a ball from the container. The result of this draw will be your private information and should not be shared with other participants. After each draw, we will return the ball to the container before making the next private draw. Each person will have one private draw, with the ball being replaced after each draw.\n\nAfter each person has seen his or her own draw we will ask them to record the letter of the urn (A or B) that they think is more likely to have been used. When the first person approached has indicated a letter, we will announce that letter. After announcing the first person's decision, we will approach the second person and ask this person to record a letter (A or B), which will then be announced. This process will be repeated until all remaining people have made decisions. Finally, the monitor will inform everyone of the urn that was actually used. Everyone who correctly recorded the letter of the urn used earns $2. All others earn nothing.\n\nThe experiment will consist of 15 periods. The results for each period are recorded on a separate row on the decision sheet that follows. The period numbers are listed on the left side of each row. Next to the period number is a blank that should be used to record the draw (Light or Dark) that you see when we come to your desk. Write L (for Light) or D (for Dark) in column (0) at the time the draw is made. The columns numbered (1) through (6) should be used to record the decisions as they are announced. When you are asked to record the letter of an urn, you will be able to see the decisions, if any, that have been made previously by other participants. Write your decision in the column, (1) through (6), that corresponds to the order in which you are approached, and circle your decision to distinguish it from others' decisions. When all six participants have made their choices, the monitor will announce the letter of the urn that was actually used. Record this letter in column (7). If your (circled) decision matches the letter of the urn used, record earnings of $2 in column (8). Otherwise, record earnings of zero for this period. You should keep track of your cumulative earnings in column (9).\n\nAt this time, we will draw a colored marble for each participant; this color will serve as your identification during the experiment. Please write this color in the blank indicated at the top of your decision sheet. In each period, the order in which decisions are made will be determined by drawing these same colored marbles in sequence.\n\nBefore we begin the periods that determine your earnings, we will go through several practice periods. In these practice periods, the monitor will throw the die that determines which urn will be used, and you will each see a draw from that urn. However, unlike in the periods that determine your earnings, you will observe the throw of the die, your draw will not be private, and you will not be asked to make a decision in these practice periods.\n\n[Practice period walkthrough, repeated until each urn has been selected at least once:] At this time the monitor will throw the die that determines which urn is to be used. Remember that urn A is used if the throw is 1, 2, or 3, and urn B is used if the throw is 4, 5, or 6. Now we will draw a colored marble to determine who will see the first draw. The color is _____. We will bring the container to the desk of the person assigned this color and we will draw a ball for this person to see. If this were not a practice period, this person would record the color of this ball (L or D) in column (0), make a decision (A or B), enter it in column (1), and circle it. Then, everyone else would record this decision in column (1), but would not circle this decision since it is not your own. Now we will draw a colored marble to determine who will see the next draw. The color is _____. We will now draw a ball for this person to see. If this were not a practice period, this person would record the color of this ball (L or D) in column (0), make a decision (A or B), enter it in the appropriate column, and circle it. Then, everyone else would record this decision in the appropriate column.\n\nAre there any questions before we begin the periods that determine your earnings? Please do not talk with anyone during the experiment. We will insist that everyone remain silent until the end of the last period. If we observe you communicating with anyone else during the experiment we will pay you your cumulative earnings at that point and ask you to leave without completing the experiment.\n\n[Paid-period walkthrough for round 1 and round 2 of the first paid period, repeated in structure for every subsequent round/period:] At this time the monitor will throw the die that determines which urn is to be used. Remember that urn A is used if the throw is 1, 2, or 3, and urn B is used if the throw is 4, 5, or 6. Now we will draw a colored marble to determine who makes the first decision. The color is _____. We will bring the container to the desk of the person assigned this color and we will draw a ball for this person to see. This person should record the color of this ball (L or D) in column (0), make a decision (A or B), enter it in column (1), and circle it. The first decision is _____. Everyone else should now record this decision in column (1), but do not circle this decision since it is not your own. Now we will draw a colored marble to determine who makes the next decision. The color is _____. We will now draw a ball for this person to see. Record the color of this ball (L or D) in column (0), make a decision (A or B), enter it in the appropriate column, and circle it. This decision is _____. Everyone else should now record this decision in the appropriate column."
+    },
+
+    "record_sheet_columns": {
+      "evidence_label": "reported",
+      "source": "ev-mat-3 in source/evidence.json (described in prose only; no scanned form exists in the PDF)",
+      "columns": [
+        {"col": "0", "meaning": "own private draw this period: L (light) or D (dark)"},
+        {"col": "1-6", "meaning": "the urn decision (A or B) announced by whichever subject was approached in that ordinal position this period; the subject's own decision is circled"},
+        {"col": "7", "meaning": "the true urn used this period, revealed by the monitor at period end"},
+        {"col": "8", "meaning": "earnings this period: $2 if column (7) matches the subject's circled decision, else $0"},
+        {"col": "9", "meaning": "running cumulative earnings"}
+      ]
+    },
+
+    "public_draws_after_round4_condition": {
+      "evidence_label": "reported",
+      "source": "ev-design-10 in source/evidence.json",
+      "description": "In this condition, after the 4th subject in the random sequence has made and announced a decision, two additional balls are drawn from the same container and their colors (light/dark) are announced to all remaining subjects (publicly, not attributed to any individual's private draw). The 5th and 6th subjects in the sequence then decide with a total effective sample of 3 draws (their own private draw plus the 2 newly-revealed public draws) in addition to the public decisions already announced by subjects 1-4.",
+      "researcher_decision_flag": "The paper only explicitly walks through this for 'sessions 4 and 5' when analyzing representativeness bias; whether all 3 public-draw sessions used this exact insertion point (always after round 4, always exactly 2 balls) in every period is not fully confirmed in the text. See audit/missing_information.json."
+    },
+
+    "posterior_lookup_table_1": {
+      "evidence_label": "verbatim",
+      "source": "ev-model-3 in source/evidence.json; Table I, input/paper.pdf p.5",
+      "description": "Posterior probability of event A given the number of relevant a-signals (rows) and b-signals (columns), symmetric design.",
+      "table": {
+        "rows_are": "number of a signals (0-3)",
+        "cols_are": "number of b signals (0-3)",
+        "values": [
+          [0.5, 0.333, 0.2, 0.111],
+          [0.667, 0.5, 0.333, 0.2],
+          [0.8, 0.667, 0.5, 0.333],
+          [0.889, 0.8, 0.667, 0.5]
+        ]
+      }
+    }
+  },
+
+  "study_2_asymmetric": {
+    "label": "Asymmetric-design cascade experiment (6 sessions), testing the counting heuristic against Bayes' rule",
+    "conditions": ["asymmetric_urns"],
+
+    "urn_setup": {
+      "evidence_label": "verbatim",
+      "source": "ev-design-9 in source/evidence.json; Table 4, input/paper.pdf p.18",
+      "urn_A": {"selected_if_die_roll_in": [1, 2, 3], "contents": "6 a balls, 1 b ball"},
+      "urn_B": {"selected_if_die_roll_in": [4, 5, 6], "contents": "5 a balls, 2 b balls"},
+      "note": "The paper does not restate whether 'a'/'b' were again shown to subjects as 'light'/'dark' in this design (that labeling is only confirmed verbatim for the symmetric design's Appendix instructions). materials below assume the same light/dark labeling for consistency, and this assumption is flagged in audit/missing_information.json."
+    },
+
+    "instructions_full_text": {
+      "evidence_label": "derived",
+      "source": "Derived from study_1_symmetric.instructions_full_text (ev-mat-1) by substituting the urn contents from Table 4 (ev-design-9); see ev-mat-2 in source/evidence.json.",
+      "derivation": "The paper states the asymmetric sessions used 'the same procedure' (input/paper.pdf p.18) but prints no separate appendix script. This text takes the verbatim symmetric-design script and replaces every mention of urn contents ('2 light balls and 1 dark ball' / '1 light ball and 2 dark balls') with the asymmetric counts ('6 light balls and 1 dark ball' / '5 light balls and 2 dark balls'). No other wording is changed. This is a plausible reconstruction, NOT a verbatim transcript, and is marked accordingly.",
+      "text": "This is an experiment in the economics of decision making. Various agencies have provided funds for the experiment. Your earnings will depend partly on your decisions and partly on chance. If you are careful and make good decisions, you may earn a considerable amount of money, which will be paid to you, privately, in cash, at the end of the experiment. At this time, we will give you $5. This payment is to compensate you for showing up today.\n\nBefore beginning, we will choose one of you to assist us in the experiment today. This person, who will be called the monitor, will help us by throwing dice and drawing colored balls from a container. The monitor will also observe procedures to insure that the instructions are followed. The monitor will be paid $15 at the end of the experiment in addition to the $5 already paid. We will now assign each of you a number, and we will throw a multi-sided die to select the monitor.\n\nIn this experiment, you will be asked to predict from which randomly chosen urn a ball was drawn. We will begin by rolling a 6 sided die. If the roll of the die yields a 1, 2, or 3, we will draw from urn A which contains 6 light balls and 1 dark ball. If the roll of the die yields a 4, 5, or 6, we will draw from urn B which contains 5 light balls and 2 dark balls. Therefore, it is equally likely that either urn will be selected.\n\nUrn A (used if the die is 1, 2, or 3): 6 Light Balls, 1 Dark Ball.\nUrn B (used if the die is 4, 5, or 6): 5 Light Balls, 2 Dark Balls.\n\n[Remaining instructions are identical in structure to study_1_symmetric.instructions_full_text from 'Once an urn is determined by the roll of the die...' onward, including the private-draw procedure, decision/announcement procedure, record sheet columns (0)-(9), colored-marble identification, practice periods, and paid-period walkthroughs. See study_1_symmetric.instructions_full_text for the full wording of those unchanged sections.]"
+    },
+
+    "record_sheet_columns": {
+      "evidence_label": "derived",
+      "source": "Same structure as study_1_symmetric.record_sheet_columns; no separate asymmetric-design record sheet is described in the paper.",
+      "columns": "identical to study_1_symmetric.record_sheet_columns"
+    },
+
+    "posterior_lookup_table_5": {
+      "evidence_label": "verbatim",
+      "source": "ev-model-5b in source/evidence.json; Table 5, input/paper.pdf p.19",
+      "description": "Bayesian posterior probability of urn A given the number of relevant a-signals (rows, 0-6) and b-signals (columns, 0-6), asymmetric design. Blank cells indicate combinations not tabulated in the source (more signals than the 6-round sequence could produce in the direction shown).",
+      "table": {
+        "rows_are": "number of a signals (0-6)",
+        "cols_are": "number of b signals (0-6)",
+        "values": [
+          [0.50, 0.33, 0.20, 0.11, 0.06, 0.03, 0.02],
+          [0.55, 0.38, 0.23, 0.13, 0.07, 0.04, null],
+          [0.59, 0.42, 0.27, 0.15, 0.08, null, null],
+          [0.63, 0.46, 0.30, 0.18, null, null, null],
+          [0.68, 0.51, 0.34, null, null, null, null],
+          [0.71, 0.55, null, null, null, null, null],
+          [0.75, null, null, null, null, null, null]
+        ]
+      },
+      "counting_heuristic_definition": {
+        "evidence_label": "reported",
+        "source": "input/paper.pdf p.18-19, paper.txt lines 671-694, 728-733",
+        "text": "The 'counting heuristic' predicts urn A whenever the number of relevant a-signals exceeds the number of relevant b-signals (i.e., it treats every signal as equally informative, ignoring that a b-signal is more diagnostic than an a-signal in this asymmetric design). It disagrees with the Bayes-optimal prediction exactly in the 4 shaded cells of Table 5, where more a-signals than b-signals still yields a Bayesian posterior for A below 0.5."
+      }
+    }
+  },
+
+  "shared_procedural_notes": {
+    "payment": {
+      "evidence_label": "verbatim",
+      "source": "ev-design-5 in source/evidence.json",
+      "text": "$5 show-up fee for every subject; $2 for a correct urn prediction in a given period, $0 otherwise; monitor receives an additional $15; average total earnings were about $20 per subject."
+    },
+    "confidentiality_and_conduct_rules": {
+      "evidence_label": "verbatim",
+      "source": "ev-design-8 in source/evidence.json",
+      "text": "Subjects must not share their private draw with anyone. Subjects must remain silent throughout the paid periods; anyone observed communicating is paid their cumulative earnings at that point and asked to leave without finishing the experiment."
+    }
+  }
+}

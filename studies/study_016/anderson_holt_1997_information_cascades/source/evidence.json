@@ -1,0 +1,283 @@
+{
+  "_description": "Complete evidence/provenance record. Every substantive claim, number, or material used elsewhere in this package points to a specific location in input/paper.pdf here, with an evidence_label (verbatim | reported | derived | missing). Page numbers refer to the printed page numbers at the bottom of each page of the PDF (the PDF's Introduction begins on printed page 1 / PDF page 1); pdftotext line numbers into input/paper.txt are also given for exact lookup.",
+  "evidence_labels_defined": {
+    "verbatim": "directly quoted or transcribed from the source",
+    "reported": "faithfully paraphrased from the source",
+    "derived": "transformed from reported information, with the derivation stated",
+    "missing": "unavailable in the source and requiring researcher input"
+  },
+  "design_overview": [
+    {
+      "id": "ev-design-1",
+      "claim": "The experiment used a private-information cascade paradigm: two urns (A and B), each containing 3 balls in a 2:1 ratio of 'majority' to 'minority' colored balls (symmetric design), equally likely a priori (chosen by 6-sided die: 1-3 = urn A, 4-6 = urn B).",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.4, para 'I. A SYMMETRIC MODEL'; paper.txt lines 132-148",
+      "table_reference": "Figure 1 (physical setup, described in text; the actual figure image was not machine-readable, so its content is reconstructed from the surrounding verbatim text and Appendix instructions, which state Urn A = 2 light/1 dark, Urn B = 1 light/2 dark)."
+    },
+    {
+      "id": "ev-design-2",
+      "claim": "12 total experimental sessions were run: 3 baseline symmetric sessions (private draws only), 3 symmetric sessions with two public draws inserted after the 4th decision round, and 6 sessions using an asymmetric urn design.",
+      "evidence_label": "reported",
+      "source": "input/paper.pdf p.7-8 (Section II, paper.txt lines 250-320) for the 3+3 symmetric sessions; p.18 (Section V.B, paper.txt lines 671-677) for the 6 asymmetric sessions.",
+      "derivation": "The paper states '72 subjects' overall (p.7) and separately reports 36 decision-making subjects for the symmetric design (p.11, 'Of the 36 subjects') and implies an equal-sized asymmetric-design sample ('Twenty-one out of thirty-six subjects in the asymmetric design', p.21). 36 + 36 = 72, consistent with 6 decision-makers x 6 symmetric sessions and 6 decision-makers x 6 asymmetric sessions = 72 decision-making subjects total (monitors are excluded from this count, one additional monitor per session)."
+    },
+    {
+      "id": "ev-design-3",
+      "claim": "Each session had 6 decision-making subjects and 1 subject randomly chosen as 'monitor' (assists with dice/marbles, does not make predictions).",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.7, paper.txt lines 254-258"
+    },
+    {
+      "id": "ev-design-4",
+      "claim": "Subjects were undergraduates recruited from economics courses at the University of Virginia with no previous experience with this experiment.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.7, paper.txt lines 251-252"
+    },
+    {
+      "id": "ev-design-5",
+      "claim": "Payment: $5 show-up fee; $2 per period for a correct urn prediction, $0 for incorrect; monitor paid an additional $15; average total earnings about $20; paid privately in cash at the end.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.7 and p.23-24 (Appendix), paper.txt lines 252-254, 862-863, 868-869, 899-900"
+    },
+    {
+      "id": "ev-design-6",
+      "claim": "A session consisted of 15 (paid) periods and lasted about 1.5 hours, preceded by several unpaid practice periods (continued until each urn had been selected at least once during practice).",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.7-8, paper.txt lines 260-261, 301-306"
+    },
+    {
+      "id": "ev-design-7",
+      "claim": "Within a period: a 6-sided die determines the urn (1,2,3 -> urn A; 4,5,6 -> urn B); urn contents are emptied into an unmarked, visually identical container; subjects are approached one at a time in random order to see one private draw WITH replacement; after each private draw the subject records the draw and writes/announces an urn prediction (A or B); the announcement (not the draw) is relayed to other subjects via an experimenter/announcer who does not know the urn or the private draw; at the end of the period the monitor reveals the true urn and subjects record earnings.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.7-8, paper.txt lines 272-286"
+    },
+    {
+      "id": "ev-design-8",
+      "claim": "Physical isolation: partitions extending 3 feet beyond each desk, subjects at least 10 feet apart, monitor isolated behind a front partition so no one could see the die throw or others' private draws; subjects instructed to remain silent throughout, with early dismissal (paid only cumulative earnings to that point) as the consequence for communicating.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.7 footnote 12 and p.24-25 (Appendix), paper.txt lines 265-269, 941-949"
+    },
+    {
+      "id": "ev-design-9",
+      "claim": "Asymmetric-design urn contents: Urn A (die 1,2,3) = 6 'a' balls + 1 'b' ball; Urn B (die 4,5,6) = 5 'a' balls + 2 'b' balls.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.18, Table 4, paper.txt lines 679-687"
+    },
+    {
+      "id": "ev-design-10",
+      "claim": "Public-draw variant: in (at least) two of the three public-draw sessions (referred to in-text as 'sessions 4 and 5'), two additional public draws were inserted after the 4th decision round, so the 5th and 6th decision-makers in the sequence saw a sample of 3 draws (their own private draw plus the 2 public draws) rather than just their own private draw.",
+      "evidence_label": "reported",
+      "source": "input/paper.pdf p.17-18, paper.txt lines 634-639",
+      "derivation_or_gap": "The paper does not fully specify whether the identical 2-public-draws-after-round-4 procedure was used in every period of all three public-draw sessions, or only in the periods/sessions analyzed for the representativeness test. This procedural gap is logged in audit/missing_information.json (item on public-draw procedure)."
+    }
+  ],
+  "theoretical_model": [
+    {
+      "id": "ev-model-1",
+      "claim": "Signal informativeness (symmetric design): P(signal a | urn A) = 2/3, P(signal b | urn A) = 1/3, and symmetrically for urn B; priors P(A) = P(B) = 1/2.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.4, paper.txt lines 133-141"
+    },
+    {
+      "id": "ev-model-2",
+      "claim": "Bayesian posterior formula: Pr(A | n a-signals, m b-signals) = 2^n / (2^n + 2^m), where n and m count only the 'relevant' signals (those before a cascade starts, the two decisions that start a cascade, and any non-Bayesian deviation from a cascade).",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.6, equation (1), paper.txt lines 213-240"
+    },
+    {
+      "id": "ev-model-3",
+      "claim": "Table 1: Posterior probability of event A as a function of the number of relevant a-signals (rows 0-3) and b-signals (columns 0-3), symmetric design.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.5, Table I, paper.txt lines 195-206"
+    },
+    {
+      "id": "ev-model-4",
+      "claim": "An information cascade forms once an imbalance of 2 in relevant signals in one direction occurs (e.g., the first two decisions agree); all subsequent decision-makers should then rationally ignore their own private signal and follow the established pattern.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.5-6, paper.txt lines 173-184"
+    },
+    {
+      "id": "ev-model-5",
+      "claim": "A deviation from an established cascade pattern is interpreted (in equilibrium) as revealing that the deviator's private signal favored the non-cascade urn, because deviating is more costly when the signal agrees with the cascade.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.6, paper.txt lines 210-213"
+    },
+    {
+      "id": "ev-model-5b",
+      "claim": "Table 5 / asymmetric posteriors: Bayesian posterior probability of urn A as a function of the number of a-signals (rows 0-6) and b-signals (columns 0-6) for the asymmetric design; 4 cells are highlighted where the Bayesian posterior and a simple counting-of-signals heuristic disagree.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.19, Table 5, paper.txt lines 708-724"
+    }
+  ],
+  "logit_error_model": [
+    {
+      "id": "ev-logit-1",
+      "claim": "Logit choice rule: Pr(D_i = A) = e^{beta * pi_A} / (e^{beta*pi_A} + e^{beta*pi_B}) = 1 / (1 + e^{-beta(pi_A - pi_B)}), where pi_A, pi_B are expected payoffs of predicting A or B and beta parameterizes sensitivity to payoff differences (beta -> infinity = fully rational, beta -> 0 = random).",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.13, paper.txt lines 471-487"
+    },
+    {
+      "id": "ev-logit-2",
+      "claim": "Table 3: round-by-round maximum-likelihood logit beta estimates (recursive across rounds 1-6) fit with a Newton-Raphson routine in GAUSS on the symmetric-design data: round1 beta=2.84 (se 0.36, 4 errors); round2 beta=8.67 (se 2.03, 3 errors); round3 beta=4.95 (se 1.02, 6 errors); round4 beta=2.94 (se 0.64, 14 errors); round5 beta=3.03 (se 0.58, 13 errors); round6 beta=4.29 (se 1.15, 7 errors).",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.14, Table 3, paper.txt lines 516-522"
+    },
+    {
+      "id": "ev-logit-3",
+      "claim": "The fitted model correctly predicts 493 of 540 decisions (540 = 36 symmetric-design subjects x 15 periods); allowing for error reclassifies about 5% of decisions relative to the no-error analysis, but does not change the cascade/no-cascade classification of any period. A constrained single-beta-for-all-rounds alternative gives beta=3.78 but fits worse by a likelihood-ratio test than the round-specific model.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.14-15, paper.txt lines 532-536, 546-549"
+    },
+    {
+      "id": "ev-logit-4",
+      "claim": "Using the round-1 beta, the model predicts the 2nd-round decision-maker will follow their own private draw (rather than an inconsistent 1st-round announcement) with probability 0.96; empirically, 2nd-round subjects followed their own private draw in 95% of cases where their draw conflicted with the 1st-round announcement.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.14-15, paper.txt lines 541-553"
+    },
+    {
+      "id": "ev-logit-5",
+      "claim": "15 of 16 deviations from an established cascade pattern (in the logit/error analysis) were made by a subject who had just seen a private draw favoring the non-cascade urn.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.15, paper.txt lines 565-567"
+    },
+    {
+      "id": "ev-logit-6",
+      "claim": "Illustrative posteriors incorporating decision error: after two A decisions and a b draw, Pr(A)=0.5745 (cascade still starts); with two A decisions and no B decisions, Pr(A|a draw)=0.84; with three A decisions, Pr(A|a draw)=0.85; with two A decisions and one (third) B decision before an a draw, Pr(A|a draw) falls to 0.73.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.15, paper.txt lines 556-575"
+    }
+  ],
+  "results_symmetric_design": [
+    {
+      "id": "ev-res-sym-1",
+      "claim": "Cascade behavior (matching the Bayesian-rational pattern) was observed in 41 of the 56 periods (symmetric design) in which an imbalance made a cascade possible.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.9, paper.txt lines 324-326"
+    },
+    {
+      "id": "ev-res-sym-2",
+      "claim": "Table 2 gives round-by-round subject IDs, decisions, private draws, and cascade outcome for periods 5-9 of Session 2, including 3 normal cascades (periods 5,6,7), a cascade delayed by a deviation (period 8, flagged with *), and a reverse cascade (period 9).",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.9, Table 2, paper.txt lines 357-382"
+    },
+    {
+      "id": "ev-res-sym-3",
+      "claim": "Deviation from the Bayesian/cascade-consistent decision in favor of one's own private signal occurred in 26% of cases where the optimal Bayesian decision was inconsistent with the private-information-only decision; about 4% of decisions (over all six symmetric-design sessions) were inconsistent with BOTH Bayes' rule and private information.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.9-10, paper.txt lines 339-354"
+    },
+    {
+      "id": "ev-res-sym-4",
+      "claim": "Efficiency definitions: actual efficiency = 100*(pi_actual - pi_random)/(pi_optimal - pi_random); private-information efficiency = 100*(pi_privateInfo - pi_random)/(pi_optimal - pi_random), where each pi is summed expected payoff over all 15 periods under that decision rule, using the 'Bayes distribution' (posterior assuming others are Bayesian, with obvious deviations revealing private signals) at the time of each decision.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.11-12, paper.txt lines 385-436"
+    },
+    {
+      "id": "ev-res-sym-5",
+      "claim": "Symmetric design: actual efficiency averaged 91.4%, private-information efficiency averaged 72.1%, over all subjects. 22 of 36 subjects achieved 100% actual efficiency (perfect conformity with Bayes' rule); of the other 14, 9 did better than private-information-only decisions would predict. 4 of the 22 perfectly-efficient subjects also had 100% private-information efficiency (i.e., following only private information happened to be optimal for them throughout).",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.11-12, paper.txt lines 441-465"
+    },
+    {
+      "id": "ev-res-sym-6",
+      "claim": "Status-quo bias test: across all 6 symmetric-design sessions there were 68 instances where the Bayes-distribution posterior for A was exactly 1/2 and the subject's private signal did not match the label of the immediately preceding decision. In 57 of 68 cases the subject did NOT follow the preceding decision and instead decided consistently with their own private signal -- i.e., no support for a status-quo/conformity bias beyond what Bayesian updating implies.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.16-17, paper.txt lines 611-627"
+    },
+    {
+      "id": "ev-res-sym-7",
+      "claim": "Representativeness-bias test: in the two public-draw sessions analyzed ('sessions 4 and 5'), the two public draws plus the subject's own private draw matched the exact contents of one urn (i.e., were a 'representative' sample) in 36 cases; in 10 of those 36 cases the Bayesian posterior for the urn that the sample 'represented' was below 1/2, and the subject decided consistently with Bayes' rule (not representativeness) in all 10 of those cases -- i.e., no support found for a representativeness bias in this setting.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.17-18, paper.txt lines 623-668"
+    }
+  ],
+  "results_asymmetric_design": [
+    {
+      "id": "ev-res-asym-1",
+      "claim": "Table 6 gives round-by-round subject IDs, decisions, private draws, and Bayesian posteriors for periods 2-5 of Session 10 (asymmetric design), illustrating cases where Bayes' rule and simple signal-counting disagree (marked with + or *) and a reverse cascade in period 4.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.20, Table 6, paper.txt lines 751-786"
+    },
+    {
+      "id": "ev-res-asym-2",
+      "claim": "Over all 6 asymmetric-design sessions, cascades formed in 46 of the 66 periods in which they were possible; reverse cascades made up 18 of those 46 cascade periods (vs. 13 of 41 in the symmetric design).",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.20, paper.txt lines 786-790"
+    },
+    {
+      "id": "ev-res-asym-3",
+      "claim": "Accounting for the counting heuristic reduces the share of periods with a rational Bayesian cascade from about 73% (symmetric design) to about 70% (asymmetric design). When Bayes' rule and counting prescribe different decisions, subjects made the Bayes-correct decision in 41 of 82 such cases (50%); when counting made no distinct prediction, 66% of decisions were Bayes-correct. Overall, 115 of 540 asymmetric-design decisions were inconsistent with Bayes' rule, and 'over a third' of those inconsistencies are explained by the counting heuristic; 29 of these 41 counting-consistent/Bayes-inconsistent decisions were made by about a third of the subjects.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.20-21, paper.txt lines 796-829"
+    },
+    {
+      "id": "ev-res-asym-4",
+      "claim": "Asymmetric design: actual efficiency averaged 67.6%, private-information efficiency averaged 45.2%. Counting efficiency (expected-payoff gain from a pure counting rule over random choice, as a % of the optimal-over-random gain) was, averaged over subjects, approximately equal to actual efficiency; 21 of 36 subjects had actual efficiency exceeding their own counting efficiency.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.21, paper.txt lines 804-819"
+    },
+    {
+      "id": "ev-res-summary-1",
+      "claim": "Table 7 (Summary of Cascade Results): Symmetric setup - 28 normal-cascade periods, 13 reverse-cascade periods, 10 possible-but-not-formed normal, 5 possible-but-not-formed reverse (total 56). Asymmetric setup - 28 normal-cascade periods, 18 reverse-cascade periods, 12 possible-but-not-formed normal, 8 possible-but-not-formed reverse (total 66). Overall, cascades formed in 87 of 122 periods across all 12 sessions in which a cascade was possible.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf p.22, Table 7, paper.txt lines 832-845"
+    }
+  ],
+  "materials_and_instructions": [
+    {
+      "id": "ev-mat-1",
+      "claim": "Full oral instructions script for the symmetric design (read aloud to participants), including the cover story, payment terms, urn/die mechanics, private-draw procedure, decision/announcement procedure, description of the paper record sheet columns (0)-(9), assignment of subject identity via colored marbles, and two worked practice-period walkthroughs.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf pp.23-25 (Appendix: Instructions for Symmetric Design), paper.txt lines 857-964",
+      "used_in": "materials/materials.json field 'symmetric_instructions_full_text'"
+    },
+    {
+      "id": "ev-mat-2",
+      "claim": "No equivalent full instructions script is printed for the asymmetric design; only the differing urn contents (Table 4) are given. The paper states the asymmetric sessions used the 'same procedure' otherwise.",
+      "evidence_label": "missing",
+      "source": "input/paper.pdf p.18, paper.txt lines 671-677 ('we conducted six additional sessions with an asymmetric design'); no appendix text follows for this design.",
+      "note": "materials.json provides a DERIVED asymmetric instructions script obtained by substituting Table 4's ball counts into the symmetric verbatim script and is explicitly labeled 'derived', not verbatim. Logged in audit/missing_information.json."
+    },
+    {
+      "id": "ev-mat-3",
+      "claim": "No decision-sheet image/scan is included in the PDF; the record-sheet layout (columns 0-9) is described only in prose within the instructions.",
+      "evidence_label": "missing",
+      "source": "input/paper.pdf p.24, paper.txt lines 901-913"
+    },
+    {
+      "id": "ev-mat-4",
+      "claim": "Figure 1 ('The Physical Setup') is referenced but its image content was not machine-readable from the extracted PDF text; its content is reconstructed from the surrounding verbatim prose (2 light/1 dark in urn A, 1 light/2 dark in urn B) and cross-checked against the identical numbers given verbatim in the Appendix instructions.",
+      "evidence_label": "derived",
+      "source": "input/paper.pdf p.4-5 and p.23, paper.txt lines 137-148, 872-882",
+      "derivation": "Combined two verbatim textual descriptions of the same urn contents (Section I prose and Appendix instructions) since the figure image itself could not be extracted as text."
+    },
+    {
+      "id": "ev-mat-5",
+      "claim": "No post-experiment exit-questionnaire instrument is reproduced; the paper only reports that at the end of the first session subjects were asked (informally) whether the instructions/procedures were confusing or biased and had no complaints besides wanting less repetition in the oral instructions.",
+      "evidence_label": "reported",
+      "source": "input/paper.pdf p.8, footnote 16, paper.txt lines 311-315"
+    }
+  ],
+  "references": {
+    "evidence_label": "verbatim",
+    "source": "input/paper.pdf pp.26-27, paper.txt lines 970-1009",
+    "note": "Transcribed for provenance completeness only. None of these cited works were fetched, browsed, or otherwise consulted; they are not part of the runnable task.",
+    "list": [
+      "Anderson, Lisa R. Information Cascades, unpublished doctoral dissertation, University of Virginia, 1994.",
+      "Bannerjee, A. V. \"A Simple Model of Herd Behavior,\" Quarterly Journal of Economics, August 1992, 107(3), pp. 797-817.",
+      "Bikhchandani, Sushil; Hirshleifer, David and Welch, Ivo. \"A Theory of Fads, Fashion, Custom, and Cultural Change as Informational Cascades,\" Journal of Political Economy, October 1992, 100(5), pp. 992-1026.",
+      "Camerer, Colin F. \"Individual Decision Making,\" in J. Kagel and A. Roth, eds., Handbook of Experimental Economics. Princeton: Princeton University Press, 1995, pp. 587-616.",
+      "Camerer, Colin F. and Weigelt, Keith. \"Information Mirages in Experimental Asset Markets,\" Journal of Business, October 1991, 64(4), pp. 463-93.",
+      "Davis, Douglas D. and Holt, Charles A. Experimental Economics. Princeton: Princeton University Press, 1993.",
+      "Grether, David M. \"Bayes' Rule as a Descriptive Model: The Representativeness Heuristic,\" Quarterly Journal of Economics, March 1980, 95, pp. 537-557.",
+      "Grether, David M. \"Testing Bayes Rule and the Representativeness Heuristic: Some Experimental Evidence,\" Journal of Economic Behavior and Organization, January 1992, 17, pp. 31-57.",
+      "Holt, Charles A. and Anderson, Lisa R. \"Classroom Games: Understanding Bayes' Rule,\" Journal of Economic Perspectives, Spring 1996, 10(2), pp. 179-187.",
+      "Kahneman, Daniel and Tversky, Amos. \"On the Psychology of Prediction,\" Psychological Review, July 1973, 80(4), pp. 237-251.",
+      "Keynes, John Maynard. The General Theory of Employment, Interest, and Money. New York: Harcourt, Brace & World, 1965.",
+      "Plott, Charles R. and Sunder, Shyam. \"Efficiency of Experimental Security Markets with Insider Information: An Application of Rational-Expectations Models,\" Journal of Political Economy, August 1982, 90, pp. 663-698.",
+      "Samuelson, William and Zeckhauser, Richard. \"Status Quo Bias in Decision Making,\" Journal of Risk and Uncertainty, March 1988, 1, pp. 7-59.",
+      "Stern, Steve. \"The Effects of Firm Optimizing Behavior in Firm Matching Models,\" Review of Economic Studies, October 1990, 57(4), pp. 647-660.",
+      "Welch, Ivo. \"Sequential Sales, Learning, and Cascades,\" Journal of Finance, June 1992, 47(2), pp. 695-732."
+    ]
+  }
+}

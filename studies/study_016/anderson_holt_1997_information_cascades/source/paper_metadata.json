@@ -1,0 +1,54 @@
+{
+  "_description": "Bibliographic metadata for the source paper. All fields are drawn only from the uploaded PDF text plus the contributor-supplied filename; no web search, DOI lookup, or OSF/author-page lookup was performed. 'external_sources' is empty because the job did not authorize any external URL.",
+  "title": {
+    "value": "Information Cascades in the Laboratory",
+    "evidence_label": "verbatim",
+    "source": "input/paper.pdf, p.1 (title line)"
+  },
+  "authors": [
+    {
+      "name": "Lisa R. Anderson",
+      "affiliation_at_time_of_writing": "Assistant Professor of Economics, American University, Washington, D.C.",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf, p.1 footnote *"
+    },
+    {
+      "name": "Charles A. Holt",
+      "affiliation_at_time_of_writing": "Professor of Economics, University of Virginia, Charlottesville, VA",
+      "evidence_label": "verbatim",
+      "source": "input/paper.pdf, p.1 footnote *"
+    }
+  ],
+  "publication_year": {
+    "value": 1997,
+    "evidence_label": "reported",
+    "source": "Derived from the contributor-supplied filename 'anderson_holt_1997_information_cascades.pdf'. The PDF text itself contains no printed journal name, volume, issue, or page range, and the PDF's embedded metadata (checked via pdfinfo) contains no title/author/date fields beyond a 1999 Acrobat Distiller creation timestamp for the file itself, which is not the same as the publication date."
+  },
+  "journal": {
+    "value": null,
+    "evidence_label": "missing",
+    "note": "Not present anywhere in the extracted PDF text (no running header/footer with journal name, volume, issue, or page numbers was found on any of the 27 pages). Not looked up externally per job policy."
+  },
+  "doi": {
+    "value": null,
+    "evidence_label": "missing",
+    "note": "No DOI string appears in the PDF text. DOI resolution/lookup was not performed because no external URL was authorized for this job."
+  },
+  "abstract": {
+    "value": "When a series of individuals with private information announce public predictions, initial conformity can create an \"information cascade\" in which later predictions match the early announcements. This paper reports an experiment in which private signals are draws from an unobserved urn. Subjects make predictions in sequence and are paid if they correctly guess which of two urns was used for the draws. If initial decisions coincide, then it is rational for subsequent decision makers to follow the established pattern, regardless of their private information. Rational cascades formed in most periods in which such an imbalance occurred.",
+    "evidence_label": "verbatim",
+    "source": "input/paper.pdf, p.1 (Abstract)"
+  },
+  "funding": {
+    "value": "University of Virginia Bankard Fund; U.S. National Science Foundation grants SES90-12694 and SES93-20617.",
+    "evidence_label": "verbatim",
+    "source": "input/paper.pdf, p.1 footnote *"
+  },
+  "reference_list_of_cited_works": {
+    "evidence_label": "verbatim",
+    "source": "input/paper.pdf, pp.26-27 (References)",
+    "note": "Full reference list transcribed in source/evidence.json under 'references'. Provided for context only; none of these external works were fetched or consulted."
+  },
+  "external_sources": [],
+  "external_source_policy_note": "job.json / task instructions supplied no OSF or open-materials URL, so per policy no web search, web fetch, DOI resolution, or author/repository lookup was performed. This metadata file and the entire package were built solely from input/paper.pdf."
+}

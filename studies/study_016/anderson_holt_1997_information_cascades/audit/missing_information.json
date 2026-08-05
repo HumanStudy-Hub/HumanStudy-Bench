@@ -1,0 +1,68 @@
+{
+  "_description": "Authoritative researcher checklist of gaps, assumptions, and decisions still required before this package can be treated as a fully verified reconstruction of Anderson & Holt (1997). Nothing in this list has been silently resolved with invented content; each item names the concrete gap, its downstream impact, and a concrete suggested next step.",
+  "items": [
+    {
+      "study": "study_2_asymmetric",
+      "field": "materials/materials.json: study_2_asymmetric.instructions_full_text",
+      "reason": "The paper prints a full oral-instructions script (Appendix) only for the symmetric design. For the asymmetric design it states sessions used 'the same procedure' with the urn contents in Table 4, but no separate instructions script is printed.",
+      "impact": "The asymmetric instructions_full_text in materials.json is a DERIVED reconstruction (symmetric script with ball counts substituted), not a verbatim transcript. If a researcher needs to present participants/agents with the historically exact wording used in the asymmetric sessions, this substitution should be verified or replaced.",
+      "suggested_action": "If the original asymmetric-design instructions script becomes available (e.g., from the authors or a data appendix), replace the derived text and update its evidence_label to verbatim."
+    },
+    {
+      "study": "study_1_symmetric",
+      "field": "materials/materials.json: study_1_symmetric.public_draws_after_round4_condition",
+      "reason": "The paper explicitly describes the 2-public-draws-after-round-4 procedure only when analyzing representativeness bias for 'sessions 4 and 5'. It is not fully confirmed whether the third public-draw session used an identical insertion point/count in every period, or whether the insertion happened in only some periods.",
+      "impact": "task/adapter.py's public_draws_after_round4 condition assumes the same insertion rule (always after round 4, always exactly 2 balls, every period) for all 3 public-draw sessions. If the true procedure varied, cascade/representativeness statistics computed on this condition will not exactly reproduce the paper's Section V.A numbers.",
+      "suggested_action": "Confirm the exact procedure for the third public-draw session (and whether the 36-case representativeness sample in the paper drew from 2 or 3 sessions) via the authors' data appendix, then adjust task/adapter.py if it differs."
+    },
+    {
+      "study": "both",
+      "field": "source/evidence.json: raw per-subject, per-round decision and private-draw dataset",
+      "reason": "The paper states 'a complete data appendix is available from the authors on request' (footnote 18) but does not print the underlying 540 (symmetric) + 540 (asymmetric) individual decisions/draws anywhere in the PDF. This job was not authorized to seek external sources, so this raw dataset could not be obtained.",
+      "impact": "evaluation/evaluation.py cannot refit the paper's Table 3 recursive logit error-rate model (Section IV), since that requires the original raw human data (or a comparably large, independent multi-session agent dataset) rather than the aggregated coefficients printed in the paper. evaluation.py reports this check as a structured not_ready result rather than fabricating a number.",
+      "suggested_action": "If the authors' raw data appendix is obtained (with explicit authorization to fetch an external/OSF/author-supplied URL), add a logit-fitting stage to evaluation.py and update this checklist."
+    },
+    {
+      "study": "both",
+      "field": "source/evidence.json / Figure 1 (the physical urn setup diagram)",
+      "reason": "Figure 1 is referenced in the text but its image content is not present in the machine-readable PDF text extraction (pdftotext).",
+      "impact": "materials.json's urn_setup fields were reconstructed from two independent verbatim textual descriptions (Section I prose and the Appendix instructions) that happen to agree, rather than from the figure itself. Low impact since both textual sources agree exactly, but the original figure has not been visually verified.",
+      "suggested_action": "If a higher-resolution PDF or the original figure image becomes available, visually confirm Figure 1 matches the reconstructed urn_setup values."
+    },
+    {
+      "study": "both",
+      "field": "source/paper_metadata.json: journal, volume, issue, page range, DOI",
+      "reason": "No running header/footer, journal name, volume/issue, page range, or DOI string appears anywhere in the 27 extracted PDF pages. The PDF's embedded metadata (checked via pdfinfo) contains no bibliographic fields, only an Acrobat Distiller creation timestamp.",
+      "impact": "study.json and paper_metadata.json cannot cite a full, verifiable bibliographic reference for the paper beyond title, authors, and a publication year inferred from the contributor-supplied filename.",
+      "suggested_action": "If the contributor supplies (or authorizes fetching) the journal citation or DOI, add it to source/paper_metadata.json with an appropriate evidence_label."
+    },
+    {
+      "study": "both",
+      "field": "materials/materials.json: record_sheet_columns (decision sheet)",
+      "reason": "The paper describes the paper decision-record sheet's columns (0)-(9) only in prose within the oral instructions; no scanned image or facsimile of the actual sheet is included in the PDF.",
+      "impact": "A participant-facing digital record sheet built from materials.json is a faithful prose-derived reconstruction of column semantics, not a verified visual facsimile of the original form.",
+      "suggested_action": "Low priority; the textual description is sufficiently complete to drive the digital task/adapter.py. Revisit only if an exact visual replica of the paper form is required."
+    },
+    {
+      "study": "study_1_symmetric",
+      "field": "task/adapter.py & materials.json: whether 'a'/'b' balls were shown to subjects as 'light'/'dark' in the asymmetric design",
+      "reason": "The paper confirms the light/dark labeling verbatim only for the symmetric-design Appendix instructions (footnote 13). It does not restate this labeling convention for the six asymmetric sessions, though it is highly likely the same convention was reused given the shared experimental apparatus.",
+      "impact": "materials.json's derived asymmetric instructions assume the same light/dark labeling. If the true asymmetric-session labeling differed, participant-facing text would need correction, though the underlying probabilities/mechanics (Table 4) are unaffected.",
+      "suggested_action": "Confirm via the authors' data appendix or original session materials if available; otherwise treat the light/dark assumption as a reasonable, clearly-flagged researcher decision."
+    },
+    {
+      "study": "both",
+      "field": "evaluation/evaluation.py: Section IV logit econometric error-rate replication",
+      "reason": "Implementing a faithful recursive per-round logit MLE (as in Table 3) requires many independent repeated observations per round and the original human raw dataset (see the data-appendix item above); it is not a well-posed check to run against a handful of agent-generated sessions.",
+      "impact": "evaluation.py's logit_error_analysis() intentionally returns a structured not_ready result rather than a fitted beta, so users should not expect a Table-3-style output from this package without further work.",
+      "suggested_action": "Revisit once either (a) the original raw dataset is obtained with authorization, or (b) the task is run at large scale (many dozens of independent sessions per condition) so an agent-side logit fit would be statistically meaningful in its own right."
+    },
+    {
+      "study": "both",
+      "field": "task/task.json & task/adapter.py: practice periods",
+      "reason": "The paper describes unpaid, non-private practice periods at the start of each session (continued until each urn had been selected at least once) used to familiarize subjects with the mechanics. These carry no decisions or payment and are not needed for the paper's statistical analyses.",
+      "impact": "task/adapter.py omits practice periods entirely; the agent's first call in a simulated session is period 1 of the paid phase, with the practice-period narration available only as background text in materials.json.",
+      "suggested_action": "None required for faithful statistical replication; add only if a researcher specifically wants to reproduce the onboarding experience for a human-facing (not agent) run of this task."
+    }
+  ]
+}
