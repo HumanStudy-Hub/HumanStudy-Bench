@@ -64,12 +64,18 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           JOB_ID: ${{ inputs.job_id }}
+          START_STAGE: ${{ inputs.stage }}
         run: |
           set -o pipefail
           job="job-storage/jobs/$JOB_ID"
           mkdir -p "$job/output" "$job/logs"
           pdf="$job/input/paper.pdf"
-          for stage in 1 2 3 4; do
+          if [ "$START_STAGE" = "4" ]; then
+            stages=(4)
+          else
+            stages=(1 2 3)
+          fi
+          for stage in "${stages[@]}"; do
             args=(python generation_pipeline/run.py --settings config/settings.yaml --stage "$stage" --output-dir "$job/output")
             if [ "$stage" = "1" ] || [ "$stage" = "2" ]; then args+=(--pdf "$pdf"); fi
             if [ "$stage" = "3" ]; then args+=(--json "$job/output/paper/stage2.json" --pdf "$pdf" --no-backup); fi
@@ -77,6 +83,15 @@ jobs:
             printf '%q ' "${args[@]}" | tee "$job/logs/stage$stage.log"
             "${args[@]}" 2>&1 | tee -a "$job/logs/stage$stage.log"
           done
+          if [ "$START_STAGE" != "4" ]; then
+            read -r ready total < <(python -c 'import json,sys; d=json.load(open(sys.argv[1])).get("osf_materials_summary",{}); print(d.get("ready",0),d.get("total_sub_studies",0))' "$job/output/paper/stage3.json")
+            if [ "$total" -gt 0 ] && [ "$ready" -eq "$total" ]; then
+              stage=4
+              args=(python generation_pipeline/run.py --settings config/settings.yaml --stage 4 --output-dir "$job/output" --json "$job/output/paper/stage3.json" --pdf "$pdf" --study-id "$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["experimentId"])' "$job/job.json")" --hub-layout --hub-studies-dir "$job/package")
+              printf '%q ' "${args[@]}" | tee "$job/logs/stage4.log"
+              "${args[@]}" 2>&1 | tee -a "$job/logs/stage4.log"
+            fi
+          fi
 
       - name: Prepare result and mark review
         if: success()
@@ -91,7 +106,9 @@ jobs:
           package = job / "package"
           if package.exists():
               shutil.make_archive(str(job / "output" / "study"), "zip", package)
-          data.update({"status": "review", "currentStage": 4, "message": "Final study package is ready for researcher review"})
+              data.update({"status": "review", "currentStage": 4, "packageReady": True, "message": "Final study package is ready for researcher review"})
+          else:
+              data.update({"status": "review", "currentStage": 3, "packageReady": False, "message": "Study materials need researcher review before packaging"})
           (job / "job.json").write_text(json.dumps(data, indent=2) + "\n")
           PY
 

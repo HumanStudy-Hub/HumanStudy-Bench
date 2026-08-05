@@ -545,6 +545,7 @@ def main():
             )
             if summary.get("config_error"):
                 print(f"  Stage 4 config error: {summary['config_error']}")
+                raise SystemExit("Stage 4 could not generate a valid runnable adapter.")
             print(f"  Study package: {summary['study_dir']}")
         return
 
