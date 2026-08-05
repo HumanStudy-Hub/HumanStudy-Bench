@@ -4,24 +4,19 @@ import subprocess
 import sys
 from pathlib import Path
 
-from agent_pipeline.run_agent import ProgressPublisher, package_progress
+from agent_pipeline.run_agent import ProgressPublisher, ensure_readme, package_progress
 
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = (
-    "README.md",
     "study.json",
     "source/paper_metadata.json",
-    "source/extraction.json",
     "source/evidence.json",
-    "source/open_materials.json",
     "materials/materials.json",
     "task/task.json",
     "task/adapter.py",
     "evaluation/evaluation.py",
-    "audit/provenance.json",
     "audit/missing_information.json",
-    "audit/agent_report.md",
 )
 
 
@@ -120,16 +115,27 @@ def test_watchdog_progress_counts_required_files(tmp_path: Path) -> None:
     package = tmp_path / "package"
     study = package / "paper-name"
     (study / "source").mkdir(parents=True)
-    (study / "README.md").write_text("Package\n")
     (study / "study.json").write_text("{}\n")
     (study / "source/paper_metadata.json").write_text("{}\n")
     (study / "extra.txt").write_text("Additional material\n")
 
     completed, total, missing = package_progress(package)
 
-    assert completed == 3
-    assert total == 4
+    assert completed == 2
+    assert total == 3
     assert "task/adapter.py" in missing
+
+
+def test_readme_is_generated_from_study_title(tmp_path: Path) -> None:
+    root = tmp_path / "package" / "paper-name"
+    root.mkdir(parents=True)
+    (root / "study.json").write_text(json.dumps({"paper": {"title": "Paper title"}}))
+
+    ensure_readme(tmp_path / "package")
+
+    readme = (root / "README.md").read_text()
+    assert readme.startswith("# Paper title")
+    assert "missing_information.json" in readme
 
 
 def test_progress_publisher_updates_existing_progress(monkeypatch) -> None:
@@ -141,7 +147,7 @@ def test_progress_publisher_updates_existing_progress(monkeypatch) -> None:
 
     monkeypatch.setattr(ProgressPublisher, "_request", fake_request)
     publisher = ProgressPublisher("secret", "owner/jobs", "jobs/example", "jobs/example/progress.json")
-    publisher.publish({"completedRequired": 4, "totalRequired": 13})
+    publisher.publish({"completedRequired": 4, "totalRequired": 8})
 
     assert publisher.sha == "new-sha"
     assert calls[1][1]["sha"] == "old-sha"

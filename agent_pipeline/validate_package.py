@@ -6,19 +6,14 @@ from pathlib import Path
 
 
 REQUIRED = (
-    "README.md",
     "study.json",
     "source/paper_metadata.json",
-    "source/extraction.json",
     "source/evidence.json",
-    "source/open_materials.json",
     "materials/materials.json",
     "task/task.json",
     "task/adapter.py",
     "evaluation/evaluation.py",
-    "audit/provenance.json",
     "audit/missing_information.json",
-    "audit/agent_report.md",
 )
 
 

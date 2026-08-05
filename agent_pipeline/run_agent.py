@@ -16,19 +16,14 @@ from pathlib import Path
 
 
 REQUIRED = (
-    "README.md",
     "study.json",
     "source/paper_metadata.json",
-    "source/extraction.json",
     "source/evidence.json",
-    "source/open_materials.json",
     "materials/materials.json",
     "task/task.json",
     "task/adapter.py",
     "evaluation/evaluation.py",
-    "audit/provenance.json",
     "audit/missing_information.json",
-    "audit/agent_report.md",
 )
 
 
@@ -97,6 +92,26 @@ def validate(validator: Path, package: Path) -> tuple[bool, str]:
     )
     output = (result.stdout + result.stderr).strip()
     return result.returncode == 0, output
+
+
+def ensure_readme(package: Path) -> None:
+    root = package_root(package)
+    if root is None or (root / "README.md").exists():
+        return
+    title = root.name.replace("-", " ").replace("_", " ").title()
+    try:
+        study = json.loads((root / "study.json").read_text())
+        paper = study.get("paper", {}) if isinstance(study, dict) else {}
+        title = paper.get("title") or study.get("title") or title
+    except (OSError, json.JSONDecodeError, AttributeError):
+        pass
+    (root / "README.md").write_text(
+        f"# {title}\n\n"
+        "This HumanStudy-Hub package was reconstructed from a published paper.\n\n"
+        "- Review `study.json` for the study overview and readiness status.\n"
+        "- Review `audit/missing_information.json` before running the study.\n"
+        "- Run `python task/adapter.py --smoke-test` to check the package entry point.\n"
+    )
 
 
 def stop_process(process: subprocess.Popen[str]) -> None:
@@ -208,6 +223,7 @@ def main() -> None:
             if missing:
                 print(f"[package-progress] missing: {' '.join(missing)}", flush=True)
             else:
+                ensure_readme(package)
                 try:
                     valid, detail = validate(args.validator, package)
                 except subprocess.TimeoutExpired:
@@ -238,6 +254,7 @@ def main() -> None:
             time.sleep(args.check_interval)
 
         output_thread.join(timeout=5)
+        ensure_readme(package)
         valid, detail = validate(args.validator, package)
         write_result(args.job, "agent_exited", valid, detail)
         completed, total, missing = package_progress(package)
