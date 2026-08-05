@@ -1,7 +1,10 @@
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
+
+from agent_pipeline.run_agent import package_progress
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -111,3 +114,71 @@ def test_validate_rejects_missing_file(tmp_path: Path) -> None:
 
     assert result.returncode != 0
     assert "missing required package files" in result.stderr
+
+
+def test_watchdog_progress_counts_required_files(tmp_path: Path) -> None:
+    package = tmp_path / "package"
+    study = package / "paper-name"
+    (study / "source").mkdir(parents=True)
+    (study / "README.md").write_text("Package\n")
+    (study / "study.json").write_text("{}\n")
+    (study / "source/paper_metadata.json").write_text("{}\n")
+    (study / "extra.txt").write_text("Additional material\n")
+
+    completed, total, missing = package_progress(package)
+
+    assert completed == 3
+    assert total == 4
+    assert "task/adapter.py" in missing
+
+
+def test_watchdog_stops_agent_after_validation(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    (job / "logs").mkdir(parents=True)
+    prompt = job / "prompt.md"
+    prompt.write_text("Build the package")
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    fake_claude = bin_dir / "claude"
+    fake_claude.write_text(
+        "#!/usr/bin/env python3\n"
+        "import json, pathlib, sys, time\n"
+        "job = pathlib.Path(sys.argv[sys.argv.index('--add-dir') + 1])\n"
+        "root = job / 'package' / 'paper'\n"
+        f"required = {REQUIRED!r}\n"
+        "for relative in required:\n"
+        "    path = root / relative\n"
+        "    path.parent.mkdir(parents=True, exist_ok=True)\n"
+        "    if relative == 'task/adapter.py':\n"
+        "        path.write_text(\"import sys\\nraise SystemExit(0 if '--smoke-test' in sys.argv else 1)\\n\")\n"
+        "    elif path.suffix == '.json':\n"
+        "        path.write_text(json.dumps({}) + '\\n')\n"
+        "    else:\n"
+        "        path.write_text('Generated\\n')\n"
+        "print('package written; waiting forever', flush=True)\n"
+        "time.sleep(60)\n"
+    )
+    fake_claude.chmod(0o755)
+    env = {**os.environ, "PATH": f"{bin_dir}:{os.environ['PATH']}"}
+
+    result = subprocess.run([
+        sys.executable,
+        str(ROOT / "agent_pipeline/run_agent.py"),
+        "--job",
+        str(job),
+        "--prompt",
+        str(prompt),
+        "--model",
+        "test-model",
+        "--validator",
+        str(ROOT / "agent_pipeline/validate_package.py"),
+        "--timeout-minutes",
+        "0.1",
+        "--check-interval",
+        "0.05",
+    ], capture_output=True, text=True, env=env, timeout=10)
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    watchdog = json.loads((job / "logs/watchdog.json").read_text())
+    assert watchdog["reason"] == "validator_passed"
+    assert watchdog["package_valid"] is True

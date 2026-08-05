@@ -96,65 +96,21 @@ jobs:
           ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
           CLAUDE_CODE_SUBAGENT_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
           OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL || 'moonshotai/kimi-k3' }}
+          AGENT_TIMEOUT_MINUTES: ${{ vars.AGENT_TIMEOUT_MINUTES || '25' }}
         run: |
-          set -o pipefail
           job="$GITHUB_WORKSPACE/job-storage/jobs/$JOB_ID"
           mkdir -p "$job/logs" "$job/package"
           python agent_pipeline/build_prompt.py \
             --contract agent_pipeline/CLAUDE.md \
             --job "$job" \
             --output "$job/agent-prompt.md"
-
-          required_files=(
-            "README.md"
-            "study.json"
-            "source/paper_metadata.json"
-            "source/extraction.json"
-            "source/evidence.json"
-            "source/open_materials.json"
-            "materials/materials.json"
-            "task/task.json"
-            "task/adapter.py"
-            "evaluation/evaluation.py"
-            "audit/provenance.json"
-            "audit/missing_information.json"
-            "audit/agent_report.md"
-          )
-          monitor_package() {
-            while true; do
-              completed=0
-              missing=()
-              for relative in "${required_files[@]}"; do
-                if find "$job/package" -mindepth 2 -type f -path "*/$relative" -print -quit | grep -q .; then
-                  completed=$((completed + 1))
-                else
-                  missing+=("$relative")
-                fi
-              done
-              total_files=$(find "$job/package" -type f | wc -l | tr -d ' ')
-              printf '[package-progress] %s required=%s/13 total=%s\n' "$(date -u +%H:%M:%S)" "$completed" "$total_files" | tee "$job/logs/progress.log"
-              if [ "${#missing[@]}" -gt 0 ]; then
-                printf '[package-progress] missing: %s\n' "${missing[*]}" | tee -a "$job/logs/progress.log"
-              fi
-              sleep 30
-            done
-          }
-          monitor_package &
-          monitor_pid=$!
-          trap 'kill "$monitor_pid" 2>/dev/null || true' EXIT
-
-          set +e
-          claude --print \
+          python agent_pipeline/run_agent.py \
+            --job "$job" \
+            --prompt "$job/agent-prompt.md" \
             --model "$OPENROUTER_MODEL" \
-            --add-dir "$job" \
-            --dangerously-skip-permissions \
-            "$(cat "$job/agent-prompt.md")" 2>&1 | tee "$job/logs/agent.log"
-          claude_status=${PIPESTATUS[0]}
-          set -e
-          kill "$monitor_pid" 2>/dev/null || true
-          wait "$monitor_pid" 2>/dev/null || true
-          trap - EXIT
-          exit "$claude_status"
+            --validator agent_pipeline/validate_package.py \
+            --timeout-minutes "$AGENT_TIMEOUT_MINUTES" \
+            --check-interval 30
 
       - name: Validate package and prepare review
         if: success()
