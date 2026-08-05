@@ -134,8 +134,8 @@ jobs:
           path.write_text(json.dumps(data, indent=2) + "\n")
           PY
 
-      - name: Mark failed
-        if: failure()
+      - name: Mark failed or cancelled
+        if: failure() || cancelled()
         env:
           JOB_ID: ${{ inputs.job_id }}
         run: |
@@ -148,7 +148,7 @@ jobs:
           data.update({
               "status": "failed",
               "packageReady": False,
-              "message": "The agent could not build a valid study package",
+              "message": "The study build failed or was cancelled",
           })
           path.write_text(json.dumps(data, indent=2) + "\n")
           PY
