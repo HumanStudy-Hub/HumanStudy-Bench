@@ -2,7 +2,7 @@
 """
 Build studies_index.json and optionally package studies into zips.
 
-Reads only index.json from each study (title, authors, year, description).
+Reads legacy index.json or the agent-generated study.json from each study.
 Writes co_website/data/studies_index.json and optionally study zips.
 
 Usage (from repo root):
@@ -32,43 +32,73 @@ def study_id_sort_key(s: str) -> tuple:
     return (999999, s)
 
 
+def _contributors(values) -> list[dict]:
+    contributors = []
+    for value in values or []:
+        if isinstance(value, str) and value.strip():
+            contributors.append({"name": value.strip()})
+        elif isinstance(value, dict) and value.get("name"):
+            item = {"name": value["name"]}
+            if value.get("github"):
+                github = str(value["github"]).strip()
+                item["github"] = github if github.startswith("http") else f"https://github.com/{github.lstrip('@/')}"
+            if value.get("institution"):
+                item["institution"] = value["institution"]
+            contributors.append(item)
+    return contributors
+
+
+def _authors(values) -> list[str]:
+    authors = []
+    for value in values or []:
+        if isinstance(value, str) and value.strip():
+            authors.append(value.strip())
+        elif isinstance(value, dict):
+            name = value.get("name") or value.get("full_name")
+            if name:
+                authors.append(str(name).strip())
+    return authors
+
+
+def read_study_entry(study_dir: Path) -> dict | None:
+    legacy = study_dir / "index.json"
+    candidates = [legacy] if legacy.exists() else sorted(study_dir.rglob("study.json"))
+    if not candidates:
+        print(f"Skip {study_dir.name}: no index.json or study.json", file=sys.stderr)
+        return None
+    path = candidates[0]
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"Skip {study_dir.name}: invalid {path.name}: {exc}", file=sys.stderr)
+        return None
+
+    paper = data.get("paper") if isinstance(data.get("paper"), dict) else {}
+    title = data.get("title") or paper.get("title") or study_dir.name
+    authors = _authors(data.get("authors") or paper.get("authors"))
+    year = data.get("year") or paper.get("year") or paper.get("publication_year")
+    description = data.get("description") or data.get("summary") or paper.get("abstract") or ""
+    return {
+        "study_id": study_dir.name,
+        "title": str(title),
+        "authors": authors,
+        "year": year,
+        "description": str(description).strip(),
+        "contributors": _contributors(data.get("contributors")),
+    }
+
+
 def build_index() -> list[dict]:
-    """Read index.json from each study, return list of entries (study_id, title, authors, year, description)."""
+    """Build catalog entries from every numbered study directory."""
     study_dirs = sorted(
         [d for d in STUDIES_DIR.iterdir() if d.is_dir() and d.name.startswith("study_")],
         key=lambda d: study_id_sort_key(d.name),
     )
     studies = []
     for study_dir in study_dirs:
-        index_path = study_dir / "index.json"
-        if not index_path.exists():
-            print(f"Skip {study_dir.name}: no index.json", file=sys.stderr)
-            continue
-        try:
-            with open(index_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-        except Exception as e:
-            print(f"Skip {study_dir.name}: invalid index.json: {e}", file=sys.stderr)
-            continue
-        contributors = []
-        for c in (data.get("contributors") or []):
-            if isinstance(c, dict) and c.get("name"):
-                nc = {"name": c["name"]}
-                if c.get("github"):
-                    gh = str(c["github"]).strip()
-                    nc["github"] = gh if gh.startswith("http") else f"https://github.com/{gh.lstrip('/')}"
-                if c.get("institution"):
-                    nc["institution"] = c["institution"]
-                contributors.append(nc)
-        entry = {
-            "study_id": study_dir.name,
-            "title": data.get("title") or study_dir.name,
-            "authors": data.get("authors") or [],
-            "year": data.get("year"),
-            "description": (data.get("description") or "").strip(),
-            "contributors": contributors,
-        }
-        studies.append(entry)
+        entry = read_study_entry(study_dir)
+        if entry:
+            studies.append(entry)
     return studies
 
 
