@@ -111,7 +111,7 @@ jobs:
             --model "$OPENROUTER_MODEL" \
             --validator agent_pipeline/validate_package.py \
             --timeout-minutes "$AGENT_TIMEOUT_MINUTES" \
-            --check-interval 30 \
+            --check-interval 10 \
             --progress-repo "${{ inputs.jobs_repo }}" \
             --progress-branch "jobs/$JOB_ID" \
             --progress-path "jobs/$JOB_ID/progress.json"

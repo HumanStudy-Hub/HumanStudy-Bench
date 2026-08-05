@@ -167,7 +167,7 @@ def main() -> None:
     parser.add_argument("--model", required=True)
     parser.add_argument("--validator", required=True, type=Path)
     parser.add_argument("--timeout-minutes", type=float, default=25)
-    parser.add_argument("--check-interval", type=float, default=30)
+    parser.add_argument("--check-interval", type=float, default=10)
     parser.add_argument("--progress-repo")
     parser.add_argument("--progress-branch")
     parser.add_argument("--progress-path")
