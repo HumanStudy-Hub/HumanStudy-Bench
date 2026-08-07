@@ -18,7 +18,7 @@ permissions:
 
 concurrency:
   group: humanstudy-agent-${{ inputs.job_id }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build-study:
