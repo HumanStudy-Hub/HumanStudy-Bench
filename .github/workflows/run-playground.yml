@@ -1,0 +1,190 @@
+name: Run a playground study
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Private jobs repository run ID
+        required: true
+        type: string
+      jobs_repo:
+        description: Private repository containing run inputs and outputs
+        required: true
+        default: HumanStudy-Hub/humanstudy-hub-jobs
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: humanstudy-playground-${{ inputs.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  run-study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out the benchmark
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Check out private run storage
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.jobs_repo }}
+          token: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
+          path: run-storage
+          ref: runs/${{ inputs.run_id }}
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Node for the charting agent
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy scipy pandas tqdm openai cryptography
+          npm install --global @anthropic-ai/claude-code@latest
+
+      - name: Mark run running
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path("run-storage/runs") / os.environ["RUN_ID"] / "run.json"
+          data = json.loads(path.read_text())
+          data.update({"status": "running", "message": "Participants are running the study"})
+          path.write_text(json.dumps(data, indent=2) + "\n")
+          PY
+
+      - name: Publish running state
+        working-directory: run-storage
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+          TOKEN: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
+        run: |
+          git config user.name "HumanStudy-Hub Playground"
+          git config user.email "playground@humanstudy-hub.org"
+          git add "runs/$RUN_ID/run.json"
+          git commit -m "playground: start $RUN_ID"
+          git push "https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git" "HEAD:runs/$RUN_ID"
+
+      - name: Run the study
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          PLAYGROUND_KEY_SECRET: ${{ secrets.PLAYGROUND_KEY_SECRET }}
+          PIPELINE_PROGRESS_TOKEN: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
+        run: |
+          python playground/run_playground.py \
+            --run "$GITHUB_WORKSPACE/run-storage/runs/$RUN_ID" \
+            --progress-repo "${{ inputs.jobs_repo }}" \
+            --progress-branch "runs/$RUN_ID" \
+            --progress-path "runs/$RUN_ID/progress.json"
+
+      # Charts and the written reading are produced by Claude Code through
+      # OpenRouter, then validated. This step never fails the run: an unusable
+      # chart set falls back to the deterministic charts.
+      - name: Chart and interpret the results
+        if: success()
+        continue-on-error: true
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+          ANTHROPIC_BASE_URL: https://openrouter.ai/api
+          CHARTS_AGENT_TOKEN: ${{ secrets.OPENROUTER_API_KEY }}
+          ANTHROPIC_API_KEY: ""
+          ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ vars.PLAYGROUND_CHARTS_MODEL || vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
+          ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ vars.PLAYGROUND_CHARTS_MODEL || vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
+          ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ vars.PLAYGROUND_CHARTS_MODEL || vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
+          OPENROUTER_MODEL: ${{ vars.PLAYGROUND_CHARTS_MODEL || vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
+          CHARTS_TIMEOUT_MINUTES: ${{ vars.PLAYGROUND_CHARTS_TIMEOUT_MINUTES || '8' }}
+        run: |
+          python playground/run_charts.py \
+            --run "$GITHUB_WORKSPACE/run-storage/runs/$RUN_ID" \
+            --model "$OPENROUTER_MODEL" \
+            --timeout-minutes "$CHARTS_TIMEOUT_MINUTES"
+
+      - name: Mark run complete
+        if: success()
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          run_dir = Path("run-storage/runs") / os.environ["RUN_ID"]
+          charts = run_dir / "output" / "charts.json"
+          if not charts.exists():
+              import subprocess, sys
+              subprocess.run([
+                  sys.executable, "playground/default_charts.py",
+                  "--analysis", str(run_dir / "output" / "analysis.json"),
+                  "--output", str(charts),
+              ], check=True)
+          path = run_dir / "run.json"
+          data = json.loads(path.read_text())
+          data.update({
+              "status": "complete",
+              "message": "The run finished and the results are ready",
+              "resultsReady": True,
+          })
+          path.write_text(json.dumps(data, indent=2) + "\n")
+          PY
+
+      - name: Mark failed or cancelled
+        if: failure() || cancelled()
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path("run-storage/runs") / os.environ["RUN_ID"] / "run.json"
+          data = json.loads(path.read_text())
+          if data.get("status") != "failed":
+              data.update({"status": "failed", "message": "The playground run failed or was cancelled"})
+          data["resultsReady"] = False
+          path.write_text(json.dumps(data, indent=2) + "\n")
+          PY
+
+      # The researcher's key only ever existed as ciphertext, and it is dropped
+      # here so a finished run keeps no copy of it at all.
+      - name: Drop the supplied key
+        if: always()
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path("run-storage/runs") / os.environ["RUN_ID"] / "run.json"
+          data = json.loads(path.read_text())
+          if data.pop("sealedApiKey", None) is not None:
+              data["usedOwnKey"] = True
+              path.write_text(json.dumps(data, indent=2) + "\n")
+          PY
+
+      - name: Commit run state and outputs
+        if: always()
+        working-directory: run-storage
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+          TOKEN: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
+        run: |
+          git config user.name "HumanStudy-Hub Playground"
+          git config user.email "playground@humanstudy-hub.org"
+          git add "runs/$RUN_ID"
+          git commit -m "playground: results for $RUN_ID" || true
+          git pull --rebase "https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git" "runs/$RUN_ID"
+          git push "https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git" "HEAD:runs/$RUN_ID"

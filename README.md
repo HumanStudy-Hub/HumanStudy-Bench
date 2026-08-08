@@ -110,11 +110,30 @@ missing-information checklist.
 The older staged Python implementation remains in `generation_pipeline/` for
 reference and migration tests, but the web builder no longer dispatches it.
 
+## Playground
+
+The playground replays a single study with a model of your choice and scores it
+against the paper, so you can see where an agent behaves like the original
+participants and where it does not.
+
+```bash
+OPENROUTER_API_KEY=... python playground/run_playground.py --run <run-dir>
+```
+
+It drives each study's own trial builder and evaluator, so a playground run is
+scored exactly like a benchmark run; the model, the participant prompt, and the
+number of participants are what you change. Results are charted and interpreted
+by Claude Code, with deterministic charts as the fallback. HumanStudy-Hub
+dispatches the same code through
+[`run-playground.yml`](.github/workflows/run-playground.yml). See
+[`playground/README.md`](playground/README.md).
+
 ## Repository structure
 
 ```text
 studies/               Runnable benchmark studies
 src/                   Execution and evaluation code
+playground/            On-demand single-study runs and result comparison
 agent_pipeline/        Claude Code package contract and validation
 generation_pipeline/   Legacy staged extraction implementation
 scripts/               Study validation and index utilities
