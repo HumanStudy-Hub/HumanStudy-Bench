@@ -18,7 +18,7 @@ permissions:
 
 concurrency:
   group: humanstudy-agent-${{ inputs.job_id }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build-study:
@@ -54,6 +54,28 @@ jobs:
           npm install --global @anthropic-ai/claude-code@latest
           sudo apt-get update
           sudo apt-get install --yes poppler-utils tesseract-ocr jq unzip
+
+      # The web app uploads the paper straight to Vercel Blob, because a Vercel
+      # function request body caps out at 4.5 MB. Older jobs already carry the PDF.
+      - name: Fetch the uploaded paper
+        env:
+          JOB_ID: ${{ inputs.job_id }}
+        run: |
+          python - <<'PY'
+          import json, os, urllib.request
+          from pathlib import Path
+          job = Path("job-storage/jobs") / os.environ["JOB_ID"]
+          paper = job / "input" / "paper.pdf"
+          if paper.exists():
+              raise SystemExit(0)
+          url = json.loads((job / "job.json").read_text()).get("paperUrl")
+          if not url:
+              raise SystemExit("job.json has no paperUrl and no paper.pdf is stored.")
+          paper.parent.mkdir(parents=True, exist_ok=True)
+          with urllib.request.urlopen(url, timeout=120) as response:
+              paper.write_bytes(response.read())
+          print(f"Downloaded {paper.stat().st_size} bytes")
+          PY
 
       - name: Mark job running
         env:
