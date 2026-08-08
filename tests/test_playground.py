@@ -5,6 +5,8 @@ import pytest
 
 from playground.analysis import agent_effect_from_t, build_analysis, human_effect_from_reported, normalise_tests
 from playground.default_charts import build_charts
+from playground.personas import PersonaError, describe_mix, normalise_group, sample_profiles
+from playground.run_playground import render_prompt
 from playground.settings import trial_limits
 from playground.study_loader import StudyNotRunnable, study_dir
 from playground.validate_charts import ChartError, validate
@@ -155,3 +157,85 @@ def test_study_ids_cannot_escape_the_studies_directory(tmp_path: Path) -> None:
         study_dir(tmp_path, "../secrets")
     with pytest.raises(StudyNotRunnable):
         study_dir(tmp_path, "study_999")
+
+
+def test_persona_shares_split_participants_by_largest_remainder() -> None:
+    group = {"segments": [
+        {"id": "a", "label": "A", "share": 30},
+        {"id": "b", "label": "B", "share": 70},
+    ]}
+    mix = {entry["id"]: entry["count"] for entry in describe_mix(group, 10)}
+    assert mix == {"a": 3, "b": 7}
+    # Shares are relative, so 30/70 and 0.3/0.7 describe the same population.
+    assert describe_mix({"segments": [
+        {"id": "a", "label": "A", "share": 0.3},
+        {"id": "b", "label": "B", "share": 0.7},
+    ]}, 10) == describe_mix(group, 10)
+
+
+def test_every_segment_keeps_at_least_one_participant() -> None:
+    group = {"segments": [
+        {"id": "a", "label": "A", "share": 0.98},
+        {"id": "b", "label": "B", "share": 0.02},
+    ]}
+    counts = [entry["count"] for entry in describe_mix(group, 10)]
+    assert counts == [9, 1]
+    assert sum(counts) == 10
+
+
+def test_personas_are_sampled_within_their_ranges_and_are_reproducible() -> None:
+    group = {"segments": [
+        {"id": "nurses", "label": "Nurses", "share": 0.5, "age": {"min": 30, "max": 40}, "gender": "female", "persona": "You are a nurse."},
+        {"id": "students", "label": "Students", "share": 0.5, "age": {"min": 18, "max": 22}},
+    ]}
+
+    profiles = sample_profiles(group, 20, seed=11)
+
+    assert len(profiles) == 20
+    assert [profile["participant_id"] for profile in profiles] == list(range(20))
+    nurses = [profile for profile in profiles if profile["persona_segment"] == "nurses"]
+    assert len(nurses) == 10
+    assert all(30 <= profile["age"] <= 40 for profile in nurses)
+    assert all(profile["gender"] == "female" for profile in nurses)
+    assert all(profile["persona"] == "You are a nurse." for profile in nurses)
+    assert all(18 <= profile["age"] <= 22 for profile in profiles if profile["persona_segment"] == "students")
+    # A saved group plus a seed reproduces the same participants exactly.
+    assert sample_profiles(group, 20, seed=11) == profiles
+    assert sample_profiles(group, 20, seed=12) != profiles
+
+
+def test_a_group_fits_a_run_of_any_size() -> None:
+    group = {"segments": [
+        {"id": "a", "label": "A", "share": 0.25},
+        {"id": "b", "label": "B", "share": 0.75},
+    ]}
+    for total in (2, 7, 28, 600):
+        assert len(sample_profiles(group, total, seed=3)) == total
+
+
+def test_unusable_persona_groups_are_rejected() -> None:
+    with pytest.raises(PersonaError):
+        normalise_group({"segments": []})
+    with pytest.raises(PersonaError):
+        normalise_group({"segments": [{"label": "A", "share": 0}]})
+    with pytest.raises(PersonaError):
+        normalise_group({"segments": [{"label": "A", "age": {"min": 2, "max": 5}}]})
+    with pytest.raises(PersonaError):
+        normalise_group({"segments": [{"id": "a", "label": "A"}, {"id": "a", "label": "B"}]})
+    with pytest.raises(PersonaError):
+        normalise_group({"segments": [{"label": "A", "gender": {"female": 0, "male": 0}}]})
+
+
+def test_age_and_gender_accept_a_single_value_or_a_spread() -> None:
+    group = normalise_group({"segments": [{"label": "A", "age": 34, "gender": "female"}]})
+    assert group["segments"][0]["age"] == {"min": 34, "max": 34}
+    assert group["segments"][0]["gender"] == {"female": 1.0}
+    weighted = normalise_group({"segments": [{"label": "A", "gender": {"female": 80, "male": 20}}]})
+    assert weighted["segments"][0]["gender"] == {"female": 0.8, "male": 0.2}
+
+
+def test_a_custom_prompt_is_filled_in_per_agent() -> None:
+    profile = {"age": 34, "persona": "You are a nurse.", "gender": "female"}
+    assert render_prompt("You are {{age}}. {{persona}}", profile) == "You are 34. You are a nurse."
+    # A placeholder with nothing behind it leaves no stray gap.
+    assert render_prompt("Age {{age}}. {{missing}} Done.", profile) == "Age 34. Done."

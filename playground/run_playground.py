@@ -16,8 +16,10 @@ import argparse
 import json
 import os
 import random
+import re
 import sys
 import traceback
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -28,6 +30,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from playground import settings
 from playground.analysis import build_analysis
+from playground.personas import PersonaError, sample_profiles
 from playground.progress import ProgressWriter
 from playground.run_key import decrypt_api_key
 from playground.study_loader import StudyNotRunnable, load_metadata, load_study
@@ -60,6 +63,21 @@ def resolve_prompt(run: Dict[str, Any]) -> tuple[str, Optional[str]]:
     if preset not in settings.PROMPT_PRESETS:
         raise SystemExit(f"Unknown prompt preset: {preset}")
     return preset, custom or None
+
+
+def render_prompt(template: str, profile: Dict[str, Any]) -> str:
+    """Fill {{field}} placeholders in a hand-written prompt from one agent's profile.
+
+    Without this a custom prompt is one fixed string for the whole run, so every
+    agent would be the same person no matter which personas were designed.
+    """
+    def replace(match: "re.Match[str]") -> str:
+        value = profile.get(match.group(1).strip())
+        return "" if value is None else str(value)
+
+    filled = re.sub(r"\{\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}\}", replace, template)
+    # Collapse the gaps left where a profile had nothing for a placeholder.
+    return re.sub(r"[ \t]{2,}", " ", filled).strip()
 
 
 def apply_demographics(profile: Dict[str, Any], demographics: Dict[str, Any]) -> Dict[str, Any]:
@@ -107,15 +125,25 @@ def cap_trials(study_config: Any, run: Dict[str, Any], has_own_key: bool, log) -
 
 
 def build_profiles(trials: List[Dict[str, Any]], specification: Dict[str, Any], run: Dict[str, Any], study_id: str) -> List[Dict[str, Any]]:
-    demographics = run.get("demographics") or {}
+    """Decide who each participant is.
+
+    A persona group defines the population directly and replaces the study's own
+    sampling. Otherwise every participant keeps the profile the study drew for
+    them, with any demographic the researcher pinned applied on top.
+    """
     population = specification.get("participants", {}).get("population")
     recruitment = specification.get("participants", {}).get("recruitment_source")
+    defaults = {"study_id": study_id, "population": population, "education": recruitment or "college student"}
+
+    group = run.get("personaGroup")
+    if group:
+        return sample_profiles(group, len(trials), int(run.get("seed") or 42), defaults)
+
+    demographics = run.get("demographics") or {}
     profiles = []
     for index, trial in enumerate(trials):
-        base = dict(trial.get("profile") or {})
-        base.setdefault("participant_id", index)
-        base.setdefault("education", recruitment or "college student")
-        base.setdefault("population", population)
+        base = {**defaults, **(trial.get("profile") or {})}
+        base["participant_id"] = index
         base["study_id"] = study_id
         profiles.append(apply_demographics(base, demographics))
     return profiles
@@ -258,6 +286,12 @@ def main() -> None:
         trials = cap_trials(study_config, run, has_own_key, log)
         profiles = build_profiles(trials, specification, run, study_path.name)
         log(f"Prepared {len(trials)} participant sessions on {run.get('model')} with prompt {run.get('preset')}.")
+        if run.get("personaGroup"):
+            mix = Counter(profile.get("persona_label") for profile in profiles)
+            log("Participants: " + ", ".join(f"{count} × {label}" for label, count in mix.items()))
+        # The resolved cast is written out so a researcher can see exactly who took
+        # part, and reproduce or edit it for the next run.
+        (output_dir / "profiles.json").write_text(json.dumps(profiles, indent=2, default=str) + "\n")
 
         from src.agents.llm_participant_agent import ParticipantPool
 
@@ -280,6 +314,13 @@ def main() -> None:
             study_id=study_path.name,
             temperature=float(run.get("temperature") or 1.0),
         )
+
+        # A hand-written prompt with placeholders is rendered per agent, so a
+        # custom prompt and a persona group can be used together.
+        if override and "{{" in override:
+            for agent, profile in zip(pool.participants, profiles):
+                agent.system_prompt_override = render_prompt(override, profile)
+            log("Custom prompt contains placeholders; each agent received its own version.")
 
         state = {"done": 0}
 
@@ -332,6 +373,12 @@ def main() -> None:
         write_run(run_dir, run)
         progress.write({"phase": "charting", "completedTrials": stats["completedTrials"], "totalTrials": len(trials), "message": "Building the comparison charts"}, force=True)
 
+    except PersonaError as error:
+        log(f"Persona group rejected: {error}")
+        run.update({"status": "failed", "message": "The persona group for this run could not be used", "error": str(error)})
+        write_run(run_dir, run)
+        progress.write({"phase": "failed", "message": str(error)}, force=True)
+        raise SystemExit(1)
     except StudyNotRunnable as error:
         log(f"Study cannot be replayed: {error}")
         run.update({"status": "failed", "message": "This study cannot be replayed in the playground", "error": str(error)})
