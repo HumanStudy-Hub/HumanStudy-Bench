@@ -129,13 +129,13 @@ class StudyStudy006Config(BaseStudyConfig):
         ]
         
         for filename in possible_names:
-            file_path = self.study_path / "materials" / filename
+            file_path = self.source_path / "materials" / filename
             if file_path.exists():
                 with open(file_path, "r", encoding='utf-8') as f:
                     return json.load(f)
         
         # If none found, raise error with all attempted paths
-        attempted = [str(self.study_path / "materials" / name) for name in possible_names]
+        attempted = [str(self.source_path / "materials" / name) for name in possible_names]
         raise FileNotFoundError(f"Material not found for '{sub_study_id}'. Tried: {attempted}")
 
     def create_trials(self, n_trials: int = None) -> List[Dict[str, Any]]:
