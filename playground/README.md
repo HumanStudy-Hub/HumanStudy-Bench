@@ -54,6 +54,49 @@ prompt you wrote yourself. `demographics` overrides the sampled participant
 profile — age, gender, education, background, population, persona — which is
 what the demographic presets read.
 
+A custom prompt may contain `{{age}}`, `{{gender}}`, `{{background}}`,
+`{{persona}}`, or any other profile field. Placeholders are filled in per agent,
+so a hand-written prompt still varies across participants. Without a
+placeholder, every agent receives exactly the same prompt.
+
+## Personas
+
+`demographics` pins one identity onto every participant. A `personaGroup`
+instead describes the population the participants are drawn from:
+
+```json
+{
+  "personaGroup": {
+    "name": "Nurses and students",
+    "segments": [
+      {
+        "id": "nurses",
+        "label": "Hospital nurses",
+        "share": 0.3,
+        "age": { "min": 28, "max": 55 },
+        "gender": { "female": 0.8, "male": 0.2 },
+        "background": "works night shifts in an emergency department",
+        "persona": "You are a hospital nurse."
+      },
+      { "id": "students", "label": "Undergraduates", "share": 0.7, "age": { "min": 18, "max": 22 } }
+    ]
+  }
+}
+```
+
+Shares are relative and are normalised, so `30`/`70` and `0.3`/`0.7` mean the
+same thing. Participants are split by largest remainder, and no segment is ever
+dropped when there are enough participants to go around — a segment that never
+appears would be a silently ignored part of the design. Because a group is a
+population rather than a fixed cast, one saved group fits a 20-session run and a
+600-session run alike.
+
+Sampling is deterministic: the same group and `seed` reproduce the same
+participants exactly. The resolved cast is written to `output/profiles.json`.
+
+Groups contributed through HumanStudy-Hub are stored in
+[`profiles/`](profiles) as `<study>-<contributor>-<n>.json`.
+
 ## Charts
 
 ```bash
