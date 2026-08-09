@@ -101,11 +101,19 @@ jobs:
           JOB_ID: ${{ inputs.job_id }}
           TOKEN: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
         run: |
+          remote="https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git"
           git config user.name "HumanStudy-Hub Agent"
           git config user.email "pipeline@humanstudy-hub.org"
           git add "jobs/$JOB_ID/job.json"
           git commit -m "agent: start $JOB_ID"
-          git push "https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git" "HEAD:jobs/$JOB_ID"
+          # Losing this push loses the whole build, so a branch that moved under
+          # us is rebased onto rather than treated as a failure.
+          for attempt in 1 2 3; do
+            if git push "$remote" "HEAD:jobs/$JOB_ID"; then exit 0; fi
+            git pull --rebase "$remote" "jobs/$JOB_ID"
+          done
+          echo "Could not publish the running state after three attempts." >&2
+          exit 1
 
       - name: Run Claude Code through OpenRouter
         env:
