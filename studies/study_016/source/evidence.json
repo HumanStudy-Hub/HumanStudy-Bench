@@ -1,0 +1,278 @@
+{
+  "_purpose": "Complete evidence and provenance record. Every substantive claim or material used elsewhere in this package (study.json, materials/materials.json, task/task.json) points back to an entry here by its 'id'. 'source_location' always refers to input/paper.pdf (page numbers as printed in the running header/footer of the PDF, which pdftotext preserves). evidence_label is one of verbatim | reported | derived | missing, per the package builder's evidence scheme.",
+  "studies": [
+    {
+      "study_id": "comp_main",
+      "name": "Agent-based Q-learning simulation of GSP with frictions (Section 3)",
+      "is_human_subject_study": false,
+      "role_in_package": "Provides the theoretical/computational auction model that the human-subject experiments (human_main, human_mechanism) instantiate for people. Included for context and because task/adapter.py reuses this paper's own GSP payoff formulas. Not itself a human study and not the target of task/adapter.py's participant-facing procedure."
+    },
+    {
+      "study_id": "human_main",
+      "name": "Main laboratory human-subject experiment (Section 4)",
+      "is_human_subject_study": true,
+      "role_in_package": "Primary human-subject study modeled by task/task.json and task/adapter.py."
+    },
+    {
+      "study_id": "human_mechanism",
+      "name": "Discrete-time / information-cost follow-up human-subject experiment (Section 5)",
+      "is_human_subject_study": true,
+      "role_in_package": "Second human-subject study; adapter.py exposes its 2x2 (bid-adjustment cost x information cost) design as an alternate condition set."
+    },
+    {
+      "study_id": "comp_additional",
+      "name": "Additional calibrated computational simulations (Section 6)",
+      "is_human_subject_study": false,
+      "role_in_package": "Context only (overbidding-restriction and market-size simulations calibrated to human_main data). Not a human study; not implemented as a runnable task."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev.comp.env.setup",
+      "study_id": "comp_main",
+      "claim": "J=3 advertisers compete for K=2 ad slots; slot-1 click-through rate alpha1=1, slot-2 alpha2=alpha in {0.2,0.5,0.8}, slot-3 alpha3=0; each advertiser has private value v_j ~ U{1,10} redrawn each match/episode; winner of slot k pays the (k+1)-th highest bid; friction cost C is charged whenever an agent changes its bid from t-1 to t.",
+      "source_location": "p.1440-1442 (Section 3.1-3.2.1); Table 1, p.1441",
+      "evidence_label": "reported"
+    },
+    {
+      "id": "ev.comp.payoff.formula",
+      "study_id": "comp_main",
+      "claim": "Payoff for advertiser j allotted slot k: pi_j = alpha_k*(v_j - b_(k+1)) - C_j. Allocative efficiency Psi = sum_k(alpha_k * v_(k)) / sum_j(alpha_j * v^j) [realized welfare over max possible welfare]. Bid-to-value ratio Omega_j = b_j / v_j.",
+      "source_location": "p.1440-1441, Equations (1)-(3)",
+      "evidence_label": "verbatim",
+      "notes": "Formulas transcribed as printed; OCR artifacts in the PDF's math typesetting were checked against the surrounding prose description."
+    },
+    {
+      "id": "ev.comp.qlearning.params",
+      "study_id": "comp_main",
+      "claim": "Q-learning parameters: learning rate delta=0.1, discount factor gamma=0.99, Boltzmann exploration parameter lambda=1. M=2000 matches, T=100 periods per match, n=100,000 simulation runs. Treatment grid: C in {0.0, 0.5, 1.0} x alpha in {0.2, 0.5, 0.8}.",
+      "source_location": "p.1441-1442, Table 1 and Section 3.2.1",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.comp.result1",
+      "study_id": "comp_main",
+      "claim": "Result 1: Lower bid-adjustment costs lead to more exploration (more bid adjustments), for all three value-ranked agent types.",
+      "source_location": "p.1442, Table 2 and surrounding text",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.comp.result2to4",
+      "study_id": "comp_main",
+      "claim": "Result 2: bid-to-value ratio is higher for lower-valued agents. Result 3: for the lowest-valued agents, bid-to-value ratio increases as friction (C) decreases. Result 4: bid-to-value ratio decreases as alpha increases.",
+      "source_location": "p.1443, Table 3 and surrounding text",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.comp.result5",
+      "study_id": "comp_main",
+      "claim": "Result 5: allocative efficiency of the market increases as friction costs increase.",
+      "source_location": "p.1443-1444, Figure 1",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.recruitment",
+      "study_id": "human_main",
+      "claim": "138 participants recruited via ORSEE software on the campus of Purdue University; 8 sessions with 15-18 participants each.",
+      "source_location": "p.1446, Section 4.5",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.treatments",
+      "study_id": "human_main",
+      "claim": "Two between-subjects treatments on bid-adjustment cost: costless (C=0.0) and costly (C=0.1). Initial bid in a match is free; every subsequent change to the bid within a match costs C. Three within-subjects levels of alpha (slot-2/slot-1 value similarity): low=0.2, medium=0.5, high=0.8; each group shares the same alpha for the duration of a match.",
+      "source_location": "p.1444-1445, Section 4.1 and Table 4",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.matches",
+      "study_id": "human_main",
+      "claim": "Each session consisted of M=10 matches. At the start of each match, participants were randomly re-grouped into groups of J=3 and stayed in that group until the match ended (regrouping is random each match to avoid systematic learning about specific partners' behavior). Session earnings were the sum of payoffs across all 10 matches.",
+      "source_location": "p.1445, Section 4.2",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.random_termination",
+      "study_id": "human_main",
+      "claim": "Remark 1: random-termination protocol. Each match lasted at least 20 seconds; after that, each second had a 1% chance of ending the match, giving an expected match duration of 2 minutes. The same sequence of random termination seconds was reused across matches within every session (for comparability across sessions), per Online Table M.1 (not available in this PDF).",
+      "source_location": "p.1445, Section 4.2 and Endnote 16 (p.1451)",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.value_generation",
+      "study_id": "human_main",
+      "claim": "For each match, participants were given a randomly drawn private value for good 1 (slot 1); the value of good 2 (slot 2) equaled the value of good 1 multiplied by alpha. Matches 1-4 used unrestricted random draws. Matches 5-10 used common random seeds so that, within a match, all groups across the two cost treatments faced the same three valuations {v1_m, v2_m, v3_m}, and, for each match, at least one group experienced each alpha value. This is Remark 2.",
+      "source_location": "p.1445, Section 4.2 and Remarks 1-2",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.value_generation.bug",
+      "study_id": "human_main",
+      "claim": "A software bug in the common-random-seed generator for matches 5-10 meant the seed incremented by 1 instead of 3, so for each group, two of the three valuations repeated from the previous match and only one was newly drawn (then randomly reassigned within the group), giving ~20% chance of a repeated value across consecutive matches. The bug was identical across all treatments, so the authors judge it does not create a systematic cross-treatment confound, though it may make the reported overbidding/exploration effects conservative (more within-match learning opportunity about the same values).",
+      "source_location": "p.1451, Endnote 19",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.auction_mechanics",
+      "study_id": "human_main",
+      "claim": "At the start of a match each participant submits an initial bid at no cost, then may revise the bid continuously in time during the match (each revision after the first costs C in the costly treatment). If a participant's bid is highest, they win good 1 and pay the second-highest bid, netting (v(1) - b(2)) - C(1). If second-highest, they win good 2 and pay alpha times the third-highest bid, netting alpha*(v(2)-b(3)) - C(2). If lowest, they win no good and pay only any friction cost incurred. Alpha is common knowledge, announced in instructions and reminded on-screen.",
+      "source_location": "p.1445-1446, Section 4.3",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.payment_mechanism",
+      "study_id": "human_main",
+      "claim": "Remark 3: participants were compensated based on the outcome of a single, last, randomly occurring period within the (conceptually infinite-horizon) match, citing Chandrasekhar and Xandri (2022) for incentive-compatibility of this scheme for infinite-horizon dynamic games.",
+      "source_location": "p.1446, Section 4.3",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.silent_protocol",
+      "study_id": "human_main",
+      "claim": "Remark 4: silent protocol. Instead of clicking to submit a new bid (which other participants could hear and use as an information cue), subjects placed/adjusted bids by moving the mouse back and forth across a scale border, keeping the room quiet; physical dividers additionally limited what participants could see of neighbors' screens.",
+      "source_location": "p.1446-1447, Section 4.4 and Endnote 18",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.interface",
+      "study_id": "human_main",
+      "claim": "The experiment ran on a custom author-built interface (screenshot in Figure 2, p.1446) that displayed: (1) match information before the match began; (2) the participant's current action and live outcome, updated as all three group members act; (3) a scale on the left side of the screen used to place/revise the bid; (4) blank scales for the other two participants, revealed only after the match ends; (5) on-screen reminders of the rules (e.g., common knowledge of alpha).",
+      "source_location": "p.1446, Figure 2 caption",
+      "evidence_label": "reported",
+      "notes": "The figure itself is a screenshot image; exact on-screen wording/layout beyond the caption's five labeled elements is not machine-readable from this PDF and is recorded as missing in audit/missing_information.json."
+    },
+    {
+      "id": "ev.human_main.training",
+      "study_id": "human_main",
+      "claim": "Before the paid matches, subjects: (1) received a printed instructions handout (Online Appendix L) read aloud by an experimenter for common knowledge; (2) completed 6 practice tasks on placing/modifying bids, advancing only after each was completed correctly; (3) worked through 5 randomly generated examples practicing bid placement/revision against hypothetical opponent actions; (4) had a calculator, pen and paper available throughout instructions and the experiment. These steps took about 20 minutes; before each match subjects reviewed that match's info and placed the initial bid only when ready; the 10 matches took about 30 minutes; subjects were paid in cash afterward.",
+      "source_location": "p.1447, Section 4.5",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.instructions_text",
+      "study_id": "human_main",
+      "claim": "The verbatim instructions handout read to participants is Online Appendix L, which is not included in the uploaded PDF (main text only).",
+      "source_location": "p.1447, Section 4.5 ('Online Appendix L')",
+      "evidence_label": "missing"
+    },
+    {
+      "id": "ev.human_main.result6",
+      "study_id": "human_main",
+      "claim": "Result 6: number of bid adjustments in the C=0.0 treatment is roughly an order of magnitude greater than in C=0.1; lowest-valued participants explore (adjust) more than medium- and highest-valued participants. Table 5 gives means with bootstrapped SEs and two-tailed permutation-test significance stars for matches 5-10.",
+      "source_location": "p.1447, Table 5 and Section 4.6.1",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.result7to8",
+      "study_id": "human_main",
+      "claim": "Result 7: bid-to-value ratio is higher for lower-valued participants (lowest-valued substantially overbid relative to others). Result 8: for the lowest-valued participants, the bid-to-value ratio is significantly higher when C=0.0 than C=0.1 (increases as friction decreases). Table 6 gives means/SEs and significance by alpha x C cell.",
+      "source_location": "p.1448, Table 6 and Section 4.6.2",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.result9",
+      "study_id": "human_main",
+      "claim": "Result 9: bid-to-value ratio decreases as alpha increases, for medium- and highest-valued agents (partial support: significant in 4 of 6 comparisons; the other two are directionally consistent but not significant, both for lower-valued agents).",
+      "source_location": "p.1448, Section 4.6.2",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_main.result10",
+      "study_id": "human_main",
+      "claim": "Result 10: allocative efficiency is significantly higher when C=0.1 than C=0.0 (Table 7: average efficiency 0.94 at C=0.0 vs 0.98 at C=0.1, computed on the last bid subjects placed in each match, unit of observation = group of 3, matches 5-10).",
+      "source_location": "p.1448-1449, Table 7 and Section 4.6.3",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_mechanism.rationale",
+      "study_id": "human_mechanism",
+      "claim": "Motivation: because continuous-time bidding, immediate feedback, and the fact that adjusting one's own bid was the only way to learn about counterfactual outcomes might have encouraged excessive exploration in the main experiment, the authors ran a second experiment making learning information available by design (an interactive counterfactual-payoff plot) and switching to a discrete-time protocol, to test robustness and isolate mechanism.",
+      "source_location": "p.1449, Section 5 (opening paragraphs)",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_mechanism.recruitment",
+      "study_id": "human_mechanism",
+      "claim": "183 new participants recruited on the campus of Purdue University, none of whom had participated in the original (human_main) experiment. Programmed in oTree software (Chen, Schonger, and Wickens 2016).",
+      "source_location": "p.1449, Section 5",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_mechanism.design",
+      "study_id": "human_mechanism",
+      "claim": "2x2 factorial design: bid-adjustment cost C in {0.0, 0.1} (as in human_main) crossed with counterfactual-information cost: free vs. costly ($0.5 charged every period the subject accessed an interactive counterfactual-payoff plot). Alpha fixed at 0.5 for all four treatments (not varied, unlike human_main).",
+      "source_location": "p.1449, Section 5 (design paragraph) and Table with 'Regarding the design for new experiments...'",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_mechanism.info_tool",
+      "study_id": "human_mechanism",
+      "claim": "The purchasable information was an interactive plot displaying possible payoffs for any own bid, conditional on the other two group members holding the bids they used in the previous period (screenshots in Online Appendix N.2, not included in this PDF).",
+      "source_location": "p.1449, Section 5",
+      "evidence_label": "reported"
+    },
+    {
+      "id": "ev.human_mechanism.differences_from_main",
+      "study_id": "human_mechanism",
+      "claim": "Differences from human_main: (i) discrete-time setup instead of continuous-time; (ii) different duration/number of decision periods; (iii) multiple duration-sequence realizations (4 sequences, Online Table N.1, not included); (iv) private values drawn independently at random for each subject in each match, rather than fixed/matched across groups as in human_main matches 5-10.",
+      "source_location": "p.1449, Section 5",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_mechanism.discrete_time_protocol",
+      "study_id": "human_mechanism",
+      "claim": "In the discrete-time setting, subjects faced an uncertain number of decision periods; within each period they had unlimited time to make a desired bid adjustment (if any); once all group members submitted a decision for the period, all saw that period's outcome. The expected number of periods was reduced to 10 (termination probability 0.1 per period, vs. the implicit ~1% per second / ~120 one-second-periods-in-expectation of human_main) to keep session length within lab time constraints. Four different period-length sequences were used (Online Table N.1) so that no single sequence realization would bias results.",
+      "source_location": "p.1449, Section 5",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_mechanism.instructions_text",
+      "study_id": "human_mechanism",
+      "claim": "Instructions and decision screens for this experiment are presented in Online Appendix N.1, which is not included in the uploaded PDF (main text only).",
+      "source_location": "p.1449, Section 5",
+      "evidence_label": "missing"
+    },
+    {
+      "id": "ev.human_mechanism.result_adjustments",
+      "study_id": "human_mechanism",
+      "claim": "Consistent with human_main and comp_main: number of bid adjustments significantly greater when C=0.0 than C=0.1; also significantly greater when information is costly than when it is free (Table 8, second half of the experiment).",
+      "source_location": "p.1449-1450, Table 8 and Section 5 discussion",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_mechanism.result_bidtovalue",
+      "study_id": "human_mechanism",
+      "claim": "Lowest-valued agents again show the highest bid-to-value ratio; in the costly-information/no-bid-cost cell they significantly overbid. When information costs are present, bid-adjustment costs substantially mitigate overbidding (Table 9).",
+      "source_location": "p.1450, Table 9 and Section 5.6.2 discussion",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.human_mechanism.result_efficiency",
+      "study_id": "human_mechanism",
+      "claim": "Across both free- and costly-information treatments, bid-adjustment costs improve allocative efficiency (Table 10: e.g., NoInfoCost 0.960->0.982, InfoCost 0.943->0.968 as C goes 0.0->0.1); the free-information effect is directionally consistent but weaker in significance than the costly-information effect.",
+      "source_location": "p.1450, Table 10 and Section 5 discussion",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.comp_additional.restriction_sim",
+      "study_id": "comp_additional",
+      "claim": "A computational experiment restricting the lowest-valued agent to never overbid (b3 <= v3), holding alpha=0.5, C=0.5, J=3, K=2, raises allocative efficiency from 0.951 to 0.958 (about 5% of the relevant range, since random-bidding efficiency floor is ~0.85).",
+      "source_location": "p.1450, Section 6 and Endnote 23",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.comp_additional.market_size_sim",
+      "study_id": "comp_additional",
+      "claim": "Simulations calibrated to human_main data (delta=0.05, lambda=0.9 calibrated from experimental data; alpha=0.5, K=2, C=0.5 for the bid-to-value part) varying the number of advertisers J from 3 to 6 show: (i) allocative efficiency decreases as J increases; (ii) lowest-valued agents overbid more; (iii) that overbidding cascades into higher-valued advertisers' bids; the core result (efficiency increases with friction cost) holds across market sizes; efficiency does not change linearly with J (Figure 3).",
+      "source_location": "p.1451, Section 6 and Figure 3 caption",
+      "evidence_label": "verbatim"
+    },
+    {
+      "id": "ev.limitations",
+      "study_id": "human_main",
+      "claim": "Author-stated limitations: (1) slot rank determined only by bid, ignoring real-world quality-score factors (partially addressed for ad-quality in Online Appendix E); (2) all advertisers assumed to face the same bid-adjustment cost, ignoring heterogeneity; (3) the paper studies two endpoints only (fully computational vs. fully human decision-making), not mixed human+AI-tool bidding; (4) focus is specifically on bid-adjustment cost as the friction, not participation or model-evaluation/estimation costs, and only in the online-ad-market context (not e-commerce, dating, ride-sharing, etc.).",
+      "source_location": "p.1451-1452, Section 7 (Conclusion) and Endnote 24",
+      "evidence_label": "verbatim"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "_purpose": "Participant-visible materials, grouped by study and condition. Every item carries an evidence_label and a source pointer into source/evidence.json (by 'evidence_id') or directly into input/paper.pdf. Items labeled 'derived' are researcher-facing reconstructions built ONLY from the reported procedural facts in the paper (never invented facts); the derivation is stated explicitly so a researcher can replace them with the verbatim handout text if/when it becomes available (see audit/missing_information.json).",
+
+  "human_main": {
+    "study_name": "Main laboratory experiment (Section 4)",
+    "conditions": {
+      "between_subjects": { "variable": "C (bid-adjustment cost)", "levels": [0.0, 0.1] },
+      "within_subjects": { "variable": "alpha (slot-2/slot-1 value ratio)", "levels": [0.2, 0.5, 0.8] }
+    },
+    "materials": [
+      {
+        "id": "mat.human_main.overview_text",
+        "title": "Task framing given to participants",
+        "evidence_label": "reported",
+        "evidence_id": "ev.human_main.auction_mechanics",
+        "content": "Participants are told they will bid, as one of three anonymous 'participants' in a group, on two 'goods' across 10 paid 'matches'. Advertisers/ad-slots/auction are relabeled participants/goods/match for the human-subject audience (the paper is explicit that this relabeling was used to make the task intuitive for subjects; the underlying GSP structure is unchanged)."
+      },
+      {
+        "id": "mat.human_main.instructions_derived",
+        "title": "Participant instructions (derived reconstruction; verbatim handout is missing)",
+        "evidence_label": "derived",
+        "derivation": "Reconstructed strictly from the procedural facts reported in Section 4.1-4.5 and Remarks 1-4 of the paper (see evidence ids ev.human_main.treatments, ev.human_main.matches, ev.human_main.random_termination, ev.human_main.value_generation, ev.human_main.auction_mechanics, ev.human_main.payment_mechanism, ev.human_main.silent_protocol, ev.human_main.training). No wording, phrasing, or additional facts were invented; this is not the verbatim instructions handout (Online Appendix L), which is unavailable to this package (see audit entry AUD-01).",
+        "content": [
+          "You will take part in 10 matches. In each match you are grouped with two other participants (regrouped at random each match).",
+          "In every match there are two goods for sale: Good 1 and Good 2. Good 2 is worth a fraction (called alpha) of Good 1's value; alpha will be the same for everyone in your group for that match and will be shown on screen.",
+          "At the start of a match you will be told your own private value for Good 1 (an integer). Only you know your own value.",
+          "You submit a bid for Good 1 (a number). Your first bid in a match is free to place. If you change your bid later in the same match, you pay a bid-adjustment cost of C for each change (C is announced for the whole session and does not change during the session).",
+          "Whoever bids highest wins Good 1 and pays an amount equal to the second-highest bid; whoever bids second-highest wins Good 2 and pays alpha times the third-highest bid; whoever bids lowest wins nothing and pays no purchase price (but still pays any bid-adjustment costs already incurred).",
+          "You may keep revising your bid until the match ends. You will not be told when the match will end in advance; each match lasts at least a minimum amount of time and then may end at any moment. You cannot hear or see other participants change their bids.",
+          "You will be paid, in cash, based on the outcome of one randomly chosen moment within the match (not necessarily the final moment), summed across all 10 matches."
+        ]
+      },
+      {
+        "id": "mat.human_main.practice_structure",
+        "title": "Practice / comprehension-check structure before paid matches",
+        "evidence_label": "reported",
+        "evidence_id": "ev.human_main.training",
+        "content": "Before real matches: an experimenter reads the instructions handout aloud; participants complete 6 sequential practice tasks on placing/modifying a bid (must answer correctly to advance); participants work through 5 randomly generated example scenarios practicing bid placement/revision against hypothetical opponent bids; calculator, pen, and paper are available throughout."
+      },
+      {
+        "id": "mat.human_main.interface_description",
+        "title": "On-screen interface elements (from Figure 2)",
+        "evidence_label": "reported",
+        "evidence_id": "ev.human_main.interface",
+        "content": "Screen shows, per Figure 2's five labeled callouts: (1) that match's information (private value, alpha) shown before the match starts; (2) the participant's current bid/action and the live outcome and payoff associated with it, updated as group members act; (3) a slider/scale on the left used to place and revise the bid; (4) blank placeholders for the other two participants' scales, revealed only once the match ends; (5) an on-screen reminder of the rules (e.g., that alpha is common knowledge).",
+        "note": "The exact pixel layout and any additional on-screen text beyond these five captioned elements is not machine-readable from the PDF screenshot; see audit entry AUD-02."
+      },
+      {
+        "id": "mat.human_main.silent_protocol_note",
+        "title": "Silent bid-adjustment protocol",
+        "evidence_label": "reported",
+        "evidence_id": "ev.human_main.silent_protocol",
+        "content": "To prevent other participants' mouse-click sounds from leaking information about when someone adjusted a bid, participants adjusted bids by moving the mouse back and forth across the scale's border rather than clicking; physical dividers also blocked visual cues between adjacent terminals."
+      },
+      {
+        "id": "mat.human_main.common_knowledge_reminder",
+        "title": "Common-knowledge announcement of alpha",
+        "evidence_label": "reported",
+        "evidence_id": "ev.human_main.auction_mechanics",
+        "content": "Experimenters explicitly announced, and kept an on-screen reminder, that alpha (the value of Good 2 relative to Good 1) is the same for every participant in the group for that match, so that this fact is common knowledge among group members."
+      }
+    ]
+  },
+
+  "human_mechanism": {
+    "study_name": "Discrete-time / information-cost follow-up experiment (Section 5)",
+    "conditions": {
+      "factorial_2x2": {
+        "factor_1": { "variable": "C (bid-adjustment cost)", "levels": [0.0, 0.1] },
+        "factor_2": { "variable": "information cost (access to counterfactual-payoff plot)", "levels": ["free", "costly ($0.5 per period accessed)"] }
+      },
+      "fixed": { "alpha": 0.5 }
+    },
+    "materials": [
+      {
+        "id": "mat.human_mechanism.overview_text",
+        "title": "Task framing given to participants",
+        "evidence_label": "reported",
+        "evidence_id": "ev.human_mechanism.recruitment",
+        "content": "Same participant-facing GSP-as-match framing as human_main (new, non-overlapping subject pool, 183 participants), but implemented in oTree with a discrete sequence of decision periods instead of continuous time, and a fixed alpha=0.5 in all four treatments."
+      },
+      {
+        "id": "mat.human_mechanism.instructions_derived",
+        "title": "Participant instructions (derived reconstruction; verbatim oTree screens are missing)",
+        "evidence_label": "derived",
+        "derivation": "Reconstructed strictly from Section 5's procedural description (evidence ids ev.human_mechanism.design, ev.human_mechanism.info_tool, ev.human_mechanism.discrete_time_protocol). The verbatim oTree instructions/decision screens (Online Appendix N.1) are unavailable to this package (see audit entry AUD-03).",
+        "content": [
+          "You will take part in several matches. In each match you are grouped with two other participants and each of you privately knows only your own value for Good 1 (Good 2 is worth alpha=0.5 times Good 1's value for everyone this session).",
+          "Each match has an uncertain number of decision periods. In each period you have unlimited time to submit a bid or change your previous bid (or leave it unchanged); once everyone in your group has submitted, you all see that period's outcome before the next period begins.",
+          "Depending on your session's treatment, changing your bid may cost C per change (as in the main experiment), and/or you may be offered a plot showing what your payoff would have been for every possible bid, holding the other two participants' previous bids fixed; viewing this plot in a period may cost $0.5, or may be free, depending on your treatment.",
+          "Private values are redrawn independently at random for you at the start of every match (they are not matched to other participants' values as in the main experiment's later matches)."
+        ]
+      },
+      {
+        "id": "mat.human_mechanism.info_tool_description",
+        "title": "Counterfactual-information tool",
+        "evidence_label": "reported",
+        "evidence_id": "ev.human_mechanism.info_tool",
+        "content": "An interactive plot showing the participant's possible payoff for any bid they might place, holding the other two group members' bids at the values observed in the previous period. Screenshots of this tool are in Online Appendix N.2, which is unavailable to this package."
+      }
+    ]
+  },
+
+  "computational_context": {
+    "study_name": "Q-learning simulations (Section 3) and calibrated follow-up simulations (Section 6)",
+    "note": "Not human-facing materials; included so the runnable task's payoff/environment logic (task/adapter.py) matches the paper's own model rather than an invented one.",
+    "materials": [
+      {
+        "id": "mat.comp.payoff_formulas",
+        "title": "GSP environment and payoff formulas reused by the runnable task",
+        "evidence_label": "verbatim",
+        "evidence_id": "ev.comp.payoff.formula",
+        "content": "pi_j = alpha_k*(v_j - b_(k+1)) - C_j; Psi = sum_k(alpha_k*v_(k)) / sum_j(alpha_j*v^j); Omega_j = b_j / v_j."
+      }
+    ]
+  }
+}

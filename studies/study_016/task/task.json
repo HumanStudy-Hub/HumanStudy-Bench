@@ -1,0 +1,108 @@
+{
+  "_purpose": "Defines the runnable agent interaction implemented by task/adapter.py: what role the agent-under-test plays, what it is shown, what it must output, how conditions are assigned, and which materials/evidence back each design choice.",
+
+  "task_id": "gsp_bid_adjustment_friction",
+  "title": "Generalized second-price auction bidding under bid-adjustment frictions",
+  "studies_modeled": ["human_main", "human_mechanism"],
+  "entry_point": "task/adapter.py",
+  "how_to_run": "python3 task/adapter.py --smoke-test    # offline sanity check, no network\npython3 task/adapter.py --study human_main --cost 0.1 --alpha 0.5 --num-matches 10 --agent-policy truthful --seed 1\npython3 task/adapter.py --study human_mechanism --cost 0.0 --info-cost 0.5 --num-matches 10 --agent-policy truthful --seed 1",
+
+  "participant_role": {
+    "description": "The agent-under-test plays the role of ONE of three anonymous group members ('participants' in the paper's own subject-facing language) across a sequence of matches. Each match, the agent is privately shown its own value for Good 1 (Good 2's value is alpha * Good 1's value), and must submit an initial bid and may revise it at successive decision points, subject to the session's bid-adjustment cost C.",
+    "source": "materials/materials.json#human_main.mat.human_main.instructions_derived and #human_mechanism.mat.human_mechanism.instructions_derived",
+    "evidence_id": "ev.human_main.auction_mechanics"
+  },
+
+  "conditions": {
+    "human_main": {
+      "between_subjects": { "cost": [0.0, 0.1] },
+      "within_subjects": { "alpha": [0.2, 0.5, 0.8] },
+      "group_size_J": 3,
+      "slots_K": 2,
+      "matches_per_session": 10,
+      "evidence_id": "ev.human_main.treatments"
+    },
+    "human_mechanism": {
+      "factorial_2x2": { "cost": [0.0, 0.1], "info_cost": [0.0, 0.5] },
+      "alpha_fixed": 0.5,
+      "group_size_J": 3,
+      "slots_K": 2,
+      "evidence_id": "ev.human_mechanism.design"
+    }
+  },
+
+  "environment_parameters": {
+    "value_distribution": "U{1,...,10} for Good 1's value, redrawn independently per match per participant (matches 1-4 style in human_main; the seed-matching used by the paper in matches 5-10 is NOT reproduced here -- see derived_design_decisions D2)",
+    "good2_value": "alpha * value_of_good_1",
+    "payoff_formula": "winner of slot k pays the (k+1)-th highest bid; payoff = alpha_k*(value - price) - bid_adjustment_costs_incurred_this_match [+/- information_costs_incurred_this_match for human_mechanism]",
+    "evidence_id": "ev.comp.payoff.formula"
+  },
+
+  "io_schema": {
+    "decision_point_state_shown_to_agent": {
+      "study": "human_main | human_mechanism",
+      "match_index": "int, 1-based",
+      "period_index": "int, 1-based decision checkpoint within the match",
+      "is_first_decision_in_match": "bool (true => placing the initial bid is free regardless of condition)",
+      "own_value_good1": "int in [1,10]",
+      "alpha": "float, value of Good 2 relative to Good 1",
+      "bid_adjustment_cost": "float, C for this session",
+      "current_own_bid": "float or null if no bid placed yet",
+      "info_cost": "float or null; only present for study=human_mechanism",
+      "counterfactual_payoff_table": "object or null; only present for study=human_mechanism AND the agent chose to purchase it this period (see agent action 'view_info')",
+      "match_may_end_any_period": true
+    },
+    "agent_action": {
+      "bid": "number in [0,10], required each period (repeating current_own_bid means no change / no cost)",
+      "purchase_info": "bool, only meaningful for study=human_mechanism; requests the counterfactual_payoff_table on the NEXT call, at cost info_cost for this period"
+    },
+    "match_end_record": {
+      "final_bids_by_rank": "[b_highest, b_medium, b_lowest]",
+      "participant_by_rank": "[participant_id_highest, participant_id_medium, participant_id_lowest]",
+      "values_by_rank": "[v_highest, v_medium, v_lowest]",
+      "winner_slot_by_participant": "mapping of participant id -> 1, 2, or null",
+      "payoff_by_participant": "mapping of participant id -> float",
+      "num_bid_adjustments_by_participant": "mapping of participant id -> int",
+      "num_info_purchases_by_participant": "mapping of participant id -> int (human_mechanism only)"
+    },
+    "run_output_metrics": {
+      "mean_bid_adjustments_by_rank": "as in paper Table 2 / Table 5 / Table 8",
+      "mean_bid_to_value_ratio_by_rank": "as in paper Table 3 / Table 6 / Table 9",
+      "mean_allocative_efficiency": "as in paper Figure 1 / Table 7 / Table 10"
+    }
+  },
+
+  "co_players": {
+    "description": "The other two group members each match are simulated policies, NOT replayed human data (the paper does not release individual human bid trajectories, and this package was built without external/OSF access -- see audit AUD-04). Available built-in policies are documented in task/adapter.py: 'truthful' (bid = value; the theoretical weakly-dominant benchmark the paper itself cites for the lowest-valued bidder, evidence_id ev.comp.env.setup) and 'softmax_explorer' (a stylized Boltzmann explorer parameterized like the paper's OWN Q-learning agents in Section 3.2.1, evidence_id ev.comp.qlearning.params, provided only as a stress-test opponent, not a claim about human behavior).",
+    "fidelity_caveat": "Because co-players are simulated rather than real humans or a verified behavioral-clone of the paper's subjects, this task can score the agent-under-test's OWN exploration / bid-to-value / responsiveness-to-C behavior, but it cannot be used to reproduce the paper's between-subjects human-vs-human significance tests (Tables 5-10). evaluation.py reflects this: descriptive metrics run; inferential replication returns not_ready."
+  },
+
+  "derived_design_decisions": [
+    {
+      "id": "D1",
+      "decision": "Discretize the continuous-time bidding window (human_main) into a bounded sequence of decision checkpoints instead of true continuous mouse-tracked time, since an LLM-style agent interacts turn-by-turn rather than via continuous mouse position.",
+      "parameters_used": "min 20 checkpoints, then 1%-per-checkpoint termination probability, capped at 100 checkpoints (mirrors T=100 used in the paper's OWN computational model, ev.comp.qlearning.params), matching the reported EXPECTED duration (2 minutes / ~120 one-second periods) but not the literal continuous silent-mouse protocol (ev.human_main.silent_protocol, ev.human_main.random_termination), which has no turn-based analogue.",
+      "impact": "Bid-adjustment COUNTS from this task are not directly comparable to Table 2/5 counts; ratios and directional effects of C and alpha are the intended comparison, not absolute adjustment counts.",
+      "audit_ref": "AUD-05"
+    },
+    {
+      "id": "D2",
+      "decision": "Private values are drawn independently at random each match for every simulated run, rather than reproducing the paper's matches-5-10 common-random-seed matching across treatments (ev.human_main.value_generation) -- that scheme exists to let the PAPER compare human sessions apples-to-apples; a single adapter run has no cross-session comparison to protect.",
+      "impact": "Researchers who want the exact matched-value design for cross-run comparability must supply their own seeding scheme; adapter.py exposes --seed for run-level reproducibility only.",
+      "audit_ref": "AUD-06"
+    },
+    {
+      "id": "D3",
+      "decision": "For study=human_mechanism, the discrete-period termination process (no stated minimum duration, probability 0.1 per period, expected 10 periods) is implemented directly per ev.human_mechanism.discrete_time_protocol, but the paper's own 4 duration-SEQUENCE realizations (Online Table N.1) are not available, so periods are drawn fresh via the RNG rather than replayed from the paper's fixed sequences.",
+      "impact": "Run-to-run period-count variance will not exactly match the paper's 4 canonical sequences.",
+      "audit_ref": "AUD-07"
+    }
+  ],
+
+  "readiness_status": "runnable_with_documented_limitations",
+  "materials_used": [
+    "../materials/materials.json#human_main.mat.human_main.instructions_derived",
+    "../materials/materials.json#human_mechanism.mat.human_mechanism.instructions_derived",
+    "../materials/materials.json#computational_context.mat.comp.payoff_formulas"
+  ]
+}

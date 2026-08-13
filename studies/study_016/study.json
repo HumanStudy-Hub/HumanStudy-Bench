@@ -1,0 +1,108 @@
+{
+  "_purpose": "Researcher-facing overview of this package. Points into source/evidence.json for provenance, materials/materials.json for participant-visible content, and task/ + evaluation/ for the runnable contract.",
+  "paper": {
+    "title": "Analyzing Frictions in Generalized Second-Price Auction Markets",
+    "authors": [
+      "Karthik Kannan",
+      "Vandith Pamuru",
+      "Yaroslav Rosokha"
+    ],
+    "venue": "Information Systems Research, Vol. 34, No. 4, December 2023, pp. 1437-1454",
+    "doi": "10.1287/isre.2022.1187",
+    "source_file": "input/paper.pdf",
+    "metadata_file": "source/paper_metadata.json"
+  },
+  "external_sources_consulted": [],
+  "external_sources_policy_note": "No OSF or open-materials URL was supplied by the contributor for this job. Per the package-builder's opt-in policy, no web search, web fetch, DOI resolution, or repository/author-page discovery was performed. This entire package is built from input/paper.pdf only. The paper's own online appendix (referenced repeatedly in-text as Online Appendices A-N) was therefore NOT retrieved; see audit/missing_information.json for every place this leaves a gap.",
+  "empirical_studies": [
+    {
+      "study_id": "comp_main",
+      "name": "Agent-based Q-learning simulation of the GSP environment with bid-adjustment frictions",
+      "section": "Section 3",
+      "is_human_subject_study": false,
+      "sample": "100,000 simulated runs of M=2,000 matches x T=100 periods per match, J=3 Q-learning agents per match competing for K=2 ad slots",
+      "conditions": "Full factorial C in {0.0, 0.5, 1.0} x alpha in {0.2, 0.5, 0.8}",
+      "key_findings": [
+        "Result 1: lower bid-adjustment costs lead to more exploration (more bid adjustments).",
+        "Result 2: bid-to-value ratio is higher for lower-valued agents.",
+        "Result 3: for the lowest-valued agents, bid-to-value ratio increases as friction decreases.",
+        "Result 4: bid-to-value ratio decreases as alpha increases.",
+        "Result 5: allocative efficiency of the market increases as friction costs increase."
+      ],
+      "role_in_package": "Supplies the GSP environment/payoff formulas that task/adapter.py reuses; not itself modeled as a runnable human-study task."
+    },
+    {
+      "study_id": "human_main",
+      "name": "Main laboratory human-subject experiment",
+      "section": "Section 4",
+      "is_human_subject_study": true,
+      "sample": "138 participants, 8 lab sessions of 15-18 participants each, recruited via ORSEE at Purdue University",
+      "conditions": "Between-subjects: bid-adjustment cost C in {0.0 (costless), 0.1 (costly)}. Within-subjects: alpha (slot-2/slot-1 value ratio) in {0.2 (low), 0.5 (medium), 0.8 (high)}. 10 matches per session, groups of J=3 re-randomized each match.",
+      "participant_flow": "Handout instructions read aloud -> 6 sequential practice tasks (must pass to advance) -> 5 randomized worked examples -> 10 real paid matches (continuous-time bidding within each match, silent mouse-based bid revision, random termination, single randomly-drawn-period payment) -> cash payment.",
+      "outcomes_measured": [
+        "Number of bid adjustments per participant per match (exploration), by value rank",
+        "Bid-to-value ratio (Omega_j = bid/value) per participant per match, by value rank",
+        "Allocative efficiency (Psi) of the match (realized welfare / max possible welfare), by treatment"
+      ],
+      "key_findings": [
+        "Result 6: bid adjustments are an order of magnitude higher at C=0.0 than C=0.1; lowest-valued participants adjust most.",
+        "Result 7: lowest-valued participants substantially overbid relative to others.",
+        "Result 8: lowest-valued participants' bid-to-value ratio is significantly higher at C=0.0 than C=0.1.",
+        "Result 9: bid-to-value ratio decreases as alpha increases, for medium/highest-valued participants (partial support for the analogous computational result).",
+        "Result 10: allocative efficiency is significantly higher at C=0.1 (0.98) than C=0.0 (0.94)."
+      ],
+      "role_in_package": "Primary human-subject study modeled by task/task.json + task/adapter.py (condition set 'human_main')."
+    },
+    {
+      "study_id": "human_mechanism",
+      "name": "Discrete-time / information-cost follow-up experiment ('Experiment to Study the Underlying Mechanism')",
+      "section": "Section 5",
+      "is_human_subject_study": true,
+      "sample": "183 new participants (no overlap with human_main), recruited at Purdue University, programmed in oTree",
+      "conditions": "2x2 factorial: bid-adjustment cost C in {0.0, 0.1} x counterfactual-information cost in {free, $0.5/period}. Alpha fixed at 0.5 for all four cells (not varied). Discrete-time decision periods (expected 10 per match, termination probability 0.1/period) instead of continuous time; private values drawn independently each match (not matched across groups/treatments as in human_main's later matches).",
+      "participant_flow": "oTree-based instructions and decision screens (Online Appendix N.1, not available in this PDF) -> repeated matches with discrete decision periods, optional purchase of a counterfactual-payoff plot each period depending on treatment -> payment.",
+      "outcomes_measured": [
+        "Number of bid adjustments per participant per match, by value rank and treatment cell",
+        "Bid-to-value ratio per participant per match, by value rank and treatment cell",
+        "Allocative efficiency of the match, by treatment cell"
+      ],
+      "key_findings": [
+        "Bid adjustments are significantly higher when C=0.0 than C=0.1, and higher when information is costly than when it is free.",
+        "Lowest-valued participants again show the highest bid-to-value ratio, especially with costly information and no bid-adjustment cost; bid-adjustment costs substantially mitigate this overbidding when information is costly.",
+        "Allocative efficiency improves with bid-adjustment costs in both the free- and costly-information conditions (weaker significance in the free-information condition)."
+      ],
+      "role_in_package": "Second human-subject study; modeled by task/task.json + task/adapter.py (condition set 'human_mechanism')."
+    },
+    {
+      "study_id": "comp_additional",
+      "name": "Additional calibrated computational simulations",
+      "section": "Section 6",
+      "is_human_subject_study": false,
+      "sample": "Computational simulations, Q-learning parameters (delta, lambda) calibrated to human_main data",
+      "conditions": "(a) Lowest-valued agent restricted to never overbid (b3<=v3), alpha=0.5, C=0.5, J=3, K=2. (b) Number of advertisers J varied over {3,4,5,6}, alpha=0.5, C=0.5, K=2.",
+      "key_findings": [
+        "(a) Restricting the lowest-valued agent from overbidding raises allocative efficiency from 0.951 to 0.958 (~5% of the relevant range).",
+        "(b) As the number of advertisers increases, allocative efficiency decreases, lowest-valued agents overbid more, and this cascades into higher-valued advertisers' bids; the core friction-increases-efficiency result holds across market sizes."
+      ],
+      "role_in_package": "Context/robustness only; not implemented as a runnable task (no new human-subject data)."
+    }
+  ],
+  "package_entry_point": {
+    "runnable_task": "task/adapter.py",
+    "task_definition": "task/task.json",
+    "evaluation": "evaluation/evaluation.py",
+    "smoke_test_command": "python3 task/adapter.py --smoke-test",
+    "example_full_run": "python3 task/adapter.py --study human_main --cost 0.1 --alpha 0.5 --num-matches 10 --agent-policy truthful --seed 1 --output run.json && python3 evaluation/evaluation.py run.json"
+  },
+  "readiness_status": {
+    "overall": "runnable_with_documented_limitations",
+    "summary": "task/adapter.py runs fully offline, implements both human-subject studies' condition sets and the paper's own GSP payoff formulas, and passes --smoke-test. It cannot reproduce the paper's exact continuous-time UI, the verbatim instructions handouts, or its cross-session inferential statistics (bootstrapped SEs / permutation tests), because those depend on materials or raw session data not present in the uploaded PDF and not authorized for external retrieval on this job. See audit/missing_information.json for the itemized list (AUD-01 through AUD-10) and task/task.json#derived_design_decisions for the specific simplifications made to keep the task runnable.",
+    "blocking_for_full_paper_replication": true,
+    "blocking_for_descriptive_agent_evaluation": false
+  },
+  "contributors": [
+    {
+      "name": "Yuanjun"
+    }
+  ]
+}

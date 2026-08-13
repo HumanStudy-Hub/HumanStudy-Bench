@@ -1,0 +1,85 @@
+{
+  "_purpose": "Authoritative researcher checklist of missing verbatim content and outstanding researcher decisions. Referenced by id (e.g. 'AUD-01') from study.json, materials/materials.json, task/task.json, and evaluation/evaluation.py. All items arise because this package was built ONLY from the uploaded PDF (input/paper.pdf) -- no OSF/open-materials URL was supplied for this job, so the paper's own online appendix (hosted at the paper's DOI landing page) was not retrieved, per the package builder's external-research policy.",
+  "checklist": [
+    {
+      "id": "AUD-01",
+      "study": "human_main",
+      "field": "Verbatim participant instructions handout (Online Appendix L)",
+      "reason": "The paper states an experimenter read a printed instructions handout aloud, referenced as 'Online Appendix L', which is not included in the uploaded PDF (main text only).",
+      "impact": "materials/materials.json ships a 'derived' reconstruction of the instructions built only from the procedural facts reported in Section 4.1-4.5; it is not the wording actual subjects read, so any linguistic/framing effects of the real handout cannot be reproduced.",
+      "suggested_action": "Retrieve Online Appendix L from the paper's supplemental material (https://doi.org/10.1287/isre.2022.1187) once the researcher explicitly authorizes external retrieval for this job, and replace materials.json#mat.human_main.instructions_derived with the verbatim text (evidence_label -> verbatim)."
+    },
+    {
+      "id": "AUD-02",
+      "study": "human_main",
+      "field": "Exact on-screen interface text/layout (Figure 2 screenshot)",
+      "reason": "Figure 2 is a screenshot image; pdftotext extraction only preserves the printed figure caption's five labeled callouts, not the pixel-level on-screen text.",
+      "impact": "The task's decision-point state (task/task.json#io_schema) is a faithful functional description of what information participants saw, but cannot reproduce the literal on-screen wording/formatting.",
+      "suggested_action": "If pixel-level UI fidelity is required (e.g., for a UI-replication study rather than a decision-task replication), re-extract Figure 2 as an image and have a researcher transcribe on-screen text, or request the original interface code from the authors."
+    },
+    {
+      "id": "AUD-03",
+      "study": "human_mechanism",
+      "field": "Verbatim oTree instructions and decision screens (Online Appendix N.1), and the counterfactual-information-plot screenshots (Online Appendix N.2)",
+      "reason": "Section 5 references these as being in the online appendix, not included in the uploaded PDF.",
+      "impact": "materials/materials.json ships a 'derived' reconstruction for human_mechanism instructions; the exact look of the interactive counterfactual-payoff plot and its screen text is unknown.",
+      "suggested_action": "Same as AUD-01: retrieve from the paper's supplemental material once external retrieval is authorized."
+    },
+    {
+      "id": "AUD-04",
+      "study": "human_main, human_mechanism",
+      "field": "Individual human bid trajectories / raw session data for the other two group members",
+      "reason": "The paper reports only aggregated statistics (means, bootstrapped SEs, permutation-test p-values) per treatment cell; it does not publish subject-level bid time series, and no OSF/data repository URL was supplied for this job.",
+      "impact": "task/adapter.py must simulate the two co-players per match using stylized built-in policies ('truthful', 'softmax_explorer') rather than replaying real human behavior. This makes the task runnable and lets it score the agent-under-test's OWN behavior (exploration, bid-to-value ratio, responsiveness to cost), but the resulting environment is NOT a validated behavioral clone of the paper's actual human co-players, so multi-agent outcome-level claims (e.g., 'this LLM produces the same allocative efficiency a group of 3 real subjects would') are out of scope for this package.",
+      "suggested_action": "If a data-sharing repository for this paper's raw session data becomes available and is explicitly supplied by the researcher, replace the built-in co-player policies with a replay/behavioral-clone module and re-validate."
+    },
+    {
+      "id": "AUD-05",
+      "study": "human_main",
+      "field": "Continuous-time, mouse-driven bid adjustment protocol",
+      "reason": "human_main used continuous real-time mouse movement across a slider with a silent protocol (Remark 4) and second-by-second random termination (Remark 1); a turn-based agent interaction has no literal analogue to continuous mouse position.",
+      "impact": "task/adapter.py discretizes the match into a bounded sequence of decision checkpoints (task.json derived_design_decisions D1). Bid-ADJUSTMENT COUNTS from adapter.py runs are therefore not numerically comparable to the paper's Table 2/5 counts; only the qualitative direction of effects (e.g., cost lowers adjustment counts) is intended to be comparable.",
+      "suggested_action": "If checkpoint-level fidelity to the paper's real-time protocol is required, a researcher should replace `_decision_schedule()` / the per-period loop in adapter.py with a continuous-time discrete-event simulation calibrated to the paper's reported ~1%/second termination hazard, and clearly re-derive what 'one bid adjustment' means in that finer-grained simulation."
+    },
+    {
+      "id": "AUD-06",
+      "study": "human_main",
+      "field": "Matches 5-10 common-random-seed value matching across treatments (Remark 2), and its Online Table M.1 exact termination-second sequences",
+      "reason": "The paper deliberately matched private values and match-duration realizations across sessions/treatments in matches 5-10 for a clean cross-treatment comparison; the specific seeds/sequences are in Online Table M.1, not included in the uploaded PDF. Also note the paper's own Endnote 19 documents a software bug in this seed-matching scheme (see source/evidence.json#ev.human_main.value_generation.bug).",
+      "impact": "adapter.py draws private values independently at random every match (task.json derived_design_decisions D2) since a single run has no other session to match against; this is a reasonable simplification for scoring one agent's behavior but means a researcher cannot use two separate adapter.py invocations to recreate the paper's exact matched-value cross-treatment design without supplying their own shared seed logic.",
+      "suggested_action": "If exact matched-value replication across two adapter.py runs is needed, add a shared value-sequence file/seed argument so two runs (one per cost treatment) consume the same per-match value draws; document whether to replicate or intentionally avoid the paper's reported seed bug."
+    },
+    {
+      "id": "AUD-07",
+      "study": "human_mechanism",
+      "field": "The 4 canonical decision-period-length sequences (Online Table N.1)",
+      "reason": "Section 5 states 4 fixed duration-sequence realizations were used so results would not depend on one arbitrary sequence; the table itself is in the online appendix, not included in the uploaded PDF.",
+      "impact": "adapter.py draws a fresh geometric-like period count each match (termination probability 0.1/period, task.json derived_design_decisions D3) instead of replaying the paper's 4 fixed sequences, so run-to-run period-count variance will not exactly match the paper's design.",
+      "suggested_action": "If the 4 sequences become available, hardcode them into adapter.py's `_decision_schedule()` for study='human_mechanism' and cycle through them exactly as the paper did."
+    },
+    {
+      "id": "AUD-08",
+      "study": "human_main, human_mechanism",
+      "field": "Bootstrapped standard errors and two-tailed permutation-test p-values (Good 2013) across independent human sessions (Tables 5-10)",
+      "reason": "These statistics require multiple independent SESSIONS of real subjects (the paper ran 8 sessions for human_main, additional sessions for human_mechanism); a single adapter.py run, or even several runs with simulated co-players, is not a valid stand-in for that sampling design.",
+      "impact": "evaluation/evaluation.py implements only descriptive, single/paired-run directional checks and explicitly returns a `not_ready` result (check_significance_not_ready) for any inferential replication of Tables 5-10, rather than fabricating a p-value.",
+      "suggested_action": "This gap can only be closed by running the SAME agent-under-test across many independent adapter.py sessions (analogous to the paper's 8+ sessions) and applying the same bootstrap/permutation procedure to the resulting session-level means -- a data-collection protocol decision for the researcher, not something this package can supply on its own."
+    },
+    {
+      "id": "AUD-09",
+      "study": "comp_main / comp_additional (context only, not modeled by the runnable task)",
+      "field": "Ad-quality extension (Online Appendix E) and the exponential-distribution robustness check (Online Appendix C.3)",
+      "reason": "The main text only summarizes that these robustness analyses exist and hold qualitatively; the appendix details are not included in the uploaded PDF.",
+      "impact": "study.json and evidence.json note these robustness checks exist but cannot describe their exact specification; they are not implemented in task/adapter.py, which sticks to the bid-only ranking model reported in the main text (Section 3.1, Endnote 5).",
+      "suggested_action": "Not required for the current runnable task; retrieve only if a researcher specifically wants to extend adapter.py with quality-score-based ranking."
+    },
+    {
+      "id": "AUD-10",
+      "study": "human_main, human_mechanism",
+      "field": "Exchange rate between experimental payoff units and cash payment; total/average subject earnings; IRB approval and informed-consent text; participant demographics",
+      "reason": "The paper reports that subjects were 'paid in cash' and gives sample sizes/session counts, but does not state the payoff-to-currency conversion rate, average earnings, IRB protocol details, consent-form wording, or participant demographic breakdowns (age, gender, major, etc.) anywhere in the main text.",
+      "impact": "task/adapter.py reports payoffs in the paper's own abstract payoff units (Equations 1-3), not real currency; a researcher wanting to state real monetary stakes, or to reproduce IRB/consent procedures for a live human-subject re-run, cannot do so from this package alone.",
+      "suggested_action": "If a live (non-agent) human-subject re-run or a monetarily-calibrated agent incentive is desired, the researcher must supply the conversion rate, consent text, and IRB protocol independently; these are outside what any paper text search can supply."
+    }
+  ]
+}
