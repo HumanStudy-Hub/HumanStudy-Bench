@@ -1,0 +1,289 @@
+{
+  "_purpose": "Complete evidence and provenance record. Every substantive claim or material used elsewhere in this package (study.json, materials/materials.json, task/task.json) points to an id in this file. Locations use the printed journal page number (visible in the PDF as running headers/footers, pages 279-301) plus the line range from `pdftotext -layout input/paper.pdf` performed by the package builder, so a reviewer can re-derive the same line numbers by re-running that exact command against the same PDF.",
+  "extraction_method": "pdftotext -layout input/paper.pdf > paper.txt; all page/line references below are against that output.",
+  "evidence_label_definitions": {
+    "verbatim": "directly quoted or transcribed from the source",
+    "reported": "faithfully paraphrased from the source",
+    "derived": "transformed from reported information with the derivation stated",
+    "missing": "unavailable and requiring researcher input"
+  },
+  "items": [
+    {
+      "id": "meta-1",
+      "study": "paper",
+      "item": "title_authors_journal",
+      "content": "The \"False Consensus Effect\": An Egocentric Bias in Social Perception and Attribution Processes / Lee Ross, David Greene, and Pamela House, Stanford University / Journal of Experimental Social Psychology 12, 279-301 / Received April 21, 1976",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 279, "pdftotext_lines": "6-12"}
+    },
+    {
+      "id": "meta-2",
+      "study": "paper",
+      "item": "abstract",
+      "content": "Evidence from four studies demonstrates that social observers tend to perceive a \"false consensus\" with respect to the relative commonness of their own responses... cognitive and perceptual mechanisms are proposed which might account for distortions in perceived consensus and for corresponding biases in social inference and attributional processes.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 279, "pdftotext_lines": "14-27"}
+    },
+    {
+      "id": "meta-3",
+      "study": "paper",
+      "item": "acknowledgments",
+      "content": "The authors wish to acknowledge the contributions of Michael Fleming who helped to design and execute Study 3 and Study 4 and of Michael Hubbard who assisted in the analysis and interpretation of data from all four studies. David Greene is now at Carnegie-Mellon University.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 279, "pdftotext_lines": "46-49"}
+    },
+    {
+      "id": "s1-design-1",
+      "study": "study1",
+      "item": "sample_and_design",
+      "content": "A total of 320 Stanford undergraduates (80 for each of the four stories) participated. Between-subjects design: each subject read exactly one of four brief hypothetical stories, then estimated the percentage of peers choosing each of two behavioral options, then reported their own choice, then rated the traits of the 'typical person' who would choose each option.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 281, "pdftotext_lines": "125-131"}
+    },
+    {
+      "id": "s1-story-supermarket",
+      "study": "study1",
+      "item": "supermarket_story_and_question",
+      "content": "As you are leaving your neighborhood supermarket a man in a business suit asks you whether you like shopping in that store. You reply quite honestly that you do like shopping there and indicate that in addition to being close to your home the supermarket seems to have very good meats and produce at reasonably low prices. The man then reveals that a videotape crew has filmed your comments and asks you to sign a release allowing them to use the unedited film for a TV commercial that the supermarket chain is preparing. What % of your peers do you estimate would sign the release?__% What % would refuse to sign it?__% (Total % should be 100%)",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 281, "pdftotext_lines": "132-144"},
+      "traits_named_for_story": ["shyness", "cooperativeness", "trust", "adventurousness"]
+    },
+    {
+      "id": "s1-story-termpaper",
+      "study": "study1",
+      "item": "term_paper_story_and_question",
+      "content": "You arrive for the first day of class in a course in your major area of study. The professor says that the grade in your course will depend on a paper due the final day of the course. He gives the class the option of two alternatives upon which they must vote. They can either do papers individually in the normal way or they can work in teams of three persons who will submit a single paper between them. You are informed that he will still give out the same number of A's, B's, and C's, etc., but that in the first case every student will be graded individually while in the second case all three students who work together get the same grade. What % of your peers do you estimate would vote for group papers?__% What % would vote for individual papers?__% (Total % should be 100%)",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 281, "pdftotext_lines": "145-159"},
+      "traits_named_for_story": ["gregariousness", "laziness", "competitiveness", "generosity"]
+    },
+    {
+      "id": "s1-story-trafficticket",
+      "study": "study1",
+      "item": "traffic_ticket_story_and_question",
+      "content": "While driving through a rural area near your home you are stopped by a county police officer who informs you that you have been clocked (with radar) at 38 miles per hour in a 25-mph zone. You believe this information to be accurate. After the policeman leaves, you inspect your citation and find that the details on the summons regarding weather, visibility, time, and location of violation are highly inaccurate. The citation informs you that you may either pay a $20 fine by mail without appearing in court or you must appear in municipal court within the next two weeks to contest the charge. What % of your peers do you estimate would pay the $20 fine by mail?__% What % would go to court to contest the charge?__% (Total should be 100%)",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 282, "pdftotext_lines": "160-172"},
+      "traits_named_for_story": ["self-confidence", "legal knowledge", "argumentativeness", "miserliness"]
+    },
+    {
+      "id": "s1-story-spaceprogram",
+      "study": "study1",
+      "item": "space_program_story_and_question",
+      "content": "It is proposed in Congress that the space program be revived and that large sums be allocated for the manned and unmanned exploration of the moon and planets nearest Earth. Supporters of the proposal argue that it will provide jobs, spur technology, and promote national pride and unity. Opponents argue that a space program will either necessitate higher taxes, or else drain money from important domestic priorities. Furthermore, they deny that it will accomplish the desirable effects claimed by the program's supporters. Both sides, of course, refute each other's claims and ultimately a public referendum is held. What % of your peers do you estimate would vote for the proposed allocation of funds for space exploration?__% What % would vote against it?__% (Total should be 100%)",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 282, "pdftotext_lines": "173-186"},
+      "traits_named_for_story": ["rationality", "social concern", "idealism", "selfishness"],
+      "note": "Table 1 labels the two options 'vote for cutback' / 'vote against cutback' while the story text asks about voting for/against funding allocation; this reflects the paper's own inconsistent labeling and is preserved as-is rather than silently corrected."
+    },
+    {
+      "id": "s1-procedure-order",
+      "study": "study1",
+      "item": "questionnaire_structure_and_order",
+      "content": "After completing the relevant percentage estimates, subjects were required to fill out a three-page questionnaire: a self-description page (personal choice + Likert self-ratings) and two 'typical person' trait-rating pages (one per behavioral option). The order of the three rating sheets was systematically varied; order produced no significant effects and is not analyzed further in the paper.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 282, "pdftotext_lines": "187-201"}
+    },
+    {
+      "id": "s1-trait-scale-example",
+      "study": "study1",
+      "item": "trait_rating_scale_anchors_cooperativeness",
+      "content": "For each trait a 100-point rating scale was used, anchored: +50 'Certainly more cooperative than the average person of my age and sex, probably very much more cooperative.' 0 'Probably average with respect to cooperativeness. I have no reason to assume that the actor differs from the average person of my age and sex with respect to this characteristic.' -50 'Certainly less cooperative than the average person of my age and sex, probably very much less cooperative.'",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 283, "pdftotext_lines": "204-218"},
+      "note": "This is the ONLY trait for which the paper reproduces the full anchor wording. The paper states all traits used '100-point' scales with the midpoint/extremes labeled in the same style (extremity + confidence). materials.json derives the other traits' anchors by substituting the trait name into this template; that substitution is labeled 'derived', not 'verbatim'."
+    },
+    {
+      "id": "s1-hypotheses",
+      "study": "study1",
+      "item": "research_hypotheses",
+      "content": "1. Subjects who 'choose' a particular hypothetical response will rate that response as more probable for 'people in general' than will subjects who 'choose' the alternative response. 2. Subjects who 'choose' a specified response will use less extreme and less confident trait ratings in characterizing a 'typical' person making that response than will subjects who 'choose' the alternative response.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 283, "pdftotext_lines": "219-226"}
+    },
+    {
+      "id": "s1-table1-results",
+      "study": "study1",
+      "item": "perceived_consensus_results_table1",
+      "content": "Table 1 (Perceived Consensus, Study 1): Supermarket story — sign release n=53 (66%), estimate 75.6% sign/24.4% refuse; not sign n=27 (34%), estimate 57.3%/42.7%; F(1,78 implied)=17.7. Term paper — choose individual n=64 (80%), 67.4%/32.6%; choose group n=16 (20%), 45.9%/54.1%; F=16.5. Traffic ticket — pay fine n=37 (46%), 71.8%/28.2%; contest n=43 (54%), 51.7%/48.3%; F=12.8. Space program — vote for cutback n=32 (40%), 47.9%/52.1%; vote against n=48 (60%), 39.0%/61.0%; F=4.9. Combined across 4 stories: choose option1 n=186 (58%) est. 65.7%/34.3%; choose option2 n=134 (42%) est. 48.5%/51.5%; F(1,312)=49.1, p<.001 (main effect of Rater's Choice); Story x Rater's Choice interaction F(1,312)=1.37, p>.10.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 283, "pdftotext_lines": "228-271"}
+    },
+    {
+      "id": "s1-table2-trait-note",
+      "study": "study1",
+      "item": "trait_ratings_table_reference",
+      "content": "The paper's trait-ratings table for Study 1 is labeled 'Table 3' in the printed text (an apparent numbering artifact/typo in the original — it appears between the Study 1 results narrative and before the Study 2 table, which is also labeled 'Table 3'). Reported here as it appears: absolute discrepancy scores from the midpoint, by story: Supermarket F(1,78)=17.27,p<.001; Term paper F=21.83,p<.001; Traffic ticket F=3.18,p<.10 (marginal); Space program F=1.81,p<.10 (n.s.). Combined 4-story ANOVA: main effect of Rater's Own Choice F(1,312)=37.40,p<.001; Story x Choice interaction F(3,312)=3.71,p<.05.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 284, "pdftotext_lines": "272-337"},
+      "note": "OCR of the numeric table cells (lines 284-309) is degraded ('x9 5', 'IOO-point', etc. elsewhere) — the narrative F-ratios and p-values quoted in body text (lines 324-337) are used here in preference to the raw OCR'd table cells, which are not independently re-derivable from this PDF without better OCR. Cell-level per-trait numbers are marked 'missing' in audit/missing_information.json."
+    },
+    {
+      "id": "s2-design",
+      "study": "study2",
+      "item": "sample_and_procedure",
+      "content": "80 Stanford undergraduates completed a questionnaire covering 35 person-description items (Table 3), each a pair of mutually exclusive/exhaustive categories. Half of subjects self-categorized first then estimated the % of 'college students in general' in each category; the other half answered in reverse order (order produced no relevant effects). One item (Nixon impeachment) became unusable mid-study, leaving 34 usable items.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 285, "pdftotext_lines": "358-377"}
+    },
+    {
+      "id": "s2-questionnaire-not-reproduced",
+      "study": "study2",
+      "item": "full_questionnaire_availability",
+      "content": "\"The full text of this questionnaire is too lengthy to be reproduced in the present report, although Table 3 does list all of the relevant personal description categories. The questionnaire itself may be obtained from the first author.\"",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 286, "pdftotext_lines": "402-404"},
+      "note": "This is the paper's own explicit statement that verbatim item wording (beyond the short category labels in Table 3) is not available in this source. Full item stems are therefore marked 'missing' in materials.json and audit/missing_information.json; only the category labels are usable, and only as 'reported' short labels."
+    },
+    {
+      "id": "s2-table3-items-and-results",
+      "study": "study2",
+      "item": "personal_description_categories_and_estimates",
+      "content": "Table 3 lists 35 category-pair items (categories in parens are the alternative) grouped into 7 domains (Personal traits and views; Personal preferences; Personal characteristics; Personal problems; Personal activities; Personal expectations; Political expectations), each with the mean % estimate of 'college students in category 1' given by raters who placed themselves in category 1 vs. category 2, and a significance marker. Example rows: 'Shy (not shy)' 45.9 vs 35.9, t=2.66,p<.01 [marker key: * p<.10, dagger p<.05, double-dagger p<.01, section-mark p<.001]; 'Supporter of women's lib (not)' 57.3 vs 33.4; 'Woman in Supreme Court within decade? yes(no)' 63.3 vs 34.6, t=6.19,p<.001; 'Removal of Nixon from office? yes(no)' marked 'Deleted' (the unusable item). Overall: predicted-direction difference held for 32 of 34 usable items; 17 significant beyond .10, 11 of those beyond .01.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 287, "pdftotext_lines": "407-499"},
+      "note": "Table OCR is partially degraded for several numeric cells (e.g. digits rendered as letters, 'x' for numerals in some rows on pages 287-288). Row category labels and the qualitative summary in body text (lines 373-389, 501-522) are reliable; a handful of individual cell values are approximate/uncertain due to OCR artifacts and are flagged in audit/missing_information.json rather than silently corrected."
+    },
+    {
+      "id": "s2-domain-summary",
+      "study": "study2",
+      "item": "results_by_domain",
+      "content": "Strongest/most consistent support: Political Expectations domain (women on Supreme Court, poverty abating, nuclear weapon use, extraterrestrial life) and reasonably consistent support from Personal Traits/Views and Personal Problems. Sporadic support: Personal Preferences, Personal Characteristics, Personal Expectations. No significant support: Personal Activities (e.g., TV watching, tennis).",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 286, "pdftotext_lines": "390-515"}
+    },
+    {
+      "id": "s3-design",
+      "study": "study3",
+      "item": "sample_and_procedure",
+      "content": "104 Stanford undergraduates read one of two versions of a hypothetical sandwich-board story (differing only in the sign message: 'Eat at Joe's' vs 'Repent'), then indicated their own choice (wear / not wear), estimated peer consensus, and rated 8 traits (cooperativeness, shyness, aggressiveness, submissiveness, attractiveness, inquisitiveness, uprightness, cynicism) for the 'typical' person who would wear vs. not wear the sign. Rating-order was counterbalanced with no effect.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 289, "pdftotext_lines": "559-606"}
+    },
+    {
+      "id": "s3-story-eatatjoes",
+      "study": "study3",
+      "item": "sandwich_board_story_eat_at_joes",
+      "content": "It is an official course requirement of your introductory psychology class that you participate as a subject in at least three experiments during the quarter. Sign-up sheets for experiments are posted on the bulletin board outside class which allow students to choose a time which is convenient. You decide to sign up for an experiment described as \"a study concerned with attitudes,\" and arrive at the designated time and place where you are greeted by the experimenter and thanked for coming. The experimenter then proceeds to describe his study. He explains that he is concerned with persuasion and attitude change and will be comparing various types of communication techniques. He further explains that today he needs subjects to walk around campus for 30 minutes wearing a sandwich board sign which simply says: \"Eat at Joe's\" While they are wearing this sandwich board subjects are simply to keep a record of the number of people who say something to them. They are also required to note the person's sex and whether the person's comment is positive, negative, or neutral. The experimenter makes it clear that you are not compelled to participate if you are unwilling, but that he would obviously prefer that you go along with his request to wear the sign and make the necessary observations. Subjects who decide not to participate, he explains, will be missing the chance to learn something interesting and to help the research project but they nevertheless will receive credit toward their course requirement. What % of your peers do you estimate would agree to carry the sandwich board around campus?__% What % would refuse to carry it?__% (Total should be 100%)",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 289, "pdftotext_lines": "563-590"}
+    },
+    {
+      "id": "s3-story-repent",
+      "study": "study3",
+      "item": "sandwich_board_story_repent",
+      "content": "\"The second version of the story differed only in that the relevant sign read 'Repent,' rather than 'Eat at Joe's.'\" All other story text and the consensus question are identical to s3-story-eatatjoes with 'Repent' substituted for the sign message.",
+      "evidence_label": "derived",
+      "derivation": "Paper states explicitly that only the sign text differs between versions; materials.json reconstructs the Repent version by substituting the sign message into the verbatim Eat-at-Joe's template per the paper's own description.",
+      "source_location": {"page": 290, "pdftotext_lines": "591-595"}
+    },
+    {
+      "id": "s3-table4-results",
+      "study": "study3",
+      "item": "perceived_consensus_results_table4_study3",
+      "content": "Table 4 (Study 3): Eat at Joe's — wear sign n=27 (53%) est. 64.6% wear/35.4% not; not wear n=24 (47%) est. 31.2%/68.8%; F=33.3. Repent — wear n=27 (51%) est. 58.3%/41.7%; not wear n=26 (49%) est. 29.7%/70.3%; F=23.5. Combined — wear n=54 (52%) est. 61.4%/38.2%; not wear n=50 (48%) est. 30.4%/69.6%; F=56.2.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 292, "pdftotext_lines": "703-720"}
+    },
+    {
+      "id": "s3-table5-trait-results",
+      "study": "study3",
+      "item": "trait_rating_results_table5_study3",
+      "content": "Table 5 (Study 3) trait-rating differences (rated wear-sign minus not-wear-sign target, combined discrepancy score): Eat at Joe's — subjects who wore sign (n=27): 123.4 vs 124.7, diff -1.3, t=8.53; subjects who refused (n=24): 183.6 vs 117.1, diff +66.5. Repent — wore (n=27): 143.2 vs 140.5, diff +2.7, t=9.74; refused (n=26): 155.5 vs 101.3, diff +54.2. Combined — wore (n=54): 133.3 vs 132.6, diff +0.7, t=17.79; refused (n=50): 169.6 vs 109.2, diff +60.4.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 294, "pdftotext_lines": "789-798"},
+      "note": "Several individual OCR'd digits in this region of the PDF are degraded (e.g. stray characters in Table 5 cells on page 294); values are transcribed as best-effort from pdftotext output and cross-checked against the narrative text (lines 745-777) which states the qualitative pattern is 'remarkably similar' between wear/not-wear groups in direction."
+    },
+    {
+      "id": "s4-design",
+      "study": "study4",
+      "item": "sample_and_procedure",
+      "content": "80 Stanford undergraduates, in groups of 2-5, volunteered for a study framed as being about 'communication techniques.' They first completed a 'Likes and Dislikes' questionnaire, then heard the experimenter's cover story and request to wear a sandwich board sign around campus for 30 minutes, then privately indicated their own choice (wear / withdraw) by checking a box. They then made consensus estimates about their own choice and rated the traits of two ostensibly real prior participants (using contrived 'Likes and Dislikes' questionnaires, Version A and Version B) who had supposedly agreed and refused, respectively (counterbalanced). All subjects were fully debriefed afterward about the true purpose and the deception involved.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 289, "pdftotext_lines": "607-685"}
+    },
+    {
+      "id": "s4-experimenter-script",
+      "study": "study4",
+      "item": "cover_story_script",
+      "content": "\"Let me explain what this study is all about. We're running a series of experiments about attitudes and self-perceptions. We're interested in how different types of people respond to different types of messages, depending on the medium in which they're presented. For example, we've already used telephone calls, handbills, and newspaper ads. Today we are studying another medium-a more personal one-a sandwich board sign like this one. We want to see how many people respond, who responds, and how they respond, when a message is presented on a sandwich board. We're particularly interested in what difference it makes who is carrying the sandwich board sign. What we'd like you to do today is to put on one of these sandwich boards and walk around the campus for about 30 minutes. We have a map to give you with the route outlined. We also have a tally sheet for you to carry around on which to keep track of the number of people who respond verbally and to record whether their responses are positive, negative, or neutral. If you are not willing to do this we will still give you your experimental credit although you will miss the chance to have an interesting experience and to do us a big favor. Now would you please indicate if you're willing to do the task by checking the appropriate box on the Likes and Dislikes questionnaire in front of you.\" (paper notes this is 'a slightly expanded version' of the actual script actually delivered)",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 290, "pdftotext_lines": "617-636"}
+    },
+    {
+      "id": "s4-likes-dislikes-versionA",
+      "study": "study4",
+      "item": "target_person_questionnaire_version_A",
+      "content": "Version A suggested that the person whose traits were to be rated liked \"to take walks, read, sculpt, run, swing, lie on the beach, and eat\" and disliked \"being in crowds, being inside all day, feeling pressured by people, or having to make conversation.\"",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 291, "pdftotext_lines": "649-652"}
+    },
+    {
+      "id": "s4-likes-dislikes-versionB",
+      "study": "study4",
+      "item": "target_person_questionnaire_version_B",
+      "content": "Version B suggested that the target person liked \"to listen, talk, laugh, bake, do arts and crafts, play with a pet dog, and tease close friends\" but disliked \"writing term papers, sitting in dull classes, or being with badly behaved children or objectionable adults.\"",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 291, "pdftotext_lines": "652-655"}
+    },
+    {
+      "id": "s4-counterbalance-and-justification",
+      "study": "study4",
+      "item": "version_pairing_and_cover_rationale",
+      "content": "Roughly half of subjects received Version A paired with the target's expressed agreement to wear the sign and Version B with refusal; the remainder received the opposite pairing. The experimenter told subjects the consensus/trait measures would 'help us to interpret the results of our communication study... by telling us something about the kind of people who agree or refuse to take part' — in fact this was the true dependent measure. Debriefing followed, and subjects were asked not to discuss the procedure with peers.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 291, "pdftotext_lines": "656-684"}
+    },
+    {
+      "id": "s4-traits-not-listed",
+      "study": "study4",
+      "item": "trait_list_for_study4",
+      "content": "Study 4's methods section does not re-state which specific traits were rated (unlike Study 1 and Study 3, which name traits explicitly). The results narrative (Table 5, combined with Study 3) is described as showing a pattern 'remarkably similar' to Study 3.",
+      "evidence_label": "missing",
+      "source_location": {"page": 291, "pdftotext_lines": "641-646"},
+      "note": "materials.json offers the Study 3 eight-trait list for Study 4 administration ONLY as a clearly labeled 'derived/assumed' fallback, since the paper never explicitly confirms the same 8 traits were used in Study 4. This assumption is also logged in audit/missing_information.json."
+    },
+    {
+      "id": "s4-table4-results",
+      "study": "study4",
+      "item": "perceived_consensus_results_table4_study4",
+      "content": "Table 4 (Study 4): Eat at Joe's — wear n=28 (70%) est. 60.8%/39.2%; not wear n=12 (30%) est. 43.3%/56.7%; F=4.0. Repent — wear n=20 (50%) est. 63.5%/36.5%; not wear n=20 (50%) est. 23.3%/76.6%; F=34.14. Combined — wear n=48 (60%) est. 62.2%/37.8%; not wear n=32 (40%) est. 33.0%/67.0%; F=26.47.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 292, "pdftotext_lines": "721-727"}
+    },
+    {
+      "id": "s4-table5-trait-results",
+      "study": "study4",
+      "item": "trait_rating_results_table5_study4",
+      "content": "Table 5 (Study 4): Eat at Joe's — wore (n=28): 115.4 vs 119.8, diff -4.4, t=4.37; refused (n=12): 155.8 vs 121.3, diff +34.5. Repent — wore (n=20): 124.9 vs 130.8, diff -5.9, t=3.93; refused (n=20): 123.5 vs 92.3, diff +31.2. Combined — wore (n=48): 120.1 vs 125.3, diff -5.2, t=8.93; refused (n=32): 139.7 vs 106.8, diff +32.9.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 294, "pdftotext_lines": "800-808"}
+    },
+    {
+      "id": "discussion-covariance",
+      "study": "paper",
+      "item": "covariance_analysis_consensus_vs_trait_ratings",
+      "content": "Analyses of covariance (treating consensus estimates as covariate) reduced but did not eliminate the effect of own choice on trait ratings for the Supermarket and Term Paper stories (Study 1): F(1,37)=7.90,p<.01 and F(1,37)=8.91,p<.01 respectively; remained non-significant for the other Study 1 stories and for Studies 3/4. Within-choice-group correlations between perceived consensus and trait ratings were consistently negative, r=-.09 to r=-.64, median r=-.34.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 296, "pdftotext_lines": "890-928"}
+    },
+    {
+      "id": "discussion-mechanisms",
+      "study": "paper",
+      "item": "proposed_mechanisms",
+      "content": "Three families of proposed mechanisms: (1) motivational/ego-defensive factors (justifying own choice as rational rather than dispositional); (2) selective exposure and availability (biased social sampling; easier recall/imagination of one's own chosen behavior); (3) ambiguity resolution (idiosyncratic interpretation of vague situational details affecting both one's own choice and one's estimate of others' choices in the same direction).",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 297, "pdftotext_lines": "947-1050"}
+    },
+    {
+      "id": "refs-1",
+      "study": "paper",
+      "item": "reference_list",
+      "content": "Full reference list as printed (32 references, Bramel 1962/1963 through Wallen 1941/1943), transcribed via pdftotext.",
+      "evidence_label": "verbatim",
+      "source_location": {"page": 300, "pdftotext_lines": "1072-1140"},
+      "note": "Not independently verified against external bibliographic databases; network research was not authorized for this job."
+    }
+  ]
+}

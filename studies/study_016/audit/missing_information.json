@@ -1,0 +1,68 @@
+{
+  "_purpose": "Authoritative researcher checklist of missing verbatim content and researcher decisions still required before this package can be treated as a full, faithful reconstruction of Ross, Greene & House (1977). Every entry has study/field/reason/impact/suggested_action.",
+  "entries": [
+    {
+      "study": "study2",
+      "field": "materials.study2.items[*] full item wording",
+      "reason": "The paper states explicitly (p.286, evidence.json id s2-questionnaire-not-reproduced) that the full 35-item questionnaire text is 'too lengthy to be reproduced' and was available only by request from the first author. Only the short category-pair labels from Table 3 survive in this source.",
+      "impact": "task/adapter.py administers Study 2 using paraphrased category labels (e.g. 'Shy / not shy') rather than the original item stems. Participant responses may not match how the original wording framed the choice, especially for ambiguous items (e.g. what counted as 'often' thinking about dying).",
+      "suggested_action": "Obtain the original questionnaire from the paper's open materials (if the contributor supplies an authorized OSF/author-provided URL in a future job) or transcribe it from an institutional archive, then replace materials.json study2.items[*] with verbatim item text and relabel evidence_label to 'verbatim'."
+    },
+    {
+      "study": "study2",
+      "field": "materials.study2.items[*].category_1 for 'Subscribe to magazines on list provided'",
+      "reason": "The paper references 'magazines on list provided' but the actual magazine list is not reproduced anywhere in the extracted text.",
+      "impact": "This item cannot be administered exactly as originally presented; adapter.py presents only the generic category label.",
+      "suggested_action": "If the original magazine list can be located (author request), add it verbatim; otherwise mark this item as excluded from faithful replication rather than guessing a list."
+    },
+    {
+      "study": "study2",
+      "field": "Table 3 numeric cells (mean percentage estimates, t-values)",
+      "reason": "pdftotext OCR of the Table 3 columns on pages 287-288 is degraded in places (garbled digits/characters, e.g. 'h0.24' style artifacts in the political-expectations rows).",
+      "impact": "source/evidence.json id s2-table3-items-and-results transcribes the table as extracted, but a handful of individual cell values should be treated as approximate; they are not used programmatically anywhere in task/adapter.py or evaluation/evaluation.py, only as historical-comparison context.",
+      "suggested_action": "Re-OCR page 287-288 at higher resolution or against a cleaner PDF scan, or manually verify against the published journal issue, before citing exact per-item t-values from this package."
+    },
+    {
+      "study": "study1",
+      "field": "materials.trait_scale_template anchors for traits other than cooperativeness",
+      "reason": "The paper reproduces full verbatim 100-point anchor wording for exactly one trait (cooperativeness); it states all other traits followed 'the same' structure but never reprints their specific anchor sentences.",
+      "impact": "materials.json renders anchors for all other traits (shyness, trust, adventurousness, gregariousness, laziness, competitiveness, generosity, self-confidence, legal knowledge, argumentativeness, miserliness, rationality, social concern, idealism, selfishness, and the Study 3/4 trait set) via a paraphrase template, explicitly labeled 'derived'. Exact original wording for these anchors is unrecoverable from this source.",
+      "suggested_action": "If open materials become available (with user authorization), replace the derived anchors with verbatim wording for each trait."
+    },
+    {
+      "study": "study1",
+      "field": "Table 2 / Table 3 per-trait numeric breakdown (Study 1 trait ratings)",
+      "reason": "The printed paper appears to mislabel the Study 1 trait-ratings table as 'Table 3' (duplicating the Study 2 table number) and the OCR of its numeric cells (pages 283-284, e.g. 'x9 5', '54.9') is degraded.",
+      "impact": "source/evidence.json id s1-table2-trait-note relies on the narrative F-ratios/p-values in body text rather than the raw table cells, which are not independently re-derivable from this PDF extraction.",
+      "suggested_action": "Obtain a cleaner scan or the publisher's typeset PDF to recover exact per-trait numeric means for Study 1's Table 2/3."
+    },
+    {
+      "study": "study4",
+      "field": "trait list used for Study 4 ratings",
+      "reason": "Study 1 and Study 3 explicitly name the traits rated; Study 4's methods section (p.291) does not restate which traits were used, only that ratings were made about two supposedly real target individuals.",
+      "impact": "materials.json study4.traits carries over Study 3's 8-trait list as a labeled assumption ('missing' evidence label). If the original Study 4 trait list differed, task/adapter.py's Study 4 condition would be administering the wrong traits.",
+      "suggested_action": "Confirm the Study 4 trait list against the original materials (author request) before treating Study 4 trait-extremity results as more than exploratory."
+    },
+    {
+      "study": "study4",
+      "field": "faithful behavioral replication of the real-choice manipulation",
+      "reason": "The original Study 4 depended on a live experimenter, a real 30-minute campus walk with a genuine social-compliance cost, and post-hoc debriefing about deception. A text-only agent task cannot reproduce the lived behavioral stakes, only the textual cover story and a stated hypothetical choice.",
+      "impact": "task/task.json marks study4 readiness as 'blocked_partial': results from this condition should be interpreted as a text-based reconstruction, not a behavioral replication, and must not be pooled with real Study 4 data from the original paper.",
+      "suggested_action": "If a researcher wants a truer behavioral analogue, this would require a different experimental platform (e.g. an actual field task or an incentivized decision with real consequences for the agent/participant) rather than a text-only conversational task."
+    },
+    {
+      "study": "study1",
+      "field": "space_program story option-label consistency",
+      "reason": "The story text asks about voting 'for'/'against' the funding allocation, but Table 1 in the paper labels the same two options 'vote for cutback' / 'vote against cutback' -- an apparent inconsistency in the original publication (possibly a sign flip between the story framing and the table labeling).",
+      "impact": "materials.json preserves the story-text framing ('for the space program allocation' / 'against') for participant-facing text, since that is what a participant actually reads, and flags the Table 1 labeling discrepancy in source/evidence.json (s1-story-spaceprogram). A researcher should decide which framing to trust when comparing new data to the original Table 1 percentages.",
+      "suggested_action": "Consult original materials (if available) to determine whether Table 1's 'cutback' labels reflect a different/earlier version of the story, or a labeling error, before directly comparing new consensus estimates to the published Table 1 numbers for this story."
+    },
+    {
+      "study": "paper",
+      "field": "Fields & Schuman unpublished manuscript citation (footnote 5)",
+      "reason": "The paper cites an unpublished manuscript ('Public Beliefs about the Beliefs of the Public') as corroborating evidence; this could not be independently retrieved or verified because network research was not authorized for this job.",
+      "impact": "This citation is recorded as-is in source/evidence.json (item refs-1 context) but not verified.",
+      "suggested_action": "If a future job for this paper supplies an authorized external-materials URL, this citation could be checked, but it is not required for running the core task/evaluation package."
+    }
+  ]
+}

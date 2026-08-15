@@ -1,0 +1,95 @@
+{
+  "_purpose": "Researcher-facing overview of this package: the paper, its four empirical studies, participant flow, conditions, outcomes, entry point, and readiness status.",
+  "paper": {
+    "title": "The \"False Consensus Effect\": An Egocentric Bias in Social Perception and Attribution Processes",
+    "authors": [
+      "Lee Ross",
+      "David Greene",
+      "Pamela House"
+    ],
+    "year": 1977,
+    "journal": "Journal of Experimental Social Psychology, 12, 279-301",
+    "source_pdf": "input/paper.pdf",
+    "metadata_file": "source/paper_metadata.json"
+  },
+  "external_sources_consulted": [],
+  "external_source_policy_statement": "No OSF or open-materials URL was supplied for this job. Per the required process, no web search, web fetch, DOI resolution, or repository/author-page lookup was performed. This package is built entirely from the uploaded PDF (input/paper.pdf).",
+  "empirical_studies": [
+    {
+      "study_id": "study1",
+      "name": "Hypothetical-story questionnaire (4 stories)",
+      "n": 320,
+      "design": "Between-subjects; 80 subjects per story (Supermarket, Term Paper, Traffic Ticket, Space Program). Each subject: (1) estimates % of peers choosing each of two behavioral options, (2) reports own choice, (3) rates a 'typical person' who would choose each option on 4 story-specific traits, -50 to +50.",
+      "sample": "Stanford undergraduates",
+      "key_findings": "Own choice predicted consensus estimates for all 4 stories (combined F(1,312)=49.1, p<.001) and predicted trait-rating extremity (combined F(1,312)=37.40, p<.001), with a significant Story x Choice interaction on the trait measure (F(3,312)=3.71, p<.05).",
+      "materials_status": "Full story text and consensus questions are verbatim from the paper. Trait names per story are verbatim. Trait-scale anchor wording is verbatim ONLY for the 'cooperativeness' example; other traits use a labeled paraphrase template (see materials/materials.json and audit/missing_information.json)."
+    },
+    {
+      "study_id": "study2",
+      "name": "35-item (34 usable) self/peer categorization questionnaire",
+      "n": 80,
+      "design": "Within-subjects; every subject rated themselves and estimated 'college students in general' on 35 dichotomous personal-description items across 7 domains. 1 item (Nixon impeachment) was dropped mid-study, leaving 34 analyzed items. Order of self-vs-peer questions was counterbalanced with no effect.",
+      "sample": "Stanford undergraduates",
+      "key_findings": "32 of 34 items showed the predicted direction (self-categorized group estimates a higher peer percentage in their own category); 17 significant beyond .10, 11 of those beyond .01. Strongest support: Political Expectations domain; weakest/no support: Personal Activities domain.",
+      "materials_status": "Only short category labels survive in the source (paper explicitly states the full questionnaire was not reproduced and was available only from the first author). Category labels are 'reported' paraphrases of Table 3, not verbatim item stems. See audit/missing_information.json."
+    },
+    {
+      "study_id": "study3",
+      "name": "Hypothetical sandwich-board-sign story (2 sign versions)",
+      "n": 104,
+      "design": "Between-subjects; subjects read one of two versions (sign reads 'Eat at Joe's' or 'Repent') of a story about being asked to wear a sandwich board around campus for a psychology-course experiment. Subjects report own choice, estimate peer consensus, and rate a typical wear/not-wear actor on 8 traits.",
+      "sample": "Stanford undergraduates",
+      "key_findings": "Consensus effect confirmed for both sign versions (combined F=56.2). Trait-rating pattern showed refusers making much stronger disposition inferences about wearers than vice versa (combined difference scores: wearers rated +0.7, refusers rated +60.4; t=17.79).",
+      "materials_status": "Eat-at-Joe's version is verbatim. Repent version's story body is derived by substituting the sign text per the paper's explicit statement that only the sign message differs."
+    },
+    {
+      "study_id": "study4",
+      "name": "Real (non-hypothetical) sandwich-board-sign choice",
+      "n": 80,
+      "design": "Between-subjects, real behavioral choice with deception. Subjects completed a 'Likes and Dislikes' questionnaire, heard a live cover story, privately chose to wear or refuse the sign, then rated two purportedly real prior participants (using contrived Likes/Dislikes vignettes, Versions A and B, counterbalanced with the agree/refuse outcome) on presumably the same 8 traits as Study 3. All subjects were fully debriefed about the deception afterward.",
+      "sample": "Stanford undergraduates, run in groups of 2-5",
+      "key_findings": "Consensus effect replicated with real choices (combined F=26.47). Trait-rating pattern was 'remarkably similar' to Study 3 despite the real target individuals and real personal choices (combined difference scores: wearers -5.2, refusers +32.9; t=8.93).",
+      "materials_status": "Cover-story script and both Likes/Dislikes vignettes are verbatim. The specific trait list for Study 4 is NOT stated in the paper and is carried over from Study 3 as a labeled assumption. This study's real behavioral/deception manipulation cannot be faithfully run by a text-only agent; see task/task.json study4.blocking_reason and audit/missing_information.json."
+    }
+  ],
+  "participant_flow_summary": "Each package invocation of task/adapter.py plays ONE simulated participant through exactly one (study, condition) cell: read materials -> report own choice -> estimate peer consensus -> rate trait(s) of typical/target actor(s) (study2 instead: self-categorize + estimate peer % per item). Group-level replication of the paper's hypotheses requires running many such invocations per condition and feeding the resulting JSON-lines records to evaluation/evaluation.py.",
+  "conditions_overview": {
+    "study1": [
+      "supermarket",
+      "term_paper",
+      "traffic_ticket",
+      "space_program"
+    ],
+    "study2": [
+      "self_first",
+      "peer_first"
+    ],
+    "study3": [
+      "eat_at_joes",
+      "repent"
+    ],
+    "study4": [
+      "generic"
+    ]
+  },
+  "outcomes_measured": [
+    "own_choice (categorical)",
+    "consensus_estimate (percentage of peers per option, sums to 100)",
+    "trait_ratings (per trait, per target option/person, -50 to +50; extremity = |rating|)",
+    "study2 only: self_category and peer_estimate_pct per item"
+  ],
+  "package_entry_point": "task/adapter.py",
+  "evaluation_entry_point": "evaluation/evaluation.py",
+  "readiness_status": {
+    "study1": "ready",
+    "study2": "ready_with_caveats — category labels only, not verbatim item text; see audit/missing_information.json",
+    "study3": "ready",
+    "study4": "blocked_partial — text-only reconstruction of a real-choice/deception design; not a behavioral replication",
+    "overall": "runnable end-to-end (adapter.py --smoke-test passes for all study/condition cells); researcher review of audit/missing_information.json is required before treating results as a full faithful replication"
+  },
+  "contributors": [
+    {
+      "name": "test"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "_purpose": "Defines the runnable agent interaction: what an agent-participant is shown, what it must produce, how condition assignment works, and how outputs map back to materials.json. task/adapter.py implements this contract.",
+  "task_id": "false_consensus_effect_replication",
+  "paper_ref": "../source/paper_metadata.json",
+  "materials_ref": "../materials/materials.json",
+  "entry_point": "task/adapter.py",
+  "network_access": "none required or permitted at runtime",
+  "participant_role": "The agent plays the role of a single human survey/experiment participant. Each invocation of adapter.py administers exactly one (study, condition) cell to one simulated participant and returns one structured response record. To reproduce the paper's group-level statistics, the harness must invoke adapter.py many times per condition (matching or approximating the original per-condition n's in study.json) and pass the collected records to evaluation/evaluation.py.",
+  "studies": [
+    {
+      "study_id": "study1",
+      "label": "Hypothetical-story questionnaire (4 stories)",
+      "design": "between-subjects; one story per participant",
+      "conditions": ["supermarket", "term_paper", "traffic_ticket", "space_program"],
+      "target_n_per_condition": 80,
+      "steps": [
+        {"step": "present_story", "materials_path": "study1.conditions[*].story_text"},
+        {"step": "elicit_own_choice", "response_field": "own_choice", "options_from": "study1.conditions[*].own_choice_options"},
+        {"step": "elicit_consensus_estimate", "materials_path": "study1.conditions[*].consensus_question", "response_field": "consensus_estimate", "format": "two percentages summing to 100, one per own_choice_options entry"},
+        {"step": "elicit_trait_ratings", "traits_from": "study1.conditions[*].traits", "response_field": "trait_ratings", "format": "for each trait, two ratings in [-50,50]: one for the typical person choosing option 1, one for option 2, using trait_scale_template"}
+      ]
+    },
+    {
+      "study_id": "study2",
+      "label": "35-item (34 usable) self/peer categorization questionnaire",
+      "design": "within-subjects; all usable items shown to every participant",
+      "conditions": ["self_first", "peer_first"],
+      "target_n_per_condition": 40,
+      "note": "Order (self-categorize first vs. peer-estimate first) had no reported effect in the original study; both conditions are offered for completeness but adapter.py defaults to self_first.",
+      "excluded_items": ["Political expectations: Expects removal of Nixon from office"],
+      "steps": [
+        {"step": "self_categorize", "response_field": "self_category", "format": "for each of the 34 usable items, which of category_1/category_2 applies to the participant"},
+        {"step": "estimate_peer_percentage", "response_field": "peer_estimate_pct", "format": "for each item, estimated % of 'college students in general' who fall in category_1"}
+      ]
+    },
+    {
+      "study_id": "study3",
+      "label": "Hypothetical sandwich-board-sign story (2 sign versions)",
+      "design": "between-subjects; one sign version per participant",
+      "conditions": ["eat_at_joes", "repent"],
+      "target_n_per_condition": 52,
+      "steps": [
+        {"step": "present_story", "materials_path": "study3.conditions[*].story_text"},
+        {"step": "elicit_own_choice", "response_field": "own_choice", "options_from": "study3.conditions[*].own_choice_options"},
+        {"step": "elicit_consensus_estimate", "materials_path": "study3.conditions[*].consensus_question", "response_field": "consensus_estimate"},
+        {"step": "elicit_trait_ratings", "traits_from": "study3.conditions[*].traits", "response_field": "trait_ratings", "format": "for each of the 8 traits, ratings in [-50,50] for the typical person who would wear vs. not wear the sign"}
+      ]
+    },
+    {
+      "study_id": "study4",
+      "label": "Text-reconstructed real-choice sandwich-board scenario",
+      "design": "between-subjects; sign-version not specified by the paper for Study 4 (only Study 3 varied the sign text) — adapter.py uses a single generic administration",
+      "conditions": ["generic"],
+      "target_n_per_condition": 80,
+      "readiness": "blocked_partial",
+      "blocking_reason": "The original Study 4 manipulation depended on a live experimenter, a real 30-minute campus walk, and genuine deception/debriefing — none of which a text-only agent task can faithfully reproduce. This condition administers the same textual materials (cover story + Likes/Dislikes vignettes) and records a stated hypothetical choice; it is NOT a behavioral replication and must be reported as such, never conflated with the original 'real choice' data.",
+      "steps": [
+        {"step": "present_likes_dislikes_intro", "materials_path": "study4.likes_dislikes_intro_task"},
+        {"step": "present_cover_story", "materials_path": "study4.cover_story_script"},
+        {"step": "elicit_own_choice", "response_field": "own_choice", "options_from": "study4.own_choice_options"},
+        {"step": "elicit_consensus_estimate", "materials_path": "study4.consensus_question", "response_field": "consensus_estimate"},
+        {"step": "assign_target_version_pairing", "materials_path": "study4.target_person_materials", "note": "randomize which of Version A/B is presented as 'agreed' vs 'refused', per study4.target_person_pairing_note"},
+        {"step": "elicit_trait_ratings", "traits_from": "study4.traits.value", "response_field": "trait_ratings", "format": "for each of the 8 assumed traits, ratings in [-50,50] for each of the two target persons", "caveat": "study4.traits.evidence_label is 'missing' — trait list is an assumption carried over from Study 3, not confirmed for Study 4"}
+      ]
+    }
+  ],
+  "response_schema": {
+    "type": "object",
+    "required": ["study_id", "condition_id", "own_choice", "consensus_estimate"],
+    "properties": {
+      "study_id": {"type": "string", "enum": ["study1", "study2", "study3", "study4"]},
+      "condition_id": {"type": "string"},
+      "own_choice": {"type": "string", "description": "for study1/study3/study4: which option the participant personally picked; for study2: N/A at record level (per-item in self_category)"},
+      "consensus_estimate": {"type": "object", "description": "for study1/study3/study4: {option: percentage} summing to 100; for study2: per-item peer_estimate_pct list"},
+      "trait_ratings": {"type": "object", "description": "trait -> {option_or_target: rating in [-50,50]}, omitted for study2"},
+      "self_category": {"type": "array", "description": "study2 only: list of {item_index, category_chosen}"},
+      "peer_estimate_pct": {"type": "array", "description": "study2 only: list of {item_index, pct_category_1}"}
+    }
+  },
+  "condition_assignment": {
+    "method": "uniform random over the study's listed conditions unless the caller pins a condition via --study/--condition CLI flags",
+    "rationale": "matches the original studies' between-subjects random assignment to story/sign version"
+  },
+  "outputs": {
+    "single_run_record": "one JSON object per adapter.py invocation, matching response_schema, written to stdout or --out-file",
+    "aggregate_input_for_evaluation": "a JSON-lines file of many single_run_records (one participant each), passed to evaluation/evaluation.py"
+  }
+}

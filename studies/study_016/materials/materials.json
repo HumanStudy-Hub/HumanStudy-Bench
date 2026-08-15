@@ -1,0 +1,197 @@
+{
+  "_purpose": "Participant-visible materials grouped by study and condition, for use by task/adapter.py. Every item carries an evidence_label and a source pointer into source/evidence.json (field `source`). Trait-scale anchor text for traits other than 'cooperativeness' is reconstructed by template substitution (see s1-trait-scale-example in evidence.json) and is explicitly labeled 'derived', not 'verbatim'.",
+  "trait_scale_template": {
+    "_purpose": "The paper gives full verbatim anchor wording for exactly one trait (cooperativeness, Study 1). It states all traits used the same 100-point midpoint/confidence-extremity structure: +50/-50 use an adjective form ('more cooperative'/'less cooperative') while the 0-point uses a noun form ('with respect to cooperativeness'). Substituting a single trait-name string into both forms verbatim produces ungrammatical anchors for most of the other trait names used in this paper (e.g. 'more shyness', 'more legal knowledge'). This template therefore uses a uniform 'higher/lower in {trait}' paraphrase instead of literal substitution, preserving the verbatim structure (100-point scale; midpoint = no inference; extremes = confident, extreme inference) without producing broken grammar. Every rendered instance is labeled 'derived', citing this paraphrase as the derivation, not 'verbatim'.",
+    "evidence_label": "verbatim",
+    "source": "s1-trait-scale-example",
+    "range": [-50, 50],
+    "anchor_plus50": "Certainly higher in {trait} than the average person of my age and sex, probably very much higher.",
+    "anchor_zero": "Probably average with respect to {trait}. I have no reason to assume that the actor differs from the average person of my age and sex with respect to this characteristic.",
+    "anchor_minus50": "Certainly lower in {trait} than the average person of my age and sex, probably very much lower."
+  },
+  "study1": {
+    "design_note": {
+      "text": "Between-subjects: each participant sees exactly ONE story. n=80/story in the original study (320 total).",
+      "evidence_label": "verbatim",
+      "source": "s1-design-1"
+    },
+    "conditions": [
+      {
+        "condition_id": "supermarket",
+        "story_text": "As you are leaving your neighborhood supermarket a man in a business suit asks you whether you like shopping in that store. You reply quite honestly that you do like shopping there and indicate that in addition to being close to your home the supermarket seems to have very good meats and produce at reasonably low prices. The man then reveals that a videotape crew has filmed your comments and asks you to sign a release allowing them to use the unedited film for a TV commercial that the supermarket chain is preparing.",
+        "consensus_question": "What % of your peers do you estimate would sign the release? ____% What % would refuse to sign it? ____% (Total % should be 100%)",
+        "own_choice_options": ["sign the release", "not sign the release"],
+        "traits": ["shyness", "cooperativeness", "trust", "adventurousness"],
+        "evidence_label": "verbatim",
+        "source": "s1-story-supermarket"
+      },
+      {
+        "condition_id": "term_paper",
+        "story_text": "You arrive for the first day of class in a course in your major area of study. The professor says that the grade in your course will depend on a paper due the final day of the course. He gives the class the option of two alternatives upon which they must vote. They can either do papers individually in the normal way or they can work in teams of three persons who will submit a single paper between them. You are informed that he will still give out the same number of A's, B's, and C's, etc., but that in the first case every student will be graded individually while in the second case all three students who work together get the same grade.",
+        "consensus_question": "What % of your peers do you estimate would vote for group papers? ____% What % would vote for individual papers? ____% (Total % should be 100%)",
+        "own_choice_options": ["vote for group papers", "vote for individual papers"],
+        "traits": ["gregariousness", "laziness", "competitiveness", "generosity"],
+        "evidence_label": "verbatim",
+        "source": "s1-story-termpaper"
+      },
+      {
+        "condition_id": "traffic_ticket",
+        "story_text": "While driving through a rural area near your home you are stopped by a county police officer who informs you that you have been clocked (with radar) at 38 miles per hour in a 25-mph zone. You believe this information to be accurate. After the policeman leaves, you inspect your citation and find that the details on the summons regarding weather, visibility, time, and location of violation are highly inaccurate. The citation informs you that you may either pay a $20 fine by mail without appearing in court or you must appear in municipal court within the next two weeks to contest the charge.",
+        "consensus_question": "What % of your peers do you estimate would pay the $20 fine by mail? ____% What % would go to court to contest the charge? ____% (Total should be 100%)",
+        "own_choice_options": ["pay the $20 fine by mail", "go to court to contest the charge"],
+        "traits": ["self-confidence", "legal knowledge", "argumentativeness", "miserliness"],
+        "evidence_label": "verbatim",
+        "source": "s1-story-trafficticket"
+      },
+      {
+        "condition_id": "space_program",
+        "story_text": "It is proposed in Congress that the space program be revived and that large sums be allocated for the manned and unmanned exploration of the moon and planets nearest Earth. Supporters of the proposal argue that it will provide jobs, spur technology, and promote national pride and unity. Opponents argue that a space program will either necessitate higher taxes, or else drain money from important domestic priorities. Furthermore, they deny that it will accomplish the desirable effects claimed by the program's supporters. Both sides, of course, refute each other's claims and ultimately a public referendum is held.",
+        "consensus_question": "What % of your peers do you estimate would vote for the proposed allocation of funds for space exploration? ____% What % would vote against it? ____% (Total should be 100%)",
+        "own_choice_options": ["vote for the space program allocation", "vote against the space program allocation"],
+        "traits": ["rationality", "social concern", "idealism", "selfishness"],
+        "evidence_label": "verbatim",
+        "source": "s1-story-spaceprogram",
+        "note": "Table 1 in the paper labels the two options 'vote for cutback' / 'vote against cutback', which is inconsistent with the story text's 'for/against the allocation' framing. Preserved as an inconsistency in the source rather than silently resolved; see s1-story-spaceprogram note in evidence.json."
+      }
+    ],
+    "trait_rating_instructions": {
+      "text": "Rate the typical person (of your own age and sex) who would choose each option on the traits listed for this story, using a -50 to +50 scale per the trait_scale_template above.",
+      "evidence_label": "reported",
+      "source": "s1-procedure-order"
+    }
+  },
+  "study2": {
+    "design_note": {
+      "text": "Within-subjects: each participant sees all 34 usable items (of 35 originally administered; the Nixon-impeachment item was dropped mid-study). Half self-categorize first then estimate peer percentages; half do the reverse (order had no effect, so the adapter defaults to self-first).",
+      "evidence_label": "verbatim",
+      "source": "s2-design"
+    },
+    "full_item_wording_status": {
+      "text": "The paper explicitly states the full 35-item questionnaire text is not reproduced in the report and was available only from the first author. Only the short category labels below (from Table 3) are available from this source.",
+      "evidence_label": "missing",
+      "source": "s2-questionnaire-not-reproduced"
+    },
+    "items": [
+      {"domain": "Personal traits and views", "category_1": "Shy", "category_2": "not shy", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal traits and views", "category_1": "Optimistic", "category_2": "not optimistic", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal traits and views", "category_1": "Competitive", "category_2": "not competitive", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal traits and views", "category_1": "Politically left of center", "category_2": "not politically left of center", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal traits and views", "category_1": "Supporter of women's lib", "category_2": "not a supporter of women's lib", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal preferences", "category_1": "Prefers brown bread", "category_2": "prefers white bread", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal preferences", "category_1": "Prefers to be alone", "category_2": "prefers to be with others", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal preferences", "category_1": "Prefers Italian movies", "category_2": "prefers French movies", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal preferences", "category_1": "Prefers city life", "category_2": "prefers country life", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal preferences", "category_1": "Prefers basketball", "category_2": "prefers football", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal characteristics", "category_1": "Male", "category_2": "female", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal characteristics", "category_1": "Brown eyes", "category_2": "blue eyes", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal characteristics", "category_1": "Subscribes to magazines on list provided", "category_2": "does not subscribe", "source": "s2-table3-items-and-results", "evidence_label": "reported", "note": "The specific magazine list referenced is not reproduced in the paper; marked missing."},
+      {"domain": "Personal characteristics", "category_1": "First-born child", "category_2": "later-born child", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal characteristics", "category_1": "Hometown more than 200,000 people", "category_2": "hometown less than 200,000 people", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal problems", "category_1": "Often thinks about dying", "category_2": "does not often think about dying", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal problems", "category_1": "Finds it hard to make friends", "category_2": "does not find it hard to make friends", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal problems", "category_1": "Has difficulty controlling temper", "category_2": "does not have difficulty controlling temper", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal problems", "category_1": "Frequently depressed", "category_2": "not frequently depressed", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal problems", "category_1": "Emotional needs satisfied", "category_2": "emotional needs not satisfied", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal activities", "category_1": "Watches TV 30+ hours/month", "category_2": "watches TV less than 30 hours/month", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal activities", "category_1": "Plays tennis once a week", "category_2": "does not play tennis once a week", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal activities", "category_1": "Attends religious service once a month", "category_2": "does not attend religious service once a month", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal activities", "category_1": "Donates blood once a year", "category_2": "does not donate blood once a year", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal activities", "category_1": "Makes a long-distance phone call once a week", "category_2": "does not make a long-distance phone call once a week", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal expectations", "category_1": "Expects to be married by age 30", "category_2": "does not expect to be married by age 30", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal expectations", "category_1": "Expects better financial status than parents", "category_2": "does not expect better financial status than parents", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal expectations", "category_1": "Expects to live outside the U.S. for a year in next 20 years", "category_2": "does not expect to", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal expectations", "category_1": "Expects great satisfaction from job or career", "category_2": "does not expect great satisfaction from job or career", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Personal expectations", "category_1": "Expects death before 70th birthday", "category_2": "does not expect death before 70th birthday", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Political expectations", "category_1": "Expects removal of Nixon from office", "category_2": "does not expect removal of Nixon from office", "source": "s2-table3-items-and-results", "evidence_label": "reported", "status": "DROPPED_MID_STUDY", "note": "Excluded from the 34 usable items; the paper marks this row 'Deleted'. Retained here only for completeness; adapter must skip it."},
+      {"domain": "Political expectations", "category_1": "Expects a woman on the Supreme Court within a decade", "category_2": "does not expect this", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Political expectations", "category_1": "Expects the poverty problem to be reduced in the next 20 years", "category_2": "does not expect this", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Political expectations", "category_1": "Expects a nuclear weapon to be used in warfare in the next 10 years", "category_2": "does not expect this", "source": "s2-table3-items-and-results", "evidence_label": "reported"},
+      {"domain": "Political expectations", "category_1": "Expects discovery of extraterrestrial life by year 2000", "category_2": "does not expect this", "source": "s2-table3-items-and-results", "evidence_label": "reported"}
+    ],
+    "item_count_note": {
+      "text": "35 items were administered; 1 (Nixon impeachment) was dropped mid-study, leaving 34 analyzed items. All 35 rows (including the dropped one) are listed above for completeness/audit purposes; task/task.json instructs the adapter to administer only the 34 non-dropped items.",
+      "evidence_label": "verbatim",
+      "source": "s2-design"
+    }
+  },
+  "study3": {
+    "design_note": {
+      "text": "Between-subjects: each participant sees ONE of two sign-message versions (Eat at Joe's / Repent) of the sandwich-board story. n=104 total in the original study.",
+      "evidence_label": "verbatim",
+      "source": "s3-design"
+    },
+    "conditions": [
+      {
+        "condition_id": "eat_at_joes",
+        "story_text": "It is an official course requirement of your introductory psychology class that you participate as a subject in at least three experiments during the quarter. Sign-up sheets for experiments are posted on the bulletin board outside class which allow students to choose a time which is convenient. You decide to sign up for an experiment described as \"a study concerned with attitudes,\" and arrive at the designated time and place where you are greeted by the experimenter and thanked for coming. The experimenter then proceeds to describe his study. He explains that he is concerned with persuasion and attitude change and will be comparing various types of communication techniques. He further explains that today he needs subjects to walk around campus for 30 minutes wearing a sandwich board sign which simply says: \"Eat at Joe's\" While they are wearing this sandwich board subjects are simply to keep a record of the number of people who say something to them. They are also required to note the person's sex and whether the person's comment is positive, negative, or neutral. The experimenter makes it clear that you are not compelled to participate if you are unwilling, but that he would obviously prefer that you go along with his request to wear the sign and make the necessary observations. Subjects who decide not to participate, he explains, will be missing the chance to learn something interesting and to help the research project but they nevertheless will receive credit toward their course requirement.",
+        "consensus_question": "What % of your peers do you estimate would agree to carry the sandwich board around campus? ____% What % would refuse to carry it? ____% (Total should be 100%)",
+        "own_choice_options": ["agree to carry the sandwich board", "refuse to carry the sandwich board"],
+        "traits": ["cooperativeness", "shyness", "aggressiveness", "submissiveness", "attractiveness", "inquisitiveness", "uprightness", "cynicism"],
+        "evidence_label": "verbatim",
+        "source": "s3-story-eatatjoes"
+      },
+      {
+        "condition_id": "repent",
+        "story_text": "It is an official course requirement of your introductory psychology class that you participate as a subject in at least three experiments during the quarter. Sign-up sheets for experiments are posted on the bulletin board outside class which allow students to choose a time which is convenient. You decide to sign up for an experiment described as \"a study concerned with attitudes,\" and arrive at the designated time and place where you are greeted by the experimenter and thanked for coming. The experimenter then proceeds to describe his study. He explains that he is concerned with persuasion and attitude change and will be comparing various types of communication techniques. He further explains that today he needs subjects to walk around campus for 30 minutes wearing a sandwich board sign which simply says: \"Repent\" While they are wearing this sandwich board subjects are simply to keep a record of the number of people who say something to them. They are also required to note the person's sex and whether the person's comment is positive, negative, or neutral. The experimenter makes it clear that you are not compelled to participate if you are unwilling, but that he would obviously prefer that you go along with his request to wear the sign and make the necessary observations. Subjects who decide not to participate, he explains, will be missing the chance to learn something interesting and to help the research project but they nevertheless will receive credit toward their course requirement.",
+        "consensus_question": "What % of your peers do you estimate would agree to carry the sandwich board around campus? ____% What % would refuse to carry it? ____% (Total should be 100%)",
+        "own_choice_options": ["agree to carry the sandwich board", "refuse to carry the sandwich board"],
+        "traits": ["cooperativeness", "shyness", "aggressiveness", "submissiveness", "attractiveness", "inquisitiveness", "uprightness", "cynicism"],
+        "evidence_label": "derived",
+        "derivation": "Sign text substituted per the paper's explicit statement that the Repent version is identical except for the sign message (s3-story-repent).",
+        "source": "s3-story-repent"
+      }
+    ]
+  },
+  "study4": {
+    "design_note": {
+      "text": "Between-subjects, real (non-hypothetical) decision. In the original study, participants were physically present in groups of 2-5, completed a real 'Likes and Dislikes' questionnaire, heard the cover story delivered live by an experimenter, and made a real, consequential choice to wear or not wear a sandwich board sign around campus for 30 minutes, followed by full debriefing about the deception. A text-based agent cannot be made to actually walk around campus; this package instead administers the same textual materials (cover story script + Likes/Dislikes vignettes) and records the agent's stated choice, consensus estimate, and trait ratings, clearly labeled as a text-only reconstruction of the real-choice manipulation rather than a live behavioral replication.",
+      "evidence_label": "reported",
+      "source": "s4-design"
+    },
+    "likes_dislikes_intro_task": {
+      "text": "Before hearing about the sandwich-board request, complete a 'Likes and Dislikes' questionnaire describing briefly some things you like to do and some things you dislike doing.",
+      "evidence_label": "reported",
+      "source": "s4-design"
+    },
+    "cover_story_script": {
+      "text": "Let me explain what this study is all about. We're running a series of experiments about attitudes and self-perceptions. We're interested in how different types of people respond to different types of messages, depending on the medium in which they're presented. For example, we've already used telephone calls, handbills, and newspaper ads. Today we are studying another medium-a more personal one-a sandwich board sign like this one. We want to see how many people respond, who responds, and how they respond, when a message is presented on a sandwich board. We're particularly interested in what difference it makes who is carrying the sandwich board sign. What we'd like you to do today is to put on one of these sandwich boards and walk around the campus for about 30 minutes. We have a map to give you with the route outlined. We also have a tally sheet for you to carry around on which to keep track of the number of people who respond verbally and to record whether their responses are positive, negative, or neutral. If you are not willing to do this we will still give you your experimental credit although you will miss the chance to have an interesting experience and to do us a big favor. Now would you please indicate if you're willing to do the task by checking the appropriate box on the Likes and Dislikes questionnaire in front of you.",
+      "evidence_label": "verbatim",
+      "source": "s4-experimenter-script",
+      "note": "Paper describes the printed version as 'a slightly expanded version' of the script actually delivered aloud; the exact spoken wording used with subjects is not preserved verbatim beyond this printed version."
+    },
+    "consensus_question": "After deciding, estimate: What % of participants like you do you think agreed to wear the sandwich board? ____% What % refused? ____% (Total should be 100%)",
+    "own_choice_options": ["agree to wear the sandwich board", "refuse and withdraw (still receiving course credit)"],
+    "target_person_materials": [
+      {
+        "version": "A",
+        "likes": "to take walks, read, sculpt, run, swing, lie on the beach, and eat",
+        "dislikes": "being in crowds, being inside all day, feeling pressured by people, or having to make conversation",
+        "evidence_label": "verbatim",
+        "source": "s4-likes-dislikes-versionA"
+      },
+      {
+        "version": "B",
+        "likes": "to listen, talk, laugh, bake, do arts and crafts, play with a pet dog, and tease close friends",
+        "dislikes": "writing term papers, sitting in dull classes, or being with badly behaved children or objectionable adults",
+        "evidence_label": "verbatim",
+        "source": "s4-likes-dislikes-versionB"
+      }
+    ],
+    "target_person_pairing_note": {
+      "text": "In the original study, roughly half of subjects saw Version A paired with 'this person agreed to wear the sign' and Version B paired with 'this person refused' (and vice versa for the remainder), counterbalanced. The adapter should randomize this pairing per run.",
+      "evidence_label": "verbatim",
+      "source": "s4-counterbalance-and-justification"
+    },
+    "traits": {
+      "value": ["cooperativeness", "shyness", "aggressiveness", "submissiveness", "attractiveness", "inquisitiveness", "uprightness", "cynicism"],
+      "evidence_label": "missing",
+      "source": "s4-traits-not-listed",
+      "note": "The paper never explicitly states which traits were rated in Study 4. This list is carried over from Study 3 as a labeled assumption, not a verbatim or reported fact about Study 4 itself. See audit/missing_information.json entry study4-trait-list."
+    },
+    "debriefing_note": {
+      "text": "In the original study, all participants were fully debriefed about the true purpose of the study and the deception involved, and reassured that either choice was reasonable. Because this package's Study 4 administration is a text-only reconstruction (no real deception of a live human participant occurs), a live debriefing step is not required for adapter.py's operation, but the researcher-facing framing must not omit this original ethical safeguard.",
+      "evidence_label": "verbatim",
+      "source": "s4-counterbalance-and-justification"
+    }
+  }
+}
