@@ -17,6 +17,7 @@ import json
 import os
 import random
 import re
+import subprocess
 import sys
 import traceback
 from collections import Counter
@@ -312,6 +313,22 @@ def main() -> None:
     run = read_run(run_dir)
     progress = ProgressWriter(run_dir, args.progress_repo, args.progress_branch, args.progress_path)
     progress.write({"phase": "preparing", "completedTrials": 0, "totalTrials": 0, "message": "Loading the study"}, force=True)
+
+    # Buffer (agent-built) studies are self-contained packages in the jobs
+    # repository: drive their own task/adapter.py + evaluation/evaluation.py
+    # with the chosen model, rather than the benchmark study format below.
+    if run.get("jobId") and run.get("packageSlug"):
+        cmd = [
+            sys.executable,
+            str(REPO_ROOT / "playground" / "run_package.py"),
+            "--run", str(run_dir),
+            "--progress-repo", args.progress_repo or "",
+            "--progress-branch", args.progress_branch or "",
+            "--progress-path", args.progress_path or "",
+        ]
+        if args.simulate:
+            cmd.append("--simulate")
+        raise SystemExit(subprocess.run(cmd).returncode)
 
     try:
         api_key = decrypt_api_key(run.get("sealedApiKey"))
