@@ -176,6 +176,91 @@ def _comap_driver(adapter: Any, evaluation: Any, model: str, api_key: str, tempe
     return [transcript], result
 
 
+def _find_value(obj: Any, key: str) -> Any:
+    """Recursively find a key in a nested dict/list."""
+    if isinstance(obj, dict):
+        if key in obj:
+            return obj[key]
+        for value in obj.values():
+            found = _find_value(value, key)
+            if found is not None:
+                return found
+    elif isinstance(obj, list):
+        for value in obj:
+            found = _find_value(value, key)
+            if found is not None:
+                return found
+    return None
+
+
+def _task_prompt(task: dict) -> str:
+    lines = [str(task.get("instructions") or "")]
+    if task.get("story"):
+        lines.append("STORY:\n" + str(task["story"]))
+    lines.append("\nRate each item below on its own 1-9 scale (integer only).")
+    for group, items in task.get("questionnaire", {}).items():
+        if group == "open_response_prompt" or not isinstance(items, list):
+            continue
+        lines.append(f"\n{group}:")
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            stem = item.get("stem") or item.get("question") or item.get("id")
+            anchors = item.get("scale_anchors_verbatim") or ""
+            lines.append(f"- {item.get('id')}: {stem} ({anchors})")
+    lines.append("\nRespond with a single JSON object. Use each group name above as a key, with an object of item_id -> integer (1-9) as its value.")
+    return "\n".join(lines)
+
+
+def _task_record(culture: str, level: str, task: dict, response: dict) -> dict:
+    record = {"culture": culture, "adaptation_level": level}
+    for group, items in task.get("questionnaire", {}).items():
+        if group == "open_response_prompt" or not isinstance(items, list):
+            continue
+        block = {}
+        group_data = response.get(group) if isinstance(response, dict) else None
+        for item in items:
+            if not isinstance(item, dict) or not item.get("id"):
+                continue
+            item_id = item["id"]
+            value = None
+            if isinstance(group_data, dict) and item_id in group_data:
+                value = group_data[item_id]
+            elif item_id in response:
+                value = response[item_id]
+            if value is None:
+                value = _find_value(response, item_id)
+            if value is not None:
+                try:
+                    block[item_id] = max(1, min(9, int(round(float(value)))))
+                except (TypeError, ValueError):
+                    pass
+        if block:
+            record[group] = block
+    return record
+
+
+def _prompt_response_driver(adapter: Any, evaluation: Any, model: str, api_key: str, temperature: float, seed: int, participants: int, simulate: bool):
+    records = []
+    for culture in adapter.CULTURES:
+        for level in adapter.ADAPTATION_LEVELS:
+            task = adapter.build_participant_task(culture, level, f"{culture}_{level}")
+            if task.get("status") != "ready":
+                continue
+            for _ in range(participants):
+                prompt = _task_prompt(task)
+                if simulate:
+                    response = {group: {item.get("id"): 5 for item in items if isinstance(item, dict) and item.get("id")}
+                                for group, items in task.get("questionnaire", {}).items()
+                                if group != "open_response_prompt" and isinstance(items, list)}
+                else:
+                    reply = _llm_call(model, api_key, [{"role": "user", "content": prompt}], temperature, simulate, mock="{}")
+                    response = _parse_json(reply)
+                records.append(_task_record(culture, level, task, response))
+    result = evaluation.evaluate(records)
+    return records, result
+
+
 DRIVERS: List[Dict[str, Any]] = [
     {
         "name": "anderson_holt_1997_information_cascades",
@@ -196,6 +281,11 @@ DRIVERS: List[Dict[str, Any]] = [
         "name": "comap_shared_visual_workspace_pbl",
         "detect": lambda a: hasattr(a, "run_dyad_session") and hasattr(a, "load_materials"),
         "run": _comap_driver,
+    },
+    {
+        "name": "prompt_response_build_participant_task",
+        "detect": lambda a: hasattr(a, "build_participant_task") and hasattr(a, "CULTURES") and hasattr(a, "ADAPTATION_LEVELS"),
+        "run": _prompt_response_driver,
     },
 ]
 
