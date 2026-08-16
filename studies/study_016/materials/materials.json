@@ -1,0 +1,325 @@
+{
+  "_explanation": "Participant-visible materials for both empirical studies reported in the paper. Every item carries an evidence label (verbatim/reported/derived/missing) and a source pointer into input/paper.pdf. 'verbatim' items are transcribed exactly as printed, including any typos or PDF-extraction artifacts present in the source (noted where relevant) -- they are NOT corrected or modernized, per the fidelity rules. Page numbers are derived from pdftotext page-break detection and are approximate but consistently within +/-1 page of the true PDF page.",
+
+  "background_survey": {
+    "name": "Intelligent-TPACK scale",
+    "used_by": ["study_2_main"],
+    "when_administered": "Onboarding and Background Survey, before Experimental Block 1",
+    "evidence_label": "verbatim",
+    "source": {"file": "input/paper.pdf", "page": "19-20", "section": "Appendix A.1 Intelligent-TPACK"},
+    "note_on_scale": "The paper cites Celik 2023 [12] as the origin of this scale but does not print response-format anchors (number of Likert points, verbal anchors) anywhere in the extracted text. See audit/missing_information.json entry 'questionnaire_response_format'.",
+    "cronbach_alpha_overall": {"value": 0.87, "evidence_label": "verbatim", "source": {"page": 12, "section": "5.3 Measurements"}},
+    "subscales": [
+      {
+        "id": "intelligent_tk",
+        "label": "A.1.1 Intelligent TK",
+        "items": [
+          "I know how to interact with AI-based tools in daily life",
+          "I know how to execute some tasks with AI-based tools.",
+          "I know how to initialize a task for AI-based technologies by text or speech.",
+          "I have sufficient knowledge to use AI-based tools.",
+          "I am familiar with AI-based tools and their technical capacities."
+        ]
+      },
+      {
+        "id": "intelligent_tpk",
+        "label": "A.1.2 Intelligent TPK",
+        "items": [
+          "I can understand the pedagogical contribution of AI-based tools to my teaching field.",
+          "I can evaluate the usefulness of feedback from AI-based tools for teaching and learning.",
+          "I can select AI-based tools for students to apply their knowledge.",
+          "I know how to use AI-based tools to monitor students' learning.",
+          "I can interpret messages from AI-based tools to give real-time feedback.",
+          "I can understand alerting (or notification) from AI-based tools to scaffold students' learning.",
+          "I have the knowledge to select AI-based tools to sustain students' motivation."
+        ]
+      },
+      {
+        "id": "intelligent_tck",
+        "label": "A.1.3 Intelligent TCK",
+        "items": [
+          "I can use AI-based tools to search for educational material in my teaching field.",
+          "I am aware of various AI-based tools which are used by professionals in my teaching field.",
+          "I can use AI-based tools to better understand the contents of my teaching field."
+        ]
+      },
+      {
+        "id": "intelligent_tpack",
+        "label": "A.1.4 Intelligent TPACK",
+        "items": [
+          "In teaching my field, I know how to use different AI-based tools for adaptive feedback.",
+          "In teaching my field, I know how to use different AI-based tools for personalized learning.",
+          "In teaching my field, I know how to use different AI-based tools for real-time feedback.",
+          "I can teach a subject using AI-based tools with diverse teaching strategies.",
+          "I can teach lessons that appropriately combine my teaching content, AI-based tools, and teaching strategies.",
+          "I can take a leadership role among my colleagues in the integration of AI-based tools into our teaching field.",
+          "I can select various AI-based tools to monitor students' learning in my teaching process."
+        ]
+      },
+      {
+        "id": "ethics",
+        "label": "A.1.5 Ethics",
+        "items": [
+          "I can assess to what extent AI-based tools consider individual differences (e.g., race and gender) of all students in my teaching.",
+          "I can evaluate to what extent AI-based tools behave fairly to all students in my teaching.",
+          "I can understand the justification of any decision made by an AI-based tool.",
+          "I can understand who the responsible developers are in the design and decision of AI-based tools"
+        ],
+        "transcription_note": "Item 4 reads 'Af-based tools' in the source PDF (likely an OCR/typesetting artifact for 'AI-based tools'). Transcribed verbatim rather than silently corrected."
+      }
+    ]
+  },
+
+  "post_task_questionnaires": {
+    "_explanation": "Administered once per condition, immediately after each task block (Questionnaires 1 after Block 1, Questionnaires 2 after Block 2). All items verbatim from Appendix A.2-A.4.",
+    "perceived_understanding": {
+      "label": "A.2 Perceived Understanding",
+      "measures": "Participants' self-reported ability to understand their partner's design during the sharing/mock-teaching session (rated about the partner, after the sharing step).",
+      "evidence_label": "verbatim",
+      "source": {"file": "input/paper.pdf", "page": 19, "section": "Appendix A.2"},
+      "cronbach_alpha": {"CoMAP": 0.83, "Baseline": 0.91, "evidence_label": "verbatim", "source": {"page": 12, "section": "5.3 Measurements"}},
+      "items": [
+        "As a listener, I can quickly grasp the core ideas of another person's instructional design.",
+        "As a listener, I can clearly understand the underlying concepts and logic behind another person's instructional design.",
+        "The presentation format of the tool (document/diagram) helps me understand others' designs more effectively.",
+        "The tool's output makes it easier to identify the strengths and weaknesses of a design.",
+        "I can easily follow the flow and structure of a design presented through this tool."
+      ]
+    },
+    "perceived_expression": {
+      "label": "A.3 Perceived Expression",
+      "measures": "Participants' self-reported ability to clearly present their own design during the sharing session.",
+      "evidence_label": "verbatim",
+      "source": {"file": "input/paper.pdf", "page": 19, "section": "Appendix A.3"},
+      "cronbach_alpha": {"Graph_i.e.CoMAP": 0.86, "Baseline": 0.87, "evidence_label": "verbatim", "source": {"page": 12, "section": "5.3 Measurements"}},
+      "items": [
+        "When using this tool, I can clearly present my instructional design ideas.",
+        "When using this tool, my design expressions are more easily understood by others.",
+        "The presentation format of the tool (document/diagram) helps me better organize and articulate my instructional design.",
+        "The tool helps me visualize complex design concepts in a simple way.",
+        "My design intent is accurately conveyed when I use this tool."
+      ]
+    },
+    "human_ai_interaction_experience": {
+      "label": "A.4 Human-AI Interaction Experience",
+      "measures": "Five constructs adapted from the Trust in Automation Scale [41] and NASA-TLX [27], per Section 5.3.",
+      "evidence_label": "verbatim",
+      "source": {"file": "input/paper.pdf", "page": 19, "section": "Appendix A.4"},
+      "cronbach_alpha": {
+        "CoMAP": {"Controllability": 0.72, "Transparency": 0.68, "Cognitive_Load": 0.78, "Collaboration": 0.63, "Trust": 0.80},
+        "Baseline": {"Controllability": 0.87, "Transparency": 0.84, "Cognitive_Load": 0.86, "Collaboration": 0.91, "Trust": 0.78},
+        "evidence_label": "verbatim",
+        "source": {"page": 12, "section": "5.3 Measurements"}
+      },
+      "subscales": [
+        {
+          "id": "controllable",
+          "label": "A.4.1 Controllable",
+          "items": [
+            "I can adjust the behavior of the AI tool at any time to align with my design intentions.",
+            "The tool provides clear options for me to guide its output.",
+            "I feel like I am in control of the final outcome, not the AI."
+          ]
+        },
+        {
+          "id": "transparent",
+          "label": "A.4.2 Transparent",
+          "items": [
+            "I can clearly understand the basis or source of the content generated by the AI tool.",
+            "The working process and logic of the AI tool are understandable to me.",
+            "The tool explains its reasoning behind the content it produces."
+          ]
+        },
+        {
+          "id": "cognitive_load",
+          "label": "A.4.3 Cognitive Load",
+          "items": [
+            "When using this tool, I can easily process information without feeling overwhelmed.",
+            "The way the tool presents information reduces the mental effort required for my instructional design.",
+            "The interface and features of the tool are intuitive and easy to navigate."
+          ]
+        },
+        {
+          "id": "collaboration",
+          "label": "A.4.4 Collaboration",
+          "items": [
+            "The tool can \"collaborate\" with me effectively to refine the instructional design.",
+            "I feel like this tool is an active collaborator, not just a passive instrument.",
+            "The tool's suggestions feel like a helpful partnership in the design process."
+          ]
+        },
+        {
+          "id": "trust",
+          "label": "A.4.5 Trust",
+          "items": [
+            "I trust the content generated by this tool.",
+            "I am willing to continue using this tool for future instructional design tasks.",
+            "The tool's performance meets or exceeds my expectations."
+          ]
+        }
+      ]
+    },
+    "response_format": {
+      "evidence_label": "derived",
+      "derivation": "The paper never states the number of scale points or the verbal anchors for any questionnaire. Reported means include M=6.13 (CoMAP Perceived Expression) and M=5.77 (CoMAP Perceived Understanding), which are only possible on an integer Likert scale with a maximum of at least 7. A 7-point scale (1=Strongly Disagree ... 7=Strongly Agree) is the most common convention for the cited source instruments (Trust in Automation Scale, NASA-TLX-derived items) and is used here as the runnable default, but this is a researcher decision, not a verbatim fact. See audit/missing_information.json entry 'questionnaire_response_format'.",
+      "default_used_in_task": "7-point Likert, 1-7, unlabeled intermediate anchors, endpoints 'Strongly Disagree' / 'Strongly Agree'"
+    }
+  },
+
+  "design_tasks": {
+    "_explanation": "The two structured PBL design prompts given to every participant in Study 2 (main study), one per experimental block, counterbalanced with tool condition per Section 5.2.",
+    "evidence_label": "verbatim",
+    "source": {"file": "input/paper.pdf", "page": 12, "section": "5.2 Study Design"},
+    "task_a": {
+      "id": "task_a_food_crops",
+      "title": "Task A: History of Foreign Food Crops",
+      "prompt": "Participants were required to design a PBL unit about the history and cultural significance of food crops introduced to their country. The task involved interdisciplinary elements from history, geography, and biology."
+    },
+    "task_b": {
+      "id": "task_b_population_aging",
+      "title": "Task B: Population Aging and Community Care",
+      "prompt": "Participants were tasked with designing a PBL unit focused on investigating local population aging. This task required integrating concepts from mathematics, politics, and geography, and included planning a community survey and a service event."
+    }
+  },
+
+  "sharing_task": {
+    "id": "mock_teaching_sharing",
+    "evidence_label": "reported",
+    "source": {"file": "input/paper.pdf", "page": 11, "section": "5.2 Study Design, step 3"},
+    "description": "Each participant presented their design idea to their partner in a brief 'mock-teaching' format. The paper does not print a verbatim script or time limit for this presentation; it is described only at this level of detail.",
+    "missing_detail": "Exact presentation script, time limit, and materials used during the mock-teaching format are not stated. See audit/missing_information.json entry 'mock_teaching_format'."
+  },
+
+  "interview_scripts": {
+    "formative_study": {
+      "label": "B.1 Formative Study",
+      "evidence_label": "verbatim",
+      "source": {"file": "input/paper.pdf", "page": 20, "section": "Appendix B.1"},
+      "stage_1_semi_structured_interview": {
+        "b1_1_personal_background": [
+          "How long have you been working in the field of education or teaching?",
+          "In your past teaching experience, what subjects have you typically been involved in designing courses for?",
+          "Are these course designs actually used for teaching? (e.g., frontline teaching, tutoring, mock lectures, or teaching demonstrations)"
+        ],
+        "b1_2_ai_assisted_lesson_plan_design": [
+          "Have you previously used AI to assist in designing lesson plans? If so, how do you typically use it?",
+          "Do you find AI's help significant? Can the generated materials be used directly?",
+          "If possible, could you share an AI-assisted lesson plan and the conversation process used to create it?",
+          "In what ways would you like to see current AI capabilities improve, and what new features would you find helpful?"
+        ],
+        "b1_3_methods_of_expressing_instructional_design": [
+          "Do you write your lesson plans in a linear fashion, from start to finish?",
+          "Would you be open to expressing instructional designs using diagrams or card-based formats? Do you think this would help teachers clarify their instructional thinking?",
+          "What content do you typically include in your lesson plans? Do you find it logical to break them down into the following components: Objectives, Activities, Assessment, Learner Characteristics, Resources, and Teaching Strategies?",
+          "If an AI could help generate and modify these cards, do you think it would be more effective in helping teachers design courses?"
+        ]
+      },
+      "stage_2_think_aloud_probe": {
+        "evidence_label": "reported",
+        "source": {"file": "input/paper.pdf", "page": 4, "section": "3.1 Participants and Procedure"},
+        "description": "Participants engaged in a think-aloud session using a low-fidelity static prototype as a design probe, reflecting both as users (clarity, usage scenarios, points of confusion) and as designers (missing functionalities, future applications). No fixed question list for this stage is printed in the paper.",
+        "missing_detail": "The paper describes the goals of Stage 2 but does not print a verbatim script of probe questions. See audit/missing_information.json entry 'formative_stage2_script'."
+      }
+    },
+    "main_study": {
+      "label": "B.2 User Study",
+      "evidence_label": "verbatim",
+      "source": {"file": "input/paper.pdf", "page": 20, "section": "Appendix B.2"},
+      "b2_1_general_feedback": [
+        "What are your overall impressions of the instructional design assistance tool?",
+        "During the process, which features or interactions did you find particularly interesting or innovative?",
+        "What experiences did you find confusing or uncomfortable?"
+      ],
+      "b2_2_comparing_different_tools": [
+        "Having tried two different tools, you've likely noticed that each has its own unique strengths and weaknesses. Can you share your comparative impressions?",
+        "Under what circumstances would you be more willing to use a diagram/map-based tool?"
+      ],
+      "administration_note": "Per Section 5.2, B.2.1 (General Feedback) is administered as the 'Interview and Questionnaires 1' step after Block 1, using whichever tool was just used; B.2.2 (Comparing Different Tools) is administered as the 'Comparative Interview' after Block 2, once the participant has used both tools."
+    }
+  },
+
+  "comap_ai_agent_prompts": {
+    "_explanation": "The three system prompts that define the CoMAP condition's AI side (Global Agent for the conversational/CUI channel; Refine Agent and Split Agent for the GUI-invoked local channel). These are scripted actors in the fidelity sense: the paper specifies them as fixed system prompts driving GPT-4.1, not as human subjects, so they are implemented as scripted (non-agentic-participant) roles in task.json. See task/task.json 'scripted_roles' for justification.",
+    "evidence_label": "verbatim",
+    "source": {"file": "input/paper.pdf", "page": 21, "section": "Appendix C"},
+    "transcription_note": "The JSON examples in the source PDF contain literal backslash-underscore sequences (e.g. 'card\\_id', 'new\\_node') that are almost certainly a LaTeX escaping artifact in the original typesetting rather than an intentional part of the prompt. They are preserved exactly as printed below, per the no-rewrite rule; a researcher may want to confirm the true prompt text with the system's authors before execution.",
+    "global_agent": {
+      "id": "C.1",
+      "system_prompt": "You are an expert in educational intelligence, skilled at building instructional maps in a modular, step-by-step fashion.\nFor a user's instructional design request, you should provide your suggestions one step at a time, just as you would in a conversation. Mimic the style of Cursor, delivering your actions in segments, clearly explaining the intent of each design step, followed by the action in JSON format.\nEach suggestion segment should be followed by a corresponding JSON structure. The field names should be in English, and the content should be in English as well. Be as detailed as possible in the JSON, while keeping the conversational text concise.\nYour output style should be natural and guiding, and can include multiple JSON action blocks.\nEach JSON structure should contain an actions field. Do not mention the JSON structure in the conversation, as your audience is teacher-training students and teachers who may not be familiar with code. For example:\n\n{\n \"actions\": [\n { \"option\": \"add\",\n \"type\": \"Activity\",\n \"title\": \"...\",\n \"description\": \"...\" },\n { \"option\": \"modify\",\n \"card\\_id\":\"111\",\n \"type\": \"Activity\",\n \"title\": \"...\",\n \"description\": \"...\"\n }\n ]\n}\n\nThe field names include option, title, description, type, and card_id (required only for modifications). The option field can be \"add\" or \"modify\". For modifications, you must specify the card_id and provide the updated content for the card.\nNote:\n- Each action is a new or modified element of the instructional map. The type includes: Learners, Objectives, Activities, Resources, Assessments, and Strategies. The title and description should be specific and actionable. The description must be very detailed.\n- At the beginning of the conversation, respond to the user's input. For example, affirm their idea, summarize, analyze, or elaborate, and feel free to include emojis.\n- At the end of the conversation, summarize briefly and offer a list of next steps you can help with, giving the user choices for what to do next.\n- It is highly recommended to always provide the user with choices via JSON Actions, rather than using a plain text conversation format, which can feel monotonous and make the user unsure of how to proceed.\n- If you don't have enough information about one of the six elements mentioned above, do not guess. Instead, provide actions for the user to choose from.\nThe following are some tips to help you better understand the meaning of each element:\n- Objectives should be specific and measurable. The title should be a concise summary of the objective, without using names like 'Objective 1'. You can also include tags in the title, such as whether the objective falls under knowledge and skills, process and methods, or emotional attitudes and values, and can also consider including the subject matter.\n- Resources should be specific and obtainable. It is best to provide the concrete names of books, websites, or links. Avoid vague descriptions; you must specify concrete events, models, or website names, otherwise the information is useless.\n- Assessments can include self-assessment, peer assessment, group mutual assessment, teacher assessment, tests, reports, presentations, etc. You should provide a specific evaluation rubric and ensure it is linked to the objectives and activities.\n- Strategies refer to specific instructional strategies, such as project-based learning, inquiry-based learning, etc. These should be described in detail. You can also suggest more innovative and cutting-edge instructional strategies.\n- Learners refers to the characteristics of the target learner group. This generally needs to include their starting proficiency level, learning style, common cognitive characteristics, and learning interests.\n- When describing Activities, the title should be in a style like \"Activity 1: Specific Activity Name Xxx\" to help teachers understand the sequence of activities. It's also best to include the estimated time required for the activity in the title."
+    },
+    "refine_agent": {
+      "id": "C.2",
+      "system_prompt": "You are an AI teaching map assistant. Your task is to refine and optimize the content of a specified teaching card based on the user's prompt. The card types include: Learners, Objectives, Activities, Resources, Assessments, and Strategies. Please strictly follow the rules below for your JSON output:\n- Output only one JSON object, containing a single new_node field.\n- new_node is a dictionary that includes the refined title, description, and tag.\n- Refine the description field to make it more specific and detailed. The description can be written in HTML format. Additionally, please avoid generic and vague statements. I prefer content that is concrete and actionable.\n- The title should generally remain the same, unless the refined content strongly requires a more appropriate title.\nFor example:\n{\n \"new\\_node\": {\n  \"id\": \"123\",\n  \"title\": \"title here\",\n  \"description\": \"(refined content)\",\n  \"tag\": \"Activity\"\n }\n}"
+    },
+    "split_agent": {
+      "id": "C.3",
+      "system_prompt": "You are an AI teaching map assistant. Your task is to take the core concepts or steps from a user-provided card and break them down into multiple smaller, more specific, and independent new cards. Please strictly follow the rules below for your JSON output:\n- Output only a single JSON object containing old_node_id and new_nodes fields.\n- old_node_id is the ID of the original card.\n- new_nodes is an array containing the data for the newly generated cards. Each new card must include id, tag, title, and description.\n- The tag can be the same as the original card's tag or be adjusted to a more suitable one based on the new content. The tag options include: Learners, Objectives, Activities, Resources, Assessments, and Strategies. You must choose from these six options!\n- The title and description should be specific and detailed, reflecting the core content of the new card.\nFor example:\n{\n \"old_node_id\": \"123\",\n \"new_nodes\": [\n  {\"title\": \"...\", \"description\": \"...\", \"tag\": \"...\"},\n  {\"title\": \"...\", \"description\": \"...\", \"tag\": \"...\"}\n ]\n}"
+    },
+    "invocation_note": {
+      "evidence_label": "reported",
+      "source": {"file": "input/paper.pdf", "page": 8, "section": "4.3"},
+      "text": "The Global Agent is invoked through the conversational UI (CUI) at any time. The Refine Agent and Split Agent are invoked via a context menu on an individual node in the GUI canvas (Refine: improve a node's content; Split: decompose a node into sub-nodes). In this text-based agent package, node-level GUI invocation is represented as an explicit structured action rather than a mouse click; see task/task.json 'local_agent_invocation_protocol' and audit/missing_information.json entry 'gui_interaction_fidelity'."
+    }
+  },
+
+  "baseline_condition": {
+    "evidence_label": "missing",
+    "source": {"file": "input/paper.pdf", "page": 12, "section": "5.2 Study Design"},
+    "what_the_paper_says": "The Baseline condition served as a control, where participants used a standard, dialogue-based AI and were provided with a separate document to serve as a persistent record for their design process.",
+    "missing_content": "No system prompt, model configuration, or UI description is printed anywhere in the extracted text for the Baseline dialogue AI (unlike the CoMAP agents, which are given verbatim in Appendix C). The exact wording of the 'separate document' template participants used to record their design is also not printed.",
+    "impact": "The Baseline arm of the crossover cannot be executed with a verbatim AI system prompt. See audit/missing_information.json entry 'baseline_system_prompt'."
+  },
+
+  "design_hints_panel": {
+    "label": "Table 1: A selection of Preset Design Hints",
+    "evidence_label": "verbatim",
+    "source": {"file": "input/paper.pdf", "page": 9, "section": "Table 1"},
+    "completeness_note": "The paper's own caption states this is 'a selection of Preset Design Hints' -- the full hint library is not printed. Treat the rows below as verbatim examples, not the complete panel content. See audit/missing_information.json entry 'design_hints_full_library'.",
+    "rows": [
+      {"node_type": "Learner", "category_level": "Primary School", "title_and_description": "Primary School Learners: High curiosity, short attention span, learn through play and concrete operations..."},
+      {"node_type": "Learner", "category_level": "Junior High", "title_and_description": "Junior High Learners: Developing abstract thinking, sensitive to peer relationships and self-identity..."},
+      {"node_type": "Learner", "category_level": "High School", "title_and_description": "High School Learners: Advanced abstract thinking, strong logical analysis and independent thought..."},
+      {"node_type": "Learner", "category_level": "Adult", "title_and_description": "Adult Learners: Goal-oriented, rich prior experience, value practicality and relevance..."},
+      {"node_type": "Strategy", "category_level": "Constructivism", "title_and_description": "Project-Based Learning (PBL): Centered on an authentic problem, guiding students in long-term inquiry..."},
+      {"node_type": "Strategy", "category_level": "Cognitivism", "title_and_description": "Scaffolding: Providing structured support to help students complete tasks beyond their current ability..."},
+      {"node_type": "Strategy", "category_level": "Behaviorism", "title_and_description": "Direct Instruction: Teacher-led, highly structured model for teaching foundational knowledge and skills..."},
+      {"node_type": "Strategy", "category_level": "Collaborative", "title_and_description": "Collaborative Learning: Students work in small groups to achieve shared learning goals, emphasizing interdependence..."},
+      {"node_type": "Strategy", "category_level": "Differentiated", "title_and_description": "Differentiated Instruction: Adjusting content, process, and evaluation to meet individual student needs..."},
+      {"node_type": "Activity", "category_level": "Interactive", "title_and_description": "Brainstorming: Students freely generate ideas on a topic without judgment, which are then categorized and evaluated..."},
+      {"node_type": "Activity", "category_level": "Collaborative", "title_and_description": "Jigsaw: A large topic is decomposed; each student becomes an \"expert\" on one part to teach their peers..."},
+      {"node_type": "Activity", "category_level": "Inquiry-based", "title_and_description": "Case Study Analysis: Students analyze a real-world case to apply knowledge and develop problem-solving skills..."},
+      {"node_type": "Activity", "category_level": "Practice-based", "title_and_description": "Concept Mapping: Students visually represent their understanding of a topic by connecting concepts and ideas..."},
+      {"node_type": "Activity", "category_level": "Reflective", "title_and_description": "Reflective Journaling: Students regularly write about what they've learned, challenges faced, and areas for improvement..."},
+      {"node_type": "Objective", "category_level": "Template", "title_and_description": "Knowledge & Skill Goal: [Actor] Student [Condition] After [a learning activity] [Verb] is able to [perform an action]..."},
+      {"node_type": "Objective", "category_level": "Template", "title_and_description": "Problem-Solving Goal: [Actor] Student [Condition] In a [collaborative context] [Verb] is able to [design/analyze]..."},
+      {"node_type": "Objective", "category_level": "Template", "title_and_description": "Value & Affective Goal: [Actor] Student [Condition] After [a reflective experience] [Verb] is able to [express/critique]..."},
+      {"node_type": "Evaluation", "category_level": "Formative", "title_and_description": "One-Minute Paper: At a session's end, students write down one key learning and one remaining question..."},
+      {"node_type": "Evaluation", "category_level": "Formative", "title_and_description": "Peer Assessment: Students provide feedback on each other's work based on established criteria..."},
+      {"node_type": "Evaluation", "category_level": "Summative", "title_and_description": "Project Report/Presentation: Evaluates the comprehensive application of knowledge on a final product..."},
+      {"node_type": "Evaluation", "category_level": "Summative", "title_and_description": "Portfolio Assessment: A collection of student work over time to evaluate progress and achievement..."},
+      {"node_type": "Resource", "category_level": "Interactive Tool", "title_and_description": "PhET Interactive Simulations: Free, research-backed science and math simulations for active learning..."},
+      {"node_type": "Resource", "category_level": "Video Platform", "title_and_description": "Khan Academy: A non-profit educational organization providing free video tutorials and interactive exercises..."},
+      {"node_type": "Resource", "category_level": "Document Platform", "title_and_description": "Smart Education Platform (CN): Official platform with high-quality, free lesson plans and courseware..."},
+      {"node_type": "Resource", "category_level": "Course Platform", "title_and_description": "Coursera / edX: Platforms offering university-level courses for teacher development or student extension..."}
+    ]
+  },
+
+  "canvas_node_types": {
+    "evidence_label": "verbatim",
+    "source": {"file": "input/paper.pdf", "page": 8, "section": "4.2.1 Pedagogical Semantics"},
+    "description": "The six ASSURE-derived node types teachers use to build the graph in the CoMAP condition. Provided so the CoMAP-condition agent can label the structured cards it creates, mirroring the system it is meant to stand in for.",
+    "types": [
+      {"name": "Learner Analysis", "definition": "This node anchors the entire design process in the context of the students, prompting educators to consider their prior knowledge, developmental stages, and motivations to ensure the project is both accessible and engaging."},
+      {"name": "Learning Objectives", "definition": "This node defines the specific, measurable skills, knowledge, or attitudes students are expected to acquire. These objectives serve as the instructional targets, guiding the selection of all subsequent strategies and activities."},
+      {"name": "Instructional Strategies", "definition": "This node outlines the high-level pedagogical approaches (e.g., inquiry-based learning) that orchestrate the learning experience, representing the macro-level 'how' of the project."},
+      {"name": "Learning Activities", "definition": "This node details the concrete, hands-on tasks and interactions where knowledge is actively constructed. They are the tangible embodiment of the instructional strategies."},
+      {"name": "Project Resources", "definition": "This node identifies all necessary materials, media, and tools -- from physical equipment to digital applications -- required to support the learning activities."},
+      {"name": "Assessment & Evaluation", "definition": "This node specifies methods for both formative (ongoing) and summative (final) evaluation, which is critical for measuring student progress against the objectives and for revising the design itself."}
+    ],
+    "edge_semantics": {
+      "evidence_label": "reported",
+      "source": {"file": "input/paper.pdf", "page": 8, "section": "4.2.1"},
+      "text": "Edges are directed and labeled. CoMAP suggests conventional relationship labels based on instructional design literature (e.g., a Resource 'supports' an Activity; an Objective 'guides' an Activity; an Evaluation 'measures' an Activity). For any connection without a predefined type, a general 'relates to' label is used. All edge labels are fully editable."
+    }
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "_explanation": "Defines the runnable agent interaction for BOTH empirical studies in the paper. Study 2 (the main user study, n=30) is the fully specified, quantitatively-measured study and is implemented in full by task/adapter.py. Study 1 (the formative study, n=7) is documented here for completeness and fidelity (every original subject must be an agent) and is implemented as a simpler secondary mode of the same adapter. task/adapter.py reads this file at runtime; do not rename fields without updating the adapter.",
+
+  "package_entry_point": "task/adapter.py",
+  "how_to_run_smoke_test": "python task/adapter.py --smoke-test",
+  "how_to_run_a_session": "python task/adapter.py --study study_2_main --dyad-id <int 1-15> --agent-a-order A --agent-a-task-order 1 --agent-b-order B --agent-b-task-order 2 --agent-fn-module <your_module:agent_fn> [--baseline-system-prompt-file <path>]",
+
+  "studies": [
+    {
+      "id": "study_1_formative",
+      "name": "Formative Study",
+      "paper_section": "Section 3 (pages 3-4)",
+      "purpose": "Qualitative study that produced the challenges (C1-C3) and design goals (DG1-DG3) motivating CoMAP. Not a test of CoMAP itself -- CoMAP did not exist yet at this stage.",
+      "num_agents": 7,
+      "agent_roles": [
+        {"role": "pbl_practitioner", "count": 7, "description": "Each of the 7 formative-study agents plays one of the 7 recruited practitioners (6 female, 1 male; ages 19-45, M=26.4, SD=10.6; two educational-technology background, two pre-service teachers, one novice teacher (1 yr experience), one curriculum researcher, one science-education researcher). Evidence label: verbatim demographic composition (source: input/paper.pdf p.4, Section 3.1); individual identities/assignment of these traits to specific agents beyond the aggregate roster is not printed and is left to the researcher (see audit/missing_information.json 'formative_participant_identity_assignment')."}
+      ],
+      "scripted_roles": [
+        {
+          "role": "interviewer_facilitator",
+          "scripted": true,
+          "justification": "The paper attributes the interview and think-aloud facilitation to 'the research team' (page 4), i.e., the paper's own investigators, not a recruited subject. Per the fidelity rules, roles the paper itself scripts (experimenters/confederates) may remain scripted; only roles the paper identifies as subjects must be agents. The interviewer here follows the fixed verbatim script in materials.json 'interview_scripts.formative_study' for Stage 1; Stage 2's probe questions are not printed verbatim (see missing_information.json) so the facilitator must be flagged blocked for that portion until a researcher supplies the probe script or approves an improvised-but-labeled substitute."
+        }
+      ],
+      "order_and_visibility": "Each of the 7 sessions is run one-on-one and independently (paper: 'conducted one-on-one via online meetings', 45-75 minutes each). There is no cross-participant visibility in this study -- no participant sees another participant's answers, prototype feedback, or transcript. Sessions may be run in any order or in parallel with no effect on the design.",
+      "procedure": [
+        {"step": 1, "name": "Stage 1: Semi-structured interview", "content_ref": "materials.json interview_scripts.formative_study.stage_1_semi_structured_interview", "evidence_label": "verbatim"},
+        {"step": 2, "name": "Stage 2: Think-aloud with low-fidelity static prototype (design probe)", "content_ref": "materials.json interview_scripts.formative_study.stage_2_think_aloud_probe", "evidence_label": "reported/missing", "note": "Goals of this stage are reported verbatim-in-substance; the actual probe artifact and question script are not printed in the paper and are therefore not implementable without researcher input."}
+      ],
+      "outputs": ["interview_transcript_stage1 (per agent)", "think_aloud_notes_stage2 (per agent, blocked pending missing script)"],
+      "readiness": "blocked_partial: Stage 1 is fully runnable; Stage 2 is blocked because the design-probe prototype and its question script are not printed in the source PDF."
+    },
+    {
+      "id": "study_2_main",
+      "name": "Main User Study: CoMAP vs. Baseline (within-subjects crossover, dyadic sharing)",
+      "paper_section": "Section 5 (pages 11-16) and Appendix A-C",
+      "purpose": "Quantitative + qualitative comparison of CoMAP (graph canvas + dual-modality AI) against a dialogue-only Baseline AI, for PBL instructional design, RQ1 (design expression/understanding) and RQ2 (human-AI interaction experience).",
+      "num_human_participants_in_paper": 30,
+      "num_agents_per_replication_unit": 2,
+      "replication_unit": "dyad",
+      "num_dyads_for_full_sample": 15,
+      "note_on_unit": "The paper's 30 subjects are organized into 15 unacquainted dyads for the 'sharing' step. Each participant's individual design task and questionnaires are otherwise independent of their partner. This package's runnable unit is one dyad (2 agents); running it 15 times (dyad_id=1..15) with the counterbalancing scheme below reproduces the full n=30 sample. Do not collapse the dyad into two independent solo runs -- the Sharing step requires each partner to actually see the other's just-produced design (see 'visibility' below), which a solo run cannot provide.",
+
+      "agent_roles": [
+        {"role": "participant", "count_per_session": 2, "labels": ["agent_a", "agent_b"], "description": "Both are full human-subject roles in the original study (in-service teachers, pre-service teachers, or curriculum designers; sample-level demographics: 23 female, 7 male, age M=24.2, SD=3.63, recruited from 21 cities; all reported prior PBL-design and AI-tool experience). Evidence label: verbatim (source: input/paper.pdf p.11, Section 5.1). Per-agent identity beyond the aggregate roster is not specified in the paper and is a researcher decision (audit/missing_information.json 'main_study_participant_identity_assignment')."}
+      ],
+
+      "scripted_roles": [
+        {
+          "role": "comap_global_agent",
+          "scripted": true,
+          "justification": "The paper specifies this exactly as a fixed GPT-4.1 system prompt driving the tool under test (Appendix C.1), not as a study subject. It is the experimental apparatus for the CoMAP condition, analogous to a scripted confederate reading fixed lines -- it must remain scripted to faithfully replay the paper's manipulation rather than becoming an independent free-form agent.",
+          "system_prompt_ref": "materials.json comap_ai_agent_prompts.global_agent"
+        },
+        {
+          "role": "comap_refine_agent",
+          "scripted": true,
+          "justification": "Same reasoning as comap_global_agent: fixed system prompt (Appendix C.2), part of the apparatus.",
+          "system_prompt_ref": "materials.json comap_ai_agent_prompts.refine_agent"
+        },
+        {
+          "role": "comap_split_agent",
+          "scripted": true,
+          "justification": "Same reasoning as comap_global_agent: fixed system prompt (Appendix C.3), part of the apparatus.",
+          "system_prompt_ref": "materials.json comap_ai_agent_prompts.split_agent"
+        },
+        {
+          "role": "baseline_dialogue_agent",
+          "scripted": true,
+          "justification": "Also apparatus, not a subject -- but the paper never prints its system prompt (only 'a standard, dialogue-based AI'). This role is BLOCKED: task/adapter.py refuses to fabricate a system prompt and returns a structured blocked result unless the researcher supplies one via --baseline-system-prompt-file. See materials.json baseline_condition and audit/missing_information.json 'baseline_system_prompt'.",
+          "system_prompt_ref": "MISSING -- researcher must supply"
+        }
+      ],
+
+      "condition_assignment": {
+        "factors": [
+          {
+            "name": "condition_order",
+            "values": ["A", "B"],
+            "meaning": {"A": "Baseline in Block 1, CoMAP in Block 2", "B": "CoMAP in Block 1, Baseline in Block 2"},
+            "evidence_label": "verbatim",
+            "source": {"file": "input/paper.pdf", "page": 11, "section": "5.2 Study Design"}
+          },
+          {
+            "name": "task_order",
+            "values": [1, 2],
+            "meaning": {"1": "Task A (food crops) in Block 1, Task B (population aging) in Block 2", "2": "Task B in Block 1, Task A in Block 2"},
+            "evidence_label": "derived",
+            "derivation": "The paper states the two tasks 'were counterbalanced with the conditions to control for task-specific effects' (page 11) but does not print the exact 2x2 cell sizes. This factor is modeled as an independent binary counterbalancing factor crossed with condition_order, which is the standard way to realize the stated counterbalancing; exact cell sizes among the 30 participants are not specified (audit/missing_information.json 'counterbalancing_cell_sizes')."
+          }
+        ],
+        "assignment_is_per_participant_not_per_dyad": true,
+        "note": "condition_order and task_order are assigned independently to agent_a and agent_b. The paper pairs 'unacquainted' partners at random, and does not state that dyad partners share a condition-order group -- so a dyad may contain, e.g., one Group-A and one Group-B participant. Both partners still move through Block 1 and Block 2 in lockstep so the Sharing step can occur at a shared point in time, but each may be using a different tool within the same block."
+      },
+
+      "visibility": {
+        "principle": "A participant sees only their own private canvas/chat/document while performing a design task. They see their partner's finished design ONLY during the Sharing step of the same block, and they must see the design the partner actually produced in this run (not an idealized, cached, or paraphrased version).",
+        "per_step_visibility": [
+          {"step": "background_survey", "visible_to": ["self"], "visible_content": "own answers only"},
+          {"step": "platform_training", "visible_to": ["self"], "visible_content": "tutorial content for both tools (procedural, not a measured artifact)"},
+          {"step": "block1_task", "visible_to": ["self"], "visible_content": "own design canvas/chat/document as it is built; NOT the partner's task, canvas, or chat"},
+          {"step": "block1_sharing", "visible_to": ["self", "partner"], "visible_content": "each agent's finished Block-1 design artifact (the exact structured content it produced) is shown to its partner in a mock-teaching presentation; this is the one deliberate cross-agent visibility point in the study"},
+          {"step": "block1_questionnaires", "visible_to": ["self"], "visible_content": "Perceived Understanding items are answered ABOUT the partner's design just seen in block1_sharing; Perceived Expression and Human-AI Interaction Experience items are answered about the agent's own task/tool experience"},
+          {"step": "block2_task", "visible_to": ["self"], "visible_content": "own design canvas/chat/document with the OTHER tool; NOT the partner's task, canvas, or chat"},
+          {"step": "block2_sharing", "visible_to": ["self", "partner"], "visible_content": "each agent's finished Block-2 design artifact is shown to its partner"},
+          {"step": "block2_comparative_questionnaires", "visible_to": ["self"], "visible_content": "Perceived Understanding about partner's Block-2 design; Perceived Expression and Human-AI Interaction Experience about own Block-2 tool; plus the comparative interview (B.2.2) which references the agent's own memory of both of ITS OWN blocks (not the partner's)"}
+        ],
+        "why_this_matters": "Collapsing the two partners into independent solo runs (skipping the sharing exchange, or letting the evaluator author 'representative' partner designs) would remove the actual dependent variable being measured in RQ1 (Perceived Understanding of a real partner's real, possibly messy, artifact) and must not be done."
+      },
+
+      "procedure": [
+        {"step": 1, "name": "Onboarding and Background Survey", "detail": "Both agents individually complete the Intelligent-TPACK background survey.", "materials_ref": "materials.json background_survey", "evidence_label": "verbatim"},
+        {"step": 2, "name": "Platform Training", "detail": "Both agents receive a tutorial/demo of both systems. The paper does not print the tutorial script; adapter.py treats this as a no-op procedural step (audit/missing_information.json 'training_script').", "evidence_label": "reported"},
+        {"step": 3, "name": "Experimental Block 1: Task", "detail": "Each agent individually completes its Block-1 task (Task A or Task B per task_order) using its Block-1 tool (Baseline or CoMAP per condition_order). If Baseline is required and no system prompt has been supplied, adapter.py returns status=blocked for this agent's Block-1 task.", "materials_ref": "materials.json design_tasks + comap_ai_agent_prompts (+ baseline_condition if unblocked)"},
+        {"step": 4, "name": "Experimental Block 1: Sharing", "detail": "Each agent presents its just-produced Block-1 design to its partner in a brief mock-teaching format; the partner's agent receives the literal design artifact produced in step 3.", "materials_ref": "materials.json sharing_task", "evidence_label": "reported"},
+        {"step": 5, "name": "Experimental Block 1: Interview and Questionnaires 1", "detail": "Each agent individually answers B.2.1 General Feedback interview questions, then the Perceived Understanding scale (about the partner's design just shared), the Perceived Expression scale, and the Human-AI Interaction Experience scale (Controllable/Transparent/Cognitive Load/Collaboration/Trust), both about its own Block-1 tool.", "materials_ref": "materials.json interview_scripts.main_study.b2_1_general_feedback + post_task_questionnaires"},
+        {"step": 6, "name": "Experimental Block 2: Task", "detail": "Each agent switches to the OTHER tool (the one it did not use in Block 1) and completes its Block-2 task (the other task from Block 1, per task_order).", "materials_ref": "materials.json design_tasks + comap_ai_agent_prompts (+ baseline_condition if unblocked)"},
+        {"step": 7, "name": "Experimental Block 2: Sharing", "detail": "Same structure as step 4, for Block 2 designs."},
+        {"step": 8, "name": "Experimental Block 2: Comparative Interview and Questionnaires 2", "detail": "Each agent answers B.2.2 Comparing Different Tools, then completes Questionnaires 2 (Perceived Understanding about the partner's Block-2 design, Perceived Expression, Human-AI Interaction Experience) for its Block-2 tool.", "materials_ref": "materials.json interview_scripts.main_study.b2_2_comparing_different_tools + post_task_questionnaires"}
+      ],
+
+      "local_agent_invocation_protocol": {
+        "evidence_label": "derived",
+        "derivation": "The paper's Refine/Split agents are invoked by right-clicking a node in a graphical canvas (page 8, 4.3.2) -- an action that has no direct analogue in a text-only multi-agent replication. To preserve the three-agent structure (Global + Refine + Split) described in the paper without silently dropping two of the three scripted AI roles, this package defines a minimal textual control protocol: while in the CoMAP condition, the participant agent's turn may include a line of the form 'ACTION: REFINE node_id=<id>' or 'ACTION: SPLIT node_id=<id>' referencing a node it has already created; adapter.py intercepts this line and routes a call to the corresponding scripted agent (Refine or Split) using the verbatim system prompt, then returns the structured before/after (Refine) or original/split-set (Split) result to the participant agent, matching the paper's 'before-and-after comparison UI' at a content (not pixel) level.",
+        "researcher_flag": "This protocol is a faithful-intent substitute for the GUI interaction, not a verbatim reproduction of it (there is no verbatim text to reproduce for a mouse click). Recorded in audit/missing_information.json 'gui_interaction_fidelity' so a researcher can judge whether this substitution is acceptable for their analysis."
+      },
+
+      "inputs_per_agent": ["dyad_id", "role (agent_a|agent_b)", "condition_order (A|B)", "task_order (1|2)", "agent_fn (a callable(role, system_prompt, message_history) -> str, supplied by the harness/runtime that actually drives the LLM playing this agent; task/adapter.py never calls a network API itself)"],
+      "outputs_per_session": [
+        "background_survey_responses (per agent, per TPACK subscale item)",
+        "block1_design_artifact (per agent: the structured list of nodes/edges or, if Baseline, the freeform document text)",
+        "block1_chat_transcript (per agent, if CoMAP: Global Agent dialogue + any Refine/Split invocations; if Baseline: dialogue-only transcript)",
+        "block1_sharing_transcript (per dyad)",
+        "block1_questionnaire_responses (per agent: Perceived Understanding, Perceived Expression, Controllable, Transparent, Cognitive Load, Collaboration, Trust)",
+        "block1_interview_responses (per agent: B.2.1 answers)",
+        "block2_* (same shape as block1_*, for the other tool/task)",
+        "block2_comparative_interview_responses (per agent: B.2.2 answers)",
+        "behavioral_metrics (per agent, per block, derived from the transcript: total_turns, avg_user_message_length_chars, negative_keyword_count, node_to_edge_ratio [CoMAP only], avg_distance_between_consecutively_created_nodes [CoMAP only, requires canvas x/y coordinates the agent is asked to assign when creating nodes -- see audit/missing_information.json 'canvas_coordinate_assignment'])",
+        "status (ok | blocked, with a machine-readable reason when blocked)"
+      ],
+
+      "readiness": "ready_with_gaps: fully runnable for the CoMAP arm of both blocks; the Baseline arm is blocked pending a researcher-supplied system prompt (audit/missing_information.json 'baseline_system_prompt'). Behavioral metrics that depend on 2D canvas coordinates are best-effort until a researcher confirms how an agent should self-report node placement."
+    }
+  ],
+
+  "response_format_for_all_likert_items": {
+    "evidence_label": "derived",
+    "value": "integer 1-7 inclusive",
+    "derivation": "See materials.json post_task_questionnaires.response_format. Not stated verbatim in the paper; used as the runnable default and overridable via adapter.py CLI/config."
+  },
+
+  "global_run_parameters": {
+    "n_dyads_for_full_replication": 15,
+    "counterbalancing_scheme_default": "cycle dyad_id % 4 through the 4 cells of {condition_order in [A,B]} x {task_order in [1,2]}, independently assigned to agent_a and agent_b -- a researcher-adjustable default, since exact original cell sizes are not printed (see audit/missing_information.json 'counterbalancing_cell_sizes')."
+  }
+}

@@ -1,0 +1,7 @@
+# Comap Shared Visual Workspace Pbl
+
+This HumanStudy-Hub package was reconstructed from a published paper.
+
+- Review `study.json` for the study overview and readiness status.
+- Review `audit/missing_information.json` before running the study.
+- Run `python task/adapter.py --smoke-test` to check the package entry point.

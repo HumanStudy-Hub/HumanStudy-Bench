@@ -1,0 +1,97 @@
+{
+  "_explanation": "This file is the researcher-facing overview of the package: what paper it comes from, what empirical studies it covers, how those studies were turned into an agent-runnable task, and what is and is not ready to run. Read this first. Field-level provenance for every claim below lives in source/evidence.json; the full researcher checklist of unresolved gaps lives in audit/missing_information.json.",
+  "package_id": "comap-shared-visual-workspace-pbl",
+  "source_paper": {
+    "title": "Thinking in Graphs with CoMAP: A Shared Visual Workspace for Designing Project-Based Learning",
+    "authors": [
+      "Ruijia Li",
+      "Bo Jiang"
+    ],
+    "venue": "CHI '26",
+    "doi": "10.1145/3772318.3790273",
+    "metadata_ref": "source/paper_metadata.json"
+  },
+  "external_sources": {
+    "authorized": false,
+    "explanation": "job.json did not supply an OSF/open-materials URL or any other external-source authorization for this job. No web search, browsing, fetching, or repository discovery was performed while building this package. The paper's text contains two printed URLs (a project website and a GitHub repository); both were transcribed as plain metadata and explicitly NOT visited -- see source/paper_metadata.json 'in_pdf_urls_not_visited'.",
+    "sources_used": [
+      "input/paper.pdf (the uploaded PDF only)"
+    ]
+  },
+  "empirical_studies_identified_in_paper": [
+    {
+      "id": "study_1_formative",
+      "name": "Formative study",
+      "purpose": "Semi-structured interviews with PBL practitioners to elicit design needs and inform the CoMAP system's requirements.",
+      "participants": "7 PBL practitioners (K-12 and higher-ed instructors / instructional designers), reported in aggregate only -- no individual demographic table.",
+      "design": "One-on-one semi-structured interviews (Stage 1) followed by a system walkthrough / feedback stage (Stage 2, format not fully specified in the paper text -- see audit).",
+      "role_in_package": "Modeled as task 'study_1_formative' in task/task.json. Stage 1 is fully runnable from the verbatim interview script in materials.json. Stage 2 is blocked pending a researcher-supplied script (audit entry 'formative_stage2_script')."
+    },
+    {
+      "id": "study_2_main",
+      "name": "Main study",
+      "purpose": "Within-subjects comparison of CoMAP (graph-canvas + 3-agent AI) vs. a dialogue-only Baseline AI for PBL design, on perceived understanding, perceived expression, human-AI interaction experience, and behavioral log metrics.",
+      "participants": "30 participants, run in unacquainted dyads (paired for the Sharing steps), reported in aggregate only -- no individual demographic table.",
+      "design": "2 (tool: CoMAP vs. Baseline) x 2 (task: Task A vs. Task B) within-subjects crossover, both factors counterbalanced across participants; each block ends with a dyadic 'Sharing' step where partners view each other's just-produced design and then answer perceived-understanding items about it.",
+      "role_in_package": "Modeled as task 'study_2_main' in task/task.json, the primary runnable task in this package. The CoMAP arm is fully runnable (all three AI system prompts are verbatim from Appendix C). The Baseline arm is structurally modeled but blocked at run time until a researcher supplies the Baseline AI's system prompt, which the paper never prints (audit entry 'baseline_system_prompt')."
+    }
+  ],
+  "package_scope_decision": {
+    "decision": "Both studies are included, as separate task entries under one package, rather than merging them or dropping either.",
+    "why": "The two studies have distinct populations, procedures, and measures (formative interviews vs. main-study crossover experiment) and the paper treats them as sequential, dependent phases of one research program. Merging them would lose study-specific conditions; dropping either would omit findings the paper reports as evidence."
+  },
+  "participant_flow_summary": {
+    "study_1_formative": "practitioner -> background chat -> Stage 1 interview (verbatim script) -> [Stage 2 blocked]",
+    "study_2_main": "participant (as one half of a dyad) -> background survey (Intelligent-TPACK) -> platform training -> Block 1 design task (tool/task per counterbalancing cell) -> Block 1 Sharing (real partner artifact) -> Block 1 questionnaires -> Block 2 design task (other tool/task) -> Block 2 Sharing -> Block 2 comparative questionnaires. Full step list with materials pointers: task/task.json study_2_main.procedure."
+  },
+  "conditions": {
+    "study_2_main": {
+      "tool_factor": [
+        "comap",
+        "baseline"
+      ],
+      "task_factor": [
+        "task_a",
+        "task_b"
+      ],
+      "assignment_level": "per participant (not per dyad) -- dyad partners can be in different tool-order groups; see task/task.json condition_assignment.assignment_is_per_participant_not_per_dyad"
+    }
+  },
+  "primary_outcomes": [
+    "perceived_understanding (post-Sharing, about partner's design)",
+    "perceived_expression (post-task, about own design)",
+    "human_ai_interaction_experience (5 sub-constructs, post-task)",
+    "behavioral log metrics: node-to-edge ratio, avg. inter-node distance, chat turns, avg. message length, negative-keyword count"
+  ],
+  "planned_analyses": {
+    "comparison_method": "Shapiro-Wilk normality test on paired differences, then paired t-test (normal) or Wilcoxon signed-rank test (non-normal), per outcome.",
+    "covariate_adjustment": "ANCOVA with Intelligent-TPACK total score as covariate.",
+    "effect_size": "Cohen's d (|d|>=0.2 small, >=0.5 medium, >=0.8 large).",
+    "implementation_ref": "evaluation/evaluation.py implements all four steps; two behavioral metrics (avg. inter-node distance, negative-keyword count) return a structured not_ready result because the paper does not print the canvas-coordinate convention or the keyword lexicon required to compute them (see audit/missing_information.json)."
+  },
+  "package_contents": {
+    "study.json": "this file",
+    "source/paper_metadata.json": "bibliographic metadata, transcribed from the PDF only",
+    "source/evidence.json": "provenance record: every substantive claim/material mapped to its source location and evidence label",
+    "materials/materials.json": "all verbatim instruments, scripts, and AI system prompts, plus flagged gaps",
+    "task/task.json": "full task specification: studies, roles, procedure, visibility, condition assignment",
+    "task/adapter.py": "runnable orchestrator; run with --smoke-test for an offline self-check, or with --agent-fn-module for a real run",
+    "evaluation/evaluation.py": "statistical + behavioral evaluation pipeline; run with --smoke-test for an offline self-check",
+    "audit/missing_information.json": "the authoritative researcher checklist of every gap that blocks full fidelity"
+  },
+  "overall_readiness": {
+    "status": "ready_with_gaps",
+    "runnable_now": "study_2_main CoMAP-vs-CoMAP-condition-only exercises (both agents in the CoMAP arm) and study_1_formative Stage 1 are fully runnable end-to-end with --smoke-test today.",
+    "blocked_until_researcher_action": [
+      "study_2_main Baseline arm (needs audit 'baseline_system_prompt')",
+      "study_1_formative Stage 2 (needs audit 'formative_stage2_script')",
+      "avg_inter_node_distance and negative_keyword_count evaluation checks (need audit 'canvas_coordinate_assignment' and 'negative_keyword_lexicon' respectively)"
+    ],
+    "full_checklist_ref": "audit/missing_information.json"
+  },
+  "contributors": [
+    {
+      "name": "jiarui"
+    }
+  ]
+}

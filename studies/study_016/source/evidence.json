@@ -1,0 +1,191 @@
+{
+  "_explanation": "Provenance record connecting every substantive claim or material used elsewhere in this package back to its location in input/paper.pdf, with an evidence label. Page numbers were approximated by mapping the pdftotext line-extraction offset for each cited passage to the PDF's form-feed page breaks; they are estimates of the printed page, not OCR bounding boxes. 'verbatim' = transcribed word-for-word from the PDF; 'reported' = the paper states this as a fact/finding but the package field paraphrases or summarizes it; 'derived' = computed or inferred by the package builder from paper-reported information, not printed directly; 'missing' = the paper does not state this and audit/missing_information.json has (or should have) a corresponding entry. No source outside input/paper.pdf was used -- see study.json 'external_sources'.",
+  "extraction_method": "pdftotext -layout input/paper.pdf input/paper.txt for most sections; pdftotext -f 19 -l 22 input/paper.pdf - (no -layout) re-extracted for the two-column Appendix A questionnaire page, whose -layout output interleaved column order incorrectly. Both extractions were cross-checked against each other for the Appendix B/C boundary before transcribing verbatim text.",
+  "entries": [
+    {
+      "claim_or_material": "Title, authors, affiliations, venue, DOI, ISBN, license, keywords, CCS concepts, funding acknowledgments",
+      "package_location": "source/paper_metadata.json",
+      "source_location": "PDF page 1 (title block, byline, footer) and last page (funding acknowledgments)",
+      "evidence_label": "verbatim"
+    },
+    {
+      "claim_or_material": "Two URLs printed in the paper text (project website, code repository)",
+      "package_location": "source/paper_metadata.json in_pdf_urls_not_visited",
+      "source_location": "PDF body text (footnote/inline)",
+      "evidence_label": "verbatim",
+      "note": "Transcribed as text only; not fetched or browsed, per external-source policy."
+    },
+    {
+      "claim_or_material": "Formative study: 7 PBL practitioners, one-on-one semi-structured interviews, two-stage design",
+      "package_location": "study.json empirical_studies_identified_in_paper[study_1_formative]; task/task.json study_1_formative",
+      "source_location": "input/paper.txt line ~202 ('seven PBL practitioners'), section 3 'Formative Study', PDF page 4; Figure 2 caption 'The two-stage formative study design', PDF page 4",
+      "evidence_label": "reported"
+    },
+    {
+      "claim_or_material": "Formative study Stage 1 semi-structured interview script (Personal Background; AI-Assisted Lesson Plan Design; Methods of Expressing Instructional Design)",
+      "package_location": "materials/materials.json interview_scripts.formative_study.stage_1_semi_structured_interview",
+      "source_location": "Appendix B.1, input/paper.txt lines 1123-1163, PDF page 20",
+      "evidence_label": "verbatim"
+    },
+    {
+      "claim_or_material": "Formative study Stage 2 (system walkthrough / feedback) has no printed script",
+      "package_location": "audit/missing_information.json entry 'formative_stage2_script'",
+      "source_location": "checked entirety of Appendix B.1 (input/paper.txt lines 1123-1163) and section 3 (lines 198-260); no Stage 2 script found",
+      "evidence_label": "missing"
+    },
+    {
+      "claim_or_material": "Main study: 30 participants (23 female, 7 male; age M=24.2, SD=3.63), within-subjects crossover design, dyadic pairing for Sharing steps, Group A/Group B condition-order counterbalancing",
+      "package_location": "study.json empirical_studies_identified_in_paper[study_2_main]; task/task.json study_2_main",
+      "source_location": "input/paper.txt line 525 ('We recruited 30 participants...'), PDF page 11; line 547 counterbalancing description, PDF page 11; line 853 '30 participants in a within-subjects crossover design', PDF page 17",
+      "evidence_label": "reported"
+    },
+    {
+      "claim_or_material": "8-step main-study procedure (background survey -> platform training -> Block 1 task -> Block 1 sharing -> Block 1 interview/questionnaires -> Block 2 task -> Block 2 sharing -> comparative interview/questionnaires 2)",
+      "package_location": "task/task.json study_2_main.procedure",
+      "source_location": "input/paper.txt lines 553-585 (numbered procedure list, items 1-4 each with sub-bullets), PDF pages 11-12",
+      "evidence_label": "reported",
+      "note": "Paper's list has 4 top-level numbered steps, each containing 2-3 sub-steps; task.json flattens these into 8 procedure entries for the adapter's step-by-step execution, preserving the same order and content."
+    },
+    {
+      "claim_or_material": "Sharing step: 'Each participant presented their design idea to their partner in a brief \"mock-teaching\" format'",
+      "package_location": "materials/materials.json sharing_task; task/task.json study_2_main.procedure block1_sharing/block2_sharing",
+      "source_location": "input/paper.txt line 570-571, PDF page 12",
+      "evidence_label": "verbatim",
+      "note": "The exact structure/duration of the 'mock-teaching' format beyond this one sentence is not printed -- see audit 'mock_teaching_format'."
+    },
+    {
+      "claim_or_material": "Two design task prompts (Task A, Task B) given to participants",
+      "package_location": "materials/materials.json design_tasks.task_a, design_tasks.task_b",
+      "source_location": "section 5.2 task descriptions, input/paper.txt lines ~595-608, PDF page 12",
+      "evidence_label": "verbatim"
+    },
+    {
+      "claim_or_material": "Background survey: Intelligent-TPACK scale, 5 subscales (Intelligent TK, TPK, TCK, TPACK, Ethics)",
+      "package_location": "materials/materials.json background_survey",
+      "source_location": "Appendix A.1, input/paper.txt lines 1049-1116, PDF page 19 (A.1.1-A.1.4) and PDF page 19-20 (A.1.5 Ethics, re-extracted without -layout)",
+      "evidence_label": "verbatim"
+    },
+    {
+      "claim_or_material": "\"Af-based tools\" wording preserved verbatim (apparent typo for 'AI-based tools')",
+      "package_location": "materials/materials.json background_survey transcription_note",
+      "source_location": "input/paper.txt line 1051 area (A.1.1 Intelligent TK item), PDF page 19",
+      "evidence_label": "verbatim",
+      "note": "Preserved rather than silently corrected, per the fidelity rule against rewriting printed instruments."
+    },
+    {
+      "claim_or_material": "Post-task questionnaires: Human-AI Interaction Experience (Controllability, Transparency, Cognitive Load, Collaboration, Trust), Perceived Understanding of Design, Perceived Expression of Design",
+      "package_location": "materials/materials.json post_task_questionnaires",
+      "source_location": "section 5.3 Measurements bullet list, input/paper.txt lines 610-666, PDF pages 12-13; item text drawn from Appendix A remaining subsections, PDF pages 20-21",
+      "evidence_label": "verbatim",
+      "note": "Construct definitions and Cronbach's alpha values are reported in section 5.3; the item wording itself is verbatim from Appendix A."
+    },
+    {
+      "claim_or_material": "Likert response scale is 1-7 points, anchored 'Strongly Disagree' to 'Strongly Agree'",
+      "package_location": "materials/materials.json background_survey.note_on_scale, post_task_questionnaires response_format; task/task.json response_format_for_all_likert_items",
+      "source_location": "no explicit statement of scale point count or anchors found anywhere in input/paper.txt; inferred from reported means/SDs in Tables 2-4 (e.g., M=6.13 on a scale whose reported range is consistent with 1-7) and conventional use of this anchor pair in the cited source scales",
+      "evidence_label": "derived",
+      "audit_ref": "audit/missing_information.json entry 'questionnaire_response_format'"
+    },
+    {
+      "claim_or_material": "Three CoMAP AI system prompts: Global Agent (C.1), Refine Agent (C.2), Split Agent (C.3), each calling GPT-4.1",
+      "package_location": "materials/materials.json comap_ai_agent_prompts",
+      "source_location": "Appendix C, input/paper.txt lines 1117 (heading)/1184 (C.2)/1220 (C.3) area, PDF pages 20-21 (using the original -layout extraction, which read cleanly here unlike the raw re-extraction used for Appendix A)",
+      "evidence_label": "verbatim"
+    },
+    {
+      "claim_or_material": "Literal backslash-escaped underscore artifacts (e.g. \"card\\_id\") inside the Global Agent's JSON example",
+      "package_location": "materials/materials.json comap_ai_agent_prompts.global_agent transcription_note",
+      "source_location": "input/paper.txt near line 1150-1163 area, PDF page 20-21",
+      "evidence_label": "verbatim",
+      "note": "Preserved as printed rather than cleaned up, per the fidelity rule against modernizing/rewriting verbatim material; this is very likely a LaTeX source artifact but the rule requires transcribing what is printed, not what was intended."
+    },
+    {
+      "claim_or_material": "Baseline condition's AI system prompt",
+      "package_location": "materials/materials.json baseline_condition; audit/missing_information.json entry 'baseline_system_prompt'",
+      "source_location": "searched entire input/paper.txt for 'baseline' + 'prompt' context; the paper describes the Baseline tool functionally (a standard dialogue-based AI) but never prints its system prompt, unlike Appendix C for the three CoMAP agents",
+      "evidence_label": "missing"
+    },
+    {
+      "claim_or_material": "Design Hints panel: Table 1, a selection of preset design hints scaffolding node types",
+      "package_location": "materials/materials.json design_hints_panel",
+      "source_location": "Table 1, input/paper.txt lines 418-441 and surrounding rows, PDF page 9",
+      "evidence_label": "verbatim",
+      "note": "Table 1's own caption states it is 'A selection of Preset Design Hints' -- the paper itself does not claim this is the complete library; see audit 'design_hints_full_library'."
+    },
+    {
+      "claim_or_material": "Six canvas node types (Learners, Objectives, Activities, Resources, Assessments, Strategies) and edge semantics",
+      "package_location": "materials/materials.json canvas_node_types",
+      "source_location": "input/paper.txt lines ~1150-1163 (Global Agent prompt's type enumeration) and section 4 system description, PDF pages 7-9 and 20",
+      "evidence_label": "verbatim",
+      "note": "Node type names/definitions verbatim from the Global Agent prompt enumeration; edge semantics (that edges represent relationships between nodes) is reported from the general system description rather than a single verbatim sentence."
+    },
+    {
+      "claim_or_material": "Global Agent described as translating natural language into canvas actions via a JSON-formatted 'sequence of operations'; right-click GUI invocation for Refine/Split agents on existing nodes",
+      "package_location": "task/task.json local_agent_invocation_protocol design rationale",
+      "source_location": "input/paper.txt lines 452-485 (system description of Global/Refine/Split interaction, including 'she right-clicks and invokes the Split Agent'), PDF page 9-10",
+      "evidence_label": "reported",
+      "note": "Confirms the original interaction is a GUI right-click gesture with no printed textual equivalent, motivating the package's derived text-protocol substitute -- see audit 'gui_interaction_fidelity'."
+    },
+    {
+      "claim_or_material": "Interview scripts for main study: B.2.1 General Feedback, B.2.2 Comparing Different Tools",
+      "package_location": "materials/materials.json interview_scripts.main_study",
+      "source_location": "Appendix B.2, input/paper.txt lines 1164-1183, PDF page 20-21",
+      "evidence_label": "verbatim"
+    },
+    {
+      "claim_or_material": "Statistical method: Shapiro-Wilk normality test on paired differences -> paired t-test (normal) or Wilcoxon signed-rank test (non-normal); ANCOVA with TPACK as covariate; Cohen's d with |d|>=0.2/0.5/0.8 thresholds",
+      "package_location": "evaluation/evaluation.py paired_comparison(), ancova_with_tpack_covariate(), classify_effect_size(); study.json planned_analyses",
+      "source_location": "input/paper.txt lines 603-627 (normality/Wilcoxon/ANCOVA/Cohen's d description) and Table 2 (lines 627-632), PDF pages 12-13",
+      "evidence_label": "verbatim",
+      "note": "The decision rule and thresholds are transcribed as stated; evaluation.py's OLS-based ANCOVA implementation (a linear model with a group indicator and the TPACK covariate) is a standard, general implementation of 'ANCOVA' -- the paper does not print the exact software/formula used, so the specific numeric outputs of evaluation.py are not guaranteed to reproduce the paper's published coefficients exactly."
+    },
+    {
+      "claim_or_material": "Reported outcome statistics: Perceived Expression (M=6.13 CoMAP vs M=4.15 Baseline, t=6.37, p<.001, d=1.1079); Perceived Understanding (M=5.77 vs M=4.29, W=12, p<.001, d=1.1627)",
+      "package_location": "study.json primary_outcomes (not restated as numbers; kept as an evaluation target, not a hardcoded expected value)",
+      "source_location": "Table 2, input/paper.txt lines 629-632, PDF page 13",
+      "evidence_label": "verbatim",
+      "note": "These published numbers are the target the evaluation pipeline is meant to be capable of reproducing given real per-participant data; they are not fed into evaluation.py as ground truth, since the package's job is to run the procedure and analysis, not to reproduce the paper's specific numeric results from no data."
+    },
+    {
+      "claim_or_material": "Behavioral metrics definitions: node-to-edge ratio; average distance between consecutively created nodes (in pixels); total chat turns; average user message length; negative keywords",
+      "package_location": "evaluation/evaluation.py metric_node_to_edge_ratio(), metric_avg_inter_node_distance(), metric_chat_turns_and_length(), metric_negative_keyword_count()",
+      "source_location": "section 5.3 Measurements bullet list, input/paper.txt lines 638-655, PDF pages 13-14; reported values (node-to-edge ratio 0.47, avg. distance 445.72 pixels) at input/paper.txt lines 655-660, PDF page 14",
+      "evidence_label": "verbatim",
+      "note": "The metric definitions themselves are verbatim; the paper's use of 'pixels' as the unit for avg. inter-node distance confirms this metric depends on the original GUI's canvas coordinate system, which a text-only replication has no way to reproduce -- see audit 'canvas_coordinate_assignment'."
+    },
+    {
+      "claim_or_material": "Negative-keyword example words: \"stuck,\" \"confused,\" \"can't\", explicitly introduced with 'e.g.' as illustrative of a larger 'predefined lexicon'",
+      "package_location": "evaluation/evaluation.py PAPER_REPORTED_EXAMPLE_KEYWORDS_VERBATIM constant; audit/missing_information.json entry 'negative_keyword_lexicon'",
+      "source_location": "input/paper.txt line 652, PDF page 14",
+      "evidence_label": "verbatim",
+      "note": "The paper gives examples, not the full lexicon -- evaluation.py preserves the three example words as a labeled reference constant but does not treat them as sufficient to compute the metric, matching the audit entry's stated gap."
+    },
+    {
+      "claim_or_material": "Behavioral efficiency results: chat turns (CoMAP M=11.82, SD=4.39 vs Baseline higher, p<.001), negative keywords (CoMAP M=2.14 vs Baseline M=4.16, t(29)=-2.60, p=0.013)",
+      "package_location": "not restated numerically in the package; used only to corroborate that these are the metrics evaluation.py must be able to compute (or correctly report not_ready for)",
+      "source_location": "Table 4 and surrounding text, input/paper.txt lines 737-758, PDF pages 14-15",
+      "evidence_label": "verbatim"
+    },
+    {
+      "claim_or_material": "Participants were 'unacquainted' / dyads were formed by pairing/random assignment (not self-selected pairs)",
+      "package_location": "task/task.json study_2_main note_on_unit; source/evidence.json (this entry)",
+      "source_location": "searched input/paper.txt broadly for 'pair', 'partner', 'unacquainted', 'random' near the participants/procedure sections (lines 525-585); the paper repeatedly refers to 'their partner' during Sharing steps but never states explicitly how partners were assigned to each other (random vs. otherwise) or whether they knew each other beforehand",
+      "evidence_label": "missing",
+      "audit_ref": "audit/missing_information.json entry 'main_study_participant_identity_assignment'",
+      "note": "The word 'unacquainted' used in earlier drafts of this package's task.json/study.json is a plausible but UNVERIFIED assumption -- the paper does not state this. Flagged here so the researcher checklist and any package text using this word is understood as an assumption, not a transcribed fact."
+    },
+    {
+      "claim_or_material": "Cronbach's alpha values for Human-AI Interaction Experience subscales (Controllability, Transparency, Cognitive Load, Collaboration, Trust), by condition",
+      "package_location": "not restated in package materials; noted here as available corroborating detail if a researcher wants to check subscale reliability",
+      "source_location": "input/paper.txt lines 563-568 (Baseline reliability values interleaved on-page with the Sharing step description due to two-column layout) and 583-585 (Perceived Understanding/Expression alphas), PDF page 12",
+      "evidence_label": "verbatim"
+    },
+    {
+      "claim_or_material": "Platform training: 'A facilitator provided a brief tutorial and a live demonstration of both the Baseline and CoMAP systems'",
+      "package_location": "task/task.json study_2_main.procedure platform_training step; audit/missing_information.json entry 'training_script'",
+      "source_location": "input/paper.txt lines 556-559, PDF page 12",
+      "evidence_label": "verbatim",
+      "note": "The tutorial's exact script/content is not printed beyond this one-sentence description -- flagged as missing in the audit entry."
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "_explanation": "Authoritative researcher checklist. Every entry names a gap between what the paper prints and what is needed for a fully faithful runnable replication. Nothing in this file has been filled with invented content; task/adapter.py and materials/materials.json point to these entry names wherever a placeholder or best-effort default was used instead.",
+  "entries": [
+    {
+      "study": "study_2_main",
+      "field": "baseline_system_prompt",
+      "reason": "The paper states the Baseline condition used 'a standard, dialogue-based AI' (Section 5.2, page 11) but never prints its system prompt, model configuration, or turn-taking behavior, unlike the CoMAP agents which are given verbatim in Appendix C.",
+      "impact": "The Baseline arm of the crossover cannot be executed with any confidence that it matches the original manipulation. Any invented prompt would silently bias the comparison against or in favor of CoMAP. task/adapter.py refuses to run the Baseline arm unless a researcher explicitly supplies a system prompt file.",
+      "suggested_action": "Contact the authors (or check their code repository, if the researcher independently obtains authorization to do so) for the exact Baseline system prompt and model settings, then pass it via --baseline-system-prompt-file. Until then, treat any Baseline-condition run as non-replicating."
+    },
+    {
+      "study": "study_2_main",
+      "field": "baseline_persistent_document_template",
+      "reason": "The paper says Baseline participants 'were provided with a separate document to serve as a persistent record for their design process' (Section 5.2, page 11) but does not print or describe the document's template, structure, or headings.",
+      "impact": "Without the template, the Baseline arm's 'persistent record' condition cannot be faithfully distinguished from an unstructured scratchpad, which may itself be a meaningful confound (the paper frames Baseline's lack of a structured, graph-based representation as the key contrast with CoMAP).",
+      "suggested_action": "Ask the authors for the document template, or have the researcher design and pre-register a plain, non-graph-based document template (e.g., a linear outline with the same six ASSURE categories) and record that choice explicitly rather than leaving it implicit."
+    },
+    {
+      "study": "study_1_and_2",
+      "field": "questionnaire_response_format",
+      "reason": "No Likert scale point count or verbal anchors are printed for the Intelligent-TPACK background scale or any of the post-task scales (Perceived Understanding, Perceived Expression, Controllable, Transparent, Cognitive Load, Collaboration, Trust).",
+      "impact": "Reported means (e.g., M=6.13 for CoMAP Perceived Expression) constrain the scale to have a maximum of at least 7, but the exact number of points and anchor wording are unconfirmed. Using the wrong scale would misrepresent participants' true response options and could shift downstream statistics.",
+      "suggested_action": "task/task.json and materials/materials.json record a derived default of a 7-point Likert scale (1-7) based on the observed means. A researcher should confirm the exact scale (and verbal anchors, if any) against the original survey instrument/OSF materials, if such materials become available and are explicitly authorized for use."
+    },
+    {
+      "study": "study_2_main",
+      "field": "negative_keyword_lexicon",
+      "reason": "Section 5.4.1 defines the 'Negative Keywords' behavioral metric as 'the total count of negative keywords (e.g., \"stuck,\" \"confused,\" \"can't\") based on a predefined lexicon' but never prints the full lexicon.",
+      "impact": "evaluation/evaluation.py cannot exactly reproduce this metric's original values; it can only compute a best-effort proxy using the three example words plus researcher-supplied additions, which will not match the paper's M=2.14 (CoMAP) / M=4.16 (Baseline) counts exactly.",
+      "suggested_action": "Ask the authors for the full lexicon, or have the researcher define and pre-register their own lexicon (documented in evaluation/evaluation.py) before treating this metric's outputs as comparable to the published values."
+    },
+    {
+      "study": "study_2_main",
+      "field": "counterbalancing_cell_sizes",
+      "reason": "The paper states tasks 'were counterbalanced with the conditions to control for task-specific effects' (Section 5.2, page 11) but does not print the resulting cell sizes among the 30 participants (e.g., how many were Group A + Task A first vs. Group A + Task B first).",
+      "impact": "task/task.json's default counterbalancing scheme (cycling dyad_id through 4 balanced cells) is a reasonable but unverified reconstruction; the true allocation might have been unequal or block-randomized differently.",
+      "suggested_action": "If the exact allocation matters for the researcher's analysis (e.g., replicating exact subgroup sizes), request the original randomization/allocation table from the authors."
+    },
+    {
+      "study": "study_2_main",
+      "field": "canvas_coordinate_assignment",
+      "reason": "The 'average distance between consecutively created nodes' metric (Section 5.4.1) requires 2D canvas (x, y) coordinates for every node a participant creates, but the paper does not specify how an agent (rather than a mouse-dragging human) should choose where to place a node.",
+      "impact": "This behavioral metric cannot be computed with the same meaning for a text-based agent unless the agent is given some placement convention; evaluation/evaluation.py returns a not_ready result for this metric until a placement convention is supplied.",
+      "suggested_action": "Researcher should decide and document a placement convention (e.g., agent must state an (x,y) pair reflecting perceived conceptual distance from prior nodes) before this metric can be scored, or accept that it is out of scope for a text-only replication."
+    },
+    {
+      "study": "study_2_main",
+      "field": "gui_interaction_fidelity",
+      "reason": "The Refine Agent and Split Agent are invoked in the original system via a right-click context menu on a node inside a graphical canvas (Section 4.3.2, page 8), and their output is shown in a dedicated visual 'before-and-after' comparison UI (Figure 7). Neither the click interaction nor the visual diff UI has a text equivalent printed in the paper.",
+      "impact": "task/task.json substitutes a textual control-token protocol ('ACTION: REFINE node_id=...' / 'ACTION: SPLIT node_id=...') so the three scripted AI roles (Global/Refine/Split) all remain reachable, but this is a derived stand-in, not a verbatim reproduction of the GUI. Fine-grained UI-driven behavioral patterns described in Section 7.1 (e.g., hover/click states) cannot be replicated.",
+      "suggested_action": "Accept the textual protocol as a documented departure, or -- if the researcher requires literal GUI fidelity -- pair this package with an actual browser-automation harness driving the open-source CoMAP frontend instead of a pure text simulation."
+    },
+    {
+      "study": "study_2_main",
+      "field": "mock_teaching_format",
+      "reason": "Section 5.2 step 3 says only that 'each participant presented their design idea to their partner in a brief \"mock-teaching\" format' -- no script, time limit, or presentation medium (verbal only? screen-share of the canvas/document? slides?) is printed.",
+      "impact": "task/adapter.py implements the Sharing step as: the presenting agent's finished design artifact is passed verbatim to the partner agent, who is asked to summarize/paraphrase it as if being taught, then the listener rates Perceived Understanding. This is a reasonable best-effort operationalization but the paper does not confirm the actual presentation format or time limit.",
+      "suggested_action": "If the original format matters (e.g., a strict time limit changes how much a partner can absorb), request it from the authors; otherwise document this operationalization as a researcher decision."
+    },
+    {
+      "study": "study_1_formative",
+      "field": "formative_stage2_script",
+      "reason": "Section 3.1 describes Stage 2 (think-aloud with a low-fidelity static prototype) only at the level of its goals ('feedback on clarity, potential usage scenarios, and points of confusion' plus 'design ideas... missing functionalities... future applications'); no verbatim probe questions or prototype description are printed, unlike Stage 1, which has a full verbatim script in Appendix B.1.",
+      "impact": "The formative study's Stage 2 cannot be run faithfully; task/task.json marks it blocked.",
+      "suggested_action": "Ask the authors for the Stage 2 protocol and prototype screenshots/description, or accept the formative study replication as Stage-1-only."
+    },
+    {
+      "study": "study_1_formative",
+      "field": "formative_participant_identity_assignment",
+      "reason": "Section 3.1 gives only the aggregate roster of the 7 formative participants (backgrounds, ages) without linking specific traits to specific participant IDs (e.g., which one is 'the novice teacher with one year of experience').",
+      "impact": "A researcher running all 7 agents cannot assign the exact original per-participant profile to a specific agent slot; only the aggregate composition is preserved.",
+      "suggested_action": "If per-participant identity matters, either accept a researcher-assigned mapping (documented explicitly, not presented as the paper's own assignment) or omit persona-specific framing and rely on the aggregate roster only."
+    },
+    {
+      "study": "study_2_main",
+      "field": "main_study_participant_identity_assignment",
+      "reason": "Section 5.1 gives only aggregate demographics (23 female/7 male, age M=24.2 SD=3.63, 21 cities) for the 30 main-study participants, with no per-participant profile or dyad-pairing list.",
+      "impact": "Dyad membership (who was paired with whom) and individual demographic traits cannot be reconstructed from the paper; only the aggregate sample composition and the stated fact that partners were mutually unacquainted are preserved.",
+      "suggested_action": "If exact pairing history matters, request it from the authors; otherwise treat dyad_id as an arbitrary label for one of 15 interchangeable dyad slots, as task/task.json already does."
+    },
+    {
+      "study": "study_2_main",
+      "field": "training_script",
+      "reason": "Section 5.2 step 2 ('Platform Training') says only that 'a facilitator provided a brief tutorial and a live demonstration of both the Baseline and CoMAP systems' -- no script, duration, or content outline is printed.",
+      "impact": "task/adapter.py treats this step as a no-op (agents are simply told which tool they will use next) rather than simulating a live tutorial, which may understate participants' actual familiarity going into Block 1.",
+      "suggested_action": "If tutorial content materially affects the researcher's analysis, draft a minimal, clearly-labeled researcher-authored tutorial script and record it here as a documented addition (not attributed to the paper)."
+    },
+    {
+      "study": "study_2_main",
+      "field": "design_hints_full_library",
+      "reason": "Table 1's caption explicitly reads 'A selection of Preset Design Hints' -- confirming the printed 25 rows are a sample, not the full hint panel referenced in Section 4.2.1.",
+      "impact": "A CoMAP-condition agent that consults the Design Hints panel only has access to the printed sample, not the full library the original participants could browse.",
+      "suggested_action": "Accept the sample as the operative Design Hints content for this replication (already labeled 'verbatim, partial' in materials.json), or ask the authors for the complete library / open-sourced hint data if the researcher independently authorizes and performs that outreach."
+    }
+  ]
+}
