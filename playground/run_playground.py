@@ -33,7 +33,7 @@ from playground.analysis import build_analysis
 from playground.personas import PersonaError, sample_profiles
 from playground.progress import ProgressWriter
 from playground.run_key import decrypt_api_key
-from playground.study_loader import StudyNotRunnable, load_metadata, load_study
+from playground.study_loader import StudyNotRunnable, load_metadata, load_study, load_study_from_path
 
 
 def now() -> str:
@@ -286,6 +286,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run", required=True, type=Path, help="Run directory containing run.json")
     parser.add_argument("--repo-root", type=Path, default=REPO_ROOT)
+    parser.add_argument("--package-path", type=Path, help="Buffer package directory (jobs repo) to load instead of studies/<id>")
     parser.add_argument("--progress-repo")
     parser.add_argument("--progress-branch")
     parser.add_argument("--progress-path")
@@ -321,7 +322,10 @@ def main() -> None:
         if not api_key and not args.simulate:
             raise SystemExit("No OpenRouter API key is available for this run.")
 
-        study_path, specification, study_config, evaluator = load_study(args.repo_root, str(run.get("studyId") or ""))
+        if args.package_path:
+            study_path, specification, study_config, evaluator = load_study_from_path(args.package_path.resolve())
+        else:
+            study_path, specification, study_config, evaluator = load_study(args.repo_root, str(run.get("studyId") or ""))
         metadata = load_metadata(study_path)
         run["studyTitle"] = metadata.get("title") or run.get("studyTitle")
         log(f"Study {study_path.name}: {run['studyTitle']}")

@@ -16,13 +16,12 @@ from pathlib import Path
 
 
 REQUIRED = (
+    "index.json",
     "study.json",
-    "source/paper_metadata.json",
+    "source/specification.json",
+    "source/metadata.json",
+    "source/ground_truth.json",
     "source/evidence.json",
-    "materials/materials.json",
-    "task/task.json",
-    "task/adapter.py",
-    "evaluation/evaluation.py",
     "audit/missing_information.json",
 )
 

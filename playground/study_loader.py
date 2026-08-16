@@ -66,10 +66,21 @@ def load_metadata(path: Path) -> Dict[str, Any]:
 
 
 def load_study_config(path: Path, specification: Dict[str, Any]) -> Any:
-    """Instantiate the study's `BaseStudyConfig` subclass."""
+    """Instantiate the study's `BaseStudyConfig` subclass.
+
+    Merged benchmark studies ship a bespoke `scripts/config.py`. Agent-built
+    buffer studies ship only JSON, so they fall back to the generic runtime
+    that builds trials from `source/materials/*.json` + `specification.json`.
+    """
     config_path = path / "scripts" / "config.py"
     if not config_path.exists():
-        raise StudyNotRunnable(f"{path.name} has no scripts/config.py, so its trials cannot be built.")
+        try:
+            from src.core.study_config import GenericGeneratedStudyConfig
+        except ImportError as exc:  # pragma: no cover - bench checkout always has src/
+            raise StudyNotRunnable(
+                f"{path.name} has no scripts/config.py and the generic runtime is unavailable: {exc}"
+            )
+        return GenericGeneratedStudyConfig(path, specification)
     module = _import_module(config_path, f"playground_{path.name}_config")
     candidates = [
         value for _, value in inspect.getmembers(module, inspect.isclass)
@@ -86,14 +97,20 @@ def load_study_config(path: Path, specification: Dict[str, Any]) -> Any:
 def load_evaluator(path: Path) -> ModuleType:
     evaluator_path = path / "scripts" / "evaluator.py"
     if not evaluator_path.exists():
-        raise StudyNotRunnable(f"{path.name} has no scripts/evaluator.py, so agent runs cannot be scored.")
+        # Agent-built buffer studies are scored by the generic evaluator.
+        from playground import generic_evaluator
+        return generic_evaluator
     module = _import_module(evaluator_path, f"playground_{path.name}_evaluator")
     if not hasattr(module, "evaluate_study"):
         raise StudyNotRunnable(f"{path.name}'s evaluator does not expose evaluate_study().")
     return module
 
 
-def load_study(repo_root: Path, study_id: str) -> Tuple[Path, Dict[str, Any], Any, ModuleType]:
-    path = study_dir(repo_root, study_id)
+def load_study_from_path(path: Path) -> Tuple[Path, Dict[str, Any], Any, ModuleType]:
+    """Load a study from an explicit directory (a merged study or a buffer package)."""
     specification = load_specification(path)
     return path, specification, load_study_config(path, specification), load_evaluator(path)
+
+
+def load_study(repo_root: Path, study_id: str) -> Tuple[Path, Dict[str, Any], Any, ModuleType]:
+    return load_study_from_path(study_dir(repo_root, study_id))
