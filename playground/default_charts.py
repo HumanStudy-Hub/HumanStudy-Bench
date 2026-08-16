@@ -15,6 +15,18 @@ HUMAN = "#334155"
 AGENT = "#0e7490"
 
 
+def _stars(p_value: Any, significant: Any) -> str:
+    if isinstance(p_value, (int, float)):
+        if p_value < 0.001:
+            return "***"
+        if p_value < 0.01:
+            return "**"
+        if p_value < 0.05:
+            return "*"
+        return ""
+    return "*" if significant is True else ""
+
+
 def _axis_bounds(values: List[float]) -> tuple[float, float]:
     if not values:
         return -1.0, 1.0
@@ -40,7 +52,8 @@ def effect_scatter(analysis: Dict[str, Any]) -> Dict[str, Any] | None:
             "x": [row["human_effect"] for row in rows],
             "y": [row["agent_effect"] for row in rows],
             "text": [row["label"] for row in rows],
-            "hovertemplate": "%{text}<br>Human d=%{x:.2f}<br>Agent d=%{y:.2f}<extra></extra>",
+            "customdata": [[_stars(row.get("human_p"), row.get("human_significant")), _stars(row.get("agent_p"), row.get("agent_significant"))] for row in rows],
+            "hovertemplate": "%{text}<br>Human d=%{x:.2f}%{customdata[0]}<br>Agent d=%{y:.2f}%{customdata[1]}<extra></extra>",
             "marker": {"size": 11, "color": colour, "line": {"color": "white", "width": 1}},
         }
 
@@ -60,7 +73,7 @@ def effect_scatter(analysis: Dict[str, Any]) -> Dict[str, Any] | None:
     return {
         "id": "effect-scatter",
         "title": "Agent effect size vs. published human effect size",
-        "description": "Each point is one statistical test from the paper. Points on the dashed line mean the agent reproduced the human effect at the same magnitude; points below it mean the agent showed a weaker effect than people did.",
+        "description": "Each point is one statistical test. Hover for significance: * p<.05, ** p<.01, *** p<.001.",
         "plotly": {
             "data": data,
             "layout": {
@@ -82,11 +95,11 @@ def effect_bars(analysis: Dict[str, Any]) -> Dict[str, Any] | None:
     return {
         "id": "effect-bars",
         "title": "Effect size by test",
-        "description": "How large the effect was for humans in the paper and for the agent in this run, test by test.",
+        "description": "Human and agent effects by test. * p<.05, ** p<.01, *** p<.001.",
         "plotly": {
             "data": [
-                {"type": "bar", "name": "Human", "x": labels, "y": [test["human_effect"] for test in points], "marker": {"color": HUMAN}},
-                {"type": "bar", "name": "Agent", "x": labels, "y": [test["agent_effect"] for test in points], "marker": {"color": AGENT}},
+                {"type": "bar", "name": "Human", "x": labels, "y": [test["human_effect"] for test in points], "text": [_stars(test.get("human_p"), test.get("human_significant")) for test in points], "textposition": "outside", "marker": {"color": HUMAN}},
+                {"type": "bar", "name": "Agent", "x": labels, "y": [test["agent_effect"] for test in points], "text": [_stars(test.get("agent_p"), test.get("agent_significant")) for test in points], "textposition": "outside", "marker": {"color": AGENT}},
             ],
             "layout": {
                 "barmode": "group",

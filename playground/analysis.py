@@ -165,6 +165,34 @@ def normalise_tests(evaluation: Dict[str, Any], study_path: Path) -> List[Dict[s
     return rows
 
 
+def scope_evaluation(evaluation: Dict[str, Any], selection: Any) -> Dict[str, Any]:
+    """Remove evaluator rows outside a selected material or item."""
+    if not isinstance(selection, dict) or selection.get("mode") != "material":
+        return evaluation
+    material = str(selection.get("materialId") or "").strip().lower()
+    item_values = {str(selection.get(key) or "").strip().lower() for key in ("itemId", "label")}
+    item_values.discard("")
+
+    def normal(value: Any) -> str:
+        return re.sub(r"[^a-z0-9]+", "_", str(value or "").strip().lower()).strip("_")
+
+    material_normal = normal(material)
+    item_normal = {normal(value) for value in item_values}
+    selected = []
+    for row in evaluation.get("test_results") or []:
+        if not isinstance(row, dict):
+            continue
+        material_fields = [row.get(key) for key in ("sub_study_id", "study_id", "scenario_id")]
+        if material and not any(normal(value) == material_normal for value in material_fields):
+            continue
+        if item_values:
+            item_fields = [row.get(key) for key in ("item_id", "item", "scenario", "label", "name")]
+            if not any(normal(value) in item_normal for value in item_fields if value is not None):
+                continue
+        selected.append(row)
+    return {**evaluation, "test_results": selected}
+
+
 def summarise(rows: List[Dict[str, Any]], evaluation: Dict[str, Any]) -> Dict[str, Any]:
     scored = [row for row in rows if row["replicated"] is not None]
     replicated = [row for row in scored if row["replicated"]]
@@ -203,17 +231,19 @@ def _correlation(x: List[float], y: List[float]) -> Number:
 
 
 def build_analysis(evaluation: Dict[str, Any], study_path: Path, run: Dict[str, Any], responses: Dict[str, Any]) -> Dict[str, Any]:
-    rows = normalise_tests(evaluation, study_path)
+    scoped_evaluation = scope_evaluation(evaluation, run.get("selection"))
+    rows = normalise_tests(scoped_evaluation, study_path)
     return {
         "runId": run.get("id"),
         "studyId": run.get("studyId"),
         "studyTitle": run.get("studyTitle"),
         "model": run.get("model"),
         "promptPreset": run.get("preset"),
+        "selection": run.get("selection") or {"mode": "whole"},
         "participants": responses.get("participants"),
         "trials": responses.get("trials"),
         "completedTrials": responses.get("completedTrials"),
-        "summary": summarise(rows, evaluation),
+        "summary": summarise(rows, scoped_evaluation),
         "tests": rows,
-        "findings": evaluation.get("finding_results") or [],
+        "findings": scoped_evaluation.get("finding_results") or [],
     }

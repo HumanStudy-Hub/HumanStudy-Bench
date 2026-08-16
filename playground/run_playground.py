@@ -90,6 +90,50 @@ def apply_demographics(profile: Dict[str, Any], demographics: Dict[str, Any]) ->
     return merged
 
 
+def _item_key(item: Dict[str, Any]) -> str:
+    """Return the first stable material-item identifier a study provides."""
+    metadata = item.get("metadata") if isinstance(item.get("metadata"), dict) else {}
+    for value in (item.get("id"), item.get("item_id"), item.get("name"), item.get("label"), metadata.get("id"), metadata.get("label")):
+        if value is not None and str(value).strip():
+            return str(value).strip()
+    return ""
+
+
+def select_trials(trials: List[Dict[str, Any]], run: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Narrow a run to one material, optionally trimming bundled item arrays."""
+    selection = run.get("selection")
+    if not isinstance(selection, dict) or selection.get("mode") != "material":
+        return trials
+    material_id = str(selection.get("materialId") or "").strip()
+    item_id = str(selection.get("itemId") or "").strip()
+    if not material_id:
+        raise SystemExit("The selected material has no identifier.")
+
+    selected: List[Dict[str, Any]] = []
+    for trial in trials:
+        trial_keys = {str(trial.get(key) or "").strip() for key in ("sub_study_id", "scenario_id", "scenario")}
+        material_match = material_id in trial_keys
+        items = trial.get("items") if isinstance(trial.get("items"), list) else []
+        matching_items = [item for item in items if isinstance(item, dict) and _item_key(item) == item_id] if item_id else items
+
+        # Some studies use the item id as their scenario id instead of the
+        # material-file stem. Accept that representation as the same scope.
+        item_scenario_match = bool(item_id and item_id in trial_keys)
+        if not material_match and not item_scenario_match:
+            continue
+        if item_id and items and not matching_items and not item_scenario_match:
+            continue
+        narrowed = dict(trial)
+        if item_id and matching_items:
+            narrowed["items"] = matching_items
+        selected.append(narrowed)
+
+    if not selected:
+        label = selection.get("label") or item_id or material_id
+        raise SystemExit(f"The selected material could not be mapped to a runnable trial: {label}")
+    return selected
+
+
 def cap_trials(study_config: Any, run: Dict[str, Any], has_own_key: bool, log) -> List[Dict[str, Any]]:
     """Build trials at the requested size, then hold the run inside its budget."""
     max_total, max_per_scenario = settings.trial_limits(has_own_key)
@@ -283,7 +327,9 @@ def main() -> None:
         log(f"Study {study_path.name}: {run['studyTitle']}")
 
         preset, override = resolve_prompt(run)
-        trials = cap_trials(study_config, run, has_own_key, log)
+        trials = select_trials(cap_trials(study_config, run, has_own_key, log), run)
+        if isinstance(run.get("selection"), dict) and run["selection"].get("mode") == "material":
+            log(f"Scoped run to material: {run['selection'].get('label') or run['selection'].get('materialId')}.")
         profiles = build_profiles(trials, specification, run, study_path.name)
         log(f"Prepared {len(trials)} participant sessions on {run.get('model')} with prompt {run.get('preset')}.")
         if run.get("personaGroup"):
