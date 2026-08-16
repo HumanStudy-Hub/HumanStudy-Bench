@@ -355,6 +355,20 @@ def main() -> None:
     (output_dir / "evaluation.json").write_text(json.dumps(result, indent=2, default=str) + "\n")
     (output_dir / "sessions.json").write_text(json.dumps(sessions, indent=2, default=str) + "\n")
 
+    # The web UI and the workflow's charting/completion steps expect the
+    # benchmark-shaped analysis/charts/transcript files. Buffer packages score
+    # into a package-specific evaluation.json instead, so write a minimal valid
+    # empty set to let the run finish cleanly.
+    empty_summary = {
+        "totalTests": 0, "scoredTests": 0, "replicatedTests": 0,
+        "replicationRate": None, "directionMatchRate": None,
+        "meanAbsoluteEffectGap": None, "meanHumanEffect": None,
+        "meanAgentEffect": None, "effectCorrelation": None, "studyScore": None,
+    }
+    (output_dir / "analysis.json").write_text(json.dumps({"summary": empty_summary, "tests": []}, indent=2) + "\n")
+    (output_dir / "charts.json").write_text(json.dumps({"charts": [], "source": "default"}, indent=2) + "\n")
+    (output_dir / "transcript_sample.json").write_text(json.dumps([], indent=2) + "\n")
+
     run.update({
         "status": "complete",
         "message": "The run finished and the results are ready",
