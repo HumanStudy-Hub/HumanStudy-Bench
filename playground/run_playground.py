@@ -17,9 +17,7 @@ import json
 import os
 import random
 import re
-import subprocess
 import sys
-import tempfile
 import traceback
 from collections import Counter
 from datetime import datetime, timezone
@@ -284,32 +282,6 @@ def sample_transcript(pool_results: Dict[str, Any], prompt_builder: Any, limit: 
     return samples
 
 
-def resolve_buffer_package(run: Dict[str, Any], jobs_repo: str, token: str) -> Optional[Path]:
-    """Clone a buffer study's job branch and return its package directory.
-
-    Buffer runs carry `jobId` and `packageSlug` instead of a merged study id.
-    The runner clones the job branch from the private jobs repository using the
-    same token that publishes progress, so the workflow needs no extra step.
-    """
-    job_id = str(run.get("jobId") or "").strip()
-    slug = str(run.get("packageSlug") or "").strip()
-    if not job_id or not slug or not jobs_repo or not token:
-        return None
-    destination = Path(tempfile.mkdtemp(prefix="hs-buffer-"))
-    remote = f"https://x-access-token:{token}@github.com/{jobs_repo}.git"
-    subprocess.run(
-        ["git", "clone", "--depth", "1", "--branch", f"jobs/{job_id}", remote, str(destination)],
-        check=True,
-        capture_output=True,
-        text=True,
-        timeout=300,
-    )
-    package = destination / "jobs" / job_id / "package" / slug
-    if not package.is_dir():
-        raise StudyNotRunnable(f"Buffer package not found at jobs/{job_id}/package/{slug}")
-    return package
-
-
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run", required=True, type=Path, help="Run directory containing run.json")
@@ -350,15 +322,8 @@ def main() -> None:
         if not api_key and not args.simulate:
             raise SystemExit("No OpenRouter API key is available for this run.")
 
-        package_path = args.package_path
-        if package_path is None:
-            package_path = resolve_buffer_package(
-                run,
-                args.progress_repo or "",
-                os.environ.get("PIPELINE_PROGRESS_TOKEN", ""),
-            )
-        if package_path:
-            study_path, specification, study_config, evaluator = load_study_from_path(package_path.resolve())
+        if args.package_path:
+            study_path, specification, study_config, evaluator = load_study_from_path(args.package_path.resolve())
         else:
             study_path, specification, study_config, evaluator = load_study(args.repo_root, str(run.get("studyId") or ""))
         metadata = load_metadata(study_path)
