@@ -84,7 +84,7 @@ def accept_charts(path: Path) -> Dict[str, Any] | None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run", required=True, type=Path)
-    parser.add_argument("--contract", type=Path, default=Path(__file__).resolve().parent / "CLAUDE.md")
+    parser.add_argument("--contract", type=Path, default=Path(__file__).resolve().parent / "charting.md")
     parser.add_argument("--model", default=os.environ.get("OPENROUTER_MODEL", "anthropic/claude-sonnet-5"))
     parser.add_argument("--timeout-minutes", type=float, default=8)
     args = parser.parse_args()
