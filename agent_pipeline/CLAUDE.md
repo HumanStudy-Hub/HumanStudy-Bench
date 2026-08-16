@@ -132,9 +132,21 @@ role with the paper's justification for scripting it.
 line smoke test using `--smoke-test`. It may report a clear blocked state when a
 missing researcher decision makes faithful execution impossible.
 
-`evaluation/evaluation.py` must implement checks supported by the paper. When a
-statistical test cannot yet be implemented, return a structured `not_ready`
-result with the missing requirement; do not mention nonexistent future stages.
+`task/adapter.py` must also expose the standard harness interface the playground
+uses to inject any model as the participant:
+
+- `agent_fn(input: dict) -> dict` is the injected participant. `input` holds the
+  state shown to the participant for one decision (its keys are documented in
+  `task/task.json`'s input schema); the returned dict holds the participant's
+  action (its keys are documented in `task/task.json`'s action schema).
+- `run_sessions(agent_fn, seed) -> list[dict]` runs the study with that agent
+  across every condition and returns one session-log dict per session.
+
+`evaluation/evaluation.py` must implement checks supported by the paper and
+expose `evaluate(sessions: list[dict]) -> dict`, where `sessions` is exactly what
+`run_sessions` returned. When a statistical test cannot yet be implemented,
+return a structured `not_ready` result with the missing requirement; do not
+mention nonexistent future stages.
 
 `audit/missing_information.json` is the authoritative researcher checklist.
 Each entry includes `study`, `field`, `reason`, `impact`, and `suggested_action`.

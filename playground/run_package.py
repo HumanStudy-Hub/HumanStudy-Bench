@@ -18,6 +18,7 @@ import argparse
 import importlib.util
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -110,6 +111,28 @@ def _cascade_parse(reply: str, args: tuple, kwargs: dict) -> dict:
     return {"decision": decision}
 
 
+def _standard_prompt(args: tuple, kwargs: dict) -> str:
+    state = args[0] if args else {}
+    return (
+        json.dumps(state, indent=2, ensure_ascii=False)
+        + "\n\nRespond with a single JSON object containing your action."
+    )
+
+
+def _standard_parse(reply: str, args: tuple, kwargs: dict) -> dict:
+    text = (reply or "").strip()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        match = re.search(r"\{.*\}", text, re.DOTALL)
+        if match:
+            try:
+                return json.loads(match.group(0))
+            except json.JSONDecodeError:
+                return {}
+        return {}
+
+
 RUN_SPECS: List[Dict[str, Any]] = [
     {
         "name": "anderson_holt_1997_information_cascades",
@@ -172,13 +195,6 @@ def main() -> None:
     adapter = _import_module(package / "task" / "adapter.py", "buffer_adapter")
     evaluation = _import_module(package / "evaluation" / "evaluation.py", "buffer_evaluation")
 
-    spec = _find_run_spec(adapter)
-    if spec is None:
-        raise SystemExit(
-            f"Package {package.name} does not match a known run contract. "
-            "Only agent_fn-style packages are supported; this package needs a wiring entry in RUN_SPECS."
-        )
-
     api_key = decrypt_api_key(run.get("sealedApiKey"))
     if not api_key:
         api_key = os.environ.get("OPENROUTER_API_KEY", "")
@@ -190,14 +206,27 @@ def main() -> None:
     participants = int(run.get("participantsPerScenario") or 8)
     seed = int(run.get("seed") or 42)
 
-    agent = build_llm_agent(spec["agent_spec"], model, api_key, temperature, args.simulate)
-
-    runs = []
-    for study, condition in spec["conditions"](adapter):
-        session = spec["run"](adapter, agent, study, condition, seed, participants)
-        runs.append(session)
-
-    result = spec["evaluate"](evaluation, runs)
+    # Standard contract (current builds): adapter.run_sessions(agent_fn, seed)
+    # -> sessions, evaluation.evaluate(sessions) -> result. Needs no wiring.
+    if hasattr(adapter, "run_sessions") and hasattr(evaluation, "evaluate"):
+        agent_spec = {"prompt": _standard_prompt, "parse": _standard_parse, "simulate_reply": "{}"}
+        agent = build_llm_agent(agent_spec, model, api_key, temperature, args.simulate)
+        runs = adapter.run_sessions(agent, seed)
+        result = evaluation.evaluate(runs)
+    else:
+        # Legacy packages: drive them through their own per-package wiring.
+        spec = _find_run_spec(adapter)
+        if spec is None:
+            raise SystemExit(
+                f"Package {package.name} does not match a known run contract. "
+                "Only agent_fn-style packages are supported; this package needs a wiring entry in RUN_SPECS."
+            )
+        agent = build_llm_agent(spec["agent_spec"], model, api_key, temperature, args.simulate)
+        runs = []
+        for study, condition in spec["conditions"](adapter):
+            session = spec["run"](adapter, agent, study, condition, seed, participants)
+            runs.append(session)
+        result = spec["evaluate"](evaluation, runs)
 
     output_dir = run_dir / "output"
     output_dir.mkdir(parents=True, exist_ok=True)

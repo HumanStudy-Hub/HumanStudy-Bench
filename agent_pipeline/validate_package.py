@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -40,6 +41,15 @@ def main() -> None:
     )
     if result.returncode != 0:
         raise SystemExit("adapter smoke test failed:\n" + result.stdout + result.stderr)
+
+    def _defines(path: Path, name: str) -> bool:
+        return bool(re.search(rf"^\s*def\s+{name}\s*\(", path.read_text(encoding="utf-8"), re.MULTILINE))
+
+    if not _defines(root / "task/adapter.py", "run_sessions"):
+        raise SystemExit("task/adapter.py must expose run_sessions(agent_fn, seed) so the playground can run it.")
+    if not _defines(root / "evaluation/evaluation.py", "evaluate"):
+        raise SystemExit("evaluation/evaluation.py must expose evaluate(sessions) so the playground can score it.")
+
     print(f"Validated agent package: {root.name}")
 
 
