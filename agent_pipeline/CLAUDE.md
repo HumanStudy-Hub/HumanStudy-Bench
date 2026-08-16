@@ -140,13 +140,22 @@ uses to inject any model as the participant:
   `task/task.json`'s input schema); the returned dict holds the participant's
   action (its keys are documented in `task/task.json`'s action schema).
 - `run_sessions(agent_fn, seed) -> list[dict]` runs the study with that agent
-  across every condition and returns one session-log dict per session.
+  across every condition and every arm the paper's comparisons require (including
+  any control/baseline arm), and returns one session-log dict per session. Each
+  session log must carry its condition and arm labels so `evaluate` can compare
+  them. The package must be self-sufficient at run time: `run_sessions` produces
+  everything `evaluate` needs, and it must not require the researcher to supply a
+  prompt, dataset, or aggregation step. If the paper does not provide the wording
+  or data for some arm, run the arms it does support and record the missing arm
+  in `audit/missing_information.json`.
 
 `evaluation/evaluation.py` must implement checks supported by the paper and
 expose `evaluate(sessions: list[dict]) -> dict`, where `sessions` is exactly what
-`run_sessions` returned. When a statistical test cannot yet be implemented,
-return a structured `not_ready` result with the missing requirement; do not
-mention nonexistent future stages.
+`run_sessions` returned. Derive every metric and aggregation from `sessions`
+directly — do not read a separate data file or expect pre-aggregated output. When
+a statistical test cannot be computed from the available sessions, return a
+structured `not_ready` result with the missing requirement; do not mention
+nonexistent future stages.
 
 `audit/missing_information.json` is the authoritative researcher checklist.
 Each entry includes `study`, `field`, `reason`, `impact`, and `suggested_action`.
