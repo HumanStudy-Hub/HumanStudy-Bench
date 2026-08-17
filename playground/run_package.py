@@ -29,6 +29,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from playground import settings
+from playground.progress import ProgressWriter
 from playground.run_key import decrypt_api_key
 
 
@@ -64,11 +65,15 @@ def _clone_package(run: Dict[str, Any], jobs_repo: str) -> Path:
     return package
 
 
-def _make_llm(model: str, api_key: str, temperature: float) -> Callable[[str], str]:
+def _make_llm(model: str, api_key: str, temperature: float, on_step=None) -> Callable[[str], str]:
     from openai import OpenAI
     client = OpenAI(base_url=settings.OPENROUTER_API_BASE, api_key=api_key)
+    counter = [0]
 
     def llm(prompt: str) -> str:
+        counter[0] += 1
+        if on_step:
+            on_step(counter[0])
         response = client.chat.completions.create(
             model=model,
             messages=[{"role": "user", "content": prompt}],
@@ -119,15 +124,24 @@ def main() -> None:
     model = str(run.get("model") or settings.DEFAULT_MODEL)
     temperature = float(run.get("temperature") or 1.0)
     seed = int(run.get("seed") or 42)
-    llm = _make_llm(model, api_key, temperature)
+
+    progress = ProgressWriter(run_dir, args.progress_repo, args.progress_branch, args.progress_path)
+    progress.write({"phase": "preparing", "completedTrials": 0, "totalTrials": 0, "message": "Loading the study"}, force=True)
+
+    def on_step(count: int) -> None:
+        progress.write({"phase": "running_participants", "completedTrials": count, "totalTrials": count, "message": f"{count} model calls so far"})
+
+    llm = _make_llm(model, api_key, temperature, on_step)
 
     n = int(run.get("participantsPerScenario") or 8)
     if hasattr(adapter, "run_sessions") and hasattr(evaluation, "evaluate"):
         sessions = adapter.run_sessions(llm, seed, n)
+        progress.write({"phase": "scoring", "completedTrials": 0, "totalTrials": 0, "message": "Scoring against the published findings"}, force=True)
         result = evaluation.evaluate(sessions)
     else:
         shim = _import_module(package / "task" / "run_sessions.py", "buffer_run_sessions")
         sessions = shim.run_sessions(llm, seed, n)
+        progress.write({"phase": "scoring", "completedTrials": 0, "totalTrials": 0, "message": "Scoring against the published findings"}, force=True)
         result = shim.evaluate(sessions)
 
     _write_outputs(run_dir, result, sessions)
