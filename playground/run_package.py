@@ -1,32 +1,50 @@
 #!/usr/bin/env python3
-"""Run a buffer (agent-built) study package by delegating to Claude Code.
+"""Run a buffer (agent-built) study package with a chosen model.
 
-The package is self-contained (`task/adapter.py` + `evaluation/evaluation.py`).
-Rather than hard-coding each package's interface, this runner hands the package
-and the run request to Claude Code, which reads the adapter, injects the
-researcher's model as the participant, runs the study, and evaluates it. This
-handles any package interface the Build Study pipeline produces.
+Buffer packages produced by the Build Study pipeline follow the standard
+harness interface from `agent_pipeline/CLAUDE.md`:
+
+- `task/adapter.py` exposes `run_sessions(agent_fn, seed) -> list[dict]`,
+  where `agent_fn(input: dict) -> dict` is the injected participant;
+- `evaluation/evaluation.py` exposes `evaluate(sessions) -> dict`.
+
+Because the interface is standardized, the runner is a thin deterministic
+script: it injects an LLM-backed `agent_fn`, runs, and scores. No per-package
+wiring and no second agent are needed.
 """
 
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import os
-import signal
+import re
 import subprocess
 import sys
 import tempfile
-import threading
-import time
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from playground import settings
 from playground.run_key import decrypt_api_key
+
+
+def _import_module(path: Path, name: str) -> Any:
+    spec = importlib.util.spec_from_file_location(name, path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"cannot import {path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    for directory in (path.parent, path.parent.parent):
+        if str(directory) not in sys.path:
+            sys.path.insert(0, str(directory))
+    spec.loader.exec_module(module)
+    return module
 
 
 def _clone_package(run: Dict[str, Any], jobs_repo: str) -> Path:
@@ -48,58 +66,53 @@ def _clone_package(run: Dict[str, Any], jobs_repo: str) -> Path:
     return package
 
 
-def _build_prompt(contract: Path, run_dir: Path, package: Path, run: Dict[str, Any]) -> str:
-    return (
-        f"{contract.read_text()}\n\n"
-        "## This run\n\n"
-        f"- Package directory: `{package}`\n"
-        f"- Run directory: `{run_dir}`\n"
-        f"- Participant model: `{run.get('model')}`\n"
-        f"- Seed: `{run.get('seed')}`\n"
-        f"- Participants per scenario: `{run.get('participantsPerScenario')}`\n"
-        f"- Temperature: `{run.get('temperature')}`\n\n"
-        "Complete the run now: drive the package's adapter with the participant "
-        "model, evaluate, and write all outputs to `<run>/output/`. Then update "
-        "`<run>/run.json` to complete."
+def _llm_call(model: str, api_key: str, messages: List[Dict[str, str]], temperature: float) -> str:
+    from openai import OpenAI
+    client = OpenAI(base_url=settings.OPENROUTER_API_BASE, api_key=api_key)
+    response = client.chat.completions.create(
+        model=model,
+        messages=messages,
+        temperature=temperature,
+        max_tokens=800,
     )
+    return (response.choices[0].message.content or "").strip()
 
 
-def _stream_output(process: subprocess.Popen, log_path: Path) -> None:
-    with log_path.open("a", encoding="utf-8") as log:
-        assert process.stdout is not None
-        for line in process.stdout:
-            sys.stdout.write(line)
-            sys.stdout.flush()
-            log.write(line)
-            log.flush()
-
-
-def _stop_process(process: subprocess.Popen) -> None:
-    if process.poll() is not None:
-        return
+def _parse_json(text: str) -> dict:
+    text = (text or "").strip()
     try:
-        os.killpg(process.pid, signal.SIGTERM)
-        process.wait(timeout=20)
-    except (ProcessLookupError, subprocess.TimeoutExpired):
-        if process.poll() is None:
+        value = json.loads(text)
+        return value if isinstance(value, dict) else {}
+    except json.JSONDecodeError:
+        match = re.search(r"\{.*\}", text, re.DOTALL)
+        if match:
             try:
-                os.killpg(process.pid, signal.SIGKILL)
-            except ProcessLookupError:
-                pass
-            process.wait(timeout=10)
+                value = json.loads(match.group(0))
+                return value if isinstance(value, dict) else {}
+            except json.JSONDecodeError:
+                return {}
+        return {}
 
 
-def _write_empty_outputs(run_dir: Path, note: str) -> None:
+def _standard_agent(model: str, api_key: str, temperature: float) -> Callable[[dict], dict]:
+    def agent(input_state: dict) -> dict:
+        prompt = json.dumps(input_state, indent=2, ensure_ascii=False) + "\n\nRespond with a single JSON object containing your action."
+        reply = _llm_call(model, api_key, [{"role": "user", "content": prompt}], temperature)
+        return _parse_json(reply)
+    return agent
+
+
+def _write_outputs(run_dir: Path, result: Any, sessions: Any) -> None:
     output_dir = run_dir / "output"
     output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / "evaluation.json").write_text(json.dumps(result, indent=2, default=str) + "\n")
+    (output_dir / "sessions.json").write_text(json.dumps(sessions, indent=2, default=str) + "\n")
     empty_summary = {
         "totalTests": 0, "scoredTests": 0, "replicatedTests": 0,
         "replicationRate": None, "directionMatchRate": None,
         "meanAbsoluteEffectGap": None, "meanHumanEffect": None,
         "meanAgentEffect": None, "effectCorrelation": None, "studyScore": None,
     }
-    (output_dir / "evaluation.json").write_text(json.dumps({"status": "not_ready", "missing_requirement": note}, indent=2) + "\n")
-    (output_dir / "sessions.json").write_text(json.dumps([], indent=2) + "\n")
     (output_dir / "analysis.json").write_text(json.dumps({"summary": empty_summary, "tests": []}, indent=2) + "\n")
     (output_dir / "charts.json").write_text(json.dumps({"charts": [], "source": "default"}, indent=2) + "\n")
     (output_dir / "transcript_sample.json").write_text(json.dumps([], indent=2) + "\n")
@@ -112,89 +125,44 @@ def main() -> None:
     parser.add_argument("--progress-repo")
     parser.add_argument("--progress-branch")
     parser.add_argument("--progress-path")
-    parser.add_argument("--model", default=os.environ.get("OPENROUTER_MODEL", "anthropic/claude-sonnet-5"))
-    parser.add_argument("--timeout-minutes", type=float, default=25)
     args = parser.parse_args()
 
     run_dir = args.run.resolve()
     run = json.loads((run_dir / "run.json").read_text(encoding="utf-8"))
     package = args.package_path.resolve() if args.package_path else _clone_package(run, args.progress_repo or "")
 
-    output_dir = run_dir / "output"
-    logs_dir = run_dir / "logs"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    logs_dir.mkdir(parents=True, exist_ok=True)
+    adapter = _import_module(package / "task" / "adapter.py", "buffer_adapter")
+    evaluation = _import_module(package / "evaluation" / "evaluation.py", "buffer_evaluation")
+
+    if not hasattr(adapter, "run_sessions") or not hasattr(evaluation, "evaluate"):
+        raise SystemExit(
+            f"Package {package.name} predates the standard run interface "
+            "(run_sessions + evaluate). Rebuild it with the current Build Study "
+            "contract, or migrate it to expose run_sessions(agent_fn, seed) and evaluate(sessions)."
+        )
 
     own_key = decrypt_api_key(run.get("sealedApiKey"))
-    shared_key = os.environ.get("OPENROUTER_API_KEY", "")
-    participant_key = own_key or shared_key
-    if not participant_key:
+    api_key = own_key or os.environ.get("OPENROUTER_API_KEY", "")
+    if not api_key:
         raise SystemExit("No OpenRouter API key is available for this run.")
 
-    contract = REPO_ROOT / "playground" / "package_runner.md"
-    prompt = _build_prompt(contract, run_dir, package, run)
+    model = str(run.get("model") or settings.DEFAULT_MODEL)
+    temperature = float(run.get("temperature") or 1.0)
+    seed = int(run.get("seed") or 42)
 
-    agent_env = os.environ.copy()
-    for secret in ("PIPELINE_PROGRESS_TOKEN", "HUMANSTUDY_PIPELINE_TOKEN", "GITHUB_TOKEN", "PLAYGROUND_KEY_SECRET"):
-        agent_env.pop(secret, None)
-    # Claude Code itself runs through OpenRouter; the participant model inside
-    # the agent's Python script also reads OPENROUTER_API_KEY.
-    agent_env["ANTHROPIC_BASE_URL"] = "https://openrouter.ai/api"
-    agent_env["ANTHROPIC_AUTH_TOKEN"] = shared_key
-    agent_env["ANTHROPIC_API_KEY"] = ""
-    agent_env["ANTHROPIC_DEFAULT_OPUS_MODEL"] = args.model
-    agent_env["ANTHROPIC_DEFAULT_SONNET_MODEL"] = args.model
-    agent_env["ANTHROPIC_DEFAULT_HAIKU_MODEL"] = args.model
-    agent_env["CLAUDE_CODE_SUBAGENT_MODEL"] = args.model
-    agent_env["OPENROUTER_MODEL"] = args.model
-    agent_env["OPENROUTER_API_KEY"] = participant_key
+    agent = _standard_agent(model, api_key, temperature)
+    sessions = adapter.run_sessions(agent, seed)
+    result = evaluation.evaluate(sessions)
 
-    process = subprocess.Popen(
-        [
-            "claude",
-            "--print",
-            "--model", args.model,
-            "--add-dir", str(run_dir),
-            "--add-dir", str(package),
-            "--dangerously-skip-permissions",
-            prompt,
-        ],
-        cwd=REPO_ROOT,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-        bufsize=1,
-        start_new_session=True,
-        env=agent_env,
-    )
-    output_thread = threading.Thread(target=_stream_output, args=(process, logs_dir / "run.log"), daemon=True)
-    output_thread.start()
-    deadline = time.monotonic() + args.timeout_minutes * 60
+    _write_outputs(run_dir, result, sessions)
+    run.update({
+        "status": "complete",
+        "message": "The run finished and the results are ready",
+        "resultsReady": True,
+    })
+    (run_dir / "run.json").write_text(json.dumps(run, indent=2) + "\n")
 
-    try:
-        while process.poll() is None:
-            if time.monotonic() >= deadline:
-                print("[package] the run agent ran out of time", flush=True)
-                _stop_process(process)
-                break
-            time.sleep(5)
-    finally:
-        _stop_process(process)
-        output_thread.join(timeout=5)
-
-    if not (output_dir / "evaluation.json").exists():
-        _write_empty_outputs(run_dir, "The run agent did not produce an evaluation result.")
-
-    run = json.loads((run_dir / "run.json").read_text(encoding="utf-8"))
-    if run.get("status") != "complete":
-        run.update({
-            "status": "complete",
-            "message": "The run finished and the results are ready",
-            "resultsReady": True,
-        })
-        (run_dir / "run.json").write_text(json.dumps(run, indent=2) + "\n")
-
-    print(json.dumps({"status": "complete"}, default=str))
+    print(json.dumps({"status": "complete", "evaluation": result}, default=str))
 
 
 if __name__ == "__main__":
