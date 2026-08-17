@@ -135,11 +135,10 @@ missing researcher decision makes faithful execution impossible.
 `task/adapter.py` must also expose the standard harness interface the playground
 uses to inject any model as the participant:
 
-- `agent_fn(input: dict) -> dict` is the injected participant. `input` holds the
-  state shown to the participant for one decision (its keys are documented in
-  `task/task.json`'s input schema); the returned dict holds the participant's
-  action (its keys are documented in `task/task.json`'s action schema).
-- `run_sessions(agent_fn, seed) -> list[dict]` runs the study with that agent
+- `llm(prompt: str) -> str` is the injected model call the runner provides. The
+  adapter builds whatever prompt it needs for one decision and parses the reply
+  text into the action shape its task expects.
+- `run_sessions(llm, seed) -> list[dict]` runs the study with that model call
   across every condition and every arm the paper's comparisons require (including
   any control/baseline arm), and returns one session-log dict per session. Each
   session log must carry its condition and arm labels so `evaluate` can compare
