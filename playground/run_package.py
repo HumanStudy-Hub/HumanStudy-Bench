@@ -81,18 +81,22 @@ def _save_cache(run_dir: Path, cache: Dict[str, str]) -> None:
     (run_dir / "output" / "llm_cache.json").write_text(json.dumps(cache), encoding="utf-8")
 
 
-def _make_llm(model: str, api_key: str, temperature: float, on_step=None, cache: Optional[Dict[str, str]] = None, save_cache=None) -> Callable[[str], str]:
+def _make_llm(model: str, api_key: str, temperature: float, on_step=None, cache: Optional[Dict[str, str]] = None, save_cache=None) -> Callable[..., str]:
+    import threading
     from openai import OpenAI
     client = OpenAI(base_url=settings.OPENROUTER_API_BASE, api_key=api_key)
     counter = [0]
+    lock = threading.Lock()
 
-    def llm(prompt: str) -> str:
-        counter[0] += 1
-        index = str(counter[0])
+    def llm(prompt: str, key: Optional[str] = None) -> str:
+        with lock:
+            counter[0] += 1
+            cache_key = key if key is not None else f"idx:{counter[0]}"
+            step = counter[0]
         if on_step:
-            on_step(counter[0])
-        if cache is not None and index in cache:
-            return cache[index]
+            on_step(step)
+        if cache is not None and cache_key in cache:
+            return cache[cache_key]
         response = client.chat.completions.create(
             model=model,
             messages=[{"role": "user", "content": prompt}],
@@ -101,7 +105,8 @@ def _make_llm(model: str, api_key: str, temperature: float, on_step=None, cache:
         )
         result = (response.choices[0].message.content or "").strip()
         if cache is not None:
-            cache[index] = result
+            with lock:
+                cache[cache_key] = result
             if save_cache:
                 save_cache(cache)
         return result
