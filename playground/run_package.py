@@ -121,12 +121,13 @@ def main() -> None:
     seed = int(run.get("seed") or 42)
     llm = _make_llm(model, api_key, temperature)
 
+    n = int(run.get("participantsPerScenario") or 8)
     if hasattr(adapter, "run_sessions") and hasattr(evaluation, "evaluate"):
-        sessions = adapter.run_sessions(llm, seed)
+        sessions = adapter.run_sessions(llm, seed, n)
         result = evaluation.evaluate(sessions)
     else:
         shim = _import_module(package / "task" / "run_sessions.py", "buffer_run_sessions")
-        sessions = shim.run_sessions(llm, seed)
+        sessions = shim.run_sessions(llm, seed, n)
         result = shim.evaluate(sessions)
 
     _write_outputs(run_dir, result, sessions)
