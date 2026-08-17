@@ -65,22 +65,46 @@ def _clone_package(run: Dict[str, Any], jobs_repo: str) -> Path:
     return package
 
 
-def _make_llm(model: str, api_key: str, temperature: float, on_step=None) -> Callable[[str], str]:
+def _load_cache(run_dir: Path) -> Dict[str, str]:
+    path = run_dir / "output" / "llm_cache.json"
+    if path.exists():
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            return data if isinstance(data, dict) else {}
+        except (OSError, json.JSONDecodeError):
+            return {}
+    return {}
+
+
+def _save_cache(run_dir: Path, cache: Dict[str, str]) -> None:
+    (run_dir / "output").mkdir(parents=True, exist_ok=True)
+    (run_dir / "output" / "llm_cache.json").write_text(json.dumps(cache), encoding="utf-8")
+
+
+def _make_llm(model: str, api_key: str, temperature: float, on_step=None, cache: Optional[Dict[str, str]] = None, save_cache=None) -> Callable[[str], str]:
     from openai import OpenAI
     client = OpenAI(base_url=settings.OPENROUTER_API_BASE, api_key=api_key)
     counter = [0]
 
     def llm(prompt: str) -> str:
         counter[0] += 1
+        index = str(counter[0])
         if on_step:
             on_step(counter[0])
+        if cache is not None and index in cache:
+            return cache[index]
         response = client.chat.completions.create(
             model=model,
             messages=[{"role": "user", "content": prompt}],
             temperature=temperature,
             max_tokens=800,
         )
-        return (response.choices[0].message.content or "").strip()
+        result = (response.choices[0].message.content or "").strip()
+        if cache is not None:
+            cache[index] = result
+            if save_cache:
+                save_cache(cache)
+        return result
     return llm
 
 
@@ -131,7 +155,8 @@ def main() -> None:
     def on_step(count: int) -> None:
         progress.write({"phase": "running_participants", "completedTrials": count, "totalTrials": count, "message": f"{count} model calls so far"})
 
-    llm = _make_llm(model, api_key, temperature, on_step)
+    cache = _load_cache(run_dir)
+    llm = _make_llm(model, api_key, temperature, on_step, cache, lambda c: _save_cache(run_dir, c))
 
     n = int(run.get("participantsPerScenario") or 8)
     if hasattr(adapter, "run_sessions") and hasattr(evaluation, "evaluate"):
