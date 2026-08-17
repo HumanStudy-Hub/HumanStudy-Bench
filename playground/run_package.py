@@ -21,8 +21,9 @@ import re
 import subprocess
 import sys
 import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable, Dict, List, Optional
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
@@ -142,6 +143,16 @@ def main() -> None:
     run = json.loads((run_dir / "run.json").read_text(encoding="utf-8"))
     package = args.package_path.resolve() if args.package_path else _clone_package(run, args.progress_repo or "")
 
+    logs_dir = run_dir / "logs"
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    log_file = (logs_dir / "run.log").open("a", encoding="utf-8")
+
+    def log(message: str) -> None:
+        line = f"[{datetime.now(timezone.utc).isoformat()}] {message}"
+        print(line, flush=True)
+        log_file.write(line + "\n")
+        log_file.flush()
+
     adapter = _import_module(package / "task" / "adapter.py", "buffer_adapter")
     evaluation = _import_module(package / "evaluation" / "evaluation.py", "buffer_evaluation")
 
@@ -154,10 +165,12 @@ def main() -> None:
     temperature = float(run.get("temperature") or 1.0)
     seed = int(run.get("seed") or 42)
 
+    log(f"Running {package.name} with {model} (n={run.get('participantsPerScenario') or 8})")
     progress = ProgressWriter(run_dir, args.progress_repo, args.progress_branch, args.progress_path)
     progress.write({"phase": "preparing", "completedTrials": 0, "totalTrials": 0, "message": "Loading the study"}, force=True)
 
     def on_step(count: int) -> None:
+        log(f"{count} model calls so far")
         progress.write({"phase": "running_participants", "completedTrials": count, "totalTrials": count, "message": f"{count} model calls so far"})
 
     cache = _load_cache(run_dir)
@@ -166,11 +179,13 @@ def main() -> None:
     n = int(run.get("participantsPerScenario") or 8)
     if hasattr(adapter, "run_sessions") and hasattr(evaluation, "evaluate"):
         sessions = adapter.run_sessions(llm, seed, n)
+        log("Scoring against the published findings")
         progress.write({"phase": "scoring", "completedTrials": 0, "totalTrials": 0, "message": "Scoring against the published findings"}, force=True)
         result = evaluation.evaluate(sessions)
     else:
         shim = _import_module(package / "task" / "run_sessions.py", "buffer_run_sessions")
         sessions = shim.run_sessions(llm, seed, n)
+        log("Scoring against the published findings")
         progress.write({"phase": "scoring", "completedTrials": 0, "totalTrials": 0, "message": "Scoring against the published findings"}, force=True)
         result = shim.evaluate(sessions)
 
@@ -181,6 +196,7 @@ def main() -> None:
         "resultsReady": True,
     })
     (run_dir / "run.json").write_text(json.dumps(run, indent=2) + "\n")
+    log("Run complete")
 
     print(json.dumps({"status": "complete", "evaluation": result}, default=str))
 
