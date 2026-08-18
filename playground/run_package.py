@@ -19,6 +19,7 @@ sessions produced so far into `evaluation.json`, `analysis.json`, and
 from __future__ import annotations
 
 import argparse
+import base64
 import importlib.util
 import inspect
 import json
@@ -29,6 +30,9 @@ import subprocess
 import sys
 import tempfile
 import time
+import urllib.error
+import urllib.parse
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
@@ -239,7 +243,8 @@ def build_buffer_charts(evaluation: Any) -> Dict[str, Any]:
     return {"charts": charts[:6], "source": "default"}
 
 
-def _finalize(run_dir: Path, sessions: Any, evaluate_fn: Callable[[Any], Any], run: Dict[str, Any], partial: bool, log) -> Any:
+def _write_results(run_dir: Path, sessions: Any, evaluate_fn: Callable[[Any], Any]) -> Any:
+    """Run the evaluator and write the result files, without touching run.json."""
     output_dir = run_dir / "output"
     output_dir.mkdir(parents=True, exist_ok=True)
     result = evaluate_fn(sessions)
@@ -249,6 +254,79 @@ def _finalize(run_dir: Path, sessions: Any, evaluate_fn: Callable[[Any], Any], r
     (output_dir / "analysis.json").write_text(json.dumps(build_buffer_analysis(sessions, result), indent=2, default=str) + "\n")
     (output_dir / "charts.json").write_text(json.dumps(build_buffer_charts(result), indent=2, default=str) + "\n")
     (output_dir / "transcript_sample.json").write_text(json.dumps([], indent=2) + "\n")
+    return result
+
+
+class OutputPublisher:
+    """Mirror result files to the jobs repository through the GitHub contents API.
+
+    The workflow's final git commit can race with a stopped run, so results are
+    also written here directly (sha-tracked, throttled) — the same mechanism the
+    progress writer already uses. This is what makes "stop and view partial
+    results" survive a cancelled Actions job.
+    """
+
+    def __init__(self, repo: str, branch: str, token: str, run_dir: Path, min_interval: float = 8.0) -> None:
+        self.repo = repo
+        self.branch = branch
+        self.token = token
+        self.run_dir = run_dir
+        self.min_interval = min_interval
+        self.shas: Dict[str, str] = {}
+        self.last: Dict[str, float] = {}
+
+    def _headers(self) -> Dict[str, str]:
+        return {
+            "Accept": "application/vnd.github+json",
+            "Authorization": f"Bearer {self.token}",
+            "Content-Type": "application/json",
+            "X-GitHub-Api-Version": "2022-11-28",
+            "User-Agent": "HumanStudy-Hub-Playground",
+        }
+
+    def _request(self, method: str, path: str, body: Optional[dict] = None) -> dict:
+        url = f"https://api.github.com/repos/{self.repo}/contents/{urllib.parse.quote(path, safe='/')}"
+        if method == "GET":
+            url += "?ref=" + urllib.parse.quote(self.branch, safe="")
+        request = urllib.request.Request(url, data=json.dumps(body).encode() if body is not None else None, method=method, headers=self._headers())
+        with urllib.request.urlopen(request, timeout=20) as response:
+            return json.loads(response.read())
+
+    def publish(self, rel_path: str, content: str, force: bool = False) -> None:
+        now = time.monotonic()
+        if not force and now - self.last.get(rel_path, 0.0) < self.min_interval:
+            return
+        self.last[rel_path] = now
+        path = f"{self.run_dir.name}/{rel_path}"
+        sha = self.shas.get(path)
+        if sha is None:
+            try:
+                sha = self._request("GET", path).get("sha")
+            except Exception:
+                sha = None
+        body = {"message": f"playground: output {rel_path}", "branch": self.branch, "content": base64.b64encode(content.encode()).decode()}
+        if sha:
+            body["sha"] = sha
+        try:
+            response = self._request("PUT", path, body)
+            self.shas[path] = response["content"]["sha"]
+        except urllib.error.HTTPError as exc:
+            if exc.code == 409:
+                self.shas.pop(path, None)
+            print(f"[output] could not publish {rel_path}: {exc}", flush=True)
+        except Exception as exc:
+            print(f"[output] could not publish {rel_path}: {exc}", flush=True)
+
+    def publish_results(self, force: bool = False) -> None:
+        output_dir = self.run_dir / "output"
+        for name in ("evaluation.json", "sessions.json", "coverage.json", "analysis.json", "charts.json"):
+            path = output_dir / name
+            if path.exists():
+                self.publish(f"output/{name}", path.read_text(encoding="utf-8"), force=force)
+
+
+def _finalize(run_dir: Path, sessions: Any, evaluate_fn: Callable[[Any], Any], run: Dict[str, Any], partial: bool, log) -> Any:
+    result = _write_results(run_dir, sessions, evaluate_fn)
     if partial:
         run.update({
             "status": "complete",
@@ -355,6 +433,12 @@ def main() -> None:
         evaluate_fn = shim.evaluate
 
     sessions_so_far: List[dict] = []
+    publisher: Optional[OutputPublisher] = None
+    progress_token = os.environ.get("PIPELINE_PROGRESS_TOKEN", "")
+    if progress_token and args.progress_repo and args.progress_branch:
+        publisher = OutputPublisher(args.progress_repo, args.progress_branch, progress_token, run_dir)
+
+    last_result = [0.0]
 
     def on_session(session: Any) -> None:
         sessions_so_far.append(session)
@@ -362,6 +446,17 @@ def main() -> None:
         (run_dir / "output" / "sessions.json").write_text(json.dumps(sessions_so_far, indent=2, default=str) + "\n")
         (run_dir / "output" / "coverage.json").write_text(json.dumps(_coverage(sessions_so_far), indent=2) + "\n")
         progress.write({"phase": "running_participants", "completedTrials": len(sessions_so_far), "totalTrials": len(sessions_so_far), "message": f"{len(sessions_so_far)} sessions complete"})
+        # Keep results fresh on disk and in the repo so a hard stop still shows
+        # a plot: evaluate the sessions so far (throttled) and publish them.
+        now = time.monotonic()
+        if now - last_result[0] >= 8.0:
+            last_result[0] = now
+            try:
+                _write_results(run_dir, sessions_so_far, evaluate_fn)
+                if publisher:
+                    publisher.publish_results()
+            except Exception as exc:
+                log(f"Could not refresh partial results: {exc}")
 
     # A cancelled run (researcher stop, or the Actions time limit) finalizes the
     # sessions completed so far instead of throwing everything away.
@@ -369,6 +464,8 @@ def main() -> None:
         log("Stop requested; finalizing partial results")
         try:
             _finalize(run_dir, sessions_so_far, evaluate_fn, run, partial=True, log=log)
+            if publisher:
+                publisher.publish_results(force=True)
         except Exception as exc:
             log(f"Could not finalize partial results: {exc}")
         sys.exit(0)
@@ -379,6 +476,8 @@ def main() -> None:
     sessions = _call_run_sessions(run_sessions_fn, llm, seed, n, arms, on_session)
     progress.write({"phase": "scoring", "completedTrials": len(sessions), "totalTrials": len(sessions), "message": "Scoring against the published findings"}, force=True)
     result = _finalize(run_dir, sessions, evaluate_fn, run, partial=False, log=log)
+    if publisher:
+        publisher.publish_results(force=True)
 
     print(json.dumps({"status": "complete", "evaluation": result}, default=str))
 
