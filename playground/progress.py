@@ -70,6 +70,9 @@ class ProgressWriter:
         # Publishing is a commit per call, so a long run only mirrors on an interval.
         if not force and time.monotonic() - self._last_publish < self.min_interval:
             return
+        # Stamp the interval before the PUT so a failing publish still throttles,
+        # rather than retrying (and 409-ing) on every call.
+        self._last_publish = time.monotonic()
         body = {
             "message": f"playground: progress {payload.get('phase', 'running')}",
             "branch": self.branch,
@@ -80,6 +83,11 @@ class ProgressWriter:
         try:
             response = self._request("PUT", body)
             self.sha = response["content"]["sha"]
-            self._last_publish = time.monotonic()
+        except urllib.error.HTTPError as exc:
+            # A 409 means our cached blob sha is stale; refresh it so the next
+            # attempt uses the current sha instead of failing forever.
+            if exc.code == 409:
+                self._load_sha()
+            print(f"[progress] could not publish progress: {exc}", flush=True)
         except Exception as exc:
             print(f"[progress] could not publish progress: {exc}", flush=True)

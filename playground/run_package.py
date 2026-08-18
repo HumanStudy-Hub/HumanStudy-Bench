@@ -28,6 +28,7 @@ import signal
 import subprocess
 import sys
 import tempfile
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
@@ -329,7 +330,15 @@ def main() -> None:
     progress = ProgressWriter(run_dir, args.progress_repo, args.progress_branch, args.progress_path)
     progress.write({"phase": "preparing", "completedTrials": 0, "totalTrials": 0, "message": "Loading the study"}, force=True)
 
+    last_step_log = [0.0]
+
     def on_step(count: int) -> None:
+        # A cache-hit resume can complete calls many times a second; throttling
+        # here keeps the log and the progress API from being flooded.
+        now = time.monotonic()
+        if now - last_step_log[0] < 2.0:
+            return
+        last_step_log[0] = now
         log(f"{count} model calls so far")
         progress.write({"phase": "running_participants", "completedTrials": count, "totalTrials": count, "message": f"{count} model calls so far"})
 
