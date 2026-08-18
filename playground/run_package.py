@@ -159,6 +159,22 @@ def build_buffer_analysis(sessions: Any, evaluation: Any) -> Dict[str, Any]:
     return {"summary": summary, "tests": [], "sessions": len(sessions) if isinstance(sessions, list) else 0}
 
 
+def _coverage(sessions: Any) -> Dict[str, int]:
+    """Count completed sessions per condition/arm, so the UI can show which
+    conditions a (possibly early-stopped) whole run actually covered."""
+    coverage: Dict[str, int] = {}
+    for entry in (sessions if isinstance(sessions, list) else []):
+        if not isinstance(entry, dict):
+            continue
+        for field in ("arm", "condition", "condition_id", "study_id", "culture"):
+            value = entry.get(field)
+            if value is not None:
+                key = str(value)
+                coverage[key] = coverage.get(key, 0) + 1
+                break
+    return coverage
+
+
 def _bar_chart(chart_id: str, title: str, description: str, buckets: Dict[str, Any]) -> Dict[str, Any]:
     """A grouped bar chart of the numeric scalar fields across a dict of buckets."""
     numeric_fields: List[str] = []
@@ -228,6 +244,7 @@ def _finalize(run_dir: Path, sessions: Any, evaluate_fn: Callable[[Any], Any], r
     result = evaluate_fn(sessions)
     (output_dir / "evaluation.json").write_text(json.dumps(result, indent=2, default=str) + "\n")
     (output_dir / "sessions.json").write_text(json.dumps(sessions, indent=2, default=str) + "\n")
+    (output_dir / "coverage.json").write_text(json.dumps(_coverage(sessions), indent=2) + "\n")
     (output_dir / "analysis.json").write_text(json.dumps(build_buffer_analysis(sessions, result), indent=2, default=str) + "\n")
     (output_dir / "charts.json").write_text(json.dumps(build_buffer_charts(result), indent=2, default=str) + "\n")
     (output_dir / "transcript_sample.json").write_text(json.dumps([], indent=2) + "\n")
@@ -334,6 +351,7 @@ def main() -> None:
         sessions_so_far.append(session)
         (run_dir / "output").mkdir(parents=True, exist_ok=True)
         (run_dir / "output" / "sessions.json").write_text(json.dumps(sessions_so_far, indent=2, default=str) + "\n")
+        (run_dir / "output" / "coverage.json").write_text(json.dumps(_coverage(sessions_so_far), indent=2) + "\n")
         progress.write({"phase": "running_participants", "completedTrials": len(sessions_so_far), "totalTrials": len(sessions_so_far), "message": f"{len(sessions_so_far)} sessions complete"})
 
     # A cancelled run (researcher stop, or the Actions time limit) finalizes the
