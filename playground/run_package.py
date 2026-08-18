@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import inspect
 import json
 import os
 import re
@@ -66,8 +67,18 @@ def _clone_package(run: Dict[str, Any], jobs_repo: str) -> Path:
     return package
 
 
-def _load_cache(run_dir: Path) -> Dict[str, str]:
-    path = run_dir / "output" / "llm_cache.json"
+def _cache_path(run_dir: Path, selection: Dict[str, Any]) -> Path:
+    """A scoped run keeps its own cache so its call-order keys never collide with
+    a whole run (or another arm) sharing the same run directory."""
+    material_id = str(selection.get("materialId") or "").strip() if isinstance(selection, dict) else ""
+    if material_id:
+        safe_id = re.sub(r"[^a-zA-Z0-9_.-]+", "_", material_id)[:60] or "scoped"
+        return run_dir / "output" / f"llm_cache_{safe_id}.json"
+    return run_dir / "output" / "llm_cache.json"
+
+
+def _load_cache(run_dir: Path, selection: Dict[str, Any]) -> Dict[str, str]:
+    path = _cache_path(run_dir, selection)
     if path.exists():
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
@@ -77,9 +88,10 @@ def _load_cache(run_dir: Path) -> Dict[str, str]:
     return {}
 
 
-def _save_cache(run_dir: Path, cache: Dict[str, str]) -> None:
-    (run_dir / "output").mkdir(parents=True, exist_ok=True)
-    (run_dir / "output" / "llm_cache.json").write_text(json.dumps(cache), encoding="utf-8")
+def _save_cache(run_dir: Path, cache: Dict[str, str], selection: Dict[str, Any]) -> None:
+    path = _cache_path(run_dir, selection)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(cache), encoding="utf-8")
 
 
 def _make_llm(model: str, api_key: str, temperature: float, on_step=None, cache: Optional[Dict[str, str]] = None, save_cache=None) -> Callable[..., str]:
@@ -130,6 +142,24 @@ def _write_outputs(run_dir: Path, result: Any, sessions: Any) -> None:
     (output_dir / "transcript_sample.json").write_text(json.dumps([], indent=2) + "\n")
 
 
+def _call_run_sessions(fn: Callable[..., Any], llm: Callable[..., str], seed: int, n: int, arms: Optional[List[str]]) -> List[dict]:
+    """Run the package's run_sessions, honouring an optional arm scope.
+
+    The standard harness interface is `run_sessions(llm, seed, n, arms=None)`.
+    Packages built before the `arms` parameter are detected by signature so a
+    scoped run fails loudly instead of silently running every arm and re-billing
+    the researcher.
+    """
+    if arms is None:
+        return fn(llm, seed, n)
+    try:
+        if "arms" not in inspect.signature(fn).parameters:
+            raise SystemExit("This study package does not support arm-scoped runs yet. Run the whole study instead.")
+    except (TypeError, ValueError):
+        raise SystemExit("This study package does not support arm-scoped runs. Run the whole study instead.")
+    return fn(llm, seed, n, arms=arms)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run", required=True, type=Path, help="Run directory containing run.json")
@@ -141,6 +171,10 @@ def main() -> None:
 
     run_dir = args.run.resolve()
     run = json.loads((run_dir / "run.json").read_text(encoding="utf-8"))
+    selection = run.get("selection") if isinstance(run.get("selection"), dict) else {}
+    arms = None
+    if selection.get("mode") == "material" and selection.get("materialId"):
+        arms = [str(selection["materialId"])]
     package = args.package_path.resolve() if args.package_path else _clone_package(run, args.progress_repo or "")
 
     logs_dir = run_dir / "logs"
@@ -166,6 +200,8 @@ def main() -> None:
     seed = int(run.get("seed") or 42)
 
     log(f"Running {package.name} with {model} (n={run.get('participantsPerScenario') or 8})")
+    if arms:
+        log(f"Scoped run to arm(s): {', '.join(arms)}")
     progress = ProgressWriter(run_dir, args.progress_repo, args.progress_branch, args.progress_path)
     progress.write({"phase": "preparing", "completedTrials": 0, "totalTrials": 0, "message": "Loading the study"}, force=True)
 
@@ -173,18 +209,18 @@ def main() -> None:
         log(f"{count} model calls so far")
         progress.write({"phase": "running_participants", "completedTrials": count, "totalTrials": count, "message": f"{count} model calls so far"})
 
-    cache = _load_cache(run_dir)
-    llm = _make_llm(model, api_key, temperature, on_step, cache, lambda c: _save_cache(run_dir, c))
+    cache = _load_cache(run_dir, selection)
+    llm = _make_llm(model, api_key, temperature, on_step, cache, lambda c: _save_cache(run_dir, c, selection))
 
     n = int(run.get("participantsPerScenario") or 8)
     if hasattr(adapter, "run_sessions") and hasattr(evaluation, "evaluate"):
-        sessions = adapter.run_sessions(llm, seed, n)
+        sessions = _call_run_sessions(adapter.run_sessions, llm, seed, n, arms)
         log("Scoring against the published findings")
         progress.write({"phase": "scoring", "completedTrials": 0, "totalTrials": 0, "message": "Scoring against the published findings"}, force=True)
         result = evaluation.evaluate(sessions)
     else:
         shim = _import_module(package / "task" / "run_sessions.py", "buffer_run_sessions")
-        sessions = shim.run_sessions(llm, seed, n)
+        sessions = _call_run_sessions(shim.run_sessions, llm, seed, n, arms)
         log("Scoring against the published findings")
         progress.write({"phase": "scoring", "completedTrials": 0, "totalTrials": 0, "message": "Scoring against the published findings"}, force=True)
         result = shim.evaluate(sessions)

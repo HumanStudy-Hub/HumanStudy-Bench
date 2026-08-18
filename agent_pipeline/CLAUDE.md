@@ -140,12 +140,13 @@ uses to inject any model as the participant:
 - `llm(prompt: str) -> str` is the injected model call the runner provides. The
   adapter builds whatever prompt it needs for one decision and parses the reply
   text into the action shape its task expects.
-- `run_sessions(llm, seed, n) -> list[dict]` runs the study with that model call,
-  drawing `n` participants per condition,
-  across every condition and every arm the paper's comparisons require (including
-  any control/baseline arm), and returns one session-log dict per session. Each
-  session log must carry its condition and arm labels so `evaluate` can compare
-  them. The package must be self-sufficient at run time: `run_sessions` produces
+- `run_sessions(llm, seed, n, arms=None) -> list[dict]` runs the study with that
+  model call, drawing `n` participants per condition. When `arms` is `None` it
+  runs every condition and every arm the paper's comparisons require (including
+  any control/baseline arm); when `arms` is a list of arm identifiers from
+  `task.json` `conditions`, it runs only those arms. Each returned session-log
+  dict must carry its condition and arm labels so `evaluate` can compare them.
+  The package must be self-sufficient at run time: `run_sessions` produces
   everything `evaluate` needs, and it must not require the researcher to supply a
   prompt, dataset, or aggregation step. If the paper does not provide the wording
   or data for some arm, run the arms it does support and record the missing arm
