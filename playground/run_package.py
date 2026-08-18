@@ -3,12 +3,17 @@
 
 Buffer packages expose the standard harness interface:
 
-- `run_sessions(llm, seed) -> list[dict]`, where `llm(prompt: str) -> str` is the
-  injected model call;
+- `run_sessions(llm, seed, n, arms=None, on_session=None) -> list[dict]`, where
+  `llm(prompt: str, key=None) -> str` is the injected model call;
 - `evaluate(sessions) -> dict`.
 
 New packages put `run_sessions` in `task/adapter.py` and `evaluate` in
 `evaluation/evaluation.py`. Legacy packages expose them in `task/run_sessions.py`.
+
+The runner saves sessions as they complete, so a run that is stopped early (the
+researcher cancels it, or the Actions time limit hits) still finalizes the
+sessions produced so far into `evaluation.json`, `analysis.json`, and
+`charts.json` — a quick-iteration preview without re-running anything.
 """
 
 from __future__ import annotations
@@ -19,6 +24,7 @@ import inspect
 import json
 import os
 import re
+import signal
 import subprocess
 import sys
 import tempfile
@@ -126,38 +132,139 @@ def _make_llm(model: str, api_key: str, temperature: float, on_step=None, cache:
     return llm
 
 
-def _write_outputs(run_dir: Path, result: Any, sessions: Any) -> None:
+def _count_numbers(value: Any) -> int:
+    if isinstance(value, dict):
+        return sum(_count_numbers(child) for child in value.values())
+    if isinstance(value, list):
+        return sum(_count_numbers(child) for child in value)
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return 1
+    return 0
+
+
+def build_buffer_analysis(sessions: Any, evaluation: Any) -> Dict[str, Any]:
+    numeric = _count_numbers(evaluation)
+    summary = {
+        "totalTests": numeric,
+        "scoredTests": numeric,
+        "replicatedTests": 0,
+        "replicationRate": None,
+        "directionMatchRate": None,
+        "meanAbsoluteEffectGap": None,
+        "meanHumanEffect": None,
+        "meanAgentEffect": None,
+        "effectCorrelation": None,
+        "studyScore": None,
+    }
+    return {"summary": summary, "tests": [], "sessions": len(sessions) if isinstance(sessions, list) else 0}
+
+
+def _bar_chart(chart_id: str, title: str, description: str, buckets: Dict[str, Any]) -> Dict[str, Any]:
+    """A grouped bar chart of the numeric scalar fields across a dict of buckets."""
+    numeric_fields: List[str] = []
+    seen = set()
+    for _key, value in buckets.items():
+        if not isinstance(value, dict):
+            continue
+        for field, entry in value.items():
+            if isinstance(entry, (int, float)) and not isinstance(entry, bool) and field not in seen:
+                seen.add(field)
+                numeric_fields.append(field)
+    numeric_fields = numeric_fields[:6]
+    keys = sorted(buckets.keys())
+    traces = []
+    for field in numeric_fields:
+        traces.append({
+            "type": "bar",
+            "name": field,
+            "x": keys,
+            "y": [buckets.get(key, {}).get(field) if isinstance(buckets.get(key), dict) else None for key in keys],
+            "hovertemplate": f"{field}: %{{y}}<extra></extra>",
+        })
+    return {
+        "id": chart_id,
+        "title": title,
+        "description": description,
+        "plotly": {"data": traces, "layout": {"barmode": "group"}},
+    }
+
+
+def build_buffer_charts(evaluation: Any) -> Dict[str, Any]:
+    """Render the package's own evaluate() output into plottable charts.
+
+    This is deliberately generic: it charts whatever numeric scalar fields the
+    evaluator returned, grouped by arm and by cross-arm comparison, so a buffer
+    run gets a readable preview even though its evaluator shape is package-
+    specific.
+    """
+    charts: List[Dict[str, Any]] = []
+    if not isinstance(evaluation, dict):
+        return {"charts": [], "source": "default"}
+    if "not_ready" in evaluation:
+        raw = evaluation.get("not_ready")
+        reason = str(raw.get("reason", "not ready")) if isinstance(raw, dict) else "not ready"
+        charts.append({
+            "id": "not_ready", "title": "Not scoreable", "description": reason,
+            "plotly": {"data": [], "layout": {"title": "Not scoreable"}},
+        })
+        return {"charts": charts, "source": "default"}
+    by_arm = evaluation.get("by_arm")
+    if isinstance(by_arm, dict) and by_arm:
+        charts.append(_bar_chart("by_arm", "By condition", "Numeric evaluator metrics per condition.", by_arm))
+    comparisons = evaluation.get("cross_arm_comparisons")
+    if isinstance(comparisons, dict) and comparisons:
+        charts.append(_bar_chart("comparisons", "Cross-condition comparisons", "Paired evaluator values across conditions.", comparisons))
+    if not charts:
+        charts.append({
+            "id": "empty", "title": "No numeric results", "description": "The evaluator returned no numeric metrics to chart.",
+            "plotly": {"data": [], "layout": {"title": "No numeric results"}},
+        })
+    return {"charts": charts[:6], "source": "default"}
+
+
+def _finalize(run_dir: Path, sessions: Any, evaluate_fn: Callable[[Any], Any], run: Dict[str, Any], partial: bool, log) -> Any:
     output_dir = run_dir / "output"
     output_dir.mkdir(parents=True, exist_ok=True)
+    result = evaluate_fn(sessions)
     (output_dir / "evaluation.json").write_text(json.dumps(result, indent=2, default=str) + "\n")
     (output_dir / "sessions.json").write_text(json.dumps(sessions, indent=2, default=str) + "\n")
-    empty_summary = {
-        "totalTests": 0, "scoredTests": 0, "replicatedTests": 0,
-        "replicationRate": None, "directionMatchRate": None,
-        "meanAbsoluteEffectGap": None, "meanHumanEffect": None,
-        "meanAgentEffect": None, "effectCorrelation": None, "studyScore": None,
-    }
-    (output_dir / "analysis.json").write_text(json.dumps({"summary": empty_summary, "tests": []}, indent=2) + "\n")
-    (output_dir / "charts.json").write_text(json.dumps({"charts": [], "source": "default"}, indent=2) + "\n")
+    (output_dir / "analysis.json").write_text(json.dumps(build_buffer_analysis(sessions, result), indent=2, default=str) + "\n")
+    (output_dir / "charts.json").write_text(json.dumps(build_buffer_charts(result), indent=2, default=str) + "\n")
     (output_dir / "transcript_sample.json").write_text(json.dumps([], indent=2) + "\n")
+    if partial:
+        run.update({
+            "status": "complete",
+            "message": "The run was stopped early; partial results are shown",
+            "resultsReady": True,
+            "partial": True,
+            "participants": len(sessions) if isinstance(sessions, list) else 0,
+        })
+    else:
+        run.update({
+            "status": "complete",
+            "message": "The run finished and the results are ready",
+            "resultsReady": True,
+            "participants": len(sessions) if isinstance(sessions, list) else 0,
+        })
+    (run_dir / "run.json").write_text(json.dumps(run, indent=2) + "\n")
+    log(f"Finalized {'partial' if partial else 'full'} results from {len(sessions) if isinstance(sessions, list) else 0} sessions")
+    return result
 
 
-def _call_run_sessions(fn: Callable[..., Any], llm: Callable[..., str], seed: int, n: int, arms: Optional[List[str]]) -> List[dict]:
-    """Run the package's run_sessions, honouring an optional arm scope.
-
-    The standard harness interface is `run_sessions(llm, seed, n, arms=None)`.
-    Packages built before the `arms` parameter are detected by signature so a
-    scoped run fails loudly instead of silently running every arm and re-billing
-    the researcher.
-    """
-    if arms is None:
-        return fn(llm, seed, n)
+def _call_run_sessions(fn: Callable[..., Any], llm: Callable[..., str], seed: int, n: int, arms: Optional[List[str]], on_session: Optional[Callable[[Any], None]]) -> List[dict]:
+    """Run the package's run_sessions, honouring optional arms and on_session."""
     try:
-        if "arms" not in inspect.signature(fn).parameters:
-            raise SystemExit("This study package does not support arm-scoped runs yet. Run the whole study instead.")
+        params = inspect.signature(fn).parameters
     except (TypeError, ValueError):
-        raise SystemExit("This study package does not support arm-scoped runs. Run the whole study instead.")
-    return fn(llm, seed, n, arms=arms)
+        params = {}
+    kwargs: Dict[str, Any] = {}
+    if arms is not None:
+        if "arms" not in params:
+            raise SystemExit("This study package does not support arm-scoped runs yet. Run the whole study instead.")
+        kwargs["arms"] = arms
+    if on_session is not None and "on_session" in params:
+        kwargs["on_session"] = on_session
+    return fn(llm, seed, n, **kwargs)
 
 
 def main() -> None:
@@ -214,25 +321,37 @@ def main() -> None:
 
     n = int(run.get("participantsPerScenario") or 8)
     if hasattr(adapter, "run_sessions") and hasattr(evaluation, "evaluate"):
-        sessions = _call_run_sessions(adapter.run_sessions, llm, seed, n, arms)
-        log("Scoring against the published findings")
-        progress.write({"phase": "scoring", "completedTrials": 0, "totalTrials": 0, "message": "Scoring against the published findings"}, force=True)
-        result = evaluation.evaluate(sessions)
+        run_sessions_fn = adapter.run_sessions
+        evaluate_fn = evaluation.evaluate
     else:
         shim = _import_module(package / "task" / "run_sessions.py", "buffer_run_sessions")
-        sessions = _call_run_sessions(shim.run_sessions, llm, seed, n, arms)
-        log("Scoring against the published findings")
-        progress.write({"phase": "scoring", "completedTrials": 0, "totalTrials": 0, "message": "Scoring against the published findings"}, force=True)
-        result = shim.evaluate(sessions)
+        run_sessions_fn = shim.run_sessions
+        evaluate_fn = shim.evaluate
 
-    _write_outputs(run_dir, result, sessions)
-    run.update({
-        "status": "complete",
-        "message": "The run finished and the results are ready",
-        "resultsReady": True,
-    })
-    (run_dir / "run.json").write_text(json.dumps(run, indent=2) + "\n")
-    log("Run complete")
+    sessions_so_far: List[dict] = []
+
+    def on_session(session: Any) -> None:
+        sessions_so_far.append(session)
+        (run_dir / "output").mkdir(parents=True, exist_ok=True)
+        (run_dir / "output" / "sessions.json").write_text(json.dumps(sessions_so_far, indent=2, default=str) + "\n")
+        progress.write({"phase": "running_participants", "completedTrials": len(sessions_so_far), "totalTrials": len(sessions_so_far), "message": f"{len(sessions_so_far)} sessions complete"})
+
+    # A cancelled run (researcher stop, or the Actions time limit) finalizes the
+    # sessions completed so far instead of throwing everything away.
+    def stop_handler(_signum, _frame) -> None:
+        log("Stop requested; finalizing partial results")
+        try:
+            _finalize(run_dir, sessions_so_far, evaluate_fn, run, partial=True, log=log)
+        except Exception as exc:
+            log(f"Could not finalize partial results: {exc}")
+        sys.exit(0)
+
+    signal.signal(signal.SIGTERM, stop_handler)
+    signal.signal(signal.SIGINT, stop_handler)
+
+    sessions = _call_run_sessions(run_sessions_fn, llm, seed, n, arms, on_session)
+    progress.write({"phase": "scoring", "completedTrials": len(sessions), "totalTrials": len(sessions), "message": "Scoring against the published findings"}, force=True)
+    result = _finalize(run_dir, sessions, evaluate_fn, run, partial=False, log=log)
 
     print(json.dumps({"status": "complete", "evaluation": result}, default=str))
 
