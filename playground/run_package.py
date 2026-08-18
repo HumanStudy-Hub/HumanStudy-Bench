@@ -59,6 +59,10 @@ def _import_module(path: Path, name: str) -> Any:
     return module
 
 
+class StopRequested(Exception):
+    """Raised when the researcher asked to stop the run; finalizes partial results."""
+
+
 def _clone_package(run: Dict[str, Any], jobs_repo: str) -> Path:
     job_id = str(run.get("jobId") or "").strip()
     slug = str(run.get("packageSlug") or "").strip()
@@ -380,6 +384,13 @@ class OutputPublisher:
             if path.exists():
                 self.publish(f"output/{name}", path.read_text(encoding="utf-8"), force=force)
 
+    def stop_requested(self) -> bool:
+        try:
+            self._request("GET", f"{self.run_dir.name}/stop_requested")
+            return True
+        except Exception:
+            return False
+
 
 def _finalize(run_dir: Path, sessions: Any, evaluate_fn: Callable[[Any], Any], run: Dict[str, Any], partial: bool, log) -> Any:
     result = _write_results(run_dir, sessions, evaluate_fn)
@@ -464,9 +475,26 @@ def main() -> None:
     progress = ProgressWriter(run_dir, args.progress_repo, args.progress_branch, args.progress_path)
     progress.write({"phase": "preparing", "completedTrials": 0, "totalTrials": 0, "message": "Loading the study"}, force=True)
 
+    progress_token = os.environ.get("PIPELINE_PROGRESS_TOKEN", "")
+    publisher: Optional[OutputPublisher] = None
+    if progress_token and args.progress_repo and args.progress_branch:
+        publisher = OutputPublisher(args.progress_repo, args.progress_branch, progress_token, run_dir)
+
     last_step_log = [0.0]
+    last_stop_check = [0.0]
+
+    def should_stop() -> bool:
+        if publisher is None:
+            return False
+        now = time.monotonic()
+        if now - last_stop_check[0] < 4.0:
+            return False
+        last_stop_check[0] = now
+        return publisher.stop_requested()
 
     def on_step(count: int) -> None:
+        if should_stop():
+            raise StopRequested()
         # A cache-hit resume can complete calls many times a second; throttling
         # here keeps the log and the progress API from being flooded.
         now = time.monotonic()
@@ -489,10 +517,6 @@ def main() -> None:
         evaluate_fn = shim.evaluate
 
     sessions_so_far: List[dict] = []
-    publisher: Optional[OutputPublisher] = None
-    progress_token = os.environ.get("PIPELINE_PROGRESS_TOKEN", "")
-    if progress_token and args.progress_repo and args.progress_branch:
-        publisher = OutputPublisher(args.progress_repo, args.progress_branch, progress_token, run_dir)
 
     last_result = [0.0]
 
@@ -516,7 +540,7 @@ def main() -> None:
 
     # A cancelled run (researcher stop, or the Actions time limit) finalizes the
     # sessions completed so far instead of throwing everything away.
-    def stop_handler(_signum, _frame) -> None:
+    def finalize_partial_and_exit() -> None:
         log("Stop requested; finalizing partial results")
         try:
             _finalize(run_dir, sessions_so_far, evaluate_fn, run, partial=True, log=log)
@@ -526,10 +550,19 @@ def main() -> None:
             log(f"Could not finalize partial results: {exc}")
         sys.exit(0)
 
+    def stop_handler(_signum, _frame) -> None:
+        finalize_partial_and_exit()
+
     signal.signal(signal.SIGTERM, stop_handler)
     signal.signal(signal.SIGINT, stop_handler)
 
-    sessions = _call_run_sessions(run_sessions_fn, llm, seed, n, arms, on_session)
+    try:
+        sessions = _call_run_sessions(run_sessions_fn, llm, seed, n, arms, on_session)
+    except StopRequested:
+        # A soft stop: exit 0 so the workflow's `if: success()` chart step runs
+        # and the run is finalized rather than marked cancelled.
+        finalize_partial_and_exit()
+
     progress.write({"phase": "scoring", "completedTrials": len(sessions), "totalTrials": len(sessions), "message": "Scoring against the published findings"}, force=True)
     result = _finalize(run_dir, sessions, evaluate_fn, run, partial=False, log=log)
     if publisher:
