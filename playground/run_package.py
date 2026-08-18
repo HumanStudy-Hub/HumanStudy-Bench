@@ -125,7 +125,6 @@ def _make_llm(model: str, api_key: str, temperature: float, on_step=None, cache:
             model=model,
             messages=[{"role": "user", "content": prompt}],
             temperature=temperature,
-            max_tokens=2000,
         )
         message = response.choices[0].message
         # Some reasoning models put the answer in reasoning_content and leave
