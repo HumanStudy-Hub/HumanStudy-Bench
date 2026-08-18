@@ -3,6 +3,7 @@ import argparse
 import base64
 import json
 import os
+import shutil
 import signal
 import subprocess
 import sys
@@ -149,6 +150,17 @@ def write_result(job: Path, reason: str, valid: bool, detail: str) -> None:
     (job / "logs/watchdog.json").write_text(json.dumps(payload, indent=2) + "\n")
 
 
+def cleanup_materials(job: Path) -> None:
+    """Drop raw open materials once the agent has finished with them, so large
+    archives are not committed back to the jobs repository."""
+    for rel in ("input/open_materials.zip", "input/open_materials"):
+        path = job / rel
+        if path.is_dir():
+            shutil.rmtree(path, ignore_errors=True)
+        elif path.exists():
+            path.unlink(missing_ok=True)
+
+
 def progress_payload(phase: str, completed: int, total: int, missing: list[str]) -> dict:
     return {
         "phase": phase,
@@ -268,6 +280,8 @@ def main() -> None:
     except BaseException:
         stop_process(process)
         raise
+    finally:
+        cleanup_materials(args.job)
 
 
 if __name__ == "__main__":
