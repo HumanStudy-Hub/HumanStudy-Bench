@@ -125,9 +125,14 @@ def _make_llm(model: str, api_key: str, temperature: float, on_step=None, cache:
             model=model,
             messages=[{"role": "user", "content": prompt}],
             temperature=temperature,
-            max_tokens=800,
+            max_tokens=2000,
         )
-        result = (response.choices[0].message.content or "").strip()
+        message = response.choices[0].message
+        # Some reasoning models put the answer in reasoning_content and leave
+        # content empty. Prefer content, fall back to reasoning_content.
+        content = (getattr(message, "content", None) or "").strip()
+        reasoning = (getattr(message, "reasoning_content", None) or "").strip()
+        result = content or reasoning
         if cache is not None:
             with lock:
                 cache[cache_key] = result
@@ -147,6 +152,53 @@ def _count_numbers(value: Any) -> int:
     return 0
 
 
+def _parse_fallback_rate(sessions: Any) -> Optional[float]:
+    total = 0
+    fallback = 0
+    for session in (sessions if isinstance(sessions, list) else []):
+        if not isinstance(session, dict):
+            continue
+        for event in (session.get("events") if isinstance(session.get("events"), list) else []):
+            if not isinstance(event, dict):
+                continue
+            total += 1
+            if event.get("parse_fallback") or event.get("response_parse_fallback"):
+                fallback += 1
+    return (fallback / total * 100.0) if total else None
+
+
+def _fmt_number(value: Any) -> str:
+    if isinstance(value, float):
+        return f"{value:.1f}"
+    return str(value)
+
+
+def build_buffer_summary(sessions: Any, evaluation: Any) -> str:
+    """A short, deterministic reading of a buffer run (no LLM, free)."""
+    n = len(sessions) if isinstance(sessions, list) else 0
+    parts: List[str] = []
+    coverage = _coverage(sessions)
+    if coverage:
+        parts.append("Coverage: " + ", ".join(f"{key} × {count}" for key, count in sorted(coverage.items())) + ".")
+    fallback = _parse_fallback_rate(sessions)
+    if fallback is not None:
+        parts.append(f"Format compliance: {100 - fallback:.0f}% of model replies parsed cleanly ({fallback:.0f}% fell back to a default action).")
+    by_arm = evaluation.get("by_arm") if isinstance(evaluation, dict) else None
+    if isinstance(by_arm, dict):
+        for arm, metrics in by_arm.items():
+            if not isinstance(metrics, dict):
+                continue
+            numbers = {key: value for key, value in metrics.items() if isinstance(value, (int, float)) and not isinstance(value, bool)}
+            if numbers:
+                shown = ", ".join(f"{key.replace('_', ' ')} = {_fmt_number(value)}" for key, value in list(numbers.items())[:5])
+                parts.append(f"{arm}: {shown}.")
+    if n < 8:
+        parts.append("Partial sample (few sessions); read the numbers as a directional preview, not a result.")
+    if fallback is not None and fallback > 20:
+        parts.append("The high fallback rate means the model was not following the answer format; fix the prompt or model before reading the behavioural numbers.")
+    return " ".join(parts)
+
+
 def build_buffer_analysis(sessions: Any, evaluation: Any) -> Dict[str, Any]:
     numeric = _count_numbers(evaluation)
     summary = {
@@ -161,7 +213,12 @@ def build_buffer_analysis(sessions: Any, evaluation: Any) -> Dict[str, Any]:
         "effectCorrelation": None,
         "studyScore": None,
     }
-    return {"summary": summary, "tests": [], "sessions": len(sessions) if isinstance(sessions, list) else 0}
+    return {
+        "summary": summary,
+        "tests": [],
+        "sessions": len(sessions) if isinstance(sessions, list) else 0,
+        "reading": build_buffer_summary(sessions, evaluation),
+    }
 
 
 def _coverage(sessions: Any) -> Dict[str, int]:
