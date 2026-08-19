@@ -517,8 +517,9 @@ def main() -> None:
         last_step_log[0] = now
         done = len(sessions_so_far)
         total_label = f" of {total_sessions}" if total_sessions else ""
+        pct = f" · ~{min(99, round(count / estimated_total_calls * 100))}%" if estimated_total_calls else ""
         log(f"{count} model calls so far ({done}{total_label} sessions)")
-        progress.write({"phase": "running_participants", "completedTrials": done, "totalTrials": total_sessions or count, "message": f"{count} model calls · {done}{total_label} sessions complete"})
+        progress.write({"phase": "running_participants", "completedTrials": count, "totalTrials": estimated_total_calls or count, "message": f"{count} model calls · {done}{total_label} sessions{pct}"})
 
     cache = _load_cache(run_dir, selection)
     llm = _make_llm(model, api_key, temperature, on_step, cache, lambda c: _save_cache(run_dir, c, selection))
@@ -528,6 +529,9 @@ def main() -> None:
     # sessions; a whole run has `n` per arm. Unknown for whole runs (the package
     # decides how many arms), so it stays None there.
     total_sessions = n * len(arms) if arms else None
+    # Rough call budget per market (max_ticks + offers); used only to give the
+    # progress bar a call-based denominator so "0 of 1 sessions" doesn't read 0%.
+    estimated_total_calls = total_sessions * 600 if total_sessions else None
     if hasattr(adapter, "run_sessions") and hasattr(evaluation, "evaluate"):
         run_sessions_fn = adapter.run_sessions
         evaluate_fn = evaluation.evaluate
