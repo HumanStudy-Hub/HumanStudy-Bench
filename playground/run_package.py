@@ -125,24 +125,38 @@ def _make_llm(model: str, api_key: str, temperature: float, on_step=None, cache:
             on_step(step)
         if cache is not None and cache_key in cache:
             return cache[cache_key]
-        response = client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=temperature,
-        )
-        message = response.choices[0].message
-        # Some reasoning models put the answer in reasoning_content and leave
-        # content empty. Prefer content, fall back to reasoning_content.
-        content = (getattr(message, "content", None) or "").strip()
-        reasoning = (getattr(message, "reasoning_content", None) or "").strip()
-        result = content or reasoning
-        if cache is not None:
-            with lock:
-                cache[cache_key] = result
-            if save_cache:
-                save_cache(cache)
-        return result
-    return llm
+        last_error: Optional[str] = None
+        for attempt in range(4):
+            try:
+                response = client.chat.completions.create(
+                    model=model,
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=temperature,
+                )
+                message = response.choices[0].message
+                # Some reasoning models put the answer in reasoning_content and
+                # leave content empty. Prefer content, fall back to reasoning_content.
+                content = (getattr(message, "content", None) or "").strip()
+                reasoning = (getattr(message, "reasoning_content", None) or "").strip()
+                result = content or reasoning
+                if result:
+                    if cache is not None:
+                        with lock:
+                            cache[cache_key] = result
+                        if save_cache:
+                            save_cache(cache)
+                    return result
+                last_error = "empty response"
+            except Exception as exc:
+                # OpenRouter occasionally returns a non-JSON body or times out;
+                # retry a few times rather than crashing the whole run.
+                last_error = str(exc)
+            time.sleep(1.5 * (attempt + 1))
+        # Every attempt failed or returned empty. Return "" so the package's
+        # parser falls back to a default action instead of the run dying.
+        if last_error and last_error != "empty response":
+            print(f"[llm] giving up after retries: {last_error}", flush=True)
+        return ""
 
 
 def _count_numbers(value: Any) -> int:
