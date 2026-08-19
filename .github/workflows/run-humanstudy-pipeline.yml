@@ -147,7 +147,7 @@ jobs:
             --progress-path "jobs/$JOB_ID/progress.json"
 
       - name: Validate package and prepare review
-        if: success()
+        if: always()
         env:
           JOB_ID: ${{ inputs.job_id }}
         run: |
