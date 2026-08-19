@@ -357,7 +357,8 @@ class OutputPublisher:
         if not force and now - self.last.get(rel_path, 0.0) < self.min_interval:
             return
         self.last[rel_path] = now
-        path = f"{self.run_dir.name}/{rel_path}"
+        # Runs live under runs/<run-id>/ in the jobs repository.
+        path = f"runs/{self.run_dir.name}/{rel_path}"
         sha = self.shas.get(path)
         if sha is None:
             try:
@@ -386,7 +387,7 @@ class OutputPublisher:
 
     def stop_requested(self) -> bool:
         try:
-            self._request("GET", f"{self.run_dir.name}/stop_requested")
+            self._request("GET", f"runs/{self.run_dir.name}/stop_requested")
             return True
         except Exception:
             return False
