@@ -380,7 +380,7 @@ class OutputPublisher:
 
     def publish_results(self, force: bool = False) -> None:
         output_dir = self.run_dir / "output"
-        for name in ("evaluation.json", "sessions.json", "coverage.json", "analysis.json", "charts.json"):
+        for name in ("evaluation.json", "sessions.json", "coverage.json", "analysis.json", "charts.json", "llm_cache.json"):
             path = output_dir / name
             if path.exists():
                 self.publish(f"output/{name}", path.read_text(encoding="utf-8"), force=force)
