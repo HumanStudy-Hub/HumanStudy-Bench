@@ -551,15 +551,14 @@ def main() -> None:
         (run_dir / "output" / "coverage.json").write_text(json.dumps(_coverage(sessions_so_far), indent=2) + "\n")
         total_label = f" of {total_sessions}" if total_sessions else ""
         progress.write({"phase": "running_participants", "completedTrials": len(sessions_so_far), "totalTrials": total_sessions or len(sessions_so_far), "message": f"{len(sessions_so_far)}{total_label} sessions complete"})
-        # Keep results fresh on disk and in the repo so a hard stop still shows
-        # a plot: evaluate the sessions so far (throttled) and publish them.
+        # Keep results fresh on disk so a hard stop still shows a plot: evaluate
+        # the sessions so far (throttled). The workflow's final git commit puts
+        # these files on the branch.
         now = time.monotonic()
         if now - last_result[0] >= 8.0:
             last_result[0] = now
             try:
                 _write_results(run_dir, sessions_so_far, evaluate_fn)
-                if publisher:
-                    publisher.publish_results()
             except Exception as exc:
                 log(f"Could not refresh partial results: {exc}")
 
@@ -569,8 +568,6 @@ def main() -> None:
         log("Stop requested; finalizing partial results")
         try:
             _finalize(run_dir, sessions_so_far, evaluate_fn, run, partial=True, log=log)
-            if publisher:
-                publisher.publish_results(force=True)
         except Exception as exc:
             log(f"Could not finalize partial results: {exc}")
         sys.exit(0)
@@ -590,8 +587,6 @@ def main() -> None:
 
     progress.write({"phase": "scoring", "completedTrials": len(sessions), "totalTrials": len(sessions), "message": "Scoring against the published findings"}, force=True)
     result = _finalize(run_dir, sessions, evaluate_fn, run, partial=False, log=log)
-    if publisher:
-        publisher.publish_results(force=True)
 
     print(json.dumps({"status": "complete", "evaluation": result}, default=str))
 
