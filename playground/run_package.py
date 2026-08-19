@@ -157,6 +157,7 @@ def _make_llm(model: str, api_key: str, temperature: float, on_step=None, cache:
         if last_error and last_error != "empty response":
             print(f"[llm] giving up after retries: {last_error}", flush=True)
         return ""
+    return llm
 
 
 def _count_numbers(value: Any) -> int:
