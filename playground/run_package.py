@@ -495,19 +495,23 @@ def main() -> None:
     def on_step(count: int) -> None:
         if should_stop():
             raise StopRequested()
-        # A cache-hit resume can complete calls many times a second; throttling
-        # here keeps the log and the progress API from being flooded.
         now = time.monotonic()
         if now - last_step_log[0] < 2.0:
             return
         last_step_log[0] = now
-        log(f"{count} model calls so far")
-        progress.write({"phase": "running_participants", "completedTrials": count, "totalTrials": count, "message": f"{count} model calls so far"})
+        done = len(sessions_so_far)
+        total_label = f" of {total_sessions}" if total_sessions else ""
+        log(f"{count} model calls so far ({done}{total_label} sessions)")
+        progress.write({"phase": "running_participants", "completedTrials": done, "totalTrials": total_sessions or count, "message": f"{count} model calls · {done}{total_label} sessions complete"})
 
     cache = _load_cache(run_dir, selection)
     llm = _make_llm(model, api_key, temperature, on_step, cache, lambda c: _save_cache(run_dir, c, selection))
 
     n = int(run.get("participantsPerScenario") or 8)
+    # Number of sessions (markets) this run will complete: one condition has `n`
+    # sessions; a whole run has `n` per arm. Unknown for whole runs (the package
+    # decides how many arms), so it stays None there.
+    total_sessions = n * len(arms) if arms else None
     if hasattr(adapter, "run_sessions") and hasattr(evaluation, "evaluate"):
         run_sessions_fn = adapter.run_sessions
         evaluate_fn = evaluation.evaluate
@@ -525,7 +529,8 @@ def main() -> None:
         (run_dir / "output").mkdir(parents=True, exist_ok=True)
         (run_dir / "output" / "sessions.json").write_text(json.dumps(sessions_so_far, indent=2, default=str) + "\n")
         (run_dir / "output" / "coverage.json").write_text(json.dumps(_coverage(sessions_so_far), indent=2) + "\n")
-        progress.write({"phase": "running_participants", "completedTrials": len(sessions_so_far), "totalTrials": len(sessions_so_far), "message": f"{len(sessions_so_far)} sessions complete"})
+        total_label = f" of {total_sessions}" if total_sessions else ""
+        progress.write({"phase": "running_participants", "completedTrials": len(sessions_so_far), "totalTrials": total_sessions or len(sessions_so_far), "message": f"{len(sessions_so_far)}{total_label} sessions complete"})
         # Keep results fresh on disk and in the repo so a hard stop still shows
         # a plot: evaluate the sessions so far (throttled) and publish them.
         now = time.monotonic()
