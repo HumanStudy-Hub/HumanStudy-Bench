@@ -217,8 +217,117 @@ def build_buffer_summary(sessions: Any, evaluation: Any) -> str:
     return " ".join(parts)
 
 
+def _flatten_metrics(value: Any, prefix: str = "") -> List[tuple[str, Any]]:
+    """Flatten a nested metrics dict into (name, scalar) pairs, skipping the
+    non-numeric classifier maps some evaluators return as leaves."""
+    pairs: List[tuple[str, Any]] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            name = f"{prefix}.{key}".strip(".") if prefix else key
+            if isinstance(child, dict):
+                pairs.extend(_flatten_metrics(child, name))
+            elif isinstance(child, (int, float)) and not isinstance(child, bool):
+                pairs.append((name, child))
+            # Non-scalar leaves (lists, null, classifier dicts already recursed)
+            # are dropped: they are not a single plottable table value.
+    elif isinstance(value, (int, float)) and not isinstance(value, bool):
+        pairs.append((prefix or "value", value))
+    return pairs
+
+
+def _buffer_metrics_rows(evaluation: Any) -> List[Dict[str, Any]]:
+    """One row per numeric evaluator metric, so the report can show a detailed
+    results table even though each buffer package's evaluate() shape differs."""
+    rows: List[Dict[str, Any]] = []
+    if not isinstance(evaluation, dict):
+        return rows
+    by_arm = evaluation.get("by_arm")
+    if isinstance(by_arm, dict):
+        for arm, metrics in by_arm.items():
+            if not isinstance(metrics, dict):
+                continue
+            for name, value in _flatten_metrics(metrics):
+                rows.append({"arm": str(arm), "metric": name, "value": value})
+    comparisons = evaluation.get("cross_arm_comparisons")
+    if isinstance(comparisons, dict):
+        for name, value in _flatten_metrics(comparisons):
+            rows.append({"arm": "comparison", "metric": name, "value": value})
+    return rows
+
+
+def _buffer_summary(sessions: Any, evaluation: Any) -> Dict[str, Any]:
+    """The fixed macro metrics every buffer report should carry, regardless of the
+    package's specific evaluate() shape. Derived only from the sessions produced
+    here and the evaluator's numeric output — never from the paper."""
+    n = len(sessions) if isinstance(sessions, list) else 0
+    fallback = _parse_fallback_rate(sessions)
+    coverage = _coverage(sessions)
+    rows = _buffer_metrics_rows(evaluation)
+    numeric_metrics = len(rows)
+    # A single headline scalar if the evaluator exposed one, else None.
+    headline = None
+    if isinstance(evaluation, dict):
+        for key in ("stable_rate", "pct_markets_stable", "accuracy", "mean_score", "score"):
+            by_arm = evaluation.get("by_arm") if isinstance(evaluation, dict) else None
+            found = None
+            if isinstance(by_arm, dict):
+                for metrics in by_arm.values():
+                    if isinstance(metrics, dict) and isinstance(metrics.get(key), (int, float)):
+                        found = float(metrics[key])
+                        break
+            if found is not None:
+                headline = found
+                break
+    return {
+        "sessions": n,
+        "coverage": coverage,
+        "formatCompliance": (100.0 - fallback) if fallback is not None else None,
+        "fallbackRate": fallback,
+        "numericMetrics": numeric_metrics,
+        "headline": headline,
+    }
+
+
+def _build_transcript_samples(sessions: Any, limit: int = 12) -> List[Dict[str, Any]]:
+    """Representative agent decisions for the report's 'what the agents did'
+    section. Buffer sessions are behavioural logs (events with actor/action/
+    target/response), not free-text reasoning, so a sample is a short slice of
+    one session's events rather than invented prose."""
+    samples: List[Dict[str, Any]] = []
+    if not isinstance(sessions, list):
+        return samples
+    for session in sessions:
+        if not isinstance(session, dict):
+            continue
+        events = session.get("events") if isinstance(session.get("events"), list) else []
+        if not events:
+            continue
+        flat: List[str] = []
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            actor = event.get("actor") or event.get("role") or "agent"
+            action = event.get("action") or event.get("type") or "step"
+            target = event.get("target") or event.get("to") or ""
+            response = event.get("response") or event.get("result") or ""
+            text = f"{actor} {action}" + (f" → {target}" if target else "") + (f" ({response})" if response else "")
+            flat.append(text)
+        # Keep each sample short and deterministic: first few events plus first few arms.
+        arm = (session.get("arm") or session.get("condition") or session.get("condition_id") or "session")
+        if len(samples) >= limit:
+            break
+        samples.append({
+            "arm": str(arm),
+            "participantId": f"session-{len(samples) + 1}",
+            "events": flat[:10],
+        })
+    return samples
+
+
 def build_buffer_analysis(sessions: Any, evaluation: Any) -> Dict[str, Any]:
     numeric = _count_numbers(evaluation)
+    # The benchmark-shaped summary fields stay (empty) so existing consumers keep
+    # working; buffer runs are behavioural, not human-vs-agent statistical tests.
     summary = {
         "totalTests": numeric,
         "scoredTests": numeric,
@@ -236,6 +345,10 @@ def build_buffer_analysis(sessions: Any, evaluation: Any) -> Dict[str, Any]:
         "tests": [],
         "sessions": len(sessions) if isinstance(sessions, list) else 0,
         "reading": build_buffer_summary(sessions, evaluation),
+        # Buffer-specific additions the report renders in place of the benchmark
+        # statistical table: fixed macro metrics and a per-metric detail table.
+        "bufferSummary": _buffer_summary(sessions, evaluation),
+        "metrics": _buffer_metrics_rows(evaluation),
     }
 
 
@@ -328,7 +441,7 @@ def _write_results(run_dir: Path, sessions: Any, evaluate_fn: Callable[[Any], An
     (output_dir / "coverage.json").write_text(json.dumps(_coverage(sessions), indent=2) + "\n")
     (output_dir / "analysis.json").write_text(json.dumps(build_buffer_analysis(sessions, result), indent=2, default=str) + "\n")
     (output_dir / "charts.json").write_text(json.dumps(build_buffer_charts(result), indent=2, default=str) + "\n")
-    (output_dir / "transcript_sample.json").write_text(json.dumps([], indent=2) + "\n")
+    (output_dir / "transcript_sample.json").write_text(json.dumps(_build_transcript_samples(sessions), indent=2, default=str) + "\n")
     return result
 
 
