@@ -97,6 +97,15 @@ def validate(document: Any) -> List[str]:
     interpretation = document.get("interpretation")
     if interpretation is not None and (not isinstance(interpretation, str) or len(interpretation) > 8000):
         raise ChartError("interpretation must be a string of at most 8000 characters")
+
+    # The report's fixed blocks are rendered as text/tables, so they too must be
+    # plain data with no embedded markup. None of them is required (an older
+    # agent may omit them), but when present they are sanity-checked.
+    for field in ("macro", "table", "agentReasoning"):
+        if field in document:
+            _check_value(document[field], field)
+    if isinstance(document.get("agentReasoning"), str) and len(document["agentReasoning"]) > 8000:
+        raise ChartError("agentReasoning must be a string of at most 8000 characters")
     return ids
 
 

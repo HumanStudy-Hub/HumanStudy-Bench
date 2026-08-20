@@ -143,9 +143,86 @@ def replication_breakdown(analysis: Dict[str, Any]) -> Dict[str, Any] | None:
     }
 
 
+def _macro_block(analysis: Dict[str, Any]) -> Dict[str, Any] | None:
+    """The fixed headline numbers every report carries, prefering the buffer
+    summary when present and falling back to the benchmark summary."""
+    summary = analysis.get("summary") if isinstance(analysis.get("summary"), dict) else {}
+    buffer = analysis.get("bufferSummary") if isinstance(analysis.get("bufferSummary"), dict) else {}
+    if buffer:
+        rows: List[Dict[str, str]] = []
+        sessions = buffer.get("sessions")
+        if isinstance(sessions, int):
+            rows.append({"label": "Sessions", "value": str(sessions), "note": "completed sessions"})
+        compliance = buffer.get("formatCompliance")
+        if isinstance(compliance, (int, float)):
+            rows.append({"label": "Format compliance", "value": f"{compliance:.0f}%", "note": "model replies parsed cleanly"})
+        fallback = buffer.get("fallbackRate")
+        if isinstance(fallback, (int, float)):
+            rows.append({"label": "Fallback rate", "value": f"{fallback:.0f}%", "note": "replies that fell back to a default action"})
+        coverage = buffer.get("coverage")
+        if isinstance(coverage, dict) and coverage:
+            rows.append({"label": "Coverage", "value": ", ".join(f"{k} × {v}" for k, v in sorted(coverage.items())), "note": "sessions per condition"})
+        headline = buffer.get("headline")
+        return {"headline": (headline if isinstance(headline, (int, float)) else None), "rows": rows}
+
+    replication = summary.get("replicationRate")
+    if isinstance(replication, (int, float)):
+        scored = summary.get("scoredTests")
+        replicated = summary.get("replicatedTests")
+        return {
+            "headline": round(replication * 100, 1),
+            "rows": [
+                {"label": "Strict replication", "value": f"{replicated}/{scored}" if isinstance(scored, int) else "-", "note": "same direction and significance"},
+                {"label": "Direction matched", "value": _pct(summary.get("directionMatchRate")), "note": "effect pointed the same way"},
+                {"label": "Mean effect gap", "value": _num(summary.get("meanAbsoluteEffectGap")), "note": "average distance from human effect"},
+            ],
+        }
+    return None
+
+
+def _pct(value: Any) -> str:
+    return f"{value * 100:.0f}%" if isinstance(value, (int, float)) else "-"
+
+
+def _num(value: Any) -> str:
+    return f"{value:.2f}" if isinstance(value, (int, float)) else "-"
+
+
+def _table_block(analysis: Dict[str, Any]) -> Dict[str, Any] | None:
+    """A detailed results table: buffer metrics when present, else statistical tests."""
+    metrics = analysis.get("metrics")
+    if isinstance(metrics, list) and metrics:
+        columns = ["Condition", "Metric", "Value"]
+        rows = [[str(row.get("arm", "")), str(row.get("metric", "")), _num(row.get("value"))] for row in metrics if isinstance(row, dict)]
+        return {"columns": columns, "rows": rows, "note": "One row per numeric evaluator metric."}
+    tests = analysis.get("tests")
+    if isinstance(tests, list) and tests:
+        columns = ["Test", "Human d", "Agent d", "Result"]
+        rows = []
+        for row in tests:
+            if not isinstance(row, dict):
+                continue
+            result = "replicated" if row.get("replicated") else ("wrong direction" if row.get("direction_match") is False else "not scored")
+            rows.append([str(row.get("label", "")), _num(row.get("human_effect")), _num(row.get("agent_effect")), result])
+        return {"columns": columns, "rows": rows, "note": "One row per statistical test."}
+    return None
+
+
 def build_charts(analysis: Dict[str, Any]) -> Dict[str, Any]:
     charts = [chart for chart in (effect_scatter(analysis), effect_bars(analysis), replication_breakdown(analysis)) if chart]
-    return {"charts": charts, "source": "default"}
+    document: Dict[str, Any] = {"charts": charts, "source": "default"}
+    macro = _macro_block(analysis)
+    if macro is not None:
+        document["macro"] = macro
+    table = _table_block(analysis)
+    if table is not None:
+        document["table"] = table
+    # The deterministic fallback has no free-text agent reasoning; the reading
+    # string (present for both study kinds) is the close equivalent.
+    reading = analysis.get("reading")
+    if isinstance(reading, str):
+        document["reading"] = reading
+    return document
 
 
 def main() -> None:
