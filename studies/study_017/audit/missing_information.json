@@ -1,0 +1,82 @@
+{
+  "_purpose": "Authoritative researcher checklist. Every entry names a study, the affected field, why it is missing/uncertain, its likely effect on faithfulness or findings, and a concrete suggested action. Nothing here has been silently filled in with invented content anywhere else in the package.",
+  "items": [
+    {
+      "study": "study_1_main_experiment",
+      "field": "materials/materials.json:study_1_main_experiment.instructions_handout (verbatim text)",
+      "reason": "The instructions handout is printed only in Online Appendix L. Every retrieval attempt against the one authorized external URL (the ISR supplemental PDF) returned an HTTP 403 Cloudflare bot-check page, not the document.",
+      "impact": "Agent participants are onboarded using the paper's own verbatim rule statements (payoff rule, Remarks 1-4) rather than the exact handout wording and framing examples. Minor wording/emphasis differences from the original handout could affect how quickly participants understand the mechanism, though the substantive rules implemented are unchanged.",
+      "suggested_action": "If the researcher can access Online Appendix L (e.g., via institutional access to the publisher site, which may not trigger the same bot challenge), supply the verbatim handout text and it can be inserted into materials/materials.json without any change to task/adapter.py's mechanics."
+    },
+    {
+      "study": "study_1_main_experiment",
+      "field": "materials/materials.json:study_1_main_experiment.practice_tasks (exact content)",
+      "reason": "The six practice tasks and five randomized examples are described only structurally in the main text; their exact numeric content is in Online Appendix L (inaccessible, see above).",
+      "impact": "Low: practice tasks are a comprehension check before the paid matches begin and are not part of the measured experiment. Their omission does not affect the implemented auction mechanics, but a fully faithful onboarding flow is not yet implemented in task/adapter.py.",
+      "suggested_action": "Supply the six practice-task specifications and five example templates from Online Appendix L if a faithful onboarding/comprehension-check phase is required before data collection."
+    },
+    {
+      "study": "study_1_main_experiment; study_2_mechanism_experiment",
+      "field": "task/task.json:studies[].procedure.payment_to_participant / points-to-currency exchange rate",
+      "reason": "The main text states participants were 'paid in cash' with earnings equal to the sum (Study 1) or last-random-period payoff (both studies) but never states the numeric points-to-dollars conversion rate or any show-up fee.",
+      "impact": "Payoffs computed by task/adapter.py and evaluation/evaluation.py are in the paper's abstract point units (the same units as v_j in [1,10]), not real currency. This does not affect the relative comparisons the paper's Results 6-10 rely on, but it blocks any research question about real monetary stakes or absolute cash amounts.",
+      "suggested_action": "If real-currency payment is required, supply the exchange rate/show-up fee from Online Appendix L or M; otherwise treat all reported payoffs as point units, consistent with how Tables 5-7 in the paper report them."
+    },
+    {
+      "study": "study_1_main_experiment",
+      "field": "task/task.json:studies[0].procedure.second_good_value (rounding convention)",
+      "reason": "Section 4.2 states the value of good 2 = alpha * value of good 1, but never states whether the product is rounded (e.g., 7 * 0.2 = 1.4) or displayed/used with decimals.",
+      "impact": "Low-to-moderate: rounding could shift bid-to-value ratios and payoffs at the margin, especially for alpha=0.2. task/adapter.py currently uses the unrounded float.",
+      "suggested_action": "Confirm the rounding convention from Online Appendix L screenshots (if recoverable) or from the authors; update compute_match_payoffs / run_study1_match if rounding is required."
+    },
+    {
+      "study": "study_1_main_experiment",
+      "field": "task/task.json:studies[0].procedure.value_generation and .bid_domain (distribution/bounds)",
+      "reason": "Section 4 does not restate the U{1,10} valuation distribution or the [0,10] bid ceiling used by the computational model in Section 3.2.1; it only says the human experimental design implements 'the auction presented in Section 3.2.1'.",
+      "impact": "Low: this is a textually well-supported inference (evidence_label 'derived', not 'verbatim'), but it is technically an inference rather than a direct quote, so it is flagged for researcher confirmation before treating simulated data as a strict replication.",
+      "suggested_action": "Confirm against Online Appendix L (if recoverable) that the human experiment used the identical U{1,10} value range and [0,10] bid domain as the computational model."
+    },
+    {
+      "study": "study_1_main_experiment",
+      "field": "task/task.json:studies[0].conditions.within_subjects (Remark 2 cross-session common random numbers)",
+      "reason": "Remark 2's comparability control operates ACROSS multiple sessions run under different treatments sharing the same drawn valuations in matches 5-10. A single package run has no other session to share seeds with.",
+      "impact": "Moderate for any downstream comparison across two separately-run task packages: without deliberately sharing a seed/value schedule between a condition_c=0.0 run and a condition_c=0.1 run, the two runs' matches 5-10 will not have matched valuations, which the paper used specifically to strengthen its Result 6/8/10 comparisons.",
+      "suggested_action": "When running paired condition_c=0.0 and condition_c=0.1 sessions for comparison, pass the same --seed and, if exact value-matching is required, pre-generate and share a fixed values-per-match schedule across both adapter calls (task/adapter.py's run_study1_match accepts explicit values via minor code modification if this is needed)."
+    },
+    {
+      "study": "study_1_main_experiment; study_2_mechanism_experiment",
+      "field": "task/task.json known_departures_from_original_design: max_periods safety cap",
+      "reason": "The paper's random-termination process (Remark 1, and its discrete-time analogue in Study 2) is unbounded in principle (geometric distribution). Each period in a package run is a real agent decision call, so an unbounded process is not computationally tractable.",
+      "impact": "Low-to-moderate: the cap (default 300 periods for Study 1, ~2.5x the expected 120; default 60 for Study 2, ~6x the expected 10) is set far past the expectation, so it should rarely bind, but it removes the small-probability long tail of very long matches, which slightly reduces the expected number of measured bid adjustments relative to a truly unbounded process.",
+      "suggested_action": "Increase max_periods in Study1Config/Study2Config if a research question specifically concerns tail behavior of very long matches; otherwise the default is a disclosed, documented approximation."
+    },
+    {
+      "study": "study_2_mechanism_experiment",
+      "field": "materials/materials.json:study_2_mechanism_experiment.instructions_and_screens; Online Table N.1 (four duration sequences)",
+      "reason": "Online Appendix N.1 (instructions/decision screens), N.2 (info-plot screenshots), and Online Table N.1 (the four exact supergame-length sequences) are in the same inaccessible supplemental PDF.",
+      "impact": "Moderate: task/adapter.py substitutes a geometric-hazard generator (p=0.1 per period) for the four unspecified duration sequences, which is mathematically consistent with the paper's stated 'probability of termination was 0.1' but does not reproduce the exact four realized sequences the original subjects experienced, so period-by-period comparisons to the original data will not line up exactly.",
+      "suggested_action": "Supply Online Table N.1's four sequences (as explicit period counts) and Online Appendix N.1/N.2 screenshots if exact replication of Study 2's timing and interface is required; update run_study2_session to draw from the supplied fixed sequences instead of the hazard-process substitute."
+    },
+    {
+      "study": "study_1_main_experiment; study_2_mechanism_experiment",
+      "field": "task/task.json:studies[].num_agents (population size)",
+      "reason": "The paper ran 138 (Study 1) and 183 (Study 2) human subjects across 8+ sessions with random rematching into triads each match; the package defaults to a single triad (3 agents) as the minimal faithful unit.",
+      "impact": "Moderate for statistical power and for the random-rematching dynamic itself: with only 3 agents, 'rematching' each match is a no-op (the same three agents are always the only possible triad). The rematching code path is implemented and exercised only if num_agents is increased to a larger multiple of 3.",
+      "suggested_action": "Set num_agents to a larger multiple of 3 (e.g., 15-18 to mirror one session) if the random-rematching dynamic across many participants, rather than a single fixed triad, is part of the research question."
+    },
+    {
+      "study": "study_1_main_experiment",
+      "field": "Remark 4 (silent protocol)",
+      "reason": "The silent protocol addressed a physical-room information leak (audible mouse clicks) specific to co-located human subjects in the same physical lab.",
+      "impact": "None for a text-based agent replay: agents are not co-located and cannot overhear each other's actions regardless. The information-visibility guarantee the protocol protected (opponents cannot infer bid changes except through the screen) is preserved directly by task/task.json's visibility rules.",
+      "suggested_action": "No action needed; recorded here only so the omission is explicit rather than silent."
+    },
+    {
+      "study": "study_1_main_experiment",
+      "field": "Footnote 19 (disclosed software bug affecting seed increments in sessions 1-4, matches 5-10)",
+      "reason": "The authors themselves disclose a software bug in the original study's random-seed generation, not a gap in this extraction.",
+      "impact": "None for this package (the bug was in the original study's software, not reproduced here); recorded for researcher awareness when comparing this package's simulated data against the original published data from sessions 1-4.",
+      "suggested_action": "No action needed for package construction; keep in mind only when benchmarking against the original paper's raw data tables."
+    }
+  ]
+}

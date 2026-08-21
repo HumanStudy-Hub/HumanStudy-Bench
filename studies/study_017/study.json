@@ -1,0 +1,123 @@
+{
+  "_purpose": "Researcher-facing overview of this package. See source/evidence.json for the full provenance record behind every claim below.",
+  "paper": {
+    "title": "Analyzing Frictions in Generalized Second-Price Auction Markets",
+    "authors": [
+      "Karthik Kannan",
+      "Vandith Pamuru",
+      "Yaroslav Rosokha"
+    ],
+    "journal": "Information Systems Research",
+    "year": 2023,
+    "volume": "34",
+    "issue": "4",
+    "pages": "1437-1454",
+    "doi": "10.1287/isre.2022.1187",
+    "source_file": "input/paper.pdf (contributor-uploaded; original filename EBSCO-FullText-08_06_2026.pdf)"
+  },
+  "external_sources_consulted": [
+    {
+      "url": "https://pubsonline.informs.org/doi/suppl/10.1287/isre.2022.1187/suppl_file/isre.2022.1187.sm1.pdf",
+      "authorized": true,
+      "authorized_by": "job.json osfUrl field (explicit contributor-supplied URL)",
+      "outcome": "blocked -- returned HTTP 403 (Cloudflare bot-check challenge) on every attempt; no content retrieved or used",
+      "detail": "See source/paper_metadata.json:external_sources for full detail"
+    }
+  ],
+  "external_research_used": false,
+  "empirical_studies_in_paper": [
+    {
+      "study_id": "computational_main",
+      "human_subject": false,
+      "included_in_package": false,
+      "reason_excluded": "Q-learning agent-based simulation (Section 3); not a human-subject study, out of scope for an agent-participant replication package."
+    },
+    {
+      "study_id": "study_1_main_experiment",
+      "human_subject": true,
+      "included_in_package": true,
+      "paper_section": "Section 4",
+      "summary": "Laboratory GSP-auction experiment: 138 Purdue participants, 8 sessions of 15-18 each, randomly regrouped into triads every match, 10 matches per session. Between-subjects bid-adjustment friction cost C in {0.0, 0.1}; within-subjects slot-value-similarity alpha in {0.2, 0.5, 0.8}. Continuous-time bidding within each match, ending at a randomly drawn stopping time."
+    },
+    {
+      "study_id": "study_2_mechanism_experiment",
+      "human_subject": true,
+      "included_in_package": true,
+      "paper_section": "Section 5",
+      "summary": "Follow-up robustness/mechanism experiment: 183 new Purdue participants (no overlap with Study 1), programmed in oTree, discrete-time (vs. Study 1's continuous time). 2x2 between-subjects factorial: C in {0.0, 0.1} x information cost in {free, $0.5/period}, alpha fixed at 0.5."
+    },
+    {
+      "study_id": "computational_robustness_section6",
+      "human_subject": false,
+      "included_in_package": false,
+      "reason_excluded": "Two additional Q-learning calibration/robustness studies (Section 6); not human-subject studies."
+    }
+  ],
+  "participant_flow": {
+    "study_1_main_experiment": "Each agent participant plays num_matches (default 10) sequential matches. At the start of every match, all participants are randomly re-partitioned into triads of 3; each triad's 3 members privately draw a value for good 1 (derived to be Uniform{1,...,10}), submit an initial free bid, then may revise their bid across a random number of decision periods (min 20, then 1%/period hazard) before the match ends and payoffs are realized from each participant's final bid. See task/task.json for full visibility rules.",
+    "study_2_mechanism_experiment": "Same triad/match structure as Study 1, but discrete periods (hazard 0.1/period, no minimum-period floor stated), independently redrawn values every match, fixed alpha=0.5, and an added per-period choice of whether to view a counterfactual-payoff plot (costly or free depending on condition)."
+  },
+  "conditions": {
+    "study_1_main_experiment": {
+      "between_subjects": "C in {0.0, 0.1}",
+      "within_subjects": "alpha in {0.2, 0.5, 0.8}"
+    },
+    "study_2_mechanism_experiment": {
+      "between_subjects_factorial": "C in {0.0, 0.1} x information_cost in {0.0, 0.5}",
+      "fixed": "alpha = 0.5"
+    }
+  },
+  "outcomes_measured": [
+    {
+      "name": "allocative_efficiency (Psi)",
+      "definition": "realized welfare / maximum possible welfare across the 2 allocated goods (Section 3.1 eq. 1)"
+    },
+    {
+      "name": "bid_to_value_ratio (Omega_j)",
+      "definition": "participant's final bid divided by its private value for good 1 (Section 3.1 eq. 2)"
+    },
+    {
+      "name": "number_of_bid_adjustments",
+      "definition": "count of times a participant changed its locked bid during a match (excludes the free initial bid)"
+    }
+  ],
+  "headline_findings_this_package_can_check": {
+    "evidence_ref": "E20",
+    "results": [
+      "Result 6: Lower costs (C=0.0) lead to more bid adjustments than higher costs (C=0.1).",
+      "Result 7: The bid-to-value ratio is higher for lower valued agents.",
+      "Result 8: For the lowest valued agents, the bid-to-value ratio increases as friction (C) decreases.",
+      "Result 9: The bid-to-value ratio decreases as alpha increases, for medium and highest valued agents.",
+      "Result 10: Allocative efficiency increases as friction costs (C) increase."
+    ],
+    "implemented_by": "evaluation/evaluation.py (each Result becomes 'not_ready' with a stated missing requirement if the supplied session runs don't cover the needed conditions)"
+  },
+  "package_entry_point": {
+    "runnable_task": "task/adapter.py",
+    "smoke_test_command": "python3 task/adapter.py --smoke-test",
+    "real_run_usage": "import task/adapter.py as a library; supply ParticipantAgent subclasses backed by genuine per-participant decision logic; call run_study1_session(agents, Study1Config(...)) or run_study2_session(agents, Study2Config(...)); persist the returned session dict to JSON.",
+    "evaluation": "python3 evaluation/evaluation.py --session <study1_c0.0.json> --session <study1_c0.1.json>"
+  },
+  "readiness_status": {
+    "overall": "partially_ready",
+    "ready": [
+      "Core GSP payoff mechanics, allocative efficiency and bid-to-value-ratio metrics, and both studies' condition/termination structures are implemented and verified via --smoke-test.",
+      "evaluation/evaluation.py runs all five checkable Results (6-10) given appropriately paired session runs, using the paper's own permutation-test methodology."
+    ],
+    "blocked_or_incomplete": [
+      "Verbatim participant instructions/handouts for both studies (Online Appendices L, N.1, N.2) are unavailable; agents are onboarded with the paper's own verbatim rule statements instead of the original handout wording.",
+      "Points-to-currency exchange rate is unspecified in the accessible text; payoffs are reported in point units.",
+      "Study 2's exact four duration sequences (Online Table N.1) are unavailable; a matching-hazard-rate substitute is used.",
+      "Cross-session common-random-number comparability (Study 1 Remark 2) requires explicit seed-sharing across paired runs, which is a researcher setup step, not automated by default."
+    ],
+    "see": "audit/missing_information.json for the complete, itemized checklist"
+  },
+  "known_limitations_disclosed_by_original_authors": [
+    "Footnote 19: a software bug in the original study's random-seed generation affected the intended value-sharing design for matches 5-10 in sessions 1-4; the authors state the bug was symmetric across treatments and does not bias treatment comparisons."
+  ],
+  "contributors": [
+    {
+      "name": "Yuanjun"
+    }
+  ]
+}
