@@ -1,0 +1,54 @@
+{
+  "_description": "Index of participant-visible material for the single empirical study in this package (Echenique, Robinson-Cortes & Yariv, 'An Experimental Study of Decentralized Matching'). All conditions share one experimental paradigm -- a decentralized one-to-one two-sided matching market with full information and non-binding offers -- so materials are organized by the treatment dimensions the paper varies: proposing rule (bilateral vs. unilateral), market size (8-per-side vs. 15-per-side), and market structure / cardinal payoff representation (which determines the number of stable matchings and stable partners).",
+  "study": "decentralized_matching_experiment",
+  "groups": [
+    {
+      "condition_dimension": "instructions",
+      "items": [
+        {
+          "id": "cassel_instructions_main",
+          "applies_to": "main treatments (bilateral, 8 per side)",
+          "file": "materials/instructions_script.json",
+          "evidence_label": "verbatim",
+          "source": "input/open_materials/instructions.pdf"
+        },
+        {
+          "id": "cassel_instructions_derived_variants",
+          "applies_to": "unilateral-offer and large-market arms",
+          "description": "adapter.py builds these by substituting group size (8->15) and, for unilateral arms, inserting an explicit sentence that only foods may make offers (colors may only accept/reject) -- see task/adapter.py:build_instructions().",
+          "evidence_label": "derived",
+          "derivation": "Paper text states these treatments 'operated as in our main treatments' with the stated size/proposing-rule change; exact original slide wording for these variants was not among the uploaded materials.",
+          "source": "source/paper_metadata.json section 4 (Experimental Design); audit/missing_information.json"
+        }
+      ]
+    },
+    {
+      "condition_dimension": "payoff_matrices",
+      "items": [
+        {
+          "id": "all_31_cardinal_treatments",
+          "file": "materials/payoff_matrices_verbatim.json",
+          "evidence_label": "verbatim",
+          "source": "input/open_materials/Payoff Matrices.txt",
+          "description": "All 31 cardinal payoff-matrix treatments referenced in Table 1 of the paper (7 unique-stable-matching, 6 two-embedded-4x4, 4 five-stable-matching, and their one-sided/unilateral counterparts, plus 5 large 15-per-side matrices). task/adapter.py selects one matrix per (structure, proposing, size) arm by default (see task/task.json 'conditions'); a researcher may repoint an arm at any other treatment index in the same file to explore cardinal-representation effects, exactly as the paper does across its 140 experimental markets."
+        }
+      ]
+    },
+    {
+      "condition_dimension": "response_format",
+      "items": [
+        {
+          "id": "offer_and_response_actions",
+          "evidence_label": "reported",
+          "description": "Each acting participant either (a) proposes a single match offer to one member of the other side (any member, matched or not, one offer outstanding at a time), or (b) if it just received an offer, accepts or rejects it. An unmatched agent at market end earns 0. In the original, a received offer must be answered within 10 seconds or is auto-rejected, and a market ends after 30 seconds pass with no new offer; task/task.json documents how adapter.py discretizes these two real-time clocks into a turn/tick model (see task.json 'timing_discretization').",
+          "source": "source/paper_metadata.json section 4"
+        }
+      ]
+    }
+  ],
+  "payment": {
+    "evidence_label": "reported",
+    "text": "1 point = 1 cent. Participants are paid, in cash, the sum of their earnings across all non-practice rounds, plus a $5 show-up fee. Average total payment was $40 in main treatments, $33 in unilateral-offer treatments, and $24 in the 15x15 large-market treatments.",
+    "source": "paper.pdf p.14-15 (Section 4)"
+  }
+}
