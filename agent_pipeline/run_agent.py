@@ -84,6 +84,16 @@ def package_progress(package: Path) -> tuple[int, int, list[str]]:
     return len(REQUIRED) - len(missing), total, missing
 
 
+def studio_complete(job: Path, request_id: str | None) -> bool:
+    if request_id is None:
+        return True
+    try:
+        marker = json.loads((job / "studio-complete.json").read_text())
+        return marker.get("requestId") == request_id and marker.get("status") == "complete"
+    except (OSError, json.JSONDecodeError, AttributeError):
+        return False
+
+
 def validate(validator: Path, package: Path) -> tuple[bool, str]:
     result = subprocess.run(
         [sys.executable, str(validator), str(package)],
@@ -190,6 +200,14 @@ def main() -> None:
     logs = args.job / "logs"
     package.mkdir(parents=True, exist_ok=True)
     logs.mkdir(parents=True, exist_ok=True)
+    studio_request = args.job / "studio_request.json"
+    request_id = None
+    if studio_request.is_file():
+        request = json.loads(studio_request.read_text())
+        request_id = request["requestId"]
+        # A copied package may already validate. Only this run's completion
+        # marker can release the watchdog after refinement.
+        (args.job / "studio-complete.json").unlink(missing_ok=True)
     progress_token = os.environ.get("PIPELINE_PROGRESS_TOKEN", "")
     publisher = None
     if progress_token and args.progress_repo and args.progress_branch and args.progress_path:
@@ -226,7 +244,8 @@ def main() -> None:
         while process.poll() is None:
             completed, total, missing = package_progress(package)
             print(f"[package-progress] required={completed}/{len(REQUIRED)} total={total}", flush=True)
-            phase = "building_package" if missing else "validating_package"
+            refinement_pending = not studio_complete(args.job, request_id)
+            phase = "building_package" if missing or refinement_pending else "validating_package"
             if publisher:
                 try:
                     publisher.publish(progress_payload(phase, completed, total, missing))
@@ -234,6 +253,8 @@ def main() -> None:
                     print(f"[package-progress] could not publish frontend progress: {exc}", flush=True)
             if missing:
                 print(f"[package-progress] missing: {' '.join(missing)}", flush=True)
+            elif refinement_pending:
+                print("[package-progress] waiting for Studio refinement completion", flush=True)
             else:
                 ensure_readme(package)
                 try:
@@ -253,7 +274,12 @@ def main() -> None:
                     return
             if time.monotonic() >= deadline:
                 stop_process(process)
-                valid, detail = validate(args.validator, package) if not missing else (False, "Missing required files: " + ", ".join(missing))
+                if missing:
+                    valid, detail = False, "Missing required files: " + ", ".join(missing)
+                elif not studio_complete(args.job, request_id):
+                    valid, detail = False, "Studio refinement did not complete."
+                else:
+                    valid, detail = validate(args.validator, package)
                 write_result(args.job, "timeout", valid, detail)
                 if publisher:
                     try:
@@ -267,7 +293,7 @@ def main() -> None:
 
         output_thread.join(timeout=5)
         ensure_readme(package)
-        valid, detail = validate(args.validator, package)
+        valid, detail = validate(args.validator, package) if studio_complete(args.job, request_id) else (False, "Studio refinement did not complete.")
         write_result(args.job, "agent_exited", valid, detail)
         completed, total, missing = package_progress(package)
         if publisher:
