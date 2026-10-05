@@ -100,7 +100,8 @@ frontend StudySchema exactly:
 - Field and variable status is `reported`, `implementation`, or `unresolved`;
   variable status is required. Keep IDs stable and unique where possible.
 
-This sidecar is optional and does not replace any required package file. You
+All string fields must be strings, including unit (use an empty string for a
+unitless categorical variable, never null). This sidecar is optional and does not replace any required package file. You
 may also write a concise `studio-reply.md` in the same paper folder describing
 actual changes and any remaining researcher decisions. Do not put either
 sidecar directly under `package/`, which must contain only the paper folder.
