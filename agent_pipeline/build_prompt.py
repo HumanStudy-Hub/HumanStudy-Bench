@@ -185,6 +185,17 @@ frontend StudySchema exactly:
   passages, with no invented page references or geometry.
 - Field and variable status is `reported`, `implementation`, or `unresolved`;
   variable status is required. Keep IDs stable and unique where possible.
+- Optional root `reviewIssues` contains explicit researcher questions. Each item
+  has a stable unique id, title, severity (`blocking`, `decision`, or `check`),
+  reason, impact, suggestedAction; it may include entity (an existing entity
+  id), study, field, sourcePointer, and evidence. Carry the actual study,
+  field, reason, impact, suggested_action, and source pointer from
+  `audit/missing_information.json` into these issues, preserving their meaning.
+  Use `blocking` only for a genuinely missing rule that prevents execution,
+  `decision` for a researcher choice, and `check` for verification. Never
+  manufacture an audit reason, impact, action, source quote, or PDF geometry.
+  A future run-time observation or derived statistic is not missing input;
+  ask only if its generating, recording, or analysis rule is unresolved.
 
 All string fields must be strings, including unit (use an empty string for a
 unitless categorical variable, never null). This sidecar is optional and does not replace any required package file. You

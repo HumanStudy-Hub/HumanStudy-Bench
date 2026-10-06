@@ -218,6 +218,9 @@ def test_build_prompt_includes_bounded_studio_feedback(tmp_path: Path) -> None:
     assert "Use `rects: []` for new citations" in prompt
     assert "sourceId when an attached source ID is present" in prompt
     assert "studio-model.json" in prompt
+    assert "Optional root `reviewIssues`" in prompt
+    assert "genuinely missing rule that prevents execution" in prompt
+    assert "future run-time observation or derived statistic is not missing input" in prompt
     assert "studio-complete.json" in prompt
     assert "untrusted research context" in prompt
 
