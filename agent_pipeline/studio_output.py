@@ -6,6 +6,11 @@ import json
 from pathlib import Path
 
 
+try:
+    from agent_pipeline.human_program import validate_human_program, canonical_model
+except ModuleNotFoundError:
+    from human_program import validate_human_program, canonical_model
+
 KINDS = {"background", "hypothesis", "design", "participants", "material", "procedure", "record", "variable", "analysis", "result"}
 STATUSES = {"reported", "implementation", "unresolved"}
 SEVERITIES = {"blocking", "decision", "check"}
@@ -61,6 +66,9 @@ def _evidence(value: object, label: str) -> None:
 def validate_study_model(value: object) -> dict:
     """Check the portable StudySchema shape used by the Studio frontend."""
     model = _object(value, "model")
+    if "schemaVersion" in model or "program" in model:
+        validate_human_program(canonical_model(model))
+        return model
     for key in ("id", "title"):
         _string(model.get(key), f"model.{key}", nonempty=True)
     source = _object(model.get("source"), "model.source")
@@ -152,8 +160,17 @@ def validate_build_sidecars(package: Path, accepted_model: object | None = None)
     root = roots[0]
     try:
         model = validate_study_model(json.loads((root / "studio-model.json").read_text()))
-        if accepted_model is not None and model != validate_study_model(accepted_model):
+        if accepted_model is not None and canonical_model(model) != canonical_model(validate_study_model(accepted_model)):
             raise ValueError("studio-model.json must exactly match the accepted document.model")
+        overview_path = root / "study.json"
+        if canonical_model(model).get("schemaVersion") == 2 and not overview_path.is_file():
+            raise ValueError("v2 requires canonical study.json.program")
+        if overview_path.is_file():
+            overview = json.loads(overview_path.read_text())
+            if canonical_model(model).get("schemaVersion") == 2 and "program" not in overview:
+                raise ValueError("v2 requires canonical study.json.program")
+            if "program" in overview and validate_human_program(overview["program"]) != canonical_model(model):
+                raise ValueError("study.json.program and studio-model.json disagree")
         _string((root / "studio-reply.md").read_text(), "studio-reply.md", nonempty=True)
         return True, "Valid Studio build sidecars"
     except (OSError, json.JSONDecodeError, ValueError) as exc:

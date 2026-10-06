@@ -6,6 +6,11 @@ import sys
 from pathlib import Path
 
 
+try:
+    from agent_pipeline.human_program import validate_human_program
+except ModuleNotFoundError:
+    from human_program import validate_human_program
+
 REQUIRED = (
     "study.json",
     "source/paper_metadata.json",
@@ -32,6 +37,18 @@ def main() -> None:
             json.loads(path.read_text())
         except (UnicodeDecodeError, json.JSONDecodeError) as exc:
             raise SystemExit(f"invalid JSON in {path.relative_to(root)}: {exc}") from exc
+    study = json.loads((root / "study.json").read_text())
+    if "program" in study:
+        program = validate_human_program(study["program"])
+        task = json.loads((root / "task/task.json").read_text())
+        expected = {
+            "programId": program["id"],
+            "stepIds": [s["id"] for s in program["steps"]],
+            "recordNodeIds": [n["id"] for n in program["nodes"] if n["kind"] in ("record", "variable")],
+            "analysisNodeIds": [n["id"] for n in program["nodes"] if n["kind"] == "analysis"],
+        }
+        if task.get("programBindings") != expected:
+            raise SystemExit("task programBindings do not match the canonical Human Program")
     result = subprocess.run(
         [sys.executable, str(root / "task/adapter.py"), "--smoke-test"],
         cwd=root,

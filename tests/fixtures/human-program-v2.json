@@ -1,0 +1,4069 @@
+{
+  "sourceCommit": "50086798df2606ceb0c651b58e4d5ddef523b2b5",
+  "cases": [
+    {
+      "id": "study_005",
+      "program": {
+        "schemaVersion": 2,
+        "id": "study-5",
+        "title": "Intentional Action and Side-Effects in Ordinary Language",
+        "intent": "reconstruct",
+        "source": {
+          "title": "Intentional Action and Side-Effects in Ordinary Language",
+          "authors": "Joshua Knobe",
+          "filename": ""
+        },
+        "studies": [
+          {
+            "id": "exp-1",
+            "title": "Corporate Chairman Vignette",
+            "type": "unspecified"
+          },
+          {
+            "id": "exp-2",
+            "title": "Military Lieutenant Vignette",
+            "type": "unspecified"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "result-1",
+            "kind": "result",
+            "title": "Corporate Chairman Vignette",
+            "studyIds": [
+              "exp-1"
+            ],
+            "fields": [
+              {
+                "id": "reported-findings",
+                "label": "Original reported findings",
+                "value": [
+                  {
+                    "finding_id": "Finding 1",
+                    "main_hypothesis": "A person’s intuitions as to whether or not a given side-effect was produced 'intentionally' can be influenced by that person’s attitude toward the specific side-effect in question (specifically whether it is good or bad).",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Chi-square test",
+                        "statistical_hypothesis": "Intentionality judgments differ between harm and help conditions.",
+                        "reported_statistics": "chi2(1, N=78)=27.2, p=0.001",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Percentage of participants judging the side-effect as intentional.",
+                      "data": {
+                        "Harm condition": {
+                          "percentage": 82.0,
+                          "n": 39
+                        },
+                        "Help condition": {
+                          "percentage": 23.0,
+                          "n": 39
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "Finding 2",
+                    "main_hypothesis": "People are considerably more willing to blame the agent for bad side-effects than to praise the agent for good side-effects.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "t-test (Combined with Exp 2)",
+                        "statistical_hypothesis": "Mean blame in harm condition > Mean praise in help condition.",
+                        "reported_statistics": "t(120)=8.4, p=0.001",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Mean praise/blame scores on a 0-6 scale.",
+                      "data": {
+                        "harm_condition_blame": {
+                          "mean": 4.8
+                        },
+                        "help_condition_praise": {
+                          "mean": 1.4
+                        }
+                      }
+                    }
+                  }
+                ],
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "result-2",
+            "kind": "result",
+            "title": "Military Lieutenant Vignette",
+            "studyIds": [
+              "exp-2"
+            ],
+            "fields": [
+              {
+                "id": "reported-findings",
+                "label": "Original reported findings",
+                "value": [
+                  {
+                    "finding_id": "Finding 1",
+                    "main_hypothesis": "The effect observed in Experiment 1 is general and not specific to corporations or environmental damage.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Chi-square test",
+                        "statistical_hypothesis": "Intentionality judgments differ between harm and help conditions in a military context.",
+                        "reported_statistics": "chi2(1, N=42)=9.5, p=0.01",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Percentage of participants judging the side-effect as intentional.",
+                      "data": {
+                        "Harm condition": {
+                          "percentage": 77.0,
+                          "n": 21
+                        },
+                        "Help condition": {
+                          "percentage": 30.0,
+                          "n": 21
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "Finding 3",
+                    "main_hypothesis": "The asymmetry in praise and blame assignment may be at the root of the asymmetry in the application of the concept intentional.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Correlation (Combined with Exp 1)",
+                        "statistical_hypothesis": "Praise/blame scores are correlated with intentionality judgments.",
+                        "reported_statistics": "r(120)=0.53, p=0.001",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Correlation between moral judgment and intentionality judgment across both experiments.",
+                      "data": {
+                        "total_sample": {
+                          "n": 120,
+                          "r": 0.53
+                        }
+                      }
+                    }
+                  }
+                ],
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "spec",
+            "kind": "design",
+            "title": "Imported design specification",
+            "studyIds": [],
+            "fields": [
+              {
+                "id": "source-specification",
+                "label": "Specification",
+                "value": {
+                  "study_id": "knobe",
+                  "title": "Intentional Action and Side-Effects in Ordinary Language",
+                  "participants": {
+                    "n": 120,
+                    "population": "People spending time in a Manhattan public park.",
+                    "recruitment_source": "Manhattan public park",
+                    "demographics": {},
+                    "by_sub_study": {
+                      "Experiment 1": {
+                        "n": 78,
+                        "population": "People spending time in a Manhattan public park."
+                      },
+                      "Experiment 2": {
+                        "n": 42,
+                        "population": "People spending time in a Manhattan public park."
+                      }
+                    }
+                  },
+                  "design": {
+                    "type": "Between-Subjects",
+                    "factors": [
+                      {
+                        "name": "Side-effect condition",
+                        "levels": [
+                          "harm",
+                          "help"
+                        ],
+                        "type": "Between-Subjects"
+                      },
+                      {
+                        "name": "Vignette context",
+                        "levels": [
+                          "Corporate Chairman",
+                          "Military Lieutenant"
+                        ],
+                        "type": "Between-Subjects"
+                      }
+                    ]
+                  },
+                  "procedure": {
+                    "steps": [
+                      "Participants are randomly assigned to either a 'harm condition' or a 'help condition'.",
+                      "Participants read a vignette (either about a corporate chairman or a military lieutenant) implementing a plan with a known side-effect that the agent claims not to care about.",
+                      "Participants assess how much blame (in the harm condition) or praise (in the help condition) the agent deserves on a scale from 0 to 6.",
+                      "Participants answer a categorical (Yes/No) question regarding whether the agent brought about the side-effect intentionally."
+                    ]
+                  }
+                },
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          }
+        ],
+        "steps": [],
+        "relations": [],
+        "evidence": [],
+        "issues": [],
+        "extensions": {
+          "fixturePurpose": "Offline contract/renderer fixture; legacy scientific semantics require source verification",
+          "sourceCommit": "50086798df2606ceb0c651b58e4d5ddef523b2b5",
+          "specification": {
+            "study_id": "knobe",
+            "title": "Intentional Action and Side-Effects in Ordinary Language",
+            "participants": {
+              "n": 120,
+              "population": "People spending time in a Manhattan public park.",
+              "recruitment_source": "Manhattan public park",
+              "demographics": {},
+              "by_sub_study": {
+                "Experiment 1": {
+                  "n": 78,
+                  "population": "People spending time in a Manhattan public park."
+                },
+                "Experiment 2": {
+                  "n": 42,
+                  "population": "People spending time in a Manhattan public park."
+                }
+              }
+            },
+            "design": {
+              "type": "Between-Subjects",
+              "factors": [
+                {
+                  "name": "Side-effect condition",
+                  "levels": [
+                    "harm",
+                    "help"
+                  ],
+                  "type": "Between-Subjects"
+                },
+                {
+                  "name": "Vignette context",
+                  "levels": [
+                    "Corporate Chairman",
+                    "Military Lieutenant"
+                  ],
+                  "type": "Between-Subjects"
+                }
+              ]
+            },
+            "procedure": {
+              "steps": [
+                "Participants are randomly assigned to either a 'harm condition' or a 'help condition'.",
+                "Participants read a vignette (either about a corporate chairman or a military lieutenant) implementing a plan with a known side-effect that the agent claims not to care about.",
+                "Participants assess how much blame (in the harm condition) or praise (in the help condition) the agent deserves on a scale from 0 to 6.",
+                "Participants answer a categorical (Yes/No) question regarding whether the agent brought about the side-effect intentionally."
+              ]
+            }
+          },
+          "groundTruth": {
+            "study_id": "knobe",
+            "title": "Intentional Action and Side-Effects in Ordinary Language",
+            "authors": [
+              "Joshua Knobe"
+            ],
+            "year": null,
+            "studies": [
+              {
+                "study_id": "Experiment 1",
+                "study_name": "Corporate Chairman Vignette",
+                "findings": [
+                  {
+                    "finding_id": "Finding 1",
+                    "main_hypothesis": "A person’s intuitions as to whether or not a given side-effect was produced 'intentionally' can be influenced by that person’s attitude toward the specific side-effect in question (specifically whether it is good or bad).",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Chi-square test",
+                        "statistical_hypothesis": "Intentionality judgments differ between harm and help conditions.",
+                        "reported_statistics": "chi2(1, N=78)=27.2, p=0.001",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Percentage of participants judging the side-effect as intentional.",
+                      "data": {
+                        "Harm condition": {
+                          "percentage": 82.0,
+                          "n": 39
+                        },
+                        "Help condition": {
+                          "percentage": 23.0,
+                          "n": 39
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "Finding 2",
+                    "main_hypothesis": "People are considerably more willing to blame the agent for bad side-effects than to praise the agent for good side-effects.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "t-test (Combined with Exp 2)",
+                        "statistical_hypothesis": "Mean blame in harm condition > Mean praise in help condition.",
+                        "reported_statistics": "t(120)=8.4, p=0.001",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Mean praise/blame scores on a 0-6 scale.",
+                      "data": {
+                        "harm_condition_blame": {
+                          "mean": 4.8
+                        },
+                        "help_condition_praise": {
+                          "mean": 1.4
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "study_id": "Experiment 2",
+                "study_name": "Military Lieutenant Vignette",
+                "findings": [
+                  {
+                    "finding_id": "Finding 1",
+                    "main_hypothesis": "The effect observed in Experiment 1 is general and not specific to corporations or environmental damage.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Chi-square test",
+                        "statistical_hypothesis": "Intentionality judgments differ between harm and help conditions in a military context.",
+                        "reported_statistics": "chi2(1, N=42)=9.5, p=0.01",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Percentage of participants judging the side-effect as intentional.",
+                      "data": {
+                        "Harm condition": {
+                          "percentage": 77.0,
+                          "n": 21
+                        },
+                        "Help condition": {
+                          "percentage": 30.0,
+                          "n": 21
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "Finding 3",
+                    "main_hypothesis": "The asymmetry in praise and blame assignment may be at the root of the asymmetry in the application of the concept intentional.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Correlation (Combined with Exp 1)",
+                        "statistical_hypothesis": "Praise/blame scores are correlated with intentionality judgments.",
+                        "reported_statistics": "r(120)=0.53, p=0.001",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Correlation between moral judgment and intentionality judgment across both experiments.",
+                      "data": {
+                        "total_sample": {
+                          "n": 120,
+                          "r": 0.53
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "overall_original_results": {
+              "description": "Summary of intentionality judgments and moral evaluations across two experiments.",
+              "data_tables": [
+                {
+                  "table_name": "Intentionality Judgments",
+                  "headers": [
+                    "Experiment",
+                    "Condition",
+                    "Percentage Intentional",
+                    "N (Approx)"
+                  ],
+                  "rows": [
+                    [
+                      "Exp 1",
+                      "Harm",
+                      "82%",
+                      "39"
+                    ],
+                    [
+                      "Exp 1",
+                      "Help",
+                      "23%",
+                      "39"
+                    ],
+                    [
+                      "Exp 2",
+                      "Harm",
+                      "77%",
+                      "21"
+                    ],
+                    [
+                      "Exp 2",
+                      "Help",
+                      "30%",
+                      "21"
+                    ]
+                  ]
+                },
+                {
+                  "table_name": "Moral Responsibility (Combined)",
+                  "headers": [
+                    "Condition",
+                    "Mean Score (0-6)"
+                  ],
+                  "rows": [
+                    [
+                      "Harm (Blame)",
+                      "4.8"
+                    ],
+                    [
+                      "Help (Praise)",
+                      "1.4"
+                    ]
+                  ]
+                }
+              ],
+              "all_raw_data": {
+                "exp1_chi2": 27.2,
+                "exp1_p": 0.001,
+                "exp2_chi2": 9.5,
+                "exp2_p": 0.01,
+                "combined_t": 8.4,
+                "combined_r": 0.53
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "study_009",
+      "program": {
+        "schemaVersion": 2,
+        "id": "study-9",
+        "title": "Unraveling in Guessing Games: An Experimental Study",
+        "intent": "reconstruct",
+        "source": {
+          "title": "Unraveling in Guessing Games: An Experimental Study",
+          "authors": "Rosemarie Nagel",
+          "filename": ""
+        },
+        "studies": [
+          {
+            "id": "exp-1",
+            "title": "Unraveling in Guessing Games (p-Beauty Contest)",
+            "type": "unspecified"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "result-1",
+            "kind": "result",
+            "title": "Unraveling in Guessing Games (p-Beauty Contest)",
+            "studyIds": [
+              "exp-1"
+            ],
+            "fields": [
+              {
+                "id": "reported-findings",
+                "label": "Original reported findings",
+                "value": [
+                  {
+                    "finding_id": "F1",
+                    "main_hypothesis": "Distributions of choices in the first period are significantly influenced by the parameter p, suggesting players engage in a finite depth of reasoning based on p.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Mann-Whitney U test",
+                        "statistical_hypothesis": "Distribution of choices for p=1/2 != Distribution of choices for p=2/3",
+                        "reported_statistics": "p < 0.001",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      },
+                      {
+                        "test_name": "Mann-Whitney U test",
+                        "statistical_hypothesis": "Distribution of choices for p=2/3 != Distribution of choices for p=4/3",
+                        "reported_statistics": "p < 0.0001",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "First period mean and median choices across different parameter conditions.",
+                      "data": {
+                        "p_0.5_condition": {
+                          "mean": 27.05,
+                          "median": 17.0,
+                          "n": 48,
+                          "note": "Corrected from paper: 3 sessions with 48 total participants (not 50)",
+                          "specific_choices": {
+                            "percent_above_50": 6,
+                            "note": "6% chose numbers > 50 (dominated strategies)"
+                          }
+                        },
+                        "p_0.66_condition": {
+                          "mean": 36.73,
+                          "median": 33.0,
+                          "n": 67,
+                          "specific_choices": {
+                            "percent_above_67": 10,
+                            "note": "10% chose numbers > 67 (dominated strategies)"
+                          }
+                        },
+                        "p_1.33_condition": {
+                          "mean": 60.12,
+                          "median": 66.0,
+                          "n": 51,
+                          "specific_choices": {
+                            "percent_99_100_1": 10,
+                            "note": "10% chose 99, 100, or 1"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F2",
+                    "main_hypothesis": "Observed choices are more concentrated in neighborhood intervals corresponding to iteration steps (50*p^n) than expected by chance.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "One-sided Binomial Test",
+                        "statistical_hypothesis": "Concentration in neighborhood intervals (Step 1, 2) > Random chance",
+                        "reported_statistics": "p < 0.01 (for p=1/2 and p=2/3), p < 0.05 (for p=4/3)",
+                        "note": "Paper p. 1318: One-sided Binomial Test (not Chi-square approximation)",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Concentration of choices around theoretical iteration steps.",
+                      "neighborhood_definition": {
+                        "method": "Dynamic intervals based on p and step n",
+                        "formula": "50p^(n±1/4)",
+                        "explanation": "For step n, neighborhood is [50p^(n-1/4), 50p^(n+1/4)]. This is NOT a fixed ±5 interval, but depends on p and n.",
+                        "example": {
+                          "p_0.5_step_1": {
+                            "step_value": 25.0,
+                            "lower_bound": "50 * 0.5^(1-0.25) = 50 * 0.5^0.75 ≈ 29.7",
+                            "upper_bound": "50 * 0.5^(1+0.25) = 50 * 0.5^1.25 ≈ 21.0",
+                            "note": "Lower > Upper because p < 1, so p^(n-1/4) > p^(n+1/4)"
+                          }
+                        }
+                      },
+                      "data": {
+                        "p_0.5_neighborhoods": {
+                          "claim": "Almost 50% concentrated in Step 1 and Step 2 neighborhoods",
+                          "note": "Paper reports concentration in Step 1 and Step 2, but we test Step 0, 1, 2 for completeness",
+                          "approximate_success_rate": "Almost 50%",
+                          "n": 48,
+                          "estimated_k": 24
+                        },
+                        "p_0.66_neighborhoods": {
+                          "claim": "Almost 50% concentrated in Step 1 and Step 2 neighborhoods",
+                          "note": "Paper reports concentration in Step 1 and Step 2, but we test Step 0, 1, 2 for completeness",
+                          "approximate_success_rate": "Almost 50%",
+                          "n": 67,
+                          "estimated_k": 33
+                        },
+                        "p_1.33_neighborhoods": {
+                          "claim": "Concentrated in neighborhood intervals",
+                          "note": "Data extracted from Figure 2C (Page 1317) and text descriptions (Page 1318, 1322). Round 1: Step 1-3 total ~55-60% (from Figure 2C). Rounds 2-4: percentage choosing 100 (optimal strategy).",
+                          "round_1": {
+                            "estimated_k": 28,
+                            "note": "~55% of 51 ≈ 28, from Figure 2C: Step 1 (~30%) + Step 2 (~15%) + Step 3 (~10%)"
+                          },
+                          "round_2": {
+                            "estimated_k": 8,
+                            "note": "16% of 51 ≈ 8, from Page 1318: '100 was chosen by 16 percent in second period'"
+                          },
+                          "round_3": {
+                            "estimated_k": 30,
+                            "note": "59% of 51 ≈ 30, from Page 1318: '59 percent in third period'"
+                          },
+                          "round_4": {
+                            "estimated_k": 35,
+                            "note": "68% of 51 ≈ 35, from Page 1318: '68 percent in fourth period'"
+                          },
+                          "n": 51,
+                          "approximate_success_rate": "Round 1: ~55% (Step 1-3), Rounds 2-4: 16%, 59%, 68% (choosing 100)"
+                        }
+                      },
+                      "table_2_data": {
+                        "description": "Relative frequencies (%) of choices by step classification in Periods 2-4 (Paper Table 2)",
+                        "p_0.5_condition": {
+                          "period_2": {
+                            "higher_steps": 4.2,
+                            "step_3": 25.0,
+                            "step_2": 31.3,
+                            "step_1": 27.0,
+                            "step_0": 2.1,
+                            "above_mean_t_minus_1": 10.4
+                          },
+                          "period_3": {
+                            "higher_steps": 4.2,
+                            "step_3": 12.5,
+                            "step_2": 60.4,
+                            "step_1": 12.5,
+                            "step_0": 4.1,
+                            "above_mean_t_minus_1": 6.3
+                          },
+                          "period_4": {
+                            "higher_steps": 20.8,
+                            "step_3": 22.9,
+                            "step_2": 29.2,
+                            "step_1": 14.5,
+                            "step_0": 4.2,
+                            "above_mean_t_minus_1": 8.3
+                          }
+                        },
+                        "p_0.66_condition": {
+                          "period_2": {
+                            "higher_steps": 7.5,
+                            "step_3": 11.9,
+                            "step_2": 31.3,
+                            "step_1": 20.9,
+                            "step_0": 14.9,
+                            "above_mean_t_minus_1": 13.4
+                          },
+                          "period_3": {
+                            "higher_steps": 1.5,
+                            "step_3": 17.9,
+                            "step_2": 46.2,
+                            "step_1": 16.4,
+                            "step_0": 7.5,
+                            "above_mean_t_minus_1": 10.5
+                          },
+                          "period_4": {
+                            "higher_steps": 7.5,
+                            "step_3": 25.3,
+                            "step_2": 47.8,
+                            "step_1": 10.4,
+                            "step_0": 3.0,
+                            "above_mean_t_minus_1": 6.0
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F3",
+                    "main_hypothesis": "In repeated rounds, choices move toward the Nash equilibrium (unraveling). For p < 1, choices decrease over time; for p > 1, choices increase over time.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Binomial Test",
+                        "statistical_hypothesis": "Proportion of transitions in correct direction (decrease for p<1, increase for p>1) > 0.5",
+                        "reported_statistics": "Significant at 5% level",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive",
+                        "note": "Test based on transition counts (R1->R2, R2->R3, R3->R4)"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Transition counts showing directional movement over time.",
+                      "data": {
+                        "p_0.5_condition": {
+                          "total_transitions": 144,
+                          "decrease_count": 135,
+                          "success_rate": 0.9375,
+                          "note": "Sessions 1-3: 135 out of 144 transitions show decrease (below diagonal)"
+                        },
+                        "p_0.66_condition": {
+                          "total_transitions": 201,
+                          "decrease_count": 163,
+                          "success_rate": 0.8109,
+                          "note": "Sessions 4-7: 163 out of 201 transitions show decrease"
+                        },
+                        "p_1.33_condition": {
+                          "total_transitions": 153,
+                          "increase_count": 133,
+                          "success_rate": 0.8693,
+                          "note": "133 out of 153 transitions show increase (above diagonal)"
+                        },
+                        "extreme_values": {
+                          "p_0.5_round_4": {
+                            "percent_below_1": ">50%",
+                            "note": "More than half of observations < 1 in Round 4"
+                          },
+                          "p_1.33_round_2": {
+                            "percent_100": 16,
+                            "note": "16% chose 100 in Round 2"
+                          },
+                          "p_1.33_round_3": {
+                            "percent_100": 59,
+                            "note": "59% chose 100 in Round 3"
+                          },
+                          "p_1.33_round_4": {
+                            "percent_100": 68,
+                            "note": "68% chose 100 in Round 4"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F4",
+                    "main_hypothesis": "The rate of decrease (convergence speed) differs between p=1/2 and p=2/3 conditions, with p=1/2 converging faster.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Mann-Whitney U test",
+                        "statistical_hypothesis": "Median rate of decrease for p=1/2 > Median rate of decrease for p=2/3",
+                        "reported_statistics": "p = 0.05 (one-tailed)",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive",
+                        "note": "Test based on session-level median decrease rates (w_med)"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Median rate of decrease (w_med) calculated per session from Round 1 to Round 4.",
+                      "data": {
+                        "p_0.5_condition": {
+                          "median_rates": [
+                            0.88,
+                            0.98,
+                            0.97
+                          ],
+                          "n_sessions": 3,
+                          "note": "Sessions 1-3 median decrease rates"
+                        },
+                        "p_0.66_condition": {
+                          "median_rates": [
+                            0.7,
+                            0.91,
+                            0.71,
+                            0.76
+                          ],
+                          "n_sessions": 4,
+                          "note": "Sessions 4-7 median decrease rates"
+                        },
+                        "statistical_test": {
+                          "method": "Mann-Whitney U test (one-tailed)",
+                          "group_1": "p=1/2 median rates [0.88, 0.98, 0.97], n=3",
+                          "group_2": "p=2/3 median rates [0.7, 0.91, 0.71, 0.76], n=4",
+                          "p_value": 0.05,
+                          "one_tailed": true,
+                          "note": "Mean rate of decrease difference was not significant, but median rate difference was significant at 5% level"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F5",
+                    "main_hypothesis": "In Periods 2-4, players' choices relative to p × mean_{t-1} (the theoretical Step 1 target).",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Binomial Test (Weak Hypothesis)",
+                        "statistical_hypothesis": "Proportion of choices < mean_{t-1} > 0.5",
+                        "reported_statistics": "p < 0.01",
+                        "significance_level": 0.01,
+                        "expected_direction": "positive",
+                        "note": "Paper p. 9 Footnote 15: Weak hypothesis - choices below mean_{t-1} are significant at 1% level in all sessions and all periods"
+                      },
+                      {
+                        "test_name": "Binomial Test (Strong Hypothesis - Period 4)",
+                        "statistical_hypothesis": "Proportion of choices < p × mean_{t-1} in Period 4 (rejected in 6/7 sessions)",
+                        "reported_statistics": "p < 0.01 (6 out of 7 sessions reject at 1% level)",
+                        "significance_level": 0.01,
+                        "expected_direction": "positive",
+                        "note": "Paper p. 9 Footnote 15: Strong hypothesis - In Period 4, the hypothesis that choices < p × mean_{t-1} is rejected in 6 out of 7 sessions at 1% level. Periods 2-3 cannot reject this hypothesis."
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Reference point test: comparing choices to p × mean_{t-1} in Periods 2-4. Session-level analysis.",
+                      "data": {
+                        "weak_hypothesis": {
+                          "description": "Choices < mean_{t-1}",
+                          "periods": [
+                            2,
+                            3,
+                            4
+                          ],
+                          "p_value": 0.01,
+                          "note": "Significant at 1% level in all sessions and all periods"
+                        },
+                        "strong_hypothesis": {
+                          "description": "Choices < p × mean_{t-1}",
+                          "period": 4,
+                          "sessions_rejecting": 6,
+                          "total_sessions": 7,
+                          "p_value": 0.01,
+                          "rejection_level": "1%",
+                          "note": "Period 4: 6 out of 7 sessions reject the hypothesis that choices < p × mean_{t-1} at 1% level. Periods 2-3 cannot reject this hypothesis."
+                        },
+                        "statistical_summary": {
+                          "note": "Raw counts for individual sessions are not available in the paper. We use the reported p-values and session-level rejection counts for Pi_Human calculation."
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F6",
+                    "main_hypothesis": "Players adjust their choices according to Learning Direction Theory: if their adjustment factor (choice/previous_mean) was above the optimal, they decrease it; if below, they increase it.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Binomial Test (Session-level)",
+                        "statistical_hypothesis": "All 7 sessions have LDT alignment rate > 50% (k=7, n=7)",
+                        "reported_statistics": "p = 0.0078 (0.5^7) < 0.01",
+                        "significance_level": 0.01,
+                        "expected_direction": "positive",
+                        "note": "Paper p. 12: Test A - Each session is an independent observation. All 7 sessions (Sessions 1-7, p<1 only) show LDT alignment > 50%, so k=7, n=7, p0=0.5"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Learning Direction Theory alignment: session-level analysis for p<1 conditions only (Sessions 1-7).",
+                      "data": {
+                        "scope": {
+                          "conditions": [
+                            "p_0.5_condition",
+                            "p_0.66_condition"
+                          ],
+                          "sessions": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7
+                          ],
+                          "note": "Only p<1 conditions (Sessions 1-3 for p=1/2, Sessions 4-7 for p=2/3). p=4/3 condition is excluded."
+                        },
+                        "exclusion_rule": {
+                          "description": "Exclude transitions from participants who won in the previous round",
+                          "p_0.5_condition": {
+                            "excluded_transitions": 19,
+                            "total_transitions": 144,
+                            "note": "19 winning observations excluded from 144 total transitions"
+                          },
+                          "p_0.66_condition": {
+                            "excluded_transitions": 23,
+                            "total_transitions": 201,
+                            "note": "23 winning observations excluded from 201 total transitions"
+                          }
+                        },
+                        "session_level_results": {
+                          "test_a": {
+                            "description": "Test A: Is experience irrelevant? (LDT alignment > 50% in each session)",
+                            "successes": 7,
+                            "total_sessions": 7,
+                            "p_value": 0.0078,
+                            "calculation": "0.5^7 = 0.0078 < 0.01",
+                            "note": "All 7 sessions have LDT alignment rate > 50%, so k=7, n=7, p0=0.5"
+                          },
+                          "alignment_rates": {
+                            "mean": 73,
+                            "range": [
+                              67,
+                              78
+                            ],
+                            "note": "Mean of 73% across all sessions, range 67%-78%"
+                          },
+                          "comparison": {
+                            "simple_decrease_rate": 58,
+                            "range": [
+                              51,
+                              69
+                            ],
+                            "note": "Simple 'always decrease' strategy would only achieve 58% (range 51%-69%), showing LDT is a better explanation"
+                          }
+                        },
+                        "statistical_test": {
+                          "method": "Binomial Test (Session-level)",
+                          "null_hypothesis": "Experience is irrelevant (50% correct direction in each session)",
+                          "result": "Rejected at 1% level: k=7, n=7, p=0.0078",
+                          "note": "Paper p. 12: 'In each session, pooling the data over the three transition periods... the null hypothesis that experience is irrelevant can be rejected at the 1-percent level'"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "spec",
+            "kind": "design",
+            "title": "Imported design specification",
+            "studyIds": [],
+            "fields": [
+              {
+                "id": "source-specification",
+                "label": "Specification",
+                "value": {
+                  "study_id": "Experiment 1",
+                  "title": "Unraveling in Guessing Games: An Experimental Study",
+                  "participants": {
+                    "n": 168,
+                    "population": null,
+                    "recruitment_source": null,
+                    "demographics": {},
+                    "by_sub_study": {
+                      "p_0.5_condition": {
+                        "n": 50,
+                        "description": "3 sessions (Sessions 1-3) with 15-18 subjects each.",
+                        "setting": "Large classroom, subjects seated far apart."
+                      },
+                      "p_0.66_condition": {
+                        "n": 67,
+                        "description": "4 sessions (Sessions 4-7) with 15-18 subjects each.",
+                        "setting": "Large classroom, subjects seated far apart."
+                      },
+                      "p_1.33_condition": {
+                        "n": 51,
+                        "description": "3 sessions (Sessions 8-10) with 15-18 subjects each.",
+                        "setting": "Large classroom, subjects seated far apart."
+                      }
+                    }
+                  },
+                  "design": {
+                    "type": "Mixed",
+                    "factors": [
+                      {
+                        "name": "Parameter p",
+                        "levels": [
+                          "1/2",
+                          "2/3",
+                          "4/3"
+                        ],
+                        "type": "Between-Subjects"
+                      },
+                      {
+                        "name": "Rounds",
+                        "levels": [
+                          "1",
+                          "2",
+                          "3",
+                          "4"
+                        ],
+                        "type": "Within-Subjects"
+                      }
+                    ]
+                  },
+                  "procedure": {
+                    "steps": [
+                      "Subjects are seated in a large classroom far apart.",
+                      "Participants are asked to choose a number in the closed interval [0, 100].",
+                      "The winner is determined as the person whose chosen number is closest to the mean of all chosen numbers multiplied by a parameter p.",
+                      "The guessing task is repeated for 4 rounds."
+                    ]
+                  }
+                },
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "players",
+            "kind": "participants",
+            "title": "Game participants",
+            "studyIds": [
+              "exp-1"
+            ],
+            "fields": [],
+            "evidenceIds": []
+          },
+          {
+            "id": "guesses",
+            "kind": "record",
+            "title": "Submitted numbers",
+            "studyIds": [
+              "exp-1"
+            ],
+            "fields": [],
+            "evidenceIds": []
+          }
+        ],
+        "steps": [
+          {
+            "id": "rounds",
+            "studyId": "exp-1",
+            "kind": "repeat",
+            "title": "Four rounds",
+            "actorIds": [
+              "players"
+            ],
+            "inputIds": [],
+            "outputIds": [
+              "guesses"
+            ],
+            "visibleIds": [],
+            "children": [
+              "guess"
+            ],
+            "next": [],
+            "evidenceIds": [],
+            "rule": {
+              "id": "count",
+              "label": "Rounds",
+              "value": 4,
+              "origin": "reported",
+              "state": "check",
+              "evidenceIds": []
+            }
+          },
+          {
+            "id": "guess",
+            "studyId": "exp-1",
+            "kind": "interaction",
+            "title": "Submit a number",
+            "actorIds": [
+              "players"
+            ],
+            "inputIds": [],
+            "outputIds": [
+              "guesses"
+            ],
+            "visibleIds": [],
+            "children": [],
+            "next": [],
+            "evidenceIds": []
+          }
+        ],
+        "relations": [],
+        "evidence": [],
+        "issues": [],
+        "extensions": {
+          "fixturePurpose": "Offline contract/renderer fixture; legacy scientific semantics require source verification",
+          "sourceCommit": "50086798df2606ceb0c651b58e4d5ddef523b2b5",
+          "specification": {
+            "study_id": "Experiment 1",
+            "title": "Unraveling in Guessing Games: An Experimental Study",
+            "participants": {
+              "n": 168,
+              "population": null,
+              "recruitment_source": null,
+              "demographics": {},
+              "by_sub_study": {
+                "p_0.5_condition": {
+                  "n": 50,
+                  "description": "3 sessions (Sessions 1-3) with 15-18 subjects each.",
+                  "setting": "Large classroom, subjects seated far apart."
+                },
+                "p_0.66_condition": {
+                  "n": 67,
+                  "description": "4 sessions (Sessions 4-7) with 15-18 subjects each.",
+                  "setting": "Large classroom, subjects seated far apart."
+                },
+                "p_1.33_condition": {
+                  "n": 51,
+                  "description": "3 sessions (Sessions 8-10) with 15-18 subjects each.",
+                  "setting": "Large classroom, subjects seated far apart."
+                }
+              }
+            },
+            "design": {
+              "type": "Mixed",
+              "factors": [
+                {
+                  "name": "Parameter p",
+                  "levels": [
+                    "1/2",
+                    "2/3",
+                    "4/3"
+                  ],
+                  "type": "Between-Subjects"
+                },
+                {
+                  "name": "Rounds",
+                  "levels": [
+                    "1",
+                    "2",
+                    "3",
+                    "4"
+                  ],
+                  "type": "Within-Subjects"
+                }
+              ]
+            },
+            "procedure": {
+              "steps": [
+                "Subjects are seated in a large classroom far apart.",
+                "Participants are asked to choose a number in the closed interval [0, 100].",
+                "The winner is determined as the person whose chosen number is closest to the mean of all chosen numbers multiplied by a parameter p.",
+                "The guessing task is repeated for 4 rounds."
+              ]
+            }
+          },
+          "groundTruth": {
+            "study_id": "unraveling_in_guessing_games__an_experimental_study",
+            "title": "Unraveling in Guessing Games: An Experimental Study",
+            "authors": [
+              "Rosemarie Nagel"
+            ],
+            "year": 1995,
+            "studies": [
+              {
+                "study_id": "Experiment 1",
+                "study_name": "Unraveling in Guessing Games (p-Beauty Contest)",
+                "findings": [
+                  {
+                    "finding_id": "F1",
+                    "main_hypothesis": "Distributions of choices in the first period are significantly influenced by the parameter p, suggesting players engage in a finite depth of reasoning based on p.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Mann-Whitney U test",
+                        "statistical_hypothesis": "Distribution of choices for p=1/2 != Distribution of choices for p=2/3",
+                        "reported_statistics": "p < 0.001",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      },
+                      {
+                        "test_name": "Mann-Whitney U test",
+                        "statistical_hypothesis": "Distribution of choices for p=2/3 != Distribution of choices for p=4/3",
+                        "reported_statistics": "p < 0.0001",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "First period mean and median choices across different parameter conditions.",
+                      "data": {
+                        "p_0.5_condition": {
+                          "mean": 27.05,
+                          "median": 17.0,
+                          "n": 48,
+                          "note": "Corrected from paper: 3 sessions with 48 total participants (not 50)",
+                          "specific_choices": {
+                            "percent_above_50": 6,
+                            "note": "6% chose numbers > 50 (dominated strategies)"
+                          }
+                        },
+                        "p_0.66_condition": {
+                          "mean": 36.73,
+                          "median": 33.0,
+                          "n": 67,
+                          "specific_choices": {
+                            "percent_above_67": 10,
+                            "note": "10% chose numbers > 67 (dominated strategies)"
+                          }
+                        },
+                        "p_1.33_condition": {
+                          "mean": 60.12,
+                          "median": 66.0,
+                          "n": 51,
+                          "specific_choices": {
+                            "percent_99_100_1": 10,
+                            "note": "10% chose 99, 100, or 1"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F2",
+                    "main_hypothesis": "Observed choices are more concentrated in neighborhood intervals corresponding to iteration steps (50*p^n) than expected by chance.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "One-sided Binomial Test",
+                        "statistical_hypothesis": "Concentration in neighborhood intervals (Step 1, 2) > Random chance",
+                        "reported_statistics": "p < 0.01 (for p=1/2 and p=2/3), p < 0.05 (for p=4/3)",
+                        "note": "Paper p. 1318: One-sided Binomial Test (not Chi-square approximation)",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Concentration of choices around theoretical iteration steps.",
+                      "neighborhood_definition": {
+                        "method": "Dynamic intervals based on p and step n",
+                        "formula": "50p^(n±1/4)",
+                        "explanation": "For step n, neighborhood is [50p^(n-1/4), 50p^(n+1/4)]. This is NOT a fixed ±5 interval, but depends on p and n.",
+                        "example": {
+                          "p_0.5_step_1": {
+                            "step_value": 25.0,
+                            "lower_bound": "50 * 0.5^(1-0.25) = 50 * 0.5^0.75 ≈ 29.7",
+                            "upper_bound": "50 * 0.5^(1+0.25) = 50 * 0.5^1.25 ≈ 21.0",
+                            "note": "Lower > Upper because p < 1, so p^(n-1/4) > p^(n+1/4)"
+                          }
+                        }
+                      },
+                      "data": {
+                        "p_0.5_neighborhoods": {
+                          "claim": "Almost 50% concentrated in Step 1 and Step 2 neighborhoods",
+                          "note": "Paper reports concentration in Step 1 and Step 2, but we test Step 0, 1, 2 for completeness",
+                          "approximate_success_rate": "Almost 50%",
+                          "n": 48,
+                          "estimated_k": 24
+                        },
+                        "p_0.66_neighborhoods": {
+                          "claim": "Almost 50% concentrated in Step 1 and Step 2 neighborhoods",
+                          "note": "Paper reports concentration in Step 1 and Step 2, but we test Step 0, 1, 2 for completeness",
+                          "approximate_success_rate": "Almost 50%",
+                          "n": 67,
+                          "estimated_k": 33
+                        },
+                        "p_1.33_neighborhoods": {
+                          "claim": "Concentrated in neighborhood intervals",
+                          "note": "Data extracted from Figure 2C (Page 1317) and text descriptions (Page 1318, 1322). Round 1: Step 1-3 total ~55-60% (from Figure 2C). Rounds 2-4: percentage choosing 100 (optimal strategy).",
+                          "round_1": {
+                            "estimated_k": 28,
+                            "note": "~55% of 51 ≈ 28, from Figure 2C: Step 1 (~30%) + Step 2 (~15%) + Step 3 (~10%)"
+                          },
+                          "round_2": {
+                            "estimated_k": 8,
+                            "note": "16% of 51 ≈ 8, from Page 1318: '100 was chosen by 16 percent in second period'"
+                          },
+                          "round_3": {
+                            "estimated_k": 30,
+                            "note": "59% of 51 ≈ 30, from Page 1318: '59 percent in third period'"
+                          },
+                          "round_4": {
+                            "estimated_k": 35,
+                            "note": "68% of 51 ≈ 35, from Page 1318: '68 percent in fourth period'"
+                          },
+                          "n": 51,
+                          "approximate_success_rate": "Round 1: ~55% (Step 1-3), Rounds 2-4: 16%, 59%, 68% (choosing 100)"
+                        }
+                      },
+                      "table_2_data": {
+                        "description": "Relative frequencies (%) of choices by step classification in Periods 2-4 (Paper Table 2)",
+                        "p_0.5_condition": {
+                          "period_2": {
+                            "higher_steps": 4.2,
+                            "step_3": 25.0,
+                            "step_2": 31.3,
+                            "step_1": 27.0,
+                            "step_0": 2.1,
+                            "above_mean_t_minus_1": 10.4
+                          },
+                          "period_3": {
+                            "higher_steps": 4.2,
+                            "step_3": 12.5,
+                            "step_2": 60.4,
+                            "step_1": 12.5,
+                            "step_0": 4.1,
+                            "above_mean_t_minus_1": 6.3
+                          },
+                          "period_4": {
+                            "higher_steps": 20.8,
+                            "step_3": 22.9,
+                            "step_2": 29.2,
+                            "step_1": 14.5,
+                            "step_0": 4.2,
+                            "above_mean_t_minus_1": 8.3
+                          }
+                        },
+                        "p_0.66_condition": {
+                          "period_2": {
+                            "higher_steps": 7.5,
+                            "step_3": 11.9,
+                            "step_2": 31.3,
+                            "step_1": 20.9,
+                            "step_0": 14.9,
+                            "above_mean_t_minus_1": 13.4
+                          },
+                          "period_3": {
+                            "higher_steps": 1.5,
+                            "step_3": 17.9,
+                            "step_2": 46.2,
+                            "step_1": 16.4,
+                            "step_0": 7.5,
+                            "above_mean_t_minus_1": 10.5
+                          },
+                          "period_4": {
+                            "higher_steps": 7.5,
+                            "step_3": 25.3,
+                            "step_2": 47.8,
+                            "step_1": 10.4,
+                            "step_0": 3.0,
+                            "above_mean_t_minus_1": 6.0
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F3",
+                    "main_hypothesis": "In repeated rounds, choices move toward the Nash equilibrium (unraveling). For p < 1, choices decrease over time; for p > 1, choices increase over time.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Binomial Test",
+                        "statistical_hypothesis": "Proportion of transitions in correct direction (decrease for p<1, increase for p>1) > 0.5",
+                        "reported_statistics": "Significant at 5% level",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive",
+                        "note": "Test based on transition counts (R1->R2, R2->R3, R3->R4)"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Transition counts showing directional movement over time.",
+                      "data": {
+                        "p_0.5_condition": {
+                          "total_transitions": 144,
+                          "decrease_count": 135,
+                          "success_rate": 0.9375,
+                          "note": "Sessions 1-3: 135 out of 144 transitions show decrease (below diagonal)"
+                        },
+                        "p_0.66_condition": {
+                          "total_transitions": 201,
+                          "decrease_count": 163,
+                          "success_rate": 0.8109,
+                          "note": "Sessions 4-7: 163 out of 201 transitions show decrease"
+                        },
+                        "p_1.33_condition": {
+                          "total_transitions": 153,
+                          "increase_count": 133,
+                          "success_rate": 0.8693,
+                          "note": "133 out of 153 transitions show increase (above diagonal)"
+                        },
+                        "extreme_values": {
+                          "p_0.5_round_4": {
+                            "percent_below_1": ">50%",
+                            "note": "More than half of observations < 1 in Round 4"
+                          },
+                          "p_1.33_round_2": {
+                            "percent_100": 16,
+                            "note": "16% chose 100 in Round 2"
+                          },
+                          "p_1.33_round_3": {
+                            "percent_100": 59,
+                            "note": "59% chose 100 in Round 3"
+                          },
+                          "p_1.33_round_4": {
+                            "percent_100": 68,
+                            "note": "68% chose 100 in Round 4"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F4",
+                    "main_hypothesis": "The rate of decrease (convergence speed) differs between p=1/2 and p=2/3 conditions, with p=1/2 converging faster.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Mann-Whitney U test",
+                        "statistical_hypothesis": "Median rate of decrease for p=1/2 > Median rate of decrease for p=2/3",
+                        "reported_statistics": "p = 0.05 (one-tailed)",
+                        "significance_level": 0.05,
+                        "expected_direction": "positive",
+                        "note": "Test based on session-level median decrease rates (w_med)"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Median rate of decrease (w_med) calculated per session from Round 1 to Round 4.",
+                      "data": {
+                        "p_0.5_condition": {
+                          "median_rates": [
+                            0.88,
+                            0.98,
+                            0.97
+                          ],
+                          "n_sessions": 3,
+                          "note": "Sessions 1-3 median decrease rates"
+                        },
+                        "p_0.66_condition": {
+                          "median_rates": [
+                            0.7,
+                            0.91,
+                            0.71,
+                            0.76
+                          ],
+                          "n_sessions": 4,
+                          "note": "Sessions 4-7 median decrease rates"
+                        },
+                        "statistical_test": {
+                          "method": "Mann-Whitney U test (one-tailed)",
+                          "group_1": "p=1/2 median rates [0.88, 0.98, 0.97], n=3",
+                          "group_2": "p=2/3 median rates [0.7, 0.91, 0.71, 0.76], n=4",
+                          "p_value": 0.05,
+                          "one_tailed": true,
+                          "note": "Mean rate of decrease difference was not significant, but median rate difference was significant at 5% level"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F5",
+                    "main_hypothesis": "In Periods 2-4, players' choices relative to p × mean_{t-1} (the theoretical Step 1 target).",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Binomial Test (Weak Hypothesis)",
+                        "statistical_hypothesis": "Proportion of choices < mean_{t-1} > 0.5",
+                        "reported_statistics": "p < 0.01",
+                        "significance_level": 0.01,
+                        "expected_direction": "positive",
+                        "note": "Paper p. 9 Footnote 15: Weak hypothesis - choices below mean_{t-1} are significant at 1% level in all sessions and all periods"
+                      },
+                      {
+                        "test_name": "Binomial Test (Strong Hypothesis - Period 4)",
+                        "statistical_hypothesis": "Proportion of choices < p × mean_{t-1} in Period 4 (rejected in 6/7 sessions)",
+                        "reported_statistics": "p < 0.01 (6 out of 7 sessions reject at 1% level)",
+                        "significance_level": 0.01,
+                        "expected_direction": "positive",
+                        "note": "Paper p. 9 Footnote 15: Strong hypothesis - In Period 4, the hypothesis that choices < p × mean_{t-1} is rejected in 6 out of 7 sessions at 1% level. Periods 2-3 cannot reject this hypothesis."
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Reference point test: comparing choices to p × mean_{t-1} in Periods 2-4. Session-level analysis.",
+                      "data": {
+                        "weak_hypothesis": {
+                          "description": "Choices < mean_{t-1}",
+                          "periods": [
+                            2,
+                            3,
+                            4
+                          ],
+                          "p_value": 0.01,
+                          "note": "Significant at 1% level in all sessions and all periods"
+                        },
+                        "strong_hypothesis": {
+                          "description": "Choices < p × mean_{t-1}",
+                          "period": 4,
+                          "sessions_rejecting": 6,
+                          "total_sessions": 7,
+                          "p_value": 0.01,
+                          "rejection_level": "1%",
+                          "note": "Period 4: 6 out of 7 sessions reject the hypothesis that choices < p × mean_{t-1} at 1% level. Periods 2-3 cannot reject this hypothesis."
+                        },
+                        "statistical_summary": {
+                          "note": "Raw counts for individual sessions are not available in the paper. We use the reported p-values and session-level rejection counts for Pi_Human calculation."
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F6",
+                    "main_hypothesis": "Players adjust their choices according to Learning Direction Theory: if their adjustment factor (choice/previous_mean) was above the optimal, they decrease it; if below, they increase it.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Binomial Test (Session-level)",
+                        "statistical_hypothesis": "All 7 sessions have LDT alignment rate > 50% (k=7, n=7)",
+                        "reported_statistics": "p = 0.0078 (0.5^7) < 0.01",
+                        "significance_level": 0.01,
+                        "expected_direction": "positive",
+                        "note": "Paper p. 12: Test A - Each session is an independent observation. All 7 sessions (Sessions 1-7, p<1 only) show LDT alignment > 50%, so k=7, n=7, p0=0.5"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Learning Direction Theory alignment: session-level analysis for p<1 conditions only (Sessions 1-7).",
+                      "data": {
+                        "scope": {
+                          "conditions": [
+                            "p_0.5_condition",
+                            "p_0.66_condition"
+                          ],
+                          "sessions": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7
+                          ],
+                          "note": "Only p<1 conditions (Sessions 1-3 for p=1/2, Sessions 4-7 for p=2/3). p=4/3 condition is excluded."
+                        },
+                        "exclusion_rule": {
+                          "description": "Exclude transitions from participants who won in the previous round",
+                          "p_0.5_condition": {
+                            "excluded_transitions": 19,
+                            "total_transitions": 144,
+                            "note": "19 winning observations excluded from 144 total transitions"
+                          },
+                          "p_0.66_condition": {
+                            "excluded_transitions": 23,
+                            "total_transitions": 201,
+                            "note": "23 winning observations excluded from 201 total transitions"
+                          }
+                        },
+                        "session_level_results": {
+                          "test_a": {
+                            "description": "Test A: Is experience irrelevant? (LDT alignment > 50% in each session)",
+                            "successes": 7,
+                            "total_sessions": 7,
+                            "p_value": 0.0078,
+                            "calculation": "0.5^7 = 0.0078 < 0.01",
+                            "note": "All 7 sessions have LDT alignment rate > 50%, so k=7, n=7, p0=0.5"
+                          },
+                          "alignment_rates": {
+                            "mean": 73,
+                            "range": [
+                              67,
+                              78
+                            ],
+                            "note": "Mean of 73% across all sessions, range 67%-78%"
+                          },
+                          "comparison": {
+                            "simple_decrease_rate": 58,
+                            "range": [
+                              51,
+                              69
+                            ],
+                            "note": "Simple 'always decrease' strategy would only achieve 58% (range 51%-69%), showing LDT is a better explanation"
+                          }
+                        },
+                        "statistical_test": {
+                          "method": "Binomial Test (Session-level)",
+                          "null_hypothesis": "Experience is irrelevant (50% correct direction in each session)",
+                          "result": "Rejected at 1% level: k=7, n=7, p=0.0078",
+                          "note": "Paper p. 12: 'In each session, pooling the data over the three transition periods... the null hypothesis that experience is irrelevant can be rejected at the 1-percent level'"
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "overall_original_results": {
+              "description": "Structured repository of numerical findings for the p-Beauty Contest experiments.",
+              "data_tables": [
+                {
+                  "table_name": "Table 1: Means and Medians over 4 Periods",
+                  "headers": [
+                    "Session",
+                    "Parameter p",
+                    "Metric",
+                    "Period 1",
+                    "Period 2",
+                    "Period 3",
+                    "Period 4"
+                  ],
+                  "rows": [
+                    [
+                      "Session 1",
+                      "1/2",
+                      "Mean",
+                      23.7,
+                      10.9,
+                      5.3,
+                      8.1
+                    ],
+                    [
+                      "Session 1",
+                      "1/2",
+                      "Median",
+                      17,
+                      7,
+                      3,
+                      2
+                    ],
+                    [
+                      "Session 4",
+                      "2/3",
+                      "Mean",
+                      39.7,
+                      28.6,
+                      20.2,
+                      16.7
+                    ],
+                    [
+                      "Session 4",
+                      "2/3",
+                      "Median",
+                      33,
+                      29,
+                      14,
+                      10
+                    ]
+                  ]
+                },
+                {
+                  "table_name": "Aggregate First Period Results",
+                  "headers": [
+                    "Condition",
+                    "N",
+                    "Mean",
+                    "Median"
+                  ],
+                  "rows": [
+                    [
+                      "p = 1/2",
+                      48,
+                      27.05,
+                      17.0
+                    ],
+                    [
+                      "p = 2/3",
+                      67,
+                      36.73,
+                      33.0
+                    ],
+                    [
+                      "p = 4/3",
+                      51,
+                      60.12,
+                      66.0
+                    ]
+                  ]
+                }
+              ],
+              "all_raw_data": {
+                "p_0.5_condition": {
+                  "n": 48,
+                  "period_1_mean": 27.05,
+                  "period_1_median": 17.0,
+                  "session_1_means": [
+                    23.7,
+                    10.9,
+                    5.3,
+                    8.1
+                  ],
+                  "session_1_medians": [
+                    17,
+                    7,
+                    3,
+                    2
+                  ]
+                },
+                "p_0.66_condition": {
+                  "n": 67,
+                  "period_1_mean": 36.73,
+                  "period_1_median": 33.0,
+                  "session_4_means": [
+                    39.7,
+                    28.6,
+                    20.2,
+                    16.7
+                  ],
+                  "session_4_medians": [
+                    33,
+                    29,
+                    14,
+                    10
+                  ]
+                },
+                "p_1.33_condition": {
+                  "n": 51,
+                  "period_1_mean": 60.12,
+                  "period_1_median": 66.0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "study_012",
+      "program": {
+        "schemaVersion": 2,
+        "id": "study-12",
+        "title": "Trust, Reciprocity, and Social History",
+        "intent": "reconstruct",
+        "source": {
+          "title": "Trust, Reciprocity, and Social History",
+          "authors": "Joyce Berg, John Dickhaut, Kevin McCabe",
+          "filename": ""
+        },
+        "studies": [
+          {
+            "id": "exp-1",
+            "title": "No History Treatment",
+            "type": "unspecified"
+          },
+          {
+            "id": "exp-2",
+            "title": "Social History Treatment",
+            "type": "unspecified"
+          },
+          {
+            "id": "exp-3",
+            "title": "Joint Earnings & Behavioral Types",
+            "type": "analysis"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "result-1",
+            "kind": "result",
+            "title": "No History Treatment",
+            "studyIds": [
+              "exp-1"
+            ],
+            "fields": [
+              {
+                "id": "reported-findings",
+                "label": "Original reported findings",
+                "value": [
+                  {
+                    "finding_id": "F1",
+                    "main_hypothesis": "Trust exists (A0: Ma > 0 for some a) and the distribution of amounts sent is not uniform.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Approximate Randomization Test",
+                        "statistical_hypothesis": "The sample of Room A decisions was drawn from a uniform distribution (N0).",
+                        "reported_statistics": "p = 0.29",
+                        "significance_level": 0.05,
+                        "expected_direction": "none"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Investment decisions (amount sent) by Room A subjects.",
+                      "data": {
+                        "No History Room A": {
+                          "mean": 5.16,
+                          "n": 32
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F2",
+                    "main_hypothesis": "Reciprocity exists as a socially stable norm (A2: Average kb(3Ma) > Ma).",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Mean Comparison",
+                        "statistical_hypothesis": "Average amount returned (kb(3Ma)) > Average amount sent (Ma).",
+                        "reported_statistics": "Mean Sent = $5.16, Mean Returned = $4.66",
+                        "significance_level": null,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Comparison of average investment vs average payback.",
+                      "data": {
+                        "Room A (Sent)": {
+                          "mean": 5.16,
+                          "n": 32
+                        },
+                        "Room B (Returned)": {
+                          "mean": 4.66,
+                          "n": 32
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F3",
+                    "main_hypothesis": "Amounts sent and payback decisions are positively correlated (A3).",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Spearman's rank correlation coefficient",
+                        "statistical_hypothesis": "Correlation (rs) between Ma and kb(Ma) > 0.",
+                        "reported_statistics": "rs = 0.01",
+                        "significance_level": null,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Correlation between the amount sent by Room A and the amount returned by Room B.",
+                      "data": {
+                        "No History Pairs": {
+                          "n": 32,
+                          "correlation": 0.01
+                        }
+                      }
+                    }
+                  }
+                ],
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "result-2",
+            "kind": "result",
+            "title": "Social History Treatment",
+            "studyIds": [
+              "exp-2"
+            ],
+            "fields": [
+              {
+                "id": "reported-findings",
+                "label": "Original reported findings",
+                "value": [
+                  {
+                    "finding_id": "F4",
+                    "main_hypothesis": "Trust exists and is influenced by social history, leading to a non-uniform distribution of amounts sent.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Approximate Randomization Test",
+                        "statistical_hypothesis": "The sample of Room A decisions was drawn from a uniform distribution (N0).",
+                        "reported_statistics": "p = 0.06",
+                        "significance_level": 0.05,
+                        "expected_direction": "none"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Investment decisions by Room A subjects provided with social history.",
+                      "data": {
+                        "Social History Room A": {
+                          "mean": 5.36,
+                          "n": 28
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F5",
+                    "main_hypothesis": "Social history increases the level of reciprocity (paybacks) compared to the No History treatment.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Wilcoxon rank-sum test",
+                        "statistical_hypothesis": "Paybacks in Social History > Paybacks in No History.",
+                        "reported_statistics": "r = 776, p = 0.1",
+                        "significance_level": 0.1,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Comparison of payback amounts between Experiment 1 and Experiment 2.",
+                      "data": {
+                        "No History Payback": {
+                          "mean": 4.66,
+                          "n": 32
+                        },
+                        "Social History Payback": {
+                          "mean": 6.46,
+                          "n": 28
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F6",
+                    "main_hypothesis": "Social history strengthens the correlation between trust and reciprocity.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Spearman's rank correlation coefficient",
+                        "statistical_hypothesis": "Correlation (rs) in Social History > 0.",
+                        "reported_statistics": "rs = 0.34",
+                        "significance_level": null,
+                        "expected_direction": "positive"
+                      },
+                      {
+                        "test_name": "Resampling test",
+                        "statistical_hypothesis": "Correlation (Social History) > Correlation (No History).",
+                        "reported_statistics": "p = 0.06",
+                        "significance_level": 0.1,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Correlation between amount sent and amount returned in the Social History condition.",
+                      "data": {
+                        "Social History Pairs": {
+                          "n": 28,
+                          "correlation": 0.34
+                        }
+                      }
+                    }
+                  }
+                ],
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "result-3",
+            "kind": "result",
+            "title": "Joint Earnings & Behavioral Types",
+            "studyIds": [
+              "exp-3"
+            ],
+            "fields": [
+              {
+                "id": "reported-findings",
+                "label": "Original reported findings",
+                "value": [
+                  {
+                    "finding_id": "F7",
+                    "main_hypothesis": "Room B's behavior follows specific fairness norms or strategies (k=0, k=1/3, k=1/2, k=2/3).",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Strategy Type Classification",
+                        "statistical_hypothesis": "Over 90% of data points can be explained by four strategy types (k=0, k=1/3, k=1/2, k=2/3) within $1 tolerance.",
+                        "reported_statistics": ">90% of pairs follow one of four strategies",
+                        "significance_level": null,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Classification of Room B return strategies based on k = Return / (3 * Sent).",
+                      "data": {
+                        "Strategy Types": {
+                          "k=0": "Selfish (Return = 0)",
+                          "k=1/3": "Return principal (Return = Sent)",
+                          "k=1/2": "Split total (Return = 1.5 * Sent)",
+                          "k=2/3": "Equal earnings (Return makes final earnings equal)"
+                        },
+                        "Coverage": ">90% of 60 pairs"
+                      }
+                    }
+                  }
+                ],
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "spec",
+            "kind": "design",
+            "title": "Imported design specification",
+            "studyIds": [],
+            "fields": [
+              {
+                "id": "source-specification",
+                "label": "Specification",
+                "value": {
+                  "study_id": "berg_geb95",
+                  "title": "Trust, Reciprocity, and Social History",
+                  "participants": {
+                    "n": 120,
+                    "population": "undergraduate students",
+                    "recruitment_source": "Recruited by phone; had previously participated in at least one unrelated paid lab experiment.",
+                    "demographics": {},
+                    "by_sub_study": {
+                      "no_history_investment_game": {
+                        "n": 64,
+                        "population": "undergraduate students at the University of Minnesota",
+                        "recruitment_source": "Recruited by phone",
+                        "compensation": "$10 show-up fee (plus earnings from the game)"
+                      },
+                      "social_history_investment_game": {
+                        "n": 56,
+                        "population": "undergraduate students at the University of Minnesota",
+                        "recruitment_source": "Recruited by phone",
+                        "compensation": "$10 show-up fee (plus earnings)"
+                      }
+                    }
+                  },
+                  "design": {
+                    "type": "Between-Subjects",
+                    "factors": [
+                      {
+                        "name": "Social History Information",
+                        "levels": [
+                          "No History",
+                          "Social History"
+                        ],
+                        "type": "Between-Subjects"
+                      }
+                    ]
+                  },
+                  "procedure": {
+                    "steps": [
+                      "Subjects are recruited and provided with a $10 show-up fee.",
+                      "In the Social History treatment, subjects are provided with a report summarizing the results (amount sent, number of persons, average amount returned, and average profit) of the 32 pairs from the No History treatment.",
+                      "Room A subjects decide how much of their $10 show-up fee to send to an anonymous counterpart in Room B.",
+                      "The amount sent by Room A subjects is tripled by the experimenters.",
+                      "Room B subjects receive the tripled amount and decide how much to send back to the person in Room A and how much to keep."
+                    ]
+                  }
+                },
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "sender",
+            "kind": "role",
+            "title": "Room A participant",
+            "studyIds": [],
+            "fields": [],
+            "evidenceIds": []
+          },
+          {
+            "id": "receiver",
+            "kind": "role",
+            "title": "Room B participant",
+            "studyIds": [],
+            "fields": [],
+            "evidenceIds": []
+          },
+          {
+            "id": "transfer",
+            "kind": "record",
+            "title": "Amount sent",
+            "studyIds": [],
+            "fields": [],
+            "evidenceIds": []
+          },
+          {
+            "id": "return",
+            "kind": "record",
+            "title": "Amount returned",
+            "studyIds": [],
+            "fields": [],
+            "evidenceIds": []
+          }
+        ],
+        "steps": [
+          {
+            "id": "send-0",
+            "studyId": "exp-1",
+            "kind": "action",
+            "title": "Send money",
+            "actorIds": [
+              "sender"
+            ],
+            "inputIds": [],
+            "outputIds": [
+              "transfer"
+            ],
+            "visibleIds": [],
+            "children": [],
+            "next": [
+              {
+                "to": "return-0"
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "return-0",
+            "studyId": "exp-1",
+            "kind": "interaction",
+            "title": "Return money",
+            "actorIds": [
+              "receiver"
+            ],
+            "inputIds": [
+              "transfer"
+            ],
+            "outputIds": [
+              "return"
+            ],
+            "visibleIds": [
+              "transfer"
+            ],
+            "children": [],
+            "next": [],
+            "evidenceIds": []
+          },
+          {
+            "id": "send-1",
+            "studyId": "exp-2",
+            "kind": "action",
+            "title": "Send money",
+            "actorIds": [
+              "sender"
+            ],
+            "inputIds": [],
+            "outputIds": [
+              "transfer"
+            ],
+            "visibleIds": [],
+            "children": [],
+            "next": [
+              {
+                "to": "return-1"
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "return-1",
+            "studyId": "exp-2",
+            "kind": "interaction",
+            "title": "Return money",
+            "actorIds": [
+              "receiver"
+            ],
+            "inputIds": [
+              "transfer"
+            ],
+            "outputIds": [
+              "return"
+            ],
+            "visibleIds": [
+              "transfer"
+            ],
+            "children": [],
+            "next": [],
+            "evidenceIds": []
+          }
+        ],
+        "relations": [],
+        "evidence": [],
+        "issues": [],
+        "extensions": {
+          "fixturePurpose": "Offline contract/renderer fixture; legacy scientific semantics require source verification",
+          "sourceCommit": "50086798df2606ceb0c651b58e4d5ddef523b2b5",
+          "specification": {
+            "study_id": "berg_geb95",
+            "title": "Trust, Reciprocity, and Social History",
+            "participants": {
+              "n": 120,
+              "population": "undergraduate students",
+              "recruitment_source": "Recruited by phone; had previously participated in at least one unrelated paid lab experiment.",
+              "demographics": {},
+              "by_sub_study": {
+                "no_history_investment_game": {
+                  "n": 64,
+                  "population": "undergraduate students at the University of Minnesota",
+                  "recruitment_source": "Recruited by phone",
+                  "compensation": "$10 show-up fee (plus earnings from the game)"
+                },
+                "social_history_investment_game": {
+                  "n": 56,
+                  "population": "undergraduate students at the University of Minnesota",
+                  "recruitment_source": "Recruited by phone",
+                  "compensation": "$10 show-up fee (plus earnings)"
+                }
+              }
+            },
+            "design": {
+              "type": "Between-Subjects",
+              "factors": [
+                {
+                  "name": "Social History Information",
+                  "levels": [
+                    "No History",
+                    "Social History"
+                  ],
+                  "type": "Between-Subjects"
+                }
+              ]
+            },
+            "procedure": {
+              "steps": [
+                "Subjects are recruited and provided with a $10 show-up fee.",
+                "In the Social History treatment, subjects are provided with a report summarizing the results (amount sent, number of persons, average amount returned, and average profit) of the 32 pairs from the No History treatment.",
+                "Room A subjects decide how much of their $10 show-up fee to send to an anonymous counterpart in Room B.",
+                "The amount sent by Room A subjects is tripled by the experimenters.",
+                "Room B subjects receive the tripled amount and decide how much to send back to the person in Room A and how much to keep."
+              ]
+            }
+          },
+          "groundTruth": {
+            "study_id": "berg_geb95",
+            "title": "Trust, Reciprocity, and Social History",
+            "authors": [
+              "Joyce Berg",
+              "John Dickhaut",
+              "Kevin McCabe"
+            ],
+            "year": 1995,
+            "studies": [
+              {
+                "study_id": "Experiment 1",
+                "study_name": "No History Treatment",
+                "findings": [
+                  {
+                    "finding_id": "F1",
+                    "main_hypothesis": "Trust exists (A0: Ma > 0 for some a) and the distribution of amounts sent is not uniform.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Approximate Randomization Test",
+                        "statistical_hypothesis": "The sample of Room A decisions was drawn from a uniform distribution (N0).",
+                        "reported_statistics": "p = 0.29",
+                        "significance_level": 0.05,
+                        "expected_direction": "none"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Investment decisions (amount sent) by Room A subjects.",
+                      "data": {
+                        "No History Room A": {
+                          "mean": 5.16,
+                          "n": 32
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F2",
+                    "main_hypothesis": "Reciprocity exists as a socially stable norm (A2: Average kb(3Ma) > Ma).",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Mean Comparison",
+                        "statistical_hypothesis": "Average amount returned (kb(3Ma)) > Average amount sent (Ma).",
+                        "reported_statistics": "Mean Sent = $5.16, Mean Returned = $4.66",
+                        "significance_level": null,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Comparison of average investment vs average payback.",
+                      "data": {
+                        "Room A (Sent)": {
+                          "mean": 5.16,
+                          "n": 32
+                        },
+                        "Room B (Returned)": {
+                          "mean": 4.66,
+                          "n": 32
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F3",
+                    "main_hypothesis": "Amounts sent and payback decisions are positively correlated (A3).",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Spearman's rank correlation coefficient",
+                        "statistical_hypothesis": "Correlation (rs) between Ma and kb(Ma) > 0.",
+                        "reported_statistics": "rs = 0.01",
+                        "significance_level": null,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Correlation between the amount sent by Room A and the amount returned by Room B.",
+                      "data": {
+                        "No History Pairs": {
+                          "n": 32,
+                          "correlation": 0.01
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "study_id": "Experiment 2",
+                "study_name": "Social History Treatment",
+                "findings": [
+                  {
+                    "finding_id": "F4",
+                    "main_hypothesis": "Trust exists and is influenced by social history, leading to a non-uniform distribution of amounts sent.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Approximate Randomization Test",
+                        "statistical_hypothesis": "The sample of Room A decisions was drawn from a uniform distribution (N0).",
+                        "reported_statistics": "p = 0.06",
+                        "significance_level": 0.05,
+                        "expected_direction": "none"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Investment decisions by Room A subjects provided with social history.",
+                      "data": {
+                        "Social History Room A": {
+                          "mean": 5.36,
+                          "n": 28
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F5",
+                    "main_hypothesis": "Social history increases the level of reciprocity (paybacks) compared to the No History treatment.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Wilcoxon rank-sum test",
+                        "statistical_hypothesis": "Paybacks in Social History > Paybacks in No History.",
+                        "reported_statistics": "r = 776, p = 0.1",
+                        "significance_level": 0.1,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Comparison of payback amounts between Experiment 1 and Experiment 2.",
+                      "data": {
+                        "No History Payback": {
+                          "mean": 4.66,
+                          "n": 32
+                        },
+                        "Social History Payback": {
+                          "mean": 6.46,
+                          "n": 28
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "finding_id": "F6",
+                    "main_hypothesis": "Social history strengthens the correlation between trust and reciprocity.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Spearman's rank correlation coefficient",
+                        "statistical_hypothesis": "Correlation (rs) in Social History > 0.",
+                        "reported_statistics": "rs = 0.34",
+                        "significance_level": null,
+                        "expected_direction": "positive"
+                      },
+                      {
+                        "test_name": "Resampling test",
+                        "statistical_hypothesis": "Correlation (Social History) > Correlation (No History).",
+                        "reported_statistics": "p = 0.06",
+                        "significance_level": 0.1,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Correlation between amount sent and amount returned in the Social History condition.",
+                      "data": {
+                        "Social History Pairs": {
+                          "n": 28,
+                          "correlation": 0.34
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "study_id": "Combined Analysis",
+                "study_name": "Joint Earnings & Behavioral Types",
+                "findings": [
+                  {
+                    "finding_id": "F7",
+                    "main_hypothesis": "Room B's behavior follows specific fairness norms or strategies (k=0, k=1/3, k=1/2, k=2/3).",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Strategy Type Classification",
+                        "statistical_hypothesis": "Over 90% of data points can be explained by four strategy types (k=0, k=1/3, k=1/2, k=2/3) within $1 tolerance.",
+                        "reported_statistics": ">90% of pairs follow one of four strategies",
+                        "significance_level": null,
+                        "expected_direction": "positive"
+                      }
+                    ],
+                    "original_data_points": {
+                      "description": "Classification of Room B return strategies based on k = Return / (3 * Sent).",
+                      "data": {
+                        "Strategy Types": {
+                          "k=0": "Selfish (Return = 0)",
+                          "k=1/3": "Return principal (Return = Sent)",
+                          "k=1/2": "Split total (Return = 1.5 * Sent)",
+                          "k=2/3": "Equal earnings (Return makes final earnings equal)"
+                        },
+                        "Coverage": ">90% of 60 pairs"
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "overall_original_results": {
+              "description": "Complete item-level results for both experiments, showing the amount sent by Room A and returned by Room B for every pair.",
+              "data_tables": [
+                {
+                  "table_name": "Experiment 1: No History Item-Level Data",
+                  "headers": [
+                    "Pair Index",
+                    "Amount Sent (Ma)",
+                    "Amount Returned (kb)"
+                  ],
+                  "rows": [
+                    [
+                      1,
+                      7.0,
+                      1.0
+                    ],
+                    [
+                      2,
+                      3.0,
+                      0.0
+                    ],
+                    [
+                      3,
+                      7.0,
+                      6.0
+                    ],
+                    [
+                      4,
+                      5.0,
+                      11.0
+                    ],
+                    [
+                      5,
+                      3.0,
+                      1.0
+                    ],
+                    [
+                      6,
+                      2.0,
+                      4.0
+                    ],
+                    [
+                      7,
+                      6.0,
+                      0.0
+                    ],
+                    [
+                      8,
+                      4.0,
+                      1.0
+                    ],
+                    [
+                      9,
+                      10.0,
+                      20.0
+                    ],
+                    [
+                      10,
+                      5.0,
+                      5.0
+                    ],
+                    [
+                      11,
+                      5.0,
+                      7.0
+                    ],
+                    [
+                      12,
+                      10.0,
+                      0.0
+                    ],
+                    [
+                      13,
+                      5.0,
+                      0.0
+                    ],
+                    [
+                      14,
+                      8.0,
+                      4.0
+                    ],
+                    [
+                      15,
+                      5.0,
+                      15.0
+                    ],
+                    [
+                      16,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      17,
+                      7.0,
+                      1.0
+                    ],
+                    [
+                      18,
+                      1.0,
+                      0.0
+                    ],
+                    [
+                      19,
+                      3.0,
+                      5.0
+                    ],
+                    [
+                      20,
+                      2.0,
+                      0.0
+                    ],
+                    [
+                      21,
+                      6.0,
+                      12.0
+                    ],
+                    [
+                      22,
+                      10.0,
+                      15.0
+                    ],
+                    [
+                      23,
+                      3.0,
+                      6.0
+                    ],
+                    [
+                      24,
+                      6.0,
+                      8.0
+                    ],
+                    [
+                      25,
+                      6.0,
+                      1.0
+                    ],
+                    [
+                      26,
+                      10.0,
+                      15.0
+                    ],
+                    [
+                      27,
+                      10.0,
+                      1.0
+                    ],
+                    [
+                      28,
+                      6.0,
+                      3.0
+                    ],
+                    [
+                      29,
+                      4.0,
+                      1.0
+                    ],
+                    [
+                      30,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      31,
+                      5.0,
+                      5.0
+                    ],
+                    [
+                      32,
+                      1.0,
+                      1.0
+                    ]
+                  ]
+                },
+                {
+                  "table_name": "Experiment 2: Social History Item-Level Data",
+                  "headers": [
+                    "Pair Index",
+                    "Amount Sent (Ma)",
+                    "Amount Returned (kb)"
+                  ],
+                  "rows": [
+                    [
+                      1,
+                      5.0,
+                      11.0
+                    ],
+                    [
+                      2,
+                      10.0,
+                      15.0
+                    ],
+                    [
+                      3,
+                      2.0,
+                      2.0
+                    ],
+                    [
+                      4,
+                      5.0,
+                      8.0
+                    ],
+                    [
+                      5,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      6,
+                      2.0,
+                      1.0
+                    ],
+                    [
+                      7,
+                      10.0,
+                      16.0
+                    ],
+                    [
+                      8,
+                      10.0,
+                      15.0
+                    ],
+                    [
+                      9,
+                      5.0,
+                      5.0
+                    ],
+                    [
+                      10,
+                      9.0,
+                      0.0
+                    ],
+                    [
+                      11,
+                      3.0,
+                      0.0
+                    ],
+                    [
+                      12,
+                      2.0,
+                      0.0
+                    ],
+                    [
+                      13,
+                      10.0,
+                      5.0
+                    ],
+                    [
+                      14,
+                      2.0,
+                      0.0
+                    ],
+                    [
+                      15,
+                      5.0,
+                      0.0
+                    ],
+                    [
+                      16,
+                      5.0,
+                      10.0
+                    ],
+                    [
+                      17,
+                      8.0,
+                      3.0
+                    ],
+                    [
+                      18,
+                      5.0,
+                      8.0
+                    ],
+                    [
+                      19,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      20,
+                      1.0,
+                      1.0
+                    ],
+                    [
+                      21,
+                      10.0,
+                      20.0
+                    ],
+                    [
+                      22,
+                      7.0,
+                      14.0
+                    ],
+                    [
+                      23,
+                      10.0,
+                      15.0
+                    ],
+                    [
+                      24,
+                      3.0,
+                      6.0
+                    ],
+                    [
+                      25,
+                      10.0,
+                      10.0
+                    ],
+                    [
+                      26,
+                      6.0,
+                      8.0
+                    ],
+                    [
+                      27,
+                      5.0,
+                      8.0
+                    ],
+                    [
+                      28,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                }
+              ],
+              "all_raw_data": {
+                "Experiment_1_Summary": {
+                  "mean_sent": 5.16,
+                  "mean_returned": 4.66,
+                  "n_pairs": 32
+                },
+                "Experiment_2_Summary": {
+                  "mean_sent": 5.36,
+                  "mean_returned": 6.46,
+                  "n_pairs": 28
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "study_015",
+      "program": {
+        "schemaVersion": 2,
+        "id": "study-15",
+        "title": "Testing the decoy effect to improve online survey participation: Evidence from a field experiment",
+        "intent": "reconstruct",
+        "source": {
+          "title": "Testing the decoy effect to improve online survey participation: Evidence from a field experiment",
+          "authors": "Sandro T. Stoffel, Yining Sun, Yasemin Hirst, Christian von Wagner, Ivo Vlaev",
+          "filename": ""
+        },
+        "studies": [
+          {
+            "id": "exp-1",
+            "title": "Preliminary questionnaire",
+            "type": "unspecified"
+          },
+          {
+            "id": "exp-2",
+            "title": "Field experiment on the decoy effect in survey participation",
+            "type": "unspecified"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "result-1",
+            "kind": "result",
+            "title": "Preliminary questionnaire",
+            "studyIds": [
+              "exp-1"
+            ],
+            "fields": [
+              {
+                "id": "reported-findings",
+                "label": "Original reported findings",
+                "value": [
+                  {
+                    "finding_id": "F1_prelim",
+                    "description": "Respondents generally preferred close-ended questions over open-ended questions.",
+                    "hypothesis": "Open-ended questions would be perceived as less attractive than close-ended questions and therefore could function as an inferior decoy attribute.",
+                    "statistical_tests": [],
+                    "raw_outcomes": "Among N=210 preliminary questionnaire respondents: close-ended questions 61.4% (n~129), open-ended questions 7.9% (n~17), indifferent 30.7% (n~64). Exact counts NOT PROVIDED in paper."
+                  },
+                  {
+                    "finding_id": "F2_prelim",
+                    "description": "Most respondents indicated they would not participate if remuneration were received only after four weeks.",
+                    "hypothesis": "Delayed remuneration would be perceived as less attractive than sooner remuneration and therefore could function as an inferior decoy attribute.",
+                    "statistical_tests": [],
+                    "raw_outcomes": "Among N=210 preliminary questionnaire respondents: Definitely not 1.0% (n~2), Probably not 85.1% (n~179), Probably yes 1.5% (n~3), Definitely yes 12.4% (n~26). Overall 86.1% would not respond if remuneration in four weeks."
+                  }
+                ],
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "result-2",
+            "kind": "result",
+            "title": "Field experiment on the decoy effect in survey participation",
+            "studyIds": [
+              "exp-2"
+            ],
+            "fields": [
+              {
+                "id": "reported-findings",
+                "label": "Original reported findings",
+                "value": [
+                  {
+                    "finding_id": "F1",
+                    "description": "Randomization produced similar groups on most sociodemographic variables, except ethnicity.",
+                    "hypothesis": "No explicit hypothesis; balance checks were used to compare control and decoy groups.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Chi-square test of independence",
+                        "test_id": "balance_age",
+                        "variable": "Age",
+                        "statistic": "χ² (reported as p-value)",
+                        "p_value": "p = 0.165",
+                        "raw_data": {
+                          "control_n": 101,
+                          "control_age_20_24": 33,
+                          "control_age_25_29": 45,
+                          "control_age_30_35": 23,
+                          "decoy_n": 102,
+                          "decoy_age_20_24": 22,
+                          "decoy_age_25_29": 57,
+                          "decoy_age_30_35": 23
+                        },
+                        "claim": "No age difference between control and decoy groups.",
+                        "location": "Main paper Table 1"
+                      },
+                      {
+                        "test_name": "Chi-square test of independence",
+                        "test_id": "balance_gender",
+                        "variable": "Gender",
+                        "statistic": "χ² (reported as p-value)",
+                        "p_value": "p = 0.441",
+                        "raw_data": {
+                          "control_male": 50,
+                          "control_female": 51,
+                          "decoy_male": 56,
+                          "decoy_female": 46
+                        },
+                        "claim": "No gender difference between control and decoy groups.",
+                        "location": "Main paper Table 1"
+                      },
+                      {
+                        "test_name": "Fisher's exact test",
+                        "test_id": "balance_ethnicity",
+                        "variable": "Ethnicity",
+                        "statistic": "Fisher exact p-value",
+                        "p_value": "p = 0.004",
+                        "raw_data": {
+                          "control_white": 48,
+                          "control_asian": 25,
+                          "control_black": 25,
+                          "control_other": 3,
+                          "decoy_white": 69,
+                          "decoy_asian": 23,
+                          "decoy_black": 9,
+                          "decoy_other": 1
+                        },
+                        "claim": "Ethnicity differed between conditions; the decoy condition contained more White participants (67.7% vs 47.5%).",
+                        "location": "Main paper Table 1"
+                      },
+                      {
+                        "test_name": "Chi-square test of independence",
+                        "test_id": "balance_religion",
+                        "variable": "Religion",
+                        "statistic": "χ² (reported as p-value)",
+                        "p_value": "p = 0.063",
+                        "raw_data": {
+                          "control_christian": 67,
+                          "control_other_religion": 8,
+                          "control_no_religion": 26,
+                          "decoy_christian": 79,
+                          "decoy_other_religion": 10,
+                          "decoy_no_religion": 13
+                        },
+                        "claim": "No religion difference between control and decoy groups at conventional significance levels.",
+                        "location": "Main paper Table 1"
+                      },
+                      {
+                        "test_name": "Chi-square test of independence",
+                        "test_id": "balance_education",
+                        "variable": "Education",
+                        "statistic": "χ² (reported as p-value)",
+                        "p_value": "p = 0.233",
+                        "raw_data": {
+                          "control_bachelors": 48,
+                          "control_graduate": 53,
+                          "decoy_bachelors": 57,
+                          "decoy_graduate": 45
+                        },
+                        "claim": "No education difference between control and decoy groups.",
+                        "location": "Main paper Table 1"
+                      }
+                    ]
+                  },
+                  {
+                    "finding_id": "F2",
+                    "description": "The presence of the decoy option increased completion of the target survey.",
+                    "hypothesis": "Among those likely to take part in a survey, the presence of a decoy version of the same survey on the invitation will increase the chances of completing the target version.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Chi-square test of independence",
+                        "test_id": "primary_outcome_unadjusted",
+                        "variable": "Target survey completion",
+                        "statistic": "χ²(1, N = 203) = 11.08",
+                        "p_value": "p < 0.001",
+                        "raw_data": {
+                          "total_n": 203,
+                          "control_completed": 33,
+                          "control_n": 101,
+                          "control_completion_rate": 0.327,
+                          "decoy_completed": 57,
+                          "decoy_n": 102,
+                          "decoy_completion_rate": 0.559,
+                          "note": "Table 2 / Table S3 reports decoy as 59.8%, but text, flow diagram, and participant-level data imply 57/102 = 55.9%"
+                        },
+                        "claim": "Target-survey completion was significantly higher in the decoy condition (55.9%) than in the control condition (32.7%).",
+                        "location": "Main paper Results section 3.2.2 and Fig. 3"
+                      },
+                      {
+                        "test_name": "Binary logistic regression",
+                        "test_id": "primary_unadjusted_OR",
+                        "model": "Model 1 - unadjusted",
+                        "variable": "Decoy condition (vs control)",
+                        "statistic": "OR = 2.610",
+                        "confidence_interval": "95% CI 1.475-4.618",
+                        "p_value": "p < 0.01",
+                        "raw_data": {
+                          "overall_completion": 0.443,
+                          "control_reference": 0.327,
+                          "decoy_row_reported": 0.598,
+                          "note": "As reported in Table 2, Model 1; Supplementary Table S3"
+                        },
+                        "claim": "In the unadjusted model, the decoy condition significantly increased the odds of completing the target survey relative to control.",
+                        "location": "Main paper Table 2, Model 1; Supplementary Table S3"
+                      },
+                      {
+                        "test_name": "Binary logistic regression",
+                        "test_id": "primary_adjusted_aOR",
+                        "model": "Model 1 - adjusted",
+                        "variable": "Decoy condition (vs control)",
+                        "statistic": "aOR = 2.584",
+                        "confidence_interval": "95% CI 1.415-4.718",
+                        "p_value": "p < 0.01",
+                        "covariates": [
+                          "Age",
+                          "Gender",
+                          "Ethnicity",
+                          "Religion",
+                          "Education"
+                        ],
+                        "claim": "The decoy effect on target-survey completion remained statistically significant after adjustment for sociodemographic variables.",
+                        "location": "Main paper Table 2, Model 1; Supplementary Table S3"
+                      }
+                    ]
+                  },
+                  {
+                    "finding_id": "F3",
+                    "description": "A strong order effect was observed within the decoy condition: the decoy increased participation only when the target survey was presented first.",
+                    "hypothesis": "Presentation order may influence the decoy effect because responses can favor options appearing earlier in a list.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Binary logistic regression",
+                        "test_id": "order_target_first_unadjusted",
+                        "model": "Model 2 - unadjusted, target first vs control",
+                        "variable": "Decoy-target-first condition (vs control)",
+                        "statistic": "OR = 9.845",
+                        "confidence_interval": "95% CI 4.293-22.580",
+                        "p_value": "p < 0.01",
+                        "raw_data": {
+                          "control_completed": 33,
+                          "control_n": 101,
+                          "control_completion_rate": 0.327,
+                          "decoy_target_first_completed": 43,
+                          "decoy_target_first_n": 52,
+                          "decoy_target_first_completion_rate": 0.827
+                        },
+                        "claim": "Showing the target first greatly increased target-survey completion (82.7%) relative to control (32.7%).",
+                        "location": "Main paper Table 2, Model 2; Supplementary Table S4"
+                      },
+                      {
+                        "test_name": "Binary logistic regression",
+                        "test_id": "order_target_first_adjusted",
+                        "model": "Model 2 - adjusted, target first vs control",
+                        "variable": "Decoy-target-first condition (vs control)",
+                        "statistic": "aOR = 11.177",
+                        "confidence_interval": "95% CI 4.571-27.330",
+                        "p_value": "p < 0.01",
+                        "covariates": [
+                          "Age",
+                          "Gender",
+                          "Ethnicity",
+                          "Religion",
+                          "Education"
+                        ],
+                        "claim": "The target-first order effect remained large and significant after adjustment for sociodemographics.",
+                        "location": "Main paper Table 2, Model 2; Supplementary Table S4"
+                      },
+                      {
+                        "test_name": "Binary logistic regression",
+                        "test_id": "order_decoy_first_unadjusted",
+                        "model": "Model 2 - unadjusted, decoy first vs control",
+                        "variable": "Decoy-decoy-first condition (vs control)",
+                        "statistic": "OR = 0.801",
+                        "confidence_interval": "95% CI 0.381-1.687",
+                        "p_value": "NOT PROVIDED",
+                        "raw_data": {
+                          "control_completed": 33,
+                          "control_n": 101,
+                          "control_completion_rate": 0.327,
+                          "decoy_decoy_first_completed": 14,
+                          "decoy_decoy_first_n": 50,
+                          "decoy_decoy_first_completion_rate": 0.28
+                        },
+                        "claim": "There was no evidence that showing the decoy first increased target-survey completion (28.0%) relative to control (32.7%).",
+                        "location": "Main paper Table 2, Model 2; Supplementary Table S4"
+                      },
+                      {
+                        "test_name": "Binary logistic regression",
+                        "test_id": "order_decoy_first_adjusted",
+                        "model": "Model 2 - adjusted, decoy first vs control",
+                        "variable": "Decoy-decoy-first condition (vs control)",
+                        "statistic": "aOR = 0.746",
+                        "confidence_interval": "95% CI 0.341-1.631",
+                        "p_value": "NOT PROVIDED",
+                        "covariates": [
+                          "Age",
+                          "Gender",
+                          "Ethnicity",
+                          "Religion",
+                          "Education"
+                        ],
+                        "claim": "There was no decoy effect when the decoy was shown before the target, even after adjustment.",
+                        "location": "Main paper Results section 3.2.2 and Table 2; Supplementary Table S4"
+                      }
+                    ]
+                  },
+                  {
+                    "finding_id": "F4",
+                    "description": "Most target-survey completers in the decoy condition reported that the decoy had at least somewhat influenced their decision to participate.",
+                    "hypothesis": "The decoy option should be perceived as influencing participation decisions.",
+                    "statistical_tests": [],
+                    "raw_outcomes": "Among the 57 individuals in the decoy condition who completed the target survey, 33/57 (57.9%) at least somewhat agreed that the decoy survey had influenced their decision to participate."
+                  },
+                  {
+                    "finding_id": "F5",
+                    "description": "There was little evidence for adverse question-response behavior or non-response bias, except for ethnicity differences.",
+                    "hypothesis": "The decoy should increase participation without negatively influencing question response behavior or inducing substantial non-response bias.",
+                    "statistical_tests": [
+                      {
+                        "test_name": "Fisher's exact test",
+                        "test_id": "completers_ethnicity",
+                        "variable": "Ethnicity among target completers",
+                        "statistic": "Fisher exact p-value",
+                        "p_value": "p = 0.006",
+                        "raw_data": {
+                          "control_completers": 33,
+                          "control_white": 12,
+                          "control_asian": 14,
+                          "control_black": 7,
+                          "control_other": 0,
+                          "decoy_completers": 57,
+                          "decoy_white": 40,
+                          "decoy_asian": 10,
+                          "decoy_black": 6,
+                          "decoy_other": 1
+                        },
+                        "claim": "Among target-survey completers, ethnicity differed between conditions: more White participants in the decoy condition (70.2% vs 36.4%).",
+                        "location": "Main paper section 3.2.3; Supplementary Table S5"
+                      },
+                      {
+                        "test_name": "Chi-square test",
+                        "test_id": "completers_age",
+                        "variable": "Age among target completers",
+                        "statistic": "χ²",
+                        "p_value": "p = 0.122",
+                        "raw_data": {
+                          "control_completers": 33,
+                          "control_age_20_24": 13,
+                          "control_age_25_29": 13,
+                          "control_age_30_35": 7,
+                          "decoy_completers": 57,
+                          "decoy_age_20_24": 12,
+                          "decoy_age_25_29": 34,
+                          "decoy_age_30_35": 11
+                        },
+                        "claim": "No age difference among target completers across conditions.",
+                        "location": "Supplementary Table S5"
+                      },
+                      {
+                        "test_name": "Chi-square test",
+                        "test_id": "completers_gender",
+                        "variable": "Gender among target completers",
+                        "statistic": "χ²",
+                        "p_value": "p = 0.589",
+                        "raw_data": {
+                          "control_male": 16,
+                          "control_female": 17,
+                          "decoy_male": 31,
+                          "decoy_female": 26
+                        },
+                        "claim": "No gender difference among target completers across conditions.",
+                        "location": "Supplementary Table S5"
+                      },
+                      {
+                        "test_name": "Chi-square test",
+                        "test_id": "completers_religion",
+                        "variable": "Religion among target completers",
+                        "statistic": "χ²",
+                        "p_value": "p = 0.329",
+                        "raw_data": {
+                          "control_christian": 20,
+                          "control_non_christian": 5,
+                          "control_no_religion": 8,
+                          "decoy_christian": 43,
+                          "decoy_non_christian": 5,
+                          "decoy_no_religion": 9
+                        },
+                        "claim": "No religion difference among target completers across conditions.",
+                        "location": "Supplementary Table S5"
+                      },
+                      {
+                        "test_name": "Chi-square test",
+                        "test_id": "completers_education",
+                        "variable": "Education among target completers",
+                        "statistic": "χ²",
+                        "p_value": "p = 0.310",
+                        "raw_data": {
+                          "control_bachelors": 21,
+                          "control_graduate": 12,
+                          "decoy_bachelors": 30,
+                          "decoy_graduate": 27
+                        },
+                        "claim": "No education difference among target completers across conditions.",
+                        "location": "Supplementary Table S5"
+                      },
+                      {
+                        "test_name": "Wilcoxon-Mann-Whitney test",
+                        "test_id": "fcq_score_distribution",
+                        "variable": "FCQ total score (8-40) among target completers",
+                        "statistic": "z = 0.488",
+                        "p_value": "p = 0.629",
+                        "raw_data": {
+                          "control_completers": 33,
+                          "decoy_completers": 57,
+                          "note": "Exact group means and SDs NOT PROVIDED"
+                        },
+                        "claim": "There was no statistically significant difference in FCQ score distributions across the two experimental conditions.",
+                        "location": "Main paper section 3.2.3; Supplementary Fig. S4"
+                      },
+                      {
+                        "test_name": "Chi-square test",
+                        "test_id": "nonresponse_bias_age",
+                        "variable": "Age comparing completers vs non-completers",
+                        "statistic": "χ²",
+                        "p_value": "p = 0.719",
+                        "raw_data": {
+                          "completers_20_24": 25,
+                          "completers_25_29": 47,
+                          "completers_30_35": 18,
+                          "total_completers": 90,
+                          "non_completers_20_24": 30,
+                          "non_completers_25_29": 55,
+                          "non_completers_30_35": 28,
+                          "total_non_completers": 113
+                        },
+                        "claim": "No age difference between completers and non-completers.",
+                        "location": "Supplementary Table S6"
+                      },
+                      {
+                        "test_name": "Chi-square test",
+                        "test_id": "nonresponse_bias_gender",
+                        "variable": "Gender comparing completers vs non-completers",
+                        "statistic": "χ²",
+                        "p_value": "p = 0.999",
+                        "raw_data": {
+                          "completers_male": 47,
+                          "completers_female": 43,
+                          "non_completers_male": 59,
+                          "non_completers_female": 54
+                        },
+                        "claim": "No gender difference between completers and non-completers.",
+                        "location": "Supplementary Table S6"
+                      },
+                      {
+                        "test_name": "Fisher's exact test",
+                        "test_id": "nonresponse_bias_ethnicity",
+                        "variable": "Ethnicity comparing completers vs non-completers",
+                        "statistic": "Fisher exact p-value",
+                        "p_value": "p = 0.661",
+                        "raw_data": {
+                          "completers_white": 52,
+                          "completers_asian": 24,
+                          "completers_black": 13,
+                          "completers_other": 1,
+                          "non_completers_white": 65,
+                          "non_completers_asian": 24,
+                          "non_completers_black": 21,
+                          "non_completers_other": 3
+                        },
+                        "claim": "No overall ethnicity difference between completers and non-completers.",
+                        "location": "Supplementary Table S6"
+                      },
+                      {
+                        "test_name": "Chi-square test",
+                        "test_id": "nonresponse_bias_religion",
+                        "variable": "Religion comparing completers vs non-completers",
+                        "statistic": "χ²",
+                        "p_value": "p = 0.603",
+                        "raw_data": {
+                          "completers_christian": 63,
+                          "completers_non_christian": 10,
+                          "completers_no_religion": 17,
+                          "non_completers_christian": 83,
+                          "non_completers_non_christian": 8,
+                          "non_completers_no_religion": 22
+                        },
+                        "claim": "No religion difference between completers and non-completers.",
+                        "location": "Supplementary Table S6"
+                      },
+                      {
+                        "test_name": "Chi-square test",
+                        "test_id": "nonresponse_bias_education",
+                        "variable": "Education comparing completers vs non-completers",
+                        "statistic": "χ²",
+                        "p_value": "p = 0.209",
+                        "raw_data": {
+                          "completers_bachelors": 51,
+                          "completers_graduate": 39,
+                          "non_completers_bachelors": 54,
+                          "non_completers_graduate": 59
+                        },
+                        "claim": "No education difference between completers and non-completers.",
+                        "location": "Supplementary Table S6"
+                      }
+                    ]
+                  }
+                ],
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          },
+          {
+            "id": "spec",
+            "kind": "design",
+            "title": "Imported design specification",
+            "studyIds": [],
+            "fields": [
+              {
+                "id": "source-specification",
+                "label": "Specification",
+                "value": {
+                  "study_id": "stoffel_2023_decoy_effect_survey_participation",
+                  "title": "Testing the decoy effect to improve online survey participation: Evidence from a field experiment",
+                  "participants": {
+                    "preliminary_questionnaire": {
+                      "n": 210,
+                      "details": "241 individuals clicked the survey link and started the preliminary questionnaire; 216 completed the questionnaire; 210 provided an email address to be invited to the experiment. Recruited in August 2022 from students registered at a UK-based university through Facebook, WhatsApp, and WeChat.",
+                      "demographics_reported": {
+                        "age_20_24": 56,
+                        "age_25_29": 107,
+                        "age_30_35": 47,
+                        "male": 110,
+                        "female": 100,
+                        "white": 120,
+                        "asian": 50,
+                        "black": 36,
+                        "other_ethnicity": 4,
+                        "christian": 151,
+                        "other_religion": 41,
+                        "no_religion": 18,
+                        "bachelors_degree": 109,
+                        "graduate_degree": 101
+                      }
+                    },
+                    "main_experiment": {
+                      "n": 203,
+                      "details": "210 invitation emails sent; 7 emails bounced (4 from control, 3 from decoy), leaving 203 who received the experimental invitation. Randomized in Microsoft Excel. Sample characteristics among the 203 valid-email participants: age 20-24: 55 (27.1%), 25-29: 102 (50.2%), 30-35: 46 (22.7%); male: 106 (52.2%), female: 97 (47.8%); White: 117 (57.6%), Asian: 48 (23.7%), Black: 34 (16.7%), Other: 4 (2.0%); Christian: 146 (71.9%), Other religion: 18 (8.9%), No religion: 39 (19.2%); Bachelor's degree: 105 (51.7%), Graduate/professional degree: 98 (48.3%).",
+                      "control_group": {
+                        "n": 101,
+                        "description": "Received email invitation with only the target survey option"
+                      },
+                      "decoy_group": {
+                        "n": 102,
+                        "description": "Received email invitation with both target and decoy survey options",
+                        "decoy_target_first": {
+                          "n": 52,
+                          "description": "Decoy group randomized to see target survey first in the comparison table"
+                        },
+                        "decoy_decoy_first": {
+                          "n": 50,
+                          "description": "Decoy group randomized to see decoy survey first in the comparison table"
+                        }
+                      }
+                    }
+                  },
+                  "design": {
+                    "type": "between-subjects field experiment with nested randomization of option order within the decoy condition",
+                    "primary_factor": "Invitation condition (control vs decoy)",
+                    "secondary_factor": "Presentation order within decoy condition (target first vs decoy first)",
+                    "randomization": "Microsoft Excel random function",
+                    "conditions": [
+                      {
+                        "condition_id": "control",
+                        "name": "Control",
+                        "description": "Email invitation offers only the target survey (Fear of Coronavirus Questionnaire with 8 closed-ended questions; £2 Amazon voucher after 1 week)"
+                      },
+                      {
+                        "condition_id": "decoy_target_first",
+                        "name": "Decoy - Target First",
+                        "description": "Email invitation offers both target (closed-ended, £2 after 1 week) and decoy (open-ended, £2 after 4 weeks) surveys in table format with target shown first"
+                      },
+                      {
+                        "condition_id": "decoy_decoy_first",
+                        "name": "Decoy - Decoy First",
+                        "description": "Email invitation offers both target (closed-ended, £2 after 1 week) and decoy (open-ended, £2 after 4 weeks) surveys in table format with decoy shown first"
+                      }
+                    ]
+                  },
+                  "procedure": [
+                    {
+                      "stage": 1,
+                      "name": "Preliminary questionnaire recruitment",
+                      "duration": "August 2022",
+                      "details": "Students at a UK-based university were contacted via social media (Facebook, WhatsApp, WeChat) with a survey on fear of coronavirus. Participants completed a preliminary questionnaire assessing attitudes toward question type (close-ended vs open-ended) and payment delay (1 week vs 4 weeks) and provided demographics. At the end, participants could provide their email address for an Amazon voucher of £2 to participate in the main survey."
+                    },
+                    {
+                      "stage": 2,
+                      "name": "Main field experiment",
+                      "duration": "One week after preliminary questionnaire",
+                      "details": "Individuals who had provided email addresses were sent an email invitation to the main questionnaire. Participants were randomized in Microsoft Excel into control or decoy conditions. Within the decoy condition, participants were further randomized with equal probability to one of two presentation orders: target first or decoy first. No reminder emails were sent."
+                    },
+                    {
+                      "stage": 3,
+                      "name": "Target survey completion (if selected)",
+                      "details": "Target survey consisted of: (1) Demographics (4 items); (2) Fear of Coronavirus Questionnaire (8 items, 1-5 Likert scale); (3) Debrief questions (2-3 items depending on condition). Reward: £2 Amazon voucher after 1 week."
+                    },
+                    {
+                      "stage": 4,
+                      "name": "Decoy survey completion (if selected in decoy condition)",
+                      "details": "Decoy survey consisted of: (1) Demographics (4 items); (2) Two open-ended questions requiring minimum 100 words each on coronavirus attitudes and precautions; (3) Debrief questions (4-5 items). Reward: £2 Amazon voucher after 4 weeks (stated reason: responses need to be coded)."
+                    }
+                  ],
+                  "primary_outcomes": [
+                    {
+                      "outcome_id": "target_completion",
+                      "name": "Completion of target questionnaire",
+                      "measurement": "Binary (yes/no)",
+                      "unit_of_analysis": "Per participant"
+                    }
+                  ],
+                  "secondary_outcomes": [
+                    {
+                      "outcome_id": "fcq_score",
+                      "name": "Fear of Coronavirus Questionnaire total score",
+                      "measurement": "Summed Likert scale (8-40)",
+                      "unit_of_analysis": "Per participant (among target completers)"
+                    },
+                    {
+                      "outcome_id": "perceived_influence",
+                      "name": "Perceived influence of decoy on decision",
+                      "measurement": "Binary/categorical response to debrief question",
+                      "unit_of_analysis": "Per target completer in decoy condition"
+                    },
+                    {
+                      "outcome_id": "decoy_completion",
+                      "name": "Completion of decoy questionnaire",
+                      "measurement": "Binary (yes/no)",
+                      "unit_of_analysis": "Per participant (in decoy condition)"
+                    }
+                  ],
+                  "independent_variables": [
+                    {
+                      "name": "Invitation condition",
+                      "levels": [
+                        "Control (target only)",
+                        "Decoy (both options)"
+                      ]
+                    },
+                    {
+                      "name": "Presentation order (within decoy condition)",
+                      "levels": [
+                        "Target first",
+                        "Decoy first"
+                      ]
+                    }
+                  ],
+                  "dependent_variables": [
+                    "Completion of target survey (primary)",
+                    "Fear of Coronavirus Questionnaire responses (secondary)",
+                    "Demographic composition of completers vs non-completers (secondary)",
+                    "Self-reported influence of decoy on participation decision (secondary)"
+                  ]
+                },
+                "origin": "reported",
+                "state": "check",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": []
+          }
+        ],
+        "steps": [],
+        "relations": [],
+        "evidence": [],
+        "issues": [],
+        "extensions": {
+          "fixturePurpose": "Offline contract/renderer fixture; legacy scientific semantics require source verification",
+          "sourceCommit": "50086798df2606ceb0c651b58e4d5ddef523b2b5",
+          "specification": {
+            "study_id": "stoffel_2023_decoy_effect_survey_participation",
+            "title": "Testing the decoy effect to improve online survey participation: Evidence from a field experiment",
+            "participants": {
+              "preliminary_questionnaire": {
+                "n": 210,
+                "details": "241 individuals clicked the survey link and started the preliminary questionnaire; 216 completed the questionnaire; 210 provided an email address to be invited to the experiment. Recruited in August 2022 from students registered at a UK-based university through Facebook, WhatsApp, and WeChat.",
+                "demographics_reported": {
+                  "age_20_24": 56,
+                  "age_25_29": 107,
+                  "age_30_35": 47,
+                  "male": 110,
+                  "female": 100,
+                  "white": 120,
+                  "asian": 50,
+                  "black": 36,
+                  "other_ethnicity": 4,
+                  "christian": 151,
+                  "other_religion": 41,
+                  "no_religion": 18,
+                  "bachelors_degree": 109,
+                  "graduate_degree": 101
+                }
+              },
+              "main_experiment": {
+                "n": 203,
+                "details": "210 invitation emails sent; 7 emails bounced (4 from control, 3 from decoy), leaving 203 who received the experimental invitation. Randomized in Microsoft Excel. Sample characteristics among the 203 valid-email participants: age 20-24: 55 (27.1%), 25-29: 102 (50.2%), 30-35: 46 (22.7%); male: 106 (52.2%), female: 97 (47.8%); White: 117 (57.6%), Asian: 48 (23.7%), Black: 34 (16.7%), Other: 4 (2.0%); Christian: 146 (71.9%), Other religion: 18 (8.9%), No religion: 39 (19.2%); Bachelor's degree: 105 (51.7%), Graduate/professional degree: 98 (48.3%).",
+                "control_group": {
+                  "n": 101,
+                  "description": "Received email invitation with only the target survey option"
+                },
+                "decoy_group": {
+                  "n": 102,
+                  "description": "Received email invitation with both target and decoy survey options",
+                  "decoy_target_first": {
+                    "n": 52,
+                    "description": "Decoy group randomized to see target survey first in the comparison table"
+                  },
+                  "decoy_decoy_first": {
+                    "n": 50,
+                    "description": "Decoy group randomized to see decoy survey first in the comparison table"
+                  }
+                }
+              }
+            },
+            "design": {
+              "type": "between-subjects field experiment with nested randomization of option order within the decoy condition",
+              "primary_factor": "Invitation condition (control vs decoy)",
+              "secondary_factor": "Presentation order within decoy condition (target first vs decoy first)",
+              "randomization": "Microsoft Excel random function",
+              "conditions": [
+                {
+                  "condition_id": "control",
+                  "name": "Control",
+                  "description": "Email invitation offers only the target survey (Fear of Coronavirus Questionnaire with 8 closed-ended questions; £2 Amazon voucher after 1 week)"
+                },
+                {
+                  "condition_id": "decoy_target_first",
+                  "name": "Decoy - Target First",
+                  "description": "Email invitation offers both target (closed-ended, £2 after 1 week) and decoy (open-ended, £2 after 4 weeks) surveys in table format with target shown first"
+                },
+                {
+                  "condition_id": "decoy_decoy_first",
+                  "name": "Decoy - Decoy First",
+                  "description": "Email invitation offers both target (closed-ended, £2 after 1 week) and decoy (open-ended, £2 after 4 weeks) surveys in table format with decoy shown first"
+                }
+              ]
+            },
+            "procedure": [
+              {
+                "stage": 1,
+                "name": "Preliminary questionnaire recruitment",
+                "duration": "August 2022",
+                "details": "Students at a UK-based university were contacted via social media (Facebook, WhatsApp, WeChat) with a survey on fear of coronavirus. Participants completed a preliminary questionnaire assessing attitudes toward question type (close-ended vs open-ended) and payment delay (1 week vs 4 weeks) and provided demographics. At the end, participants could provide their email address for an Amazon voucher of £2 to participate in the main survey."
+              },
+              {
+                "stage": 2,
+                "name": "Main field experiment",
+                "duration": "One week after preliminary questionnaire",
+                "details": "Individuals who had provided email addresses were sent an email invitation to the main questionnaire. Participants were randomized in Microsoft Excel into control or decoy conditions. Within the decoy condition, participants were further randomized with equal probability to one of two presentation orders: target first or decoy first. No reminder emails were sent."
+              },
+              {
+                "stage": 3,
+                "name": "Target survey completion (if selected)",
+                "details": "Target survey consisted of: (1) Demographics (4 items); (2) Fear of Coronavirus Questionnaire (8 items, 1-5 Likert scale); (3) Debrief questions (2-3 items depending on condition). Reward: £2 Amazon voucher after 1 week."
+              },
+              {
+                "stage": 4,
+                "name": "Decoy survey completion (if selected in decoy condition)",
+                "details": "Decoy survey consisted of: (1) Demographics (4 items); (2) Two open-ended questions requiring minimum 100 words each on coronavirus attitudes and precautions; (3) Debrief questions (4-5 items). Reward: £2 Amazon voucher after 4 weeks (stated reason: responses need to be coded)."
+              }
+            ],
+            "primary_outcomes": [
+              {
+                "outcome_id": "target_completion",
+                "name": "Completion of target questionnaire",
+                "measurement": "Binary (yes/no)",
+                "unit_of_analysis": "Per participant"
+              }
+            ],
+            "secondary_outcomes": [
+              {
+                "outcome_id": "fcq_score",
+                "name": "Fear of Coronavirus Questionnaire total score",
+                "measurement": "Summed Likert scale (8-40)",
+                "unit_of_analysis": "Per participant (among target completers)"
+              },
+              {
+                "outcome_id": "perceived_influence",
+                "name": "Perceived influence of decoy on decision",
+                "measurement": "Binary/categorical response to debrief question",
+                "unit_of_analysis": "Per target completer in decoy condition"
+              },
+              {
+                "outcome_id": "decoy_completion",
+                "name": "Completion of decoy questionnaire",
+                "measurement": "Binary (yes/no)",
+                "unit_of_analysis": "Per participant (in decoy condition)"
+              }
+            ],
+            "independent_variables": [
+              {
+                "name": "Invitation condition",
+                "levels": [
+                  "Control (target only)",
+                  "Decoy (both options)"
+                ]
+              },
+              {
+                "name": "Presentation order (within decoy condition)",
+                "levels": [
+                  "Target first",
+                  "Decoy first"
+                ]
+              }
+            ],
+            "dependent_variables": [
+              "Completion of target survey (primary)",
+              "Fear of Coronavirus Questionnaire responses (secondary)",
+              "Demographic composition of completers vs non-completers (secondary)",
+              "Self-reported influence of decoy on participation decision (secondary)"
+            ]
+          },
+          "groundTruth": {
+            "study_id": "stoffel_2023_decoy_effect_survey_participation",
+            "title": "Testing the decoy effect to improve online survey participation: Evidence from a field experiment",
+            "authors": [
+              "Sandro T. Stoffel",
+              "Yining Sun",
+              "Yasemin Hirst",
+              "Christian von Wagner",
+              "Ivo Vlaev"
+            ],
+            "year": 2023,
+            "preliminary_study_findings": [
+              {
+                "finding_id": "F1_prelim",
+                "description": "Respondents generally preferred close-ended questions over open-ended questions.",
+                "hypothesis": "Open-ended questions would be perceived as less attractive than close-ended questions and therefore could function as an inferior decoy attribute.",
+                "statistical_tests": [],
+                "raw_outcomes": "Among N=210 preliminary questionnaire respondents: close-ended questions 61.4% (n~129), open-ended questions 7.9% (n~17), indifferent 30.7% (n~64). Exact counts NOT PROVIDED in paper."
+              },
+              {
+                "finding_id": "F2_prelim",
+                "description": "Most respondents indicated they would not participate if remuneration were received only after four weeks.",
+                "hypothesis": "Delayed remuneration would be perceived as less attractive than sooner remuneration and therefore could function as an inferior decoy attribute.",
+                "statistical_tests": [],
+                "raw_outcomes": "Among N=210 preliminary questionnaire respondents: Definitely not 1.0% (n~2), Probably not 85.1% (n~179), Probably yes 1.5% (n~3), Definitely yes 12.4% (n~26). Overall 86.1% would not respond if remuneration in four weeks."
+              }
+            ],
+            "main_study": {
+              "study_id": "main_field_experiment",
+              "study_name": "Field experiment on the decoy effect in survey participation",
+              "period": "One week after preliminary questionnaire (August 2022)",
+              "n_randomized": 210,
+              "n_with_valid_email": 203,
+              "findings": [
+                {
+                  "finding_id": "F1",
+                  "description": "Randomization produced similar groups on most sociodemographic variables, except ethnicity.",
+                  "hypothesis": "No explicit hypothesis; balance checks were used to compare control and decoy groups.",
+                  "statistical_tests": [
+                    {
+                      "test_name": "Chi-square test of independence",
+                      "test_id": "balance_age",
+                      "variable": "Age",
+                      "statistic": "χ² (reported as p-value)",
+                      "p_value": "p = 0.165",
+                      "raw_data": {
+                        "control_n": 101,
+                        "control_age_20_24": 33,
+                        "control_age_25_29": 45,
+                        "control_age_30_35": 23,
+                        "decoy_n": 102,
+                        "decoy_age_20_24": 22,
+                        "decoy_age_25_29": 57,
+                        "decoy_age_30_35": 23
+                      },
+                      "claim": "No age difference between control and decoy groups.",
+                      "location": "Main paper Table 1"
+                    },
+                    {
+                      "test_name": "Chi-square test of independence",
+                      "test_id": "balance_gender",
+                      "variable": "Gender",
+                      "statistic": "χ² (reported as p-value)",
+                      "p_value": "p = 0.441",
+                      "raw_data": {
+                        "control_male": 50,
+                        "control_female": 51,
+                        "decoy_male": 56,
+                        "decoy_female": 46
+                      },
+                      "claim": "No gender difference between control and decoy groups.",
+                      "location": "Main paper Table 1"
+                    },
+                    {
+                      "test_name": "Fisher's exact test",
+                      "test_id": "balance_ethnicity",
+                      "variable": "Ethnicity",
+                      "statistic": "Fisher exact p-value",
+                      "p_value": "p = 0.004",
+                      "raw_data": {
+                        "control_white": 48,
+                        "control_asian": 25,
+                        "control_black": 25,
+                        "control_other": 3,
+                        "decoy_white": 69,
+                        "decoy_asian": 23,
+                        "decoy_black": 9,
+                        "decoy_other": 1
+                      },
+                      "claim": "Ethnicity differed between conditions; the decoy condition contained more White participants (67.7% vs 47.5%).",
+                      "location": "Main paper Table 1"
+                    },
+                    {
+                      "test_name": "Chi-square test of independence",
+                      "test_id": "balance_religion",
+                      "variable": "Religion",
+                      "statistic": "χ² (reported as p-value)",
+                      "p_value": "p = 0.063",
+                      "raw_data": {
+                        "control_christian": 67,
+                        "control_other_religion": 8,
+                        "control_no_religion": 26,
+                        "decoy_christian": 79,
+                        "decoy_other_religion": 10,
+                        "decoy_no_religion": 13
+                      },
+                      "claim": "No religion difference between control and decoy groups at conventional significance levels.",
+                      "location": "Main paper Table 1"
+                    },
+                    {
+                      "test_name": "Chi-square test of independence",
+                      "test_id": "balance_education",
+                      "variable": "Education",
+                      "statistic": "χ² (reported as p-value)",
+                      "p_value": "p = 0.233",
+                      "raw_data": {
+                        "control_bachelors": 48,
+                        "control_graduate": 53,
+                        "decoy_bachelors": 57,
+                        "decoy_graduate": 45
+                      },
+                      "claim": "No education difference between control and decoy groups.",
+                      "location": "Main paper Table 1"
+                    }
+                  ]
+                },
+                {
+                  "finding_id": "F2",
+                  "description": "The presence of the decoy option increased completion of the target survey.",
+                  "hypothesis": "Among those likely to take part in a survey, the presence of a decoy version of the same survey on the invitation will increase the chances of completing the target version.",
+                  "statistical_tests": [
+                    {
+                      "test_name": "Chi-square test of independence",
+                      "test_id": "primary_outcome_unadjusted",
+                      "variable": "Target survey completion",
+                      "statistic": "χ²(1, N = 203) = 11.08",
+                      "p_value": "p < 0.001",
+                      "raw_data": {
+                        "total_n": 203,
+                        "control_completed": 33,
+                        "control_n": 101,
+                        "control_completion_rate": 0.327,
+                        "decoy_completed": 57,
+                        "decoy_n": 102,
+                        "decoy_completion_rate": 0.559,
+                        "note": "Table 2 / Table S3 reports decoy as 59.8%, but text, flow diagram, and participant-level data imply 57/102 = 55.9%"
+                      },
+                      "claim": "Target-survey completion was significantly higher in the decoy condition (55.9%) than in the control condition (32.7%).",
+                      "location": "Main paper Results section 3.2.2 and Fig. 3"
+                    },
+                    {
+                      "test_name": "Binary logistic regression",
+                      "test_id": "primary_unadjusted_OR",
+                      "model": "Model 1 - unadjusted",
+                      "variable": "Decoy condition (vs control)",
+                      "statistic": "OR = 2.610",
+                      "confidence_interval": "95% CI 1.475-4.618",
+                      "p_value": "p < 0.01",
+                      "raw_data": {
+                        "overall_completion": 0.443,
+                        "control_reference": 0.327,
+                        "decoy_row_reported": 0.598,
+                        "note": "As reported in Table 2, Model 1; Supplementary Table S3"
+                      },
+                      "claim": "In the unadjusted model, the decoy condition significantly increased the odds of completing the target survey relative to control.",
+                      "location": "Main paper Table 2, Model 1; Supplementary Table S3"
+                    },
+                    {
+                      "test_name": "Binary logistic regression",
+                      "test_id": "primary_adjusted_aOR",
+                      "model": "Model 1 - adjusted",
+                      "variable": "Decoy condition (vs control)",
+                      "statistic": "aOR = 2.584",
+                      "confidence_interval": "95% CI 1.415-4.718",
+                      "p_value": "p < 0.01",
+                      "covariates": [
+                        "Age",
+                        "Gender",
+                        "Ethnicity",
+                        "Religion",
+                        "Education"
+                      ],
+                      "claim": "The decoy effect on target-survey completion remained statistically significant after adjustment for sociodemographic variables.",
+                      "location": "Main paper Table 2, Model 1; Supplementary Table S3"
+                    }
+                  ]
+                },
+                {
+                  "finding_id": "F3",
+                  "description": "A strong order effect was observed within the decoy condition: the decoy increased participation only when the target survey was presented first.",
+                  "hypothesis": "Presentation order may influence the decoy effect because responses can favor options appearing earlier in a list.",
+                  "statistical_tests": [
+                    {
+                      "test_name": "Binary logistic regression",
+                      "test_id": "order_target_first_unadjusted",
+                      "model": "Model 2 - unadjusted, target first vs control",
+                      "variable": "Decoy-target-first condition (vs control)",
+                      "statistic": "OR = 9.845",
+                      "confidence_interval": "95% CI 4.293-22.580",
+                      "p_value": "p < 0.01",
+                      "raw_data": {
+                        "control_completed": 33,
+                        "control_n": 101,
+                        "control_completion_rate": 0.327,
+                        "decoy_target_first_completed": 43,
+                        "decoy_target_first_n": 52,
+                        "decoy_target_first_completion_rate": 0.827
+                      },
+                      "claim": "Showing the target first greatly increased target-survey completion (82.7%) relative to control (32.7%).",
+                      "location": "Main paper Table 2, Model 2; Supplementary Table S4"
+                    },
+                    {
+                      "test_name": "Binary logistic regression",
+                      "test_id": "order_target_first_adjusted",
+                      "model": "Model 2 - adjusted, target first vs control",
+                      "variable": "Decoy-target-first condition (vs control)",
+                      "statistic": "aOR = 11.177",
+                      "confidence_interval": "95% CI 4.571-27.330",
+                      "p_value": "p < 0.01",
+                      "covariates": [
+                        "Age",
+                        "Gender",
+                        "Ethnicity",
+                        "Religion",
+                        "Education"
+                      ],
+                      "claim": "The target-first order effect remained large and significant after adjustment for sociodemographics.",
+                      "location": "Main paper Table 2, Model 2; Supplementary Table S4"
+                    },
+                    {
+                      "test_name": "Binary logistic regression",
+                      "test_id": "order_decoy_first_unadjusted",
+                      "model": "Model 2 - unadjusted, decoy first vs control",
+                      "variable": "Decoy-decoy-first condition (vs control)",
+                      "statistic": "OR = 0.801",
+                      "confidence_interval": "95% CI 0.381-1.687",
+                      "p_value": "NOT PROVIDED",
+                      "raw_data": {
+                        "control_completed": 33,
+                        "control_n": 101,
+                        "control_completion_rate": 0.327,
+                        "decoy_decoy_first_completed": 14,
+                        "decoy_decoy_first_n": 50,
+                        "decoy_decoy_first_completion_rate": 0.28
+                      },
+                      "claim": "There was no evidence that showing the decoy first increased target-survey completion (28.0%) relative to control (32.7%).",
+                      "location": "Main paper Table 2, Model 2; Supplementary Table S4"
+                    },
+                    {
+                      "test_name": "Binary logistic regression",
+                      "test_id": "order_decoy_first_adjusted",
+                      "model": "Model 2 - adjusted, decoy first vs control",
+                      "variable": "Decoy-decoy-first condition (vs control)",
+                      "statistic": "aOR = 0.746",
+                      "confidence_interval": "95% CI 0.341-1.631",
+                      "p_value": "NOT PROVIDED",
+                      "covariates": [
+                        "Age",
+                        "Gender",
+                        "Ethnicity",
+                        "Religion",
+                        "Education"
+                      ],
+                      "claim": "There was no decoy effect when the decoy was shown before the target, even after adjustment.",
+                      "location": "Main paper Results section 3.2.2 and Table 2; Supplementary Table S4"
+                    }
+                  ]
+                },
+                {
+                  "finding_id": "F4",
+                  "description": "Most target-survey completers in the decoy condition reported that the decoy had at least somewhat influenced their decision to participate.",
+                  "hypothesis": "The decoy option should be perceived as influencing participation decisions.",
+                  "statistical_tests": [],
+                  "raw_outcomes": "Among the 57 individuals in the decoy condition who completed the target survey, 33/57 (57.9%) at least somewhat agreed that the decoy survey had influenced their decision to participate."
+                },
+                {
+                  "finding_id": "F5",
+                  "description": "There was little evidence for adverse question-response behavior or non-response bias, except for ethnicity differences.",
+                  "hypothesis": "The decoy should increase participation without negatively influencing question response behavior or inducing substantial non-response bias.",
+                  "statistical_tests": [
+                    {
+                      "test_name": "Fisher's exact test",
+                      "test_id": "completers_ethnicity",
+                      "variable": "Ethnicity among target completers",
+                      "statistic": "Fisher exact p-value",
+                      "p_value": "p = 0.006",
+                      "raw_data": {
+                        "control_completers": 33,
+                        "control_white": 12,
+                        "control_asian": 14,
+                        "control_black": 7,
+                        "control_other": 0,
+                        "decoy_completers": 57,
+                        "decoy_white": 40,
+                        "decoy_asian": 10,
+                        "decoy_black": 6,
+                        "decoy_other": 1
+                      },
+                      "claim": "Among target-survey completers, ethnicity differed between conditions: more White participants in the decoy condition (70.2% vs 36.4%).",
+                      "location": "Main paper section 3.2.3; Supplementary Table S5"
+                    },
+                    {
+                      "test_name": "Chi-square test",
+                      "test_id": "completers_age",
+                      "variable": "Age among target completers",
+                      "statistic": "χ²",
+                      "p_value": "p = 0.122",
+                      "raw_data": {
+                        "control_completers": 33,
+                        "control_age_20_24": 13,
+                        "control_age_25_29": 13,
+                        "control_age_30_35": 7,
+                        "decoy_completers": 57,
+                        "decoy_age_20_24": 12,
+                        "decoy_age_25_29": 34,
+                        "decoy_age_30_35": 11
+                      },
+                      "claim": "No age difference among target completers across conditions.",
+                      "location": "Supplementary Table S5"
+                    },
+                    {
+                      "test_name": "Chi-square test",
+                      "test_id": "completers_gender",
+                      "variable": "Gender among target completers",
+                      "statistic": "χ²",
+                      "p_value": "p = 0.589",
+                      "raw_data": {
+                        "control_male": 16,
+                        "control_female": 17,
+                        "decoy_male": 31,
+                        "decoy_female": 26
+                      },
+                      "claim": "No gender difference among target completers across conditions.",
+                      "location": "Supplementary Table S5"
+                    },
+                    {
+                      "test_name": "Chi-square test",
+                      "test_id": "completers_religion",
+                      "variable": "Religion among target completers",
+                      "statistic": "χ²",
+                      "p_value": "p = 0.329",
+                      "raw_data": {
+                        "control_christian": 20,
+                        "control_non_christian": 5,
+                        "control_no_religion": 8,
+                        "decoy_christian": 43,
+                        "decoy_non_christian": 5,
+                        "decoy_no_religion": 9
+                      },
+                      "claim": "No religion difference among target completers across conditions.",
+                      "location": "Supplementary Table S5"
+                    },
+                    {
+                      "test_name": "Chi-square test",
+                      "test_id": "completers_education",
+                      "variable": "Education among target completers",
+                      "statistic": "χ²",
+                      "p_value": "p = 0.310",
+                      "raw_data": {
+                        "control_bachelors": 21,
+                        "control_graduate": 12,
+                        "decoy_bachelors": 30,
+                        "decoy_graduate": 27
+                      },
+                      "claim": "No education difference among target completers across conditions.",
+                      "location": "Supplementary Table S5"
+                    },
+                    {
+                      "test_name": "Wilcoxon-Mann-Whitney test",
+                      "test_id": "fcq_score_distribution",
+                      "variable": "FCQ total score (8-40) among target completers",
+                      "statistic": "z = 0.488",
+                      "p_value": "p = 0.629",
+                      "raw_data": {
+                        "control_completers": 33,
+                        "decoy_completers": 57,
+                        "note": "Exact group means and SDs NOT PROVIDED"
+                      },
+                      "claim": "There was no statistically significant difference in FCQ score distributions across the two experimental conditions.",
+                      "location": "Main paper section 3.2.3; Supplementary Fig. S4"
+                    },
+                    {
+                      "test_name": "Chi-square test",
+                      "test_id": "nonresponse_bias_age",
+                      "variable": "Age comparing completers vs non-completers",
+                      "statistic": "χ²",
+                      "p_value": "p = 0.719",
+                      "raw_data": {
+                        "completers_20_24": 25,
+                        "completers_25_29": 47,
+                        "completers_30_35": 18,
+                        "total_completers": 90,
+                        "non_completers_20_24": 30,
+                        "non_completers_25_29": 55,
+                        "non_completers_30_35": 28,
+                        "total_non_completers": 113
+                      },
+                      "claim": "No age difference between completers and non-completers.",
+                      "location": "Supplementary Table S6"
+                    },
+                    {
+                      "test_name": "Chi-square test",
+                      "test_id": "nonresponse_bias_gender",
+                      "variable": "Gender comparing completers vs non-completers",
+                      "statistic": "χ²",
+                      "p_value": "p = 0.999",
+                      "raw_data": {
+                        "completers_male": 47,
+                        "completers_female": 43,
+                        "non_completers_male": 59,
+                        "non_completers_female": 54
+                      },
+                      "claim": "No gender difference between completers and non-completers.",
+                      "location": "Supplementary Table S6"
+                    },
+                    {
+                      "test_name": "Fisher's exact test",
+                      "test_id": "nonresponse_bias_ethnicity",
+                      "variable": "Ethnicity comparing completers vs non-completers",
+                      "statistic": "Fisher exact p-value",
+                      "p_value": "p = 0.661",
+                      "raw_data": {
+                        "completers_white": 52,
+                        "completers_asian": 24,
+                        "completers_black": 13,
+                        "completers_other": 1,
+                        "non_completers_white": 65,
+                        "non_completers_asian": 24,
+                        "non_completers_black": 21,
+                        "non_completers_other": 3
+                      },
+                      "claim": "No overall ethnicity difference between completers and non-completers.",
+                      "location": "Supplementary Table S6"
+                    },
+                    {
+                      "test_name": "Chi-square test",
+                      "test_id": "nonresponse_bias_religion",
+                      "variable": "Religion comparing completers vs non-completers",
+                      "statistic": "χ²",
+                      "p_value": "p = 0.603",
+                      "raw_data": {
+                        "completers_christian": 63,
+                        "completers_non_christian": 10,
+                        "completers_no_religion": 17,
+                        "non_completers_christian": 83,
+                        "non_completers_non_christian": 8,
+                        "non_completers_no_religion": 22
+                      },
+                      "claim": "No religion difference between completers and non-completers.",
+                      "location": "Supplementary Table S6"
+                    },
+                    {
+                      "test_name": "Chi-square test",
+                      "test_id": "nonresponse_bias_education",
+                      "variable": "Education comparing completers vs non-completers",
+                      "statistic": "χ²",
+                      "p_value": "p = 0.209",
+                      "raw_data": {
+                        "completers_bachelors": 51,
+                        "completers_graduate": 39,
+                        "non_completers_bachelors": 54,
+                        "non_completers_graduate": 59
+                      },
+                      "claim": "No education difference between completers and non-completers.",
+                      "location": "Supplementary Table S6"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "exploratory-extension",
+      "program": {
+        "schemaVersion": 2,
+        "id": "exploratory",
+        "title": "Interview coding protocol",
+        "intent": "codesign",
+        "source": {
+          "title": "",
+          "authors": "",
+          "filename": ""
+        },
+        "studies": [
+          {
+            "id": "interview",
+            "title": "Interviews",
+            "type": "empirical"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "coding",
+            "kind": "qualitative-coding",
+            "title": "Coding framework",
+            "studyIds": [
+              "interview"
+            ],
+            "fields": [
+              {
+                "id": "categories",
+                "label": "Categories",
+                "value": [
+                  "uncertainty",
+                  "agency"
+                ],
+                "origin": "researcher",
+                "state": "confirmed",
+                "evidenceIds": []
+              }
+            ],
+            "evidenceIds": [],
+            "extensions": {
+              "codingRules": {
+                "multipleCodes": true
+              }
+            }
+          }
+        ],
+        "steps": [],
+        "relations": [],
+        "evidence": [],
+        "issues": []
+      }
+    }
+  ]
+}

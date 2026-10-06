@@ -1,0 +1,624 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanstudy-hub.org/contracts/human-program-v2",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 300,
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "intent": {
+      "enum": [
+        "reconstruct",
+        "codesign"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "authors": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "filename": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "title",
+        "authors",
+        "filename"
+      ],
+      "additionalProperties": false
+    },
+    "studies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 300,
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "type": {
+            "enum": [
+              "empirical",
+              "analysis",
+              "unspecified"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 40000
+          },
+          "dependsOn": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+            },
+            "maxItems": 500
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "type"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 500
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/node"
+      },
+      "maxItems": 400
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/step"
+      },
+      "maxItems": 200
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "from": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "to": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "type": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "required": [
+          "id",
+          "from",
+          "to",
+          "type"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 500
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      },
+      "maxItems": 1000
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/issue"
+      },
+      "maxItems": 200
+    },
+    "extensions": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "title",
+    "intent",
+    "source",
+    "studies",
+    "nodes",
+    "steps",
+    "relations",
+    "evidence",
+    "issues"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "field": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "label": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "value": {},
+        "origin": {
+          "enum": [
+            "verbatim",
+            "reported",
+            "derived",
+            "researcher",
+            "implementation",
+            "unknown"
+          ]
+        },
+        "state": {
+          "enum": [
+            "confirmed",
+            "check",
+            "decision",
+            "missing"
+          ]
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500
+        },
+        "derivation": {
+          "type": "string",
+          "maxLength": 40000
+        },
+        "studyIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500
+        },
+        "extensions": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "value",
+        "origin",
+        "state",
+        "evidenceIds"
+      ],
+      "additionalProperties": false
+    },
+    "node": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "kind": {
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 40000
+        },
+        "studyIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/field"
+          },
+          "maxItems": 100
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500
+        },
+        "extensions": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "title",
+        "studyIds",
+        "fields",
+        "evidenceIds"
+      ],
+      "additionalProperties": false
+    },
+    "step": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 95,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "studyId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "kind": {
+          "enum": [
+            "action",
+            "sequence",
+            "repeat",
+            "branch",
+            "parallel",
+            "interaction",
+            "custom"
+          ],
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "actorIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500
+        },
+        "inputIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500
+        },
+        "outputIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500
+        },
+        "visibleIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500
+        },
+        "next": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "to": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+              },
+              "when": {
+                "type": "string",
+                "maxLength": 40000
+              }
+            },
+            "required": [
+              "to"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 500
+        },
+        "rule": {
+          "$ref": "#/$defs/field"
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500
+        },
+        "extensions": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "studyId",
+        "kind",
+        "title",
+        "actorIds",
+        "inputIds",
+        "outputIds",
+        "visibleIds",
+        "children",
+        "next",
+        "evidenceIds"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "sourceId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "path": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "url": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "locator": {
+          "type": "object",
+          "properties": {
+            "page": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            },
+            "pointer": {
+              "type": "string",
+              "maxLength": 2000
+            },
+            "start": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "end": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "sheet": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "cell": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "region": {
+              "type": "string",
+              "maxLength": 10000
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "quote": {
+          "type": "string",
+          "maxLength": 40000
+        },
+        "verification": {
+          "enum": [
+            "verified",
+            "unverified"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "locator"
+      ],
+      "additionalProperties": false
+    },
+    "issue": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "severity": {
+          "enum": [
+            "blocking",
+            "decision",
+            "check"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 40000
+        },
+        "impact": {
+          "type": "string",
+          "maxLength": 40000
+        },
+        "suggestedAction": {
+          "type": "string",
+          "maxLength": 40000
+        },
+        "studyId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "nodeId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "fieldId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "stepId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "severity",
+        "reason",
+        "impact",
+        "suggestedAction",
+        "evidenceIds"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "x-maxSerializedBytes": 500000
+}

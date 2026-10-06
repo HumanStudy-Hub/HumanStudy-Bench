@@ -106,6 +106,77 @@ def referenced_messages(request: dict) -> list[dict]:
     return result
 
 
+def program_contract(job_dir: Path) -> str:
+    schema = Path(__file__).resolve().parent.parent / "contracts/human-program.schema.json"
+    target = job_dir / "input/human-program.schema.json"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(schema.read_bytes())
+    return f"""
+
+## Human Program v2: one scientific design, multiple views
+
+Read `{target.resolve()}` for the exact versioned JSON Schema. Generate scientific
+information, never frontend coordinates or an independently authored card model.
+The root has schemaVersion 2, id, title, intent (reconstruct or codesign), source,
+studies, nodes, steps, relations, evidence, issues, and optional extensions.
+Identify every empirical study before populating it; preserve distinct samples,
+conditions, tasks and analysis scopes. Shared nodes use studyIds [].
+Use studies[].dependsOn when a study consumes a prior study’s outputs; preserve
+that dependency explicitly. An analysis
+combining studies is an analysis scope, not a fabricated empirical experiment.
+Nodes have stable IDs and kinds (background, hypothesis, design, participants,
+material, procedure, record, variable, analysis, result, or a descriptive custom
+kind). Unknown kinds and extensions remain inspectable; never omit source data
+because a specialized visualization is unavailable. Hypotheses and conditions
+may be absent when the research genuinely has none. Do not invent hypotheses.
+
+Each field has a stable id, label, typed JSON value, origin, state, evidenceIds,
+and optional derivation, studyIds or extensions. Keep origin (verbatim, reported,
+derived, researcher, implementation, unknown) separate from state (confirmed,
+check, decision, missing). Derived values must state their derivation. A source
+extraction is not automatically confirmed. Decisions supplied by a researcher
+are researcher-origin, not paper-reported facts. Missing future observations
+are not missing rules. Put missing necessary rules in issues with severity
+blocking, decision or check and exact nodeId/fieldId/stepId where available.
+Each missing/decision field or step rule requires a matching review issue.
+Blocking is only for a genuinely missing rule that prevents execution.
+A future run-time observation or derived statistic is not missing input.
+
+Steps explicitly model action, sequence, repeat, branch, parallel, interaction,
+or custom operations. Each belongs to one study, references actors, inputs,
+outputs and visible information by node ID, and records containment (children)
+and transitions (next). Preserve repeated-measure units, role sequencing,
+scripted confederates, feedback and who sees which earlier responses. Never
+flatten an interactive study into independent trials. Do not invent precise
+operators from ambiguous prose; preserve that prose and request the missing rule.
+Variable nodes use field IDs role, type, observation-unit, and when relevant
+unit, transformation, aggregation and definition. Keep physical units distinct
+from the observation grain (participant, item, group, round, etc.). Do not invent
+missing types or units; mark them check or request a genuinely necessary rule. Relations link producers, observations and analyses.
+Analysis nodes identify the actual inputs, contrast, aggregation and missing-data
+rules. Keep original reported results, proposed expectations and new run-time
+observations distinct; use an explicit result_kind field. Reported results are
+paper extractions, not synthetic observations.
+
+Evidence records reference an attached sourceId, package path or authorized URL.
+Use PDF locator.page (the physical PDF page number, starting at 1), text ranges,
+JSON pointers, spreadsheet sheet/cell or image regions as appropriate. Source
+quotes must be exact verified passages; preserve full instrument text or point
+to its resource file. Do not fabricate quotes, positions, statistics or wording.
+When sourceId is available, use that attached source ID. Keep extension data as
+structured JSON. The canonical program is limited to 500 KB of UTF-8 JSON. Preserve large
+instruments and raw datasets in resource files and reference them, never clip
+them to make the program fit. The frontend computes layout; it does not decide study facts.
+
+For reconstruct intent preserve the published design. For codesign intent retain
+source-reported facts, explicitly label researcher changes and record departures
+from the original in issues/fields. Accepted researcher decisions control the
+new design; never relabel them as original paper facts. Preserve stable IDs
+outside actual changes. If the accepted model is legacy, import it conservatively
+and mark ambiguous scopes check; do not silently guess field meaning.
+"""
+
+
 def studio_context(job_dir: Path) -> str:
     path = job_dir / "studio_request.json"
     if not path.is_file():
@@ -172,37 +243,12 @@ unrelated branches from a selected message.
 
 Write `{(job_dir / 'studio-turn.json').resolve()}` as UTF-8 JSON with
 `{{"requestId": {json.dumps(request_id)}, "reply": "substantive answer"}}`.
-You may also include `summary` (string) and `model` (complete frontend
-StudySchema). Include `model` only if your answer proposes an actual change to
-the study design. Omit it for explanations, questions, or source interpretation.
-A proposal is for researcher review; do not silently apply it to the accepted
-model. Preserve all accepted decisions and stable IDs outside the proposed
-change. StudySchema requires id, title, source {{title, authors, filename}},
-entities [], relations [], procedure [], and variables []. Entities require
-id, kind, title, subtitle, description, evidence, fields [], x, y, w, h.
-Evidence requires a physical PDF page number, rects [], quote, and optional
-sourceId. Relations refer to entity IDs. Procedure steps require id, name,
-input, actor, output, evidence. Variables require id, name, role, type, unit,
-producedBy, usedBy, definition, status, entity. Status is reported,
-implementation, or unresolved. Review issues are optional. Cite only exact
-source quotes you verified; use rects [] for new citations.
-Entity kind must be background, hypothesis, design, participants, material,
-procedure, record, variable, analysis, or result. Organize proposed changes
-around the background and research question, hypotheses, design and conditions,
-participant flow, materials, ordered procedure (input, human action, output),
-variables, analysis, and reported results when relevant. Keep a paper-supported
-hypothesis distinct from a hypothesis proposed by the researcher; label each
-field reported, implementation, or unresolved accordingly. Do not invent a
-hypothesis when the source is silent. Keep reported paper results separate from
-expected results and future run-time observations. A review issue has id,
-title, severity (blocking, decision, or check),
-reason, impact, suggestedAction, and optional entity, study, field,
-sourcePointer, evidence. Keep unresolved issue IDs stable. When proposing to
-implement an explicit researcher decision, update the affected rules and fields,
-label the decision implementation rather than source-reported, and remove only
-the review issues that decision actually resolves. A saved answer by itself is
-not an applied study change. Ask for a missing generation, recording, or analysis
-rule; do not ask for participant observations that will only exist after a run.
+You may also include summary (string) and model (a complete Human Program v2).
+Include model only for an actual proposed design change, never for an explanation.
+A proposal requires researcher review and does not change the accepted design.
+Preserve accepted decisions and unaffected stable IDs. A saved answer alone is
+not an applied change. Do not build a package in discussion mode.
+{program_contract(job_dir)}
 Reply in the language of the researcher's latest message.
 
 After `studio-turn.json` is complete, write
@@ -244,62 +290,25 @@ generate, record, or analyse that value. Distinguish source-reported facts from
 implementation choices and inferred rules; give exact source quotes only when
 verified against the PDF, with their actual page.
 
-Write a complete `studio-model.json` in that same paper folder,
-alongside `study.json` (never at the top level of `package/`). Follow the
-frontend StudySchema exactly:
-- Root: id, title, source {{title, authors, filename}}, entities [],
-  relations [], procedure [], variables [].
-- Entity: id, kind (`participants`, `material`, `procedure`, `record`,
-  `variable`, `analysis`, `background`, `hypothesis`, `design`, or `result`),
-  title, subtitle, description, evidence,
-  fields [], x, y, w, h. Field: name, value, optional status.
-- Relation: from, to, label; both endpoints refer to entity IDs.
-- Procedure step: id, name, input, actor, output, evidence.
-- Variable: id, name, role, type, unit, producedBy, usedBy, definition,
-  status, entity; entity refers to an entity ID.
-- Evidence: page (the physical PDF page number, starting at 1), rects [],
-  quote, and sourceId when an attached source ID is present in the supplied
-  source metadata. Use `rects: []` for new citations; preserve existing
-  rectangles only when their coordinates are already recorded. Every rectangle
-  has x, y, w, h in page percentages from 0 to 100. Quotes must be exact PDF
-  passages, with no invented page references or geometry.
-- Field and variable status is `reported`, `implementation`, or `unresolved`;
-  variable status is required. Keep IDs stable and unique where possible.
-- Optional root `reviewIssues` contains explicit researcher questions. Each item
-  has a stable unique id, title, severity (`blocking`, `decision`, or `check`),
-  reason, impact, suggestedAction; it may include entity (an existing entity
-  id), study, field, sourcePointer, and evidence. Carry the actual study,
-  field, reason, impact, suggested_action, and source pointer from
-  `audit/missing_information.json` into these issues, preserving their meaning.
-  Use `blocking` only for a genuinely missing rule that prevents execution,
-  `decision` for a researcher choice, and `check` for verification. Never
-  manufacture an audit reason, impact, action, source quote, or PDF geometry.
-  A future run-time observation or derived statistic is not missing input;
-  ask only if its generating, recording, or analysis rule is unresolved.
+{program_contract(job_dir)}
 
-All string fields must be strings, including unit (use an empty string for a
-unitless categorical variable, never null). This sidecar is required and does not replace any required package file. Also
-write a concise `studio-reply.md` in the same paper folder describing
-actual changes and any remaining researcher decisions. Do not put either
-sidecar directly under `package/`, which must contain only the paper folder.
+Write the canonical Human Program in `study.json.program`. Write
+`studio-model.json` alongside `study.json` (never at the top level of `package/`)
+as an exact copy of that canonical program, not a separately generated display
+schema. The frontend derives its views. Preserve the original eight-file
+research/runtime contract; additional materials are allowed. Write a concise
+studio-reply.md describing changes and unresolved decisions.
 
-Organize the model so a researcher can inspect background and research
-question, hypotheses, design and conditions, participants, materials, ordered
-procedure with input, human action, and output, variables, analysis, and
-reported results. Distinguish a hypothesis stated by the paper from a new
-researcher proposal: use reported only for source-supported claims, use
-implementation for accepted researcher choices, and use unresolved with
-NEED_INPUT where a necessary source or design rule is absent. Do not invent
-hypotheses. Reported paper results belong in result entities; expected results
-or statistics that will only exist after a run must not be presented as
-reported observations. Give each substantive source claim exact verified PDF
-evidence when available; use empty quotes and rects when it is not verified.
-
-Treat `document.model` as the confirmed study design. Build from that model
-and preserve accepted decisions, stable IDs, participant flow, and declared
-unresolved issues. Do not silently revise the accepted model to make package
-generation easier. Record any conflict or missing rule in the audit and reply.
-{"For this accepted-model-sync job, write `studio-model.json` as an exact semantic copy of `document.model`: preserve every field, value, ID, and array order. The eight required package files and any participant materials must implement those accepted choices. Read the full `studio_request.json` for the complete model if its prompt excerpt is truncated." if accepted_model_sync else ""}
+Treat document.model.program, when present, as the confirmed scientific design;
+otherwise document.model is the legacy accepted design. Execution files and
+materials implement the same design. task/task.json includes programBindings
+with programId, stepIds, recordNodeIds (record and variable nodes), and
+analysisNodeIds; these IDs must exactly cover the corresponding program objects.
+Do not silently alter the design to make generation easier. Keep the audit
+checklist aligned with program issues, using the same stable issue IDs.
+For codesign intent, accepted researcher changes take precedence for execution;
+retain the original evidence and explicitly record design departures.
+{("For this accepted-model-sync job, write `studio-model.json` as an exact semantic copy of `document.model`: if it has program, copy document.model.program exactly, including every field, value, ID and array order. Otherwise preserve the legacy model exactly for compatibility. For a legacy accepted-model-sync, do not migrate the accepted design in this sync job; preserve legacy sidecars and files. The eight required package files must implement those accepted choices. Read the complete model if its prompt excerpt is truncated." if accepted_model_sync else "")}
 
 After all package edits and sidecars are complete, write
 `{(job_dir / 'studio-complete.json').resolve()}` with JSON
@@ -499,7 +508,7 @@ def main() -> None:
 
 {task_instruction} Do not modify files outside the job directory.
 """
-    prompt += studio_context(args.job)
+    prompt += studio_context(args.job) if studio_request.is_file() else program_contract(args.job) + "\nWrite the canonical program in study.json.program and include task/task.json programBindings with programId, stepIds, recordNodeIds and analysisNodeIds.\n"
     args.output.write_text(prompt)
 
 

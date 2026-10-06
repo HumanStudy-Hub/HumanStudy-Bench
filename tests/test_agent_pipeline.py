@@ -221,19 +221,19 @@ def test_build_prompt_includes_bounded_studio_feedback(tmp_path: Path) -> None:
     assert "Source passage." in prompt
     assert "If `package/` has no paper folder, build a new complete package" in prompt
     assert "alongside `study.json` (never at the top level of `package/`)" in prompt
-    assert "kind (`participants`, `material`, `procedure`, `record`," in prompt
-    assert "`background`, `hypothesis`, `design`, or `result`" in prompt
-    assert "Do not invent\nhypotheses" in prompt
-    assert "reported observations" in prompt
-    assert "Procedure step: id, name, input, actor, output, evidence" in prompt
-    assert "Variable: id, name, role, type, unit, producedBy, usedBy, definition" in prompt
+    assert "Human Program v2" in prompt
+    assert "origin" in prompt and "state" in prompt
+    assert "sequence, repeat, branch, parallel, interaction" in prompt
+    assert "Do not invent hypotheses" in prompt
+    assert "reported results" in prompt
     assert "the physical PDF page number, starting at 1" in prompt
-    assert "Use `rects: []` for new citations" in prompt
-    assert "sourceId when an attached source ID is present" in prompt
-    assert "studio-model.json" in prompt
-    assert "Optional root `reviewIssues`" in prompt
+    assert "study.json.program" in prompt
+    assert "programBindings" in prompt
     assert "genuinely missing rule that prevents execution" in prompt
     assert "future run-time observation or derived statistic is not missing input" in prompt
+    copied = job / "input/human-program.schema.json"
+    assert copied.read_bytes() == (ROOT / "contracts/human-program.schema.json").read_bytes()
+    assert "x, y, w, h" not in prompt
     assert "studio-complete.json" in prompt
     assert "untrusted research context" in prompt
 
@@ -254,8 +254,9 @@ def test_discussion_prompt_skips_package_contract_and_uses_sources(tmp_path: Pat
     assert "What does the paper say?" in prompt
     assert "Evidence" in prompt
     assert "studio-turn.json" in prompt
-    assert "Entity kind must be background, hypothesis, design" in prompt
-    assert "Keep reported paper results separate from" in prompt
+    assert "Human Program v2" in prompt
+    assert "complete Human Program v2" in prompt
+    assert "Keep original reported results" in prompt
     assert "Do not create, modify, or validate a" in prompt
     assert "Create exactly one top-level paper folder" not in prompt
     assert "Complete the full extraction and package build now" not in prompt
