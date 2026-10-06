@@ -86,11 +86,13 @@ jobs:
           from pathlib import Path
           path = Path("job-storage/jobs") / os.environ["JOB_ID"] / "job.json"
           data = json.loads(path.read_text())
+          request_path = path.with_name("studio_request.json")
+          mode = json.loads(request_path.read_text()).get("mode", "build") if request_path.exists() else "build"
           data.update({
               "status": "running",
               "currentStage": 1,
               "packageReady": False,
-              "message": "Our agent is extracting the paper and building the study",
+              "message": "Claude Code is discussing the study" if mode == "discuss" else "Our agent is extracting the paper and building the study",
           })
           path.write_text(json.dumps(data, indent=2) + "\n")
           PY
@@ -130,7 +132,7 @@ jobs:
           PIPELINE_PROGRESS_TOKEN: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
         run: |
           job="$GITHUB_WORKSPACE/job-storage/jobs/$JOB_ID"
-          mkdir -p "$job/logs" "$job/package"
+          mkdir -p "$job/logs"
           python agent_pipeline/build_prompt.py \
             --contract agent_pipeline/CLAUDE.md \
             --job "$job" \
@@ -146,29 +148,13 @@ jobs:
             --progress-branch "jobs/$JOB_ID" \
             --progress-path "jobs/$JOB_ID/progress.json"
 
-      - name: Validate package and prepare review
-        if: always()
+      - name: Validate result and prepare review
+        if: success()
         env:
           JOB_ID: ${{ inputs.job_id }}
         run: |
           job="job-storage/jobs/$JOB_ID"
-          python agent_pipeline/validate_package.py "$job/package"
-          python - <<'PY'
-          import json, os, shutil
-          from pathlib import Path
-          job = Path("job-storage/jobs") / os.environ["JOB_ID"]
-          (job / "output").mkdir(exist_ok=True)
-          shutil.make_archive(str(job / "output" / "study"), "zip", job / "package")
-          path = job / "job.json"
-          data = json.loads(path.read_text())
-          data.update({
-              "status": "review",
-              "currentStage": 1,
-              "packageReady": True,
-              "message": "Study package is ready for researcher review",
-          })
-          path.write_text(json.dumps(data, indent=2) + "\n")
-          PY
+          python agent_pipeline/finalize_job.py "$job" agent_pipeline/validate_package.py
 
       - name: Mark failed or cancelled
         if: failure() || cancelled()
@@ -181,10 +167,12 @@ jobs:
           job = Path("job-storage/jobs") / os.environ["JOB_ID"]
           path = job / "job.json"
           data = json.loads(path.read_text())
+          request_path = job / "studio_request.json"
+          mode = json.loads(request_path.read_text()).get("mode", "build") if request_path.exists() else "build"
           data.update({
               "status": "failed",
               "packageReady": False,
-              "message": "The study build failed or was cancelled",
+              "message": "The Studio discussion failed or was cancelled" if mode == "discuss" else "The study build failed or was cancelled",
           })
           path.write_text(json.dumps(data, indent=2) + "\n")
           PY

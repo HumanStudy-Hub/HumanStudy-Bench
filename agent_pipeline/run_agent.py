@@ -15,6 +15,11 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
+try:
+    from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
+except ModuleNotFoundError:  # Direct script execution from the repository root.
+    from studio_output import studio_mode, validate_build_sidecars, validate_discussion
+
 
 REQUIRED = (
     "study.json",
@@ -171,11 +176,11 @@ def cleanup_materials(job: Path) -> None:
             path.unlink(missing_ok=True)
 
 
-def progress_payload(phase: str, completed: int, total: int, missing: list[str]) -> dict:
+def progress_payload(phase: str, completed: int, total: int, missing: list[str], mode: str = "build") -> dict:
     return {
         "phase": phase,
         "completedRequired": completed,
-        "totalRequired": len(REQUIRED),
+        "totalRequired": 0 if mode == "discuss" else len(REQUIRED),
         "totalFiles": total,
         "missing": missing,
         "updatedAt": datetime.now(timezone.utc).isoformat(),
@@ -198,16 +203,44 @@ def main() -> None:
     args.job = args.job.resolve()
     package = args.job / "package"
     logs = args.job / "logs"
-    package.mkdir(parents=True, exist_ok=True)
     logs.mkdir(parents=True, exist_ok=True)
     studio_request = args.job / "studio_request.json"
     request_id = None
+    mode = "build"
+    accepted_model = None
     if studio_request.is_file():
         request = json.loads(studio_request.read_text())
         request_id = request["requestId"]
+        mode = studio_mode(request)
+        if request.get("purpose") == "accepted-model-sync":
+            document = request.get("document")
+            if not isinstance(document, dict) or document.get("model") is None:
+                raise ValueError("accepted-model-sync requires document.model")
+            accepted_model = document["model"]
         # A copied package may already validate. Only this run's completion
         # marker can release the watchdog after refinement.
         (args.job / "studio-complete.json").unlink(missing_ok=True)
+        (args.job / "studio-turn.json").unlink(missing_ok=True)
+    if mode == "build":
+        package.mkdir(parents=True, exist_ok=True)
+        if request_id is not None:
+            root = package_root(package)
+            if root is not None:
+                # Copied packages may carry the previous turn's sidecars.
+                # This build must produce its own validated model and reply.
+                (root / "studio-model.json").unlink(missing_ok=True)
+                (root / "studio-reply.md").unlink(missing_ok=True)
+
+    def check_output() -> tuple[bool, str]:
+        if not studio_complete(args.job, request_id):
+            return False, "Studio completion marker is missing or does not match this request."
+        if mode == "discuss":
+            assert request_id is not None
+            return validate_discussion(args.job, request_id)
+        valid, detail = validate(args.validator, package)
+        if valid and request_id is not None:
+            valid, detail = validate_build_sidecars(package, accepted_model)
+        return valid, detail
     progress_token = os.environ.get("PIPELINE_PROGRESS_TOKEN", "")
     publisher = None
     if progress_token and args.progress_repo and args.progress_branch and args.progress_path:
@@ -242,13 +275,32 @@ def main() -> None:
 
     try:
         while process.poll() is None:
+            if mode == "discuss":
+                complete = studio_complete(args.job, request_id)
+                valid, detail = validate_discussion(args.job, request_id) if complete else (False, "Awaiting Studio discussion response")
+                if publisher:
+                    try:
+                        publisher.publish(progress_payload("complete" if valid else "discussing_study", 0, 0, [], mode))
+                    except Exception as exc:
+                        print(f"[studio-progress] could not publish frontend progress: {exc}", flush=True)
+                if valid:
+                    write_result(args.job, "studio_turn_complete", True, detail)
+                    stop_process(process)
+                    output_thread.join(timeout=5)
+                    return
+                if time.monotonic() >= deadline:
+                    stop_process(process)
+                    write_result(args.job, "timeout", False, detail)
+                    raise SystemExit(f"Agent timed out before the Studio turn completed: {detail}")
+                time.sleep(args.check_interval)
+                continue
             completed, total, missing = package_progress(package)
             print(f"[package-progress] required={completed}/{len(REQUIRED)} total={total}", flush=True)
             refinement_pending = not studio_complete(args.job, request_id)
             phase = "building_package" if missing or refinement_pending else "validating_package"
             if publisher:
                 try:
-                    publisher.publish(progress_payload(phase, completed, total, missing))
+                    publisher.publish(progress_payload(phase, completed, total, missing, mode))
                 except Exception as exc:
                     print(f"[package-progress] could not publish frontend progress: {exc}", flush=True)
             if missing:
@@ -258,14 +310,14 @@ def main() -> None:
             else:
                 ensure_readme(package)
                 try:
-                    valid, detail = validate(args.validator, package)
+                    valid, detail = check_output()
                 except subprocess.TimeoutExpired:
                     valid, detail = False, "Validator timed out; retrying."
                 print(f"[package-progress] validator={'passed' if valid else 'not-ready'} {detail}", flush=True)
                 if valid:
                     if publisher:
                         try:
-                            publisher.publish(progress_payload("ready_for_review", completed, total, []))
+                            publisher.publish(progress_payload("ready_for_review", completed, total, [], mode))
                         except Exception as exc:
                             print(f"[package-progress] could not publish ready state: {exc}", flush=True)
                     write_result(args.job, "validator_passed", True, detail)
@@ -279,11 +331,11 @@ def main() -> None:
                 elif not studio_complete(args.job, request_id):
                     valid, detail = False, "Studio refinement did not complete."
                 else:
-                    valid, detail = validate(args.validator, package)
+                    valid, detail = check_output()
                 write_result(args.job, "timeout", valid, detail)
                 if publisher:
                     try:
-                        publisher.publish(progress_payload("ready_for_review" if valid else "timed_out", completed, total, missing))
+                        publisher.publish(progress_payload("ready_for_review" if valid else "timed_out", completed, total, missing, mode))
                     except Exception as exc:
                         print(f"[package-progress] could not publish timeout state: {exc}", flush=True)
                 if valid:
@@ -292,17 +344,18 @@ def main() -> None:
             time.sleep(args.check_interval)
 
         output_thread.join(timeout=5)
-        ensure_readme(package)
-        valid, detail = validate(args.validator, package) if studio_complete(args.job, request_id) else (False, "Studio refinement did not complete.")
+        if mode == "build":
+            ensure_readme(package)
+        valid, detail = check_output()
         write_result(args.job, "agent_exited", valid, detail)
-        completed, total, missing = package_progress(package)
+        completed, total, missing = package_progress(package) if mode == "build" else (0, 0, [])
         if publisher:
             try:
-                publisher.publish(progress_payload("ready_for_review" if valid else "failed", completed, total, missing))
+                publisher.publish(progress_payload(("complete" if mode == "discuss" else "ready_for_review") if valid else "failed", completed, total, missing, mode))
             except Exception as exc:
                 print(f"[package-progress] could not publish final state: {exc}", flush=True)
         if not valid:
-            raise SystemExit(f"Claude Code exited with {process.returncode}; package validation failed: {detail}")
+            raise SystemExit(f"Claude Code exited with {process.returncode}; Studio output validation failed: {detail}")
     except BaseException:
         stop_process(process)
         raise

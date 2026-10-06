@@ -10,6 +10,8 @@ import pytest
 
 from agent_pipeline.run_agent import ProgressPublisher, ensure_readme, package_progress, studio_complete
 from agent_pipeline.build_prompt import conversation_context, fetch_materials, referenced_messages
+from agent_pipeline.finalize_job import finalize
+from agent_pipeline.studio_output import validate_build_sidecars, validate_discussion, validate_study_model
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,6 +25,14 @@ REQUIRED = (
     "evaluation/evaluation.py",
     "audit/missing_information.json",
 )
+
+
+def studio_model() -> dict:
+    return {
+        "id": "study-1", "title": "A study",
+        "source": {"title": "A study", "authors": "A. Author", "filename": "paper.pdf"},
+        "entities": [], "relations": [], "procedure": [], "variables": [],
+    }
 
 
 def make_zip(entries: dict[str, bytes]) -> bytes:
@@ -225,6 +235,46 @@ def test_build_prompt_includes_bounded_studio_feedback(tmp_path: Path) -> None:
     assert "untrusted research context" in prompt
 
 
+def test_discussion_prompt_skips_package_contract_and_uses_sources(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    (job / "input").mkdir(parents=True)
+    (job / "job.json").write_text(json.dumps({"paperName": "paper.pdf"}))
+    (job / "studio_request.json").write_text(json.dumps({
+        "version": 1, "mode": "discuss", "requestId": "turn-1", "message": "What does the paper say?",
+        "document": {"model": studio_model(), "sources": [{"id": "source-1", "pages": [{"page": 2, "text": "Evidence"}]}]},
+    }))
+    output = job / "prompt.md"
+    subprocess.run([sys.executable, str(ROOT / "agent_pipeline/build_prompt.py"),
+                    "--contract", str(ROOT / "agent_pipeline/CLAUDE.md"),
+                    "--job", str(job), "--output", str(output)], check=True)
+    prompt = output.read_text()
+    assert "What does the paper say?" in prompt
+    assert "Evidence" in prompt
+    assert "studio-turn.json" in prompt
+    assert "Do not create, modify, or validate a" in prompt
+    assert "Create exactly one top-level paper folder" not in prompt
+    assert "Complete the full extraction and package build now" not in prompt
+
+
+def test_accepted_model_sync_prompt_requires_exact_model_and_package(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    (job / "input").mkdir(parents=True)
+    (job / "job.json").write_text(json.dumps({"paperName": "paper.pdf"}))
+    (job / "studio_request.json").write_text(json.dumps({
+        "version": 1, "mode": "build", "purpose": "accepted-model-sync",
+        "requestId": "sync-1", "message": "Synchronize the package",
+        "document": {"model": studio_model()},
+    }))
+    output = job / "prompt.md"
+    subprocess.run([sys.executable, str(ROOT / "agent_pipeline/build_prompt.py"),
+                    "--contract", str(ROOT / "agent_pipeline/CLAUDE.md"),
+                    "--job", str(job), "--output", str(output)], check=True)
+    prompt = output.read_text()
+    assert "exact semantic copy of `document.model`" in prompt
+    assert "eight required package files" in prompt
+    assert "complete model if its prompt excerpt is truncated" in prompt
+
+
 def test_studio_branch_context_stops_at_fork_and_omits_siblings() -> None:
     def message(id: str) -> dict:
         return {"id": id, "role": "user", "text": id}
@@ -270,13 +320,27 @@ def test_explicit_refs_include_old_turn_and_one_sibling_message_only() -> None:
     assert "s1" not in [item["id"] for item in recent]
     request = {"replyTo": old, "mergedFrom": selected, "referencedMessages": [
         {"relation": "replyTo", "ref": old, "message": {"id": "m0", "role": "user", "text": "turn-0", "modelAnchor": {"kind": "objects", "entityIds": ["analysis"]}}},
-        {"relation": "mergedFrom", "ref": selected, "message": {"id": "s1", "role": "agent", "text": "Selected insight", "sourceSelection": {"page": 3, "text": "Source quote"}}},
+        {"relation": "mergedFrom", "ref": selected, "message": {"id": "s1", "role": "agent", "text": "Selected insight", "sourceSelection": {"page": 3, "text": "Source quote"}, "proposal": {"model": studio_model(), "summary": "Change the outcome", "status": "pending"}}},
     ]}
     refs = referenced_messages(request)
     assert [item["message"]["text"] for item in refs] == ["turn-0", "Selected insight"]
     assert refs[0]["message"]["modelAnchor"]["entityIds"] == ["analysis"]
     assert refs[1]["message"]["sourceSelection"]["text"] == "Source quote"
+    assert refs[1]["message"]["proposal"] == {"model": studio_model(), "summary": "Change the outcome", "status": "pending"}
     assert "private later turn" not in json.dumps(refs)
+
+
+def test_referenced_proposal_model_is_bounded() -> None:
+    ref = {"conversationId": "main", "messageId": "proposal-1"}
+    request = {"replyTo": ref, "referencedMessages": [{"relation": "replyTo", "ref": ref, "message": {
+        "id": "proposal-1", "role": "agent", "text": "Proposal", "proposal": {
+            "model": {"large": "x" * 50_000}, "summary": "s" * 5_000, "status": "pending",
+        },
+    }}]}
+    proposal = referenced_messages(request)[0]["message"]["proposal"]
+    assert proposal["model"]["truncated"] is True
+    assert len(proposal["summary"]) == 4_000
+    assert proposal["status"] == "pending"
 
 
 def test_validate_complete_agent_package(tmp_path: Path) -> None:
@@ -340,6 +404,49 @@ def test_studio_completion_requires_matching_request(tmp_path: Path) -> None:
     assert not studio_complete(tmp_path, "new-request")
     (tmp_path / "studio-complete.json").write_text(json.dumps({"requestId": "new-request", "status": "complete"}))
     assert studio_complete(tmp_path, "new-request")
+
+
+def test_discussion_output_requires_matching_nonempty_reply_and_valid_optional_model(tmp_path: Path) -> None:
+    path = tmp_path / "studio-turn.json"
+    assert not validate_discussion(tmp_path, "turn-1")[0]
+    path.write_text(json.dumps({"requestId": "turn-2", "reply": "Answer"}))
+    assert not validate_discussion(tmp_path, "turn-1")[0]
+    path.write_text(json.dumps({"requestId": "turn-1", "reply": "  "}))
+    assert not validate_discussion(tmp_path, "turn-1")[0]
+    path.write_text(json.dumps({"requestId": "turn-1", "reply": "The answer is in the paper."}))
+    assert validate_discussion(tmp_path, "turn-1")[0]
+    path.write_text(json.dumps({"requestId": "turn-1", "reply": "Proposed change", "model": {"id": "only-id"}}))
+    assert not validate_discussion(tmp_path, "turn-1")[0]
+    path.write_text(json.dumps({"requestId": "turn-1", "reply": "Proposed change", "model": studio_model()}))
+    assert validate_discussion(tmp_path, "turn-1")[0]
+
+
+def test_build_sidecars_require_both_valid_files(tmp_path: Path) -> None:
+    root = tmp_path / "package" / "paper"
+    root.mkdir(parents=True)
+    assert not validate_build_sidecars(tmp_path / "package")[0]
+    (root / "studio-model.json").write_text(json.dumps(studio_model()))
+    assert not validate_build_sidecars(tmp_path / "package")[0]
+    (root / "studio-reply.md").write_text("Built from the accepted design.\n")
+    assert validate_build_sidecars(tmp_path / "package")[0]
+    invalid = studio_model()
+    invalid["variables"] = [{"id": "v", "entity": "missing"}]
+    (root / "studio-model.json").write_text(json.dumps(invalid))
+    assert not validate_build_sidecars(tmp_path / "package")[0]
+
+
+def test_accepted_model_sync_rejects_changed_sidecar(tmp_path: Path) -> None:
+    root = tmp_path / "package" / "paper"
+    root.mkdir(parents=True)
+    accepted = studio_model()
+    changed = {**accepted, "title": "Unaccepted revision"}
+    (root / "studio-model.json").write_text(json.dumps(changed))
+    (root / "studio-reply.md").write_text("Package complete.\n")
+    valid, detail = validate_build_sidecars(tmp_path / "package", accepted)
+    assert not valid
+    assert "accepted document.model" in detail
+    (root / "studio-model.json").write_text(json.dumps(accepted))
+    assert validate_build_sidecars(tmp_path / "package", accepted)[0]
 
 
 def test_readme_is_generated_from_study_title(tmp_path: Path) -> None:
@@ -448,6 +555,7 @@ def test_watchdog_waits_for_studio_refinement_of_copied_package(tmp_path: Path) 
         "import json, pathlib, sys, time\n"
         "job = pathlib.Path(sys.argv[sys.argv.index('--add-dir') + 1])\n"
         "time.sleep(0.3)\n"
+        f"(job / 'package/paper/studio-model.json').write_text(json.dumps({studio_model()!r}))\n"
         "(job / 'package/paper/studio-reply.md').write_text('Updated analysis unit.\\n')\n"
         "(job / 'studio-complete.json').write_text(json.dumps({'requestId': 'current-request', 'status': 'complete'}))\n"
         "time.sleep(60)\n"
@@ -465,3 +573,90 @@ def test_watchdog_waits_for_studio_refinement_of_copied_package(tmp_path: Path) 
     assert "waiting for Studio refinement completion" in result.stdout
     assert (root / "studio-reply.md").read_text() == "Updated analysis unit.\n"
     assert json.loads((job / "logs/watchdog.json").read_text())["reason"] == "validator_passed"
+
+
+def test_discussion_watchdog_completes_without_package(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    job.mkdir()
+    (job / "studio_request.json").write_text(json.dumps({"version": 1, "mode": "discuss", "requestId": "turn-1"}))
+    (job / "studio-complete.json").write_text(json.dumps({"requestId": "turn-1", "status": "complete"}))
+    prompt = job / "prompt.md"
+    prompt.write_text("Discuss the paper")
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    fake_claude = bin_dir / "claude"
+    fake_claude.write_text(
+        "#!/usr/bin/env python3\n"
+        "import json, pathlib, sys, time\n"
+        "job = pathlib.Path(sys.argv[sys.argv.index('--add-dir') + 1])\n"
+        "time.sleep(0.15)\n"
+        "(job / 'studio-turn.json').write_text(json.dumps({'requestId': 'turn-1', 'reply': 'The paper reports three steps.'}))\n"
+        "(job / 'studio-complete.json').write_text(json.dumps({'requestId': 'turn-1', 'status': 'complete'}))\n"
+        "time.sleep(60)\n"
+    )
+    fake_claude.chmod(0o755)
+    env = {**os.environ, "PATH": f"{bin_dir}:{os.environ['PATH']}"}
+    result = subprocess.run([
+        sys.executable, str(ROOT / "agent_pipeline/run_agent.py"),
+        "--job", str(job), "--prompt", str(prompt), "--model", "test-model",
+        "--validator", str(ROOT / "agent_pipeline/validate_package.py"),
+        "--timeout-minutes", "0.1", "--check-interval", "0.05",
+    ], capture_output=True, text=True, env=env, timeout=10)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert not (job / "package").exists()
+    assert json.loads((job / "logs/watchdog.json").read_text())["reason"] == "studio_turn_complete"
+
+
+def test_finalize_discussion_does_not_create_package_zip(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    job.mkdir()
+    (job / "job.json").write_text(json.dumps({"status": "running"}))
+    (job / "studio_request.json").write_text(json.dumps({"mode": "discuss", "requestId": "turn-1"}))
+    (job / "studio-turn.json").write_text(json.dumps({"requestId": "turn-1", "reply": "Answer"}))
+    (job / "studio-complete.json").write_text(json.dumps({"requestId": "turn-1", "status": "complete"}))
+    finalize(job, ROOT / "agent_pipeline/validate_package.py")
+    assert json.loads((job / "job.json").read_text())["status"] == "complete"
+    assert json.loads((job / "job.json").read_text())["packageReady"] is False
+    assert not (job / "output/study.zip").exists()
+
+
+def test_finalize_rejects_invalid_discussion_before_marking_complete(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    job.mkdir()
+    (job / "job.json").write_text(json.dumps({"status": "running"}))
+    (job / "studio_request.json").write_text(json.dumps({"mode": "discuss", "requestId": "turn-1"}))
+    (job / "studio-turn.json").write_text(json.dumps({"requestId": "wrong", "reply": "Answer"}))
+    (job / "studio-complete.json").write_text(json.dumps({"requestId": "turn-1", "status": "complete"}))
+    with pytest.raises(ValueError, match="requestId"):
+        finalize(job, ROOT / "agent_pipeline/validate_package.py")
+    assert json.loads((job / "job.json").read_text())["status"] == "running"
+
+
+def test_finalize_legacy_build_still_creates_review_zip(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    root = job / "package" / "paper"
+    root.mkdir(parents=True)
+    (root / "study.json").write_text("{}\n")
+    (job / "job.json").write_text(json.dumps({"status": "running"}))
+    validator = tmp_path / "validator.py"
+    validator.write_text("raise SystemExit(0)\n")
+    finalize(job, validator)
+    data = json.loads((job / "job.json").read_text())
+    assert data["status"] == "review"
+    assert data["packageReady"] is True
+    assert (job / "output/study.zip").is_file()
+
+
+def test_finalize_studio_build_rejects_missing_sidecars(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    root = job / "package" / "paper"
+    root.mkdir(parents=True)
+    (root / "study.json").write_text("{}\n")
+    (job / "job.json").write_text(json.dumps({"status": "running"}))
+    (job / "studio_request.json").write_text(json.dumps({"requestId": "build-1"}))
+    (job / "studio-complete.json").write_text(json.dumps({"requestId": "build-1", "status": "complete"}))
+    validator = tmp_path / "validator.py"
+    validator.write_text("raise SystemExit(0)\n")
+    with pytest.raises(ValueError, match="sidecars"):
+        finalize(job, validator)
+    assert json.loads((job / "job.json").read_text())["status"] == "running"
