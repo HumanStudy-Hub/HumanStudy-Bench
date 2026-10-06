@@ -1,10 +1,15 @@
 import json
+import io
 import os
 import subprocess
 import sys
+import zipfile
 from pathlib import Path
 
+import pytest
+
 from agent_pipeline.run_agent import ProgressPublisher, ensure_readme, package_progress, studio_complete
+from agent_pipeline.build_prompt import conversation_context, fetch_materials, referenced_messages
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,6 +23,114 @@ REQUIRED = (
     "evaluation/evaluation.py",
     "audit/missing_information.json",
 )
+
+
+def make_zip(entries: dict[str, bytes]) -> bytes:
+    stream = io.BytesIO()
+    with zipfile.ZipFile(stream, "w") as archive:
+        for name, data in entries.items():
+            archive.writestr(name, data)
+    return stream.getvalue()
+
+
+def test_studio_materials_expand_one_nested_zip(tmp_path: Path) -> None:
+    nested = make_zip({"instrument.csv": b"question,answer\nA,B\n"})
+    source = tmp_path / "uploaded.zip"
+    source.write_bytes(make_zip({"resources/source-1/questionnaire.zip": nested,
+                                 "resources/source-2/notes.txt": b"Notes"}))
+    job = tmp_path / "job"
+    fetch_materials(job, {"openMaterialsUrl": source.as_uri(),
+                          "openMaterialsSourceIds": ["source-1", "source-2"]})
+
+    root = job / "input/open_materials/resources"
+    assert (root / "source-1/questionnaire.contents/instrument.csv").read_text() == "question,answer\nA,B\n"
+    assert (root / "source-2/notes.txt").read_text() == "Notes"
+
+
+@pytest.mark.parametrize("entry", ["../escape.txt", "/absolute.txt", "C:/drive.txt", "a\\escape.txt"])
+def test_studio_materials_reject_unsafe_paths(tmp_path: Path, entry: str) -> None:
+    source = tmp_path / "uploaded.zip"
+    source.write_bytes(make_zip({"resources/source-1/valid.txt": b"OK", entry: b"unsafe"}))
+    job = tmp_path / "job"
+    with pytest.raises(RuntimeError, match="Required Studio open materials"):
+        fetch_materials(job, {"openMaterialsUrl": source.as_uri(), "openMaterialsSourceIds": ["source-1"]})
+    assert not (job / "input/open_materials").exists()
+    assert not (tmp_path / "escape.txt").exists()
+
+
+def test_studio_materials_reject_symlink_and_collision(tmp_path: Path) -> None:
+    source = tmp_path / "uploaded.zip"
+    with zipfile.ZipFile(source, "w") as archive:
+        link = zipfile.ZipInfo("resources/source-1/link")
+        link.create_system = 3
+        link.external_attr = (0o120777 << 16)
+        archive.writestr(link, "target")
+    with pytest.raises(RuntimeError, match="link or special file"):
+        fetch_materials(tmp_path / "job", {"openMaterialsUrl": source.as_uri(),
+                                           "openMaterialsSourceIds": ["source-1"]})
+
+    source.write_bytes(make_zip({"resources/source-1/A.txt": b"A",
+                                 "resources/source-1/a.txt": b"a"}))
+    with pytest.raises(RuntimeError, match="colliding paths"):
+        fetch_materials(tmp_path / "job", {"openMaterialsUrl": source.as_uri(),
+                                           "openMaterialsSourceIds": ["source-1"]})
+
+
+def test_studio_materials_enforce_expanded_budget_and_depth(tmp_path: Path, monkeypatch) -> None:
+    source = tmp_path / "uploaded.zip"
+    source.write_bytes(make_zip({"resources/source-1/big.txt": b"0123456789"}))
+    monkeypatch.setattr("agent_pipeline.build_prompt.MAX_MATERIAL_EXPANDED", 8)
+    with pytest.raises(RuntimeError, match="expanded limit"):
+        fetch_materials(tmp_path / "job", {"openMaterialsUrl": source.as_uri(),
+                                           "openMaterialsSourceIds": ["source-1"]})
+    monkeypatch.setattr("agent_pipeline.build_prompt.MAX_MATERIAL_EXPANDED", 100 * 1024 * 1024)
+    deepest = make_zip({"data.txt": b"data"})
+    middle = make_zip({"second.zip": deepest})
+    source.write_bytes(make_zip({"resources/source-1/first.zip": middle}))
+    with pytest.raises(RuntimeError, match="nesting exceeds"):
+        fetch_materials(tmp_path / "job", {"openMaterialsUrl": source.as_uri(),
+                                           "openMaterialsSourceIds": ["source-1"]})
+
+
+def test_studio_materials_bound_total_entries_and_download(tmp_path: Path, monkeypatch) -> None:
+    source = tmp_path / "uploaded.zip"
+    with zipfile.ZipFile(source, "w") as archive:
+        for index in range(3):
+            archive.writestr(f"resources/source-1/folder-{index}/", b"")
+    monkeypatch.setattr("agent_pipeline.build_prompt.MAX_MATERIAL_ENTRIES", 2)
+    with pytest.raises(RuntimeError, match="entry limit"):
+        fetch_materials(tmp_path / "job", {"openMaterialsUrl": source.as_uri(),
+                                           "openMaterialsSourceIds": ["source-1"]})
+    monkeypatch.setattr("agent_pipeline.build_prompt.MAX_MATERIAL_ENTRIES", 4000)
+    monkeypatch.setattr("agent_pipeline.build_prompt.MAX_MATERIAL_DOWNLOAD", 10)
+    with pytest.raises(RuntimeError, match="download exceeds"):
+        fetch_materials(tmp_path / "job", {"openMaterialsUrl": source.as_uri(),
+                                           "openMaterialsSourceIds": ["source-1"]})
+
+
+def test_studio_materials_bound_path_components(tmp_path: Path, monkeypatch) -> None:
+    source = tmp_path / "uploaded.zip"
+    source.write_bytes(make_zip({"resources/source-1/a/b/c/file.txt": b"data"}))
+    monkeypatch.setattr("agent_pipeline.build_prompt.MAX_MATERIAL_PATH_PARTS", 5)
+    with pytest.raises(RuntimeError, match="component limit"):
+        fetch_materials(tmp_path / "job", {"openMaterialsUrl": source.as_uri(),
+                                           "openMaterialsSourceIds": ["source-1"]})
+
+
+def test_legacy_materials_failure_remains_optional(tmp_path: Path, capsys) -> None:
+    source = tmp_path / "invalid.zip"
+    source.write_bytes(b"not a ZIP")
+    fetch_materials(tmp_path / "job", {"openMaterialsUrl": source.as_uri()})
+    assert "continuing without them" in capsys.readouterr().out
+    assert not (tmp_path / "job/input/open_materials").exists()
+
+
+def test_studio_materials_fail_when_required_source_is_omitted(tmp_path: Path) -> None:
+    source = tmp_path / "uploaded.zip"
+    source.write_bytes(make_zip({"resources/source-1/notes.txt": b"Notes"}))
+    with pytest.raises(RuntimeError, match="missing from the archive"):
+        fetch_materials(tmp_path / "job", {"openMaterialsUrl": source.as_uri(),
+                                           "openMaterialsSourceIds": ["source-1", "source-2"]})
 
 
 def test_build_prompt_includes_job_inputs(tmp_path: Path) -> None:
@@ -107,6 +220,60 @@ def test_build_prompt_includes_bounded_studio_feedback(tmp_path: Path) -> None:
     assert "studio-model.json" in prompt
     assert "studio-complete.json" in prompt
     assert "untrusted research context" in prompt
+
+
+def test_studio_branch_context_stops_at_fork_and_omits_siblings() -> None:
+    def message(id: str) -> dict:
+        return {"id": id, "role": "user", "text": id}
+
+    conversations = [
+        {"id": "main", "messages": [message("m1"), message("m2"), message("later")]},
+        {"id": "side", "parent": {"conversationId": "main", "messageId": "m2"}, "messages": [message("s1"), message("current")]},
+        {"id": "sibling", "parent": {"conversationId": "main", "messageId": "m2"}, "messages": [message("other")]},
+    ]
+    context = conversation_context(conversations, "side", "current")
+    assert [item["id"] for item in context] == ["m1", "m2", "s1"]
+    assert conversation_context(conversations, "missing", "current") == []
+
+
+def test_studio_branch_context_rejects_broken_links_and_cycles() -> None:
+    conversations = [
+        {"id": "one", "parent": {"conversationId": "two", "messageId": "b"}, "messages": [{"id": "a"}]},
+        {"id": "two", "parent": {"conversationId": "one", "messageId": "a"}, "messages": [{"id": "b"}]},
+    ]
+    try:
+        conversation_context(conversations, "one", "new")
+        assert False, "cycle should fail"
+    except ValueError as error:
+        assert "cycle" in str(error)
+    conversations[1].pop("parent")
+    conversations[0]["parent"]["messageId"] = "missing"
+    try:
+        conversation_context(conversations, "one", "new")
+        assert False, "missing parent message should fail"
+    except ValueError as error:
+        assert "message is missing" in str(error)
+
+
+def test_explicit_refs_include_old_turn_and_one_sibling_message_only() -> None:
+    old = {"conversationId": "main", "messageId": "m0"}
+    selected = {"conversationId": "side", "messageId": "s1"}
+    conversations = [
+        {"id": "main", "messages": [{"id": f"m{i}", "role": "user", "text": f"turn-{i}"} for i in range(30)]},
+        {"id": "side", "parent": old, "messages": [{"id": "s1", "role": "agent", "text": "Selected insight"}, {"id": "s2", "text": "private later turn"}]},
+    ]
+    recent = conversation_context(conversations, "main", "new")[-24:]
+    assert "m0" not in [item["id"] for item in recent]
+    assert "s1" not in [item["id"] for item in recent]
+    request = {"replyTo": old, "mergedFrom": selected, "referencedMessages": [
+        {"relation": "replyTo", "ref": old, "message": {"id": "m0", "role": "user", "text": "turn-0", "modelAnchor": {"kind": "objects", "entityIds": ["analysis"]}}},
+        {"relation": "mergedFrom", "ref": selected, "message": {"id": "s1", "role": "agent", "text": "Selected insight", "sourceSelection": {"page": 3, "text": "Source quote"}}},
+    ]}
+    refs = referenced_messages(request)
+    assert [item["message"]["text"] for item in refs] == ["turn-0", "Selected insight"]
+    assert refs[0]["message"]["modelAnchor"]["entityIds"] == ["analysis"]
+    assert refs[1]["message"]["sourceSelection"]["text"] == "Source quote"
+    assert "private later turn" not in json.dumps(refs)
 
 
 def test_validate_complete_agent_package(tmp_path: Path) -> None:
