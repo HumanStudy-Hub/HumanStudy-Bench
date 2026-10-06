@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 
-KINDS = {"participants", "material", "procedure", "record", "variable", "analysis"}
+KINDS = {"background", "hypothesis", "design", "participants", "material", "procedure", "record", "variable", "analysis", "result"}
 STATUSES = {"reported", "implementation", "unresolved"}
 SEVERITIES = {"blocking", "decision", "check"}
 

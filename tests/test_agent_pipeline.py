@@ -222,6 +222,9 @@ def test_build_prompt_includes_bounded_studio_feedback(tmp_path: Path) -> None:
     assert "If `package/` has no paper folder, build a new complete package" in prompt
     assert "alongside `study.json` (never at the top level of `package/`)" in prompt
     assert "kind (`participants`, `material`, `procedure`, `record`," in prompt
+    assert "`background`, `hypothesis`, `design`, or `result`" in prompt
+    assert "Do not invent\nhypotheses" in prompt
+    assert "reported observations" in prompt
     assert "Procedure step: id, name, input, actor, output, evidence" in prompt
     assert "Variable: id, name, role, type, unit, producedBy, usedBy, definition" in prompt
     assert "the physical PDF page number, starting at 1" in prompt
@@ -251,6 +254,8 @@ def test_discussion_prompt_skips_package_contract_and_uses_sources(tmp_path: Pat
     assert "What does the paper say?" in prompt
     assert "Evidence" in prompt
     assert "studio-turn.json" in prompt
+    assert "Entity kind must be background, hypothesis, design" in prompt
+    assert "Keep reported paper results separate from" in prompt
     assert "Do not create, modify, or validate a" in prompt
     assert "Create exactly one top-level paper folder" not in prompt
     assert "Complete the full extraction and package build now" not in prompt
@@ -273,6 +278,29 @@ def test_accepted_model_sync_prompt_requires_exact_model_and_package(tmp_path: P
     assert "exact semantic copy of `document.model`" in prompt
     assert "eight required package files" in prompt
     assert "complete model if its prompt excerpt is truncated" in prompt
+
+
+def test_full_program_kinds_validate_and_sync_exactly(tmp_path: Path) -> None:
+    model = studio_model()
+    for kind in ("background", "hypothesis", "design", "result"):
+        model["entities"].append({
+            "id": kind, "kind": kind, "title": kind, "subtitle": "", "description": "",
+            "evidence": {"page": 1, "rects": [], "quote": ""},
+            "fields": [{"name": "Status", "value": "NEED_INPUT" if kind == "hypothesis" else "Reviewed",
+                        "status": "unresolved" if kind == "hypothesis" else "implementation"}],
+            "x": 0, "y": 0, "w": 10, "h": 10,
+        })
+    assert validate_study_model(model) == model
+    paper = tmp_path / "package" / "paper"
+    paper.mkdir(parents=True)
+    (paper / "studio-model.json").write_text(json.dumps(model))
+    (paper / "studio-reply.md").write_text("Accepted model applied")
+    assert validate_build_sidecars(paper.parent, model)[0]
+    edited = json.loads((paper / "studio-model.json").read_text())
+    edited["entities"][1]["fields"][0]["status"] = "reported"
+    (paper / "studio-model.json").write_text(json.dumps(edited))
+    valid, reason = validate_build_sidecars(paper.parent, model)
+    assert not valid and "exactly match" in reason
 
 
 def test_studio_branch_context_stops_at_fork_and_omits_siblings() -> None:

@@ -186,8 +186,16 @@ input, actor, output, evidence. Variables require id, name, role, type, unit,
 producedBy, usedBy, definition, status, entity. Status is reported,
 implementation, or unresolved. Review issues are optional. Cite only exact
 source quotes you verified; use rects [] for new citations.
-Entity kind must be participants, material, procedure, record, variable, or
-analysis. A review issue has id, title, severity (blocking, decision, or check),
+Entity kind must be background, hypothesis, design, participants, material,
+procedure, record, variable, analysis, or result. Organize proposed changes
+around the background and research question, hypotheses, design and conditions,
+participant flow, materials, ordered procedure (input, human action, output),
+variables, analysis, and reported results when relevant. Keep a paper-supported
+hypothesis distinct from a hypothesis proposed by the researcher; label each
+field reported, implementation, or unresolved accordingly. Do not invent a
+hypothesis when the source is silent. Keep reported paper results separate from
+expected results and future run-time observations. A review issue has id,
+title, severity (blocking, decision, or check),
 reason, impact, suggestedAction, and optional entity, study, field,
 sourcePointer, evidence. Keep unresolved issue IDs stable. When proposing to
 implement an explicit researcher decision, update the affected rules and fields,
@@ -242,7 +250,8 @@ frontend StudySchema exactly:
 - Root: id, title, source {{title, authors, filename}}, entities [],
   relations [], procedure [], variables [].
 - Entity: id, kind (`participants`, `material`, `procedure`, `record`,
-  `variable`, or `analysis`), title, subtitle, description, evidence,
+  `variable`, `analysis`, `background`, `hypothesis`, `design`, or `result`),
+  title, subtitle, description, evidence,
   fields [], x, y, w, h. Field: name, value, optional status.
 - Relation: from, to, label; both endpoints refer to entity IDs.
 - Procedure step: id, name, input, actor, output, evidence.
@@ -273,6 +282,18 @@ unitless categorical variable, never null). This sidecar is required and does no
 write a concise `studio-reply.md` in the same paper folder describing
 actual changes and any remaining researcher decisions. Do not put either
 sidecar directly under `package/`, which must contain only the paper folder.
+
+Organize the model so a researcher can inspect background and research
+question, hypotheses, design and conditions, participants, materials, ordered
+procedure with input, human action, and output, variables, analysis, and
+reported results. Distinguish a hypothesis stated by the paper from a new
+researcher proposal: use reported only for source-supported claims, use
+implementation for accepted researcher choices, and use unresolved with
+NEED_INPUT where a necessary source or design rule is absent. Do not invent
+hypotheses. Reported paper results belong in result entities; expected results
+or statistics that will only exist after a run must not be presented as
+reported observations. Give each substantive source claim exact verified PDF
+evidence when available; use empty quotes and rects when it is not verified.
 
 Treat `document.model` as the confirmed study design. Build from that model
 and preserve accepted decisions, stable IDs, participant flow, and declared
