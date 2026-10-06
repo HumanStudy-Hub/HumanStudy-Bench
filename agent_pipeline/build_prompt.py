@@ -186,6 +186,16 @@ input, actor, output, evidence. Variables require id, name, role, type, unit,
 producedBy, usedBy, definition, status, entity. Status is reported,
 implementation, or unresolved. Review issues are optional. Cite only exact
 source quotes you verified; use rects [] for new citations.
+Entity kind must be participants, material, procedure, record, variable, or
+analysis. A review issue has id, title, severity (blocking, decision, or check),
+reason, impact, suggestedAction, and optional entity, study, field,
+sourcePointer, evidence. Keep unresolved issue IDs stable. When proposing to
+implement an explicit researcher decision, update the affected rules and fields,
+label the decision implementation rather than source-reported, and remove only
+the review issues that decision actually resolves. A saved answer by itself is
+not an applied study change. Ask for a missing generation, recording, or analysis
+rule; do not ask for participant observations that will only exist after a run.
+Reply in the language of the researcher's latest message.
 
 After `studio-turn.json` is complete, write
 `{(job_dir / 'studio-complete.json').resolve()}` with
