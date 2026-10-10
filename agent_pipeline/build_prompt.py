@@ -158,6 +158,26 @@ rules. Keep original reported results, proposed expectations and new run-time
 observations distinct; use an explicit result_kind field. Reported results are
 paper extractions, not synthetic observations.
 
+Human Program describes the original scientific experiment, including human
+participants, physical interventions and elapsed real-world time. Keep LLM
+replay adaptations and their limitations in package readiness/implementation
+metadata; never substitute them for the original study's actors or procedures.
+A limitation of LLM replay is not a missing rule in the human experiment.
+Only put actionable uncertainties in issues: identify the unresolved fact or
+decision and the specific answer needed. Put informational notes that require
+no researcher action in descriptions or extensions, not in Need input.
+
+For a paper reporting findings, create result nodes linked to their analysis
+and outcome variables, with result_kind = reported and source evidence. Keep
+analysis methods and published findings separately inspectable; do not bury
+all findings exclusively in analysis fields. Do not fabricate result nodes for
+a proposal or a study without results. Distinguish randomized, deduplicated,
+retained and analysis-specific sample sizes in fields and summary labels.
+Use verbatim origin only for a direct source transcription. A paraphrase,
+combined summary or reformatted statistical statement has reported origin,
+even when its evidence quote is verbatim. Use researcher origin only for
+actual researcher-supplied decisions, not for your own metadata labels.
+
 Evidence records reference an attached sourceId, package path or authorized URL.
 Use PDF locator.page (the physical PDF page number, starting at 1), text ranges,
 JSON pointers, spreadsheet sheet/cell or image regions as appropriate. Source

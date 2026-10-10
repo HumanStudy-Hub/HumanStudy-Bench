@@ -231,6 +231,10 @@ def test_build_prompt_includes_bounded_studio_feedback(tmp_path: Path) -> None:
     assert "programBindings" in prompt
     assert "genuinely missing rule that prevents execution" in prompt
     assert "future run-time observation or derived statistic is not missing input" in prompt
+    assert "A limitation of LLM replay is not a missing rule" in prompt
+    assert "create result nodes linked to their analysis" in prompt
+    assert "Use verbatim origin only for a direct source transcription" in prompt
+    assert "not in Need input" in prompt
     copied = job / "input/human-program.schema.json"
     assert copied.read_bytes() == (ROOT / "contracts/human-program.schema.json").read_bytes()
     assert "x, y, w, h" not in prompt
