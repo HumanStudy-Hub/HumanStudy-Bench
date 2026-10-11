@@ -94,6 +94,16 @@ def validate_human_program(value: object) -> dict:
         for dep in deps: study_visit(dep, active | {ident})
         finished.add(ident)
     for s in p['studies']: study_visit(s['id'], set())
+    # Condition membership is explicit: it names condition nodes that apply in the same study.
+    def conditions(ids, scope, where):
+        refs(ids, nodes, where)
+        for ident in ids:
+            c = nodes[ident]
+            if c['kind'] != 'condition': fail(where, f'{ident} is not a condition')
+            if c['studyIds'] and scope and not any(s in c['studyIds'] for s in scope):
+                fail(where, f'condition {ident} belongs to another study')
+    for n in p['nodes']: conditions(n.get('conditionIds', []), n['studyIds'], n['id'])
+    for s in p['steps']: conditions(s.get('conditionIds', []), [s['studyId']], s['id'])
     for r in p['relations']: refs(list(dict.fromkeys([r['from'], r['to']])), nodes, r['id'])
     for e in p['evidence']:
         if not any(e.get(k) for k in ['sourceId', 'path', 'url']): fail(e['id'], 'source reference is required')

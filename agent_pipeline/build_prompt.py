@@ -125,8 +125,8 @@ Use studies[].dependsOn when a study consumes a prior study’s outputs; preserv
 that dependency explicitly. An analysis
 combining studies is an analysis scope, not a fabricated empirical experiment.
 Nodes have stable IDs and kinds (background, hypothesis, design, participants,
-material, procedure, record, variable, analysis, result, or a descriptive custom
-kind). Unknown kinds and extensions remain inspectable; never omit source data
+condition, material, procedure, record, variable, analysis, result, or a
+descriptive custom kind). Unknown kinds and extensions remain inspectable; never omit source data
 because a specialized visualization is unavailable. Hypotheses and conditions
 may be absent when the research genuinely has none. Do not invent hypotheses.
 
@@ -149,6 +149,27 @@ and transitions (next). Preserve repeated-measure units, role sequencing,
 scripted confederates, feedback and who sees which earlier responses. Never
 flatten an interactive study into independent trials. Do not invent precise
 operators from ambiguous prose; preserve that prose and request the missing rule.
+State experimental conditions explicitly: one node of kind condition per
+condition, scoped to its study, with its evidence. Put that condition's id in
+conditionIds on every step and node that belongs only to it: the branch
+alternative a condition follows, its condition-specific materials. Content shared
+by all conditions has no conditionIds. When later phases continue a condition
+(a crossover's second phase, a later branch), give those steps the same
+condition id; this is the only way the program states that two steps run in the
+same condition. If the paper does not say which condition follows an
+alternative, leave conditionIds off and add a review issue. Never infer it from
+titles. Only next edges state execution order; steps whose order the paper does
+not state get no next edge.
+
+Cite evidence on every step and node, and on every field that comes from the
+paper (evidenceIds with source page and quote). Researchers trace each item
+back to the paper, and an item without evidence is shown as unsourced.
+
+extensions.presentation may hold a small layout plan:
+{{"open": [step ids a reader should see opened first],
+ "collapsed": [container step ids to start folded]}}. It arranges the display
+only and never states order, conditions or other scientific relations.
+
 Variable nodes use field IDs role, type, observation-unit, and when relevant
 unit, transformation, aggregation and definition. Keep physical units distinct
 from the observation grain (participant, item, group, round, etc.). Do not invent
