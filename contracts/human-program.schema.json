@@ -311,6 +311,17 @@
           },
           "maxItems": 500
         },
+        "conditionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500,
+          "description": "Experimental conditions (nodes of kind \"condition\") this node belongs to. Steps or nodes in different phases that share a condition id run in the same condition. Omit for content shared by all conditions."
+        },
         "extensions": {
           "type": "object"
         }
@@ -443,6 +454,17 @@
             "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
           },
           "maxItems": 500
+        },
+        "conditionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          },
+          "maxItems": 500,
+          "description": "Experimental conditions (nodes of kind \"condition\") this step belongs to. Steps or nodes in different phases that share a condition id run in the same condition. Omit for content shared by all conditions."
         },
         "extensions": {
           "type": "object"

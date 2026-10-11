@@ -78,3 +78,17 @@ def test_package_validator_rejects_disconnected_execution_bindings(tmp_path):
     (root / 'evaluation/evaluation.py').write_text('def evaluate(sessions):\n    return {}\n')
     result = subprocess.run(command, capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
+
+def test_condition_membership_names_condition_nodes_of_the_same_study():
+    p = sample('study_012')
+    study = p['studies'][0]['id']
+    p['nodes'].append({'id': 'cond-a', 'kind': 'condition', 'title': 'A', 'studyIds': [study], 'fields': [], 'evidenceIds': []})
+    p['steps'][0]['conditionIds'] = ['cond-a']
+    assert validate_human_program(p) == p
+    bad = copy.deepcopy(p); bad['steps'][0]['conditionIds'] = [bad['nodes'][0]['id']]
+    with pytest.raises(ValueError, match='is not a condition'): validate_human_program(bad)
+    other = copy.deepcopy(p); other['nodes'][-1]['studyIds'] = [s['id'] for s in other['studies'] if s['id'] != study][:1]
+    assert other['nodes'][-1]['studyIds']
+    with pytest.raises(ValueError, match='another study'): validate_human_program(other)
+    ghost = copy.deepcopy(p); ghost['steps'][0]['conditionIds'] = ['nope']
+    with pytest.raises(ValueError, match='unknown reference'): validate_human_program(ghost)
