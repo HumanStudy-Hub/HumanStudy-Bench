@@ -9,6 +9,9 @@ on:
       - "scripts/check_community_pr.py"
       - "scripts/community.py"
 
+env:
+  COMMUNITY_BOT_LOGIN: ${{ vars.COMMUNITY_BOT_LOGIN || 'humanstudy-bot' }}
+
 jobs:
   validate:
     runs-on: ubuntu-latest

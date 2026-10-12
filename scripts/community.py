@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import re
 import unicodedata
 from pathlib import Path
@@ -12,7 +13,8 @@ COMMUNITY_DIR = REPO_ROOT / "community"
 
 # The single place that lists who may edit other people's contributions.
 MAINTAINERS = ("XuanL17", "diana3135", "assassin808")
-BOT_LOGIN = "humanstudy-bot"
+# The Hub's bot account. Overridable so a dogfood deployment can publish with another account.
+BOT_LOGIN = os.environ.get("COMMUNITY_BOT_LOGIN", "humanstudy-bot")
 
 MAX_FILE_BYTES = 25 * 1024 * 1024
 
