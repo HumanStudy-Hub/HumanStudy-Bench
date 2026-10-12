@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanstudy-hub.org/contracts/community-contribution-v1",
+  "title": "community/<paper-key>/<slug>--<contributor-id>[-vN]/CONTRIBUTION.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "paperKey": {
+      "type": "string",
+      "pattern": "^(doi:10\\.\\S+|title:[a-z0-9-]+)$",
+      "maxLength": 300
+    },
+    "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$", "maxLength": 80 },
+    "contributor": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 200, "pattern": "\\S" },
+        "affiliation": { "type": "string", "maxLength": 300 },
+        "orcid": { "type": "string", "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$" },
+        "github": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$"
+        },
+        "hub": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string", "minLength": 1, "maxLength": 100 },
+            "signature": { "type": "string", "minLength": 1, "maxLength": 500 }
+          },
+          "required": ["id", "signature"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["name"],
+      "additionalProperties": false
+    },
+    "license": {
+      "type": "object",
+      "properties": {
+        "content": { "const": "CC-BY-4.0" },
+        "code": { "const": "MIT" }
+      },
+      "required": ["content", "code"],
+      "additionalProperties": false
+    },
+    "includesPdf": { "type": "boolean" },
+    "appVersion": { "type": "string", "minLength": 1, "maxLength": 50 },
+    "createdAt": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$" },
+    "checks": {
+      "type": "object",
+      "properties": {
+        "schema": { "type": "boolean" },
+        "package": { "type": ["boolean", "null"] },
+        "simulation": { "type": ["boolean", "null"] }
+      },
+      "required": ["schema", "package", "simulation"],
+      "additionalProperties": false
+    },
+    "supersedes": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*--[a-z0-9][a-z0-9-]*$" }
+  },
+  "required": [
+    "schemaVersion", "paperKey", "slug", "contributor", "license",
+    "includesPdf", "appVersion", "createdAt", "checks"
+  ],
+  "additionalProperties": false
+}
