@@ -23,8 +23,12 @@ REQUIRED = (
 )
 
 
-def main() -> None:
-    package = Path(sys.argv[1]).resolve()
+def validate_package(package: Path) -> Path:
+    """Check an agent package; raise SystemExit with a plain message on the first problem.
+
+    Returns the paper folder inside ``package``.
+    """
+    package = package.resolve()
     roots = [path for path in package.iterdir() if path.is_dir()] if package.exists() else []
     if len(roots) != 1:
         raise SystemExit("package must contain exactly one paper folder")
@@ -67,6 +71,11 @@ def main() -> None:
     if not _defines(root / "evaluation/evaluation.py", "evaluate"):
         raise SystemExit("evaluation/evaluation.py must expose evaluate(sessions) so the playground can score it.")
 
+    return root
+
+
+def main() -> None:
+    root = validate_package(Path(sys.argv[1]))
     print(f"Validated agent package: {root.name}")
 
 

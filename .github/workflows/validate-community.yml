@@ -1,0 +1,62 @@
+name: Validate community contributions
+on:
+  pull_request:
+    paths:
+      - "community/**"
+      - "contracts/paper.schema.json"
+      - "contracts/contribution.schema.json"
+      - "scripts/validate_contribution.py"
+      - "scripts/check_community_pr.py"
+      - "scripts/community.py"
+
+env:
+  COMMUNITY_BOT_LOGIN: ${{ vars.COMMUNITY_BOT_LOGIN || 'humanstudy-bot' }}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Check who may change what
+        id: rules
+        env:
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          # Maintainers and the bot login are listed in scripts/community.py.
+          python scripts/check_community_pr.py \
+            --author "$PR_AUTHOR" \
+            --base "origin/${{ github.base_ref }}" \
+            --folders-out "$RUNNER_TEMP/folders.txt"
+      - name: Validate changed contributions
+        run: |
+          status=0
+          while read -r folder; do
+            [ -z "$folder" ] && continue
+            echo "--- $folder ---"
+            python scripts/validate_contribution.py "$folder" || status=1
+          done < "$RUNNER_TEMP/folders.txt"
+          exit $status
+      # Label only; the merge itself is a later step. Fork PRs get a read-only token, so a
+      # failure here must not fail the check.
+      - name: Label add-only PRs for auto-merge
+        if: steps.rules.outputs.add_only == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr edit "${{ github.event.pull_request.number }}" --add-label auto-merge
+      - name: Remove auto-merge label when the PR changes existing files
+        if: steps.rules.outputs.add_only != 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr edit "${{ github.event.pull_request.number }}" --remove-label auto-merge

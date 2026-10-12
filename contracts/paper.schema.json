@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanstudy-hub.org/contracts/community-paper-v1",
+  "title": "community/<paper-key>/paper.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "paperKey": {
+      "type": "string",
+      "pattern": "^(doi:10\\.\\S+|title:[a-z0-9-]+)$",
+      "maxLength": 300
+    },
+    "title": { "type": "string", "minLength": 1, "maxLength": 500, "pattern": "\\S" },
+    "authors": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 200 },
+      "minItems": 1,
+      "maxItems": 200
+    },
+    "year": { "type": "integer", "minimum": 1800, "maximum": 2200 },
+    "doi": { "type": "string", "pattern": "^10\\.\\S+$", "maxLength": 200 },
+    "venue": { "type": "string", "maxLength": 300 }
+  },
+  "required": ["schemaVersion", "paperKey", "title", "authors", "year"],
+  "additionalProperties": false
+}

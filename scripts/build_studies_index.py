@@ -20,7 +20,13 @@ import zipfile
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.community import parse_contribution_dir  # noqa: E402
+
 STUDIES_DIR = REPO_ROOT / "studies"
+COMMUNITY_DIR = REPO_ROOT / "community"
 INDEX_OUTPUT = REPO_ROOT / "co_website" / "data" / "studies_index.json"
 DEFAULT_ZIP_DIR = REPO_ROOT / "dist" / "study_zips"
 
@@ -102,11 +108,86 @@ def build_index() -> list[dict]:
     return studies
 
 
-def write_index(studies: list[dict]) -> None:
+def _load_json(path: Path):
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"Skip {path}: {exc}", file=sys.stderr)
+        return None
+
+
+def read_contribution_entry(folder: Path) -> dict | None:
+    """Summarise one community contribution folder; None if it is unreadable."""
+    meta = _load_json(folder / "CONTRIBUTION.json")
+    program = _load_json(folder / "program.json")
+    if not isinstance(meta, dict) or not isinstance(program, dict):
+        return None
+    contributor = meta.get("contributor") or {}
+    issues = {"blocking": 0, "decision": 0, "check": 0}
+    for issue in program.get("issues") or []:
+        severity = issue.get("severity") if isinstance(issue, dict) else None
+        if severity in issues:
+            issues[severity] += 1
+    simulations = folder / "artifacts" / "simulations"
+    entry = {
+        "folder": folder.name,
+        "slug": meta.get("slug"),
+        "version": (parse_contribution_dir(folder.name) or {}).get("version", 1),
+        "contributor": {
+            "name": contributor.get("name"),
+            "github": contributor.get("github"),
+            "hubId": (contributor.get("hub") or {}).get("id"),
+        },
+        "createdAt": meta.get("createdAt"),
+        "counts": {
+            "conditions": sum(
+                1 for n in program.get("nodes") or [] if n.get("kind") in ("condition", "arm")
+            ),
+            "steps": len(program.get("steps") or []),
+            "openIssues": issues,
+        },
+        "hasPackage": (folder / "package").is_dir(),
+        "hasSimulation": simulations.is_dir() and any(simulations.iterdir()),
+    }
+    if meta.get("supersedes"):
+        entry["supersedes"] = meta["supersedes"]
+    return entry
+
+
+def build_community_index(community_dir: Path | None = None) -> list[dict]:
+    """One entry per paper folder under community/, ordered by folder name.
+
+    Contributions are ordered by (createdAt, folder) so the list is stable between runs.
+    """
+    root = COMMUNITY_DIR if community_dir is None else community_dir
+    if not root.is_dir():
+        return []
+    papers = []
+    for paper_dir in sorted(d for d in root.iterdir() if d.is_dir()):
+        paper = _load_json(paper_dir / "paper.json") if (paper_dir / "paper.json").is_file() else None
+        if not isinstance(paper, dict):
+            print(f"Skip {paper_dir.name}: no readable paper.json", file=sys.stderr)
+            continue
+        contributions = []
+        for folder in sorted(d for d in paper_dir.iterdir() if d.is_dir()):
+            entry = read_contribution_entry(folder)
+            if entry:
+                contributions.append(entry)
+        contributions.sort(key=lambda c: (str(c["createdAt"] or ""), c["folder"]))
+        papers.append({"paperKey": paper.get("paperKey"), "paper": paper, "contributions": contributions})
+    papers.sort(key=lambda p: (str(p["paperKey"]), ))
+    return papers
+
+
+def write_index(studies: list[dict], community: list[dict] | None = None) -> None:
     INDEX_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    payload: dict = {"studies": studies}
+    if community is not None:
+        payload["community"] = community
     with open(INDEX_OUTPUT, "w", encoding="utf-8") as f:
-        json.dump({"studies": studies}, f, ensure_ascii=False, indent=2)
-    print(f"Wrote {len(studies)} studies to {INDEX_OUTPUT}")
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+    extra = f" and {len(community)} community papers" if community is not None else ""
+    print(f"Wrote {len(studies)} studies{extra} to {INDEX_OUTPUT}")
 
 
 def build_zip(study_id: str, output_dir: Path) -> Path:
@@ -137,7 +218,7 @@ def main():
         return 1
 
     studies = build_index()
-    write_index(studies)
+    write_index(studies, build_community_index())
 
     if args.zips or args.study:
         if args.study:

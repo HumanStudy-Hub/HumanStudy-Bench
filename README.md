@@ -21,6 +21,14 @@ experiments with AI agents. It combines:
 The 12 foundational studies cover cognition, strategic interaction, and social
 psychology. Community studies live alongside them under [`studies/`](studies/).
 
+## Community contributions
+
+Reconstructions of published papers, built in the HumanStudy app or by hand, live under
+[`community/`](community/): one folder per paper, one subfolder per contributor, so several
+people can reconstruct the same paper without conflicts. CI checks every contribution and
+credits it to its author. See [`community/README.md`](community/README.md) for the layout,
+licences and rules.
+
 ## Add a study
 
 There are two contribution paths.
