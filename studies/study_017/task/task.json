@@ -1,0 +1,145 @@
+{
+  "_purpose": "Runnable-task contract: participant structure, condition assignment, visibility, and I/O for the two human-subject studies in Kannan, Pamuru & Rosokha (2023). Every original human subject is represented by one agent participant; there are no confederate/scripted roles because the paper used none.",
+  "entry_point": "task/adapter.py",
+  "network_required": false,
+  "scripted_roles_in_paper": "none",
+  "scripted_roles_justification": "Sections 4 and 5 describe only unscripted human subjects bidding in their own group; no experimenter or confederate stood in for a subject's decisions in either study. Therefore every agent in this task is a genuine decision-making participant, never a fixed/optimal/sampled stand-in.",
+
+  "studies": [
+    {
+      "study_id": "study_1_main_experiment",
+      "paper_section": "Section 4 (pp. 1443-1448)",
+      "adapter_entry": "run_study1_session",
+      "num_agents": {
+        "default": 3,
+        "must_be_multiple_of": 3,
+        "minimum": 3,
+        "paper_value": "15-18 human participants per session (138 total across 8 sessions)",
+        "note": "The paper's mechanism operates on triads of 3; a session was simply many triads run in parallel with random rematching each match. Default num_agents=3 replays a single triad exactly (the minimal faithful unit). Set num_agents to any multiple of 3 (e.g., 15 or 18) to additionally replay the paper's random-rematching-across-a-larger-pool design; the adapter implements the rematching in both cases."
+      },
+      "roles": [
+        {
+          "role_id": "participant",
+          "count": "num_agents",
+          "scripted": false,
+          "description": "Every agent is an independent bidder with private information about only its own valuation. Roles are not fixed identities: at the start of every match each participant is (re)assigned to a random triad, and within a triad its rank (highest/medium/lowest private value) is determined by the random value draw for that match, exactly as in the paper (footnote 13)."
+        }
+      ],
+      "order_of_play": {
+        "between_matches": "sequential: matches 1..num_matches (default 10) run in order, each participant's cumulative earnings and any within-run learning carries across matches.",
+        "within_a_match": "simultaneous, iterated: at t=0 all three agents in a triad submit an initial bid at no cost, independently and without seeing each other's value or bid. For t=1..T (T = a randomly drawn stopping period, see match_termination), all three agents simultaneously get the option to revise their bid (paying cost C per revision) before the next live-outcome update; the match ends at the drawn stopping period T and payoffs are computed from each agent's last bid."
+      },
+      "visibility": {
+        "own_private_value": "always visible to the owning agent only",
+        "own_current_bid_and_provisional_outcome": "visible live to the owning agent every period (which good it would currently win, if any, and provisional payoff)",
+        "opponents_raw_bids_during_match": "hidden, EXCEPT: an agent that is currently the highest bidder is told the current second-highest bid (the price it would pay), and an agent that is currently second-highest is told the current third-highest/lowest bid (the price it would pay) -- this mirrors the paper's statement that a winning advertiser 'knows the advertiser's bid, but also knows the next highest bid' (Section 1) and Figure 2's blanked-out opponent scales (#4) until match end.",
+        "opponents_raw_bids_after_match_ends": "revealed to all three group members together with each participant's value, bid, and payoff for that match, matching Figure 2 note (4): 'these scales remain blank until the match is over, at which point the actions of the other participants are revealed.'",
+        "cross_triad_visibility": "none -- a participant never observes any information about a triad it is not currently part of, matching the physical-barrier isolation described in Section 4.5 (evidence E02)."
+      },
+      "conditions": {
+        "between_subjects": {
+          "name": "C",
+          "values": [0.0, 0.1],
+          "assignment": "fixed for all agents and all matches within one run, chosen once at run start (adapter argument condition_c)",
+          "source": "materials/materials.json:study_1_main_experiment.treatments_table_verbatim"
+        },
+        "within_subjects": {
+          "name": "alpha",
+          "values": [0.2, 0.5, 0.8],
+          "assignment": "drawn per match, shared by all three members of a triad for that match's duration (Section 4.1: 'All participants in a group had the same alpha ... for the duration of each match'). The paper draws matches 1-4 freely and uses common seeds across sessions for matches 5-10 (Remark 2) to allow between-session comparison; a single package run has no other session to compare against, so the adapter draws alpha i.i.d. uniformly from {0.2,0.5,0.8} every match by default and records the draw. See audit/missing_information.json for the cross-session common-seed limitation."
+        }
+      },
+      "procedure": {
+        "value_generation": {
+          "distribution": "v_j ~ discrete Uniform{1,...,10} per participant per match, independent across participants",
+          "evidence_label": "derived",
+          "derivation": "Section 4 opens with 'This section describes the experimental design for the auction presented in Section 3.2.1', and Section 3.2.1/footnote 11 states private values vj are drawn from U{1,10}. Section 4 itself does not restate the numeric range, so this is inferred from the explicit cross-reference rather than quoted directly."
+        },
+        "second_good_value": "value_of_good_2_for_participant = alpha * value_of_good_1_for_participant (Section 4.2, evidence E06). Rounding convention is not stated in the accessible text (evidence_label missing, E23); adapter uses the unrounded float and flags this assumption in its output.",
+        "bid_domain": "bids are real numbers in [0, 10], consistent with the shared auction environment (Section 3.2.1 uses b in U{0,10} for the computational model); Section 4 does not restate an explicit bid ceiling for the human experiment, so this bound is carried over the same way as value_generation above (evidence_label derived).",
+        "adjustment_cost": "each time a participant's locked bid differs from its immediately preceding locked bid, cost C is charged for that period; the very first (initial) bid is always free (Section 4.1, evidence E03/E07).",
+        "match_termination": {
+          "rule": "minimum 20 decision periods; from period 21 onward each additional period has an independent 1% chance of ending the match (Remark 1, evidence E05). Expected match length ~120 periods.",
+          "reproducibility": "the adapter pre-generates one stopping period per match from this process using the run's seed, and reuses that fixed per-match schedule for every triad in the run, mirroring 'we used the same sequence of seconds across matches in every session.'",
+          "practical_cap": {
+            "note": "unbounded random termination is, in principle, without an upper limit. To keep a run computationally tractable for agent participants (each period is an actual agent decision call), the adapter enforces a configurable max_periods safety cap (default 300, i.e. ~2.5x the theoretical expectation). This cap is a runtime safeguard, not a silent redesign of the protocol; see audit/missing_information.json for the disclosed effect."
+          }
+        },
+        "payoff_rule": "materials/materials.json:study_1_main_experiment.payoff_rule_verbatim; implemented in task/adapter.py:compute_match_payoffs",
+        "payment_to_participant": "Remark 3 (evidence E08): the researcher-facing payout for a whole session would be based on one randomly chosen match; because this package runs matches independently of any larger paid session, task.json records this rule but evaluation/evaluation.py reports per-match payoffs rather than adjudicating a single paid match, and audit/missing_information.json notes the missing points-to-currency exchange rate (evidence E22)."
+      },
+      "instructions_and_onboarding": {
+        "operative_rules_given_to_agents": "materials/materials.json:study_1_main_experiment.payoff_rule_verbatim and .design_remarks_verbatim (both verbatim from the paper)",
+        "verbatim_handout_text": "missing -- see materials/materials.json:study_1_main_experiment.instructions_handout and audit/missing_information.json",
+        "practice_tasks": "not implemented; paper's six practice tasks and five random examples are structurally described but their exact content is in the inaccessible Online Appendix L (materials/materials.json:study_1_main_experiment.practice_tasks)"
+      }
+    },
+
+    {
+      "study_id": "study_2_mechanism_experiment",
+      "paper_section": "Section 5 (pp. 1448-1450)",
+      "adapter_entry": "run_study2_session",
+      "num_agents": {
+        "default": 3,
+        "must_be_multiple_of": 3,
+        "minimum": 3,
+        "paper_value": "183 new Purdue participants, no overlap with Study 1",
+        "note": "Same rematching logic as Study 1 applies; default replays a single triad."
+      },
+      "roles": [
+        {
+          "role_id": "participant",
+          "count": "num_agents",
+          "scripted": false,
+          "description": "Same as Study 1: unscripted bidders, rank determined by that match's random value draw. Additionally, each participant independently decides every period whether to pay for (or freely view, depending on condition) the counterfactual-payoff information plot."
+        }
+      ],
+      "order_of_play": {
+        "between_matches": "sequential, matches run in order",
+        "within_a_match": "discrete-time, simultaneous per period: 'Within each period, they had unlimited time to make a desired bid adjustment (if any). Once all participants in their group submitted their decisions, each saw the outcome for that period.' (evidence E16). Unlike Study 1, there is no continuous real-time feedback between periods -- the outcome is revealed only after every group member has submitted that period's decision."
+      },
+      "visibility": {
+        "own_private_value": "always visible to the owning agent only, redrawn independently every match (evidence E14: 'independent random draws for each subject in each match', unlike Study 1's shared-seed matches 5-10)",
+        "own_current_bid_and_outcome": "revealed to the owning agent at the end of each period, once all three group members have submitted",
+        "opponents_raw_bids_during_match": "same asymmetric rule as Study 1 (current price-relevant bid revealed only to the winner(s) of that period)",
+        "counterfactual_info_plot": "an optional, agent-requested view showing possible payoffs for candidate own bids, holding the other two participants' PREVIOUS period bids fixed (evidence E15). Available every period; in the InfoCosts condition, requesting it costs $0.5 for that period, subtracted from the match payoff; in the free-information condition it is available at no cost.",
+        "opponents_raw_bids_after_match_ends": "revealed to the group, as in Study 1",
+        "cross_triad_visibility": "none"
+      },
+      "conditions": {
+        "factorial_design": "2x2 between-subjects: C in {0.0, 0.1} (same bid-adjustment-cost dimension as Study 1) crossed with information_cost in {free, costly=$0.5/period} (evidence E16)",
+        "alpha": "fixed at 0.5 for all matches and all four treatments (evidence E16); there is no within-subjects alpha manipulation in Study 2."
+      },
+      "procedure": {
+        "value_generation": "v_j ~ discrete Uniform{1,...,10} per participant, drawn independently every match for every participant (no cross-group seed sharing), evidence_label derived using the same cross-reference logic as Study 1 (Section 5 modifies the termination/discreteness but does not state a different valuation distribution).",
+        "match_termination": {
+          "rule": "discrete periods with an independent per-period termination probability of 0.1 after any period (Section 5, evidence E14: 'probability of termination was 0.1 instead of 0.01'), drawn from one of four pre-set supergame-length sequences (Online Table N.1).",
+          "missing_component": "the exact four duration sequences (Online Table N.1) are in the inaccessible Online Appendix; evidence_label missing. The adapter substitutes a geometric-hazard generator with p=0.1 and no minimum-period floor (none is stated for Study 2) as a disclosed, labeled stand-in -- see audit/missing_information.json.",
+          "practical_cap": "same rationale and mechanism as Study 1, default max_periods=60 (~6x the E[10]-period expectation)."
+        },
+        "info_access_cost": "$0.5 charged for each period in which a participant requests the counterfactual plot, only in the InfoCosts condition (evidence E15)",
+        "payoff_rule": "identical GSP payoff formula as Study 1 (materials/materials.json:shared_theoretical_material.gsp_payoff_formula_verbatim), minus any info-access costs incurred that match"
+      },
+      "instructions_and_onboarding": {
+        "verbatim_handout_text": "missing -- Online Appendix N.1 (instructions/decision screens) and N.2 (info-plot screenshots) are inaccessible; see audit/missing_information.json",
+        "operative_rules_given_to_agents": "materials/materials.json:study_2_mechanism_experiment (verbatim paper text on the design, information feature, and termination redesign)"
+      }
+    }
+  ],
+
+  "outputs": {
+    "per_period_log": "for every agent, every period: private value(s), current bid, whether/what was revealed to it, whether it changed its bid, whether it accessed the info plot (Study 2 only)",
+    "per_match_record": "final ranked bids, values, alpha, C, allocative efficiency (Psi), each participant's bid-to-value ratio (Omega), each participant's payoff, number of bid adjustments per participant",
+    "per_session_record": "list of per_match_record across all matches, plus the condition assignment (C, and for Study 2, information_cost) for the run",
+    "consumed_by": "evaluation/evaluation.py"
+  },
+
+  "known_departures_from_original_design": [
+    "Population size compressed from a multi-triad session pool (15-18 or 183 total participants) to a configurable small pool of agents (default one triad of 3); random rematching logic is implemented and can be scaled up by increasing num_agents.",
+    "Continuous real-time bidding in Study 1 is discretized into fixed decision periods (matching the same hazard-rate mathematics), because agent participants act in discrete API calls rather than continuous mouse movement.",
+    "An upper bound (max_periods) is imposed on the theoretically unbounded random-termination process, for computational tractability.",
+    "Cross-session common-random-number comparison (Study 1 Remark 2, matches 5-10) is not meaningful within a single run and is not implemented; alpha is instead drawn i.i.d. per match.",
+    "Study 2's four exact supergame-length sequences (Online Table N.1) are unavailable; a matching-hazard-rate generator is substituted.",
+    "The paper's 'silent protocol' (Remark 4) addressed a physical-room information leak specific to co-located human subjects; it has no analogue for non-colocated text-based agents and is therefore not implemented (the information-visibility guarantees it protected are preserved directly by the visibility rules above)."
+  ]
+}
