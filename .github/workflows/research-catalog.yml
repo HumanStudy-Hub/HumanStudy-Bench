@@ -1,0 +1,20 @@
+name: Research catalog checks
+on:
+  pull_request:
+    paths: ['scripts/research/**', 'scripts/maintain_community.py', 'scripts/build_studies_index.py', 'catalog/**', 'contracts/human-program.schema.json', 'tests/test_research_catalog.py', 'tests/test_community_worker.py', '.github/workflows/*community*', '.github/workflows/research-catalog.yml']
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install jsonschema==4.26.0 pytest==8.4.2
+      - run: python -m pytest -o addopts='' tests/test_research_catalog.py tests/test_community_worker.py tests/test_build_studies_index.py -q
+      - run: python scripts/build_studies_index.py
+      - run: git diff --exit-code -- co_website/data/studies_index.json co_website/data/research_index.json

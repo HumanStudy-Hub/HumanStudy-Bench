@@ -107,6 +107,10 @@ def write_index(studies: list[dict]) -> None:
     with open(INDEX_OUTPUT, "w", encoding="utf-8") as f:
         json.dump({"studies": studies}, f, ensure_ascii=False, indent=2)
     print(f"Wrote {len(studies)} studies to {INDEX_OUTPUT}")
+    # The research index is a projection; legacy cards remain compatible during rollout.
+    from scripts.research.catalog import write_catalog
+    catalog = write_catalog(REPO_ROOT, studies)
+    print(f"Wrote {catalog['coverage']['papers']} unique research identities")
 
 
 def build_zip(study_id: str, output_dir: Path) -> Path:
@@ -159,4 +163,5 @@ def main():
 
 
 if __name__ == "__main__":
+    sys.path.insert(0, str(REPO_ROOT))
     sys.exit(main())
