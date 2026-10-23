@@ -11,7 +11,10 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
+      # Full history: the changed-study diff below needs the PR's merge base.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -21,8 +24,10 @@ jobs:
         run: python scripts/build_studies_index.py
       - name: Verify changed studies
         run: |
-          # Find study directories changed in this PR
-          CHANGED_STUDIES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- studies/ | grep -oP 'studies/[^/]+' | sort -u)
+          # Find study directories changed in this PR.
+          # A failed diff must fail the job, never read as "no studies changed".
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- studies/)
+          CHANGED_STUDIES=$(printf '%s\n' "$CHANGED_FILES" | grep -oP 'studies/[^/]+' | sort -u || true)
           if [ -z "$CHANGED_STUDIES" ]; then
             echo "No study directories changed."
             exit 0
@@ -37,7 +42,9 @@ jobs:
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
         run: |
-          CHANGED_STUDIES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- studies/ | grep -oP 'studies/[^/]+' | sort -u)
+          # A failed diff must fail the job, never read as "no studies changed".
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- studies/)
+          CHANGED_STUDIES=$(printf '%s\n' "$CHANGED_FILES" | grep -oP 'studies/[^/]+' | sort -u || true)
           if [ -z "$CHANGED_STUDIES" ]; then
             exit 0
           fi
