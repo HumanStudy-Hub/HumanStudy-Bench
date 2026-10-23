@@ -1,0 +1,116 @@
+name: Maintain community research
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths: ['community/**']
+  workflow_dispatch:
+    inputs:
+      pull_request:
+        description: 'Community proposal pull request number to retry'
+        required: true
+        type: number
+concurrency:
+  group: community-recommendations
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  integrate:
+    # Enable only after all three coordinated PRs and reviewer configuration are approved.
+    if: vars.COMMUNITY_MAINTAINER_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install jsonschema==4.26.0 pypdf==6.1.1
+      - name: Read exact proposal commits
+        id: proposal
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pull_request }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          python - <<'PY'
+          import json, os, subprocess, urllib.request
+          number = int(os.environ['PR_NUMBER'])
+          repo = os.environ['REPOSITORY']
+          request = urllib.request.Request(f'https://api.github.com/repos/{repo}/pulls/{number}', headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN']})
+          pr = json.load(urllib.request.urlopen(request))
+          if pr['state'] != 'open' or pr['base']['ref'] != 'main' or not pr['head']['ref'].startswith('community/'):
+              raise SystemExit('Not an open community proposal against main')
+          subprocess.run(['git','fetch','origin',f'pull/{number}/head'],check=True)
+          head = subprocess.check_output(['git','rev-parse','FETCH_HEAD'],text=True).strip()
+          if head != pr['head']['sha']: raise SystemExit('Proposal changed while loading; retry')
+          base = subprocess.check_output(['git','merge-base','HEAD',head],text=True).strip()
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f: f.write(f'head={head}\nbase={base}\nauthor={pr["user"]["login"]}\n')
+          PY
+      - name: Validate, review and prepare recommendation
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
+          HEAD_SHA: ${{ steps.proposal.outputs.head }}
+          BASE_SHA: ${{ steps.proposal.outputs.base }}
+          PR_AUTHOR: ${{ steps.proposal.outputs.author }}
+          COMMUNITY_BOT_LOGIN: ${{ vars.COMMUNITY_BOT_LOGIN || 'humanstudy-bot' }}
+        run: python scripts/maintain_community.py --head "$HEAD_SHA" --base "$BASE_SHA" --author "$PR_AUTHOR" --agent-review > /tmp/community-result.json
+      - name: Publish one atomic catalog update
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pull_request }}
+          HEAD_SHA: ${{ steps.proposal.outputs.head }}
+          REPOSITORY: ${{ github.repository }}
+          CATALOG_SYNC_URL: ${{ vars.RESEARCH_CATALOG_SYNC_URL }}
+          CATALOG_SYNC_SECRET: ${{ secrets.RESEARCH_INDEX_SYNC_SECRET }}
+        run: |
+          python - <<'PY'
+          import base64,json,os,subprocess,urllib.request,urllib.error
+          repo=os.environ['REPOSITORY']; token=os.environ['GH_TOKEN']; number=int(os.environ['PR_NUMBER'])
+          def api(path,data=None,method=None):
+              r=urllib.request.Request('https://api.github.com/repos/'+repo+'/'+path,data=json.dumps(data).encode() if data is not None else None,headers={'Authorization':'Bearer '+token,'Content-Type':'application/json'},method=method)
+              with urllib.request.urlopen(r) as response:return json.load(response)
+          pr=api(f'pulls/{number}')
+          if pr['head']['sha']!=os.environ['HEAD_SHA'] or pr['state']!='open':raise SystemExit('Proposal changed; retry against its new head')
+          base=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          if api('git/ref/heads/main')['object']['sha']!=base:raise SystemExit('Main changed; retry integration without forcing the recommendation')
+          subprocess.run(['git','add','--','community','co_website/data/research_index.json'],check=True)
+          paths=subprocess.check_output(['git','diff','--cached','--name-only','-z']).decode().split('\0')
+          entries=[]
+          for path in filter(None,paths):
+              if not(path.startswith('community/') or path=='co_website/data/research_index.json'):raise SystemExit('Unexpected generated path')
+              content=subprocess.check_output(['git','show',':'+path])
+              blob=api('git/blobs',{'content':base64.b64encode(content).decode(),'encoding':'base64'})
+              entries.append({'path':path,'mode':'100644','type':'blob','sha':blob['sha']})
+          if entries:
+              tree=api('git/trees',{'base_tree':api('git/commits/'+base)['tree']['sha'],'tree':entries})
+              commit=api('git/commits',{'message':f'Community: validate proposal #{number} and update recommendation','tree':tree['sha'],'parents':[base]})
+              api('git/refs/heads/main',{'sha':commit['sha'],'force':False},'PATCH')
+              published=commit['sha']
+          else:published=base
+          report=json.load(open('/tmp/community-result.json'))
+          message='Community contribution: '+report['status']+'. '+report.get('reason','The recommended research and source index were checked.')
+          api(f'issues/{number}/comments',{'body':message})
+          label='community:accepted' if report['status'] in ['accepted','unchanged'] else 'community:needs-review'
+          try:api('labels/'+label)
+          except urllib.error.HTTPError as error:
+              if error.code!=404:raise
+              api('labels',{'name':label,'color':'087f8c' if label.endswith('accepted') else 'b7791f'})
+          api(f'issues/{number}/labels',{'labels':[label]})
+          # The proposal is integrated by a content commit, never by merging untrusted PR code.
+          if report['status'] in ['accepted','unchanged']:api(f'pulls/{number}',{'state':'closed'},'PATCH')
+          sync=os.environ.get('CATALOG_SYNC_URL');secret=os.environ.get('CATALOG_SYNC_SECRET')
+          if sync and secret:
+              if not sync.startswith('https://'):raise SystemExit('Catalog sync must use HTTPS')
+              request=urllib.request.Request(sync,data=json.dumps({'sourceCommit':published}).encode(),headers={'Authorization':'Bearer '+secret,'Content-Type':'application/json'})
+              with urllib.request.urlopen(request,timeout=60) as response:
+                  if response.status!=200:raise SystemExit('Catalog database sync needs retry')
+          PY

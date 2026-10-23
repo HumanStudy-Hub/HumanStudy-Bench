@@ -1,0 +1,1566 @@
+{
+  "schemaVersion": 2,
+  "id": "study-5",
+  "title": "Intentional Action and Side-Effects in Ordinary Language",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Intentional Action and Side-Effects in Ordinary Language",
+    "authors": "Joshua Knobe",
+    "filename": "KNOBE.pdf",
+    "version": "KNOBE.pdf as supplied with the sample (page numbers refer to it)"
+  },
+  "studies": [
+    {
+      "id": "exp-1",
+      "title": "Corporate Chairman Vignette",
+      "type": "empirical",
+      "description": "Tests whether calling a side effect intentional depends on whether it is harmful or helpful, with a corporate chairman vignette."
+    },
+    {
+      "id": "exp-2",
+      "title": "Military Lieutenant Vignette",
+      "type": "empirical",
+      "description": "Repeats the test with a military lieutenant vignette to check the effect is not specific to corporations or environmental harm."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "background",
+      "kind": "background",
+      "title": "Intentionality and moral evaluation",
+      "fields": [
+        {
+          "id": "question",
+          "label": "Research question",
+          "value": "Does evaluating a side-effect as good or bad influence whether people call it intentional?",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [],
+          "derivation": "Summarized from the benchmark ground-truth hypotheses."
+        },
+        {
+          "id": "gap",
+          "label": "Background and gap",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "hypothesis",
+      "kind": "hypothesis",
+      "title": "Harm versus help",
+      "fields": [
+        {
+          "id": "hypothesis",
+          "label": "Hypothesis",
+          "value": "A person’s intuitions as to whether or not a given side-effect was produced 'intentionally' can be influenced by that person’s attitude toward the specific side-effect in question (specifically whether it is good or bad).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "participant",
+      "kind": "participants",
+      "title": "Participant",
+      "fields": [
+        {
+          "id": "population",
+          "label": "Population",
+          "value": "People spending time in a Manhattan public park.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "sample",
+          "label": "Sample sizes",
+          "value": {
+            "Experiment 1": {
+              "n": 78,
+              "population": "People spending time in a Manhattan public park."
+            },
+            "Experiment 2": {
+              "n": 42,
+              "population": "People spending time in a Manhattan public park."
+            }
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "A public park in Manhattan.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "n-recruited",
+          "label": "N recruited",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "n-analysed",
+          "label": "N analysed",
+          "value": "Experiment 1: 78; Experiment 2: 42 (120 in total).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "compensation",
+          "label": "Pay and incentives",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "design",
+      "kind": "design",
+      "title": "Between-participant conditions",
+      "fields": [
+        {
+          "id": "type",
+          "label": "Design type",
+          "value": "Between-participants: each person reads one version of the vignette.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": [
+            "harm",
+            "help"
+          ],
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment procedure",
+          "value": null,
+          "origin": "unknown",
+          "state": "decision",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "condition-harm",
+      "kind": "condition",
+      "title": "Harm",
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "fields": [
+        {
+          "id": "level",
+          "label": "Level",
+          "value": "harm",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "condition-help",
+      "kind": "condition",
+      "title": "Help",
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "fields": [
+        {
+          "id": "level",
+          "label": "Level",
+          "value": "help",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "intentionality",
+      "kind": "variable",
+      "title": "Intentionality judgment",
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "Outcome",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "categorical: Yes / No",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Whether the participant says the agent brought about the side effect intentionally (Yes/No).",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [],
+          "derivation": "Paraphrased from the specification procedure steps."
+        }
+      ],
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "moral-rating",
+      "kind": "variable",
+      "title": "Blame / praise rating",
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "Outcome",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "integer 0–6",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "How much blame (harm condition) or praise (help condition) the agent deserves.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [],
+          "derivation": "Paraphrased from the specification procedure steps."
+        },
+        {
+          "id": "scale",
+          "label": "Scale",
+          "value": "0 to 6",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "condition",
+      "kind": "variable",
+      "title": "Side-effect condition",
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "Manipulation",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": [
+            "harm",
+            "help"
+          ],
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "responses",
+      "kind": "record",
+      "title": "Participant response record",
+      "fields": [
+        {
+          "id": "columns",
+          "label": "Columns",
+          "value": [
+            "study",
+            "participant_id",
+            "condition",
+            "intentionality",
+            "moral_rating"
+          ],
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "analysis",
+      "kind": "analysis",
+      "title": "Compare judgments between conditions",
+      "fields": [
+        {
+          "id": "tests",
+          "label": "Reported tests",
+          "value": {
+            "Experiment 1": [
+              "Chi-square test",
+              "t-test (Combined with Exp 2)"
+            ],
+            "Experiment 2": [
+              "Chi-square test",
+              "Correlation (Combined with Exp 1)"
+            ]
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "plan",
+          "label": "Analysis plan",
+          "value": "Check reported degrees of freedom, scoring and tests before reproducing the analysis.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "method",
+          "label": "Statistical method",
+          "value": "Chi-square tests of intentionality judgments by condition within each experiment; a t-test on blame vs praise and a correlation with intentionality on the pooled data.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [],
+          "derivation": "Summarised from the reported tests listed in the tests field."
+        },
+        {
+          "id": "criterion",
+          "label": "Decision criterion",
+          "value": "Significance level 0.05.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "result-1",
+      "kind": "result",
+      "title": "Corporate Chairman Vignette",
+      "studyIds": [
+        "exp-1"
+      ],
+      "fields": [
+        {
+          "id": "reported-findings",
+          "label": "Original reported findings",
+          "value": [
+            {
+              "finding_id": "Finding 1",
+              "main_hypothesis": "A person’s intuitions as to whether or not a given side-effect was produced 'intentionally' can be influenced by that person’s attitude toward the specific side-effect in question (specifically whether it is good or bad).",
+              "statistical_tests": [
+                {
+                  "test_name": "Chi-square test",
+                  "statistical_hypothesis": "Intentionality judgments differ between harm and help conditions.",
+                  "reported_statistics": "chi2(1, N=78)=27.2, p=0.001",
+                  "significance_level": 0.05,
+                  "expected_direction": "positive"
+                }
+              ],
+              "original_data_points": {
+                "description": "Percentage of participants judging the side-effect as intentional.",
+                "data": {
+                  "Harm condition": {
+                    "percentage": 82.0,
+                    "n": 39
+                  },
+                  "Help condition": {
+                    "percentage": 23.0,
+                    "n": 39
+                  }
+                }
+              }
+            },
+            {
+              "finding_id": "Finding 2",
+              "main_hypothesis": "People are considerably more willing to blame the agent for bad side-effects than to praise the agent for good side-effects.",
+              "statistical_tests": [
+                {
+                  "test_name": "t-test (Combined with Exp 2)",
+                  "statistical_hypothesis": "Mean blame in harm condition > Mean praise in help condition.",
+                  "reported_statistics": "t(120)=8.4, p=0.001",
+                  "significance_level": 0.05,
+                  "expected_direction": "positive"
+                }
+              ],
+              "original_data_points": {
+                "description": "Mean praise/blame scores on a 0-6 scale.",
+                "data": {
+                  "harm_condition_blame": {
+                    "mean": 4.8
+                  },
+                  "help_condition_praise": {
+                    "mean": 1.4
+                  }
+                }
+              }
+            }
+          ],
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "result-2",
+      "kind": "result",
+      "title": "Military Lieutenant Vignette",
+      "studyIds": [
+        "exp-2"
+      ],
+      "fields": [
+        {
+          "id": "reported-findings",
+          "label": "Original reported findings",
+          "value": [
+            {
+              "finding_id": "Finding 1",
+              "main_hypothesis": "The effect observed in Experiment 1 is general and not specific to corporations or environmental damage.",
+              "statistical_tests": [
+                {
+                  "test_name": "Chi-square test",
+                  "statistical_hypothesis": "Intentionality judgments differ between harm and help conditions in a military context.",
+                  "reported_statistics": "chi2(1, N=42)=9.5, p=0.01",
+                  "significance_level": 0.05,
+                  "expected_direction": "positive"
+                }
+              ],
+              "original_data_points": {
+                "description": "Percentage of participants judging the side-effect as intentional.",
+                "data": {
+                  "Harm condition": {
+                    "percentage": 77.0,
+                    "n": 21
+                  },
+                  "Help condition": {
+                    "percentage": 30.0,
+                    "n": 21
+                  }
+                }
+              }
+            },
+            {
+              "finding_id": "Finding 3",
+              "main_hypothesis": "The asymmetry in praise and blame assignment may be at the root of the asymmetry in the application of the concept intentional.",
+              "statistical_tests": [
+                {
+                  "test_name": "Correlation (Combined with Exp 1)",
+                  "statistical_hypothesis": "Praise/blame scores are correlated with intentionality judgments.",
+                  "reported_statistics": "r(120)=0.53, p=0.001",
+                  "significance_level": 0.05,
+                  "expected_direction": "positive"
+                }
+              ],
+              "original_data_points": {
+                "description": "Correlation between moral judgment and intentionality judgment across both experiments.",
+                "data": {
+                  "total_sample": {
+                    "n": 120,
+                    "r": 0.53
+                  }
+                }
+              }
+            }
+          ],
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "material-1-harm",
+      "kind": "material",
+      "title": "Corporate Chairman Vignette · harm",
+      "fields": [
+        {
+          "id": "vignette",
+          "label": "Vignette",
+          "value": "The vice-president of a company went to the chairman of the board and said, ‘We are thinking of starting a new program. It will help us increase profits, but it will also harm the environment.’\n\nThe chairman of the board answered, ‘I don’t care at all about harming the environment. I just want to make as much profit as I can. Let’s start the new program.’\n\nThey started the new program. Sure enough, the environment was harmed.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "material-e-1-harm"
+          ]
+        },
+        {
+          "id": "questions",
+          "label": "Questions",
+          "value": [
+            {
+              "id": "exp1_harm_intentionality",
+              "question": "Did the chairman intentionally harm the environment?",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "type": "multiple_choice",
+              "metadata": {
+                "label": "Harm condition",
+                "gt_key": "Harm condition"
+              }
+            },
+            {
+              "id": "exp1_harm_blame",
+              "question": "How much blame the chairman deserved for what he did (on a scale from 0 to 6)?",
+              "options": [
+                "0",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "type": "likert",
+              "metadata": {
+                "label": "harm_condition_blame",
+                "gt_key": "harm_condition_blame"
+              }
+            }
+          ],
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-1"
+      ],
+      "evidenceIds": [
+        "material-e-1-harm"
+      ],
+      "conditionIds": [
+        "condition-harm"
+      ]
+    },
+    {
+      "id": "material-1-help",
+      "kind": "material",
+      "title": "Corporate Chairman Vignette · help",
+      "fields": [
+        {
+          "id": "vignette",
+          "label": "Vignette",
+          "value": "The vice-president of a company went to the chairman of the board and said, ‘We are thinking of starting a new program. It will help us increase profits, and it will also help the environment.’\n\nThe chairman of the board answered, ‘I don’t care at all about helping the environment. I just want to make as much profit as I can. Let’s start the new program.’\n\nThey started the new program. Sure enough, the environment was helped.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "material-e-1-help"
+          ]
+        },
+        {
+          "id": "questions",
+          "label": "Questions",
+          "value": [
+            {
+              "id": "exp1_help_intentionality",
+              "question": "Did the chairman intentionally help the environment?",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "type": "multiple_choice",
+              "metadata": {
+                "label": "Help condition",
+                "gt_key": "Help condition"
+              }
+            },
+            {
+              "id": "exp1_help_praise",
+              "question": "How much praise the chairman deserved (on a scale from 0 to 6)?",
+              "options": [
+                "0",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "type": "likert",
+              "metadata": {
+                "label": "help_condition_praise",
+                "gt_key": "help_condition_praise"
+              }
+            }
+          ],
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-1"
+      ],
+      "evidenceIds": [
+        "material-e-1-help"
+      ],
+      "conditionIds": [
+        "condition-help"
+      ]
+    },
+    {
+      "id": "material-2-harm",
+      "kind": "material",
+      "title": "Military Lieutenant Vignette · harm",
+      "fields": [
+        {
+          "id": "vignette",
+          "label": "Vignette",
+          "value": "A lieutenant was talking with a seargent. The lieutenant gave the order: ‘Send your squad to the top of Thompson Hill.’\n\nThe seargent said: ‘But if I send my the squad to the top of Thompson Hill, we’ll be moving the men directly into the enemy’s line of fire. Some of them will surely be killed!’\n\nThe lieutenant answered: ‘Look, I know that they’ll be in the line of fire, and I know that some of them will be killed. But I don’t care at all about what happens to our soldiers. All I care about is taking control of Thompson Hill.’\n\nThe squad was sent to the top of Thompson Hill. As expected, the soldiers were moved into the enemy’s line of fire, and some of them were killed.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "material-e-2-harm"
+          ]
+        },
+        {
+          "id": "questions",
+          "label": "Questions",
+          "value": [
+            {
+              "id": "exp2_harm_intentionality",
+              "question": "Did the lieutenant intentionally put the soldiers in the line of fire?",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "type": "multiple_choice",
+              "metadata": {
+                "label": "Harm condition",
+                "gt_key": "Harm condition"
+              }
+            }
+          ],
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-2"
+      ],
+      "evidenceIds": [
+        "material-e-2-harm"
+      ],
+      "conditionIds": [
+        "condition-harm"
+      ]
+    },
+    {
+      "id": "material-2-help",
+      "kind": "material",
+      "title": "Military Lieutenant Vignette · help",
+      "fields": [
+        {
+          "id": "vignette",
+          "label": "Vignette",
+          "value": "A lieutenant was talking with a seargent. The lieutenant gave the order: ‘Send your squad to the top of Thompson Hill.’\n\nThe seargent said: ‘If I send my squad to the top of Thompson Hill, we’ll be taking the men out of the enemy’s line of fire. They’ll be rescued!’\n\nThe lieutenant answered: ‘Look, I know that we’ll be taking them out of the line of fire, and I know that some of them would have been killed otherwise. But I don’t care at all about what happens to our soldiers. All I care about is taking control of Thompson Hill.’\n\nThe squad was sent to the top of Thompson Hill. As expected, the soldiers were taken out of the enemy’s line of fire, and they thereby escaped getting killed.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "material-e-2-help"
+          ]
+        },
+        {
+          "id": "questions",
+          "label": "Questions",
+          "value": [
+            {
+              "id": "exp2_help_intentionality",
+              "question": "Did the lieutenant intentionally take the soldiers out of the line of fire?",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "type": "multiple_choice",
+              "metadata": {
+                "label": "Help condition",
+                "gt_key": "Help condition"
+              }
+            }
+          ],
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": []
+        }
+      ],
+      "studyIds": [
+        "exp-2"
+      ],
+      "evidenceIds": [
+        "material-e-2-help"
+      ],
+      "conditionIds": [
+        "condition-help"
+      ]
+    },
+    {
+      "id": "overview",
+      "kind": "overview",
+      "title": "Paper overview",
+      "studyIds": [],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "method-type",
+          "label": "Method type",
+          "value": "Between-participants vignette experiments (two experiments).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "summary",
+          "label": "Summary",
+          "value": "Participants in a Manhattan park read a short vignette in which an agent knowingly causes a side effect, then judge whether the agent acted intentionally and how much blame or praise the agent deserves. Two experiments, a corporate and a military scenario.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [],
+          "derivation": "Condensed from the benchmark specification and ground truth, not from the PDF text."
+        }
+      ]
+    },
+    {
+      "id": "task",
+      "kind": "procedure",
+      "title": "Vignette judgment task",
+      "studyIds": [
+        "exp-1",
+        "exp-2"
+      ],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "task",
+          "label": "Task and goal",
+          "value": "Read one vignette about an agent who knowingly produces a side effect, then answer a Yes/No question on intentionality and rate blame or praise from 0 to 6.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "kind": "finding",
+      "title": "What the paper concludes",
+      "studyIds": [],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "answer",
+          "label": "Answer to the question",
+          "value": "Side effects judged bad were called intentional far more often than side effects judged good (82% vs 23% in Experiment 1, 77% vs 30% in Experiment 2).",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [],
+          "derivation": "Restates the reported percentages from the ground truth as a conclusion."
+        },
+        {
+          "id": "support",
+          "label": "Hypothesis support",
+          "value": "Both chi-square tests reported in the ground truth are significant in the predicted direction.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [],
+          "derivation": "From the reported tests of the harm vs help hypothesis."
+        },
+        {
+          "id": "mechanism-tested",
+          "label": "Mechanism, tested",
+          "value": "Blame and praise scores correlated with intentionality judgments across both experiments.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "mechanism-proposed",
+          "label": "Mechanism, speculated",
+          "value": "The asymmetry in blame and praise may be at the root of the asymmetry in applying the concept of intentional action.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "contribution",
+          "label": "Contribution",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "limitation",
+      "kind": "limitation",
+      "title": "Validity and limitations",
+      "studyIds": [],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "replications",
+          "label": "Replications reported by the paper",
+          "value": "Experiment 2 repeats Experiment 1 with a military scenario.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "limitations",
+          "label": "Limitations",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "openness",
+          "label": "Materials, data, code, preregistration",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "simulation",
+      "kind": "simulation",
+      "title": "What an agent can simulate",
+      "studyIds": [],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps an agent can perform",
+          "value": "Reading the vignette and answering the two questions are single-turn text tasks an agent can perform.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "roles",
+          "label": "Roles that can be simulated",
+          "value": "All original participants. The paper has no confederate or experimenter role to script.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions that can be expressed",
+          "value": "Harm and help vignettes are verbatim text and can be given exactly.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "material-e-1-harm",
+            "material-e-1-help",
+            "material-e-2-harm",
+            "material-e-2-help"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Observable outcomes",
+          "value": "The Yes/No intentionality answer and the 0 to 6 blame or praise rating.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": []
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "How people were assigned to conditions and the order of the two questions are undecided (see open questions). An agent has no experience of the park setting.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": []
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "exp-1-assign",
+      "studyId": "exp-1",
+      "kind": "action",
+      "title": "Assign condition",
+      "actorIds": [
+        "participant"
+      ],
+      "inputIds": [],
+      "outputIds": [
+        "condition"
+      ],
+      "visibleIds": [],
+      "children": [],
+      "next": [
+        {
+          "to": "exp-1-read"
+        }
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "exp-1-read",
+      "studyId": "exp-1",
+      "kind": "action",
+      "title": "Read the assigned vignette",
+      "actorIds": [
+        "participant"
+      ],
+      "inputIds": [
+        "material-1-harm",
+        "material-1-help",
+        "condition"
+      ],
+      "outputIds": [],
+      "visibleIds": [
+        "material-1-harm",
+        "material-1-help"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "exp-1-answer"
+        }
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "exp-1-answer",
+      "studyId": "exp-1",
+      "kind": "action",
+      "title": "Answer the two judgment questions",
+      "actorIds": [
+        "participant"
+      ],
+      "inputIds": [
+        "material-1-harm",
+        "material-1-help"
+      ],
+      "outputIds": [
+        "intentionality",
+        "moral-rating",
+        "responses"
+      ],
+      "visibleIds": [
+        "material-1-harm",
+        "material-1-help"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [],
+      "rule": {
+        "id": "question-order",
+        "label": "Question order",
+        "value": null,
+        "origin": "unknown",
+        "state": "decision",
+        "evidenceIds": []
+      }
+    },
+    {
+      "id": "exp-2-assign",
+      "studyId": "exp-2",
+      "kind": "action",
+      "title": "Assign condition",
+      "actorIds": [
+        "participant"
+      ],
+      "inputIds": [],
+      "outputIds": [
+        "condition"
+      ],
+      "visibleIds": [],
+      "children": [],
+      "next": [
+        {
+          "to": "exp-2-read"
+        }
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "exp-2-read",
+      "studyId": "exp-2",
+      "kind": "action",
+      "title": "Read the assigned vignette",
+      "actorIds": [
+        "participant"
+      ],
+      "inputIds": [
+        "material-2-harm",
+        "material-2-help",
+        "condition"
+      ],
+      "outputIds": [],
+      "visibleIds": [
+        "material-2-harm",
+        "material-2-help"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "exp-2-answer"
+        }
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "exp-2-answer",
+      "studyId": "exp-2",
+      "kind": "action",
+      "title": "Answer the two judgment questions",
+      "actorIds": [
+        "participant"
+      ],
+      "inputIds": [
+        "material-2-harm",
+        "material-2-help"
+      ],
+      "outputIds": [
+        "intentionality",
+        "moral-rating",
+        "responses"
+      ],
+      "visibleIds": [
+        "material-2-harm",
+        "material-2-help"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [],
+      "rule": {
+        "id": "question-order",
+        "label": "Question order",
+        "value": null,
+        "origin": "unknown",
+        "state": "decision",
+        "evidenceIds": []
+      }
+    }
+  ],
+  "relations": [
+    {
+      "id": "hypothesis-analysis",
+      "from": "hypothesis",
+      "to": "analysis",
+      "type": "tested-by"
+    },
+    {
+      "id": "analysis-1",
+      "from": "analysis",
+      "to": "result-1",
+      "type": "produces"
+    },
+    {
+      "id": "analysis-2",
+      "from": "analysis",
+      "to": "result-2",
+      "type": "produces"
+    },
+    {
+      "id": "use-condition",
+      "from": "condition",
+      "to": "analysis",
+      "type": "uses"
+    },
+    {
+      "id": "use-intentionality",
+      "from": "intentionality",
+      "to": "analysis",
+      "type": "uses"
+    },
+    {
+      "id": "use-moral-rating",
+      "from": "moral-rating",
+      "to": "analysis",
+      "type": "uses"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "material-e-1-harm",
+      "path": "experiment_1_harm.json",
+      "locator": {
+        "pointer": "/instructions"
+      },
+      "quote": "The vice-president of a company went to the chairman of the board and said, ‘We are thinking of starting a new program. It will help us increase profits, but it will also harm the environment.’\n\nThe chairman of the board answered, ‘I don’t care at all about harming the environment. I just want to make as much profit as I can. Let’s start the new program.’\n\nThey started the new program. Sure enough, the environment was harmed.",
+      "verification": "verified"
+    },
+    {
+      "id": "material-e-1-help",
+      "path": "experiment_1_help.json",
+      "locator": {
+        "pointer": "/instructions"
+      },
+      "quote": "The vice-president of a company went to the chairman of the board and said, ‘We are thinking of starting a new program. It will help us increase profits, and it will also help the environment.’\n\nThe chairman of the board answered, ‘I don’t care at all about helping the environment. I just want to make as much profit as I can. Let’s start the new program.’\n\nThey started the new program. Sure enough, the environment was helped.",
+      "verification": "verified"
+    },
+    {
+      "id": "material-e-2-harm",
+      "path": "experiment_2_harm.json",
+      "locator": {
+        "pointer": "/instructions"
+      },
+      "quote": "A lieutenant was talking with a seargent. The lieutenant gave the order: ‘Send your squad to the top of Thompson Hill.’\n\nThe seargent said: ‘But if I send my the squad to the top of Thompson Hill, we’ll be moving the men directly into the enemy’s line of fire. Some of them will surely be killed!’\n\nThe lieutenant answered: ‘Look, I know that they’ll be in the line of fire, and I know that some of them will be killed. But I don’t care at all about what happens to our soldiers. All I care about is taking control of Thompson Hill.’\n\nThe squad was sent to the top of Thompson Hill. As expected, the soldiers were moved into the enemy’s line of fire, and some of them were killed.",
+      "verification": "verified"
+    },
+    {
+      "id": "material-e-2-help",
+      "path": "experiment_2_help.json",
+      "locator": {
+        "pointer": "/instructions"
+      },
+      "quote": "A lieutenant was talking with a seargent. The lieutenant gave the order: ‘Send your squad to the top of Thompson Hill.’\n\nThe seargent said: ‘If I send my squad to the top of Thompson Hill, we’ll be taking the men out of the enemy’s line of fire. They’ll be rescued!’\n\nThe lieutenant answered: ‘Look, I know that we’ll be taking them out of the line of fire, and I know that some of them would have been killed otherwise. But I don’t care at all about what happens to our soldiers. All I care about is taking control of Thompson Hill.’\n\nThe squad was sent to the top of Thompson Hill. As expected, the soldiers were taken out of the enemy’s line of fire, and they thereby escaped getting killed.",
+      "verification": "verified"
+    }
+  ],
+  "issues": [
+    {
+      "id": "assignment-rule",
+      "title": "Choose the assignment procedure",
+      "severity": "decision",
+      "nodeId": "design",
+      "fieldId": "assignment",
+      "reason": "The benchmark specification says random assignment but does not define how it is implemented.",
+      "impact": "Condition balance and reproducibility depend on this decision.",
+      "suggestedAction": "Specify allocation, balancing and participant assignment with the agent.",
+      "evidenceIds": []
+    },
+    {
+      "id": "exp-1-question-order",
+      "title": "Verify question order",
+      "severity": "decision",
+      "studyId": "exp-1",
+      "stepId": "exp-1-answer",
+      "reason": "The specification lists moral rating before intentionality, but the material JSON lists intentionality first.",
+      "impact": "Question order can influence responses.",
+      "suggestedAction": "Check the original paper and choose the order before building the study.",
+      "evidenceIds": []
+    },
+    {
+      "id": "exp-2-question-order",
+      "title": "Verify question order",
+      "severity": "decision",
+      "studyId": "exp-2",
+      "stepId": "exp-2-answer",
+      "reason": "The specification lists moral rating before intentionality, but the material JSON lists intentionality first.",
+      "impact": "Question order can influence responses.",
+      "suggestedAction": "Check the original paper and choose the order before building the study.",
+      "evidenceIds": []
+    },
+    {
+      "id": "background-gap",
+      "title": "Background and gap not extracted",
+      "severity": "check",
+      "nodeId": "background",
+      "fieldId": "gap",
+      "reason": "The sample was built from the benchmark specification, which does not state the gap the paper addresses.",
+      "impact": "Section 02 cannot say what prior work left open.",
+      "suggestedAction": "Read the paper introduction with the agent and add the gap with its page citation.",
+      "evidenceIds": []
+    },
+    {
+      "id": "n-recruited",
+      "title": "Recruited sample size not stated",
+      "severity": "check",
+      "nodeId": "participant",
+      "fieldId": "n-recruited",
+      "reason": "The specification gives analysed sizes only.",
+      "impact": "Attrition and exclusions cannot be reconstructed.",
+      "suggestedAction": "Check the paper for how many people were approached or excluded.",
+      "evidenceIds": []
+    },
+    {
+      "id": "compensation",
+      "title": "Pay and incentives not stated",
+      "severity": "check",
+      "nodeId": "participant",
+      "fieldId": "compensation",
+      "reason": "The specification does not mention payment.",
+      "impact": "Not needed to run the vignettes, but needed to describe the sample.",
+      "suggestedAction": "Check the paper; mark as not paid only if it says so.",
+      "evidenceIds": []
+    },
+    {
+      "id": "contribution",
+      "title": "Contribution not extracted",
+      "severity": "check",
+      "nodeId": "finding",
+      "fieldId": "contribution",
+      "reason": "The sample was built from the benchmark files, which do not state the paper's theoretical or practical contribution.",
+      "impact": "Section 10 cannot say what the finding adds.",
+      "suggestedAction": "Read the discussion with the agent and add it with its page citation.",
+      "evidenceIds": []
+    },
+    {
+      "id": "limitations",
+      "title": "Limitations not extracted",
+      "severity": "check",
+      "nodeId": "limitation",
+      "fieldId": "limitations",
+      "reason": "No limitations were extracted from the paper.",
+      "impact": "Section 11 is incomplete.",
+      "suggestedAction": "Read the discussion with the agent; do not add limitations the paper does not state.",
+      "evidenceIds": []
+    },
+    {
+      "id": "openness",
+      "title": "Openness not stated",
+      "severity": "check",
+      "nodeId": "limitation",
+      "fieldId": "openness",
+      "reason": "Availability of data, code and preregistration is not in the benchmark files.",
+      "impact": "Researchers cannot tell what can be re-used.",
+      "suggestedAction": "Check the paper; record \"not stated\" if it says nothing.",
+      "evidenceIds": []
+    }
+  ],
+  "extensions": {
+    "sourceCommit": "50086798df2606ceb0c651b58e4d5ddef523b2b5",
+    "sampleProvenance": "Editable reconstruction from study_005 specification, ground_truth and original material JSON. Reported results/design require PDF verification; vignette quotes are verified against the bundled material files.",
+    "originalSpecification": {
+      "study_id": "knobe",
+      "title": "Intentional Action and Side-Effects in Ordinary Language",
+      "participants": {
+        "n": 120,
+        "population": "People spending time in a Manhattan public park.",
+        "recruitment_source": "Manhattan public park",
+        "demographics": {},
+        "by_sub_study": {
+          "Experiment 1": {
+            "n": 78,
+            "population": "People spending time in a Manhattan public park."
+          },
+          "Experiment 2": {
+            "n": 42,
+            "population": "People spending time in a Manhattan public park."
+          }
+        }
+      },
+      "design": {
+        "type": "Between-Subjects",
+        "factors": [
+          {
+            "name": "Side-effect condition",
+            "levels": [
+              "harm",
+              "help"
+            ],
+            "type": "Between-Subjects"
+          },
+          {
+            "name": "Vignette context",
+            "levels": [
+              "Corporate Chairman",
+              "Military Lieutenant"
+            ],
+            "type": "Between-Subjects"
+          }
+        ]
+      },
+      "procedure": {
+        "steps": [
+          "Participants are randomly assigned to either a 'harm condition' or a 'help condition'.",
+          "Participants read a vignette (either about a corporate chairman or a military lieutenant) implementing a plan with a known side-effect that the agent claims not to care about.",
+          "Participants assess how much blame (in the harm condition) or praise (in the help condition) the agent deserves on a scale from 0 to 6.",
+          "Participants answer a categorical (Yes/No) question regarding whether the agent brought about the side-effect intentionally."
+        ]
+      }
+    },
+    "originalGroundTruth": {
+      "study_id": "knobe",
+      "title": "Intentional Action and Side-Effects in Ordinary Language",
+      "authors": [
+        "Joshua Knobe"
+      ],
+      "year": null,
+      "studies": [
+        {
+          "study_id": "Experiment 1",
+          "study_name": "Corporate Chairman Vignette",
+          "findings": [
+            {
+              "finding_id": "Finding 1",
+              "main_hypothesis": "A person’s intuitions as to whether or not a given side-effect was produced 'intentionally' can be influenced by that person’s attitude toward the specific side-effect in question (specifically whether it is good or bad).",
+              "statistical_tests": [
+                {
+                  "test_name": "Chi-square test",
+                  "statistical_hypothesis": "Intentionality judgments differ between harm and help conditions.",
+                  "reported_statistics": "chi2(1, N=78)=27.2, p=0.001",
+                  "significance_level": 0.05,
+                  "expected_direction": "positive"
+                }
+              ],
+              "original_data_points": {
+                "description": "Percentage of participants judging the side-effect as intentional.",
+                "data": {
+                  "Harm condition": {
+                    "percentage": 82.0,
+                    "n": 39
+                  },
+                  "Help condition": {
+                    "percentage": 23.0,
+                    "n": 39
+                  }
+                }
+              }
+            },
+            {
+              "finding_id": "Finding 2",
+              "main_hypothesis": "People are considerably more willing to blame the agent for bad side-effects than to praise the agent for good side-effects.",
+              "statistical_tests": [
+                {
+                  "test_name": "t-test (Combined with Exp 2)",
+                  "statistical_hypothesis": "Mean blame in harm condition > Mean praise in help condition.",
+                  "reported_statistics": "t(120)=8.4, p=0.001",
+                  "significance_level": 0.05,
+                  "expected_direction": "positive"
+                }
+              ],
+              "original_data_points": {
+                "description": "Mean praise/blame scores on a 0-6 scale.",
+                "data": {
+                  "harm_condition_blame": {
+                    "mean": 4.8
+                  },
+                  "help_condition_praise": {
+                    "mean": 1.4
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "study_id": "Experiment 2",
+          "study_name": "Military Lieutenant Vignette",
+          "findings": [
+            {
+              "finding_id": "Finding 1",
+              "main_hypothesis": "The effect observed in Experiment 1 is general and not specific to corporations or environmental damage.",
+              "statistical_tests": [
+                {
+                  "test_name": "Chi-square test",
+                  "statistical_hypothesis": "Intentionality judgments differ between harm and help conditions in a military context.",
+                  "reported_statistics": "chi2(1, N=42)=9.5, p=0.01",
+                  "significance_level": 0.05,
+                  "expected_direction": "positive"
+                }
+              ],
+              "original_data_points": {
+                "description": "Percentage of participants judging the side-effect as intentional.",
+                "data": {
+                  "Harm condition": {
+                    "percentage": 77.0,
+                    "n": 21
+                  },
+                  "Help condition": {
+                    "percentage": 30.0,
+                    "n": 21
+                  }
+                }
+              }
+            },
+            {
+              "finding_id": "Finding 3",
+              "main_hypothesis": "The asymmetry in praise and blame assignment may be at the root of the asymmetry in the application of the concept intentional.",
+              "statistical_tests": [
+                {
+                  "test_name": "Correlation (Combined with Exp 1)",
+                  "statistical_hypothesis": "Praise/blame scores are correlated with intentionality judgments.",
+                  "reported_statistics": "r(120)=0.53, p=0.001",
+                  "significance_level": 0.05,
+                  "expected_direction": "positive"
+                }
+              ],
+              "original_data_points": {
+                "description": "Correlation between moral judgment and intentionality judgment across both experiments.",
+                "data": {
+                  "total_sample": {
+                    "n": 120,
+                    "r": 0.53
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "overall_original_results": {
+        "description": "Summary of intentionality judgments and moral evaluations across two experiments.",
+        "data_tables": [
+          {
+            "table_name": "Intentionality Judgments",
+            "headers": [
+              "Experiment",
+              "Condition",
+              "Percentage Intentional",
+              "N (Approx)"
+            ],
+            "rows": [
+              [
+                "Exp 1",
+                "Harm",
+                "82%",
+                "39"
+              ],
+              [
+                "Exp 1",
+                "Help",
+                "23%",
+                "39"
+              ],
+              [
+                "Exp 2",
+                "Harm",
+                "77%",
+                "21"
+              ],
+              [
+                "Exp 2",
+                "Help",
+                "30%",
+                "21"
+              ]
+            ]
+          },
+          {
+            "table_name": "Moral Responsibility (Combined)",
+            "headers": [
+              "Condition",
+              "Mean Score (0-6)"
+            ],
+            "rows": [
+              [
+                "Harm (Blame)",
+                "4.8"
+              ],
+              [
+                "Help (Praise)",
+                "1.4"
+              ]
+            ]
+          }
+        ],
+        "all_raw_data": {
+          "exp1_chi2": 27.2,
+          "exp1_p": 0.001,
+          "exp2_chi2": 9.5,
+          "exp2_p": 0.01,
+          "combined_t": 8.4,
+          "combined_r": 0.53
+        }
+      }
+    },
+    "presentation": {
+      "open": [
+        "exp-1-read"
+      ]
+    }
+  }
+}

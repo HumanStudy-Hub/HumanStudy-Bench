@@ -5,6 +5,9 @@ on:
     paths:
       - "studies/**"
       - "scripts/build_studies_index.py"
+      - "scripts/research/**"
+      - "catalog/**"
+      - "community/**"
 
 jobs:
   rebuild:
@@ -14,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.PAT_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN || github.token }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -24,4 +27,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: rebuild studies_index.json"
-          file_pattern: co_website/data/studies_index.json
+          file_pattern: co_website/data/studies_index.json co_website/data/research_index.json
