@@ -240,7 +240,7 @@ def integrate(paper_dir: Path, metadata: dict, proposed: dict[str, bytes], *, re
         # An independent agent or curator reviews an exact candidate; approval cannot be replayed.
         if not review or review.get("candidateRevision") != rid or review.get("decision") != "accept" or not review.get("reviewer"):
             return {"status": "needs_review", "candidateRevision": rid, "validation": validation,
-                    "reason": "Structural checks passed; source fidelity and scientific scope still need independent review."}
+                    "reason": "Structural checks passed; source fidelity and scientific claims still need independent review."}
         folder = paper_dir / "revisions" / rid
         if not folder.exists():
             folder.parent.mkdir(parents=True, exist_ok=True)
