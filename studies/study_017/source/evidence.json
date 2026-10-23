@@ -1,0 +1,240 @@
+{
+  "_purpose": "Complete evidence and provenance record. Every substantive claim or material used elsewhere in this package is listed here with its source location in input/paper.pdf, an evidence label, and (for derived items) the derivation logic. Page numbers refer to the printed journal pagination (1437-1454), which pdftotext preserves in the extracted text.",
+  "evidence_labels_used": {
+    "verbatim": "directly quoted or transcribed from the paper",
+    "reported": "faithfully paraphrased from the paper",
+    "derived": "transformed from reported information, with the derivation stated",
+    "missing": "unavailable in the accessible source (the Online Appendix could not be retrieved); requires researcher input"
+  },
+  "studies_identified": [
+    {
+      "study_id": "computational_main",
+      "label": "not_human_subject",
+      "paper_section": "3. Computational Analysis",
+      "reported": "Q-learning agent-based simulation of J=3 bidders competing for K=2 ad slots over M=2000 matches, T=100 periods each. This is a machine-simulation study, not a human-subject study, so it is out of scope for the agent-participant package but is recorded here for completeness and because Study 1's design mirrors its parameters (J=3, K=2, U{1,10} valuations).",
+      "evidence_label": "reported",
+      "source_location": "pp. 1440-1444"
+    },
+    {
+      "study_id": "study_1_main_experiment",
+      "label": "human_subject",
+      "paper_section": "4. Experimental Analysis",
+      "reported": "Laboratory human-subject experiment with 138 Purdue participants recruited via ORSEE, 8 sessions of 15-18 participants each. Between-subjects treatment C in {0.0, 0.1} (bid-adjustment friction cost); within-subjects treatment alpha in {0.2, 0.5, 0.8} (slot-2/slot-1 value ratio). 10 matches per session, random regrouping into triads (J=3) each match, continuous-time bidding within each match with random termination.",
+      "evidence_label": "reported",
+      "source_location": "pp. 1443-1448",
+      "used_in": ["task/task.json:studies[0]", "materials/materials.json:study_1_main_experiment"]
+    },
+    {
+      "study_id": "study_2_mechanism_experiment",
+      "label": "human_subject",
+      "paper_section": "5. Experiment to Study the Underlying Mechanism",
+      "reported": "Follow-up laboratory human-subject experiment with 183 new Purdue participants (no overlap with Study 1), programmed in oTree. 2x2 between-subjects factorial design: bid-adjustment cost C in {0.0, 0.1} crossed with a new treatment, cost of accessing counterfactual-payoff information (free vs. $0.5/period 'InfoCosts'). Discrete-time periods (unlike Study 1's continuous time), four pre-set supergame-length sequences, independently redrawn private values each match (no shared seeds across groups).",
+      "evidence_label": "reported",
+      "source_location": "pp. 1448-1450",
+      "used_in": ["task/task.json:studies[1]", "materials/materials.json:study_2_mechanism_experiment"]
+    },
+    {
+      "study_id": "computational_robustness_section6",
+      "label": "not_human_subject",
+      "paper_section": "6. Additional Insights",
+      "reported": "Two additional computational (Q-learning) studies calibrated to the human-subject data: one recalibrating the learning model, one varying the number of advertisers J in {3,4,5,6}. Neither involves human or agent participants, so neither is represented in task/task.json.",
+      "evidence_label": "reported",
+      "source_location": "pp. 1450-1451"
+    }
+  ],
+  "evidence_items": [
+    {
+      "id": "E01",
+      "claim": "Sample size and recruitment for Study 1",
+      "quote": "For the experiment, we recruited 138 participants using ORSEE software (Greiner 2015) on the campus of Purdue University. We administered eight sessions of the experiment with 15-18 participants in each session.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.5, p. 1446",
+      "used_in": "study.json:studies[0].sample; materials/materials.json"
+    },
+    {
+      "id": "E02",
+      "claim": "Physical isolation and anonymity of participants",
+      "quote": "Upon entering the laboratory, participants were assigned to a computer terminal. All terminals were separated by physical barriers such that participants could not see choices made by other participants in the room. Participants remained anonymous throughout the experiment.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.5, p. 1446",
+      "used_in": "task/task.json visibility rules"
+    },
+    {
+      "id": "E03",
+      "claim": "Treatments summary (Table 4)",
+      "quote": "Table 4. Treatments Summary | Treatments: Between-Subjects, Parameter varied: C in {0.0, 0.1}, Description: Costless or costly bid adjustment within matches | Treatments: Within-Subjects, Parameter varied: alpha in {0.2, 0.5, 0.8}, Description: Value of the second good as a fraction of the first good",
+      "evidence_label": "verbatim",
+      "source_location": "Table 4, p. 1445",
+      "used_in": "task/task.json condition assignment"
+    },
+    {
+      "id": "E04",
+      "claim": "Matches per session and earnings rule",
+      "quote": "Each session consisted of M = 10 matches. At the beginning of each match, participants were randomly split into groups of three (J = 3) and remained so until the end of the match. The regrouping for the next match was random to avoid any systematic learning about participant behaviors. Earnings for the experiment were the sum of payoffs across all 10 matches.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.2, p. 1443",
+      "used_in": "task/task.json:studies[0].procedure"
+    },
+    {
+      "id": "E05",
+      "claim": "Random-termination protocol (Remark 1)",
+      "quote": "To avoid the end-of-match effects associated with the fixed duration of a match, we opted for random termination. Specifically, each match lasted at least 20 seconds, after which the chance of the match terminating each second was 1%. Thus, the expected duration of each match was two minutes. To ensure a valid comparison across sessions, we used the same sequence of seconds across matches in every session. Remark 1. We used a random-termination protocol.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.2, p. 1443",
+      "used_in": "task/task.json:studies[0].procedure.match_termination"
+    },
+    {
+      "id": "E06",
+      "claim": "Private-value / slot-value generation and common-seed design (Remark 2)",
+      "quote": "For each match, the participants were provided with randomly drawn private values for good 1. We then obtained the value of good 2 by multiplying the value of good 1 and alpha. Parameters for the initial four matches were drawn at random without any restriction. However, in matches 5-10, we aimed to provide a clean comparison among the treatments. Therefore, we used common seeds to generate the same random values across the two treatment dimensions. Remark 2. We used common random numbers in matches 5-10 such that, for each match, m in {5,...,10}, all groups had the same three valuations {v1m, v2m, v3m}; m in {5,...,10}, there was at least one group for each value of alpha.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.2, p. 1443-1444",
+      "used_in": "task/task.json:studies[0].procedure.value_generation",
+      "note_on_derivation": "The cross-session common-seed comparison (Remark 2) requires multiple independently run sessions/groups and is a between-session experimental-design control, not a within-run mechanic. A single package run (one triad or one small pool of agents) implements the private-value draw and the alpha-sharing rule but cannot itself realize the cross-session seed-matching; this is recorded as a departure in audit/missing_information.json."
+    },
+    {
+      "id": "E07",
+      "claim": "GSP payoff/auction rule as implemented for participants",
+      "quote": "At the beginning of a match, each participant j submitted a bid bj at no cost. Participants could then revise their bids in continuous time during the match. Participants could lock the bids to see the associated outcome and payoff with the current combination of bids. Specifically, if a participant's bid, bj, was the highest (i.e., j -> (1)), then the participant would get the first good and pay the amount equal to the second-highest bid minus the friction cost incurred during the match, (v(1) - b(2)) - C(1). If the participant's bid was the second highest, then the participant would get the second good and pay the amount equal to the third-highest bid times alpha minus the friction cost incurred during the match, that is, alpha(v(2) - b(3)) - C(2). If the participant's bid was the lowest, the participant would not receive any good and would pay only the friction cost incurred. We announced that alpha would be the same for all participants in the group during the instructions and had a reminder on the screen to ensure its common knowledge.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.3, p. 1444-1445",
+      "used_in": "task/adapter.py payoff function; task/task.json payoff_rule"
+    },
+    {
+      "id": "E08",
+      "claim": "Last (randomly occurring) period compensation mechanism (Remark 3)",
+      "quote": "the actual compensation in each match is based on the last auction in a sequence. ... Remark 3. We used a last (randomly occurring) period compensation mechanism.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.3, p. 1445",
+      "used_in": "task/task.json:studies[0].procedure.payment_rule"
+    },
+    {
+      "id": "E09",
+      "claim": "Silent protocol for bid revision (Remark 4)",
+      "quote": "To resolve this issue, we implemented a silent protocol. Specifically, instead of clicking to select a new bid, subjects placed and adjusted their bids by moving the mouse back and forth across the scale border. ... Remark 4. We used a silent protocol.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.4, p. 1445-1446",
+      "used_in": "audit/missing_information.json (not applicable to text-based agents; recorded as inapplicable rather than silently dropped)"
+    },
+    {
+      "id": "E10",
+      "claim": "Experimental interface information structure",
+      "quote": "The participant's screen summarized information provided for that match (#1 in Figure 2) as well as the current action and the outcome associated with this action (#2 in Figure 2). ... (4) Scales for the other two participants. These scales remain blank until the match is over, at which point the actions of the other participants are revealed.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.4, p. 1445, Figure 2 notes",
+      "used_in": "task/task.json:studies[0].visibility"
+    },
+    {
+      "id": "E11",
+      "claim": "Instructions and practice-task administration",
+      "quote": "Subjects received a handout containing the instructions (Online Appendix L). An experimenter read them out loud to ensure common knowledge of the environment. Second, subjects had to complete six practice tasks that dealt with placing and modifying the bid. Subjects could proceed to the next task only after correctly completing the previous task. Third, the subjects had to go through five examples, which, to eliminate any bias, were generated at random. ... Finally, subjects were provided with a calculator, pen, and paper for the duration of the instructions and the experiment.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.5, p. 1446",
+      "used_in": "materials/materials.json study_1_main_experiment.instructions_handout (marked missing for verbatim text) and .practice_tasks"
+    },
+    {
+      "id": "E12",
+      "claim": "Verbatim instructions text (Online Appendix L) is unavailable",
+      "evidence_label": "missing",
+      "source_location": "Referenced at Section 4.5, p. 1446; content resides in Online Appendix L",
+      "reason": "Online Appendix L is only in the supplemental PDF, which returned HTTP 403 (Cloudflare bot challenge) on every retrieval attempt.",
+      "used_in": "materials/materials.json; audit/missing_information.json"
+    },
+    {
+      "id": "E13",
+      "claim": "Sample size, recruitment, and platform for Study 2",
+      "quote": "For the new experiments, we recruited 183 participants on the campus of Purdue University who had not participated in the original set of experiments. The new experiment was programmed in oTree software (Chen et al. 2016a). Instructions and decision screens are presented in Online Appendix N.1.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 5, p. 1449",
+      "used_in": "study.json:studies[1].sample"
+    },
+    {
+      "id": "E14",
+      "claim": "Study 2 discrete-time redesign and rationale",
+      "quote": "we run a new set of experiments in which we consider a discrete-time setting ... to make the discrete-time setup feasible within the time constraints offered by the laboratory experiment, we reduced the number of expected interactions to 10 (i.e., probability of termination was 0.1 instead of 0.01). In addition, to ensure that one specific sequence of match durations did not bias the results, we now consider four sequences of supergame length (see Online Table N.1). Finally ... we did not fix or match the private values in the new experiment. Instead, private values were drawn at random at the beginning of each match for each participant.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 5, p. 1448-1449",
+      "used_in": "task/task.json:studies[1].procedure"
+    },
+    {
+      "id": "E15",
+      "claim": "Study 2 information-cost treatment (interactive counterfactual-payoff plot)",
+      "quote": "the information consisted of an interactive plot (see screenshots in Online Appendix N.2) that displayed possible payoffs for any bid conditional on the other two group members holding the bids as they did in the previous period. The treatment variation included the cost of accessing this plot. Specifically, in the costly information treatment, subjects incurred a cost of $0.5 every period in which they accessed this information, whereas in the free information treatment, subjects did not incur any cost.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 5, p. 1449",
+      "used_in": "task/task.json:studies[1].information_feature; materials/materials.json"
+    },
+    {
+      "id": "E16",
+      "claim": "Study 2 factorial design and discrete-time mechanics",
+      "quote": "we implemented a 2x2 factorial design in which we varied the cost of bid adjustment (as is the main treatment variation in the original set of experiment) and the cost of the information. For all four treatments, we fixed the same alpha = 0.5. The differences from the original experiments include (i) discrete-time setup, (ii) duration of the interaction, (iii) multiple duration realizations, and (iv) independent random draws for each subject in each match. Specifically, in the discrete-time setting, subjects faced an uncertain number of decision periods. Within each period, they had unlimited time to make a desired bid adjustment (if any). Once all participants in their group submitted their decisions, each saw the outcome for that period.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 5, p. 1449",
+      "used_in": "task/task.json:studies[1].procedure"
+    },
+    {
+      "id": "E17",
+      "claim": "Study 2 verbatim instructions/screens and duration-sequence table are unavailable",
+      "evidence_label": "missing",
+      "source_location": "Referenced at Section 5, p. 1448-1449; content in Online Appendix N.1 (instructions/screens), Online Appendix N.2 (info-plot screenshots), Online Table N.1 (four duration sequences)",
+      "reason": "Same Online Appendix retrieval failure as E12.",
+      "used_in": "materials/materials.json; audit/missing_information.json"
+    },
+    {
+      "id": "E18",
+      "claim": "Core GSP model and payoff formula (theoretical basis shared by both studies)",
+      "quote": "the payoff for the kth highest bidding advertiser (allotted to the kth slot) is given by alpha_k(v(k) - b(k+1)). ... we model frictions as an additional cost Cj incurred by advertiser j from revising the advertiser's bids. That is, the payoff for advertiser j who places the kth highest bid is pi_j = alpha_k(vj - b(k+1)) - Cj",
+      "evidence_label": "verbatim",
+      "source_location": "Section 3.1, p. 1440-1441, equations (1)-(3)",
+      "used_in": "task/adapter.py payoff function"
+    },
+    {
+      "id": "E19",
+      "claim": "Outcome metrics: allocative efficiency and bid-to-value ratio",
+      "quote": "The first metric of interest is the allocative efficiency of the auction. ... Psi = sum_{k=1}^{K} alpha_k v(k) / sum_{j=1}^{K} alpha_j v^j ... The second metric of interest is the bid-to-value ratio for each of the advertisers ... Omega_j = b_j / v_j",
+      "evidence_label": "verbatim",
+      "source_location": "Section 3.1, p. 1441, equations (1)-(2)",
+      "used_in": "evaluation/evaluation.py"
+    },
+    {
+      "id": "E20",
+      "claim": "Study 1 headline results (Results 5-10) used as evaluation targets",
+      "quote": "Result 6. Lower costs lead to more exploration. Result 7. The bid-to-value ratio is higher for lower valued agents. Result 8. For the lowest valued agents, the bid-to-value ratio increases as friction decreases. Result 9. The bid-to-value ratio decreases as alpha increases for medium and highest valued agents. Result 10. Allocative efficiency of the market increases as friction costs increase.",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.6, pp. 1447-1448",
+      "used_in": "study.json:studies[0].outcomes; evaluation/evaluation.py"
+    },
+    {
+      "id": "E21",
+      "claim": "Analysis window: matches 5-10, statistical test used",
+      "quote": "given our design, we focus on matches 5-10 ... p-values are determined using two-tailed permutation tests (Good 2013).",
+      "evidence_label": "verbatim",
+      "source_location": "Section 4.6.1 note, Table 5 notes, p. 1446-1447",
+      "used_in": "evaluation/evaluation.py analysis_window; not_ready permutation-test note"
+    },
+    {
+      "id": "E22",
+      "claim": "Point-to-currency exchange rate for participant payment is not stated in the main text",
+      "evidence_label": "missing",
+      "source_location": "Not found in Sections 4.2, 4.5 of input/paper.pdf; possibly in Online Appendix L or M",
+      "reason": "Main text states participants were 'paid in cash' and earnings are the sum of match payoffs, but no explicit points-to-dollars conversion rate or show-up fee is given in the accessible text.",
+      "used_in": "audit/missing_information.json"
+    },
+    {
+      "id": "E23",
+      "claim": "Rounding convention for good-2 (slot-2) value = alpha * value of good 1",
+      "evidence_label": "missing",
+      "source_location": "Section 4.2, p. 1443",
+      "reason": "The paper states good-2 value is obtained by multiplying good-1 value by alpha (e.g., a value of 7 with alpha=0.2 gives 1.4), but does not state whether displayed/used values are rounded or shown with decimals.",
+      "used_in": "audit/missing_information.json; task/adapter.py uses unrounded float and flags the assumption"
+    },
+    {
+      "id": "E24",
+      "claim": "Session software-bug affecting matches 5-10 seed increment (disclosed by authors)",
+      "quote": "After running the first four sessions (two for C=0.0 and two for C=1.0), we discovered an error in the way the software generated random seeds ... The bug was the same across the treatments, so ... no systematic effect should exist between treatments.",
+      "evidence_label": "verbatim",
+      "source_location": "Footnote 19, p. 1452",
+      "used_in": "study.json known_limitations"
+    }
+  ]
+}
