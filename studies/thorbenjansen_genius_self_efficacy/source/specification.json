@@ -1,0 +1,71 @@
+{
+  "study_id": "thorbenjansen_genius_self_efficacy",
+  "doi": "10.2378/peu2026.art12d",
+  "population": "Schülerinnen und Schüler der Sekundarstufe in Deutschland, Klassen 10/11; publiziertes Alter 14–21 Jahre",
+  "language": "de-informal",
+  "design": "individual randomization within classes; persistent sequential between-subjects experiment",
+  "reference_snapshot": {
+    "n": 801,
+    "condition_sizes": {
+      "control": 395,
+      "feedback": 406
+    },
+    "analysis_cluster_levels": 51,
+    "observed_classrooms": 50,
+    "raw_missing_class_cases": 22
+  },
+  "published_sample": {
+    "n": 805,
+    "condition_sizes": {
+      "control": 400,
+      "feedback": 405
+    },
+    "classes": 47,
+    "status": "unreconciled source discrepancy"
+  },
+  "outcome": "T3SE four-item mean after second writing task; response scale 1–5",
+  "baseline_covariates": [
+    "agent-generated T0SE four-item mean",
+    "baseline WLE estimated from agent-written first essay"
+  ],
+  "moderators": [
+    "T0AGL/lap",
+    "T0AGPA/pap",
+    "T0AGPV/pav",
+    "T0AGEV/wav"
+  ],
+  "timing": {
+    "session_minutes": 90,
+    "baseline_minutes": 15,
+    "second_task": "self-paced within session"
+  },
+  "roles": [
+    "persistent participant model",
+    "fresh current-block feedback model",
+    "frozen Ridge baseline text scorer",
+    "statistical evaluator"
+  ],
+  "assignment_blueprint": "Original available analysis counts; pooled missing-class level is an unresolved source convention, not a real classroom",
+  "scope": "Agents generate their own baseline essay and questionnaire responses, followed by five writing-feedback-revision cycles and post-task writing self-efficacy.",
+  "requires_original_baseline_scorer": false,
+  "requires_historical_feedback_configuration": false,
+  "participants": {
+    "n": 801
+  },
+  "comparison_reference": "matched_reference.json",
+  "comparison_samples": {
+    "human": 801,
+    "agent": 801,
+    "condition_sizes_each": {
+      "control": 395,
+      "feedback": 406
+    }
+  },
+  "default_mode": "full_surrogate",
+  "protocol": {
+    "id": "full_surrogate",
+    "participant_turns": 23,
+    "baseline_measurement": "frozen text-to-WLE scoring model"
+  },
+  "timing_fidelity": "Order and baseline generation timeout implemented; API latency is not human writing time. 90-minute exposure is not claimed."
+}
