@@ -1,0 +1,164 @@
+[
+  {
+    "id": "i_pt_compensation",
+    "study": "shared",
+    "field": "compensation",
+    "severity": "check",
+    "reason": "Appendix B only lists the questions asked of site leads; Table S1 with site details is not in the provided supplement.",
+    "impact": "Cannot describe the sampled populations beyond Table 1 labels.",
+    "suggested_action": "Supply Table S1 from the OSF page if site-level personas are wanted."
+  },
+  {
+    "id": "i_pt_sample_profile",
+    "study": "shared",
+    "field": "characteristics",
+    "severity": "decision",
+    "reason": "The original ran 36 samples with different populations and seven languages; the paper does not define a single participant profile, and a replay run cannot reproduce site variation unless profiles are chosen.",
+    "impact": "Running without a choice would give an unlabelled population; cross-site results cannot be compared with the paper's.",
+    "suggested_action": "Decide which site profile(s), language and persona fields (e.g. sex, nationality) AI participants receive."
+  },
+  {
+    "id": "i_s01_dz_assignment",
+    "study": "s01",
+    "field": "assignment",
+    "severity": "decision",
+    "reason": "The paper reports a between-subjects comparison but not the allocation rule (random, balanced, other).",
+    "impact": "The replay must choose a rule; an unstated rule is a researcher decision, not a paper fact.",
+    "suggested_action": "Confirm random assignment with equal probability, or supply the rule."
+  },
+  {
+    "id": "i_s02_dz_assignment",
+    "study": "s02",
+    "field": "assignment",
+    "severity": "decision",
+    "reason": "The paper reports a between-subjects comparison but not the allocation rule (random, balanced, other).",
+    "impact": "The replay must choose a rule; an unstated rule is a researcher decision, not a paper fact.",
+    "suggested_action": "Confirm random assignment with equal probability, or supply the rule."
+  },
+  {
+    "id": "i_s04_dz_assignment",
+    "study": "s04",
+    "field": "assignment",
+    "severity": "decision",
+    "reason": "The paper reports a between-subjects comparison but not the allocation rule (random, balanced, other).",
+    "impact": "The replay must choose a rule; an unstated rule is a researcher decision, not a paper fact.",
+    "suggested_action": "Confirm random assignment with equal probability, or supply the rule."
+  },
+  {
+    "id": "i_s05_dz_assignment",
+    "study": "s05",
+    "field": "assignment",
+    "severity": "decision",
+    "reason": "The paper reports a between-subjects comparison but not the allocation rule (random, balanced, other).",
+    "impact": "The replay must choose a rule; an unstated rule is a researcher decision, not a paper fact.",
+    "suggested_action": "Confirm random assignment with equal probability, or supply the rule."
+  },
+  {
+    "id": "i_s06_dz_assignment",
+    "study": "s06",
+    "field": "assignment",
+    "severity": "decision",
+    "reason": "The paper reports a between-subjects comparison but not the allocation rule (random, balanced, other).",
+    "impact": "The replay must choose a rule; an unstated rule is a researcher decision, not a paper fact.",
+    "suggested_action": "Confirm random assignment with equal probability, or supply the rule."
+  },
+  {
+    "id": "i_s07_dz_assignment",
+    "study": "s07",
+    "field": "assignment",
+    "severity": "decision",
+    "reason": "The paper reports a between-subjects comparison but not the allocation rule (random, balanced, other).",
+    "impact": "The replay must choose a rule; an unstated rule is a researcher decision, not a paper fact.",
+    "suggested_action": "Confirm random assignment with equal probability, or supply the rule."
+  },
+  {
+    "id": "i_s08_dz_assignment",
+    "study": "s08",
+    "field": "assignment",
+    "severity": "decision",
+    "reason": "The paper reports a between-subjects comparison but not the allocation rule (random, balanced, other).",
+    "impact": "The replay must choose a rule; an unstated rule is a researcher decision, not a paper fact.",
+    "suggested_action": "Confirm random assignment with equal probability, or supply the rule."
+  },
+  {
+    "id": "i_s09_dz_assignment",
+    "study": "s09",
+    "field": "assignment",
+    "severity": "decision",
+    "reason": "The paper reports a between-subjects comparison but not the allocation rule (random, balanced, other).",
+    "impact": "The replay must choose a rule; an unstated rule is a researcher decision, not a paper fact.",
+    "suggested_action": "Confirm random assignment with equal probability, or supply the rule."
+  },
+  {
+    "id": "i_s10_dz_assignment",
+    "study": "s10",
+    "field": "assignment",
+    "severity": "decision",
+    "reason": "The paper reports a between-subjects comparison but not the allocation rule (random, balanced, other).",
+    "impact": "The replay must choose a rule; an unstated rule is a researcher decision, not a paper fact.",
+    "suggested_action": "Confirm random assignment with equal probability, or supply the rule."
+  },
+  {
+    "id": "i_s11_dz_assignment",
+    "study": "s11",
+    "field": "assignment",
+    "severity": "decision",
+    "reason": "The paper reports a between-subjects comparison but not the allocation rule (random, balanced, other).",
+    "impact": "The replay must choose a rule; an unstated rule is a researcher decision, not a paper fact.",
+    "suggested_action": "Confirm random assignment with equal probability, or supply the rule."
+  },
+  {
+    "id": "i_s12_iat_text",
+    "study": "s12",
+    "field": "s12_iat",
+    "severity": "check",
+    "reason": "The IAT is scored from trial-by-trial reaction times (D algorithm); a text model answering in prose has no latencies.",
+    "impact": "Effects 12 and 13 cannot be replayed as published with text participants; any simulation would need a different instrument and must be labelled an adaptation.",
+    "suggested_action": "Decide whether to exclude this study from AI runs or design a labelled adaptation."
+  },
+  {
+    "id": "i_s13_ntext",
+    "study": "s13",
+    "field": "s13_res_agg",
+    "severity": "check",
+    "reason": "The abstract and results say 10 of 13 effects replicated (imagined contact weak, two not replicated); the Discussion says eleven of 13 were successfully replicated.",
+    "impact": "A replay summary could quote either count; the program records both as reported.",
+    "suggested_action": "Treat 10 of 13 (results and abstract) as the main count unless the researcher decides otherwise."
+  },
+  {
+    "id": "i_s03_suppdisc",
+    "study": "s03",
+    "field": "s03_res_rep",
+    "severity": "check",
+    "reason": "The supplement lists Anchoring 1 (NYC) with t(5607)=90.49, d=1.17 and Anchoring 4 (babies) with the same t(5607)=90.49, while Table 2 gives NYC t=42.86 and babies t=90.49.",
+    "impact": "Anchoring comparison values may be mis-transcribed in the supplement.",
+    "suggested_action": "Use the Table 2 values as primary and check against the OSF data."
+  },
+  {
+    "id": "i_s03_unit_label",
+    "study": "s03",
+    "field": "wording",
+    "severity": "check",
+    "reason": "Measures_US_Version labels the answer box for the 'shorter than 6,000 miles' item “(babies)”, but the study page anchoring1b.html labels it “(miles)”. Materials use “(miles)”, as in the study page and the low-anchor version.",
+    "impact": "A wrong unit label could change how participants answer that item.",
+    "suggested_action": "Confirm “(miles)” is correct, or supply the label as run."
+  },
+  {
+    "id": "i_s09_image",
+    "study": "s09",
+    "field": "wording",
+    "severity": "decision",
+    "reason": "The four photos differ between flag and control conditions; the instrument document only has screenshot placeholders and the paper says only that the flag appears in two of four photos. A text-only AI participant cannot see them, and the sources hold no verbatim description.",
+    "impact": "Without the photos both arms would read identically, so the study is excluded from text runs.",
+    "suggested_action": "Decide whether to run it with a vision-capable model and the images in sources/materials_html/images, or leave it out."
+  },
+  {
+    "id": "i_s10_image",
+    "study": "s10",
+    "field": "wording",
+    "severity": "decision",
+    "reason": "The money and control conditions differ only in the background image of the age/gender page; the instrument document only has placeholders and no verbatim description exists.",
+    "impact": "Without the image both arms would read identically, so the study is excluded from text runs.",
+    "suggested_action": "Decide whether to run it with a vision-capable model and the images in sources/materials_html/images, or leave it out."
+  }
+]

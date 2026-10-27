@@ -1,0 +1,146 @@
+{
+  "studies": {
+    "s1": {
+      "language": "English (primary population: similar U.S. university sites)",
+      "scenario": {
+        "tempted_fate": {
+          "status": "verbatim",
+          "text": "Imagine that you are in a large lecture with a few hundred students and you are sitting in the middle section, a little more than half-way back in the room. The professor asks a question about the readings, but no one raises his or her hand to answer. You have not done the reading and feel confident that you would not be able to answer the question. The class sits in silence for two minutes before the professor explains that if no one volunteers, he will choose someone.",
+          "source": "sources/RG_questionnaire_items.pdf p.2 (L1-R0 / L0-R0)"
+        },
+        "not_tempted_fate": {
+          "status": "verbatim",
+          "text": "Imagine that you are in a large lecture with a few hundred students and you are sitting in the middle section, a little more than half-way back in the room. The professor asks a question about the readings, but no one raises his or her hand to answer. You have done the reading and feel confident that the professor would like your answer, but prefer not to volunteer answers in large classes. The class sits in silence for two minutes before the professor explains that if no one volunteers, he will choose someone.",
+          "source": "sources/RG_questionnaire_items.pdf p.2 (L1-R1 / L0-R1)"
+        },
+        "lead_in_load": {
+          "status": "verbatim",
+          "text": "Start with the number: 564\nWhile counting backwards, read the following scenario.",
+          "source": "sources/RG_questionnaire_items.pdf p.2"
+        },
+        "lead_in_no_load": {
+          "status": "verbatim",
+          "text": "Please read the following scenario carefully.",
+          "source": "sources/RG_questionnaire_items.pdf p.4"
+        }
+      },
+      "cognitive_load": {
+        "status": "verbatim",
+        "text": "Please read the directions carefully. In this short study, you will be asked to complete two tasks simultaneously. Your first task will be to read the scenario on the following page and answer the question that follows it. Your second task will be to simultaneously count backwards by 3s. Both tasks are very important, so you should be sure to put effort into reading and into counting backwards. After you finish with the scenario, you will have to report the number that you end on. For example, if you are asked to start with 876 and you count backwards by 3s (873, 870, 867…) and finish reading the scenario and answering the question while you are on 819, you should write 819 at the bottom of the page. If you have been counting carefully, the number you report should be a multiple of three away from the original number.  The number that you should start with will appear on the top of the following page. Begin counting backwards by 3s immediately, and then proceed to the scenario. When you are ready to complete the two tasks, please proceed to the next page.",
+        "start_number": 564,
+        "source": "sources/RG_questionnaire_items.pdf p.1-2"
+      },
+      "likelihood_item": {
+        "status": "verbatim",
+        "text": "How likely do you believe it is that the professor will call on you? Mark your answer by choosing the appropriate number below.",
+        "anchor_low": "Not at all likely",
+        "anchor_high": "Extremely likely",
+        "options": "0 1 2 3 4 5 6 7 8 9 10",
+        "scale": "0 to 10",
+        "source": "sources/RG_questionnaire_items.pdf p.2"
+      },
+      "secondary_items": {
+        "end_number": {
+          "status": "verbatim",
+          "text": "STOP COUNTING! What number did you end on?",
+          "kind": "number",
+          "scale": "any whole number",
+          "conditions": [
+            "c01",
+            "c11"
+          ],
+          "source": "sources/RG_questionnaire_items.pdf p.3"
+        },
+        "effort_split": {
+          "status": "verbatim",
+          "text": "It is often very difficult to complete two tasks simultaneously. Please indicate how much effort you believe you put into each of the two tasks by choosing the appropriate number.",
+          "anchor_low": "I put all my effort into reading",
+          "anchor_mid": "I split my effort evenly between the two tasks",
+          "anchor_high": "I put all my effort into counting",
+          "options": "0 1 2 3 4 5 6",
+          "scale": "0 to 6",
+          "conditions": [
+            "c01",
+            "c11"
+          ],
+          "source": "sources/RG_questionnaire_items.pdf p.3"
+        },
+        "difficulty": {
+          "status": "verbatim",
+          "text": "How difficult was the counting task?",
+          "anchor_low": "Not at all difficult",
+          "anchor_high": "Extremely difficult",
+          "options": "0 1 2 3 4 5 6 7 8 9 10",
+          "scale": "0 to 10",
+          "conditions": [
+            "c01",
+            "c11"
+          ],
+          "source": "sources/RG_questionnaire_items.pdf p.3"
+        },
+        "effort": {
+          "status": "verbatim",
+          "text": "How much effort did the counting task require?",
+          "anchor_low": "Very little effort",
+          "anchor_high": "A lot of effort",
+          "options": "0 1 2 3 4 5 6 7 8 9 10",
+          "scale": "0 to 10",
+          "conditions": [
+            "c01",
+            "c11"
+          ],
+          "source": "sources/RG_questionnaire_items.pdf p.3"
+        },
+        "importance": {
+          "status": "verbatim",
+          "text": "If you were a student in the class you just read about, how important would it be to you to answer questions correctly in class?",
+          "anchor_low": "Not at all important",
+          "anchor_high": "Extremely important",
+          "options": "0 1 2 3 4 5 6 7 8 9 10",
+          "scale": "0 to 10",
+          "conditions": [
+            "c00",
+            "c10",
+            "c01",
+            "c11"
+          ],
+          "source": "sources/RG_questionnaire_items.pdf p.5"
+        },
+        "negativity": {
+          "status": "verbatim",
+          "text": "If you were a student in the class, how bad would you feel if you were called on by the professor, but couldn’t answer the question?",
+          "anchor_low": "Not at all bad",
+          "anchor_high": "Extremely bad",
+          "options": "0 1 2 3 4 5 6 7 8 9 10",
+          "scale": "0 to 10",
+          "conditions": [
+            "c00",
+            "c10",
+            "c01",
+            "c11"
+          ],
+          "source": "sources/RG_questionnaire_items.pdf p.5"
+        }
+      },
+      "conditions": {
+        "c00": {
+          "tempting_fate": 0,
+          "cognitive_load": 0
+        },
+        "c10": {
+          "tempting_fate": 1,
+          "cognitive_load": 0
+        },
+        "c01": {
+          "tempting_fate": 0,
+          "cognitive_load": 1
+        },
+        "c11": {
+          "tempting_fate": 1,
+          "cognitive_load": 1
+        }
+      },
+      "item_order": "Printed order: likelihood; then (load only) end_number, effort_split, difficulty, effort; then importance, negativity."
+    }
+  }
+}

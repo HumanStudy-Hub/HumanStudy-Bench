@@ -1,0 +1,194 @@
+{
+ "entries": [
+  {
+   "id": "iss-n-slate1",
+   "study": "slate1",
+   "field": "n-recruited",
+   "node": "p-slate1",
+   "severity": "check",
+   "reason": "The paper reports 64 samples for the slate and a total of 15,305 participants, but not the participant count of the slate.",
+   "impact": "The sampling unit and expected N per slate cannot be checked against the paper.",
+   "suggested_action": "Take the count from the public dataset (https://osf.io/8cd4r/) if wanted."
+  },
+  {
+   "id": "iss-comp-slate1",
+   "study": "slate1",
+   "field": "compensation",
+   "node": "p-slate1",
+   "severity": "check",
+   "reason": "The paper does not say how participants were compensated; sites decided locally.",
+   "impact": "None for AI participants, but incentive context of the original sessions is unknown.",
+   "suggested_action": "Record per-site compensation if the researcher needs it."
+  },
+  {
+   "id": "iss-assign-slate1",
+   "study": "slate1",
+   "field": "assignment",
+   "node": "d-slate1",
+   "severity": "decision",
+   "reason": "The paper states random assignment of labs to slates and random task order, but not the rule that assigned participants to the versions of each effect.",
+   "impact": "A replay must choose a rule; random assignment per effect is assumed.",
+   "suggested_action": "Confirm random assignment per effect with participant-level randomization."
+  },
+  {
+   "id": "iss-n-slate2",
+   "study": "slate2",
+   "field": "n-recruited",
+   "node": "p-slate2",
+   "severity": "check",
+   "reason": "The paper reports 61 samples for the slate and a total of 15,305 participants, but not the participant count of the slate.",
+   "impact": "The sampling unit and expected N per slate cannot be checked against the paper.",
+   "suggested_action": "Take the count from the public dataset (https://osf.io/8cd4r/) if wanted."
+  },
+  {
+   "id": "iss-comp-slate2",
+   "study": "slate2",
+   "field": "compensation",
+   "node": "p-slate2",
+   "severity": "check",
+   "reason": "The paper does not say how participants were compensated; sites decided locally.",
+   "impact": "None for AI participants, but incentive context of the original sessions is unknown.",
+   "suggested_action": "Record per-site compensation if the researcher needs it."
+  },
+  {
+   "id": "iss-assign-slate2",
+   "study": "slate2",
+   "field": "assignment",
+   "node": "d-slate2",
+   "severity": "decision",
+   "reason": "The paper states random assignment of labs to slates and random task order, but not the rule that assigned participants to the versions of each effect.",
+   "impact": "A replay must choose a rule; random assignment per effect is assumed.",
+   "suggested_action": "Confirm random assignment per effect with participant-level randomization."
+  },
+  {
+   "id": "iss-modal-huan",
+   "study": "slate1",
+   "field": "modality",
+   "node": "m-huan-high",
+   "severity": "decision",
+   "reason": "The response is a click on the map picture, so a participant must be able to see the picture and reply with a position; the codebook gives no reply format for it. The picture is supplied in the codebook, but the AI participants launched by the replay runner receive text only.",
+   "impact": "The effect is not run unless the participant is vision-capable; with a text-only participant the conditions would read identically or the task cannot be done.",
+   "suggested_action": "Decide whether to run this effect with a vision-capable participant (the package passes the picture files to such a participant) or to exclude it."
+  },
+  {
+   "id": "iss-modal-alt",
+   "study": "slate1",
+   "field": "modality",
+   "node": "m-alt-easy",
+   "severity": "decision",
+   "reason": "The disfluency manipulation is a visual font property that a text-only AI participant cannot perceive.",
+   "impact": "A text-only replay delivers no font difference, so the two conditions would read identically.",
+   "suggested_action": "Decide whether to run this effect with a vision-capable participant, or exclude it."
+  },
+  {
+   "id": "iss-map-alt",
+   "study": "slate1",
+   "field": "description",
+   "node": "c-alt-easy",
+   "severity": "check",
+   "reason": "Codebook alt1 and alt2 carry identical text; the paper states the two fonts but not which codebook version uses which.",
+   "impact": "Condition labels follow the codebook where it differs and the paper otherwise.",
+   "suggested_action": "Confirm the mapping against the OSF Qualtrics file."
+  },
+  {
+   "id": "iss-map-haus12",
+   "study": "slate1",
+   "field": "description",
+   "node": "c-haus12-side",
+   "severity": "check",
+   "reason": "The paper does not say which codebook version is which; haus1 is the passenger (Denise) scenario.",
+   "impact": "Condition labels follow the codebook where it differs and the paper otherwise.",
+   "suggested_action": "Confirm the mapping against the OSF Qualtrics file."
+  },
+  {
+   "id": "iss-score-and",
+   "study": "slate1",
+   "field": "coding",
+   "node": "a-and",
+   "severity": "decision",
+   "reason": "How the subjective well-being score is composed from the satisfaction and mood items (the paper reports means near 0, so a standardized composite) is not stated.",
+   "impact": "The outcome cannot be computed from the paper alone.",
+   "suggested_action": "Obtain the scoring from the public analysis code (https://manylabsopenscience.github.io/) or the researcher."
+  },
+  {
+   "id": "iss-map-and",
+   "study": "slate1",
+   "field": "description",
+   "node": "c-and-top",
+   "severity": "check",
+   "reason": "Codebook and1.2 asks about the top rung and and2.2 the bottom rung; the mapping to high and low status follows the original description of the comparison.",
+   "impact": "Condition labels follow the codebook where it differs and the paper otherwise.",
+   "suggested_action": "Confirm the mapping against the OSF Qualtrics file."
+  },
+  {
+   "id": "iss-modal-geis",
+   "study": "slate2",
+   "field": "modality",
+   "node": "m-geis-long",
+   "severity": "decision",
+   "reason": "The manipulation is the length of the line in the organization chart picture, which a text-only participant cannot see. The picture is supplied in the codebook, but the AI participants launched by the replay runner receive text only.",
+   "impact": "The effect is not run unless the participant is vision-capable; with a text-only participant the conditions would read identically or the task cannot be done.",
+   "suggested_action": "Decide whether to run this effect with a vision-capable participant (the package passes the picture files to such a participant) or to exclude it."
+  },
+  {
+   "id": "iss-modal-haus34",
+   "study": "slate2",
+   "field": "modality",
+   "node": "m-haus34-ned",
+   "severity": "decision",
+   "reason": "Both scenarios are to be read using the diagram as a resource; the diagram is a picture. The picture is supplied in the codebook, but the AI participants launched by the replay runner receive text only.",
+   "impact": "The effect is not run unless the participant is vision-capable; with a text-only participant the conditions would read identically or the task cannot be done.",
+   "suggested_action": "Decide whether to run this effect with a vision-capable participant (the package passes the picture files to such a participant) or to exclude it."
+  },
+  {
+   "id": "iss-map-haus34",
+   "study": "slate2",
+   "field": "description",
+   "node": "c-haus34-ned",
+   "severity": "check",
+   "reason": "The paper says Ned and Oscar are the greater good and foreseen side effect scenarios but not which is which.",
+   "impact": "Condition labels follow the codebook where it differs and the paper otherwise.",
+   "suggested_action": "Confirm the mapping against the OSF Qualtrics file."
+  },
+  {
+   "id": "iss-modal-nore",
+   "study": "slate2",
+   "field": "modality",
+   "node": "m-nore-belong",
+   "severity": "decision",
+   "reason": "Every item is a picture of two groups of objects and a test object. The picture is supplied in the codebook, but the AI participants launched by the replay runner receive text only.",
+   "impact": "The effect is not run unless the participant is vision-capable; with a text-only participant the conditions would read identically or the task cannot be done.",
+   "suggested_action": "Decide whether to run this effect with a vision-capable participant (the package passes the picture files to such a participant) or to exclude it."
+  },
+  {
+   "id": "iss-modal-gray",
+   "study": "slate2",
+   "field": "modality",
+   "node": "m-gray-adultharm",
+   "severity": "decision",
+   "reason": "The adult and baby identities of Sam and Roger are shown only in the photographs. The picture is supplied in the codebook, but the AI participants launched by the replay runner receive text only.",
+   "impact": "The effect is not run unless the participant is vision-capable; with a text-only participant the conditions would read identically or the task cannot be done.",
+   "suggested_action": "Decide whether to run this effect with a vision-capable participant (the package passes the picture files to such a participant) or to exclude it."
+  },
+  {
+   "id": "iss-score-zhon",
+   "study": "slate2",
+   "field": "coding",
+   "node": "a-zhon",
+   "severity": "blocking",
+   "reason": "The paper says five of the products rated are cleaning products and five are not, but neither the paper nor the codebook marks which of the ten listed products are the cleansing ones.",
+   "impact": "The outcome cannot be computed from the paper alone.",
+   "suggested_action": "Obtain the scoring from the public analysis code (https://manylabsopenscience.github.io/) or the researcher."
+  },
+  {
+   "id": "iss-translation",
+   "study": "all",
+   "field": "translations",
+   "node": "n-adapt",
+   "severity": "check",
+   "reason": "Labs translated and back-translated materials and adapted content such as monetary units; only the US-English in-lab deployment codebooks are in sources/.",
+   "impact": "Only the US-English version can be replayed; site-level language and currency edits are unavailable.",
+   "suggested_action": "Add the translated Qualtrics files from OSF if site-level replays are wanted."
+  }
+ ]
+}
