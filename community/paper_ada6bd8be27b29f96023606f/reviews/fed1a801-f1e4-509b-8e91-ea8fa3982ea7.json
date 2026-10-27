@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "fed1a801-f1e4-509b-8e91-ea8fa3982ea7",
+  "headCommit": null,
+  "paperKey": "doi:10.1177/2515245918810225",
+  "status": "accepted",
+  "revision": "2d116d59f1400fea24ed45e98a4897443c8cb879b0209f9c73612db7152de56a",
+  "previousRevision": null,
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "2d116d59f1400fea24ed45e98a4897443c8cb879b0209f9c73612db7152de56a",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Published by the maintainer. Built by a test extraction (Claude Sonnet through Claude Code, not yet the desktop kernel). Structural checks passed; the package's own analysis was run on the original human data; the package was replayed with Claude Haiku participants and compared with the human data (artifacts/replay). Source fidelity has not yet been checked line by line by a person. Six effects are not replayed (five need images; the Zhong scoring rule is not in the sources).",
+    "checks": [
+      "schema and package bindings (validate_assets)",
+      "human data loaded and analysed by evaluation.evaluate",
+      "no raw human data, paper PDF or third-party source files in the assets",
+      "AI participant replay compared with human effects"
+    ],
+    "verifiedCapabilities": {
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

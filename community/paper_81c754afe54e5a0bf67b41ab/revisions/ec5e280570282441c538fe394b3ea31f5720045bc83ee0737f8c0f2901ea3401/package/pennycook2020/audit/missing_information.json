@@ -1,0 +1,112 @@
+{
+ "entries": [
+  {
+   "id": "iss_s1_lede",
+   "study": "study1",
+   "field": "m_headlines.lede-picture",
+   "severity": "decision",
+   "reason": "Headlines were shown as Facebook posts with a picture and lede sentence; the paper and supplement print only the headline text.",
+   "impact": "The replay can show only the headline text, which differs from what the human participants saw.",
+   "suggested_action": "Supply the OSF materials, or confirm that a text-only headline is an acceptable replay adaptation."
+  },
+  {
+   "id": "iss_instructions",
+   "study": "study1/study2",
+   "field": "m_instructions.text",
+   "severity": "decision",
+   "reason": "The paper does not reproduce the consent text or task instructions.",
+   "impact": "The replay uses a minimal neutral frame written for it, not the original instructions.",
+   "suggested_action": "Provide the original instruction text from OSF to replace the replay frame."
+  },
+  {
+   "id": "iss_indiff_items",
+   "study": "study1/study2",
+   "field": "m_indiff_items.crt",
+   "severity": "check",
+   "reason": "CRT, science quiz, MMS and demographic items are described but not reproduced.",
+   "impact": "Those measures are not replayed; correlational results cannot be tested.",
+   "suggested_action": "Supply the OSF item wording if the correlates should be replayed."
+  },
+  {
+   "id": "iss_screener_text",
+   "study": "study1/study2",
+   "field": "m_screeners.full-text",
+   "severity": "check",
+   "reason": "Only one example is described; the full text is on OSF.",
+   "impact": "Screeners are not replayed.",
+   "suggested_action": "Supply the screener text if attentiveness should be replayed."
+  },
+  {
+   "id": "iss_s1_percond",
+   "study": "study1",
+   "field": "p_s1.n-per-condition",
+   "severity": "check",
+   "reason": "The paper gives the total (853) only.",
+   "impact": "Cannot state how many participants each condition had.",
+   "suggested_action": "Take the per-condition n from the OSF data if needed."
+  },
+  {
+   "id": "iss_s1_comp",
+   "study": "study1",
+   "field": "p_s1.compensation",
+   "severity": "check",
+   "reason": "The method does not mention payment.",
+   "impact": "None for the replay.",
+   "suggested_action": "Check the OSF preregistration."
+  },
+  {
+   "id": "iss_s1_t1_print",
+   "study": "study1",
+   "field": "res_s1_t1.descriptives",
+   "severity": "check",
+   "reason": "The controlled value 0.0207 is much smaller than every neighbouring value and looks like a typographical slip (possibly 0.207).",
+   "impact": "Copied as printed; not used by the replay.",
+   "suggested_action": "Check the OSF output."
+  },
+  {
+   "id": "iss_s1_order",
+   "study": "study1",
+   "field": "st_s1_indiff",
+   "severity": "check",
+   "reason": "The paper only says the COVID-19 questions came before the news task and that screeners were placed just before it, after the CRT and after the science quiz/MMS.",
+   "impact": "No order edge is stated between the CRT, quiz, MMS and the news task.",
+   "suggested_action": "Take the order from the OSF survey file."
+  },
+  {
+   "id": "iss_s2_pretest_assign",
+   "study": "study2",
+   "field": "m_s2_pretest.headline-assignment",
+   "severity": "check",
+   "reason": "The paper says each participant saw one of four possible headlines.",
+   "impact": "The replay would need a rule (e.g. random) that the paper does not give.",
+   "suggested_action": "Take the rule from OSF."
+  },
+  {
+   "id": "iss_s2_percond",
+   "study": "study2",
+   "field": "p_s2.n-per-condition",
+   "severity": "check",
+   "reason": "The paper gives the total (856) only.",
+   "impact": "Cannot state per-condition n.",
+   "suggested_action": "Take it from the OSF data."
+  },
+  {
+   "id": "iss_s2_comp",
+   "study": "study2",
+   "field": "p_s2.compensation",
+   "severity": "check",
+   "reason": "The method does not mention payment.",
+   "impact": "None for the replay.",
+   "suggested_action": "Check the OSF preregistration."
+  },
+  {
+   "id": "iss_s2_order",
+   "study": "study2",
+   "field": "st_s2_indiff",
+   "severity": "check",
+   "reason": "The paper only says the additional measures of Study 1 were included.",
+   "impact": "No order edge is stated between them and the news task.",
+   "suggested_action": "Take the order from the OSF survey file."
+  }
+ ]
+}

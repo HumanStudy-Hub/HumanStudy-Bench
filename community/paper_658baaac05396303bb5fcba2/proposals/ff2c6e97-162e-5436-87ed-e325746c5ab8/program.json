@@ -1,0 +1,4173 @@
+{
+  "schemaVersion": 2,
+  "id": "burton2022-optimism-neutral",
+  "title": "Optimism Where There is None: Asymmetric Belief Updating Observed with Valence-Neutral Life Events",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Optimism Where There is None: Asymmetric Belief Updating Observed with Valence-Neutral Life Events",
+    "authors": "Jason W. Burton, Adam J. L. Harris, Punit Shah, & Ulrike Hahn",
+    "filename": "paper.pdf"
+  },
+  "studies": [
+    {
+      "id": "study1",
+      "title": "Study 1: update method, E2 after each event, valence rated in Part 2",
+      "type": "empirical",
+      "description": "Two parts. Part 1: for each of 51 life events, E1/eBR (order counterbalanced), BR, BR recall, E2. Part 2: valence rating of every event. N = 100 (Prolific, UK)."
+    },
+    {
+      "id": "study2",
+      "title": "Study 2: all E2s in Part 2, valence rated in Part 3",
+      "type": "empirical",
+      "description": "Three parts. Procedure as Study 1 except that E2 for all events is collected in Part 2 and valence ratings in Part 3. N = 100 (Prolific, UK)."
+    },
+    {
+      "id": "study3",
+      "title": "Study 3: valence rating before E2, E2 in Part 2",
+      "type": "empirical",
+      "description": "Two parts. As Study 1 except E2 and Valence Rating are swapped, so E1 is given in Part 1 and E2 in Part 2. N = 100 (Prolific, UK)."
+    },
+    {
+      "id": "agg123",
+      "title": "Aggregate analysis of Studies 1-3 and alternative analytic techniques",
+      "type": "analysis",
+      "description": "Four analytic techniques (Bayesian difference, Bayesian ratio, learning rates, regression) applied to each study and to the aggregated data of Studies 1-3 (Table 1). Analysis scope only, no new participants.",
+      "dependsOn": [
+        "study1",
+        "study2",
+        "study3"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n-overview",
+      "kind": "overview",
+      "title": "Paper overview",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "method-type",
+          "label": "Method type",
+          "value": "Three pre-registered online quasi-experimental within-subjects variations of the belief 'update method', analysed on trials the participant rated as valence-neutral.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-abstract",
+            "e-design"
+          ]
+        },
+        {
+          "id": "summary",
+          "label": "Summary",
+          "value": "Tests whether asymmetric belief updating (greater updating when the base rate exceeds vs. falls short of the initial estimate) appears with neutral life events, where optimism cannot explain it. Reports a significant asymmetry in all three studies and unstable results across samples and analytic techniques.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-abstract",
+            "e-abstract-claim"
+          ]
+        },
+        {
+          "id": "year",
+          "label": "Year",
+          "value": "Not stated in the paper: no publication year appears on the paper's pages.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "e-title",
+        "e-abstract"
+      ]
+    },
+    {
+      "id": "n-background",
+      "kind": "background",
+      "title": "Question and background",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "question",
+          "label": "Research question",
+          "value": "Can asymmetric belief updating be observed with valence-neutral life events, where a motivational (optimism) account cannot apply?",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-neutral-logic",
+            "e-hyp"
+          ]
+        },
+        {
+          "id": "gap",
+          "label": "Gap",
+          "value": "Evidence for optimistic belief updating comes from the update method, which may produce asymmetries as a statistical artefact; prior work used negative (and some positive) events, never neutral events as the focal stimuli.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-artefact",
+            "e-neutral-logic"
+          ]
+        },
+        {
+          "id": "theory",
+          "label": "Theory",
+          "value": "Statistical artefact hypothesis: on the bounded 0-100 scale, BR error, individuating knowledge and normatively required belief change cannot be equated across desirable and undesirable trials, so even Bayesian agents show apparent optimism (Shah et al., 2016).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-bayes"
+          ]
+        },
+        {
+          "id": "concepts",
+          "label": "Key concepts",
+          "value": "Update method (E1, BR, E2); direction of error (BR > E1 upwards, otherwise downwards); update value; event valence; optimistic belief updating as 'a valence-dependent asymmetry in how people use favorable and unfavorable information'.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-updatemethod",
+            "e-valence-def",
+            "e-doe-rule"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-artefact",
+        "e-updatemethod",
+        "e-bayes"
+      ]
+    },
+    {
+      "id": "n-hyp",
+      "kind": "hypothesis",
+      "title": "Central hypothesis",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "Participants will update asymmetrically in response to neutral information.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-hyp"
+          ]
+        },
+        {
+          "id": "scope",
+          "label": "Scope",
+          "value": "Pre-registered; no prediction of differences among the three procedural variants was made.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-variations",
+            "e-threeexp"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-hyp",
+        "e-variations"
+      ]
+    },
+    {
+      "id": "n-design",
+      "kind": "design",
+      "title": "Design (shared by Studies 1-3)",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Design type",
+          "value": "3 (event valence: negative, neutral, positive) x 2 (direction of error: upwards, downwards) quasi-experimental within-subjects design, run in Qualtrics. Valence and direction are coded trial by trial from participants' own responses, not assigned.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-design",
+            "e-valcode",
+            "e-doe"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Order of the two initial estimates (E1 then eBR, or eBR then E1) randomly assigned between subjects.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-assign"
+          ]
+        },
+        {
+          "id": "order",
+          "label": "Order",
+          "value": "Events presented in randomized order in each part.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b",
+            "e-s1-p2"
+          ]
+        },
+        {
+          "id": "focal-stimuli",
+          "label": "Focal comparison",
+          "value": "Main analysis restricted to trials the participant rated 3 ('neither positive nor negative'); event valence is a post-treatment variable (rated after the BR in Studies 1-2, before E2 in Study 3).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-valcode",
+            "e-posttreat",
+            "e-s3"
+          ]
+        },
+        {
+          "id": "blinding",
+          "label": "Blinding",
+          "value": "Not stated in the paper: the paper does not say whether participants knew the study concerned neutral events or belief updating.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "e-design",
+        "e-valcode"
+      ]
+    },
+    {
+      "id": "cond-s1-e1first",
+      "kind": "condition",
+      "title": "Study 1: E1 then eBR",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "description",
+          "label": "Description",
+          "value": "Participant first estimates the chance the event happens to them (E1), then the chance it happens to an average person (eBR), on every event.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a",
+            "e-s1-assign",
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Random assignment between subjects.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-assign"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-assign"
+      ]
+    },
+    {
+      "id": "cond-s1-ebrfirst",
+      "kind": "condition",
+      "title": "Study 1: eBR then E1",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "description",
+          "label": "Description",
+          "value": "Participant first estimates the chance the event happens to an average person (eBR), then to themselves (E1), on every event.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a",
+            "e-s1-assign",
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Random assignment between subjects.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-assign"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-assign"
+      ]
+    },
+    {
+      "id": "cond-s2-e1first",
+      "kind": "condition",
+      "title": "Study 2: E1 then eBR",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "description",
+          "label": "Description",
+          "value": "Participant first estimates the chance the event happens to them (E1), then the chance it happens to an average person (eBR), on every event.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a",
+            "e-s1-assign",
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Random assignment between subjects. The paper states the procedure of this study follows Study 1 except the stated change, so the same counterbalancing is taken to apply (see issue).",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-assign",
+            "e-s2"
+          ],
+          "derivation": "Inherited from Study 1 because the paper says the procedure followed / mirrored Study 1 except the stated change."
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-assign",
+        "e-s2"
+      ]
+    },
+    {
+      "id": "cond-s2-ebrfirst",
+      "kind": "condition",
+      "title": "Study 2: eBR then E1",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "description",
+          "label": "Description",
+          "value": "Participant first estimates the chance the event happens to an average person (eBR), then to themselves (E1), on every event.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a",
+            "e-s1-assign",
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Random assignment between subjects. Inherited from Study 1 (see issue).",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-assign",
+            "e-s2"
+          ],
+          "derivation": "Inherited from Study 1 because the paper says the procedure followed / mirrored Study 1 except the stated change."
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-assign",
+        "e-s2"
+      ]
+    },
+    {
+      "id": "cond-s3-e1first",
+      "kind": "condition",
+      "title": "Study 3: E1 then eBR",
+      "studyIds": [
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "description",
+          "label": "Description",
+          "value": "Participant first estimates the chance the event happens to them (E1), then the chance it happens to an average person (eBR), on every event.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a",
+            "e-s1-assign",
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Random assignment between subjects. The paper states the procedure of this study follows Study 1 except the stated change, so the same counterbalancing is taken to apply (see issue).",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-assign",
+            "e-s3"
+          ],
+          "derivation": "Inherited from Study 1 because the paper says the procedure followed / mirrored Study 1 except the stated change."
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-assign",
+        "e-s3"
+      ]
+    },
+    {
+      "id": "cond-s3-ebrfirst",
+      "kind": "condition",
+      "title": "Study 3: eBR then E1",
+      "studyIds": [
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "description",
+          "label": "Description",
+          "value": "Participant first estimates the chance the event happens to an average person (eBR), then to themselves (E1), on every event.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a",
+            "e-s1-assign",
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Random assignment between subjects. Inherited from Study 1 (see issue).",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-assign",
+            "e-s3"
+          ],
+          "derivation": "Inherited from Study 1 because the paper says the procedure followed / mirrored Study 1 except the stated change."
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-assign",
+        "e-s3"
+      ]
+    },
+    {
+      "id": "m-stimuli",
+      "kind": "material",
+      "title": "Stimuli: 51 life events with base rates",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "count",
+          "label": "Number of events",
+          "value": "51 life events, each with an accompanying base rate (M BR = 38.39, SD BR = 21.58); the same events in all three studies.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-stimuli",
+            "e-fig1"
+          ]
+        },
+        {
+          "id": "sources",
+          "label": "Sources",
+          "value": "2 events from Shah et al. (2016); 21 from Garrett and Sharot (2017) (rated neutral by pilot participants, 3.00 ± 0.99); 28 novel events with base rates gathered or calculated from external sources (e.g., Ofcom, BBC).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-stim-shah",
+            "e-stim-gs",
+            "e-stim-novel"
+          ]
+        },
+        {
+          "id": "quoted-examples",
+          "label": "Event wording quoted in the paper",
+          "value": "“Be exactly the same weight in 10 years’ time” (Shah et al.); “Last the whole of winter without catching a minor cold” (Shah et al.); “How likely is it that the next store you visit is air conditioned?” (BR = 30%); “…that you use more than 3.7GB of mobile data over the next four weeks? (BR = 17%)”",
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "e-stim-shah",
+            "e-stim-examples"
+          ]
+        },
+        {
+          "id": "full-list",
+          "label": "Full list of 51 events and base rates",
+          "value": "SI Table S1 is not in the supplied files; only four events and two base rates are quoted in the paper.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "e-stimuli",
+        "e-stim-shah",
+        "e-stim-examples"
+      ]
+    },
+    {
+      "id": "m-valence-q",
+      "kind": "material",
+      "title": "Valence Rating item and scale",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "item",
+          "label": "Item",
+          "value": "How would you feel about experiencing this event?",
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p2"
+          ]
+        },
+        {
+          "id": "scale",
+          "label": "Response scale",
+          "value": "1 = extremely negative, 2 = somewhat negative, 3 = neither positive nor negative, 4 = somewhat positive, 5 = extremely positive",
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p2"
+          ]
+        },
+        {
+          "id": "coding",
+          "label": "Coding",
+          "value": "1-2 negative, 3 neutral, 4-5 positive.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-valmeasure",
+            "e-classify"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p2",
+        "e-valmeasure"
+      ]
+    },
+    {
+      "id": "m-estimates",
+      "kind": "material",
+      "title": "Instructions and prompts for E1, eBR, BR display, BR Recall and E2",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "response-scale",
+          "label": "Response scale",
+          "value": "0% to 100% likelihood; no response-time restriction.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        },
+        {
+          "id": "br-recall-rule",
+          "label": "BR Recall rule",
+          "value": "BR is shown, then on the next page the participant writes it down; if recalled incorrectly the correct value is shown and must be entered.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "wording",
+          "label": "Instruction and question wording",
+          "value": "Not stated in the paper: the exact instructions, the E1/eBR/BR Recall/E2 question text and the BR display format are not printed in the paper (Fig. 1 shows screens only as images).",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-fig1"
+      ]
+    },
+    {
+      "id": "v-e1",
+      "kind": "variable",
+      "title": "E1: initial self-estimate",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous, 0-100 %",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "trial (participant x event)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Estimated likelihood that the event happens to the participant in the future.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a"
+      ]
+    },
+    {
+      "id": "v-ebr",
+      "kind": "variable",
+      "title": "eBR: estimate of the base rate",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "covariate",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous, 0-100 %",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "trial (participant x event)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Estimated likelihood that the event happens to an average person.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a"
+      ]
+    },
+    {
+      "id": "v-br",
+      "kind": "variable",
+      "title": "BR: presented base rate",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b",
+            "e-stimuli"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous, 0-100 %",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b",
+            "e-stimuli"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "event",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b",
+            "e-stimuli"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Actual base rate statistic shown to the participant.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b",
+            "e-stimuli"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1b",
+        "e-stimuli"
+      ]
+    },
+    {
+      "id": "v-brrecall",
+      "kind": "variable",
+      "title": "BR Recall",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "covariate",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous, 0-100 %",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "trial (participant x event)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The base rate written down from memory on the page after the BR; corrected if wrong.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1b"
+      ]
+    },
+    {
+      "id": "v-e2",
+      "kind": "variable",
+      "title": "E2: re-estimate",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b",
+            "e-dv"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous, 0-100 %",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b",
+            "e-dv"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "trial (participant x event)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b",
+            "e-dv"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Re-estimated likelihood that the event happens to the participant.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b",
+            "e-dv"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1b",
+        "e-dv"
+      ]
+    },
+    {
+      "id": "v-valrating",
+      "kind": "variable",
+      "title": "Valence Rating",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "moderator",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p2",
+            "e-valmeasure"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "ordinal, 1-5",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p2",
+            "e-valmeasure"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "trial (participant x event)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p2",
+            "e-valmeasure"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Self-rated feeling about experiencing the event.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p2",
+            "e-valmeasure"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p2",
+        "e-valmeasure"
+      ]
+    },
+    {
+      "id": "v-valence",
+      "kind": "variable",
+      "title": "Event valence (coded)",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "moderator",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-valmeasure",
+            "e-classify"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "categorical: negative / neutral / positive",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-valmeasure",
+            "e-classify"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "trial (participant x event)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-valmeasure",
+            "e-classify"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Valence Rating 1-2 negative, 3 neutral, 4-5 positive.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-valmeasure",
+            "e-classify"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-valmeasure",
+        "e-classify"
+      ]
+    },
+    {
+      "id": "v-direction",
+      "kind": "variable",
+      "title": "Direction of error",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-doe-rule",
+            "e-excl-eq"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "binary: upwards / downwards",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-doe-rule",
+            "e-excl-eq"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "trial (participant x event)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-doe-rule",
+            "e-excl-eq"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Upwards if BR > E1, downwards otherwise; trials where E1 equals BR are excluded.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-doe-rule",
+            "e-excl-eq"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-doe-rule",
+        "e-excl-eq"
+      ]
+    },
+    {
+      "id": "v-update",
+      "kind": "variable",
+      "title": "Update value",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-update-val",
+            "e-update-ex",
+            "e-dv"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous, percentage points",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-update-val",
+            "e-update-ex",
+            "e-dv"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "trial (participant x event)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-update-val",
+            "e-update-ex",
+            "e-dv"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "|E2 - E1|, positive if updating moves towards the BR (in line with direction of error), negative if away. Example: E1 40, BR 50, E2 30 gives -10; with BR 10 gives +10.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-update-val",
+            "e-update-ex",
+            "e-dv"
+          ]
+        },
+        {
+          "id": "unit",
+          "label": "Unit",
+          "value": "percentage points",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-res-n",
+            "e-s1-res"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-update-val",
+        "e-update-ex",
+        "e-dv"
+      ]
+    },
+    {
+      "id": "a-exclusion",
+      "kind": "analysis",
+      "title": "Exclusion criteria (all studies)",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Remove outlying updates and uncodable trials before analysis.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-excl"
+          ]
+        },
+        {
+          "id": "criterion",
+          "label": "Criterion",
+          "value": "Mean updates in each of the six valence x direction cells were calculated and outliers removed (±3 × the interquartile range, per the paper's footnote); trials with E1 equal to BR excluded.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-excl",
+            "e-excl-eq"
+          ]
+        },
+        {
+          "id": "trials-excluded",
+          "label": "Trials excluded",
+          "value": "From 5,100 trials per study: 339 (6.65%), 414 (8.12%), 431 (8.45%) excluded in Studies 1, 2, 3.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-excl-n"
+          ]
+        },
+        {
+          "id": "robustness",
+          "label": "Robustness",
+          "value": "All results hold without the exclusion criterion except one supplementary result (regression analysis, Study 1).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-reg-res"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-excl",
+        "e-excl-n"
+      ]
+    },
+    {
+      "id": "a-main",
+      "kind": "analysis",
+      "title": "Main analysis: LMM on neutral trials",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Test whether update value differs between upwards and downwards direction of error on trials rated neutral.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-hyp",
+            "e-lmm"
+          ]
+        },
+        {
+          "id": "inputs",
+          "label": "Inputs",
+          "value": "Neutral-rated trials after exclusions: update value, direction of error, participant.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-lmm"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Linear mixed effects model: update value as DV, direction of error as fixed factor, participant as random factor (random intercepts only after reducing a maximal model); Type III tests, Satterthwaite degrees of freedom.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-lmm",
+            "e-lmm-spec"
+          ]
+        },
+        {
+          "id": "robustness",
+          "label": "Robustness",
+          "value": "Maximal-model statistics are in SI Table S2 (not supplied); results said to hold across specifications.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-lmm-spec"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-lmm",
+        "e-lmm-spec"
+      ]
+    },
+    {
+      "id": "a-secondary",
+      "kind": "analysis",
+      "title": "Secondary analysis: valence x direction LMM",
+      "studyIds": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Compare the asymmetry on neutral trials with that on negative and positive trials.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-sec-an"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "LMM with event valence and direction of error and their interaction; random slopes and intercepts by participant for direction of error, no correlation parameters (maximal model in SI Table S3, not supplied).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-sec-an",
+            "e-sec-spec"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Caveat",
+          "value": "Conditioned on a post-treatment variable (valence rated after BR), so post-treatment bias is possible.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-posttreat"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-sec-an",
+        "e-sec-spec"
+      ]
+    },
+    {
+      "id": "p-s1",
+      "kind": "participants",
+      "title": "Study 1 participants",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online survey in Qualtrics.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-design"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "All participants take every part of the task; no scripted roles or confederates.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "Prolific Academic, pool restricted to the United Kingdom because the stimuli were compiled for this population; samples of the three studies independent.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-prolific",
+            "e-indep"
+          ]
+        },
+        {
+          "id": "n-recruited",
+          "label": "N recruited",
+          "value": "100",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-n"
+          ]
+        },
+        {
+          "id": "characteristics",
+          "label": "Characteristics",
+          "value": "Ages 18 to 81 (M = 32.82, SD = 11.52), 73 females.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-age1"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Sampling unit",
+          "value": "Participant; the analysed observation is the neutral-rated trial.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-hyp",
+            "e-lmm"
+          ]
+        },
+        {
+          "id": "power",
+          "label": "Sample size rationale",
+          "value": "Hypothetical power of 0.84 for 51 stimuli, d = 0.5, 100 participants (Judd et al. tool); the paper notes its validity is limited because the number of neutral trials is unknown in advance.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-power",
+            "e-unknown-neutral"
+          ]
+        },
+        {
+          "id": "eligibility",
+          "label": "Eligibility",
+          "value": "Not stated in the paper: criteria beyond UK pool location are not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "Not stated in the paper: payment is not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "n-completed",
+          "label": "N completed",
+          "value": "Not stated in the paper: number completing/passing, and number with at least one neutral trial, is not reported (secondary analysis df of 98 are not explained).",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "n-analysed",
+          "label": "N analysed (participants)",
+          "value": "Not stated in the paper: only trial counts are reported for analysed data.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "e-age1",
+        "e-prolific",
+        "e-n"
+      ]
+    },
+    {
+      "id": "p-s2",
+      "kind": "participants",
+      "title": "Study 2 participants",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online survey in Qualtrics.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-design"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "All participants take every part of the task; no scripted roles or confederates.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "Prolific Academic, pool restricted to the United Kingdom because the stimuli were compiled for this population; samples of the three studies independent.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-prolific",
+            "e-indep"
+          ]
+        },
+        {
+          "id": "n-recruited",
+          "label": "N recruited",
+          "value": "100",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-n"
+          ]
+        },
+        {
+          "id": "characteristics",
+          "label": "Characteristics",
+          "value": "Ages 18 to 67 (M = 33.29, SD = 10.31), 78 females.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-age2"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Sampling unit",
+          "value": "Participant; the analysed observation is the neutral-rated trial.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-hyp",
+            "e-lmm"
+          ]
+        },
+        {
+          "id": "power",
+          "label": "Sample size rationale",
+          "value": "Hypothetical power of 0.84 for 51 stimuli, d = 0.5, 100 participants (Judd et al. tool); the paper notes its validity is limited because the number of neutral trials is unknown in advance.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-power",
+            "e-unknown-neutral"
+          ]
+        },
+        {
+          "id": "eligibility",
+          "label": "Eligibility",
+          "value": "Not stated in the paper: criteria beyond UK pool location are not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "Not stated in the paper: payment is not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "n-completed",
+          "label": "N completed",
+          "value": "Not stated in the paper: number completing/passing, and number with at least one neutral trial, is not reported (secondary analysis df of 98 are not explained).",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "n-analysed",
+          "label": "N analysed (participants)",
+          "value": "Not stated in the paper: only trial counts are reported for analysed data.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "e-age2",
+        "e-prolific",
+        "e-n"
+      ]
+    },
+    {
+      "id": "p-s3",
+      "kind": "participants",
+      "title": "Study 3 participants",
+      "studyIds": [
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online survey in Qualtrics.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-design"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "All participants take every part of the task; no scripted roles or confederates.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1a"
+          ]
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "Prolific Academic, pool restricted to the United Kingdom because the stimuli were compiled for this population; samples of the three studies independent.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-prolific",
+            "e-indep"
+          ]
+        },
+        {
+          "id": "n-recruited",
+          "label": "N recruited",
+          "value": "100",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-n"
+          ]
+        },
+        {
+          "id": "characteristics",
+          "label": "Characteristics",
+          "value": "Ages 19 to 73 (M = 36.09, SD = 12.06), 80 females.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-age3"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Sampling unit",
+          "value": "Participant; the analysed observation is the neutral-rated trial.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-hyp",
+            "e-lmm"
+          ]
+        },
+        {
+          "id": "power",
+          "label": "Sample size rationale",
+          "value": "Hypothetical power of 0.84 for 51 stimuli, d = 0.5, 100 participants (Judd et al. tool); the paper notes its validity is limited because the number of neutral trials is unknown in advance.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-power",
+            "e-unknown-neutral"
+          ]
+        },
+        {
+          "id": "eligibility",
+          "label": "Eligibility",
+          "value": "Not stated in the paper: criteria beyond UK pool location are not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "Not stated in the paper: payment is not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "n-completed",
+          "label": "N completed",
+          "value": "Not stated in the paper: number completing/passing, and number with at least one neutral trial, is not reported (secondary analysis df of 98 are not explained).",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "n-analysed",
+          "label": "N analysed (participants)",
+          "value": "Not stated in the paper: only trial counts are reported for analysed data.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "e-age3",
+        "e-prolific",
+        "e-n"
+      ]
+    },
+    {
+      "id": "r-s1-main",
+      "kind": "result",
+      "title": "Study 1: LMM on neutral trials",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-res-n",
+            "e-s1-res"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Descriptives",
+          "value": "1,521 neutral trials: 801 upwards (M = 2.11, SD = 4.56), 720 downwards (M = 11.33, SD = 15.91).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-res-n",
+            "e-s1-res"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "F(1,1515) = 244.47, p < 0.001.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-res-n",
+            "e-s1-res"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Effect",
+          "value": "Upwards direction of error decreased update by approximately 9.13 percentage points (SE 0.58) relative to downwards.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-res-n",
+            "e-s1-res"
+          ]
+        },
+        {
+          "id": "trials-excluded",
+          "label": "Excluded trials",
+          "value": "339 of 5,100 (6.65%).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-excl-n"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-res-n",
+        "e-s1-res"
+      ]
+    },
+    {
+      "id": "r-s2-main",
+      "kind": "result",
+      "title": "Study 2: LMM on neutral trials",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s2-res-n",
+            "e-s2-res-a"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Descriptives",
+          "value": "1,699 neutral trials: 831 upwards (M = 4.16, SD = 10.01), 868 downwards (M = 10.08, SD = 18.06).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s2-res-n",
+            "e-s2-res-a"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "F(1,1694) = 77.09, p < 0.001.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s2-res-b"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Effect",
+          "value": "Upwards direction of error decreased update by about 6.24 percentage points (SE 0.71).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s2-res-b"
+          ]
+        },
+        {
+          "id": "trials-excluded",
+          "label": "Excluded trials",
+          "value": "414 of 5,100 (8.12%).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-excl-n"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s2-res-n",
+        "e-s2-res-a",
+        "e-s2-res-b"
+      ]
+    },
+    {
+      "id": "r-s3-main",
+      "kind": "result",
+      "title": "Study 3: LMM on neutral trials",
+      "studyIds": [
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s3-res-n",
+            "e-s3-res"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Descriptives",
+          "value": "1,667 neutral trials: 828 upwards (M = 4.13, SD = 8.82), 839 downwards (M = 10.56, SD = 20.80).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s3-res-n",
+            "e-s3-res"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "F(1,1662) = 68.48, p < 0.001.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s3-res-n",
+            "e-s3-res"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Effect",
+          "value": "Upwards direction of error decreased update by about 6.51 percentage points (SE 0.79).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s3-res-n",
+            "e-s3-res"
+          ]
+        },
+        {
+          "id": "trials-excluded",
+          "label": "Excluded trials",
+          "value": "431 of 5,100 (8.45%).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-excl-n"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s3-res-n",
+        "e-s3-res"
+      ]
+    },
+    {
+      "id": "r-s1-sec",
+      "kind": "result",
+      "title": "Study 1: valence x direction LMM",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-sec"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "Direction of error F(1,98) = 233.80; event valence F(2,4713) = 47.98; interaction F(2,4706) = 61.80; all p < 0.001.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-sec"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Descriptives",
+          "value": "Negative (1,662 trials): downwards n = 683, M = 10.73, SD = 14.23; upwards n = 979, M = 2.86, SD = 6.31. Positive (1,578 trials): downwards n = 882, M = 4.97, SD = 9.41; upwards n = 696, M = 3.10, SD = 6.65.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-sec"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-sec"
+      ]
+    },
+    {
+      "id": "r-s2-sec",
+      "kind": "result",
+      "title": "Study 2: valence x direction LMM",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s2-sec"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "Direction of error F(1,98) = 112.85; event valence F(2,4656) = 35.49; interaction F(2,4610) = 43.86; all p < 0.001.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s2-sec"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Descriptives",
+          "value": "Negative (1,582 trials): downwards n = 692, M = 13.08, SD = 21.33; upwards n = 890, M = 3.76, SD = 10.18. Positive (1,405 trials): downwards n = 835, M = 4.05, SD = 10.98; upwards n = 570, M = 4.48, SD = 10.62 (no asymmetry).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s2-sec"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s2-sec"
+      ]
+    },
+    {
+      "id": "r-s3-sec",
+      "kind": "result",
+      "title": "Study 3: valence x direction LMM",
+      "studyIds": [
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s3-sec"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "Direction of error F(1,98) = 42.35; event valence F(2,4636) = 18.51; interaction F(2,4586) = 60.09; all p < 0.001.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s3-sec"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Descriptives",
+          "value": "Negative (1,616 trials): downwards n = 639, M = 12.41, SD = 22.17; upwards n = 977, M = 3.62, SD = 9.51. Positive (1,386 trials): downwards n = 723, M = 3.45, SD = 10.42; upwards n = 663, M = 6.57, SD = 14.16 (flipped asymmetry).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-s3-sec"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s3-sec"
+      ]
+    },
+    {
+      "id": "a-further",
+      "kind": "analysis",
+      "title": "Alternative analytic techniques (Table 1)",
+      "studyIds": [
+        "agg123"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Check whether the neutral-event asymmetry survives analyses proposed to control for estimation error and individuating information.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-further",
+            "e-table1-cap"
+          ]
+        },
+        {
+          "id": "inputs",
+          "label": "Inputs",
+          "value": "Neutral-trial data of each study and the aggregated data of Studies 1-3.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-further-agg",
+            "e-table1-cap"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Bayesian difference measure and Bayesian ratio measure (Shah et al., 2016); learning rates (Kuzmanovic & Rigoux, 2017); regression of update on estimation error |E1 - BR| (Sharot et al., 2011, unregistered). t-tests for difference and regression; Wilcoxon signed rank tests for ratio and learning rates.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-further",
+            "e-reg",
+            "e-table1-tests"
+          ]
+        },
+        {
+          "id": "coding",
+          "label": "Computation details",
+          "value": "Not stated in the paper: formulas and model details are in SI Supplementary Analyses 1.1-1.4 and 1.6, which were not supplied.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "robustness",
+          "label": "Further checks",
+          "value": "Subsampling simulations of events and participants (SI Fig. S7); stimuli as a random factor does not remove the asymmetry (SI 1.6); Study 4 with 20 of the 51 events, written up only in the SI.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-reg-res",
+            "e-stim-random",
+            "e-study4"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-further",
+        "e-table1-cap"
+      ]
+    },
+    {
+      "id": "r-table1",
+      "kind": "result",
+      "title": "Table 1: p values of the neutral-event asymmetry by technique",
+      "studyIds": [
+        "agg123"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-table1-rows"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "p values (Study 1 / Study 2 / Study 3 / Aggregate): Bayesian difference 0.049 / 0.044 / 0.013 / < 0.001; Bayesian ratio < 0.001 / 0.784 / 0.449 / 0.010; Learning rates 0.001 / 0.704 / 0.324 / 0.016; Regression (unregistered) < 0.001 / 0.662 / 0.540 / 0.081.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-table1-rows"
+          ]
+        },
+        {
+          "id": "heterogeneity",
+          "label": "Heterogeneity",
+          "value": "Analysis 1.1 is significant in all three studies; analyses 1.2 and 1.3 vary across studies; the regression analysis is significant only in Study 1.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-further-var",
+            "e-reg-res"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-table1-rows",
+        "e-table1-cap"
+      ]
+    },
+    {
+      "id": "f-main",
+      "kind": "finding",
+      "title": "Findings",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "answer",
+          "label": "Answer",
+          "value": "An asymmetry in belief updating appears with neutral events in all three studies, so it cannot be attributed to optimism; its size and significance vary across samples and analytic techniques.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-disc-main",
+            "e-disc-valence"
+          ]
+        },
+        {
+          "id": "contribution",
+          "label": "Contribution",
+          "value": "Presence of an asymmetry with valenced events is insufficient evidence for a motivational bias; the update method is called unfit for purpose.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-disc-valence",
+            "e-concl"
+          ]
+        },
+        {
+          "id": "mechanism-proposed",
+          "label": "Proposed mechanism",
+          "value": "Variability in individuating information, estimation error and base rate error across samples (SI Figs. S3-S5) may produce the differing results.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-disc-var"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-disc-main",
+        "e-disc-valence"
+      ]
+    },
+    {
+      "id": "l-validity",
+      "kind": "limitation",
+      "title": "Limitations and openness",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "limitations",
+          "label": "Limitations",
+          "value": "No control for familiarity, vividness, emotional arousal or perceived controllability; only one framing (likelihood of experiencing, not of not experiencing). Quasi-experimental: neutral trials are self-classified after the BR.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-limit-cov",
+            "e-limit-frame",
+            "e-unknown-neutral"
+          ]
+        },
+        {
+          "id": "replications",
+          "label": "Replications",
+          "value": "Study 4 (20 of the 51 events) is pre-registered and reported only in the SI.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-study4"
+          ]
+        },
+        {
+          "id": "openness",
+          "label": "Openness",
+          "value": "Datasets and code on an OSF project page; no URL printed in the paper; pre-registration exists on OSF.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-data"
+          ]
+        },
+        {
+          "id": "ethics",
+          "label": "Ethics",
+          "value": "Approved by the Birkbeck Department of Psychological Sciences Research Ethics Committee (ref 161755); informed consent.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e-ethics"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-limit-cov",
+        "e-data"
+      ]
+    },
+    {
+      "id": "sim-s1",
+      "kind": "simulation",
+      "title": "Study 1: simulation scope",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps that can be replayed",
+          "value": "All screens are text responses: per event the E1 and eBR estimates, BR display, BR recall, E2 and valence rating. E2 is given right after the BR in the same trial; valence is rated in Part 2.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "Every original participant is an AI participant; the experimenter and Qualtrics presentation are scripted only as presentation. No confederates.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": "Two between-subject orders (E1 first / eBR first); valence and direction of error are self-classified per trial, not assigned.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-s1-p1b"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Outcomes",
+          "value": "Update value on neutral-rated trials by direction of error; the paper's LMM is approximated with a random-intercept mixed model.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-lmm",
+            "e-lmm-spec"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "Blocked until the 51 events and base rates (SI Table S1) and the screen wording are supplied. AI participants answer 51 events with no real exposure to the UK population; Prolific demographics beyond age are not modelled; results are a simulation, not evidence about people.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-stimuli"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1b"
+      ]
+    },
+    {
+      "id": "sim-s2",
+      "kind": "simulation",
+      "title": "Study 2: simulation scope",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps that can be replayed",
+          "value": "All screens are text responses: per event the E1 and eBR estimates, BR display, BR recall, E2 and valence rating. E2 for all events is given in Part 2, valence in Part 3.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-s2"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "Every original participant is an AI participant; the experimenter and Qualtrics presentation are scripted only as presentation. No confederates.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-s2"
+          ]
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": "Two between-subject orders (E1 first / eBR first); valence and direction of error are self-classified per trial, not assigned.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-s2"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Outcomes",
+          "value": "Update value on neutral-rated trials by direction of error; the paper's LMM is approximated with a random-intercept mixed model.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-lmm",
+            "e-lmm-spec"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "Blocked until the 51 events and base rates (SI Table S1) and the screen wording are supplied. AI participants answer 51 events with no real exposure to the UK population; Prolific demographics beyond age are not modelled; results are a simulation, not evidence about people.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-stimuli"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s2"
+      ]
+    },
+    {
+      "id": "sim-s3",
+      "kind": "simulation",
+      "title": "Study 3: simulation scope",
+      "studyIds": [
+        "study3"
+      ],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps that can be replayed",
+          "value": "All screens are text responses: per event the E1 and eBR estimates, BR display, BR recall, E2 and valence rating. Valence rating precedes E2 in Part 1 of each trial as read from the paper (see issue); E2 for all events is given in Part 2.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-s3"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "Every original participant is an AI participant; the experimenter and Qualtrics presentation are scripted only as presentation. No confederates.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-s3"
+          ]
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": "Two between-subject orders (E1 first / eBR first); valence and direction of error are self-classified per trial, not assigned.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-s3"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Outcomes",
+          "value": "Update value on neutral-rated trials by direction of error; the paper's LMM is approximated with a random-intercept mixed model.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-lmm",
+            "e-lmm-spec"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "Blocked until the 51 events and base rates (SI Table S1) and the screen wording are supplied. AI participants answer 51 events with no real exposure to the UK population; Prolific demographics beyond age are not modelled; results are a simulation, not evidence about people.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "e-stimuli"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "e-s3"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "s1-est-a",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "Estimate E1, then eBR",
+      "actorIds": [
+        "p-s1"
+      ],
+      "inputIds": [
+        "m-stimuli",
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-e1",
+        "v-ebr"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "s1-br"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b"
+      ],
+      "conditionIds": [
+        "cond-s1-e1first"
+      ]
+    },
+    {
+      "id": "s1-est-b",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "Estimate eBR, then E1",
+      "actorIds": [
+        "p-s1"
+      ],
+      "inputIds": [
+        "m-stimuli",
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-ebr",
+        "v-e1"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "s1-br"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b"
+      ],
+      "conditionIds": [
+        "cond-s1-ebrfirst"
+      ]
+    },
+    {
+      "id": "s1-br",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "See the actual base rate (BR)",
+      "actorIds": [
+        "p-s1"
+      ],
+      "inputIds": [
+        "m-stimuli"
+      ],
+      "outputIds": [],
+      "visibleIds": [
+        "m-stimuli",
+        "v-br"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "s1-recall"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b"
+      ]
+    },
+    {
+      "id": "s1-recall",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "Write down the BR (BR Recall); corrected if wrong",
+      "actorIds": [
+        "p-s1"
+      ],
+      "inputIds": [
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-brrecall"
+      ],
+      "visibleIds": [
+        "v-br"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "s1-e2"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b"
+      ]
+    },
+    {
+      "id": "s1-e2",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "Re-estimate E2",
+      "actorIds": [
+        "p-s1"
+      ],
+      "inputIds": [
+        "m-stimuli",
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-e2"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b"
+      ]
+    },
+    {
+      "id": "s1-part1",
+      "studyId": "study1",
+      "kind": "repeat",
+      "title": "Part 1: 51 events in randomized order (estimates, BR, recall, E2)",
+      "actorIds": [
+        "p-s1"
+      ],
+      "inputIds": [
+        "m-stimuli"
+      ],
+      "outputIds": [
+        "v-e1",
+        "v-ebr",
+        "v-brrecall",
+        "v-e2"
+      ],
+      "visibleIds": [],
+      "children": [
+        "s1-est-a",
+        "s1-est-b",
+        "s1-br",
+        "s1-recall",
+        "s1-e2"
+      ],
+      "next": [
+        {
+          "to": "s1-part2"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b"
+      ]
+    },
+    {
+      "id": "s1-val",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "Rate the valence of the event",
+      "actorIds": [
+        "p-s1"
+      ],
+      "inputIds": [
+        "m-valence-q"
+      ],
+      "outputIds": [
+        "v-valrating"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "e-s1-p2"
+      ]
+    },
+    {
+      "id": "s1-part2",
+      "studyId": "study1",
+      "kind": "repeat",
+      "title": "Part 2: valence rating of the 51 events in randomized order",
+      "actorIds": [
+        "p-s1"
+      ],
+      "inputIds": [
+        "m-valence-q"
+      ],
+      "outputIds": [
+        "v-valrating"
+      ],
+      "visibleIds": [],
+      "children": [
+        "s1-val"
+      ],
+      "next": [],
+      "evidenceIds": [
+        "e-s1-p2"
+      ]
+    },
+    {
+      "id": "s2-est-a",
+      "studyId": "study2",
+      "kind": "action",
+      "title": "Estimate E1, then eBR",
+      "actorIds": [
+        "p-s2"
+      ],
+      "inputIds": [
+        "m-stimuli",
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-e1",
+        "v-ebr"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "s2-br"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s2"
+      ],
+      "conditionIds": [
+        "cond-s2-e1first"
+      ]
+    },
+    {
+      "id": "s2-est-b",
+      "studyId": "study2",
+      "kind": "action",
+      "title": "Estimate eBR, then E1",
+      "actorIds": [
+        "p-s2"
+      ],
+      "inputIds": [
+        "m-stimuli",
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-ebr",
+        "v-e1"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "s2-br"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s2"
+      ],
+      "conditionIds": [
+        "cond-s2-ebrfirst"
+      ]
+    },
+    {
+      "id": "s2-br",
+      "studyId": "study2",
+      "kind": "action",
+      "title": "See the actual base rate (BR)",
+      "actorIds": [
+        "p-s2"
+      ],
+      "inputIds": [
+        "m-stimuli"
+      ],
+      "outputIds": [],
+      "visibleIds": [
+        "m-stimuli",
+        "v-br"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "s2-recall"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s2"
+      ]
+    },
+    {
+      "id": "s2-recall",
+      "studyId": "study2",
+      "kind": "action",
+      "title": "Write down the BR (BR Recall); corrected if wrong",
+      "actorIds": [
+        "p-s2"
+      ],
+      "inputIds": [
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-brrecall"
+      ],
+      "visibleIds": [
+        "v-br"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s2"
+      ]
+    },
+    {
+      "id": "s2-part1",
+      "studyId": "study2",
+      "kind": "repeat",
+      "title": "Part 1: 51 events in randomized order (estimates, BR, recall)",
+      "actorIds": [
+        "p-s2"
+      ],
+      "inputIds": [
+        "m-stimuli"
+      ],
+      "outputIds": [
+        "v-e1",
+        "v-ebr",
+        "v-brrecall"
+      ],
+      "visibleIds": [],
+      "children": [
+        "s2-est-a",
+        "s2-est-b",
+        "s2-br",
+        "s2-recall"
+      ],
+      "next": [
+        {
+          "to": "s2-part2"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s2"
+      ]
+    },
+    {
+      "id": "s2-e2",
+      "studyId": "study2",
+      "kind": "action",
+      "title": "Re-estimate E2",
+      "actorIds": [
+        "p-s2"
+      ],
+      "inputIds": [
+        "m-stimuli",
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-e2"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s2"
+      ]
+    },
+    {
+      "id": "s2-part2",
+      "studyId": "study2",
+      "kind": "repeat",
+      "title": "Part 2: E2 for all events",
+      "actorIds": [
+        "p-s2"
+      ],
+      "inputIds": [
+        "m-stimuli"
+      ],
+      "outputIds": [
+        "v-e2"
+      ],
+      "visibleIds": [],
+      "children": [
+        "s2-e2"
+      ],
+      "next": [
+        {
+          "to": "s2-part3"
+        }
+      ],
+      "evidenceIds": [
+        "e-s2"
+      ]
+    },
+    {
+      "id": "s2-val",
+      "studyId": "study2",
+      "kind": "action",
+      "title": "Rate the valence of the event",
+      "actorIds": [
+        "p-s2"
+      ],
+      "inputIds": [
+        "m-valence-q"
+      ],
+      "outputIds": [
+        "v-valrating"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "e-s1-p2",
+        "e-s2"
+      ]
+    },
+    {
+      "id": "s2-part3",
+      "studyId": "study2",
+      "kind": "repeat",
+      "title": "Part 3: valence rating of all events",
+      "actorIds": [
+        "p-s2"
+      ],
+      "inputIds": [
+        "m-valence-q"
+      ],
+      "outputIds": [
+        "v-valrating"
+      ],
+      "visibleIds": [],
+      "children": [
+        "s2-val"
+      ],
+      "next": [],
+      "evidenceIds": [
+        "e-s2"
+      ]
+    },
+    {
+      "id": "s3-est-a",
+      "studyId": "study3",
+      "kind": "action",
+      "title": "Estimate E1, then eBR",
+      "actorIds": [
+        "p-s3"
+      ],
+      "inputIds": [
+        "m-stimuli",
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-e1",
+        "v-ebr"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "s3-br"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s3"
+      ],
+      "conditionIds": [
+        "cond-s3-e1first"
+      ]
+    },
+    {
+      "id": "s3-est-b",
+      "studyId": "study3",
+      "kind": "action",
+      "title": "Estimate eBR, then E1",
+      "actorIds": [
+        "p-s3"
+      ],
+      "inputIds": [
+        "m-stimuli",
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-ebr",
+        "v-e1"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "s3-br"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s3"
+      ],
+      "conditionIds": [
+        "cond-s3-ebrfirst"
+      ]
+    },
+    {
+      "id": "s3-br",
+      "studyId": "study3",
+      "kind": "action",
+      "title": "See the actual base rate (BR)",
+      "actorIds": [
+        "p-s3"
+      ],
+      "inputIds": [
+        "m-stimuli"
+      ],
+      "outputIds": [],
+      "visibleIds": [
+        "m-stimuli",
+        "v-br"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "s3-recall"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s3"
+      ]
+    },
+    {
+      "id": "s3-recall",
+      "studyId": "study3",
+      "kind": "action",
+      "title": "Write down the BR (BR Recall); corrected if wrong",
+      "actorIds": [
+        "p-s3"
+      ],
+      "inputIds": [
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-brrecall"
+      ],
+      "visibleIds": [
+        "v-br"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "s3-val"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s3"
+      ]
+    },
+    {
+      "id": "s3-val",
+      "studyId": "study3",
+      "kind": "action",
+      "title": "Rate the valence of the event",
+      "actorIds": [
+        "p-s3"
+      ],
+      "inputIds": [
+        "m-valence-q"
+      ],
+      "outputIds": [
+        "v-valrating"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "e-s3",
+        "e-s1-p2"
+      ],
+      "rule": {
+        "id": "placement",
+        "label": "Placement of valence rating",
+        "value": "Per the paper E2 and Valence Rating are swapped relative to Study 1; whether the rating is given within each trial in Part 1 or as a block is not stated.",
+        "origin": "unknown",
+        "state": "check",
+        "evidenceIds": [
+          "e-s3"
+        ]
+      }
+    },
+    {
+      "id": "s3-part1",
+      "studyId": "study3",
+      "kind": "repeat",
+      "title": "Part 1: events in randomized order (estimates, BR, recall, valence rating)",
+      "actorIds": [
+        "p-s3"
+      ],
+      "inputIds": [
+        "m-stimuli"
+      ],
+      "outputIds": [
+        "v-e1",
+        "v-ebr",
+        "v-brrecall",
+        "v-valrating"
+      ],
+      "visibleIds": [],
+      "children": [
+        "s3-est-a",
+        "s3-est-b",
+        "s3-br",
+        "s3-recall",
+        "s3-val"
+      ],
+      "next": [
+        {
+          "to": "s3-part2"
+        }
+      ],
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s3"
+      ]
+    },
+    {
+      "id": "s3-e2",
+      "studyId": "study3",
+      "kind": "action",
+      "title": "Re-estimate E2",
+      "actorIds": [
+        "p-s3"
+      ],
+      "inputIds": [
+        "m-stimuli",
+        "m-estimates"
+      ],
+      "outputIds": [
+        "v-e2"
+      ],
+      "visibleIds": [
+        "m-stimuli"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "e-s3"
+      ]
+    },
+    {
+      "id": "s3-part2",
+      "studyId": "study3",
+      "kind": "repeat",
+      "title": "Part 2: E2 for all events",
+      "actorIds": [
+        "p-s3"
+      ],
+      "inputIds": [
+        "m-stimuli"
+      ],
+      "outputIds": [
+        "v-e2"
+      ],
+      "visibleIds": [],
+      "children": [
+        "s3-e2"
+      ],
+      "next": [],
+      "evidenceIds": [
+        "e-s3"
+      ]
+    }
+  ],
+  "relations": [],
+  "evidence": [
+    {
+      "id": "e-title",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Optimism Where There is None: Asymmetric Belief Updating Observed with Valence-Neutral Life Events",
+      "verification": "verified"
+    },
+    {
+      "id": "e-abstract",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "we conduct three pre-registered variations of the standard belief updating paradigm (combined N = 300) in which we test for asymmetric belief updating with neutral",
+      "verification": "verified"
+    },
+    {
+      "id": "e-abstract-claim",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "We find evidence of seemingly biased belief updating with neutral stimuli — results that cannot be attributed to a motivational, valence-based, optimism account — and further show that there is uninterpretable variability across samples and analytic techniques.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-artefact",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "However, recent research has highlighted limitations of existing results and demonstrated that what appears to be optimistically asymmetric belief updating may in fact be attributable to a statistical artefact arising from the experimental design, rather than a self-enhancing motivational bias",
+      "verification": "verified"
+    },
+    {
+      "id": "e-threeexp",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "In this paper, we further investigate this “statistical artefact hypothesis” with three pre-registered experiments.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-updatemethod",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Participants first estimate their chance of experiencing a negative life event (E1), then they are provided with the base rate statistic for experiencing that event (BR), and finally, they are asked to re-estimate their chance of experiencing said event (E2).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-bayes",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "As Shah et al. (2016) demonstrate, it is mathematically impossible to equate the amount of BR error (the difference between one’s estimate of the BR and the actual BR), the amount of individuating knowledge, and the normatively necessary degree of belief change across desirable and undesirable trials on the bounded, zero to 100 probability scale.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-valence-def",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "As Sharot and Garrett (2016) explain, optimistic belief updating is “a valence-dependent asymmetry in how people use favorable and unfavorable information” (p. 31).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-neutral-logic",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "If such an asymmetry can be observed with neutral events, this cannot be attributed to optimism, since there is no valence from which to ascribe (un)desirability.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-variations",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "We subsequently replicated our experiment in three ways for robustness (Fig. 1). While no predictions of different results between these studies were made, this project represents a direct replication of the same methodology using these three slightly different procedures.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-n",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "One hundred participants were recruited for each study (N = 300).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-power",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "we arrived at the sample size of 100 because a hypothetical power analysis with 51 stimuli (the number of events used), an effect d of 0.5, and 100 participants returns a high power of 0.84.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-unknown-neutral",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Since we do not know how many life events participants will rate as neutral, we cannot know how many stimuli will be included in the main analysis, which focuses specifically on neutral life events.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-prolific",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "The Prolific Academic online research platform was used for recruitment, and the participant pool location was restricted to the United Kingdom because the stimuli",
+      "verification": "verified"
+    },
+    {
+      "id": "e-indep",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "The sample for each study were independent of one another.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-age1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "In Study 1, participants’ ages ranged from 18 to 81 (M = 32.82, SD = 11.52) with 73 females;",
+      "verification": "verified"
+    },
+    {
+      "id": "e-age2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "in Study 2, ages ranged from 18 to 67 (M = 33.29, SD = 10.31) with 78 females;",
+      "verification": "verified"
+    },
+    {
+      "id": "e-age3",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "and in Study 3, ages ranged from 19 to 73 (M = 36.09, SD = 12.06) with 80 females.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-design",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "A 3 (event valence: negative, neutral, positive) x 2 (direction of error: upwards, downwards), quasi-experimental within-subjects design was implemented with the Qualtrics web-based survey software.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-valcode",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "event valence was coded trial-by-trial with participants’ self-reports, meaning that an event had to have been rated as “neither positive nor negative” (three on a five-point Likert scale) to be classed as a neutral trial for a given participant.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-doe",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Direction of estimation error (henceforth referred to as “direction of error”) indicates whether a participant’s initial self-estimate was less than or greater than the presented base rate on a given trial",
+      "verification": "verified"
+    },
+    {
+      "id": "e-dv",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Our dependent variable — the magnitude of belief updating — is the absolute difference between E1 and E2, signed as positive if the update is in the predicted direction (according to the direction of error), or negative if it is in the opposite direction.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-stimuli",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "A total of 51 life events, each with an accompanying base rate statistic (MBR = 38.39, SDBR = 21.58), was presented to each participant (SI, Table S1).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-stim-shah",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Two life events were taken from Shah et al.’s (2016) materials that were deemed to be neutral at face value (“Be exactly the same weight in 10 years’ time” and “Last the whole of winter without catching a minor cold”).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-stim-gs",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Twenty-one life events were taken from the materials used by Garrett and Sharot (2017), which were found to be rated as neutral by pilot participants",
+      "verification": "verified"
+    },
+    {
+      "id": "e-stim-novel",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Finally, 28 novel life events were compiled by gathering or calculating base rate estimates based on external sources (e.g., Ofcom, BBC) that were associated with seemingly regular, mundane life events",
+      "verification": "verified"
+    },
+    {
+      "id": "e-stim-examples",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "[e.g., “How likely is it that the next store you visit is air conditioned?” (BR = 30%); “…that you use more than 3.7GB of mobile data over the next four weeks? (BR = 17%)].",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s1-p1a",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Study 1. Study 1 involved two parts (Fig. 1). In Part 1, each participant was presented with a life event and asked to estimate the likelihood of this event happening to them in the future (E1); participants were also asked to give a second estimate of the likelihood of the event happening to an average person (eBR; an estimate of the base rate). These two estimates were made on a 0% to 100% scale and there were no restrictions on participants’ response time.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s1-assign",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "The order of these two estimates was counterbalanced between subjects by randomly assigning each participant to one of two conditions",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s1-p1b",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "followed by eBR, or eBR followed by E1. After these two initial estimates were recorded, participants were presented with the actual base rate statistic (BR). On the next page they were required to write down the BR correctly (BR Recall). If they incorrectly recalled the statistic, they were provided with the correct statistic on screen and required to enter that value. This ensured that the correct BR was attended to by all participants. Participants were then asked to re-estimate the likelihood of the event happening to them personally (E2). Once this sequence was completed for all 51 life events, in a randomized order, participants moved on to Part 2.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s1-p2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "In Part 2, they were presented with each of the 51 life events again in a randomized order and asked to indicate the valence of each event, “How would you feel about experiencing this event?” on a five-point Likert scale (1 = extremely negative, 2 = somewhat negative, 3 = neither positive nor negative, 4 = somewhat positive, 5 = extremely positive) (Valence Rating).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-classify",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "This rating would later be used to classify the trials as negatively, neutrally, or positively valenced according to each individual participant’s subjective rating. Trials rated as 3 were considered neutral.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Study 2. Study 2 involved three parts (Fig. 1). The procedure followed that of Study 1, except the E2s for all events were recorded in Part 2, which was followed by the recording of all valence ratings in Part 3.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s3",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Study 3. Study 3 involved two parts (Fig. 1) and mirrored the procedure of Study 1, except the ordering of E2 and Valence Rating were swapped such that the updating occurred across the two parts (i.e., E1 in part one, E2 in Part 2).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-excl",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Mean updates in each of the six conditions (i.e., negative/neutral/positive by upwards/downwards) were calculated and outliers were removed",
+      "verification": "verified"
+    },
+    {
+      "id": "e-excl-eq",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "trials where E1 equalled the BR were necessarily excluded in our analyses, as they are in all analyses of the data from the update method",
+      "verification": "verified"
+    },
+    {
+      "id": "e-excl-n",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "From the 5,100 trials recorded in each study, these criteria resulted in 339 (6.65%), 414 (8.12%), and 431 (8.45%) trials being excluded from studies 1, 2, and 3, respectively.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-fig1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Fig. 1. Schematics of the procedure used in each study.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-doe-rule",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "positive (i.e., BR > E1) then the direction of error is classed as upwards, and vice versa for a downwards direction of error.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-update-val",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "The update value in each trial, which indicates the magnitude of belief updating, is then determined by calculating the absolute difference between participants’ re-estimates and initial estimates (|E2 - E1|).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-update-ex",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "For example, if E1 is 40, BR is 50, and E2 is 30, the update would be coded as -10; whereas if the BR was 10 then the update would be coded as +10.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-valmeasure",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Finally, event valence is determined trial-by-trial with the self-report question, “How would you feel about experiencing this event?”, measured on a five-point Likert scale from “extremely negative” (1) to “neither positive nor negative” (3) to “extremely positive” (5). Following Garrett and Sharot (2017), we code ratings of 1 and 2 as negative, 3 as neutral, and 4 and 5 as positive.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-hyp",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "To test our central hypothesis that participants will update asymmetrically in response to neutral information, we conducted three studies with independent samples in which 100 participants proceeded through the update method with 51 life events.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-lmm",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "we applied a linear mixed effects model (LMM) — as in Marks and Baines (2017) — to trials in which the stimulus (life event) was rated as neutral by the participant. Update value was entered as the dependent variable, direction of error (upwards/downwards) as a fixed factor, and participant as a random factor.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-lmm-spec",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "This procedure led us to a specification with only random intercepts by participant; however, the results hold across model specifications and we report the statistics of the maximally complex model specification in the Supplementary Information (SI, Table S2). Finally, we used Type III tests and Satterthwaite’s approximation for degrees of freedom to calculate the statistical significance of the fixed effects.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s1-res-n",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "In Study 1, there were 1,521 trials in which participants updated in response to a",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s1-res",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "life event, with 801 trials with an upwards direction of error (M = 2.11, SD = 4.56) and 720 with a downwards direction of error (M = 11.33, SD = 15.91). An LMM determined that direction of error significantly affected the magnitude of participants’ updating (F(1,1515) = 244.47, p < 0.001), such that an upwards direction of error (i.e., BR > E1) decreased update scores by approximately 9.13 percentage points (fixed effect estimate) ± 0.58 (standard error), as compared to downwards direction of error.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s2-res-n",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "In Study 2, there were 1,699 trials in which participants updated in response to a",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s2-res-a",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "life event, with 831 trials with an upwards direction of error (M = 4.16, SD = 10.01) and 868 with a downwards direction of error (M = 10.08, SD = 18.06).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s2-res-b",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "updating (F(1,1694) = 77.09, p < 0.001), such that an upwards direction of error (i.e., BR > E1) decreased update scores by about 6.24 percentage points (fixed effect estimate) ± 0.71 (standard error), as compared to downwards direction of error.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s3-res-n",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "In Study 3, there were 1,667 trials in which participants updated in response to a",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s3-res",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "life event, with 828 trials with an upwards direction of error (M = 4.13, SD = 8.82) and 839 with a downwards direction of error (M = 10.56, SD = 20.80). An LMM determined that direction of error significantly affected the magnitude of participants’ updating (F(1,1662) = 68.48, p < 0.001), such that an upwards direction of error (i.e., BR > E1) decreased update scores by about 6.51 percentage points (fixed effect estimate) ± 0.79 (standard error) as compared to downwards direction of error.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-sec-an",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "we also conducted a pre-registered analysis of each study’s data with LMMs that included event valence as a second fixed factor in interaction with direction of error.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-sec-spec",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "which led us to select a specification that includes only random slopes and intercepts by participant for direction of error and no correlation parameters.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s1-sec",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "In Study 1, there were significant main effects of both direction of error (F(1,98) = 233.80, p < 0.001) and event valence (F(2,4713) = 47.98, p < 0.001), plus a significant interaction term (F(2,4706) = 61.80, p < 0.001), whereby the updating asymmetry was smallest for the positive events (Fig. 2). Despite this, participants updated more in response to a downwards direction of error across both negative and positive events. In 1,662 trials with negative life events, participants updated more in response to a downwards direction of error (n = 683, M = 10.73, SD = 14.23) than upwards (n = 979, M = 2.86, SD = 6.31). Equally, in the 1,578 trials with positive life events, participants updated more in response to a downwards direction of error (n = 882, M = 4.97, SD = 9.41) than upwards (n = 696, M = 3.10, SD = 6.65).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s2-sec",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "In Study 2, there were again significant main effects of direction of error (F(1,98) = 112.85, p < 0.001) and event valence (F(2,4656) = 35.49, p < 0.001), as well as a significant interaction term (F(2,4610) = 43.86, p < 0.001). Among the 1,582 trials with negative events, participants updated more in response to a downwards direction of error (n = 692, M = 13.08, SD = 21.33) than upwards (n = 890, M = 3.76, SD = 10.18), in a similar fashion as Study 1. However, update values in the 1,405 trials with positive events displayed no asymmetry between downwards (n = 835, M = 4.05, SD = 10.98) and upwards direction of error (n = 570, M = 4.48, SD = 10.62).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-posttreat",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "Because this secondary analysis is conditioned on a post-treatment variable (i.e., participants rated event valence after being provided with the BR), the results of this analysis may display a post-treatment bias (Montgomery et al., 2018).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-s3-sec",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "In Study 3, there were once again significant main effects of direction of error (F(1,98) = 42.35, p < 0.001) and event valence (F(2,4636) = 18.51, p < 0.001), as well as a significant interaction term (F(2,4586) = 60.09, p < 0.001). Interestingly, a flip in belief updating asymmetry was observed, which has previously been considered to be characteristic of optimistic belief updating. In 1,616 trials with negative life events, participants updated more in response to a downwards direction of error (n = 639, M = 12.41, SD = 22.17) than upwards (n = 977, M = 3.62, SD = 9.51); whereas participants updated less in response to a downwards direction of error (n = 723, M = 3.45, SD = 10.42) than upwards (n = 663, M = 6.57, SD = 14.16) in the 1,386 trials with positive life events.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-further",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "Shah et al. (2016) analyzed the data with an alternative classification scheme and compare participants’ updating with rational Bayesian predictions, and Kuzmanovic and Rigoux (2017) sought to incorporate in the influence of individuating information with a computational modelling technique based on reinforcement learning. We report the full results of each of these analytic approaches (all of which were pre-registered) in the SI, Supplementary Analyses 1.1-1.3.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-further-agg",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "they each demonstrate the ‘unmotivated’ updating asymmetry with neutral events when the data from Studies 1-3 are aggregated.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-further-var",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "Whilst Analysis 1.1 yields such a result across all three studies, analyses 1.2 and 1.3 display unexplainable variability across the studies in terms of the significance of this result (Table 1).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-reg",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "This analysis uses regressions to assess correlations between “estimation error” (i.e., |E1 – BR|) and belief updating (SI, Supplementary Analysis 1.4).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-reg-res",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "The flawed analysis returns a statistically significant asymmetry with neutral events in Study 1, but there is neither a significant asymmetry in Studies 2 and 3, nor in the aggregated data (Table 1). Further, the statistically significant asymmetry in Study 1 does not hold when our exclusion criterion is not applied.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-study4",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "Building on this, we subsequently pre-registered and ran an additional Study 4 using 20 of the 51 events from Studies 1-3, which further demonstrates that consistent belief updating asymmetries, in line with optimism bias, are not observed (see SI, Supplementary Study 4 for a write-up of these results).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-stim-random",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "However, this does not resolve the asymmetry observed with the LMMs (SI, Supplementary Analyses, 1.6).",
+      "verification": "verified"
+    },
+    {
+      "id": "e-table1-cap",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "Table 1: P values indicating the statistical significance of the asymmetries observed with neutral events according to four analytical techniques intended to resolve the flaws of the update method in each study and the aggregated data of Studies 1-3.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-table1-rows",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "Bayesian difference measure (Shah et al., 2016) 0.049 0.044 0.013 < 0.001 Bayesian ratio measure (Shah et al., 2016) < 0.001 0.784 0.449 0.010 Learning rates (Kuzmanovic & Rigoux, 2016) 0.001 0.704 0.324 0.016 Regression analysis* (Sharot et al., 2011) < 0.001 0.662 0.540 0.081",
+      "verification": "verified"
+    },
+    {
+      "id": "e-table1-tests",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "Comparisons of upwards vs. downwards updating using the Bayesian difference measure and the regression analysis (with “estimation error” as the independent variable) were made with t-tests; comparisons using the Bayesian ratio measure and learning rates were made with non-parametric Wilcoxon signed rank tests.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-disc-main",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "In the main analysis, the central result obtained was the thrice replicated asymmetry in belief updating with neutral stimuli (Fig. 2), which is coupled with uninterpretable variability among the results returned by various analytic techniques",
+      "verification": "verified"
+    },
+    {
+      "id": "e-disc-valence",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "Given that an asymmetry can be observed in the absence of valence, and thus an absence of motivation, the presence of an asymmetry with valenced events is insufficient evidence for one to conclude that a motivational bias is present.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-disc-var",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "In fact, the variability of these subjective confounds can be seen even when an identical set of life events is used.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-limit-cov",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "readers familiar with the optimistic belief updating literature might point out that we did not control for certain covariates that have been considered in past studies, such as participants’ familiarity, vividness, emotional arousal, and perceived controllability of the events presented.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-limit-frame",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "Likewise, it could be argued that our results are limited due to the fact that we only considered one framing; we only asked participants how likely they were to experience the events presented and not how likely they were to not experience the events.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-concl",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "The update method thus remains unfit for purpose, and assuming evidence produced by it to be solid is ill-advised.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-data",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 16
+      },
+      "quote": "The datasets and code used in this paper are available on the OSF project page.",
+      "verification": "verified"
+    },
+    {
+      "id": "e-ethics",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 16
+      },
+      "quote": "This research was approved by the Department of Psychological Sciences Research Ethics Committee of Birkbeck, University of London (reference 161755). All participants provided their informed consent.",
+      "verification": "verified"
+    }
+  ],
+  "issues": [
+    {
+      "id": "iss-stimuli",
+      "title": "The 51 life events and base rates are not available",
+      "severity": "blocking",
+      "reason": "The full list is in SI Table S1, which is not in paper.pdf or sources/. Only four events and two base rates are quoted.",
+      "impact": "No participant can be shown the stimuli; running with made-up events would break the replication.",
+      "suggestedAction": "Add the SI (Table S1) to sources/ or supply the OSF materials; then extend materials.json.",
+      "evidenceIds": [
+        "e-stimuli",
+        "e-stim-examples"
+      ],
+      "nodeId": "m-stimuli",
+      "fieldId": "full-list"
+    },
+    {
+      "id": "iss-wording",
+      "title": "Instruction and question wording is not printed",
+      "severity": "decision",
+      "reason": "Only the Valence Rating item and scale are quoted. The text for E1, eBR, BR display, BR Recall and E2, and any instructions, appear only as Fig. 1 screens or not at all.",
+      "impact": "The replay uses a neutral implementation wording that is not the participants' original text.",
+      "suggestedAction": "Supply the Qualtrics export or screenshots; until then the adapter wording is labelled implementation.",
+      "evidenceIds": [
+        "e-fig1",
+        "e-s1-p1a"
+      ],
+      "nodeId": "m-estimates",
+      "fieldId": "wording"
+    },
+    {
+      "id": "iss-year",
+      "title": "Publication year not shown in the paper",
+      "severity": "check",
+      "reason": "No year on any page.",
+      "impact": "Metadata only.",
+      "suggestedAction": "Add the year from the researcher's record if needed.",
+      "evidenceIds": [],
+      "nodeId": "n-overview",
+      "fieldId": "year"
+    },
+    {
+      "id": "iss-blinding",
+      "title": "Blinding and participant framing not stated",
+      "severity": "check",
+      "reason": "The paper does not report what participants were told about the study.",
+      "impact": "The replay prompt must choose a framing.",
+      "suggestedAction": "Provide the consent text and study description shown on Prolific.",
+      "evidenceIds": [],
+      "nodeId": "n-design",
+      "fieldId": "blinding"
+    },
+    {
+      "id": "iss-s1-eligibility",
+      "title": "Study 1: eligibility criteria not stated",
+      "severity": "check",
+      "reason": "Only the UK pool restriction is reported.",
+      "impact": "Persona definition for AI participants is approximate.",
+      "suggestedAction": "Provide the Prolific screening settings.",
+      "evidenceIds": [],
+      "studyId": "study1",
+      "nodeId": "p-s1",
+      "fieldId": "eligibility"
+    },
+    {
+      "id": "iss-s1-pay",
+      "title": "Study 1: compensation not stated",
+      "severity": "check",
+      "reason": "Payment is not reported.",
+      "impact": "None for the replay.",
+      "suggestedAction": "Add if the researcher has it.",
+      "evidenceIds": [],
+      "studyId": "study1",
+      "nodeId": "p-s1",
+      "fieldId": "compensation"
+    },
+    {
+      "id": "iss-s1-ncomp",
+      "title": "Study 1: completion count not reported",
+      "severity": "check",
+      "reason": "Only 100 recruited is given, and df of 98 in the secondary analysis are not explained.",
+      "impact": "Cannot compare participant-level n with the paper.",
+      "suggestedAction": "Check the OSF data.",
+      "evidenceIds": [],
+      "studyId": "study1",
+      "nodeId": "p-s1",
+      "fieldId": "n-completed"
+    },
+    {
+      "id": "iss-s1-nanal",
+      "title": "Study 1: analysed participant count not reported",
+      "severity": "check",
+      "reason": "Only trial counts are given.",
+      "impact": "Same as above.",
+      "suggestedAction": "Check the OSF data.",
+      "evidenceIds": [],
+      "studyId": "study1",
+      "nodeId": "p-s1",
+      "fieldId": "n-analysed"
+    },
+    {
+      "id": "iss-s2-eligibility",
+      "title": "Study 2: eligibility criteria not stated",
+      "severity": "check",
+      "reason": "Only the UK pool restriction is reported.",
+      "impact": "Persona definition for AI participants is approximate.",
+      "suggestedAction": "Provide the Prolific screening settings.",
+      "evidenceIds": [],
+      "studyId": "study2",
+      "nodeId": "p-s2",
+      "fieldId": "eligibility"
+    },
+    {
+      "id": "iss-s2-pay",
+      "title": "Study 2: compensation not stated",
+      "severity": "check",
+      "reason": "Payment is not reported.",
+      "impact": "None for the replay.",
+      "suggestedAction": "Add if the researcher has it.",
+      "evidenceIds": [],
+      "studyId": "study2",
+      "nodeId": "p-s2",
+      "fieldId": "compensation"
+    },
+    {
+      "id": "iss-s2-ncomp",
+      "title": "Study 2: completion count not reported",
+      "severity": "check",
+      "reason": "Only 100 recruited is given, and df of 98 in the secondary analysis are not explained.",
+      "impact": "Cannot compare participant-level n with the paper.",
+      "suggestedAction": "Check the OSF data.",
+      "evidenceIds": [],
+      "studyId": "study2",
+      "nodeId": "p-s2",
+      "fieldId": "n-completed"
+    },
+    {
+      "id": "iss-s2-nanal",
+      "title": "Study 2: analysed participant count not reported",
+      "severity": "check",
+      "reason": "Only trial counts are given.",
+      "impact": "Same as above.",
+      "suggestedAction": "Check the OSF data.",
+      "evidenceIds": [],
+      "studyId": "study2",
+      "nodeId": "p-s2",
+      "fieldId": "n-analysed"
+    },
+    {
+      "id": "iss-s3-eligibility",
+      "title": "Study 3: eligibility criteria not stated",
+      "severity": "check",
+      "reason": "Only the UK pool restriction is reported.",
+      "impact": "Persona definition for AI participants is approximate.",
+      "suggestedAction": "Provide the Prolific screening settings.",
+      "evidenceIds": [],
+      "studyId": "study3",
+      "nodeId": "p-s3",
+      "fieldId": "eligibility"
+    },
+    {
+      "id": "iss-s3-pay",
+      "title": "Study 3: compensation not stated",
+      "severity": "check",
+      "reason": "Payment is not reported.",
+      "impact": "None for the replay.",
+      "suggestedAction": "Add if the researcher has it.",
+      "evidenceIds": [],
+      "studyId": "study3",
+      "nodeId": "p-s3",
+      "fieldId": "compensation"
+    },
+    {
+      "id": "iss-s3-ncomp",
+      "title": "Study 3: completion count not reported",
+      "severity": "check",
+      "reason": "Only 100 recruited is given, and df of 98 in the secondary analysis are not explained.",
+      "impact": "Cannot compare participant-level n with the paper.",
+      "suggestedAction": "Check the OSF data.",
+      "evidenceIds": [],
+      "studyId": "study3",
+      "nodeId": "p-s3",
+      "fieldId": "n-completed"
+    },
+    {
+      "id": "iss-s3-nanal",
+      "title": "Study 3: analysed participant count not reported",
+      "severity": "check",
+      "reason": "Only trial counts are given.",
+      "impact": "Same as above.",
+      "suggestedAction": "Check the OSF data.",
+      "evidenceIds": [],
+      "studyId": "study3",
+      "nodeId": "p-s3",
+      "fieldId": "n-analysed"
+    },
+    {
+      "id": "iss-s2-counterbalance",
+      "title": "Studies 2 and 3: counterbalancing of E1/eBR order inferred from Study 1",
+      "severity": "check",
+      "reason": "The paper says Study 2 followed Study 1 and Study 3 mirrored it except for the stated change; it does not restate the counterbalancing.",
+      "impact": "The two order conditions in Studies 2 and 3 are inherited, not directly reported.",
+      "suggestedAction": "Confirm in the OSF materials.",
+      "evidenceIds": [
+        "e-s2",
+        "e-s3"
+      ],
+      "studyId": "study2",
+      "nodeId": "cond-s2-e1first"
+    },
+    {
+      "id": "iss-s3-valence-place",
+      "title": "Study 3: where the Valence Rating sits is ambiguous",
+      "severity": "check",
+      "reason": "'the ordering of E2 and Valence Rating were swapped' could mean rating inside each trial or as a block before Part 2.",
+      "impact": "Changes what the participant knows and sees when giving E2.",
+      "suggestedAction": "Check Fig. 1 (Study 3 schematic) or the Qualtrics file.",
+      "evidenceIds": [
+        "e-s3"
+      ],
+      "studyId": "study3",
+      "stepId": "s3-val"
+    },
+    {
+      "id": "iss-s2-order",
+      "title": "Studies 2 and 3: randomisation of Part 2/3 event order is not stated",
+      "severity": "check",
+      "reason": "Study 1 states a randomized order for both parts; Studies 2-3 only say they followed Study 1.",
+      "impact": "Replay assumes randomized order in every part.",
+      "suggestedAction": "Confirm in the OSF materials.",
+      "evidenceIds": [
+        "e-s2"
+      ],
+      "studyId": "study2",
+      "nodeId": "sim-s2"
+    },
+    {
+      "id": "iss-exclusion-detail",
+      "title": "Outlier rule is ambiguous in the main text",
+      "severity": "check",
+      "reason": "'Mean updates in each of the six conditions were calculated and outliers were removed (±3 × IQR)'; it is unclear whether trials or participant means are trimmed.",
+      "impact": "Counts of excluded trials differ if the wrong unit is trimmed.",
+      "suggestedAction": "Compare with the OSF code.",
+      "evidenceIds": [
+        "e-excl"
+      ],
+      "nodeId": "a-exclusion",
+      "fieldId": "criterion"
+    },
+    {
+      "id": "iss-si",
+      "title": "Supplementary Information was not supplied",
+      "severity": "check",
+      "reason": "SI Tables S1-S3, Supplementary Analyses 1.1-1.6 and Study 4 are only cited.",
+      "impact": "The formulas for the Bayesian, learning-rate and regression analyses and the maximal LMMs cannot be reproduced.",
+      "suggestedAction": "Add the SI to sources/.",
+      "evidenceIds": [
+        "e-further",
+        "e-study4"
+      ],
+      "studyId": "agg123",
+      "nodeId": "a-further",
+      "fieldId": "coding"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+ "entries": [
+  {
+   "id": "i-attn",
+   "study": "s1",
+   "field": "m-attn.text",
+   "severity": "decision",
+   "reason": "Only the instruction (answer 'no', confidence 75%) is described.",
+   "impact": "The replay cannot show the original bogus item, so participants are not screened by it.",
+   "suggested_action": "Supply the printed item from the OSF Qualtrics file (.qsf) or confirm the replay should omit it."
+  },
+  {
+   "id": "i-lead",
+   "study": "s1",
+   "field": "m-instr.lead-in",
+   "severity": "check",
+   "reason": "Only the quoted replication explanation is printed.",
+   "impact": "Welcome/consent text is not replayed.",
+   "suggested_action": "Supply any further participant-visible text from the OSF materials."
+  },
+  {
+   "id": "i-cats",
+   "study": "s1",
+   "field": "m-bfexp.categories",
+   "severity": "check",
+   "reason": "Paper cites the categories (Lee & Wagenmakers, 2013) but does not print them.",
+   "impact": "The explanation shown in the replay lacks the category list; per-item verbal labels are still shown.",
+   "suggested_action": "Supply the category table from the survey file."
+  },
+  {
+   "id": "i-fam",
+   "study": "s1",
+   "field": "m-qs.familiarity",
+   "severity": "check",
+   "reason": "Wording and options not printed.",
+   "impact": "Exclusion (d) cannot be reproduced; the replay omits the question.",
+   "suggested_action": "Supply wording from the survey file."
+  },
+  {
+   "id": "i-slider",
+   "study": "s1",
+   "field": "m-qs.slider-meaning",
+   "severity": "check",
+   "reason": "The paper says confidence in the decision; the attention check implies confidence in the chosen answer.",
+   "impact": "Brier scoring depends on this reading.",
+   "suggested_action": "Confirm from the survey file or the preregistration."
+  },
+  {
+   "id": "i-brier",
+   "study": "s1",
+   "field": "v-brier.formula",
+   "severity": "decision",
+   "reason": "The conversion of yes/no plus confidence to a probability and the aggregation over studies are not specified.",
+   "impact": "The replay evaluation uses its own mapping (p = confidence/100 for the chosen answer), which may differ from the paper.",
+   "suggested_action": "Confirm the mapping from the preregistration or analysis code on OSF."
+  },
+  {
+   "id": "i-priors",
+   "study": "s1",
+   "field": "a-brier.priors",
+   "severity": "check",
+   "reason": "They are in the Supplemental Material and OSF code.",
+   "impact": "The offline evaluation reports frequentist summaries instead of the paper's Bayes factors.",
+   "suggested_action": "Supply the Supplemental Material to reproduce the Bayesian models."
+  },
+  {
+   "id": "i-reff",
+   "study": "s1",
+   "field": "v-reff.values",
+   "severity": "check",
+   "reason": "They come from Camerer et al. (2018) and Klein et al. (2018) and appear only in Fig. 7.",
+   "impact": "The confidence-effect size correlation cannot be computed; evaluation reports it as not_ready.",
+   "suggested_action": "Supply the effect sizes from the OSF data or the replication reports."
+  },
+  {
+   "id": "i-outcomes",
+   "study": "s1",
+   "field": "v-outcome.values",
+   "severity": "check",
+   "reason": "Per-study outcomes are only shown by shading in Fig. 1.",
+   "impact": "Accuracy scoring depends on this reading; it matches the reported 14/13 split and the counts in the text.",
+   "suggested_action": "Confirm against Camerer et al. (2018) and Klein et al. (2018)."
+  },
+  {
+   "id": "i-layout",
+   "study": "s1",
+   "field": "m-items.layout",
+   "severity": "check",
+   "reason": "The heading structure and the response items are read from images in the supplement, and the description text is a single paragraph there.",
+   "impact": "The replay shows 'Research question' separately and merges 'How was this measured?' and 'What was found?' into one block.",
+   "suggested_action": "Confirm the split of each description against the survey file."
+  },
+  {
+   "id": "i-dutch",
+   "study": "s1",
+   "field": "m-items.dutch",
+   "severity": "check",
+   "reason": "Dutch participants could choose a Dutch version (DeepL-assisted translation).",
+   "impact": "Replay is English only.",
+   "suggested_action": "None needed unless a Dutch replay is wanted."
+  },
+  {
+   "id": "i-feedback",
+   "study": "s1",
+   "field": "pr1.feedback",
+   "severity": "check",
+   "reason": "The paper does not say whether participants saw feedback or had accuracy-based payoffs.",
+   "impact": "Replay gives none.",
+   "suggested_action": "Confirm from the survey file."
+  },
+  {
+   "id": "i-pay",
+   "study": "s1",
+   "field": "pr1.payoff",
+   "severity": "check",
+   "reason": "Only flat compensation is reported.",
+   "impact": "Replay has no payoff.",
+   "suggested_action": "Confirm from the survey file."
+  },
+  {
+   "id": "i-s2data",
+   "study": "s2",
+   "field": "a-experts",
+   "severity": "check",
+   "reason": "The expert and Bayes-factor correlation analyses use data from other projects not supplied.",
+   "impact": "Study s2 is recorded for completeness and is not replayed.",
+   "suggested_action": "Supply OSF data if a re-analysis is wanted."
+  }
+ ]
+}

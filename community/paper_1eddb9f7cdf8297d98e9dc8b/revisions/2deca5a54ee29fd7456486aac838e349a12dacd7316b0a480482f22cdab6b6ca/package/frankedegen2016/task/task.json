@@ -1,0 +1,79 @@
+{
+ "agents": [
+  {
+   "id": "participant",
+   "role": "AI participant, one per original participant (60 recruited, 51 / 50 analysed)",
+   "scripted": false
+  }
+ ],
+ "roles": {
+  "participant": "listener (Exp 1; also sender in four practice trials) / speaker (Exp 2)",
+  "message_sender_exp1": "scripted: the message is generated from the design (is_e1_snd)",
+  "addressee_exp2": "none simulated (is_e2_snd)"
+ },
+ "scripted_roles": [
+  {
+   "role": "message in comprehension trials",
+   "justification": "Messages shown to listeners are fixed by the stimulus design (trigger message); whether they came from real previous participants is not stated in the paper."
+  }
+ ],
+ "conditions": [
+  "simple",
+  "complex",
+  "unamb",
+  "amb",
+  "filler"
+ ],
+ "assignment": "within-participant; all trial types in one randomized sequence of 66 trials (Exp 1 preceded by 4 speaker trials)",
+ "order": "sequential per participant; one model call per trial; each prompt contains the participant's own earlier trials and choices only; no feedback",
+ "visibility": "participants never see other participants' responses",
+ "sampling_unit": "participant",
+ "observation_unit": "trial",
+ "assignment_unit": "participant",
+ "arms": [
+  "exp1",
+  "exp2"
+ ],
+ "default_n": 5,
+ "replay_adaptations": [
+  "pictures rendered as text",
+  "instruction wording paraphrased",
+  "baseline filler split assumed 9/9",
+  "exclusion count = floor(0.15 n)",
+  "regression is fixed-effects only"
+ ],
+ "programBindings": {
+  "programId": "frankedegen2016",
+  "stepIds": [
+   "e1_s_spk",
+   "e1_s_trials",
+   "e1_s_simple",
+   "e1_s_complex",
+   "e1_s_fdisp",
+   "e1_s_fbase",
+   "e2_s_trials",
+   "e2_s_simple",
+   "e2_s_complex",
+   "e2_s_fdisp",
+   "e2_s_fbase",
+   "mc_s_fit",
+   "mc_s_bf"
+  ],
+  "recordNodeIds": [
+   "e1_v_choice",
+   "e1_v_cond",
+   "e1_v_cov",
+   "e1_rec",
+   "e2_v_choice",
+   "e2_v_cond",
+   "e2_v_cov",
+   "e2_rec"
+  ],
+  "analysisNodeIds": [
+   "e1_an",
+   "e2_an",
+   "mc_an_model",
+   "mc_an_bf"
+  ]
+ }
+}

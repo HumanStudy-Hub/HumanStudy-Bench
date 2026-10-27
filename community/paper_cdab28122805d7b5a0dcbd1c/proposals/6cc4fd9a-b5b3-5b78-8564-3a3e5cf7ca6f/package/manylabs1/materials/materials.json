@@ -1,0 +1,435 @@
+{
+  "note": "participant_text is copied verbatim from sources/Measures_US_Version.docx (and the study pages in sources/materials_html where stated). Response-format instructions are implementation text, not part of any printed instrument. Studies whose manipulation is an image (s09, s10) or a reaction-time task (s12) have participant_text null and are not run; their printed text is kept in printed_text.",
+  "session_order": "Studies in randomized order; the math IAT and its explicit measures always last (paper p. 6).",
+  "studies": {
+    "s01": {
+      "name": "Study 1: Sunk costs",
+      "runnable": true,
+      "response_format": {
+        "kind": "rating",
+        "min": 1,
+        "max": 9,
+        "instruction": "(Implementation instruction, not printed material) Put a whole number from 1 to 9 after ANSWER:."
+      },
+      "conditions": {
+        "paid": {
+          "label": "Sunk costs: Paid ticket",
+          "evidence_label": "verbatim",
+          "reported_description": "Imagines having paid for a ticket to a football game",
+          "participant_text": "Imagine that your favorite football team is playing an important game. You have a ticket to the game that you have paid handsomely for. However, on the day of the game, it happens to be freezing cold. What do you do?  \n9 point drop-down scale: 1 – Definitely stay at home, 9 – Definitely go to the game",
+          "source": "sources/Measures_US_Version.docx"
+        },
+        "free": {
+          "label": "Sunk costs: Free ticket",
+          "evidence_label": "verbatim",
+          "reported_description": "Imagines having received the ticket for free",
+          "participant_text": "Imagine that your favorite football team is playing an important game. You have a ticket to the game that you have received for free from a friend. However, on the day of the game, it happens to be freezing cold. What do you do?  \n9 point drop-down scale: 1 – Definitely stay at home, 9 – Definitely go to the game",
+          "source": "sources/Measures_US_Version.docx"
+        }
+      }
+    },
+    "s02": {
+      "name": "Study 2: Gain versus loss framing",
+      "runnable": true,
+      "response_format": {
+        "kind": "choice",
+        "options": {
+          "gain": [
+            {
+              "label": "Program A",
+              "sure": true
+            },
+            {
+              "label": "Program B",
+              "sure": false
+            }
+          ],
+          "loss": [
+            {
+              "label": "Program C",
+              "sure": true
+            },
+            {
+              "label": "Program D",
+              "sure": false
+            }
+          ]
+        },
+        "instruction": "(Implementation instruction, not printed material) Put the program you choose (for example 'Program A') after ANSWER:."
+      },
+      "conditions": {
+        "gain": {
+          "label": "Gain versus loss framing: Gain frame",
+          "evidence_label": "verbatim",
+          "reported_description": "Programs described by lives saved (Program A / Program B)",
+          "participant_text": "Imagine that the United States is preparing for the outbreak of an unusual disease, which is expected to kill 600 people. Two alternative programs to fight the disease have been proposed. Assume that the exact scientific estimate of the consequences of the program are as follows:\nIf Program A is adopted, 200 people will be saved \nIf Program B is adopted, there is 1/3 probability that 600 people will be saved and 2/3 probability that no people will be saved.\nWhich program would you choose?\nChoose program:\nProgram A\nProgram B",
+          "source": "sources/Measures_US_Version.docx"
+        },
+        "loss": {
+          "label": "Gain versus loss framing: Loss frame",
+          "evidence_label": "verbatim",
+          "reported_description": "Programs described by lives lost (Program C / Program D)",
+          "participant_text": "Imagine that the United States is preparing for the outbreak of an unusual disease, which is expected to kill 600 people. Two alternative programs to fight the disease have been proposed. Assume that the exact scientific estimate of the consequences of the program are as follows:  If Program C is adopted, 400 people will die.   If Program D is adopted, there is 1/3 probability that no people will die and 2/3 probability that 600 people will die.  Which program would you choose?\nChoose program:\nProgram C\nProgram D",
+          "source": "sources/Measures_US_Version.docx"
+        }
+      }
+    },
+    "s03": {
+      "name": "Study 3: Anchoring",
+      "runnable": true,
+      "response_format": {
+        "kind": "number",
+        "count": 4,
+        "topic_order": [
+          "nyc",
+          "chicago",
+          "everest",
+          "babies"
+        ],
+        "instruction": "(Implementation instruction, not printed material) Put your four estimates after ANSWER:, as plain numbers separated by semicolons, in the order the questions appear."
+      },
+      "conditions": {
+        "low": {
+          "label": "Anchoring: Low anchor",
+          "evidence_label": "verbatim",
+          "reported_description": "Receives a low anchor value before estimating",
+          "participant_text": "We are interested in people's beliefs about the world around them. For each of the following 4 questions we would like you to give your best estimate. If you do not know the correct answer, just give your best guess.\n\nThe distance from San Francisco to New York City is longer than 1,500 miles. How far do you think it is?\n(miles)\n\nThe population of Chicago is more than 200,000. What do you think the population of Chicago is?\n(people)\n\nMount Everest is taller than 2,000 feet. How tall do you think Mount Everest is?\n(feet)\n\nMore than 100 babies are born per day in the United States. How many babies do you think are born in the U.S. each day?\n(babies)",
+          "source": "sources/Measures_US_Version.docx"
+        },
+        "high": {
+          "label": "Anchoring: High anchor",
+          "evidence_label": "verbatim",
+          "reported_description": "Receives a high anchor value before estimating",
+          "participant_text": "We are interested in people's beliefs about the world around them. For each of the following 4 questions we would like you to give your best estimate. If you do not know the correct answer, just give your best guess.\n\nThe distance from San Francisco to New York City is shorter than 6,000 miles. How far do you think it is?\n(miles)\n\nThe population of Chicago is less than 5,000,000. What do you think the population of Chicago is?\n(people)\n\nMount Everest is shorter than 45,500 feet. How tall do you think Mount Everest is?\n(feet)\n\nLess than 50,000 babies are born per day in the United States. How many babies do you think are born in the U.S. each day?\n(babies)",
+          "source": "sources/Measures_US_Version.docx"
+        }
+      },
+      "notes": "The document lists the eight items in random order, one per page; the replay shows each participant the four topics in a fixed order so replies can be parsed. Answer-box units are from the study pages (the document labels the high SF–NY box '(babies)'; see issue i_s03_unit_label)."
+    },
+    "s04": {
+      "name": "Study 4: Retrospective gambler's fallacy",
+      "runnable": true,
+      "response_format": {
+        "kind": "number",
+        "count": 1,
+        "instruction": "(Implementation instruction, not printed material) Put your estimate as a single number after ANSWER:."
+      },
+      "conditions": {
+        "three6": {
+          "label": "Retrospective gambler's fallacy: Three 6's",
+          "evidence_label": "verbatim",
+          "reported_description": "Imagines three dice all coming up 6",
+          "participant_text": "Imagine that you are in a casino and you happen to pass a man rolling dice. You observe him roll three dice and all three come up 6’s. Based on your imagined scenario, how many times do you think the man had rolled the dice before you walked by?",
+          "source": "sources/Measures_US_Version.docx"
+        },
+        "two6one3": {
+          "label": "Retrospective gambler's fallacy: Two 6's and a 3",
+          "evidence_label": "verbatim",
+          "reported_description": "Imagines three dice: two 6's and one 3",
+          "participant_text": "Imagine that you are in a casino and you happen to pass a man rolling dice. You observe him roll three dice and one comes up 3, and two come up 6’s. Based on your imagined scenario, how many times do you think the man had rolled the dice before you walked by?",
+          "source": "sources/Measures_US_Version.docx"
+        }
+      }
+    },
+    "s05": {
+      "name": "Study 5: Low-versus-high category scales",
+      "runnable": true,
+      "response_format": {
+        "kind": "choice",
+        "options": {
+          "low": [
+            {
+              "label": "Up to a half hour"
+            },
+            {
+              "label": "Half an hour to an hour"
+            },
+            {
+              "label": "One to one and a half hours"
+            },
+            {
+              "label": "One and a half to two hours"
+            },
+            {
+              "label": "Two to two and a half hours"
+            },
+            {
+              "label": "More than two and a half hours"
+            }
+          ],
+          "high": [
+            {
+              "label": "Up to two and a half hours"
+            },
+            {
+              "label": "Two and a half to three hours"
+            },
+            {
+              "label": "Three to three and a half hours"
+            },
+            {
+              "label": "Three and a half to four hours"
+            },
+            {
+              "label": "Four to four and a half hours"
+            },
+            {
+              "label": "More than four and a half hours"
+            }
+          ]
+        },
+        "over_threshold_labels": [
+          "More than two and a half hours",
+          "Two and a half to three hours",
+          "Three to three and a half hours",
+          "Three and a half to four hours",
+          "Four to four and a half hours",
+          "More than four and a half hours"
+        ],
+        "over_threshold_derivation": "The paper analyses the share reporting more than two and a half hours (p. 7); labels above that bound on either printed scale.",
+        "instruction": "(Implementation instruction, not printed material) Put the option you choose, worded exactly as listed, after ANSWER:."
+      },
+      "conditions": {
+        "low": {
+          "label": "Low-versus-high category scales: Low-frequency scale",
+          "evidence_label": "verbatim",
+          "reported_description": "Daily TV hours reported on a low-frequency category scale",
+          "participant_text": "How much television do you watch per day?  \n\nDrop-down scale with options:\nUp to a half hour\nHalf an hour to an hour\nOne to one and a half hours\nOne and a half to two hours\nTwo to two and a half hours\nMore than two and a half hours",
+          "source": "sources/Measures_US_Version.docx"
+        },
+        "high": {
+          "label": "Low-versus-high category scales: High-frequency scale",
+          "evidence_label": "verbatim",
+          "reported_description": "Daily TV hours reported on a high-frequency category scale",
+          "participant_text": "How much television do you watch per day?  \n\nDrop-down scale with options:\nUp to two and a half hours\nTwo and a half to three hours\nThree to three and a half hours\nThree and a half to four hours\nFour to four and a half hours\nMore than four and a half hours",
+          "source": "sources/Measures_US_Version.docx"
+        }
+      }
+    },
+    "s06": {
+      "name": "Study 6: Norm of reciprocity",
+      "runnable": true,
+      "response_format": {
+        "kind": "yesno_pair",
+        "item_order": {
+          "nk_first": [
+            "us_lets_nk",
+            "nk_lets_us"
+          ],
+          "us_first": [
+            "nk_lets_us",
+            "us_lets_nk"
+          ]
+        },
+        "instruction": "(Implementation instruction, not printed material) Put your two answers after ANSWER: as Yes or No, separated by a semicolon, in the order the questions appear."
+      },
+      "conditions": {
+        "us_first": {
+          "label": "Norm of reciprocity: American reporters question first",
+          "evidence_label": "verbatim",
+          "reported_description": "Question about allowing American reporters into the other country asked first",
+          "participant_text": "Do you think North Korea should let American newspaper reporters come in and send back to America the news as they see it?  \nYes\nNo\n\nDo you think the United States should let newspaper reporters from North Korea come in here and send back to their papers the news as they see it?  \nYes\nNo",
+          "source": "sources/Measures_US_Version.docx"
+        },
+        "nk_first": {
+          "label": "Norm of reciprocity: Other-country reporters question first",
+          "evidence_label": "verbatim",
+          "reported_description": "Question about allowing other-country (North Korea) reporters into the home country asked first",
+          "participant_text": "Do you think the United States should let newspaper reporters from North Korea come in here and send back to their papers the news as they see it?  \nYes\nNo\n\nDo you think North Korea should let American newspaper reporters come in and send back to America the news as they see it?  \nYes\nNo",
+          "source": "sources/Measures_US_Version.docx"
+        }
+      },
+      "notes": "Both items are shown to all participants; the order is reversed in the other-country-first condition (us_first)."
+    },
+    "s07": {
+      "name": "Study 7: Allowed/Forbidden",
+      "runnable": true,
+      "response_format": {
+        "kind": "yesno",
+        "instruction": "(Implementation instruction, not printed material) Put Yes or No after ANSWER:."
+      },
+      "conditions": {
+        "allow": {
+          "label": "Allowed/Forbidden: Allow wording",
+          "evidence_label": "verbatim",
+          "reported_description": "Should the country allow speeches against democracy?",
+          "participant_text": "Do you think the United States should allow public speeches against democracy?\n\nYes\nNo",
+          "source": "sources/Measures_US_Version.docx"
+        },
+        "forbid": {
+          "label": "Allowed/Forbidden: Forbid wording",
+          "evidence_label": "verbatim",
+          "reported_description": "Should the country forbid speeches against democracy?",
+          "participant_text": "Do you think the United States should forbid public speeches against democracy?\n\nYes\nNo",
+          "source": "sources/Measures_US_Version.docx"
+        }
+      }
+    },
+    "s08": {
+      "name": "Study 8: Quote attribution",
+      "runnable": true,
+      "response_format": {
+        "kind": "rating",
+        "min": 1,
+        "max": 9,
+        "instruction": "(Implementation instruction, not printed material) Put a whole number from 1 to 9 after ANSWER:."
+      },
+      "conditions": {
+        "liked": {
+          "label": "Quote attribution: Liked speaker (George Washington)",
+          "evidence_label": "verbatim",
+          "reported_description": "Quote attributed to George Washington",
+          "participant_text": "A quote similar to what follows was once spoken by George Washington: \"I have sworn to only live free, even if I find bitter the taste of death.\"\n\nHow much do you agree with this quote?\n\n1 – strongly agree\n2\n3\n4\n5 – neither agree nor disagree\n6\n7\n8\n9 – strongly disagree",
+          "source": "sources/Measures_US_Version.docx"
+        },
+        "disliked": {
+          "label": "Quote attribution: Disliked speaker (Osama Bin Laden)",
+          "evidence_label": "verbatim",
+          "reported_description": "Quote attributed to Osama Bin Laden",
+          "participant_text": "A quote similar to what follows was once spoken by Osama Bin Laden: \"I have sworn to only live free, even if I find bitter the taste of death.\"\n\nHow much do you agree with this quote?\n\n1 – strongly agree\n2\n3\n4\n5 – neither agree nor disagree\n6\n7\n8\n9 – strongly disagree",
+          "source": "sources/Measures_US_Version.docx"
+        }
+      },
+      "verbatim_fragments": [
+        {
+          "label": "verbatim",
+          "evidence": "e_s08_verb",
+          "page": 5,
+          "text": "I hold it that a little rebellion, now and then, is a good thing, and as necessary in the political world as storms are in the physical world."
+        }
+      ],
+      "scale_direction": "1 = strongly agree, 9 = strongly disagree (as printed); evaluation reverses it so higher = more agreement."
+    },
+    "s09": {
+      "name": "Study 9: Flag priming",
+      "runnable": false,
+      "response_format": {
+        "kind": "items",
+        "count": 8,
+        "min": 1,
+        "max": 7
+      },
+      "not_ready_reason": "The manipulation is a set of images that a text participant cannot see (issue i_s09_image). Printed text and scoring are in printed_text.",
+      "conditions": {
+        "flag": {
+          "label": "Flag priming: Flag prime",
+          "evidence_label": "reported",
+          "reported_description": "American flag appears in two of four photos",
+          "participant_text": null
+        },
+        "control": {
+          "label": "Flag priming: Control",
+          "evidence_label": "reported",
+          "reported_description": "Same photos without flags",
+          "participant_text": null
+        }
+      },
+      "verbatim_fragments": [
+        {
+          "label": "verbatim",
+          "evidence": "e_s09_verb",
+          "page": 15,
+          "text": "1. How much do you identify with being American? (1, not at all – 11, very much)* 2. To what extent do you think the typical American is a Republican or Democrat? (1, Democrat – 7, Republican) 3. To what extent do you think the typical American is conservative or liberal? (1, Liberal – 7, Conservative)"
+        }
+      ],
+      "scoring_ready": true,
+      "printed_text": {
+        "label": "verbatim",
+        "source": "sources/Measures_US_Version.docx",
+        "text": "Flag priming\nScreenshot from flag prime condition:\nScreenshot from control condition:\n\nFlag priming DV:\nAll items were on 7-point scales (radio buttons):\nFor each statement below, indicate the degree to which you agree or disagree according to how you feel right now.\n1) Laws designed to protect the environment pose too high a cost on businesses that contribute to the economy. \n1 – Completely disagree\n7 – Completely agree\n2) A woman should have the right to choose what to do with her body, even if that means getting an abortion. <<Reverse scored>>\n1 – Completely disagree\n7 – Completely agree\n3) The United States should not have invaded Iraq. <<Reverse scored>>\n1 – Completely disagree\n7 – Completely agree\n4) Homosexuals should have the same right to marriage as anyone else. <<Reverse scored>>\n1 – Completely disagree\n7 – Completely agree\n5) Affirmative action gives those groups with a history of oppression a chance to get ahead. <<Reverse scored>>\n1 – Completely disagree\n7 – Completely agree\n6) Gun control laws are not nearly strict enough. <<Reverse scored>>\n1 – Completely disagree\n7 – Completely agree\n7) It is important for our legal system to use the death penalty as punishment for heinous crimes.\n1 – Completely disagree\n7 – Completely agree\n8) Stem Cell research has important implications for medical advances, and should be pursued at all costs. <<Reverse scored>>\n1 – Completely disagree\n7 – Completely agree"
+      },
+      "reverse_items": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+      ]
+    },
+    "s10": {
+      "name": "Study 10: Currency priming",
+      "runnable": false,
+      "response_format": {
+        "kind": "items",
+        "count": 8,
+        "min": 1,
+        "max": 7
+      },
+      "not_ready_reason": "The manipulation is a set of images that a text participant cannot see (issue i_s10_image). Printed text and scoring are in printed_text.",
+      "conditions": {
+        "money": {
+          "label": "Currency priming: Money prime",
+          "evidence_label": "reported",
+          "reported_description": "Faint picture of US$100 bills as page background",
+          "participant_text": null
+        },
+        "control": {
+          "label": "Currency priming: Control",
+          "evidence_label": "reported",
+          "reported_description": "Blurred, unidentifiable version of the same picture as background",
+          "participant_text": null
+        }
+      },
+      "scoring_ready": true,
+      "printed_text": {
+        "label": "verbatim",
+        "source": "sources/Measures_US_Version.docx",
+        "text": "Money priming\nAll participants filled out the following information, background varied by condition:\nYou will continue to do a variety of different experiments.\nBecause the studies are all different, it is important that you read each set of instructions carefully before completing each study.\nPART 1:\nPlease answer the following questions about yourself.\nWhat is your age?\n\nWhat is your gender?\nMale\nFemale\nWhat is your ethnicity?\n<<Open response>>\nPlease click below to continue to the next study.\nContinue\nBackground of page for money condition:\n\nBackground of page for control condition:\n\n\n\n\f\nMoney priming screenshots:\nMoney condition:\n\nControl condition:\n\f\nMoney priming DV:\n\nPlease rate the extent to which you agree/disagree with each of the statements below: (Note that there are 8 questions, you may have to scroll down to see the rest) \n\n1. In general, I find society to be fair. \n 1 - Strongly Disagree \n 2 \n 3 \n 4 - Neither Agree nor Disagree \n 5 \n 6 \n 7 - Strongly Agree \n\n2. In general, the American political system operates as it should. \n 1 - Strongly Disagree \n 2 \n 3 \n 4 - Neither Agree nor Disagree \n 5 \n 6 \n 7 - Strongly Agree \n\n3. American society needs to be radically restructured. <<Reverse scored>>\n 1 - Strongly Disagree \n 2 \n 3 \n 4 - Neither Agree nor Disagree \n 5 \n 6 \n 7 - Strongly Agree \n\n4. The United States is the best country in the world to live in. \n 1 - Strongly Disagree \n 2 \n 3 \n 4 - Neither Agree nor Disagree \n 5 \n 6 \n 7 - Strongly Agree \n\n5. Most policies serve the greater good. \n 1 - Strongly Disagree \n 2 \n 3 \n 4 - Neither Agree nor Disagree \n 5 \n 6 \n 7 - Strongly Agree \n\n6. Everyone has a fair shot at wealth and happiness. \n 1 - Strongly Disagree \n 2 \n 3 \n 4 - Neither Agree nor Disagree \n 5 \n 6 \n 7 - Strongly Agree \n\n7. Our society is getting worse every year. <<Reverse scored>>\n 1 - Strongly Disagree \n 2 \n 3 \n 4 - Neither Agree nor Disagree \n 5 \n 6 \n 7 - Strongly Agree \n\n8. Society is set up so that people usually get what they deserve. \n 1 - Strongly Disagree \n 2 \n 3 \n 4 - Neither Agree nor Disagree \n 5 \n 6 \n 7 - Strongly Agree\n\nContinue"
+      },
+      "reverse_items": [
+        3,
+        7
+      ]
+    },
+    "s11": {
+      "name": "Study 11: Imagined contact",
+      "runnable": true,
+      "response_format": {
+        "kind": "items",
+        "count": 4,
+        "min": 1,
+        "max": 9,
+        "scoring_ready": true,
+        "instruction": "(Implementation instruction, not printed material) Write your description, then put your four ratings (1 to 9) after ANSWER: separated by semicolons, in the order the questions appear."
+      },
+      "conditions": {
+        "contact": {
+          "label": "Imagined contact: Imagined contact",
+          "evidence_label": "verbatim",
+          "reported_description": "Imagine interacting with a Muslim stranger",
+          "participant_text": "I would like you to take a minute to imagine yourself meeting a Muslim stranger for the first time. During the conversation imagine you find out some interesting and unexpected things about the stranger. (The continue button will appear after 1 minute)\n\nDescribe as many aspects of the scenario you just imagined as possible: (Please do not use the \"Enter\" key, just type your thoughts in a paragraph).\n\nHow much do you intend to interact with Muslims in the future?\n9 point drop-down scale: 1 – not at all, 9 – very much\nHow much time do you think you might spend learning about Islam in the future?\n9 point drop-down scale: 1 – none at all, 9 – a lot of time\nHow important do you think interacting with Muslims is?\n9 point drop-down scale: 1 – not at all important, 9 – highly important\nHow willing would you be to attend a mosque gathering to learn more about Islamic beliefs and practices?\n9 point drop-down scale: 1 – not at all willing, 9 – very willing",
+          "source": "sources/Measures_US_Version.docx"
+        },
+        "control": {
+          "label": "Imagined contact: Control",
+          "evidence_label": "verbatim",
+          "reported_description": "Imagine walking outdoors",
+          "participant_text": "I would like you to take a minute to imagine you are walking in the outdoors. Try to imagine aspects of the scene around you (e.g., is it a beach, a forest, are there trees, hills, what's on the horizon). (The continue button will appear after 1 minute)\n\nDescribe as many aspects of the scenario you just imagined as possible: (Please do not use the \"Enter\" key, just type your thoughts in a paragraph).\n\nHow much do you intend to interact with Muslims in the future?\n9 point drop-down scale: 1 – not at all, 9 – very much\nHow much time do you think you might spend learning about Islam in the future?\n9 point drop-down scale: 1 – none at all, 9 – a lot of time\nHow important do you think interacting with Muslims is?\n9 point drop-down scale: 1 – not at all important, 9 – highly important\nHow willing would you be to attend a mosque gathering to learn more about Islamic beliefs and practices?\n9 point drop-down scale: 1 – not at all willing, 9 – very willing",
+          "source": "sources/Measures_US_Version.docx"
+        }
+      },
+      "scoring_ready": false
+    },
+    "s12": {
+      "name": "Study 12: Implicit math attitudes (sex differences and implicit-explicit relation)",
+      "runnable": false,
+      "response_format": {
+        "kind": "latency",
+        "note": "reaction-time IAT; not a text response"
+      },
+      "not_ready_reason": "The IAT needs reaction-time latencies a text participant cannot produce (issue i_s12_iat). Printed categories and explicit items are in printed_text.",
+      "conditions": {
+        "all": {
+          "label": "single group",
+          "participant_text": null
+        }
+      },
+      "printed_text": {
+        "label": "verbatim",
+        "source": "sources/Measures_US_Version.docx",
+        "text": "Math/Art Implicit Association Test\n\nIAT Categories:\n\nMathematics: math, algebra, geometry, calculus, equations, computation, numbers, Newton\n\nArts: poetry, art, Shakespeare, dance, literature, novel, symphony, drama\n\nPleasant Words: ambition, cuddle, excitement, glory, joy, love, paradise, pleasure, romantic, miracle\n\nUnpleasant Words: agony, death, detest, disaster, humiliate, jealousy, punishment, stress, tragedy, war\n\nExplicit DVs:\n\n***Below are the measures for math. The measures for art were exactly the same except “math” was replaced with “art”. Participants were asked both sets of questions.\n\nFeeling thermometer:\nPlease move the slider bar from the left (0 = cold/unfavorable) to the right (100 = warm/favorable) to indicate your overall feeling toward math. When the slider bar is in the location that indicates your overall feelings, please click \"Continue\".\n\n0 = cold/unfavorable\n100 = warm/favorable\n\nIf participants didn’t move the slider they received this prompt and could not continue until they moved the slider:\nPlease choose a position above before continuing!\n\nSemantic differential scales:\nPlease rate how you feel about math on a scale from good to bad:\nVery Good\nModerately Good\nSlightly Good\nNeither Good Nor Bad\nSlightly Bad\nModerately Bad\nVery Bad\n\nPlease rate how you feel about math on a scale from happy to sad:\nVery Happy\nModerately Happy\nSlightly Happy\nNeither Happy Nor Sad\nSlightly Sad\nModerately Sad\nVery Sad\n\nPlease rate how you feel about math on a scale from beautiful to ugly:\nVery Beautiful\nModerately Beautiful\nSlightly Beautiful\nNeither Beautiful Nor Ugly\nSlightly Ugly\nModerately Ugly\nVery Ugly\n\nPlease rate how you feel about math on a scale from delightful to disgusting:\nVery Delightful\nModerately Delightful\nSlightly Delightful\nNeither Delightful Nor Disgusting\nSlightly Disgusting\nModerately Disgusting\nVery Disgusting\n\nPlease rate how you feel about math on a scale from approach to avoid:\nVery Approach\nModerately Approach\nSlightly Approach\nNeither Approach Nor Avoid\nSlightly Avoid\nModerately Avoid\nVery Avoid\n\nPlease rate how you feel about math on a scale from unafraid to afraid:\nVery Unafraid\nModerately Unafraid\nSlightly Unafraid\nNeither Unafraid Nor Afraid\nSlightly Afraid\nModerately Afraid\nVery Afraid"
+      }
+    }
+  }
+}
