@@ -1,0 +1,58 @@
+{
+ "agents": "One AI participant per original MTurk participant; no scripted roles.",
+ "roles": {
+  "participant": "rater (AI)"
+ },
+ "scripted_roles": [],
+ "scripted_roles_justification": "The paper describes no confederates, experimenters or pre-recorded responses; the character in each statement is stimulus text.",
+ "order": "Participants rate independently; trials in sequence within a participant (exp1: 16 single sentences; exp2 single: 12; exp2 multiple: 3 displays of four).",
+ "visibility": "A participant sees only own earlier statements and ratings; never other participants' responses.",
+ "arms": [
+  "exp1",
+  "exp2-morphological-single",
+  "exp2-lexical-single",
+  "exp2-morphological-multiple",
+  "exp2-lexical-multiple"
+ ],
+ "conditions": [
+  "c2-morph-single",
+  "c2-lex-single",
+  "c2-morph-multi",
+  "c2-lex-multi"
+ ],
+ "sampling_unit": "participant (n = AI participants per arm; paper: exp1 114 analysed; exp2 300/300/75/75 assigned, 715 analysed)",
+ "assignment_unit": "participant",
+ "observation_unit": "rating (participant x statement)",
+ "programBindings": {
+  "programId": "tesslerfranke2018",
+  "stepIds": [
+   "s1-session",
+   "s1-trials",
+   "s1-trial",
+   "s2-single",
+   "s2-single-trials",
+   "s2-single-trial",
+   "s2-multi",
+   "s2-multi-displays",
+   "s2-multi-display"
+  ],
+  "recordNodeIds": [
+   "v1-rating",
+   "v1-adj",
+   "v1-ant",
+   "rec1",
+   "v2-rating",
+   "v2-adj",
+   "v2-ant",
+   "v2-ctx",
+   "rec2"
+  ],
+  "analysisNodeIds": [
+   "an1-lmm",
+   "an1-vis",
+   "an2-single",
+   "an2-ctx",
+   "an2-3way"
+  ]
+ }
+}

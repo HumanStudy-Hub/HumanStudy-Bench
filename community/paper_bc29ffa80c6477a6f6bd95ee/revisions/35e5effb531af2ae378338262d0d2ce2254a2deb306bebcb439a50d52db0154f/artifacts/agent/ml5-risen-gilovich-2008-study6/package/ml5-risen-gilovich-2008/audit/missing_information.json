@@ -1,0 +1,85 @@
+{
+  "entries": [
+    {
+      "id": "i_nrec",
+      "study": "s1",
+      "field": "p1.n-recruited",
+      "severity": "check",
+      "reason": "Only analysed and excluded counts are in Table 2.",
+      "impact": "Cannot reconstruct flow of subjects.",
+      "suggested_action": "Take from the OSF data or leave as is."
+    },
+    {
+      "id": "i_excl",
+      "study": "s1",
+      "field": "p1.exclusion-criteria",
+      "severity": "check",
+      "reason": "The paper refers to preregistered criteria without stating them.",
+      "impact": "Exclusion rules cannot be applied to AI participants.",
+      "suggested_action": "Supply from the preregistration (https://osf.io/8y6st/)."
+    },
+    {
+      "id": "i_ncond",
+      "study": "s1",
+      "field": "p1.n-per-condition",
+      "severity": "check",
+      "reason": "Only per-site analysed n is given.",
+      "impact": "Cell sizes unknown.",
+      "suggested_action": "Take from the OSF data."
+    },
+    {
+      "id": "i_ratio",
+      "study": "s1",
+      "field": "d1.assignment-ratio",
+      "severity": "check",
+      "reason": "The paper says random assignment only.",
+      "impact": "Assignment in replay must use an implementation choice (equal allocation).",
+      "suggested_action": "Confirm equal allocation or supply the procedure."
+    },
+    {
+      "id": "i_full",
+      "study": "s1",
+      "field": "pr1.full-materials",
+      "severity": "check",
+      "reason": "Consent text appears only as a placeholder in the questionnaire.",
+      "impact": "Consent wording unknown; not part of the replay prompt.",
+      "suggested_action": "Supply the consent text if it should be shown."
+    },
+    {
+      "id": "i_step_load",
+      "study": "s1",
+      "field": "st_count",
+      "severity": "check",
+      "reason": "The paper says 'while reading' but gives no further rule (e.g., duration, response mode).",
+      "impact": "Concurrency cannot be reproduced exactly in text.",
+      "suggested_action": "Confirm how load was delivered."
+    },
+    {
+      "id": "i_ml2data",
+      "study": "s2",
+      "field": "a_ml2.inputs",
+      "severity": "check",
+      "reason": "The s2 reanalysis uses raw Many Labs 2 data that is not in the paper.",
+      "impact": "The s2 analysis cannot be re-run.",
+      "suggested_action": "Supply the data in sources/ if needed."
+    },
+    {
+      "id": "i_wording_imp",
+      "study": "s1",
+      "field": "m_new.importance",
+      "severity": "check",
+      "reason": "The paper quotes “in the scenario you just read about, how important would it be for you…”; the questionnaire prints “in the class you just read about, how important would it be to you…”.",
+      "impact": "The replay uses the printed questionnaire wording.",
+      "suggested_action": "Confirm that the printed questionnaire is the version that was administered."
+    },
+    {
+      "id": "i_order_conflict",
+      "study": "s1",
+      "field": "pr1.measure-order",
+      "severity": "check",
+      "reason": "The protocol says the new items appear at the very end; in the printed questionnaire the difficulty and effort items follow the end-number question on page 3 and only importance and negativity are last.",
+      "impact": "The replay follows the printed page order.",
+      "suggested_action": "Confirm which order was administered."
+    }
+  ]
+}

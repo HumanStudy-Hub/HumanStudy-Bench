@@ -1,0 +1,130 @@
+{
+ "entries": [
+  {
+   "id": "iss_instructions",
+   "study": "s1",
+   "field": "m_oj_prompt.instructions",
+   "severity": "decision",
+   "reason": "Only example question wordings are printed; instruction screens, response-field label and consent text are not.",
+   "impact": "The replay needs minimal framing around the printed questions; wording could influence estimates.",
+   "suggested_action": "Supply the original (German) instruction screens or approve a minimal framing."
+  },
+  {
+   "id": "iss_images",
+   "study": "s1",
+   "field": "m_items.images",
+   "severity": "decision",
+   "reason": "The images are on OSF (not consulted) and are not in the paper.",
+   "impact": "AI participants see text only; images were part of the stimulus and clarified item size.",
+   "suggested_action": "Supply the images or accept a text-only replay."
+  },
+  {
+   "id": "iss_filler",
+   "study": "s1",
+   "field": "m_filler.text",
+   "severity": "blocking",
+   "reason": "The text is described as unrelated to the study but not printed.",
+   "impact": "The control arm cannot run without inventing text, and the paper's control comparisons need it.",
+   "suggested_action": "Supply the filler text in materials/materials.json (control_filler_text)."
+  },
+  {
+   "id": "iss_city",
+   "study": "s1",
+   "field": "m_info_irrelevant.city-value-pairing",
+   "severity": "decision",
+   "reason": "Only the Basel example and the city list with approximate longitudes are given.",
+   "impact": "Pairing by rank (supported by the Basel–kiwi example) and omitting countries and flags are assumptions.",
+   "suggested_action": "Confirm the pairing and supply country names or flags."
+  },
+  {
+   "id": "iss_counter",
+   "study": "s1",
+   "field": "n_design.counterbalancing-scheme",
+   "severity": "decision",
+   "reason": "Only 'comparable frequency' is stated.",
+   "impact": "The replay uses a rotation over the six assignments of sets to roles; real scheme may differ.",
+   "suggested_action": "Provide the assignment scheme."
+  },
+  {
+   "id": "iss_alloc",
+   "study": "s1",
+   "field": "n_participants.n-randomized",
+   "severity": "check",
+   "reason": "Random assignment is stated; allocation ratio and the numbers randomized per group are not.",
+   "impact": "The replay allocates equal n per arm.",
+   "suggested_action": "Provide allocation and randomized n."
+  },
+  {
+   "id": "iss_order",
+   "study": "s1",
+   "field": "st_info",
+   "severity": "check",
+   "reason": "The step description gives timing (8 s per item) but not the order.",
+   "impact": "The replay shows values in a random order per participant.",
+   "suggested_action": "State the order."
+  },
+  {
+   "id": "iss_wording",
+   "study": "s1",
+   "field": "m_oj_prompt.figure1-example",
+   "severity": "check",
+   "reason": "Figure 1 text reads 'How many grams of sugar are in a kiwi that weighs 85 grams?' and the procedure example reads 'How many grams of sugar does a kiwi that weighs 85 grams contain?'; both are translations.",
+   "impact": "Item wording in the replay follows the procedure example.",
+   "suggested_action": "Confirm which wording was shown."
+  },
+  {
+   "id": "iss_mcmc",
+   "study": "s1",
+   "field": "a_tl.sampler-settings",
+   "severity": "check",
+   "reason": "Chains, iterations, task coding and the exact threefold-IQR rule are not given.",
+   "impact": "Bayes factors cannot be reproduced offline; evaluate() reports approximate paired comparisons and marks Bayes factors not_ready.",
+   "suggested_action": "Provide the analysis code (OSF)."
+  },
+  {
+   "id": "iss_outlier",
+   "study": "s1",
+   "field": "a_exclusions.outlier-rule",
+   "severity": "check",
+   "reason": "Seventh exclusion step lacks the reference for the interquartile range.",
+   "impact": "evaluate() uses Q3 + 3 × IQR of person-level median absolute deviations per task.",
+   "suggested_action": "Confirm in the analysis code."
+  },
+  {
+   "id": "iss_cells",
+   "study": "s1",
+   "field": "res_fig2.cell-means",
+   "severity": "check",
+   "reason": "They appear only in Figure 2.",
+   "impact": "The simulation cannot be compared with exact human means.",
+   "suggested_action": "Obtain means from the OSF data."
+  },
+  {
+   "id": "iss_compliance",
+   "study": "s1",
+   "field": "m_engagement.compliance-items",
+   "severity": "check",
+   "reason": "Described but not worded.",
+   "impact": "Not replayable; AI participants are not asked.",
+   "suggested_action": "Supply wording if needed."
+  },
+  {
+   "id": "iss_units",
+   "study": "s1",
+   "field": "m_items.items",
+   "severity": "check",
+   "reason": "Table A1 gives size in g or ml without marking which; examples only cover solid items with 'weighs … grams'.",
+   "impact": "The replay uses the printed pattern with the sizes as grams, including for drinks.",
+   "suggested_action": "Confirm the original item phrasing and units."
+  },
+  {
+   "id": "iss_alloc_rule",
+   "study": "s1",
+   "field": "n_design.assignment-rule",
+   "severity": "check",
+   "reason": "The paper says participants were randomly assigned but not how.",
+   "impact": "The replay allocates equal n per arm.",
+   "suggested_action": "State the allocation procedure."
+  }
+ ]
+}

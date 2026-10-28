@@ -1,0 +1,95 @@
+{
+  "stimuli": {
+    "status": "missing",
+    "reason": "SI Table S1 (51 events with base rates) is not in paper.pdf; only the events below are quoted in the paper (p. 6). Do not run until the full list is added.",
+    "evidenceIds": [
+      "e-stimuli",
+      "e-stim-shah",
+      "e-stim-examples"
+    ],
+    "events": [
+      {
+        "id": "novel-aircon",
+        "text": "How likely is it that the next store you visit is air conditioned?",
+        "br": 30,
+        "label": "verbatim"
+      },
+      {
+        "id": "novel-data",
+        "text": "…that you use more than 3.7GB of mobile data over the next four weeks?",
+        "br": 17,
+        "label": "verbatim"
+      }
+    ],
+    "excluded_without_base_rate": [
+      "Be exactly the same weight in 10 years’ time",
+      "Last the whole of winter without catching a minor cold"
+    ]
+  },
+  "screens": {
+    "label": "implementation",
+    "note": "The paper prints only the valence item and scale (verbatim). All other screen wording is implementation wording, missing in the paper (issue iss-wording).",
+    "intro": "You are taking part in an online survey about life events. Answer each screen as you would for yourself. You will see screens one at a time.",
+    "first_screen_placeholder": "(no screen)",
+    "answer_format": "Reply with a single number only.",
+    "e1": "Event: {event}\nWhat is the likelihood (0% to 100%) that this event will happen to you in the future?",
+    "ebr": "Event: {event}\nWhat is the likelihood (0% to 100%) that this event happens to an average person?",
+    "br": "Event: {event}\nThe actual base rate for this event is {br}%.",
+    "recall": "Please write down the base rate you were just shown for this event: {event}",
+    "recall_fix": "That was not the correct base rate. The correct base rate for \"{event}\" is {br}%. Please enter that value.",
+    "e2": "Event: {event}\nWhat is the likelihood (0% to 100%) that this event will happen to you in the future?",
+    "valence": "Event: {event}\nHow would you feel about experiencing this event?\n1 = extremely negative, 2 = somewhat negative, 3 = neither positive nor negative, 4 = somewhat positive, 5 = extremely positive",
+    "valence_item_verbatim": "How would you feel about experiencing this event?",
+    "valence_scale_verbatim": "1 = extremely negative, 2 = somewhat negative, 3 = neither positive nor negative, 4 = somewhat positive, 5 = extremely positive"
+  },
+  "studies": {
+    "study1": {
+      "parts": [
+        "Part 1 per event: E1/eBR (order by condition), BR, BR Recall, E2; Part 2: Valence Rating of every event"
+      ],
+      "conditions": {
+        "study1:e1first": "E1 then eBR",
+        "study1:ebrfirst": "eBR then E1"
+      },
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s1-p2",
+        "e-s2",
+        "e-s3"
+      ]
+    },
+    "study2": {
+      "parts": [
+        "Part 1 per event: E1/eBR, BR, BR Recall; Part 2: E2 for all events; Part 3: Valence Rating of all events"
+      ],
+      "conditions": {
+        "study2:e1first": "E1 then eBR",
+        "study2:ebrfirst": "eBR then E1"
+      },
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s1-p2",
+        "e-s2",
+        "e-s3"
+      ]
+    },
+    "study3": {
+      "parts": [
+        "Part 1 per event: E1/eBR, BR, BR Recall, Valence Rating (placement ambiguous, iss-s3-valence-place); Part 2: E2 for all events"
+      ],
+      "conditions": {
+        "study3:e1first": "E1 then eBR",
+        "study3:ebrfirst": "eBR then E1"
+      },
+      "evidenceIds": [
+        "e-s1-p1a",
+        "e-s1-p1b",
+        "e-s1-p2",
+        "e-s2",
+        "e-s3"
+      ]
+    }
+  }
+}
