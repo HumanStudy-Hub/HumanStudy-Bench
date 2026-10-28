@@ -1,0 +1,107 @@
+{
+  "package": "nyhan2015",
+  "humanSessions": 1000,
+  "agentN": 10,
+  "participantCommand": "claude -p --model haiku --strict-mcp-config --setting-sources \"\" --tools \"\" --system-prompt \"You are taking part in a study. Answer as asked.\"",
+  "mode": "sharded x6",
+  "minutes": 1.4,
+  "humanMatchesPaper": [
+    4,
+    4
+  ],
+  "agentAgrees": [
+    6,
+    8
+  ],
+  "effects": [
+    {
+      "id": "innuendo_favorable",
+      "label": "Innuendo vs control: lower favorability of Swensen",
+      "reported": 0.58,
+      "human": 0.582,
+      "human_p": 0.0,
+      "agent": 0.4,
+      "agent_p": 0.0298,
+      "humanMatchesPaper": true,
+      "agentAgrees": true
+    },
+    {
+      "id": "innuendo_bribes",
+      "label": "Innuendo vs control: higher belief he took bribes",
+      "reported": 0.78,
+      "human": 0.787,
+      "human_p": 0.0,
+      "agent": 0.5,
+      "agent_p": 0.0071,
+      "humanMatchesPaper": true,
+      "agentAgrees": true
+    },
+    {
+      "id": "denial_favorable",
+      "label": "Denial vs innuendo: repairs favorability",
+      "reported": null,
+      "human": 0.196,
+      "human_p": 0.053,
+      "agent": 0.2,
+      "agent_p": 0.2773,
+      "humanMatchesPaper": null,
+      "agentAgrees": true
+    },
+    {
+      "id": "causal_favorable",
+      "label": "Causal correction vs innuendo: repairs favorability",
+      "reported": null,
+      "human": 0.643,
+      "human_p": 0.0,
+      "agent": 0.7,
+      "agent_p": 0.0001,
+      "humanMatchesPaper": null,
+      "agentAgrees": true
+    },
+    {
+      "id": "denial_bribes",
+      "label": "Denial vs innuendo: lowers belief in bribes",
+      "reported": null,
+      "human": 0.236,
+      "human_p": 0.0142,
+      "agent": -0.0,
+      "agent_p": 1.0,
+      "humanMatchesPaper": null,
+      "agentAgrees": false
+    },
+    {
+      "id": "causal_bribes",
+      "label": "Causal correction vs innuendo: lowers belief in bribes",
+      "reported": null,
+      "human": 0.701,
+      "human_p": 0.0,
+      "agent": 0.7,
+      "agent_p": 0.0002,
+      "humanMatchesPaper": null,
+      "agentAgrees": true
+    },
+    {
+      "id": "denial_investigation",
+      "label": "Denial vs innuendo: lowers belief he resigned due to investigation",
+      "reported": 0.25,
+      "human": 0.246,
+      "human_p": 0.0003,
+      "agent": 0.2,
+      "agent_p": 0.1416,
+      "humanMatchesPaper": true,
+      "agentAgrees": false
+    },
+    {
+      "id": "causal_investigation",
+      "label": "Causal correction vs innuendo: lowers belief he resigned due to investigation",
+      "reported": 0.58,
+      "human": 0.578,
+      "human_p": 0.0,
+      "agent": 0.9,
+      "agent_p": 0.0,
+      "humanMatchesPaper": true,
+      "agentAgrees": true
+    }
+  ],
+  "note": "Agent results are a simulation; agreement with people is measured, not assumed."
+}

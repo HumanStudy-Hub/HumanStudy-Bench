@@ -1,0 +1,209 @@
+[
+ {
+  "id": "i1-instr",
+  "study": "exp1",
+  "field": "m1-text.instructions",
+  "reason": "The paper does not print the instructions shown to participants.",
+  "impact": "A replay must supply framing text; wording differences could shift ratings.",
+  "suggested_action": "Supply the original instructions from the authors' materials, or accept a minimal neutral framing recorded as a replay adaptation.",
+  "severity": "decision"
+ },
+ {
+  "id": "i1-frame",
+  "study": "exp1",
+  "field": "m1-text.sentence-frame",
+  "reason": "Only Expt. 2 gives an example sentence (\"Greg is not unhappy\"); no frame or character names are listed for Expt. 1.",
+  "impact": "Stimulus sentences must be constructed; names and frame may affect ratings.",
+  "suggested_action": "Supply the original sentences, or accept the 'NAME is (not) ADJECTIVE' frame from the Expt. 2 example as a replay adaptation.",
+  "severity": "decision"
+ },
+ {
+  "id": "i1-slider",
+  "study": "exp1",
+  "field": "m1-scale.numeric-range",
+  "reason": "Slider range and start position are not stated, and how 'positive' and 'antonym' in the endpoint labels are filled in per item is not shown in text (Fig. 4A).",
+  "impact": "Raw ratings are on an unknown numeric scale; effect sizes (b) are not comparable.",
+  "suggested_action": "Supply the original slider range and endpoint wording, or accept a documented 0-100 range with the item's own adjective words in the endpoint labels as a replay adaptation.",
+  "severity": "decision"
+ },
+ {
+  "id": "i1-order",
+  "study": "exp1",
+  "field": "d1.order",
+  "reason": "The order of the 16 trials and which 8 of 10 adjective sets per antonym type each participant sees are not stated.",
+  "impact": "Item sampling and order must be chosen for the replay.",
+  "suggested_action": "Supply the original randomization, or accept random sampling without replacement per participant as a replay adaptation.",
+  "severity": "decision"
+ },
+ {
+  "id": "i1-demo",
+  "study": "exp1",
+  "field": "p1.characteristics",
+  "reason": "Age, gender and other participant characteristics are not reported.",
+  "impact": "AI participant personas cannot be matched to the human sample.",
+  "suggested_action": "Record that no persona is specified; do not invent demographics.",
+  "severity": "check"
+ },
+ {
+  "id": "i1-completed",
+  "study": "exp1",
+  "field": "p1.n-completed",
+  "reason": "n completed is not given separately.",
+  "impact": "Randomized, completed and analysed counts cannot be distinguished.",
+  "suggested_action": "Treat 120 as recruited and 114 as analysed.",
+  "severity": "check"
+ },
+ {
+  "id": "i1-norm",
+  "study": "exp1",
+  "field": "v1-rating.transformation",
+  "reason": "The normalization formula is garbled in the PDF text layer.",
+  "impact": "The normalized plots in Fig. 5A may not be reproduced exactly.",
+  "suggested_action": "Check the formula on the page image; the text suggests rating minus participant mean, divided by participant SD.",
+  "severity": "check"
+ },
+ {
+  "id": "i1-desc",
+  "study": "exp1",
+  "field": "res1-ord.descriptives",
+  "reason": "Mean normalized ratings are plotted in Fig. 5A but not tabulated.",
+  "impact": "Cell means cannot be compared numerically with a simulation.",
+  "suggested_action": "Obtain cell means from the authors' data, or compare orderings only.",
+  "severity": "check"
+ },
+ {
+  "id": "i1-crit",
+  "study": "exp1",
+  "field": "an1-lmm.criterion",
+  "reason": "The alpha level is not stated.",
+  "impact": "Minor: the reported p-values are given.",
+  "suggested_action": "Use the reported p-values; assume the conventional .05 only if the researcher confirms.",
+  "severity": "check"
+ },
+ {
+  "id": "i1-excl",
+  "study": "exp1",
+  "field": "p1.eligibility",
+  "reason": "Exclusion for self-reported non-English native language relies on a question not printed in the paper.",
+  "impact": "Replay applies no exclusion; analysed N equals simulated N.",
+  "suggested_action": "Record as a replay adaptation.",
+  "severity": "check"
+ },
+ {
+  "id": "i2-instr",
+  "study": "exp2",
+  "field": "m2-text.instructions",
+  "reason": "Instruction text is not printed.",
+  "impact": "Replay must supply framing text.",
+  "suggested_action": "Supply original instructions, or accept minimal neutral framing as a recorded replay adaptation.",
+  "severity": "decision"
+ },
+ {
+  "id": "i2-frame",
+  "study": "exp2",
+  "field": "m2-text.sentence-frame",
+  "reason": "Only one example sentence (\"Greg is not unhappy\") is given.",
+  "impact": "Frame and names for 240 statements must be constructed.",
+  "suggested_action": "Supply original sentences, or accept 'NAME is (not) ADJECTIVE' with neutral names as a replay adaptation.",
+  "severity": "decision"
+ },
+ {
+  "id": "i2-multi",
+  "study": "exp2",
+  "field": "m2-text.multi-layout",
+  "reason": "Layout, names and order of the four simultaneous statements are only in Fig. 4B; also whether '12 trials' means 12 ratings in 3 displays of four is not explicit.",
+  "impact": "Display structure for the multiple-utterance arms must be assumed.",
+  "suggested_action": "Check Fig. 4B; the replay assumes 3 displays of four statements (12 ratings), each display from one adjective set.",
+  "severity": "decision"
+ },
+ {
+  "id": "i2-slider",
+  "study": "exp2",
+  "field": "m2-scale.numeric-range",
+  "reason": "Slider range and start position are not stated.",
+  "impact": "Raw ratings are on an unknown scale.",
+  "suggested_action": "Supply the original range, or accept a documented 0-100 range as a replay adaptation.",
+  "severity": "decision"
+ },
+ {
+  "id": "i2-order",
+  "study": "exp2",
+  "field": "d2.order",
+  "reason": "The order of trials/displays and which of the 20 adjective sets each participant sees are not stated.",
+  "impact": "Item sampling and order must be chosen for the replay.",
+  "suggested_action": "Supply original randomization, or accept random sampling without replacement per participant.",
+  "severity": "decision"
+ },
+ {
+  "id": "i2-assign",
+  "study": "exp2",
+  "field": "d2.assignment",
+  "reason": "Counts per condition are given but not how participants were assigned.",
+  "impact": "Replay runs the stated number per arm.",
+  "suggested_action": "Run the stated n per arm.",
+  "severity": "check"
+ },
+ {
+  "id": "i2-demo",
+  "study": "exp2",
+  "field": "p2.characteristics",
+  "reason": "Demographics are not reported.",
+  "impact": "AI persona cannot be matched.",
+  "suggested_action": "Do not invent demographics.",
+  "severity": "check"
+ },
+ {
+  "id": "i2-completed",
+  "study": "exp2",
+  "field": "p2.n-completed",
+  "reason": "n completed is not given.",
+  "impact": "Counts cannot be distinguished.",
+  "suggested_action": "Treat 750 as recruited and 715 as analysed.",
+  "severity": "check"
+ },
+ {
+  "id": "i2-norm",
+  "study": "exp2",
+  "field": "v2-rating.transformation",
+  "reason": "Normalization for Fig. 5B is not restated; assumed as Expt. 1.",
+  "impact": "Plotted means may differ.",
+  "suggested_action": "Check against the authors' scripts.",
+  "severity": "check"
+ },
+ {
+  "id": "i2-glyph",
+  "study": "exp2",
+  "field": "res2-morph.test",
+  "reason": "Minus signs/exponent signs in b and p values (5.3e-05, -0.011, 1.9e-11) are lost in the PDF text layer.",
+  "impact": "Values were read as the likely printed form.",
+  "suggested_action": "Check the page image of page 6.",
+  "severity": "check"
+ },
+ {
+  "id": "i2-desc",
+  "study": "exp2",
+  "field": "res2-int.descriptives",
+  "reason": "Mean normalized ratings are shown only in Fig. 5B.",
+  "impact": "Numeric comparison of cell means is impossible.",
+  "suggested_action": "Obtain data from the authors, or compare orderings only.",
+  "severity": "check"
+ },
+ {
+  "id": "i2-3way",
+  "study": "exp2",
+  "field": "an2-3way.method",
+  "reason": "The exploratory model structure is not further described.",
+  "impact": "Cannot be reproduced exactly.",
+  "suggested_action": "Reproduce as a full interaction with the same random structure.",
+  "severity": "check"
+ },
+ {
+  "id": "i2-excl",
+  "study": "exp2",
+  "field": "p2.eligibility",
+  "reason": "Exclusion relies on a self-reported native language.",
+  "impact": "Replay applies no exclusion.",
+  "suggested_action": "Record as a replay adaptation.",
+  "severity": "check"
+ }
+]

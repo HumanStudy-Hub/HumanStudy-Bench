@@ -1,0 +1,40 @@
+{
+  "package": "burton2022-optimism-neutral",
+  "sessions": 300,
+  "valid": 300,
+  "arms": [
+    "study1",
+    "study2",
+    "study3"
+  ],
+  "notMapped": [
+    {
+      "arm": "study1:e1first / study1:ebrfirst / study2:... / study3:...",
+      "reason": "The data files do not record whether E1 or eBR was asked first, so the two order arms cannot be separated. Each participant is loaded once per study with arm = condition = the study id ('study1', 'study2', 'study3')."
+    }
+  ],
+  "exclusions": "Paper p. 7: trials with E1 equal to BR are excluded (also dropped again by evaluation.evaluate), and trials whose signed update lies beyond 3 x IQR of the quartiles within their valence (negative/neutral/positive) x direction (upwards/downwards) cell are removed as outliers. load() applies this at trial level, which reproduces the paper's neutral-trial counts and means; evaluation.evaluate's own participant-level outlier rule then runs on top.",
+  "effects": [
+    {
+      "id": "asymmetry_study1",
+      "label": "study1: neutral-event update, downwards minus upwards",
+      "estimate": 9.11157929440156,
+      "p": 2.1473192232664823e-52,
+      "reported": 9.13
+    },
+    {
+      "id": "asymmetry_study2",
+      "label": "study2: neutral-event update, downwards minus upwards",
+      "estimate": 6.32527809177805,
+      "p": 1.590463965731634e-16,
+      "reported": 6.24
+    },
+    {
+      "id": "asymmetry_study3",
+      "label": "study3: neutral-event update, downwards minus upwards",
+      "estimate": 6.881705486066334,
+      "p": 2.514744092200995e-16,
+      "reported": 6.51
+    }
+  ]
+}
