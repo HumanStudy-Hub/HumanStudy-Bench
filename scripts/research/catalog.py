@@ -51,6 +51,17 @@ def strings(value: Any) -> list[str]:
     return []
 
 
+def community_description(revision: Path, manifest: dict, program: dict) -> str:
+    """Card text from the package's own overview, else the program's study titles; never new prose."""
+    for entry in manifest["files"]:
+        if re.fullmatch(r"package/[^/]+/study\.json", entry["path"]):
+            overview = json.loads((revision / entry["path"]).read_text()).get("overview")
+            if isinstance(overview, str) and overview.strip():
+                return overview.strip()
+    titles = [s.get("title") for s in program.get("studies", []) if isinstance(s.get("title"), str)]
+    return f"{len(titles)} {'study' if len(titles) == 1 else 'studies'}: " + "; ".join(titles) if titles else ""
+
+
 def project_program(program: dict) -> dict:
     """Keep complete searchable content and evidence IDs; never infer an effect estimate."""
     nodes = program.get("nodes", [])
@@ -168,6 +179,8 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
         program = json.loads((revision / "program.json").read_text())
         projection = project_program(program)
         paper = current["paper"]
+        if not paper.get("description"):
+            paper = {**paper, "description": community_description(revision, manifest, program)}
         pid = paper["id"]
         previous = papers.get(pid, {})
         papers[pid] = {**previous, **paper, **projection,
