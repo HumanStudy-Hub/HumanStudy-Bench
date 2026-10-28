@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "f48e24a02818505221f6eb045f738dcc37b02aa60070da0d1044af2655d45b7f",
-  "previousRevision": "49928dde7f36df469e39d18cc42d54eaf3798cf2e98a11e37d8c0c1cf347c51a",
+  "revision": "d5e9e8fb17b902ea0b45f8b99ec8d8e218324434190fa95b109bd742b8834b95",
+  "previousRevision": "f48e24a02818505221f6eb045f738dcc37b02aa60070da0d1044af2655d45b7f",
   "paper": {
     "title": "Large language models show amplified cognitive biases in moral decision-making",
     "authors": [
@@ -39,11 +39,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "f48e24a02818505221f6eb045f738dcc37b02aa60070da0d1044af2655d45b7f",
+    "candidateRevision": "d5e9e8fb17b902ea0b45f8b99ec8d8e218324434190fa95b109bd742b8834b95",
     "reviewer": "maintainer:assassin808",
-    "reason": "Removes the duplicate program.json and package/ copies from artifacts/agent/; the skill uses the revision's own copies. Research content is unchanged.",
+    "reason": "Adds the source record required by docs/sources-policy.md; the PDF is not included because no open license is confirmed for the version we built from. Research content is unchanged.",
     "checks": [
-      "study_core.py overview and studies run from the community layout",
+      "license looked up in OpenAlex (2026-10-28)",
+      "sha256 of the build copy recorded",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

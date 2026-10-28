@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "7778c0f1d5b66acaf6d41849fd7138bb5f1384af13a4a3cf791f9971e4716e2a",
-  "previousRevision": "fb48570d769f832b26508027c5145bae8139c5c127219e113e1a33bcad71eda9",
+  "revision": "4ed287c63f723ed8491ca41ee2ea1bd6cc9341237f35a587be1ad5795e9a9849",
+  "previousRevision": "7778c0f1d5b66acaf6d41849fd7138bb5f1384af13a4a3cf791f9971e4716e2a",
   "paper": {
     "title": "Optimism where there is none: Asymmetric belief updating observed with valence-neutral life events",
     "authors": [
@@ -41,11 +41,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "7778c0f1d5b66acaf6d41849fd7138bb5f1384af13a4a3cf791f9971e4716e2a",
+    "candidateRevision": "4ed287c63f723ed8491ca41ee2ea1bd6cc9341237f35a587be1ad5795e9a9849",
     "reviewer": "maintainer:assassin808",
-    "reason": "Removes the duplicate program.json and package/ copies from artifacts/agent/; the skill uses the revision's own copies. Research content is unchanged.",
+    "reason": "Adds the source record required by docs/sources-policy.md; the PDF is not included because no open license is confirmed for the version we built from. Research content is unchanged.",
     "checks": [
-      "study_core.py overview and studies run from the community layout",
+      "license looked up in OpenAlex (2026-10-28)",
+      "sha256 of the build copy recorded",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

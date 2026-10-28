@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "709e5609caa11976f626559462a0819af3055d12a56bd748030734877ac6863d",
-  "previousRevision": "c80615246344a6a7c009442cf382b1e31459297e9d054a0ddcf62834ae14a463",
+  "revision": "e4b2cf76624586b7917c440a744f29eaabc433b1b04fb328c99142709ff5f152",
+  "previousRevision": "709e5609caa11976f626559462a0819af3055d12a56bd748030734877ac6863d",
   "paper": {
     "title": "Laypeople Can Predict Which Social-Science Studies Will Be Replicated Successfully",
     "authors": [
@@ -39,11 +39,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "709e5609caa11976f626559462a0819af3055d12a56bd748030734877ac6863d",
+    "candidateRevision": "e4b2cf76624586b7917c440a744f29eaabc433b1b04fb328c99142709ff5f152",
     "reviewer": "maintainer:assassin808",
-    "reason": "Removes the duplicate program.json and package/ copies from artifacts/agent/; the skill uses the revision's own copies. Research content is unchanged.",
+    "reason": "Adds the source record required by docs/sources-policy.md; the PDF is not included because no open license is confirmed for the version we built from. Research content is unchanged.",
     "checks": [
-      "study_core.py overview and studies run from the community layout",
+      "license looked up in OpenAlex (2026-10-28)",
+      "sha256 of the build copy recorded",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

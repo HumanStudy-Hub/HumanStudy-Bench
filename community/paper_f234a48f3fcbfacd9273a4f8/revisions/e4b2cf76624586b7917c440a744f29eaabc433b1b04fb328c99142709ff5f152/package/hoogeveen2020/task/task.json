@@ -1,0 +1,94 @@
+{
+ "agents": [
+  {
+   "id": "p1",
+   "role": "lay forecaster",
+   "scripted": false
+  }
+ ],
+ "scriptedRoles": [],
+ "conditions": [
+  {
+   "id": "c-desc",
+   "arm": "description_only"
+  },
+  {
+   "id": "c-evid",
+   "arm": "description_plus_evidence"
+  }
+ ],
+ "order": "each participant sees the 27 study pages one at a time in an individually randomized order; the replay places the pages in one prompt in that order",
+ "visibility": "only the current page's description (plus Bayes factor and label in c-evid); no replication outcomes",
+ "samplingUnit": "participant",
+ "assignmentUnit": "participant",
+ "observationUnit": "participant x study",
+ "defaultArms": "both arms; n participants per arm",
+ "replicationOutcomes": {
+  "aviezer": "replicated",
+  "balafoutas": "replicated",
+  "derex": "replicated",
+  "duncan": "replicated",
+  "gervais": "not replicated",
+  "gneezy": "replicated",
+  "hauser": "replicated",
+  "bauer": "replicated",
+  "critcher": "not replicated",
+  "karpicke": "replicated",
+  "anderson": "not replicated",
+  "giessner": "not replicated",
+  "risen": "replicated",
+  "shafir": "not replicated",
+  "zaval": "not replicated",
+  "tversky": "not replicated",
+  "kidd": "not replicated",
+  "shah": "not replicated",
+  "zhong": "not replicated",
+  "kovacs": "replicated",
+  "lee": "not replicated",
+  "morewedge": "replicated",
+  "nishi": "replicated",
+  "pyc": "replicated",
+  "sparrow": "not replicated",
+  "wilson": "replicated",
+  "alter": "not replicated"
+ },
+ "adaptations": [
+  "attention-check item and familiarity question omitted (text unavailable)",
+  "pages shown as k / 27",
+  "English only",
+  "Brier score maps the slider to the probability of the chosen answer (issue i-brier)"
+ ],
+ "programBindings": {
+  "programId": "hoogeveen2020-laypeople-replicability",
+  "stepIds": [
+   "st-assign",
+   "st-instr",
+   "st-bfexp",
+   "st-items",
+   "st-read",
+   "st-tick",
+   "st-pred",
+   "st-conf",
+   "st-fam"
+  ],
+  "recordNodeIds": [
+   "v-pred",
+   "v-conf",
+   "v-cond",
+   "v-outcome",
+   "v-reff",
+   "v-bf",
+   "v-brier",
+   "r1"
+  ],
+  "analysisNodeIds": [
+   "a-quality",
+   "a-brier",
+   "a-acc",
+   "a-corr",
+   "a-sdt",
+   "a-bfcorr",
+   "a-experts"
+  ]
+ }
+}

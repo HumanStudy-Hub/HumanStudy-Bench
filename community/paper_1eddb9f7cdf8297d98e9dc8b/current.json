@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "1f9fff7f10134ad16873f206685943abf65f6b3105c70a390f024021571f61b4",
-  "previousRevision": "168812ce9ae9559ffbf17fc00ef952e469db4a5f5da5fc66df656c8c162b6b22",
+  "revision": "c52a639d697d24c1c01469dfd7381f367f9224b5144abd71dbc68b14b162d27c",
+  "previousRevision": "1f9fff7f10134ad16873f206685943abf65f6b3105c70a390f024021571f61b4",
   "paper": {
     "title": "Reasoning in Reference Games: Individual- vs. Population-Level Probabilistic Modeling",
     "authors": [
@@ -39,11 +39,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "1f9fff7f10134ad16873f206685943abf65f6b3105c70a390f024021571f61b4",
+    "candidateRevision": "c52a639d697d24c1c01469dfd7381f367f9224b5144abd71dbc68b14b162d27c",
     "reviewer": "maintainer:assassin808",
-    "reason": "Removes the duplicate program.json and package/ copies from artifacts/agent/; the skill uses the revision's own copies. Research content is unchanged.",
+    "reason": "Adds the source record required by docs/sources-policy.md and the paper PDF, whose CC-BY license is printed in this exact file. Research content is unchanged.",
     "checks": [
-      "study_core.py overview and studies run from the community layout",
+      "license looked up in OpenAlex (2026-10-28)",
+      "sha256 of the build copy recorded",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

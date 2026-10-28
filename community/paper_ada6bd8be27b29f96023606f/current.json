@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "a131527a6962b8e8ddc073eb452e2c1c6bf17074d663de5ee8768ce64b9f86b5",
-  "previousRevision": "8267a3d2a0c2277211696ef83c848751ac66a75f6cf711f5f604fb90bcd87d85",
+  "revision": "376f1d6dadb0bada9ffe0553fcf05d099f055551d3a2428c636230b9e76ad037",
+  "previousRevision": "a131527a6962b8e8ddc073eb452e2c1c6bf17074d663de5ee8768ce64b9f86b5",
   "paper": {
     "title": "Many Labs 2: Investigating Variation in Replicability Across Samples and Settings",
     "authors": [
@@ -41,11 +41,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "a131527a6962b8e8ddc073eb452e2c1c6bf17074d663de5ee8768ce64b9f86b5",
+    "candidateRevision": "376f1d6dadb0bada9ffe0553fcf05d099f055551d3a2428c636230b9e76ad037",
     "reviewer": "maintainer:assassin808",
-    "reason": "Removes the duplicate program.json and package/ copies from artifacts/agent/; the skill uses the revision's own copies. Research content is unchanged.",
+    "reason": "Adds the source record required by docs/sources-policy.md; the PDF is not included because no open license is confirmed for the version we built from. Research content is unchanged.",
     "checks": [
-      "study_core.py overview and studies run from the community layout",
+      "license looked up in OpenAlex (2026-10-28)",
+      "sha256 of the build copy recorded",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

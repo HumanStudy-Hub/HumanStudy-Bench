@@ -69,8 +69,13 @@ echo "=== Python tests ==="
 
 PY_FILES=$(find "$STUDY_DIR" -name "*.py" 2>/dev/null)
 if [[ -n "$PY_FILES" ]]; then
-  if python3 -m pytest "$STUDY_DIR" --tb=short -q 2>&1; then
+  status=0
+  python3 -m pytest "$STUDY_DIR" --tb=short -q 2>&1 || status=$?
+  if [[ $status -eq 0 ]]; then
     msg_pass "pytest passed"
+  elif [[ $status -eq 5 ]]; then
+    # Exit code 5: no tests collected. Study scripts without tests are not a failure.
+    echo "  No tests collected, skipping pytest."
   else
     msg_fail "pytest failed"
   fi

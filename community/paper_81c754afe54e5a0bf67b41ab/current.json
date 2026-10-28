@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "a78e4d17c53299c562d9ca428276d1cd9bb6d6e17210835c6d2c378e2d0f6b88",
-  "previousRevision": "0f48311e2aa97d26a2a5494be83527271df15e39ec4f03e2990ab6861e5b1fcc",
+  "revision": "d1f47bed324d94f3340ead6a31b3e3afd17f1df1c5a46dd9a4d6870bb21fc0cc",
+  "previousRevision": "a78e4d17c53299c562d9ca428276d1cd9bb6d6e17210835c6d2c378e2d0f6b88",
   "paper": {
     "title": "Fighting COVID-19 Misinformation on Social Media: Experimental Evidence for a Scalable Accuracy-Nudge Intervention",
     "authors": [
@@ -41,11 +41,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "a78e4d17c53299c562d9ca428276d1cd9bb6d6e17210835c6d2c378e2d0f6b88",
+    "candidateRevision": "d1f47bed324d94f3340ead6a31b3e3afd17f1df1c5a46dd9a4d6870bb21fc0cc",
     "reviewer": "maintainer:assassin808",
-    "reason": "Removes the duplicate program.json and package/ copies from artifacts/agent/; the skill uses the revision's own copies. Research content is unchanged.",
+    "reason": "Adds the source record required by docs/sources-policy.md; the PDF is not included because no open license is confirmed for the version we built from. Research content is unchanged.",
     "checks": [
-      "study_core.py overview and studies run from the community layout",
+      "license looked up in OpenAlex (2026-10-28)",
+      "sha256 of the build copy recorded",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "53b98f495a29074e8c76f570afe5ffc1dacffbfe1fbc4fcb482d18e3538d929c",
-  "previousRevision": "6bcf63df781b7a0fe0d6cc5ce8262015acf64309f119a9a0ea31bbd3cae386f9",
+  "revision": "4bf5fc8c04f4ece544f4316ca8af37b1ab3fa17de82f6ab7c765e31048b53f16",
+  "previousRevision": "53b98f495a29074e8c76f570afe5ffc1dacffbfe1fbc4fcb482d18e3538d929c",
   "paper": {
     "title": "Displacing Misinformation about Events: An Experimental Test of Causal Corrections",
     "authors": [
@@ -39,11 +39,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "53b98f495a29074e8c76f570afe5ffc1dacffbfe1fbc4fcb482d18e3538d929c",
+    "candidateRevision": "4bf5fc8c04f4ece544f4316ca8af37b1ab3fa17de82f6ab7c765e31048b53f16",
     "reviewer": "maintainer:assassin808",
-    "reason": "Removes the duplicate program.json and package/ copies from artifacts/agent/; the skill uses the revision's own copies. Research content is unchanged.",
+    "reason": "Adds the source record required by docs/sources-policy.md; the PDF is not included because no open license is confirmed for the version we built from. Research content is unchanged.",
     "checks": [
-      "study_core.py overview and studies run from the community layout",
+      "license looked up in OpenAlex (2026-10-28)",
+      "sha256 of the build copy recorded",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {
