@@ -1,0 +1,121 @@
+{
+  "entries": [
+    {
+      "id": "i-delay",
+      "study": "S1",
+      "field": "st-delay",
+      "severity": "decision",
+      "reason": "The paper says respondents completed unscramble and word search tasks to clear working memory; the appendix shows only a placeholder for the delay content. Neither task items nor duration are stated.",
+      "impact": "The replay cannot reproduce the delay. AI participants answer from the dispatches without the interference of the tasks, which may change recall and attitude judgments.",
+      "suggested_action": "Supply the task content and duration if known; otherwise keep the replay without a delay and report it as an adaptation."
+    },
+    {
+      "id": "i-recall-pos",
+      "study": "S1",
+      "field": "st-recall",
+      "severity": "check",
+      "reason": "The recall questions are in the appendix and the footnote says a three-question battery was used, but the paper does not say where in the survey they came, and the control group was not asked the second and third questions.",
+      "impact": "The recall check cannot be placed in the sequence; asking it before the outcome questions could change the outcomes.",
+      "suggested_action": "Obtain the survey flow from the authors. The replay does not administer recall."
+    },
+    {
+      "id": "i-eligibility",
+      "study": "S1",
+      "field": "eligibility",
+      "severity": "check",
+      "reason": "The paper describes the panel but gives no eligibility or exclusion rules (the supplement's reporting checklist points to pages 2-3, which do not list them).",
+      "impact": "Cannot confirm who could take part; the panel is treated as U.S. adults only as an approximation.",
+      "suggested_action": "Ask the authors or YouGov for the eligibility rules."
+    },
+    {
+      "id": "i-cells",
+      "study": "S1",
+      "field": "cell-sizes",
+      "severity": "check",
+      "reason": "Only model Ns (987, 986, 764) and the 231 control respondents not asked the investigation question can be inferred; the sizes of the innuendo, denial and causal arms are not given.",
+      "impact": "Prevents checking IPW weights and per-arm power; the replay uses equal arm sizes.",
+      "suggested_action": "Request cell sizes from the authors or the replication data."
+    },
+    {
+      "id": "i-sevariance",
+      "study": "S1",
+      "field": "se-type",
+      "severity": "check",
+      "reason": "Table 2 reports standard errors in parentheses but does not say whether they are classical or robust.",
+      "impact": "The replay's tests may differ slightly in p-values from the paper's.",
+      "suggested_action": "Check the replication data when posted."
+    },
+    {
+      "id": "i-blocks",
+      "study": "S1",
+      "field": "block-levels",
+      "severity": "check",
+      "reason": "The paper says respondents were block-randomized on their answer to the crooked question but does not list the blocks.",
+      "impact": "The four response options are assumed to be the blocks.",
+      "suggested_action": "Confirm with the authors."
+    },
+    {
+      "id": "i-weights",
+      "study": "S1",
+      "field": "v-weights",
+      "severity": "decision",
+      "reason": "YouGov survey weights and the block inverse probability weights depend on the panel and the realized assignment, which are not available.",
+      "impact": "The evaluation reports unweighted estimates, which the paper's appendix says are substantively identical to the weighted ones.",
+      "suggested_action": "Decide whether to treat unweighted OLS as the comparison model (default)."
+    },
+    {
+      "id": "i-persona",
+      "study": "S1",
+      "field": "conditions",
+      "severity": "decision",
+      "reason": "The sample is described as approximately representative of the U.S. population with 35% Democrats and 27% Republicans, but the paper reports no individual-level characteristics that a prompt could use.",
+      "impact": "Adding personas would be an unsourced choice; by default none is added.",
+      "suggested_action": "Decide whether AI participants should be given demographic or partisan backgrounds, and label that choice as a researcher decision."
+    },
+    {
+      "id": "i-demo",
+      "study": "S1",
+      "field": "characteristics",
+      "severity": "check",
+      "reason": "Details of the sample's demographic make-up are said to be available upon request; only party identification percentages and unweighted balance tables are printed.",
+      "impact": "Cannot describe the original sample fully.",
+      "suggested_action": "Request the details from the authors."
+    },
+    {
+      "id": "i-flow",
+      "study": "S1",
+      "field": "n-completed",
+      "severity": "check",
+      "reason": "The supplement's reporting checklist lists the response rate and CONSORT diagram as pending with YouGov.",
+      "impact": "Attrition before randomization is unknown.",
+      "suggested_action": "Request from the authors."
+    },
+    {
+      "id": "i-name",
+      "study": "S1",
+      "field": "m-q-fav",
+      "severity": "check",
+      "reason": "Table 1 uses 'Don Swensen' while the appendix outcome and recall questions say 'Dan Swensen'.",
+      "impact": "The replay shows both spellings exactly as printed; the inconsistency may reflect a typo in one source.",
+      "suggested_action": "Confirm with the authors which spelling respondents saw in the questions."
+    },
+    {
+      "id": "i-qorder",
+      "study": "S1",
+      "field": "st-qinv",
+      "severity": "check",
+      "reason": "The text introduces favorability, then bribes, then the investigation question; the appendix shows favorability, investigation, then bribes, and puts the investigation question on its own page.",
+      "impact": "The replay follows the appendix order.",
+      "suggested_action": "Confirm the order with the authors."
+    },
+    {
+      "id": "i-codes",
+      "study": "S1",
+      "field": "m-q-fav",
+      "severity": "check",
+      "reason": "The appendix prints bracketed numbers after each option (e.g. 'Very favorable [6]'); it is not stated whether respondents saw them or they are coding only.",
+      "impact": "The replay shows the labels only and scores them with the printed codes.",
+      "suggested_action": "Confirm with the authors."
+    }
+  ]
+}

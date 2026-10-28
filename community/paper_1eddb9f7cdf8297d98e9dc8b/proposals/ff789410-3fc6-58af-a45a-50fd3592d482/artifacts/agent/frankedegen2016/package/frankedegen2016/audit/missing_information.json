@@ -1,0 +1,193 @@
+{
+ "entries": [
+  {
+   "id": "is_supp",
+   "study": "paper",
+   "field": "openness",
+   "severity": "decision",
+   "reason": "Experiment 3 (salience priors), the derivation of idealised predictions (S1), type definitions (S2), experiment links (S3) and Bayes factor computation (S5) are in supplements that are not part of paper.pdf.",
+   "impact": "Experiment 3 is not modelled as a study; exact printed instructions, stimulus images and the salience priors needed for the R2 listener rule cannot be reproduced from the paper alone.",
+   "suggested_action": "Supply S1-S5 Text or the experiment materials in sources/ to extend the program."
+  },
+  {
+   "id": "is_e1_part",
+   "study": "exp1",
+   "field": "characteristics",
+   "severity": "check",
+   "reason": "The paper gives no age, gender or the number who completed versus started.",
+   "impact": "AI participants cannot be matched to the human sample demographically; no persona is simulated.",
+   "suggested_action": "Treat participants as unconditioned AI participants or supply demographics."
+  },
+  {
+   "id": "is_e1_part2",
+   "study": "exp1",
+   "field": "n-completed",
+   "severity": "check",
+   "reason": "Only the recruited (60) and analysed counts are reported.",
+   "impact": "Randomised, retained and analysed sizes cannot be fully distinguished.",
+   "suggested_action": "Supply the completion count."
+  },
+  {
+   "id": "is_e1_blind",
+   "study": "exp1",
+   "field": "blinding",
+   "severity": "check",
+   "reason": "The paper does not state blinding.",
+   "impact": "No effect on the replay; participants are AI.",
+   "suggested_action": "None needed unless the researcher wants a statement."
+  },
+  {
+   "id": "is_e1_instr",
+   "study": "exp1",
+   "field": "instructions",
+   "severity": "decision",
+   "reason": "The paper paraphrases what participants were told but prints no instruction text, screen or picture.",
+   "impact": "The replay prompts use a paraphrase of the reported instructions and text descriptions of objects and messages; this is a replay adaptation, not the original material.",
+   "suggested_action": "Supply the original instruction text and stimulus pictures in sources/ to make them verbatim."
+  },
+  {
+   "id": "is_e1_img",
+   "study": "exp1",
+   "field": "stimulus-images",
+   "severity": "check",
+   "reason": "The original stimuli are pictures (Fig 1) which text-only AI participants cannot see.",
+   "impact": "Objects and messages are rendered as text such as 'a green monster with a red hat'.",
+   "suggested_action": "Accept the text rendering or provide image-capable participants."
+  },
+  {
+   "id": "is_e1_fill",
+   "study": "exp1",
+   "field": "generation-rules",
+   "severity": "decision",
+   "reason": "The 18 baseline fillers are described only as unambiguous or ambiguous; the split between the two kinds, the number of distinct displays and scoring details are not stated.",
+   "impact": "The replay chooses an even split (9 and 9) and the construction rules documented in task/task.json.",
+   "suggested_action": "Supply the split and the filler construction or confirm the assumption."
+  },
+  {
+   "id": "is_e1_fb",
+   "study": "exp1",
+   "field": "feedback",
+   "severity": "check",
+   "reason": "The paper does not say whether participants received feedback on their choices.",
+   "impact": "The replay gives no feedback; if feedback existed, learning might differ.",
+   "suggested_action": "Confirm that no feedback was given."
+  },
+  {
+   "id": "is_e1_snd",
+   "study": "exp1",
+   "field": "sender",
+   "severity": "check",
+   "reason": "It is not stated whether the messages (comprehension) or the addressee (production) were real participants or scripted.",
+   "impact": "In the replay the message is the generated trigger message (a scripted stimulus) and no real addressee exists; this follows the stimulus description and is the only runnable reading.",
+   "suggested_action": "Confirm that messages were generated from the design, not taken from earlier participants."
+  },
+  {
+   "id": "is_e1_helmert",
+   "study": "exp1",
+   "field": "method",
+   "severity": "check",
+   "reason": "The contrast weights are not printed, so coefficients are only comparable with the paper up to the coding.",
+   "impact": "The evaluator uses standard Helmert weights and fixed-effects logistic regression and flags the difference to the paper's mixed-effects model.",
+   "suggested_action": "Confirm weights or run glmer externally."
+  },
+  {
+   "id": "is_e2_part",
+   "study": "exp2",
+   "field": "characteristics",
+   "severity": "check",
+   "reason": "The paper gives no age, gender or the number who completed versus started.",
+   "impact": "AI participants cannot be matched to the human sample demographically; no persona is simulated.",
+   "suggested_action": "Treat participants as unconditioned AI participants or supply demographics."
+  },
+  {
+   "id": "is_e2_part2",
+   "study": "exp2",
+   "field": "n-completed",
+   "severity": "check",
+   "reason": "Only the recruited (60) and analysed counts are reported.",
+   "impact": "Randomised, retained and analysed sizes cannot be fully distinguished.",
+   "suggested_action": "Supply the completion count."
+  },
+  {
+   "id": "is_e2_blind",
+   "study": "exp2",
+   "field": "blinding",
+   "severity": "check",
+   "reason": "The paper does not state blinding.",
+   "impact": "No effect on the replay; participants are AI.",
+   "suggested_action": "None needed unless the researcher wants a statement."
+  },
+  {
+   "id": "is_e2_instr",
+   "study": "exp2",
+   "field": "instructions",
+   "severity": "decision",
+   "reason": "The paper paraphrases what participants were told but prints no instruction text, screen or picture.",
+   "impact": "The replay prompts use a paraphrase of the reported instructions and text descriptions of objects and messages; this is a replay adaptation, not the original material.",
+   "suggested_action": "Supply the original instruction text and stimulus pictures in sources/ to make them verbatim."
+  },
+  {
+   "id": "is_e2_img",
+   "study": "exp2",
+   "field": "stimulus-images",
+   "severity": "check",
+   "reason": "The original stimuli are pictures (Fig 1) which text-only AI participants cannot see.",
+   "impact": "Objects and messages are rendered as text such as 'a green monster with a red hat'.",
+   "suggested_action": "Accept the text rendering or provide image-capable participants."
+  },
+  {
+   "id": "is_e2_fill",
+   "study": "exp2",
+   "field": "generation-rules",
+   "severity": "decision",
+   "reason": "The 18 baseline fillers are described only as unambiguous or ambiguous; the split between the two kinds, the number of distinct displays and scoring details are not stated, and which object counts as 'competitor from the simple condition' for production fillers is not defined.",
+   "impact": "The replay chooses an even split (9 and 9) and the construction rules documented in task/task.json.",
+   "suggested_action": "Supply the split and the filler construction or confirm the assumption."
+  },
+  {
+   "id": "is_e2_fb",
+   "study": "exp2",
+   "field": "feedback",
+   "severity": "check",
+   "reason": "The paper does not say whether participants received feedback on their choices.",
+   "impact": "The replay gives no feedback; if feedback existed, learning might differ.",
+   "suggested_action": "Confirm that no feedback was given."
+  },
+  {
+   "id": "is_e2_snd",
+   "study": "exp2",
+   "field": "sender",
+   "severity": "check",
+   "reason": "It is not stated whether the messages (comprehension) or the addressee (production) were real participants or scripted.",
+   "impact": "In the replay the message is the generated trigger message (a scripted stimulus) and no real addressee exists; this follows the stimulus description and is the only runnable reading.",
+   "suggested_action": "Confirm that messages were generated from the design, not taken from earlier participants."
+  },
+  {
+   "id": "is_e2_helmert",
+   "study": "exp2",
+   "field": "method",
+   "severity": "check",
+   "reason": "The contrast weights are not printed, so coefficients are only comparable with the paper up to the coding.",
+   "impact": "The evaluator uses standard Helmert weights and fixed-effects logistic regression and flags the difference to the paper's mixed-effects model.",
+   "suggested_action": "Confirm weights or run glmer externally."
+  },
+  {
+   "id": "is_mc_sal",
+   "study": "mc",
+   "field": "salience",
+   "severity": "check",
+   "reason": "Experiment 3 and S4 Text are not available in paper.pdf.",
+   "impact": "The model comparison cannot be recomputed from the simulated data without them; the evaluator returns not_ready for it.",
+   "suggested_action": "Supply S4 Text or Experiment 3 data."
+  },
+  {
+   "id": "is_mc_s5",
+   "study": "mc",
+   "field": "computation",
+   "severity": "check",
+   "reason": "The approximation procedure is deferred to S5 Text.",
+   "impact": "The Bayes factor cannot be reproduced exactly.",
+   "suggested_action": "Supply S5 Text."
+  }
+ ]
+}

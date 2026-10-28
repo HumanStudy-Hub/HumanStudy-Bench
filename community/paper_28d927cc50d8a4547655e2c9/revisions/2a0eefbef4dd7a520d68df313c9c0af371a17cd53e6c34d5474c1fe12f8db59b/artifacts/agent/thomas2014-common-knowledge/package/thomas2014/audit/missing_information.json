@@ -1,0 +1,434 @@
+[
+ {
+  "id": "iss_openness",
+  "study": "all",
+  "field": "lim_all.openness",
+  "reason": "The manuscript text does not state whether data or the full materials are shared.",
+  "impact": "Cannot verify reported cell percentages or reproduce unstated instrument wording from the paper alone.",
+  "suggested_action": "Ask the authors or the researcher for the data and full instruments.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_assign",
+  "study": "exp1",
+  "field": "design_e1.assignment",
+  "reason": "The paper says knowledge state and payoff were varied between subjects with 100 recruited per condition, but not how participants were assigned.",
+  "impact": "The replay assigns arms equally; real assignment could differ.",
+  "suggested_action": "Confirm random, equal assignment to the 16 cells and to butcher/baker, or supply the mechanism.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e1_blind",
+  "study": "exp1",
+  "field": "design_e1.blinding",
+  "reason": "Not stated.",
+  "impact": "None for the replay.",
+  "suggested_action": "None needed unless the authors report otherwise.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_completed",
+  "study": "exp1",
+  "field": "part_e1.n-completed",
+  "reason": "Only recruited (1600) and analysed (1033) are given.",
+  "impact": "Exclusion rate cannot be separated from non-completion.",
+  "suggested_action": "Obtain completion counts if needed.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_excl",
+  "study": "exp1",
+  "field": "part_e1.attrition",
+  "reason": "The paper excludes participants with incorrect answers to the payoff comprehension questions but does not say whether any single error excluded them.",
+  "impact": "The replay's exclusion rule is an implementation assumption (any incorrect payoff answer).",
+  "suggested_action": "Confirm the criterion with the authors.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_ckvals",
+  "study": "exp1",
+  "field": "mat_ck.placeholder-values",
+  "reason": "The printed message contains [today's price] and [earnings for working together]; the relation between the two amounts is not stated.",
+  "impact": "The replay must fill in both values.",
+  "suggested_action": "Decide the values (e.g. both set to the together-payoff). Recorded as a replay adaptation.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e1_butcher",
+  "study": "exp1",
+  "field": "mat_persp.butcher",
+  "reason": "Messages are given from the baker's perspective only.",
+  "impact": "Butcher participants need role-swapped text.",
+  "suggested_action": "Researcher to approve a role swap (Butcher<->Baker, bakery<->butcher shop) or supply the original.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e1_instr",
+  "study": "exp1",
+  "field": "mat_e1_instr.verbatim-text",
+  "reason": "Instructions are described in prose, not printed. A supplied replication survey (Exeter, GBP) prints similar wording but is a different instrument.",
+  "impact": "The replay presents the reported content in second person, not original wording.",
+  "suggested_action": "Supply the original instruction text or approve the reported-content version.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e1_instr_check",
+  "study": "exp1",
+  "field": "mat_e1_instr.instructions",
+  "reason": "Field is labelled reported because the wording is not printed.",
+  "impact": "Participants' reading of the task may differ from the original.",
+  "suggested_action": "Review the paraphrase against the original materials.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_price",
+  "study": "exp1",
+  "field": "mat_e1_reveal.price-wording",
+  "reason": "Only the common knowledge message prints the amount.",
+  "impact": "How the potential profit is shown in other conditions is unspecified.",
+  "suggested_action": "State the amount in the reveal (ten cents more than the sure profit); record as an adaptation.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e1_silent",
+  "study": "exp1",
+  "field": "mat_prim.public_box",
+  "reason": "The public box 'stated that the loudspeaker was silent'; exact wording not given.",
+  "impact": "Replay wording is an adaptation.",
+  "suggested_action": "Supply the original wording if available.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_decprompt",
+  "study": "exp1",
+  "field": "mat_e1_resp.decision-wording",
+  "reason": "Prompt and option labels are not printed in the paper.",
+  "impact": "Replay uses neutral wording.",
+  "suggested_action": "Supply original wording.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e1_comp",
+  "study": "exp1",
+  "field": "mat_comp.original-set",
+  "reason": "Only one example of each question set is printed; the survey source gives a full set for a replication.",
+  "impact": "Survey wording is used with a note; answer options for payoff questions are not known.",
+  "suggested_action": "Approve survey wording or supply the original.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e1_demo",
+  "study": "exp1",
+  "field": "mat_demo.items",
+  "reason": "Wording not printed.",
+  "impact": "Not used in the paper's analyses beyond sample description.",
+  "suggested_action": "None required for the replay.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_cells",
+  "study": "exp1",
+  "field": "res_main_e1.descriptives",
+  "reason": "Percentages per cell are shown in Figure 2 and not in text.",
+  "impact": "Comparison to the paper's rates needs figure reading.",
+  "suggested_action": "Read Figure 2 or obtain data.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_effdef",
+  "study": "exp1",
+  "field": "dv_eff_e1.definition",
+  "reason": "The text says the successful-coordination proportion is 'the product of the proportion of participants that tried to work together and this proportion minus one', which is not a probability as written; p x p is the evident intent.",
+  "impact": "The evaluation uses p x p.",
+  "suggested_action": "Confirm with the authors.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_vis",
+  "study": "exp1",
+  "field": "e1_decide",
+  "reason": "The paper says information was visible while answering the comprehension questions in Experiments 1-2; visibility during the decision is inferred.",
+  "impact": "The replay shows the message at decision.",
+  "suggested_action": "Confirm.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_effres",
+  "study": "exp1",
+  "field": "res_eff_e1.descriptives",
+  "reason": "Figure 3a values are not in the text.",
+  "impact": "Efficiency comparison needs figure reading.",
+  "suggested_action": "Read Figure 3a.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_ph",
+  "study": "exp1",
+  "field": "res_main_e1.descriptives",
+  "reason": "Table 1 note: all-levels tests have df 3 and adjacent tests df 1; n per comparison is the combined n of the compared cells.",
+  "impact": "None.",
+  "suggested_action": "None.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e1_cellN",
+  "study": "exp1",
+  "field": "part_e1.n-analysed",
+  "reason": "Only the combined n of compared cells (Table 1) and per-knowledge totals are given; the retained n of each of the 16 cells after exclusions is not reported.",
+  "impact": "Per-cell sample sizes of the analysed sample cannot be matched exactly.",
+  "suggested_action": "Obtain cell sizes from the data if needed.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e2_elig",
+  "study": "exp2",
+  "field": "part_e2.eligibility",
+  "reason": "US restriction is stated for Experiment 1 only.",
+  "impact": "None for the replay.",
+  "suggested_action": "None.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e2_assign",
+  "study": "exp2",
+  "field": "design_e2.assignment",
+  "reason": "Same gap as Experiment 1.",
+  "impact": "Replay assigns equally.",
+  "suggested_action": "Confirm.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e2_instr",
+  "study": "exp2",
+  "field": "mat_e2_instr.verbatim-text",
+  "reason": "Only described in prose.",
+  "impact": "Reported-content instructions are used.",
+  "suggested_action": "Supply or approve.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e2_instr_chk",
+  "study": "exp2",
+  "field": "mat_e2_instr.instructions",
+  "reason": "Labelled reported.",
+  "impact": "Same as Experiment 1.",
+  "suggested_action": "Review.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e2_amounts",
+  "study": "exp2",
+  "field": "mat_e2_instr.amounts",
+  "reason": "Inferred from 'all other aspects same as Experiment 1' and Table 2 headings.",
+  "impact": "Profit for success may differ.",
+  "suggested_action": "Confirm +$0.10.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e2_subst",
+  "study": "exp2",
+  "field": "mat_prim_e2.private_box",
+  "reason": "The paper says 'the Butcher' or 'the Baker' was replaced with 'the other merchants'; verbatim output is ungrammatical in places (e.g. 'the other merchants knows').",
+  "impact": "Replay text is as the paper describes; grammar differs from what participants may have seen.",
+  "suggested_action": "Supply original Experiment 2 text.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e2_edef",
+  "study": "exp2",
+  "field": "dv_eff_e2.definition",
+  "reason": "Figure 3b formula for four players is not given.",
+  "impact": "Evaluation computes the product of four proportions as an assumption.",
+  "suggested_action": "Confirm with the authors.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e2_paytest",
+  "study": "exp2",
+  "field": "an_pay_e2.method",
+  "reason": "Text reports sensitivity without statistics.",
+  "impact": "Cannot compare quantitatively.",
+  "suggested_action": "Read Figure 4 or obtain the data.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e2_effmeth",
+  "study": "exp2",
+  "field": "an_eff_e2.method",
+  "reason": "Same gap.",
+  "impact": "Same.",
+  "suggested_action": "Same.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e2_cells",
+  "study": "exp2",
+  "field": "res_main_e2.descriptives",
+  "reason": "Figure 4.",
+  "impact": "Same as Experiment 1.",
+  "suggested_action": "Read Figure 4.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e2_fig3",
+  "study": "exp2",
+  "field": "res_pay_e2.descriptives",
+  "reason": "Not in text.",
+  "impact": "Same.",
+  "suggested_action": "Read Figure 3b.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e3_elig",
+  "study": "exp3",
+  "field": "part_e3.eligibility",
+  "reason": "Not stated.",
+  "impact": "None.",
+  "suggested_action": "None.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e3_assign",
+  "study": "exp3",
+  "field": "design_e3.assignment",
+  "reason": "Evenly distributed across conditions only.",
+  "impact": "Replay assigns equally.",
+  "suggested_action": "Confirm.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e3_n",
+  "study": "exp3",
+  "field": "part_e3.n-analysed",
+  "reason": "Per-condition analysed n derived arithmetically.",
+  "impact": "Approximate.",
+  "suggested_action": "Confirm with data.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e3_order",
+  "study": "exp3",
+  "field": "design_e3.order",
+  "reason": "Similarity questions are 'at the beginning'; whether the statement and rating come before the scenario, and where the explanation/payoff comprehension items sit, is not stated.",
+  "impact": "Replay puts similarity first, as the questions are described.",
+  "suggested_action": "Confirm.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e3_match",
+  "study": "exp3",
+  "field": "mat_sim_told.matching",
+  "reason": "The paper does not say whether participants were really matched on answers.",
+  "impact": "If deception was used, the replay presents the same statement.",
+  "suggested_action": "Decide how to present.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e3_simtext",
+  "study": "exp3",
+  "field": "mat_sim_told.similar",
+  "reason": "Wording not printed.",
+  "impact": "Replay uses reported content.",
+  "suggested_action": "Supply original.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e3_simtext2",
+  "study": "exp3",
+  "field": "mat_sim_told.dissimilar",
+  "reason": "Wording not printed.",
+  "impact": "Same.",
+  "suggested_action": "Supply original.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e3_rate",
+  "study": "exp3",
+  "field": "mat_sim_told.rating",
+  "reason": "Not printed.",
+  "impact": "Same.",
+  "suggested_action": "Supply original.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e3_big5",
+  "study": "exp3",
+  "field": "mat_big5.items",
+  "reason": "The 50 items and response format are not in the paper.",
+  "impact": "Personality results cannot be replayed without them.",
+  "suggested_action": "Supply the Goldberg (1999) 50-item inventory and scale from the researcher; no web lookup was done.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e3_big5score",
+  "study": "exp3",
+  "field": "cov_agree_e3.scoring",
+  "reason": "Scoring not printed.",
+  "impact": "Evaluation cannot compute scale scores.",
+  "suggested_action": "Supply scoring key.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e3_compitems",
+  "study": "exp3",
+  "field": "mat_e3_comp.items",
+  "reason": "Wording of the harder test not printed.",
+  "impact": "Replay uses the survey set.",
+  "suggested_action": "Approve or supply.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e3_instr",
+  "study": "exp3",
+  "field": "mat_e3_instr.instructions",
+  "reason": "Derived from 'the $2 condition from Experiment 1'.",
+  "impact": "Same instruction caveats.",
+  "suggested_action": "Confirm.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e3_cells",
+  "study": "exp3",
+  "field": "res_sim_e3.descriptives",
+  "reason": "Figures 5-7.",
+  "impact": "Same.",
+  "suggested_action": "Read figures.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_paper_four",
+  "study": "all",
+  "field": "find_all",
+  "reason": "The General Discussion says 'the four-person game above (Experiment 3)' but the four-person game is Experiment 2.",
+  "impact": "Four-person results are assigned to Experiment 2.",
+  "suggested_action": "None unless the authors say otherwise.",
+  "severity": "check"
+ },
+ {
+  "id": "iss_e2_roles",
+  "study": "exp2",
+  "field": "mat_e2_instr.verbatim-text",
+  "reason": "Only the baker-perspective messages are printed for Experiment 1; the paper does not give the cheese maker, produce vender or butcher versions for Experiment 2.",
+  "impact": "The replay runs every Experiment 2 AI participant with the baker-perspective text, so the four roles are not distinguished.",
+  "suggested_action": "Supply role-specific wording or approve a role-swap.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e3_levelrule",
+  "study": "exp3",
+  "field": "mat_e3_comp.scoring",
+  "reason": "Table 3 note describes unclassifiable patterns but not the exact answer pattern per level.",
+  "impact": "The replay classifies from the printed message content (primary: can't tell x3; secondary: yes/no/no; tertiary: yes/yes/no; common: yes/yes/yes) after a yes to knowing the price.",
+  "suggested_action": "Confirm or supply the original coding.",
+  "severity": "decision"
+ },
+ {
+  "id": "iss_e3_memory",
+  "study": "exp3",
+  "field": "mat_e3_comp.design",
+  "reason": "Experiment 3 hid the information to make the comprehension test hard by relying on memory; a language model that receives its earlier screens in context has perfect recall.",
+  "impact": "The confusion matrix (Table 3) is likely to show far fewer errors than the original and is a weak test of representation.",
+  "suggested_action": "Treat Table 3 replay as exploratory.",
+  "severity": "check"
+ }
+]

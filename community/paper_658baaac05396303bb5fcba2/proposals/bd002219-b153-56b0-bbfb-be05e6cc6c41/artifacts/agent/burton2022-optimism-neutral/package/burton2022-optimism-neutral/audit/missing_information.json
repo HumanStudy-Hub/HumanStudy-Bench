@@ -1,0 +1,193 @@
+{
+  "entries": [
+    {
+      "id": "iss-stimuli",
+      "study": "all",
+      "field": "m-stimuli.full-list",
+      "reason": "The full list is in SI Table S1, which is not in paper.pdf or sources/. Only four events and two base rates are quoted.",
+      "impact": "No participant can be shown the stimuli; running with made-up events would break the replication.",
+      "suggested_action": "Add the SI (Table S1) to sources/ or supply the OSF materials; then extend materials.json.",
+      "severity": "blocking"
+    },
+    {
+      "id": "iss-wording",
+      "study": "all",
+      "field": "m-estimates.wording",
+      "reason": "Only the Valence Rating item and scale are quoted. The text for E1, eBR, BR display, BR Recall and E2, and any instructions, appear only as Fig. 1 screens or not at all.",
+      "impact": "The replay uses a neutral implementation wording that is not the participants' original text.",
+      "suggested_action": "Supply the Qualtrics export or screenshots; until then the adapter wording is labelled implementation.",
+      "severity": "decision"
+    },
+    {
+      "id": "iss-year",
+      "study": "all",
+      "field": "n-overview.year",
+      "reason": "No year on any page.",
+      "impact": "Metadata only.",
+      "suggested_action": "Add the year from the researcher's record if needed.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-blinding",
+      "study": "all",
+      "field": "n-design.blinding",
+      "reason": "The paper does not report what participants were told about the study.",
+      "impact": "The replay prompt must choose a framing.",
+      "suggested_action": "Provide the consent text and study description shown on Prolific.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s1-eligibility",
+      "study": "study1",
+      "field": "p-s1.eligibility",
+      "reason": "Only the UK pool restriction is reported.",
+      "impact": "Persona definition for AI participants is approximate.",
+      "suggested_action": "Provide the Prolific screening settings.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s1-pay",
+      "study": "study1",
+      "field": "p-s1.compensation",
+      "reason": "Payment is not reported.",
+      "impact": "None for the replay.",
+      "suggested_action": "Add if the researcher has it.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s1-ncomp",
+      "study": "study1",
+      "field": "p-s1.n-completed",
+      "reason": "Only 100 recruited is given, and df of 98 in the secondary analysis are not explained.",
+      "impact": "Cannot compare participant-level n with the paper.",
+      "suggested_action": "Check the OSF data.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s1-nanal",
+      "study": "study1",
+      "field": "p-s1.n-analysed",
+      "reason": "Only trial counts are given.",
+      "impact": "Same as above.",
+      "suggested_action": "Check the OSF data.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s2-eligibility",
+      "study": "study2",
+      "field": "p-s2.eligibility",
+      "reason": "Only the UK pool restriction is reported.",
+      "impact": "Persona definition for AI participants is approximate.",
+      "suggested_action": "Provide the Prolific screening settings.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s2-pay",
+      "study": "study2",
+      "field": "p-s2.compensation",
+      "reason": "Payment is not reported.",
+      "impact": "None for the replay.",
+      "suggested_action": "Add if the researcher has it.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s2-ncomp",
+      "study": "study2",
+      "field": "p-s2.n-completed",
+      "reason": "Only 100 recruited is given, and df of 98 in the secondary analysis are not explained.",
+      "impact": "Cannot compare participant-level n with the paper.",
+      "suggested_action": "Check the OSF data.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s2-nanal",
+      "study": "study2",
+      "field": "p-s2.n-analysed",
+      "reason": "Only trial counts are given.",
+      "impact": "Same as above.",
+      "suggested_action": "Check the OSF data.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s3-eligibility",
+      "study": "study3",
+      "field": "p-s3.eligibility",
+      "reason": "Only the UK pool restriction is reported.",
+      "impact": "Persona definition for AI participants is approximate.",
+      "suggested_action": "Provide the Prolific screening settings.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s3-pay",
+      "study": "study3",
+      "field": "p-s3.compensation",
+      "reason": "Payment is not reported.",
+      "impact": "None for the replay.",
+      "suggested_action": "Add if the researcher has it.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s3-ncomp",
+      "study": "study3",
+      "field": "p-s3.n-completed",
+      "reason": "Only 100 recruited is given, and df of 98 in the secondary analysis are not explained.",
+      "impact": "Cannot compare participant-level n with the paper.",
+      "suggested_action": "Check the OSF data.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s3-nanal",
+      "study": "study3",
+      "field": "p-s3.n-analysed",
+      "reason": "Only trial counts are given.",
+      "impact": "Same as above.",
+      "suggested_action": "Check the OSF data.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s2-counterbalance",
+      "study": "study2",
+      "field": "cond-s2-e1first",
+      "reason": "The paper says Study 2 followed Study 1 and Study 3 mirrored it except for the stated change; it does not restate the counterbalancing.",
+      "impact": "The two order conditions in Studies 2 and 3 are inherited, not directly reported.",
+      "suggested_action": "Confirm in the OSF materials.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s3-valence-place",
+      "study": "study3",
+      "field": "s3-val",
+      "reason": "'the ordering of E2 and Valence Rating were swapped' could mean rating inside each trial or as a block before Part 2.",
+      "impact": "Changes what the participant knows and sees when giving E2.",
+      "suggested_action": "Check Fig. 1 (Study 3 schematic) or the Qualtrics file.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-s2-order",
+      "study": "study2",
+      "field": "sim-s2",
+      "reason": "Study 1 states a randomized order for both parts; Studies 2-3 only say they followed Study 1.",
+      "impact": "Replay assumes randomized order in every part.",
+      "suggested_action": "Confirm in the OSF materials.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-exclusion-detail",
+      "study": "all",
+      "field": "a-exclusion.criterion",
+      "reason": "'Mean updates in each of the six conditions were calculated and outliers were removed (±3 × IQR)'; it is unclear whether trials or participant means are trimmed.",
+      "impact": "Counts of excluded trials differ if the wrong unit is trimmed.",
+      "suggested_action": "Compare with the OSF code.",
+      "severity": "check"
+    },
+    {
+      "id": "iss-si",
+      "study": "agg123",
+      "field": "a-further.coding",
+      "reason": "SI Tables S1-S3, Supplementary Analyses 1.1-1.6 and Study 4 are only cited.",
+      "impact": "The formulas for the Bayesian, learning-rate and regression analyses and the maximal LMMs cannot be reproduced.",
+      "suggested_action": "Add the SI to sources/.",
+      "severity": "check"
+    }
+  ]
+}

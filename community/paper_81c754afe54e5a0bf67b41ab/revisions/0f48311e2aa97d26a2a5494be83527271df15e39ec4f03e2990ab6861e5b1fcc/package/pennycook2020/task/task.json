@@ -1,0 +1,89 @@
+{
+ "study": "pennycook2020_covid_accuracy_nudge",
+ "agents": [
+  {
+   "id": "participant",
+   "kind": "ai_participant",
+   "description": "One fresh model call per original human participant. No demographic persona is assigned because the paper does not define one for the replay."
+  }
+ ],
+ "scripted_roles": [],
+ "scripted_roles_note": "None: the paper describes no confederates or experimenters acting in the task.",
+ "roles": [
+  "participant"
+ ],
+ "arms": [
+  {
+   "arm": "study1/accuracy",
+   "condition": "cond_s1_accuracy"
+  },
+  {
+   "arm": "study1/sharing",
+   "condition": "cond_s1_sharing"
+  },
+  {
+   "arm": "study2/control",
+   "condition": "cond_s2_control"
+  },
+  {
+   "arm": "study2/treatment",
+   "condition": "cond_s2_treatment"
+  }
+ ],
+ "order": "Study 2 treatment: pretest headline, then 30 headlines in random order. All other arms: 30 headlines in random order.",
+ "visibility": "Each participant sees only the headlines, the question and the options; no other participant's data and no veracity labels.",
+ "sampling_unit": "participant",
+ "assignment_unit": "participant",
+ "observation_unit": "participant x headline rating",
+ "n_semantics": "run_sessions(n=...) runs n AI participants per arm.",
+ "replay_adaptations": [
+  "Each participant's session is one prompt that presents the 30 headlines in a random order and collects all answers as one JSON object; the original showed one headline at a time.",
+  "Headlines are text only; the pictures and lede sentences are not available.",
+  "Survey instructions are replay scaffolding (materials.replay_frame), not the original text.",
+  "Individual-differences measures, COVID-19 questions, screeners and debriefing are not replayed.",
+  "Participants are not given a demographic persona; random assignment is replaced by an exact number of AI participants per arm.",
+  "Study 2 treatment: the pretest headline is text only (no picture) and is drawn at random from the four printed headlines per participant because the assignment rule is not stated (iss_s2_pretest_assign)."
+ ],
+ "programBindings": {
+  "programId": "pennycook2020_covid_accuracy_nudge",
+  "stepIds": [
+   "st_s1_covidq",
+   "st_s1_news_acc",
+   "st_s1_item_acc",
+   "st_s1_news_share",
+   "st_s1_item_share",
+   "st_s1_indiff",
+   "st_s1_screeners",
+   "st_s1_debrief",
+   "st_s2_pretest",
+   "st_s2_share",
+   "st_s2_item",
+   "st_s2_indiff",
+   "st_s2_screeners",
+   "st_s2_debrief",
+   "st_s3_compute"
+  ],
+  "recordNodeIds": [
+   "v_veracity",
+   "v_cond_s1",
+   "v_resp_s1",
+   "v_discern_s1",
+   "v_indiff",
+   "v_covid_att",
+   "rec_s1",
+   "v_treat",
+   "v_share_s2",
+   "v_discern_s2",
+   "rec_s2",
+   "v_item_acc",
+   "v_item_effect"
+  ],
+  "analysisNodeIds": [
+   "a_s1_main",
+   "a_s1_indiff",
+   "a_s2_main",
+   "a_s2_mod",
+   "a_s3"
+  ]
+ }
+}

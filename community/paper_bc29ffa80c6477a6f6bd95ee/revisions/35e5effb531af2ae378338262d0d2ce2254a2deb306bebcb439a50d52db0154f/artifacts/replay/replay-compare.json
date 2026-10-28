@@ -1,0 +1,41 @@
+{
+  "package": "ml5-risen-gilovich-2008",
+  "humanSessions": 754,
+  "agentN": 10,
+  "participantCommand": "claude -p --model haiku --strict-mcp-config --setting-sources \"\" --tools \"\" --system-prompt \"You are taking part in a study. Answer as asked.\"",
+  "mode": "parallel",
+  "minutes": 0.3,
+  "humanMatchesPaper": [
+    2,
+    2
+  ],
+  "agentAgrees": [
+    2,
+    2
+  ],
+  "effects": [
+    {
+      "id": "tempting_fate_main",
+      "label": "Tempting fate raises likelihood (no-load condition, 0-10 points)",
+      "reported": 0.11,
+      "human": 0.108,
+      "human_p": 0.5948699037949466,
+      "agent": 0.5,
+      "agent_p": 0.39836912317688045,
+      "humanMatchesPaper": true,
+      "agentAgrees": true
+    },
+    {
+      "id": "tempting_fate_x_load",
+      "label": "Tempting fate x cognitive load interaction (0-10 points)",
+      "reported": -0.02,
+      "human": -0.025,
+      "human_p": 0.9333872049841703,
+      "agent": -0.9,
+      "agent_p": 0.2842804043771695,
+      "humanMatchesPaper": true,
+      "agentAgrees": true
+    }
+  ],
+  "note": "Agent results are a simulation; agreement with people is measured, not assumed."
+}

@@ -1,0 +1,211 @@
+{
+ "entries": [
+  {
+   "id": "i01_cap_materials",
+   "study": "s1",
+   "field": "m1_cap_rest.vignettes",
+   "severity": "decision",
+   "reason": "Only the Volunteering example is in the SI; the others are in the online repository and the slider endpoints are not stated.",
+   "impact": "The collective action half of Study 1 and the altruism score cannot be replayed.",
+   "suggested_action": "Supply the vignette texts and slider ranges (osf.io/3kvjd or osf.io/ybdr9) before replaying them."
+  },
+  {
+   "id": "i02_cap_slider",
+   "study": "s1",
+   "field": "m1_cap_vol.slider-range",
+   "severity": "decision",
+   "reason": "The response scale of the one printed collective action problem is not given.",
+   "impact": "Altruism cannot be normalised without the range.",
+   "suggested_action": "Supply the slider endpoints."
+  },
+  {
+   "id": "i03_human_instructions",
+   "study": "s1",
+   "field": "p1.human-instructions",
+   "severity": "decision",
+   "reason": "The SI prints the LLM system prompts that were \"designed to mimic\" a psychology experiment; the human instruction screen is not reproduced.",
+   "impact": "The replay uses the SI S4.1 text as the participant instruction; whether humans read it is unknown.",
+   "suggested_action": "Supply the Qualtrics instruction text if available."
+  },
+  {
+   "id": "i04_human_response",
+   "study": "s1",
+   "field": "p1.human-response-format",
+   "severity": "check",
+   "reason": "The paper does not state how humans entered a yes/no answer.",
+   "impact": "The replay asks for the answer \"yes\" or \"no\" as the printed question implies.",
+   "suggested_action": "Confirm the response buttons from the Qualtrics file."
+  },
+  {
+   "id": "i05_s1_attention",
+   "study": "s1",
+   "field": "p1.attention-check",
+   "severity": "check",
+   "reason": "Two checks asked about details of a dilemma on the previous page.",
+   "impact": "Exclusion rule (nine of 294) cannot be re-run exactly.",
+   "suggested_action": "Supply the attention-check items."
+  },
+  {
+   "id": "i06_random_effects",
+   "study": "s1",
+   "field": "a1_hum.random-effects",
+   "severity": "check",
+   "reason": "The paper names a linear mixed-effects model but not its random effects.",
+   "impact": "The human framing effect cannot be reproduced exactly.",
+   "suggested_action": "Supply the R code or model formula."
+  },
+  {
+   "id": "i07_instruction_variant",
+   "study": "s1",
+   "field": "m_resp.text",
+   "severity": "check",
+   "reason": "SI S3 says the statement \"Please answer only with yes or no.\" was added after each vignette, but the printed Rope Ladder example ends \"Please answer with yes or no.\"",
+   "impact": "The replay uses the \"only\" wording stated in the S3 introduction.",
+   "suggested_action": "Confirm which wording was used."
+  },
+  {
+   "id": "i08_s1_p_values",
+   "study": "s1",
+   "field": "r1_cap.effect",
+   "severity": "check",
+   "reason": "The text gives r = 0.77, p = .002 (GPT-4-turbo) and r = 0.70, p < .001 (GPT-4o) while Table S3 lists p = .016 and p = .036.",
+   "impact": "Reported significance of two correlations is uncertain.",
+   "suggested_action": "Check against the authors' data."
+  },
+  {
+   "id": "i10_s2_recruitment",
+   "study": "s2",
+   "field": "n2_h.recruitment",
+   "severity": "check",
+   "reason": "The Methods say \"We recruited 501 participants\" and the Results say \"a U.S. sample\".",
+   "impact": "Sample description for any replay is incomplete.",
+   "suggested_action": "Confirm platform and sampling (likely stated in the preregistration)."
+  },
+  {
+   "id": "i11_s2_n",
+   "study": "s2",
+   "field": "n2_h.n-analysed",
+   "severity": "check",
+   "reason": "The Methods give 501 recruited, 11 excluded and N = 474; the Results text says 490 participants (501 - 11 = 490).",
+   "impact": "The analysed sample is uncertain; gender counts (237 + 236 + 1) sum to 474.",
+   "suggested_action": "Confirm with the authors."
+  },
+  {
+   "id": "i12_s2_attention",
+   "study": "s2",
+   "field": "p2.attention-check",
+   "severity": "check",
+   "reason": "Only \"what the scenario was about\" is stated.",
+   "impact": "Exclusions cannot be reproduced; order relative to the decision is unknown so no order edge is drawn.",
+   "suggested_action": "Supply the item and its position."
+  },
+  {
+   "id": "i13_s2_attention_order",
+   "study": "s2",
+   "field": "s2_attention",
+   "severity": "check",
+   "reason": "No sentence places the check before or after the decision.",
+   "impact": "No next edge from the decision to the check.",
+   "suggested_action": "Confirm from the Qualtrics flow."
+  },
+  {
+   "id": "i14_s2_13scen",
+   "study": "s2",
+   "field": "p2.prompt-scenario-count",
+   "severity": "check",
+   "reason": "SI S4.1 ends \"You will be shown a total of 13 scenarios\" but Study 2 participants saw one vignette; the paper does not say the text was changed.",
+   "impact": "The replay keeps the printed prompt unchanged.",
+   "suggested_action": "Confirm the Study 2 prompt wording."
+  },
+  {
+   "id": "i15_s2_contrasts",
+   "study": "s2",
+   "field": "a2.contrasts",
+   "severity": "check",
+   "reason": "Only F and t statistics are reported; dfs of the t-tests are not explained.",
+   "impact": "The statistics cannot be reproduced exactly from the description.",
+   "suggested_action": "Supply the analysis script."
+  },
+  {
+   "id": "i16_s2_queries",
+   "study": "s2",
+   "field": "n2_l.queries",
+   "severity": "check",
+   "reason": "SI says \"56 times per vignette\" and \"twice as many answers ... per vignette than answers given by participants\".",
+   "impact": "The number of LLM responses per cell is ambiguous.",
+   "suggested_action": "Check the online repository."
+  },
+  {
+   "id": "i20_s3_materials",
+   "study": "s3",
+   "field": "m3_rest.vignettes",
+   "severity": "decision",
+   "reason": "Only Roommate (original) and the reframed questions are printed; the other five dilemmas and all reframed vignette texts are at the OSF repository.",
+   "impact": "Study 3 cannot be replayed from the paper.",
+   "suggested_action": "Supply osf.io/3ahrb materials."
+  },
+  {
+   "id": "i21_s3_om_text",
+   "study": "s3",
+   "field": "m3_roommate.om-text",
+   "severity": "decision",
+   "reason": "Only a parenthetical description of the rewritten setting is given.",
+   "impact": "The Roommate omission condition cannot be reproduced.",
+   "suggested_action": "Supply the text."
+  },
+  {
+   "id": "i22_s3_n",
+   "study": "s3",
+   "field": "n3_h.n-analysed",
+   "severity": "check",
+   "reason": "Methods: 497 recruited, 4 excluded, N = 491; Results: 493 participants (497 - 4 = 493). Demographic counts sum to 491.",
+   "impact": "The analysed sample is uncertain.",
+   "suggested_action": "Confirm with the authors."
+  },
+  {
+   "id": "i23_s3_attention",
+   "study": "s3",
+   "field": "p3.attention-check",
+   "severity": "check",
+   "reason": "Only \"a preregistered attention check\" is stated.",
+   "impact": "Exclusions cannot be reproduced.",
+   "suggested_action": "Supply the item."
+  },
+  {
+   "id": "i24_s3_instructions",
+   "study": "s3",
+   "field": "p3.human-instructions",
+   "severity": "check",
+   "reason": "The text says the LLM prompt was shortened to match what participants saw.",
+   "impact": "The participant instruction cannot be transcribed.",
+   "suggested_action": "Supply the instruction text."
+  },
+  {
+   "id": "i25_s3_attn_order",
+   "study": "s3",
+   "field": "s3_attention",
+   "severity": "check",
+   "reason": "No sentence places the check relative to the decision.",
+   "impact": "No next edge is drawn.",
+   "suggested_action": "Confirm from the survey flow."
+  },
+  {
+   "id": "i30_s4_checkpoint",
+   "study": "s4",
+   "field": "n4_l.checkpoint",
+   "severity": "check",
+   "reason": "The paper points to Binz et al. for the Centaur links and does not name the pre-trained checkpoint size.",
+   "impact": "Study 4 cannot be re-run from this paper alone.",
+   "suggested_action": "Supply checkpoint names."
+  },
+  {
+   "id": "i31_s4_analysis",
+   "study": "s4",
+   "field": "a4.method",
+   "severity": "check",
+   "reason": "No Methods paragraph describes the Study 4 tests.",
+   "impact": "The reported F tests cannot be reproduced exactly.",
+   "suggested_action": "Supply the analysis script."
+  }
+ ]
+}
