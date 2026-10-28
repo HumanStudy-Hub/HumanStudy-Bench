@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "fabc197017f7ba6ed8e2202e31ef15d4bfbbbbe97829dabc5b74fdd10d5fe709",
-  "previousRevision": "2a0eefbef4dd7a520d68df313c9c0af371a17cd53e6c34d5474c1fe12f8db59b",
+  "revision": "c88d80462fa1bd54f8ac0bdc327322604e7da5872e8004aac8f990594bfee065",
+  "previousRevision": "fabc197017f7ba6ed8e2202e31ef15d4bfbbbbe97829dabc5b74fdd10d5fe709",
   "paper": {
     "title": "The Psychology of Coordination and Common Knowledge",
     "authors": [
@@ -41,11 +41,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "fabc197017f7ba6ed8e2202e31ef15d4bfbbbbe97829dabc5b74fdd10d5fe709",
+    "candidateRevision": "c88d80462fa1bd54f8ac0bdc327322604e7da5872e8004aac8f990594bfee065",
     "reviewer": "maintainer:assassin808",
-    "reason": "Removes the duplicate program.json and package/ copies from artifacts/agent/; the skill uses the revision's own copies. Research content is unchanged.",
+    "reason": "Adds the source record required by docs/sources-policy.md; the PDF is not included because no open license is confirmed for the version we built from. Research content is unchanged.",
     "checks": [
-      "study_core.py overview and studies run from the community layout",
+      "license looked up in OpenAlex (2026-10-28)",
+      "sha256 of the build copy recorded",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

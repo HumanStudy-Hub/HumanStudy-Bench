@@ -1,0 +1,122 @@
+{
+ "programBindings": {
+  "programId": "cheung2025moral",
+  "stepIds": [
+   "s1_assign",
+   "s1_moral_a",
+   "s1_cap_a",
+   "s1_cap_b",
+   "s1_moral_b",
+   "s1_trial_moral",
+   "s1_trial_cap",
+   "s1_llm_run",
+   "s1_llm_trial",
+   "s2_assign",
+   "s2_decide",
+   "s2_attention",
+   "s2_llm_run",
+   "s2_llm_trial",
+   "s3_assign",
+   "s3_decide",
+   "s3_attention",
+   "s3_llm_run",
+   "s3_llm_trial",
+   "s4_llm_run",
+   "s4_llm_trial"
+  ],
+  "recordNodeIds": [
+   "v1_cbr",
+   "v1_framing",
+   "v1_agent",
+   "v1_altruism",
+   "v2_cbr",
+   "v2_yn",
+   "v2_om",
+   "v2_agent",
+   "v3_approve",
+   "v3_fr",
+   "v4"
+  ],
+  "analysisNodeIds": [
+   "a1_llm",
+   "a1_hum",
+   "a1_cap",
+   "a1_corr",
+   "a2",
+   "a3",
+   "a4"
+  ]
+ },
+ "sampling_unit": "participant: one AI participant per original human participant; n is participants per arm",
+ "agents": [
+  {
+   "id": "participant",
+   "role": "decision-maker who reads the vignette and answers (original human participants in Studies 1 and 2)",
+   "kind": "ai_participant",
+   "replaces": [
+    "n1_h",
+    "n2_h"
+   ]
+  }
+ ],
+ "scripted_roles": [],
+ "arms": [
+  {
+   "id": "s1_moral_sequential",
+   "study": "s1",
+   "conditions": [
+    "c1_action",
+    "c1_omission"
+   ],
+   "description": "Each AI participant answers all 13 moral dilemmas in one session, in a random order, seeing the earlier vignettes and its own earlier answers."
+  },
+  {
+   "id": "s2_original",
+   "study": "s2",
+   "conditions": [
+    "c2_orig"
+   ],
+   "description": "Original framing; each AI participant answers one of the six dilemmas."
+  },
+  {
+   "id": "s2_yes_no",
+   "study": "s2",
+   "conditions": [
+    "c2_yn"
+   ],
+   "description": "Yes-No reframing; one dilemma each."
+  },
+  {
+   "id": "s2_omission",
+   "study": "s2",
+   "conditions": [
+    "c2_om"
+   ],
+   "description": "Action-Omission reframing; one dilemma each."
+  }
+ ],
+ "order": {
+  "s1": "vignette order randomised per participant (seeded); block order not replayed (only moral dilemmas)",
+  "s2": "one vignette per participant; vignettes assigned in a seeded, balanced shuffle"
+ },
+ "visibility": {
+  "s1": "earlier vignettes and the participant's own answers in this run",
+  "s2": "the vignette only"
+ },
+ "observation_units": {
+  "s1": "one response to one vignette",
+  "s2": "one response by one participant"
+ },
+ "assignment": "Within each arm the six Study 2 dilemmas are assigned in a balanced, seeded shuffle (between-subjects).",
+ "replay_adaptations": [
+  "The participant instruction is the SI S4.1 participant prompt (the human instruction text is not printed); the sentence \"You will be shown a total of 13 scenarios\" is kept unchanged in both studies.",
+  "Human response format is not printed; the AI participant answers yes or no after the appended instruction \"Please answer only with yes or no.\"",
+  "In Study 1 the session text lists earlier vignettes with the participant's own answers (\"Your answer: ...\") to carry what a person remembers; this scaffolding is not from the paper."
+ ],
+ "not_replayed": [
+  "Study 1 collective action problems (vignettes and slider ranges not available)",
+  "Study 3 (vignettes not available)",
+  "Study 4 (the subjects are specific models; no human participants)",
+  "LLM arms, advice/expert/silicon prompts and the human-versus-LLM ANOVAs"
+ ]
+}

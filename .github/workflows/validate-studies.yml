@@ -41,7 +41,14 @@ jobs:
       - name: Verify contributor attribution
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          AUTHOR_ASSOCIATION: ${{ github.event.pull_request.author_association }}
         run: |
+          # Attribution credits people who submit studies. Maintainer edits to existing studies
+          # (owners and organization members) do not add the maintainer as a contributor.
+          if [ "$AUTHOR_ASSOCIATION" = "OWNER" ] || [ "$AUTHOR_ASSOCIATION" = "MEMBER" ]; then
+            echo "Maintainer PR ($AUTHOR_ASSOCIATION): contributor attribution not required."
+            exit 0
+          fi
           # A failed diff must fail the job, never read as "no studies changed".
           CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- studies/)
           CHANGED_STUDIES=$(printf '%s\n' "$CHANGED_FILES" | grep -oP 'studies/[^/]+' | sort -u || true)
