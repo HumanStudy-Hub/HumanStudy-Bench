@@ -41,12 +41,13 @@ jobs:
       - name: Verify contributor attribution
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-          AUTHOR_ASSOCIATION: ${{ github.event.pull_request.author_association }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           # Attribution credits people who submit studies. Maintainer edits to existing studies
-          # (owners and organization members) do not add the maintainer as a contributor.
-          if [ "$AUTHOR_ASSOCIATION" = "OWNER" ] || [ "$AUTHOR_ASSOCIATION" = "MEMBER" ]; then
-            echo "Maintainer PR ($AUTHOR_ASSOCIATION): contributor attribution not required."
+          # (admin or maintain permission on this repository) do not add the maintainer as a contributor.
+          PERMISSION=$(gh api "repos/${{ github.repository }}/collaborators/$PR_AUTHOR/permission" --jq .role_name 2>/dev/null || echo none)
+          if [ "$PERMISSION" = "admin" ] || [ "$PERMISSION" = "maintain" ]; then
+            echo "Maintainer PR ($PERMISSION): contributor attribution not required."
             exit 0
           fi
           # A failed diff must fail the job, never read as "no studies changed".
