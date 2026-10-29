@@ -183,11 +183,14 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
             paper = {**paper, "description": community_description(revision, manifest, program)}
         pid = paper["id"]
         previous = papers.get(pid, {})
+        declared = revision / "capabilities.json"  # what the study can do, with reasons (desktop #45)
+        study_caps = json.loads(declared.read_text()) if any(e["path"] == "capabilities.json" for e in manifest["files"]) else None
         papers[pid] = {**previous, **paper, **projection,
                        "aliases": sorted(set(previous.get("aliases", []) + paper.get("aliases", []))),
                        "currentRevision": current["revision"],
                        "assetRoot": revision.relative_to(root).as_posix(), "assetFiles": manifest["files"],
                        "coverage": "human-program", "capabilities": current["capabilities"],
+                       **({"studyCapabilities": study_caps} if study_caps else {}),
                        "conceptIds": previous.get("conceptIds", []),
                        "conceptAssignments": previous.get("conceptAssignments", [])}
 

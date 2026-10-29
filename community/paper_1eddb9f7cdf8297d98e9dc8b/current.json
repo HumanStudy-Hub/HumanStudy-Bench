@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "c52a639d697d24c1c01469dfd7381f367f9224b5144abd71dbc68b14b162d27c",
-  "previousRevision": "1f9fff7f10134ad16873f206685943abf65f6b3105c70a390f024021571f61b4",
+  "revision": "5171e8b03bb1468af1c9859d18146a541ea1353cd44f70ff691cc63d1094c7a1",
+  "previousRevision": "c52a639d697d24c1c01469dfd7381f367f9224b5144abd71dbc68b14b162d27c",
   "paper": {
     "title": "Reasoning in Reference Games: Individual- vs. Population-Level Probabilistic Modeling",
     "authors": [
@@ -39,12 +39,14 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "c52a639d697d24c1c01469dfd7381f367f9224b5144abd71dbc68b14b162d27c",
+    "candidateRevision": "5171e8b03bb1468af1c9859d18146a541ea1353cd44f70ff691cc63d1094c7a1",
     "reviewer": "maintainer:assassin808",
-    "reason": "Adds the source record required by docs/sources-policy.md and the paper PDF, whose CC-BY license is printed in this exact file. Research content is unchanged.",
+    "reason": "Study contract (humanstudy-desktop#45 milestone 1): slim package (study.json refers to program.json; the evidence and missing-information copies are dropped), capabilities.json derived from existing files, failure cases restating recorded gaps, and the agent skill re-exported with the capabilities tool and refusals. Research content is unchanged.",
     "checks": [
-      "license looked up in OpenAlex (2026-10-28)",
-      "sha256 of the build copy recorded",
+      "capabilities.py --check",
+      "check_package.py on the slim package (bindings, adapter smoke test)",
+      "agent export self-test (files and hashes, studies render, MCP tools respond)",
+      "study_core.py overview and capabilities from the community layout",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

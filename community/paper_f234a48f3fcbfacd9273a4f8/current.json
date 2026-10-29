@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "e4b2cf76624586b7917c440a744f29eaabc433b1b04fb328c99142709ff5f152",
-  "previousRevision": "709e5609caa11976f626559462a0819af3055d12a56bd748030734877ac6863d",
+  "revision": "9b143ac2432f71d91daa1ed677706e08d12702c009990751cdf57d759b3308ca",
+  "previousRevision": "e4b2cf76624586b7917c440a744f29eaabc433b1b04fb328c99142709ff5f152",
   "paper": {
     "title": "Laypeople Can Predict Which Social-Science Studies Will Be Replicated Successfully",
     "authors": [
@@ -39,12 +39,14 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "e4b2cf76624586b7917c440a744f29eaabc433b1b04fb328c99142709ff5f152",
+    "candidateRevision": "9b143ac2432f71d91daa1ed677706e08d12702c009990751cdf57d759b3308ca",
     "reviewer": "maintainer:assassin808",
-    "reason": "Adds the source record required by docs/sources-policy.md; the PDF is not included because no open license is confirmed for the version we built from. Research content is unchanged.",
+    "reason": "Study contract (humanstudy-desktop#45 milestone 1): slim package (study.json refers to program.json; the evidence and missing-information copies are dropped), capabilities.json derived from existing files, failure cases restating recorded gaps, and the agent skill re-exported with the capabilities tool and refusals. Research content is unchanged.",
     "checks": [
-      "license looked up in OpenAlex (2026-10-28)",
-      "sha256 of the build copy recorded",
+      "capabilities.py --check",
+      "check_package.py on the slim package (bindings, adapter smoke test)",
+      "agent export self-test (files and hashes, studies render, MCP tools respond)",
+      "study_core.py overview and capabilities from the community layout",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

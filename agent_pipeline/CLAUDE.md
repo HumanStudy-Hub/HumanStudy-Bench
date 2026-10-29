@@ -108,6 +108,16 @@ materials are allowed. JSON fields may vary by study, but every JSON file must
 contain valid JSON and explain study-specific fields in plain language. Use
 relative paths for all internal file references.
 
+This standalone layout is for packages built here, which have no `program.json`
+beside them. Inside a desktop project or a community paper (`community/<paper>/`)
+the package is slim (humanstudy-desktop#45): `study.json` carries
+`programRef: {"path": "../../program.json", "id": ...}` instead of a program copy,
+and `source/evidence.json` and `audit/missing_information.json` are not written,
+because the program's `evidence` and `issues` hold that information. Such a
+paper also has `capabilities.json` (what it can do, with reasons) and
+`artifacts/failures.json` (where the template does not fit).
+`scripts/research/revisions.py` accepts both layouts.
+
 `study.json` is the researcher-facing overview. It must include the paper,
 empirical studies, participant flow, conditions, outcomes, package entry point,
 readiness status, and any user-authorized external sources consulted.

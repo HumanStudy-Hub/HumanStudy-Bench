@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "d5e9e8fb17b902ea0b45f8b99ec8d8e218324434190fa95b109bd742b8834b95",
-  "previousRevision": "f48e24a02818505221f6eb045f738dcc37b02aa60070da0d1044af2655d45b7f",
+  "revision": "0744f99400d9d97ca9b13f3df220c7c5506d2dd91f6c1532daaa73d35835e306",
+  "previousRevision": "d5e9e8fb17b902ea0b45f8b99ec8d8e218324434190fa95b109bd742b8834b95",
   "paper": {
     "title": "Large language models show amplified cognitive biases in moral decision-making",
     "authors": [
@@ -39,12 +39,14 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "d5e9e8fb17b902ea0b45f8b99ec8d8e218324434190fa95b109bd742b8834b95",
+    "candidateRevision": "0744f99400d9d97ca9b13f3df220c7c5506d2dd91f6c1532daaa73d35835e306",
     "reviewer": "maintainer:assassin808",
-    "reason": "Adds the source record required by docs/sources-policy.md; the PDF is not included because no open license is confirmed for the version we built from. Research content is unchanged.",
+    "reason": "Study contract (humanstudy-desktop#45 milestone 1): slim package (study.json refers to program.json; the evidence and missing-information copies are dropped), capabilities.json derived from existing files, failure cases restating recorded gaps, and the agent skill re-exported with the capabilities tool and refusals. Research content is unchanged.",
     "checks": [
-      "license looked up in OpenAlex (2026-10-28)",
-      "sha256 of the build copy recorded",
+      "capabilities.py --check",
+      "check_package.py on the slim package (bindings, adapter smoke test)",
+      "agent export self-test (files and hashes, studies render, MCP tools respond)",
+      "study_core.py overview and capabilities from the community layout",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

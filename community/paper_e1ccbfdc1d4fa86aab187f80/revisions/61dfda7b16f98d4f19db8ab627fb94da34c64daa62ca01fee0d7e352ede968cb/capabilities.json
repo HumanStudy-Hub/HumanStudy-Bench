@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "derivedFrom": {
+    "program": "d3dddaab43b6a592fd031f5fb7b7733db2b3a95ced431e4713f777db7219cb30",
+    "package": "nyhan2015"
+  },
+  "read": {
+    "status": "yes",
+    "reason": null
+  },
+  "run": {
+    "status": "yes",
+    "reason": null,
+    "modalities": [
+      "text"
+    ],
+    "excluded": []
+  },
+  "humanData": {
+    "status": "yes",
+    "coverage": [
+      "causal",
+      "control",
+      "denial",
+      "innuendo"
+    ],
+    "sessions": 1000,
+    "source": "human-data/causal-replication.csv: the authors' replication data for the CCAP 2012 YouGov panel (Nyhan_JournExpPoliSci_2015_DEqr; for-cos.do, from Brendan Nyhan, received 7/13/19, also on his website as nyhan-reifler-jeps.zip). One row per respondent, 1000 rows.",
+    "missing": [],
+    "key": null,
+    "reason": "loader in package/nyhan2015/human/; source key not pinned yet (#45 milestone 2)"
+  },
+  "authorCode": {
+    "status": "no",
+    "route": null,
+    "reason": "no author-code key recorded"
+  },
+  "reproduced": {
+    "package": "pass",
+    "author": null,
+    "detail": "4 of 4 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+  },
+  "profiles": {
+    "status": "no",
+    "reason": "the runner does not sample participant profiles yet"
+  }
+}

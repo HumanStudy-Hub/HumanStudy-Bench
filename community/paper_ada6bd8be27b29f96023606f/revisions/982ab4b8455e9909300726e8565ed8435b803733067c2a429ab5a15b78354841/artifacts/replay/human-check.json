@@ -1,0 +1,168 @@
+{
+  "package": "manylabs2",
+  "sessions": 99736,
+  "valid": 99736,
+  "arms": [
+    "slate1",
+    "slate2"
+  ],
+  "notMapped": [
+    {
+      "effect": "huan",
+      "reason": "click position on a map picture; evaluation does not compute it (not_ready) and the vertical click coordinate is outside the page model"
+    },
+    {
+      "effect": "alt",
+      "reason": "evaluation marks it not_ready (syllogism key and font manipulation absent); not mapped"
+    },
+    {
+      "effect": "grah",
+      "reason": "evaluation marks it not_ready (needs ideology-by-foundation correlation); not mapped"
+    },
+    {
+      "effect": "inba",
+      "reason": "evaluation marks it not_ready (needs disgust-scale scoring); not mapped"
+    },
+    {
+      "effect": "miya",
+      "reason": "evaluation marks it not_ready (covariate model); not mapped"
+    },
+    {
+      "effect": "van",
+      "reason": "evaluation marks it not_ready (SVO slider scoring); not mapped"
+    },
+    {
+      "effect": "and",
+      "reason": "evaluation marks it not_ready (composition of the well-being index); not mapped"
+    },
+    {
+      "effect": "geis",
+      "reason": "picture stimulus; evaluation marks it not_ready; not mapped"
+    },
+    {
+      "effect": "haus34",
+      "reason": "picture stimulus; evaluation marks it not_ready; not mapped"
+    },
+    {
+      "effect": "sava",
+      "reason": "evaluation marks it not_ready (hierarchical logistic model); not mapped"
+    },
+    {
+      "effect": "nore",
+      "reason": "picture stimulus; scoring key not applied by evaluation; not mapped"
+    },
+    {
+      "effect": "gray",
+      "reason": "picture stimulus; evaluation marks it not_ready; not mapped"
+    },
+    {
+      "effect": "zhon",
+      "reason": "evaluation marks it not_ready (product classification); not mapped"
+    },
+    {
+      "effect": "gati",
+      "reason": "evaluation marks it not_ready (country prominence list); not mapped"
+    }
+  ],
+  "exclusions": "Exclusions the paper and codebook state, applied per effect (a participant dropped from one effect stays in the others): Kay - any of kay*.4-6 missing; Rottenstreich, Bauer, Hsee, Knobe, Risen, Tversky, Shafir, Schwarz - needs the outcome item(s) of the condition seen; Critcher - estimate must lie in 0-100; Ross 1 and 2 - all three items answered and the percentage estimate(s) in 0-100; Hauser trolley 1 - under 4 s on the target scenario page excluded (the paper's aggregate N = 6,842 keeps participants with prior experience; the no-prior-experience restriction applies only to the comparison with the original and is not applied); Zaval - zav.include.strict (excludes unscrambling errors). No global exclusion on the attention checks (IMC1/IMC2) is stated for the primary analyses, so none is applied. Paper-only restrictions (university samples for Savani, English sites for Zaval's direct test, sample-size cuts per lab) are not applied.",
+  "effects": [
+    {
+      "id": "kay_1",
+      "label": "Kay: structure vs random event, willingness to pursue goal (d)",
+      "estimate": -0.028233545288757482,
+      "p": 0.25483914713249756,
+      "reported": -0.02
+    },
+    {
+      "id": "rott_1",
+      "label": "Rottenstreich & Hsee: affect-rich choice, 1% chance vs certain (d from odds ratio)",
+      "estimate": -0.07984449006815814,
+      "p": 0.002124704437536082,
+      "reported": -0.08
+    },
+    {
+      "id": "bau_1",
+      "label": "Bauer: trust in others, individual minus consumer wording (d)",
+      "estimate": 0.12118146749852556,
+      "p": 8.625635980732817e-07,
+      "reported": 0.12
+    },
+    {
+      "id": "anchoring_1",
+      "label": "Critcher & Gilovich: sales estimate, P97 minus P17 (d)",
+      "estimate": 0.06186025630513846,
+      "p": 0.01039894890996966,
+      "reported": 0.04
+    },
+    {
+      "id": "haus12_1",
+      "label": "Hauser: side-effect vs greater-good permissibility (d from odds ratio)",
+      "estimate": 1.324052486989308,
+      "p": 0.0,
+      "reported": 1.35
+    },
+    {
+      "id": "ross1_1",
+      "label": "Ross: false consensus, supermarket (d)",
+      "estimate": 1.2006396926816507,
+      "p": 0.0,
+      "reported": 1.18
+    },
+    {
+      "id": "ross2_1",
+      "label": "Ross: false consensus, traffic ticket (d)",
+      "estimate": 0.9701561989644701,
+      "p": 0.0,
+      "reported": 0.95
+    },
+    {
+      "id": "tver_1",
+      "label": "Tversky & Kahneman: framing, cheap vs costly item on sale (d from odds ratio)",
+      "estimate": 0.3990846512771176,
+      "p": 1.8091133698358196e-50,
+      "reported": 0.4
+    },
+    {
+      "id": "rise_1",
+      "label": "Risen & Gilovich: tempting fate raises likelihood of being called on (d)",
+      "estimate": 0.18058330381786108,
+      "p": 7.670618098944039e-16,
+      "reported": 0.18
+    },
+    {
+      "id": "hsee_1",
+      "label": "Hsee: less is better, scarf minus coat generosity (d)",
+      "estimate": 0.7741589407552525,
+      "p": 7.017806887554399e-235,
+      "reported": 0.78
+    },
+    {
+      "id": "schw_1",
+      "label": "Schwarz: assimilation/contrast, specific-first minus general-first correlation (Cohen's q)",
+      "estimate": -0.0702005744332444,
+      "p": 0.0024433374033953413,
+      "reported": -0.07
+    },
+    {
+      "id": "shaf_1",
+      "label": "Shafir: P(award extreme) + P(deny extreme) - 1, converted to d from the z test",
+      "estimate": -0.13780682323223137,
+      "p": 9.952544570895407e-10,
+      "reported": -0.13
+    },
+    {
+      "id": "zav_1",
+      "label": "Zaval: heat minus cold priming, concern about global warming (d)",
+      "estimate": -0.020008356926184592,
+      "p": 0.5170472140365572,
+      "reported": -0.03
+    },
+    {
+      "id": "knob_1",
+      "label": "Knobe: harm minus help condition, intentionality (d)",
+      "estimate": 1.7479542024404158,
+      "p": 0.0,
+      "reported": 1.75
+    }
+  ]
+}

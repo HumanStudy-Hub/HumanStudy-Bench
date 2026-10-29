@@ -14,13 +14,19 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 from scripts.research.catalog import community_identity, digest, normalise_doi, project_program
+from scripts.research.capabilities import validate as check_capabilities
 from scripts.research.program_rules import problems_for
 
 ROOT = Path(__file__).resolve().parents[2]
 MISSING = object()
-CORE = ("study.json", "source/paper_metadata.json", "source/evidence.json",
-        "materials/materials.json", "task/task.json", "task/adapter.py",
-        "evaluation/evaluation.py", "audit/missing_information.json")
+# A package in a community paper is slim (desktop #45): study.json refers to ../../program.json and the
+# evidence and missing-information lists are read from program.json. Packages that still hold a program
+# copy must also hold the two view files (the standalone eight-file contract).
+CORE = ("study.json", "source/paper_metadata.json", "materials/materials.json", "task/task.json",
+        "task/adapter.py", "evaluation/evaluation.py")
+STANDALONE_VIEWS = ("source/evidence.json", "audit/missing_information.json")
+PROGRAM_REF = "../../program.json"
+TOP_LEVEL = {"program.json", "capabilities.json"}
 PRIVATE = {".env", ".git", ".opencode", ".humanstudy", "node_modules", "__pycache__",
            "threads", "conversations", "chat", "chats", "credentials", "account.json", "settings.json"}
 
@@ -33,7 +39,7 @@ def safe_path(name: str) -> str:
         raise ValueError("asset paths must stay inside the contribution")
     if any(p.lower() in PRIVATE or p.lower().startswith(".env.") for p in parts):
         raise ValueError("private project files are not community assets")
-    if name != "program.json" and parts[0] not in {"package", "artifacts", "sources"}:
+    if name not in TOP_LEVEL and parts[0] not in {"package", "artifacts", "sources"}:
         raise ValueError(f"not a public research asset: {name}")
     return name
 
@@ -82,8 +88,13 @@ def validate_assets(files: dict[str, bytes]) -> dict:
                 except ValueError:
                     errors.append(f"{name}: invalid JSON")
         study, task = parsed.get("study.json", {}), parsed.get("task/task.json", {})
-        if study.get("program") != program:
-            errors.append(f"{package}: study.json.program must equal program.json")
+        if "program" in study:
+            if study["program"] != program:
+                errors.append(f"{package}: study.json.program must equal program.json")
+            errors.extend(f"{package}: missing {rel} (needed while study.json holds a program copy)"
+                          for rel in STANDALONE_VIEWS if package + "/" + rel not in files)
+        elif study.get("programRef") != {"path": PROGRAM_REF, "id": program["id"]}:
+            errors.append(f'{package}: study.json needs programRef {{"path": "{PROGRAM_REF}", "id": "{program["id"]}"}}')
         expected = {"programId": program["id"], "stepIds": [s["id"] for s in program["steps"]],
                     "recordNodeIds": [n["id"] for n in program["nodes"] if n["kind"] in {"record", "variable"}],
                     "analysisNodeIds": [n["id"] for n in program["nodes"] if n["kind"] == "analysis"]}
@@ -96,12 +107,31 @@ def validate_assets(files: dict[str, bytes]) -> dict:
                     errors.append(f"{package}/{rel}: missing {function}")
             except (SyntaxError, ValueError):
                 errors.append(f"{package}/{rel}: invalid Python")
+    errors.extend(capability_problems(files))
     return {"status": "failed" if errors else "passed", "errors": errors,
             "checks": {"schema": not errors, "packageBindings": bool(package_roots) and not errors,
                        "codeExecuted": False, "scientificReview": False},
             "capabilities": {"discoverable": True, "traceable": False,
                              "reanalyzable": False, "replayable": False, "humanBenchmark": False},
             "programDigest": digest(program), "projection": project_program(program)}
+
+
+def capability_problems(files: dict[str, bytes]) -> list[str]:
+    """capabilities.json and artifacts/failures.json, when present, follow the desktop contract."""
+    caps, failures = files.get("capabilities.json"), files.get("artifacts/failures.json")
+    if caps is None and failures is None:
+        return []
+    try:
+        caps_data = json.loads(caps) if caps is not None else None
+        fail_data = json.loads(failures) if failures is not None else []
+    except ValueError:
+        return ["capabilities.json or artifacts/failures.json: invalid JSON"]
+    if not isinstance(fail_data, list):
+        return ["artifacts/failures.json must be a list"]
+    if caps_data is None:
+        caps_data = {"schemaVersion": 1, **{k: {"status": "unknown"} for k in ("read", "run", "humanData", "authorCode", "profiles")},
+                     "reproduced": {"package": None, "author": None}}
+    return check_capabilities(caps_data, fail_data)
 
 
 def merge_json(base: Any, current: Any, proposed: Any, path: str = "") -> tuple[Any, list[str]]:
@@ -151,13 +181,17 @@ def merge_assets(base: dict[str, bytes], current: dict[str, bytes], proposed: di
             conflicts.append(name)
         if value is not MISSING:
             result[name] = value
-    # study.json.program is a derived copy, not a competing editable design.
+    # study.json.program (standalone layout) is a derived copy, not a competing editable design; a
+    # slim study.json only names the program.
     if not conflicts and "program.json" in result:
         program = json.loads(result["program.json"])
         for name in result:
             if name.startswith("package/") and name.endswith("/study.json"):
                 data = json.loads(result[name])
-                data["program"] = program
+                if "program" in data:
+                    data["program"] = program
+                else:
+                    data["programRef"] = {"path": PROGRAM_REF, "id": program["id"]}
                 result[name] = (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode()
     return result, conflicts
 

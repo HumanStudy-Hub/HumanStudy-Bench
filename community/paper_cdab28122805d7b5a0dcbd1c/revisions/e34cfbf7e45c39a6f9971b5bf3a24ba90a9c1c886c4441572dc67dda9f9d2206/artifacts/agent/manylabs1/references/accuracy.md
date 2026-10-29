@@ -1,0 +1,171 @@
+# Accuracy checks
+
+What has been checked mechanically, independent of the model that built the program.
+
+## Quotes against their pages
+
+154 quotes checked against their pages: 154 unchecked.
+
+- **found**: the quote is on the cited page.
+- **close**: nearly verbatim (OCR noise or a small slip); reread before relying on it.
+- **other page** / **not found**: the quote or its page number needs fixing.
+- **unchecked**: no text layer on that page (scanned image) or not a PDF; check by eye.
+
+| Evidence | Page | Result | Detail |
+| --- | --- | --- | --- |
+| `e_abstract` | 1 | unchecked | not a PDF in the project |
+| `e_bundle` | 2 | unchecked | not a PDF in the project |
+| `e_compq` | 13 | unchecked | not a PDF in the project |
+| `e_computer` | 3 | unchecked | not a PDF in the project |
+| `e_contrib` | 2 | unchecked | not a PDF in the project |
+| `e_debrief` | 2 | unchecked | not a PDF in the project |
+| `e_demog` | 14 | unchecked | not a PDF in the project |
+| `e_demog2` | 14 | unchecked | not a PDF in the project |
+| `e_expt` | 6 | unchecked | not a PDF in the project |
+| `e_expt2` | 6 | unchecked | not a PDF in the project |
+| `e_gap` | 2 | unchecked | not a PDF in the project |
+| `e_imc` | 6 | unchecked | not a PDF in the project |
+| `e_imcs` | 2 | unchecked | not a PDF in the project |
+| `e_incl` | 2 | unchecked | not a PDF in the project |
+| `e_infra` | 6 | unchecked | not a PDF in the project |
+| `e_n79` | 2 | unchecked | not a PDF in the project |
+| `e_order` | 6 | unchecked | not a PDF in the project |
+| `e_osfmat` | 11 | unchecked | not a PDF in the project |
+| `e_ownlink` | 6 | unchecked | not a PDF in the project |
+| `e_question` | 2 | unchecked | not a PDF in the project |
+| `e_recruit` | 2 | unchecked | not a PDF in the project |
+| `e_select` | 2 | unchecked | not a PDF in the project |
+| `e_simple` | 2 | unchecked | not a PDF in the project |
+| `e_sites` | 2 | unchecked | not a PDF in the project |
+| `e_sites2` | 2 | unchecked | not a PDF in the project |
+| `e_sites3` | 2 | unchecked | not a PDF in the project |
+| `e_table1` | 3 | unchecked | not a PDF in the project |
+| `e_tableS1` | 6 | unchecked | not a PDF in the project |
+| `e_transl` | 3 | unchecked | not a PDF in the project |
+| `e_wording` | 3 | unchecked | not a PDF in the project |
+| `e_year` | 1 | unchecked | not a PDF in the project |
+| `e_s01_an` | 2 | unchecked | not a PDF in the project |
+| `e_s01_desc` | 3 | unchecked | not a PDF in the project |
+| `e_s01_excl` | 2 | unchecked | not a PDF in the project |
+| `e_s01_orig` | 2 | unchecked | not a PDF in the project |
+| `e_s01_rep0` | 2 | unchecked | not a PDF in the project |
+| `e_s01_sc` | 3 | unchecked | not a PDF in the project |
+| `e_s01_t2` | 7 | unchecked | not a PDF in the project |
+| `e_s02_an` | 3 | unchecked | not a PDF in the project |
+| `e_s02_chg` | 4 | unchecked | not a PDF in the project |
+| `e_s02_desc` | 4 | unchecked | not a PDF in the project |
+| `e_s02_excl` | 3 | unchecked | not a PDF in the project |
+| `e_s02_orig` | 2 | unchecked | not a PDF in the project |
+| `e_s02_rep0` | 2 | unchecked | not a PDF in the project |
+| `e_s02_rep1` | 3 | unchecked | not a PDF in the project |
+| `e_s02_sc` | 2 | unchecked | not a PDF in the project |
+| `e_s02_t2` | 7 | unchecked | not a PDF in the project |
+| `e_s03_an` | 5 | unchecked | not a PDF in the project |
+| `e_s03_assign` | 7 | unchecked | not a PDF in the project |
+| `e_s03_desc` | 4 | unchecked | not a PDF in the project |
+| `e_s03_excl` | 3 | unchecked | not a PDF in the project |
+| `e_s03_orig` | 3 | unchecked | not a PDF in the project |
+| `e_s03_rep0` | 3 | unchecked | not a PDF in the project |
+| `e_s03_rep1` | 5 | unchecked | not a PDF in the project |
+| `e_s03_sc` | 4 | unchecked | not a PDF in the project |
+| `e_s03_t2` | 7 | unchecked | not a PDF in the project |
+| `e_s04_an` | 6 | unchecked | not a PDF in the project |
+| `e_s04_chg` | 4 | unchecked | not a PDF in the project |
+| `e_s04_desc` | 4 | unchecked | not a PDF in the project |
+| `e_s04_excl` | 6 | unchecked | not a PDF in the project |
+| `e_s04_orig` | 5 | unchecked | not a PDF in the project |
+| `e_s04_rep0` | 5 | unchecked | not a PDF in the project |
+| `e_s04_rep1` | 6 | unchecked | not a PDF in the project |
+| `e_s04_sc` | 4 | unchecked | not a PDF in the project |
+| `e_s04_t2` | 7 | unchecked | not a PDF in the project |
+| `e_s05_an` | 7 | unchecked | not a PDF in the project |
+| `e_s05_desc` | 4 | unchecked | not a PDF in the project |
+| `e_s05_excl` | 7 | unchecked | not a PDF in the project |
+| `e_s05_orig` | 7 | unchecked | not a PDF in the project |
+| `e_s05_rep0` | 7 | unchecked | not a PDF in the project |
+| `e_s05_sc` | 4 | unchecked | not a PDF in the project |
+| `e_s05_t2` | 7 | unchecked | not a PDF in the project |
+| `e_s06_an` | 7 | unchecked | not a PDF in the project |
+| `e_s06_chg` | 4 | unchecked | not a PDF in the project |
+| `e_s06_desc` | 4 | unchecked | not a PDF in the project |
+| `e_s06_excl` | 7 | unchecked | not a PDF in the project |
+| `e_s06_orig` | 7 | unchecked | not a PDF in the project |
+| `e_s06_rep0` | 7 | unchecked | not a PDF in the project |
+| `e_s06_sc` | 7 | unchecked | not a PDF in the project |
+| `e_s06_t2` | 7 | unchecked | not a PDF in the project |
+| `e_s07_an` | 7 | unchecked | not a PDF in the project |
+| `e_s07_chg` | 4 | unchecked | not a PDF in the project |
+| `e_s07_desc` | 4 | unchecked | not a PDF in the project |
+| `e_s07_excl` | 7 | unchecked | not a PDF in the project |
+| `e_s07_orig` | 4 | unchecked | not a PDF in the project |
+| `e_s07_rep0` | 7 | unchecked | not a PDF in the project |
+| `e_s07_sc` | 4 | unchecked | not a PDF in the project |
+| `e_s07_t2` | 7 | unchecked | not a PDF in the project |
+| `e_s08_an` | 7 | unchecked | not a PDF in the project |
+| `e_s08_desc` | 5 | unchecked | not a PDF in the project |
+| `e_s08_excl` | 7 | unchecked | not a PDF in the project |
+| `e_s08_orig` | 5 | unchecked | not a PDF in the project |
+| `e_s08_rep0` | 7 | unchecked | not a PDF in the project |
+| `e_s08_sc` | 5 | unchecked | not a PDF in the project |
+| `e_s08_t2` | 7 | unchecked | not a PDF in the project |
+| `e_s08_verb` | 5 | unchecked | not a PDF in the project |
+| `e_s09_an` | 8 | unchecked | not a PDF in the project |
+| `e_s09_chg` | 5 | unchecked | not a PDF in the project |
+| `e_s09_desc` | 5 | unchecked | not a PDF in the project |
+| `e_s09_excl` | 8 | unchecked | not a PDF in the project |
+| `e_s09_mod` | 15 | unchecked | not a PDF in the project |
+| `e_s09_modord` | 6 | unchecked | not a PDF in the project |
+| `e_s09_orig` | 8 | unchecked | not a PDF in the project |
+| `e_s09_rep0` | 8 | unchecked | not a PDF in the project |
+| `e_s09_sc` | 5 | unchecked | not a PDF in the project |
+| `e_s09_t2` | 7 | unchecked | not a PDF in the project |
+| `e_s09_verb` | 15 | unchecked | not a PDF in the project |
+| `e_s10_an` | 8 | unchecked | not a PDF in the project |
+| `e_s10_chg` | 5 | unchecked | not a PDF in the project |
+| `e_s10_desc` | 5 | unchecked | not a PDF in the project |
+| `e_s10_excl` | 8 | unchecked | not a PDF in the project |
+| `e_s10_orig` | 8 | unchecked | not a PDF in the project |
+| `e_s10_rep0` | 8 | unchecked | not a PDF in the project |
+| `e_s10_sc` | 5 | unchecked | not a PDF in the project |
+| `e_s10_t2` | 7 | unchecked | not a PDF in the project |
+| `e_s11_an` | 8 | unchecked | not a PDF in the project |
+| `e_s11_chg` | 5 | unchecked | not a PDF in the project |
+| `e_s11_desc` | 5 | unchecked | not a PDF in the project |
+| `e_s11_excl` | 8 | unchecked | not a PDF in the project |
+| `e_s11_orig` | 8 | unchecked | not a PDF in the project |
+| `e_s11_rep0` | 8 | unchecked | not a PDF in the project |
+| `e_s11_sc` | 5 | unchecked | not a PDF in the project |
+| `e_s11_t2` | 7 | unchecked | not a PDF in the project |
+| `e_s12_a` | 5 | unchecked | not a PDF in the project |
+| `e_s12_an` | 9 | unchecked | not a PDF in the project |
+| `e_s12_b` | 5 | unchecked | not a PDF in the project |
+| `e_s12_d` | 9 | unchecked | not a PDF in the project |
+| `e_s12_last` | 6 | unchecked | not a PDF in the project |
+| `e_s12_n` | 8 | unchecked | not a PDF in the project |
+| `e_s12_note` | 7 | unchecked | not a PDF in the project |
+| `e_s12_orig` | 8 | unchecked | not a PDF in the project |
+| `e_s12_t2a` | 7 | unchecked | not a PDF in the project |
+| `e_s12_t2b` | 7 | unchecked | not a PDF in the project |
+| `e_s13_10` | 6 | unchecked | not a PDF in the project |
+| `e_s13_11` | 9 | unchecked | not a PDF in the project |
+| `e_s13_agg` | 6 | unchecked | not a PDF in the project |
+| `e_s13_anova` | 9 | unchecked | not a PDF in the project |
+| `e_s13_flag` | 9 | unchecked | not a PDF in the project |
+| `e_s13_het` | 8 | unchecked | not a PDF in the project |
+| `e_s13_het2` | 9 | unchecked | not a PDF in the project |
+| `e_s13_ic` | 8 | unchecked | not a PDF in the project |
+| `e_s13_icc` | 8 | unchecked | not a PDF in the project |
+| `e_s13_icc2` | 8 | unchecked | not a PDF in the project |
+| `e_s13_mod` | 9 | unchecked | not a PDF in the project |
+| `e_s13_mod2` | 9 | unchecked | not a PDF in the project |
+| `e_s13_ord` | 8 | unchecked | not a PDF in the project |
+| `e_s13_ords` | 9 | unchecked | not a PDF in the project |
+| `e_s13_plan` | 6 | unchecked | not a PDF in the project |
+| `e_s13_prim` | 8 | unchecked | not a PDF in the project |
+| `e_s13_t3` | 9 | unchecked | not a PDF in the project |
+| `e_s13_ws` | 7 | unchecked | not a PDF in the project |
+| `e_conc` | 10 | unchecked | not a PDF in the project |
+| `e_lim` | 10 | unchecked | not a PDF in the project |
+| `e_open` | 10 | unchecked | not a PDF in the project |
+
+Not checked mechanically: whether every study, condition and step of the paper is in the program, and whether fields that summarise rather than quote are right. Those rest on the researcher's review of the program.
