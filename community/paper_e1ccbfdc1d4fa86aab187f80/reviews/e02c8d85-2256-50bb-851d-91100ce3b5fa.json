@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "e02c8d85-2256-50bb-851d-91100ce3b5fa",
+  "headCommit": null,
+  "paperKey": "doi:10.1017/xps.2014.22",
+  "status": "accepted",
+  "revision": "61dfda7b16f98d4f19db8ab627fb94da34c64daa62ca01fee0d7e352ede968cb",
+  "previousRevision": "4bf5fc8c04f4ece544f4316ca8af37b1ab3fa17de82f6ab7c765e31048b53f16",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "61dfda7b16f98d4f19db8ab627fb94da34c64daa62ca01fee0d7e352ede968cb",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Study contract (humanstudy-desktop#45 milestone 1): slim package (study.json refers to program.json; the evidence and missing-information copies are dropped), capabilities.json derived from existing files, failure cases restating recorded gaps, and the agent skill re-exported with the capabilities tool and refusals. Research content is unchanged.",
+    "checks": [
+      "capabilities.py --check",
+      "check_package.py on the slim package (bindings, adapter smoke test)",
+      "agent export self-test (files and hashes, studies render, MCP tools respond)",
+      "study_core.py overview and capabilities from the community layout",
+      "schema and package bindings (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

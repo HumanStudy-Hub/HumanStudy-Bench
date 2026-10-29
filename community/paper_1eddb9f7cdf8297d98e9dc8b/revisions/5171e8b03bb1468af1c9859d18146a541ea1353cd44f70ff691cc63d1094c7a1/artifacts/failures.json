@@ -1,0 +1,16 @@
+[
+  {
+    "pattern": "modelling",
+    "where": "exp1, exp2",
+    "what": "The paper's JAGS hierarchical model and Bayes factors are not computed; the logistic regression uses fixed effects only, so its p-values are not the paper's.",
+    "fallback": "Report choice proportions and a fixed-effects regression, labelled as an approximation.",
+    "suggestion": "Run the authors' model (R/JAGS route, milestone 6) on AI and human data."
+  },
+  {
+    "pattern": "human-data-incomplete",
+    "where": "exp1",
+    "what": "No separate Experiment 1 (comprehension) data file; the two published files are identical and match Experiment 2.",
+    "fallback": "Compare Experiment 1 with the paper's reported numbers.",
+    "suggestion": null
+  }
+]

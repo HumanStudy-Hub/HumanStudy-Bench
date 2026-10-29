@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "c8a794f0541464db2ad88a5cda899bb878f7fc63dde315639b33486dd61f3738",
-  "previousRevision": "537dc2585f75423b77c9d1a4d7920afdc31213ef35e60c4201b439f189a91180",
+  "revision": "870e2af658a20bd198561e23d058284925190cc237f27ab6fb8fdf1d9876b8d8",
+  "previousRevision": "c8a794f0541464db2ad88a5cda899bb878f7fc63dde315639b33486dd61f3738",
   "paper": {
     "title": "Hindsight Bias Through Knowledge Updating: A Conceptual Replication of Groß et al. (2023)",
     "authors": [
@@ -40,12 +40,14 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "c8a794f0541464db2ad88a5cda899bb878f7fc63dde315639b33486dd61f3738",
+    "candidateRevision": "870e2af658a20bd198561e23d058284925190cc237f27ab6fb8fdf1d9876b8d8",
     "reviewer": "maintainer:assassin808",
-    "reason": "Adds the source record required by docs/sources-policy.md; the PDF is not included because no open license is confirmed for the version we built from. Research content is unchanged.",
+    "reason": "Study contract (humanstudy-desktop#45 milestone 1): slim package (study.json refers to program.json; the evidence and missing-information copies are dropped), capabilities.json derived from existing files, failure cases restating recorded gaps, and the agent skill re-exported with the capabilities tool and refusals. Research content is unchanged.",
     "checks": [
-      "license looked up in OpenAlex (2026-10-28)",
-      "sha256 of the build copy recorded",
+      "capabilities.py --check",
+      "check_package.py on the slim package (bindings, adapter smoke test)",
+      "agent export self-test (files and hashes, studies render, MCP tools respond)",
+      "study_core.py overview and capabilities from the community layout",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

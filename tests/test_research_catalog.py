@@ -172,3 +172,52 @@ def test_recommended_program_replaces_its_original_legacy_card(tmp_path, program
     assert len(catalog["papers"]) == 1
     assert catalog["papers"][0]["id"] == original["id"]
     assert catalog["papers"][0]["currentRevision"] == result["revision"]
+
+
+def package_files(program, slim=True):
+    """A minimal package in either layout (desktop #45)."""
+    bindings = {"programId": program["id"], "stepIds": [s["id"] for s in program["steps"]],
+                "recordNodeIds": [n["id"] for n in program["nodes"] if n["kind"] in {"record", "variable"}],
+                "analysisNodeIds": [n["id"] for n in program["nodes"] if n["kind"] == "analysis"]}
+    study = {"title": "Fixture", **({"programRef": {"path": "../../program.json", "id": program["id"]}} if slim else {"program": program})}
+    files = {"study.json": study, "source/paper_metadata.json": {}, "materials/materials.json": {},
+             "task/task.json": {"programBindings": bindings}}
+    out = {"package/p/" + k: json.dumps(v).encode() for k, v in files.items()}
+    out["package/p/task/adapter.py"] = b"def run_sessions(llm, seed, n, arms=None):\n    return []\n"
+    out["package/p/evaluation/evaluation.py"] = b"def evaluate(sessions):\n    return {}\n"
+    if not slim:
+        out["package/p/source/evidence.json"] = b"[]"
+        out["package/p/audit/missing_information.json"] = b"[]"
+    return {**assets(program), **out}
+
+
+def test_slim_and_standalone_packages_both_validate(program):
+    assert validate_assets(package_files(program))["status"] == "passed"
+    assert validate_assets(package_files(program, slim=False))["status"] == "passed"
+    copy_without_views = {k: v for k, v in package_files(program, slim=False).items() if not k.endswith("evidence.json")}
+    report = validate_assets(copy_without_views)
+    assert report["status"] == "failed" and any("source/evidence.json" in e for e in report["errors"])
+    wrong = package_files(program)
+    wrong["package/p/study.json"] = json.dumps({"programRef": {"path": "../../program.json", "id": "other"}}).encode()
+    assert validate_assets(wrong)["status"] == "failed"
+
+
+def test_merge_keeps_a_slim_study_json_slim(program):
+    files = package_files(program)
+    merged, conflicts = merge_assets(files, files, files)
+    assert not conflicts and "program" not in json.loads(merged["package/p/study.json"])
+
+
+def test_capabilities_and_failure_cases_are_checked(program):
+    files = package_files(program)
+    caps = {"schemaVersion": 1, "read": {"status": "yes"}, "run": {"status": "partial", "reason": "pictures", "excluded": [{"what": "x", "reason": "picture"}]},
+            "humanData": {"status": "no", "reason": "none"}, "authorCode": {"status": "no", "reason": "none"},
+            "profiles": {"status": "no", "reason": "not yet"}, "reproduced": {"package": None, "author": None}}
+    files["capabilities.json"] = json.dumps(caps).encode()
+    files["artifacts/failures.json"] = json.dumps([{"pattern": "non-text-stimuli", "where": "e1", "what": "picture", "fallback": "not run"}]).encode()
+    assert validate_assets(files)["status"] == "passed"
+    caps["run"]["status"] = "maybe"
+    files["capabilities.json"] = json.dumps(caps).encode()
+    assert validate_assets(files)["status"] == "failed"
+    files["capabilities.json"] = json.dumps({**caps, "run": {"status": "no"}}).encode()
+    assert any("without a reason" in e for e in validate_assets(files)["errors"])

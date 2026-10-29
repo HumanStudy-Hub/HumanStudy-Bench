@@ -1,0 +1,63 @@
+{
+  "package": "thomas2014",
+  "humanSessions": 579,
+  "agentN": 10,
+  "participantCommand": "claude -p --model haiku --strict-mcp-config --setting-sources \"\" --tools \"\" --system-prompt \"You are taking part in a study. Answer as asked.\"",
+  "mode": "sharded x6",
+  "minutes": 42.8,
+  "humanMatchesPaper": [
+    0,
+    4
+  ],
+  "agentAgrees": [
+    2,
+    4
+  ],
+  "effects": [
+    {
+      "id": "exp1_omnibus",
+      "label": "Knowledge level omnibus, $2 (signed chi2, df 3)",
+      "reported": 62.79,
+      "human": 14.929,
+      "human_p": 0.0019,
+      "agent": 24.6,
+      "agent_p": 0.0,
+      "humanMatchesPaper": false,
+      "agentAgrees": true
+    },
+    {
+      "id": "exp1_secondary_vs_primary",
+      "label": "Secondary > primary knowledge, $2 (chi2)",
+      "reported": 23.27,
+      "human": 0.271,
+      "human_p": 0.6026,
+      "agent": 12.436,
+      "agent_p": 0.0004,
+      "humanMatchesPaper": false,
+      "agentAgrees": false
+    },
+    {
+      "id": "exp1_tertiary_vs_secondary",
+      "label": "Tertiary vs secondary (predicted no difference), $2 (chi2)",
+      "reported": 0.63,
+      "human": 1.597,
+      "human_p": 0.2063,
+      "agent": 0.0,
+      "agent_p": 1.0,
+      "humanMatchesPaper": false,
+      "agentAgrees": false
+    },
+    {
+      "id": "exp1_common_vs_tertiary",
+      "label": "Common > tertiary knowledge, $2 (chi2)",
+      "reported": 7.12,
+      "human": 3.342,
+      "human_p": 0.0675,
+      "agent": 2.222,
+      "agent_p": 0.136,
+      "humanMatchesPaper": false,
+      "agentAgrees": true
+    }
+  ],
+  "note": "Agent results are a simulation; agreement with people is measured, not assumed."
+}

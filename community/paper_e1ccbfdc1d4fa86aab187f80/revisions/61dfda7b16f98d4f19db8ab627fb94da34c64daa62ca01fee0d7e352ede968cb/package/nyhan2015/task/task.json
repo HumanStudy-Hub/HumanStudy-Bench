@@ -1,0 +1,92 @@
+{
+  "study": "S1",
+  "agents": [
+    {
+      "id": "participant",
+      "kind": "ai_participant",
+      "replaces": "YouGov respondent",
+      "scripted": false
+    }
+  ],
+  "roles": {
+    "participant": "Reads the survey pages and answers; every original participant is an AI participant."
+  },
+  "scriptedRoles": [],
+  "scriptedRolesJustification": "The paper has no confederates or experimenter roles; the dispatches are pre-written stimuli shown verbatim.",
+  "conditions": [
+    "control",
+    "innuendo",
+    "denial",
+    "causal"
+  ],
+  "arms": [
+    "control",
+    "innuendo",
+    "denial",
+    "causal"
+  ],
+  "order": [
+    "pre-treatment question",
+    "introduction page",
+    "dispatches of the condition, one per page, chronological",
+    "(delay tasks, not administered)",
+    "favorability",
+    "investigation (non-control only)",
+    "bribes"
+  ],
+  "visibility": "Each participant sees only their own condition's pages; no participant sees another's responses (independent respondents).",
+  "samplingUnit": "respondent",
+  "assignmentUnit": "respondent",
+  "observationUnit": "respondent",
+  "sampling": "n AI participants per arm; the replay uses equal arm sizes instead of YouGov block randomization.",
+  "calls_per_participant": 2,
+  "adaptations": [
+    "Delay tasks (unscramble, word search) are not administered: content not printed (issue i-delay).",
+    "Recall questions are not administered: their position is not stated (issue i-recall-pos).",
+    "Block randomization on the pre-treatment question is replaced by equal-size arms; the pre-treatment answer is collected and recorded per participant.",
+    "Survey and inverse-probability weights are not reproduced; estimates are unweighted (issue i-weights).",
+    "No demographic persona is added (issue i-persona).",
+    "Response options are shown by label only; the bracketed codes in the appendix are used for scoring (issue i-codes)."
+  ],
+  "programBindings": {
+    "programId": "nyhan2015-causal-corrections",
+    "stepIds": [
+      "st-pre",
+      "st-intro",
+      "st-d01",
+      "st-d02",
+      "st-d03",
+      "st-d04",
+      "st-d05",
+      "st-d06",
+      "st-d07",
+      "st-d08",
+      "st-d09",
+      "st-d10",
+      "st-d11",
+      "st-d12",
+      "st-delay",
+      "st-qfav",
+      "st-qinv",
+      "st-qbri",
+      "st-recall"
+    ],
+    "recordNodeIds": [
+      "v-condition",
+      "v-crooked",
+      "v-fav",
+      "v-bribes",
+      "v-inv",
+      "v-recall",
+      "v-weights",
+      "rec-resp"
+    ],
+    "analysisNodeIds": [
+      "a-ols",
+      "a-pairwise",
+      "a-robust",
+      "a-recall",
+      "a-balance"
+    ]
+  }
+}

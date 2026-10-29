@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "4f7728789151eb892065f6a715e1c76a41f3974e132a954fcc53bf2eeb3d7e57",
-  "previousRevision": "8982343893332754c58244d68bfa8f33b04367528999ab922e09d269db14efa6",
+  "revision": "e34cfbf7e45c39a6f9971b5bf3a24ba90a9c1c886c4441572dc67dda9f9d2206",
+  "previousRevision": "4f7728789151eb892065f6a715e1c76a41f3974e132a954fcc53bf2eeb3d7e57",
   "paper": {
     "title": "Investigating Variation in Replicability: A \"Many Labs\" Replication Project",
     "authors": [
@@ -41,12 +41,14 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "4f7728789151eb892065f6a715e1c76a41f3974e132a954fcc53bf2eeb3d7e57",
+    "candidateRevision": "e34cfbf7e45c39a6f9971b5bf3a24ba90a9c1c886c4441572dc67dda9f9d2206",
     "reviewer": "maintainer:assassin808",
-    "reason": "Adds the source record required by docs/sources-policy.md; the PDF is not included because no open license is confirmed for the version we built from. Research content is unchanged.",
+    "reason": "Study contract (humanstudy-desktop#45 milestone 1): slim package (study.json refers to program.json; the evidence and missing-information copies are dropped), capabilities.json derived from existing files, failure cases restating recorded gaps, and the agent skill re-exported with the capabilities tool and refusals. Research content is unchanged.",
     "checks": [
-      "license looked up in OpenAlex (2026-10-28)",
-      "sha256 of the build copy recorded",
+      "capabilities.py --check",
+      "check_package.py on the slim package (bindings, adapter smoke test)",
+      "agent export self-test (files and hashes, studies render, MCP tools respond)",
+      "study_core.py overview and capabilities from the community layout",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {
