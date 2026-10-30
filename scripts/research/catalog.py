@@ -118,6 +118,9 @@ def concept_matches(query: str, taxonomy: dict) -> list[str]:
             {normalise(s) for s in [c["label"], *c.get("aliases", [])]}]
 
 
+from scripts.research.effects_core import phenomena_of  # noqa: E402  (desktop copy)
+
+
 def concept_suggestions(phrases: list[str], taxonomy: dict) -> list[str]:
     """Concept ids whose label or alias equals a phenomenon keyword. Suggestions only: a paper's
     reviewed concepts stay in conceptIds/conceptAssignments."""
@@ -143,12 +146,13 @@ def effect_records(paper_id: str, effects: dict, program: dict, taxonomy: dict) 
     out = []
     for e in effects.get("effects", []):
         hs = [hyps[h] for h in e.get("hypothesisIds", []) if h in hyps]
-        phenomena = sorted({p for h in hs for p in h.get("phenomena", [])})
+        phenomena = phenomena_of(e, effects.get("hypotheses", []))
         reported = e.get("reported")
         pages = sorted({evidence[x]["locator"].get("page") for x in (reported or {}).get("evidenceIds", [])
                         if x in evidence and evidence[x].get("locator", {}).get("page")})
         out.append({"id": paper_id + "#" + e["id"], "effectId": e["id"], "label": e.get("label"),
                     "role": e.get("role"), "studyId": e.get("studyId"),
+                    "population": e.get("population") or {"kind": "human"},
                     "hypotheses": [{"id": h["id"], "nodeId": h.get("nodeId"), "statement": statement(h.get("nodeId"))}
                                    for h in hs],
                     "phenomena": phenomena, "conceptSuggestions": concept_suggestions(phenomena, taxonomy),

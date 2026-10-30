@@ -33,6 +33,7 @@ CONTRASTS = ("two_groups", "paired", "association", "interaction", "omnibus", "s
 DIRECTIONS = ("positive", "negative", "nonzero", "none", "unspecified")
 OPS = ("mean_difference", "paired_difference", "proportion_difference", "contingency", "correlation", "package")
 ROLES = ("test", "robustness", "check", "descriptive")
+POPULATIONS = ("human", "ai-model", "human-vs-ai-model", "ai-model-vs-ai-model")
 UNTESTED = ("not-an-effect", "not-tested-in-paper", "not-computable", "out-of-scope")
 ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]*$")
 NUMBER_FIELDS = ("value", "se", "df", "p", "n", "lower", "upper")
@@ -182,6 +183,13 @@ def check(root, effects=None, program=None):
             tested.add(h)
         if e.get("studyId") not in studies:
             P("%s: studyId %r is not a program study" % (where, e.get("studyId")))
+        pop = e.get("population") or {"kind": "human"}
+        if pop.get("kind") not in POPULATIONS:
+            P("%s: population.kind must be one of %s" % (where, ", ".join(POPULATIONS)))
+        if pop.get("kind") != "human" and not pop.get("models"):
+            P("%s: a population with AI models names them in population.models" % where)
+        if "phenomena" in e and not isinstance(e["phenomena"], list):
+            P("%s: phenomena must be a list (it replaces the hypothesis's phenomena for this effect)" % where)
         if e.get("design") not in DESIGNS:
             P("%s: design must be one of %s" % (where, ", ".join(DESIGNS)))
         out = e.get("outcome") or {}
@@ -198,6 +206,8 @@ def check(root, effects=None, program=None):
             P("%s: contrast.kind must be one of %s" % (where, ", ".join(CONTRASTS)))
         for c in con.get("conditionIds") or []:
             node_ref(where + " contrast.conditionIds", c, ["condition"])
+        for c in con.get("factorIds") or []:  # the manipulated or predictor variables
+            node_ref(where + " contrast.factorIds", c, ["variable", "record", "measure"])
         if con.get("kind") in ("two_groups", "paired") and not (con.get("treatment") and con.get("reference")):
             P("%s: a %s contrast needs treatment and reference (the value is treatment minus reference)"
               % (where, con["kind"]))
@@ -293,6 +303,8 @@ def graph(effects, program):
             add(eid, e["outcome"]["variableId"], "measures")
         for c in (e.get("contrast") or {}).get("conditionIds") or []:
             add(eid, c, "contrasts")
+        for c in (e.get("contrast") or {}).get("factorIds") or []:
+            add(eid, c, "varies")
         for key, t in (("analysisIds", "analysed-by"), ("resultIds", "reported-in")):
             for x in e.get(key) or []:
                 add(eid, x, t)
@@ -395,12 +407,16 @@ def _mean_sd(xs):
 # ---- computing effects from sessions --------------------------------------------------------------
 
 def field(session, path):
-    """A dotted path into a session: 'responses.favorable', 'parsed.choice'."""
+    """A dotted path into a session: 'responses.favorable', 'parsed.choice', 'trials.0.answer' (a number
+    indexes a list)."""
     cur = session
     for part in str(path).split("."):
-        if not isinstance(cur, dict) or part not in cur:
+        if isinstance(cur, list) and part.isdigit() and int(part) < len(cur):
+            cur = cur[int(part)]
+        elif isinstance(cur, dict) and part in cur:
+            cur = cur[part]
+        else:
             return None
-        cur = cur[part]
     return cur
 
 
@@ -565,7 +581,11 @@ def package_block(effect, evaluation, module=None):
         blocks = module.effect_estimates(evaluation) or {}
         if key in blocks:
             return dict(blocks[key])
-    return {"status": "not_ready", "reason": "the package analysis returned nothing for key %r" % key}
+    return None  # the package has no block for this key
+
+
+def key_of(effect):
+    return (effect.get("compute") or {}).get("key")
 
 
 def legacy_block(effect, key_effects):
@@ -591,8 +611,9 @@ def compute(effects, sessions, evaluation=None, module=None, key_effects=None, s
         try:
             if op == "package":
                 block = package_block(e, evaluation, module)
-                if block.get("status") == "not_ready" and key_effects is not None:
-                    block = legacy_block(e, key_effects)
+                if block is None:  # no effect_estimates entry: an older package's key_effects()
+                    block = legacy_block(e, key_effects) if key_effects is not None else \
+                        {"status": "not_ready", "reason": "the package analysis returned nothing for key %r" % key_of(e)}
             elif op in OP_FUNCS:
                 block = OP_FUNCS[op](_rows(sessions, e), e)
             else:
@@ -645,6 +666,14 @@ def _share(cell):
 def _cmp(computed, reported, basis):
     ok = abs(computed - reported) <= max(0.05, 0.15 * abs(reported))
     return {"comparable": True, "computed": computed, "reported": reported, "basis": basis, "withinTolerance": ok}
+
+
+def phenomena_of(effect, hypotheses):
+    """The effect's own phenomena when it lists them, else those of its hypotheses."""
+    if isinstance(effect.get("phenomena"), list):
+        return sorted(set(effect["phenomena"]))
+    by_id = {h.get("id"): h for h in hypotheses or []}
+    return sorted({p for h in effect.get("hypothesisIds") or [] for p in (by_id.get(h) or {}).get("phenomena") or []})
 
 
 def _rounded(x):
