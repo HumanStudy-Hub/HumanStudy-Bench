@@ -221,3 +221,50 @@ def test_capabilities_and_failure_cases_are_checked(program):
     assert validate_assets(files)["status"] == "failed"
     files["capabilities.json"] = json.dumps({**caps, "run": {"status": "no"}}).encode()
     assert any("without a reason" in e for e in validate_assets(files)["errors"])
+
+
+QUOTE = ("In the harm condition 82% said the chairman harmed the environment intentionally (n = 39); "
+         "in the help condition 23% said he helped intentionally (n = 39).")
+
+
+def effects_files(program):
+    program = deepcopy(program)
+    program["evidence"].append({"id": "e-result", "sourceId": "paper", "locator": {"page": 2}, "quote": QUOTE})
+    effects = {"schemaVersion": 1, "programId": program["id"], "topics": ["moral judgment"],
+               "hypotheses": [{"id": "h1", "nodeId": "hypothesis", "status": "tested", "phenomena": ["Side-effect effect"]}],
+               "effects": [{"id": "harm_vs_help", "label": "Harm vs help", "role": "test", "hypothesisIds": ["h1"],
+                            "studyId": "exp-1", "design": "between", "unit": "participant",
+                            "outcome": {"variableId": "intentionality", "type": "binary", "higherMeans": "more say intentional"},
+                            "contrast": {"kind": "two_groups", "treatment": "condition-harm", "reference": "condition-help",
+                                         "conditionIds": ["condition-harm", "condition-help"]},
+                            "prediction": {"direction": "positive"}, "analysisIds": ["analysis"], "resultIds": ["result-1"],
+                            "compute": {"op": "proportion_difference", "field": "answer", "success": ["yes"]},
+                            "reported": {"cells": {"condition-harm": {"n": 39, "percent": 82},
+                                                   "condition-help": {"n": 39, "percent": 23}},
+                                         "missing": [], "evidenceIds": ["e-result"]}}]}
+    files = package_files(program)
+    files["effects.json"] = json.dumps(effects).encode()
+    return files, effects
+
+
+def test_effects_are_checked_and_indexed_for_cross_paper_queries(tmp_path, program):
+    files, effects = effects_files(program)
+    assert validate_assets(files)["status"] == "passed", validate_assets(files)["errors"]
+    bad = deepcopy(effects)
+    bad["effects"][0]["reported"]["cells"]["condition-harm"]["n"] = 40  # not printed in the paper
+    report = validate_assets({**files, "effects.json": json.dumps(bad).encode()})
+    assert report["status"] == "failed" and any("is not written in its cited quotes" in e for e in report["errors"])
+
+    (tmp_path / "catalog").mkdir()
+    (tmp_path / "catalog/taxonomy.json").write_text(json.dumps({"version": "test", "concepts": [
+        {"id": "phenomenon:side-effect", "facet": "phenomenon", "label": "Side-effect effect", "aliases": ["Knobe effect"], "definition": "test",
+         "status": "reviewed", "reviewedBy": "test"}], "assignments": []}))
+    folder = tmp_path / "community/doi_10.1234_test"
+    candidate = integrate(folder, metadata(), files)["candidateRevision"]
+    review = {**approve(files), "candidateRevision": candidate}
+    assert integrate(folder, metadata(), files, review=review)["status"] == "accepted"
+    paper = build_catalog(tmp_path, [])["papers"][0]
+    [record] = paper["effectEstimates"]
+    assert record["id"].endswith("#harm_vs_help") and record["computeOp"] == "proportion_difference"
+    assert record["conceptSuggestions"] == ["phenomenon:side-effect"] and paper["conceptIds"] == []
+    assert record["reported"]["cells"]["condition-harm"]["percent"] == 82 and record["reportedPages"] == [2]

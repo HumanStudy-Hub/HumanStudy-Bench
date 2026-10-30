@@ -15,6 +15,7 @@ from typing import Any
 from jsonschema import Draft202012Validator
 from scripts.research.catalog import community_identity, digest, normalise_doi, project_program
 from scripts.research.capabilities import validate as check_capabilities
+from scripts.research.effects_core import check as check_effects
 from scripts.research.program_rules import problems_for
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -26,7 +27,7 @@ CORE = ("study.json", "source/paper_metadata.json", "materials/materials.json", 
         "task/adapter.py", "evaluation/evaluation.py")
 STANDALONE_VIEWS = ("source/evidence.json", "audit/missing_information.json")
 PROGRAM_REF = "../../program.json"
-TOP_LEVEL = {"program.json", "capabilities.json"}
+TOP_LEVEL = {"program.json", "capabilities.json", "effects.json"}
 PRIVATE = {".env", ".git", ".opencode", ".humanstudy", "node_modules", "__pycache__",
            "threads", "conversations", "chat", "chats", "credentials", "account.json", "settings.json"}
 
@@ -108,12 +109,27 @@ def validate_assets(files: dict[str, bytes]) -> dict:
             except (SyntaxError, ValueError):
                 errors.append(f"{package}/{rel}: invalid Python")
     errors.extend(capability_problems(files))
+    errors.extend(effects_problems(files, program))
     return {"status": "failed" if errors else "passed", "errors": errors,
             "checks": {"schema": not errors, "packageBindings": bool(package_roots) and not errors,
                        "codeExecuted": False, "scientificReview": False},
             "capabilities": {"discoverable": True, "traceable": False,
                              "reanalyzable": False, "replayable": False, "humanBenchmark": False},
             "programDigest": digest(program), "projection": project_program(program)}
+
+
+def effects_problems(files: dict[str, bytes], program: dict) -> list[str]:
+    """effects.json, when present, follows the desktop contract (desktop effects_core.py): every program
+    hypothesis listed, effects linked to program nodes, every reported number written in a cited quote."""
+    raw = files.get("effects.json")
+    if raw is None:
+        return []
+    try:
+        effects = json.loads(raw)
+    except ValueError:
+        return ["effects.json: invalid JSON"]
+    problems, _warnings = check_effects(Path("."), effects, program)
+    return ["effects.json: " + p for p in problems]
 
 
 def capability_problems(files: dict[str, bytes]) -> list[str]:

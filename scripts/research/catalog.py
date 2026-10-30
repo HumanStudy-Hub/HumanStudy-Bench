@@ -118,6 +118,47 @@ def concept_matches(query: str, taxonomy: dict) -> list[str]:
             {normalise(s) for s in [c["label"], *c.get("aliases", [])]}]
 
 
+def concept_suggestions(phrases: list[str], taxonomy: dict) -> list[str]:
+    """Concept ids whose label or alias equals a phenomenon keyword. Suggestions only: a paper's
+    reviewed concepts stay in conceptIds/conceptAssignments."""
+    wanted = {normalise(p) for p in phrases if p}
+    return sorted(c["id"] for c in taxonomy.get("concepts", [])
+                  if wanted & {normalise(x) for x in [c.get("label", "")] + list(c.get("aliases", []))})
+
+
+def effect_records(paper_id: str, effects: dict, program: dict, taxonomy: dict) -> list[dict]:
+    """One flat record per effect of effects.json, for filtering across papers (by phenomenon, concept,
+    design, outcome type, metric) and for pooling later. Reported numbers are copied as printed; nothing
+    is converted here."""
+    nodes = {n["id"]: n for n in program.get("nodes", [])}
+    evidence = {e["id"]: e for e in program.get("evidence", [])}
+
+    def statement(node_id: str):
+        node = nodes.get(node_id, {})
+        for f in node.get("fields", []):
+            if f.get("id") == "statement" and isinstance(f.get("value"), str):
+                return f["value"]
+        return node.get("title")
+    hyps = {h["id"]: h for h in effects.get("hypotheses", [])}
+    out = []
+    for e in effects.get("effects", []):
+        hs = [hyps[h] for h in e.get("hypothesisIds", []) if h in hyps]
+        phenomena = sorted({p for h in hs for p in h.get("phenomena", [])})
+        reported = e.get("reported")
+        pages = sorted({evidence[x]["locator"].get("page") for x in (reported or {}).get("evidenceIds", [])
+                        if x in evidence and evidence[x].get("locator", {}).get("page")})
+        out.append({"id": paper_id + "#" + e["id"], "effectId": e["id"], "label": e.get("label"),
+                    "role": e.get("role"), "studyId": e.get("studyId"),
+                    "hypotheses": [{"id": h["id"], "nodeId": h.get("nodeId"), "statement": statement(h.get("nodeId"))}
+                                   for h in hs],
+                    "phenomena": phenomena, "conceptSuggestions": concept_suggestions(phenomena, taxonomy),
+                    "topics": effects.get("topics", []), "design": e.get("design"), "unit": e.get("unit"),
+                    "outcome": e.get("outcome"), "contrast": e.get("contrast"), "prediction": e.get("prediction"),
+                    "computeOp": (e.get("compute") or {}).get("op"), "reported": reported,
+                    "reportedPages": pages})
+    return out
+
+
 def build_catalog(root: Path, legacy: list[dict]) -> dict:
     taxonomy = json.loads((root / "catalog/taxonomy.json").read_text())
     errors = taxonomy_errors(taxonomy)
@@ -185,12 +226,16 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
         previous = papers.get(pid, {})
         declared = revision / "capabilities.json"  # what the study can do, with reasons (desktop #45)
         study_caps = json.loads(declared.read_text()) if any(e["path"] == "capabilities.json" for e in manifest["files"]) else None
+        has_effects = any(e["path"] == "effects.json" for e in manifest["files"])
+        estimates = effect_records(pid, json.loads((revision / "effects.json").read_text()), program, taxonomy) \
+            if has_effects else previous.get("effectEstimates", [])
         papers[pid] = {**previous, **paper, **projection,
                        "aliases": sorted(set(previous.get("aliases", []) + paper.get("aliases", []))),
                        "currentRevision": current["revision"],
                        "assetRoot": revision.relative_to(root).as_posix(), "assetFiles": manifest["files"],
                        "coverage": "human-program", "capabilities": current["capabilities"],
                        **({"studyCapabilities": study_caps} if study_caps else {}),
+                       "effectEstimates": estimates,
                        "conceptIds": previous.get("conceptIds", []),
                        "conceptAssignments": previous.get("conceptAssignments", [])}
 
