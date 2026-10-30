@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "b03a0f558b23e76b85ead9023e26e7a33ca44cfffdd7114f1f0efc76f8c4e57a",
-  "previousRevision": "e34cfbf7e45c39a6f9971b5bf3a24ba90a9c1c886c4441572dc67dda9f9d2206",
+  "revision": "8cb76c8e7d22e4769b8709901a380e06544dea21f7c6e334e02b4175591b8dc7",
+  "previousRevision": "b03a0f558b23e76b85ead9023e26e7a33ca44cfffdd7114f1f0efc76f8c4e57a",
   "paper": {
     "title": "Investigating Variation in Replicability: A \"Many Labs\" Replication Project",
     "authors": [
@@ -41,15 +41,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "b03a0f558b23e76b85ead9023e26e7a33ca44cfffdd7114f1f0efc76f8c4e57a",
+    "candidateRevision": "8cb76c8e7d22e4769b8709901a380e06544dea21f7c6e334e02b4175591b8dc7",
     "reviewer": "maintainer:assassin808",
-    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
     "checks": [
-      "every URL in the key served the pinned sha256 (download and hash)",
-      "study_core.py reproduce on the pinned files: partial [11, 12], equal to the pilot comparison",
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: partial [13, 14]",
       "capabilities.py --check",
+      "check_package.py",
       "agent export self-test",
-      "schema and package bindings (validate_assets)"
+      "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
       "discoverable": true,
@@ -75,6 +78,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "8fa173544b1da25c4979c6e2850e650c0cb659811e853065bebef89f4cf89bcc"
+    "programDigest": "df8022290042f662d5a48769f33ff876e9a88ba8421d965c7cc698b8925702d6"
   }
 }

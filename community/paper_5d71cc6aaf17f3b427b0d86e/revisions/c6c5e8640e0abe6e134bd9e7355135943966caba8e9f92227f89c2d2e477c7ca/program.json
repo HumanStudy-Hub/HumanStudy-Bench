@@ -1,0 +1,3671 @@
+{
+  "schemaVersion": 2,
+  "id": "tesslerfranke2018",
+  "intent": "reconstruct",
+  "title": "Not unreasonable: Carving vague dimensions with contraries and contradictions",
+  "source": {
+    "title": "Not unreasonable: Carving vague dimensions with contraries and contradictions",
+    "authors": "Michael Henry Tessler, Michael Franke",
+    "filename": "paper.pdf",
+    "venue": "Proceedings of the Annual Meeting of the Cognitive Science Society, 40",
+    "version": "2018"
+  },
+  "studies": [
+    {
+      "id": "exp1",
+      "title": "Experiment 1: Single utterances",
+      "type": "empirical",
+      "description": "Exploratory online rating study; each participant rated adjectives from morphological-antonym and lexical-antonym sets one sentence at a time."
+    },
+    {
+      "id": "exp2",
+      "title": "Experiment 2: Single and multiple utterances",
+      "type": "empirical",
+      "description": "Preregistered 2x2 between-subjects replication (antonym type x context) with adjective sets that have both morphological and lexical antonyms.",
+      "dependsOn": [
+        "exp1"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ov",
+      "kind": "overview",
+      "title": "Overview",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "year",
+          "label": "Year",
+          "value": "2018",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-year"
+          ]
+        },
+        {
+          "id": "method-type",
+          "label": "Method type",
+          "value": "Two online between/within-participant rating experiments (Amazon Mechanical Turk) alongside a Rational Speech Act computational model of negated gradable adjectives.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-abs-conf",
+            "ev-expt-roles"
+          ]
+        },
+        {
+          "id": "summary",
+          "label": "Summary",
+          "value": "Tests whether listeners' uncertainty about the meaning of negation markers (un-, not) predicts how morphological antonyms (unhappy), negated positives (not happy), negated antonyms (not unhappy) and positives (happy) are ordered on a scale, depending on whether the adjectives are heard alone or together in one context.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-abs-hyp",
+            "ev-abs-pred"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-year",
+        "ev-abs-hyp",
+        "ev-abs-conf"
+      ]
+    },
+    {
+      "id": "bg",
+      "kind": "background",
+      "title": "Research question and theory",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "question",
+          "label": "Question",
+          "value": "If \"Jones is not unhappy\", does that mean that Jones is happy? How does negation give rise to a multiplicity of meanings (unhappy, not happy, not unhappy)?",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-intro-q"
+          ]
+        },
+        {
+          "id": "gap",
+          "label": "Gap",
+          "value": "No computational account of these interpretations had been tested against human behavioral data.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-intro-gap"
+          ]
+        },
+        {
+          "id": "theory",
+          "label": "Theory",
+          "value": "Rational Speech Act model of gradable adjectives with lexical uncertainty: listeners are uncertain whether negation markers express contradictory or contrary opposition.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-intro-form"
+          ]
+        },
+        {
+          "id": "concepts",
+          "label": "Concepts",
+          "value": "Contrary opposition: both predicates cannot be true at once but both can be false (tall/short). Contradictory opposition: falsity of one entails truth of the other.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-intro-orw"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-intro-q",
+        "ev-intro-gap",
+        "ev-intro-form",
+        "ev-intro-orw"
+      ]
+    },
+    {
+      "id": "h-order",
+      "kind": "hypothesis",
+      "title": "H1: Partial vs. full ordering by antonym type",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "In isolation (single utterance), unhappy (morphological antonym) is not distinguished from not happy (partial ordering), whereas lexical antonyms (short, sad) are interpreted more negatively than negated positives (full ordering).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-model-pred",
+            "ev-lex-pred",
+            "ev-model-single"
+          ]
+        },
+        {
+          "id": "scope",
+          "label": "Scope",
+          "value": "Interpretations of adjectives describing properties of people, rated on a slider between the most positive and most negative person.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-model-pred",
+        "ev-lex-pred",
+        "ev-model-single"
+      ]
+    },
+    {
+      "id": "h-context",
+      "kind": "hypothesis",
+      "title": "H2: Context modulates morphological antonyms",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "Morphological antonyms will be interpreted more negatively than negated positives in a context with multiple utterances.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-ctx-h",
+            "ev-model-multi"
+          ]
+        },
+        {
+          "id": "scope",
+          "label": "Scope",
+          "value": "Morphological antonym sets; multiple-utterance vs. single-utterance context.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-ctx-h"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-ctx-h",
+        "ev-model-multi"
+      ]
+    },
+    {
+      "id": "find",
+      "kind": "finding",
+      "title": "Findings",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "answer",
+          "label": "Answer",
+          "value": "Morphological antonyms and negated positives are not immediately differentiated, except when both are present in the same context; lexical antonyms are distinguished from negated positives regardless.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-disc"
+          ]
+        },
+        {
+          "id": "support",
+          "label": "Support",
+          "value": "Interaction of antonym type with the antonym vs. negated-positive contrast (Expt. 1 and Expt. 2) and of context with that contrast for morphological antonyms (Expt. 2).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-res",
+            "ev2-res-int",
+            "ev2-ctx-r"
+          ]
+        },
+        {
+          "id": "mechanism-proposed",
+          "label": "Mechanism proposed",
+          "value": "Uncertainty about whether negation markers express contradiction or contrary opposition, resolved by joint reasoning over speaker lexicon and utterance alternatives.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-abs-hyp",
+            "ev-disc"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-disc",
+        "ev1-res",
+        "ev2-res-int",
+        "ev2-ctx-r"
+      ]
+    },
+    {
+      "id": "lim",
+      "kind": "limitation",
+      "title": "Validity and openness",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "limitations",
+          "label": "Limitations",
+          "value": "The authors stipulate, rather than derive, differences in meaning for morphological vs. lexical antonym pairs.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-lim"
+          ]
+        },
+        {
+          "id": "replications",
+          "label": "Replications",
+          "value": "Expt. 2 is a larger, preregistered replication of the exploratory Expt. 1.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-expt-roles"
+          ]
+        },
+        {
+          "id": "openness",
+          "label": "Openness",
+          "value": "Paper states paradigms, models, analysis scripts and data are available at https://mhtess.github.io (not consulted; no external research authorized). Expt. 2 preregistered at osf.io/p7f25/.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-open",
+            "ev2-prereg"
+          ]
+        },
+        {
+          "id": "scope",
+          "label": "Scope",
+          "value": "Model prior over lexica assumed uniform; frequency as a proxy for the prior is suggested as a further test.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-prior"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-lim",
+        "ev-open",
+        "ev-prior"
+      ]
+    },
+    {
+      "id": "p1",
+      "kind": "participants",
+      "title": "Exp 1 participants",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online, Amazon Mechanical Turk.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-part"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "All participants are raters; no scripted roles are described.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ],
+          "derivation": "The paper describes only raters; no confederates or experimenters are described."
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "Mechanical Turk; U.S. IP addresses and at least a 95% work approval rating.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-part"
+          ]
+        },
+        {
+          "id": "eligibility",
+          "label": "Eligibility",
+          "value": "Participants who self-reported a native language other than English were excluded.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-part"
+          ]
+        },
+        {
+          "id": "n-recruited",
+          "label": "N recruited",
+          "value": 120,
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-part"
+          ]
+        },
+        {
+          "id": "n-analysed",
+          "label": "N analysed",
+          "value": 114,
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-excl"
+          ]
+        },
+        {
+          "id": "n-completed",
+          "label": "N completed",
+          "value": "Not separately reported (recruited 120; 6 excluded for native language).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev1-excl"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Sampling unit",
+          "value": "Individual participant (each rated 16 sentences).",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ],
+          "derivation": "One participant completed 16 trials."
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "$0.40 for an average of 3 minutes.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-part"
+          ]
+        },
+        {
+          "id": "characteristics",
+          "label": "Characteristics",
+          "value": "Age, gender and other demographics are not reported.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev1-part"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev1-part",
+        "ev1-excl"
+      ]
+    },
+    {
+      "id": "d1",
+      "kind": "design",
+      "title": "Exp 1 design",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Within-participant rating task: adjective type (positive, antonym, negated positive, negated antonym) crossed with antonym type (morphological vs. lexical), both varying within a participant.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ],
+          "derivation": "Participants 'saw items from both antonym types throughout' and 16 trials = 2 repetitions of each adjective type for each antonym type."
+        },
+        {
+          "id": "control",
+          "label": "Control",
+          "value": "Lexical antonyms (e.g., short) serve as a control: they lack overt negation markers.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev-lex-pred"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "No between-participant manipulation; all participants complete the same kind of 16-trial design.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ],
+          "derivation": "No between-subject factor is described for Expt. 1."
+        },
+        {
+          "id": "order",
+          "label": "Order",
+          "value": "Order of the 16 trials, and which 8 of the 10 adjective sets per antonym type each participant saw, is not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev1-proc",
+            "ev1-distinct"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev1-proc",
+        "ev1-distinct",
+        "ev-lex-pred"
+      ]
+    },
+    {
+      "id": "m1-items",
+      "kind": "material",
+      "title": "Exp 1 adjective sets (Table 1)",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "morphological-sets",
+          "label": "Morphological antonym sets",
+          "value": [
+            "attractive, unattractive",
+            "educated, uneducated",
+            "friendly, unfriendly",
+            "happy, unhappy",
+            "honest, dishonest",
+            "intelligent, unintelligent",
+            "interesting, uninteresting",
+            "mature, immature",
+            "polite, impolite",
+            "successful, unsuccessful"
+          ],
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-table"
+          ]
+        },
+        {
+          "id": "lexical-sets",
+          "label": "Lexical antonym sets",
+          "value": [
+            "beautiful, ugly",
+            "brave, cowardly",
+            "fat, skinny",
+            "hard-working, lazy",
+            "loud, quiet",
+            "proud, humble",
+            "rich, poor",
+            "strong, weak",
+            "tall, short",
+            "wise, foolish"
+          ],
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-table"
+          ]
+        },
+        {
+          "id": "construction",
+          "label": "Construction",
+          "value": "10 adjective sets per antonym type (total 20) from an informal survey of the linguistics literature and a list of common opposites available online; each trial used a distinct adjective set.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-mat",
+            "ev1-distinct"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev1-table",
+        "ev1-mat",
+        "ev1-distinct"
+      ]
+    },
+    {
+      "id": "m1-scale",
+      "kind": "material",
+      "title": "Exp 1 response scale",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "endpoints",
+          "label": "Slider endpoints",
+          "value": "from \"the most positive person\" to \"the most antonym person\" (item-dependent)",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ]
+        },
+        {
+          "id": "numeric-range",
+          "label": "Numeric range and start position",
+          "value": "The numeric range and default position of the slider are not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev1-proc"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev1-proc"
+      ]
+    },
+    {
+      "id": "m1-text",
+      "kind": "material",
+      "title": "Exp 1 instructions and sentence frames",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "instructions",
+          "label": "Instructions",
+          "value": "The instruction text shown to participants is not printed in the paper.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev1-proc"
+          ]
+        },
+        {
+          "id": "sentence-frame",
+          "label": "Sentence frame and character names",
+          "value": "The exact statement wording introducing a person (frame, names) is not printed for Expt. 1; Expt. 2 gives the example \"Greg is not unhappy\".",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev1-proc"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev1-proc"
+      ]
+    },
+    {
+      "id": "proc1",
+      "kind": "procedure",
+      "title": "Exp 1 procedure",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "task",
+          "label": "Task",
+          "value": "On each trial, read a statement introducing a person using a gradable adjective and rate the character on a slider.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ]
+        },
+        {
+          "id": "actions",
+          "label": "Actions",
+          "value": "One sentence at a time; items from both antonym types; 16 trials with exactly 2 repetitions of each adjective type for each antonym type; each trial from a distinct adjective set.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc",
+            "ev1-distinct"
+          ]
+        },
+        {
+          "id": "visible",
+          "label": "Visible",
+          "value": "One statement at a time; no responses of other participants are shown.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ],
+          "derivation": "'Participants rated one sentence at a time.'"
+        },
+        {
+          "id": "feedback",
+          "label": "Feedback",
+          "value": "None described.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev1-proc"
+          ],
+          "derivation": "The paper describes no feedback."
+        }
+      ],
+      "evidenceIds": [
+        "ev1-proc"
+      ]
+    },
+    {
+      "id": "v1-rating",
+      "kind": "variable",
+      "title": "Exp 1 slider rating",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-lmm"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Continuous slider rating (raw, unnormalized) from the most antonym person to the most positive person.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc",
+            "ev1-lmm"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "One rating per participant per trial.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ],
+          "derivation": "16 trials per participant."
+        },
+        {
+          "id": "transformation",
+          "label": "Normalization",
+          "value": "Participant-wise normalized response r'ij computed from the participant's mean and SD for visualization; formula glyphs are garbled in the text layer.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev1-norm"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev1-proc",
+        "ev1-lmm",
+        "ev1-norm"
+      ]
+    },
+    {
+      "id": "v1-adj",
+      "kind": "variable",
+      "title": "Exp 1 adjective type",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-lmm"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Categorical, 4 levels, Helmert coded in order: antonym, negated positive, negated antonym, positive.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-lmm",
+            "ev1-helmert"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "Trial",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ],
+          "derivation": "Varies by trial."
+        }
+      ],
+      "evidenceIds": [
+        "ev1-lmm",
+        "ev1-helmert"
+      ]
+    },
+    {
+      "id": "v1-ant",
+      "kind": "variable",
+      "title": "Exp 1 antonym type",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-lmm"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Categorical: morphological vs. lexical (varies within participant, by item).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-lmm",
+            "ev1-proc"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "Adjective set / trial",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ],
+          "derivation": "Varies by item."
+        }
+      ],
+      "evidenceIds": [
+        "ev1-lmm",
+        "ev1-proc"
+      ]
+    },
+    {
+      "id": "rec1",
+      "kind": "record",
+      "title": "Exp 1 trial record",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant x trial: adjective set, adjective type, antonym type, slider rating.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc"
+          ],
+          "derivation": "Each of 16 trials yields one rating."
+        }
+      ],
+      "evidenceIds": [
+        "ev1-proc"
+      ]
+    },
+    {
+      "id": "an1-lmm",
+      "kind": "analysis",
+      "title": "Exp 1 linear mixed model",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Test whether the antonym vs. negated-positive contrast differs between morphological and lexical antonyms.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-lmm",
+            "ev1-res"
+          ]
+        },
+        {
+          "id": "inputs",
+          "label": "Inputs",
+          "value": "Raw unnormalized ratings, 114 analysed participants.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-lmm",
+            "ev1-excl"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Linear mixed model: fixed effects of antonym type, adjective type (Helmert) and their interaction; random intercepts and random slopes of adjective type by participant and by item (the maximal model that converged and explained significantly more variance; lme4 in R).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-lmm",
+            "ev1-lmm-re",
+            "ev1-fn5"
+          ]
+        },
+        {
+          "id": "criterion",
+          "label": "Criterion",
+          "value": "Interaction of antonym vs. negated-positive contrast with antonym type; significance level not stated.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev1-res"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev1-lmm",
+        "ev1-lmm-re",
+        "ev1-fn5",
+        "ev1-res"
+      ]
+    },
+    {
+      "id": "an1-vis",
+      "kind": "analysis",
+      "title": "Exp 1 normalized means",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Visualize the ordering of the four adjective types within morphological and lexical antonym sets.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-fig5a"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Participant-wise normalized responses; mean and bootstrapped 95% confidence intervals per adjective type and antonym type.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-norm",
+            "ev1-fig5a"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev1-norm",
+        "ev1-fig5a"
+      ]
+    },
+    {
+      "id": "res1-int",
+      "kind": "result",
+      "title": "Exp 1: antonym type x (antonym vs. negated positive)",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-res"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "b = 0.029, t(16) = 2.4, p = 0.029",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-res"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Effect",
+          "value": "The antonym vs. negated positive difference interacted significantly with antonym type (morphological vs. lexical).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-res"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev1-res"
+      ]
+    },
+    {
+      "id": "res1-ord",
+      "kind": "result",
+      "title": "Exp 1: ordering pattern",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-crit"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Descriptives",
+          "value": "Morphological antonym sets show only a partial ordering; lexical antonym sets show a full ordering. Mean normalized values are shown only in Fig. 5A, not tabulated.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev1-crit",
+            "ev1-fig5a"
+          ]
+        },
+        {
+          "id": "themes",
+          "label": "Themes",
+          "value": "Negated morphological antonyms rated lower than negated lexical antonyms; negated antonyms received a bimodal distribution (mostly slightly positive, a minority slightly negative), present in every item and most participants.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-lower",
+            "ev1-bimodal"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev1-crit",
+        "ev1-lower",
+        "ev1-bimodal"
+      ]
+    },
+    {
+      "id": "c2-morph-single",
+      "kind": "condition",
+      "title": "Morphological antonyms, single utterance",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "antonym-type",
+          "label": "Antonym type",
+          "value": "morphological",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "context",
+          "label": "Context",
+          "value": "single utterance(s)",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "n-assigned",
+          "label": "N assigned",
+          "value": 300,
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-part"
+      ]
+    },
+    {
+      "id": "c2-lex-single",
+      "kind": "condition",
+      "title": "Lexical antonyms, single utterance",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "antonym-type",
+          "label": "Antonym type",
+          "value": "lexical",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "context",
+          "label": "Context",
+          "value": "single utterance(s)",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "n-assigned",
+          "label": "N assigned",
+          "value": 300,
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-part"
+      ]
+    },
+    {
+      "id": "c2-morph-multi",
+      "kind": "condition",
+      "title": "Morphological antonyms, multiple utterances",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "antonym-type",
+          "label": "Antonym type",
+          "value": "morphological",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "context",
+          "label": "Context",
+          "value": "multiple utterance(s)",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "n-assigned",
+          "label": "N assigned",
+          "value": 75,
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-part"
+      ]
+    },
+    {
+      "id": "c2-lex-multi",
+      "kind": "condition",
+      "title": "Lexical antonyms, multiple utterances",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "antonym-type",
+          "label": "Antonym type",
+          "value": "lexical",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "context",
+          "label": "Context",
+          "value": "multiple utterance(s)",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "n-assigned",
+          "label": "N assigned",
+          "value": 75,
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-part"
+      ]
+    },
+    {
+      "id": "p2",
+      "kind": "participants",
+      "title": "Exp 2 participants",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online, Amazon Mechanical Turk.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "All participants are raters; no scripted roles are described.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single"
+          ],
+          "derivation": "The paper describes only raters."
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "MTurk; U.S. IP addresses and at least 95% work approval rating (stated for all experiments).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-part",
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "eligibility",
+          "label": "Eligibility",
+          "value": "Participants who self-reported a native language other than English were excluded (preregistered exclusion criterion).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-part",
+            "ev2-excl",
+            "ev2-prereg"
+          ]
+        },
+        {
+          "id": "n-recruited",
+          "label": "N recruited",
+          "value": 750,
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "n-analysed",
+          "label": "N analysed",
+          "value": 715,
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-excl"
+          ]
+        },
+        {
+          "id": "n-completed",
+          "label": "N completed",
+          "value": "Not separately reported.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev2-excl"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Sampling unit",
+          "value": "Individual participant.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ],
+          "derivation": "Participants are assigned to one of four between-subjects conditions."
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "$0.40 (single utterance, about 3 minutes); $0.80 (multiple utterances, about 5 minutes).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-pay"
+          ]
+        },
+        {
+          "id": "characteristics",
+          "label": "Characteristics",
+          "value": "Demographics are not reported.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-part",
+        "ev2-pay",
+        "ev2-excl",
+        "ev2-prereg"
+      ]
+    },
+    {
+      "id": "d2",
+      "kind": "design",
+      "title": "Exp 2 design",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "2x2 between-subjects: antonym type (morphological vs. lexical) x context (single vs. multiple utterances); adjective type varies within participant.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part",
+            "ev2-between"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "300 participants per antonym type in single-utterance contexts; 75 per antonym type in multiple-utterance conditions. The assignment procedure (random or not) is not stated.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "manipulation-check",
+          "label": "Manipulation check",
+          "value": "Slider endpoints relabeled \"in the world\" to avoid a salient 'of these four' reading in the multiple utterances conditions.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-slider"
+          ]
+        },
+        {
+          "id": "order",
+          "label": "Order",
+          "value": "Order of trials/displays and the assignment of adjective sets to trials are not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev2-single",
+            "ev2-multi"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-part",
+        "ev2-between",
+        "ev2-slider",
+        "ev2-single"
+      ]
+    },
+    {
+      "id": "m2-items",
+      "kind": "material",
+      "title": "Exp 2 adjective sets (Table 2)",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "sets",
+          "label": "Adjective sets (positive, morphological antonym, lexical antonym)",
+          "value": [
+            {
+              "positive": "affectionate",
+              "morphological_antonym": "unaffectionate",
+              "lexical_antonym": "cold"
+            },
+            {
+              "positive": "ambitious",
+              "morphological_antonym": "unambitious",
+              "lexical_antonym": "lazy"
+            },
+            {
+              "positive": "attractive",
+              "morphological_antonym": "unattractive",
+              "lexical_antonym": "ugly"
+            },
+            {
+              "positive": "educated",
+              "morphological_antonym": "uneducated",
+              "lexical_antonym": "ignorant"
+            },
+            {
+              "positive": "forgiving",
+              "morphological_antonym": "unforgiving",
+              "lexical_antonym": "resentful"
+            },
+            {
+              "positive": "friendly",
+              "morphological_antonym": "unfriendly",
+              "lexical_antonym": "mean"
+            },
+            {
+              "positive": "generous",
+              "morphological_antonym": "ungenerous",
+              "lexical_antonym": "stingy"
+            },
+            {
+              "positive": "happy",
+              "morphological_antonym": "unhappy",
+              "lexical_antonym": "sad"
+            },
+            {
+              "positive": "honest",
+              "morphological_antonym": "dishonest",
+              "lexical_antonym": "deceitful"
+            },
+            {
+              "positive": "intelligent",
+              "morphological_antonym": "unintelligent",
+              "lexical_antonym": "stupid"
+            },
+            {
+              "positive": "interesting",
+              "morphological_antonym": "uninteresting",
+              "lexical_antonym": "boring"
+            },
+            {
+              "positive": "kind",
+              "morphological_antonym": "unkind",
+              "lexical_antonym": "cruel"
+            },
+            {
+              "positive": "mature",
+              "morphological_antonym": "immature",
+              "lexical_antonym": "childish"
+            },
+            {
+              "positive": "patriotic",
+              "morphological_antonym": "unpatriotic",
+              "lexical_antonym": "traitorous"
+            },
+            {
+              "positive": "polite",
+              "morphological_antonym": "impolite",
+              "lexical_antonym": "rude"
+            },
+            {
+              "positive": "rational",
+              "morphological_antonym": "irrational",
+              "lexical_antonym": "crazy"
+            },
+            {
+              "positive": "reliable",
+              "morphological_antonym": "unreliable",
+              "lexical_antonym": "flaky"
+            },
+            {
+              "positive": "resourceful",
+              "morphological_antonym": "unresourceful",
+              "lexical_antonym": "wasteful"
+            },
+            {
+              "positive": "sincere",
+              "morphological_antonym": "insincere",
+              "lexical_antonym": "fake"
+            },
+            {
+              "positive": "tolerant",
+              "morphological_antonym": "intolerant",
+              "lexical_antonym": "bigoted"
+            }
+          ],
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-table"
+          ]
+        },
+        {
+          "id": "construction",
+          "label": "Construction",
+          "value": "Sets of words for properties of people where both antonym types exist for the same positive adjective; lexical antonyms chosen by the first author from free-produced opposites in an MTurk survey (n=18) over 30 positive-form adjectives; ten of the 30 items dropped (20 retained).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-mat",
+            "ev2-sel"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-table",
+        "ev2-mat",
+        "ev2-sel"
+      ]
+    },
+    {
+      "id": "m2-scale",
+      "kind": "material",
+      "title": "Exp 2 response scale",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "endpoints",
+          "label": "Slider endpoints",
+          "value": "\"the most {positive, negative} person in the world\"",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-slider"
+          ]
+        },
+        {
+          "id": "numeric-range",
+          "label": "Numeric range and start position",
+          "value": "Not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev2-slider"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-slider"
+      ]
+    },
+    {
+      "id": "m2-text",
+      "kind": "material",
+      "title": "Exp 2 instructions, sentence frames and multi-utterance display",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "instructions",
+          "label": "Instructions",
+          "value": "Instruction text is not printed.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev2-single"
+          ]
+        },
+        {
+          "id": "sentence-example",
+          "label": "Sentence example",
+          "value": "\"Greg is not unhappy\"",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single"
+          ]
+        },
+        {
+          "id": "sentence-frame",
+          "label": "Sentence frame and names",
+          "value": "Frame and character names beyond the one example are not printed.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev2-single"
+          ]
+        },
+        {
+          "id": "multi-layout",
+          "label": "Multiple-utterances display",
+          "value": "Layout of the four simultaneous statements (Fig. 4B), person names and statement order are not described in text.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev2-multi"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-single",
+        "ev2-multi"
+      ]
+    },
+    {
+      "id": "proc2",
+      "kind": "procedure",
+      "title": "Exp 2 procedure",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "task",
+          "label": "Task",
+          "value": "Rate the person described by each statement on a slider.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single",
+            "ev2-multi"
+          ]
+        },
+        {
+          "id": "actions",
+          "label": "Actions",
+          "value": "Single-utterance conditions: one sentence at a time, each from a unique adjective set, 12 trials with exactly 3 repetitions of each adjective type. Multiple-utterances conditions: all four adjective types rated simultaneously, each referring to a different person, for a total of 12 trials.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single",
+            "ev2-multi"
+          ]
+        },
+        {
+          "id": "visible",
+          "label": "Visible",
+          "value": "Single: one statement. Multiple: the four statements of one adjective set are visible together.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-multi",
+            "ev2-single"
+          ],
+          "derivation": "From 'rated all four adjective types simultaneously' and 'one sentence at a time'."
+        },
+        {
+          "id": "feedback",
+          "label": "Feedback",
+          "value": "None described.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev2-single"
+          ],
+          "derivation": "The paper describes no feedback."
+        }
+      ],
+      "evidenceIds": [
+        "ev2-single",
+        "ev2-multi"
+      ]
+    },
+    {
+      "id": "v2-rating",
+      "kind": "variable",
+      "title": "Exp 2 slider rating",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-lmm1"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Continuous slider rating (raw, unnormalized) between 'the most positive person in the world' and 'the most negative person in the world'.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-slider",
+            "ev2-lmm1"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "One rating per participant per trial (12 per participant).",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single"
+          ],
+          "derivation": "12 trials per participant."
+        },
+        {
+          "id": "transformation",
+          "label": "Normalization",
+          "value": "Mean normalized responses are plotted in Fig. 5B; normalization as in Expt. 1.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev2-fig5b"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-slider",
+        "ev2-lmm1",
+        "ev2-fig5b"
+      ]
+    },
+    {
+      "id": "v2-adj",
+      "kind": "variable",
+      "title": "Exp 2 adjective type",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-lmm1b"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Categorical, 4 levels, Helmert coded in order: antonym, negated positive, negated antonym, positive.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-lmm1b"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "Trial",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single"
+          ],
+          "derivation": "Varies by trial."
+        }
+      ],
+      "evidenceIds": [
+        "ev2-lmm1b"
+      ]
+    },
+    {
+      "id": "v2-ant",
+      "kind": "variable",
+      "title": "Exp 2 antonym type",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-between"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Categorical, morphological vs. lexical; between participants.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-between"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "Participant",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-between"
+          ],
+          "derivation": "Between-participants factor."
+        }
+      ],
+      "evidenceIds": [
+        "ev2-between"
+      ]
+    },
+    {
+      "id": "v2-ctx",
+      "kind": "variable",
+      "title": "Exp 2 context",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-ctx-m"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Categorical, single vs. multiple utterances; between participants.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-ctx-m",
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "Participant",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-part"
+          ],
+          "derivation": "Between-participants factor."
+        }
+      ],
+      "evidenceIds": [
+        "ev2-ctx-m",
+        "ev2-part"
+      ]
+    },
+    {
+      "id": "rec2",
+      "kind": "record",
+      "title": "Exp 2 trial record",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant x trial: condition, adjective set, adjective type, slider rating.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single"
+          ],
+          "derivation": "12 ratings per participant."
+        }
+      ],
+      "evidenceIds": [
+        "ev2-single"
+      ]
+    },
+    {
+      "id": "an2-single",
+      "kind": "analysis",
+      "title": "Exp 2 single-utterance mixed model and simple effects",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Test whether the antonym vs. negated-positive contrast differs between morphological and lexical antonyms in single-utterance conditions.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-lmm1",
+            "ev2-res-int"
+          ]
+        },
+        {
+          "id": "inputs",
+          "label": "Inputs",
+          "value": "Unnormalized ratings from the single-utterance conditions only.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-lmm1"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Linear mixed model with antonym type, adjective type (Helmert) and interaction; random intercepts and random slopes of adjective type by participant and by item; then simple-effects models (random slope by item dropped for lexical antonyms to converge).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-lmm1b",
+            "ev2-fn6"
+          ]
+        },
+        {
+          "id": "robustness",
+          "label": "Preregistration",
+          "value": "Exclusion criterion, sample size, procedure and analysis preregistered.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-prereg"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-lmm1",
+        "ev2-lmm1b",
+        "ev2-fn6",
+        "ev2-prereg"
+      ]
+    },
+    {
+      "id": "an2-ctx",
+      "kind": "analysis",
+      "title": "Exp 2 context model (morphological antonyms)",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Test whether context modulates the antonym vs. negated-positive difference for morphological antonyms.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-ctx-h",
+            "ev2-ctx-m"
+          ]
+        },
+        {
+          "id": "inputs",
+          "label": "Inputs",
+          "value": "Raw ratings from morphological antonym conditions (single and multiple).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-ctx-m"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Linear mixed model with adjective type, context and their interaction; random intercepts and random slopes of adjective type by participant and by item.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-ctx-m"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-ctx-m"
+      ]
+    },
+    {
+      "id": "an2-3way",
+      "kind": "analysis",
+      "title": "Exp 2 exploratory three-way model",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Exploratory: antonym vs. negated positive x antonym type x context interaction in a full model.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-3way"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Full three-way interactive mixed model (exploratory); structure not further described.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev2-3way"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-3way"
+      ]
+    },
+    {
+      "id": "res2-int",
+      "kind": "result",
+      "title": "Exp 2: antonym type x (antonym vs. negated positive), single utterance",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-res-int"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "b = 0.011, t(565) = 2.68, p = 0.0076",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-res-int"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Effect",
+          "value": "Interaction significant, consistent with the hypothesis.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-res-int"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Descriptives",
+          "value": "Mean normalized responses per adjective type per condition are shown only in Fig. 5B, not tabulated.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev2-fig5b"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-res-int"
+      ]
+    },
+    {
+      "id": "res2-morph",
+      "kind": "result",
+      "title": "Exp 2: morphological antonyms vs. negated positives (single)",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-res-morph",
+            "ev2-res-morph-n"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "t(52) = 0.02, p = 0.98 (b = 5.3e-05; exponent sign lost in the text layer)",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-res-morph",
+            "ev2-res-morph-n"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Effect",
+          "value": "Not significantly different.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-res-morph",
+            "ev2-res-morph-n"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-res-morph",
+        "ev2-res-morph-n"
+      ]
+    },
+    {
+      "id": "res2-lex",
+      "kind": "result",
+      "title": "Exp 2: lexical antonyms vs. negated positives (single)",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-res-lex",
+            "ev2-res-lex-n"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "t(280) = 3.66, p = 0.0003 (|b| = 0.011; sign lost in the text layer)",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-res-lex",
+            "ev2-res-lex-n"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Effect",
+          "value": "Lexical antonyms interpreted more negatively than negated positives.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-res-lex",
+            "ev2-res-lex-n"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-res-lex",
+        "ev2-res-lex-n"
+      ]
+    },
+    {
+      "id": "res2-ctx",
+      "kind": "result",
+      "title": "Exp 2: context x adjective type, morphological antonyms",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-ctx-r",
+            "ev2-ctx-n"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "b = 0.032, t(6457) = 6.73, p = 1.9e-11 (exponent sign lost in the text layer)",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-ctx-r",
+            "ev2-ctx-n"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Effect",
+          "value": "Interaction significant and in the predicted direction (see Fig. 5B).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-ctx-r",
+            "ev2-ctx-n"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-ctx-r",
+        "ev2-ctx-n"
+      ]
+    },
+    {
+      "id": "res2-3way",
+      "kind": "result",
+      "title": "Exp 2: exploratory three-way interaction",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-3way",
+            "ev2-3way-n"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "b = 0.012, t(469) = 1.64, p = 0.1",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-3way",
+            "ev2-3way-n"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Effect",
+          "value": "In the direction of lexical antonyms showing a larger antonym vs. negated positive difference in the explicit context, but not significant.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-3way",
+            "ev2-3way-n"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-3way",
+        "ev2-3way-n"
+      ]
+    },
+    {
+      "id": "sim1",
+      "kind": "simulation",
+      "title": "Exp 1 simulation scope",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps",
+          "value": "Every rating trial can be replayed as a text prompt: statement plus slider description, one AI participant per original participant.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc",
+            "ev1-part"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "All original participants are AI participants; no scripted roles exist in the paper.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc",
+            "ev1-part"
+          ]
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": "All arms run as published.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc",
+            "ev1-part"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Outcomes",
+          "value": "Slider ratings are collected as numbers; the paper's linear mixed models are approximated offline (see evaluation), since lme4 is not available.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc",
+            "ev1-part"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "Slider is replaced by a typed number on an assumed 0-100 scale; instruction and sentence wording are replay adaptations; MTurk population, attention and the native-language screen cannot be reproduced; AI agreement does not show human behavior.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev1-proc",
+            "ev1-part"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev1-proc",
+        "ev1-part"
+      ]
+    },
+    {
+      "id": "sim2",
+      "kind": "simulation",
+      "title": "Exp 2 simulation scope",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps",
+          "value": "Every rating trial can be replayed as a text prompt: statement plus slider description, one AI participant per original participant.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single",
+            "ev2-multi",
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "All original participants are AI participants; no scripted roles exist in the paper.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single",
+            "ev2-multi",
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": "All four between-subjects arms run; single-utterance arms prompt trial by trial, multiple-utterance arms show four statements together.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single",
+            "ev2-multi",
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Outcomes",
+          "value": "Slider ratings are collected as numbers; the paper's linear mixed models are approximated offline (see evaluation), since lme4 is not available.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single",
+            "ev2-multi",
+            "ev2-part"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "Slider is replaced by a typed number on an assumed 0-100 scale; instruction and sentence wording are replay adaptations; MTurk population, attention and the native-language screen cannot be reproduced; AI agreement does not show human behavior.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev2-single",
+            "ev2-multi",
+            "ev2-part"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev2-single",
+        "ev2-multi",
+        "ev2-part"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "s1-session",
+      "studyId": "exp1",
+      "kind": "sequence",
+      "title": "Exp 1 session",
+      "actorIds": [
+        "p1"
+      ],
+      "inputIds": [],
+      "outputIds": [
+        "rec1"
+      ],
+      "visibleIds": [],
+      "children": [
+        "s1-trials"
+      ],
+      "next": [],
+      "evidenceIds": [
+        "ev1-proc"
+      ]
+    },
+    {
+      "id": "s1-trials",
+      "studyId": "exp1",
+      "kind": "repeat",
+      "title": "16 rating trials",
+      "actorIds": [
+        "p1"
+      ],
+      "inputIds": [
+        "m1-items"
+      ],
+      "outputIds": [],
+      "visibleIds": [],
+      "children": [
+        "s1-trial"
+      ],
+      "next": [],
+      "evidenceIds": [
+        "ev1-proc",
+        "ev1-distinct"
+      ],
+      "rule": {
+        "id": "rule",
+        "label": "Repeat rule",
+        "value": "16 trials, exactly 2 repetitions of each adjective type for each antonym type, each from a distinct adjective set.",
+        "origin": "reported",
+        "state": "confirmed",
+        "evidenceIds": [
+          "ev1-proc",
+          "ev1-distinct"
+        ]
+      }
+    },
+    {
+      "id": "s1-trial",
+      "studyId": "exp1",
+      "kind": "action",
+      "title": "Read one sentence and rate the person on the slider",
+      "actorIds": [
+        "p1"
+      ],
+      "inputIds": [
+        "m1-items",
+        "m1-scale",
+        "m1-text"
+      ],
+      "outputIds": [
+        "v1-rating",
+        "rec1"
+      ],
+      "visibleIds": [
+        "m1-items",
+        "m1-scale"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev1-proc"
+      ]
+    },
+    {
+      "id": "s2-single",
+      "studyId": "exp2",
+      "kind": "sequence",
+      "title": "Single-utterance session",
+      "actorIds": [
+        "p2"
+      ],
+      "inputIds": [],
+      "outputIds": [
+        "rec2"
+      ],
+      "visibleIds": [],
+      "children": [
+        "s2-single-trials"
+      ],
+      "next": [],
+      "evidenceIds": [
+        "ev2-single"
+      ],
+      "conditionIds": [
+        "c2-morph-single",
+        "c2-lex-single"
+      ]
+    },
+    {
+      "id": "s2-single-trials",
+      "studyId": "exp2",
+      "kind": "repeat",
+      "title": "12 single-sentence trials",
+      "actorIds": [
+        "p2"
+      ],
+      "inputIds": [
+        "m2-items"
+      ],
+      "outputIds": [],
+      "visibleIds": [],
+      "children": [
+        "s2-single-trial"
+      ],
+      "next": [],
+      "evidenceIds": [
+        "ev2-single"
+      ],
+      "conditionIds": [
+        "c2-morph-single",
+        "c2-lex-single"
+      ],
+      "rule": {
+        "id": "rule",
+        "label": "Repeat rule",
+        "value": "12 trials, exactly 3 repetitions of each adjective type, each from a unique adjective set.",
+        "origin": "reported",
+        "state": "confirmed",
+        "evidenceIds": [
+          "ev2-single"
+        ]
+      }
+    },
+    {
+      "id": "s2-single-trial",
+      "studyId": "exp2",
+      "kind": "action",
+      "title": "Read one sentence and rate the person",
+      "actorIds": [
+        "p2"
+      ],
+      "inputIds": [
+        "m2-items",
+        "m2-scale",
+        "m2-text"
+      ],
+      "outputIds": [
+        "v2-rating",
+        "rec2"
+      ],
+      "visibleIds": [
+        "m2-items",
+        "m2-scale"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev2-single",
+        "ev2-slider"
+      ],
+      "conditionIds": [
+        "c2-morph-single",
+        "c2-lex-single"
+      ]
+    },
+    {
+      "id": "s2-multi",
+      "studyId": "exp2",
+      "kind": "sequence",
+      "title": "Multiple-utterance session",
+      "actorIds": [
+        "p2"
+      ],
+      "inputIds": [],
+      "outputIds": [
+        "rec2"
+      ],
+      "visibleIds": [],
+      "children": [
+        "s2-multi-displays"
+      ],
+      "next": [],
+      "evidenceIds": [
+        "ev2-multi"
+      ],
+      "conditionIds": [
+        "c2-morph-multi",
+        "c2-lex-multi"
+      ]
+    },
+    {
+      "id": "s2-multi-displays",
+      "studyId": "exp2",
+      "kind": "repeat",
+      "title": "Displays of four statements (12 ratings in total)",
+      "actorIds": [
+        "p2"
+      ],
+      "inputIds": [
+        "m2-items"
+      ],
+      "outputIds": [],
+      "visibleIds": [],
+      "children": [
+        "s2-multi-display"
+      ],
+      "next": [],
+      "evidenceIds": [
+        "ev2-multi"
+      ],
+      "conditionIds": [
+        "c2-morph-multi",
+        "c2-lex-multi"
+      ],
+      "rule": {
+        "id": "rule",
+        "label": "Repeat rule",
+        "value": "All four adjective types rated simultaneously, each for a different person, for a total of 12 trials; grouping of the 12 trials into displays is assumed (3 displays of four).",
+        "origin": "derived",
+        "state": "check",
+        "evidenceIds": [
+          "ev2-multi"
+        ],
+        "derivation": "Assumes 12 trials = 12 ratings shown four at a time."
+      }
+    },
+    {
+      "id": "s2-multi-display",
+      "studyId": "exp2",
+      "kind": "action",
+      "title": "Rate four statements shown together",
+      "actorIds": [
+        "p2"
+      ],
+      "inputIds": [
+        "m2-items",
+        "m2-scale",
+        "m2-text"
+      ],
+      "outputIds": [
+        "v2-rating",
+        "rec2"
+      ],
+      "visibleIds": [
+        "m2-items",
+        "m2-scale"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev2-multi",
+        "ev2-slider"
+      ],
+      "conditionIds": [
+        "c2-morph-multi",
+        "c2-lex-multi"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "id": "rel-v1-adj-an1-lmm",
+      "from": "v1-adj",
+      "to": "an1-lmm",
+      "type": "input_of"
+    },
+    {
+      "id": "rel-v1-ant-an1-lmm",
+      "from": "v1-ant",
+      "to": "an1-lmm",
+      "type": "input_of"
+    },
+    {
+      "id": "rel-v2-adj-an2-single",
+      "from": "v2-adj",
+      "to": "an2-single",
+      "type": "input_of"
+    },
+    {
+      "id": "rel-v2-ant-an2-single",
+      "from": "v2-ant",
+      "to": "an2-single",
+      "type": "input_of"
+    },
+    {
+      "id": "rel-v2-adj-an2-ctx",
+      "from": "v2-adj",
+      "to": "an2-ctx",
+      "type": "input_of"
+    },
+    {
+      "id": "rel-v2-ctx-an2-ctx",
+      "from": "v2-ctx",
+      "to": "an2-ctx",
+      "type": "input_of"
+    },
+    {
+      "id": "rel-v2-adj-an2-3way",
+      "from": "v2-adj",
+      "to": "an2-3way",
+      "type": "input_of"
+    },
+    {
+      "id": "rel-v2-ant-an2-3way",
+      "from": "v2-ant",
+      "to": "an2-3way",
+      "type": "input_of"
+    },
+    {
+      "id": "rel-v2-ctx-an2-3way",
+      "from": "v2-ctx",
+      "to": "an2-3way",
+      "type": "input_of"
+    }
+  ],
+  "issues": [
+    {
+      "id": "i1-instr",
+      "title": "Exp 1 instruction text not printed",
+      "severity": "decision",
+      "reason": "The paper does not print the instructions shown to participants.",
+      "impact": "A replay must supply framing text; wording differences could shift ratings.",
+      "suggestedAction": "Supply the original instructions from the authors' materials, or accept a minimal neutral framing recorded as a replay adaptation.",
+      "evidenceIds": [
+        "ev1-proc"
+      ],
+      "studyId": "exp1",
+      "nodeId": "m1-text",
+      "fieldId": "instructions"
+    },
+    {
+      "id": "i1-frame",
+      "title": "Exp 1 sentence frame and names not printed",
+      "severity": "decision",
+      "reason": "Only Expt. 2 gives an example sentence (\"Greg is not unhappy\"); no frame or character names are listed for Expt. 1.",
+      "impact": "Stimulus sentences must be constructed; names and frame may affect ratings.",
+      "suggestedAction": "Supply the original sentences, or accept the 'NAME is (not) ADJECTIVE' frame from the Expt. 2 example as a replay adaptation.",
+      "evidenceIds": [
+        "ev1-proc"
+      ],
+      "studyId": "exp1",
+      "nodeId": "m1-text",
+      "fieldId": "sentence-frame"
+    },
+    {
+      "id": "i1-slider",
+      "title": "Exp 1 slider numeric range not stated",
+      "severity": "decision",
+      "reason": "Slider range and start position are not stated, and how 'positive' and 'antonym' in the endpoint labels are filled in per item is not shown in text (Fig. 4A).",
+      "impact": "Raw ratings are on an unknown numeric scale; effect sizes (b) are not comparable.",
+      "suggestedAction": "Supply the original slider range and endpoint wording, or accept a documented 0-100 range with the item's own adjective words in the endpoint labels as a replay adaptation.",
+      "evidenceIds": [
+        "ev1-proc"
+      ],
+      "studyId": "exp1",
+      "nodeId": "m1-scale",
+      "fieldId": "numeric-range"
+    },
+    {
+      "id": "i1-order",
+      "title": "Exp 1 trial order and item sampling not stated",
+      "severity": "decision",
+      "reason": "The order of the 16 trials and which 8 of 10 adjective sets per antonym type each participant sees are not stated.",
+      "impact": "Item sampling and order must be chosen for the replay.",
+      "suggestedAction": "Supply the original randomization, or accept random sampling without replacement per participant as a replay adaptation.",
+      "evidenceIds": [
+        "ev1-proc",
+        "ev1-distinct"
+      ],
+      "studyId": "exp1",
+      "nodeId": "d1",
+      "fieldId": "order"
+    },
+    {
+      "id": "i1-demo",
+      "title": "Exp 1 demographics not reported",
+      "severity": "check",
+      "reason": "Age, gender and other participant characteristics are not reported.",
+      "impact": "AI participant personas cannot be matched to the human sample.",
+      "suggestedAction": "Record that no persona is specified; do not invent demographics.",
+      "evidenceIds": [
+        "ev1-part"
+      ],
+      "studyId": "exp1",
+      "nodeId": "p1",
+      "fieldId": "characteristics"
+    },
+    {
+      "id": "i1-completed",
+      "title": "Exp 1 completion count not separately reported",
+      "severity": "check",
+      "reason": "n completed is not given separately.",
+      "impact": "Randomized, completed and analysed counts cannot be distinguished.",
+      "suggestedAction": "Treat 120 as recruited and 114 as analysed.",
+      "evidenceIds": [
+        "ev1-excl"
+      ],
+      "studyId": "exp1",
+      "nodeId": "p1",
+      "fieldId": "n-completed"
+    },
+    {
+      "id": "i1-norm",
+      "title": "Exp 1 normalization formula garbled",
+      "severity": "check",
+      "reason": "The normalization formula is garbled in the PDF text layer.",
+      "impact": "The normalized plots in Fig. 5A may not be reproduced exactly.",
+      "suggestedAction": "Check the formula on the page image; the text suggests rating minus participant mean, divided by participant SD.",
+      "evidenceIds": [
+        "ev1-norm"
+      ],
+      "studyId": "exp1",
+      "nodeId": "v1-rating",
+      "fieldId": "transformation"
+    },
+    {
+      "id": "i1-desc",
+      "title": "Exp 1 means shown only in a figure",
+      "severity": "check",
+      "reason": "Mean normalized ratings are plotted in Fig. 5A but not tabulated.",
+      "impact": "Cell means cannot be compared numerically with a simulation.",
+      "suggestedAction": "Obtain cell means from the authors' data, or compare orderings only.",
+      "evidenceIds": [
+        "ev1-fig5a"
+      ],
+      "studyId": "exp1",
+      "nodeId": "res1-ord",
+      "fieldId": "descriptives"
+    },
+    {
+      "id": "i1-crit",
+      "title": "Exp 1 significance criterion not stated",
+      "severity": "check",
+      "reason": "The alpha level is not stated.",
+      "impact": "Minor: the reported p-values are given.",
+      "suggestedAction": "Use the reported p-values; assume the conventional .05 only if the researcher confirms.",
+      "evidenceIds": [
+        "ev1-res"
+      ],
+      "studyId": "exp1",
+      "nodeId": "an1-lmm",
+      "fieldId": "criterion"
+    },
+    {
+      "id": "i1-excl",
+      "title": "Native-language exclusion cannot apply to AI participants",
+      "severity": "check",
+      "reason": "Exclusion for self-reported non-English native language relies on a question not printed in the paper.",
+      "impact": "Replay applies no exclusion; analysed N equals simulated N.",
+      "suggestedAction": "Record as a replay adaptation.",
+      "evidenceIds": [
+        "ev1-part"
+      ],
+      "studyId": "exp1",
+      "nodeId": "p1",
+      "fieldId": "eligibility"
+    },
+    {
+      "id": "i2-instr",
+      "title": "Exp 2 instruction text not printed",
+      "severity": "decision",
+      "reason": "Instruction text is not printed.",
+      "impact": "Replay must supply framing text.",
+      "suggestedAction": "Supply original instructions, or accept minimal neutral framing as a recorded replay adaptation.",
+      "evidenceIds": [
+        "ev2-single"
+      ],
+      "studyId": "exp2",
+      "nodeId": "m2-text",
+      "fieldId": "instructions"
+    },
+    {
+      "id": "i2-frame",
+      "title": "Exp 2 sentence frame and names not printed",
+      "severity": "decision",
+      "reason": "Only one example sentence (\"Greg is not unhappy\") is given.",
+      "impact": "Frame and names for 240 statements must be constructed.",
+      "suggestedAction": "Supply original sentences, or accept 'NAME is (not) ADJECTIVE' with neutral names as a replay adaptation.",
+      "evidenceIds": [
+        "ev2-single"
+      ],
+      "studyId": "exp2",
+      "nodeId": "m2-text",
+      "fieldId": "sentence-frame"
+    },
+    {
+      "id": "i2-multi",
+      "title": "Multiple-utterance display not described in text",
+      "severity": "decision",
+      "reason": "Layout, names and order of the four simultaneous statements are only in Fig. 4B; also whether '12 trials' means 12 ratings in 3 displays of four is not explicit.",
+      "impact": "Display structure for the multiple-utterance arms must be assumed.",
+      "suggestedAction": "Check Fig. 4B; the replay assumes 3 displays of four statements (12 ratings), each display from one adjective set.",
+      "evidenceIds": [
+        "ev2-multi"
+      ],
+      "studyId": "exp2",
+      "nodeId": "m2-text",
+      "fieldId": "multi-layout"
+    },
+    {
+      "id": "i2-slider",
+      "title": "Exp 2 slider numeric range not stated",
+      "severity": "decision",
+      "reason": "Slider range and start position are not stated.",
+      "impact": "Raw ratings are on an unknown scale.",
+      "suggestedAction": "Supply the original range, or accept a documented 0-100 range as a replay adaptation.",
+      "evidenceIds": [
+        "ev2-slider"
+      ],
+      "studyId": "exp2",
+      "nodeId": "m2-scale",
+      "fieldId": "numeric-range"
+    },
+    {
+      "id": "i2-order",
+      "title": "Exp 2 trial order and item sampling not stated",
+      "severity": "decision",
+      "reason": "The order of trials/displays and which of the 20 adjective sets each participant sees are not stated.",
+      "impact": "Item sampling and order must be chosen for the replay.",
+      "suggestedAction": "Supply original randomization, or accept random sampling without replacement per participant.",
+      "evidenceIds": [
+        "ev2-single"
+      ],
+      "studyId": "exp2",
+      "nodeId": "d2",
+      "fieldId": "order"
+    },
+    {
+      "id": "i2-assign",
+      "title": "Exp 2 assignment to conditions not described",
+      "severity": "check",
+      "reason": "Counts per condition are given but not how participants were assigned.",
+      "impact": "Replay runs the stated number per arm.",
+      "suggestedAction": "Run the stated n per arm.",
+      "evidenceIds": [
+        "ev2-part"
+      ],
+      "studyId": "exp2",
+      "nodeId": "d2",
+      "fieldId": "assignment"
+    },
+    {
+      "id": "i2-demo",
+      "title": "Exp 2 demographics not reported",
+      "severity": "check",
+      "reason": "Demographics are not reported.",
+      "impact": "AI persona cannot be matched.",
+      "suggestedAction": "Do not invent demographics.",
+      "evidenceIds": [
+        "ev2-part"
+      ],
+      "studyId": "exp2",
+      "nodeId": "p2",
+      "fieldId": "characteristics"
+    },
+    {
+      "id": "i2-completed",
+      "title": "Exp 2 completion count not separately reported",
+      "severity": "check",
+      "reason": "n completed is not given.",
+      "impact": "Counts cannot be distinguished.",
+      "suggestedAction": "Treat 750 as recruited and 715 as analysed.",
+      "evidenceIds": [
+        "ev2-excl"
+      ],
+      "studyId": "exp2",
+      "nodeId": "p2",
+      "fieldId": "n-completed"
+    },
+    {
+      "id": "i2-norm",
+      "title": "Exp 2 normalization not restated",
+      "severity": "check",
+      "reason": "Normalization for Fig. 5B is not restated; assumed as Expt. 1.",
+      "impact": "Plotted means may differ.",
+      "suggestedAction": "Check against the authors' scripts.",
+      "evidenceIds": [
+        "ev2-fig5b"
+      ],
+      "studyId": "exp2",
+      "nodeId": "v2-rating",
+      "fieldId": "transformation"
+    },
+    {
+      "id": "i2-glyph",
+      "title": "Exp 2 signs and exponents lost in text layer",
+      "severity": "check",
+      "reason": "Minus signs/exponent signs in b and p values (5.3e-05, -0.011, 1.9e-11) are lost in the PDF text layer.",
+      "impact": "Values were read as the likely printed form.",
+      "suggestedAction": "Check the page image of page 6.",
+      "evidenceIds": [
+        "ev2-res-morph-n"
+      ],
+      "studyId": "exp2",
+      "nodeId": "res2-morph",
+      "fieldId": "test"
+    },
+    {
+      "id": "i2-desc",
+      "title": "Exp 2 means shown only in a figure",
+      "severity": "check",
+      "reason": "Mean normalized ratings are shown only in Fig. 5B.",
+      "impact": "Numeric comparison of cell means is impossible.",
+      "suggestedAction": "Obtain data from the authors, or compare orderings only.",
+      "evidenceIds": [
+        "ev2-fig5b"
+      ],
+      "studyId": "exp2",
+      "nodeId": "res2-int",
+      "fieldId": "descriptives"
+    },
+    {
+      "id": "i2-3way",
+      "title": "Exp 2 three-way model not fully described",
+      "severity": "check",
+      "reason": "The exploratory model structure is not further described.",
+      "impact": "Cannot be reproduced exactly.",
+      "suggestedAction": "Reproduce as a full interaction with the same random structure.",
+      "evidenceIds": [
+        "ev2-3way"
+      ],
+      "studyId": "exp2",
+      "nodeId": "an2-3way",
+      "fieldId": "method"
+    },
+    {
+      "id": "i2-excl",
+      "title": "Native-language exclusion cannot apply to AI participants",
+      "severity": "check",
+      "reason": "Exclusion relies on a self-reported native language.",
+      "impact": "Replay applies no exclusion.",
+      "suggestedAction": "Record as a replay adaptation.",
+      "evidenceIds": [
+        "ev2-excl"
+      ],
+      "studyId": "exp2",
+      "nodeId": "p2",
+      "fieldId": "eligibility"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-year",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Publication Date 2018",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-abs-hyp",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "we hypothesize that uncertainty about the meaning of negation markers allows listeners to derive fine-grained distinctions among these various alternatives.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-abs-pred",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Listeners should judge unhappy as more sad than not happy only when confronted with alternatives in context; when interpreted in isolation, we predict no difference in understanding.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-abs-conf",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Two behavioral experiments confirm consistent orderings of interpretations that interact with the presentational context in the way predicted.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-intro-q",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "If \"Jones is not unhappy\", does that mean that Jones is happy?",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-intro-gap",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "but heretofore there have been no computational accounts tested against human behavioral data.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-intro-form",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "We formalize the hypothesis that uncertainty about the meaning of overt negation markers (un-, not) interacts with pragmatic reasoning to give rise to fine-grained interpretations in the moment.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-intro-orw",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "A contrary opposition is one where both predicates cannot be true at the same time, but both can be false (e.g., tall and short).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-model-single",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "When conditioning on a single utterance, uncertain negation does not differentiate antonyms (unhappy) from negated positives (not happy)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-model-multi",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "But when it hears multiple utterances in the same context, the model predicts that unhappy is more sad than not happy",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-model-pred",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "The uncertain negation model predicts a partial ordering for morphological antonyms and their negations when heard in isolation",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-lex-pred",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "These lexical antonyms should behave like bonafide antonyms, which predicts a full ordering regardless of context.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-expt-roles",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Expt. 1 was exploratory and informed our computational modeling. Expt. 2 is a larger, more stringent, preregistered (osf.io/p7f25/) replication.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-part",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "We recruited 120 participants from Amazon's Mechanical Turk (MTurk). This number was arrived at with the intention of getting approximately 25 ratings for each unique item in the experiment. In all experiments, participants were restricted to those with U.S. IP addresses and at least a 95% work approval rating; in addition, participants who self-reported a native language other than English were excluded. The experiment took on average 3 minutes and participants were compensated $0.40.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-proc",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "On each trial, participants read a statement introducing a person using a gradable adjective of one of four adjective types: positives (e.g., happy, tall), antonyms (e.g., short, unhappy), and their respective negations (not X). Antonyms were one of two types: morphological (e.g., unhappy) and lexical (e.g., short). Participants rated the character on a scale from \"the most positive person\" to \"the most antonym person\" (item-dependent) using a slider bar (Fig. 4A). Participants rated one sentence at a time and saw items from both antonym types throughout the experiment. Each participant completed a total of 16 trials, with exactly 2 repetitions of each adjective type for each antonym type.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-mat",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "adjective sets were constructed for each antonym type (total 20) from an informal survey of the linguistics literature and taken from a list of \"common opposites\" available online (Table 1).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-distinct",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Each trial of the experiment used an adjective from a distinct adjective set (e.g., if a participant rated unhappy, they rated no other adjective from the {happy, unhappy,. . . } set).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-table",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Morphological antonyms Lexical antonyms attractive, unattractive beautiful, ugly educated, uneducated brave, cowardly friendly, unfriendly fat, skinny happy, unhappy hard-working, lazy honest, dishonest loud, quiet intelligent, unintelligent proud, humble interesting, uninteresting rich, poor mature, immature strong, weak polite, impolite tall, short successful, unsuccessful wise, foolish",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-excl",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "6 participants were excluded for self-reporting a native language other than English, leaving a remainder of 114 participants for these analyses.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-norm",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "To visualize the data, we compute normalized responses on a participant-wise basis",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-fig5a",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Fig. 5A shows the mean normalized responses and bootstrapped 95% confidence intervals for each of the four adjective types for morphological and lexical antonyms.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-crit",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Critically, as predicted by the uncertain negation model, adjective sets with morphological antonyms show only a partial ordering, while those with lexical antonyms show a full ordering.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-lmm",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "we built a linear mixed model predicting the raw, unnormalized ratings in terms of fixed effects of antonym type (morphological vs. lexical), adjective type (Helmert coded in order: antonym, negated positive, negated antonym, positive)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-lmm-re",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "the model also included random intercepts and random slopes of adjective type by-participant and by-item.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-helmert",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Throughout, we code adjective type using Helmert coding, which compares levels of a factor to the average of preceding levels, in order to compare antonym vs. negated positive levels of the adjective type factor.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-fn5",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "This, and all subsequent regression models, were the maximal mixed-effects model that converged for the data set that additionally explained significantly more variance than models with simpler mixed-effects structures, using the lme4 package in R",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-res",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "the difference between the antonym vs. negated positive levels of adjective type interacted significantly with antonym type (morphological vs. lexical; b = 0.029, t(16)= 2.4, p = 0.029).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-bimodal",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Closer investigation of responses revealed that negated antonyms (and not other adjective types) received a bimodal distribution: Most ratings were slightly positive but a clearly distinguishable minority distribution of ratings were slightly negative",
+      "verification": "verified"
+    },
+    {
+      "id": "ev1-lower",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "We also observe that negated morphological antonyms (e.g., not unhappy) were rated lower than negated lexical antonyms (e.g., not tall; Fig. 5A).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-part",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "We recruited 750 participants from MTurk. The experiment comprised of four between-subjects experimental conditions arranged in a 2x2 design: antonym type (morphological vs. lexical) X context (single vs. multiple utterances). 300 participants were assigned to each antonym type in the single utterance contexts, and 75 participants were assigned to each in the multiple utterances conditions.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-pay",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "These numbers follow from the intention of getting approximately 45 ratings for each unique adjective in the experiment. The single utterance task took on average 3 minutes and participants were compensated $0.40; multiple utterances took on average 5 minutes and participants were compensated $0.80.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-prereg",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Exclusion criterion, sample size, procedure, and the analysis described below were preregistered: osf.io/p7f25/.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-mat",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "we curated adjective sets consisting of words for properties of people, such that both types of antonyms existed for the same positive adjective",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-sel",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Lexical antonyms were selected from a set of possibilities produced from a small survey (n=18) on MTurk eliciting \"opposites\" for a list of 30 positive-form adjectives which had morphological antonyms",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-multi",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "In the multiple utterances conditions, participants rated all four adjective types simultaneously, each referring to a different person (Fig. 4B), for a total of 12 trials.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-single",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "The single utterances conditions were similar to that of Expt. 1: Participants rated one sentence at a time (e.g., \"Greg is not unhappy\"), each from a unique adjective set (e.g., never rated both unhappy and not happy), completing a total of 12 trials, with exactly 3 repetitions of each adjective type (positive, antonym, and their negations).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-between",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "In contrast to Expt. 1, antonym type (morphological vs. lexical) was a between-participants factor.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-slider",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "In addition, the slider bar endpoints were relabeled to \"the most {positive, negative} person in the world\"",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-excl",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "35 participants were excluded for self-reporting a native language other than English, leaving 715 participants for these analyses.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-fig5b",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Mean normalized responses for each adjective type in each condition are shown in Fig. 5B.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-lmm1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "We considered data only from the single utterances conditions and built a linear mixed model predicting the unnormalized ratings in",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-lmm1b",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "terms of antonym type (morphological vs. lexical), adjective type (Helmert coded in order: antonym, negated positive, negated antonym, positive) and their interaction; the model also included random intercepts and random slopes of adjective type by-participant and by-item.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-res-int",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Consistent with our hypothesis, the interaction between the antonym vs. negated positive levels of adjective type and antonym type (morphological vs. lexical) was significant (b = 0.011, t(565)= 2.68, p = 0.0076).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-res-morph",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Morphological antonyms were not significantly different than negated positives",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-res-morph-n",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "t(52)= 0.02, p = 0.98",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-res-lex",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "while lexical antonyms were interpreted more negatively than negated positives",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-res-lex-n",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "t(280)= 3.66, p = 0.0003",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-ctx-h",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Specifically, we predict that morphological antonyms will be interpreted more negatively than negated positives in a context with multiple utterances.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-ctx-m",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "we considered data only from the morphological antonyms conditions and built a linear mixed model predicting the raw, unnormalized ratings in terms of adjective type, context (single vs. multiple utterances) and their interaction; the model also included random intercepts and random slopes of adjective type by-participant and by-item.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-ctx-r",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "This interaction was also significant",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-ctx-n",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "b = 0.032, t(6457)= 6.73",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-3way",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "The relevant antonym vs. negated positive by adjective type (lexical, morphological) by context three-way interaction was in the direction of lexical antonyms showing a larger antonym vs. negated positive difference in the explicit context",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-3way-n",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "t(469)= 1.64, p = 0.1",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-fn6",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "The only difference was that in analyzing the lexical antonyms, the random effect of adjective type by-item needed to be dropped in order for the model to converge.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-table",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Positive adjective Morphological antonym Lexical antonym affectionate unaffectionate cold ambitious unambitious lazy attractive unattractive ugly educated uneducated ignorant forgiving unforgiving resentful friendly unfriendly mean generous ungenerous stingy happy unhappy sad honest dishonest deceitful intelligent unintelligent stupid interesting uninteresting boring kind unkind cruel mature immature childish patriotic unpatriotic traitorous polite impolite rude rational irrational crazy reliable unreliable flaky resourceful unresourceful wasteful sincere insincere fake tolerant intolerant bigoted",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-disc",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "unhappy and not happy are not immediately differentiated, except when both are present in the same context.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-lim",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "One limitation of this work is that we stipulate, rather than derive, differences in meaning for morphological vs. lexical antonym pairs",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-prior",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "we assumed all lexica (all logically-possible interpretations of negation) were equally likely a priori",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-open",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Experimental paradigms, computational models, analysis scripts, and data for this paper can be found at https://mhtess.github.io.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev-politeness",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "This interpretation may be the result of participants attributing politeness to the speaker",
+      "verification": "verified"
+    },
+    {
+      "id": "ev2-res-lex-b",
+      "sourceId": "paper",
+      "locator": {
+        "page": 6
+      },
+      "quote": "while lexical antonyms were interpreted more negatively than negated positives (b = 0.011, t(280) = 3.66, p = 0.0003)"
+    },
+    {
+      "id": "ev2-res-morph-b",
+      "sourceId": "paper",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Morphological antonyms were not significantly different than negated positives (b = 5.3e 05, t(52) = 0.02, p = 0.98)"
+    },
+    {
+      "id": "ev2-3way-b",
+      "sourceId": "paper",
+      "locator": {
+        "page": 6
+      },
+      "quote": "but it was not significant (b = 0.012, t(469) = 1.64, p = 0.1)"
+    }
+  ]
+}

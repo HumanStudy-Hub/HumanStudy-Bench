@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "8cf10e59772e8b9672f0ac1d80078d7bda0c911a50db2c75e39351dad8e79582",
-  "previousRevision": "61dfda7b16f98d4f19db8ab627fb94da34c64daa62ca01fee0d7e352ede968cb",
+  "revision": "aa72101d2a8bfa44edd0f57b5e93944f2ce3e4a63261b5944c1114b4bda93e09",
+  "previousRevision": "8cf10e59772e8b9672f0ac1d80078d7bda0c911a50db2c75e39351dad8e79582",
   "paper": {
     "title": "Displacing Misinformation about Events: An Experimental Test of Causal Corrections",
     "authors": [
@@ -39,15 +39,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "8cf10e59772e8b9672f0ac1d80078d7bda0c911a50db2c75e39351dad8e79582",
+    "candidateRevision": "aa72101d2a8bfa44edd0f57b5e93944f2ce3e4a63261b5944c1114b4bda93e09",
     "reviewer": "maintainer:assassin808",
-    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
     "checks": [
-      "every URL in the key served the pinned sha256 (download and hash)",
-      "study_core.py reproduce on the pinned files: pass [4, 4], equal to the pilot comparison",
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [11, 11]",
       "capabilities.py --check",
+      "check_package.py",
       "agent export self-test",
-      "schema and package bindings (validate_assets)"
+      "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
       "discoverable": true,

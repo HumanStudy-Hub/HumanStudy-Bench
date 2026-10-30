@@ -1,0 +1,506 @@
+{
+  "schemaVersion": 1,
+  "programId": "tesslerfranke2018",
+  "topics": [
+    "negation",
+    "antonyms",
+    "gradable adjectives",
+    "pragmatics",
+    "Rational Speech Act model",
+    "double negation"
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "nodeId": "h-order",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "negated antonyms",
+        "morphological vs lexical antonyms",
+        "contraries and contradictories"
+      ]
+    },
+    {
+      "id": "h2",
+      "nodeId": "h-context",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "context effects on interpretation",
+        "alternatives in pragmatic inference",
+        "negated antonyms"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "exp1_interaction",
+      "label": "Exp 1: antonym vs negated positive difference, morphological minus lexical antonym sets",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "exp1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v1-rating",
+        "type": "continuous",
+        "scale": "slider, 0-100 (raw 0-1 x 100)",
+        "higherMeans": "the person is judged more positive",
+        "treatedAs": "per-participant contrast: mean rating of antonyms minus mean rating of negated positives, per participant"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "morphological",
+        "reference": "lexical",
+        "groups": [
+          "antonym",
+          "negated_positive"
+        ],
+        "valueMeans": "(antonym minus negated positive) for morphological sets minus the same for lexical sets, within participant (antonym_type values)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Morphological antonyms are not distinguished from negated positives in isolation, lexical antonyms are rated below them, so the antonym minus negated-positive gap is less negative for morphological sets.",
+        "evidenceIds": [
+          "ev-model-pred",
+          "ev-lex-pred",
+          "ev-model-single"
+        ]
+      },
+      "analysisIds": [
+        "an1-lmm",
+        "an1-vis"
+      ],
+      "resultIds": [
+        "res1-int",
+        "res1-ord"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp1_interaction",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.029,
+            "variant": "Exp 1 lme4 linear mixed model on raw ratings: antonym type x adjective type (Helmert: antonym, negated positive, negated antonym, positive), random intercepts and adjective-type slopes by participant and item (p. 4)",
+            "evidenceIds": [
+              "ev1-res"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 2.4,
+          "df": 16,
+          "p": 0.029,
+          "pRelation": "="
+        },
+        "n": 114,
+        "missing": [
+          "se of b",
+          "cell means (shown only in Fig. 5A, normalized)",
+          "sign convention of the Helmert x antonym-type coefficient",
+          "package value is not comparable: the package value is a participant-level mean difference in slider points (0-100); the paper's b is a Helmert-coded mixed-model coefficient on the raw 0-1 ratings, a different quantity"
+        ],
+        "evidenceIds": [
+          "ev1-res",
+          "ev1-excl"
+        ]
+      }
+    },
+    {
+      "id": "exp2_interaction_single",
+      "label": "Exp 2 single utterance: antonym vs negated positive difference, morphological minus lexical condition",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "exp2",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v2-rating",
+        "type": "continuous",
+        "scale": "slider, 0-100 (raw 0-1 x 100)",
+        "higherMeans": "the person is judged more positive",
+        "treatedAs": "per-participant contrast: mean rating of antonyms minus mean rating of negated positives, per participant"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "c2-morph-single",
+        "reference": "c2-lex-single",
+        "groups": [
+          "antonym",
+          "negated_positive"
+        ],
+        "conditionIds": [
+          "c2-morph-single",
+          "c2-lex-single"
+        ],
+        "valueMeans": "mean per-participant (antonym minus negated positive) in the morphological single condition minus the same in the lexical single condition"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Lexical antonyms fall below negated positives, morphological antonyms do not.",
+        "evidenceIds": [
+          "ev-model-pred",
+          "ev-lex-pred",
+          "ev-abs-pred"
+        ]
+      },
+      "analysisIds": [
+        "an2-single"
+      ],
+      "resultIds": [
+        "res2-int"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp2_interaction_single",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.011,
+            "variant": "Exp 2 single-utterance lme4 linear mixed model on raw ratings: antonym type x adjective type (Helmert: antonym, negated positive, negated antonym, positive), random intercepts and adjective-type slopes by participant and item (p. 6)",
+            "evidenceIds": [
+              "ev2-res-int"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 2.68,
+          "df": 565,
+          "p": 0.0076,
+          "pRelation": "="
+        },
+        "missing": [
+          "se of b",
+          "n per condition",
+          "cell means (Fig. 5B only, normalized)",
+          "package value is not comparable: the package value is a participant-level mean difference in slider points (0-100); the paper's b is a Helmert-coded mixed-model coefficient on the raw 0-1 ratings, a different quantity"
+        ],
+        "evidenceIds": [
+          "ev2-res-int"
+        ]
+      }
+    },
+    {
+      "id": "exp2_morph_antonym_vs_negpos_single",
+      "label": "Exp 2 single utterance, morphological antonyms: antonym minus negated positive",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "exp2",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v2-rating",
+        "type": "continuous",
+        "scale": "slider, 0-100 (raw 0-1 x 100)",
+        "higherMeans": "the person is judged more positive",
+        "treatedAs": "per-participant contrast: mean rating of antonyms minus mean rating of negated positives, per participant"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "antonym",
+        "reference": "negated_positive",
+        "conditionIds": [
+          "c2-morph-single"
+        ],
+        "valueMeans": "antonym minus negated positive (adjective_type values), within participant, morphological single condition"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "In isolation unhappy is not distinguished from not happy.",
+        "evidenceIds": [
+          "ev-model-single",
+          "ev-abs-pred"
+        ]
+      },
+      "analysisIds": [
+        "an2-single"
+      ],
+      "resultIds": [
+        "res2-morph"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp2_morph_antonym_vs_negpos_single",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "test": {
+          "statistic": "t",
+          "value": 0.02,
+          "df": 52,
+          "p": 0.98,
+          "pRelation": "="
+        },
+        "missing": [
+          "b is printed as '5.3e-05' but the PDF text layer drops the exponent's minus sign (reads '5.3e 05'), so it cannot be quoted as a number here",
+          "se of b",
+          "cell means (Fig. 5B only, normalized)",
+          "package value is not comparable: the package value is a participant-level mean difference in slider points (0-100); the paper's b is a Helmert-coded mixed-model coefficient on the raw 0-1 ratings, a different quantity"
+        ],
+        "evidenceIds": [
+          "ev2-res-morph-b",
+          "ev2-res-morph-n"
+        ]
+      }
+    },
+    {
+      "id": "exp2_lex_antonym_vs_negpos_single",
+      "label": "Exp 2 single utterance, lexical antonyms: antonym minus negated positive",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "exp2",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v2-rating",
+        "type": "continuous",
+        "scale": "slider, 0-100 (raw 0-1 x 100)",
+        "higherMeans": "the person is judged more positive",
+        "treatedAs": "per-participant contrast: mean rating of antonyms minus mean rating of negated positives, per participant"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "antonym",
+        "reference": "negated_positive",
+        "conditionIds": [
+          "c2-lex-single"
+        ],
+        "valueMeans": "antonym minus negated positive (adjective_type values), within participant, lexical single condition"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Lexical antonyms (sad) are interpreted more negatively than negated positives (not happy).",
+        "evidenceIds": [
+          "ev-lex-pred",
+          "ev2-res-lex"
+        ]
+      },
+      "analysisIds": [
+        "an2-single"
+      ],
+      "resultIds": [
+        "res2-lex"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp2_lex_antonym_vs_negpos_single",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.011,
+            "variant": "Exp 2 lexical-antonym simple-effects mixed model (by-item adjective-type slope dropped), p. 6; printed as a negative b",
+            "evidenceIds": [
+              "ev2-res-lex-b"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 3.66,
+          "df": 280,
+          "p": 0.0003,
+          "pRelation": "=",
+          "pText": "t printed unsigned (3.66) beside a negative b"
+        },
+        "missing": [
+          "se of b",
+          "cell means (Fig. 5B only, normalized)",
+          "the minus sign of b is visible in the rendered PDF but lost in its text layer",
+          "package value is not comparable: the package value is a participant-level mean difference in slider points (0-100); the paper's b is a Helmert-coded mixed-model coefficient on the raw 0-1 ratings, a different quantity"
+        ],
+        "evidenceIds": [
+          "ev2-res-lex-b",
+          "ev2-res-lex-n"
+        ]
+      }
+    },
+    {
+      "id": "exp2_context_morph",
+      "label": "Exp 2 morphological antonyms: antonym vs negated positive difference, multiple minus single utterances",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "exp2",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v2-rating",
+        "type": "continuous",
+        "scale": "slider, 0-100 (raw 0-1 x 100)",
+        "higherMeans": "the person is judged more positive",
+        "treatedAs": "per-participant contrast: mean rating of antonyms minus mean rating of negated positives, per participant"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "c2-morph-multi",
+        "reference": "c2-morph-single",
+        "groups": [
+          "antonym",
+          "negated_positive"
+        ],
+        "conditionIds": [
+          "c2-morph-multi",
+          "c2-morph-single"
+        ],
+        "valueMeans": "mean per-participant (antonym minus negated positive) with multiple utterances minus the same with single utterances, morphological conditions"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Morphological antonyms will be interpreted more negatively than negated positives in a context with multiple utterances.",
+        "evidenceIds": [
+          "ev2-ctx-h",
+          "ev-model-multi"
+        ]
+      },
+      "analysisIds": [
+        "an2-ctx"
+      ],
+      "resultIds": [
+        "res2-ctx"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp2_context_morph",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.032,
+            "variant": "Exp 2 morphological-conditions mixed model: adjective type x context (p. 6)",
+            "evidenceIds": [
+              "ev2-ctx-n"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 6.73,
+          "df": 6457,
+          "pText": "p = 1.9e-11 (rendered PDF; the text layer reads '1.9e 11')"
+        },
+        "missing": [
+          "se of b",
+          "n per condition",
+          "cell means (Fig. 5B only, normalized)",
+          "sign convention of the Helmert x context coefficient (paper: 'in the correct direction')",
+          "package value is not comparable: the package value is a participant-level mean difference in slider points (0-100); the paper's b is a Helmert-coded mixed-model coefficient on the raw 0-1 ratings, a different quantity"
+        ],
+        "evidenceIds": [
+          "ev2-ctx-n",
+          "ev2-ctx-r"
+        ]
+      }
+    },
+    {
+      "id": "exp2_three_way",
+      "label": "Exp 2 exploratory: context effect on the antonym vs negated positive difference, lexical minus morphological",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "exp2",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v2-rating",
+        "type": "continuous",
+        "scale": "slider, 0-100 (raw 0-1 x 100)",
+        "higherMeans": "the person is judged more positive",
+        "treatedAs": "per-participant contrast: mean rating of antonyms minus mean rating of negated positives, per participant"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "lexical",
+        "reference": "morphological",
+        "groups": [
+          "antonym",
+          "negated_positive",
+          "single",
+          "multiple"
+        ],
+        "conditionIds": [
+          "c2-lex-multi",
+          "c2-lex-single",
+          "c2-morph-multi",
+          "c2-morph-single"
+        ],
+        "valueMeans": "(lexical multiple minus lexical single) minus (morphological multiple minus morphological single) of the per-participant antonym minus negated-positive difference; negative = larger gap for lexical antonyms in the explicit context"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory analysis; no direction predicted.",
+        "evidenceIds": [
+          "ev2-3way"
+        ]
+      },
+      "analysisIds": [
+        "an2-3way"
+      ],
+      "resultIds": [
+        "res2-3way"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp2_three_way",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.012,
+            "variant": "Exp 2 full three-way interactive mixed model, exploratory (p. 6)",
+            "evidenceIds": [
+              "ev2-3way-b"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 1.64,
+          "df": 469,
+          "p": 0.1,
+          "pRelation": "="
+        },
+        "missing": [
+          "se of b",
+          "random-effects structure of the three-way model",
+          "package value is not comparable: the package value is a participant-level mean difference in slider points (0-100); the paper's b is a Helmert-coded mixed-model coefficient on the raw 0-1 ratings, a different quantity"
+        ],
+        "evidenceIds": [
+          "ev2-3way-b",
+          "ev2-3way-n",
+          "ev2-3way"
+        ]
+      }
+    }
+  ]
+}

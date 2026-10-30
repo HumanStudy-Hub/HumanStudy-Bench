@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "10bc0eaf-5bd0-5018-babe-ad4bf8b57f36",
+  "headCommit": null,
+  "paperKey": "doi:10.1016/j.cognition.2021.104939",
+  "status": "accepted",
+  "revision": "26c64ac52d2661680329e3dd9d5996bb3894c8ca2cca748e579034cf0db1c7e9",
+  "previousRevision": "f69d62375b9f61ffc66b7bee18556df82201a2f1e6e7748c98a5bc06dfa97104",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "26c64ac52d2661680329e3dd9d5996bb3894c8ca2cca748e579034cf0db1c7e9",
+    "reviewer": "maintainer:assassin808",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
+    "checks": [
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [3, 3]",
+      "capabilities.py --check",
+      "check_package.py",
+      "agent export self-test",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": false,
+      "humanBenchmark": false
+    }
+  }
+}

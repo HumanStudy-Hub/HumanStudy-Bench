@@ -1,0 +1,85 @@
+{
+  "package": "tesslerfranke2018",
+  "humanSessions": 826,
+  "agentN": 10,
+  "participantCommand": "claude -p --model haiku --strict-mcp-config --setting-sources \"\" --tools \"\" --system-prompt \"You are taking part in a study. Answer as asked.\"",
+  "mode": "sharded x8",
+  "minutes": 7.6,
+  "humanMatchesPaper": [
+    0,
+    0
+  ],
+  "agentAgrees": [
+    2,
+    6
+  ],
+  "effects": [
+    {
+      "id": "exp1_interaction",
+      "label": "Exp1: antonym-vs-negated-positive contrast, morphological minus lexical (lexical antonyms lower)",
+      "reported": null,
+      "human": 0.0581858407079646,
+      "human_p": 3.5505434756443716e-05,
+      "agent": 0.0335,
+      "agent_p": 0.3945617634190792,
+      "humanMatchesPaper": null,
+      "agentAgrees": false
+    },
+    {
+      "id": "exp2_interaction_single",
+      "label": "Exp2 single: morphological minus lexical contrast",
+      "reported": null,
+      "human": 0.0219431125391333,
+      "human_p": 0.0062364357694643865,
+      "agent": 0.017999999999999988,
+      "agent_p": 0.43354785083681846,
+      "humanMatchesPaper": null,
+      "agentAgrees": false
+    },
+    {
+      "id": "exp2_morphological_vs_negated_positive",
+      "label": "Exp2 single, morphological: negated positive minus antonym (paper: ~0)",
+      "reported": null,
+      "human": -0.00028835063437139595,
+      "human_p": 0.9562029597193646,
+      "agent": 0.10333333333333333,
+      "agent_p": 0.00015213414530488748,
+      "humanMatchesPaper": null,
+      "agentAgrees": false
+    },
+    {
+      "id": "exp2_lexical_vs_negated_positive",
+      "label": "Exp2 single, lexical: negated positive minus antonym (lexical more negative)",
+      "reported": null,
+      "human": 0.02165476190476191,
+      "human_p": 0.0003884466236770014,
+      "agent": 0.12133333333333333,
+      "agent_p": 2.219062866068795e-05,
+      "humanMatchesPaper": null,
+      "agentAgrees": true
+    },
+    {
+      "id": "exp2_context_morphological",
+      "label": "Exp2 morphological: multiple-context makes antonym lower than single (single minus multiple contrast)",
+      "reported": null,
+      "human": 0.06294093279399582,
+      "human_p": 8.781188972273434e-10,
+      "agent": -0.005333333333333332,
+      "agent_p": 0.7843057100736327,
+      "humanMatchesPaper": null,
+      "agentAgrees": false
+    },
+    {
+      "id": "exp2_three_way",
+      "label": "Exp2 three-way: context effect larger for morphological than lexical",
+      "reported": null,
+      "human": 0.023954533611744547,
+      "human_p": 0.13470783194258273,
+      "agent": 0.0040000000000000036,
+      "agent_p": 0.8859878624658118,
+      "humanMatchesPaper": null,
+      "agentAgrees": true
+    }
+  ],
+  "note": "Agent results are a simulation; agreement with people is measured, not assumed."
+}

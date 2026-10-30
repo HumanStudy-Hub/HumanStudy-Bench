@@ -1,0 +1,2185 @@
+{
+  "schemaVersion": 1,
+  "programId": "ml5-risen-gilovich-2008-study6",
+  "topics": [
+    "tempting fate",
+    "magical thinking",
+    "cognitive load",
+    "dual-process theory",
+    "replication",
+    "Many Labs",
+    "multisite replication"
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "nodeId": "h1",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "tempting fate",
+        "magical thinking"
+      ]
+    },
+    {
+      "id": "h2",
+      "nodeId": "h2",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "tempting fate",
+        "cognitive load",
+        "dual-process theory"
+      ]
+    },
+    {
+      "id": "h3",
+      "nodeId": "h3",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "replication protocol moderation",
+        "site heterogeneity"
+      ]
+    },
+    {
+      "id": "h4",
+      "nodeId": "h4",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "cognitive load manipulation",
+        "online sample attentiveness"
+      ]
+    },
+    {
+      "id": "h5",
+      "nodeId": "h5",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "personal relevance",
+        "sample heterogeneity"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "tf_main_similar",
+      "label": "Tempting fate vs not, no load: likelihood of being called on (similar sites)",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "c10",
+        "reference": "c00",
+        "conditionIds": [
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "tempted fate minus not tempted fate, among subjects not under cognitive load"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_abs"
+        ]
+      },
+      "analysisIds": [
+        "a_site",
+        "a_primary",
+        "a_sec"
+      ],
+      "resultIds": [
+        "r_sites",
+        "r_t3",
+        "r_t4",
+        "r_cells"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.likelihood",
+        "where": {
+          "cognitive_load": 0
+        },
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "the package fits the paper's within-site OLS (likelihood ~ tempt * load) with treatment coding; its tempt coefficient is the no-load mean of tempted minus not tempted, i.e. this mean difference (Supplement p. 19 prints that lm fit on the pooled similar sites)"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.10763,
+            "variant": "OLS lkl ~ tempt * load on the pooled similar sites (Supplement p. 19)",
+            "evidenceIds": [
+              "e_lm_tempt",
+              "e_lm_call"
+            ],
+            "se": 0.20347,
+            "p": 0.597
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": 0.11,
+            "variant": "primary linear mixed model, similar sites + MTurk (Table 3, Fig. 1)",
+            "evidenceIds": [
+              "e_t3_sim_me",
+              "e_f1_sim"
+            ],
+            "ci": [
+              -0.34,
+              0.56
+            ],
+            "ciLevel": 0.95,
+            "p": 0.64
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": 0.13,
+            "variant": "mixed model fit to the similar sites only (Supplement p. 18)",
+            "evidenceIds": [
+              "e_subset_me"
+            ],
+            "ci": [
+              -0.33,
+              0.59
+            ],
+            "ciLevel": 0.95
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": 0.08,
+            "variant": "secondary mixed model, all site types (Table 4)",
+            "evidenceIds": [
+              "e_t4_sim_me"
+            ],
+            "ci": [
+              -0.4,
+              0.57
+            ],
+            "ciLevel": 0.95,
+            "p": 0.73
+          }
+        ],
+        "cells": {
+          "c10": {
+            "mean": 2.37,
+            "sd": 1.96
+          },
+          "c00": {
+            "mean": 2.26,
+            "sd": 1.89
+          }
+        },
+        "n": 754,
+        "test": {
+          "statistic": "t",
+          "value": 0.529,
+          "df": 750,
+          "p": 0.597
+        },
+        "missing": [
+          "cell n per condition",
+          "the OLS confidence interval for the pooled similar sites",
+          "cell means are cell means and SDs naively pooled over all subjects of the site type (Table S2); cell n not printed"
+        ],
+        "evidenceIds": [
+          "e_f1_sim",
+          "e_lm_call",
+          "e_lm_df",
+          "e_lm_tempt",
+          "e_s2cells_sim",
+          "e_s2cells_sim2",
+          "e_subset_me",
+          "e_t3_sim_me",
+          "e_t4_sim_me"
+        ]
+      }
+    },
+    {
+      "id": "tf_main_mturk",
+      "label": "Tempting fate vs not, no load: likelihood of being called on (MTurk, RP:P protocol)",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "c10",
+        "reference": "c00",
+        "conditionIds": [
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "tempted fate minus not tempted fate, among subjects not under cognitive load"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_abs"
+        ]
+      },
+      "analysisIds": [
+        "a_site",
+        "a_primary",
+        "a_sec"
+      ],
+      "resultIds": [
+        "r_sites",
+        "r_t3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tf_main_mturk"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.21,
+            "variant": "within-site OLS (Fig. 1)",
+            "evidenceIds": [
+              "e_f1_mt"
+            ],
+            "ci": [
+              -0.01,
+              0.44
+            ],
+            "ciLevel": 0.95,
+            "p": 0.07
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": 0.21,
+            "variant": "primary linear mixed model (Table 3)",
+            "evidenceIds": [
+              "e_t3_mt_me"
+            ],
+            "ci": [
+              -0.01,
+              0.43
+            ],
+            "ciLevel": 0.95,
+            "p": 0.06
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": 0.21,
+            "variant": "secondary mixed model, all site types (Table 4)",
+            "evidenceIds": [
+              "e_t4_mt_me"
+            ],
+            "ci": [
+              -0.22,
+              0.65
+            ],
+            "ciLevel": 0.95,
+            "p": 0.34
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": 0.21,
+            "variant": "mixed model with all universities combined (Table S3)",
+            "evidenceIds": [
+              "e_s3_mt_me"
+            ],
+            "ci": [
+              -0.28,
+              0.71
+            ],
+            "ciLevel": 0.95,
+            "p": 0.4
+          }
+        ],
+        "cells": {
+          "c10": {
+            "mean": 3.19,
+            "sd": 2.41
+          },
+          "c00": {
+            "mean": 2.97,
+            "sd": 2.39
+          }
+        },
+        "n": 2973,
+        "missing": [
+          "cell n per condition",
+          "cell means are cell means and SDs naively pooled over all subjects of the site type (Table S2); cell n not printed"
+        ],
+        "evidenceIds": [
+          "e_f1_mt",
+          "e_s2_mt1",
+          "e_s2_mt2",
+          "e_s3_mt_me",
+          "e_s_mt",
+          "e_t3_mt_me",
+          "e_t4_mt_me"
+        ]
+      }
+    },
+    {
+      "id": "tf_main_dissimilar",
+      "label": "Tempting fate vs not, no load: likelihood of being called on (dissimilar universities)",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "c10",
+        "reference": "c00",
+        "conditionIds": [
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "tempted fate minus not tempted fate, among subjects not under cognitive load"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_abs"
+        ]
+      },
+      "analysisIds": [
+        "a_sec"
+      ],
+      "resultIds": [
+        "r_sites",
+        "r_t4"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tf_main_dissimilar"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.42,
+            "variant": "secondary mixed model (Table 4, Fig. 1)",
+            "evidenceIds": [
+              "e_t4_dis_me",
+              "e_f1_dis"
+            ],
+            "ci": [
+              -0.07,
+              0.9
+            ],
+            "ciLevel": 0.95,
+            "p": 0.09
+          }
+        ],
+        "cells": {
+          "c10": {
+            "mean": 3.18,
+            "sd": 2.19
+          },
+          "c00": {
+            "mean": 2.74,
+            "sd": 2.02
+          }
+        },
+        "n": 714,
+        "missing": [
+          "cell n per condition",
+          "OLS estimate pooled over the dissimilar sites",
+          "cell means are cell means and SDs naively pooled over all subjects of the site type (Table S2); cell n not printed"
+        ],
+        "evidenceIds": [
+          "e_f1_dis",
+          "e_s2_dis1",
+          "e_s2_dis2",
+          "e_t4_dis_me"
+        ]
+      }
+    },
+    {
+      "id": "tf_main_universities",
+      "label": "Tempting fate vs not, no load: likelihood (all university sites combined)",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "c10",
+        "reference": "c00",
+        "conditionIds": [
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "tempted fate minus not tempted fate, among subjects not under cognitive load"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_abs"
+        ]
+      },
+      "analysisIds": [
+        "a_sec"
+      ],
+      "resultIds": [
+        "r_t4"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tf_main_universities"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.28,
+            "variant": "mixed model with all universities combined (Table S3)",
+            "evidenceIds": [
+              "e_s3"
+            ],
+            "ci": [
+              -0.08,
+              0.63
+            ],
+            "ciLevel": 0.95,
+            "p": 0.12
+          }
+        ],
+        "missing": [
+          "n of the university sites (754 similar + 714 dissimilar is not printed as a sum)",
+          "cell means"
+        ],
+        "evidenceIds": [
+          "e_s3"
+        ]
+      }
+    },
+    {
+      "id": "tf_main_ml2_ml5_pooled",
+      "label": "Tempting fate vs not, no load: pooled over Many Labs 2 and Many Labs 5 primary sites",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "c10",
+        "reference": "c00",
+        "conditionIds": [
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "tempted fate minus not tempted fate, among subjects not under cognitive load"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_abs"
+        ]
+      },
+      "analysisIds": [
+        "a_ml2"
+      ],
+      "resultIds": [
+        "r_ml2"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tf_main_ml2_ml5_pooled"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.5,
+            "variant": "LMM, primary-analysis sites of both projects (Supplement p. 22)",
+            "evidenceIds": [
+              "e_pool_lmm"
+            ],
+            "ci": [
+              0.37,
+              0.63
+            ],
+            "ciLevel": 0.95
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": 0.49,
+            "variant": "GEE, primary-analysis sites of both projects (Supplement p. 22)",
+            "evidenceIds": [
+              "e_pool_gee"
+            ],
+            "ci": [
+              0.35,
+              0.63
+            ],
+            "ciLevel": 0.95
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "p = 5 × 10^-14 (LMM)"
+        },
+        "missing": [
+          "n of the pooled sample",
+          "Many Labs 2 subject-level data are not in this package"
+        ],
+        "evidenceIds": [
+          "e_pool_gee",
+          "e_pool_lmm"
+        ]
+      }
+    },
+    {
+      "id": "tf_main_ml5_minus_ml2",
+      "label": "Many Labs 5 minus Many Labs 2: main effect of tempting fate (primary-analysis sites)",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "other",
+        "treatment": "Many Labs 5",
+        "reference": "Many Labs 2",
+        "conditionIds": [
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "ML5 main effect minus ML2 main effect (raw mean difference scale)"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "exploratory comparison; no direction predicted",
+        "evidenceIds": [
+          "e_ml2cmp"
+        ]
+      },
+      "analysisIds": [
+        "a_ml2"
+      ],
+      "resultIds": [
+        "r_ml2"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tf_main_ml5_minus_ml2"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.44,
+            "variant": "LMM (Table S5)",
+            "evidenceIds": [
+              "e_s5lmm"
+            ],
+            "ci": [
+              -0.92,
+              0.04
+            ],
+            "ciLevel": 0.95,
+            "p": 0.07
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.43,
+            "variant": "GEE (Table S5)",
+            "evidenceIds": [
+              "e_s5_gee"
+            ],
+            "ci": [
+              -0.7,
+              -0.15
+            ],
+            "ciLevel": 0.95
+          },
+          {
+            "metric": "mean_difference",
+            "value": -0.43,
+            "variant": "raw mean differences, Welch SEs (Table S5)",
+            "evidenceIds": [
+              "e_s5_rmd"
+            ],
+            "ci": [
+              -0.83,
+              -0.03
+            ],
+            "ciLevel": 0.95,
+            "p": 0.04
+          }
+        ],
+        "missing": [
+          "GEE p is printed as 0.00",
+          "Many Labs 2 subject-level data are not in this package",
+          "all-site variants (Table S6) not transcribed"
+        ],
+        "evidenceIds": [
+          "e_s5_gee",
+          "e_s5_rmd",
+          "e_s5lmm"
+        ]
+      }
+    },
+    {
+      "id": "tf_x_load_similar",
+      "label": "Tempting Fate × Cognitive Load interaction on likelihood (similar sites)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "tempted fate",
+        "reference": "not tempted fate",
+        "groups": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "conditionIds": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "(c11 - c01) - (c10 - c00): effect of tempting fate under load minus without load"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a_site",
+        "a_primary",
+        "a_sec"
+      ],
+      "resultIds": [
+        "r_sites",
+        "r_t3",
+        "r_t4",
+        "r_cells"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tf_x_load_similar"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.02497,
+            "variant": "OLS lkl ~ tempt * load on the pooled similar sites (Supplement p. 19)",
+            "evidenceIds": [
+              "e_lm_int",
+              "e_lm_call"
+            ],
+            "se": 0.29905,
+            "p": 0.933
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.02,
+            "variant": "primary linear mixed model, similar sites + MTurk (Table 3, Fig. 2)",
+            "evidenceIds": [
+              "e_t3_sim_int",
+              "e_f2_sim"
+            ],
+            "ci": [
+              -0.68,
+              0.63
+            ],
+            "ciLevel": 0.95,
+            "p": 0.94
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.02,
+            "variant": "mixed model fit to the similar sites only (Supplement p. 18)",
+            "evidenceIds": [
+              "e_subset_int"
+            ],
+            "ci": [
+              -0.66,
+              0.61
+            ],
+            "ciLevel": 0.95
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": 0.01,
+            "variant": "secondary mixed model, all site types (Table 4)",
+            "evidenceIds": [
+              "e_t4_sim_int"
+            ],
+            "ci": [
+              -0.73,
+              0.76
+            ],
+            "ciLevel": 0.95,
+            "p": 0.97
+          }
+        ],
+        "cells": {
+          "c00": {
+            "mean": 2.26,
+            "sd": 1.89
+          },
+          "c10": {
+            "mean": 2.37,
+            "sd": 1.96
+          },
+          "c01": {
+            "mean": 3.38,
+            "sd": 2.16
+          },
+          "c11": {
+            "mean": 3.47,
+            "sd": 2.19
+          }
+        },
+        "n": 754,
+        "test": {
+          "statistic": "t",
+          "value": -0.083,
+          "df": 750,
+          "p": 0.933
+        },
+        "missing": [
+          "cell n per condition",
+          "the OLS confidence interval",
+          "cell means are cell means and SDs naively pooled over all subjects of the site type (Table S2); cell n not printed"
+        ],
+        "evidenceIds": [
+          "e_f2_sim",
+          "e_lm_call",
+          "e_lm_df",
+          "e_lm_int",
+          "e_s2cells_sim",
+          "e_s2cells_sim2",
+          "e_s2cells_sim3",
+          "e_s2cells_sim4",
+          "e_subset_int",
+          "e_t3_sim_int",
+          "e_t4_sim_int"
+        ]
+      }
+    },
+    {
+      "id": "tf_x_load_mturk",
+      "label": "Tempting Fate × Cognitive Load interaction on likelihood (MTurk, RP:P protocol)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "tempted fate",
+        "reference": "not tempted fate",
+        "groups": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "conditionIds": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "(c11 - c01) - (c10 - c00): effect of tempting fate under load minus without load"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a_site",
+        "a_primary",
+        "a_sec"
+      ],
+      "resultIds": [
+        "r_t3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tf_x_load_mturk"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.2,
+            "variant": "within-site OLS (Fig. 2)",
+            "evidenceIds": [
+              "e_f2_mt"
+            ],
+            "ci": [
+              -0.54,
+              0.14
+            ],
+            "ciLevel": 0.95,
+            "p": 0.25
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.2,
+            "variant": "primary linear mixed model (Table 3)",
+            "evidenceIds": [
+              "e_t3_mt_int"
+            ],
+            "ci": [
+              -0.53,
+              0.13
+            ],
+            "ciLevel": 0.95,
+            "p": 0.24
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.2,
+            "variant": "secondary mixed model, all site types (Table 4)",
+            "evidenceIds": [
+              "e_t4_mt_int"
+            ],
+            "ci": [
+              -1.0,
+              0.6
+            ],
+            "ciLevel": 0.95,
+            "p": 0.62
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.2,
+            "variant": "mixed model with all universities combined (Table S3)",
+            "evidenceIds": [
+              "e_s3_mt_int"
+            ],
+            "ci": [
+              -1.01,
+              0.61
+            ],
+            "ciLevel": 0.95,
+            "p": 0.62
+          }
+        ],
+        "cells": {
+          "c00": {
+            "mean": 2.97,
+            "sd": 2.39
+          },
+          "c10": {
+            "mean": 3.19,
+            "sd": 2.41
+          },
+          "c01": {
+            "mean": 3.84,
+            "sd": 2.31
+          },
+          "c11": {
+            "mean": 3.85,
+            "sd": 2.32
+          }
+        },
+        "n": 2973,
+        "missing": [
+          "cell n per condition",
+          "cell means are cell means and SDs naively pooled over all subjects of the site type (Table S2); cell n not printed"
+        ],
+        "evidenceIds": [
+          "e_f2_mt",
+          "e_s2_mt1",
+          "e_s2_mt2",
+          "e_s2_mt3",
+          "e_s2_mt4",
+          "e_s3_mt_int",
+          "e_t3_mt_int",
+          "e_t4_mt_int"
+        ]
+      }
+    },
+    {
+      "id": "tf_x_load_dissimilar",
+      "label": "Tempting Fate × Cognitive Load interaction on likelihood (dissimilar universities)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "tempted fate",
+        "reference": "not tempted fate",
+        "groups": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "conditionIds": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "(c11 - c01) - (c10 - c00): effect of tempting fate under load minus without load"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a_sec"
+      ],
+      "resultIds": [
+        "r_sites",
+        "r_t4"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tf_x_load_dissimilar"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.28,
+            "variant": "secondary mixed model (Table 4, Fig. 2)",
+            "evidenceIds": [
+              "e_t4_dis_int",
+              "e_f2_dis"
+            ],
+            "ci": [
+              -1.01,
+              0.45
+            ],
+            "ciLevel": 0.95,
+            "p": 0.45
+          }
+        ],
+        "cells": {
+          "c00": {
+            "mean": 2.74,
+            "sd": 2.02
+          },
+          "c10": {
+            "mean": 3.18,
+            "sd": 2.19
+          },
+          "c01": {
+            "mean": 3.64,
+            "sd": 2.1
+          },
+          "c11": {
+            "mean": 3.76,
+            "sd": 2.01
+          }
+        },
+        "n": 714,
+        "missing": [
+          "cell n per condition",
+          "OLS estimate pooled over the dissimilar sites",
+          "cell means are cell means and SDs naively pooled over all subjects of the site type (Table S2); cell n not printed"
+        ],
+        "evidenceIds": [
+          "e_f2_dis",
+          "e_s2_dis1",
+          "e_s2_dis2",
+          "e_s2_dis3",
+          "e_s2_dis4",
+          "e_t4_dis_int"
+        ]
+      }
+    },
+    {
+      "id": "tf_x_load_universities",
+      "label": "Tempting Fate × Cognitive Load interaction on likelihood (all universities combined)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "tempted fate",
+        "reference": "not tempted fate",
+        "groups": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "conditionIds": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "(c11 - c01) - (c10 - c00): effect of tempting fate under load minus without load"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a_sec"
+      ],
+      "resultIds": [
+        "r_t4"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tf_x_load_universities"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.17,
+            "variant": "mixed model with all universities combined (Table S3)",
+            "evidenceIds": [
+              "e_s3_univ_int"
+            ],
+            "ci": [
+              -0.69,
+              0.35
+            ],
+            "ciLevel": 0.95,
+            "p": 0.52
+          }
+        ],
+        "missing": [
+          "n of the university sites",
+          "cell means"
+        ],
+        "evidenceIds": [
+          "e_s3_univ_int"
+        ]
+      }
+    },
+    {
+      "id": "site_main_similar_vs_mturk",
+      "label": "Similar sites vs MTurk: difference in the tempting-fate main effect",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "similar sites",
+        "reference": "MTurk",
+        "conditionIds": [
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "main effect (no load) of tempting fate at similar sites minus at MTurk"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "larger effects where the setting resembles the original study",
+        "evidenceIds": [
+          "e_h_proto",
+          "e_sat_assume"
+        ]
+      },
+      "analysisIds": [
+        "a_primary"
+      ],
+      "resultIds": [
+        "r_t3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "site_main_similar_vs_mturk"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.11,
+            "variant": "primary linear mixed model (Table 3)",
+            "evidenceIds": [
+              "e_t3_site_me"
+            ],
+            "ci": [
+              -0.61,
+              0.39
+            ],
+            "ciLevel": 0.95,
+            "p": 0.68
+          }
+        ],
+        "missing": [
+          "subject-level data of the other site types are not loaded by the package's human loader (similar sites only)"
+        ],
+        "evidenceIds": [
+          "e_t3_site_me"
+        ]
+      }
+    },
+    {
+      "id": "site_int_similar_vs_mturk",
+      "label": "Similar sites vs MTurk: difference in the Tempting Fate × Load interaction",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "similar sites",
+        "reference": "MTurk",
+        "conditionIds": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "Tempting Fate × Cognitive Load interaction of tempting fate at similar sites minus at MTurk"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "larger effects where the setting resembles the original study",
+        "evidenceIds": [
+          "e_h_proto",
+          "e_sat_assume"
+        ]
+      },
+      "analysisIds": [
+        "a_primary"
+      ],
+      "resultIds": [
+        "r_t3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "site_int_similar_vs_mturk"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.18,
+            "variant": "primary linear mixed model (Table 3)",
+            "evidenceIds": [
+              "e_t3_site_int"
+            ],
+            "ci": [
+              -0.56,
+              0.91
+            ],
+            "ciLevel": 0.95,
+            "p": 0.64
+          }
+        ],
+        "missing": [
+          "subject-level data of the other site types are not loaded by the package's human loader (similar sites only)"
+        ],
+        "evidenceIds": [
+          "e_t3_site_int"
+        ]
+      }
+    },
+    {
+      "id": "site_main_similar_vs_dissimilar",
+      "label": "Similar vs dissimilar universities: difference in the main effect",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "similar sites",
+        "reference": "dissimilar sites",
+        "conditionIds": [
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "main effect (no load) of tempting fate at similar sites minus at dissimilar sites"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "larger effects where the setting resembles the original study",
+        "evidenceIds": [
+          "e_h_proto",
+          "e_sat_assume"
+        ]
+      },
+      "analysisIds": [
+        "a_sec"
+      ],
+      "resultIds": [
+        "r_t4"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "site_main_similar_vs_dissimilar"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.33,
+            "variant": "secondary mixed model (Table 4)",
+            "evidenceIds": [
+              "e_t4_site_me"
+            ],
+            "ci": [
+              -1.02,
+              0.36
+            ],
+            "ciLevel": 0.95,
+            "p": 0.35
+          }
+        ],
+        "missing": [
+          "subject-level data of the other site types are not loaded by the package's human loader (similar sites only)"
+        ],
+        "evidenceIds": [
+          "e_t4_site_me"
+        ]
+      }
+    },
+    {
+      "id": "site_int_similar_vs_dissimilar",
+      "label": "Similar vs dissimilar universities: difference in the interaction",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "similar sites",
+        "reference": "dissimilar sites",
+        "conditionIds": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "Tempting Fate × Cognitive Load interaction of tempting fate at similar sites minus at dissimilar sites"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "larger effects where the setting resembles the original study",
+        "evidenceIds": [
+          "e_h_proto",
+          "e_sat_assume"
+        ]
+      },
+      "analysisIds": [
+        "a_sec"
+      ],
+      "resultIds": [
+        "r_t4"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "site_int_similar_vs_dissimilar"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.29,
+            "variant": "secondary mixed model (Table 4)",
+            "evidenceIds": [
+              "e_t4_site_int"
+            ],
+            "ci": [
+              -0.75,
+              1.34
+            ],
+            "ciLevel": 0.95,
+            "p": 0.58
+          }
+        ],
+        "missing": [
+          "subject-level data of the other site types are not loaded by the package's human loader (similar sites only)"
+        ],
+        "evidenceIds": [
+          "e_t4_site_int"
+        ]
+      }
+    },
+    {
+      "id": "site_main_university_vs_mturk",
+      "label": "All universities vs MTurk: difference in the main effect",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "university sites",
+        "reference": "MTurk",
+        "conditionIds": [
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "main effect (no load) of tempting fate at university sites minus at MTurk"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "larger effects where the setting resembles the original study",
+        "evidenceIds": [
+          "e_h_proto",
+          "e_sat_assume"
+        ]
+      },
+      "analysisIds": [
+        "a_sec"
+      ],
+      "resultIds": [
+        "r_t4"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "site_main_university_vs_mturk"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.06,
+            "variant": "mixed model with all universities combined (Table S3)",
+            "evidenceIds": [
+              "e_s3_site_me"
+            ],
+            "ci": [
+              -0.55,
+              0.67
+            ],
+            "ciLevel": 0.95,
+            "p": 0.84
+          }
+        ],
+        "missing": [
+          "subject-level data of the other site types are not loaded by the package's human loader (similar sites only)"
+        ],
+        "evidenceIds": [
+          "e_s3_site_me"
+        ]
+      }
+    },
+    {
+      "id": "site_int_university_vs_mturk",
+      "label": "All universities vs MTurk: difference in the Tempting Fate × Load interaction (three-way interaction)",
+      "role": "test",
+      "hypothesisIds": [
+        "h3",
+        "h4"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "university sites",
+        "reference": "MTurk",
+        "conditionIds": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "Tempting Fate × Cognitive Load interaction of tempting fate at university sites minus at MTurk"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "H3: larger interaction at universities; H4: load less effective on MTurk, so the interaction is larger at universities",
+        "evidenceIds": [
+          "e_h_proto",
+          "e_h_load",
+          "e_mech_load"
+        ]
+      },
+      "analysisIds": [
+        "a_sec",
+        "a_mech"
+      ],
+      "resultIds": [
+        "r_t4",
+        "r_mech"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "site_int_university_vs_mturk"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.03,
+            "variant": "mixed model with all universities combined (Table S3)",
+            "evidenceIds": [
+              "e_s3_site_int",
+              "e_3way"
+            ],
+            "ci": [
+              -0.93,
+              0.99
+            ],
+            "ciLevel": 0.95,
+            "p": 0.95
+          }
+        ],
+        "missing": [
+          "the main text (p. 9) reports this three-way interaction as b = −0.03 [−0.99, 0.93], p = .95 (N = 4,441); its CI mirrors Table S3, so it appears to be the same model with MTurk coded 1; the Table S3 coding (university minus MTurk) is kept here",
+          "subject-level data of MTurk and dissimilar sites are not loaded by the package's human loader"
+        ],
+        "evidenceIds": [
+          "e_3way",
+          "e_s3_site_int"
+        ]
+      }
+    },
+    {
+      "id": "sat_moderates_main",
+      "label": "Median SAT score (per 10 points) as moderator of the tempting-fate main effect",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "per 10-point increase in university median SAT",
+        "reference": "",
+        "conditionIds": [
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "change in the main effect per 10-point increase in median SAT (US universities)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "higher median SAT (more similar to Cornell) gives a larger effect",
+        "evidenceIds": [
+          "e_sat_assume"
+        ]
+      },
+      "analysisIds": [
+        "a_mech"
+      ],
+      "resultIds": [
+        "r_mech"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "sat_moderates_main"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.0,
+            "variant": "mixed model, US universities, linear in median SAT (p. 10)",
+            "evidenceIds": [
+              "e_sat_b"
+            ],
+            "ci": [
+              -0.01,
+              0.02
+            ],
+            "ciLevel": 0.95,
+            "p": 0.83
+          }
+        ],
+        "n": 975,
+        "missing": [
+          "SAT is not loaded per session",
+          "subject-level data of dissimilar sites not loaded"
+        ],
+        "evidenceIds": [
+          "e_sat_b",
+          "e_sat_n"
+        ]
+      }
+    },
+    {
+      "id": "sat_moderates_int",
+      "label": "Median SAT score (per 10 points) as moderator of the tempting-fate Tempting Fate × Load interaction",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_lkl",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher perceived likelihood of being called on in class (the ironic bad outcome)",
+        "treatedAs": "numeric, as in the paper's OLS and mixed models"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "per 10-point increase in university median SAT",
+        "reference": "",
+        "conditionIds": [
+          "c11",
+          "c01",
+          "c10",
+          "c00"
+        ],
+        "valueMeans": "change in the Tempting Fate × Load interaction per 10-point increase in median SAT (US universities)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "higher median SAT (more similar to Cornell) gives a larger effect",
+        "evidenceIds": [
+          "e_sat_assume"
+        ]
+      },
+      "analysisIds": [
+        "a_mech"
+      ],
+      "resultIds": [
+        "r_mech"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "sat_moderates_int"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.0,
+            "variant": "mixed model, US universities, linear in median SAT (p. 10)",
+            "evidenceIds": [
+              "e_sat_b"
+            ],
+            "ci": [
+              -0.02,
+              0.02
+            ],
+            "ciLevel": 0.95,
+            "p": 0.97
+          }
+        ],
+        "n": 975,
+        "missing": [
+          "SAT is not loaded per session",
+          "subject-level data of dissimilar sites not loaded"
+        ],
+        "evidenceIds": [
+          "e_sat_b",
+          "e_sat_n"
+        ]
+      }
+    },
+    {
+      "id": "load_effort_mturk_vs_university",
+      "label": "MTurk vs university subjects under load: perceived effort of the counting task",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_effort",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "more effort",
+        "treatedAs": "numeric, as in the paper's mixed model"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "MTurk",
+        "reference": "university",
+        "conditionIds": [
+          "c01",
+          "c11"
+        ],
+        "valueMeans": "MTurk minus university subjects, load conditions only"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "less effort / difficulty on MTurk if the load manipulation works less well online",
+        "evidenceIds": [
+          "e_mech_load"
+        ]
+      },
+      "analysisIds": [
+        "a_mech"
+      ],
+      "resultIds": [
+        "r_mech"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "load_effort_mturk_vs_university"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.63,
+            "variant": "linear mixed model on an MTurk-vs-university indicator, load subjects (p. 9)",
+            "evidenceIds": [
+              "e_effort"
+            ],
+            "ci": [
+              -0.42,
+              1.68
+            ],
+            "ciLevel": 0.95,
+            "p": 0.24
+          }
+        ],
+        "n": 1852,
+        "missing": [
+          "coding of the indicator is not printed explicitly; read as MTurk minus university, like the three-way interaction in the same paragraph",
+          "group means",
+          "MTurk subject-level data are not loaded by the package's human loader"
+        ],
+        "evidenceIds": [
+          "e_effort",
+          "e_mech_n"
+        ]
+      }
+    },
+    {
+      "id": "load_diff_mturk_vs_university",
+      "label": "MTurk vs university subjects under load: perceived difficulty of the counting task",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_diff",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "more difficulty",
+        "treatedAs": "numeric, as in the paper's mixed model"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "MTurk",
+        "reference": "university",
+        "conditionIds": [
+          "c01",
+          "c11"
+        ],
+        "valueMeans": "MTurk minus university subjects, load conditions only"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "less effort / difficulty on MTurk if the load manipulation works less well online",
+        "evidenceIds": [
+          "e_mech_load"
+        ]
+      },
+      "analysisIds": [
+        "a_mech"
+      ],
+      "resultIds": [
+        "r_mech"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "load_diff_mturk_vs_university"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.51,
+            "variant": "linear mixed model on an MTurk-vs-university indicator, load subjects (p. 9)",
+            "evidenceIds": [
+              "e_effort"
+            ],
+            "ci": [
+              -0.11,
+              1.14
+            ],
+            "ciLevel": 0.95,
+            "p": 0.11
+          }
+        ],
+        "n": 1848,
+        "missing": [
+          "coding of the indicator is not printed explicitly; read as MTurk minus university, like the three-way interaction in the same paragraph",
+          "group means",
+          "MTurk subject-level data are not loaded by the package's human loader"
+        ],
+        "evidenceIds": [
+          "e_effort",
+          "e_mech_n"
+        ]
+      }
+    },
+    {
+      "id": "importance_mturk_vs_similar",
+      "label": "MTurk vs similar universities: perceived importance of answering questions correctly",
+      "role": "test",
+      "hypothesisIds": [
+        "h5"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_imp",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher importance of answering questions correctly",
+        "treatedAs": "numeric, as in the paper's mixed model"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "MTurk",
+        "reference": "similar sites",
+        "valueMeans": "MTurk minus similar-site subjects"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "scenario less personally salient on MTurk",
+        "evidenceIds": [
+          "e_h_sal"
+        ]
+      },
+      "analysisIds": [
+        "a_mech"
+      ],
+      "resultIds": [
+        "r_mech"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "importance_mturk_vs_similar"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 1.02,
+            "variant": "linear mixed model on site type, random site intercepts (p. 9)",
+            "evidenceIds": [
+              "e_imp_b0",
+              "e_imp_b"
+            ],
+            "ci": [
+              0.45,
+              1.59
+            ],
+            "ciLevel": 0.95
+          }
+        ],
+        "n": 4175,
+        "missing": [
+          "group means",
+          "MTurk and dissimilar-site subject-level data are not loaded by the package's human loader"
+        ],
+        "evidenceIds": [
+          "e_imp_b",
+          "e_imp_b0",
+          "e_imp_n"
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "p = 5 × 10^-4"
+        }
+      }
+    },
+    {
+      "id": "importance_mturk_vs_dissimilar",
+      "label": "MTurk vs dissimilar universities: perceived importance of answering questions correctly",
+      "role": "test",
+      "hypothesisIds": [
+        "h5"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_imp",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher importance of answering questions correctly",
+        "treatedAs": "numeric, as in the paper's mixed model"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "MTurk",
+        "reference": "dissimilar sites",
+        "valueMeans": "MTurk minus dissimilar-site subjects"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "scenario less personally salient on MTurk",
+        "evidenceIds": [
+          "e_h_sal"
+        ]
+      },
+      "analysisIds": [
+        "a_mech"
+      ],
+      "resultIds": [
+        "r_mech"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "importance_mturk_vs_dissimilar"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.76,
+            "variant": "linear mixed model on site type, random site intercepts (p. 9)",
+            "evidenceIds": [
+              "e_imp_b0",
+              "e_imp_b"
+            ],
+            "ci": [
+              0.24,
+              1.29
+            ],
+            "ciLevel": 0.95,
+            "p": 0.005
+          }
+        ],
+        "n": 4175,
+        "missing": [
+          "group means",
+          "MTurk and dissimilar-site subject-level data are not loaded by the package's human loader"
+        ],
+        "evidenceIds": [
+          "e_imp_b",
+          "e_imp_b0",
+          "e_imp_n"
+        ]
+      }
+    },
+    {
+      "id": "negativity_mturk_vs_similar",
+      "label": "MTurk vs similar universities: perceived how bad it would feel to answer incorrectly",
+      "role": "test",
+      "hypothesisIds": [
+        "h5"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_neg",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher how bad it would feel to answer incorrectly",
+        "treatedAs": "numeric, as in the paper's mixed model"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "MTurk",
+        "reference": "similar sites",
+        "valueMeans": "MTurk minus similar-site subjects"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "scenario less personally salient on MTurk",
+        "evidenceIds": [
+          "e_h_sal"
+        ]
+      },
+      "analysisIds": [
+        "a_mech"
+      ],
+      "resultIds": [
+        "r_mech"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "negativity_mturk_vs_similar"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.03,
+            "variant": "linear mixed model on site type, random site intercepts (p. 9)",
+            "evidenceIds": [
+              "e_neg_b"
+            ],
+            "ci": [
+              -0.52,
+              0.45
+            ],
+            "ciLevel": 0.95,
+            "p": 0.89
+          }
+        ],
+        "n": 4172,
+        "missing": [
+          "group means",
+          "MTurk and dissimilar-site subject-level data are not loaded by the package's human loader"
+        ],
+        "evidenceIds": [
+          "e_imp_n",
+          "e_neg_b"
+        ]
+      }
+    },
+    {
+      "id": "negativity_mturk_vs_dissimilar",
+      "label": "MTurk vs dissimilar universities: perceived how bad it would feel to answer incorrectly",
+      "role": "test",
+      "hypothesisIds": [
+        "h5"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_neg",
+        "type": "ordinal",
+        "scale": "0-10",
+        "higherMeans": "higher how bad it would feel to answer incorrectly",
+        "treatedAs": "numeric, as in the paper's mixed model"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "MTurk",
+        "reference": "dissimilar sites",
+        "valueMeans": "MTurk minus dissimilar-site subjects"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "scenario less personally salient on MTurk",
+        "evidenceIds": [
+          "e_h_sal"
+        ]
+      },
+      "analysisIds": [
+        "a_mech"
+      ],
+      "resultIds": [
+        "r_mech"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "negativity_mturk_vs_dissimilar"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.45,
+            "variant": "linear mixed model on site type, random site intercepts (p. 9)",
+            "evidenceIds": [
+              "e_neg_b"
+            ],
+            "ci": [
+              0.01,
+              0.9
+            ],
+            "ciLevel": 0.95,
+            "p": 0.05
+          }
+        ],
+        "n": 4172,
+        "missing": [
+          "group means",
+          "MTurk and dissimilar-site subject-level data are not loaded by the package's human loader"
+        ],
+        "evidenceIds": [
+          "e_imp_n",
+          "e_neg_b"
+        ]
+      }
+    }
+  ]
+}

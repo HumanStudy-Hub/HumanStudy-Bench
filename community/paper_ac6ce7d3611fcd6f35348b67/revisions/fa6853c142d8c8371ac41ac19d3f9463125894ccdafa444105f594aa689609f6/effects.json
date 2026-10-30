@@ -1,0 +1,1933 @@
+{
+  "schemaVersion": 1,
+  "programId": "kreis2025hindsight",
+  "topics": [
+    "hindsight bias",
+    "knowledge updating",
+    "numerical estimation",
+    "seeding",
+    "replication",
+    "Bayesian mixed models"
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "nodeId": "n_h1",
+      "status": "tested",
+      "backgroundIds": [
+        "n_background"
+      ],
+      "phenomena": [
+        "hindsight bias",
+        "knowledge updating",
+        "transfer learning"
+      ]
+    },
+    {
+      "id": "h2",
+      "nodeId": "n_h2",
+      "status": "tested",
+      "backgroundIds": [
+        "n_background"
+      ],
+      "phenomena": [
+        "hindsight bias",
+        "knowledge updating",
+        "transfer learning"
+      ]
+    },
+    {
+      "id": "h3",
+      "nodeId": "n_h3",
+      "status": "tested",
+      "backgroundIds": [
+        "n_background"
+      ],
+      "phenomena": [
+        "hindsight bias",
+        "knowledge updating",
+        "transfer learning"
+      ]
+    },
+    {
+      "id": "h4",
+      "nodeId": "n_h4",
+      "status": "tested",
+      "backgroundIds": [
+        "n_background"
+      ],
+      "phenomena": [
+        "hindsight bias",
+        "knowledge updating",
+        "transfer learning"
+      ]
+    },
+    {
+      "id": "h5",
+      "nodeId": "n_h5",
+      "status": "tested",
+      "backgroundIds": [
+        "n_background"
+      ],
+      "phenomena": [
+        "mapping knowledge",
+        "transfer learning",
+        "seeding effect"
+      ]
+    },
+    {
+      "id": "h6",
+      "nodeId": "n_h6",
+      "status": "tested",
+      "backgroundIds": [
+        "n_background"
+      ],
+      "phenomena": [
+        "hindsight bias",
+        "mapping knowledge"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "tl_feedback",
+      "label": "Transfer learning effect in the feedback group: |Δ| NJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation from actual sugar content)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "item-level |Δ| in the paper's mixed model; per-participant mean |Δ| in the package"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "NJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_feedback"
+        ],
+        "valueMeans": "NJ minus OJ (task within participants), feedback group; negative = NJ closer to the actual values"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "transfer learning effect expected (|Δ| smaller for NJ than OJ)",
+        "evidenceIds": [
+          "ev_h1",
+          "ev_tl_test"
+        ]
+      },
+      "analysisIds": [
+        "a_tl",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_tl",
+        "res_sens",
+        "res_fig2",
+        "res_sample",
+        "res_perfect"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tl_feedback",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -6.59,
+            "ci": [
+              -8.63,
+              -4.55
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM slope b for task, weakly informative prior normal(-5,10) (main text, p. 17)",
+            "evidenceIds": [
+              "ev_tl"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 > 10,000 (weakly informative prior); BF10 >10,000 (skeptical prior, Table B1)"
+        },
+        "n": 73,
+        "missing": [
+          "cell means and SDs of |Δ| per group and task (shown only in Figure 2)",
+          "posterior SD / SE of b",
+          "coding of the task factor (reference level) is not stated",
+          "no p-values (Bayesian analysis)",
+          "per-group n after item-level exclusions"
+        ],
+        "evidenceIds": [
+          "ev_B1_tl",
+          "ev_final",
+          "ev_tl"
+        ]
+      },
+      "notes": "The paper's b is a Bayesian mixed-model slope on item-level |Δ| (random intercepts and slopes for participants and items; criterion mean-centred), not a participant-level mean difference, so the package value is not compared with it (no compareAs). Sign of b read from the paper: negative = smaller |Δ| in NJ than in OJ (p. 17)."
+    },
+    {
+      "id": "tl_domain",
+      "label": "Transfer learning effect in the domain-information group: |Δ| NJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation from actual sugar content)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "item-level |Δ| in the paper's mixed model; per-participant mean |Δ| in the package"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "NJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_domain"
+        ],
+        "valueMeans": "NJ minus OJ (task within participants), domain-information group; negative = NJ closer to the actual values"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "transfer learning effect expected (|Δ| smaller for NJ than OJ)",
+        "evidenceIds": [
+          "ev_h2",
+          "ev_tl_test"
+        ]
+      },
+      "analysisIds": [
+        "a_tl",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_tl",
+        "res_sens",
+        "res_fig2",
+        "res_sample",
+        "res_perfect"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tl_domain",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -3.71,
+            "ci": [
+              -5.09,
+              -2.32
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM slope b for task, weakly informative prior normal(-5,10) (main text, p. 17)",
+            "evidenceIds": [
+              "ev_tl"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 > 10,000 (weakly informative prior); BF10 >10,000 (skeptical prior, Table B1)"
+        },
+        "n": 74,
+        "missing": [
+          "cell means and SDs of |Δ| per group and task (shown only in Figure 2)",
+          "posterior SD / SE of b",
+          "coding of the task factor (reference level) is not stated",
+          "no p-values (Bayesian analysis)",
+          "per-group n after item-level exclusions"
+        ],
+        "evidenceIds": [
+          "ev_B1_tl",
+          "ev_final",
+          "ev_tl"
+        ]
+      },
+      "notes": "The paper's b is a Bayesian mixed-model slope on item-level |Δ| (random intercepts and slopes for participants and items; criterion mean-centred), not a participant-level mean difference, so the package value is not compared with it (no compareAs). Sign of b read from the paper: negative = smaller |Δ| in NJ than in OJ (p. 17)."
+    },
+    {
+      "id": "tl_irrelevant",
+      "label": "Transfer learning effect in the irrelevant-information group: |Δ| NJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation from actual sugar content)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "item-level |Δ| in the paper's mixed model; per-participant mean |Δ| in the package"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "NJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_irrelevant"
+        ],
+        "valueMeans": "NJ minus OJ (task within participants), irrelevant-information group; negative = NJ closer to the actual values"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "no transfer learning effect expected",
+        "evidenceIds": [
+          "ev_h3",
+          "ev_tl_test"
+        ]
+      },
+      "analysisIds": [
+        "a_tl",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_tl",
+        "res_sens",
+        "res_fig2",
+        "res_sample",
+        "res_perfect"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tl_irrelevant",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.52,
+            "ci": [
+              -0.45,
+              1.49
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM slope b for task, weakly informative prior normal(-5,10) (main text, p. 17)",
+            "evidenceIds": [
+              "ev_tl_null"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.08,
+            "variant": "BF10, weakly informative prior (main text, pp. 17-18)",
+            "evidenceIds": [
+              "ev_tl_null"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.08,
+            "variant": "BF10, skeptical prior normal(0,10) (Table B1, p. 34)",
+            "evidenceIds": [
+              "ev_B1_tl"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 0.08 (weakly informative prior)"
+        },
+        "n": 77,
+        "missing": [
+          "cell means and SDs of |Δ| per group and task (shown only in Figure 2)",
+          "posterior SD / SE of b",
+          "coding of the task factor (reference level) is not stated",
+          "no p-values (Bayesian analysis)",
+          "per-group n after item-level exclusions"
+        ],
+        "evidenceIds": [
+          "ev_B1_tl",
+          "ev_final",
+          "ev_tl_null"
+        ]
+      },
+      "notes": "The paper's b is a Bayesian mixed-model slope on item-level |Δ| (random intercepts and slopes for participants and items; criterion mean-centred), not a participant-level mean difference, so the package value is not compared with it (no compareAs). Sign of b read from the paper: negative = smaller |Δ| in NJ than in OJ (p. 17)."
+    },
+    {
+      "id": "tl_control",
+      "label": "Transfer learning effect in the control group: |Δ| NJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation from actual sugar content)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "item-level |Δ| in the paper's mixed model; per-participant mean |Δ| in the package"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "NJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_control"
+        ],
+        "valueMeans": "NJ minus OJ (task within participants), control group; negative = NJ closer to the actual values"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "no transfer learning effect expected",
+        "evidenceIds": [
+          "ev_h4",
+          "ev_tl_test"
+        ]
+      },
+      "analysisIds": [
+        "a_tl",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_tl",
+        "res_sens",
+        "res_fig2",
+        "res_sample",
+        "res_perfect"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tl_control",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.92,
+            "ci": [
+              -2.0,
+              0.15
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM slope b for task, weakly informative prior normal(-5,10) (main text, p. 17)",
+            "evidenceIds": [
+              "ev_tl_null"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.19,
+            "variant": "BF10, weakly informative prior (main text, pp. 17-18)",
+            "evidenceIds": [
+              "ev_tl_null"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.2,
+            "variant": "BF10, skeptical prior normal(0,10) (Table B1, p. 34)",
+            "evidenceIds": [
+              "ev_B1_tl"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 0.19 (weakly informative prior)"
+        },
+        "n": 76,
+        "missing": [
+          "cell means and SDs of |Δ| per group and task (shown only in Figure 2)",
+          "posterior SD / SE of b",
+          "coding of the task factor (reference level) is not stated",
+          "no p-values (Bayesian analysis)",
+          "per-group n after item-level exclusions"
+        ],
+        "evidenceIds": [
+          "ev_B1_tl",
+          "ev_final",
+          "ev_tl_null"
+        ]
+      },
+      "notes": "The paper's b is a Bayesian mixed-model slope on item-level |Δ| (random intercepts and slopes for participants and items; criterion mean-centred), not a participant-level mean difference, so the package value is not compared with it (no compareAs). Sign of b read from the paper: negative = smaller |Δ| in NJ than in OJ (p. 17)."
+    },
+    {
+      "id": "hs_feedback",
+      "label": "Hindsight effect in the feedback group: |Δ| ROJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation from actual sugar content)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "item-level |Δ| in the paper's mixed model; per-participant mean |Δ| in the package"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "ROJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_feedback"
+        ],
+        "valueMeans": "ROJ minus OJ (task within participants), feedback group; negative = ROJ closer to the actual values"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "hindsight effect expected (|Δ| smaller for ROJ than OJ)",
+        "evidenceIds": [
+          "ev_h1",
+          "ev_hs_test"
+        ]
+      },
+      "analysisIds": [
+        "a_hs",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_hs",
+        "res_sens",
+        "res_fig2",
+        "res_sample",
+        "res_perfect"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "hs_feedback",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -2.88,
+            "ci": [
+              -4.19,
+              -1.54
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM slope b for task, weakly informative prior normal(-5,10) (main text, p. 17)",
+            "evidenceIds": [
+              "ev_hs"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 268,
+            "variant": "BF10, weakly informative prior (main text, pp. 17-18)",
+            "evidenceIds": [
+              "ev_hs"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 280,
+            "variant": "BF10, skeptical prior normal(0,10) (Table B1, p. 34)",
+            "evidenceIds": [
+              "ev_B1_hs"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 268 (weakly informative prior)"
+        },
+        "n": 73,
+        "missing": [
+          "cell means and SDs of |Δ| per group and task (shown only in Figure 2)",
+          "posterior SD / SE of b",
+          "coding of the task factor (reference level) is not stated",
+          "no p-values (Bayesian analysis)",
+          "per-group n after item-level exclusions"
+        ],
+        "evidenceIds": [
+          "ev_B1_hs",
+          "ev_final",
+          "ev_hs"
+        ]
+      },
+      "notes": "The paper's b is a Bayesian mixed-model slope on item-level |Δ| (random intercepts and slopes for participants and items; criterion mean-centred), not a participant-level mean difference, so the package value is not compared with it (no compareAs). Sign of b read from the paper: negative = smaller |Δ| in ROJ than in OJ (p. 17)."
+    },
+    {
+      "id": "hs_domain",
+      "label": "Hindsight effect in the domain-information group: |Δ| ROJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation from actual sugar content)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "item-level |Δ| in the paper's mixed model; per-participant mean |Δ| in the package"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "ROJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_domain"
+        ],
+        "valueMeans": "ROJ minus OJ (task within participants), domain-information group; negative = ROJ closer to the actual values"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "hindsight effect expected (|Δ| smaller for ROJ than OJ)",
+        "evidenceIds": [
+          "ev_h2",
+          "ev_hs_test"
+        ]
+      },
+      "analysisIds": [
+        "a_hs",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_hs",
+        "res_sens",
+        "res_fig2",
+        "res_sample",
+        "res_perfect"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "hs_domain",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -2.25,
+            "ci": [
+              -3.32,
+              -1.16
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM slope b for task, weakly informative prior normal(-5,10) (main text, p. 17)",
+            "evidenceIds": [
+              "ev_hs"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 80,
+            "variant": "BF10, weakly informative prior (main text, pp. 17-18)",
+            "evidenceIds": [
+              "ev_hs"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 76,
+            "variant": "BF10, skeptical prior normal(0,10) (Table B1, p. 34)",
+            "evidenceIds": [
+              "ev_B1_hs"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 80 (weakly informative prior)"
+        },
+        "n": 74,
+        "missing": [
+          "cell means and SDs of |Δ| per group and task (shown only in Figure 2)",
+          "posterior SD / SE of b",
+          "coding of the task factor (reference level) is not stated",
+          "no p-values (Bayesian analysis)",
+          "per-group n after item-level exclusions"
+        ],
+        "evidenceIds": [
+          "ev_B1_hs",
+          "ev_final",
+          "ev_hs"
+        ]
+      },
+      "notes": "The paper's b is a Bayesian mixed-model slope on item-level |Δ| (random intercepts and slopes for participants and items; criterion mean-centred), not a participant-level mean difference, so the package value is not compared with it (no compareAs). Sign of b read from the paper: negative = smaller |Δ| in ROJ than in OJ (p. 17)."
+    },
+    {
+      "id": "hs_irrelevant",
+      "label": "Hindsight effect in the irrelevant-information group: |Δ| ROJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation from actual sugar content)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "item-level |Δ| in the paper's mixed model; per-participant mean |Δ| in the package"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "ROJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_irrelevant"
+        ],
+        "valueMeans": "ROJ minus OJ (task within participants), irrelevant-information group; negative = ROJ closer to the actual values"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "no hindsight effect expected",
+        "evidenceIds": [
+          "ev_h3",
+          "ev_hs_test"
+        ]
+      },
+      "analysisIds": [
+        "a_hs",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_hs",
+        "res_sens",
+        "res_fig2",
+        "res_sample",
+        "res_perfect"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "hs_irrelevant",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.87,
+            "ci": [
+              -0.06,
+              1.81
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM slope b for task, weakly informative prior normal(-5,10) (main text, p. 17)",
+            "evidenceIds": [
+              "ev_hs_null"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.23,
+            "variant": "BF10, weakly informative prior (main text, pp. 17-18)",
+            "evidenceIds": [
+              "ev_hs_null"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.25,
+            "variant": "BF10, skeptical prior normal(0,10) (Table B1, p. 34)",
+            "evidenceIds": [
+              "ev_B1_hs"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 0.23 (weakly informative prior)"
+        },
+        "n": 77,
+        "missing": [
+          "cell means and SDs of |Δ| per group and task (shown only in Figure 2)",
+          "posterior SD / SE of b",
+          "coding of the task factor (reference level) is not stated",
+          "no p-values (Bayesian analysis)",
+          "per-group n after item-level exclusions"
+        ],
+        "evidenceIds": [
+          "ev_B1_hs",
+          "ev_final",
+          "ev_hs_null"
+        ]
+      },
+      "notes": "The paper's b is a Bayesian mixed-model slope on item-level |Δ| (random intercepts and slopes for participants and items; criterion mean-centred), not a participant-level mean difference, so the package value is not compared with it (no compareAs). Sign of b read from the paper: negative = smaller |Δ| in ROJ than in OJ (p. 17)."
+    },
+    {
+      "id": "hs_control",
+      "label": "Hindsight effect in the control group: |Δ| ROJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation from actual sugar content)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "item-level |Δ| in the paper's mixed model; per-participant mean |Δ| in the package"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "ROJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_control"
+        ],
+        "valueMeans": "ROJ minus OJ (task within participants), control group; negative = ROJ closer to the actual values"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "no hindsight effect expected",
+        "evidenceIds": [
+          "ev_h4",
+          "ev_hs_test"
+        ]
+      },
+      "analysisIds": [
+        "a_hs",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_hs",
+        "res_sens",
+        "res_fig2",
+        "res_sample",
+        "res_perfect"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "hs_control",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 1.1,
+            "ci": [
+              -0.15,
+              2.35
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM slope b for task, weakly informative prior normal(-5,10) (main text, p. 17)",
+            "evidenceIds": [
+              "ev_hs_null"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.25,
+            "variant": "BF10, weakly informative prior (main text, pp. 17-18)",
+            "evidenceIds": [
+              "ev_hs_null"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.06,
+            "variant": "BF10, skeptical prior normal(0,10) (Table B1, p. 34)",
+            "evidenceIds": [
+              "ev_B1_hs"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 0.25 (weakly informative prior)"
+        },
+        "n": 76,
+        "missing": [
+          "cell means and SDs of |Δ| per group and task (shown only in Figure 2)",
+          "posterior SD / SE of b",
+          "coding of the task factor (reference level) is not stated",
+          "no p-values (Bayesian analysis)",
+          "per-group n after item-level exclusions",
+          "Table B1's bracketed weakly-informative BF10 for the control group is [0.05], while the main text gives 0.25 (and the reverse for the control x irrelevant interaction); the main-text value is used here"
+        ],
+        "evidenceIds": [
+          "ev_B1_hs",
+          "ev_final",
+          "ev_hs_null"
+        ]
+      },
+      "notes": "The paper's b is a Bayesian mixed-model slope on item-level |Δ| (random intercepts and slopes for participants and items; criterion mean-centred), not a participant-level mean difference, so the package value is not compared with it (no compareAs). Sign of b read from the paper: negative = smaller |Δ| in ROJ than in OJ (p. 17)."
+    },
+    {
+      "id": "tl_feedback_vs_domain",
+      "label": "Task x group interaction, transfer learning: (NJ minus OJ) in feedback vs domain-information group",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h1",
+        "h2"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "difference of within-participant changes (NJ minus OJ) between groups"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "feedback",
+        "reference": "domain",
+        "conditionIds": [
+          "c_feedback",
+          "c_domain"
+        ],
+        "valueMeans": "(NJ minus OJ) in the feedback group minus (NJ minus OJ) in the domain-information group"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "no prediction stated; additional, not preregistered interaction analysis (footnote 2)",
+        "evidenceIds": [
+          "ev_fn2"
+        ]
+      },
+      "analysisIds": [
+        "a_int",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_tl",
+        "res_sens"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tl_feedback_vs_domain",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -3.11,
+            "ci": [
+              -5.06,
+              -1.16
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM interaction b (task x group), weakly informative prior (main text)",
+            "evidenceIds": [
+              "ev_tl_int"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 11,
+            "variant": "BF10, weakly informative prior (main text, pp. 17-18)",
+            "evidenceIds": [
+              "ev_tl_int"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 13,
+            "variant": "BF10, skeptical prior normal(0,10) (Table B1, p. 34)",
+            "evidenceIds": [
+              "ev_B1_tl"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 11 (weakly informative prior)"
+        },
+        "missing": [
+          "coding of task and group in the interaction model",
+          "posterior SD / SE of b",
+          "no p-values (Bayesian analysis)"
+        ],
+        "evidenceIds": [
+          "ev_B1_tl",
+          "ev_tl_int"
+        ]
+      },
+      "notes": "Mixed-model interaction b, not comparable with the package's Welch difference of participant-level changes (no compareAs). treatment-minus-reference orientation inferred from the group estimates (feedback b minus domain b has the same sign as the printed interaction b); the paper does not state the coding."
+    },
+    {
+      "id": "tl_irrelevant_vs_control",
+      "label": "Task x group interaction, transfer learning: (NJ minus OJ) in irrelevant-information vs control group",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h3",
+        "h4"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "difference of within-participant changes (NJ minus OJ) between groups"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "irrelevant",
+        "reference": "control",
+        "conditionIds": [
+          "c_irrelevant",
+          "c_control"
+        ],
+        "valueMeans": "(NJ minus OJ) in the irrelevant-information group minus (NJ minus OJ) in the control group"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "both groups are expected to show no transfer learning effect, so no difference is expected",
+        "evidenceIds": [
+          "ev_fn2",
+          "ev_h3",
+          "ev_h4"
+        ]
+      },
+      "analysisIds": [
+        "a_int",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_tl",
+        "res_sens"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "tl_irrelevant_vs_control",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 1.35,
+            "ci": [
+              -0.06,
+              2.77
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM interaction b (task x group), weakly informative prior (main text)",
+            "evidenceIds": [
+              "ev_tl_null"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.37,
+            "variant": "BF10, weakly informative prior (main text, pp. 17-18)",
+            "evidenceIds": [
+              "ev_tl_null"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.42,
+            "variant": "BF10, skeptical prior normal(0,10) (Table B1, p. 34)",
+            "evidenceIds": [
+              "ev_B1_tl"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 0.37 (weakly informative prior)"
+        },
+        "missing": [
+          "coding of task and group in the interaction model",
+          "posterior SD / SE of b",
+          "no p-values (Bayesian analysis)"
+        ],
+        "evidenceIds": [
+          "ev_B1_tl",
+          "ev_tl_null"
+        ]
+      },
+      "notes": "Mixed-model interaction b, not comparable with the package's Welch difference of participant-level changes (no compareAs). treatment-minus-reference orientation inferred from the group estimates (irrelevant b minus control b has the same sign as the printed interaction b); the paper does not state the coding."
+    },
+    {
+      "id": "hs_feedback_vs_domain",
+      "label": "Task x group interaction, hindsight: (ROJ minus OJ) in feedback vs domain-information group",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h1",
+        "h2"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "difference of within-participant changes (ROJ minus OJ) between groups"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "feedback",
+        "reference": "domain",
+        "conditionIds": [
+          "c_feedback",
+          "c_domain"
+        ],
+        "valueMeans": "(ROJ minus OJ) in the feedback group minus (ROJ minus OJ) in the domain-information group"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "no prediction stated; additional, not preregistered interaction analysis (footnote 2)",
+        "evidenceIds": [
+          "ev_fn2"
+        ]
+      },
+      "analysisIds": [
+        "a_int",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_hs",
+        "res_sens"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "hs_feedback_vs_domain",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.7,
+            "ci": [
+              -2.11,
+              0.71
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM interaction b (task x group), weakly informative prior (main text)",
+            "evidenceIds": [
+              "ev_hs"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.07,
+            "variant": "BF10, weakly informative prior (main text, pp. 17-18)",
+            "evidenceIds": [
+              "ev_hs"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.11,
+            "variant": "BF10, skeptical prior normal(0,10) (Table B1, p. 34)",
+            "evidenceIds": [
+              "ev_B1_hs"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 0.07 (weakly informative prior)"
+        },
+        "missing": [
+          "coding of task and group in the interaction model",
+          "posterior SD / SE of b",
+          "no p-values (Bayesian analysis)"
+        ],
+        "evidenceIds": [
+          "ev_B1_hs",
+          "ev_hs"
+        ]
+      },
+      "notes": "Mixed-model interaction b, not comparable with the package's Welch difference of participant-level changes (no compareAs). treatment-minus-reference orientation inferred from the group estimates (feedback b minus domain b has the same sign as the printed interaction b); the paper does not state the coding."
+    },
+    {
+      "id": "hs_irrelevant_vs_control",
+      "label": "Task x group interaction, hindsight: (ROJ minus OJ) in irrelevant-information vs control group",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h3",
+        "h4"
+      ],
+      "studyId": "s1",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_absdev",
+        "type": "continuous",
+        "scale": "grams (absolute deviation)",
+        "higherMeans": "less accurate estimates",
+        "treatedAs": "difference of within-participant changes (ROJ minus OJ) between groups"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "irrelevant",
+        "reference": "control",
+        "conditionIds": [
+          "c_irrelevant",
+          "c_control"
+        ],
+        "valueMeans": "(ROJ minus OJ) in the irrelevant-information group minus (ROJ minus OJ) in the control group"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "both groups are expected to show no hindsight effect, so no difference is expected",
+        "evidenceIds": [
+          "ev_fn2",
+          "ev_h3",
+          "ev_h4"
+        ]
+      },
+      "analysisIds": [
+        "a_int",
+        "a_priors",
+        "a_exclusions",
+        "a_perfect"
+      ],
+      "resultIds": [
+        "res_hs",
+        "res_sens"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "hs_irrelevant_vs_control",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.26,
+            "ci": [
+              -1.15,
+              0.64
+            ],
+            "ciLevel": 95,
+            "variant": "Bayesian LMM interaction b (task x group), weakly informative prior (main text)",
+            "evidenceIds": [
+              "ev_hs_null",
+              "ev_hs_null2"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.05,
+            "variant": "BF10, weakly informative prior (main text, pp. 17-18)",
+            "evidenceIds": [
+              "ev_hs_null",
+              "ev_hs_null2"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 0.29,
+            "variant": "BF10, skeptical prior normal(0,10) (Table B1, p. 34)",
+            "evidenceIds": [
+              "ev_B1_hs"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 0.05 (weakly informative prior)"
+        },
+        "missing": [
+          "coding of task and group in the interaction model",
+          "posterior SD / SE of b",
+          "no p-values (Bayesian analysis)",
+          "Table B1's bracketed weakly-informative BF10 for this interaction is [0.25], while the main text gives 0.05; the main-text value is used here"
+        ],
+        "evidenceIds": [
+          "ev_B1_hs",
+          "ev_hs_null",
+          "ev_hs_null2"
+        ]
+      },
+      "notes": "Mixed-model interaction b, not comparable with the package's Welch difference of participant-level changes (no compareAs). treatment-minus-reference orientation inferred from the group estimates (irrelevant b minus control b has the same sign as the printed interaction b); the paper does not state the coding."
+    },
+    {
+      "id": "map_tl_feedback",
+      "label": "Mapping knowledge, transfer learning in the feedback group: rank-order correlation NJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h5"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_rank",
+        "type": "continuous",
+        "scale": "rank-order correlation (-1 to 1)",
+        "higherMeans": "better mapping knowledge (ordering of items)",
+        "treatedAs": "Fisher r-to-z transformed and mean-centred in the paper's model; Table C1 prints raw correlations"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "NJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_feedback"
+        ],
+        "valueMeans": "NJ minus OJ, feedback group"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "no improvement in the rank-order correlation for NJ vs OJ",
+        "evidenceIds": [
+          "ev_C_aim"
+        ]
+      },
+      "analysisIds": [
+        "a_map"
+      ],
+      "resultIds": [
+        "res_map"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "map_tl_feedback"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "bayes_factor",
+            "value": 3,
+            "variant": "BF10, Bayesian LMM on Fisher-z rank-order correlations (Table C2, p. 36)",
+            "evidenceIds": [
+              "ev_C2_tl"
+            ]
+          }
+        ],
+        "cells": {
+          "NJ": {
+            "mean": 0.69,
+            "sd": 0.12
+          },
+          "OJ": {
+            "mean": 0.63,
+            "sd": 0.1
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 3"
+        },
+        "missing": [
+          "n per group for the mapping analysis",
+          "model slope b and its CI",
+          "no p-values (Bayesian analysis)"
+        ],
+        "evidenceIds": [
+          "ev_C1_nj",
+          "ev_C1_oj",
+          "ev_C2_tl"
+        ]
+      },
+      "notes": "The package evaluation does not compute rank-order correlations, so this effect is not_ready. If it were computed, the raw mean difference of correlations could be checked against the difference of the Table C1 means."
+    },
+    {
+      "id": "map_tl_domain",
+      "label": "Mapping knowledge, transfer learning in the domain-information group: rank-order correlation NJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h5"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_rank",
+        "type": "continuous",
+        "scale": "rank-order correlation (-1 to 1)",
+        "higherMeans": "better mapping knowledge (ordering of items)",
+        "treatedAs": "Fisher r-to-z transformed and mean-centred in the paper's model; Table C1 prints raw correlations"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "NJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_domain"
+        ],
+        "valueMeans": "NJ minus OJ, domain-information group"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "no improvement in the rank-order correlation for NJ vs OJ",
+        "evidenceIds": [
+          "ev_C_aim"
+        ]
+      },
+      "analysisIds": [
+        "a_map"
+      ],
+      "resultIds": [
+        "res_map"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "map_tl_domain"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "bayes_factor",
+            "value": 8,
+            "variant": "BF10, Bayesian LMM on Fisher-z rank-order correlations (Table C2, p. 36)",
+            "evidenceIds": [
+              "ev_C2_tl"
+            ]
+          }
+        ],
+        "cells": {
+          "NJ": {
+            "mean": 0.65,
+            "sd": 0.14
+          },
+          "OJ": {
+            "mean": 0.6,
+            "sd": 0.14
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 8"
+        },
+        "missing": [
+          "n per group for the mapping analysis",
+          "model slope b and its CI",
+          "no p-values (Bayesian analysis)"
+        ],
+        "evidenceIds": [
+          "ev_C1_nj",
+          "ev_C1_oj",
+          "ev_C2_tl"
+        ]
+      },
+      "notes": "The package evaluation does not compute rank-order correlations, so this effect is not_ready. If it were computed, the raw mean difference of correlations could be checked against the difference of the Table C1 means."
+    },
+    {
+      "id": "map_tl_irrelevant",
+      "label": "Mapping knowledge, transfer learning in the irrelevant-information group: rank-order correlation NJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h5"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_rank",
+        "type": "continuous",
+        "scale": "rank-order correlation (-1 to 1)",
+        "higherMeans": "better mapping knowledge (ordering of items)",
+        "treatedAs": "Fisher r-to-z transformed and mean-centred in the paper's model; Table C1 prints raw correlations"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "NJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_irrelevant"
+        ],
+        "valueMeans": "NJ minus OJ, irrelevant-information group"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "no improvement in the rank-order correlation for NJ vs OJ",
+        "evidenceIds": [
+          "ev_C_aim"
+        ]
+      },
+      "analysisIds": [
+        "a_map"
+      ],
+      "resultIds": [
+        "res_map"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "map_tl_irrelevant"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "bayes_factor",
+            "value": 0.05,
+            "variant": "BF10, Bayesian LMM on Fisher-z rank-order correlations (Table C2, p. 36)",
+            "evidenceIds": [
+              "ev_C2_tl"
+            ]
+          }
+        ],
+        "cells": {
+          "NJ": {
+            "mean": 0.61,
+            "sd": 0.14
+          },
+          "OJ": {
+            "mean": 0.6,
+            "sd": 0.14
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 0.05"
+        },
+        "missing": [
+          "n per group for the mapping analysis",
+          "model slope b and its CI",
+          "no p-values (Bayesian analysis)"
+        ],
+        "evidenceIds": [
+          "ev_C1_nj",
+          "ev_C1_oj",
+          "ev_C2_tl"
+        ]
+      },
+      "notes": "The package evaluation does not compute rank-order correlations, so this effect is not_ready. If it were computed, the raw mean difference of correlations could be checked against the difference of the Table C1 means."
+    },
+    {
+      "id": "map_tl_control",
+      "label": "Mapping knowledge, transfer learning in the control group: rank-order correlation NJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h5"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_rank",
+        "type": "continuous",
+        "scale": "rank-order correlation (-1 to 1)",
+        "higherMeans": "better mapping knowledge (ordering of items)",
+        "treatedAs": "Fisher r-to-z transformed and mean-centred in the paper's model; Table C1 prints raw correlations"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "NJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_control"
+        ],
+        "valueMeans": "NJ minus OJ, control group"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "no improvement in the rank-order correlation for NJ vs OJ",
+        "evidenceIds": [
+          "ev_C_aim"
+        ]
+      },
+      "analysisIds": [
+        "a_map"
+      ],
+      "resultIds": [
+        "res_map"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "map_tl_control"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "bayes_factor",
+            "value": 0.7,
+            "variant": "BF10, Bayesian LMM on Fisher-z rank-order correlations (Table C2, p. 36)",
+            "evidenceIds": [
+              "ev_C2_tl"
+            ]
+          }
+        ],
+        "cells": {
+          "NJ": {
+            "mean": 0.64,
+            "sd": 0.13
+          },
+          "OJ": {
+            "mean": 0.61,
+            "sd": 0.13
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 0.7"
+        },
+        "missing": [
+          "n per group for the mapping analysis",
+          "model slope b and its CI",
+          "no p-values (Bayesian analysis)"
+        ],
+        "evidenceIds": [
+          "ev_C1_nj",
+          "ev_C1_oj",
+          "ev_C2_tl"
+        ]
+      },
+      "notes": "The package evaluation does not compute rank-order correlations, so this effect is not_ready. If it were computed, the raw mean difference of correlations could be checked against the difference of the Table C1 means."
+    },
+    {
+      "id": "map_hs_feedback",
+      "label": "Mapping knowledge, hindsight in the feedback group: rank-order correlation ROJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h6"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_rank",
+        "type": "continuous",
+        "scale": "rank-order correlation (-1 to 1)",
+        "higherMeans": "better mapping knowledge (ordering of items)",
+        "treatedAs": "Fisher r-to-z transformed and mean-centred in the paper's model; Table C1 prints raw correlations"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "ROJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_feedback"
+        ],
+        "valueMeans": "ROJ minus OJ, feedback group"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "improved rank-order correlation for ROJ vs OJ in the feedback group only",
+        "evidenceIds": [
+          "ev_C_aim_hs"
+        ]
+      },
+      "analysisIds": [
+        "a_map"
+      ],
+      "resultIds": [
+        "res_map"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "map_hs_feedback"
+      },
+      "reported": {
+        "estimates": [],
+        "cells": {
+          "ROJ": {
+            "mean": 0.7,
+            "sd": 0.11
+          },
+          "OJ": {
+            "mean": 0.63,
+            "sd": 0.1
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 >10,000"
+        },
+        "missing": [
+          "n per group for the mapping analysis",
+          "model slope b and its CI",
+          "no p-values (Bayesian analysis)"
+        ],
+        "evidenceIds": [
+          "ev_C1_roj",
+          "ev_C1_oj",
+          "ev_C2_hs"
+        ]
+      },
+      "notes": "The package evaluation does not compute rank-order correlations, so this effect is not_ready. If it were computed, the raw mean difference of correlations could be checked against the difference of the Table C1 means."
+    },
+    {
+      "id": "map_hs_domain",
+      "label": "Mapping knowledge, hindsight in the domain-information group: rank-order correlation ROJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h6"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_rank",
+        "type": "continuous",
+        "scale": "rank-order correlation (-1 to 1)",
+        "higherMeans": "better mapping knowledge (ordering of items)",
+        "treatedAs": "Fisher r-to-z transformed and mean-centred in the paper's model; Table C1 prints raw correlations"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "ROJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_domain"
+        ],
+        "valueMeans": "ROJ minus OJ, domain-information group"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "improved rank-order correlation for ROJ vs OJ in the feedback group only",
+        "evidenceIds": [
+          "ev_C_aim_hs"
+        ]
+      },
+      "analysisIds": [
+        "a_map"
+      ],
+      "resultIds": [
+        "res_map"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "map_hs_domain"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "bayes_factor",
+            "value": 5,
+            "variant": "BF10, Bayesian LMM on Fisher-z rank-order correlations (Table C2, p. 36)",
+            "evidenceIds": [
+              "ev_C2_hs"
+            ]
+          }
+        ],
+        "cells": {
+          "ROJ": {
+            "mean": 0.63,
+            "sd": 0.14
+          },
+          "OJ": {
+            "mean": 0.6,
+            "sd": 0.14
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 5"
+        },
+        "missing": [
+          "n per group for the mapping analysis",
+          "model slope b and its CI",
+          "no p-values (Bayesian analysis)"
+        ],
+        "evidenceIds": [
+          "ev_C1_roj",
+          "ev_C1_oj",
+          "ev_C2_hs"
+        ]
+      },
+      "notes": "The package evaluation does not compute rank-order correlations, so this effect is not_ready. If it were computed, the raw mean difference of correlations could be checked against the difference of the Table C1 means."
+    },
+    {
+      "id": "map_hs_irrelevant",
+      "label": "Mapping knowledge, hindsight in the irrelevant-information group: rank-order correlation ROJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h6"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_rank",
+        "type": "continuous",
+        "scale": "rank-order correlation (-1 to 1)",
+        "higherMeans": "better mapping knowledge (ordering of items)",
+        "treatedAs": "Fisher r-to-z transformed and mean-centred in the paper's model; Table C1 prints raw correlations"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "ROJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_irrelevant"
+        ],
+        "valueMeans": "ROJ minus OJ, irrelevant-information group"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "improved rank-order correlation for ROJ vs OJ in the feedback group only",
+        "evidenceIds": [
+          "ev_C_aim_hs"
+        ]
+      },
+      "analysisIds": [
+        "a_map"
+      ],
+      "resultIds": [
+        "res_map"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "map_hs_irrelevant"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "bayes_factor",
+            "value": 0.03,
+            "variant": "BF10, Bayesian LMM on Fisher-z rank-order correlations (Table C2, p. 36)",
+            "evidenceIds": [
+              "ev_C2_hs"
+            ]
+          }
+        ],
+        "cells": {
+          "ROJ": {
+            "mean": 0.6,
+            "sd": 0.13
+          },
+          "OJ": {
+            "mean": 0.6,
+            "sd": 0.14
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 0.03"
+        },
+        "missing": [
+          "n per group for the mapping analysis",
+          "model slope b and its CI",
+          "no p-values (Bayesian analysis)"
+        ],
+        "evidenceIds": [
+          "ev_C1_roj",
+          "ev_C1_oj",
+          "ev_C2_hs"
+        ]
+      },
+      "notes": "The package evaluation does not compute rank-order correlations, so this effect is not_ready. If it were computed, the raw mean difference of correlations could be checked against the difference of the Table C1 means."
+    },
+    {
+      "id": "map_hs_control",
+      "label": "Mapping knowledge, hindsight in the control group: rank-order correlation ROJ minus OJ",
+      "role": "test",
+      "hypothesisIds": [
+        "h6"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_rank",
+        "type": "continuous",
+        "scale": "rank-order correlation (-1 to 1)",
+        "higherMeans": "better mapping knowledge (ordering of items)",
+        "treatedAs": "Fisher r-to-z transformed and mean-centred in the paper's model; Table C1 prints raw correlations"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "ROJ",
+        "reference": "OJ",
+        "conditionIds": [
+          "c_control"
+        ],
+        "valueMeans": "ROJ minus OJ, control group"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "improved rank-order correlation for ROJ vs OJ in the feedback group only",
+        "evidenceIds": [
+          "ev_C_aim_hs"
+        ]
+      },
+      "analysisIds": [
+        "a_map"
+      ],
+      "resultIds": [
+        "res_map"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "map_hs_control"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "bayes_factor",
+            "value": 0.08,
+            "variant": "BF10, Bayesian LMM on Fisher-z rank-order correlations (Table C2, p. 36)",
+            "evidenceIds": [
+              "ev_C2_hs"
+            ]
+          }
+        ],
+        "cells": {
+          "ROJ": {
+            "mean": 0.62,
+            "sd": 0.15
+          },
+          "OJ": {
+            "mean": 0.61,
+            "sd": 0.13
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "BF10 = 0.08"
+        },
+        "missing": [
+          "n per group for the mapping analysis",
+          "model slope b and its CI",
+          "no p-values (Bayesian analysis)"
+        ],
+        "evidenceIds": [
+          "ev_C1_roj",
+          "ev_C1_oj",
+          "ev_C2_hs"
+        ]
+      },
+      "notes": "The package evaluation does not compute rank-order correlations, so this effect is not_ready. If it were computed, the raw mean difference of correlations could be checked against the difference of the Table C1 means."
+    }
+  ]
+}

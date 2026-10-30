@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "ea71750d-9dd8-5ea2-b559-580be7eec337",
+  "headCommit": null,
+  "paperKey": "doi:10.1525/collabra.147499",
+  "status": "accepted",
+  "revision": "fa6853c142d8c8371ac41ac19d3f9463125894ccdafa444105f594aa689609f6",
+  "previousRevision": "907f4b2260fc86d224634b6776eb6aba19bf6f4d481d4e849fece021c75f4aa3",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "fa6853c142d8c8371ac41ac19d3f9463125894ccdafa444105f594aa689609f6",
+    "reviewer": "maintainer:assassin808",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
+    "checks": [
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: None [0, 0]",
+      "capabilities.py --check",
+      "check_package.py",
+      "agent export self-test",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": false,
+      "humanBenchmark": false
+    }
+  }
+}

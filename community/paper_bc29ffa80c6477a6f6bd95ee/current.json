@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "b00bdc44c9a58e67ec835d4fcb01850083e0aea2109a1d95878bd3a54243af88",
-  "previousRevision": "27a99293845cd0b5e8111eb78bacb0e5df8188d98d673e7bb9efd59efcdc1f92",
+  "revision": "2f1df69e19eddf938dffe1c59fb50ca462f975d8e4a8e5977261024ef3bd8e38",
+  "previousRevision": "b00bdc44c9a58e67ec835d4fcb01850083e0aea2109a1d95878bd3a54243af88",
   "paper": {
     "title": "Many Labs 5: Registered Multisite Replication of the Tempting-Fate Effects in Risen and Gilovich (2008)",
     "authors": [
@@ -41,15 +41,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "b00bdc44c9a58e67ec835d4fcb01850083e0aea2109a1d95878bd3a54243af88",
+    "candidateRevision": "2f1df69e19eddf938dffe1c59fb50ca462f975d8e4a8e5977261024ef3bd8e38",
     "reviewer": "maintainer:assassin808",
-    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
     "checks": [
-      "every URL in the key served the pinned sha256 (download and hash)",
-      "study_core.py reproduce on the pinned files: pass [2, 2], equal to the pilot comparison",
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [2, 2]",
       "capabilities.py --check",
+      "check_package.py",
       "agent export self-test",
-      "schema and package bindings (validate_assets)"
+      "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
       "discoverable": true,
@@ -75,6 +78,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "57b7bca3cf6ee68929a8cf64997c87552bd657985b30a98fb09a88819b742b3f"
+    "programDigest": "16c61ec0ac470227238337577ecb63e9312d378b969b7dda44bd2ddf208d4a13"
   }
 }
