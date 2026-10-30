@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "26270c85c44772afa1a7ba02e4dc43623cb5c05177a6fd9adf873ff7d7172460",
-  "previousRevision": "07911e7d3682f055b624893a29a56c433baa2c6421c3b46099040cbd015ca89a",
+  "revision": "c6c5e8640e0abe6e134bd9e7355135943966caba8e9f92227f89c2d2e477c7ca",
+  "previousRevision": "26270c85c44772afa1a7ba02e4dc43623cb5c05177a6fd9adf873ff7d7172460",
   "paper": {
     "title": "Not unreasonable: Carving vague dimensions with contraries and contradictions",
     "authors": [
@@ -38,15 +38,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "26270c85c44772afa1a7ba02e4dc43623cb5c05177a6fd9adf873ff7d7172460",
+    "candidateRevision": "c6c5e8640e0abe6e134bd9e7355135943966caba8e9f92227f89c2d2e477c7ca",
     "reviewer": "maintainer:assassin808",
-    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
     "checks": [
-      "every URL in the key served the pinned sha256 (download and hash)",
-      "study_core.py reproduce on the pinned files: None [0, 0], equal to the pilot comparison",
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: None [0, 0]",
       "capabilities.py --check",
+      "check_package.py",
       "agent export self-test",
-      "schema and package bindings (validate_assets)"
+      "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
       "discoverable": true,
@@ -72,6 +75,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "c5e9e6fcca8bd743db328d527aee20f11d6fd361d8b2f69ea9f62368ca5c8dce"
+    "programDigest": "d48cdbf077cb958e9ce7d8c6c6dcee5a87c9c9f747ea04e97ba55b8f08d0a177"
   }
 }

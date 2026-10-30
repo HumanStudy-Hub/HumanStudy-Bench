@@ -1,0 +1,90 @@
+{
+  "agents": [
+    {
+      "id": "participant",
+      "role": "participant",
+      "kind": "AI participant",
+      "scripted": false
+    }
+  ],
+  "scripted_roles": [],
+  "scripted_roles_note": "None: the paper has no confederates; Qualtrics screens are presentation only.",
+  "sampling_unit": "participant (each AI participant completes all 51 events of one study)",
+  "n_semantics": "n = AI participants per study; two E1/eBR orders assigned at random, balanced",
+  "assignment_unit": "participant (order of E1 and eBR)",
+  "observation_unit": "trial (participant x event)",
+  "arms": [
+    "study1",
+    "study2",
+    "study3"
+  ],
+  "conditions": {
+    "study1": [
+      "e1first",
+      "ebrfirst"
+    ],
+    "study2": [
+      "e1first",
+      "ebrfirst"
+    ],
+    "study3": [
+      "e1first",
+      "ebrfirst"
+    ]
+  },
+  "order": "Sequential within participant; events randomized in each part; each screen sees only that participant's own earlier screens and answers.",
+  "visibility": "A participant sees the current screen and their own earlier screens and answers; no other participant's responses.",
+  "readiness": {
+    "status": "blocked",
+    "blocking": [
+      "iss-stimuli"
+    ]
+  },
+  "programBindings": {
+    "programId": "burton2022-optimism-neutral",
+    "stepIds": [
+      "s1-est-a",
+      "s1-est-b",
+      "s1-br",
+      "s1-recall",
+      "s1-e2",
+      "s1-part1",
+      "s1-val",
+      "s1-part2",
+      "s2-est-a",
+      "s2-est-b",
+      "s2-br",
+      "s2-recall",
+      "s2-part1",
+      "s2-e2",
+      "s2-part2",
+      "s2-val",
+      "s2-part3",
+      "s3-est-a",
+      "s3-est-b",
+      "s3-br",
+      "s3-recall",
+      "s3-val",
+      "s3-part1",
+      "s3-e2",
+      "s3-part2"
+    ],
+    "recordNodeIds": [
+      "v-e1",
+      "v-ebr",
+      "v-br",
+      "v-brrecall",
+      "v-e2",
+      "v-valrating",
+      "v-valence",
+      "v-direction",
+      "v-update"
+    ],
+    "analysisNodeIds": [
+      "a-exclusion",
+      "a-main",
+      "a-secondary",
+      "a-further"
+    ]
+  }
+}

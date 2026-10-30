@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "3567bc41-53c8-5a5d-b919-cad2f706eeb1",
+  "headCommit": null,
+  "paperKey": "title:Not unreasonable: Carving vague dimensions with contraries and contradictions",
+  "status": "accepted",
+  "revision": "c6c5e8640e0abe6e134bd9e7355135943966caba8e9f92227f89c2d2e477c7ca",
+  "previousRevision": "26270c85c44772afa1a7ba02e4dc43623cb5c05177a6fd9adf873ff7d7172460",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "c6c5e8640e0abe6e134bd9e7355135943966caba8e9f92227f89c2d2e477c7ca",
+    "reviewer": "maintainer:assassin808",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
+    "checks": [
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: None [0, 0]",
+      "capabilities.py --check",
+      "check_package.py",
+      "agent export self-test",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

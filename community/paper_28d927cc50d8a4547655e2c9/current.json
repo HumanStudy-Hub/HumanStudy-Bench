@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "bfcbd8b3ba4cbf034d75ef2dd6fa5edd3a01ddbbd0c5c3c2a5be626a39213f9b",
-  "previousRevision": "b1fdc34c709421d2bff1c77a453b30e2dc6ac2151728b84bf77e0c8aa2b00aa2",
+  "revision": "994d305cf245be86bfff35a64d7e1a98c98abaef3c09546b6b58b2ba9186e112",
+  "previousRevision": "bfcbd8b3ba4cbf034d75ef2dd6fa5edd3a01ddbbd0c5c3c2a5be626a39213f9b",
   "paper": {
     "title": "The Psychology of Coordination and Common Knowledge",
     "authors": [
@@ -41,15 +41,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "bfcbd8b3ba4cbf034d75ef2dd6fa5edd3a01ddbbd0c5c3c2a5be626a39213f9b",
+    "candidateRevision": "994d305cf245be86bfff35a64d7e1a98c98abaef3c09546b6b58b2ba9186e112",
     "reviewer": "maintainer:assassin808",
-    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
     "checks": [
-      "every URL in the key served the pinned sha256 (download and hash)",
-      "study_core.py reproduce on the pinned files: fail [0, 4], equal to the pilot comparison",
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: partial [1, 4]",
       "capabilities.py --check",
+      "check_package.py",
       "agent export self-test",
-      "schema and package bindings (validate_assets)"
+      "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
       "discoverable": true,
@@ -75,6 +78,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "58a29ac7bf27ef5ca3f757240251f44b1a22dd67eca0883069bd916c520ed2d3"
+    "programDigest": "dc01ecc4528ada3304bbcdfe208d0f75b93dc356e781e84d37db1917b372e43d"
   }
 }

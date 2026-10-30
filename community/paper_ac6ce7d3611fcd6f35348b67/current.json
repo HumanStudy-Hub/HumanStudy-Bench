@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "907f4b2260fc86d224634b6776eb6aba19bf6f4d481d4e849fece021c75f4aa3",
-  "previousRevision": "870e2af658a20bd198561e23d058284925190cc237f27ab6fb8fdf1d9876b8d8",
+  "revision": "fa6853c142d8c8371ac41ac19d3f9463125894ccdafa444105f594aa689609f6",
+  "previousRevision": "907f4b2260fc86d224634b6776eb6aba19bf6f4d481d4e849fece021c75f4aa3",
   "paper": {
     "title": "Hindsight Bias Through Knowledge Updating: A Conceptual Replication of Groß et al. (2023)",
     "authors": [
@@ -40,15 +40,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "907f4b2260fc86d224634b6776eb6aba19bf6f4d481d4e849fece021c75f4aa3",
+    "candidateRevision": "fa6853c142d8c8371ac41ac19d3f9463125894ccdafa444105f594aa689609f6",
     "reviewer": "maintainer:assassin808",
-    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
     "checks": [
-      "every URL in the key served the pinned sha256 (download and hash)",
-      "study_core.py reproduce on the pinned files: partial [4, 8], equal to the pilot comparison",
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: None [0, 0]",
       "capabilities.py --check",
+      "check_package.py",
       "agent export self-test",
-      "schema and package bindings (validate_assets)"
+      "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
       "discoverable": true,
@@ -74,6 +77,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "274d266e6056347602874373244e27ad863b2ab8bdbac0cca7772970678a4ae1"
+    "programDigest": "e69db05ae87ac9da6bb6e26c043bea82cb04906dc6263b1292ade2a1d61324fe"
   }
 }

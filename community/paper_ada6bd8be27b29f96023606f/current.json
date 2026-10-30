@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "cf3501ea1ea92710db4f22df2b9a02f95f426b18007e3a7593f99ffa9033dc97",
-  "previousRevision": "982ab4b8455e9909300726e8565ed8435b803733067c2a429ab5a15b78354841",
+  "revision": "488c56f6db1f9f8332b712b092224d5768b4bc466cbd0e1091c078dabe5d6d10",
+  "previousRevision": "cf3501ea1ea92710db4f22df2b9a02f95f426b18007e3a7593f99ffa9033dc97",
   "paper": {
     "title": "Many Labs 2: Investigating Variation in Replicability Across Samples and Settings",
     "authors": [
@@ -41,15 +41,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "cf3501ea1ea92710db4f22df2b9a02f95f426b18007e3a7593f99ffa9033dc97",
+    "candidateRevision": "488c56f6db1f9f8332b712b092224d5768b4bc466cbd0e1091c078dabe5d6d10",
     "reviewer": "maintainer:assassin808",
-    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
     "checks": [
-      "every URL in the key served the pinned sha256 (download and hash)",
-      "study_core.py reproduce on the pinned files: pass [14, 14], equal to the pilot comparison",
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [14, 14]",
       "capabilities.py --check",
+      "check_package.py",
       "agent export self-test",
-      "schema and package bindings (validate_assets)"
+      "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
       "discoverable": true,
@@ -75,6 +78,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "500c448cd1a65ec3395b2b0a4555d420512d571dcf706cfde8c4a63b51b59ce6"
+    "programDigest": "03a85277457e57abfa09822a647bc81add1d1794e659b8a7070cb89a946bbe7c"
   }
 }

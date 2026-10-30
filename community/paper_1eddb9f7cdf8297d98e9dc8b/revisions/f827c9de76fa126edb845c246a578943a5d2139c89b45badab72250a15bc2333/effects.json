@@ -1,0 +1,868 @@
+{
+  "schemaVersion": 1,
+  "programId": "frankedegen2016",
+  "topics": [
+    "pragmatics",
+    "reference games",
+    "scalar implicature",
+    "theory of mind",
+    "rational speech act model",
+    "individual differences",
+    "Bayesian model comparison"
+  ],
+  "hypotheses": [
+    {
+      "id": "hyp1",
+      "nodeId": "hyp1",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "individual differences in pragmatic reasoning",
+        "Gricean reasoning",
+        "iterated best response"
+      ]
+    },
+    {
+      "id": "hyp2",
+      "nodeId": "hyp2",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "ad hoc Quantity implicature",
+        "scalar implicature"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "exp1_simple_vs_harder",
+      "label": "Exp 1 (comprehension): target-choice log odds, simple vs harder (complex + ambiguous) Helmert contrast",
+      "role": "test",
+      "hypothesisIds": [
+        "hyp2"
+      ],
+      "studyId": "exp1",
+      "design": "within",
+      "unit": "trial (participants clustered)",
+      "outcome": {
+        "variableId": "e1_v_choice",
+        "type": "binary",
+        "scale": "target vs competitor object choice (distractor choices excluded)",
+        "higherMeans": "higher log odds of choosing the target over the competitor",
+        "treatedAs": "log odds"
+      },
+      "contrast": {
+        "kind": "other",
+        "conditionIds": [
+          "e1_c_simple",
+          "e1_c_complex",
+          "e1_c_amb"
+        ],
+        "valueMeans": "log odds of target on simple trials minus the mean log odds on complex and ambiguous trials",
+        "treatment": "simple",
+        "reference": "complex + ambiguous"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_table1",
+          "ev_e1_reg1",
+          "ev_fx_simpler"
+        ],
+        "text": "Table 1: level-1 types choose the target in the simple game but target or competitor in the complex game, so simple trials should draw more target choices"
+      },
+      "analysisIds": [
+        "e1_an"
+      ],
+      "resultIds": [
+        "e1_r_reg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp1_simple_vs_harder",
+        "metric": "other"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 1.28,
+            "se": 0.12,
+            "p": 0.0001,
+            "pRelation": "<",
+            "variant": "logistic mixed-effects regression, by-participant intercepts and slopes for message type and trial number, with target-position and message-type controls (Table 2)",
+            "evidenceIds": [
+              "ev_e1_tab2",
+              "ev_e1_res"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "p": 0.0001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "test statistic value (only beta, SE and a p bound are printed)",
+          "number of trials entering the regression"
+        ],
+        "evidenceIds": [
+          "ev_e1_tab2",
+          "ev_e1_res"
+        ]
+      },
+      "notes": "the package fits the same Helmert contrasts without random effects or target-position / message-type controls, so its coefficient is a different quantity from the paper's mixed-effects b and is reported as metric 'other' (not compared)"
+    },
+    {
+      "id": "exp1_complex_vs_amb",
+      "label": "Exp 1 (comprehension): target-choice log odds, complex implicature vs ambiguous filler Helmert contrast",
+      "role": "test",
+      "hypothesisIds": [
+        "hyp2"
+      ],
+      "studyId": "exp1",
+      "design": "within",
+      "unit": "trial (participants clustered)",
+      "outcome": {
+        "variableId": "e1_v_choice",
+        "type": "binary",
+        "scale": "target vs competitor object choice (distractor choices excluded)",
+        "higherMeans": "higher log odds of choosing the target over the competitor",
+        "treatedAs": "log odds"
+      },
+      "contrast": {
+        "kind": "other",
+        "conditionIds": [
+          "e1_c_complex",
+          "e1_c_amb"
+        ],
+        "valueMeans": "log odds of target on complex trials minus log odds on ambiguous filler trials",
+        "treatment": "complex",
+        "reference": "ambiguous"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_table1",
+          "ev_fx_above"
+        ],
+        "text": "Level-2 types choose the target in the complex game, while ambiguous fillers are at chance, so complex trials should draw more target choices than ambiguous fillers if some participants draw the two-step implicature"
+      },
+      "analysisIds": [
+        "e1_an"
+      ],
+      "resultIds": [
+        "e1_r_reg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp1_complex_vs_amb",
+        "metric": "other"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.44,
+            "se": 0.13,
+            "p": 0.001,
+            "pRelation": "<",
+            "variant": "logistic mixed-effects regression, by-participant intercepts and slopes for message type and trial number, with target-position and message-type controls (Table 2)",
+            "evidenceIds": [
+              "ev_e1_res",
+              "ev_fx_tab2_amb"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "test statistic value (only beta, SE and a p bound are printed)",
+          "number of trials entering the regression"
+        ],
+        "evidenceIds": [
+          "ev_e1_res",
+          "ev_fx_tab2_amb"
+        ]
+      },
+      "notes": "the package fits the same Helmert contrasts without random effects or target-position / message-type controls, so its coefficient is a different quantity from the paper's mixed-effects b and is reported as metric 'other' (not compared)"
+    },
+    {
+      "id": "exp1_trial",
+      "label": "Exp 1 (comprehension): learning check, main effect of centred trial number",
+      "role": "check",
+      "hypothesisIds": [
+        "hyp1"
+      ],
+      "studyId": "exp1",
+      "design": "within",
+      "unit": "trial (participants clustered)",
+      "outcome": {
+        "variableId": "e1_v_choice",
+        "type": "binary",
+        "scale": "target vs competitor object choice (distractor choices excluded)",
+        "higherMeans": "higher log odds of choosing the target over the competitor",
+        "treatedAs": "log odds"
+      },
+      "contrast": {
+        "kind": "association",
+        "conditionIds": [],
+        "valueMeans": "change in target-choice log odds per trial (centred trial number)"
+      },
+      "prediction": {
+        "direction": "none",
+        "evidenceIds": [
+          "ev_fx_fixed",
+          "ev_mc_fixed",
+          "ev_fx_learnq"
+        ],
+        "text": "The model comparison assumes each participant has a fixed reasoning type, so no learning (trial) effect is expected"
+      },
+      "analysisIds": [
+        "e1_an"
+      ],
+      "resultIds": [
+        "e1_r_reg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp1_trial",
+        "metric": "other"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.0,
+            "se": 0.0,
+            "p": 0.3,
+            "pRelation": "<",
+            "variant": "logistic mixed-effects regression, by-participant intercepts and slopes for message type and trial number, with target-position and message-type controls (Table 2)",
+            "evidenceIds": [
+              "ev_fx_tab2_trial"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "p": 0.3,
+          "pRelation": "<"
+        },
+        "missing": [
+          "test statistic value (only beta, SE and a p bound are printed)",
+          "number of trials entering the regression",
+          "trial-number interactions with the Helmert contrasts are printed in Table 2 but not listed as separate effects"
+        ],
+        "evidenceIds": [
+          "ev_fx_tab2_trial"
+        ]
+      },
+      "notes": "the package fits the same Helmert contrasts without random effects or target-position / message-type controls, so its coefficient is a different quantity from the paper's mixed-effects b and is reported as metric 'other' (not compared)"
+    },
+    {
+      "id": "exp2_simple_vs_harder",
+      "label": "Exp 2 (production): target-choice log odds, simple vs harder (complex + ambiguous) Helmert contrast",
+      "role": "test",
+      "hypothesisIds": [
+        "hyp2"
+      ],
+      "studyId": "exp2",
+      "design": "within",
+      "unit": "trial (participants clustered)",
+      "outcome": {
+        "variableId": "e2_v_choice",
+        "type": "binary",
+        "scale": "target vs competitor message choice (distractor choices excluded)",
+        "higherMeans": "higher log odds of choosing the target over the competitor",
+        "treatedAs": "log odds"
+      },
+      "contrast": {
+        "kind": "other",
+        "conditionIds": [
+          "e2_c_simple",
+          "e2_c_complex",
+          "e2_c_amb"
+        ],
+        "valueMeans": "log odds of target on simple trials minus the mean log odds on complex and ambiguous trials",
+        "treatment": "simple",
+        "reference": "complex + ambiguous"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_table1",
+          "ev_e1_reg1",
+          "ev_fx_simpler"
+        ],
+        "text": "Table 1: level-1 types choose the target in the simple game but target or competitor in the complex game, so simple trials should draw more target choices"
+      },
+      "analysisIds": [
+        "e2_an"
+      ],
+      "resultIds": [
+        "e2_r_reg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp2_simple_vs_harder",
+        "metric": "other"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 1.63,
+            "se": 0.13,
+            "p": 0.0001,
+            "pRelation": "<",
+            "variant": "logistic mixed-effects regression, by-participant intercepts, with target-position and message-type controls (Table 2)",
+            "evidenceIds": [
+              "ev_e1_tab2",
+              "ev_e2_res"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "p": 0.0001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "test statistic value (only beta, SE and a p bound are printed)",
+          "number of trials entering the regression"
+        ],
+        "evidenceIds": [
+          "ev_e1_tab2",
+          "ev_e2_res"
+        ]
+      },
+      "notes": "the package fits the same Helmert contrasts without random effects or target-position / message-type controls, so its coefficient is a different quantity from the paper's mixed-effects b and is reported as metric 'other' (not compared)"
+    },
+    {
+      "id": "exp2_complex_vs_amb",
+      "label": "Exp 2 (production): target-choice log odds, complex implicature vs ambiguous filler Helmert contrast",
+      "role": "test",
+      "hypothesisIds": [
+        "hyp2"
+      ],
+      "studyId": "exp2",
+      "design": "within",
+      "unit": "trial (participants clustered)",
+      "outcome": {
+        "variableId": "e2_v_choice",
+        "type": "binary",
+        "scale": "target vs competitor message choice (distractor choices excluded)",
+        "higherMeans": "higher log odds of choosing the target over the competitor",
+        "treatedAs": "log odds"
+      },
+      "contrast": {
+        "kind": "other",
+        "conditionIds": [
+          "e2_c_complex",
+          "e2_c_amb"
+        ],
+        "valueMeans": "log odds of target on complex trials minus log odds on ambiguous filler trials",
+        "treatment": "complex",
+        "reference": "ambiguous"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_table1",
+          "ev_fx_above"
+        ],
+        "text": "Level-2 types choose the target in the complex game, while ambiguous fillers are at chance, so complex trials should draw more target choices than ambiguous fillers if some participants draw the two-step implicature"
+      },
+      "analysisIds": [
+        "e2_an"
+      ],
+      "resultIds": [
+        "e2_r_reg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp2_complex_vs_amb",
+        "metric": "other"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.2,
+            "se": 0.11,
+            "p": 0.08,
+            "pRelation": "<",
+            "variant": "logistic mixed-effects regression, by-participant intercepts, with target-position and message-type controls (Table 2)",
+            "evidenceIds": [
+              "ev_e2_res2"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "p": 0.08,
+          "pRelation": "<"
+        },
+        "missing": [
+          "test statistic value (only beta, SE and a p bound are printed)",
+          "number of trials entering the regression"
+        ],
+        "evidenceIds": [
+          "ev_e2_res2"
+        ]
+      },
+      "notes": "the package fits the same Helmert contrasts without random effects or target-position / message-type controls, so its coefficient is a different quantity from the paper's mixed-effects b and is reported as metric 'other' (not compared)"
+    },
+    {
+      "id": "exp2_trial",
+      "label": "Exp 2 (production): learning check, main effect of centred trial number",
+      "role": "check",
+      "hypothesisIds": [
+        "hyp1"
+      ],
+      "studyId": "exp2",
+      "design": "within",
+      "unit": "trial (participants clustered)",
+      "outcome": {
+        "variableId": "e2_v_choice",
+        "type": "binary",
+        "scale": "target vs competitor message choice (distractor choices excluded)",
+        "higherMeans": "higher log odds of choosing the target over the competitor",
+        "treatedAs": "log odds"
+      },
+      "contrast": {
+        "kind": "association",
+        "conditionIds": [],
+        "valueMeans": "change in target-choice log odds per trial (centred trial number)"
+      },
+      "prediction": {
+        "direction": "none",
+        "evidenceIds": [
+          "ev_fx_fixed",
+          "ev_mc_fixed",
+          "ev_fx_learnq"
+        ],
+        "text": "The model comparison assumes each participant has a fixed reasoning type, so no learning (trial) effect is expected"
+      },
+      "analysisIds": [
+        "e2_an"
+      ],
+      "resultIds": [
+        "e2_r_reg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp2_trial",
+        "metric": "other"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.01,
+            "se": 0.003,
+            "p": 0.05,
+            "pRelation": "<",
+            "variant": "logistic mixed-effects regression, by-participant intercepts, with target-position and message-type controls (Table 2)",
+            "evidenceIds": [
+              "ev_e2_trial"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "p": 0.05,
+          "pRelation": "<"
+        },
+        "missing": [
+          "test statistic value (only beta, SE and a p bound are printed)",
+          "number of trials entering the regression",
+          "trial-number interactions with the Helmert contrasts are printed in Table 2 but not listed as separate effects"
+        ],
+        "evidenceIds": [
+          "ev_e2_trial"
+        ]
+      },
+      "notes": "the package fits the same Helmert contrasts without random effects or target-position / message-type controls, so its coefficient is a different quantity from the paper's mixed-effects b and is reported as metric 'other' (not compared)"
+    },
+    {
+      "id": "exp1_rd_simple_complex",
+      "label": "Exp 1 (comprehension): share of target choices, simple minus complex implicature trials",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "hyp2"
+      ],
+      "studyId": "exp1",
+      "design": "within",
+      "unit": "trial, pooled over participants",
+      "outcome": {
+        "variableId": "e1_v_choice",
+        "type": "binary",
+        "scale": "target / competitor / distractor object choice",
+        "higherMeans": "a larger share of target choices"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "simple",
+        "reference": "complex",
+        "conditionIds": [
+          "e1_c_simple",
+          "e1_c_complex"
+        ],
+        "valueMeans": "share of target choices on simple trials minus share on complex trials"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_table1",
+          "ev_e1_reg1",
+          "ev_fx_simpler"
+        ],
+        "text": "Table 1: level-1 types choose the target in the simple game but target or competitor in the complex game, so simple trials should draw more target choices"
+      },
+      "analysisIds": [
+        "e1_an"
+      ],
+      "resultIds": [
+        "e1_r_desc"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp1_rd_simple_complex"
+      },
+      "reported": {
+        "cells": {
+          "simple": {
+            "percent": 77
+          },
+          "complex": {
+            "percent": 57
+          }
+        },
+        "missing": [
+          "per-condition trial counts",
+          "standard errors or a test of this raw difference (the paper tests the Helmert contrasts in the regression instead)"
+        ],
+        "evidenceIds": [
+          "ev_e1_desc2"
+        ]
+      }
+    },
+    {
+      "id": "exp1_rd_complex_amb",
+      "label": "Exp 1 (comprehension): share of target choices, complex implicature minus ambiguous filler trials",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "hyp2"
+      ],
+      "studyId": "exp1",
+      "design": "within",
+      "unit": "trial, pooled over participants",
+      "outcome": {
+        "variableId": "e1_v_choice",
+        "type": "binary",
+        "scale": "target / competitor / distractor object choice",
+        "higherMeans": "a larger share of target choices"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "complex",
+        "reference": "amb",
+        "conditionIds": [
+          "e1_c_complex",
+          "e1_c_amb"
+        ],
+        "valueMeans": "share of target choices on complex trials minus share on amb trials"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_table1",
+          "ev_fx_above"
+        ],
+        "text": "Level-2 types choose the target in the complex game, while ambiguous fillers are at chance, so complex trials should draw more target choices than ambiguous fillers if some participants draw the two-step implicature"
+      },
+      "analysisIds": [
+        "e1_an"
+      ],
+      "resultIds": [
+        "e1_r_desc"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp1_rd_complex_amb"
+      },
+      "reported": {
+        "cells": {
+          "complex": {
+            "percent": 57
+          },
+          "amb": {
+            "percent": 46
+          }
+        },
+        "missing": [
+          "per-condition trial counts",
+          "standard errors or a test of this raw difference (the paper tests the Helmert contrasts in the regression instead)"
+        ],
+        "evidenceIds": [
+          "ev_e1_desc1",
+          "ev_e1_desc2"
+        ]
+      }
+    },
+    {
+      "id": "exp2_rd_simple_complex",
+      "label": "Exp 2 (production): share of target choices, simple minus complex implicature trials",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "hyp2"
+      ],
+      "studyId": "exp2",
+      "design": "within",
+      "unit": "trial, pooled over participants",
+      "outcome": {
+        "variableId": "e2_v_choice",
+        "type": "binary",
+        "scale": "target / competitor / distractor message choice",
+        "higherMeans": "a larger share of target choices"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "simple",
+        "reference": "complex",
+        "conditionIds": [
+          "e2_c_simple",
+          "e2_c_complex"
+        ],
+        "valueMeans": "share of target choices on simple trials minus share on complex trials"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_table1",
+          "ev_e1_reg1",
+          "ev_fx_simpler"
+        ],
+        "text": "Table 1: level-1 types choose the target in the simple game but target or competitor in the complex game, so simple trials should draw more target choices"
+      },
+      "analysisIds": [
+        "e2_an"
+      ],
+      "resultIds": [
+        "e2_r_desc"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp2_rd_simple_complex"
+      },
+      "reported": {
+        "cells": {
+          "simple": {
+            "percent": 82
+          },
+          "complex": {
+            "percent": 53
+          }
+        },
+        "missing": [
+          "per-condition trial counts",
+          "standard errors or a test of this raw difference (the paper tests the Helmert contrasts in the regression instead)"
+        ],
+        "evidenceIds": [
+          "ev_e2_desc2"
+        ]
+      }
+    },
+    {
+      "id": "exp2_rd_complex_amb",
+      "label": "Exp 2 (production): share of target choices, complex implicature minus ambiguous filler trials",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "hyp2"
+      ],
+      "studyId": "exp2",
+      "design": "within",
+      "unit": "trial, pooled over participants",
+      "outcome": {
+        "variableId": "e2_v_choice",
+        "type": "binary",
+        "scale": "target / competitor / distractor message choice",
+        "higherMeans": "a larger share of target choices"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "complex",
+        "reference": "amb",
+        "conditionIds": [
+          "e2_c_complex",
+          "e2_c_amb"
+        ],
+        "valueMeans": "share of target choices on complex trials minus share on amb trials"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_table1",
+          "ev_fx_above"
+        ],
+        "text": "Level-2 types choose the target in the complex game, while ambiguous fillers are at chance, so complex trials should draw more target choices than ambiguous fillers if some participants draw the two-step implicature"
+      },
+      "analysisIds": [
+        "e2_an"
+      ],
+      "resultIds": [
+        "e2_r_desc"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp2_rd_complex_amb"
+      },
+      "reported": {
+        "cells": {
+          "complex": {
+            "percent": 53
+          },
+          "amb": {
+            "percent": 48
+          }
+        },
+        "missing": [
+          "per-condition trial counts",
+          "standard errors or a test of this raw difference (the paper tests the Helmert contrasts in the regression instead)"
+        ],
+        "evidenceIds": [
+          "ev_e2_desc1",
+          "ev_e2_desc2"
+        ]
+      }
+    },
+    {
+      "id": "bf_production",
+      "label": "Production: Bayes factor of the near-homogeneous Gricean (S1) model over the heterogeneous type model",
+      "role": "test",
+      "hypothesisIds": [
+        "hyp1"
+      ],
+      "studyId": "mc",
+      "design": "other",
+      "unit": "participant (choice counts per participant and game)",
+      "outcome": {
+        "variableId": "e2_rec",
+        "type": "count",
+        "scale": "choice counts per participant, game and choice category",
+        "higherMeans": "Bayes factor above 1 favours the near-homogeneous Gricean model"
+      },
+      "contrast": {
+        "kind": "other",
+        "treatment": "homogeneous (near-all Gricean) model",
+        "reference": "heterogeneous type model",
+        "valueMeans": "P(D | M_hom) / P(D | M_het); below 1 favours heterogeneity"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "the heterogeneity hypothesis expects a Bayes factor below 1 (data favour the heterogeneous model)",
+        "evidenceIds": [
+          "ev_mc_goal",
+          "ev_abs2"
+        ]
+      },
+      "analysisIds": [
+        "mc_an_bf",
+        "mc_an_model"
+      ],
+      "resultIds": [
+        "mc_r_bf",
+        "mc_find"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "bf_production"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "bayes_factor",
+            "value": 0.004,
+            "variant": "tolerance e = 0.01 (exactly 99% Gricean S1 speakers), BF hom/het",
+            "evidenceIds": [
+              "ev_mc_bf3"
+            ]
+          }
+        ],
+        "missing": [
+          "the e = 0.05 value (about 3.955, favouring the near-homogeneous model) is printed in a display equation that the PDF text layer renders as '3:955', so it is not transcribed",
+          "simulation error of the Bayes factor approximation"
+        ],
+        "evidenceIds": [
+          "ev_mc_bf3",
+          "ev_mc_bf1",
+          "ev_mc_bf2",
+          "ev_mc_bf5"
+        ]
+      },
+      "notes": "The JAGS hierarchical latent-type model and the Savage-Dickey approximation are not run by the package (not_ready)."
+    },
+    {
+      "id": "bf_comprehension",
+      "label": "Comprehension: Bayes factor of the near-homogeneous Gricean (R2) model over the heterogeneous type model",
+      "role": "test",
+      "hypothesisIds": [
+        "hyp1"
+      ],
+      "studyId": "mc",
+      "design": "other",
+      "unit": "participant (choice counts per participant and game)",
+      "outcome": {
+        "variableId": "e1_rec",
+        "type": "count",
+        "scale": "choice counts per participant, game and choice category",
+        "higherMeans": "Bayes factor above 1 favours the near-homogeneous Gricean model"
+      },
+      "contrast": {
+        "kind": "other",
+        "treatment": "homogeneous (near-all Gricean) model",
+        "reference": "heterogeneous type model",
+        "valueMeans": "P(D | M_hom) / P(D | M_het); below 1 favours heterogeneity"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "the heterogeneity hypothesis expects a Bayes factor below 1 (data favour the heterogeneous model)",
+        "evidenceIds": [
+          "ev_mc_goal",
+          "ev_abs2"
+        ]
+      },
+      "analysisIds": [
+        "mc_an_bf",
+        "mc_an_model"
+      ],
+      "resultIds": [
+        "mc_r_bf",
+        "mc_find"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "bf_comprehension"
+      },
+      "reported": {
+        "missing": [
+          "the e = 0.05 value (about 2.8e-11, strongly favouring the heterogeneous model) is printed in a display equation that the PDF text layer garbles ('2:8e 11'), so it is not transcribed"
+        ],
+        "evidenceIds": [
+          "ev_mc_bf1",
+          "ev_mc_bf4",
+          "ev_mc_bf5"
+        ]
+      },
+      "notes": "The JAGS hierarchical latent-type model and the Savage-Dickey approximation are not run by the package (not_ready)."
+    }
+  ]
+}

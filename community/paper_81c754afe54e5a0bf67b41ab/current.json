@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "6db15e6ab6f53c4f7ab3fcead059f9e7218bf65e5276cb917ca1540115dcd3ed",
-  "previousRevision": "3a2b1df56cc6cdec1510441418db7c98006ed699fa6175729344d92ac709a253",
+  "revision": "67237cc4521b6ca536da56fdef94844375090945693c4899df337e9cc2ff24e4",
+  "previousRevision": "6db15e6ab6f53c4f7ab3fcead059f9e7218bf65e5276cb917ca1540115dcd3ed",
   "paper": {
     "title": "Fighting COVID-19 Misinformation on Social Media: Experimental Evidence for a Scalable Accuracy-Nudge Intervention",
     "authors": [
@@ -41,15 +41,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "6db15e6ab6f53c4f7ab3fcead059f9e7218bf65e5276cb917ca1540115dcd3ed",
+    "candidateRevision": "67237cc4521b6ca536da56fdef94844375090945693c4899df337e9cc2ff24e4",
     "reviewer": "maintainer:assassin808",
-    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
     "checks": [
-      "every URL in the key served the pinned sha256 (download and hash)",
-      "study_core.py reproduce on the pinned files: pass [3, 3], equal to the pilot comparison",
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [7, 7]",
       "capabilities.py --check",
+      "check_package.py",
       "agent export self-test",
-      "schema and package bindings (validate_assets)"
+      "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
       "discoverable": true,
@@ -75,6 +78,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "7426308be93b2974d0293e236b152fa283d044710612539c75f8c64bb3969e2f"
+    "programDigest": "5cb65440356410a71772eea248a8b56849ef9879f97dd0911afbf5791cc5b075"
   }
 }

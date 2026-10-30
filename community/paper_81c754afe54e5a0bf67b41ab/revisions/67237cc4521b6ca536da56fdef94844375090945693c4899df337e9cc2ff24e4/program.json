@@ -1,0 +1,5949 @@
+{
+  "schemaVersion": 2,
+  "id": "pennycook2020_covid_accuracy_nudge",
+  "title": "Fighting COVID-19 Misinformation on Social Media: Experimental Evidence for a Scalable Accuracy-Nudge Intervention",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Fighting COVID-19 Misinformation on Social Media: Experimental Evidence for a Scalable Accuracy-Nudge Intervention",
+    "authors": "Gordon Pennycook, Jonathon McPhetres, Yunhao Zhang, Jackson G. Lu, and David G. Rand",
+    "filename": "paper.pdf",
+    "venue": "Psychological Science, 2020, 31(7), 770-780",
+    "doi": "10.1177/0956797620939054"
+  },
+  "studies": [
+    {
+      "id": "study1",
+      "title": "Study 1: accuracy judgments vs. sharing intentions (between participants)",
+      "type": "empirical",
+      "description": "853 analysed U.S. Lucid participants judged either accuracy or sharing of 30 COVID-19 headlines; individual-differences correlates."
+    },
+    {
+      "id": "study2",
+      "title": "Study 2: accuracy-nudge experiment on sharing intentions",
+      "type": "empirical",
+      "description": "856 analysed U.S. Lucid participants shared (6-point scale) the same 30 headlines after a control start or after rating one unrelated headline."
+    },
+    {
+      "id": "study3_items",
+      "title": "Item-level analysis across Studies 1 and 2",
+      "type": "analysis",
+      "dependsOn": [
+        "study1",
+        "study2"
+      ],
+      "description": "Post hoc correlation between each headline's Study 1 perceived accuracy and its Study 2 treatment effect (r(28))."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n_overview",
+      "kind": "overview",
+      "title": "Overview",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "year",
+          "label": "Year",
+          "value": "2020",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_venue"
+          ]
+        },
+        {
+          "id": "method-type",
+          "label": "Method type",
+          "value": "Two online survey experiments with U.S. adults (Lucid quota sample), randomised between participants, with true and false COVID-19 news headlines as repeated stimuli, plus a post hoc item-level analysis combining both studies.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_abstract",
+            "ev_s1_lucid",
+            "ev_acc_q",
+            "ev_s2_induct"
+          ],
+          "derivation": "Combined from the abstract and the Study 1 and Study 2 method sections."
+        },
+        {
+          "id": "summary",
+          "label": "Summary",
+          "value": "Study 1 compares accuracy judgments with sharing intentions for 15 false and 15 true COVID-19 headlines and relates truth discernment to individual differences. Study 2 tests whether first rating the accuracy of one unrelated headline raises truth discernment in later sharing intentions.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_abstract",
+            "ev_aim1",
+            "ev_aim2"
+          ],
+          "derivation": "Condensed from the abstract and the statements of aim for each study."
+        }
+      ],
+      "evidenceIds": [
+        "ev_abstract",
+        "ev_venue",
+        "ev_doi"
+      ]
+    },
+    {
+      "id": "n_background",
+      "kind": "background",
+      "title": "Research question and inattention account",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "question",
+          "label": "Question",
+          "value": "Do people share false COVID-19 claims partly because they fail to consider accuracy when deciding what to share, and does a subtle accuracy reminder improve what they are willing to share?",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_abstract",
+            "ev_aim1",
+            "ev_aim2"
+          ],
+          "derivation": "Rephrased from the abstract and the aims of Studies 1 and 2."
+        },
+        {
+          "id": "gap",
+          "label": "Gap",
+          "value": "It was unclear, however, how (or whether) these results would generalize to COVID-19.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_gap"
+          ]
+        },
+        {
+          "id": "theory",
+          "label": "Theory",
+          "value": "According to this account, people generally wish to avoid spreading misinformation and, in fact, are often able to tell truth from falsehood; however, they nonetheless share false and misleading content because the social media context focuses their attention on factors other than accuracy",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_account"
+          ]
+        },
+        {
+          "id": "concepts",
+          "label": "Concepts",
+          "value": "Truth discernment: the difference in accuracy judgments (or sharing intentions) between true and false headlines.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_discern"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_account",
+        "ev_gap",
+        "ev_discern"
+      ]
+    },
+    {
+      "id": "h_s1",
+      "kind": "hypothesis",
+      "title": "Study 1 hypothesis: sharing is less truth-discerning than accuracy judgments",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "Discernment between true and false COVID-19 headlines is higher when participants judge accuracy than when they decide about sharing (a veracity-by-condition interaction); discernment is also related to analytic cognitive style and science knowledge.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_aim1",
+            "ev_aim1b",
+            "ev_s1_res1"
+          ],
+          "derivation": "The paper reports 'As predicted' for the interaction and lists the correlational aims; the statement merges the two passages."
+        },
+        {
+          "id": "scope",
+          "label": "Scope",
+          "value": "True and false COVID-19 news headlines; U.S. adults on Lucid; March 2020.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_aim1",
+            "ev_s1_lucid"
+          ],
+          "derivation": "From the Study 1 aim and sample description."
+        }
+      ],
+      "evidenceIds": [
+        "ev_aim1",
+        "ev_s1_res1"
+      ]
+    },
+    {
+      "id": "h_s2",
+      "kind": "hypothesis",
+      "title": "Study 2 hypothesis: an accuracy nudge raises sharing discernment",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "Subtly making the concept of accuracy salient (rating one unrelated headline first) increases the veracity of the COVID-19 headlines people say they would share.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_aim2",
+            "ev_s2_res1"
+          ],
+          "derivation": "The paper reports 'As predicted' for the veracity-by-treatment interaction."
+        },
+        {
+          "id": "scope",
+          "label": "Scope",
+          "value": "Sharing intentions for the 30 Study 1 headlines; control vs. treatment between participants.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_task",
+            "ev_s2_induct"
+          ],
+          "derivation": "From the Study 2 method."
+        }
+      ],
+      "evidenceIds": [
+        "ev_aim2",
+        "ev_s2_res1"
+      ]
+    },
+    {
+      "id": "h_s3",
+      "kind": "hypothesis",
+      "title": "Item-level expectation: the nudge matters most for headlines seen as clearly true or clearly false",
+      "studyIds": [
+        "study3_items"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "Given the proposed mechanism, the treatment should change sharing of a headline in proportion to its perceived accuracy.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_why"
+          ],
+          "derivation": "Paraphrase of the stated item-level expectation."
+        },
+        {
+          "id": "scope",
+          "label": "Scope",
+          "value": "Post hoc analysis; Study 1 accuracy ratings are used as a proxy for how accurate Study 2 participants would deem each headline.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_method",
+            "ev_s3_proxy"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s3_why",
+        "ev_s3_method"
+      ]
+    },
+    {
+      "id": "p_s1",
+      "kind": "participants",
+      "title": "Study 1 participants (Lucid, U.S.)",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online survey; Lucid respondents; run on March 12, 2020.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_lucid"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "Participants only; no confederates or scripted partners are described.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sample"
+          ],
+          "derivation": "No other role appears in the Study 1 method."
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "We recruited 1,000 participants using Lucid, an online recruiting source that aggregates survey respondents from many respondent providers; quota sampling matched to the U.S. public on age, gender, ethnicity, and geographic region.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_lucid",
+            "ev_quota"
+          ]
+        },
+        {
+          "id": "eligibility",
+          "label": "Eligibility",
+          "value": "Participants had to indicate using Facebook or Twitter; 192 who did not were not given the survey.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sample"
+          ],
+          "derivation": "The paper says these 192 'did not complete the survey' because they did not indicate using Facebook or Twitter."
+        },
+        {
+          "id": "n-recruited",
+          "label": "Began the study",
+          "value": "1,143",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sample"
+          ]
+        },
+        {
+          "id": "n-completed",
+          "label": "Completed (retained)",
+          "value": "853 (192 non-users of Facebook/Twitter and a further 98 who did not finish were removed).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sample"
+          ]
+        },
+        {
+          "id": "n-analysed",
+          "label": "Analysed",
+          "value": "853 participants (25,590 ratings: 853 × 30 headlines, Supplement Table S2); all participants kept regardless of attentiveness.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sample",
+            "ev_screener_all",
+            "ev_tbls2"
+          ]
+        },
+        {
+          "id": "n-per-condition",
+          "label": "Participants per condition",
+          "value": "Not reported: the paper gives the total only.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "characteristics",
+          "label": "Characteristics",
+          "value": "Mean age = 46 years, age range = 18–90; 357 men, 482 women, and 14 who responded 'other/prefer not to answer'.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sample"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Sampling unit",
+          "value": "Participant (each rated or considered sharing 30 headlines).",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sample",
+            "ev_s1_analysis"
+          ],
+          "derivation": "Ratings are analysed at the level of the rating, clustered on participant and headline."
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "Not reported in the paper.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "attrition",
+          "label": "Attrition",
+          "value": "192 did not indicate using Facebook or Twitter; 98 did not finish and were removed.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sample"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s1_sample",
+        "ev_s1_lucid",
+        "ev_quota",
+        "ev_s1_sizewhy"
+      ]
+    },
+    {
+      "id": "d_s1",
+      "kind": "design",
+      "title": "Study 1 design",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Between-participants comparison of two question types (accuracy vs. sharing) with headline veracity (false vs. true) varying within participants.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q",
+            "ev_share_q",
+            "ev_headlines"
+          ],
+          "derivation": "Combined from the condition description and the 15 false / 15 true headline set."
+        },
+        {
+          "id": "control",
+          "label": "Control",
+          "value": "No separate control: the accuracy condition is the comparison for the sharing condition.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q",
+            "ev_share_q"
+          ],
+          "derivation": "Both conditions are described as experimental conditions."
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Each participant was randomly assigned to one of two conditions.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q"
+          ]
+        },
+        {
+          "id": "order",
+          "label": "Order",
+          "value": "Headlines were presented in a random order; the order of the yes/no options was counterbalanced (no/yes vs. yes/no) across participants.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_counterbalance"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_q",
+        "ev_share_q",
+        "ev_counterbalance"
+      ]
+    },
+    {
+      "id": "cond_s1_accuracy",
+      "kind": "condition",
+      "title": "Study 1 accuracy condition",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Participants were asked, 'To the best of your knowledge, is the claim in the above headline accurate?' (yes/no).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_q"
+      ]
+    },
+    {
+      "id": "cond_s1_sharing",
+      "kind": "condition",
+      "title": "Study 1 sharing condition",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Participants were asked, 'Would you consider sharing this story online (for example, through Facebook or Twitter?)' (yes/no).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_share_q"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_share_q"
+      ]
+    },
+    {
+      "id": "m_headlines",
+      "kind": "material",
+      "title": "COVID-19 news headlines (15 false, 15 true)",
+      "studyIds": [
+        "study1",
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "items",
+          "label": "Headlines as printed in Supplement Table S1",
+          "value": [
+            {
+              "item": "False-1",
+              "veracity": "false",
+              "headline": "$425M in World Bank catastrophe bonds set to default"
+            },
+            {
+              "item": "False-2",
+              "veracity": "false",
+              "headline": "Is colloidal silver a cure for the coronavirus?"
+            },
+            {
+              "item": "False-3",
+              "veracity": "false",
+              "headline": "Coronavirus: North Korea's first confirmed patient shot dead"
+            },
+            {
+              "item": "False-4",
+              "veracity": "false",
+              "headline": "Coconut oil's history in destroying viruses, including coronaviruses"
+            },
+            {
+              "item": "False-5",
+              "veracity": "false",
+              "headline": "Governor Cuomo signs law using coronavirus as an excuse to take 'temporary' dictator powers"
+            },
+            {
+              "item": "False-6",
+              "veracity": "false",
+              "headline": "328 Chinese nationals caught entering US illegally"
+            },
+            {
+              "item": "False-7",
+              "veracity": "false",
+              "headline": "Vatican confirms Pope Francis and two aides test positive for coronavirus"
+            },
+            {
+              "item": "False-8",
+              "veracity": "false",
+              "headline": "Florida hospital reports a coronavirus infestation with multiple confirmed patients"
+            },
+            {
+              "item": "False-9",
+              "veracity": "false",
+              "headline": "Coronavirus in China: 23M quarantined, 2.8M infected, 112,000 dead"
+            },
+            {
+              "item": "False-10",
+              "veracity": "false",
+              "headline": "Vitamin C protects against Coronavirus"
+            },
+            {
+              "item": "False-11",
+              "veracity": "false",
+              "headline": "University of Tennessee scientists may have found cure"
+            },
+            {
+              "item": "False-12",
+              "veracity": "false",
+              "headline": "Unbelievable- Gates Foundation predicted 65 million death 3 months ago"
+            },
+            {
+              "item": "False-13",
+              "veracity": "false",
+              "headline": "FEMA proposes martial law to contain virus | New World Order"
+            },
+            {
+              "item": "False-14",
+              "veracity": "false",
+              "headline": "COVID-19 is now mutating into something indescribable"
+            },
+            {
+              "item": "False-15",
+              "veracity": "false",
+              "headline": "Experts think bats are the source of the Wuhan Coronavirus. At least 4 pandemics have originated in these animals"
+            },
+            {
+              "item": "True-1",
+              "veracity": "true",
+              "headline": "Spread of virus appears inevitable in US"
+            },
+            {
+              "item": "True-2",
+              "veracity": "true",
+              "headline": "Trump spent the past 2 years slashing the government agencies responsible for handling the coronavirus outbreak"
+            },
+            {
+              "item": "True-3",
+              "veracity": "true",
+              "headline": "Coronavirus infections increase in Italy"
+            },
+            {
+              "item": "True-4",
+              "veracity": "true",
+              "headline": "Why airport screening won't stop the spread of the coronavirus"
+            },
+            {
+              "item": "True-5",
+              "veracity": "true",
+              "headline": "Europe's outbreak worsens; Italy at forefront"
+            },
+            {
+              "item": "True-6",
+              "veracity": "true",
+              "headline": "Coronavirus: Many people in US will be exposed at some point"
+            },
+            {
+              "item": "True-7",
+              "veracity": "true",
+              "headline": "CDC: coronavirus spread may last into 2021; impact can be blunted"
+            },
+            {
+              "item": "True-8",
+              "veracity": "true",
+              "headline": "Israel declared 14-day quarantine for all arrivals"
+            },
+            {
+              "item": "True-9",
+              "veracity": "true",
+              "headline": "coronavirus poses tough challenge for economic policymakers"
+            },
+            {
+              "item": "True-10",
+              "veracity": "true",
+              "headline": "scientists warn nCoV more infectious than SARS, experts have doubts"
+            },
+            {
+              "item": "True-11",
+              "veracity": "true",
+              "headline": "Coronavirus: we need to start preparing for the next viral outbreak now"
+            },
+            {
+              "item": "True-12",
+              "veracity": "true",
+              "headline": "Amazon plans to prosecute sellers for price gouging during outbreak"
+            },
+            {
+              "item": "True-13",
+              "veracity": "true",
+              "headline": "Amid outbreak, Carnival Cruise Line offers on -ship credits to passengers who don't reschedule"
+            },
+            {
+              "item": "True-14",
+              "veracity": "true",
+              "headline": "Iran now has the highest coronavirus death toll outside of China, threatening wider middle east"
+            },
+            {
+              "item": "True-15",
+              "veracity": "true",
+              "headline": "Police in the US spread a false claim that meth is contaminated with virus"
+            }
+          ],
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_tbls1_false1",
+            "ev_tbls1_false2",
+            "ev_tbls1_false3",
+            "ev_tbls1_false4",
+            "ev_tbls1_false5",
+            "ev_tbls1_false6",
+            "ev_tbls1_false7",
+            "ev_tbls1_false8",
+            "ev_tbls1_false9",
+            "ev_tbls1_false10",
+            "ev_tbls1_false11",
+            "ev_tbls1_false12",
+            "ev_tbls1_false13",
+            "ev_tbls1_false14",
+            "ev_tbls1_false15",
+            "ev_tbls1_true1",
+            "ev_tbls1_true2",
+            "ev_tbls1_true3",
+            "ev_tbls1_true4",
+            "ev_tbls1_true5",
+            "ev_tbls1_true6",
+            "ev_tbls1_true7",
+            "ev_tbls1_true8",
+            "ev_tbls1_true9",
+            "ev_tbls1_true10",
+            "ev_tbls1_true11",
+            "ev_tbls1_true12",
+            "ev_tbls1_true13",
+            "ev_tbls1_true14",
+            "ev_tbls1_true15",
+            "ev_tbls1_cap"
+          ]
+        },
+        {
+          "id": "veracity",
+          "label": "Veracity basis",
+          "value": "False headlines were deemed false by authoritative sources (fact-checking sites, health experts, credible science websites); true headlines came from reliable mainstream media sources. One false headline (False-15, bats) was later judged more misleading or unverified than untrue and was retained.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_false_src",
+            "ev_true_src",
+            "ev_bat"
+          ]
+        },
+        {
+          "id": "source",
+          "label": "Source",
+          "value": "A list acquired through a partnership with Harvard Global Health Institute; available at https://osf.io/7d3xh/.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_headlines",
+            "ev_osf_headlines"
+          ]
+        },
+        {
+          "id": "format",
+          "label": "Presentation format",
+          "value": "Facebook-post format: a picture accompanied by a headline and lede sentence.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_format"
+          ]
+        },
+        {
+          "id": "lede-picture",
+          "label": "Picture and lede sentence of each headline",
+          "value": "The pictures and lede sentences are on OSF, not in the paper or supplement; Supplement Table S1 prints the headline text only.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev_format",
+            "ev_osf_headlines"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_tbls1_false1",
+        "ev_tbls1_false2",
+        "ev_tbls1_false3",
+        "ev_tbls1_false4",
+        "ev_tbls1_false5",
+        "ev_tbls1_false6",
+        "ev_tbls1_false7",
+        "ev_tbls1_false8",
+        "ev_tbls1_false9",
+        "ev_tbls1_false10",
+        "ev_tbls1_false11",
+        "ev_tbls1_false12",
+        "ev_tbls1_false13",
+        "ev_tbls1_false14",
+        "ev_tbls1_false15",
+        "ev_tbls1_true1",
+        "ev_tbls1_true2",
+        "ev_tbls1_true3",
+        "ev_tbls1_true4",
+        "ev_tbls1_true5",
+        "ev_tbls1_true6",
+        "ev_tbls1_true7",
+        "ev_tbls1_true8",
+        "ev_tbls1_true9",
+        "ev_tbls1_true10",
+        "ev_tbls1_true11",
+        "ev_tbls1_true12",
+        "ev_tbls1_true13",
+        "ev_tbls1_true14",
+        "ev_tbls1_true15",
+        "ev_headlines",
+        "ev_format"
+      ]
+    },
+    {
+      "id": "m_s1_acc_q",
+      "kind": "material",
+      "title": "Study 1 accuracy question",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "text",
+          "label": "Question (verbatim)",
+          "value": "To the best of your knowledge, is the claim in the above headline accurate?",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q"
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Response options",
+          "value": "yes/no",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_q"
+      ],
+      "conditionIds": [
+        "cond_s1_accuracy"
+      ]
+    },
+    {
+      "id": "m_s1_share_q",
+      "kind": "material",
+      "title": "Study 1 sharing question",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "text",
+          "label": "Question (verbatim)",
+          "value": "Would you consider sharing this story online (for example, through Facebook or Twitter?)",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_share_q"
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Response options",
+          "value": "yes/no",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_share_q"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_share_q"
+      ],
+      "conditionIds": [
+        "cond_s1_sharing"
+      ]
+    },
+    {
+      "id": "m_s1_option_order",
+      "kind": "material",
+      "title": "Yes/no option order",
+      "studyIds": [
+        "study1",
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "counterbalance",
+          "label": "Counterbalance",
+          "value": "We counterbalanced the order of the yes/no options (no/yes vs. yes/no) across participants.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_counterbalance"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_counterbalance"
+      ]
+    },
+    {
+      "id": "m_covid_q",
+      "kind": "material",
+      "title": "Two COVID-19 questions before the news task",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "concern",
+          "label": "Concern item (verbatim)",
+          "value": "How concerned are you about COVID-19 (the new coronavirus)? Sliding scale from 0 (not concerned at all) to 100 (extremely concerned).",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_covid_q"
+          ]
+        },
+        {
+          "id": "checking",
+          "label": "News-checking item (verbatim)",
+          "value": "How often do you proactively check the news regarding COVID-19 (the new coronavirus)? Scale from 1 (never) to 5 (very often).",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_covid_q"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_covid_q"
+      ]
+    },
+    {
+      "id": "m_instructions",
+      "kind": "material",
+      "title": "Survey introduction, consent and instructions",
+      "studyIds": [
+        "study1",
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "text",
+          "label": "Wording",
+          "value": "Not printed in the paper or supplement; the full materials are on OSF.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev_osf_materials"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_osf_materials"
+      ]
+    },
+    {
+      "id": "m_indiff_items",
+      "kind": "material",
+      "title": "Individual-differences instruments (CRT, science knowledge, MMS, demographics)",
+      "studyIds": [
+        "study1",
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "crt",
+          "label": "CRT",
+          "value": "Six items: a reworded version of the original three-item test and three items from a nonnumeric version (the 'hole' item excluded). Only the race example is printed in the paper; item wording is missing.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_crt"
+          ]
+        },
+        {
+          "id": "science-quiz",
+          "label": "Science-knowledge quiz",
+          "value": "17 questions about basic science facts; two example statements are printed ('Antibiotics kill viruses as well as bacteria', 'Lasers work by focusing sound waves'); the full set is missing.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_sci"
+          ]
+        },
+        {
+          "id": "mms",
+          "label": "Medical Maximizer-Minimizer Scale",
+          "value": "Scale from Scherer et al. (2016); items not printed in the paper.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mms"
+          ]
+        },
+        {
+          "id": "demographics",
+          "label": "Demographics and politics",
+          "value": "Various demographic questions, political ideology on social and fiscal issues, and Democrat versus Republican Party alignment; wording not printed.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_demo"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_crt",
+        "ev_sci",
+        "ev_mms",
+        "ev_demo"
+      ]
+    },
+    {
+      "id": "m_screeners",
+      "kind": "material",
+      "title": "Attention screener questions",
+      "studyIds": [
+        "study1",
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "description",
+          "label": "Description",
+          "value": "Three screener questions that put a subtle instruction in the middle of a block of text (for example, select 'FoxNews.com' and 'NBC.com').",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_screeners"
+          ]
+        },
+        {
+          "id": "full-text",
+          "label": "Full text",
+          "value": "Full text of the screeners is on OSF, not in the paper.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev_osf_screeners"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_screeners",
+        "ev_osf_screeners"
+      ]
+    },
+    {
+      "id": "m_debrief",
+      "kind": "material",
+      "title": "Debriefing",
+      "studyIds": [
+        "study1",
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "content",
+          "label": "Content",
+          "value": "At the end of both surveys, participants were informed which of the headlines were accurate (by re-presenting the true headlines).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_debrief"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_debrief"
+      ]
+    },
+    {
+      "id": "proc_s1",
+      "kind": "procedure",
+      "title": "Study 1 procedure",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "task",
+          "label": "Task",
+          "value": "Participants viewed 30 COVID-19 headlines (Facebook-post format) in random order and answered a yes/no question about each, either accuracy or sharing depending on condition.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q",
+            "ev_share_q",
+            "ev_counterbalance",
+            "ev_format"
+          ],
+          "derivation": "Combined from the conditions, format and order passages."
+        },
+        {
+          "id": "actions",
+          "label": "Actions",
+          "value": "Two COVID-19 questions; news task; CRT; science-knowledge quiz; MMS; demographics; three attention screeners.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_covid_q",
+            "ev_crt",
+            "ev_sci",
+            "ev_mms",
+            "ev_demo",
+            "ev_screener_pos"
+          ],
+          "derivation": "Listed from the Methods; the order of the individual-differences measures relative to the news task is not stated."
+        },
+        {
+          "id": "visible",
+          "label": "What participants saw",
+          "value": "One headline post at a time with the condition's question; no ratings or behaviour of other participants.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_format",
+            "ev_acc_q",
+            "ev_share_q"
+          ],
+          "derivation": "The paper describes no group or social information."
+        },
+        {
+          "id": "feedback",
+          "label": "Feedback",
+          "value": "Debriefing at the end: the true headlines were re-presented.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_debrief"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_q",
+        "ev_share_q",
+        "ev_counterbalance",
+        "ev_debrief"
+      ]
+    },
+    {
+      "id": "v_veracity",
+      "kind": "variable",
+      "title": "Headline veracity",
+      "studyIds": [
+        "study1",
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_coding"
+          ],
+          "derivation": "Coded -0.5 false / 0.5 true in Study 1 and 0 / 1 in Study 2."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "binary, within participants",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_coding",
+            "ev_headlines"
+          ],
+          "derivation": "Every participant sees 15 false and 15 true headlines."
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "headline",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_analysis"
+          ],
+          "derivation": "Analysed at the level of the rating."
+        }
+      ],
+      "evidenceIds": [
+        "ev_s1_coding"
+      ]
+    },
+    {
+      "id": "v_cond_s1",
+      "kind": "variable",
+      "title": "Study 1 condition (accuracy vs. sharing)",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_coding"
+          ],
+          "derivation": "Coded -0.5 accuracy, 0.5 sharing."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "binary, between participants",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q"
+          ],
+          "derivation": "Random assignment to one of two conditions."
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q"
+          ],
+          "derivation": "Assigned once per participant."
+        }
+      ],
+      "evidenceIds": [
+        "ev_s1_coding",
+        "ev_acc_q"
+      ]
+    },
+    {
+      "id": "v_resp_s1",
+      "kind": "variable",
+      "title": "Yes/no response (accuracy judgment or sharing intention)",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_discern"
+          ],
+          "derivation": "Responses are the outcome used to compute discernment."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "binary yes/no (analysed with a linear probability model, z scored)",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_coding",
+            "ev_s1_lpm"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Accuracy: whether the claim is judged accurate. Sharing: whether the participant would consider sharing the story.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q",
+            "ev_share_q"
+          ],
+          "derivation": "Paraphrase of the two questions."
+        },
+        {
+          "id": "transformation",
+          "label": "Transformation",
+          "value": "z scored for the main regressions.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_coding"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant × headline rating",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_analysis"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s1_coding",
+        "ev_discern"
+      ]
+    },
+    {
+      "id": "v_discern_s1",
+      "kind": "variable",
+      "title": "Truth discernment (Study 1)",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_discern"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The difference in accuracy judgments (or sharing intentions) between true and false headlines; higher scores indicate higher sensitivity to truth relative to falsity.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_discern",
+            "ev_discern_ex"
+          ]
+        },
+        {
+          "id": "aggregation",
+          "label": "Aggregation",
+          "value": "Proportion 'yes' for true headlines minus proportion 'yes' for false headlines (worked example: 9/15 true and 3/15 false gives .6 − .2 = .4); in the regressions it is the veracity coefficient.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_discern",
+            "ev_s1_interp"
+          ],
+          "derivation": "The example is the paper's; the regression reading is from the analysis passage."
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_discern"
+          ],
+          "derivation": "Computed from one participant's 30 responses."
+        }
+      ],
+      "evidenceIds": [
+        "ev_discern"
+      ]
+    },
+    {
+      "id": "v_indiff",
+      "kind": "variable",
+      "title": "Individual-differences measures (CRT, science knowledge, MMS, partisanship, distance to epicenter)",
+      "studyIds": [
+        "study1",
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "moderator",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_crt",
+            "ev_s1_sci"
+          ],
+          "derivation": "Interacted with veracity and condition."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous scores, z scored",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_coding"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "CRT score (six items, α = .69), science knowledge (17 items, α = .77), Medical Maximizer-Minimizer Scale score (α = .86), preference for the Republican over the Democratic Party, and log distance to the nearest county with at least 10 confirmed cases.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_crt",
+            "ev_crt_rel",
+            "ev_sci",
+            "ev_sci_rel",
+            "ev_mms_rel",
+            "ev_demo",
+            "ev_s1_dist"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_crt"
+          ],
+          "derivation": "Measured once per participant."
+        }
+      ],
+      "evidenceIds": [
+        "ev_crt",
+        "ev_sci",
+        "ev_mms_rel"
+      ]
+    },
+    {
+      "id": "v_covid_att",
+      "kind": "variable",
+      "title": "COVID-19 concern and news checking",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "covariate",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_covid_q"
+          ],
+          "derivation": "Used in an exploratory correlational analysis."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "concern: 0-100 slider; news checking: 1-5",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_covid_q"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_covid_q"
+          ],
+          "derivation": "Answered once per participant."
+        }
+      ],
+      "evidenceIds": [
+        "ev_covid_q"
+      ]
+    },
+    {
+      "id": "rec_s1",
+      "kind": "record",
+      "title": "Study 1 rating-level data",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "One row per participant × headline (30 per participant); 25,590 rows.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_analysis",
+            "ev_tbls2"
+          ],
+          "derivation": "Observations in Supplement Table S2 equal 853 × 30."
+        },
+        {
+          "id": "contents",
+          "label": "Contents",
+          "value": "Participant id, condition, headline id and veracity, yes/no response; participant-level individual-differences scores.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_analysis",
+            "ev_s1_coding"
+          ],
+          "derivation": "Inferred from the regression terms."
+        }
+      ],
+      "evidenceIds": [
+        "ev_s1_analysis",
+        "ev_tbls2"
+      ]
+    },
+    {
+      "id": "a_s1_main",
+      "kind": "analysis",
+      "title": "Study 1 main analysis: veracity × condition",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Compare discernment between the accuracy and sharing conditions.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_interp"
+          ]
+        },
+        {
+          "id": "inputs",
+          "label": "Inputs",
+          "value": "z-scored yes/no ratings; veracity coded -0.5/0.5; condition coded -0.5 (accuracy) / 0.5 (sharing).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_coding"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Linear regression (linear probability model) at the level of the rating, with robust standard errors clustered on participants and headline.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_analysis",
+            "ev_s1_lpm",
+            "ev_footnote"
+          ]
+        },
+        {
+          "id": "criterion",
+          "label": "Criterion",
+          "value": "The coefficient on veracity indicates overall discernment; the veracity × condition interaction indicates how much discernment differs between conditions.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_interp"
+          ]
+        },
+        {
+          "id": "robustness",
+          "label": "Robustness",
+          "value": "Logistic regression gave qualitatively equivalent results; results across attentiveness levels and headline exclusions are in Supplement Tables S2 and S3; a crossed-random-effects model is in Table S4.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_lpm",
+            "ev_screener_all",
+            "ev_tbls2",
+            "ev_tbls3",
+            "ev_tbls4"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s1_analysis",
+        "ev_s1_coding",
+        "ev_s1_interp"
+      ]
+    },
+    {
+      "id": "a_s1_indiff",
+      "kind": "analysis",
+      "title": "Study 1 individual differences and discernment",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Test whether CRT score, science knowledge, partisanship, distance to the nearest epicenter and MMS score interact with veracity (discernment) and with veracity × condition.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_aim1b",
+            "ev_s1_crt"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "The same rating-level regression with each z-scored measure and its interactions; simple effects within each condition × veracity cell (Table 1); pairwise correlations and models for COVID-19 concern and news checking (Table 2).",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_crt",
+            "ev_table1",
+            "ev_table2"
+          ],
+          "derivation": "Combined from the Results passages and table captions."
+        },
+        {
+          "id": "robustness",
+          "label": "Robustness",
+          "value": "All relationships were robust to controls for age, gender, education, ethnicity and their interactions with veracity and condition.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_controls"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s1_crt",
+        "ev_s1_controls"
+      ]
+    },
+    {
+      "id": "res_s1_main",
+      "kind": "result",
+      "title": "Study 1: discernment higher for accuracy than sharing",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_res1"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Interaction",
+          "value": "β = −0.126, F(1, 25586) = 42.24, p < .0001 (veracity × condition).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_res1"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Simple effects of veracity",
+          "value": "Accuracy condition: Cohen's d = 0.657, 95% CI [0.477, 0.836], F(1, 25586) = 42.24, p < .0001. Sharing condition: d = 0.121, 95% CI [0.030, 0.212], F(1, 25586) = 6.74, p = .009.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_res2"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Descriptives",
+          "value": "For false headlines, 32.4% more people were willing to share the headlines than rated them as accurate.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_res3"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s1_res1",
+        "ev_s1_res2",
+        "ev_s1_res3"
+      ]
+    },
+    {
+      "id": "res_s1_crt",
+      "kind": "result",
+      "title": "Study 1: CRT and discernment",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_crt"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Tests",
+          "value": "CRT × veracity: accuracy F(1, 25582) = 34.95, p < .0001; sharing F(1, 25582) = 4.98, p = .026; three-way with condition F(1, 25582) = 14.68, p = .0001.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_crt"
+          ]
+        },
+        {
+          "id": "themes",
+          "label": "Direction",
+          "value": "CRT negatively correlated with belief in false headlines and uncorrelated with belief in true headlines; negatively correlated with sharing of both types, more so for false headlines.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_crt_dir"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s1_crt",
+        "ev_s1_crt_dir"
+      ]
+    },
+    {
+      "id": "res_s1_sci",
+      "kind": "result",
+      "title": "Study 1: science knowledge and discernment",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sci"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Tests",
+          "value": "Science knowledge × veracity: accuracy F(1, 25552) = 32.80, p < .0001; sharing F(1, 25552) = 10.02, p = .002; three-way with condition F(1, 25552) = 7.59, p = .006.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sci"
+          ]
+        },
+        {
+          "id": "themes",
+          "label": "Direction",
+          "value": "Negatively correlated with belief in false headlines and positively with belief in true headlines; negatively correlated with sharing of false headlines and uncorrelated with sharing of true headlines.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sci_dir"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s1_sci",
+        "ev_s1_sci_dir"
+      ]
+    },
+    {
+      "id": "res_s1_expl",
+      "kind": "result",
+      "title": "Study 1: exploratory measures",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_mms"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Tests",
+          "value": "MMS × veracity (accuracy): F(1, 25582) = 11.26, p = .0008; MMS × veracity (sharing): F(1, 25582) = 0.03, p = .87; MMS × veracity × condition: F(1, 25582) = 7.58, p = .006. Partisanship × veracity: accuracy F(1, 25402) = 0.45, p = .50; sharing F(1, 25402) = 8.28, p = .004; three-way F(1, 25402) = 1.62, p = .20. Distance to epicenter × condition: F(1, 25522) = 3.07, p = .080; interactions with veracity p > .15.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_mms",
+            "ev_s1_mms2",
+            "ev_s1_mms3",
+            "ev_s1_party",
+            "ev_s1_party2",
+            "ev_s1_dist"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s1_mms",
+        "ev_s1_party",
+        "ev_s1_dist"
+      ]
+    },
+    {
+      "id": "res_s1_t1",
+      "kind": "result",
+      "title": "Study 1 Table 1: simple-effect coefficients",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_table1"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Standardized coefficients (accuracy false, accuracy true, sharing false, sharing true; controls in parentheses)",
+          "value": {
+            "Cognitive Reflection Test score": [
+              "-0.148*** (-0.127***)",
+              "0.008 (0.006)",
+              "-0.177*** (-0.174***)",
+              "-0.134*** (-0.125***)"
+            ],
+            "Science knowledge": [
+              "-0.080** (-0.067*)",
+              "0.079** (0.080**)",
+              "-0.082* (-0.030*)",
+              "-0.011 (-0.007)"
+            ],
+            "Preference for Republican Party": [
+              "0.003 (0.030)",
+              "-0.016 (-0.018)",
+              "-0.070* (-0.012)",
+              "-0.128*** (-0.079*)"
+            ],
+            "Distance to nearest epicenter": [
+              "-0.046† (-0.005)",
+              "-0.021 (-0.028)",
+              "-0.099** (-0.091**)",
+              "-0.099** (-0.078*)"
+            ],
+            "Medical Maximizer-Minimizer Scale score": [
+              "0.130*** (0.120***)",
+              "0.047* (0.051*)",
+              "0.236*** (0.0207***) [as printed]",
+              "0.233*** (0.200***)"
+            ]
+          },
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_t1_crt",
+            "ev_t1_sci",
+            "ev_t1_rep",
+            "ev_t1_dist",
+            "ev_t1_mms",
+            "ev_table1",
+            "ev_table1_note"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_t1_crt",
+        "ev_t1_sci",
+        "ev_t1_rep",
+        "ev_t1_dist",
+        "ev_t1_mms",
+        "ev_table1"
+      ]
+    },
+    {
+      "id": "res_s1_t2",
+      "kind": "result",
+      "title": "Study 1 Table 2: correlations with COVID-19 concern and news checking",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_table2"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Pairwise correlations (standardized coefficients with all measures and controls in parentheses)",
+          "value": {
+            "COVID-19 news checking": {
+              "concern": ".64***"
+            },
+            "CRT score": {
+              "concern": "-.22*** (-0.17***)",
+              "news checking": "-.10* (-0.07*)"
+            },
+            "Science knowledge": {
+              "concern": "-.001 (0.10**)",
+              "news checking": ".06 (0.10**)",
+              "CRT": ".40***"
+            },
+            "Partisanship (Republican)": {
+              "concern": "-.27*** (-0.19***)",
+              "news checking": "-.21*** (-0.15***)",
+              "CRT": ".09**",
+              "science": "-.08*"
+            },
+            "Distance to nearest epicenter": {
+              "concern": "-.05 (-0.02)",
+              "news checking": "-.07* (-0.04)",
+              "CRT": ".01",
+              "science": "-.03",
+              "partisanship": ".10*"
+            },
+            "Medical maximizing": {
+              "concern": ".41*** (0.36***)",
+              "news checking": ".36*** (0.34***)",
+              "CRT": "-.23***",
+              "science": "-.16***",
+              "partisanship": "-.15***",
+              "distance": "-.05"
+            }
+          },
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_t2_r1",
+            "ev_t2_r2",
+            "ev_t2_r3",
+            "ev_t2_r4",
+            "ev_t2_r5",
+            "ev_t2_r6",
+            "ev_table2",
+            "ev_table2_text"
+          ]
+        },
+        {
+          "id": "themes",
+          "label": "Summary",
+          "value": "Both measures were negatively correlated with CRT score and Republican preference, positively correlated with being a medical maximizer, and unrelated to science knowledge in pairwise correlations.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_table2_text"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_t2_r1",
+        "ev_t2_r2",
+        "ev_t2_r3",
+        "ev_t2_r4",
+        "ev_t2_r5",
+        "ev_t2_r6",
+        "ev_table2",
+        "ev_table2_text"
+      ]
+    },
+    {
+      "id": "res_s1_items",
+      "kind": "result",
+      "title": "Study 1 item-level percentages (Supplement Table S1)",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_tbls1_cap"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "% judged accurate and % willing to share per headline (all participants, Democrats, Republicans)",
+          "value": [
+            {
+              "item": "False-1",
+              "all_accurate": "0.38",
+              "all_shared": "0.38",
+              "dem_accurate": "0.4",
+              "dem_shared": "0.44",
+              "rep_accurate": "0.35",
+              "rep_shared": "0.3"
+            },
+            {
+              "item": "False-2",
+              "all_accurate": "0.24",
+              "all_shared": "0.39",
+              "dem_accurate": "0.22",
+              "dem_shared": "0.44",
+              "rep_accurate": "0.26",
+              "rep_shared": "0.33"
+            },
+            {
+              "item": "False-3",
+              "all_accurate": "0.26",
+              "all_shared": "0.39",
+              "dem_accurate": "0.25",
+              "dem_shared": "0.41",
+              "rep_accurate": "0.27",
+              "rep_shared": "0.36"
+            },
+            {
+              "item": "False-4",
+              "all_accurate": "0.2",
+              "all_shared": "0.45",
+              "dem_accurate": "0.22",
+              "dem_shared": "0.46",
+              "rep_accurate": "0.17",
+              "rep_shared": "0.44"
+            },
+            {
+              "item": "False-5",
+              "all_accurate": "0.3",
+              "all_shared": "0.32",
+              "dem_accurate": "0.28",
+              "dem_shared": "0.35",
+              "rep_accurate": "0.32",
+              "rep_shared": "0.28"
+            },
+            {
+              "item": "False-6",
+              "all_accurate": "0.34",
+              "all_shared": "0.42",
+              "dem_accurate": "0.32",
+              "dem_shared": "0.43",
+              "rep_accurate": "0.38",
+              "rep_shared": "0.4"
+            },
+            {
+              "item": "False-7",
+              "all_accurate": "0.28",
+              "all_shared": "0.44",
+              "dem_accurate": "0.27",
+              "dem_shared": "0.49",
+              "rep_accurate": "0.27",
+              "rep_shared": "0.38"
+            },
+            {
+              "item": "False-8",
+              "all_accurate": "0.46",
+              "all_shared": "0.48",
+              "dem_accurate": "0.5",
+              "dem_shared": "0.49",
+              "rep_accurate": "0.42",
+              "rep_shared": "0.47"
+            },
+            {
+              "item": "False-9",
+              "all_accurate": "0.41",
+              "all_shared": "0.48",
+              "dem_accurate": "0.4",
+              "dem_shared": "0.54",
+              "rep_accurate": "0.43",
+              "rep_shared": "0.41"
+            },
+            {
+              "item": "False-10",
+              "all_accurate": "0.29",
+              "all_shared": "0.47",
+              "dem_accurate": "0.29",
+              "dem_shared": "0.46",
+              "rep_accurate": "0.3",
+              "rep_shared": "0.47"
+            },
+            {
+              "item": "False-11",
+              "all_accurate": "0.29",
+              "all_shared": "0.58",
+              "dem_accurate": "0.27",
+              "dem_shared": "0.6",
+              "rep_accurate": "0.31",
+              "rep_shared": "0.56"
+            },
+            {
+              "item": "False-12",
+              "all_accurate": "0.39",
+              "all_shared": "0.48",
+              "dem_accurate": "0.38",
+              "dem_shared": "0.53",
+              "rep_accurate": "0.39",
+              "rep_shared": "0.42"
+            },
+            {
+              "item": "False-13",
+              "all_accurate": "0.28",
+              "all_shared": "0.42",
+              "dem_accurate": "0.29",
+              "dem_shared": "0.46",
+              "rep_accurate": "0.27",
+              "rep_shared": "0.37"
+            },
+            {
+              "item": "False-14",
+              "all_accurate": "0.33",
+              "all_shared": "0.4",
+              "dem_accurate": "0.35",
+              "dem_shared": "0.45",
+              "rep_accurate": "0.3",
+              "rep_shared": "0.34"
+            },
+            {
+              "item": "False-15",
+              "all_accurate": "0.51",
+              "all_shared": "0.43",
+              "dem_accurate": "0.51",
+              "dem_shared": "0.48",
+              "rep_accurate": "0.53",
+              "rep_shared": "0.38"
+            },
+            {
+              "item": "True-1",
+              "all_accurate": "0.79",
+              "all_shared": "0.55",
+              "dem_accurate": "0.81",
+              "dem_shared": "0.64",
+              "rep_accurate": "0.76",
+              "rep_shared": "0.43"
+            },
+            {
+              "item": "True-2",
+              "all_accurate": "0.42",
+              "all_shared": "0.46",
+              "dem_accurate": "0.54",
+              "dem_shared": "0.58",
+              "rep_accurate": "0.27",
+              "rep_shared": "0.31"
+            },
+            {
+              "item": "True-3",
+              "all_accurate": "0.84",
+              "all_shared": "0.54",
+              "dem_accurate": "0.82",
+              "dem_shared": "0.6",
+              "rep_accurate": "0.86",
+              "rep_shared": "0.47"
+            },
+            {
+              "item": "True-4",
+              "all_accurate": "0.64",
+              "all_shared": "0.49",
+              "dem_accurate": "0.67",
+              "dem_shared": "0.53",
+              "rep_accurate": "0.6",
+              "rep_shared": "0.44"
+            },
+            {
+              "item": "True-5",
+              "all_accurate": "0.78",
+              "all_shared": "0.53",
+              "dem_accurate": "0.78",
+              "dem_shared": "0.6",
+              "rep_accurate": "0.8",
+              "rep_shared": "0.45"
+            },
+            {
+              "item": "True-6",
+              "all_accurate": "0.79",
+              "all_shared": "0.57",
+              "dem_accurate": "0.78",
+              "dem_shared": "0.64",
+              "rep_accurate": "0.8",
+              "rep_shared": "0.5"
+            },
+            {
+              "item": "True-7",
+              "all_accurate": "0.62",
+              "all_shared": "0.49",
+              "dem_accurate": "0.64",
+              "dem_shared": "0.55",
+              "rep_accurate": "0.6",
+              "rep_shared": "0.41"
+            },
+            {
+              "item": "True-8",
+              "all_accurate": "0.67",
+              "all_shared": "0.54",
+              "dem_accurate": "0.66",
+              "dem_shared": "0.57",
+              "rep_accurate": "0.69",
+              "rep_shared": "0.51"
+            },
+            {
+              "item": "True-9",
+              "all_accurate": "0.79",
+              "all_shared": "0.48",
+              "dem_accurate": "0.77",
+              "dem_shared": "0.55",
+              "rep_accurate": "0.81",
+              "rep_shared": "0.38"
+            },
+            {
+              "item": "True-10",
+              "all_accurate": "0.6",
+              "all_shared": "0.41",
+              "dem_accurate": "0.6",
+              "dem_shared": "0.47",
+              "rep_accurate": "0.6",
+              "rep_shared": "0.33"
+            },
+            {
+              "item": "True-11",
+              "all_accurate": "0.73",
+              "all_shared": "0.51",
+              "dem_accurate": "0.77",
+              "dem_shared": "0.57",
+              "rep_accurate": "0.68",
+              "rep_shared": "0.43"
+            },
+            {
+              "item": "True-12",
+              "all_accurate": "0.64",
+              "all_shared": "0.61",
+              "dem_accurate": "0.63",
+              "dem_shared": "0.64",
+              "rep_accurate": "0.65",
+              "rep_shared": "0.58"
+            },
+            {
+              "item": "True-13",
+              "all_accurate": "0.65",
+              "all_shared": "0.46",
+              "dem_accurate": "0.65",
+              "dem_shared": "0.46",
+              "rep_accurate": "0.65",
+              "rep_shared": "0.45"
+            },
+            {
+              "item": "True-14",
+              "all_accurate": "0.5",
+              "all_shared": "0.48",
+              "dem_accurate": "0.48",
+              "dem_shared": "0.54",
+              "rep_accurate": "0.52",
+              "rep_shared": "0.41"
+            },
+            {
+              "item": "True-15",
+              "all_accurate": "0.32",
+              "all_shared": "0.35",
+              "dem_accurate": "0.33",
+              "dem_shared": "0.41",
+              "rep_accurate": "0.31",
+              "rep_shared": "0.27"
+            }
+          ],
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_tbls1_false1",
+            "ev_tbls1_false2",
+            "ev_tbls1_false3",
+            "ev_tbls1_false4",
+            "ev_tbls1_false5",
+            "ev_tbls1_false6",
+            "ev_tbls1_false7",
+            "ev_tbls1_false8",
+            "ev_tbls1_false9",
+            "ev_tbls1_false10",
+            "ev_tbls1_false11",
+            "ev_tbls1_false12",
+            "ev_tbls1_false13",
+            "ev_tbls1_false14",
+            "ev_tbls1_false15",
+            "ev_tbls1_true1",
+            "ev_tbls1_true2",
+            "ev_tbls1_true3",
+            "ev_tbls1_true4",
+            "ev_tbls1_true5",
+            "ev_tbls1_true6",
+            "ev_tbls1_true7",
+            "ev_tbls1_true8",
+            "ev_tbls1_true9",
+            "ev_tbls1_true10",
+            "ev_tbls1_true11",
+            "ev_tbls1_true12",
+            "ev_tbls1_true13",
+            "ev_tbls1_true14",
+            "ev_tbls1_true15",
+            "ev_tbls1_cap",
+            "ev_tbls1_cols"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_tbls1_false1",
+        "ev_tbls1_false2",
+        "ev_tbls1_false3",
+        "ev_tbls1_false4",
+        "ev_tbls1_false5",
+        "ev_tbls1_false6",
+        "ev_tbls1_false7",
+        "ev_tbls1_false8",
+        "ev_tbls1_false9",
+        "ev_tbls1_false10",
+        "ev_tbls1_false11",
+        "ev_tbls1_false12",
+        "ev_tbls1_false13",
+        "ev_tbls1_false14",
+        "ev_tbls1_false15",
+        "ev_tbls1_true1",
+        "ev_tbls1_true2",
+        "ev_tbls1_true3",
+        "ev_tbls1_true4",
+        "ev_tbls1_true5",
+        "ev_tbls1_true6",
+        "ev_tbls1_true7",
+        "ev_tbls1_true8",
+        "ev_tbls1_true9",
+        "ev_tbls1_true10",
+        "ev_tbls1_true11",
+        "ev_tbls1_true12",
+        "ev_tbls1_true13",
+        "ev_tbls1_true14",
+        "ev_tbls1_true15",
+        "ev_tbls1_cap"
+      ]
+    },
+    {
+      "id": "res_s1_supp",
+      "kind": "result",
+      "title": "Study 1 robustness tables (Supplement S2-S4)",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_tbls2"
+          ]
+        },
+        {
+          "id": "heterogeneity",
+          "label": "Veracity × condition across robustness checks",
+          "value": "Attentiveness thresholds (all, ≥1, ≥2, all 3 screeners): −0.252, −0.266, −0.297, −0.325 (all p<.001; unstandardized ratings). Headline exclusions (7 models): −0.504, −0.431, −0.539, −0.554, −0.529, −0.522, −0.460 (all p<.001). Crossed random effects: −0.503949, SE 0.080200, t = −6.284, p = 3.30e-07.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_tbls2_row",
+            "ev_tbls3_row",
+            "ev_tbls4_row"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_tbls2",
+        "ev_tbls3",
+        "ev_tbls4"
+      ]
+    },
+    {
+      "id": "f_s1",
+      "kind": "finding",
+      "title": "Study 1 finding",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "answer",
+          "label": "Answer",
+          "value": "Participants were far less discerning when asked whether they would share a headline than when asked about its accuracy.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_find1"
+          ]
+        },
+        {
+          "id": "support",
+          "label": "Support",
+          "value": "Veracity × condition interaction β = −0.126, p < .0001; people who relied on intuition or had lower scientific knowledge were worse at discerning in both judgments.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_res1",
+            "ev_find1b"
+          ],
+          "derivation": "Joins the main test with the authors' reading of the individual-differences results."
+        },
+        {
+          "id": "mechanism-proposed",
+          "label": "Mechanism proposed",
+          "value": "Inattention to accuracy when deciding what to share, rather than partisanship, since the distraction occurs for COVID-19 content.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_find3",
+            "ev_account"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_find1",
+        "ev_find1b"
+      ]
+    },
+    {
+      "id": "sim_s1",
+      "kind": "simulation",
+      "title": "Study 1 simulation scope",
+      "studyIds": [
+        "study1"
+      ],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps",
+          "value": "Replay the news-evaluation / news-sharing task for 30 headlines in random order with the condition's question. The COVID-19 questions, CRT, science quiz, MMS, demographics and screeners are not replayed (their wording is not in the paper).",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "Every participant is an AI participant; no scripted roles.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_sample"
+          ]
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": "Accuracy and sharing, both runnable; random assignment is replaced by an exact number of AI participants per condition.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_acc_q",
+            "ev_share_q"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Outcomes",
+          "value": "Yes/no response per headline, discernment, and the veracity × condition interaction. Individual-differences correlates cannot be tested.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s1_res1"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "Headlines appear as text only (pictures and lede sentences are on OSF); all 30 headlines are shown in one prompt in presentation order; no demographic persona is assigned; sharing is hypothetical; AI agreement with the paper would not show that people behave the same way.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_format",
+            "ev_lim4"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_q"
+      ]
+    },
+    {
+      "id": "p_s2",
+      "kind": "participants",
+      "title": "Study 2 participants (Lucid, U.S.)",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online survey; Lucid respondents; run from March 13 to March 15, 2020.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_sample"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "Participants only; no scripted roles.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_sample"
+          ],
+          "derivation": "No other role appears in the Study 2 method."
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "Following the same sample-size considerations as in Study 1, we recruited 1,000 participants using Lucid.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_sample"
+          ]
+        },
+        {
+          "id": "eligibility",
+          "label": "Eligibility",
+          "value": "Participants had to indicate using Facebook or Twitter; 177 who did not did not complete the survey.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_sample"
+          ],
+          "derivation": "Same screening statement as Study 1."
+        },
+        {
+          "id": "n-recruited",
+          "label": "Began the study",
+          "value": "1,145",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_sample"
+          ]
+        },
+        {
+          "id": "n-completed",
+          "label": "Completed (retained)",
+          "value": "856 (177 non-users and a further 112 who did not complete were removed).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_sample"
+          ]
+        },
+        {
+          "id": "n-analysed",
+          "label": "Analysed",
+          "value": "856 participants (25,627 ratings, Supplement Table S5); all participants kept regardless of attentiveness.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_sample",
+            "ev_s2_screeners",
+            "ev_tbls5"
+          ]
+        },
+        {
+          "id": "n-per-condition",
+          "label": "Participants per condition",
+          "value": "Not reported: the paper gives the total only.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "characteristics",
+          "label": "Characteristics",
+          "value": "Mean age = 47 years, age range = 18–86; 385 men, 463 women, and 8 who responded 'other/prefer not to answer'.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_sample"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Sampling unit",
+          "value": "Participant (each rated 30 headlines).",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_sample",
+            "ev_s2_analysis"
+          ],
+          "derivation": "Ratings analysed at the rating level clustered on participant and headline."
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "Not reported in the paper.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "attrition",
+          "label": "Attrition",
+          "value": "177 did not indicate using Facebook or Twitter; 112 did not complete.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_sample"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_sample",
+        "ev_quota"
+      ]
+    },
+    {
+      "id": "d_s2",
+      "kind": "design",
+      "title": "Study 2 design",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Between-participants (control vs. treatment) with headline veracity varying within participants.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_induct",
+            "ev_headlines"
+          ],
+          "derivation": "Combined from the assignment passage and the 15 + 15 headline set."
+        },
+        {
+          "id": "control",
+          "label": "Control",
+          "value": "Control participants began the news-sharing task as in Study 1.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_induct"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Each participant was randomly assigned to one of two conditions.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_induct"
+          ]
+        },
+        {
+          "id": "manipulation-check",
+          "label": "Manipulation check",
+          "value": "None reported; the manipulation is described as subtle and not explicitly linked to the main task.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_subtle"
+          ],
+          "derivation": "No check is described in the Method."
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_induct",
+        "ev_s2_subtle"
+      ]
+    },
+    {
+      "id": "cond_s2_control",
+      "kind": "condition",
+      "title": "Study 2 control condition",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "They began the news-sharing task as in Study 1.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_induct"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_induct"
+      ]
+    },
+    {
+      "id": "cond_s2_treatment",
+      "kind": "condition",
+      "title": "Study 2 treatment condition (accuracy nudge)",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "They rated the accuracy of a single headline (unrelated to COVID-19) before beginning the news-sharing task, framed as being for a pretest.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_induct"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_induct"
+      ]
+    },
+    {
+      "id": "m_s2_pretest",
+      "kind": "material",
+      "title": "Treatment pretest headline",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "description",
+          "label": "Description",
+          "value": "One of four possible headlines, all politically neutral and unrelated to COVID-19.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_pretest_heads"
+          ]
+        },
+        {
+          "id": "headlines",
+          "label": "The four headlines",
+          "value": [
+            {
+              "item": "NR_1",
+              "source_line": "ABCNEWS.GO.COM",
+              "headline": "Scientists discover the 'most massive neutron star ever detected'"
+            },
+            {
+              "item": "NR_2",
+              "source_line": "ABCNEWS.GO.COM",
+              "headline": "'Seinfeld' is officially coming to Netflix",
+              "lede": "\"Seinfeld\" will begin streaming worldwide on Netflix in 2021."
+            },
+            {
+              "item": "NR_3",
+              "source_line": "CNN.COM",
+              "headline": "Social media use may harm teens' mental health by disrupting positive activities, study says"
+            },
+            {
+              "item": "NR_4",
+              "source_line": "NBCNEWS.COM",
+              "headline": "Hit YouTube channel Ryan ToysReview accused of deceiving kids into watching sponsored content"
+            }
+          ],
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_src_nr1",
+            "ev_s2_src_nr2",
+            "ev_s2_src_nr3",
+            "ev_s2_src_nr4"
+          ],
+          "derivation": "Read by eye from the four Facebook-style post images (picture, source line, headline, and a lede only where printed) embedded in sources/study2_materials.docx, blocks neu r1-neu r4. The pictures themselves are not carried into the replay."
+        },
+        {
+          "id": "question",
+          "label": "Accuracy question wording and response format for the pretest headline",
+          "value": "To the best of your knowledge, is the above headline accurate? Options: No (0), Yes (1).",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_src_q"
+          ]
+        },
+        {
+          "id": "framing",
+          "label": "Wording of the 'pretest' framing",
+          "value": "First, we would like to pretest an actual news headline for future studies. We are interested in whether people think it is accurate or not. We only need you to give your opinion about the accuracy of a single headline. We will then continue on to the primary task. Note: The image may take a moment to load.",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_src_accinst"
+          ],
+          "derivation": "Transcribed from item AccInst; paragraph breaks and non-breaking spaces collapsed to single spaces, wording unchanged."
+        },
+        {
+          "id": "headline-assignment",
+          "label": "How one of the four headlines was assigned",
+          "value": "Not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev_s2_pretest_heads"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_induct",
+        "ev_s2_pretest_heads",
+        "ev_s2_src_accinst",
+        "ev_s2_src_q",
+        "ev_s2_src_nr1",
+        "ev_s2_src_nr2",
+        "ev_s2_src_nr3",
+        "ev_s2_src_nr4"
+      ],
+      "conditionIds": [
+        "cond_s2_treatment"
+      ]
+    },
+    {
+      "id": "m_s2_share_q",
+      "kind": "material",
+      "title": "Study 2 sharing question",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "text",
+          "label": "Question (verbatim)",
+          "value": "If you were to see the above on social media, how likely would you be to share it?",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_q"
+          ]
+        },
+        {
+          "id": "scale",
+          "label": "Response scale",
+          "value": "6-point scale from 1 (extremely unlikely) to 6 (extremely likely).",
+          "origin": "verbatim",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_q"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_q"
+      ]
+    },
+    {
+      "id": "proc_s2",
+      "kind": "procedure",
+      "title": "Study 2 procedure",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "task",
+          "label": "Task",
+          "value": "Participants indicated how likely they would be to share each of the same 30 headlines (Study 1 set).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_task",
+            "ev_s2_q"
+          ]
+        },
+        {
+          "id": "goal",
+          "label": "Goal",
+          "value": "Test whether making accuracy salient first increases sharing discernment.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_aim2"
+          ],
+          "derivation": "From the Study 2 aim."
+        },
+        {
+          "id": "actions",
+          "label": "Actions",
+          "value": "Treatment only: rate one unrelated headline as a pretest. Then all: 30-headline sharing task; the additional measures of Study 1; three screeners; debriefing.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_induct",
+            "ev_s2_other",
+            "ev_s2_screeners",
+            "ev_debrief"
+          ],
+          "derivation": "Combined from the Study 2 method passages."
+        },
+        {
+          "id": "visible",
+          "label": "What participants saw",
+          "value": "One headline post at a time with the sharing question; treatment participants had first seen the pretest headline.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_induct",
+            "ev_s2_task"
+          ],
+          "derivation": "No social information is described."
+        },
+        {
+          "id": "feedback",
+          "label": "Feedback",
+          "value": "Debriefing at the end: the true headlines were re-presented.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_debrief"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_induct",
+        "ev_s2_task"
+      ]
+    },
+    {
+      "id": "v_treat",
+      "kind": "variable",
+      "title": "Treatment (accuracy nudge vs. control)",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_induct"
+          ],
+          "derivation": "Randomly assigned manipulation."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "binary, between participants (Control = 0, Treatment = 1 in the supplement)",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_tbls5_coding2"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_induct"
+          ],
+          "derivation": "Assigned once per participant."
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_induct",
+        "ev_tbls5_coding2"
+      ]
+    },
+    {
+      "id": "v_share_s2",
+      "kind": "variable",
+      "title": "Sharing intention (6-point scale)",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_q"
+          ],
+          "derivation": "Outcome of the sharing task."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "ordinal 1-6, rescaled to 0-1",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_analysis"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "How likely the participant would be to share the headline if seen on social media.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_q"
+          ]
+        },
+        {
+          "id": "transformation",
+          "label": "Transformation",
+          "value": "1 on the 6-point scale was 0 and 6 was 1.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_analysis"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant × headline rating",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_analysis"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_q",
+        "ev_s2_analysis"
+      ]
+    },
+    {
+      "id": "v_discern_s2",
+      "kind": "variable",
+      "title": "Sharing discernment (Study 2)",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_res1"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The difference in sharing likelihood of true relative to false headlines.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_res3"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_res3"
+          ],
+          "derivation": "Computed over a participant's 30 ratings; tested as veracity × treatment."
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_res3"
+      ]
+    },
+    {
+      "id": "rec_s2",
+      "kind": "record",
+      "title": "Study 2 rating-level data",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "One row per participant × headline; 25,627 rows.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_analysis",
+            "ev_tbls5"
+          ],
+          "derivation": "Observations in Supplement Table S5."
+        },
+        {
+          "id": "contents",
+          "label": "Contents",
+          "value": "Participant id, condition, headline id and veracity, 6-point sharing rating (rescaled), individual-differences scores.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_analysis",
+            "ev_s2_other"
+          ],
+          "derivation": "Inferred from the analysis description."
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_analysis",
+        "ev_tbls5"
+      ]
+    },
+    {
+      "id": "a_s2_main",
+      "kind": "analysis",
+      "title": "Study 2 main analysis: veracity × treatment",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Test whether the treatment increases sharing discernment.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_res1"
+          ]
+        },
+        {
+          "id": "inputs",
+          "label": "Inputs",
+          "value": "Sharing intentions rescaled to 0-1; veracity coded false = 0, true = 1; condition coded control = 0, treatment = 1.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_analysis",
+            "ev_tbls5_coding",
+            "ev_tbls5_coding2"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Linear regression at the level of the rating with robust standard errors clustered on participants and headline.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_analysis",
+            "ev_footnote"
+          ]
+        },
+        {
+          "id": "criterion",
+          "label": "Criterion",
+          "value": "Positive veracity × treatment interaction.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_res1"
+          ],
+          "derivation": "The prediction is tested via this interaction."
+        },
+        {
+          "id": "robustness",
+          "label": "Robustness",
+          "value": "Excluding headlines without clear claims of fact or that were political (Supplement Table S6); attentiveness thresholds (Table S5); crossed random effects (Table S7).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_robust",
+            "ev_tbls5",
+            "ev_tbls6",
+            "ev_tbls7"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_analysis",
+        "ev_s2_res1"
+      ]
+    },
+    {
+      "id": "a_s2_mod",
+      "kind": "analysis",
+      "title": "Study 2 moderation by individual differences",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Test whether the treatment effect on sharing discernment depends on CRT, science knowledge, partisanship, distance to the epicenter or MMS score.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_mod"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Three-way interactions among headline veracity, treatment and each individual-differences measure.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_mod"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_mod"
+      ]
+    },
+    {
+      "id": "res_s2_main",
+      "kind": "result",
+      "title": "Study 2: treatment increased sharing discernment",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_res1"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Interaction",
+          "value": "β = 0.039, F(1, 25623) = 17.88, p < .0001 (veracity × treatment).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_res1"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Simple effects of veracity",
+          "value": "Control: d = 0.050, 95% CI [−0.033, 0.133], F(1, 25623) = 1.41, p = .24. Treatment: d = 0.142, 95% CI [0.049, 0.235], F(1, 25623) = 8.89, p = .003.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_res2"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Ratio",
+          "value": "Sharing discernment was 2.8 times higher in the treatment condition than in the control condition.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_res3"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_res1",
+        "ev_s2_res2",
+        "ev_s2_res3",
+        "ev_fig2"
+      ]
+    },
+    {
+      "id": "res_s2_mod",
+      "kind": "result",
+      "title": "Study 2: no significant moderation of the treatment effect",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_mod"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "The treatment effect on sharing discernment was not significantly moderated by CRT performance, science knowledge, partisanship, distance to the nearest epicenter, or MMS score (all three-way interactions p > .10).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_mod"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_mod"
+      ]
+    },
+    {
+      "id": "res_s2_supp",
+      "kind": "result",
+      "title": "Study 2 robustness tables (Supplement S5-S7)",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_tbls5"
+          ]
+        },
+        {
+          "id": "heterogeneity",
+          "label": "Veracity × condition across robustness checks",
+          "value": "Attentiveness thresholds (all, ≥1, ≥2, all 3 screeners): 0.0343, 0.0330, 0.0390 (p<.001) and 0.0320 (not significant). Headline exclusions (7 models): 0.0343, 0.0322, 0.0305, 0.0306, 0.0327, 0.0304, 0.0299 (all p<.001). Crossed random effects: 3.430e-02, SE 1.112e-02, t = 3.085, p = 0.00238.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_tbls5_row",
+            "ev_tbls6_row",
+            "ev_tbls7_row"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_tbls5",
+        "ev_tbls6",
+        "ev_tbls7",
+        "ev_figs1"
+      ]
+    },
+    {
+      "id": "f_s2",
+      "kind": "finding",
+      "title": "Study 2 finding",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "answer",
+          "label": "Answer",
+          "value": "A minimal, content-neutral accuracy prompt nearly tripled sharing discernment.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_find2"
+          ]
+        },
+        {
+          "id": "support",
+          "label": "Support",
+          "value": "Veracity × treatment β = 0.039, p < .0001; discernment 2.8 times higher in treatment.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_res1",
+            "ev_s2_res3"
+          ]
+        },
+        {
+          "id": "mechanism-proposed",
+          "label": "Mechanism proposed",
+          "value": "The nudge makes participants more likely to consider accuracy when deciding whether to share.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_why"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_find2",
+        "ev_s2_res1"
+      ]
+    },
+    {
+      "id": "sim_s2",
+      "kind": "simulation",
+      "title": "Study 2 simulation scope",
+      "studyIds": [
+        "study2"
+      ],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps",
+          "value": "Replay the 30-headline sharing task. Treatment adds the pretest headline first, which cannot be replayed until its headline, question and framing wording are supplied. Other measures are not replayed.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_induct",
+            "ev_s2_task"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "Every participant is an AI participant; no scripted roles.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_sample"
+          ]
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": "Control is runnable; treatment is blocked by the missing pretest materials.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_induct",
+            "ev_s2_pretest_heads"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Outcomes",
+          "value": "6-point sharing ratings, rescaled to 0-1, sharing discernment and the veracity × treatment interaction (only when both arms exist).",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s2_analysis"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "Text-only headlines; one prompt per participant containing all 30 headlines; subtle manipulation may behave differently for a language model; hypothetical sharing; no demographic persona; AI agreement with the paper would not show that people behave the same way.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_format",
+            "ev_lim4"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_induct"
+      ]
+    },
+    {
+      "id": "v_item_acc",
+      "kind": "variable",
+      "title": "Headline perceived accuracy (Study 1 accuracy condition)",
+      "studyIds": [
+        "study3_items"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_method2"
+          ],
+          "derivation": "Predictor of the item-level treatment effect."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous (mean proportion judged accurate per headline)",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_method2"
+          ],
+          "derivation": "Average accuracy rating of the yes/no responses."
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "headline (30)",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_res"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s3_method2",
+        "ev_s3_res"
+      ]
+    },
+    {
+      "id": "v_item_effect",
+      "kind": "variable",
+      "title": "Item-level treatment effect on sharing (Study 2)",
+      "studyIds": [
+        "study3_items"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_method"
+          ],
+          "derivation": "Outcome of the item-level analysis."
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Average sharing intention in the treatment condition minus average sharing intention in the control condition, per headline.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_method",
+            "ev_s3_method2"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "headline (30)",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_res"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s3_method"
+      ]
+    },
+    {
+      "id": "a_s3",
+      "kind": "analysis",
+      "title": "Item-level correlation (post hoc)",
+      "studyIds": [
+        "study3_items"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Show that the treatment effect on sharing of a headline varies with its perceived accuracy.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_method",
+            "ev_s3_why"
+          ]
+        },
+        {
+          "id": "inputs",
+          "label": "Inputs",
+          "value": "Per headline: mean accuracy rating in the Study 1 accuracy condition and treatment minus control mean sharing in Study 2.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_method2"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Correlation across the 30 headlines, using Study 1 ratings as a proxy for Study 2 perceived accuracy.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_proxy",
+            "ev_s3_res"
+          ],
+          "derivation": "Pearson r with 28 degrees of freedom is implied by r(28)."
+        }
+      ],
+      "evidenceIds": [
+        "ev_s3_method",
+        "ev_s3_proxy"
+      ]
+    },
+    {
+      "id": "res_s3",
+      "kind": "result",
+      "title": "Item-level correlation result",
+      "studyIds": [
+        "study3_items"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_res"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Correlation",
+          "value": "r(28) = .76, p < .0001.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_res"
+          ]
+        },
+        {
+          "id": "themes",
+          "label": "Reading",
+          "value": "Headlines more likely to be identified as true were more strongly positively impacted (sharing increases) by the accuracy nudge.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_res2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s3_res",
+        "ev_s3_res2"
+      ]
+    },
+    {
+      "id": "f_s3",
+      "kind": "finding",
+      "title": "Item-level finding",
+      "studyIds": [
+        "study3_items"
+      ],
+      "fields": [
+        {
+          "id": "answer",
+          "label": "Answer",
+          "value": "The nudge appears to increase attention to whether headlines seem true or not when deciding what to share.",
+          "origin": "derived",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_res2"
+          ],
+          "derivation": "The paper states this as the authors' hypothesised reading of the correlation."
+        }
+      ],
+      "evidenceIds": [
+        "ev_s3_res2"
+      ]
+    },
+    {
+      "id": "sim_s3",
+      "kind": "simulation",
+      "title": "Item-level analysis simulation scope",
+      "studyIds": [
+        "study3_items"
+      ],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps",
+          "value": "Computed from replayed Study 1 accuracy sessions and replayed Study 2 control and treatment sessions; there is no separate participant task.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_method2"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "No participants of its own.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_method"
+          ]
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": "Needs Study 1 accuracy and Study 2 control and treatment arms.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_method2"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Outcomes",
+          "value": "Correlation across 30 headlines; not ready until the Study 2 treatment arm exists.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_res"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "Depends on the blocked treatment arm; with few simulated participants item means are noisy.",
+          "origin": "implementation",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_s3_proxy"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_s3_method2"
+      ]
+    },
+    {
+      "id": "n_limits",
+      "kind": "limitation",
+      "title": "Validity, scope and openness",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "validity",
+          "label": "Validity",
+          "value": "Self-reported sharing is supported by evidence that headlines with higher reported sharing likelihood receive more shares on Twitter; the subtle manipulation makes demand effects unlikely.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_validity",
+            "ev_s2_subtle"
+          ]
+        },
+        {
+          "id": "scope",
+          "label": "Scope",
+          "value": "Evidence is restricted to the United States; the quota sample is not probability based and should not be considered truly nationally representative.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_lim1",
+            "ev_lim2"
+          ]
+        },
+        {
+          "id": "limitations",
+          "label": "Limitations",
+          "value": "A particular set of true and false COVID-19 headlines; sharing intentions were hypothetical and the accuracy induction was performed in a 'lab' context.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_lim3",
+            "ev_lim4"
+          ]
+        },
+        {
+          "id": "replications",
+          "label": "Replications reported",
+          "value": "Pennycook et al. (2020) applied the same accuracy-reminder intervention to political misinformation and replicated the survey results with direct messages on Twitter.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_replic"
+          ]
+        },
+        {
+          "id": "openness",
+          "label": "Openness",
+          "value": "Data and materials are on OSF (https://osf.io/7d3xh/); Studies 1 and 2 were preregistered at AsPredicted; the preregistration erroneously planned to cluster standard errors on participant only.",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_open",
+            "ev_prereg",
+            "ev_footnote"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_lim1",
+        "ev_lim2",
+        "ev_lim3",
+        "ev_lim4",
+        "ev_open"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "st_s1_covidq",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "Answer two COVID-19 questions",
+      "actorIds": [
+        "p_s1"
+      ],
+      "inputIds": [
+        "m_covid_q"
+      ],
+      "outputIds": [
+        "v_covid_att"
+      ],
+      "visibleIds": [
+        "m_covid_q"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "st_s1_news_acc",
+          "when": "accuracy condition"
+        },
+        {
+          "to": "st_s1_news_share",
+          "when": "sharing condition"
+        }
+      ],
+      "evidenceIds": [
+        "ev_covid_q"
+      ]
+    },
+    {
+      "id": "st_s1_news_acc",
+      "studyId": "study1",
+      "kind": "repeat",
+      "title": "Judge accuracy of 30 headlines (random order)",
+      "actorIds": [
+        "p_s1"
+      ],
+      "inputIds": [
+        "m_headlines",
+        "m_s1_acc_q",
+        "m_s1_option_order"
+      ],
+      "outputIds": [
+        "v_resp_s1",
+        "rec_s1"
+      ],
+      "visibleIds": [
+        "m_headlines",
+        "m_s1_acc_q"
+      ],
+      "children": [
+        "st_s1_item_acc"
+      ],
+      "next": [
+        {
+          "to": "st_s1_debrief"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_q",
+        "ev_counterbalance"
+      ],
+      "conditionIds": [
+        "cond_s1_accuracy"
+      ]
+    },
+    {
+      "id": "st_s1_item_acc",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "Rate one headline: accurate? yes/no",
+      "actorIds": [
+        "p_s1"
+      ],
+      "inputIds": [
+        "m_headlines",
+        "m_s1_acc_q"
+      ],
+      "outputIds": [
+        "v_resp_s1"
+      ],
+      "visibleIds": [
+        "m_headlines",
+        "m_s1_acc_q"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_acc_q"
+      ],
+      "conditionIds": [
+        "cond_s1_accuracy"
+      ]
+    },
+    {
+      "id": "st_s1_news_share",
+      "studyId": "study1",
+      "kind": "repeat",
+      "title": "Decide on sharing 30 headlines (random order)",
+      "actorIds": [
+        "p_s1"
+      ],
+      "inputIds": [
+        "m_headlines",
+        "m_s1_share_q",
+        "m_s1_option_order"
+      ],
+      "outputIds": [
+        "v_resp_s1",
+        "rec_s1"
+      ],
+      "visibleIds": [
+        "m_headlines",
+        "m_s1_share_q"
+      ],
+      "children": [
+        "st_s1_item_share"
+      ],
+      "next": [
+        {
+          "to": "st_s1_debrief"
+        }
+      ],
+      "evidenceIds": [
+        "ev_share_q",
+        "ev_counterbalance"
+      ],
+      "conditionIds": [
+        "cond_s1_sharing"
+      ]
+    },
+    {
+      "id": "st_s1_item_share",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "Answer for one headline: would you consider sharing? yes/no",
+      "actorIds": [
+        "p_s1"
+      ],
+      "inputIds": [
+        "m_headlines",
+        "m_s1_share_q"
+      ],
+      "outputIds": [
+        "v_resp_s1"
+      ],
+      "visibleIds": [
+        "m_headlines",
+        "m_s1_share_q"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_share_q"
+      ],
+      "conditionIds": [
+        "cond_s1_sharing"
+      ]
+    },
+    {
+      "id": "st_s1_indiff",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "Complete CRT, science-knowledge quiz, MMS and demographics",
+      "actorIds": [
+        "p_s1"
+      ],
+      "inputIds": [
+        "m_indiff_items"
+      ],
+      "outputIds": [
+        "v_indiff"
+      ],
+      "visibleIds": [
+        "m_indiff_items"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "st_s1_debrief"
+        }
+      ],
+      "evidenceIds": [
+        "ev_crt",
+        "ev_sci",
+        "ev_mms",
+        "ev_demo"
+      ],
+      "rule": {
+        "id": "order",
+        "label": "Order relative to the news task",
+        "value": "Not stated beyond the screener placement.",
+        "origin": "unknown",
+        "state": "missing",
+        "evidenceIds": [
+          "ev_screener_pos"
+        ]
+      }
+    },
+    {
+      "id": "st_s1_screeners",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "Three attention screeners at separate points",
+      "actorIds": [
+        "p_s1"
+      ],
+      "inputIds": [
+        "m_screeners"
+      ],
+      "outputIds": [
+        "rec_s1"
+      ],
+      "visibleIds": [
+        "m_screeners"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_screeners",
+        "ev_screener_pos"
+      ],
+      "rule": {
+        "id": "placement",
+        "label": "Placement",
+        "value": "Just prior to the news-evaluation and news-sharing tasks, after the CRT, and after the science-knowledge scale and MMS.",
+        "origin": "verbatim",
+        "state": "confirmed",
+        "evidenceIds": [
+          "ev_screener_pos"
+        ]
+      }
+    },
+    {
+      "id": "st_s1_debrief",
+      "studyId": "study1",
+      "kind": "action",
+      "title": "Debrief: true headlines re-presented",
+      "actorIds": [
+        "p_s1"
+      ],
+      "inputIds": [
+        "m_debrief"
+      ],
+      "outputIds": [],
+      "visibleIds": [
+        "m_debrief"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_debrief"
+      ]
+    },
+    {
+      "id": "st_s2_pretest",
+      "studyId": "study2",
+      "kind": "action",
+      "title": "Treatment: rate the accuracy of one unrelated headline (framed as a pretest)",
+      "actorIds": [
+        "p_s2"
+      ],
+      "inputIds": [
+        "m_s2_pretest"
+      ],
+      "outputIds": [
+        "v_treat"
+      ],
+      "visibleIds": [
+        "m_s2_pretest"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "st_s2_share"
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_induct",
+        "ev_s2_pretest_heads",
+        "ev_s2_src_accinst",
+        "ev_s2_src_q"
+      ],
+      "conditionIds": [
+        "cond_s2_treatment"
+      ]
+    },
+    {
+      "id": "st_s2_share",
+      "studyId": "study2",
+      "kind": "repeat",
+      "title": "Rate sharing likelihood for 30 headlines (random order)",
+      "actorIds": [
+        "p_s2"
+      ],
+      "inputIds": [
+        "m_headlines",
+        "m_s2_share_q"
+      ],
+      "outputIds": [
+        "v_share_s2",
+        "rec_s2"
+      ],
+      "visibleIds": [
+        "m_headlines",
+        "m_s2_share_q"
+      ],
+      "children": [
+        "st_s2_item"
+      ],
+      "next": [
+        {
+          "to": "st_s2_debrief"
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_task",
+        "ev_s2_q"
+      ]
+    },
+    {
+      "id": "st_s2_item",
+      "studyId": "study2",
+      "kind": "action",
+      "title": "Rate how likely to share one headline (1-6)",
+      "actorIds": [
+        "p_s2"
+      ],
+      "inputIds": [
+        "m_headlines",
+        "m_s2_share_q"
+      ],
+      "outputIds": [
+        "v_share_s2"
+      ],
+      "visibleIds": [
+        "m_headlines",
+        "m_s2_share_q"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_s2_q"
+      ]
+    },
+    {
+      "id": "st_s2_indiff",
+      "studyId": "study2",
+      "kind": "action",
+      "title": "Additional measures from Study 1 (CRT, science quiz, MMS, demographics)",
+      "actorIds": [
+        "p_s2"
+      ],
+      "inputIds": [
+        "m_indiff_items"
+      ],
+      "outputIds": [
+        "v_indiff"
+      ],
+      "visibleIds": [
+        "m_indiff_items"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "st_s2_debrief"
+        }
+      ],
+      "evidenceIds": [
+        "ev_s2_other"
+      ],
+      "rule": {
+        "id": "order",
+        "label": "Order relative to the sharing task",
+        "value": "Not stated.",
+        "origin": "unknown",
+        "state": "missing",
+        "evidenceIds": [
+          "ev_s2_other"
+        ]
+      }
+    },
+    {
+      "id": "st_s2_screeners",
+      "studyId": "study2",
+      "kind": "action",
+      "title": "Three attention screeners",
+      "actorIds": [
+        "p_s2"
+      ],
+      "inputIds": [
+        "m_screeners"
+      ],
+      "outputIds": [
+        "rec_s2"
+      ],
+      "visibleIds": [
+        "m_screeners"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_s2_screeners"
+      ]
+    },
+    {
+      "id": "st_s2_debrief",
+      "studyId": "study2",
+      "kind": "action",
+      "title": "Debrief: true headlines re-presented",
+      "actorIds": [
+        "p_s2"
+      ],
+      "inputIds": [
+        "m_debrief"
+      ],
+      "outputIds": [],
+      "visibleIds": [
+        "m_debrief"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_debrief"
+      ]
+    },
+    {
+      "id": "st_s3_compute",
+      "studyId": "study3_items",
+      "kind": "action",
+      "title": "Correlate per-headline Study 1 accuracy with per-headline Study 2 treatment effect",
+      "actorIds": [],
+      "inputIds": [
+        "rec_s1",
+        "rec_s2",
+        "v_item_acc",
+        "v_item_effect"
+      ],
+      "outputIds": [
+        "res_s3"
+      ],
+      "visibleIds": [],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_s3_method",
+        "ev_s3_method2"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "id": "rel_a_s1_main_v_veracity",
+      "from": "a_s1_main",
+      "to": "v_veracity",
+      "type": "uses",
+      "label": "independent variable (within)"
+    },
+    {
+      "id": "rel_a_s1_main_v_cond_s1",
+      "from": "a_s1_main",
+      "to": "v_cond_s1",
+      "type": "uses",
+      "label": "independent variable (between)"
+    },
+    {
+      "id": "rel_a_s1_main_v_resp_s1",
+      "from": "a_s1_main",
+      "to": "v_resp_s1",
+      "type": "outcome"
+    },
+    {
+      "id": "rel_a_s1_main_v_discern_s1",
+      "from": "a_s1_main",
+      "to": "v_discern_s1",
+      "type": "estimates",
+      "label": "the veracity coefficient is discernment"
+    },
+    {
+      "id": "rel_a_s1_indiff_v_indiff",
+      "from": "a_s1_indiff",
+      "to": "v_indiff",
+      "type": "uses",
+      "label": "moderators"
+    },
+    {
+      "id": "rel_a_s1_indiff_v_covid_att",
+      "from": "a_s1_indiff",
+      "to": "v_covid_att",
+      "type": "uses",
+      "label": "Table 2 correlations"
+    },
+    {
+      "id": "rel_a_s1_indiff_res_s1_expl",
+      "from": "a_s1_indiff",
+      "to": "res_s1_expl",
+      "type": "reports"
+    },
+    {
+      "id": "rel_a_s1_indiff_res_s1_t2",
+      "from": "a_s1_indiff",
+      "to": "res_s1_t2",
+      "type": "reports"
+    },
+    {
+      "id": "rel_a_s2_main_v_veracity",
+      "from": "a_s2_main",
+      "to": "v_veracity",
+      "type": "uses",
+      "label": "independent variable (within)"
+    },
+    {
+      "id": "rel_a_s2_main_v_treat",
+      "from": "a_s2_main",
+      "to": "v_treat",
+      "type": "uses",
+      "label": "independent variable (between)"
+    },
+    {
+      "id": "rel_a_s2_main_v_share_s2",
+      "from": "a_s2_main",
+      "to": "v_share_s2",
+      "type": "outcome"
+    },
+    {
+      "id": "rel_a_s2_main_v_discern_s2",
+      "from": "a_s2_main",
+      "to": "v_discern_s2",
+      "type": "estimates",
+      "label": "the veracity x treatment coefficient is the change in discernment"
+    },
+    {
+      "id": "rel_a_s2_mod_v_treat",
+      "from": "a_s2_mod",
+      "to": "v_treat",
+      "type": "uses"
+    },
+    {
+      "id": "rel_a_s2_mod_v_indiff",
+      "from": "a_s2_mod",
+      "to": "v_indiff",
+      "type": "uses",
+      "label": "moderators"
+    },
+    {
+      "id": "rel_a_s2_mod_res_s2_mod",
+      "from": "a_s2_mod",
+      "to": "res_s2_mod",
+      "type": "reports"
+    },
+    {
+      "id": "rel_a_s3_v_item_acc",
+      "from": "a_s3",
+      "to": "v_item_acc",
+      "type": "uses",
+      "label": "predictor"
+    },
+    {
+      "id": "rel_a_s3_v_item_effect",
+      "from": "a_s3",
+      "to": "v_item_effect",
+      "type": "outcome"
+    },
+    {
+      "id": "rel_res_s1_items_v_item_acc",
+      "from": "res_s1_items",
+      "to": "v_item_acc",
+      "type": "reports",
+      "label": "per-headline percent judged accurate"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_abstract",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Across two studies with more than 1,700 U.S. adults recruited online, we present evidence that people share false claims about COVID-19 partly because they simply fail to think sufficiently about whether or not the content is accurate when deciding what to share.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_venue",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Psychological Science 2020, Vol. 31(7)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_doi",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "DOI: 10.1177/0956797620939054",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_account",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "According to this account, people generally wish to avoid spreading misinformation and, in fact, are often able to tell truth from falsehood; however, they nonetheless share false and misleading content because the social media context focuses their attention on factors other than accuracy",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_gap",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "It was unclear, however, how (or whether) these results would generalize to COVID-19.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_aim1",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Study 1 tested for a dissociation between accuracy judgments and sharing intentions when participants evaluated a set of true and false news headlines about COVID-19.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_aim1b",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "by evaluating the relationship between truth discernment and analytic cognitive style (as well as examining science knowledge, partisanship, geographic proximity to COVID-19 diagnoses, and the tendency to overuse vs. underuse medical services)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_aim2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Study 2 experimentally tested whether subtly making the concept of accuracy salient increased the quality of COVID-19 information that people were willing to share online.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_sample",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "In total, 1,143 participants began the study. However, 192 did not indicate using Facebook or Twitter and therefore did not complete the survey. A further 98 participants did not finish the study and were removed. The final sample consisted of 853 participants (mean age = 46 years, age range = 18–\n90; 357 men, 482 women, and 14 who responded “other/prefer not to answer”).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_lucid",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "This study was run on March 12, 2020. We recruited 1,000 participants using Lucid, an online recruiting source that aggregates survey respondents from many respondent providers",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_quota",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Lucid uses quota sampling to provide a sample that is matched to the U.S. public on age, gender, ethnicity, and geographic region.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_sizewhy",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Our sample size was based on the following factors: (a) 1,000 is a large sample size for this design, (b) it was within our budget, and (c) it is similar to what was used in past research",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_headlines",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "we acquired a list of 15 false and 15 true news headlines relating to COVID-19",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_false_src",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "The false headlines were deemed to be false by authoritative sources",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_true_src",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "The true headlines came from reliable mainstream media sources.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_bat",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "one of the false headlines (about bats being the source of the virus) was more misleading or unverified than untrue—however, removing this headline did not change our results, and so we retained it.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_format",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Headlines were presented in the format of Facebook posts: a picture accompanied by a headline and lede sentence.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_acc_q",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Each participant was randomly assigned to one of two conditions. In the accuracy condition, they were asked, “To the best of your knowledge, is the claim in the above headline accurate?” (yes/no).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_share_q",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "In the sharing condition, they were asked, “Would you consider sharing this story online (for example, through Facebook or Twitter?)” (yes/no)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_counterbalance",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "We counterbalanced the order of the yes/no options (no/yes vs. yes/no) across participants. Headlines were presented in a random order.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_debrief",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "At the end of both surveys, we informed participants which of the headlines were accurate (by re-presenting the true headlines).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_discern",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Discernment is defined as the difference in accuracy judgments (or sharing intentions) between true and false headlines.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_discern_ex",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Thus, a higher discernment score indicates a higher sensitivity to truth relative to falsity.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_covid_q",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Prior to the news-evaluation task, participants were asked two questions specific to the COVID-19 pandemic. First, they were asked, “How concerned are you about COVID-19 (the new coronavirus)?” which they answered using a sliding scale from 0 (not concerned at all) to 100 (extremely concerned). Second, they were asked “How often do you proactively check the news regarding COVID-19 (the new coronavirus)?” which they answered on a scale from 1 (never) to 5 (very often).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_crt",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "We gave participants a six-item Cognitive Reflection Test (CRT; Frederick, 2005) that consisted of a reworded version of the original three-item test and three items from a nonnumeric version (we excluded the “hole” item; Thomson & Oppenheimer, 2016).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_crt_rel",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "The CRT had acceptable reliability (Cronbach’s α = .69).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_sci",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Participants also completed a general science-knowledge quiz—as a measure of general background knowledge for scientific issues—that consisted of 17 questions about basic science facts",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_sci_rel",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "The scale had acceptable reliability (Cronbach’s α = .77).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mms",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "We also administered the Medical Maximizer-Minimizer Scale (MMS; Scherer et al., 2016), which measures the",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mms_rel",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "The MMS also had acceptable reliability (Cronbach’s α = .86).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_demo",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Finally, in addition to various demographic questions, we measured political ideology on both social and fiscal issues, as well as Democrat versus Republican Party alignment.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_screeners",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "we added three screener questions that put a subtle instruction in the middle of a block of text.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_screener_pos",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Screener questions were placed just prior to the news-evaluation and news-sharing tasks, after the CRT, and after the science-knowledge scale and MMS.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_screener_all",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "To maintain the representativeness of our sample, we followed our preregistered plan to include all participants in our main analyses, regardless of attentiveness.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_analysis",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "We conducted all analyses of headline ratings at the level of the rating, using linear regression with robust standard errors clustered on participants and headline.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_coding",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Ratings and all individual-differences measures were z scored; headline veracity was coded as –0.5 for false and 0.5 for true, and condition was coded as −0.5 for accuracy and 0.5 for sharing.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_interp",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "The coefficient on headline veracity indicates overall level of discernment (the difference between responses to true vs. false headlines), and the interaction between condition and headline veracity indicates the extent to which discernment differed between the experimental conditions.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_lpm",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Our main analyses used linear probability models instead of logistic regression because the coefficients are more readily interpretable.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_controls",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "All relationships reported below were robust to including controls for age, gender, education (college degree or higher vs. less than college degree), ethnicity (White vs. non-White), and all interactions among controls, veracity, and condition.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_res1",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "As predicted, we observed a significant interaction between headline veracity and condition, β = −0.126, F(1, 25586) = 42.24, p < .0001, indicating that discernment was higher for accuracy judgments than sharing intentions",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_res2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "In other words, veracity had a much bigger impact on accuracy judgments, Cohen’s d = 0.657, 95% confidence interval (CI) = [0.477, 0.836], F(1, 25586) = 42.24, p < .0001, than on sharing intentions, d = 0.121, 95% CI = [0.030, 0.212], F(1, 25586) = 6.74, p = .009.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_res3",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "In particular, for false headlines, 32.4% more people were willing to share the headlines than rated them as accurate.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_crt",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "We found that scores on the CRT were positively related to both accuracy discernment and sharing discernment, as revealed by the interactions between CRT score and veracity, F(1, 25582) = 34.95, p < .0001, and F(1, 25582) = 4.98, p = .026, respectively. However, the relationship was significantly stronger for accuracy, as indicated by the three-way interaction among CRT score, veracity, and condition, F (1, 25582) = 14.68, p = .0001.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_crt_dir",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "with belief in false headlines and uncorrelated with belief in true headlines, whereas CRT score was negatively correlated with sharing of both types of headlines (albeit more negatively correlated with sharing of false headlines compared with true headlines; for effect sizes, see Table 1).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_sci",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Like CRT score, science knowledge was positively correlated with both accuracy discernment, F(1, 25552) = 32.80, p < .0001, and sharing discernment, F(1, 25552) = 10.02, p = .002, but much more so for accuracy, as revealed by the three-way interaction among science knowledge, veracity, and condition, F (1, 25552) = 7.59, p = .006.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_sci_dir",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "In particular, science knowledge was negatively correlated with belief in false headlines and positively correlated with belief in true headlines, whereas science knowledge was negatively correlated with sharing of false headlines and uncorrelated with sharing of true headlines (for effect sizes, see Table 1).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_mms",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "MMS score was negatively correlated with accuracy discernment, F(1, 25582) = 11.26, p = .0008.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_mms2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "in contrast, there was no such correlation with sharing discernment, F(1, 25582) = 0.03, p = .87.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_mms3",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "the significant three-way interaction among maximizer-minimizer, veracity, and condition, F(1, 25582) = 7.58, p = .006.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_party",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Preference for the Republican Party over the Democratic Party (partisanship) was not significantly related to accuracy discernment, F(1, 25402) = 0.45, p = .50, but was significantly negatively related to sharing discernment, F(1, 25402) = 8.28, p = .004.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_party2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "the three-way interaction among partisanship, veracity, and condition was not significant, F(1, 25402) = 1.62, p = .20.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s1_dist",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "was negatively correlated with sharing intentions for both true and false headlines—no significant interactions with veracity, p > .15; the interaction between distance and condition was marginal, F(1, 25522) = 3.07, p = .080.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_table1",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Table 1. Standardized Regression Coefficients for Simple Effects of Each Individual-Differences Measure Within Each Combination of Condition and Headline Veracity (Study 1)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_table1_note",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Note: Values in parentheses show the results when controls are included for age, gender, education (college degree or higher vs. less than college degree), and ethnicity (White vs. non-White) and all interactions among controls, veracity, and condition.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_table2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Table 2. Pairwise Correlations Among Concern About COVID-19, Proactively Checking News About COVID-19, and the Individual-Differences Measures (Study 1)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_table2_text",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Both measures were negatively correlated with CRT score and preference for the Republican Party over the Democratic Party, positively correlated with being a medical maximizer, and unrelated to science knowledge when we used pairwise correlations",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_sample",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "This study was run from March 13 to March 15, 2020. Following the same sample-size considerations as in Study 1, we recruited 1,000 participants using Lucid. In total, 1,145 participants began the study. However, 177 did not indicate using Facebook or Twitter and therefore did not complete the survey. A further 112 participants did not complete the study. The final sample consisted of 856 participants (mean age = 47 years, age range = 18–86; 385 men, 463 women, and 8 who responded “other/prefer not to answer”).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_induct",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Each participant was randomly assigned to one of two conditions. In the control condition, they began the news-sharing task as in Study 1. In the treatment condition, they rated the accuracy of a single headline (unrelated to COVID-19) before beginning the news-sharing task; following Pennycook et al. (2020), we framed this as being for a pretest.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_pretest_heads",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Each participant saw one of four possible headlines, all politically neutral and unrelated to COVID-19 (see https://osf.io/7d3xh/ for materials).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_subtle",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "An advantage of this design is that the manipulation is subtle and not explicitly linked to the main task.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_task",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Participants were shown the same headlines as for Study 1 and (as in the sharing condition of Study 1) were asked about their willingness to share the headlines on social media.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_q",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "In this case, however, we sought to increase the sensitivity of the measure by asking, “If you were to see the above on social media, how likely would you be to share it?” which they answered on a 6-point scale from 1 (extremely unlikely) to 6 (extremely likely).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_other",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "All of the additional measures included in Study 1 were also included in Study 2.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_screeners",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "The same screener questions included in Study 1 were also included in Study 2.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_analysis",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "All analyses were conducted at the level of the rating, using linear regression with robust standard errors clustered on participants and headline. Sharing intentions were rescaled such that 1 on the 6-point Likert scale was 0, and 6 on the 6-point Likert scale was 1.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_res1",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "As predicted, we observed a significant positive interaction between headline veracity and treatment, β = 0.039, F(1, 25623) = 17.88, p < .0001; the treatment increased sharing discernment",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_res2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "although participants in the control condition were not significantly more likely to say that they would share true headlines compared with false headlines, d = 0.050, 95% CI = [−0.033, 0.133], F(1, 25623) = 1.41, p = .24, in the treatment condition, sharing intentions for true headlines were significantly higher than for false headlines, d = 0.142, 95% CI = [0.049, 0.235], F (1, 25623) = 8.89, p = .003.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_res3",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Quantitatively, sharing discernment (the difference in sharing likelihood of true relative to false headlines) was 2.8 times higher in the treatment condition compared with the control condition.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_mod",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "the treatment effect on sharing discernment was not significantly moderated by CRT performance, science knowledge, partisanship, distance to the nearest epicenter, or MMS score",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_robust",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "The treatment effect was also robust to excluding the few headlines that did not contain clear claims of fact or that were political in nature",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_fig2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Fig. 2. Results from Study 2: percentage of headlines participants said they would be likely to share, separately for each combination of headline veracity (true vs. false) and condition (control vs. treatment).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s3_method",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "To provide evidence for such a relationship, we performed a post hoc item-\nlevel analysis.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s3_method2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "varied on the basis of the average accuracy rating given to that headline by participants in the accuracy condition of Study 1.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s3_proxy",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Because participants in Study 2 did not rate the accuracy of the COVID-19-related headlines, we used average Study 1 ratings as a proxy for how accurate participants in Study 2 would likely deem the headlines to be.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s3_why",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Given this mechanism, the extent to which the treatment increases or decreases sharing of a given headline should reflect the underlying perceptions of the headline’s accuracy.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s3_res",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "r(28) = .76, p < .0001.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s3_res2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Headlines that were more likely to be identified as true (on the basis of Study 1 data) were more strongly positively impacted (sharing increases) by nudging people to consider accuracy.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_find1",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Put differently, participants were far less discerning if they were asked about whether they would share a headline on social media than if they were asked about its accuracy.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_find1b",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "individuals who were more likely to rely on their intuitions and who were lower in basic scientific knowledge were worse at discerning between true and false content (in terms of both accuracy and sharing decisions).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_find2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "This minimal, content-\nneutral intervention nearly tripled participants’ level of discernment between sharing true and sharing false headlines.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_find3",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "our results suggest that partisanship is not, apparently, the key factor distracting people from considering accuracy on social media.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_lim1",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "First, our evidence is restricted to the United States and therefore needs to be tested elsewhere in the world.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_lim2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Next, although our sample was quota matched to the U.S. population on age, gender, ethnicity, and region, it was not obtained via probability sampling and therefore should not be considered truly nationally representative.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_lim3",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "We also used a particular set of true and false headlines about COVID-19.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_lim4",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Finally, our sharing intentions were hypothetical, and our experimental accuracy induction was performed in a “lab” context.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_replic",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "results from the survey experiments were replicated when they delivered the intervention via direct message on Twitter",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_open",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "All data and materials have been made publicly available via the Open Science Framework and can be accessed at https://osf.io/7d3xh/.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_prereg",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "The design and analysis plans for Studies 1 and 2 were preregistered at AsPredicted",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_validity",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "the validity of this self-report sharing measure is evidenced by the observation that news headlines that Mechanical Turk participants report a higher likelihood of sharing indeed receive more shares on Twitter",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_footnote",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "Our preregistration erroneously indicated that we would cluster standard errors only on participant; doing so does not qualitatively change the results.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_osf_materials",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Our data, materials, and preregistration are available on the Open Science Framework (https://osf.io/7d3xh/).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_osf_headlines",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "(available at https://osf.io/7d3xh/)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_osf_screeners",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Full text for the screener questions, along with the full materials for the study, are available at https://osf.io/7d3xh/.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false1",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "$425M in World Bank catastrophe bonds set to default False-1 0.38 0.38 0.4 0.44 0.35 0.3",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false2",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Is colloidal silver a cure for the coronavirus? False-2 0.24 0.39 0.22 0.44 0.26 0.33",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false3",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Coronavirus: North Korea's first confirmed patient shot dead False-3 0.26 0.39 0.25 0.41 0.27 0.36",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false4",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Coconut oil's history in destroying viruses, including coronaviruses False-4 0.2 0.45 0.22 0.46 0.17 0.44",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false5",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Governor Cuomo signs law using coronavirus as an excuse to take 'temporary' dictator powers False-5 0.3 0.32 0.28 0.35 0.32 0.28",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false6",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "328 Chinese nationals caught entering US illegally False-6 0.34 0.42 0.32 0.43 0.38 0.4",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false7",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Vatican confirms Pope Francis and two aides test positive for coronavirus False-7 0.28 0.44 0.27 0.49 0.27 0.38",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false8",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Florida hospital reports a coronavirus infestation with multiple confirmed patients False-8 0.46 0.48 0.5 0.49 0.42 0.47",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false9",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Coronavirus in China: 23M quarantined, 2.8M infected, 112,000 dead False-9 0.41 0.48 0.4 0.54 0.43 0.41",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false10",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Vitamin C protects against Coronavirus False-10 0.29 0.47 0.29 0.46 0.3 0.47",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false11",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "University of Tennessee scientists may have found cure False-11 0.29 0.58 0.27 0.6 0.31 0.56",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false12",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Unbelievable- Gates Foundation predicted 65 million death 3 months ago False-12 0.39 0.48 0.38 0.53 0.39 0.42",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false13",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "FEMA proposes martial law to contain virus | New World Order False-13 0.28 0.42 0.29 0.46 0.27 0.37",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false14",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "COVID-19 is now mutating into something indescribable False-14 0.33 0.4 0.35 0.45 0.3 0.34",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_false15",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Experts think bats are the source of the Wuhan Coronavirus. At least 4 pandemics have originated in these animals False-15 0.51 0.43 0.51 0.48 0.53 0.38",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true1",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Spread of virus appears inevitable in US True-1 0.79 0.55 0.81 0.64 0.76 0.43",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true2",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Trump spent the past 2 years slashing the government agencies responsible for handling the coronavirus outbreak True-2 0.42 0.46 0.54 0.58 0.27 0.31",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true3",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Coronavirus infections increase in Italy True-3 0.84 0.54 0.82 0.6 0.86 0.47",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true4",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Why airport screening won't stop the spread of the coronavirus True-4 0.64 0.49 0.67 0.53 0.6 0.44",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true5",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Europe's outbreak worsens; Italy at forefront True-5 0.78 0.53 0.78 0.6 0.8 0.45",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true6",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Coronavirus: Many people in US will be exposed at some point True-6 0.79 0.57 0.78 0.64 0.8 0.5",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true7",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "CDC: coronavirus spread may last into 2021; impact can be blunted True-7 0.62 0.49 0.64 0.55 0.6 0.41",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true8",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Israel declared 14-day quarantine for all arrivals True-8 0.67 0.54 0.66 0.57 0.69 0.51",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true9",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "coronavirus poses tough challenge for economic policymakers True-9 0.79 0.48 0.77 0.55 0.81 0.38",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true10",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "scientists warn nCoV more infectious than SARS, experts have doubts True-10 0.6 0.41 0.6 0.47 0.6 0.33",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true11",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Coronavirus: we need to start preparing for the next viral outbreak now True-11 0.73 0.51 0.77 0.57 0.68 0.43",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true12",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Amazon plans to prosecute sellers for price gouging during outbreak True-12 0.64 0.61 0.63 0.64 0.65 0.58",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true13",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Amid outbreak, Carnival Cruise Line offers on -ship credits to passengers who don't reschedule True-13 0.65 0.46 0.65 0.46 0.65 0.45",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true14",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Iran now has the highest coronavirus death toll outside of China, threatening wider middle east True-14 0.5 0.48 0.48 0.54 0.52 0.41",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_true15",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Police in the US spread a false claim that meth is contaminated with virus True-15 0.32 0.35 0.33 0.41 0.31 0.27",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_cap",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Table S1. Study 1 Item Analysis",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls1_cols",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Headline Item Name %Accurate %Shared %Accurate %Shared %Accurate %Shared",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls2",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Table S2. Study 1 main analysis for each attentiveness threshold.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls2_row",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Veracity X Condition -0.252*** -0.266*** -0.297*** -0.325***",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls3",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Table S3. Study 1 main analysis robustness checks when excluding various headlines.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls3_row",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Veracity X Condition -0.504*** -0.431*** -0.539*** -0.554*** -0.529*** -0.522*** -0.460***",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls4",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Table S4. Study 1 main analysis performed using multi-level model with maximal crossed random effects for subject and headline.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls4_row",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Veracity:Condition -0.503949 0.080200 34.928044 -6.284 3.30e-07 ***",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls5",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Table S5. Study 2 main analysis for each attentiveness threshold.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls5_row",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Veracity X Condition 0.0343*** 0.0330*** 0.0390*** 0.0320",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls6",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Table S6. Study 2 main analysis robustness checks when excluding various headlines.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls6_row",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Veracity X Condition 0.0343*** 0.0322*** 0.0305*** 0.0306*** 0.0327*** 0.0304*** 0.0299***",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls7",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Table S7. Study 2 main analysis performed using multi-level model with maximal crossed random effects for subject and headline.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls7_row",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Vercity:Condition 3.430e-02 1.112e-02 1.690e+02 3.085 0.00238 **",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_figs1",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Figure S1. Average sharing intentions by treatment in Study 2.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_t1_crt",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Cognitive Reflection Test score −0.148*** (−0.127***) 0.008 (0.006) −0.177*** (−0.174***) −0.134*** (−0.125***)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_t1_sci",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Science knowledge −0.080** (−0.067*) 0.079** (0.080**) −0.082* (−0.030*) −0.011 (−0.007)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_t1_rep",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Preference for Republican Party 0.003 (0.030) −0.016 (−0.018) −0.070* (−0.012) −0.128*** (−0.079*)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_t1_dist",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Distance to nearest epicenter −0.046† (−0.005) −0.021 (−0.028) −0.099** (−0.091**) −0.099** (−0.078*)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_t1_mms",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Medical Maximizer-\nMinimizer Scale score 0.130*** (0.120***) 0.047* (0.051*) 0.236*** (0.0207***) 0.233*** (0.200***)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_t2_r1",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "COVID-19 news checking .64***",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_t2_r2",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Cognitive Reflection Test (CRT) score −.22*** (−0.17***) −.10* (−0.07*)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_t2_r3",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Science knowledge −.001 (0.10**) .06 (0.10**) .40***",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_t2_r4",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Partisanship (Republican) −.27*** (−0.19***) −.21*** (−0.15***) .09** −.08*",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_t2_r5",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Distance to nearest epicenter −.05 (−0.02) −.07* (−0.04) .01 −.03 .10*",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_t2_r6",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Medical maximizing .41*** (0.36***) .36*** (0.34***) −.23*** −.16*** −.15*** −.05",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls5_coding",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Veracity (F=0, T=1) 0.0191 0.0218 0.0288 0.0297",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_tbls5_coding2",
+      "path": "sources/supp.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Condition (Control=0, Treatment=1) 0.00139 0.000974 -0.00136 -0.0474",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_src_accinst",
+      "path": "sources/study2_materials.txt",
+      "locator": {
+        "pointer": "Block 'Acc Inst', item AccInst"
+      },
+      "quote": "First, we would like to pretest an actual news headline for future studies. We are interested in whether people think it is accurate or not. We only need you to give your opinion about the accuracy of a single headline. We will then continue on to the primary task. Note: The image may take a moment to load.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_src_q",
+      "path": "sources/study2_materials.txt",
+      "locator": {
+        "pointer": "Blocks 'neu r1'-'neu r4', items NR_1_2 to NR_4_2"
+      },
+      "quote": "To the best of your knowledge, is the above headline accurate? No (0) Yes (1)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_s2_src_nr1",
+      "path": "sources/study2_materials.docx",
+      "locator": {
+        "pointer": "Block 'neu r1', item NR_1",
+        "region": "word/media/image4.png"
+      },
+      "quote": "ABCNEWS.GO.COM Scientists discover the 'most massive neutron star ever detected'",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev_s2_src_nr2",
+      "path": "sources/study2_materials.docx",
+      "locator": {
+        "pointer": "Block 'neu r2', item NR_2",
+        "region": "word/media/image5.png"
+      },
+      "quote": "ABCNEWS.GO.COM 'Seinfeld' is officially coming to Netflix \"Seinfeld\" will begin streaming worldwide on Netflix in 2021.",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev_s2_src_nr3",
+      "path": "sources/study2_materials.docx",
+      "locator": {
+        "pointer": "Block 'neu r3', item NR_3",
+        "region": "word/media/image6.png"
+      },
+      "quote": "CNN.COM Social media use may harm teens' mental health by disrupting positive activities, study says",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev_s2_src_nr4",
+      "path": "sources/study2_materials.docx",
+      "locator": {
+        "pointer": "Block 'neu r4', item NR_4",
+        "region": "word/media/image7.png"
+      },
+      "quote": "NBCNEWS.COM Hit YouTube channel Ryan ToysReview accused of deceiving kids into watching sponsored content",
+      "verification": "unverified"
+    }
+  ],
+  "issues": [
+    {
+      "id": "iss_s1_lede",
+      "title": "Headline pictures and lede sentences are not in the paper",
+      "severity": "decision",
+      "reason": "Headlines were shown as Facebook posts with a picture and lede sentence; the paper and supplement print only the headline text.",
+      "impact": "The replay can show only the headline text, which differs from what the human participants saw.",
+      "suggestedAction": "Supply the OSF materials, or confirm that a text-only headline is an acceptable replay adaptation.",
+      "evidenceIds": [
+        "ev_format",
+        "ev_osf_headlines"
+      ],
+      "nodeId": "m_headlines",
+      "fieldId": "lede-picture",
+      "studyId": "study1"
+    },
+    {
+      "id": "iss_instructions",
+      "title": "Survey introduction and instructions are not printed",
+      "severity": "decision",
+      "reason": "The paper does not reproduce the consent text or task instructions.",
+      "impact": "The replay uses a minimal neutral frame written for it, not the original instructions.",
+      "suggestedAction": "Provide the original instruction text from OSF to replace the replay frame.",
+      "evidenceIds": [
+        "ev_osf_materials"
+      ],
+      "nodeId": "m_instructions",
+      "fieldId": "text"
+    },
+    {
+      "id": "iss_indiff_items",
+      "title": "Individual-differences item wording is not printed",
+      "severity": "check",
+      "reason": "CRT, science quiz, MMS and demographic items are described but not reproduced.",
+      "impact": "Those measures are not replayed; correlational results cannot be tested.",
+      "suggestedAction": "Supply the OSF item wording if the correlates should be replayed.",
+      "evidenceIds": [
+        "ev_crt"
+      ],
+      "nodeId": "m_indiff_items",
+      "fieldId": "crt"
+    },
+    {
+      "id": "iss_screener_text",
+      "title": "Screener question text is not printed",
+      "severity": "check",
+      "reason": "Only one example is described; the full text is on OSF.",
+      "impact": "Screeners are not replayed.",
+      "suggestedAction": "Supply the screener text if attentiveness should be replayed.",
+      "evidenceIds": [
+        "ev_osf_screeners"
+      ],
+      "nodeId": "m_screeners",
+      "fieldId": "full-text"
+    },
+    {
+      "id": "iss_s1_percond",
+      "title": "Number of participants per condition is not reported",
+      "severity": "check",
+      "reason": "The paper gives the total (853) only.",
+      "impact": "Cannot state how many participants each condition had.",
+      "suggestedAction": "Take the per-condition n from the OSF data if needed.",
+      "evidenceIds": [
+        "ev_s1_sample"
+      ],
+      "nodeId": "p_s1",
+      "fieldId": "n-per-condition",
+      "studyId": "study1"
+    },
+    {
+      "id": "iss_s1_comp",
+      "title": "Participant compensation is not reported",
+      "severity": "check",
+      "reason": "The method does not mention payment.",
+      "impact": "None for the replay.",
+      "suggestedAction": "Check the OSF preregistration.",
+      "evidenceIds": [
+        "ev_s1_lucid"
+      ],
+      "nodeId": "p_s1",
+      "fieldId": "compensation",
+      "studyId": "study1"
+    },
+    {
+      "id": "iss_s1_t1_print",
+      "title": "Table 1 prints 0.236*** (0.0207***) for the MMS sharing/false cell",
+      "severity": "check",
+      "reason": "The controlled value 0.0207 is much smaller than every neighbouring value and looks like a typographical slip (possibly 0.207).",
+      "impact": "Copied as printed; not used by the replay.",
+      "suggestedAction": "Check the OSF output.",
+      "evidenceIds": [
+        "ev_t1_mms"
+      ],
+      "nodeId": "res_s1_t1",
+      "fieldId": "descriptives",
+      "studyId": "study1"
+    },
+    {
+      "id": "iss_s1_order",
+      "title": "Order of the individual-differences measures relative to the news task is not stated",
+      "severity": "check",
+      "reason": "The paper only says the COVID-19 questions came before the news task and that screeners were placed just before it, after the CRT and after the science quiz/MMS.",
+      "impact": "No order edge is stated between the CRT, quiz, MMS and the news task.",
+      "suggestedAction": "Take the order from the OSF survey file.",
+      "evidenceIds": [
+        "ev_screener_pos"
+      ],
+      "stepId": "st_s1_indiff",
+      "studyId": "study1"
+    },
+    {
+      "id": "iss_s2_pretest_assign",
+      "title": "How the pretest headline was chosen is not stated",
+      "severity": "check",
+      "reason": "The paper says each participant saw one of four possible headlines.",
+      "impact": "The replay would need a rule (e.g. random) that the paper does not give.",
+      "suggestedAction": "Take the rule from OSF.",
+      "evidenceIds": [
+        "ev_s2_pretest_heads"
+      ],
+      "nodeId": "m_s2_pretest",
+      "fieldId": "headline-assignment",
+      "studyId": "study2"
+    },
+    {
+      "id": "iss_s2_percond",
+      "title": "Number of participants per condition is not reported",
+      "severity": "check",
+      "reason": "The paper gives the total (856) only.",
+      "impact": "Cannot state per-condition n.",
+      "suggestedAction": "Take it from the OSF data.",
+      "evidenceIds": [
+        "ev_s2_sample"
+      ],
+      "nodeId": "p_s2",
+      "fieldId": "n-per-condition",
+      "studyId": "study2"
+    },
+    {
+      "id": "iss_s2_comp",
+      "title": "Participant compensation is not reported",
+      "severity": "check",
+      "reason": "The method does not mention payment.",
+      "impact": "None for the replay.",
+      "suggestedAction": "Check the OSF preregistration.",
+      "evidenceIds": [
+        "ev_s2_sample"
+      ],
+      "nodeId": "p_s2",
+      "fieldId": "compensation",
+      "studyId": "study2"
+    },
+    {
+      "id": "iss_s2_order",
+      "title": "Order of the additional measures relative to the sharing task is not stated",
+      "severity": "check",
+      "reason": "The paper only says the additional measures of Study 1 were included.",
+      "impact": "No order edge is stated between them and the news task.",
+      "suggestedAction": "Take the order from the OSF survey file.",
+      "evidenceIds": [
+        "ev_s2_other"
+      ],
+      "stepId": "st_s2_indiff",
+      "studyId": "study2"
+    }
+  ]
+}

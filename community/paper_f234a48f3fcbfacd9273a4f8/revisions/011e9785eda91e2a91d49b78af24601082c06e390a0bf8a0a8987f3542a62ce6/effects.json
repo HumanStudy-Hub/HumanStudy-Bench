@@ -1,0 +1,932 @@
+{
+  "schemaVersion": 1,
+  "programId": "hoogeveen2020-laypeople-replicability",
+  "topics": [
+    "replicability",
+    "replication",
+    "metascience",
+    "forecasting",
+    "lay judgment",
+    "Bayes factor",
+    "prediction accuracy"
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "nodeId": "h1",
+      "status": "tested",
+      "backgroundIds": [
+        "n-bg"
+      ],
+      "phenomena": [
+        "predicting replicability",
+        "forecasting replication outcomes",
+        "lay intuition"
+      ]
+    },
+    {
+      "id": "h2",
+      "nodeId": "h2",
+      "status": "tested",
+      "backgroundIds": [
+        "n-bg"
+      ],
+      "phenomena": [
+        "predicting replicability",
+        "forecasting replication outcomes",
+        "confidence calibration"
+      ]
+    },
+    {
+      "id": "h3",
+      "nodeId": "h3",
+      "status": "tested",
+      "backgroundIds": [
+        "n-bg"
+      ],
+      "phenomena": [
+        "predicting replicability",
+        "forecasting replication outcomes",
+        "strength of evidence",
+        "Brier score"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "accuracy_desc",
+      "label": "Accuracy of replication predictions, description only (chance = .50)",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v-pred",
+        "type": "binary",
+        "scale": "correct / incorrect prediction of replication",
+        "higherMeans": "more replication outcomes predicted correctly",
+        "treatedAs": "per-participant accuracy rate (0-1), averaged over participants; 'did not understand' predictions dropped"
+      },
+      "contrast": {
+        "kind": "single_group",
+        "groups": [
+          "c-desc"
+        ],
+        "conditionIds": [
+          "c-desc"
+        ],
+        "valueMeans": "group accuracy rate in the description only condition; compared with chance (.50)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "accuracy above .50 (chance)",
+        "evidenceIds": [
+          "e-hyp",
+          "e-hyp2"
+        ]
+      },
+      "analysisIds": [
+        "a-acc"
+      ],
+      "resultIds": [
+        "res-acc",
+        "f1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "accuracy_desc",
+        "metric": "proportion"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "proportion",
+            "value": 0.59,
+            "ci": [
+              0.57,
+              0.6
+            ],
+            "ciLevel": 0.95,
+            "variant": "posterior median of the group-level accuracy rate (omega), Bayesian hierarchical model",
+            "evidenceIds": [
+              "e-acc2"
+            ]
+          }
+        ],
+        "cells": {
+          "c-desc": {
+            "n": 123,
+            "proportion": 0.59
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "BFr20 = 4.4 x 10^7 (Bayes factor for omega > .5 vs omega = .5)"
+        },
+        "missing": [
+          "frequentist test against .50",
+          "sd of individual accuracy rates",
+          "Bayes factor is printed only in exponent form, kept as text"
+        ],
+        "evidenceIds": [
+          "e-acc2",
+          "e-fx-accbf2",
+          "e-final"
+        ]
+      },
+      "notes": "The package's value is the mean of per-participant accuracy rates; the paper's omega is the posterior median of the group-level accuracy (mode of the Beta distribution). Both estimate the group accuracy rate, so they are compared as proportions."
+    },
+    {
+      "id": "accuracy_evid",
+      "label": "Accuracy of replication predictions, description plus evidence (chance = .50)",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v-pred",
+        "type": "binary",
+        "scale": "correct / incorrect prediction of replication",
+        "higherMeans": "more replication outcomes predicted correctly",
+        "treatedAs": "per-participant accuracy rate (0-1), averaged over participants; 'did not understand' predictions dropped"
+      },
+      "contrast": {
+        "kind": "single_group",
+        "groups": [
+          "c-evid"
+        ],
+        "conditionIds": [
+          "c-evid"
+        ],
+        "valueMeans": "group accuracy rate in the description plus evidence condition; compared with chance (.50)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "accuracy above .50 (chance)",
+        "evidenceIds": [
+          "e-hyp",
+          "e-hyp2"
+        ]
+      },
+      "analysisIds": [
+        "a-acc"
+      ],
+      "resultIds": [
+        "res-acc",
+        "f1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "accuracy_evid",
+        "metric": "proportion"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "proportion",
+            "value": 0.67,
+            "ci": [
+              0.65,
+              0.69
+            ],
+            "ciLevel": 0.95,
+            "variant": "posterior median of the group-level accuracy rate (omega), Bayesian hierarchical model",
+            "evidenceIds": [
+              "e-acc3"
+            ]
+          }
+        ],
+        "cells": {
+          "c-evid": {
+            "n": 110,
+            "proportion": 0.67
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "BFr30 = 5.6 x 10^22 (Bayes factor for omega > .5 vs omega = .5)"
+        },
+        "missing": [
+          "frequentist test against .50",
+          "sd of individual accuracy rates",
+          "Bayes factor is printed only in exponent form, kept as text"
+        ],
+        "evidenceIds": [
+          "e-acc3",
+          "e-fx-accbf3",
+          "e-final"
+        ]
+      },
+      "notes": "The package's value is the mean of per-participant accuracy rates; the paper's omega is the posterior median of the group-level accuracy (mode of the Beta distribution). Both estimate the group accuracy rate, so they are compared as proportions."
+    },
+    {
+      "id": "accuracy_evid_vs_desc",
+      "label": "Accuracy: description plus evidence minus description only",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v-pred",
+        "type": "binary",
+        "scale": "correct / incorrect prediction of replication",
+        "higherMeans": "more replication outcomes predicted correctly",
+        "treatedAs": "per-participant accuracy rate (0-1), averaged over participants; 'did not understand' predictions dropped"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "c-evid",
+        "reference": "c-desc",
+        "conditionIds": [
+          "c-evid",
+          "c-desc"
+        ],
+        "valueMeans": "accuracy rate with the Bayes factor minus accuracy rate without it"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "evidence information improves prediction",
+        "evidenceIds": [
+          "e-hyp3",
+          "e-hyp3b"
+        ]
+      },
+      "analysisIds": [
+        "a-acc"
+      ],
+      "resultIds": [
+        "res-acc",
+        "f1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "accuracy_evid_vs_desc",
+        "metric": "risk_difference"
+      },
+      "reported": {
+        "cells": {
+          "c-evid": {
+            "n": 110,
+            "proportion": 0.67
+          },
+          "c-desc": {
+            "n": 123,
+            "proportion": 0.59
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "no test of the accuracy difference; the paper notes the nonoverlapping 95% credible intervals [.57, .60] and [.65, .69]"
+        },
+        "missing": [
+          "a test or interval for the accuracy difference itself"
+        ],
+        "evidenceIds": [
+          "e-acc2",
+          "e-acc3",
+          "e-final"
+        ]
+      },
+      "notes": "Cells are the posterior medians of omega per condition; compared as the difference of proportions."
+    },
+    {
+      "id": "log_brier_evid_vs_desc",
+      "label": "Log Brier score: description plus evidence minus description only",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v-brier",
+        "type": "continuous",
+        "scale": "log of the individual Brier score",
+        "higherMeans": "worse probabilistic prediction (lower is better)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "c-evid",
+        "reference": "c-desc",
+        "conditionIds": [
+          "c-evid",
+          "c-desc"
+        ],
+        "valueMeans": "mean log Brier with the Bayes factor minus mean log Brier without it"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "lower Brier scores with the Bayes factor (H-: delta < 0)",
+        "evidenceIds": [
+          "e-hyp3",
+          "e-hyp3b",
+          "e-brier4"
+        ]
+      },
+      "analysisIds": [
+        "a-brier"
+      ],
+      "resultIds": [
+        "res-brier",
+        "f1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "log_brier_evid_vs_desc",
+        "metric": "mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": -0.96,
+            "ci": [
+              -1.23,
+              -0.68
+            ],
+            "ciLevel": 0.95,
+            "variant": "posterior median of effect size delta, Bayesian independent-samples t test (default prior), one-sided",
+            "evidenceIds": [
+              "e-brier6"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "pText": "BF-0 = 1.0 x 10^10 (Bayes factor for delta < 0 vs delta = 0)"
+        },
+        "n": null,
+        "missing": [
+          "mean and sd of log Brier per condition",
+          "unstandardized mean difference",
+          "t statistic",
+          "Bayes factor printed only in exponent form, kept as text"
+        ],
+        "evidenceIds": [
+          "e-brier6",
+          "e-fx-brierbf"
+        ]
+      },
+      "notes": "Not comparable by design: the package computes the raw mean difference in log Brier (and, in its method text, Cohen's d); the paper reports only the posterior median of the standardized delta and a Bayes factor."
+    },
+    {
+      "id": "confidence_vs_replication_es_desc",
+      "label": "Study-level mean confidence vs replication effect size, description only",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s1",
+      "design": "correlational",
+      "unit": "study (27 studies, confidence aggregated over participants)",
+      "outcome": {
+        "variableId": "v-conf",
+        "type": "continuous",
+        "scale": "confidence 0-100, signed by the yes/no prediction and averaged per study",
+        "higherMeans": "more confident the study replicates"
+      },
+      "contrast": {
+        "kind": "association",
+        "groups": [
+          "c-desc"
+        ],
+        "conditionIds": [
+          "c-desc"
+        ],
+        "valueMeans": "Spearman correlation across the 27 studies between mean confidence and the replication effect size (r)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "confidence correlates positively with replication effect size",
+        "evidenceIds": [
+          "e-hyp",
+          "e-hyp2"
+        ]
+      },
+      "analysisIds": [
+        "a-corr"
+      ],
+      "resultIds": [
+        "res-corr",
+        "f1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "confidence_vs_replication_es_desc",
+        "metric": "correlation"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "correlation",
+            "value": 0.61,
+            "ci": [
+              0.34,
+              0.77
+            ],
+            "ciLevel": 0.95,
+            "variant": "posterior median of Spearman rho, Bayesian Spearman correlation",
+            "evidenceIds": [
+              "e-corr3"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 523,
+            "variant": "BFr40, rho > 0 vs rho = 0",
+            "evidenceIds": [
+              "e-fx-corrbf"
+            ]
+          }
+        ],
+        "n": null,
+        "missing": [
+          "replication effect sizes per study (only in Fig. 7)",
+          "frequentist p value"
+        ],
+        "evidenceIds": [
+          "e-corr3",
+          "e-fx-corrbf"
+        ]
+      }
+    },
+    {
+      "id": "confidence_vs_replication_es_evid",
+      "label": "Study-level mean confidence vs replication effect size, description plus evidence",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s1",
+      "design": "correlational",
+      "unit": "study (27 studies, confidence aggregated over participants)",
+      "outcome": {
+        "variableId": "v-conf",
+        "type": "continuous",
+        "scale": "confidence 0-100, signed by the yes/no prediction and averaged per study",
+        "higherMeans": "more confident the study replicates"
+      },
+      "contrast": {
+        "kind": "association",
+        "groups": [
+          "c-evid"
+        ],
+        "conditionIds": [
+          "c-evid"
+        ],
+        "valueMeans": "Spearman correlation across the 27 studies between mean confidence and the replication effect size (r)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "confidence correlates positively with replication effect size",
+        "evidenceIds": [
+          "e-hyp",
+          "e-hyp2"
+        ]
+      },
+      "analysisIds": [
+        "a-corr"
+      ],
+      "resultIds": [
+        "res-corr",
+        "f1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "confidence_vs_replication_es_evid",
+        "metric": "correlation"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "correlation",
+            "value": 0.77,
+            "ci": [
+              0.57,
+              0.87
+            ],
+            "ciLevel": 0.95,
+            "variant": "posterior median of Spearman rho, Bayesian Spearman correlation",
+            "evidenceIds": [
+              "e-corr3"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 14295,
+            "variant": "BFr50, rho > 0 vs rho = 0",
+            "evidenceIds": [
+              "e-fx-corrbf"
+            ]
+          }
+        ],
+        "n": null,
+        "missing": [
+          "replication effect sizes per study (only in Fig. 7)",
+          "frequentist p value"
+        ],
+        "evidenceIds": [
+          "e-corr3",
+          "e-fx-corrbf"
+        ]
+      }
+    },
+    {
+      "id": "auc_desc",
+      "label": "Discriminability as AUC (equal-variance SDT), description only",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v-pred",
+        "type": "binary",
+        "scale": "yes/no prediction against replication outcome",
+        "higherMeans": "better discrimination of replicable from unreplicable studies (.50 = chance)",
+        "treatedAs": "AUC = Phi(d'/sqrt 2) from hit and false-alarm rates"
+      },
+      "contrast": {
+        "kind": "single_group",
+        "groups": [
+          "c-desc"
+        ],
+        "conditionIds": [
+          "c-desc"
+        ],
+        "valueMeans": "area under the ROC curve implied by d' in the description only condition"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "AUC above .50 (exploratory; no test)",
+        "evidenceIds": [
+          "e-sdt"
+        ]
+      },
+      "analysisIds": [
+        "a-sdt"
+      ],
+      "resultIds": [
+        "res-sdt"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "auc_desc",
+        "metric": "other"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "other",
+            "value": 0.62,
+            "ci": [
+              0.6,
+              0.65
+            ],
+            "ciLevel": 0.95,
+            "variant": "AUC, posterior median from the Bayesian hierarchical equal-variance SDT model",
+            "evidenceIds": [
+              "e-sdt3"
+            ]
+          }
+        ],
+        "missing": [
+          "d' and bias values (only in Fig. 8)",
+          "any test (the paper ran none)"
+        ],
+        "evidenceIds": [
+          "e-sdt3"
+        ]
+      },
+      "notes": "Package AUC is from pooled hit and false-alarm rates (log-linear corrected); the paper's from a hierarchical model. Same metric (AUC), compared directly."
+    },
+    {
+      "id": "auc_evid",
+      "label": "Discriminability as AUC (equal-variance SDT), description plus evidence",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v-pred",
+        "type": "binary",
+        "scale": "yes/no prediction against replication outcome",
+        "higherMeans": "better discrimination of replicable from unreplicable studies (.50 = chance)",
+        "treatedAs": "AUC = Phi(d'/sqrt 2) from hit and false-alarm rates"
+      },
+      "contrast": {
+        "kind": "single_group",
+        "groups": [
+          "c-evid"
+        ],
+        "conditionIds": [
+          "c-evid"
+        ],
+        "valueMeans": "area under the ROC curve implied by d' in the description plus evidence condition"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "AUC above .50 (exploratory; no test)",
+        "evidenceIds": [
+          "e-sdt"
+        ]
+      },
+      "analysisIds": [
+        "a-sdt"
+      ],
+      "resultIds": [
+        "res-sdt"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "auc_evid",
+        "metric": "other"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "other",
+            "value": 0.74,
+            "ci": [
+              0.72,
+              0.77
+            ],
+            "ciLevel": 0.95,
+            "variant": "AUC, posterior median from the Bayesian hierarchical equal-variance SDT model",
+            "evidenceIds": [
+              "e-sdt3"
+            ]
+          }
+        ],
+        "missing": [
+          "d' and bias values (only in Fig. 8)",
+          "any test (the paper ran none)"
+        ],
+        "evidenceIds": [
+          "e-sdt3"
+        ]
+      },
+      "notes": "Package AUC is from pooled hit and false-alarm rates (log-linear corrected); the paper's from a hierarchical model. Same metric (AUC), compared directly."
+    },
+    {
+      "id": "quality_check_accuracy",
+      "label": "Quality check: overall accuracy not below chance (both conditions)",
+      "role": "check",
+      "hypothesisIds": [],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v-pred",
+        "type": "binary",
+        "scale": "correct / incorrect prediction of replication",
+        "higherMeans": "more replication outcomes predicted correctly",
+        "treatedAs": "per-participant accuracy rate (0-1), averaged over participants; 'did not understand' predictions dropped"
+      },
+      "contrast": {
+        "kind": "single_group",
+        "groups": [
+          "c-desc",
+          "c-evid"
+        ],
+        "conditionIds": [
+          "c-desc",
+          "c-evid"
+        ],
+        "valueMeans": "overall accuracy rate over both conditions; data would be unusable if strongly below .50"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "not worse than chance",
+        "evidenceIds": [
+          "e-quality"
+        ]
+      },
+      "analysisIds": [
+        "a-quality"
+      ],
+      "resultIds": [
+        "res-quality"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "quality_check_accuracy",
+        "metric": "proportion"
+      },
+      "reported": null
+    },
+    {
+      "id": "original_bf_vs_replication_es",
+      "label": "Original-study log Bayes factor vs replication effect size (27 studies)",
+      "role": "check",
+      "hypothesisIds": [],
+      "studyId": "s2",
+      "design": "correlational",
+      "unit": "study",
+      "outcome": {
+        "variableId": "v-reff",
+        "type": "continuous",
+        "scale": "replication effect size r",
+        "higherMeans": "larger effect in the replication"
+      },
+      "contrast": {
+        "kind": "association",
+        "conditionIds": [],
+        "valueMeans": "Spearman correlation between log original Bayes factor and replication effect size"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Bayes factors carry information about replicability",
+        "evidenceIds": [
+          "e-bfcorr"
+        ]
+      },
+      "analysisIds": [
+        "a-bfcorr"
+      ],
+      "resultIds": [
+        "res-bfcorr"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "original_bf_vs_replication_es",
+        "metric": "correlation"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "correlation",
+            "value": 0.62,
+            "ci": [
+              0.33,
+              0.78
+            ],
+            "ciLevel": 0.95,
+            "variant": "posterior median of Spearman rho, Bayesian Spearman correlation",
+            "evidenceIds": [
+              "e-bfcorr2"
+            ]
+          },
+          {
+            "metric": "bayes_factor",
+            "value": 162,
+            "variant": "BF+0, rho > 0 vs rho = 0",
+            "evidenceIds": [
+              "e-fx-bfcorrbf"
+            ]
+          }
+        ],
+        "missing": [
+          "replication effect sizes per study (only in Fig. 4)"
+        ],
+        "evidenceIds": [
+          "e-bfcorr2",
+          "e-fx-bfcorrbf"
+        ]
+      }
+    },
+    {
+      "id": "expert_accuracy_ssrp",
+      "label": "Accuracy of expert forecasters in SSRP (published data)",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "s2",
+      "design": "other",
+      "unit": "forecaster",
+      "outcome": {
+        "variableId": "v-pred",
+        "type": "binary",
+        "scale": "correct / incorrect prediction",
+        "higherMeans": "more replication outcomes predicted correctly"
+      },
+      "contrast": {
+        "kind": "single_group",
+        "groups": [
+          "SSRP experts"
+        ],
+        "conditionIds": [],
+        "valueMeans": "group accuracy rate of the experts"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "benchmark for the laypeople (exploratory)",
+        "evidenceIds": [
+          "e-exp"
+        ]
+      },
+      "analysisIds": [
+        "a-experts"
+      ],
+      "resultIds": [
+        "res-experts"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "expert_accuracy_ssrp",
+        "metric": "proportion"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "proportion",
+            "value": 0.72,
+            "ci": [
+              0.69,
+              0.74
+            ],
+            "ciLevel": 0.95,
+            "variant": "posterior median accuracy, Bayesian hierarchical model on the expert predictions",
+            "evidenceIds": [
+              "e-exp2"
+            ]
+          }
+        ],
+        "missing": [
+          "number of experts and predictions"
+        ],
+        "evidenceIds": [
+          "e-exp2"
+        ]
+      }
+    },
+    {
+      "id": "expert_accuracy_ml2",
+      "label": "Accuracy of expert forecasters in ML2 (published data)",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "s2",
+      "design": "other",
+      "unit": "forecaster",
+      "outcome": {
+        "variableId": "v-pred",
+        "type": "binary",
+        "scale": "correct / incorrect prediction",
+        "higherMeans": "more replication outcomes predicted correctly"
+      },
+      "contrast": {
+        "kind": "single_group",
+        "groups": [
+          "ML2 experts"
+        ],
+        "conditionIds": [],
+        "valueMeans": "group accuracy rate of the experts"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "benchmark for the laypeople (exploratory)",
+        "evidenceIds": [
+          "e-exp"
+        ]
+      },
+      "analysisIds": [
+        "a-experts"
+      ],
+      "resultIds": [
+        "res-experts"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "expert_accuracy_ml2",
+        "metric": "proportion"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "proportion",
+            "value": 0.65,
+            "ci": [
+              0.62,
+              0.68
+            ],
+            "ciLevel": 0.95,
+            "variant": "posterior median accuracy, Bayesian hierarchical model on the expert predictions",
+            "evidenceIds": [
+              "e-exp2"
+            ]
+          }
+        ],
+        "missing": [
+          "number of experts and predictions"
+        ],
+        "evidenceIds": [
+          "e-exp2"
+        ]
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "c9215423147b702af3f2bbb1123a9cf86d2cc4ff8d2319c0d4d096e266185069",
-  "previousRevision": "9b143ac2432f71d91daa1ed677706e08d12702c009990751cdf57d759b3308ca",
+  "revision": "011e9785eda91e2a91d49b78af24601082c06e390a0bf8a0a8987f3542a62ce6",
+  "previousRevision": "c9215423147b702af3f2bbb1123a9cf86d2cc4ff8d2319c0d4d096e266185069",
   "paper": {
     "title": "Laypeople Can Predict Which Social-Science Studies Will Be Replicated Successfully",
     "authors": [
@@ -39,15 +39,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "c9215423147b702af3f2bbb1123a9cf86d2cc4ff8d2319c0d4d096e266185069",
+    "candidateRevision": "011e9785eda91e2a91d49b78af24601082c06e390a0bf8a0a8987f3542a62ce6",
     "reviewer": "maintainer:assassin808",
-    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
+    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
     "checks": [
-      "every URL in the key served the pinned sha256 (download and hash)",
-      "study_core.py reproduce on the pinned files: pass [4, 4], equal to the pilot comparison",
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "check_quotes.py: every quote on its cited page",
+      "program and evaluation changed by additions only",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [5, 5]",
       "capabilities.py --check",
+      "check_package.py",
       "agent export self-test",
-      "schema and package bindings (validate_assets)"
+      "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
       "discoverable": true,
@@ -73,6 +76,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "2030a72698419c6fbf52abcecf4477dd57141c76a9447a97de06fab4deb72130"
+    "programDigest": "9d7cce3c11b5ef65b86cf02eb2ac1fdde1807ab4125b91d34e5d50c3ed9d67c3"
   }
 }
