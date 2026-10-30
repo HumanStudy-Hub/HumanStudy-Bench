@@ -1,0 +1,103 @@
+{
+  "format": "humanstudy-agent-package/1",
+  "created": "2026-10-30T20:18:54Z",
+  "programId": "cheung2025moral",
+  "programSha256": "e506165d98d18d8f8afa2eed3c0034ca9615d6007128ad5a953330c1dbba3bd0",
+  "paperSha256": null,
+  "readiness": {
+    "status": "ready",
+    "blocking": [],
+    "scope": [
+      "s1 (moral dilemmas)",
+      "s2"
+    ],
+    "note": "No blocking issues. Study 3, Study 1 collective action problems and Study 4 are outside the replay scope; see audit."
+  },
+  "capabilities": {
+    "schemaVersion": 1,
+    "derivedFrom": {
+      "program": "e506165d98d18d8f8afa2eed3c0034ca9615d6007128ad5a953330c1dbba3bd0",
+      "package": "cheung2025moral"
+    },
+    "read": {
+      "status": "yes",
+      "reason": null
+    },
+    "run": {
+      "status": "partial",
+      "reason": "1 part(s) of the paper cannot be run; see excluded",
+      "modalities": [
+        "text"
+      ],
+      "excluded": [
+        {
+          "what": "studies 1-2",
+          "reason": "The paper's respondents include LLMs as well as people; the human-versus-LLM ANOVAs are not computed."
+        }
+      ]
+    },
+    "humanData": {
+      "status": "partial",
+      "coverage": [
+        "s2_omission",
+        "s2_original",
+        "s2_yes_no"
+      ],
+      "sessions": 474,
+      "source": "human-data/data_p.csv (Study 2 Qualtrics export merged with Prolific export, 501 rows; from the authors' OSF materials, https://osf.io/ybdr9). human-data/prompts_sacrificial.csv holds LLM prompts only (unused).",
+      "missing": [
+        {
+          "what": "s1_moral_sequential",
+          "reason": "Study 1 human data (N = 285, 13 sequential dilemmas) are not in human-data; data_p.csv is Study 2 only."
+        }
+      ],
+      "key": {
+        "sample": "original",
+        "repository": "https://osf.io/3kvjd/",
+        "license": null,
+        "dataFiles": 2,
+        "fetchable": 2
+      },
+      "reason": "source pinned in package/cheung2025moral/human/key.json (2 of 2 data files downloadable from it)"
+    },
+    "authorCode": {
+      "status": "no",
+      "route": null,
+      "reason": "no author-code key recorded"
+    },
+    "reproduced": {
+      "package": "pass",
+      "author": null,
+      "detail": "1 of 1 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+    },
+    "profiles": {
+      "status": "no",
+      "reason": "the runner does not sample participant profiles yet"
+    }
+  },
+  "skill": "cheung2025moral",
+  "mcpServer": "cheung2025moral/scripts/mcp_server.py",
+  "quoteCheck": {
+    "unchecked": 169
+  },
+  "files": {
+    "README.md": "8e2b110a147cfef54b196fa1ea865fa8b083a922831625993caaa25c2a981ddf",
+    "cheung2025moral/SKILL.md": "fdff6af9c177f40e1c6e0b37fb5cf1f405de9d14250318a9c9abd851518c8a37",
+    "cheung2025moral/references/accuracy.md": "10a8da5a58ad3cdf34019edf743fec16dc9222085fbfaf964e8491c5e35d2467",
+    "cheung2025moral/references/capabilities.md": "7fd77de92698612b88ab1af5865040fe226658f43306266259bb0105e7cd9d97",
+    "cheung2025moral/references/open-issues.md": "41b9843303ed6c8a44bf18d997e942ed3eb28c73e9e635af135ae161f550d0c3",
+    "cheung2025moral/references/paper.md": "26d5f113bc0704901751901f157ee74c901303a3c58559475e27971704838824",
+    "cheung2025moral/references/sources.md": "4b66932bd317763a91e8e7b98eecb8d5c47e5d7dfea50107aafa863254293968",
+    "cheung2025moral/references/study-s1.md": "34ff6d092d14ee8088076ca1c064b7805ff8390bb3abeec2edd8042691712584",
+    "cheung2025moral/references/study-s2.md": "a88ce931ac17babde26fa652e4b3bd20d5143d26a6aab19f91846dfff665c1f9",
+    "cheung2025moral/references/study-s3.md": "f9b52dda270fd0459eba7eba0794f9d216b9e3732eeff497cdf00ad86a74776a",
+    "cheung2025moral/references/study-s4.md": "2c28d527340d6182579db23c6bf524f6a652e87aae3e13853e063aeb3447aca9",
+    "cheung2025moral/scripts/mcp_server.py": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+    "cheung2025moral/scripts/study_core.py": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be"
+  },
+  "sharedWithRevision": [
+    "program.json",
+    "package/",
+    "capabilities.json"
+  ]
+}

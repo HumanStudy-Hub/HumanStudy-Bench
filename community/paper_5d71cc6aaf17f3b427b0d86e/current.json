@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "07911e7d3682f055b624893a29a56c433baa2c6421c3b46099040cbd015ca89a",
-  "previousRevision": "94622eccad3b3c5164bf55c11aac0172350e93ce39844c49c91ec8ef27209b04",
+  "revision": "26270c85c44772afa1a7ba02e4dc43623cb5c05177a6fd9adf873ff7d7172460",
+  "previousRevision": "07911e7d3682f055b624893a29a56c433baa2c6421c3b46099040cbd015ca89a",
   "paper": {
     "title": "Not unreasonable: Carving vague dimensions with contraries and contradictions",
     "authors": [
@@ -38,14 +38,14 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "07911e7d3682f055b624893a29a56c433baa2c6421c3b46099040cbd015ca89a",
+    "candidateRevision": "26270c85c44772afa1a7ba02e4dc43623cb5c05177a6fd9adf873ff7d7172460",
     "reviewer": "maintainer:assassin808",
-    "reason": "Study contract (humanstudy-desktop#45 milestone 1): slim package (study.json refers to program.json; the evidence and missing-information copies are dropped), capabilities.json derived from existing files, failure cases restating recorded gaps, and the agent skill re-exported with the capabilities tool and refusals. Research content is unchanged.",
+    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
     "checks": [
+      "every URL in the key served the pinned sha256 (download and hash)",
+      "study_core.py reproduce on the pinned files: None [0, 0], equal to the pilot comparison",
       "capabilities.py --check",
-      "check_package.py on the slim package (bindings, adapter smoke test)",
-      "agent export self-test (files and hashes, studies render, MCP tools respond)",
-      "study_core.py overview and capabilities from the community layout",
+      "agent export self-test",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

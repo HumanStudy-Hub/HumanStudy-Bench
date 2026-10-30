@@ -1,0 +1,121 @@
+{
+ "origin_note": "Messages are copied from program.json nodes (verbatim from the paper unless marked derived). Instruction text is an implementation rendering of the paper's prose description, not printed wording (issues iss_e1_instr, iss_e2_instr).",
+ "common": {
+  "reveal": "You click a button to reveal today's information about the price of hot dogs, and hence your potential profit for working together: it is {together}, ten cents more than the {alone} you would earn working alone.",
+  "decision": "Now decide whether to work alone or to try to work together with your partner. Reply with exactly one line: 'DECISION: WORK ALONE' or 'DECISION: WORK TOGETHER'.",
+  "explain": "Please explain how you made your decision.",
+  "silent_loudspeaker": "The loudspeaker is silent."
+ },
+ "studies": {
+  "exp1": {
+   "instructions": "Instructions. You will earn a minimum of 50 cents, which you can augment based on your decisions in your interaction with another participant on Mechanical Turk. One of you will play a butcher and the other a baker. You are the {role}; your partner is the {partner}. Each of you can either work alone for a sure profit (the butcher can make chicken wings, the baker dinner rolls) or attempt to work with the partner, the butcher making hot dogs, the baker the buns. By choosing to work together you can earn a profit, but only if your partner also chooses to work together; if either decides to collaborate but the partner does not, that person doesn't earn anything, because they cannot sell a bun without a hot dog or vice versa. You would earn a certain amount ({alone}) if you decide to work alone, but the hot dog price varies from day to day, and thus the earnings for working together might be more than or less than this sure profit. The information about hot dog earnings might be conveyed to you by a messenger boy (displayed on your screen in a private box that only you can see), or by a loudspeaker (displayed on your screen in a public box that the other participant can see on his or her screen as well).",
+   "messages": {
+    "primary": {
+     "private_box": "“The Messenger Boy has not seen the Butcher today, so he cannot tell you anything about what the Butcher knows.”",
+     "origin": "verbatim (Experiment 1 baker perspective)",
+     "programNode": "mat_prim"
+    },
+    "secondary": {
+     "private_box": "“The Messenger Boy says he stopped by the butcher shop before coming to your bakery. He tells you that the Butcher knows what today's hot dog price is. However, he says that he forgot to mention to the Butcher that he was coming to see you, so the Butcher is not aware that you know today's hot dog price.”",
+     "origin": "verbatim (Experiment 1 baker perspective)",
+     "programNode": "mat_sec"
+    },
+    "tertiary": {
+     "private_box": "“The Messenger Boy mentions that he is heading over to the butcher shop, and will let the Butcher know today's price as well. The Messenger Boy will also tell the Butcher that he just came from your bakery and told you the price. However, the Messenger Boy will not inform the Butcher that he told you he would be heading over there. So, while the Butcher is aware that you know today's price, he is not aware that you know that he knows that.”",
+     "origin": "verbatim (Experiment 1 baker perspective)",
+     "programNode": "mat_ter"
+    },
+    "common": {
+     "private_box": "“The messenger boy did not come by. Because the market price was broadcast on the loudspeaker, the Butcher knows [today’s price], and he knows that you know this information as well.”",
+     "public_box": "“The loudspeaker broadcast the market price of [today’s price] (of which you could earn [earnings for working together]).”",
+     "origin": "verbatim (Experiment 1 baker perspective)",
+     "programNode": "mat_ck"
+    }
+   },
+   "payoff_questions": "Please answer these questions about the task. Give a dollar amount for each.\n1. If you and the {partner} both chose to make hot dogs, then how much would you earn for the interaction?\n2. If you chose to make hot dogs but the {partner} did not, then how much would you earn for the interaction?\n3. If you chose not to make hot dogs, regardless of what the {partner} decided, then how much money would you earn for the interaction?\nReply as three lines in the form '1: $amount'.",
+   "knowledge_questions": "Please answer these questions about the task. For each, reply Yes, No, or Can't tell (it was not possible to tell). Question 1 is Yes or No.\n1. Do you know the price of hot dogs today?\n2. Does the {partner} know the price of hot dogs today?\n3. Does the {partner} know that you know the price of hot dogs today?\n4. Does the {partner} know that you know that he knows the price of hot dogs today?\nReply as four lines in the form '1: Yes'.",
+   "sources": {
+    "instructions": "reported (paraphrase of ev1_proc1-4)",
+    "questions": "sources/xvrb_z591_survey.pdf (replication survey wording; paper prints one example of each set)"
+   }
+  },
+  "exp2": {
+   "instructions": "Instructions. You will earn a minimum of 50 cents, which you can augment based on your decisions in your interaction with other participants on Mechanical Turk. You can work together with three other merchants to make superburgers, which require a burger, a bun, cheese, and toppings from, respectively, a butcher, a baker, a cheese maker, and a produce vender; one participant is assigned to each of these four roles. You are the baker. Each of you can also make a food item on your own for a sure profit. You receive a profit for contributing to superburgers only if all three of the other merchants make the same choice, and you receive nothing otherwise. You would earn a certain amount ({alone}) if you decide to work alone, but the superburger price varies from day to day, and thus the earnings for working together might be more than or less than this sure profit. The information about the price might be conveyed to you by a messenger boy (displayed on your screen in a private box that only you can see), or by a loudspeaker (displayed on your screen in a public box that the other merchants can see on their screens as well).",
+   "messages": {
+    "primary": {
+     "private_box": "“The Messenger Boy has not seen the other merchants today, so he cannot tell you anything about what the other merchants knows.”",
+     "origin": "derived: Experiment 1 text with 'the Butcher' replaced by 'the other merchants' as the paper states",
+     "programNode": "mat_prim_e2"
+    },
+    "secondary": {
+     "private_box": "“The Messenger Boy says he stopped by the other merchants' shops before coming to your bakery. He tells you that the other merchants knows what today's hot dog price is. However, he says that he forgot to mention to the other merchants that he was coming to see you, so the other merchants is not aware that you know today's hot dog price.”",
+     "origin": "derived: Experiment 1 text with 'the Butcher' replaced by 'the other merchants' as the paper states",
+     "programNode": "mat_sec_e2"
+    },
+    "tertiary": {
+     "private_box": "“The Messenger Boy mentions that he is heading over to the other merchants' shops, and will let the other merchants know today's price as well. The Messenger Boy will also tell the other merchants that he just came from your bakery and told you the price. However, the Messenger Boy will not inform the other merchants that he told you he would be heading over there. So, while the other merchants is aware that you know today's price, he is not aware that you know that he knows that.”",
+     "origin": "derived: Experiment 1 text with 'the Butcher' replaced by 'the other merchants' as the paper states",
+     "programNode": "mat_ter_e2"
+    },
+    "common": {
+     "private_box": "“The messenger boy did not come by. Because the market price was broadcast on the loudspeaker, the other merchants knows [today’s price], and he knows that you know this information as well.”",
+     "public_box": "“The loudspeaker broadcast the market price of [today’s price] (of which you could earn [earnings for working together]).”",
+     "origin": "derived: Experiment 1 text with 'the Butcher' replaced by 'the other merchants' as the paper states",
+     "programNode": "mat_ck_e2"
+    }
+   },
+   "payoff_questions": "Please answer these questions about the task. Give a dollar amount for each.\n1. If you and the other merchants both chose to make hot dogs, then how much would you earn for the interaction?\n2. If you chose to make hot dogs but the other merchants did not, then how much would you earn for the interaction?\n3. If you chose not to make hot dogs, regardless of what the other merchants decided, then how much money would you earn for the interaction?\nReply as three lines in the form '1: $amount'.",
+   "knowledge_questions": "Please answer these questions about the task. For each, reply Yes, No, or Can't tell (it was not possible to tell). Question 1 is Yes or No.\n1. Do you know the price today?\n2. Does the other merchants know the price today?\n3. Does the other merchants know that you know the price today?\n4. Does the other merchants know that you know that he knows the price today?\nReply as four lines in the form '1: Yes'.",
+   "sources": {
+    "instructions": "reported (paraphrase of ev2_des1-3)",
+    "questions": "as Experiment 1 with 'the other merchants'"
+   }
+  },
+  "exp3": {
+   "instructions": "Instructions. You will earn a minimum of 50 cents, which you can augment based on your decisions in your interaction with another participant on Mechanical Turk. One of you will play a butcher and the other a baker. You are the {role}; your partner is the {partner}. Each of you can either work alone for a sure profit (the butcher can make chicken wings, the baker dinner rolls) or attempt to work with the partner, the butcher making hot dogs, the baker the buns. By choosing to work together you can earn a profit, but only if your partner also chooses to work together; if either decides to collaborate but the partner does not, that person doesn't earn anything, because they cannot sell a bun without a hot dog or vice versa. You would earn a certain amount ({alone}) if you decide to work alone, but the hot dog price varies from day to day, and thus the earnings for working together might be more than or less than this sure profit. The information about hot dog earnings might be conveyed to you by a messenger boy (displayed on your screen in a private box that only you can see), or by a loudspeaker (displayed on your screen in a public box that the other participant can see on his or her screen as well).",
+   "messages": {
+    "primary": {
+     "private_box": "“The Messenger Boy has not seen the Butcher today, so he cannot tell you anything about what the Butcher knows.”",
+     "origin": "verbatim (Experiment 1 baker perspective)",
+     "programNode": "mat_prim"
+    },
+    "secondary": {
+     "private_box": "“The Messenger Boy says he stopped by the butcher shop before coming to your bakery. He tells you that the Butcher knows what today's hot dog price is. However, he says that he forgot to mention to the Butcher that he was coming to see you, so the Butcher is not aware that you know today's hot dog price.”",
+     "origin": "verbatim (Experiment 1 baker perspective)",
+     "programNode": "mat_sec"
+    },
+    "tertiary": {
+     "private_box": "“The Messenger Boy mentions that he is heading over to the butcher shop, and will let the Butcher know today's price as well. The Messenger Boy will also tell the Butcher that he just came from your bakery and told you the price. However, the Messenger Boy will not inform the Butcher that he told you he would be heading over there. So, while the Butcher is aware that you know today's price, he is not aware that you know that he knows that.”",
+     "origin": "verbatim (Experiment 1 baker perspective)",
+     "programNode": "mat_ter"
+    },
+    "common": {
+     "private_box": "“The messenger boy did not come by. Because the market price was broadcast on the loudspeaker, the Butcher knows [today’s price], and he knows that you know this information as well.”",
+     "public_box": "“The loudspeaker broadcast the market price of [today’s price] (of which you could earn [earnings for working together]).”",
+     "origin": "verbatim (Experiment 1 baker perspective)",
+     "programNode": "mat_ck"
+    }
+   },
+   "knowledge_questions": "Please answer these questions about the task. For each, reply Yes, No, or Can't tell (it was not possible to tell). Question 1 is Yes or No.\n1. Do you know the price of hot dogs today?\n2. Does the {partner} know the price of hot dogs today?\n3. Does the {partner} know that you know the price of hot dogs today?\n4. Does the {partner} know that you know that he knows the price of hot dogs today?\nReply as four lines in the form '1: Yes'.",
+   "similarity_questions": "Please answer these four questions about yourself.\n1. Do you prefer more intense kinds of music (e.g., rock or rap) or more mellow kinds of music (e.g., classical or jazz)?\n2. If you had to pick, would you say you are more liberal or more conservative?\n3. How old are you? (answers: \"I'm 35 years old or older\" / \"I'm younger than 35 years old\")\n4. When making decisions do you tend to rely more on intuition or more on reason?\nReply as four lines in the form '1: answer'.",
+   "similarity_told": {
+    "similar": "You will be matched with a partner who gave the same answers to three or more of these questions.",
+    "dissimilar": "You will be matched with a partner who gave the same answers to two or fewer of these questions."
+   },
+   "rating_prompt": "How similar do you perceive your partner to be to you, on a scale from 0% to 100%? Reply with a single number.",
+   "sources": {
+    "similarity_questions": "verbatim question text (ev3_q2-q5) with an implementation reply frame",
+    "similarity_told": "reported (ev3_sim2)",
+    "big_five": "not available: 50 items not printed (iss_e3_big5)"
+   }
+  }
+ },
+ "adaptations": [
+  "Butcher-perspective text is a mechanical Butcher/Baker swap (iss_e1_butcher).",
+  "Experiment 2 runs every participant with the baker-perspective text (iss_e2_roles).",
+  "The common-knowledge placeholders are both filled with the together-payoff (iss_e1_ckvals).",
+  "The silent loudspeaker and the payoff reveal wording are implementation wording (iss_e1_silent, iss_e1_price).",
+  "Demographics are not administered (items not printed, iss_e1_demo).",
+  "Experiment 3 Big Five is not administered (iss_e3_big5)."
+ ]
+}

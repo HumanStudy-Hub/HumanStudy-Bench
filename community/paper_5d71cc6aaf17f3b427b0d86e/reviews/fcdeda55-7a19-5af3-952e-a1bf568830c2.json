@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "fcdeda55-7a19-5af3-952e-a1bf568830c2",
+  "headCommit": null,
+  "paperKey": "title:Not unreasonable: Carving vague dimensions with contraries and contradictions",
+  "status": "accepted",
+  "revision": "26270c85c44772afa1a7ba02e4dc43623cb5c05177a6fd9adf873ff7d7172460",
+  "previousRevision": "07911e7d3682f055b624893a29a56c433baa2c6421c3b46099040cbd015ca89a",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "26270c85c44772afa1a7ba02e4dc43623cb5c05177a6fd9adf873ff7d7172460",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
+    "checks": [
+      "every URL in the key served the pinned sha256 (download and hash)",
+      "study_core.py reproduce on the pinned files: None [0, 0], equal to the pilot comparison",
+      "capabilities.py --check",
+      "agent export self-test",
+      "schema and package bindings (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

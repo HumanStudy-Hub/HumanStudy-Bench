@@ -1,0 +1,63 @@
+{
+  "package": "pennycook2020",
+  "humanSessions": 1709,
+  "agentN": 10,
+  "participantCommand": "claude -p --model haiku --strict-mcp-config --setting-sources \"\" --tools \"\" --system-prompt \"You are taking part in a study. Answer as asked.\"",
+  "mode": "parallel",
+  "minutes": 0.6,
+  "humanMatchesPaper": [
+    3,
+    3
+  ],
+  "agentAgrees": [
+    2,
+    4
+  ],
+  "effects": [
+    {
+      "id": "study1_veracity_x_condition",
+      "label": "Study 1: sharing reduces sensitivity to veracity (-beta of veracity x condition, z-scored yes/no)",
+      "reported": null,
+      "human": 0.5204,
+      "human_p": 0.0,
+      "agent": 0.607,
+      "agent_p": 0.032233,
+      "humanMatchesPaper": null,
+      "agentAgrees": true
+    },
+    {
+      "id": "study2_veracity_x_treatment",
+      "label": "Study 2: accuracy prompt increases sharing discernment (beta of veracity x treatment, 0-1 scale)",
+      "reported": 0.039,
+      "human": 0.0359,
+      "human_p": 0.000199,
+      "agent": 0.016,
+      "agent_p": 0.762511,
+      "humanMatchesPaper": true,
+      "agentAgrees": false
+    },
+    {
+      "id": "study2_discernment_ratio",
+      "label": "Study 2: treatment/control sharing discernment ratio",
+      "reported": 2.8,
+      "human": 2.913,
+      "human_p": null,
+      "agent": 1.279,
+      "agent_p": null,
+      "humanMatchesPaper": true,
+      "agentAgrees": true
+    },
+    {
+      "id": "items_accuracy_vs_treatment_effect",
+      "label": "Item level: Study 1 accuracy rating vs Study 2 treatment effect (r)",
+      "reported": 0.76,
+      "human": 0.757,
+      "human_p": 1e-06,
+      "agent": 0.2692,
+      "agent_p": 0.150313,
+      "humanMatchesPaper": true,
+      "agentAgrees": false
+    }
+  ],
+  "note": "Agent results are a simulation; agreement with people is measured, not assumed."
+}

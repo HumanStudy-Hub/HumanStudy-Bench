@@ -8,7 +8,8 @@ Every value is derived from files that already exist; nothing is guessed:
 - read          program.json passes check_program.py
 - run           the replay package, its readiness and the program's blocking issues; `excluded`
                 entries are the build agent's own (kept from the previous capabilities.json)
-- humanData     package/<slug>/human/ and artifacts/replay/human-check.json (arms covered, not mapped)
+- humanData     package/<slug>/human/ (loader and key.json: source, sample, pinned files) and
+                artifacts/replay/human-check.json (arms covered, not mapped)
 - authorCode    package/<slug>/analysis/author.json (the author-code key, HumanStudy-Bench#34)
 - reproduced    artifacts/replay/replay-compare.json `humanMatchesPaper` (package analysis on human data
                 vs the paper's reported results)
@@ -111,15 +112,24 @@ def build(root, previous=None):
     # human data
     check = _json(root / "artifacts/replay/human-check.json")
     has_loader = bool(package and any((package / "human").glob("*.py")))
+    hkey = _json(package / "human/key.json") if package else None
+    key = None
+    if isinstance(hkey, dict):
+        data = [f for f in hkey.get("files", []) if f.get("role", "data") == "data"]
+        key = {"sample": hkey.get("sample"), "repository": (hkey.get("repository") or {}).get("url"),
+               "license": (hkey.get("repository") or {}).get("license"), "dataFiles": len(data),
+               "fetchable": sum(1 for f in data if f.get("url"))}
+    where = ("source pinned in package/%s/human/key.json (%d of %d data files downloadable from it)"
+             % (package.name, key["fetchable"], key["dataFiles"]) if key else
+             "loader in package/%s/human/; no source key yet" % package.name) if package else None
     if check and has_loader:
         missing = [_gap(x) for x in check.get("notMapped") or []]
         caps["humanData"] = {"status": "partial" if missing else "yes",
                              "coverage": check.get("arms") or [], "sessions": check.get("sessions"),
                              "source": _human_source(package),
-                             "missing": missing, "key": None,
-                             "reason": "loader in package/%s/human/; source key not pinned yet (#45 milestone 2)" % package.name}
+                             "missing": missing, "key": key, "reason": where}
     elif has_loader:
-        caps["humanData"] = {"status": "unknown", "coverage": [], "missing": [], "key": None,
+        caps["humanData"] = {"status": "unknown", "coverage": [], "missing": [], "key": key,
                              "reason": "a human-data loader exists but has not been checked (no artifacts/replay/human-check.json)"}
     else:
         caps["humanData"] = {"status": "no", "coverage": [], "missing": [], "key": None,

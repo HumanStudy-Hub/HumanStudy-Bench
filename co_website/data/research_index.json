@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "taxonomyVersion": "2026-10-21.1",
-  "snapshot": "a9e2a83e5703227e4f000be5945b4a7570c4f41062030b10c51367d23440fc64",
+  "snapshot": "1578a4567cc60497229ff21f56e80e731220687338b8405d4c4fd86feb762fcd",
   "sourceVersions": {
     "psych201": "c63dea18897393b706227b50024b27fa8d8907d8",
     "reanalysis": "dde239c32eb837e4cb2f406c1fa2ec3b2b47fd84"
@@ -2215,7 +2215,7 @@
       ],
       "year": 2016,
       "description": "3 studies: Experiment 1: comprehension in reference games; Experiment 2: production in reference games; Individual-level hierarchical modelling and Bayesian model comparison",
-      "currentRevision": "5171e8b03bb1468af1c9859d18146a541ea1353cd44f70ff691cc63d1094c7a1",
+      "currentRevision": "fa397828485bae841bb778c036730995c6da775a5eb2a02c9e744c36c6dc086c",
       "conceptIds": [],
       "conceptAssignments": [],
       "capabilities": {
@@ -2734,22 +2734,22 @@
           "fieldId": "computation"
         }
       ],
-      "assetRoot": "community/paper_1eddb9f7cdf8297d98e9dc8b/revisions/5171e8b03bb1468af1c9859d18146a541ea1353cd44f70ff691cc63d1094c7a1",
+      "assetRoot": "community/paper_1eddb9f7cdf8297d98e9dc8b/revisions/fa397828485bae841bb778c036730995c6da775a5eb2a02c9e744c36c6dc086c",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "2de9fc0cbd066e5ea0d8fccd23fccf30ac5eff769266ce9a40d178ecc8223dba",
-          "bytes": 3771
+          "sha256": "b1f1284cf3d2bcbdd84cbdb7b82cc1b89b313ff08cde570fded7efea1743ea56",
+          "bytes": 3966
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "35ae7a951be4aae6046958818384003ab0420f01956d305cfc85567ca78055b8",
-          "bytes": 2133
+          "sha256": "e510e6d546d35a2d73c923700d2d09b14cd2151123d74ad882739faf5485a880",
+          "bytes": 2226
         },
         {
           "path": "artifacts/agent/frankedegen2016/SKILL.md",
-          "sha256": "0d201bfc449d4ecd6275040e7c9b21727bf2f976f8dfb2c924134b20100e3bda",
-          "bytes": 3751
+          "sha256": "55bf50757a7cf55015f79e42688dc9e3c0995b134dbd21f8e41489e21c38b3a1",
+          "bytes": 4198
         },
         {
           "path": "artifacts/agent/frankedegen2016/references/accuracy.md",
@@ -2758,8 +2758,8 @@
         },
         {
           "path": "artifacts/agent/frankedegen2016/references/capabilities.md",
-          "sha256": "b4cb4321b25a0a08bac2d6342218f3c9cf2fc2e1a6b160d629a4cae58cd01f8a",
-          "bytes": 1565
+          "sha256": "cd5bfa10e7a90aeba2c191eeecea32c76d34a63cc254983eca4b3e6cb51393b4",
+          "bytes": 1576
         },
         {
           "path": "artifacts/agent/frankedegen2016/references/open-issues.md",
@@ -2793,13 +2793,13 @@
         },
         {
           "path": "artifacts/agent/frankedegen2016/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/frankedegen2016/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -2823,8 +2823,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "1ecd56a3738195121faa3b95595aba83e3fabbab9d4a5f6dae3e360641e8ca4c",
-          "bytes": 1640
+          "sha256": "b57b41b3218b388193b2368621400c72e236da963c8b42eac5909ce59e9b95ee",
+          "bytes": 1823
         },
         {
           "path": "package/frankedegen2016/evaluation/evaluation.py",
@@ -2835,6 +2835,11 @@
           "path": "package/frankedegen2016/human/human_sessions.py",
           "sha256": "f90b401db81f52561e13a1c69b5d954526143e1bb402a9a35cf965d238a1fabe",
           "bytes": 3911
+        },
+        {
+          "path": "package/frankedegen2016/human/key.json",
+          "sha256": "3b3428d4c872cd33a0f8d9a61e39de15768ccb8a0542880bac6146e41c292ad2",
+          "bytes": 1223
         },
         {
           "path": "package/frankedegen2016/materials/materials.json",
@@ -2908,8 +2913,14 @@
               "reason": "No separate Experiment 1 (comprehension) file: exp_s007.csv and exp_s008.csv are identical and match Experiment 2's production proportions; the data has no objects/messages/choice index either."
             }
           ],
-          "key": null,
-          "reason": "loader in package/frankedegen2016/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "original",
+            "repository": "https://doi.org/10.1371/journal.pone.0154854",
+            "license": "CC-BY-4.0",
+            "dataFiles": 2,
+            "fetchable": 2
+          },
+          "reason": "source pinned in package/frankedegen2016/human/key.json (2 of 2 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",
@@ -3750,7 +3761,7 @@
       ],
       "year": 2014,
       "description": "Three online between-subjects experiments on whether people treat common knowledge as distinct from shared and primary knowledge when deciding to risk coordination in a Stag Hunt.",
-      "currentRevision": "b1fdc34c709421d2bff1c77a453b30e2dc6ac2151728b84bf77e0c8aa2b00aa2",
+      "currentRevision": "bfcbd8b3ba4cbf034d75ef2dd6fa5edd3a01ddbbd0c5c3c2a5be626a39213f9b",
       "conceptIds": [],
       "conceptAssignments": [],
       "capabilities": {
@@ -4684,22 +4695,22 @@
           "fieldId": "design"
         }
       ],
-      "assetRoot": "community/paper_28d927cc50d8a4547655e2c9/revisions/b1fdc34c709421d2bff1c77a453b30e2dc6ac2151728b84bf77e0c8aa2b00aa2",
+      "assetRoot": "community/paper_28d927cc50d8a4547655e2c9/revisions/bfcbd8b3ba4cbf034d75ef2dd6fa5edd3a01ddbbd0c5c3c2a5be626a39213f9b",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "1021e61a35d2d6272f419700a62ee7c4e559691bce424da1dfc947f8d2f1d46f",
-          "bytes": 4353
+          "sha256": "276990b2fd79d64a0b3e887bd9866373856a9303a3d44b2c1805cfbc54f356c1",
+          "bytes": 4521
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "6f1da193cbda12b09a3b6ac1c64e425c4cc84a43fcb48287751fef2b38da80c9",
-          "bytes": 2371
+          "sha256": "85726c1d440741790ab38d7006f922821c3c7c1ac01efdc31f47d08ede19f85f",
+          "bytes": 2464
         },
         {
           "path": "artifacts/agent/thomas2014-common-knowledge/SKILL.md",
-          "sha256": "b1f7fd658952c45e48fad0dbe6862a2e7bffd086906c12ac03743480496abc72",
-          "bytes": 4204
+          "sha256": "68bcc440565e0d670f6e875864877943aaac2e48addf2041958bbffb5851c5f2",
+          "bytes": 4651
         },
         {
           "path": "artifacts/agent/thomas2014-common-knowledge/references/accuracy.md",
@@ -4708,8 +4719,8 @@
         },
         {
           "path": "artifacts/agent/thomas2014-common-knowledge/references/capabilities.md",
-          "sha256": "646667c6c078d32323232b3bf37737973888c1b88974e512185c728d7d0092cd",
-          "bytes": 1583
+          "sha256": "3b24386715733d66c255365c13d92b6fb42adaa8db026d55e080b5c5a58db554",
+          "bytes": 1594
         },
         {
           "path": "artifacts/agent/thomas2014-common-knowledge/references/open-issues.md",
@@ -4743,13 +4754,13 @@
         },
         {
           "path": "artifacts/agent/thomas2014-common-knowledge/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/thomas2014-common-knowledge/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -4773,8 +4784,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "0f9e731167631edcfcf670e27918c85ddaa4b20a205dca6a59556a703903ca0e",
-          "bytes": 1957
+          "sha256": "f808e1309d2b7b05d46f294e4a24a7983689bb5040bff3a7a2cf69797c6dd63f",
+          "bytes": 2113
         },
         {
           "path": "package/thomas2014/evaluation/evaluation.py",
@@ -4785,6 +4796,11 @@
           "path": "package/thomas2014/human/human_sessions.py",
           "sha256": "bb3b46e64fb43155eaea06b960294a05a488a2e8c14642377775879a1beaaf68",
           "bytes": 5220
+        },
+        {
+          "path": "package/thomas2014/human/key.json",
+          "sha256": "aa8164e3e15b3613fe0b2c06f9655e3566029875564c55cb0d2661bc90547ed1",
+          "bytes": 1282
         },
         {
           "path": "package/thomas2014/materials/materials.json",
@@ -4864,8 +4880,14 @@
               "reason": "not in the data (no similarity or Big Five columns)"
             }
           ],
-          "key": null,
-          "reason": "loader in package/thomas2014/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "replication",
+            "repository": "https://osf.io/xnh2r/",
+            "license": null,
+            "dataFiles": 2,
+            "fetchable": 2
+          },
+          "reason": "source pinned in package/thomas2014/human/key.json (2 of 2 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",
@@ -8581,7 +8603,7 @@
       ],
       "year": 2018,
       "description": "Tests whether listeners' uncertainty about the meaning of negation markers (un-, not) predicts how morphological antonyms (unhappy), negated positives (not happy), negated antonyms (not unhappy) and positives (happy) are ordered on a scale, depending on whether the adjectives are heard alone or together in one context.",
-      "currentRevision": "07911e7d3682f055b624893a29a56c433baa2c6421c3b46099040cbd015ca89a",
+      "currentRevision": "26270c85c44772afa1a7ba02e4dc43623cb5c05177a6fd9adf873ff7d7172460",
       "conceptIds": [],
       "conceptAssignments": [],
       "capabilities": {
@@ -9125,22 +9147,22 @@
           "fieldId": "eligibility"
         }
       ],
-      "assetRoot": "community/paper_5d71cc6aaf17f3b427b0d86e/revisions/07911e7d3682f055b624893a29a56c433baa2c6421c3b46099040cbd015ca89a",
+      "assetRoot": "community/paper_5d71cc6aaf17f3b427b0d86e/revisions/26270c85c44772afa1a7ba02e4dc43623cb5c05177a6fd9adf873ff7d7172460",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "5da5b6a5965a3b2f1be307d04783431801d115a3f4a19012533ace1395875521",
-          "bytes": 3183
+          "sha256": "4f406c8aaddf6315d96a666715d830c5dea0e6dd9d98eaf1e71dc49470439c9f",
+          "bytes": 3359
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "1ef7cbb6f1e6c35ae4e8ad11dd6b427f2d63eddaea984803b893dc36f69d5012",
-          "bytes": 2164
+          "sha256": "351fe1f6ac714b617242a4df46839ef2087959819f24945ddef430ec7c237eaf",
+          "bytes": 2257
         },
         {
           "path": "artifacts/agent/tesslerfranke2018/SKILL.md",
-          "sha256": "453ab9cdc9db76d1338f37305a7ff197178ddb879a3226ab14e529f56a1c2a80",
-          "bytes": 3580
+          "sha256": "c200810e272974c2174dbac45c7cf359f85a163793070846352c75ea4c06a581",
+          "bytes": 4027
         },
         {
           "path": "artifacts/agent/tesslerfranke2018/references/accuracy.md",
@@ -9149,8 +9171,8 @@
         },
         {
           "path": "artifacts/agent/tesslerfranke2018/references/capabilities.md",
-          "sha256": "9a07c87e4165d0e127b2d9beba3ae2fba01f8985891cca56ee48ec64dfbbce3b",
-          "bytes": 1030
+          "sha256": "50ed4c2f15b8fd76cbbfed78d0238d8a59956e929e2f00b57e1af188dd89f162",
+          "bytes": 1041
         },
         {
           "path": "artifacts/agent/tesslerfranke2018/references/open-issues.md",
@@ -9179,13 +9201,13 @@
         },
         {
           "path": "artifacts/agent/tesslerfranke2018/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/tesslerfranke2018/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -9209,8 +9231,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "d0d0cd609f493d05acc37ea8c9954bcb73cc93272aa57375759e868d2d598b4e",
-          "bytes": 1301
+          "sha256": "cdc7b8326ced3d928dedbb52aa0770dc0a27fa0f89aa344a523aa9ae05dfcaa1",
+          "bytes": 1465
         },
         {
           "path": "package/tesslerfranke2018/evaluation/evaluation.py",
@@ -9221,6 +9243,11 @@
           "path": "package/tesslerfranke2018/human/human_sessions.py",
           "sha256": "5151160000cea07a8dd4a1c642065562c4459e3ac270a7177c325ef9291246a5",
           "bytes": 6624
+        },
+        {
+          "path": "package/tesslerfranke2018/human/key.json",
+          "sha256": "09a368842878040c5bf05d3e0f39fc134a9cc31ea7694b87bd84247108685563",
+          "bytes": 1926
         },
         {
           "path": "package/tesslerfranke2018/materials/materials.json",
@@ -9288,8 +9315,14 @@
           "sessions": 826,
           "source": "Tessler & Franke (2018) public data, human-data/data/: expt1-trials.csv, expt1-subject_information.csv, expt2-trials.csv, expt2-subject_information.csv (MTurk participants; ratings on a 0-1 slider, rescaled to 0-100).",
           "missing": [],
-          "key": null,
-          "reason": "loader in package/tesslerfranke2018/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "original",
+            "repository": "https://github.com/mhtess/negant",
+            "license": null,
+            "dataFiles": 4,
+            "fetchable": 4
+          },
+          "reason": "source pinned in package/tesslerfranke2018/human/key.json (4 of 4 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",
@@ -9960,7 +9993,7 @@
       ],
       "year": 2022,
       "description": "Tests whether asymmetric belief updating (greater updating when the base rate exceeds vs. falls short of the initial estimate) appears with neutral life events, where optimism cannot explain it. Reports a significant asymmetry in all three studies and unstable results across samples and analytic techniques.",
-      "currentRevision": "cb760f02049086157fac2777018e68775afc31c7bf92e768720489af8456bc34",
+      "currentRevision": "f69d62375b9f61ffc66b7bee18556df82201a2f1e6e7748c98a5bc06dfa97104",
       "conceptIds": [],
       "conceptAssignments": [],
       "capabilities": {
@@ -10557,22 +10590,22 @@
           "fieldId": "coding"
         }
       ],
-      "assetRoot": "community/paper_658baaac05396303bb5fcba2/revisions/cb760f02049086157fac2777018e68775afc31c7bf92e768720489af8456bc34",
+      "assetRoot": "community/paper_658baaac05396303bb5fcba2/revisions/f69d62375b9f61ffc66b7bee18556df82201a2f1e6e7748c98a5bc06dfa97104",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "9f18ac2019d92c76bea22aa263bbefe4d6d22def1a60d4dd18de76fcdd34d600",
-          "bytes": 3917
+          "sha256": "af72f77bf6978db2c092fdba8d7cda5ae0c70a7729d8f62eee82857e298cf5dd",
+          "bytes": 4082
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "859d90a02506b2ecf533f322d9ff88bed74e6df89c165dfa3e283c9e60bfa08e",
-          "bytes": 2169
+          "sha256": "80bf7ce71884d939e2e57ba3208366899be45f8b52973c7490399076097fc82d",
+          "bytes": 2262
         },
         {
           "path": "artifacts/agent/burton2022-optimism-neutral/SKILL.md",
-          "sha256": "320d12b6ff1e7ed4bb0e649a58fcf4042a1c49de323fe8f11c8d9ad4edbbdaa5",
-          "bytes": 3863
+          "sha256": "c93e6486a1f726cb3459ccc5e659cdd28888e2046056031e3c9f971fc238d478",
+          "bytes": 4310
         },
         {
           "path": "artifacts/agent/burton2022-optimism-neutral/references/accuracy.md",
@@ -10581,8 +10614,8 @@
         },
         {
           "path": "artifacts/agent/burton2022-optimism-neutral/references/capabilities.md",
-          "sha256": "b9ecba5b5df3b1db65ac2c70c6c5417c30d60af72328a27d522b69d0a68205a1",
-          "bytes": 1543
+          "sha256": "44079bbb9fafd4c42622410cb81cf6e8877287f83135e5780e06ea97b8aae6f2",
+          "bytes": 1554
         },
         {
           "path": "artifacts/agent/burton2022-optimism-neutral/references/open-issues.md",
@@ -10621,13 +10654,13 @@
         },
         {
           "path": "artifacts/agent/burton2022-optimism-neutral/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/burton2022-optimism-neutral/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -10641,8 +10674,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "e11336d156e3669df24e5513f879da3f487c7ce09c3c4dc5758ecf37fc92b3fa",
-          "bytes": 1602
+          "sha256": "f82b2297e6a2333049ad7ef6cdb5724abbe0e20b4ae5a8a2772786181d6473e7",
+          "bytes": 1755
         },
         {
           "path": "package/burton2022-optimism-neutral/evaluation/evaluation.py",
@@ -10653,6 +10686,11 @@
           "path": "package/burton2022-optimism-neutral/human/human_sessions.py",
           "sha256": "1c5fa0f7f923464a6d346497a28aed5d7e5e0d51da11863cd8e587480882b654",
           "bytes": 5530
+        },
+        {
+          "path": "package/burton2022-optimism-neutral/human/key.json",
+          "sha256": "045d55fa82315b570e4c1f91b047eea821fcf27b7a4477f6789099e8097d4c05",
+          "bytes": 1320
         },
         {
           "path": "package/burton2022-optimism-neutral/materials/materials.json",
@@ -10726,8 +10764,14 @@
               "reason": "The data files do not record whether E1 or eBR was asked first, so the two order arms cannot be separated. Each participant is loaded once per study with arm = condition = the study id ('study1', 'study2', 'study3')."
             }
           ],
-          "key": null,
-          "reason": "loader in package/burton2022-optimism-neutral/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "original",
+            "repository": "https://osf.io/8q74m/",
+            "license": null,
+            "dataFiles": 3,
+            "fetchable": 3
+          },
+          "reason": "source pinned in package/burton2022-optimism-neutral/human/key.json (3 of 3 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",
@@ -13343,23 +13387,23 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "3a2b1df56cc6cdec1510441418db7c98006ed699fa6175729344d92ac709a253",
-      "assetRoot": "community/paper_81c754afe54e5a0bf67b41ab/revisions/3a2b1df56cc6cdec1510441418db7c98006ed699fa6175729344d92ac709a253",
+      "currentRevision": "6db15e6ab6f53c4f7ab3fcead059f9e7218bf65e5276cb917ca1540115dcd3ed",
+      "assetRoot": "community/paper_81c754afe54e5a0bf67b41ab/revisions/6db15e6ab6f53c4f7ab3fcead059f9e7218bf65e5276cb917ca1540115dcd3ed",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "abdff6670749744406ea4c1ab131ba610d89c48a7cc158526f463b2abc0c4f96",
-          "bytes": 4028
+          "sha256": "35d212909529e9b7f2c135808e977366ad8294aed5766451f23f8fda5199610e",
+          "bytes": 4200
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "9572d48f3bd467e67a84c56e60547ee690994530e3c919cdf7df070f5dce4261",
-          "bytes": 2466
+          "sha256": "17a8bf6d8524aba3c2f1a7d0d5a6cf45573e6c7d92321f4bf82a4f6d236455de",
+          "bytes": 2559
         },
         {
           "path": "artifacts/agent/pennycook2020-covid-accuracy-nudge/SKILL.md",
-          "sha256": "f9eb53fd8f330c9d9c839b3644d25e17c1e959cf6b85edc7d64c5cb5bba73201",
-          "bytes": 3962
+          "sha256": "469e6c600fec5d80ae7907438b958be9e25e370864a71f787fd66f5416f95feb",
+          "bytes": 4409
         },
         {
           "path": "artifacts/agent/pennycook2020-covid-accuracy-nudge/references/accuracy.md",
@@ -13368,8 +13412,8 @@
         },
         {
           "path": "artifacts/agent/pennycook2020-covid-accuracy-nudge/references/capabilities.md",
-          "sha256": "a17bb1c4803133c498fbe32fe2aa87067f19defdea8029fcda18ec4104f2b9b3",
-          "bytes": 738
+          "sha256": "e7bf44862ddf846ddef3b54031e9177e069c5882ca08558a08aa452f7854aa4d",
+          "bytes": 749
         },
         {
           "path": "artifacts/agent/pennycook2020-covid-accuracy-nudge/references/open-issues.md",
@@ -13403,13 +13447,13 @@
         },
         {
           "path": "artifacts/agent/pennycook2020-covid-accuracy-nudge/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/pennycook2020-covid-accuracy-nudge/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -13433,8 +13477,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "52329946f98c9fe35073c133ac821a0ca721528d7bfd15685da22a7575a9a66d",
-          "bytes": 1482
+          "sha256": "24be9a024c83e88eb05e43cc7aac41cb2c5eea059171058108cd648a7b592bde",
+          "bytes": 1642
         },
         {
           "path": "package/pennycook2020/evaluation/evaluation.py",
@@ -13445,6 +13489,11 @@
           "path": "package/pennycook2020/human/human_sessions.py",
           "sha256": "62a1a1bcd459b202a7f96af5f7ec3f310ca153e0901ea307c20b67089d933aaa",
           "bytes": 7082
+        },
+        {
+          "path": "package/pennycook2020/human/key.json",
+          "sha256": "ede074cf31214146096638c0d6a4d11218a2ae975b838ebca5c28db85d973973",
+          "bytes": 1238
         },
         {
           "path": "package/pennycook2020/materials/materials.json",
@@ -13519,8 +13568,14 @@
           "sessions": 1709,
           "source": "human-data/study1.csv (853 participants) and human-data/study2.csv (856 participants), the authors' public data files for Pennycook, McPhetres, Zhang, Lu & Rand (2020), 'Fighting COVID-19 misinformation on social media', Psychological Science; human-data/study2_materials.docx is the Study 2 Qualtrics survey export used as codebook.",
           "missing": [],
-          "key": null,
-          "reason": "loader in package/pennycook2020/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "original",
+            "repository": "https://osf.io/7d3xh/",
+            "license": "CC-BY-4.0",
+            "dataFiles": 3,
+            "fetchable": 3
+          },
+          "reason": "source pinned in package/pennycook2020/human/key.json (3 of 3 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",
@@ -17126,23 +17181,23 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "870e2af658a20bd198561e23d058284925190cc237f27ab6fb8fdf1d9876b8d8",
-      "assetRoot": "community/paper_ac6ce7d3611fcd6f35348b67/revisions/870e2af658a20bd198561e23d058284925190cc237f27ab6fb8fdf1d9876b8d8",
+      "currentRevision": "907f4b2260fc86d224634b6776eb6aba19bf6f4d481d4e849fece021c75f4aa3",
+      "assetRoot": "community/paper_ac6ce7d3611fcd6f35348b67/revisions/907f4b2260fc86d224634b6776eb6aba19bf6f4d481d4e849fece021c75f4aa3",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "ac5637822350e545a83832066e4449a883f99bbb0eca3c3845e3643543561fd7",
-          "bytes": 3329
+          "sha256": "428e5bce047d94872803a1190f555ec9143617d963702736a1a197a69d9c509c",
+          "bytes": 3504
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "588d302cee07f8e0125ab3814f9dc435891412bd0eaf3a6d43878e1dd224a9bb",
-          "bytes": 2066
+          "sha256": "6fb59a99ccaa926e0f4b24c51403992375fb7628e94d322bda4987e4b0fd1722",
+          "bytes": 2159
         },
         {
           "path": "artifacts/agent/kreis2025hindsight/SKILL.md",
-          "sha256": "432d743902cd963f6cde9d523968f9c225f8a5d97580e91f0d3038fe0c256fd1",
-          "bytes": 3409
+          "sha256": "2c14595e310505cbbd6efe74eeab9f273d4397a2f84b3a156c9f993ad65ef77c",
+          "bytes": 3856
         },
         {
           "path": "artifacts/agent/kreis2025hindsight/references/accuracy.md",
@@ -17151,8 +17206,8 @@
         },
         {
           "path": "artifacts/agent/kreis2025hindsight/references/capabilities.md",
-          "sha256": "9d0e9baf129c443861b1cf49688e6b12ce4b61bd99002062c2e79000bec80848",
-          "bytes": 934
+          "sha256": "f263f2e7cb1c465ac79c0944a662f8a4d277e21187d0dd97c638abd0ac95b847",
+          "bytes": 945
         },
         {
           "path": "artifacts/agent/kreis2025hindsight/references/open-issues.md",
@@ -17176,13 +17231,13 @@
         },
         {
           "path": "artifacts/agent/kreis2025hindsight/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/kreis2025hindsight/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -17196,8 +17251,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "57a7f12e949720a1497adb13fab35ef0ba983eecbc40451d1a3d7881b0ef013e",
-          "bytes": 1331
+          "sha256": "8c053a6f0f19306c32a10caab7ae36ecaf753119feb503a9ea44d2055c450abc",
+          "bytes": 1494
         },
         {
           "path": "package/kreis2025hindsight/evaluation/evaluation.py",
@@ -17208,6 +17263,11 @@
           "path": "package/kreis2025hindsight/human/human_sessions.py",
           "sha256": "884aac9cc45b17dead275ca4a7157d4617be62a51f9117d46a7ce325a780b31d",
           "bytes": 7246
+        },
+        {
+          "path": "package/kreis2025hindsight/human/key.json",
+          "sha256": "c6c2e964012fb6e48fcbbc6f4052d0ff50bfee7b0ed6468ac8386de303bce7d4",
+          "bytes": 1153
         },
         {
           "path": "package/kreis2025hindsight/materials/materials.json",
@@ -17285,8 +17345,14 @@
           "sessions": 300,
           "source": "human-data/data/HBKU_Rep_Sugar_after_exclusion_all.csv (OSF materials of Kreis et al., 2025; 'Dataset 2' in description.txt: after participant exclusions, still containing perfectly accurate judgments (CJ) and perfect reproductions (CR)). Variable meanings: human-data/data/description.txt.",
           "missing": [],
-          "key": null,
-          "reason": "loader in package/kreis2025hindsight/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "original",
+            "repository": "https://osf.io/hr5bv/",
+            "license": "CC-BY-SA-4.0",
+            "dataFiles": 2,
+            "fetchable": 2
+          },
+          "reason": "source pinned in package/kreis2025hindsight/human/key.json (2 of 2 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",
@@ -18369,23 +18435,23 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "982ab4b8455e9909300726e8565ed8435b803733067c2a429ab5a15b78354841",
-      "assetRoot": "community/paper_ada6bd8be27b29f96023606f/revisions/982ab4b8455e9909300726e8565ed8435b803733067c2a429ab5a15b78354841",
+      "currentRevision": "cf3501ea1ea92710db4f22df2b9a02f95f426b18007e3a7593f99ffa9033dc97",
+      "assetRoot": "community/paper_ada6bd8be27b29f96023606f/revisions/cf3501ea1ea92710db4f22df2b9a02f95f426b18007e3a7593f99ffa9033dc97",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "b97d468190b9bb2f510768be0d9698b52bef152518a53f02b66c34caff9376fc",
-          "bytes": 5812
+          "sha256": "a48bea09a3d0b7dc4f0c7cf89282946341017c0195805896b60c499747837a0e",
+          "bytes": 5982
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "c9e5ad6fa6fb3b5bbe7e3d096e4d7cb3b05db9e485d8b58ff62f36f34a34216b",
-          "bytes": 1972
+          "sha256": "797ff90b07f608b459818490515d4f262a711ebd41f5bbf8207bb031bc36e7ff",
+          "bytes": 2065
         },
         {
           "path": "artifacts/agent/manylabs2/SKILL.md",
-          "sha256": "f379c6d29b00ade2ac7fd972fe5e56da752299149944daf5c1a60378d8b6064c",
-          "bytes": 4359
+          "sha256": "779af705787546670961f2a54ecadb54f2668a5d0676fbd66f4b8fc02d92b82d",
+          "bytes": 4806
         },
         {
           "path": "artifacts/agent/manylabs2/references/accuracy.md",
@@ -18394,8 +18460,8 @@
         },
         {
           "path": "artifacts/agent/manylabs2/references/capabilities.md",
-          "sha256": "6125a55887f3192ce7ebf0925ba3aa776f23b3ed207677ad8e24ad5e624578f3",
-          "bytes": 3197
+          "sha256": "bcd6e3d48837597a42366879f449214f46abbbb9c3d99c306e38964731a2080c",
+          "bytes": 3208
         },
         {
           "path": "artifacts/agent/manylabs2/references/open-issues.md",
@@ -18429,13 +18495,13 @@
         },
         {
           "path": "artifacts/agent/manylabs2/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/manylabs2/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -18459,8 +18525,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "2967099bf7c9567a294d841eef454ef9f48389bf0846118ff4b559f952f3f4aa",
-          "bytes": 3572
+          "sha256": "d092c83b7297e366e3ce7ff7c68eeb55a2b591d453d14fafcca88ee9d1eb1060",
+          "bytes": 3730
         },
         {
           "path": "package/manylabs2/evaluation/evaluation.py",
@@ -18471,6 +18537,11 @@
           "path": "package/manylabs2/human/human_sessions.py",
           "sha256": "0b1cc0a42a03a2a2194e69b61bf1a308b68804dfbf9562b5bc190306db65d43d",
           "bytes": 15661
+        },
+        {
+          "path": "package/manylabs2/human/key.json",
+          "sha256": "cafe522b89d3ddad97cbc1ca472d7ef80fdce802ee8de377d32dc534a5985e7d",
+          "bytes": 1180
         },
         {
           "path": "package/manylabs2/materials/materials.json",
@@ -18748,8 +18819,14 @@
               "reason": "evaluation marks it not_ready (country prominence list); not mapped"
             }
           ],
-          "key": null,
-          "reason": "loader in package/manylabs2/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "original",
+            "repository": "https://osf.io/8cd4r/",
+            "license": "CC0-1.0",
+            "dataFiles": 3,
+            "fetchable": 3
+          },
+          "reason": "source pinned in package/manylabs2/human/key.json (3 of 3 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",
@@ -19815,23 +19892,23 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "27a99293845cd0b5e8111eb78bacb0e5df8188d98d673e7bb9efd59efcdc1f92",
-      "assetRoot": "community/paper_bc29ffa80c6477a6f6bd95ee/revisions/27a99293845cd0b5e8111eb78bacb0e5df8188d98d673e7bb9efd59efcdc1f92",
+      "currentRevision": "b00bdc44c9a58e67ec835d4fcb01850083e0aea2109a1d95878bd3a54243af88",
+      "assetRoot": "community/paper_bc29ffa80c6477a6f6bd95ee/revisions/b00bdc44c9a58e67ec835d4fcb01850083e0aea2109a1d95878bd3a54243af88",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "7c6921a8650e2925071cba0bd473cffb3045d359d77277fbfd0aa1046d5f924d",
-          "bytes": 3538
+          "sha256": "8d3c12e1230619e0499ea9ecbafdeaabdccfa471e714be89817c7e3f3359ca09",
+          "bytes": 3730
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "6d6649eeee14b3c5b3a1c067f91753e9a7893b4c25bd3faf9a2e94c37c0d93ef",
-          "bytes": 2425
+          "sha256": "f8f7e15d1a00a6a50f93c71c45e887376062a4214a1b2f33356d27a8c478d041",
+          "bytes": 2518
         },
         {
           "path": "artifacts/agent/ml5-risen-gilovich-2008-study6/SKILL.md",
-          "sha256": "3d1f8fdac54385a4883f76962e2a7f34627e228cce584349f3bfed2d7f556dc5",
-          "bytes": 3766
+          "sha256": "e0c57f038adee57c576260201da69f70f7cd0c65cad3ff05d7185916836a0b6f",
+          "bytes": 4213
         },
         {
           "path": "artifacts/agent/ml5-risen-gilovich-2008-study6/references/accuracy.md",
@@ -19840,8 +19917,8 @@
         },
         {
           "path": "artifacts/agent/ml5-risen-gilovich-2008-study6/references/capabilities.md",
-          "sha256": "55074c9ff2153116e2ae39ae7827fbe0916f8e29717769368d20879e824f1989",
-          "bytes": 748
+          "sha256": "4d6769f316b1c00c9b3cf85c102b0444940b56878dafdd9a3fdbe2bee73450cd",
+          "bytes": 759
         },
         {
           "path": "artifacts/agent/ml5-risen-gilovich-2008-study6/references/open-issues.md",
@@ -19870,13 +19947,13 @@
         },
         {
           "path": "artifacts/agent/ml5-risen-gilovich-2008-study6/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/ml5-risen-gilovich-2008-study6/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -19900,8 +19977,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "cdc91e3a87ce5bd37f9b64769ae7d8d3e48bbec80cbc5da12c732bb2c6c997ab",
-          "bytes": 1302
+          "sha256": "91bf8f63aa82dababc56160a2d9f31a784859556efdd30b67845a62499d653e3",
+          "bytes": 1482
         },
         {
           "path": "package/ml5-risen-gilovich-2008/evaluation/evaluation.py",
@@ -19912,6 +19989,11 @@
           "path": "package/ml5-risen-gilovich-2008/human/human_sessions.py",
           "sha256": "d9cf061ada4a3250f4dd2d1d212fda1acb644ea1a91684c9f93258aaf90a920b",
           "bytes": 4193
+        },
+        {
+          "path": "package/ml5-risen-gilovich-2008/human/key.json",
+          "sha256": "6d6b043cbfbcf6651d6c6970a49bb52218a870434d85efb677979e4ff3ad6104",
+          "bytes": 1119
         },
         {
           "path": "package/ml5-risen-gilovich-2008/materials/materials.json",
@@ -19986,8 +20068,14 @@
           "sessions": 754,
           "source": "human-data/full_prepped_dataset.csv: the Many Labs 5 (Ebersole et al., 2020) prepared dataset for the Risen & Gilovich tempting-fate replication; one row per participant, all sites.",
           "missing": [],
-          "key": null,
-          "reason": "loader in package/ml5-risen-gilovich-2008/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "original",
+            "repository": "https://github.com/mayamathur/ML5_Risen_Gilovich",
+            "license": null,
+            "dataFiles": 1,
+            "fetchable": 1
+          },
+          "reason": "source pinned in package/ml5-risen-gilovich-2008/human/key.json (1 of 1 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",
@@ -21759,23 +21847,23 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "e34cfbf7e45c39a6f9971b5bf3a24ba90a9c1c886c4441572dc67dda9f9d2206",
-      "assetRoot": "community/paper_cdab28122805d7b5a0dcbd1c/revisions/e34cfbf7e45c39a6f9971b5bf3a24ba90a9c1c886c4441572dc67dda9f9d2206",
+      "currentRevision": "b03a0f558b23e76b85ead9023e26e7a33ca44cfffdd7114f1f0efc76f8c4e57a",
+      "assetRoot": "community/paper_cdab28122805d7b5a0dcbd1c/revisions/b03a0f558b23e76b85ead9023e26e7a33ca44cfffdd7114f1f0efc76f8c4e57a",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "5cbbf304de15f3e1c13c5d1a8eaefeaf2ebb827197ed164dcc14be00fa86246d",
-          "bytes": 5627
+          "sha256": "63035f00e55860d8fcf3666916d38e9bb5dfd1fc4aaafbb82b058dd8d71f8c71",
+          "bytes": 5797
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "23cf2bbd8e339155edf27325c3c6d9bcf08566776470715afef289ecdd3d3fce",
-          "bytes": 2157
+          "sha256": "bfe216f9e16fcaf6338e56943e82cf81e87b254ff8e4e77c33e25ab0d1950a86",
+          "bytes": 2250
         },
         {
           "path": "artifacts/agent/manylabs1/SKILL.md",
-          "sha256": "b5fc40cb28470fadd87b9440034a0e73858955cda4eca0281bdd7e8372ae8fd0",
-          "bytes": 4889
+          "sha256": "1860e96238e3a41fc0e4503f4898442381f08522bab72ee13cfae1ec1c51557a",
+          "bytes": 5336
         },
         {
           "path": "artifacts/agent/manylabs1/references/accuracy.md",
@@ -21784,8 +21872,8 @@
         },
         {
           "path": "artifacts/agent/manylabs1/references/capabilities.md",
-          "sha256": "9d49d3560f39471df2891ce51c34ee1b62a156757ac61248c73c4fd69643b7ea",
-          "bytes": 1790
+          "sha256": "a158cd713da5d60029a0d0fdbcf14bb46551601be67d038f6b2429f487ede9dd",
+          "bytes": 1801
         },
         {
           "path": "artifacts/agent/manylabs1/references/open-issues.md",
@@ -21869,13 +21957,13 @@
         },
         {
           "path": "artifacts/agent/manylabs1/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/manylabs1/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -21899,8 +21987,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "c963befcab40b2f38cc20ae38d913c9db48ea47901f9e7c7ce71083afd24b93c",
-          "bytes": 2403
+          "sha256": "140ed342d73030fbe37aba5a721655426eda52a51ca87aa79aa4cea09d530717",
+          "bytes": 2561
         },
         {
           "path": "package/manylabs1/evaluation/evaluation.py",
@@ -21911,6 +21999,11 @@
           "path": "package/manylabs1/human/human_sessions.py",
           "sha256": "37ac083597a97880fc5428b4a3cdb35d63dbb3ffa4f024b58e79b6261f032431",
           "bytes": 11850
+        },
+        {
+          "path": "package/manylabs1/human/key.json",
+          "sha256": "ac47a7ef56b036713544dddaf45ed2bbf350d9ab8cbd85a445c32bcc8d7875da",
+          "bytes": 1806
         },
         {
           "path": "package/manylabs1/materials/materials.json",
@@ -22017,8 +22110,14 @@
               "reason": "The anchor was randomised per question (anch1group..anch4group differ within a participant) but a session holds one condition; those participants are left out (see EXCLUSIONS)."
             }
           ],
-          "key": null,
-          "reason": "loader in package/manylabs1/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "original",
+            "repository": "https://osf.io/wx7ck/",
+            "license": "CC0-1.0",
+            "dataFiles": 3,
+            "fetchable": 3
+          },
+          "reason": "source pinned in package/manylabs1/human/key.json (3 of 3 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",
@@ -24230,23 +24329,23 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "0744f99400d9d97ca9b13f3df220c7c5506d2dd91f6c1532daaa73d35835e306",
-      "assetRoot": "community/paper_df58653c96dd465802a99bc2/revisions/0744f99400d9d97ca9b13f3df220c7c5506d2dd91f6c1532daaa73d35835e306",
+      "currentRevision": "0caa7de620e4d065d3587f8164c8d850666cbfc9bfd9423f1d8d3a8f41e17278",
+      "assetRoot": "community/paper_df58653c96dd465802a99bc2/revisions/0caa7de620e4d065d3587f8164c8d850666cbfc9bfd9423f1d8d3a8f41e17278",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "8e9a576e38edfe23ba37a02ba0622e1a2684e8337bccd893a302422fb041e48f",
-          "bytes": 4029
+          "sha256": "07af7dcb177e48e8f45c0015618334c58675ddf3183927a08c29fd5089b38ba3",
+          "bytes": 4194
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "f0643bb99655d3138e44ab2535fbe32d30a0615d1abadd369dded05e5a113ba1",
-          "bytes": 2113
+          "sha256": "6cab2026f32fc42124a06d45c1ddaaefa3e372c9e4caf9be0e530f3e4f760d7c",
+          "bytes": 2206
         },
         {
           "path": "artifacts/agent/cheung2025moral/SKILL.md",
-          "sha256": "c067841a38c5d3fe3a95b41f01248d584382a22fcbd815d517aef6f0b00e28b2",
-          "bytes": 4108
+          "sha256": "fdff6af9c177f40e1c6e0b37fb5cf1f405de9d14250318a9c9abd851518c8a37",
+          "bytes": 4555
         },
         {
           "path": "artifacts/agent/cheung2025moral/references/accuracy.md",
@@ -24255,8 +24354,8 @@
         },
         {
           "path": "artifacts/agent/cheung2025moral/references/capabilities.md",
-          "sha256": "0b6faaf80b5aec4af39232a470fe4ca5ab0b4d28ed5c5a1331e6dbe3d0ee20ad",
-          "bytes": 1656
+          "sha256": "7fd77de92698612b88ab1af5865040fe226658f43306266259bb0105e7cd9d97",
+          "bytes": 1667
         },
         {
           "path": "artifacts/agent/cheung2025moral/references/open-issues.md",
@@ -24295,13 +24394,13 @@
         },
         {
           "path": "artifacts/agent/cheung2025moral/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/cheung2025moral/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -24325,8 +24424,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "a8a00a6634e448c243d2f9b22446f3a13ebb84520daa73db5630d8e5a323af96",
-          "bytes": 1738
+          "sha256": "0d7a088d113c9e375749b7dc89ac0527b8ea506d8337455514dadbfd2759c02c",
+          "bytes": 1891
         },
         {
           "path": "package/cheung2025moral/evaluation/evaluation.py",
@@ -24337,6 +24436,11 @@
           "path": "package/cheung2025moral/human/human_sessions.py",
           "sha256": "6a80a82cdc91e530b685783476ce631f891daa85ab1fe09b52d4c309e53c9b86",
           "bytes": 4354
+        },
+        {
+          "path": "package/cheung2025moral/human/key.json",
+          "sha256": "f0b156cd2ecb49772957f5aa8c172b7cf9a4ca129cc6d87e25a5677748ba0d4b",
+          "bytes": 1466
         },
         {
           "path": "package/cheung2025moral/materials/materials.json",
@@ -24420,8 +24524,14 @@
               "reason": "Study 1 human data (N = 285, 13 sequential dilemmas) are not in human-data; data_p.csv is Study 2 only."
             }
           ],
-          "key": null,
-          "reason": "loader in package/cheung2025moral/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "original",
+            "repository": "https://osf.io/3kvjd/",
+            "license": null,
+            "dataFiles": 2,
+            "fetchable": 2
+          },
+          "reason": "source pinned in package/cheung2025moral/human/key.json (2 of 2 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",
@@ -24712,7 +24822,7 @@
       ],
       "year": 2015,
       "description": "Four-condition, block-randomized online survey experiment (YouGov, Oct 13-16, 2012): dispatches about a fictional senator's resignation; control, innuendo, denial, causal correction; outcomes favorability, belief in bribery, belief in an investigation.",
-      "currentRevision": "61dfda7b16f98d4f19db8ab627fb94da34c64daa62ca01fee0d7e352ede968cb",
+      "currentRevision": "8cf10e59772e8b9672f0ac1d80078d7bda0c911a50db2c75e39351dad8e79582",
       "conceptIds": [],
       "conceptAssignments": [],
       "capabilities": {
@@ -25083,22 +25193,22 @@
           "nodeId": "m-q-fav"
         }
       ],
-      "assetRoot": "community/paper_e1ccbfdc1d4fa86aab187f80/revisions/61dfda7b16f98d4f19db8ab627fb94da34c64daa62ca01fee0d7e352ede968cb",
+      "assetRoot": "community/paper_e1ccbfdc1d4fa86aab187f80/revisions/8cf10e59772e8b9672f0ac1d80078d7bda0c911a50db2c75e39351dad8e79582",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "2cf32afe3ba56aacbc03744fcf78588c3ec78a857458fdfaffe909fc9ec74465",
-          "bytes": 3429
+          "sha256": "ff60b1fa2de20774fd823cb9eb5e81855d9ed9b1ef10b9007dae945beaf0864f",
+          "bytes": 3594
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "26d74e3f0724a9f9e06e035fbbac5f648b5660307c5824098b4bf43da4896d4d",
-          "bytes": 2275
+          "sha256": "bf651f02275444643437dfd3aff28e5411220eb56046e471aec391bebdc37ab2",
+          "bytes": 2368
         },
         {
           "path": "artifacts/agent/nyhan2015-causal-corrections/SKILL.md",
-          "sha256": "cfa9f9197552e972e581c9a1e89e0651ca5a6aec7d0b176418bdaa6f870955d1",
-          "bytes": 3481
+          "sha256": "8daccebf842a395214cfe712a9bf4c5cdf24164718b4ae67a2e3cfc21dfd07f7",
+          "bytes": 3928
         },
         {
           "path": "artifacts/agent/nyhan2015-causal-corrections/references/accuracy.md",
@@ -25107,8 +25217,8 @@
         },
         {
           "path": "artifacts/agent/nyhan2015-causal-corrections/references/capabilities.md",
-          "sha256": "268832a3d33baea00a15e295275538c6eb4ced259a3a59488c74a6722e5ade62",
-          "bytes": 734
+          "sha256": "1509a0de5834f2d6cff06b8c8d719d087b8a8758a05800e0424c74c6f6d1d506",
+          "bytes": 745
         },
         {
           "path": "artifacts/agent/nyhan2015-causal-corrections/references/open-issues.md",
@@ -25132,13 +25242,13 @@
         },
         {
           "path": "artifacts/agent/nyhan2015-causal-corrections/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/nyhan2015-causal-corrections/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -25162,8 +25272,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "5621a468beeb7464e91f44874943ff36d78445758d48e4eab8f95e40387db7e9",
-          "bytes": 1371
+          "sha256": "f6876651b818e8abfb1d3709b77d29d0d524f6408ea94334ddde2e43fffabcde",
+          "bytes": 1524
         },
         {
           "path": "package/nyhan2015/evaluation/evaluation.py",
@@ -25174,6 +25284,11 @@
           "path": "package/nyhan2015/human/human_sessions.py",
           "sha256": "ca86c634d3a91c21f8ca820b65551f516ab777cafbd940c05f55f9ce5afef885",
           "bytes": 4962
+        },
+        {
+          "path": "package/nyhan2015/human/key.json",
+          "sha256": "95e14ccd1c6327a46ed4d1be28cc063b08b6dbcc844f11db2277c49e6963b157",
+          "bytes": 1702
         },
         {
           "path": "package/nyhan2015/materials/materials.json",
@@ -25240,8 +25355,14 @@
           "sessions": 1000,
           "source": "human-data/causal-replication.csv: the authors' replication data for the CCAP 2012 YouGov panel (Nyhan_JournExpPoliSci_2015_DEqr; for-cos.do, from Brendan Nyhan, received 7/13/19, also on his website as nyhan-reifler-jeps.zip). One row per respondent, 1000 rows.",
           "missing": [],
-          "key": null,
-          "reason": "loader in package/nyhan2015/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "original",
+            "repository": "https://osf.io/afnxe/",
+            "license": null,
+            "dataFiles": 2,
+            "fetchable": 1
+          },
+          "reason": "source pinned in package/nyhan2015/human/key.json (1 of 2 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",
@@ -26836,23 +26957,23 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "9b143ac2432f71d91daa1ed677706e08d12702c009990751cdf57d759b3308ca",
-      "assetRoot": "community/paper_f234a48f3fcbfacd9273a4f8/revisions/9b143ac2432f71d91daa1ed677706e08d12702c009990751cdf57d759b3308ca",
+      "currentRevision": "c9215423147b702af3f2bbb1123a9cf86d2cc4ff8d2319c0d4d096e266185069",
+      "assetRoot": "community/paper_f234a48f3fcbfacd9273a4f8/revisions/c9215423147b702af3f2bbb1123a9cf86d2cc4ff8d2319c0d4d096e266185069",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "2675e9ae91d2e6cb0b66b48e860533fbfe4908a3cfc08719244005c62c0db5e0",
-          "bytes": 3624
+          "sha256": "bfb3a9281e5745d15d51693e5234c03a1db52ec5e01db8208f02d23c74e4a4e5",
+          "bytes": 3796
         },
         {
           "path": "artifacts/agent/README.md",
-          "sha256": "23af2de665c992adf93e7e8b85c12b76cadbe619895a92e65bf91e987ec5059e",
-          "bytes": 2439
+          "sha256": "c47870c2ec84b7a12da28408973b2c50f3b165273ca30555b6d605a8533a5bac",
+          "bytes": 2532
         },
         {
           "path": "artifacts/agent/hoogeveen2020-laypeople-replicability/SKILL.md",
-          "sha256": "0f39271dfbc73ce3aa20cc8c5025d8168202c103454f19e896d8e27f35d5c497",
-          "bytes": 3716
+          "sha256": "e4d9bc9ac565c9dfd5d6b88d3e8b42e960cb2589ceb80b95f38594572d963724",
+          "bytes": 4163
         },
         {
           "path": "artifacts/agent/hoogeveen2020-laypeople-replicability/references/accuracy.md",
@@ -26861,8 +26982,8 @@
         },
         {
           "path": "artifacts/agent/hoogeveen2020-laypeople-replicability/references/capabilities.md",
-          "sha256": "caa5a0487ee488585a4528616e407297abfa758385d724898a9a267cbeb4f288",
-          "bytes": 1065
+          "sha256": "4bbecaca69befaebaa2dffbd884595ab995d6e9a5873802507f4d3ebf2dec6f7",
+          "bytes": 1076
         },
         {
           "path": "artifacts/agent/hoogeveen2020-laypeople-replicability/references/open-issues.md",
@@ -26891,13 +27012,13 @@
         },
         {
           "path": "artifacts/agent/hoogeveen2020-laypeople-replicability/scripts/mcp_server.py",
-          "sha256": "30de4e59b601599d4bae1c7d3f16540c3bd3cdba839bf324c39b6e86ce50b249",
-          "bytes": 10580
+          "sha256": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+          "bytes": 11450
         },
         {
           "path": "artifacts/agent/hoogeveen2020-laypeople-replicability/scripts/study_core.py",
-          "sha256": "48c7647b74db6cf035787555f0a0c85b888e6d8c48287a0817d7c109bec83730",
-          "bytes": 30059
+          "sha256": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be",
+          "bytes": 41118
         },
         {
           "path": "artifacts/failures.json",
@@ -26921,8 +27042,8 @@
         },
         {
           "path": "capabilities.json",
-          "sha256": "9b15a1097e9686c6b9486d0ca0ed316a207f509e766a3b11cdb6460086a350da",
-          "bytes": 1341
+          "sha256": "3c88e708f62552b088f66e590f4f565f255e3e29edf229dcadd4c2af7ad51f16",
+          "bytes": 1501
         },
         {
           "path": "package/hoogeveen2020/evaluation/evaluation.py",
@@ -26933,6 +27054,11 @@
           "path": "package/hoogeveen2020/human/human_sessions.py",
           "sha256": "e2b3574c30dac526feedd285a6f455ca5d6f7a8117ef282faa0b5c68710c70f8",
           "bytes": 6070
+        },
+        {
+          "path": "package/hoogeveen2020/human/key.json",
+          "sha256": "a4cd0fc280cd39eee72a0b8d6c95629067bf8f0215b6617b0587875a4dce62ac",
+          "bytes": 1529
         },
         {
           "path": "package/hoogeveen2020/materials/materials.json",
@@ -27005,8 +27131,14 @@
           "sessions": 233,
           "source": "Data_MTurk_AN.csv, Data_Social_Media_AN.csv, Data_UvA_Lab_AN.csv (Qualtrics exports, one row per respondent) and DescriptionAndStatisticsPerStudy.csv (study numbers/IDs), the authors' OSF data release for the paper, in human-data/.",
           "missing": [],
-          "key": null,
-          "reason": "loader in package/hoogeveen2020/human/; source key not pinned yet (#45 milestone 2)"
+          "key": {
+            "sample": "original",
+            "repository": "https://osf.io/wg9s3/",
+            "license": "CC-BY-4.0",
+            "dataFiles": 4,
+            "fetchable": 4
+          },
+          "reason": "source pinned in package/hoogeveen2020/human/key.json (4 of 4 data files downloadable from it)"
         },
         "authorCode": {
           "status": "no",

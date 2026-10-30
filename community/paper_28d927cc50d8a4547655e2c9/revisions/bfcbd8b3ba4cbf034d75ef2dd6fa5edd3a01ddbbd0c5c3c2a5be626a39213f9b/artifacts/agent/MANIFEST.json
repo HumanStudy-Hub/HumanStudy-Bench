@@ -1,0 +1,102 @@
+{
+  "format": "humanstudy-agent-package/1",
+  "created": "2026-10-30T20:18:44Z",
+  "programId": "thomas2014-common-knowledge",
+  "programSha256": "f7cda7baa0a919867cf41258d168b725dbaa50eb47e099d1293bae5d3f5cbb92",
+  "paperSha256": null,
+  "readiness": {
+    "status": "ready",
+    "blocking": [],
+    "notes": "No blocking issue. Decision issues remain: instruction wording is not printed, Experiment 3's Big Five items are missing (personality analyses return not_ready), and butcher/other-role wording is a mechanical swap."
+  },
+  "capabilities": {
+    "schemaVersion": 1,
+    "derivedFrom": {
+      "program": "f7cda7baa0a919867cf41258d168b725dbaa50eb47e099d1293bae5d3f5cbb92",
+      "package": "thomas2014"
+    },
+    "read": {
+      "status": "yes",
+      "reason": null
+    },
+    "run": {
+      "status": "yes",
+      "reason": null,
+      "modalities": [
+        "text"
+      ],
+      "excluded": []
+    },
+    "humanData": {
+      "status": "partial",
+      "coverage": [
+        "exp1/common/2",
+        "exp1/primary/2",
+        "exp1/secondary/2",
+        "exp1/tertiary/2"
+      ],
+      "sessions": 579,
+      "source": "human-data/xvrb_z591_data.csv (Qualtrics export, Prolific sample, 11-13 Aug 2020) with its codebook human-data/xvrb_z591_dictionary.pdf; the replication of the Experiment 1 two-player butcher-baker game (survey wording: sources/xvrb_z591_survey.pdf). One payoff level only (GBP 1.60 alone / 1.80 together), so it is mapped to the package's exp1 $2 arms as the nearest payoff; this is an approximation.",
+      "missing": [
+        {
+          "what": "exp1 arms with payoff $1, $5, $10",
+          "reason": "the data contain one payoff level only (GBP 1.60 alone)"
+        },
+        {
+          "what": "exp2 (four-player game)",
+          "reason": "not in the data"
+        },
+        {
+          "what": "exp3 (similarity manipulation, Big Five, reported level)",
+          "reason": "not in the data (no similarity or Big Five columns)"
+        }
+      ],
+      "key": {
+        "sample": "replication",
+        "repository": "https://osf.io/xnh2r/",
+        "license": null,
+        "dataFiles": 2,
+        "fetchable": 2
+      },
+      "reason": "source pinned in package/thomas2014/human/key.json (2 of 2 data files downloadable from it)"
+    },
+    "authorCode": {
+      "status": "no",
+      "route": null,
+      "reason": "no author-code key recorded"
+    },
+    "reproduced": {
+      "package": "fail",
+      "author": null,
+      "detail": "0 of 4 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+    },
+    "profiles": {
+      "status": "no",
+      "reason": "the runner does not sample participant profiles yet"
+    }
+  },
+  "skill": "thomas2014-common-knowledge",
+  "mcpServer": "thomas2014-common-knowledge/scripts/mcp_server.py",
+  "quoteCheck": {
+    "unchecked": 138
+  },
+  "files": {
+    "README.md": "5f79c78a25b09431ae76b23fc0dd55b08bdd3d34e4b80ebb0e883ff5da316d45",
+    "thomas2014-common-knowledge/SKILL.md": "68bcc440565e0d670f6e875864877943aaac2e48addf2041958bbffb5851c5f2",
+    "thomas2014-common-knowledge/references/accuracy.md": "63b3d873c384fae1b28664230c604a266fa55201d0cb73bb3e9a384ad9d3b7cd",
+    "thomas2014-common-knowledge/references/capabilities.md": "3b24386715733d66c255365c13d92b6fb42adaa8db026d55e080b5c5a58db554",
+    "thomas2014-common-knowledge/references/open-issues.md": "c42f49c9b16c2d8760cdd893098550a17fda13053d7ae9637aa42f0114a74e85",
+    "thomas2014-common-knowledge/references/paper.md": "be13a69a3a4b99b503e906ee0de89438281593bb11ca81eb058fe7fdc02b8c3e",
+    "thomas2014-common-knowledge/references/sources.md": "9de878393059ca698c7ed1e333cb277cf7af39a50ce76e5c2f1f6208c36f7334",
+    "thomas2014-common-knowledge/references/study-exp1.md": "882935ea71d6fb2a3ca956edc2096e2d3ae36431e7c4052397e68f48e0d636a4",
+    "thomas2014-common-knowledge/references/study-exp2.md": "9938f20dd8db19e1e414e0ce700b2d08e262a4883969ec206aa248b92804b1a4",
+    "thomas2014-common-knowledge/references/study-exp3.md": "0e88a108f780db05c11fd2944de224b40af443d4a13db9accc1446f3368c5217",
+    "thomas2014-common-knowledge/scripts/mcp_server.py": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+    "thomas2014-common-knowledge/scripts/study_core.py": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be"
+  },
+  "sharedWithRevision": [
+    "program.json",
+    "package/",
+    "capabilities.json"
+  ]
+}
