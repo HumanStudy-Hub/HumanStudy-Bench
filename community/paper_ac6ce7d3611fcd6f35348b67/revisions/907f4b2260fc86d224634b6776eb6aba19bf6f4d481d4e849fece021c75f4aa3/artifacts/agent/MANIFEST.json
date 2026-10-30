@@ -1,0 +1,92 @@
+{
+  "format": "humanstudy-agent-package/1",
+  "created": "2026-10-30T20:18:48Z",
+  "programId": "kreis2025hindsight",
+  "programSha256": "3d433cf5c397f241e842347aa90d4d7bfc406175f90262c060d047a46750f3db",
+  "paperSha256": null,
+  "readiness": {
+    "status": "blocked",
+    "blocking": [
+      "iss_filler"
+    ],
+    "note": "Blocked only by the missing filler text of the control group (issue iss_filler). The feedback, domain and irrelevant arms can run once the researcher accepts the open decisions."
+  },
+  "capabilities": {
+    "schemaVersion": 1,
+    "derivedFrom": {
+      "program": "3d433cf5c397f241e842347aa90d4d7bfc406175f90262c060d047a46750f3db",
+      "package": "kreis2025hindsight"
+    },
+    "read": {
+      "status": "yes",
+      "reason": null
+    },
+    "run": {
+      "status": "no",
+      "reason": "blocked by open issues: iss_filler",
+      "blocking": [
+        "iss_filler"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "excluded": []
+    },
+    "humanData": {
+      "status": "yes",
+      "coverage": [
+        "control",
+        "domain",
+        "feedback",
+        "irrelevant"
+      ],
+      "sessions": 300,
+      "source": "human-data/data/HBKU_Rep_Sugar_after_exclusion_all.csv (OSF materials of Kreis et al., 2025; 'Dataset 2' in description.txt: after participant exclusions, still containing perfectly accurate judgments (CJ) and perfect reproductions (CR)). Variable meanings: human-data/data/description.txt.",
+      "missing": [],
+      "key": {
+        "sample": "original",
+        "repository": "https://osf.io/hr5bv/",
+        "license": "CC-BY-SA-4.0",
+        "dataFiles": 2,
+        "fetchable": 2
+      },
+      "reason": "source pinned in package/kreis2025hindsight/human/key.json (2 of 2 data files downloadable from it)"
+    },
+    "authorCode": {
+      "status": "no",
+      "route": null,
+      "reason": "no author-code key recorded"
+    },
+    "reproduced": {
+      "package": null,
+      "author": null,
+      "detail": "not checked"
+    },
+    "profiles": {
+      "status": "no",
+      "reason": "the runner does not sample participant profiles yet"
+    }
+  },
+  "skill": "kreis2025hindsight",
+  "mcpServer": "kreis2025hindsight/scripts/mcp_server.py",
+  "quoteCheck": {
+    "unchecked": 106
+  },
+  "files": {
+    "README.md": "d1d6213ef37ccf884ead6d31a696571bdb11d33f623960e94c25ba015fc475e1",
+    "kreis2025hindsight/SKILL.md": "2c14595e310505cbbd6efe74eeab9f273d4397a2f84b3a156c9f993ad65ef77c",
+    "kreis2025hindsight/references/accuracy.md": "4a708c597caab932a0e4117a2ad5ef9c5be1eec321f1c16d034be3ff2419f1c6",
+    "kreis2025hindsight/references/capabilities.md": "f263f2e7cb1c465ac79c0944a662f8a4d277e21187d0dd97c638abd0ac95b847",
+    "kreis2025hindsight/references/open-issues.md": "59bbcc124012335664e134deaa7b1012cfce0b6e0d6dac9baaf033e35d499b9d",
+    "kreis2025hindsight/references/paper.md": "aedf4cb77eefc5323a6b174bc725f030d5de7e80d0f793ec127372e608ceeacb",
+    "kreis2025hindsight/references/sources.md": "c3eac94e632693c4f944ec05fd1d54a37cbee70ef1922050e4ecec6383f92df1",
+    "kreis2025hindsight/references/study-s1.md": "3a896f972e76b9c6f5e968d1c3c316658c54a18e37741dc4a23fd4809f3d5588",
+    "kreis2025hindsight/scripts/mcp_server.py": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+    "kreis2025hindsight/scripts/study_core.py": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be"
+  },
+  "sharedWithRevision": [
+    "program.json",
+    "package/",
+    "capabilities.json"
+  ]
+}

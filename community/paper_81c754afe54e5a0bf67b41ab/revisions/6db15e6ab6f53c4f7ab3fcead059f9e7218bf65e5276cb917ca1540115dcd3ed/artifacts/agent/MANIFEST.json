@@ -1,0 +1,89 @@
+{
+  "format": "humanstudy-agent-package/1",
+  "created": "2026-10-30T20:18:47Z",
+  "programId": "pennycook2020_covid_accuracy_nudge",
+  "programSha256": "f9b6dcfe0f2e9536bc3633287d9e8af251e47925d23a9d10ffcfd65c3bfff88e",
+  "paperSha256": null,
+  "readiness": {
+    "status": "ready",
+    "blocking": [],
+    "note": "All four arms can be run. The Study 2 pretest headlines, question and framing are transcribed from sources/study2_materials (txt and docx). Open: how one of the four pretest headlines was assigned (iss_s2_pretest_assign), the original pictures/ledes, and the original instructions."
+  },
+  "capabilities": {
+    "schemaVersion": 1,
+    "derivedFrom": {
+      "program": "f9b6dcfe0f2e9536bc3633287d9e8af251e47925d23a9d10ffcfd65c3bfff88e",
+      "package": "pennycook2020"
+    },
+    "read": {
+      "status": "yes",
+      "reason": null
+    },
+    "run": {
+      "status": "yes",
+      "reason": null,
+      "modalities": [
+        "text"
+      ],
+      "excluded": []
+    },
+    "humanData": {
+      "status": "yes",
+      "coverage": [
+        "study1/accuracy",
+        "study1/sharing",
+        "study2/control",
+        "study2/treatment"
+      ],
+      "sessions": 1709,
+      "source": "human-data/study1.csv (853 participants) and human-data/study2.csv (856 participants), the authors' public data files for Pennycook, McPhetres, Zhang, Lu & Rand (2020), 'Fighting COVID-19 misinformation on social media', Psychological Science; human-data/study2_materials.docx is the Study 2 Qualtrics survey export used as codebook.",
+      "missing": [],
+      "key": {
+        "sample": "original",
+        "repository": "https://osf.io/7d3xh/",
+        "license": "CC-BY-4.0",
+        "dataFiles": 3,
+        "fetchable": 3
+      },
+      "reason": "source pinned in package/pennycook2020/human/key.json (3 of 3 data files downloadable from it)"
+    },
+    "authorCode": {
+      "status": "no",
+      "route": null,
+      "reason": "no author-code key recorded"
+    },
+    "reproduced": {
+      "package": "pass",
+      "author": null,
+      "detail": "3 of 3 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+    },
+    "profiles": {
+      "status": "no",
+      "reason": "the runner does not sample participant profiles yet"
+    }
+  },
+  "skill": "pennycook2020-covid-accuracy-nudge",
+  "mcpServer": "pennycook2020-covid-accuracy-nudge/scripts/mcp_server.py",
+  "quoteCheck": {
+    "unchecked": 151
+  },
+  "files": {
+    "README.md": "2c60d9adf9ab48db9a77b0c8307bd13a169d31cbd1e1f7c6a1c8adfa825a0034",
+    "pennycook2020-covid-accuracy-nudge/SKILL.md": "469e6c600fec5d80ae7907438b958be9e25e370864a71f787fd66f5416f95feb",
+    "pennycook2020-covid-accuracy-nudge/references/accuracy.md": "7bdcd9a454679d4d9d74232d182e326305899e464bff8922c2443e11fcb23a8d",
+    "pennycook2020-covid-accuracy-nudge/references/capabilities.md": "e7bf44862ddf846ddef3b54031e9177e069c5882ca08558a08aa452f7854aa4d",
+    "pennycook2020-covid-accuracy-nudge/references/open-issues.md": "5862b01c79ef314de49fa13c3eeb3c3421ec5dcda96ca6349b03d5567f04351a",
+    "pennycook2020-covid-accuracy-nudge/references/paper.md": "32de4cd6bab26874e8f60cd7fe067aec8a8a0653325a3b2889dce2e238644008",
+    "pennycook2020-covid-accuracy-nudge/references/sources.md": "5bd953a7395e199a9e5314974ed5a9fdb5e616ea6e3a44e70b470d394ca18a6e",
+    "pennycook2020-covid-accuracy-nudge/references/study-study1.md": "1765becabc27daf7b2f7140448fb26e5c28a80f33adcd23a9f33d63872de56a7",
+    "pennycook2020-covid-accuracy-nudge/references/study-study2.md": "88b2196e1c476f031cdbbd0819c71b0ef83e42df0bf2595b266723bab90d6ede",
+    "pennycook2020-covid-accuracy-nudge/references/study-study3_items.md": "51a5e2967a673d60c04d1ba57802494fc1adf4b17604c8af8e8e1df193fc093a",
+    "pennycook2020-covid-accuracy-nudge/scripts/mcp_server.py": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+    "pennycook2020-covid-accuracy-nudge/scripts/study_core.py": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be"
+  },
+  "sharedWithRevision": [
+    "program.json",
+    "package/",
+    "capabilities.json"
+  ]
+}

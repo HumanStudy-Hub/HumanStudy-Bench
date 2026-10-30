@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "982ab4b8455e9909300726e8565ed8435b803733067c2a429ab5a15b78354841",
-  "previousRevision": "376f1d6dadb0bada9ffe0553fcf05d099f055551d3a2428c636230b9e76ad037",
+  "revision": "cf3501ea1ea92710db4f22df2b9a02f95f426b18007e3a7593f99ffa9033dc97",
+  "previousRevision": "982ab4b8455e9909300726e8565ed8435b803733067c2a429ab5a15b78354841",
   "paper": {
     "title": "Many Labs 2: Investigating Variation in Replicability Across Samples and Settings",
     "authors": [
@@ -41,14 +41,14 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "982ab4b8455e9909300726e8565ed8435b803733067c2a429ab5a15b78354841",
+    "candidateRevision": "cf3501ea1ea92710db4f22df2b9a02f95f426b18007e3a7593f99ffa9033dc97",
     "reviewer": "maintainer:assassin808",
-    "reason": "Study contract (humanstudy-desktop#45 milestone 1): slim package (study.json refers to program.json; the evidence and missing-information copies are dropped), capabilities.json derived from existing files, failure cases restating recorded gaps, and the agent skill re-exported with the capabilities tool and refusals. Research content is unchanged.",
+    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
     "checks": [
+      "every URL in the key served the pinned sha256 (download and hash)",
+      "study_core.py reproduce on the pinned files: pass [14, 14], equal to the pilot comparison",
       "capabilities.py --check",
-      "check_package.py on the slim package (bindings, adapter smoke test)",
-      "agent export self-test (files and hashes, studies render, MCP tools respond)",
-      "study_core.py overview and capabilities from the community layout",
+      "agent export self-test",
       "schema and package bindings (validate_assets)"
     ],
     "verifiedCapabilities": {

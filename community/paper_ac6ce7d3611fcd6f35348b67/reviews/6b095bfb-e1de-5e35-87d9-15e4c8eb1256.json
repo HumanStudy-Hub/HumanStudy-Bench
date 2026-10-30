@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "6b095bfb-e1de-5e35-87d9-15e4c8eb1256",
+  "headCommit": null,
+  "paperKey": "doi:10.1525/collabra.147499",
+  "status": "accepted",
+  "revision": "907f4b2260fc86d224634b6776eb6aba19bf6f4d481d4e849fece021c75f4aa3",
+  "previousRevision": "870e2af658a20bd198561e23d058284925190cc237f27ab6fb8fdf1d9876b8d8",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "907f4b2260fc86d224634b6776eb6aba19bf6f4d481d4e849fece021c75f4aa3",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Human-data key (humanstudy-desktop#45 milestone 2): source repository, license, sample type and per-file sha256 with URLs verified by download. No human data are added. Agent skill re-exported with the human-data and reproduce tools. Research content is unchanged.",
+    "checks": [
+      "every URL in the key served the pinned sha256 (download and hash)",
+      "study_core.py reproduce on the pinned files: partial [4, 8], equal to the pilot comparison",
+      "capabilities.py --check",
+      "agent export self-test",
+      "schema and package bindings (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": false,
+      "humanBenchmark": false
+    }
+  }
+}

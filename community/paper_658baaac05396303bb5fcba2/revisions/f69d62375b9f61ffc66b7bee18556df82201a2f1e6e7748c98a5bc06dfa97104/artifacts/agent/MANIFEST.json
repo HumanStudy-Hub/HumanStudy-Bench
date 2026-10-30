@@ -1,0 +1,98 @@
+{
+  "format": "humanstudy-agent-package/1",
+  "created": "2026-10-30T20:18:46Z",
+  "programId": "burton2022-optimism-neutral",
+  "programSha256": "c82d9638949cc6758e1594bc3ce7beeb96df7524f8a6f94597854af82d37a803",
+  "paperSha256": null,
+  "readiness": {
+    "status": "blocked",
+    "blocking": [
+      "iss-stimuli"
+    ]
+  },
+  "capabilities": {
+    "schemaVersion": 1,
+    "derivedFrom": {
+      "program": "c82d9638949cc6758e1594bc3ce7beeb96df7524f8a6f94597854af82d37a803",
+      "package": "burton2022-optimism-neutral"
+    },
+    "read": {
+      "status": "yes",
+      "reason": null
+    },
+    "run": {
+      "status": "no",
+      "reason": "blocked by open issues: iss-stimuli",
+      "blocking": [
+        "iss-stimuli"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "excluded": []
+    },
+    "humanData": {
+      "status": "partial",
+      "coverage": [
+        "study1",
+        "study2",
+        "study3"
+      ],
+      "sessions": 300,
+      "source": "human-data/data/study1.csv, study2.csv, study3.csv: trial-level data of Burton, Harris, Shah & Hahn (2022), 100 UK Prolific participants x 51 events per study (5,100 trials each); supplied with the project, no codebook file.",
+      "missing": [
+        {
+          "what": "study1:e1first / study1:ebrfirst / study2:... / study3:...",
+          "reason": "The data files do not record whether E1 or eBR was asked first, so the two order arms cannot be separated. Each participant is loaded once per study with arm = condition = the study id ('study1', 'study2', 'study3')."
+        }
+      ],
+      "key": {
+        "sample": "original",
+        "repository": "https://osf.io/8q74m/",
+        "license": null,
+        "dataFiles": 3,
+        "fetchable": 3
+      },
+      "reason": "source pinned in package/burton2022-optimism-neutral/human/key.json (3 of 3 data files downloadable from it)"
+    },
+    "authorCode": {
+      "status": "no",
+      "route": null,
+      "reason": "no author-code key recorded"
+    },
+    "reproduced": {
+      "package": null,
+      "author": null,
+      "detail": "not checked"
+    },
+    "profiles": {
+      "status": "no",
+      "reason": "the runner does not sample participant profiles yet"
+    }
+  },
+  "skill": "burton2022-optimism-neutral",
+  "mcpServer": "burton2022-optimism-neutral/scripts/mcp_server.py",
+  "quoteCheck": {
+    "unchecked": 76
+  },
+  "files": {
+    "README.md": "81be40978cee3b368676d65c87ba217696f30815b3c210f77305b56a0d80cd4d",
+    "burton2022-optimism-neutral/SKILL.md": "c93e6486a1f726cb3459ccc5e659cdd28888e2046056031e3c9f971fc238d478",
+    "burton2022-optimism-neutral/references/accuracy.md": "489c0a5dcd7659f02657e22e016c74c4403114f9a3a2c901e620d8f5bdc66186",
+    "burton2022-optimism-neutral/references/capabilities.md": "44079bbb9fafd4c42622410cb81cf6e8877287f83135e5780e06ea97b8aae6f2",
+    "burton2022-optimism-neutral/references/open-issues.md": "78e2885332281b4f1d856ddb98715b317cc7a5f8944eabdc5e4dc108c7c1e66f",
+    "burton2022-optimism-neutral/references/paper.md": "8d276e759750d6781a5bf64d87cd033fcf413ec054569680a8ee40f2cdc3e8c0",
+    "burton2022-optimism-neutral/references/sources.md": "9b6486ae09c6ee83c030480cd7de94e4a80df1e67f6610c04e885dbafc502887",
+    "burton2022-optimism-neutral/references/study-agg123.md": "1adc07ccda3dfe552b6c6992f89cf61d2cf1a335843a5af7687576aa0475574c",
+    "burton2022-optimism-neutral/references/study-study1.md": "3b83b06169264697a07eaf3db483faa071654244e0397bdce79ddf78c2b1e3eb",
+    "burton2022-optimism-neutral/references/study-study2.md": "1a24c486c3ec05909f52063f60af9ba08d1e2eebda84eb637873bd5bff5280ad",
+    "burton2022-optimism-neutral/references/study-study3.md": "d86e3a34a51d2603c3e1b829f39ec5c3e013bd02087402786eacab2697a43c3d",
+    "burton2022-optimism-neutral/scripts/mcp_server.py": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+    "burton2022-optimism-neutral/scripts/study_core.py": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be"
+  },
+  "sharedWithRevision": [
+    "program.json",
+    "package/",
+    "capabilities.json"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "derivedFrom": {
+    "program": "bb7197860e3834ffa7d82b163f57ea137396b83817d6acb7fa59276a96a8bc06",
+    "package": "manylabs1"
+  },
+  "read": {
+    "status": "yes",
+    "reason": null
+  },
+  "run": {
+    "status": "partial",
+    "reason": "1 part(s) of the paper cannot be run; see excluded",
+    "modalities": [
+      "text"
+    ],
+    "excluded": [
+      {
+        "what": "s12 (IAT)",
+        "reason": "IAT reaction-time latencies are not a text response; the adapter has no parser for them."
+      }
+    ]
+  },
+  "humanData": {
+    "status": "partial",
+    "coverage": [
+      "s01:free",
+      "s01:paid",
+      "s02:gain",
+      "s02:loss",
+      "s03:high",
+      "s03:low",
+      "s04:three6",
+      "s04:two6one3",
+      "s05:high",
+      "s05:low",
+      "s06:nk_first",
+      "s06:us_first",
+      "s07:allow",
+      "s07:forbid",
+      "s08:disliked",
+      "s08:liked",
+      "s09:control",
+      "s09:flag",
+      "s10:control",
+      "s10:money",
+      "s11:contact",
+      "s11:control"
+    ],
+    "sessions": 61407,
+    "source": "human-data/hd/Tab.delimited.Cleaned.dataset.WITH.variable.values.dat (Many Labs 1 cleaned data, CC0, OSF https://osf.io/wx7ck/), variables described in human-data/hd/Codebook.xlsx; reference effect sizes from human-data/hd/ML_Summary_Statistics.xlsx and Table 2 of Klein et al. (2014)",
+    "missing": [
+      {
+        "what": "s12",
+        "reason": "IAT reaction-time latencies are not a text response and the adapter has no parser for them."
+      },
+      {
+        "what": "s03 (participants with mixed anchors)",
+        "reason": "The anchor was randomised per question (anch1group..anch4group differ within a participant) but a session holds one condition; those participants are left out (see EXCLUSIONS)."
+      }
+    ],
+    "key": {
+      "sample": "original",
+      "repository": "https://osf.io/wx7ck/",
+      "license": "CC0-1.0",
+      "dataFiles": 3,
+      "fetchable": 3
+    },
+    "reason": "source pinned in package/manylabs1/human/key.json (3 of 3 data files downloadable from it)"
+  },
+  "authorCode": {
+    "status": "no",
+    "route": null,
+    "reason": "no author-code key recorded"
+  },
+  "reproduced": {
+    "package": "partial",
+    "author": null,
+    "detail": "11 of 12 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+  },
+  "profiles": {
+    "status": "no",
+    "reason": "the runner does not sample participant profiles yet"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "derivedFrom": {
+    "program": "f7cda7baa0a919867cf41258d168b725dbaa50eb47e099d1293bae5d3f5cbb92",
+    "package": "thomas2014"
+  },
+  "read": {
+    "status": "yes",
+    "reason": null
+  },
+  "run": {
+    "status": "yes",
+    "reason": null,
+    "modalities": [
+      "text"
+    ],
+    "excluded": []
+  },
+  "humanData": {
+    "status": "partial",
+    "coverage": [
+      "exp1/common/2",
+      "exp1/primary/2",
+      "exp1/secondary/2",
+      "exp1/tertiary/2"
+    ],
+    "sessions": 579,
+    "source": "human-data/xvrb_z591_data.csv (Qualtrics export, Prolific sample, 11-13 Aug 2020) with its codebook human-data/xvrb_z591_dictionary.pdf; the replication of the Experiment 1 two-player butcher-baker game (survey wording: sources/xvrb_z591_survey.pdf). One payoff level only (GBP 1.60 alone / 1.80 together), so it is mapped to the package's exp1 $2 arms as the nearest payoff; this is an approximation.",
+    "missing": [
+      {
+        "what": "exp1 arms with payoff $1, $5, $10",
+        "reason": "the data contain one payoff level only (GBP 1.60 alone)"
+      },
+      {
+        "what": "exp2 (four-player game)",
+        "reason": "not in the data"
+      },
+      {
+        "what": "exp3 (similarity manipulation, Big Five, reported level)",
+        "reason": "not in the data (no similarity or Big Five columns)"
+      }
+    ],
+    "key": {
+      "sample": "replication",
+      "repository": "https://osf.io/xnh2r/",
+      "license": null,
+      "dataFiles": 2,
+      "fetchable": 2
+    },
+    "reason": "source pinned in package/thomas2014/human/key.json (2 of 2 data files downloadable from it)"
+  },
+  "authorCode": {
+    "status": "no",
+    "route": null,
+    "reason": "no author-code key recorded"
+  },
+  "reproduced": {
+    "package": "fail",
+    "author": null,
+    "detail": "0 of 4 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+  },
+  "profiles": {
+    "status": "no",
+    "reason": "the runner does not sample participant profiles yet"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "format": "humanstudy-agent-package/1",
+  "created": "2026-10-30T20:18:44Z",
+  "programId": "frankedegen2016",
+  "programSha256": "b0993740ce15ed10a5ce448898cda534bc98ae676da8480119c1731a91c343fe",
+  "paperSha256": null,
+  "readiness": {
+    "status": "ready",
+    "blocking": [],
+    "note": "No blocking rules are missing. Open decisions concern wording of instructions and filler constructions; the replay uses documented paraphrases."
+  },
+  "capabilities": {
+    "schemaVersion": 1,
+    "derivedFrom": {
+      "program": "b0993740ce15ed10a5ce448898cda534bc98ae676da8480119c1731a91c343fe",
+      "package": "frankedegen2016"
+    },
+    "read": {
+      "status": "yes",
+      "reason": null
+    },
+    "run": {
+      "status": "yes",
+      "reason": null,
+      "modalities": [
+        "text"
+      ],
+      "excluded": []
+    },
+    "humanData": {
+      "status": "partial",
+      "coverage": [
+        "exp2"
+      ],
+      "sessions": 52,
+      "source": "human-data/data/exp_s007.csv and exp_s008.csv (tab-separated; columns workerid, language, trial, rt, condition, response), supplied with the project. The two files are byte-identical (52 workers x 66 trials); their choice proportions match the paper's Experiment 2 (production), so one copy is used for exp2.",
+      "missing": [
+        {
+          "what": "exp1",
+          "reason": "No separate Experiment 1 (comprehension) file: exp_s007.csv and exp_s008.csv are identical and match Experiment 2's production proportions; the data has no objects/messages/choice index either."
+        }
+      ],
+      "key": {
+        "sample": "original",
+        "repository": "https://doi.org/10.1371/journal.pone.0154854",
+        "license": "CC-BY-4.0",
+        "dataFiles": 2,
+        "fetchable": 2
+      },
+      "reason": "source pinned in package/frankedegen2016/human/key.json (2 of 2 data files downloadable from it)"
+    },
+    "authorCode": {
+      "status": "no",
+      "route": null,
+      "reason": "no author-code key recorded"
+    },
+    "reproduced": {
+      "package": "partial",
+      "author": null,
+      "detail": "1 of 2 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+    },
+    "profiles": {
+      "status": "no",
+      "reason": "the runner does not sample participant profiles yet"
+    }
+  },
+  "skill": "frankedegen2016",
+  "mcpServer": "frankedegen2016/scripts/mcp_server.py",
+  "quoteCheck": {
+    "unchecked": 92
+  },
+  "files": {
+    "README.md": "d5716ba1249daffb73459f6d64e9f411d3dd67c50c29f6f18332a36e3049ae16",
+    "frankedegen2016/SKILL.md": "55bf50757a7cf55015f79e42688dc9e3c0995b134dbd21f8e41489e21c38b3a1",
+    "frankedegen2016/references/accuracy.md": "2ead4f8ce573997d74e51d7a69a3d9c366f69ed393eb60d6953c396f4f11fbbc",
+    "frankedegen2016/references/capabilities.md": "cd5bfa10e7a90aeba2c191eeecea32c76d34a63cc254983eca4b3e6cb51393b4",
+    "frankedegen2016/references/open-issues.md": "1e10537b524edc7479fb9cb371f5920f5674c2e2b26b3d96a4ca9c86fd4f8c0c",
+    "frankedegen2016/references/paper.md": "748134b6a4db840f027a27c1acecd5b58e637705902df29a52c1ebe679202edd",
+    "frankedegen2016/references/sources.md": "140a8ddc7135e9b9541284799a40ceba67829e3a8de2a81c6ce4d7d6976c6da8",
+    "frankedegen2016/references/study-exp1.md": "e536c7074d849404211db3b22cd0a53186cdbeb0238189cfa662e89882ef2087",
+    "frankedegen2016/references/study-exp2.md": "8ba8f5670cfe16252541d84355961d6d18b9041fc4c6bace7622967d95eedfd8",
+    "frankedegen2016/references/study-mc.md": "dfb4c107603ad3ef6667f483c68183371ea7c681d711879aa5fb356b65a73b75",
+    "frankedegen2016/scripts/mcp_server.py": "d204071a95be9ed0babe551313d07ae717b8cbc48b6841243cbd78ce354f5412",
+    "frankedegen2016/scripts/study_core.py": "2e35b72b64d1fa5bb0e412cf3f1ebae986a98226fc06d47827e60a905a0837be"
+  },
+  "sharedWithRevision": [
+    "program.json",
+    "package/",
+    "capabilities.json"
+  ]
+}
