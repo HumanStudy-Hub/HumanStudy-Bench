@@ -1,0 +1,63 @@
+{
+  "package": "frankedegen2016",
+  "humanSessions": 52,
+  "agentN": 10,
+  "participantCommand": "claude -p --model haiku --strict-mcp-config --setting-sources \"\" --tools \"\" --system-prompt \"You are taking part in a study. Answer as asked.\"",
+  "mode": "sequential",
+  "minutes": 71.5,
+  "humanMatchesPaper": [
+    1,
+    2
+  ],
+  "agentAgrees": [
+    2,
+    4
+  ],
+  "effects": [
+    {
+      "id": "exp1_simple_vs_harder",
+      "label": "Exp 1 simple vs harder (complex+ambiguous): target-choice log-odds, higher for simple",
+      "reported": null,
+      "human": NaN,
+      "human_p": null,
+      "agent": 21.1,
+      "agent_p": 0.9820404230752119,
+      "humanMatchesPaper": null,
+      "agentAgrees": false
+    },
+    {
+      "id": "exp1_complex_vs_amb",
+      "label": "Exp 1 complex vs ambiguous: target-choice log-odds, higher for complex",
+      "reported": null,
+      "human": NaN,
+      "human_p": null,
+      "agent": 2.549,
+      "agent_p": 4.1694345184579095e-10,
+      "humanMatchesPaper": null,
+      "agentAgrees": false
+    },
+    {
+      "id": "exp2_simple_vs_harder",
+      "label": "Exp 2 simple vs harder (complex+ambiguous): target-choice log-odds, higher for simple",
+      "reported": 1.63,
+      "human": 1.656,
+      "human_p": 4.148487726760917e-34,
+      "agent": 3.612,
+      "agent_p": 2.777073032240524e-07,
+      "humanMatchesPaper": true,
+      "agentAgrees": true
+    },
+    {
+      "id": "exp2_complex_vs_amb",
+      "label": "Exp 2 complex vs ambiguous: target-choice log-odds, higher for complex",
+      "reported": 0.2,
+      "human": 0.081,
+      "human_p": 0.4924352605050388,
+      "agent": 0.098,
+      "agent_p": 0.7397356842653946,
+      "humanMatchesPaper": false,
+      "agentAgrees": true
+    }
+  ],
+  "note": "Agent results are a simulation; agreement with people is measured, not assumed."
+}

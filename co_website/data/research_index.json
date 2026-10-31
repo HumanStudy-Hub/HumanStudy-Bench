@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "taxonomyVersion": "2026-10-21.1",
-  "snapshot": "2c42892972a858c4b5baa5e631f72779f854883fae91fc352711fb688a53da75",
+  "snapshot": "35e0d024c38f5bee428dd889706def8ba759400e97f323d6aea8a38fdff1d34b",
   "sourceVersions": {
     "psych201": "c63dea18897393b706227b50024b27fa8d8907d8",
     "reanalysis": "dde239c32eb837e4cb2f406c1fa2ec3b2b47fd84"
@@ -2215,7 +2215,7 @@
       ],
       "year": 2016,
       "description": "3 studies: Experiment 1: comprehension in reference games; Experiment 2: production in reference games; Individual-level hierarchical modelling and Bayesian model comparison",
-      "currentRevision": "4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728",
+      "currentRevision": "91d8ed30294f248c852941e3264569726cb43c522ef70663c66031667fb8efb7",
       "conceptIds": [],
       "conceptAssignments": [],
       "capabilities": {
@@ -3771,11 +3771,11 @@
           "fieldId": "computation"
         }
       ],
-      "assetRoot": "community/paper_1eddb9f7cdf8297d98e9dc8b/revisions/4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728",
+      "assetRoot": "community/paper_1eddb9f7cdf8297d98e9dc8b/revisions/91d8ed30294f248c852941e3264569726cb43c522ef70663c66031667fb8efb7",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "1400351ddfb4fb28e0f0e8b65f14a5d5d3f8c2ebdfe74b97ca37e933c90714a9",
+          "sha256": "f93d72a430f9e24155c311c2f8bd5076cdfcfc2fe92d819da6648e57970ccba4",
           "bytes": 4101
         },
         {
@@ -3870,13 +3870,13 @@
         },
         {
           "path": "effects.json",
-          "sha256": "c40c30aabe49a42a9693b2442b9c7ee101dfe146d60fb0317d2be9ec6e051201",
-          "bytes": 28089
+          "sha256": "c5016aee1353cf3c235c2fe2796caa8f9dda4ad99f29d5ba8631763d19976951",
+          "bytes": 28537
         },
         {
           "path": "package/frankedegen2016/evaluation/evaluation.py",
-          "sha256": "0923f9b0f6d76722240b1ffe6c6afd4f6f83ce611113e0c67ec0bd6329f9f7d1",
-          "bytes": 11982
+          "sha256": "9ae81a8b5a06e795678651c2fba89b8c4214acbcbf741ab1294c0a4b43cf18e3",
+          "bytes": 11993
         },
         {
           "path": "package/frankedegen2016/human/human_sessions.py",
@@ -4038,7 +4038,15 @@
           "theory of mind"
         ],
         "gaps": [],
-        "extensions": [],
+        "extensions": [
+          {
+            "what": "extension",
+            "value": "x:fixed-effects-logit-coefficient",
+            "category": "metric",
+            "parent": "regression_coefficient",
+            "definition": "coefficient of a fixed-effects logistic regression (no random effects, no target-position or message-type controls); a different quantity from the paper's mixed-effects b, so it is never compared with it"
+          }
+        ],
         "unlinked": 8
       }
     },
@@ -43837,12 +43845,12 @@
           ]
         }
       ],
-      "currentRevision": "22c9f641199a11b6507a41d3600eddf328c809ea53fa680c6c9a962ea06aef04",
-      "assetRoot": "community/paper_cdab28122805d7b5a0dcbd1c/revisions/22c9f641199a11b6507a41d3600eddf328c809ea53fa680c6c9a962ea06aef04",
+      "currentRevision": "99dfdc3e990a3a76efcb879d5e4c50619fc7bab7fad8034a8ff1056f838d73ed",
+      "assetRoot": "community/paper_cdab28122805d7b5a0dcbd1c/revisions/99dfdc3e990a3a76efcb879d5e4c50619fc7bab7fad8034a8ff1056f838d73ed",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "4f5f7d357ec934d26811df8393ce993d0000a2b7553312ef476d1a500086772b",
+          "sha256": "a85b407cb9f2aa51b0014d8c7fad078b57419b8f5aaf9f03c746253d29b8bf94",
           "bytes": 5926
         },
         {
@@ -43987,18 +43995,18 @@
         },
         {
           "path": "effects.json",
-          "sha256": "21e0e0e5e68db7ca88917579e18aa54a6309d36c34257225dd0cbc71f9790602",
-          "bytes": 49942
+          "sha256": "1a51aaf9babf4e027512cc30eaa22eab4ac2df7400a22c1bd3b1f488cec2ffa6",
+          "bytes": 50107
         },
         {
           "path": "package/manylabs1/evaluation/evaluation.py",
-          "sha256": "84abadf90afd8e70714158237e36db3840bf535093311b74924a7461487c1e90",
-          "bytes": 16252
+          "sha256": "926a36a990291fc673b5133b213a4402e4c0266b8d6758271bb8db5dbf22ffc2",
+          "bytes": 16364
         },
         {
           "path": "package/manylabs1/human/human_sessions.py",
-          "sha256": "37ac083597a97880fc5428b4a3cdb35d63dbb3ffa4f024b58e79b6261f032431",
-          "bytes": 11850
+          "sha256": "a04a74992dd50786c13ca8965173bdc955cd82662c0af7c5a0ef9d62a07155c6",
+          "bytes": 12669
         },
         {
           "path": "package/manylabs1/human/key.json",
@@ -59930,7 +59938,11 @@
     ]
   },
   "graphVocabulary": "2.0.0",
-  "graphExtensions": {},
+  "graphExtensions": {
+    "x:fixed-effects-logit-coefficient": [
+      "paper_1eddb9f7cdf8297d98e9dc8b"
+    ]
+  },
   "coverage": {
     "papers": 309,
     "scope": "indexed-corpus",

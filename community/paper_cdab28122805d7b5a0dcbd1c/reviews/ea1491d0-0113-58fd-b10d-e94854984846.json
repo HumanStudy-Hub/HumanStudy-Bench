@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "ea1491d0-0113-58fd-b10d-e94854984846",
+  "headCommit": null,
+  "paperKey": "doi:10.1027/1864-9335/a000178",
+  "status": "accepted",
+  "revision": "99dfdc3e990a3a76efcb879d5e4c50619fc7bab7fad8034a8ff1056f838d73ed",
+  "previousRevision": "22c9f641199a11b6507a41d3600eddf328c809ea53fa680c6c9a962ea06aef04",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "99dfdc3e990a3a76efcb879d5e4c50619fc7bab7fad8034a8ff1056f838d73ed",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Fix double reverse-scoring in flag priming (s09) and currency priming (s10): the public data already reverse-score the <<Reverse scored>> items (s09 items 2-6 and 8, s10 items 3 and 7), and the evaluation reversed them again. The human loader now gives the printed 1-7 answers, so the evaluation reverses once, exactly as for AI participants; item positions are kept so a missing item no longer shifts the others. Unrecoded means reproduce Table 2 (flag 3.17 vs control 3.15; d 0.025 vs 0.03 printed; currency d -0.020 vs -0.02). Files: human/human_sessions.py, evaluation.py (scoring skips missing items), effects.json (notes).",
+    "checks": [
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "program.json unchanged; package changes limited to the files named in the reason",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [14, 14]",
+      "capabilities.py --check",
+      "check_package.py",
+      "agent export self-test",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

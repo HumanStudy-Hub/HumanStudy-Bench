@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "22c9f641199a11b6507a41d3600eddf328c809ea53fa680c6c9a962ea06aef04",
-  "previousRevision": "8cb76c8e7d22e4769b8709901a380e06544dea21f7c6e334e02b4175591b8dc7",
+  "revision": "99dfdc3e990a3a76efcb879d5e4c50619fc7bab7fad8034a8ff1056f838d73ed",
+  "previousRevision": "22c9f641199a11b6507a41d3600eddf328c809ea53fa680c6c9a962ea06aef04",
   "paper": {
     "title": "Investigating Variation in Replicability: A \"Many Labs\" Replication Project",
     "authors": [
@@ -41,13 +41,13 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "22c9f641199a11b6507a41d3600eddf328c809ea53fa680c6c9a962ea06aef04",
+    "candidateRevision": "99dfdc3e990a3a76efcb879d5e4c50619fc7bab7fad8034a8ff1056f838d73ed",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
+    "reason": "Fix double reverse-scoring in flag priming (s09) and currency priming (s10): the public data already reverse-score the <<Reverse scored>> items (s09 items 2-6 and 8, s10 items 3 and 7), and the evaluation reversed them again. The human loader now gives the printed 1-7 answers, so the evaluation reverses once, exactly as for AI participants; item positions are kept so a missing item no longer shifts the others. Unrecoded means reproduce Table 2 (flag 3.17 vs control 3.15; d 0.025 vs 0.03 printed; currency d -0.020 vs -0.02). Files: human/human_sessions.py, evaluation.py (scoring skips missing items), effects.json (notes).",
     "checks": [
       "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
-      "study_core.py reproduce with effects.json on the pinned human data: partial [13, 14]",
+      "program.json unchanged; package changes limited to the files named in the reason",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [14, 14]",
       "capabilities.py --check",
       "check_package.py",
       "agent export self-test",
