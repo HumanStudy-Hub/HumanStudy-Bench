@@ -1,0 +1,6010 @@
+{
+  "schemaVersion": 2,
+  "programId": "cheung2025moral",
+  "topics": [
+    "moral decision-making",
+    "large language models",
+    "omission bias",
+    "yes-no bias",
+    "cognitive biases",
+    "moral dilemmas",
+    "collective action problems",
+    "silicon sampling",
+    "fine-tuning"
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "nodeId": "h1",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "omission bias",
+        "moral dilemmas",
+        "cost-benefit reasoning",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "h1_cap",
+      "nodeId": "h1_cap",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "altruism",
+        "collective action problem",
+        "social dilemma",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "h2",
+      "nodeId": "h2",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "yes-no bias",
+        "omission bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "h3",
+      "nodeId": "h3",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "yes-no bias",
+        "omission bias",
+        "framing effect",
+        "everyday moral dilemmas"
+      ]
+    },
+    {
+      "id": "h4",
+      "nodeId": "h4",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "yes-no bias",
+        "omission bias",
+        "fine-tuning",
+        "RLHF"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "s1_om_humans",
+      "label": "Study 1, participants: CBR choice when it coincides with omission vs action",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v1_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c1_omission",
+          "c1_action"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
+        "evidenceIds": [
+          "e_fx_omlit"
+        ]
+      },
+      "analysisIds": [
+        "a1_hum"
+      ],
+      "resultIds": [
+        "r1_hum"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_omission_bias"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_s1_res_hum"
+        ],
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.03,
+            "ci": [
+              -0.05,
+              -0.01
+            ],
+            "ciLevel": 0.95,
+            "variant": "linear mixed-effects model (afex, effect contrast coding) on the binary choice; coefficient of the framing as printed (sign: action relative to omission), not the omission-minus-action proportion difference",
+            "evidenceIds": [
+              "e_s1_res_hum"
+            ]
+          }
+        ],
+        "cells": {
+          "omission": {
+            "percent": 55
+          },
+          "action": {
+            "percent": 50
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 3.31,
+          "df": 285.0,
+          "p": 0.001,
+          "pRelation": "="
+        },
+        "missing": [
+          "per-framing n of responses",
+          "random-effects structure",
+          "the coding of the framing regressor (effect coding stated, scale not printed)"
+        ]
+      },
+      "notes": "The paper also prints the percentage-point difference (5% in humans vs 45% in LLMs); it is the difference of the cell percentages above.",
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s1_om_allllms",
+      "label": "Study 1, all LLMs (participant prompt): CBR choice on omission vs action",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v1_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c1_omission",
+          "c1_action",
+          "c1_p_part"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
+        "evidenceIds": [
+          "e_fx_omlit"
+        ]
+      },
+      "analysisIds": [
+        "a1_llm"
+      ],
+      "resultIds": [
+        "r1_llm"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s1_llm",
+          "e_s1_res_hum"
+        ],
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.22,
+            "ci": [
+              -0.23,
+              -0.22
+            ],
+            "ciLevel": 0.95,
+            "variant": "linear regression, all LLMs pooled (as printed)",
+            "evidenceIds": [
+              "e_s1_res_hum"
+            ]
+          }
+        ],
+        "cells": {
+          "omission": {
+            "percent": 97
+          },
+          "action": {
+            "percent": 53
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 53.523,
+          "df": 15584,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per framing (online materials)",
+          "the t-tests come from one regression over all models (df 15584)"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4-turbo",
+          "GPT-4o",
+          "Llama 3.1-Instruct",
+          "Claude 3.5"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s1_om_gpt4turbo",
+      "label": "Study 1, GPT-4-turbo (participant prompt): CBR choice on omission vs action",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v1_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c1_omission",
+          "c1_action",
+          "c1_p_part"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
+        "evidenceIds": [
+          "e_fx_omlit"
+        ]
+      },
+      "analysisIds": [
+        "a1_llm"
+      ],
+      "resultIds": [
+        "r1_llm"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s1_llm"
+        ],
+        "cells": {
+          "omission": {
+            "percent": 100
+          },
+          "action": {
+            "percent": 40
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 62.61,
+          "df": 15584,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per framing (online materials)",
+          "the t-tests come from one regression over all models (df 15584)"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4-turbo"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s1_om_gpt4o",
+      "label": "Study 1, GPT-4o (participant prompt): CBR choice on omission vs action",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v1_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c1_omission",
+          "c1_action",
+          "c1_p_part"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
+        "evidenceIds": [
+          "e_fx_omlit"
+        ]
+      },
+      "analysisIds": [
+        "a1_llm"
+      ],
+      "resultIds": [
+        "r1_llm"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s1_llm"
+        ],
+        "cells": {
+          "omission": {
+            "percent": 100
+          },
+          "action": {
+            "percent": 70
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 31.04,
+          "df": 15584,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per framing (online materials)",
+          "the t-tests come from one regression over all models (df 15584)"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s1_om_llama31inst",
+      "label": "Study 1, Llama 3.1-Instruct (participant prompt): CBR choice on omission vs action",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v1_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c1_omission",
+          "c1_action",
+          "c1_p_part"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
+        "evidenceIds": [
+          "e_fx_omlit"
+        ]
+      },
+      "analysisIds": [
+        "a1_llm"
+      ],
+      "resultIds": [
+        "r1_llm"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s1_llm"
+        ],
+        "cells": {
+          "omission": {
+            "percent": 90
+          },
+          "action": {
+            "percent": 59
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 14.2,
+          "df": 15584,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per framing (online materials)",
+          "the t-tests come from one regression over all models (df 15584)"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s1_om_claude35",
+      "label": "Study 1, Claude 3.5 (participant prompt): CBR choice on omission vs action",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v1_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c1_omission",
+          "c1_action",
+          "c1_p_part"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
+        "evidenceIds": [
+          "e_fx_omlit"
+        ]
+      },
+      "analysisIds": [
+        "a1_llm"
+      ],
+      "resultIds": [
+        "r1_llm"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s1_llm"
+        ],
+        "cells": {
+          "omission": {
+            "percent": 100
+          },
+          "action": {
+            "percent": 42
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 26.86,
+          "df": 15584,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per framing (online materials)",
+          "the t-tests come from one regression over all models (df 15584)"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Claude 3.5"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s1_cap_gpt4turbo_advice",
+      "label": "Study 1 collective action problems: altruism score, GPT-4-turbo (advice prompt) vs participants",
+      "role": "test",
+      "hypothesisIds": [
+        "h1_cap"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "respondent (participant, or one LLM response set averaged over dilemmas)",
+      "outcome": {
+        "variableId": "v1_altruism",
+        "type": "continuous",
+        "scale": "0-1 altruism score",
+        "higherMeans": "more altruistic response",
+        "treatedAs": "mean over the nine dilemmas per respondent"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "GPT-4-turbo",
+        "reference": "humans",
+        "conditionIds": [
+          "c1_p_adv"
+        ],
+        "valueMeans": "GPT-4-turbo mean altruism score minus participants' mean altruism score"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory comparison.",
+        "evidenceIds": [
+          "e_fx_cap_aim"
+        ]
+      },
+      "analysisIds": [
+        "a1_cap"
+      ],
+      "resultIds": [
+        "r1_cap"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_collective_action"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts2",
+          "e_s1_cap_res"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 26.2,
+          "df": 288.4,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "mean and sd of the altruism scores per group (Figure 2 only)",
+          "n per group",
+          "slider ranges and eight of the nine vignettes"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4-turbo"
+        ]
+      }
+    },
+    {
+      "id": "s1_cap_gpt4turbo_participant",
+      "label": "Study 1 collective action problems: altruism score, GPT-4-turbo (participant prompt) vs participants",
+      "role": "test",
+      "hypothesisIds": [
+        "h1_cap"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "respondent (participant, or one LLM response set averaged over dilemmas)",
+      "outcome": {
+        "variableId": "v1_altruism",
+        "type": "continuous",
+        "scale": "0-1 altruism score",
+        "higherMeans": "more altruistic response",
+        "treatedAs": "mean over the nine dilemmas per respondent"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "GPT-4-turbo",
+        "reference": "humans",
+        "conditionIds": [
+          "c1_p_part"
+        ],
+        "valueMeans": "GPT-4-turbo mean altruism score minus participants' mean altruism score"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory comparison.",
+        "evidenceIds": [
+          "e_fx_cap_aim"
+        ]
+      },
+      "analysisIds": [
+        "a1_cap"
+      ],
+      "resultIds": [
+        "r1_cap"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_collective_action"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts2",
+          "e_s1_cap_res"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 20.6,
+          "df": 286.89,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "mean and sd of the altruism scores per group (Figure 2 only)",
+          "n per group",
+          "slider ranges and eight of the nine vignettes"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4-turbo"
+        ]
+      }
+    },
+    {
+      "id": "s1_cap_gpt4o_advice",
+      "label": "Study 1 collective action problems: altruism score, GPT-4o (advice prompt) vs participants",
+      "role": "test",
+      "hypothesisIds": [
+        "h1_cap"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "respondent (participant, or one LLM response set averaged over dilemmas)",
+      "outcome": {
+        "variableId": "v1_altruism",
+        "type": "continuous",
+        "scale": "0-1 altruism score",
+        "higherMeans": "more altruistic response",
+        "treatedAs": "mean over the nine dilemmas per respondent"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "GPT-4o",
+        "reference": "humans",
+        "conditionIds": [
+          "c1_p_adv"
+        ],
+        "valueMeans": "GPT-4o mean altruism score minus participants' mean altruism score"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory comparison.",
+        "evidenceIds": [
+          "e_fx_cap_aim"
+        ]
+      },
+      "analysisIds": [
+        "a1_cap"
+      ],
+      "resultIds": [
+        "r1_cap"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_collective_action"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts2",
+          "e_s1_cap_res"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 24.39,
+          "df": 290.6,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "mean and sd of the altruism scores per group (Figure 2 only)",
+          "n per group",
+          "slider ranges and eight of the nine vignettes"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      }
+    },
+    {
+      "id": "s1_cap_gpt4o_participant",
+      "label": "Study 1 collective action problems: altruism score, GPT-4o (participant prompt) vs participants",
+      "role": "test",
+      "hypothesisIds": [
+        "h1_cap"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "respondent (participant, or one LLM response set averaged over dilemmas)",
+      "outcome": {
+        "variableId": "v1_altruism",
+        "type": "continuous",
+        "scale": "0-1 altruism score",
+        "higherMeans": "more altruistic response",
+        "treatedAs": "mean over the nine dilemmas per respondent"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "GPT-4o",
+        "reference": "humans",
+        "conditionIds": [
+          "c1_p_part"
+        ],
+        "valueMeans": "GPT-4o mean altruism score minus participants' mean altruism score"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory comparison.",
+        "evidenceIds": [
+          "e_fx_cap_aim"
+        ]
+      },
+      "analysisIds": [
+        "a1_cap"
+      ],
+      "resultIds": [
+        "r1_cap"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_collective_action"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts2",
+          "e_s1_cap_res"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 24.52,
+          "df": 316.13,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "mean and sd of the altruism scores per group (Figure 2 only)",
+          "n per group",
+          "slider ranges and eight of the nine vignettes"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      }
+    },
+    {
+      "id": "s1_cap_llama31inst_advice",
+      "label": "Study 1 collective action problems: altruism score, Llama 3.1-Instruct (advice prompt) vs participants",
+      "role": "test",
+      "hypothesisIds": [
+        "h1_cap"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "respondent (participant, or one LLM response set averaged over dilemmas)",
+      "outcome": {
+        "variableId": "v1_altruism",
+        "type": "continuous",
+        "scale": "0-1 altruism score",
+        "higherMeans": "more altruistic response",
+        "treatedAs": "mean over the nine dilemmas per respondent"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "Llama 3.1-Instruct",
+        "reference": "humans",
+        "conditionIds": [
+          "c1_p_adv"
+        ],
+        "valueMeans": "Llama 3.1-Instruct mean altruism score minus participants' mean altruism score"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory comparison.",
+        "evidenceIds": [
+          "e_fx_cap_aim"
+        ]
+      },
+      "analysisIds": [
+        "a1_cap"
+      ],
+      "resultIds": [
+        "r1_cap"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_collective_action"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts2",
+          "e_s1_cap_res"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 20.13,
+          "df": 361.39,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "mean and sd of the altruism scores per group (Figure 2 only)",
+          "n per group",
+          "slider ranges and eight of the nine vignettes"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions. Table S2 labels this row 'Llama 3-Instruct' and prints identical statistics for the advice and participant prompts; the main text names Llama 3.1-Instruct.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      }
+    },
+    {
+      "id": "s1_cap_llama31inst_participant",
+      "label": "Study 1 collective action problems: altruism score, Llama 3.1-Instruct (participant prompt) vs participants",
+      "role": "test",
+      "hypothesisIds": [
+        "h1_cap"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "respondent (participant, or one LLM response set averaged over dilemmas)",
+      "outcome": {
+        "variableId": "v1_altruism",
+        "type": "continuous",
+        "scale": "0-1 altruism score",
+        "higherMeans": "more altruistic response",
+        "treatedAs": "mean over the nine dilemmas per respondent"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "Llama 3.1-Instruct",
+        "reference": "humans",
+        "conditionIds": [
+          "c1_p_part"
+        ],
+        "valueMeans": "Llama 3.1-Instruct mean altruism score minus participants' mean altruism score"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory comparison.",
+        "evidenceIds": [
+          "e_fx_cap_aim"
+        ]
+      },
+      "analysisIds": [
+        "a1_cap"
+      ],
+      "resultIds": [
+        "r1_cap"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_collective_action"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts2",
+          "e_s1_cap_res"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 20.13,
+          "df": 361.39,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "mean and sd of the altruism scores per group (Figure 2 only)",
+          "n per group",
+          "slider ranges and eight of the nine vignettes"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions. Table S2 labels this row 'Llama 3-Instruct' and prints identical statistics for the advice and participant prompts; the main text names Llama 3.1-Instruct.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      }
+    },
+    {
+      "id": "s1_cap_claude35_advice",
+      "label": "Study 1 collective action problems: altruism score, Claude 3.5 (advice prompt) vs participants",
+      "role": "test",
+      "hypothesisIds": [
+        "h1_cap"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "respondent (participant, or one LLM response set averaged over dilemmas)",
+      "outcome": {
+        "variableId": "v1_altruism",
+        "type": "continuous",
+        "scale": "0-1 altruism score",
+        "higherMeans": "more altruistic response",
+        "treatedAs": "mean over the nine dilemmas per respondent"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "Claude 3.5",
+        "reference": "humans",
+        "conditionIds": [
+          "c1_p_adv"
+        ],
+        "valueMeans": "Claude 3.5 mean altruism score minus participants' mean altruism score"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory comparison.",
+        "evidenceIds": [
+          "e_fx_cap_aim"
+        ]
+      },
+      "analysisIds": [
+        "a1_cap"
+      ],
+      "resultIds": [
+        "r1_cap"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_collective_action"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts2",
+          "e_s1_cap_res"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 31.53,
+          "df": 380.06,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "mean and sd of the altruism scores per group (Figure 2 only)",
+          "n per group",
+          "slider ranges and eight of the nine vignettes"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Claude 3.5"
+        ]
+      }
+    },
+    {
+      "id": "s1_cap_claude35_participant",
+      "label": "Study 1 collective action problems: altruism score, Claude 3.5 (participant prompt) vs participants",
+      "role": "test",
+      "hypothesisIds": [
+        "h1_cap"
+      ],
+      "studyId": "s1",
+      "design": "between",
+      "unit": "respondent (participant, or one LLM response set averaged over dilemmas)",
+      "outcome": {
+        "variableId": "v1_altruism",
+        "type": "continuous",
+        "scale": "0-1 altruism score",
+        "higherMeans": "more altruistic response",
+        "treatedAs": "mean over the nine dilemmas per respondent"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "Claude 3.5",
+        "reference": "humans",
+        "conditionIds": [
+          "c1_p_part"
+        ],
+        "valueMeans": "Claude 3.5 mean altruism score minus participants' mean altruism score"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory comparison.",
+        "evidenceIds": [
+          "e_fx_cap_aim"
+        ]
+      },
+      "analysisIds": [
+        "a1_cap"
+      ],
+      "resultIds": [
+        "r1_cap"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_collective_action"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts2",
+          "e_s1_cap_res"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 25.89,
+          "df": 334.15,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "mean and sd of the altruism scores per group (Figure 2 only)",
+          "n per group",
+          "slider ranges and eight of the nine vignettes"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Claude 3.5"
+        ]
+      }
+    },
+    {
+      "id": "s2_yn_humans",
+      "label": "Study 2, participants: yes-no bias (CBR when yes = CBR vs no = CBR)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = CBR",
+        "reference": "no = CBR",
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn"
+        ],
+        "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "Preregistered: humans show no yes-no bias.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s2_yes_no_bias"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_yn"
+        ],
+        "cells": {
+          "yes = CBR": {
+            "percent": 60
+          },
+          "no = CBR": {
+            "percent": 56
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 1.25,
+          "df": 2936,
+          "p": 0.213,
+          "pRelation": "="
+        },
+        "missing": [
+          "n per cell",
+          "the t-test is a contrast in the framing x model x vignette ANOVA (df 2936 pools all models), not a two-sample test on the human data alone"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s2_om_humans",
+      "label": "Study 2, participants: omission bias (CBR on omission vs action)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c2_orig",
+          "c2_om"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: both LLMs and humans show omission bias.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s2_omission_bias"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_om"
+        ],
+        "cells": {
+          "omission": {
+            "percent": 66
+          },
+          "action": {
+            "percent": 54
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 5.11,
+          "df": 2943,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n per cell",
+          "the t-test is a contrast in the ANOVA over all models (df 2943)"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s2_yn_gpt4turbo",
+      "label": "Study 2, GPT-4-turbo (participant prompt): yes-no bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = CBR",
+        "reference": "no = CBR",
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn",
+          "c2_p_part"
+        ],
+        "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Preregistered: LLMs biased toward answering 'no'.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_yn"
+        ],
+        "cells": {
+          "yes = CBR": {
+            "percent": 70
+          },
+          "no = CBR": {
+            "percent": 85
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 8.2,
+          "df": 2936,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per cell (56 queries per vignette per model planned)"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4-turbo"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s2_yn_llama31inst",
+      "label": "Study 2, Llama 3.1-Instruct (participant prompt): yes-no bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = CBR",
+        "reference": "no = CBR",
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn",
+          "c2_p_part"
+        ],
+        "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Preregistered: LLMs biased toward answering 'no'.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_yn"
+        ],
+        "cells": {
+          "yes = CBR": {
+            "percent": 51
+          },
+          "no = CBR": {
+            "percent": 89
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 20.98,
+          "df": 2936,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per cell (56 queries per vignette per model planned)"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s2_yn_claude35",
+      "label": "Study 2, Claude 3.5 (participant prompt): yes-no bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = CBR",
+        "reference": "no = CBR",
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn",
+          "c2_p_part"
+        ],
+        "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Preregistered: LLMs biased toward answering 'no'.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_yn"
+        ],
+        "cells": {
+          "yes = CBR": {
+            "percent": 61
+          },
+          "no = CBR": {
+            "percent": 96
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 19.33,
+          "df": 2936,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per cell (56 queries per vignette per model planned)"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Claude 3.5"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s2_yn_gpt4o",
+      "label": "Study 2, GPT-4o (participant prompt): yes-no bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = CBR",
+        "reference": "no = CBR",
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn",
+          "c2_p_part"
+        ],
+        "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Preregistered: LLMs biased toward answering 'no'.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_yn"
+        ],
+        "cells": {
+          "yes = CBR": {
+            "percent": 79
+          },
+          "no = CBR": {
+            "percent": 67
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 6.72,
+          "df": 2936,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per cell (56 queries per vignette per model planned)"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions. GPT-4o shows the opposite direction (bias toward 'yes').",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s2_yn_gpt4turbo_vs_humans",
+      "label": "Study 2: yes-no bias, GPT-4-turbo vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "GPT-4-turbo",
+          "humans"
+        ],
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn",
+          "c2_p_part"
+        ],
+        "valueMeans": "yes-no effect (yes = CBR minus no = CBR) of GPT-4-turbo minus that of participants"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Preregistered: the bias toward 'no' is larger for LLMs than humans.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_yn_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.02,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s2_yn_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 20.28,
+          "df": [
+            1,
+            967
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "GPT-4-turbo"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s2_yn_llama31inst_vs_humans",
+      "label": "Study 2: yes-no bias, Llama 3.1-Instruct vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Llama 3.1-Instruct",
+          "humans"
+        ],
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn",
+          "c2_p_part"
+        ],
+        "valueMeans": "yes-no effect (yes = CBR minus no = CBR) of Llama 3.1-Instruct minus that of participants"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Preregistered: the bias toward 'no' is larger for LLMs than humans.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_yn_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.09,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s2_yn_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 92.74,
+          "df": [
+            1,
+            967
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s2_yn_claude35_vs_humans",
+      "label": "Study 2: yes-no bias, Claude 3.5 vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Claude 3.5",
+          "humans"
+        ],
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn",
+          "c2_p_part"
+        ],
+        "valueMeans": "yes-no effect (yes = CBR minus no = CBR) of Claude 3.5 minus that of participants"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Preregistered: the bias toward 'no' is larger for LLMs than humans.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_yn_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.08,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s2_yn_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 79.16,
+          "df": [
+            1,
+            956
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Claude 3.5"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s2_yn_gpt4o_vs_humans",
+      "label": "Study 2: yes-no bias, GPT-4o vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "GPT-4o",
+          "humans"
+        ],
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn",
+          "c2_p_part"
+        ],
+        "valueMeans": "yes-no effect (yes = CBR minus no = CBR) of GPT-4o minus that of participants"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Preregistered: the bias toward 'no' is larger for LLMs than humans.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_yn_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.005,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s2_yn_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 5.33,
+          "df": [
+            1,
+            967
+          ],
+          "p": 0.021,
+          "pRelation": "="
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s2_yn_gpt4o_sil_part",
+      "label": "Study 2, GPT-4o (silicon sampling, participant prompt): yes-no framing effect",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = CBR",
+        "reference": "no = CBR",
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn",
+          "c2_p_sil_part"
+        ],
+        "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Preregistered: LLMs biased toward answering 'no'.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_sil"
+        ],
+        "test": {
+          "statistic": "other",
+          "p": 0.165,
+          "pRelation": "=",
+          "pText": "no longer significant (p = 0.165)"
+        },
+        "missing": [
+          "cell percentages (SI Figures S10, S11 only)",
+          "test statistic"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s2_yn_gpt4o_sil_adv",
+      "label": "Study 2, GPT-4o (silicon sampling, advice-giving prompt): yes-no framing effect",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = CBR",
+        "reference": "no = CBR",
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn",
+          "c2_p_sil_adv"
+        ],
+        "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Preregistered: LLMs biased toward answering 'no'.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_sil"
+        ],
+        "test": {
+          "statistic": "other",
+          "p": 0.89,
+          "pRelation": "=",
+          "pText": "no longer significant (p = 0.89)"
+        },
+        "missing": [
+          "cell percentages (SI Figures S10, S11 only)",
+          "test statistic"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s2_om_gpt4turbo",
+      "label": "Study 2, GPT-4-turbo (participant prompt): omission bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c2_orig",
+          "c2_om",
+          "c2_p_part"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: both LLMs and humans show omission bias.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_om"
+        ],
+        "cells": {
+          "omission": {
+            "percent": 100
+          },
+          "action": {
+            "percent": 68
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 19.1,
+          "df": 2943,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4-turbo"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s2_om_gpt4o",
+      "label": "Study 2, GPT-4o (participant prompt): omission bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c2_orig",
+          "c2_om",
+          "c2_p_part"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: both LLMs and humans show omission bias.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_om"
+        ],
+        "cells": {
+          "omission": {
+            "percent": 100
+          },
+          "action": {
+            "percent": 83
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 9.99,
+          "df": 2943,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s2_om_llama31inst",
+      "label": "Study 2, Llama 3.1-Instruct (participant prompt): omission bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c2_orig",
+          "c2_om",
+          "c2_p_part"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: both LLMs and humans show omission bias.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_om"
+        ],
+        "cells": {
+          "omission": {
+            "percent": 87
+          },
+          "action": {
+            "percent": 57
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 23.83,
+          "df": 2943,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s2_om_claude35",
+      "label": "Study 2, Claude 3.5 (participant prompt): omission bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c2_orig",
+          "c2_om",
+          "c2_p_part"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: both LLMs and humans show omission bias.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_om"
+        ],
+        "cells": {
+          "omission": {
+            "percent": 99
+          },
+          "action": {
+            "percent": 55
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 25.93,
+          "df": 2943,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n of valid responses per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Claude 3.5"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s2_om_gpt4turbo_vs_humans",
+      "label": "Study 2: omission bias, GPT-4-turbo vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "GPT-4-turbo",
+          "humans"
+        ],
+        "conditionIds": [
+          "c2_orig",
+          "c2_om",
+          "c2_p_part"
+        ],
+        "valueMeans": "omission effect (omission minus action) of GPT-4-turbo minus that of participants"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: omission bias larger for LLMs than humans.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_om_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.03,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s2_om_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 28.47,
+          "df": [
+            1,
+            963
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "GPT-4-turbo"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s2_om_llama31inst_vs_humans",
+      "label": "Study 2: omission bias, Llama 3.1-Instruct vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Llama 3.1-Instruct",
+          "humans"
+        ],
+        "conditionIds": [
+          "c2_orig",
+          "c2_om",
+          "c2_p_part"
+        ],
+        "valueMeans": "omission effect (omission minus action) of Llama 3.1-Instruct minus that of participants"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: omission bias larger for LLMs than humans.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_om_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.03,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s2_om_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 33.23,
+          "df": [
+            1,
+            963
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s2_om_claude35_vs_humans",
+      "label": "Study 2: omission bias, Claude 3.5 vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Claude 3.5",
+          "humans"
+        ],
+        "conditionIds": [
+          "c2_orig",
+          "c2_om",
+          "c2_p_part"
+        ],
+        "valueMeans": "omission effect (omission minus action) of Claude 3.5 minus that of participants"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: omission bias larger for LLMs than humans.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_om_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.06,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s2_om_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 60.48,
+          "df": [
+            1,
+            963
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Claude 3.5"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s2_om_gpt4o_vs_humans",
+      "label": "Study 2: omission bias, GPT-4o vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "GPT-4o",
+          "humans"
+        ],
+        "conditionIds": [
+          "c2_orig",
+          "c2_om",
+          "c2_p_part"
+        ],
+        "valueMeans": "omission effect (omission minus action) of GPT-4o minus that of participants"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: omission bias larger for LLMs than humans.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_om_f4o"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.003,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s2_om_f4o"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 1.39,
+          "df": [
+            1,
+            963
+          ],
+          "p": 0.239,
+          "pRelation": "="
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s2_om_gpt4o_advice",
+      "label": "Study 2, GPT-4o (advice-giving prompt): omission bias",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c2_orig",
+          "c2_om",
+          "c2_p_adv"
+        ],
+        "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: both LLMs and humans show omission bias.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_adv"
+        ],
+        "cells": {
+          "omission": {
+            "percent": 73
+          },
+          "action": {
+            "percent": 75
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 1.1,
+          "df": 2941,
+          "p": 0.273,
+          "pRelation": "="
+        },
+        "missing": [
+          "n of valid responses per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions. The printed '75% vs. 73%' is read in the order the paper uses throughout (action vs omission); check against SI Figure S5.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s2_om_gpt4o_advice_vs_humans",
+      "label": "Study 2: omission bias, GPT-4o (advice-giving prompt) vs participants",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "GPT-4o",
+          "humans"
+        ],
+        "conditionIds": [
+          "c2_orig",
+          "c2_om",
+          "c2_p_adv"
+        ],
+        "valueMeans": "omission effect of GPT-4o (advice prompt) minus that of participants"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: omission bias larger for LLMs than humans.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s2_adv"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.01,
+            "variant": "framing x model ANOVA, advice-giving prompt",
+            "evidenceIds": [
+              "e_fx_s2_adv"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 11.21,
+          "df": [
+            1,
+            963
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions. The paper reports GPT-4o's omission bias as significantly smaller than humans' here (opposite to the prediction).",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s2_om_endowment_humans",
+      "label": "Study 2, participants, 'Endowment' only: omission bias",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "s2_omission",
+        "reference": "s2_original",
+        "conditionIds": [
+          "c2_om",
+          "c2_orig"
+        ],
+        "valueMeans": "proportion CBR in the Action-Omission version (CBR = omission) minus the original version (CBR = action) of 'Endowment'"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: both LLMs and humans show omission bias.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "proportion_difference",
+        "field": "trials.0.cbr",
+        "success": [
+          true
+        ],
+        "groupBy": "arm",
+        "where": {
+          "trials.0.vignette": "endowment"
+        }
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_s2_res_endow"
+        ],
+        "cells": {
+          "s2_omission": {
+            "percent": 59
+          },
+          "s2_original": {
+            "percent": 9
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 7.82,
+          "df": 153,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n per cell"
+        ]
+      },
+      "notes": "Computed from per-session fields (parsed.*) that the human loader writes; AI-participant sessions of the adapter keep the answer under trials[0] instead, so this op returns not_ready for them.",
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s2_om_endowment_gpt4o",
+      "label": "Study 2, GPT-4o (participant prompt), 'Endowment' only: omission bias",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "s2_omission",
+        "reference": "s2_original",
+        "conditionIds": [
+          "c2_om",
+          "c2_orig",
+          "c2_p_part"
+        ],
+        "valueMeans": "proportion CBR in the Action-Omission version minus the original version of 'Endowment'"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Preregistered: both LLMs and humans show omission bias.",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_s2_res_endow"
+        ],
+        "cells": {
+          "s2_omission": {
+            "percent": 100
+          },
+          "s2_original": {
+            "percent": 0
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 24.49,
+          "df": 153,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "n per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s2_om_endowment_gpt4o_vs_humans",
+      "label": "Study 2, 'Endowment': omission bias, GPT-4o vs participants",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "s2",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v2_cbr",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "GPT-4o",
+          "humans"
+        ],
+        "conditionIds": [
+          "c2_om",
+          "c2_orig",
+          "c2_p_part"
+        ],
+        "valueMeans": "omission effect of GPT-4o minus that of participants, 'Endowment' only"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a2"
+      ],
+      "resultIds": [
+        "r2_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_s2_res_endow"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.22,
+            "variant": "framing x model ANOVA, 'Endowment' only",
+            "evidenceIds": [
+              "e_s2_res_endow"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 42.28,
+          "df": [
+            1,
+            153
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s3_yn_humans",
+      "label": "Study 3 (AITA dilemmas), participants: yes-no bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = original action",
+        "reference": "no = original action",
+        "conditionIds": [
+          "c3_orig",
+          "c3_yn"
+        ],
+        "valueMeans": "proportion endorsing the original action when 'yes' endorses it minus when 'no' does (negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "Same preregistered hypotheses as Study 2.",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s3_humans"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_yn"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 1.54,
+          "df": 2955,
+          "p": 0.123,
+          "pRelation": "="
+        },
+        "missing": [
+          "cell percentages (SI Figure S14 only)",
+          "n per cell"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s3_yn_gpt4turbo",
+      "label": "Study 3 (AITA dilemmas), GPT-4-turbo (participant prompt): yes-no bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = original action",
+        "reference": "no = original action",
+        "conditionIds": [
+          "c3_orig",
+          "c3_yn",
+          "c3_p_part"
+        ],
+        "valueMeans": "proportion endorsing the original action when 'yes' endorses it minus when 'no' does (negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Same preregistered hypotheses as Study 2.",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_yn"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 32.68,
+          "df": 2955,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages (SI Figure S14 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4-turbo"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s3_yn_gpt4o",
+      "label": "Study 3 (AITA dilemmas), GPT-4o (participant prompt): yes-no bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = original action",
+        "reference": "no = original action",
+        "conditionIds": [
+          "c3_orig",
+          "c3_yn",
+          "c3_p_part"
+        ],
+        "valueMeans": "proportion endorsing the original action when 'yes' endorses it minus when 'no' does (negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Same preregistered hypotheses as Study 2.",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_yn"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 9.76,
+          "df": 2955,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages (SI Figure S14 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s3_yn_llama31inst",
+      "label": "Study 3 (AITA dilemmas), Llama 3.1-Instruct (participant prompt): yes-no bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = original action",
+        "reference": "no = original action",
+        "conditionIds": [
+          "c3_orig",
+          "c3_yn",
+          "c3_p_part"
+        ],
+        "valueMeans": "proportion endorsing the original action when 'yes' endorses it minus when 'no' does (negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Same preregistered hypotheses as Study 2.",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_yn"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 20.52,
+          "df": 2955,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages (SI Figure S14 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s3_yn_claude35",
+      "label": "Study 3 (AITA dilemmas), Claude 3.5 (participant prompt): yes-no bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = original action",
+        "reference": "no = original action",
+        "conditionIds": [
+          "c3_orig",
+          "c3_yn",
+          "c3_p_part"
+        ],
+        "valueMeans": "proportion endorsing the original action when 'yes' endorses it minus when 'no' does (negative = bias toward answering 'no')"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "Same preregistered hypotheses as Study 2.",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_yn"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 24.05,
+          "df": 2955,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages (SI Figure S14 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Claude 3.5"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s3_yn_gpt4turbo_vs_humans",
+      "label": "Study 3: yes-no bias, GPT-4-turbo vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "GPT-4-turbo",
+          "humans"
+        ],
+        "conditionIds": [
+          "c3_orig",
+          "c3_yn",
+          "c3_p_part"
+        ],
+        "valueMeans": "yes-no effect of GPT-4-turbo minus that of participants"
+      },
+      "prediction": {
+        "direction": "negative",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_yn_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.2,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s3_yn_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 237.29,
+          "df": [
+            1,
+            975
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "GPT-4-turbo"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s3_yn_gpt4o_vs_humans",
+      "label": "Study 3: yes-no bias, GPT-4o vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "GPT-4o",
+          "humans"
+        ],
+        "conditionIds": [
+          "c3_orig",
+          "c3_yn",
+          "c3_p_part"
+        ],
+        "valueMeans": "yes-no effect of GPT-4o minus that of participants"
+      },
+      "prediction": {
+        "direction": "negative",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_yn_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.04,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s3_yn_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 37.61,
+          "df": [
+            1,
+            975
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s3_yn_llama31inst_vs_humans",
+      "label": "Study 3: yes-no bias, Llama 3.1-Instruct vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Llama 3.1-Instruct",
+          "humans"
+        ],
+        "conditionIds": [
+          "c3_orig",
+          "c3_yn",
+          "c3_p_part"
+        ],
+        "valueMeans": "yes-no effect of Llama 3.1-Instruct minus that of participants"
+      },
+      "prediction": {
+        "direction": "negative",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_yn_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.11,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s3_yn_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 123.8,
+          "df": [
+            1,
+            975
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s3_yn_claude35_vs_humans",
+      "label": "Study 3: yes-no bias, Claude 3.5 vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Claude 3.5",
+          "humans"
+        ],
+        "conditionIds": [
+          "c3_orig",
+          "c3_yn",
+          "c3_p_part"
+        ],
+        "valueMeans": "yes-no effect of Claude 3.5 minus that of participants"
+      },
+      "prediction": {
+        "direction": "negative",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_yn_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.13,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s3_yn_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 150.98,
+          "df": [
+            1,
+            975
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Claude 3.5"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s3_om_humans",
+      "label": "Study 3 (AITA dilemmas), participants: omission bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c3_orig",
+          "c3_om"
+        ],
+        "valueMeans": "proportion endorsing the original action when it is an omission minus when it is an action (positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Same preregistered hypotheses as Study 2.",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s3_humans"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_om"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 4.06,
+          "df": 2954,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages (SI Figure S16 only)",
+          "n per cell"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s3_om_gpt4turbo",
+      "label": "Study 3 (AITA dilemmas), GPT-4-turbo (participant prompt): omission bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c3_orig",
+          "c3_om",
+          "c3_p_part"
+        ],
+        "valueMeans": "proportion endorsing the original action when it is an omission minus when it is an action (positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Same preregistered hypotheses as Study 2.",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_om"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 24.7,
+          "df": 2954,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages (SI Figure S16 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4-turbo"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s3_om_gpt4o",
+      "label": "Study 3 (AITA dilemmas), GPT-4o (participant prompt): omission bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c3_orig",
+          "c3_om",
+          "c3_p_part"
+        ],
+        "valueMeans": "proportion endorsing the original action when it is an omission minus when it is an action (positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Same preregistered hypotheses as Study 2.",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_om"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 7.34,
+          "df": 2954,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages (SI Figure S16 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s3_om_llama31inst",
+      "label": "Study 3 (AITA dilemmas), Llama 3.1-Instruct (participant prompt): omission bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c3_orig",
+          "c3_om",
+          "c3_p_part"
+        ],
+        "valueMeans": "proportion endorsing the original action when it is an omission minus when it is an action (positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Same preregistered hypotheses as Study 2.",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_om"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 19.06,
+          "df": 2954,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages (SI Figure S16 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s3_om_claude35",
+      "label": "Study 3 (AITA dilemmas), Claude 3.5 (participant prompt): omission bias",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "LLM query (one vignette per query)",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "conditionIds": [
+          "c3_orig",
+          "c3_om",
+          "c3_p_part"
+        ],
+        "valueMeans": "proportion endorsing the original action when it is an omission minus when it is an action (positive = omission bias)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Same preregistered hypotheses as Study 2.",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "paper_llm_respondents"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_om"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 27.81,
+          "df": 2954,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages (SI Figure S16 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Claude 3.5"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s3_om_gpt4turbo_vs_humans",
+      "label": "Study 3: omission bias, GPT-4-turbo vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "GPT-4-turbo",
+          "humans"
+        ],
+        "conditionIds": [
+          "c3_orig",
+          "c3_om",
+          "c3_p_part"
+        ],
+        "valueMeans": "omission effect of GPT-4-turbo minus that of participants"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_om_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.08,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s3_om_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 81.46,
+          "df": [
+            1,
+            974
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "GPT-4-turbo"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s3_om_llama31inst_vs_humans",
+      "label": "Study 3: omission bias, Llama 3.1-Instruct vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Llama 3.1-Instruct",
+          "humans"
+        ],
+        "conditionIds": [
+          "c3_orig",
+          "c3_om",
+          "c3_p_part"
+        ],
+        "valueMeans": "omission effect of Llama 3.1-Instruct minus that of participants"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_om_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.03,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s3_om_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 33.13,
+          "df": [
+            1,
+            974
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s3_om_claude35_vs_humans",
+      "label": "Study 3: omission bias, Claude 3.5 vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Claude 3.5",
+          "humans"
+        ],
+        "conditionIds": [
+          "c3_orig",
+          "c3_om",
+          "c3_p_part"
+        ],
+        "valueMeans": "omission effect of Claude 3.5 minus that of participants"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_om_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.11,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s3_om_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 124.91,
+          "df": [
+            1,
+            974
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Claude 3.5"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s3_om_gpt4o_vs_humans",
+      "label": "Study 3: omission bias, GPT-4o vs participants (framing x model)",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "s3",
+      "design": "between",
+      "unit": "participant / LLM query",
+      "outcome": {
+        "variableId": "v3_approve",
+        "type": "binary",
+        "scale": "approve (1) / not (0) the original action",
+        "higherMeans": "the action of the original vignette endorsed more often",
+        "treatedAs": "proportion"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "GPT-4o",
+          "humans"
+        ],
+        "conditionIds": [
+          "c3_orig",
+          "c3_om",
+          "c3_p_part"
+        ],
+        "valueMeans": "omission effect of GPT-4o minus that of participants"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s3_ana",
+          "e_s2_hyp"
+        ]
+      },
+      "analysisIds": [
+        "a3"
+      ],
+      "resultIds": [
+        "r3_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "llm_vs_human_anova"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s3_om_f"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.0005,
+            "variant": "framing x model ANOVA (with vignette), participant prompt",
+            "evidenceIds": [
+              "e_fx_s3_om_f"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 0.51,
+          "df": [
+            1,
+            974
+          ],
+          "p": 0.476,
+          "pRelation": "="
+        },
+        "missing": []
+      },
+      "notes": "LLM respondents are part of the paper's design (repeated single-turn queries of the model), not human participants; computed only from the paper's LLM response data, which are not in these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "GPT-4o"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s4_yn_llama31inst",
+      "label": "Study 4, Llama 3.1-Instruct: yes-no bias on the Study 2 dilemmas",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "model query (one vignette per query)",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = CBR",
+        "reference": "no = CBR",
+        "valueMeans": "proportion CBR when 'yes' is the CBR option minus when 'no' is (Study 2 dilemmas)",
+        "conditionIds": [
+          "c4_inst"
+        ]
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s4_yn"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 11.52,
+          "df": 2247,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages (Figure 5 / SI Figures S20, S21 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "Paper: a strong preference for 'no'. Model respondents, not human participants; not part of these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s4_yn_llama31pre",
+      "label": "Study 4, Llama 3.1 (pre-trained): yes-no bias on the Study 2 dilemmas",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "model query (one vignette per query)",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = CBR",
+        "reference": "no = CBR",
+        "valueMeans": "proportion CBR when 'yes' is the CBR option minus when 'no' is (Study 2 dilemmas)",
+        "conditionIds": [
+          "c4_pre"
+        ]
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s8"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 2.11,
+          "df": 2247,
+          "p": 0.035,
+          "pRelation": "="
+        },
+        "missing": [
+          "cell percentages (Figure 5 / SI Figures S20, S21 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "Paper: a weak preference for 'yes'. Model respondents, not human participants; not part of these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Llama 3.1 (pre-trained)"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s4_yn_centaur",
+      "label": "Study 4, Centaur: yes-no bias on the Study 2 dilemmas",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "model query (one vignette per query)",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = CBR",
+        "reference": "no = CBR",
+        "valueMeans": "proportion CBR when 'yes' is the CBR option minus when 'no' is (Study 2 dilemmas)",
+        "conditionIds": [
+          "c4_cent"
+        ]
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s8"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 1.8,
+          "df": 2247,
+          "p": 0.072,
+          "pRelation": "="
+        },
+        "missing": [
+          "cell percentages (Figure 5 / SI Figures S20, S21 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "Paper: no significant yes-no bias. Model respondents, not human participants; not part of these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Centaur"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s4_om_llama31pre",
+      "label": "Study 4, Llama 3.1 (pre-trained): omission bias on the Study 2 dilemmas",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "model query (one vignette per query)",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "valueMeans": "proportion CBR when it coincides with omission minus with action (Study 2 dilemmas)",
+        "conditionIds": [
+          "c4_pre"
+        ]
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s8"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 3.52,
+          "df": 2247,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages (Figure 5 / SI Figures S20, S21 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "Paper: a slight bias for action. Model respondents, not human participants; not part of these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Llama 3.1 (pre-trained)"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s4_om_centaur",
+      "label": "Study 4, Centaur: omission bias on the Study 2 dilemmas",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "model query (one vignette per query)",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "omission",
+        "reference": "action",
+        "valueMeans": "proportion CBR when it coincides with omission minus with action (Study 2 dilemmas)",
+        "conditionIds": [
+          "c4_cent"
+        ]
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s8"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 1.14,
+          "df": 2247,
+          "p": 0.255,
+          "pRelation": "="
+        },
+        "missing": [
+          "cell percentages (Figure 5 / SI Figures S20, S21 only)",
+          "n per cell"
+        ]
+      },
+      "notes": "Paper: no action bias. Model respondents, not human participants; not part of these sessions.",
+      "population": {
+        "kind": "ai-model",
+        "models": [
+          "Centaur"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s4_yn_humans",
+      "label": "Study 4 analysis, participants (Study 2 data): yes-no bias",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "yes = CBR",
+        "reference": "no = CBR",
+        "valueMeans": "proportion CBR when 'yes' is the CBR option minus when 'no' is (Study 2 dilemmas)",
+        "conditionIds": [
+          "c2_orig",
+          "c2_yn"
+        ]
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s2_yes_no_bias"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_s8"
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 0.68,
+          "df": 2247,
+          "p": 0.494,
+          "pRelation": "="
+        },
+        "missing": [
+          "cell percentages",
+          "the t-test is a contrast in the Study 4 ANOVA over humans and three models"
+        ]
+      },
+      "notes": "The same human data and contrast as s2_yn_humans, tested in the Study 4 model.",
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s4_yn_centaur_vs_humans",
+      "label": "Study 4: yes-no bias, Centaur vs humans (Table S4)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Centaur",
+          "humans"
+        ],
+        "conditionIds": [
+          "c4_cent",
+          "c2_orig",
+          "c2_yn"
+        ],
+        "valueMeans": "yes-no effect of Centaur minus that of humans"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts4"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.0002,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts4"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 0.16,
+          "df": [
+            1,
+            967
+          ],
+          "p": 0.688,
+          "pRelation": "="
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Centaur"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s4_yn_llama31pre_vs_humans",
+      "label": "Study 4: yes-no bias, Llama 3.1 (pre-trained) vs humans (Table S4)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Llama 3.1 (pre-trained)",
+          "humans"
+        ],
+        "conditionIds": [
+          "c4_pre",
+          "c2_orig",
+          "c2_yn"
+        ],
+        "valueMeans": "yes-no effect of Llama 3.1 (pre-trained) minus that of humans"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts4"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.0004,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts4"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 0.34,
+          "df": [
+            1,
+            927
+          ],
+          "p": 0.558,
+          "pRelation": "="
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Llama 3.1 (pre-trained)"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s4_yn_llama31inst_vs_humans",
+      "label": "Study 4: yes-no bias, Llama 3.1-Instruct vs humans (Table S4)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Llama 3.1-Instruct",
+          "humans"
+        ],
+        "conditionIds": [
+          "c4_inst",
+          "c2_orig",
+          "c2_yn"
+        ],
+        "valueMeans": "yes-no effect of Llama 3.1-Instruct minus that of humans"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts4"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.09,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts4"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 92.74,
+          "df": [
+            1,
+            967
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s4_yn_centaur_vs_llama31pre",
+      "label": "Study 4: yes-no bias, Centaur vs Llama 3.1 (pre-trained) (Table S4)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Centaur",
+          "Llama 3.1 (pre-trained)"
+        ],
+        "conditionIds": [
+          "c4_cent",
+          "c4_pre"
+        ],
+        "valueMeans": "yes-no effect of Centaur minus that of Llama 3.1 (pre-trained)"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts4"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 4e-05,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts4"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 0.05,
+          "df": [
+            1,
+            1280
+          ],
+          "p": 0.822,
+          "pRelation": "="
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "ai-model-vs-ai-model",
+        "models": [
+          "Centaur",
+          "Llama 3.1 (pre-trained)"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s4_yn_centaur_vs_llama31inst",
+      "label": "Study 4: yes-no bias, Centaur vs Llama 3.1-Instruct (Table S4)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Centaur",
+          "Llama 3.1-Instruct"
+        ],
+        "conditionIds": [
+          "c4_cent",
+          "c4_inst"
+        ],
+        "valueMeans": "yes-no effect of Centaur minus that of Llama 3.1-Instruct"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts4",
+          "e_fx_s4_yn"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.08,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts4"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 109.6,
+          "df": [
+            1,
+            1320
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "ai-model-vs-ai-model",
+        "models": [
+          "Centaur",
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s4_yn_llama31pre_vs_llama31inst",
+      "label": "Study 4: yes-no bias, Llama 3.1 (pre-trained) vs Llama 3.1-Instruct (Table S4)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Llama 3.1 (pre-trained)",
+          "Llama 3.1-Instruct"
+        ],
+        "conditionIds": [
+          "c4_pre",
+          "c4_inst"
+        ],
+        "valueMeans": "yes-no effect of Llama 3.1 (pre-trained) minus that of Llama 3.1-Instruct"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_yn"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts4",
+          "e_fx_s4_yn"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.08,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts4"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 116.01,
+          "df": [
+            1,
+            1280
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "ai-model-vs-ai-model",
+        "models": [
+          "Llama 3.1 (pre-trained)",
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "yes-no bias",
+        "framing effect"
+      ]
+    },
+    {
+      "id": "s4_om_centaur_vs_humans",
+      "label": "Study 4: omission bias, Centaur vs humans (Table S5)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Centaur",
+          "humans"
+        ],
+        "conditionIds": [
+          "c4_cent",
+          "c2_orig",
+          "c2_om"
+        ],
+        "valueMeans": "omission effect of Centaur minus that of humans"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts5"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.006,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts5"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 6.21,
+          "df": [
+            1,
+            963
+          ],
+          "p": 0.013,
+          "pRelation": "="
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Centaur"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s4_om_llama31pre_vs_humans",
+      "label": "Study 4: omission bias, Llama 3.1 (pre-trained) vs humans (Table S5)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Llama 3.1 (pre-trained)",
+          "humans"
+        ],
+        "conditionIds": [
+          "c4_pre",
+          "c2_orig",
+          "c2_om"
+        ],
+        "valueMeans": "omission effect of Llama 3.1 (pre-trained) minus that of humans"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts5"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.01,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts5"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 13.97,
+          "df": [
+            1,
+            918
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Llama 3.1 (pre-trained)"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s4_om_llama31inst_vs_humans",
+      "label": "Study 4: omission bias, Llama 3.1-Instruct vs humans (Table S5)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Llama 3.1-Instruct",
+          "humans"
+        ],
+        "conditionIds": [
+          "c4_inst",
+          "c2_orig",
+          "c2_om"
+        ],
+        "valueMeans": "omission effect of Llama 3.1-Instruct minus that of humans"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts5"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.03,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts5"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 33.23,
+          "df": [
+            1,
+            963
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "human-vs-ai-model",
+        "models": [
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "omission bias",
+        "LLM-human comparison"
+      ]
+    },
+    {
+      "id": "s4_om_centaur_vs_llama31pre",
+      "label": "Study 4: omission bias, Centaur vs Llama 3.1 (pre-trained) (Table S5)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Centaur",
+          "Llama 3.1 (pre-trained)"
+        ],
+        "conditionIds": [
+          "c4_cent",
+          "c4_pre"
+        ],
+        "valueMeans": "omission effect of Centaur minus that of Llama 3.1 (pre-trained)"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts5"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.002,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts5"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 2.4,
+          "df": [
+            1,
+            1275
+          ],
+          "p": 0.122,
+          "pRelation": "="
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "ai-model-vs-ai-model",
+        "models": [
+          "Centaur",
+          "Llama 3.1 (pre-trained)"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s4_om_centaur_vs_llama31inst",
+      "label": "Study 4: omission bias, Centaur vs Llama 3.1-Instruct (Table S5)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Centaur",
+          "Llama 3.1-Instruct"
+        ],
+        "conditionIds": [
+          "c4_cent",
+          "c4_inst"
+        ],
+        "valueMeans": "omission effect of Centaur minus that of Llama 3.1-Instruct"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts5",
+          "e_fx_s4_om"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.07,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts5"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 100.94,
+          "df": [
+            1,
+            1320
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "ai-model-vs-ai-model",
+        "models": [
+          "Centaur",
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    },
+    {
+      "id": "s4_om_llama31pre_vs_llama31inst",
+      "label": "Study 4: omission bias, Llama 3.1 (pre-trained) vs Llama 3.1-Instruct (Table S5)",
+      "role": "test",
+      "hypothesisIds": [
+        "h4"
+      ],
+      "studyId": "s4",
+      "design": "between",
+      "unit": "participant / model query",
+      "outcome": {
+        "variableId": "v4",
+        "type": "binary",
+        "scale": "CBR option (1) / rule option (0)",
+        "higherMeans": "CBR option chosen more often",
+        "treatedAs": "proportion CBR"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "Llama 3.1 (pre-trained)",
+          "Llama 3.1-Instruct"
+        ],
+        "conditionIds": [
+          "c4_pre",
+          "c4_inst"
+        ],
+        "valueMeans": "omission effect of Llama 3.1 (pre-trained) minus that of Llama 3.1-Instruct"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "Exploratory: where the biases come from.",
+        "evidenceIds": [
+          "e_s4_intro"
+        ]
+      },
+      "analysisIds": [
+        "a4"
+      ],
+      "resultIds": [
+        "r4_om"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s4_models"
+      },
+      "reported": {
+        "evidenceIds": [
+          "e_fx_ts5",
+          "e_fx_s4_om"
+        ],
+        "estimates": [
+          {
+            "metric": "partial_eta_squared",
+            "value": 0.1,
+            "variant": "framing x model ANOVA, Study 2 dilemmas, participant prompt",
+            "evidenceIds": [
+              "e_fx_ts5"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 141.32,
+          "df": [
+            1,
+            1275
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": []
+      },
+      "notes": "Model respondents (and, for 'vs humans', the Study 2 human data); the model responses are not part of these sessions.",
+      "population": {
+        "kind": "ai-model-vs-ai-model",
+        "models": [
+          "Llama 3.1 (pre-trained)",
+          "Llama 3.1-Instruct"
+        ]
+      },
+      "phenomena": [
+        "omission bias"
+      ]
+    }
+  ]
+}

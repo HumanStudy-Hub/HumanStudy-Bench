@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "derivedFrom": {
+    "program": "387ae76ff741f78119b3be5584301ec63f273fc37b26b92b005688920666fd71",
+    "package": "cheung2025moral"
+  },
+  "read": {
+    "status": "yes",
+    "reason": null
+  },
+  "run": {
+    "status": "partial",
+    "reason": "1 part(s) of the paper cannot be run; see excluded",
+    "modalities": [
+      "text"
+    ],
+    "excluded": [
+      {
+        "what": "studies 1-2",
+        "reason": "The paper's respondents include LLMs as well as people; the human-versus-LLM ANOVAs are not computed."
+      }
+    ]
+  },
+  "humanData": {
+    "status": "partial",
+    "coverage": [
+      "s2_omission",
+      "s2_original",
+      "s2_yes_no"
+    ],
+    "sessions": 474,
+    "source": "human-data/data_p.csv (Study 2 Qualtrics export merged with Prolific export, 501 rows; from the authors' OSF materials, https://osf.io/ybdr9). human-data/prompts_sacrificial.csv holds LLM prompts only (unused).",
+    "missing": [
+      {
+        "what": "s1_moral_sequential",
+        "reason": "Study 1 human data (N = 285, 13 sequential dilemmas) are not in human-data; data_p.csv is Study 2 only."
+      }
+    ],
+    "key": {
+      "sample": "original",
+      "repository": "https://osf.io/3kvjd/",
+      "license": null,
+      "dataFiles": 2,
+      "fetchable": 2
+    },
+    "reason": "source pinned in package/cheung2025moral/human/key.json (2 of 2 data files downloadable from it)"
+  },
+  "authorCode": {
+    "status": "no",
+    "route": null,
+    "reason": "no author-code key recorded"
+  },
+  "reproduced": {
+    "package": "pass",
+    "author": null,
+    "detail": "1 of 1 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+  },
+  "profiles": {
+    "status": "no",
+    "reason": "the runner does not sample participant profiles yet"
+  }
+}

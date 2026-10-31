@@ -1,0 +1,74 @@
+{
+  "package": "hoogeveen2020",
+  "humanSessions": 233,
+  "agentN": 10,
+  "participantCommand": "claude -p --model haiku --strict-mcp-config --setting-sources \"\" --tools \"\" --system-prompt \"You are taking part in a study. Answer as asked.\"",
+  "mode": "parallel",
+  "minutes": 0.5,
+  "humanMatchesPaper": [
+    4,
+    4
+  ],
+  "agentAgrees": [
+    5,
+    5
+  ],
+  "effects": [
+    {
+      "id": "accuracy_desc",
+      "label": "Accuracy above chance, description only (mean accuracy - .50)",
+      "reported": 0.08999999999999997,
+      "human": 0.08467791180056994,
+      "human_p": null,
+      "agent": 0.19999999999999996,
+      "agent_p": null,
+      "humanMatchesPaper": true,
+      "agentAgrees": true
+    },
+    {
+      "id": "accuracy_evid",
+      "label": "Accuracy above chance, description + evidence (mean accuracy - .50)",
+      "reported": 0.17000000000000004,
+      "human": 0.1709467754467754,
+      "human_p": null,
+      "agent": 0.28888888888888886,
+      "agent_p": null,
+      "humanMatchesPaper": true,
+      "agentAgrees": true
+    },
+    {
+      "id": "auc_desc",
+      "label": "AUC (SDT, from d'), description only",
+      "reported": 0.62,
+      "human": 0.6173494090538604,
+      "human_p": null,
+      "agent": 0.7987758646259854,
+      "agent_p": null,
+      "humanMatchesPaper": true,
+      "agentAgrees": true
+    },
+    {
+      "id": "auc_evid",
+      "label": "AUC (SDT, from d'), description + evidence",
+      "reported": 0.74,
+      "human": 0.7353621843133469,
+      "human_p": null,
+      "agent": 0.8701880953019323,
+      "agent_p": null,
+      "humanMatchesPaper": true,
+      "agentAgrees": true
+    },
+    {
+      "id": "brier_condition",
+      "label": "Evidence benefit: mean log Brier per participant (description only - evidence)",
+      "reported": null,
+      "human": 0.15372415370832648,
+      "human_p": 3.3060922888239475e-09,
+      "agent": 0.10549529620481968,
+      "agent_p": 1.9020234220512577e-05,
+      "humanMatchesPaper": null,
+      "agentAgrees": true
+    }
+  ],
+  "note": "Agent results are a simulation; agreement with people is measured, not assumed."
+}

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections import Counter
 import re
 import unicodedata
 from pathlib import Path
@@ -118,7 +119,7 @@ def concept_matches(query: str, taxonomy: dict) -> list[str]:
             {normalise(s) for s in [c["label"], *c.get("aliases", [])]}]
 
 
-from scripts.research.effects_core import phenomena_of  # noqa: E402  (desktop copy)
+from scripts.research.effects_core import VOCAB_VERSION, kg, phenomena_of, resolve  # noqa: E402  (desktop copy)
 
 
 def concept_suggestions(phrases: list[str], taxonomy: dict) -> list[str]:
@@ -157,10 +158,23 @@ def effect_records(paper_id: str, effects: dict, program: dict, taxonomy: dict) 
                                    for h in hs],
                     "phenomena": phenomena, "conceptSuggestions": concept_suggestions(phenomena, taxonomy),
                     "topics": effects.get("topics", []), "design": e.get("design"), "unit": e.get("unit"),
-                    "outcome": e.get("outcome"), "contrast": e.get("contrast"), "prediction": e.get("prediction"),
+                    "outcome": e.get("outcome"), "contrast": e.get("contrast"),
+                    "contrastCore": resolve("contrast", (e.get("contrast") or {}).get("kind"), effects),
+                    "prediction": e.get("prediction"),
                     "computeOp": (e.get("compute") or {}).get("op"), "reported": reported,
                     "reportedPages": pages})
     return out
+
+
+def graph_summary(effects: dict, program: dict) -> dict:
+    """The paper's typed graph in counts, with what fits no core term (gaps) and declared extensions."""
+    g = kg(effects, program)
+    count = lambda xs: dict(sorted(Counter(xs).items()))
+    return {"vocabulary": g["vocabulary"], "nodes": count(n["kind"] for n in g["nodes"]),
+            "edges": count(e.get("core") or e["type"] for e in g["edges"]),
+            "constructs": sorted(n["label"] for n in g["nodes"] if n["kind"] == "construct"),
+            "gaps": [x for x in g["gaps"] if x["what"] != "extension"],
+            "extensions": [x for x in g["gaps"] if x["what"] == "extension"], "unlinked": len(g["unlinked"])}
 
 
 def build_catalog(root: Path, legacy: list[dict]) -> dict:
@@ -231,8 +245,10 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
         declared = revision / "capabilities.json"  # what the study can do, with reasons (desktop #45)
         study_caps = json.loads(declared.read_text()) if any(e["path"] == "capabilities.json" for e in manifest["files"]) else None
         has_effects = any(e["path"] == "effects.json" for e in manifest["files"])
-        estimates = effect_records(pid, json.loads((revision / "effects.json").read_text()), program, taxonomy) \
+        effects_doc = json.loads((revision / "effects.json").read_text()) if has_effects else None
+        estimates = effect_records(pid, effects_doc, program, taxonomy) \
             if has_effects else previous.get("effectEstimates", [])
+        graph = graph_summary(effects_doc, program) if has_effects else previous.get("graph")
         papers[pid] = {**previous, **paper, **projection,
                        "aliases": sorted(set(previous.get("aliases", []) + paper.get("aliases", []))),
                        "currentRevision": current["revision"],
@@ -240,6 +256,7 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
                        "coverage": "human-program", "capabilities": current["capabilities"],
                        **({"studyCapabilities": study_caps} if study_caps else {}),
                        "effectEstimates": estimates,
+                       **({"graph": graph} if graph else {}),
                        "conceptIds": previous.get("conceptIds", []),
                        "conceptAssignments": previous.get("conceptAssignments", [])}
 
@@ -255,6 +272,12 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
     return {"schemaVersion": VERSION, "taxonomyVersion": taxonomy["version"],
             "snapshot": digest({"papers": ordered, "taxonomy": taxonomy}),
             "sourceVersions": source_versions, "papers": ordered, "taxonomy": taxonomy,
+            "graphVocabulary": VOCAB_VERSION,
+            # extensions papers declared, by name: the proposals for promoting a term into the core
+            "graphExtensions": {name: sorted(p["id"] for p in ordered for x in (p.get("graph") or {}).get("extensions", [])
+                                             if x["value"] == name)
+                                for name in sorted({x["value"] for p in ordered
+                                                    for x in (p.get("graph") or {}).get("extensions", [])})},
             "coverage": {"papers": len(ordered), "scope": "indexed-corpus",
                          "builtPrograms": sum(bool(p.get("currentRevision")) for p in ordered)}}
 

@@ -268,3 +268,7 @@ def test_effects_are_checked_and_indexed_for_cross_paper_queries(tmp_path, progr
     assert record["id"].endswith("#harm_vs_help") and record["computeOp"] == "proportion_difference"
     assert record["conceptSuggestions"] == ["phenomenon:side-effect"] and paper["conceptIds"] == []
     assert record["reported"]["cells"]["condition-harm"]["percent"] == 82 and record["reportedPages"] == [2]
+    assert record["contrastCore"] == "two_groups"
+    graph = paper["graph"]
+    assert graph["edges"]["measures"] == 1 and graph["edges"]["tested-by"] >= 1
+    assert "Side-effect effect" in graph["constructs"] and graph["gaps"] == []

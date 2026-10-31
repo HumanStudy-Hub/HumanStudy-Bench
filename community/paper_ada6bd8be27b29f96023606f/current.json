@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "488c56f6db1f9f8332b712b092224d5768b4bc466cbd0e1091c078dabe5d6d10",
-  "previousRevision": "cf3501ea1ea92710db4f22df2b9a02f95f426b18007e3a7593f99ffa9033dc97",
+  "revision": "6b38c0003d5e65cc685990662fd3ff450d869c4d0b4632b6a1ce945c8888234f",
+  "previousRevision": "488c56f6db1f9f8332b712b092224d5768b4bc466cbd0e1091c078dabe5d6d10",
   "paper": {
     "title": "Many Labs 2: Investigating Variation in Replicability Across Samples and Settings",
     "authors": [
@@ -41,13 +41,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "488c56f6db1f9f8332b712b092224d5768b4bc466cbd0e1091c078dabe5d6d10",
+    "candidateRevision": "6b38c0003d5e65cc685990662fd3ff450d869c4d0b4632b6a1ce945c8888234f",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
+    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
     "checks": [
       "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "check_quotes.py: every quote on its cited page",
-      "program and evaluation changed by additions only",
+      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
       "study_core.py reproduce with effects.json on the pinned human data: pass [14, 14]",
       "capabilities.py --check",
       "check_package.py",

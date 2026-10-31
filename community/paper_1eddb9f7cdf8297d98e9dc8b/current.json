@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "f827c9de76fa126edb845c246a578943a5d2139c89b45badab72250a15bc2333",
-  "previousRevision": "fa397828485bae841bb778c036730995c6da775a5eb2a02c9e744c36c6dc086c",
+  "revision": "4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728",
+  "previousRevision": "f827c9de76fa126edb845c246a578943a5d2139c89b45badab72250a15bc2333",
   "paper": {
     "title": "Reasoning in Reference Games: Individual- vs. Population-Level Probabilistic Modeling",
     "authors": [
@@ -39,14 +39,13 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "f827c9de76fa126edb845c246a578943a5d2139c89b45badab72250a15bc2333",
+    "candidateRevision": "4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
+    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
     "checks": [
       "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "check_quotes.py: every quote on its cited page",
-      "program and evaluation changed by additions only",
-      "study_core.py reproduce with effects.json on the pinned human data: pass [2, 2]",
+      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
+      "study_core.py reproduce with effects.json on the pinned human data: partial [4, 5]",
       "capabilities.py --check",
       "check_package.py",
       "agent export self-test",

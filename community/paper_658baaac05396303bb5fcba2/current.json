@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "26c64ac52d2661680329e3dd9d5996bb3894c8ca2cca748e579034cf0db1c7e9",
-  "previousRevision": "f69d62375b9f61ffc66b7bee18556df82201a2f1e6e7748c98a5bc06dfa97104",
+  "revision": "cfc4fbf32113f3e5ecaeff817a0c844548eff05a2ea2dc4dc70d2b5fd65b6846",
+  "previousRevision": "26c64ac52d2661680329e3dd9d5996bb3894c8ca2cca748e579034cf0db1c7e9",
   "paper": {
     "title": "Optimism where there is none: Asymmetric belief updating observed with valence-neutral life events",
     "authors": [
@@ -41,13 +41,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "26c64ac52d2661680329e3dd9d5996bb3894c8ca2cca748e579034cf0db1c7e9",
+    "candidateRevision": "cfc4fbf32113f3e5ecaeff817a0c844548eff05a2ea2dc4dc70d2b5fd65b6846",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
+    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
     "checks": [
       "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "check_quotes.py: every quote on its cited page",
-      "program and evaluation changed by additions only",
+      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
       "study_core.py reproduce with effects.json on the pinned human data: pass [3, 3]",
       "capabilities.py --check",
       "check_package.py",

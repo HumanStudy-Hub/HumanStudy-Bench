@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "c6c5e8640e0abe6e134bd9e7355135943966caba8e9f92227f89c2d2e477c7ca",
-  "previousRevision": "26270c85c44772afa1a7ba02e4dc43623cb5c05177a6fd9adf873ff7d7172460",
+  "revision": "a7a59b9ac2b240ae9d8c4f5e648ffe0404a5d85d1fb4f875b16f1b4a81f73492",
+  "previousRevision": "c6c5e8640e0abe6e134bd9e7355135943966caba8e9f92227f89c2d2e477c7ca",
   "paper": {
     "title": "Not unreasonable: Carving vague dimensions with contraries and contradictions",
     "authors": [
@@ -38,13 +38,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "c6c5e8640e0abe6e134bd9e7355135943966caba8e9f92227f89c2d2e477c7ca",
+    "candidateRevision": "a7a59b9ac2b240ae9d8c4f5e648ffe0404a5d85d1fb4f875b16f1b4a81f73492",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
+    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
     "checks": [
       "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "check_quotes.py: every quote on its cited page",
-      "program and evaluation changed by additions only",
+      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
       "study_core.py reproduce with effects.json on the pinned human data: None [0, 0]",
       "capabilities.py --check",
       "check_package.py",

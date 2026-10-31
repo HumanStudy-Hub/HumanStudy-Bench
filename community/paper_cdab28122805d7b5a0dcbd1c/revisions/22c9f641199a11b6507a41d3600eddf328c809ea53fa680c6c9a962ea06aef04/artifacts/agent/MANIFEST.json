@@ -1,0 +1,133 @@
+{
+  "format": "humanstudy-agent-package/1",
+  "created": "2026-10-31T07:21:49Z",
+  "programId": "manylabs1",
+  "programSha256": "b42b8c1898f1b51f5b1c6ef1956a57908d1b20bc97434c9e03599c5fe3883bcf",
+  "paperSha256": null,
+  "readiness": {
+    "status": "ready",
+    "blocking": [],
+    "scope": "Studies s01–s08 and s11 can be run as text. s09 and s10 (image manipulations) and s12 (reaction-time IAT) are excluded until the researcher decides how to handle them."
+  },
+  "capabilities": {
+    "schemaVersion": 1,
+    "derivedFrom": {
+      "program": "b42b8c1898f1b51f5b1c6ef1956a57908d1b20bc97434c9e03599c5fe3883bcf",
+      "package": "manylabs1"
+    },
+    "read": {
+      "status": "yes",
+      "reason": null
+    },
+    "run": {
+      "status": "partial",
+      "reason": "1 part(s) of the paper cannot be run; see excluded",
+      "modalities": [
+        "text"
+      ],
+      "excluded": [
+        {
+          "what": "s12 (IAT)",
+          "reason": "IAT reaction-time latencies are not a text response; the adapter has no parser for them."
+        }
+      ]
+    },
+    "humanData": {
+      "status": "partial",
+      "coverage": [
+        "s01:free",
+        "s01:paid",
+        "s02:gain",
+        "s02:loss",
+        "s03:high",
+        "s03:low",
+        "s04:three6",
+        "s04:two6one3",
+        "s05:high",
+        "s05:low",
+        "s06:nk_first",
+        "s06:us_first",
+        "s07:allow",
+        "s07:forbid",
+        "s08:disliked",
+        "s08:liked",
+        "s09:control",
+        "s09:flag",
+        "s10:control",
+        "s10:money",
+        "s11:contact",
+        "s11:control"
+      ],
+      "sessions": 61407,
+      "source": "human-data/hd/Tab.delimited.Cleaned.dataset.WITH.variable.values.dat (Many Labs 1 cleaned data, CC0, OSF https://osf.io/wx7ck/), variables described in human-data/hd/Codebook.xlsx; reference effect sizes from human-data/hd/ML_Summary_Statistics.xlsx and Table 2 of Klein et al. (2014)",
+      "missing": [
+        {
+          "what": "s12",
+          "reason": "IAT reaction-time latencies are not a text response and the adapter has no parser for them."
+        },
+        {
+          "what": "s03 (participants with mixed anchors)",
+          "reason": "The anchor was randomised per question (anch1group..anch4group differ within a participant) but a session holds one condition; those participants are left out (see EXCLUSIONS)."
+        }
+      ],
+      "key": {
+        "sample": "original",
+        "repository": "https://osf.io/wx7ck/",
+        "license": "CC0-1.0",
+        "dataFiles": 3,
+        "fetchable": 3
+      },
+      "reason": "source pinned in package/manylabs1/human/key.json (3 of 3 data files downloadable from it)"
+    },
+    "authorCode": {
+      "status": "no",
+      "route": null,
+      "reason": "no author-code key recorded"
+    },
+    "reproduced": {
+      "package": "partial",
+      "author": null,
+      "detail": "11 of 12 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+    },
+    "profiles": {
+      "status": "no",
+      "reason": "the runner does not sample participant profiles yet"
+    }
+  },
+  "skill": "manylabs1",
+  "mcpServer": "manylabs1/scripts/mcp_server.py",
+  "quoteCheck": {
+    "unchecked": 165
+  },
+  "files": {
+    "README.md": "0eaf8b1dd5f9c287a03f538090a07111bf6ee786d8468797206a8f0dd5cf9899",
+    "manylabs1/SKILL.md": "83f4c51a62f0ef662a44d992e64fb45acef5ed643751ff67a5bb2f233bb10b8f",
+    "manylabs1/references/accuracy.md": "f90df0c383a3671dddaefc3b03a2a525deca0bfdcf265b0b50504b0829fa1070",
+    "manylabs1/references/capabilities.md": "a158cd713da5d60029a0d0fdbcf14bb46551601be67d038f6b2429f487ede9dd",
+    "manylabs1/references/open-issues.md": "9425e13b77c355b9e1078350c33067786407c6432a414c50e5a8ce7e8fa2f39f",
+    "manylabs1/references/paper.md": "0d56e34018ff115477d9cfa362a1bc765b72d1dbef2a71e9187fc316dc05d259",
+    "manylabs1/references/sources.md": "82f1dd15969fce5a6b521b67fae68b7ac2c4ceabfa78a60e5bdd189c67ee75f4",
+    "manylabs1/references/study-s01.md": "b67ccf87174eadfed695541f236c57407f57dffa094fae5866582de1a1aa6a1d",
+    "manylabs1/references/study-s02.md": "7dbf7a81fb0914c83e0e8ac131c00a4d33a5451193b57140fc7c37da73ff4a73",
+    "manylabs1/references/study-s03.md": "621a1c25e74a0df51de4c99129c6c8b0584cc33c3f59d9ccfc3da13dd50f4145",
+    "manylabs1/references/study-s04.md": "bb5720f6b0102e8a8f042c277fe0289ee887310daf4057a1773516ed0bac482c",
+    "manylabs1/references/study-s05.md": "23579a797b78b391356665938a32fd58fcb2abb7f1499eb11c288167cf98c3a9",
+    "manylabs1/references/study-s06.md": "b021a60ebe7b1b9d0194ddc0aa009e4e92538c54ff333a703415a2736b6da3a6",
+    "manylabs1/references/study-s07.md": "4a98a78d5ea7ad9f5899dc6b76ddb5f51301049bd44c96b69d0da58aca42870b",
+    "manylabs1/references/study-s08.md": "94f2ac85af238579a64be162f3351fb959038e63d69884291f98cf8cc000ba12",
+    "manylabs1/references/study-s09.md": "01da60b3c4e18bc68e8353ad2729004d73941abe65fb4b3366a5b814652f77b7",
+    "manylabs1/references/study-s10.md": "d9ace33b80310b6946b0f300e6c108058d6cd27657ee8a032bf612ba89e03d12",
+    "manylabs1/references/study-s11.md": "cee4b899cc715cc5319ae2d1bd5c2d153f62b093dd445e8de7c87e032d914b88",
+    "manylabs1/references/study-s12.md": "b8dddcae0cd32ef526d28c78890d2613ee887592080664d492192baef7ccf4db",
+    "manylabs1/references/study-s13.md": "bf8ff02cdbc48eac06f4276b2e0efe05eab44344b03a4cc38e4e249576213ba3",
+    "manylabs1/scripts/effects_core.py": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+    "manylabs1/scripts/mcp_server.py": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+    "manylabs1/scripts/study_core.py": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675"
+  },
+  "sharedWithRevision": [
+    "program.json",
+    "package/",
+    "capabilities.json",
+    "effects.json"
+  ]
+}
