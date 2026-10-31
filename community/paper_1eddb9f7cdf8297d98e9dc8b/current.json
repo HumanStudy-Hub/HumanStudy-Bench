@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728",
-  "previousRevision": "f827c9de76fa126edb845c246a578943a5d2139c89b45badab72250a15bc2333",
+  "revision": "91d8ed30294f248c852941e3264569726cb43c522ef70663c66031667fb8efb7",
+  "previousRevision": "4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728",
   "paper": {
     "title": "Reasoning in Reference Games: Individual- vs. Population-Level Probabilistic Modeling",
     "authors": [
@@ -39,13 +39,13 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728",
+    "candidateRevision": "91d8ed30294f248c852941e3264569726cb43c522ef70663c66031667fb8efb7",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
+    "reason": "Undo a schema 2 migration error: the package's fixed-effects logistic coefficients (no random effects, no position or message-type controls) had been renamed regression_coefficient and so were compared with the paper's mixed-effects b, a different quantity. They now use the declared extension x:fixed-effects-logit-coefficient (parent regression_coefficient) and are not compared, as the original build intended. Files: effects.json, evaluation.py (metric name only).",
     "checks": [
       "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
-      "study_core.py reproduce with effects.json on the pinned human data: partial [4, 5]",
+      "program.json unchanged; package changes limited to the files named in the reason",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [2, 2]",
       "capabilities.py --check",
       "check_package.py",
       "agent export self-test",

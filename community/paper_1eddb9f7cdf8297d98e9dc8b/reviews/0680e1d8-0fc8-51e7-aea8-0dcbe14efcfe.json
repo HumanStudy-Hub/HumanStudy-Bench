@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "0680e1d8-0fc8-51e7-aea8-0dcbe14efcfe",
+  "headCommit": null,
+  "paperKey": "doi:10.1371/journal.pone.0154854",
+  "status": "accepted",
+  "revision": "91d8ed30294f248c852941e3264569726cb43c522ef70663c66031667fb8efb7",
+  "previousRevision": "4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "91d8ed30294f248c852941e3264569726cb43c522ef70663c66031667fb8efb7",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Undo a schema 2 migration error: the package's fixed-effects logistic coefficients (no random effects, no position or message-type controls) had been renamed regression_coefficient and so were compared with the paper's mixed-effects b, a different quantity. They now use the declared extension x:fixed-effects-logit-coefficient (parent regression_coefficient) and are not compared, as the original build intended. Files: effects.json, evaluation.py (metric name only).",
+    "checks": [
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "program.json unchanged; package changes limited to the files named in the reason",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [2, 2]",
+      "capabilities.py --check",
+      "check_package.py",
+      "agent export self-test",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

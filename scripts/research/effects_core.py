@@ -483,7 +483,9 @@ def map_relation(rtype, from_kind, to_kind):
 
 
 def construct_id(label):
-    return "construct:" + re.sub(r"\s+", " ", str(label).strip().lower())
+    """A construct keeps the paper's own wording: no case folding, no synonym merging. Merging labels across
+    papers is a later, reviewed step (a sameAs map), never done here."""
+    return "construct:" + str(label).strip()
 
 
 def ref_kind(ref, effects, program):
