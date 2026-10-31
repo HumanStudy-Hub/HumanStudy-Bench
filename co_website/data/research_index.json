@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "taxonomyVersion": "2026-10-21.1",
-  "snapshot": "a5cb20c1deb4a8fe0fc00d42582fddab9c0e3cf5c46337e0c8404253fd75d0c5",
+  "snapshot": "2c42892972a858c4b5baa5e631f72779f854883fae91fc352711fb688a53da75",
   "sourceVersions": {
     "psych201": "c63dea18897393b706227b50024b27fa8d8907d8",
     "reanalysis": "dde239c32eb837e4cb2f406c1fa2ec3b2b47fd84"
@@ -2215,7 +2215,7 @@
       ],
       "year": 2016,
       "description": "3 studies: Experiment 1: comprehension in reference games; Experiment 2: production in reference games; Individual-level hierarchical modelling and Bayesian model comparison",
-      "currentRevision": "f827c9de76fa126edb845c246a578943a5d2139c89b45badab72250a15bc2333",
+      "currentRevision": "4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728",
       "conceptIds": [],
       "conceptAssignments": [],
       "capabilities": {
@@ -2454,7 +2454,7 @@
             "treatedAs": "log odds"
           },
           "contrast": {
-            "kind": "other",
+            "kind": "linear",
             "conditionIds": [
               "e1_c_simple",
               "e1_c_complex",
@@ -2462,8 +2462,14 @@
             ],
             "valueMeans": "log odds of target on simple trials minus the mean log odds on complex and ambiguous trials",
             "treatment": "simple",
-            "reference": "complex + ambiguous"
+            "reference": "complex + ambiguous",
+            "weights": {
+              "simple": 1,
+              "complex": -0.5,
+              "ambiguous": -0.5
+            }
           },
+          "contrastCore": "linear",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -2548,7 +2554,7 @@
             "treatedAs": "log odds"
           },
           "contrast": {
-            "kind": "other",
+            "kind": "paired",
             "conditionIds": [
               "e1_c_complex",
               "e1_c_amb"
@@ -2557,6 +2563,7 @@
             "treatment": "complex",
             "reference": "ambiguous"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -2645,6 +2652,7 @@
             "conditionIds": [],
             "valueMeans": "change in target-choice log odds per trial (centred trial number)"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "none",
             "evidenceIds": [
@@ -2727,7 +2735,7 @@
             "treatedAs": "log odds"
           },
           "contrast": {
-            "kind": "other",
+            "kind": "linear",
             "conditionIds": [
               "e2_c_simple",
               "e2_c_complex",
@@ -2735,8 +2743,14 @@
             ],
             "valueMeans": "log odds of target on simple trials minus the mean log odds on complex and ambiguous trials",
             "treatment": "simple",
-            "reference": "complex + ambiguous"
+            "reference": "complex + ambiguous",
+            "weights": {
+              "simple": 1,
+              "complex": -0.5,
+              "ambiguous": -0.5
+            }
           },
+          "contrastCore": "linear",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -2821,7 +2835,7 @@
             "treatedAs": "log odds"
           },
           "contrast": {
-            "kind": "other",
+            "kind": "paired",
             "conditionIds": [
               "e2_c_complex",
               "e2_c_amb"
@@ -2830,6 +2844,7 @@
             "treatment": "complex",
             "reference": "ambiguous"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -2915,6 +2930,7 @@
             "conditionIds": [],
             "valueMeans": "change in target-choice log odds per trial (centred trial number)"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "none",
             "evidenceIds": [
@@ -3005,6 +3021,7 @@
             ],
             "valueMeans": "share of target choices on simple trials minus share on complex trials"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -3084,6 +3101,7 @@
             ],
             "valueMeans": "share of target choices on complex trials minus share on amb trials"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -3164,6 +3182,7 @@
             ],
             "valueMeans": "share of target choices on simple trials minus share on complex trials"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -3243,6 +3262,7 @@
             ],
             "valueMeans": "share of target choices on complex trials minus share on amb trials"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -3314,11 +3334,12 @@
             "higherMeans": "Bayes factor above 1 favours the near-homogeneous Gricean model"
           },
           "contrast": {
-            "kind": "other",
+            "kind": "model_comparison",
             "treatment": "homogeneous (near-all Gricean) model",
             "reference": "heterogeneous type model",
             "valueMeans": "P(D | M_hom) / P(D | M_het); below 1 favours heterogeneity"
           },
+          "contrastCore": "model_comparison",
           "prediction": {
             "direction": "unspecified",
             "text": "the heterogeneity hypothesis expects a Bayes factor below 1 (data favour the heterogeneous model)",
@@ -3394,11 +3415,12 @@
             "higherMeans": "Bayes factor above 1 favours the near-homogeneous Gricean model"
           },
           "contrast": {
-            "kind": "other",
+            "kind": "model_comparison",
             "treatment": "homogeneous (near-all Gricean) model",
             "reference": "heterogeneous type model",
             "valueMeans": "P(D | M_hom) / P(D | M_het); below 1 favours heterogeneity"
           },
+          "contrastCore": "model_comparison",
           "prediction": {
             "direction": "unspecified",
             "text": "the heterogeneity hypothesis expects a Bayes factor below 1 (data favour the heterogeneous model)",
@@ -3749,11 +3771,11 @@
           "fieldId": "computation"
         }
       ],
-      "assetRoot": "community/paper_1eddb9f7cdf8297d98e9dc8b/revisions/f827c9de76fa126edb845c246a578943a5d2139c89b45badab72250a15bc2333",
+      "assetRoot": "community/paper_1eddb9f7cdf8297d98e9dc8b/revisions/4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "d0765c4b51ed17bbae9ae1e5fe3725c3d132d04c3ee4f1cc5f427dcaffbdb63d",
+          "sha256": "1400351ddfb4fb28e0f0e8b65f14a5d5d3f8c2ebdfe74b97ca37e933c90714a9",
           "bytes": 4101
         },
         {
@@ -3763,8 +3785,8 @@
         },
         {
           "path": "artifacts/agent/frankedegen2016/SKILL.md",
-          "sha256": "c18615e3c93945d26ce863a899dde0122979d29d4637dc83edd01d54a74b176f",
-          "bytes": 4712
+          "sha256": "72d5a2476008debc57c90794e53ce1dace1be045262333ae28855454c8dea4d0",
+          "bytes": 4976
         },
         {
           "path": "artifacts/agent/frankedegen2016/references/accuracy.md",
@@ -3808,18 +3830,18 @@
         },
         {
           "path": "artifacts/agent/frankedegen2016/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/frankedegen2016/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/frankedegen2016/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -3848,13 +3870,13 @@
         },
         {
           "path": "effects.json",
-          "sha256": "80c8d55c384d6c9e17d545c51ae77b6bf8866150f3fb6db6e502b8ad40235b6e",
-          "bytes": 27741
+          "sha256": "c40c30aabe49a42a9693b2442b9c7ee101dfe146d60fb0317d2be9ec6e051201",
+          "bytes": 28089
         },
         {
           "path": "package/frankedegen2016/evaluation/evaluation.py",
-          "sha256": "38057651073e4dc70613e595be1684cd2fdf834158756b38a8c9ed66e4aaf818",
-          "bytes": 11965
+          "sha256": "0923f9b0f6d76722240b1ffe6c6afd4f6f83ce611113e0c67ec0bd6329f9f7d1",
+          "bytes": 11982
         },
         {
           "path": "package/frankedegen2016/human/human_sessions.py",
@@ -3961,6 +3983,63 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 4,
+          "background": 1,
+          "condition": 8,
+          "construct": 11,
+          "design": 2,
+          "effect": 12,
+          "finding": 1,
+          "hypothesis": 2,
+          "limitation": 1,
+          "material": 2,
+          "overview": 1,
+          "paper": 1,
+          "participants": 2,
+          "procedure": 2,
+          "record": 2,
+          "result": 7,
+          "simulation": 3,
+          "step": 13,
+          "variable": 6
+        },
+        "edges": {
+          "about": 7,
+          "contrasts": 18,
+          "estimated-by": 14,
+          "in-condition": 8,
+          "instance-of": 5,
+          "measures": 12,
+          "motivates": 2,
+          "next": 2,
+          "part-of": 8,
+          "performed-by": 11,
+          "produces": 13,
+          "reported-in": 14,
+          "shows": 14,
+          "tested-by": 16,
+          "uses": 14
+        },
+        "constructs": [
+          "Bayesian model comparison",
+          "Gricean reasoning",
+          "ad hoc Quantity implicature",
+          "individual differences",
+          "individual differences in pragmatic reasoning",
+          "iterated best response",
+          "pragmatics",
+          "rational speech act model",
+          "reference games",
+          "scalar implicature",
+          "theory of mind"
+        ],
+        "gaps": [],
+        "extensions": [],
+        "unlinked": 8
       }
     },
     {
@@ -4786,7 +4865,7 @@
       ],
       "year": 2014,
       "description": "Three online between-subjects experiments on whether people treat common knowledge as distinct from shared and primary knowledge when deciding to risk coordination in a Stag Hunt.",
-      "currentRevision": "994d305cf245be86bfff35a64d7e1a98c98abaef3c09546b6b58b2ba9186e112",
+      "currentRevision": "705f47727844fd0d6d4930f96e307f75831c65f21995e9b20cac287cc5cb593f",
       "conceptIds": [],
       "conceptAssignments": [],
       "capabilities": {
@@ -5159,6 +5238,7 @@
             ],
             "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
@@ -5269,6 +5349,7 @@
             ],
             "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
@@ -5379,6 +5460,7 @@
             ],
             "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
@@ -5489,6 +5571,7 @@
             ],
             "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
@@ -5586,6 +5669,7 @@
             ],
             "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
@@ -5682,6 +5766,7 @@
             ],
             "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
@@ -5778,6 +5863,7 @@
             ],
             "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
@@ -5872,6 +5958,7 @@
             ],
             "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
@@ -5975,6 +6062,7 @@
             ],
             "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
@@ -6077,6 +6165,7 @@
             ],
             "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
@@ -6179,6 +6268,7 @@
             ],
             "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
@@ -6283,6 +6373,7 @@
             ],
             "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
@@ -6385,6 +6476,7 @@
             ],
             "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
@@ -6489,6 +6581,7 @@
             ],
             "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
@@ -6593,6 +6686,7 @@
             ],
             "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
@@ -6697,6 +6791,7 @@
             ],
             "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
@@ -6807,6 +6902,7 @@
             ],
             "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
@@ -6917,6 +7013,7 @@
             ],
             "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
@@ -7027,6 +7124,7 @@
             ],
             "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
@@ -7137,6 +7235,7 @@
             ],
             "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
@@ -7234,6 +7333,7 @@
             ],
             "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
@@ -7330,6 +7430,7 @@
             ],
             "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
@@ -7426,6 +7527,7 @@
             ],
             "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
@@ -7520,6 +7622,7 @@
             ],
             "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
@@ -7623,6 +7726,7 @@
             ],
             "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
@@ -7725,6 +7829,7 @@
             ],
             "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
@@ -7827,6 +7932,7 @@
             ],
             "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
@@ -7929,6 +8035,7 @@
             ],
             "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
@@ -8031,6 +8138,7 @@
             ],
             "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
@@ -8135,6 +8243,7 @@
             ],
             "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
@@ -8239,6 +8348,7 @@
             ],
             "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
@@ -8343,6 +8453,7 @@
             ],
             "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
@@ -8446,6 +8557,7 @@
             ],
             "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
@@ -8539,6 +8651,7 @@
             ],
             "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
@@ -8638,6 +8751,7 @@
             ],
             "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
@@ -8738,6 +8852,7 @@
             ],
             "valueMeans": "association of payoff (4 levels) with working together, within primary knowledge"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "none",
             "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises (an association); knowledge-level heuristic: proportions do not track the payoffs (phi near 0).",
@@ -8837,6 +8952,7 @@
             ],
             "valueMeans": "association of payoff (4 levels) with working together, within secondary knowledge"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "none",
             "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises (an association); knowledge-level heuristic: proportions do not track the payoffs (phi near 0).",
@@ -8936,6 +9052,7 @@
             ],
             "valueMeans": "association of payoff (4 levels) with working together, within tertiary knowledge"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "none",
             "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises (an association); knowledge-level heuristic: proportions do not track the payoffs (phi near 0).",
@@ -9035,6 +9152,7 @@
             ],
             "valueMeans": "association of payoff (4 levels) with working together, within common knowledge"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "none",
             "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises (an association); knowledge-level heuristic: proportions do not track the payoffs (phi near 0).",
@@ -9136,6 +9254,7 @@
             ],
             "valueMeans": "association of payoff (4 levels) with working together, within primary knowledge"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "none",
             "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises; knowledge-level heuristic: no association. The paper states only that rates fell with cost in every knowledge condition (p. 25), with no statistic.",
@@ -9208,6 +9327,7 @@
             ],
             "valueMeans": "association of payoff (4 levels) with working together, within secondary knowledge"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "none",
             "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises; knowledge-level heuristic: no association. The paper states only that rates fell with cost in every knowledge condition (p. 25), with no statistic.",
@@ -9280,6 +9400,7 @@
             ],
             "valueMeans": "association of payoff (4 levels) with working together, within tertiary knowledge"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "none",
             "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises; knowledge-level heuristic: no association. The paper states only that rates fell with cost in every knowledge condition (p. 25), with no statistic.",
@@ -9352,6 +9473,7 @@
             ],
             "valueMeans": "association of payoff (4 levels) with working together, within common knowledge"
           },
+          "contrastCore": "omnibus",
           "prediction": {
             "direction": "none",
             "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises; knowledge-level heuristic: no association. The paper states only that rates fell with cost in every knowledge condition (p. 25), with no statistic.",
@@ -9411,6 +9533,7 @@
             ],
             "valueMeans": "phi of tertiary vs primary on error rate (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Distinct-representation: errors rise with levels of shared knowledge (tertiary most) while common knowledge is about as easy as secondary; single-representation: most errors with common knowledge.",
@@ -9497,6 +9620,7 @@
             ],
             "valueMeans": "phi of tertiary vs secondary on error rate (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Distinct-representation: errors rise with levels of shared knowledge (tertiary most) while common knowledge is about as easy as secondary; single-representation: most errors with common knowledge.",
@@ -9583,6 +9707,7 @@
             ],
             "valueMeans": "phi of tertiary vs common on error rate (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Distinct-representation: errors rise with levels of shared knowledge (tertiary most) while common knowledge is about as easy as secondary; single-representation: most errors with common knowledge.",
@@ -9669,6 +9794,7 @@
             ],
             "valueMeans": "phi of common vs secondary on error rate (unsigned)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "Distinct-representation: errors rise with levels of shared knowledge (tertiary most) while common knowledge is about as easy as secondary; single-representation: most errors with common knowledge.",
@@ -9745,14 +9871,19 @@
             "higherMeans": "more tertiary-condition participants report secondary than common knowledge"
           },
           "contrast": {
-            "kind": "other",
+            "kind": "linear",
             "treatment": "as_secondary",
             "reference": "as_common",
             "conditionIds": [
               "kc_ter_e3"
             ],
-            "valueMeans": "share of the tertiary condition reporting secondary minus share reporting common"
+            "valueMeans": "share of the tertiary condition reporting secondary minus share reporting common",
+            "weights": {
+              "as_secondary": 1,
+              "as_common": -1
+            }
           },
+          "contrastCore": "linear",
           "prediction": {
             "direction": "positive",
             "text": "Distinct-representation: levels of shared knowledge are mistaken for each other, not for common knowledge.",
@@ -9826,6 +9957,7 @@
             ],
             "valueMeans": "t of similar minus dissimilar"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -9904,6 +10036,7 @@
             "kind": "association",
             "valueMeans": "Wald chi-square of perceived similarity predicting working together"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "text": "More perceived similarity, more attempts to coordinate.",
@@ -9996,6 +10129,7 @@
             ],
             "valueMeans": "Wald chi-square (df 3) of the knowledge x agreeableness terms"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -10084,6 +10218,7 @@
             ],
             "valueMeans": "together minus alone (t)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -10168,6 +10303,7 @@
             ],
             "valueMeans": "together minus alone (t)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -10259,6 +10395,7 @@
             ],
             "valueMeans": "Wald chi-square (df 3) of the knowledge x openness terms"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -10345,6 +10482,7 @@
             ],
             "valueMeans": "together minus alone (t)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -10430,6 +10568,7 @@
             ],
             "valueMeans": "together minus alone (t)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -11099,11 +11238,11 @@
           "fieldId": "design"
         }
       ],
-      "assetRoot": "community/paper_28d927cc50d8a4547655e2c9/revisions/994d305cf245be86bfff35a64d7e1a98c98abaef3c09546b6b58b2ba9186e112",
+      "assetRoot": "community/paper_28d927cc50d8a4547655e2c9/revisions/705f47727844fd0d6d4930f96e307f75831c65f21995e9b20cac287cc5cb593f",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "0495e0305ba0e4504015c70f55c4319749cbf0e87050c9df7c1608b02a0b0cef",
+          "sha256": "a21086075af3feae120e19b7be956705b489b455469a138db067ae88f194b2e4",
           "bytes": 4668
         },
         {
@@ -11113,8 +11252,8 @@
         },
         {
           "path": "artifacts/agent/thomas2014-common-knowledge/SKILL.md",
-          "sha256": "a9b0a498216dc2aaf0b72b827006b02ee9fb1e6c444307f8cde00699b12919fe",
-          "bytes": 5165
+          "sha256": "22ac62927e88a509acc2135833790a7ec408cefc1319c75da7e35efccd4db387",
+          "bytes": 5429
         },
         {
           "path": "artifacts/agent/thomas2014-common-knowledge/references/accuracy.md",
@@ -11158,18 +11297,18 @@
         },
         {
           "path": "artifacts/agent/thomas2014-common-knowledge/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/thomas2014-common-knowledge/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/thomas2014-common-knowledge/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -11198,8 +11337,8 @@
         },
         {
           "path": "effects.json",
-          "sha256": "fefa0c69fba560edc134a29b4fa53938857de1099c6095eb94275bb0dafdd414",
-          "bytes": 138322
+          "sha256": "8b99fee1302e28031e1169377fa614cd41ebbf46426ae5364e1814614e531009",
+          "bytes": 138410
         },
         {
           "path": "package/thomas2014/evaluation/evaluation.py",
@@ -11317,6 +11456,69 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 11,
+          "background": 1,
+          "condition": 23,
+          "construct": 17,
+          "design": 3,
+          "effect": 56,
+          "finding": 4,
+          "hypothesis": 9,
+          "limitation": 1,
+          "material": 20,
+          "overview": 1,
+          "paper": 1,
+          "participants": 4,
+          "procedure": 3,
+          "record": 14,
+          "result": 10,
+          "simulation": 3,
+          "step": 34,
+          "variable": 16
+        },
+        "edges": {
+          "about": 5,
+          "contrasts": 181,
+          "estimated-by": 56,
+          "in-condition": 12,
+          "instance-of": 16,
+          "measures": 56,
+          "motivates": 9,
+          "next": 18,
+          "part-of": 12,
+          "performed-by": 34,
+          "produces": 14,
+          "reported-in": 56,
+          "shows": 34,
+          "tested-by": 124,
+          "uses": 28
+        },
+        "constructs": [
+          "agreeableness",
+          "altruism",
+          "common knowledge",
+          "common knowledge representation",
+          "coordination",
+          "curse of knowledge",
+          "knowledge-level heuristic",
+          "openness to experience",
+          "payoff sensitivity",
+          "perceived similarity",
+          "rational choice",
+          "recursive mentalizing",
+          "risk seeking",
+          "shared knowledge",
+          "social projection",
+          "stag hunt",
+          "theory of mind"
+        ],
+        "gaps": [],
+        "extensions": [],
+        "unlinked": 13
       }
     },
     {
@@ -15017,7 +15219,7 @@
       ],
       "year": 2018,
       "description": "Tests whether listeners' uncertainty about the meaning of negation markers (un-, not) predicts how morphological antonyms (unhappy), negated positives (not happy), negated antonyms (not unhappy) and positives (happy) are ordered on a scale, depending on whether the adjectives are heard alone or together in one context.",
-      "currentRevision": "c6c5e8640e0abe6e134bd9e7355135943966caba8e9f92227f89c2d2e477c7ca",
+      "currentRevision": "a7a59b9ac2b240ae9d8c4f5e648ffe0404a5d85d1fb4f875b16f1b4a81f73492",
       "conceptIds": [],
       "conceptAssignments": [],
       "capabilities": {
@@ -15227,6 +15429,7 @@
             ],
             "valueMeans": "(antonym minus negated positive) for morphological sets minus the same for lexical sets, within participant (antonym_type values)"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "Morphological antonyms are not distinguished from negated positives in isolation, lexical antonyms are rated below them, so the antonym minus negated-positive gap is less negative for morphological sets.",
@@ -15324,6 +15527,7 @@
             ],
             "valueMeans": "mean per-participant (antonym minus negated positive) in the morphological single condition minus the same in the lexical single condition"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "Lexical antonyms fall below negated positives, morphological antonyms do not.",
@@ -15414,6 +15618,7 @@
             ],
             "valueMeans": "antonym minus negated positive (adjective_type values), within participant, morphological single condition"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "In isolation unhappy is not distinguished from not happy.",
@@ -15494,6 +15699,7 @@
             ],
             "valueMeans": "antonym minus negated positive (adjective_type values), within participant, lexical single condition"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "negative",
             "text": "Lexical antonyms (sad) are interpreted more negatively than negated positives (not happy).",
@@ -15590,6 +15796,7 @@
             ],
             "valueMeans": "mean per-participant (antonym minus negated positive) with multiple utterances minus the same with single utterances, morphological conditions"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "text": "Morphological antonyms will be interpreted more negatively than negated positives in a context with multiple utterances.",
@@ -15689,6 +15896,7 @@
             ],
             "valueMeans": "(lexical multiple minus lexical single) minus (morphological multiple minus morphological single) of the per-participant antonym minus negated-positive difference; negative = larger gap for lexical antonyms in the explicit context"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory analysis; no direction predicted.",
@@ -16114,11 +16322,11 @@
           "fieldId": "eligibility"
         }
       ],
-      "assetRoot": "community/paper_5d71cc6aaf17f3b427b0d86e/revisions/c6c5e8640e0abe6e134bd9e7355135943966caba8e9f92227f89c2d2e477c7ca",
+      "assetRoot": "community/paper_5d71cc6aaf17f3b427b0d86e/revisions/a7a59b9ac2b240ae9d8c4f5e648ffe0404a5d85d1fb4f875b16f1b4a81f73492",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "e25095686fdfacf8ae20bb658b0e6bcde17985ecb8e334f7f8de957b5eb30ece",
+          "sha256": "d22084a3db472ca9ec3648bfc761c37918b7388392dd7d0bbd7f09aede92b82b",
           "bytes": 3496
         },
         {
@@ -16128,8 +16336,8 @@
         },
         {
           "path": "artifacts/agent/tesslerfranke2018/SKILL.md",
-          "sha256": "82caf1e39d4ad8ad9bc37a0e75e4134612c8b6b3e44b26ecb49ff51600819660",
-          "bytes": 4540
+          "sha256": "1241f3e1ac1c89ddb90e9346e2606802f62c020ad13b35a39d0175d60284215b",
+          "bytes": 4804
         },
         {
           "path": "artifacts/agent/tesslerfranke2018/references/accuracy.md",
@@ -16168,18 +16376,18 @@
         },
         {
           "path": "artifacts/agent/tesslerfranke2018/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/tesslerfranke2018/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/tesslerfranke2018/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -16208,7 +16416,7 @@
         },
         {
           "path": "effects.json",
-          "sha256": "7ae6d5f008a90152b8305966603f4755b7b0571afdbf66b714e963f280f91dc9",
+          "sha256": "3a2f348d8436f4cfa50fdd65dcf7f829ff3ab5655e05f0753b04d95545b861ad",
           "bytes": 16410
         },
         {
@@ -16315,6 +16523,63 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 5,
+          "background": 1,
+          "condition": 4,
+          "construct": 11,
+          "design": 2,
+          "effect": 6,
+          "finding": 1,
+          "hypothesis": 2,
+          "limitation": 1,
+          "material": 6,
+          "overview": 1,
+          "paper": 1,
+          "participants": 2,
+          "procedure": 2,
+          "record": 2,
+          "result": 7,
+          "simulation": 2,
+          "step": 9,
+          "variable": 7
+        },
+        "edges": {
+          "about": 6,
+          "contrasts": 10,
+          "estimated-by": 7,
+          "in-condition": 12,
+          "input-of": 9,
+          "instance-of": 6,
+          "measures": 6,
+          "motivates": 2,
+          "part-of": 6,
+          "performed-by": 9,
+          "produces": 9,
+          "reported-in": 7,
+          "shows": 6,
+          "tested-by": 6,
+          "uses": 12
+        },
+        "constructs": [
+          "Rational Speech Act model",
+          "alternatives in pragmatic inference",
+          "antonyms",
+          "context effects on interpretation",
+          "contraries and contradictories",
+          "double negation",
+          "gradable adjectives",
+          "morphological vs lexical antonyms",
+          "negated antonyms",
+          "negation",
+          "pragmatics"
+        ],
+        "gaps": [],
+        "extensions": [],
+        "unlinked": 0
       }
     },
     {
@@ -16970,7 +17235,7 @@
       ],
       "year": 2022,
       "description": "Tests whether asymmetric belief updating (greater updating when the base rate exceeds vs. falls short of the initial estimate) appears with neutral life events, where optimism cannot explain it. Reports a significant asymmetry in all three studies and unstable results across samples and analytic techniques.",
-      "currentRevision": "26c64ac52d2661680329e3dd9d5996bb3894c8ca2cca748e579034cf0db1c7e9",
+      "currentRevision": "cfc4fbf32113f3e5ecaeff817a0c844548eff05a2ea2dc4dc70d2b5fd65b6846",
       "conceptIds": [],
       "conceptAssignments": [],
       "capabilities": {
@@ -17296,6 +17561,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -17396,6 +17662,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -17497,6 +17764,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -17587,6 +17855,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "no prediction stated for valenced events",
@@ -17654,6 +17923,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "no prediction stated for valenced events",
@@ -17721,6 +17991,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "evidenceIds": [
@@ -17788,6 +18059,7 @@
             ],
             "valueMeans": "whether the downwards minus upwards asymmetry differs across event valence"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "evidenceIds": [
@@ -17851,6 +18123,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "no prediction stated for valenced events",
@@ -17918,6 +18191,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "no prediction stated for valenced events",
@@ -17985,6 +18259,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "evidenceIds": [
@@ -18052,6 +18327,7 @@
             ],
             "valueMeans": "whether the downwards minus upwards asymmetry differs across event valence"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "evidenceIds": [
@@ -18115,6 +18391,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "no prediction stated for valenced events",
@@ -18182,6 +18459,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "no prediction stated for valenced events",
@@ -18249,6 +18527,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "evidenceIds": [
@@ -18316,6 +18595,7 @@
             ],
             "valueMeans": "whether the downwards minus upwards asymmetry differs across event valence"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "evidenceIds": [
@@ -18389,6 +18669,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -18459,6 +18740,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -18529,6 +18811,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -18599,6 +18882,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -18669,6 +18953,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -18739,6 +19024,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -18809,6 +19095,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -18879,6 +19166,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -18949,6 +19237,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -19019,6 +19308,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -19089,6 +19379,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -19159,6 +19450,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -19229,6 +19521,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -19299,6 +19592,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -19369,6 +19663,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -19439,6 +19734,7 @@
             "reference": "upwards",
             "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "nonzero",
             "text": "participants will update asymmetrically in response to neutral information",
@@ -19781,11 +20077,11 @@
           "fieldId": "coding"
         }
       ],
-      "assetRoot": "community/paper_658baaac05396303bb5fcba2/revisions/26c64ac52d2661680329e3dd9d5996bb3894c8ca2cca748e579034cf0db1c7e9",
+      "assetRoot": "community/paper_658baaac05396303bb5fcba2/revisions/cfc4fbf32113f3e5ecaeff817a0c844548eff05a2ea2dc4dc70d2b5fd65b6846",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "a9d8ba984abc16931d738d890740a320b863420cb519a2b1ceaf5dc93ebf58ff",
+          "sha256": "fbd88ebb93bdb2ec30219584fedbc5840803de55e3f20561ef813407a4d33e94",
           "bytes": 4229
         },
         {
@@ -19795,8 +20091,8 @@
         },
         {
           "path": "artifacts/agent/burton2022-optimism-neutral/SKILL.md",
-          "sha256": "a1dd13cb292a48c1d9bf045266a85166ab9948af412dd901b140d0adfe160385",
-          "bytes": 4824
+          "sha256": "ecbb70de49509df546e8e79523cb7e0c3ecee831cbcb5a6c1c41e711de8d60b9",
+          "bytes": 5088
         },
         {
           "path": "artifacts/agent/burton2022-optimism-neutral/references/accuracy.md",
@@ -19845,18 +20141,18 @@
         },
         {
           "path": "artifacts/agent/burton2022-optimism-neutral/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/burton2022-optimism-neutral/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/burton2022-optimism-neutral/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -19875,7 +20171,7 @@
         },
         {
           "path": "effects.json",
-          "sha256": "e728039a403860ec7c3318968411a58fe1c9562dd86ceecc5f6f2259d2e39837",
+          "sha256": "e05b7ec474fcdd4c912ac2bc64a6e754825c1aa501fec7a4b1c9a5a2aafbc1ad",
           "bytes": 54090
         },
         {
@@ -19988,6 +20284,56 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 4,
+          "background": 1,
+          "condition": 6,
+          "construct": 7,
+          "design": 1,
+          "effect": 31,
+          "finding": 1,
+          "hypothesis": 1,
+          "limitation": 1,
+          "material": 3,
+          "overview": 1,
+          "paper": 1,
+          "participants": 3,
+          "result": 7,
+          "simulation": 3,
+          "step": 25,
+          "variable": 9
+        },
+        "edges": {
+          "about": 5,
+          "estimated-by": 46,
+          "in-condition": 6,
+          "instance-of": 3,
+          "measures": 15,
+          "motivates": 1,
+          "next": 15,
+          "part-of": 18,
+          "performed-by": 25,
+          "produces": 36,
+          "reported-in": 31,
+          "shows": 21,
+          "tested-by": 19,
+          "uses": 34
+        },
+        "constructs": [
+          "asymmetric belief updating",
+          "belief updating",
+          "good news/bad news effect",
+          "optimism bias",
+          "statistical artefact",
+          "unrealistic optimism",
+          "update method"
+        ],
+        "gaps": [],
+        "extensions": [],
+        "unlinked": 14
       }
     },
     {
@@ -22639,6 +22985,7 @@
             ],
             "valueMeans": "veracity effect (true minus false) in sharing minus in accuracy; veracity -0.5/0.5, condition -0.5 accuracy / 0.5 sharing"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "text": "discernment higher for accuracy judgments than sharing intentions",
@@ -22760,6 +23107,7 @@
             ],
             "valueMeans": "true minus false headlines, in SD units of all Study 1 ratings"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -22854,6 +23202,7 @@
             ],
             "valueMeans": "true minus false headlines, in SD units of all Study 1 ratings"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -22948,6 +23297,7 @@
             ],
             "valueMeans": "relative increase in percent: 100 x (share 'yes' in sharing / share 'yes' in accuracy - 1)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -22958,7 +23308,7 @@
           "reported": {
             "estimates": [
               {
-                "metric": "other",
+                "metric": "percent_change",
                 "value": 32.4,
                 "variant": "'32.4% more people', read as a relative increase (p. 4)",
                 "evidenceIds": [
@@ -23026,6 +23376,7 @@
             ],
             "valueMeans": "CRT score (z) x veracity coefficient: higher means CRT score goes with more discernment"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "text": "CRT score positively related to discernment",
@@ -23106,6 +23457,7 @@
             ],
             "valueMeans": "CRT score (z) x veracity coefficient: higher means CRT score goes with more discernment"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "text": "CRT score positively related to discernment",
@@ -23189,6 +23541,7 @@
             ],
             "valueMeans": "CRT score x veracity coefficient in sharing minus in accuracy"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "text": "relationship stronger for accuracy than sharing",
@@ -23269,6 +23622,7 @@
             ],
             "valueMeans": "science knowledge (z) x veracity coefficient: higher means science knowledge goes with more discernment"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "text": "science knowledge positively related to discernment",
@@ -23349,6 +23703,7 @@
             ],
             "valueMeans": "science knowledge (z) x veracity coefficient: higher means science knowledge goes with more discernment"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "text": "science knowledge positively related to discernment",
@@ -23432,6 +23787,7 @@
             ],
             "valueMeans": "science knowledge x veracity coefficient in sharing minus in accuracy"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "text": "relationship stronger for accuracy than sharing",
@@ -23514,6 +23870,7 @@
             ],
             "valueMeans": "sharing discernment (true minus false, 0-1 scale) in treatment minus in control; veracity 0/1, treatment 0/1"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -23624,6 +23981,7 @@
             ],
             "valueMeans": "true minus false headlines (Cohen's d)"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "evidenceIds": [
@@ -23717,6 +24075,7 @@
             ],
             "valueMeans": "true minus false headlines (Cohen's d)"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -23801,7 +24160,7 @@
             "higherMeans": "more discerning sharing"
           },
           "contrast": {
-            "kind": "other",
+            "kind": "ratio",
             "treatment": "treatment",
             "reference": "control",
             "conditionIds": [
@@ -23810,6 +24169,7 @@
             ],
             "valueMeans": "treatment discernment divided by control discernment (a ratio, not a difference)"
           },
+          "contrastCore": "ratio",
           "prediction": {
             "direction": "positive",
             "text": "ratio above 1",
@@ -23822,7 +24182,7 @@
           "reported": {
             "estimates": [
               {
-                "metric": "other",
+                "metric": "ratio",
                 "value": 2.8,
                 "variant": "ratio as printed (p. 7)",
                 "evidenceIds": [
@@ -23889,6 +24249,7 @@
             ],
             "valueMeans": "Pearson r between headline mean accuracy rating (Study 1) and treatment effect"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -23929,12 +24290,12 @@
           ]
         }
       ],
-      "currentRevision": "67237cc4521b6ca536da56fdef94844375090945693c4899df337e9cc2ff24e4",
-      "assetRoot": "community/paper_81c754afe54e5a0bf67b41ab/revisions/67237cc4521b6ca536da56fdef94844375090945693c4899df337e9cc2ff24e4",
+      "currentRevision": "aafd20a5b54edae7df87c609806d3ecdda6d2cba4d6043b98fa8d77f038a53fe",
+      "assetRoot": "community/paper_81c754afe54e5a0bf67b41ab/revisions/aafd20a5b54edae7df87c609806d3ecdda6d2cba4d6043b98fa8d77f038a53fe",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "236c141720c5fe6b0d6b50eb123142b07378642b29f2972597cf5cd6a708fdef",
+          "sha256": "c62a6054bf92ea0b30829645761f719d5e9b97ffd6f4c13aef59db58687098e3",
           "bytes": 4354
         },
         {
@@ -23944,8 +24305,8 @@
         },
         {
           "path": "artifacts/agent/pennycook2020-covid-accuracy-nudge/SKILL.md",
-          "sha256": "7311f6485561cab8b233185cfcf015a12dda525f725bfa0833be2f7c4782ed31",
-          "bytes": 4923
+          "sha256": "7fca6e41a84bf5dc09702c9f55de89a35dc982643036ebb706731b982dce85a1",
+          "bytes": 5187
         },
         {
           "path": "artifacts/agent/pennycook2020-covid-accuracy-nudge/references/accuracy.md",
@@ -23989,18 +24350,18 @@
         },
         {
           "path": "artifacts/agent/pennycook2020-covid-accuracy-nudge/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/pennycook2020-covid-accuracy-nudge/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/pennycook2020-covid-accuracy-nudge/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -24029,13 +24390,13 @@
         },
         {
           "path": "effects.json",
-          "sha256": "b3519f21fbfbe858864facbd1921f0bc5ee121540dffc8212fcc4bebe4253b1a",
-          "bytes": 30740
+          "sha256": "81fa89fb733aa1653e00061f3242198bc19eddf8653df2586c2ed073979b09c1",
+          "bytes": 30749
         },
         {
           "path": "package/pennycook2020/evaluation/evaluation.py",
-          "sha256": "15e727c99f13c3324de511f607fb61328bc50af652ceb14dba8508fc9eecf70a",
-          "bytes": 17542
+          "sha256": "c7536955e1897a2469ba9eaddb89b08433b287060546495d0cffd2a03d75959e",
+          "bytes": 17551
         },
         {
           "path": "package/pennycook2020/human/human_sessions.py",
@@ -24143,6 +24504,67 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 5,
+          "background": 1,
+          "condition": 4,
+          "construct": 12,
+          "design": 2,
+          "effect": 15,
+          "finding": 3,
+          "hypothesis": 3,
+          "limitation": 1,
+          "material": 11,
+          "overview": 1,
+          "paper": 1,
+          "participants": 2,
+          "procedure": 2,
+          "record": 2,
+          "result": 12,
+          "simulation": 3,
+          "step": 15,
+          "variable": 11
+        },
+        "edges": {
+          "about": 7,
+          "concerns": 1,
+          "contrasts": 23,
+          "estimated-by": 15,
+          "in-condition": 5,
+          "input-of": 14,
+          "instance-of": 9,
+          "measures": 15,
+          "motivates": 3,
+          "next": 8,
+          "part-of": 3,
+          "performed-by": 14,
+          "produces": 16,
+          "reported-in": 23,
+          "reports": 3,
+          "shows": 20,
+          "tested-by": 15,
+          "uses": 26
+        },
+        "constructs": [
+          "COVID-19",
+          "accuracy nudge",
+          "accuracy prompt",
+          "accuracy-sharing dissociation",
+          "cognitive reflection",
+          "cognitive reflection and misinformation",
+          "fake news",
+          "inattention to accuracy",
+          "item-level analysis",
+          "misinformation",
+          "social media sharing",
+          "truth discernment"
+        ],
+        "gaps": [],
+        "extensions": [],
+        "unlinked": 0
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -27784,6 +28206,7 @@
             ],
             "valueMeans": "NJ minus OJ (task within participants), feedback group; negative = NJ closer to the actual values"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "negative",
             "text": "transfer learning effect expected (|Δ| smaller for NJ than OJ)",
@@ -27881,6 +28304,7 @@
             ],
             "valueMeans": "NJ minus OJ (task within participants), domain-information group; negative = NJ closer to the actual values"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "negative",
             "text": "transfer learning effect expected (|Δ| smaller for NJ than OJ)",
@@ -27978,6 +28402,7 @@
             ],
             "valueMeans": "NJ minus OJ (task within participants), irrelevant-information group; negative = NJ closer to the actual values"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "no transfer learning effect expected",
@@ -28091,6 +28516,7 @@
             ],
             "valueMeans": "NJ minus OJ (task within participants), control group; negative = NJ closer to the actual values"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "no transfer learning effect expected",
@@ -28204,6 +28630,7 @@
             ],
             "valueMeans": "ROJ minus OJ (task within participants), feedback group; negative = ROJ closer to the actual values"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "negative",
             "text": "hindsight effect expected (|Δ| smaller for ROJ than OJ)",
@@ -28317,6 +28744,7 @@
             ],
             "valueMeans": "ROJ minus OJ (task within participants), domain-information group; negative = ROJ closer to the actual values"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "negative",
             "text": "hindsight effect expected (|Δ| smaller for ROJ than OJ)",
@@ -28430,6 +28858,7 @@
             ],
             "valueMeans": "ROJ minus OJ (task within participants), irrelevant-information group; negative = ROJ closer to the actual values"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "no hindsight effect expected",
@@ -28543,6 +28972,7 @@
             ],
             "valueMeans": "ROJ minus OJ (task within participants), control group; negative = ROJ closer to the actual values"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "no hindsight effect expected",
@@ -28663,6 +29093,7 @@
             ],
             "valueMeans": "(NJ minus OJ) in the feedback group minus (NJ minus OJ) in the domain-information group"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "no prediction stated; additional, not preregistered interaction analysis (footnote 2)",
@@ -28776,6 +29207,7 @@
             ],
             "valueMeans": "(NJ minus OJ) in the irrelevant-information group minus (NJ minus OJ) in the control group"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "none",
             "text": "both groups are expected to show no transfer learning effect, so no difference is expected",
@@ -28891,6 +29323,7 @@
             ],
             "valueMeans": "(ROJ minus OJ) in the feedback group minus (ROJ minus OJ) in the domain-information group"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "no prediction stated; additional, not preregistered interaction analysis (footnote 2)",
@@ -29004,6 +29437,7 @@
             ],
             "valueMeans": "(ROJ minus OJ) in the irrelevant-information group minus (ROJ minus OJ) in the control group"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "none",
             "text": "both groups are expected to show no hindsight effect, so no difference is expected",
@@ -29118,6 +29552,7 @@
             ],
             "valueMeans": "NJ minus OJ, feedback group"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "no improvement in the rank-order correlation for NJ vs OJ",
@@ -29214,6 +29649,7 @@
             ],
             "valueMeans": "NJ minus OJ, domain-information group"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "no improvement in the rank-order correlation for NJ vs OJ",
@@ -29310,6 +29746,7 @@
             ],
             "valueMeans": "NJ minus OJ, irrelevant-information group"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "no improvement in the rank-order correlation for NJ vs OJ",
@@ -29406,6 +29843,7 @@
             ],
             "valueMeans": "NJ minus OJ, control group"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "no improvement in the rank-order correlation for NJ vs OJ",
@@ -29501,6 +29939,7 @@
             ],
             "valueMeans": "ROJ minus OJ, feedback group"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "positive",
             "text": "improved rank-order correlation for ROJ vs OJ in the feedback group only",
@@ -29587,6 +30026,7 @@
             ],
             "valueMeans": "ROJ minus OJ, domain-information group"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "improved rank-order correlation for ROJ vs OJ in the feedback group only",
@@ -29682,6 +30122,7 @@
             ],
             "valueMeans": "ROJ minus OJ, irrelevant-information group"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "improved rank-order correlation for ROJ vs OJ in the feedback group only",
@@ -29777,6 +30218,7 @@
             ],
             "valueMeans": "ROJ minus OJ, control group"
           },
+          "contrastCore": "paired",
           "prediction": {
             "direction": "none",
             "text": "improved rank-order correlation for ROJ vs OJ in the feedback group only",
@@ -29826,12 +30268,12 @@
           ]
         }
       ],
-      "currentRevision": "fa6853c142d8c8371ac41ac19d3f9463125894ccdafa444105f594aa689609f6",
-      "assetRoot": "community/paper_ac6ce7d3611fcd6f35348b67/revisions/fa6853c142d8c8371ac41ac19d3f9463125894ccdafa444105f594aa689609f6",
+      "currentRevision": "4ee009b5340330b22a288ce8dac6335a028fec838273d4f3b4d93a226db0c911",
+      "assetRoot": "community/paper_ac6ce7d3611fcd6f35348b67/revisions/4ee009b5340330b22a288ce8dac6335a028fec838273d4f3b4d93a226db0c911",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "134a7bab77c6fef97126ad59961e99c2b5675dffd1d5672182057f57994488c7",
+          "sha256": "14dfb30771a3b4157e09cf3bc2b64f9c106c8cc928eaea9269e77b4a49b5c1d8",
           "bytes": 3642
         },
         {
@@ -29841,8 +30283,8 @@
         },
         {
           "path": "artifacts/agent/kreis2025hindsight/SKILL.md",
-          "sha256": "713abc194fce7551bc1be6bdde09b2a9ac13b4e4269d540b88f8feb4467eea4c",
-          "bytes": 4370
+          "sha256": "ae09c03a178c77a14bcc3d3a9dcf92e87900a092862d9e677aef70024fd1929b",
+          "bytes": 4634
         },
         {
           "path": "artifacts/agent/kreis2025hindsight/references/accuracy.md",
@@ -29876,18 +30318,18 @@
         },
         {
           "path": "artifacts/agent/kreis2025hindsight/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/kreis2025hindsight/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/kreis2025hindsight/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -29906,7 +30348,7 @@
         },
         {
           "path": "effects.json",
-          "sha256": "31480a1cf3ce997330792c1399d0d0140d8049703cdd4ba821b41c57d0f4f952",
+          "sha256": "daf23780afc4644066cb7afb0e4b7f560193af6cfeb0f49535e6ecbaca221a08",
           "bytes": 58598
         },
         {
@@ -30023,6 +30465,63 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 10,
+          "background": 1,
+          "condition": 4,
+          "construct": 9,
+          "design": 1,
+          "effect": 20,
+          "finding": 1,
+          "hypothesis": 6,
+          "limitation": 1,
+          "material": 9,
+          "overview": 1,
+          "paper": 1,
+          "participants": 1,
+          "procedure": 1,
+          "record": 4,
+          "result": 11,
+          "simulation": 1,
+          "step": 10,
+          "variable": 6
+        },
+        "edges": {
+          "about": 6,
+          "contrasts": 24,
+          "estimated-by": 56,
+          "in-condition": 4,
+          "input-of": 6,
+          "instance-of": 17,
+          "measures": 20,
+          "motivates": 6,
+          "next": 5,
+          "part-of": 4,
+          "performed-by": 10,
+          "produces": 4,
+          "reported-in": 56,
+          "reports": 11,
+          "shows": 15,
+          "tested-by": 34,
+          "uses": 15
+        },
+        "constructs": [
+          "Bayesian mixed models",
+          "hindsight bias",
+          "knowledge updating",
+          "mapping knowledge",
+          "numerical estimation",
+          "replication",
+          "seeding",
+          "seeding effect",
+          "transfer learning"
+        ],
+        "gaps": [],
+        "extensions": [],
+        "unlinked": 9
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -31166,6 +31665,7 @@
             ],
             "valueMeans": "high-SES minus low-SES"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "evidenceIds": [
@@ -31267,6 +31767,7 @@
             ],
             "valueMeans": "high-SES minus low-SES"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -31366,6 +31867,7 @@
             ],
             "valueMeans": "high-SES minus low-SES"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -31451,6 +31953,7 @@
             ],
             "valueMeans": "high-SES minus low-SES"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -31536,6 +32039,7 @@
             ],
             "valueMeans": "structure minus random"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -31636,6 +32140,7 @@
             ],
             "valueMeans": "hard-to-read minus easy-to-read"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -31738,6 +32243,7 @@
             ],
             "valueMeans": "hard-to-read minus easy-to-read"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -31832,6 +32338,7 @@
             "kind": "association",
             "valueMeans": "correlation of political ideology (higher = more right) with binding-foundation relevance"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -31866,7 +32373,7 @@
                 "ciLevel": 0.95
               },
               {
-                "metric": "other",
+                "metric": "cohens_q",
                 "value": 0.15,
                 "variant": "Cohen's q (as printed)",
                 "evidenceIds": [
@@ -31943,6 +32450,7 @@
             ],
             "valueMeans": "odds of choosing the kiss, 1% chance over certain"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -32049,6 +32557,7 @@
             ],
             "valueMeans": "individual minus consumer"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -32149,6 +32658,7 @@
             ],
             "valueMeans": "pro-essay minus anti-essay"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -32254,6 +32764,7 @@
             ],
             "valueMeans": "pro-essay minus anti-essay"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -32338,6 +32849,7 @@
             ],
             "valueMeans": "pro-essay minus anti-essay"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -32422,6 +32934,7 @@
             ],
             "valueMeans": "Fisher z of r in the gay-kissing condition minus Fisher z of r in the kissing condition"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -32433,7 +32946,7 @@
           "reported": {
             "estimates": [
               {
-                "metric": "other",
+                "metric": "cohens_q",
                 "value": 0.05,
                 "variant": "Cohen's q (as printed)",
                 "evidenceIds": [
@@ -32511,6 +33024,7 @@
             ],
             "valueMeans": "gay kissing minus kissing"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -32611,6 +33125,7 @@
             ],
             "valueMeans": "P97 minus P17"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -32707,6 +33222,7 @@
             "kind": "association",
             "valueMeans": "correlation of number of siblings with prosocial orientation"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -32813,6 +33329,7 @@
             ],
             "valueMeans": "odds of 'permissible', side-effect over greater-good scenario"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -32919,6 +33436,7 @@
             ],
             "valueMeans": "high sociometric status (compare with bottom rung) minus low (compare with top rung)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -33014,6 +33532,7 @@
             "reference": "option2",
             "valueMeans": "participants who chose option 1 minus those who chose option 2"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -33108,6 +33627,7 @@
             "reference": "option2",
             "valueMeans": "participants who chose option 1 minus those who chose option 2"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -33207,6 +33727,7 @@
             ],
             "valueMeans": "long minus short line"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -33309,6 +33830,7 @@
             ],
             "valueMeans": "odds of going, cheap item on sale over costly item on sale"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -33415,6 +33937,7 @@
             "reference": "greater_good",
             "valueMeans": "odds of 'permissible', side-effect over greater-good scenario"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -33525,6 +34048,7 @@
             ],
             "valueMeans": "tempting fate minus not"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -33628,6 +34152,7 @@
             ],
             "valueMeans": "tempting fate minus not"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -33728,6 +34253,7 @@
             ],
             "valueMeans": "personal minus interpersonal (logit, controlling for importance)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "evidenceIds": [
@@ -33838,6 +34364,7 @@
             ],
             "valueMeans": "personal minus interpersonal (logit, controlling for importance)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -33945,6 +34472,7 @@
             ],
             "valueMeans": "personal minus interpersonal"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "evidenceIds": [
@@ -34029,6 +34557,7 @@
             ],
             "valueMeans": "personal minus interpersonal"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -34113,6 +34642,7 @@
             ],
             "valueMeans": "belong minus similar"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -34213,6 +34743,7 @@
             ],
             "valueMeans": "belong minus similar"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "evidenceIds": [
@@ -34297,6 +34828,7 @@
             ],
             "valueMeans": "belong minus similar"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -34381,6 +34913,7 @@
             ],
             "valueMeans": "scarf minus coat"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -34481,6 +35014,7 @@
             ],
             "valueMeans": "adult agent minus baby agent"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -34581,6 +35115,7 @@
             ],
             "valueMeans": "unethical minus ethical"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -34684,6 +35219,7 @@
             ],
             "valueMeans": "Fisher z of r (specific question first) minus Fisher z of r (general question first)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -34695,7 +35231,7 @@
           "reported": {
             "estimates": [
               {
-                "metric": "other",
+                "metric": "cohens_q",
                 "value": -0.07,
                 "variant": "Cohen's q (as printed)",
                 "evidenceIds": [
@@ -34764,13 +35300,19 @@
             "scale": "extreme / average parent"
           },
           "contrast": {
-            "kind": "other",
+            "kind": "linear",
             "conditionIds": [
               "c-shaf-award",
               "c-shaf-deny"
             ],
-            "valueMeans": "P(award extreme) + P(deny extreme) - 1, as d (positive = extreme parent both awarded and denied more)"
+            "valueMeans": "P(award extreme) + P(deny extreme) - 1, as d (positive = extreme parent both awarded and denied more)",
+            "weights": {
+              "award": 1,
+              "deny": 1
+            },
+            "constant": -1
           },
+          "contrastCore": "linear",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -34868,6 +35410,7 @@
             ],
             "valueMeans": "heat minus cold"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -34968,6 +35511,7 @@
             ],
             "valueMeans": "harm minus help"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -35066,6 +35610,7 @@
             ],
             "valueMeans": "mean asymmetry score against 0 (one-sample d)"
           },
+          "contrastCore": "single_group",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -35110,12 +35655,12 @@
           ]
         }
       ],
-      "currentRevision": "488c56f6db1f9f8332b712b092224d5768b4bc466cbd0e1091c078dabe5d6d10",
-      "assetRoot": "community/paper_ada6bd8be27b29f96023606f/revisions/488c56f6db1f9f8332b712b092224d5768b4bc466cbd0e1091c078dabe5d6d10",
+      "currentRevision": "6b38c0003d5e65cc685990662fd3ff450d869c4d0b4632b6a1ce945c8888234f",
+      "assetRoot": "community/paper_ada6bd8be27b29f96023606f/revisions/6b38c0003d5e65cc685990662fd3ff450d869c4d0b4632b6a1ce945c8888234f",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "7c6e103f60e15a8ee2d47b24153d77d1a728aefb9889b3586dd23877b2ea3fff",
+          "sha256": "2cc4687a48317ef634738d05634c6382706ed34243e669ab48ff3a56114c1117",
           "bytes": 6111
         },
         {
@@ -35125,8 +35670,8 @@
         },
         {
           "path": "artifacts/agent/manylabs2/SKILL.md",
-          "sha256": "381c01a20c00e3cd6cb681ad75a68ec9109990e5737df109b5795d7b3f29f6ff",
-          "bytes": 5321
+          "sha256": "df70301e8437925f3b34afad258b5137569d8b071e4b3b59059859c99e4a1212",
+          "bytes": 5585
         },
         {
           "path": "artifacts/agent/manylabs2/references/accuracy.md",
@@ -35170,18 +35715,18 @@
         },
         {
           "path": "artifacts/agent/manylabs2/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/manylabs2/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/manylabs2/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -35210,13 +35755,13 @@
         },
         {
           "path": "effects.json",
-          "sha256": "7918ee2601d4d04dbbcf89b324081850369cb25afacb38782f314a30ff07769c",
-          "bytes": 87488
+          "sha256": "e8f2286f9c03d45d3b96d65b357478e0b495ae9d0dafb5e168f8ac067e5afbd4",
+          "bytes": 87596
         },
         {
           "path": "package/manylabs2/evaluation/evaluation.py",
-          "sha256": "b29cd7ad6c5aafd9f7d05117d90174eb9f2e383c4855b22e3891a58030e58eb8",
-          "bytes": 21832
+          "sha256": "ae3efe40f78d54bb3aa625a47e5f12c87ee0e1a6905107ba431c136a4a343516",
+          "bytes": 21835
         },
         {
           "path": "package/manylabs2/human/human_sessions.py",
@@ -35527,6 +36072,110 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 34,
+          "background": 2,
+          "condition": 50,
+          "construct": 57,
+          "design": 2,
+          "effect": 41,
+          "finding": 1,
+          "hypothesis": 28,
+          "limitation": 1,
+          "material": 54,
+          "overview": 1,
+          "paper": 1,
+          "participants": 2,
+          "procedure": 2,
+          "record": 2,
+          "result": 34,
+          "simulation": 3,
+          "step": 38,
+          "variable": 33
+        },
+        "edges": {
+          "about": 6,
+          "contrasts": 72,
+          "estimated-by": 41,
+          "input-of": 37,
+          "instance-of": 54,
+          "measures": 41,
+          "motivates": 28,
+          "next": 8,
+          "part-of": 28,
+          "performed-by": 38,
+          "produces": 39,
+          "reported-in": 41,
+          "reports": 34,
+          "shows": 54,
+          "tested-by": 41,
+          "uses": 60
+        },
+        "constructs": [
+          "Knobe effect",
+          "Macbeth effect",
+          "Many Labs",
+          "WEIRD samples",
+          "affect and risk",
+          "anchoring",
+          "assimilation and contrast",
+          "asymmetry of similarity",
+          "choosing versus rejecting",
+          "climate change beliefs",
+          "compensatory control",
+          "construal of actions as choices",
+          "consumer mindset priming",
+          "correspondence bias",
+          "cultural differences in choice",
+          "directionality in similarity judgments",
+          "disfluency effect",
+          "disgust sensitivity and homophobia",
+          "embodied cognition",
+          "evaluability",
+          "false consensus effect",
+          "family resemblance categorization",
+          "framing effect",
+          "fundamental attribution error",
+          "incidental anchoring",
+          "intentionality judgment",
+          "judgment and decision making",
+          "less-is-better effect",
+          "magical thinking",
+          "materialism priming",
+          "mental accounting",
+          "metacognitive difficulty",
+          "metaphoric association of direction and valence",
+          "moral agency",
+          "moral cleansing",
+          "moral foundations theory",
+          "moral typecasting",
+          "political ideology and morality",
+          "principle of double effect",
+          "probability weighting of affect-rich outcomes",
+          "question order effect",
+          "reason-based choice",
+          "replication",
+          "rule-based versus intuitive reasoning",
+          "sibling-prosocial hypothesis",
+          "side-effect effect",
+          "social comparison",
+          "social psychology",
+          "social value orientation",
+          "sociometric status and well-being",
+          "spatial metaphor",
+          "structure and goal pursuit",
+          "temperature priming",
+          "tempting fate",
+          "trolley problem",
+          "variation across samples and settings",
+          "vertical position and power"
+        ],
+        "gaps": [],
+        "extensions": [],
+        "unlinked": 12
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -36634,6 +37283,7 @@
             ],
             "valueMeans": "tempted fate minus not tempted fate, among subjects not under cognitive load"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -36789,6 +37439,7 @@
             ],
             "valueMeans": "tempted fate minus not tempted fate, among subjects not under cognitive load"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -36938,6 +37589,7 @@
             ],
             "valueMeans": "tempted fate minus not tempted fate, among subjects not under cognitive load"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -37041,6 +37693,7 @@
             ],
             "valueMeans": "tempted fate minus not tempted fate, among subjects not under cognitive load"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -37126,6 +37779,7 @@
             ],
             "valueMeans": "tempted fate minus not tempted fate, among subjects not under cognitive load"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -37219,7 +37873,7 @@
             "treatedAs": "numeric, as in the paper's OLS and mixed models"
           },
           "contrast": {
-            "kind": "other",
+            "kind": "interaction",
             "treatment": "Many Labs 5",
             "reference": "Many Labs 2",
             "conditionIds": [
@@ -37228,6 +37882,7 @@
             ],
             "valueMeans": "ML5 main effect minus ML2 main effect (raw mean difference scale)"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "none",
             "text": "exploratory comparison; no direction predicted",
@@ -37353,6 +38008,7 @@
             ],
             "valueMeans": "(c11 - c01) - (c10 - c00): effect of tempting fate under load minus without load"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -37527,6 +38183,7 @@
             ],
             "valueMeans": "(c11 - c01) - (c10 - c00): effect of tempting fate under load minus without load"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -37693,6 +38350,7 @@
             ],
             "valueMeans": "(c11 - c01) - (c10 - c00): effect of tempting fate under load minus without load"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -37815,6 +38473,7 @@
             ],
             "valueMeans": "(c11 - c01) - (c10 - c00): effect of tempting fate under load minus without load"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -37900,6 +38559,7 @@
             ],
             "valueMeans": "main effect (no load) of tempting fate at similar sites minus at MTurk"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "larger effects where the setting resembles the original study",
@@ -37988,6 +38648,7 @@
             ],
             "valueMeans": "Tempting Fate × Cognitive Load interaction of tempting fate at similar sites minus at MTurk"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "larger effects where the setting resembles the original study",
@@ -38074,6 +38735,7 @@
             ],
             "valueMeans": "main effect (no load) of tempting fate at similar sites minus at dissimilar sites"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "larger effects where the setting resembles the original study",
@@ -38162,6 +38824,7 @@
             ],
             "valueMeans": "Tempting Fate × Cognitive Load interaction of tempting fate at similar sites minus at dissimilar sites"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "larger effects where the setting resembles the original study",
@@ -38248,6 +38911,7 @@
             ],
             "valueMeans": "main effect (no load) of tempting fate at university sites minus at MTurk"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "larger effects where the setting resembles the original study",
@@ -38343,6 +39007,7 @@
             ],
             "valueMeans": "Tempting Fate × Cognitive Load interaction of tempting fate at university sites minus at MTurk"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "H3: larger interaction at universities; H4: load less effective on MTurk, so the interaction is larger at universities",
@@ -38434,6 +39099,7 @@
             ],
             "valueMeans": "change in the main effect per 10-point increase in median SAT (US universities)"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "higher median SAT (more similar to Cornell) gives a larger effect",
@@ -38525,6 +39191,7 @@
             ],
             "valueMeans": "change in the Tempting Fate × Load interaction per 10-point increase in median SAT (US universities)"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "higher median SAT (more similar to Cornell) gives a larger effect",
@@ -38614,6 +39281,7 @@
             ],
             "valueMeans": "MTurk minus university subjects, load conditions only"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "less effort / difficulty on MTurk if the load manipulation works less well online",
@@ -38703,6 +39371,7 @@
             ],
             "valueMeans": "MTurk minus university subjects, load conditions only"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "less effort / difficulty on MTurk if the load manipulation works less well online",
@@ -38788,6 +39457,7 @@
             "reference": "similar sites",
             "valueMeans": "MTurk minus similar-site subjects"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "scenario less personally salient on MTurk",
@@ -38877,6 +39547,7 @@
             "reference": "dissimilar sites",
             "valueMeans": "MTurk minus dissimilar-site subjects"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "scenario less personally salient on MTurk",
@@ -38963,6 +39634,7 @@
             "reference": "similar sites",
             "valueMeans": "MTurk minus similar-site subjects"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "scenario less personally salient on MTurk",
@@ -39047,6 +39719,7 @@
             "reference": "dissimilar sites",
             "valueMeans": "MTurk minus dissimilar-site subjects"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "scenario less personally salient on MTurk",
@@ -39087,12 +39760,12 @@
           ]
         }
       ],
-      "currentRevision": "2f1df69e19eddf938dffe1c59fb50ca462f975d8e4a8e5977261024ef3bd8e38",
-      "assetRoot": "community/paper_bc29ffa80c6477a6f6bd95ee/revisions/2f1df69e19eddf938dffe1c59fb50ca462f975d8e4a8e5977261024ef3bd8e38",
+      "currentRevision": "1fb3fc66c7c59e119d6d9a936b77243523bd4136b22aaf4a29fa845e2a775d14",
+      "assetRoot": "community/paper_bc29ffa80c6477a6f6bd95ee/revisions/1fb3fc66c7c59e119d6d9a936b77243523bd4136b22aaf4a29fa845e2a775d14",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "a68da3604871b9ae92293d8aaf1c12f00de1462382d3555089deaa0eb34d50e7",
+          "sha256": "98af80d86dcb6e22668fa14acc3eea0282d85411fb9713830880e1d4230540b2",
           "bytes": 3880
         },
         {
@@ -39102,8 +39775,8 @@
         },
         {
           "path": "artifacts/agent/ml5-risen-gilovich-2008-study6/SKILL.md",
-          "sha256": "0b9fb32fdcc044a681b452c41d821a389c1487c607a2b7487b7f4fbc5f107b65",
-          "bytes": 4727
+          "sha256": "0b3ab7f11b0d582f189062427b7055f40560c6105a29a1a66b00fcdfb1d84f6d",
+          "bytes": 4991
         },
         {
           "path": "artifacts/agent/ml5-risen-gilovich-2008-study6/references/accuracy.md",
@@ -39142,18 +39815,18 @@
         },
         {
           "path": "artifacts/agent/ml5-risen-gilovich-2008-study6/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/ml5-risen-gilovich-2008-study6/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/ml5-risen-gilovich-2008-study6/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -39182,8 +39855,8 @@
         },
         {
           "path": "effects.json",
-          "sha256": "a563e8005efc86eac9dd8d3bf5cfe35588a7f94d302f4853bf423e62be152bb0",
-          "bytes": 57845
+          "sha256": "df31534fe27751f8cde142577475b6c028e87baeecc5abd15246644df2410efe",
+          "bytes": 57851
         },
         {
           "path": "package/ml5-risen-gilovich-2008/evaluation/evaluation.py",
@@ -39296,6 +39969,65 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 5,
+          "background": 1,
+          "condition": 4,
+          "construct": 13,
+          "design": 1,
+          "effect": 24,
+          "finding": 1,
+          "hypothesis": 5,
+          "limitation": 1,
+          "material": 4,
+          "overview": 1,
+          "paper": 1,
+          "participants": 1,
+          "procedure": 1,
+          "record": 1,
+          "result": 7,
+          "simulation": 1,
+          "step": 9,
+          "variable": 8
+        },
+        "edges": {
+          "about": 7,
+          "contrasts": 56,
+          "estimated-by": 33,
+          "in-condition": 10,
+          "instance-of": 11,
+          "measures": 24,
+          "motivates": 5,
+          "next": 8,
+          "part-of": 2,
+          "performed-by": 9,
+          "produces": 5,
+          "reported-in": 34,
+          "shows": 8,
+          "tested-by": 25,
+          "uses": 9
+        },
+        "constructs": [
+          "Many Labs",
+          "cognitive load",
+          "cognitive load manipulation",
+          "dual-process theory",
+          "magical thinking",
+          "multisite replication",
+          "online sample attentiveness",
+          "personal relevance",
+          "replication",
+          "replication protocol moderation",
+          "sample heterogeneity",
+          "site heterogeneity",
+          "tempting fate"
+        ],
+        "gaps": [],
+        "extensions": [],
+        "unlinked": 4
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -41120,6 +41852,7 @@
             ],
             "valueMeans": "paid minus free"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -41247,6 +41980,7 @@
             ],
             "valueMeans": "gain minus loss"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -41371,6 +42105,7 @@
             ],
             "valueMeans": "high minus low"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -41487,6 +42222,7 @@
             ],
             "valueMeans": "high minus low"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -41603,6 +42339,7 @@
             ],
             "valueMeans": "high minus low"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -41719,6 +42456,7 @@
             ],
             "valueMeans": "high minus low"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -41836,6 +42574,7 @@
             ],
             "valueMeans": "three6 minus two6one3"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -41969,6 +42708,7 @@
             ],
             "valueMeans": "high minus low"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -42091,6 +42831,7 @@
             ],
             "valueMeans": "us_first minus nk_first"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -42213,6 +42954,7 @@
             ],
             "valueMeans": "allow minus forbid"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -42334,6 +43076,7 @@
             ],
             "valueMeans": "allow minus forbid"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -42413,6 +43156,7 @@
             ],
             "valueMeans": "liked minus disliked"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -42536,6 +43280,7 @@
             ],
             "valueMeans": "flag minus control"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -42662,6 +43407,7 @@
             ],
             "valueMeans": "money minus control"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -42786,6 +43532,7 @@
             ],
             "valueMeans": "contact minus control"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -42907,6 +43654,7 @@
             "reference": "women",
             "valueMeans": "men minus women"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -43016,6 +43764,7 @@
             "valueMeans": "correlation",
             "groups": []
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -43088,12 +43837,12 @@
           ]
         }
       ],
-      "currentRevision": "8cb76c8e7d22e4769b8709901a380e06544dea21f7c6e334e02b4175591b8dc7",
-      "assetRoot": "community/paper_cdab28122805d7b5a0dcbd1c/revisions/8cb76c8e7d22e4769b8709901a380e06544dea21f7c6e334e02b4175591b8dc7",
+      "currentRevision": "22c9f641199a11b6507a41d3600eddf328c809ea53fa680c6c9a962ea06aef04",
+      "assetRoot": "community/paper_cdab28122805d7b5a0dcbd1c/revisions/22c9f641199a11b6507a41d3600eddf328c809ea53fa680c6c9a962ea06aef04",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "22ffd4563bfa25dd5badcd838d049252ef40423516bb62915225733ca628324c",
+          "sha256": "4f5f7d357ec934d26811df8393ce993d0000a2b7553312ef476d1a500086772b",
           "bytes": 5926
         },
         {
@@ -43103,8 +43852,8 @@
         },
         {
           "path": "artifacts/agent/manylabs1/SKILL.md",
-          "sha256": "028d6e32389e78cf36e1f90e64781b3dab0c5b9449474a98c8ad68e6b7c87659",
-          "bytes": 5851
+          "sha256": "83f4c51a62f0ef662a44d992e64fb45acef5ed643751ff67a5bb2f233bb10b8f",
+          "bytes": 6115
         },
         {
           "path": "artifacts/agent/manylabs1/references/accuracy.md",
@@ -43198,18 +43947,18 @@
         },
         {
           "path": "artifacts/agent/manylabs1/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/manylabs1/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/manylabs1/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -43238,7 +43987,7 @@
         },
         {
           "path": "effects.json",
-          "sha256": "1e06f89561bfdf642737b096a5bf32c47b641a870db3b46bee5ec661b9c2096c",
+          "sha256": "21e0e0e5e68db7ca88917579e18aa54a6309d36c34257225dd0cbc71f9790602",
           "bytes": 49942
         },
         {
@@ -43384,6 +44133,79 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 17,
+          "background": 1,
+          "condition": 22,
+          "construct": 29,
+          "design": 13,
+          "effect": 17,
+          "finding": 1,
+          "hypothesis": 13,
+          "limitation": 1,
+          "material": 12,
+          "overview": 1,
+          "paper": 1,
+          "participants": 13,
+          "procedure": 13,
+          "result": 28,
+          "simulation": 3,
+          "step": 37,
+          "variable": 27
+        },
+        "edges": {
+          "about": 8,
+          "contrasts": 30,
+          "estimated-by": 34,
+          "in-condition": 22,
+          "instance-of": 22,
+          "measures": 17,
+          "motivates": 13,
+          "next": 24,
+          "performed-by": 37,
+          "produces": 14,
+          "reported-in": 34,
+          "shows": 37,
+          "tested-by": 30,
+          "uses": 37
+        },
+        "constructs": [
+          "allow/forbid asymmetry",
+          "anchoring",
+          "currency priming",
+          "flag priming",
+          "framing effect",
+          "frequency scale effect",
+          "gambler's fallacy",
+          "gender differences in math attitudes",
+          "imagined contact",
+          "implicit attitudes",
+          "implicit-explicit attitude correspondence",
+          "intergroup contact",
+          "judgment and decision making",
+          "money priming",
+          "multi-site replication",
+          "norm of reciprocity",
+          "priming",
+          "question order effect",
+          "question wording effect",
+          "quote attribution",
+          "replicability",
+          "replication",
+          "response scale effect",
+          "retrospective gambler's fallacy",
+          "risky choice framing",
+          "source effect on persuasion",
+          "sunk cost effect",
+          "survey question effects",
+          "system justification"
+        ],
+        "gaps": [],
+        "extensions": [],
+        "unlinked": 34
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -45637,6 +46459,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
@@ -45746,6 +46569,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
@@ -45853,6 +46677,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
@@ -45943,6 +46768,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
@@ -46033,6 +46859,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
@@ -46123,6 +46950,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus when it coincides with action (positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Omission bias as documented in people (p. 4); Study 1 states no directional prediction for LLMs.",
@@ -46214,6 +47042,7 @@
             ],
             "valueMeans": "GPT-4-turbo mean altruism score minus participants' mean altruism score"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory comparison.",
@@ -46300,6 +47129,7 @@
             ],
             "valueMeans": "GPT-4-turbo mean altruism score minus participants' mean altruism score"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory comparison.",
@@ -46386,6 +47216,7 @@
             ],
             "valueMeans": "GPT-4o mean altruism score minus participants' mean altruism score"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory comparison.",
@@ -46472,6 +47303,7 @@
             ],
             "valueMeans": "GPT-4o mean altruism score minus participants' mean altruism score"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory comparison.",
@@ -46558,6 +47390,7 @@
             ],
             "valueMeans": "Llama 3.1-Instruct mean altruism score minus participants' mean altruism score"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory comparison.",
@@ -46644,6 +47477,7 @@
             ],
             "valueMeans": "Llama 3.1-Instruct mean altruism score minus participants' mean altruism score"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory comparison.",
@@ -46730,6 +47564,7 @@
             ],
             "valueMeans": "Claude 3.5 mean altruism score minus participants' mean altruism score"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory comparison.",
@@ -46816,6 +47651,7 @@
             ],
             "valueMeans": "Claude 3.5 mean altruism score minus participants' mean altruism score"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory comparison.",
@@ -46900,6 +47736,7 @@
             ],
             "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "Preregistered: humans show no yes-no bias.",
@@ -46986,6 +47823,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: both LLMs and humans show omission bias.",
@@ -47079,6 +47917,7 @@
             ],
             "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "Preregistered: LLMs biased toward answering 'no'.",
@@ -47171,6 +48010,7 @@
             ],
             "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "Preregistered: LLMs biased toward answering 'no'.",
@@ -47263,6 +48103,7 @@
             ],
             "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "Preregistered: LLMs biased toward answering 'no'.",
@@ -47355,6 +48196,7 @@
             ],
             "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "Preregistered: LLMs biased toward answering 'no'.",
@@ -47450,6 +48292,7 @@
             ],
             "valueMeans": "yes-no effect (yes = CBR minus no = CBR) of GPT-4-turbo minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "text": "Preregistered: the bias toward 'no' is larger for LLMs than humans.",
@@ -47548,6 +48391,7 @@
             ],
             "valueMeans": "yes-no effect (yes = CBR minus no = CBR) of Llama 3.1-Instruct minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "text": "Preregistered: the bias toward 'no' is larger for LLMs than humans.",
@@ -47646,6 +48490,7 @@
             ],
             "valueMeans": "yes-no effect (yes = CBR minus no = CBR) of Claude 3.5 minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "text": "Preregistered: the bias toward 'no' is larger for LLMs than humans.",
@@ -47744,6 +48589,7 @@
             ],
             "valueMeans": "yes-no effect (yes = CBR minus no = CBR) of GPT-4o minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "text": "Preregistered: the bias toward 'no' is larger for LLMs than humans.",
@@ -47839,6 +48685,7 @@
             ],
             "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "Preregistered: LLMs biased toward answering 'no'.",
@@ -47923,6 +48770,7 @@
             ],
             "valueMeans": "proportion CBR when answering 'yes' is the CBR option minus when 'no' is (original and Yes-No versions pooled; negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "Preregistered: LLMs biased toward answering 'no'.",
@@ -48004,6 +48852,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: both LLMs and humans show omission bias.",
@@ -48093,6 +48942,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: both LLMs and humans show omission bias.",
@@ -48182,6 +49032,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: both LLMs and humans show omission bias.",
@@ -48271,6 +49122,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: both LLMs and humans show omission bias.",
@@ -48363,6 +49215,7 @@
             ],
             "valueMeans": "omission effect (omission minus action) of GPT-4-turbo minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: omission bias larger for LLMs than humans.",
@@ -48458,6 +49311,7 @@
             ],
             "valueMeans": "omission effect (omission minus action) of Llama 3.1-Instruct minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: omission bias larger for LLMs than humans.",
@@ -48553,6 +49407,7 @@
             ],
             "valueMeans": "omission effect (omission minus action) of Claude 3.5 minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: omission bias larger for LLMs than humans.",
@@ -48648,6 +49503,7 @@
             ],
             "valueMeans": "omission effect (omission minus action) of GPT-4o minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: omission bias larger for LLMs than humans.",
@@ -48740,6 +49596,7 @@
             ],
             "valueMeans": "proportion CBR when the CBR option coincides with omission minus with action (original and Action-Omission versions pooled; positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: both LLMs and humans show omission bias.",
@@ -48832,6 +49689,7 @@
             ],
             "valueMeans": "omission effect of GPT-4o (advice prompt) minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: omission bias larger for LLMs than humans.",
@@ -48920,6 +49778,7 @@
             ],
             "valueMeans": "proportion CBR in the Action-Omission version (CBR = omission) minus the original version (CBR = action) of 'Endowment'"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: both LLMs and humans show omission bias.",
@@ -49009,6 +49868,7 @@
             ],
             "valueMeans": "proportion CBR in the Action-Omission version minus the original version of 'Endowment'"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Preregistered: both LLMs and humans show omission bias.",
@@ -49101,6 +49961,7 @@
             ],
             "valueMeans": "omission effect of GPT-4o minus that of participants, 'Endowment' only"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -49191,6 +50052,7 @@
             ],
             "valueMeans": "proportion endorsing the original action when 'yes' endorses it minus when 'no' does (negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "text": "Same preregistered hypotheses as Study 2.",
@@ -49277,6 +50139,7 @@
             ],
             "valueMeans": "proportion endorsing the original action when 'yes' endorses it minus when 'no' does (negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "Same preregistered hypotheses as Study 2.",
@@ -49363,6 +50226,7 @@
             ],
             "valueMeans": "proportion endorsing the original action when 'yes' endorses it minus when 'no' does (negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "Same preregistered hypotheses as Study 2.",
@@ -49449,6 +50313,7 @@
             ],
             "valueMeans": "proportion endorsing the original action when 'yes' endorses it minus when 'no' does (negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "Same preregistered hypotheses as Study 2.",
@@ -49535,6 +50400,7 @@
             ],
             "valueMeans": "proportion endorsing the original action when 'yes' endorses it minus when 'no' does (negative = bias toward answering 'no')"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "Same preregistered hypotheses as Study 2.",
@@ -49624,6 +50490,7 @@
             ],
             "valueMeans": "yes-no effect of GPT-4-turbo minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -49722,6 +50589,7 @@
             ],
             "valueMeans": "yes-no effect of GPT-4o minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -49820,6 +50688,7 @@
             ],
             "valueMeans": "yes-no effect of Llama 3.1-Instruct minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -49918,6 +50787,7 @@
             ],
             "valueMeans": "yes-no effect of Claude 3.5 minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -50006,6 +50876,7 @@
             ],
             "valueMeans": "proportion endorsing the original action when it is an omission minus when it is an action (positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Same preregistered hypotheses as Study 2.",
@@ -50089,6 +50960,7 @@
             ],
             "valueMeans": "proportion endorsing the original action when it is an omission minus when it is an action (positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Same preregistered hypotheses as Study 2.",
@@ -50172,6 +51044,7 @@
             ],
             "valueMeans": "proportion endorsing the original action when it is an omission minus when it is an action (positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Same preregistered hypotheses as Study 2.",
@@ -50255,6 +51128,7 @@
             ],
             "valueMeans": "proportion endorsing the original action when it is an omission minus when it is an action (positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Same preregistered hypotheses as Study 2.",
@@ -50338,6 +51212,7 @@
             ],
             "valueMeans": "proportion endorsing the original action when it is an omission minus when it is an action (positive = omission bias)"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "Same preregistered hypotheses as Study 2.",
@@ -50424,6 +51299,7 @@
             ],
             "valueMeans": "omission effect of GPT-4-turbo minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -50519,6 +51395,7 @@
             ],
             "valueMeans": "omission effect of Llama 3.1-Instruct minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -50614,6 +51491,7 @@
             ],
             "valueMeans": "omission effect of Claude 3.5 minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -50709,6 +51587,7 @@
             ],
             "valueMeans": "omission effect of GPT-4o minus that of participants"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -50802,6 +51681,7 @@
               "c4_inst"
             ]
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -50885,6 +51765,7 @@
               "c4_pre"
             ]
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -50968,6 +51849,7 @@
               "c4_cent"
             ]
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -51048,6 +51930,7 @@
               "c4_pre"
             ]
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -51128,6 +52011,7 @@
               "c4_cent"
             ]
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -51209,6 +52093,7 @@
               "c2_yn"
             ]
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -51297,6 +52182,7 @@
             ],
             "valueMeans": "yes-no effect of Centaur minus that of humans"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -51395,6 +52281,7 @@
             ],
             "valueMeans": "yes-no effect of Llama 3.1 (pre-trained) minus that of humans"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -51493,6 +52380,7 @@
             ],
             "valueMeans": "yes-no effect of Llama 3.1-Instruct minus that of humans"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -51590,6 +52478,7 @@
             ],
             "valueMeans": "yes-no effect of Centaur minus that of Llama 3.1 (pre-trained)"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -51687,6 +52576,7 @@
             ],
             "valueMeans": "yes-no effect of Centaur minus that of Llama 3.1-Instruct"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -51786,6 +52676,7 @@
             ],
             "valueMeans": "yes-no effect of Llama 3.1 (pre-trained) minus that of Llama 3.1-Instruct"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -51883,6 +52774,7 @@
             ],
             "valueMeans": "omission effect of Centaur minus that of humans"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -51978,6 +52870,7 @@
             ],
             "valueMeans": "omission effect of Llama 3.1 (pre-trained) minus that of humans"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -52073,6 +52966,7 @@
             ],
             "valueMeans": "omission effect of Llama 3.1-Instruct minus that of humans"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -52167,6 +53061,7 @@
             ],
             "valueMeans": "omission effect of Centaur minus that of Llama 3.1 (pre-trained)"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -52261,6 +53156,7 @@
             ],
             "valueMeans": "omission effect of Centaur minus that of Llama 3.1-Instruct"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -52357,6 +53253,7 @@
             ],
             "valueMeans": "omission effect of Llama 3.1 (pre-trained) minus that of Llama 3.1-Instruct"
           },
+          "contrastCore": "interaction",
           "prediction": {
             "direction": "unspecified",
             "text": "Exploratory: where the biases come from.",
@@ -52398,12 +53295,12 @@
           ]
         }
       ],
-      "currentRevision": "c657333302989b79f00bd734c219ee74eed4cd46f7432d52cd80e2446403f17c",
-      "assetRoot": "community/paper_df58653c96dd465802a99bc2/revisions/c657333302989b79f00bd734c219ee74eed4cd46f7432d52cd80e2446403f17c",
+      "currentRevision": "b6840a3ba88663bc6702a0a09d9828a3d4a234d504606f35c108de240ec89f44",
+      "assetRoot": "community/paper_df58653c96dd465802a99bc2/revisions/b6840a3ba88663bc6702a0a09d9828a3d4a234d504606f35c108de240ec89f44",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "149653fdee2b8dfc0aa67b569e005224febbe595600d75bff7bc2214ec3602ff",
+          "sha256": "53d42df60e86149356823f944a1be30aa6e748141402c8fd120e1ced53f44590",
           "bytes": 4329
         },
         {
@@ -52413,8 +53310,8 @@
         },
         {
           "path": "artifacts/agent/cheung2025moral/SKILL.md",
-          "sha256": "ae5c349bce217a6c7230cdde9e0ac0862e7ee5705c11021a9b0c426a2da0cba0",
-          "bytes": 5069
+          "sha256": "c1af3f06bc4da80a16ceddfa3126dd42404ddbb6f6106e473d69496d0c64a45d",
+          "bytes": 5333
         },
         {
           "path": "artifacts/agent/cheung2025moral/references/accuracy.md",
@@ -52463,18 +53360,18 @@
         },
         {
           "path": "artifacts/agent/cheung2025moral/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/cheung2025moral/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/cheung2025moral/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -52503,7 +53400,7 @@
         },
         {
           "path": "effects.json",
-          "sha256": "30d8d3527f119078929fbea3c3f800fb53c8838dd25df90a4bb8942097a32675",
+          "sha256": "946593eae982835090d4ffe9e866770a057190f1cf0205937c3171cdc8053b27",
           "bytes": 162406
         },
         {
@@ -52626,6 +53523,67 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 7,
+          "background": 1,
+          "condition": 21,
+          "construct": 17,
+          "design": 4,
+          "effect": 75,
+          "finding": 1,
+          "hypothesis": 5,
+          "limitation": 1,
+          "material": 38,
+          "overview": 1,
+          "paper": 1,
+          "participants": 8,
+          "procedure": 4,
+          "result": 10,
+          "simulation": 4,
+          "step": 21,
+          "variable": 11
+        },
+        "edges": {
+          "about": 9,
+          "contrasts": 186,
+          "estimated-by": 75,
+          "instance-of": 141,
+          "measures": 75,
+          "motivates": 5,
+          "next": 6,
+          "part-of": 8,
+          "performed-by": 21,
+          "produces": 21,
+          "reported-in": 75,
+          "shows": 24,
+          "tested-by": 75,
+          "uses": 33
+        },
+        "constructs": [
+          "LLM-human comparison",
+          "RLHF",
+          "altruism",
+          "cognitive biases",
+          "collective action problem",
+          "collective action problems",
+          "cost-benefit reasoning",
+          "everyday moral dilemmas",
+          "fine-tuning",
+          "framing effect",
+          "large language models",
+          "moral decision-making",
+          "moral dilemmas",
+          "omission bias",
+          "silicon sampling",
+          "social dilemma",
+          "yes-no bias"
+        ],
+        "gaps": [],
+        "extensions": [],
+        "unlinked": 11
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -52901,7 +53859,7 @@
       ],
       "year": 2015,
       "description": "Four-condition, block-randomized online survey experiment (YouGov, Oct 13-16, 2012): dispatches about a fictional senator's resignation; control, innuendo, denial, causal correction; outcomes favorability, belief in bribery, belief in an investigation.",
-      "currentRevision": "aa72101d2a8bfa44edd0f57b5e93944f2ce3e4a63261b5944c1114b4bda93e09",
+      "currentRevision": "e8e6c226a63157a1d1bb511ec06a7ae29241bf1426e3abd101328dcff6518fce",
       "conceptIds": [],
       "conceptAssignments": [],
       "capabilities": {
@@ -53084,6 +54042,7 @@
             ],
             "valueMeans": "innuendo minus control"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -53194,6 +54153,7 @@
             ],
             "valueMeans": "innuendo minus control"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -53304,6 +54264,7 @@
             ],
             "valueMeans": "denial minus innuendo"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -53394,6 +54355,7 @@
             ],
             "valueMeans": "causal minus innuendo"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -53484,6 +54446,7 @@
             ],
             "valueMeans": "denial minus innuendo"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -53574,6 +54537,7 @@
             ],
             "valueMeans": "causal minus innuendo"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -53664,6 +54628,7 @@
             ],
             "valueMeans": "denial minus innuendo"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -53774,6 +54739,7 @@
             ],
             "valueMeans": "causal minus innuendo"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -53884,6 +54850,7 @@
             ],
             "valueMeans": "causal minus denial"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "evidenceIds": [
@@ -53974,6 +54941,7 @@
             ],
             "valueMeans": "causal minus denial"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -54064,6 +55032,7 @@
             ],
             "valueMeans": "causal minus denial"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "evidenceIds": [
@@ -54144,6 +55113,7 @@
             ],
             "valueMeans": "denial minus innuendo"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "evidenceIds": [
@@ -54224,6 +55194,7 @@
             ],
             "valueMeans": "causal minus innuendo"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "none",
             "evidenceIds": [
@@ -54503,11 +55474,11 @@
           "nodeId": "m-q-fav"
         }
       ],
-      "assetRoot": "community/paper_e1ccbfdc1d4fa86aab187f80/revisions/aa72101d2a8bfa44edd0f57b5e93944f2ce3e4a63261b5944c1114b4bda93e09",
+      "assetRoot": "community/paper_e1ccbfdc1d4fa86aab187f80/revisions/e8e6c226a63157a1d1bb511ec06a7ae29241bf1426e3abd101328dcff6518fce",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "b619ecc6d6d3c0841da3b6e5cd8dc81ee1538cd21f07d1af5cae94f5f996e030",
+          "sha256": "8cf7b5520ff89626f0286a270655bdb6f28ac58003f3989d04a301f1acb2d93c",
           "bytes": 3742
         },
         {
@@ -54517,8 +55488,8 @@
         },
         {
           "path": "artifacts/agent/nyhan2015-causal-corrections/SKILL.md",
-          "sha256": "96921d185c801501f99594fd93da7cbe5bfbfe0778f16a676d8bf19855005258",
-          "bytes": 4442
+          "sha256": "976cfc669e0e7313f1197d75f91f5917de15a35322d5fd67f84e93add05b30f0",
+          "bytes": 4706
         },
         {
           "path": "artifacts/agent/nyhan2015-causal-corrections/references/accuracy.md",
@@ -54552,18 +55523,18 @@
         },
         {
           "path": "artifacts/agent/nyhan2015-causal-corrections/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/nyhan2015-causal-corrections/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/nyhan2015-causal-corrections/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -54592,7 +55563,7 @@
         },
         {
           "path": "effects.json",
-          "sha256": "64df8a93c13a2fc379b98cd24479fb30df8e3a5d6f932b12e1f5f311d44fdc4c",
+          "sha256": "28807af398e5717dfaf6637eeff1006c8bfc7ad11dc49a2f62001a83110ac341",
           "bytes": 29463
         },
         {
@@ -54698,6 +55669,68 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 5,
+          "background": 1,
+          "condition": 4,
+          "construct": 6,
+          "design": 1,
+          "effect": 13,
+          "finding": 1,
+          "hypothesis": 1,
+          "limitation": 1,
+          "material": 19,
+          "overview": 1,
+          "paper": 1,
+          "participants": 1,
+          "record": 1,
+          "result": 6,
+          "simulation": 1,
+          "step": 19,
+          "variable": 7
+        },
+        "edges": {
+          "about": 4,
+          "concerns": 3,
+          "contrasts": 26,
+          "derived-from": 1,
+          "estimated-by": 17,
+          "in-condition": 26,
+          "input-of": 6,
+          "instance-of": 2,
+          "measures": 13,
+          "motivates": 1,
+          "next": 21,
+          "performed-by": 19,
+          "produces": 5,
+          "reported-in": 17,
+          "reports": 6,
+          "shows": 19,
+          "tested-by": 12,
+          "uses": 19
+        },
+        "constructs": [
+          "continued influence effect",
+          "corrections",
+          "innuendo",
+          "misinformation",
+          "misinformation correction",
+          "political news"
+        ],
+        "gaps": [
+          {
+            "what": "relation",
+            "value": "blocking variable for",
+            "id": "r15",
+            "fromKind": "variable",
+            "toKind": "design"
+          }
+        ],
+        "extensions": [],
+        "unlinked": 3
       }
     },
     {
@@ -56327,6 +57360,7 @@
             ],
             "valueMeans": "group accuracy rate in the description only condition; compared with chance (.50)"
           },
+          "contrastCore": "single_group",
           "prediction": {
             "direction": "positive",
             "text": "accuracy above .50 (chance)",
@@ -56428,6 +57462,7 @@
             ],
             "valueMeans": "group accuracy rate in the description plus evidence condition; compared with chance (.50)"
           },
+          "contrastCore": "single_group",
           "prediction": {
             "direction": "positive",
             "text": "accuracy above .50 (chance)",
@@ -56530,6 +57565,7 @@
             ],
             "valueMeans": "accuracy rate with the Bayes factor minus accuracy rate without it"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "positive",
             "text": "evidence information improves prediction",
@@ -56618,6 +57654,7 @@
             ],
             "valueMeans": "mean log Brier with the Bayes factor minus mean log Brier without it"
           },
+          "contrastCore": "two_groups",
           "prediction": {
             "direction": "negative",
             "text": "lower Brier scores with the Bayes factor (H-: delta < 0)",
@@ -56713,6 +57750,7 @@
             ],
             "valueMeans": "Spearman correlation across the 27 studies between mean confidence and the replication effect size (r)"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "text": "confidence correlates positively with replication effect size",
@@ -56809,6 +57847,7 @@
             ],
             "valueMeans": "Spearman correlation across the 27 studies between mean confidence and the replication effect size (r)"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "text": "confidence correlates positively with replication effect size",
@@ -56906,6 +57945,7 @@
             ],
             "valueMeans": "area under the ROC curve implied by d' in the description only condition"
           },
+          "contrastCore": "single_group",
           "prediction": {
             "direction": "positive",
             "text": "AUC above .50 (exploratory; no test)",
@@ -56917,7 +57957,7 @@
           "reported": {
             "estimates": [
               {
-                "metric": "other",
+                "metric": "auc",
                 "value": 0.62,
                 "ci": [
                   0.6,
@@ -56992,6 +58032,7 @@
             ],
             "valueMeans": "area under the ROC curve implied by d' in the description plus evidence condition"
           },
+          "contrastCore": "single_group",
           "prediction": {
             "direction": "positive",
             "text": "AUC above .50 (exploratory; no test)",
@@ -57003,7 +58044,7 @@
           "reported": {
             "estimates": [
               {
-                "metric": "other",
+                "metric": "auc",
                 "value": 0.74,
                 "ci": [
                   0.72,
@@ -57070,6 +58111,7 @@
             ],
             "valueMeans": "overall accuracy rate over both conditions; data would be unusable if strongly below .50"
           },
+          "contrastCore": "single_group",
           "prediction": {
             "direction": "positive",
             "text": "not worse than chance",
@@ -57115,6 +58157,7 @@
             "conditionIds": [],
             "valueMeans": "Spearman correlation between log original Bayes factor and replication effect size"
           },
+          "contrastCore": "association",
           "prediction": {
             "direction": "positive",
             "text": "Bayes factors carry information about replicability",
@@ -57196,6 +58239,7 @@
             "conditionIds": [],
             "valueMeans": "group accuracy rate of the experts"
           },
+          "contrastCore": "single_group",
           "prediction": {
             "direction": "unspecified",
             "text": "benchmark for the laypeople (exploratory)",
@@ -57268,6 +58312,7 @@
             "conditionIds": [],
             "valueMeans": "group accuracy rate of the experts"
           },
+          "contrastCore": "single_group",
           "prediction": {
             "direction": "unspecified",
             "text": "benchmark for the laypeople (exploratory)",
@@ -57304,12 +58349,12 @@
           ]
         }
       ],
-      "currentRevision": "011e9785eda91e2a91d49b78af24601082c06e390a0bf8a0a8987f3542a62ce6",
-      "assetRoot": "community/paper_f234a48f3fcbfacd9273a4f8/revisions/011e9785eda91e2a91d49b78af24601082c06e390a0bf8a0a8987f3542a62ce6",
+      "currentRevision": "0f142f21c894bd2be495c10197fcd2508e1c630090f54902cf9f38d68158f678",
+      "assetRoot": "community/paper_f234a48f3fcbfacd9273a4f8/revisions/0f142f21c894bd2be495c10197fcd2508e1c630090f54902cf9f38d68158f678",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
-          "sha256": "a82d3f5ee3d8373a3e4404e2bb2cae52dc92cd8afef6039d4f0d14c4366ab671",
+          "sha256": "a7eefde17d68488567110f391e090faf9a234b2f951acf02989e36b926f95e7c",
           "bytes": 3953
         },
         {
@@ -57319,8 +58364,8 @@
         },
         {
           "path": "artifacts/agent/hoogeveen2020-laypeople-replicability/SKILL.md",
-          "sha256": "443daaa64e0125429c32583ea3a3c9568d844904a085739514b869d31ec0496d",
-          "bytes": 4677
+          "sha256": "157ea1ff1be1761547a1320f075116e696a1df348adf9a50d71190fe1f6a6e5a",
+          "bytes": 4941
         },
         {
           "path": "artifacts/agent/hoogeveen2020-laypeople-replicability/references/accuracy.md",
@@ -57359,18 +58404,18 @@
         },
         {
           "path": "artifacts/agent/hoogeveen2020-laypeople-replicability/scripts/effects_core.py",
-          "sha256": "2e2d4c91ff0b7c1b899e499fb1393d7473021be019fc2a72411dfa2267edc124",
-          "bytes": 34528
+          "sha256": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+          "bytes": 54749
         },
         {
           "path": "artifacts/agent/hoogeveen2020-laypeople-replicability/scripts/mcp_server.py",
-          "sha256": "30dc72c5387dd3d2b77116f5ffb9f472b0519eb2dc41b5917787e2c0d273ed88",
-          "bytes": 12060
+          "sha256": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+          "bytes": 12590
         },
         {
           "path": "artifacts/agent/hoogeveen2020-laypeople-replicability/scripts/study_core.py",
-          "sha256": "f5e9ce6f4766d078e1c933b9f0f7ecfe4d7b5e7e13772a4af0c0076c354bd27e",
-          "bytes": 46024
+          "sha256": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675",
+          "bytes": 47179
         },
         {
           "path": "artifacts/failures.json",
@@ -57399,13 +58444,13 @@
         },
         {
           "path": "effects.json",
-          "sha256": "2f6a186c2c89883f336965ae139df5520b286197f896b33d33b703d3ed4c916d",
-          "bytes": 25761
+          "sha256": "055fa0b3f2c9096a609825630c0506798f6d39f11dfb41b5989eafc27c787396",
+          "bytes": 25753
         },
         {
           "path": "package/hoogeveen2020/evaluation/evaluation.py",
-          "sha256": "7e9176d43e1b15dd22b94213416c4609b6cdcb518272b8ead755488dcb7817f4",
-          "bytes": 12724
+          "sha256": "4843f58655af6b713e5d686b4fdb308b96b71b9054831e694a8b9038fe8103a3",
+          "bytes": 12722
         },
         {
           "path": "package/hoogeveen2020/human/human_sessions.py",
@@ -57511,6 +58556,65 @@
           "status": "no",
           "reason": "the runner does not sample participant profiles yet"
         }
+      },
+      "graph": {
+        "vocabulary": "2.0.0",
+        "nodes": {
+          "analysis": 7,
+          "background": 1,
+          "condition": 2,
+          "construct": 13,
+          "design": 1,
+          "effect": 12,
+          "finding": 1,
+          "hypothesis": 3,
+          "limitation": 1,
+          "material": 5,
+          "overview": 1,
+          "paper": 1,
+          "participants": 1,
+          "procedure": 1,
+          "record": 1,
+          "result": 7,
+          "simulation": 1,
+          "step": 9,
+          "variable": 7
+        },
+        "edges": {
+          "about": 7,
+          "contrasts": 12,
+          "estimated-by": 12,
+          "in-condition": 1,
+          "instance-of": 10,
+          "measures": 12,
+          "motivates": 3,
+          "next": 8,
+          "part-of": 4,
+          "performed-by": 9,
+          "produces": 8,
+          "reported-in": 18,
+          "shows": 4,
+          "tested-by": 8,
+          "uses": 10
+        },
+        "constructs": [
+          "Bayes factor",
+          "Brier score",
+          "confidence calibration",
+          "forecasting",
+          "forecasting replication outcomes",
+          "lay intuition",
+          "lay judgment",
+          "metascience",
+          "predicting replicability",
+          "prediction accuracy",
+          "replicability",
+          "replication",
+          "strength of evidence"
+        ],
+        "gaps": [],
+        "extensions": [],
+        "unlinked": 3
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -58825,6 +59929,8 @@
       }
     ]
   },
+  "graphVocabulary": "2.0.0",
+  "graphExtensions": {},
   "coverage": {
     "papers": 309,
     "scope": "indexed-corpus",

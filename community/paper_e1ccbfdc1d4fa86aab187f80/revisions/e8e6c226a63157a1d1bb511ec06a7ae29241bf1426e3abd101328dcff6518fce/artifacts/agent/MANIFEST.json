@@ -1,0 +1,89 @@
+{
+  "format": "humanstudy-agent-package/1",
+  "created": "2026-10-31T07:21:51Z",
+  "programId": "nyhan2015-causal-corrections",
+  "programSha256": "d3dddaab43b6a592fd031f5fb7b7733db2b3a95ced431e4713f777db7219cb30",
+  "paperSha256": null,
+  "readiness": {
+    "status": "ready",
+    "blocking": [],
+    "note": "No blocking issues. Replay adaptations (delay tasks and recall omitted, no survey weights) are listed in task/task.json and the open decision issues."
+  },
+  "capabilities": {
+    "schemaVersion": 1,
+    "derivedFrom": {
+      "program": "d3dddaab43b6a592fd031f5fb7b7733db2b3a95ced431e4713f777db7219cb30",
+      "package": "nyhan2015"
+    },
+    "read": {
+      "status": "yes",
+      "reason": null
+    },
+    "run": {
+      "status": "yes",
+      "reason": null,
+      "modalities": [
+        "text"
+      ],
+      "excluded": []
+    },
+    "humanData": {
+      "status": "yes",
+      "coverage": [
+        "causal",
+        "control",
+        "denial",
+        "innuendo"
+      ],
+      "sessions": 1000,
+      "source": "human-data/causal-replication.csv: the authors' replication data for the CCAP 2012 YouGov panel (Nyhan_JournExpPoliSci_2015_DEqr; for-cos.do, from Brendan Nyhan, received 7/13/19, also on his website as nyhan-reifler-jeps.zip). One row per respondent, 1000 rows.",
+      "missing": [],
+      "key": {
+        "sample": "original",
+        "repository": "https://osf.io/afnxe/",
+        "license": null,
+        "dataFiles": 2,
+        "fetchable": 1
+      },
+      "reason": "source pinned in package/nyhan2015/human/key.json (1 of 2 data files downloadable from it)"
+    },
+    "authorCode": {
+      "status": "no",
+      "route": null,
+      "reason": "no author-code key recorded"
+    },
+    "reproduced": {
+      "package": "pass",
+      "author": null,
+      "detail": "4 of 4 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+    },
+    "profiles": {
+      "status": "no",
+      "reason": "the runner does not sample participant profiles yet"
+    }
+  },
+  "skill": "nyhan2015-causal-corrections",
+  "mcpServer": "nyhan2015-causal-corrections/scripts/mcp_server.py",
+  "quoteCheck": {
+    "unchecked": 118
+  },
+  "files": {
+    "README.md": "5afdb6c1ea23b86cdee69e6486c3d1c5deaeb9f2a282754026c76705da843de6",
+    "nyhan2015-causal-corrections/SKILL.md": "976cfc669e0e7313f1197d75f91f5917de15a35322d5fd67f84e93add05b30f0",
+    "nyhan2015-causal-corrections/references/accuracy.md": "bdcb641e91fec8f93c049389c9045b3d3309d62c08429375ca6aae759fe341a2",
+    "nyhan2015-causal-corrections/references/capabilities.md": "1509a0de5834f2d6cff06b8c8d719d087b8a8758a05800e0424c74c6f6d1d506",
+    "nyhan2015-causal-corrections/references/open-issues.md": "5bfd8702b7b1042ff7bbb2cd977a1e55d47bbeb0f01ce07ae50f158f42e2bb2f",
+    "nyhan2015-causal-corrections/references/paper.md": "a18218ce41a1bc16ec557e08c40a99da0d6cb21379417f82a9b9985d84cf5a30",
+    "nyhan2015-causal-corrections/references/sources.md": "23d8dc24e33284d8b82b106ff384882f4ccd11f4058621f71248dc454abc2596",
+    "nyhan2015-causal-corrections/references/study-S1.md": "3aba14214368ac5d96e6a60acb037a49289b7c59952c788d16706944bfb9b50b",
+    "nyhan2015-causal-corrections/scripts/effects_core.py": "8c36a9e9576f3c7e701cf5549a7ec7031bd3ade67bee072559a726e34e2d01b5",
+    "nyhan2015-causal-corrections/scripts/mcp_server.py": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+    "nyhan2015-causal-corrections/scripts/study_core.py": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675"
+  },
+  "sharedWithRevision": [
+    "program.json",
+    "package/",
+    "capabilities.json",
+    "effects.json"
+  ]
+}

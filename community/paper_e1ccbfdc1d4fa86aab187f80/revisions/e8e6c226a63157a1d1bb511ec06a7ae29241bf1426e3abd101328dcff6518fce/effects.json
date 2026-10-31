@@ -1,0 +1,1151 @@
+{
+  "schemaVersion": 2,
+  "programId": "nyhan2015-causal-corrections",
+  "topics": [
+    "misinformation",
+    "corrections",
+    "political news",
+    "innuendo"
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "nodeId": "h-main",
+      "status": "tested",
+      "backgroundIds": [
+        "b-bg"
+      ],
+      "phenomena": [
+        "continued influence effect",
+        "misinformation correction"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "innuendo_favorable",
+      "label": "Innuendo vs control: favorability of Swensen",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-fav",
+        "type": "ordinal",
+        "scale": "1-6",
+        "higherMeans": "more favorable opinion of Swensen",
+        "treatedAs": "numeric, as in the paper's OLS"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "innuendo",
+        "reference": "control",
+        "conditionIds": [
+          "c-innuendo",
+          "c-control"
+        ],
+        "valueMeans": "innuendo minus control"
+      },
+      "prediction": {
+        "direction": "negative",
+        "evidenceIds": [
+          "e-hyp",
+          "e-abs"
+        ]
+      },
+      "role": "test",
+      "analysisIds": [
+        "a-ols",
+        "a-robust"
+      ],
+      "resultIds": [
+        "res-fav",
+        "res-unw"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.favorable",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.58,
+            "variant": "OLS without weights (appendix, p. 23)",
+            "evidenceIds": [
+              "e-a-unw2"
+            ]
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.58,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-t2a"
+            ]
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.52,
+            "variant": "OLS with YouGov survey weights (Table 2, p. 15)",
+            "evidenceIds": [
+              "e-t2a"
+            ]
+          }
+        ],
+        "cells": {
+          "innuendo": {
+            "mean": 2.17
+          },
+          "control": {
+            "mean": 2.75
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "p<.01"
+        },
+        "missing": [
+          "se of the unweighted model is not transcribed",
+          "sd per condition",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e-a-pwf1",
+          "e-a-unw2",
+          "e-t2a"
+        ]
+      }
+    },
+    {
+      "id": "innuendo_bribes",
+      "label": "Innuendo vs control: belief he took bribes",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-bribes",
+        "type": "ordinal",
+        "scale": "1-5",
+        "higherMeans": "more likely he took bribes or acted illegally",
+        "treatedAs": "numeric, as in the paper's OLS"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "innuendo",
+        "reference": "control",
+        "conditionIds": [
+          "c-innuendo",
+          "c-control"
+        ],
+        "valueMeans": "innuendo minus control"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e-hyp",
+          "e-abs"
+        ]
+      },
+      "role": "test",
+      "analysisIds": [
+        "a-ols",
+        "a-robust"
+      ],
+      "resultIds": [
+        "res-bribes",
+        "res-unw"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.bribes",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.79,
+            "variant": "OLS without weights (appendix, p. 23)",
+            "evidenceIds": [
+              "e-a-unw2"
+            ]
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": 0.78,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-t2a"
+            ]
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": 0.67,
+            "variant": "OLS with YouGov survey weights (Table 2, p. 15)",
+            "evidenceIds": [
+              "e-t2a"
+            ]
+          }
+        ],
+        "cells": {
+          "innuendo": {
+            "mean": 3.65
+          },
+          "control": {
+            "mean": 2.86
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "p<.01"
+        },
+        "missing": [
+          "se of the unweighted model is not transcribed",
+          "sd per condition",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e-a-pwb1",
+          "e-a-unw2",
+          "e-t2a"
+        ]
+      }
+    },
+    {
+      "id": "denial_favorable",
+      "label": "Denial vs innuendo: favorability of Swensen",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-fav",
+        "type": "ordinal",
+        "scale": "1-6",
+        "higherMeans": "more favorable opinion of Swensen",
+        "treatedAs": "numeric, as in the paper's OLS"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "denial",
+        "reference": "innuendo",
+        "conditionIds": [
+          "c-denial",
+          "c-innuendo"
+        ],
+        "valueMeans": "denial minus innuendo"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e-hyp",
+          "e-abs"
+        ]
+      },
+      "role": "test",
+      "analysisIds": [
+        "a-pairwise"
+      ],
+      "resultIds": [
+        "res-fav"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.favorable",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.19,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-a-pwf4"
+            ]
+          }
+        ],
+        "cells": {
+          "denial": {
+            "mean": 2.36
+          },
+          "innuendo": {
+            "mean": 2.17
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "ns"
+        },
+        "missing": [
+          "se of the unweighted model is not transcribed",
+          "sd per condition",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e-a-pwf4"
+        ]
+      }
+    },
+    {
+      "id": "causal_favorable",
+      "label": "Causal correction vs innuendo: favorability of Swensen",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-fav",
+        "type": "ordinal",
+        "scale": "1-6",
+        "higherMeans": "more favorable opinion of Swensen",
+        "treatedAs": "numeric, as in the paper's OLS"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "causal",
+        "reference": "innuendo",
+        "conditionIds": [
+          "c-causal",
+          "c-innuendo"
+        ],
+        "valueMeans": "causal minus innuendo"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e-hyp",
+          "e-abs"
+        ]
+      },
+      "role": "test",
+      "analysisIds": [
+        "a-pairwise"
+      ],
+      "resultIds": [
+        "res-fav"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.favorable",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.66,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-a-pwf5"
+            ]
+          }
+        ],
+        "cells": {
+          "causal": {
+            "mean": 2.83
+          },
+          "innuendo": {
+            "mean": 2.17
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "p<.01"
+        },
+        "missing": [
+          "se of the unweighted model is not transcribed",
+          "sd per condition",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e-a-pwf5"
+        ]
+      }
+    },
+    {
+      "id": "denial_bribes",
+      "label": "Denial vs innuendo: belief he took bribes",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-bribes",
+        "type": "ordinal",
+        "scale": "1-5",
+        "higherMeans": "more likely he took bribes or acted illegally",
+        "treatedAs": "numeric, as in the paper's OLS"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "denial",
+        "reference": "innuendo",
+        "conditionIds": [
+          "c-denial",
+          "c-innuendo"
+        ],
+        "valueMeans": "denial minus innuendo"
+      },
+      "prediction": {
+        "direction": "negative",
+        "evidenceIds": [
+          "e-hyp",
+          "e-abs"
+        ]
+      },
+      "role": "test",
+      "analysisIds": [
+        "a-pairwise"
+      ],
+      "resultIds": [
+        "res-bribes"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.bribes",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.23,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-a-pwb4"
+            ]
+          }
+        ],
+        "cells": {
+          "denial": {
+            "mean": 3.41
+          },
+          "innuendo": {
+            "mean": 3.65
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "p<.05"
+        },
+        "missing": [
+          "se of the unweighted model is not transcribed",
+          "sd per condition",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e-a-pwb4"
+        ]
+      }
+    },
+    {
+      "id": "causal_bribes",
+      "label": "Causal correction vs innuendo: belief he took bribes",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-bribes",
+        "type": "ordinal",
+        "scale": "1-5",
+        "higherMeans": "more likely he took bribes or acted illegally",
+        "treatedAs": "numeric, as in the paper's OLS"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "causal",
+        "reference": "innuendo",
+        "conditionIds": [
+          "c-causal",
+          "c-innuendo"
+        ],
+        "valueMeans": "causal minus innuendo"
+      },
+      "prediction": {
+        "direction": "negative",
+        "evidenceIds": [
+          "e-hyp",
+          "e-abs"
+        ]
+      },
+      "role": "test",
+      "analysisIds": [
+        "a-pairwise"
+      ],
+      "resultIds": [
+        "res-bribes"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.bribes",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.72,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-a-pwb5"
+            ]
+          }
+        ],
+        "cells": {
+          "causal": {
+            "mean": 2.93
+          },
+          "innuendo": {
+            "mean": 3.65
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "p<.01"
+        },
+        "missing": [
+          "se of the unweighted model is not transcribed",
+          "sd per condition",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e-a-pwb5"
+        ]
+      }
+    },
+    {
+      "id": "denial_investigation",
+      "label": "Denial vs innuendo: belief he resigned because of an investigation",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-inv",
+        "type": "ordinal",
+        "scale": "1-4",
+        "higherMeans": "more likely he resigned because of an investigation",
+        "treatedAs": "numeric, as in the paper's OLS"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "denial",
+        "reference": "innuendo",
+        "conditionIds": [
+          "c-denial",
+          "c-innuendo"
+        ],
+        "valueMeans": "denial minus innuendo"
+      },
+      "prediction": {
+        "direction": "negative",
+        "evidenceIds": [
+          "e-hyp",
+          "e-abs"
+        ]
+      },
+      "role": "test",
+      "analysisIds": [
+        "a-ols",
+        "a-robust"
+      ],
+      "resultIds": [
+        "res-inv",
+        "res-unw"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.investigation",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.25,
+            "variant": "OLS without weights (appendix, p. 23)",
+            "evidenceIds": [
+              "e-a-unw3"
+            ]
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.25,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-t2b"
+            ]
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.26,
+            "variant": "OLS with YouGov survey weights (Table 2, p. 15)",
+            "evidenceIds": [
+              "e-t2b"
+            ]
+          }
+        ],
+        "cells": {
+          "denial": {
+            "mean": 3.21
+          },
+          "innuendo": {
+            "mean": 3.46
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "p<.01"
+        },
+        "missing": [
+          "se of the unweighted model is not transcribed",
+          "sd per condition",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e-a-pwi1",
+          "e-a-unw3",
+          "e-t2b"
+        ]
+      }
+    },
+    {
+      "id": "causal_investigation",
+      "label": "Causal correction vs innuendo: belief he resigned because of an investigation",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-inv",
+        "type": "ordinal",
+        "scale": "1-4",
+        "higherMeans": "more likely he resigned because of an investigation",
+        "treatedAs": "numeric, as in the paper's OLS"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "causal",
+        "reference": "innuendo",
+        "conditionIds": [
+          "c-causal",
+          "c-innuendo"
+        ],
+        "valueMeans": "causal minus innuendo"
+      },
+      "prediction": {
+        "direction": "negative",
+        "evidenceIds": [
+          "e-hyp",
+          "e-abs"
+        ]
+      },
+      "role": "test",
+      "analysisIds": [
+        "a-ols",
+        "a-robust"
+      ],
+      "resultIds": [
+        "res-inv",
+        "res-unw"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.investigation",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.58,
+            "variant": "OLS without weights (appendix, p. 23)",
+            "evidenceIds": [
+              "e-a-unw4"
+            ]
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.58,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-t2c"
+            ]
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.42,
+            "variant": "OLS with YouGov survey weights (Table 2, p. 15)",
+            "evidenceIds": [
+              "e-t2c"
+            ]
+          }
+        ],
+        "cells": {
+          "causal": {
+            "mean": 2.87
+          },
+          "innuendo": {
+            "mean": 3.46
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "p<.01"
+        },
+        "missing": [
+          "se of the unweighted model is not transcribed",
+          "sd per condition",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e-a-pwi2",
+          "e-a-unw4",
+          "e-t2c"
+        ]
+      }
+    },
+    {
+      "id": "causal_vs_denial_favorable",
+      "label": "Causal correction vs denial: favorability of Swensen (the hypothesis)",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-fav",
+        "type": "ordinal",
+        "scale": "1-6",
+        "higherMeans": "more favorable opinion of Swensen",
+        "treatedAs": "numeric, as in the paper's OLS"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "causal",
+        "reference": "denial",
+        "conditionIds": [
+          "c-causal",
+          "c-denial"
+        ],
+        "valueMeans": "causal minus denial"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e-hyp",
+          "e-abs"
+        ]
+      },
+      "role": "test",
+      "analysisIds": [
+        "a-pairwise"
+      ],
+      "resultIds": [
+        "res-fav"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.favorable",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.46,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-a-pwf6"
+            ]
+          }
+        ],
+        "cells": {
+          "causal": {
+            "mean": 2.83
+          },
+          "denial": {
+            "mean": 2.36
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "p<.01"
+        },
+        "missing": [
+          "se of the unweighted model is not transcribed",
+          "sd per condition",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e-a-pwf6"
+        ]
+      }
+    },
+    {
+      "id": "causal_vs_denial_bribes",
+      "label": "Causal correction vs denial: belief he took bribes (the hypothesis)",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-bribes",
+        "type": "ordinal",
+        "scale": "1-5",
+        "higherMeans": "more likely he took bribes or acted illegally",
+        "treatedAs": "numeric, as in the paper's OLS"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "causal",
+        "reference": "denial",
+        "conditionIds": [
+          "c-causal",
+          "c-denial"
+        ],
+        "valueMeans": "causal minus denial"
+      },
+      "prediction": {
+        "direction": "negative",
+        "evidenceIds": [
+          "e-hyp",
+          "e-abs"
+        ]
+      },
+      "role": "test",
+      "analysisIds": [
+        "a-pairwise"
+      ],
+      "resultIds": [
+        "res-bribes"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.bribes",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.48,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-a-pwb6"
+            ]
+          }
+        ],
+        "cells": {
+          "causal": {
+            "mean": 2.93
+          },
+          "denial": {
+            "mean": 3.41
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "p<.01"
+        },
+        "missing": [
+          "se of the unweighted model is not transcribed",
+          "sd per condition",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e-a-pwb6"
+        ]
+      }
+    },
+    {
+      "id": "causal_vs_denial_investigation",
+      "label": "Causal correction vs denial: belief in the investigation (the hypothesis)",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-inv",
+        "type": "ordinal",
+        "scale": "1-4",
+        "higherMeans": "more likely he resigned because of an investigation",
+        "treatedAs": "numeric, as in the paper's OLS"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "causal",
+        "reference": "denial",
+        "conditionIds": [
+          "c-causal",
+          "c-denial"
+        ],
+        "valueMeans": "causal minus denial"
+      },
+      "prediction": {
+        "direction": "negative",
+        "evidenceIds": [
+          "e-hyp",
+          "e-abs"
+        ]
+      },
+      "role": "test",
+      "analysisIds": [
+        "a-ols"
+      ],
+      "resultIds": [
+        "res-inv"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.investigation",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.34,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-a-pwi3"
+            ]
+          }
+        ],
+        "cells": {
+          "causal": {
+            "mean": 2.87
+          },
+          "denial": {
+            "mean": 3.21
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "p<.01"
+        },
+        "missing": [
+          "se of the unweighted model is not transcribed",
+          "sd per condition",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e-a-pwi3"
+        ]
+      }
+    },
+    {
+      "id": "recall_denial",
+      "label": "Recall check: denial vs innuendo, correct answers (0-3)",
+      "role": "check",
+      "hypothesisIds": [],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-recall",
+        "type": "count",
+        "scale": "0-3",
+        "higherMeans": "more recall questions answered correctly"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "denial",
+        "reference": "innuendo",
+        "conditionIds": [
+          "c-denial",
+          "c-innuendo"
+        ],
+        "valueMeans": "denial minus innuendo"
+      },
+      "prediction": {
+        "direction": "none",
+        "evidenceIds": [
+          "e-fn10"
+        ]
+      },
+      "analysisIds": [
+        "a-recall"
+      ],
+      "resultIds": [
+        "res-recall"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.recall",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS on condition indicators"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.09,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-a-rm2"
+            ]
+          }
+        ],
+        "cells": {
+          "denial": {
+            "mean": 2.31
+          },
+          "innuendo": {
+            "mean": 2.21
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "ns"
+        },
+        "missing": [
+          "se",
+          "sd per condition"
+        ],
+        "evidenceIds": [
+          "e-a-rm2",
+          "e-a-rp1"
+        ]
+      }
+    },
+    {
+      "id": "recall_causal",
+      "label": "Recall check: causal vs innuendo, correct answers (0-3)",
+      "role": "check",
+      "hypothesisIds": [],
+      "studyId": "S1",
+      "design": "between",
+      "unit": "respondent",
+      "outcome": {
+        "variableId": "v-recall",
+        "type": "count",
+        "scale": "0-3",
+        "higherMeans": "more recall questions answered correctly"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "causal",
+        "reference": "innuendo",
+        "conditionIds": [
+          "c-causal",
+          "c-innuendo"
+        ],
+        "valueMeans": "causal minus innuendo"
+      },
+      "prediction": {
+        "direction": "none",
+        "evidenceIds": [
+          "e-fn10"
+        ]
+      },
+      "analysisIds": [
+        "a-recall"
+      ],
+      "resultIds": [
+        "res-recall"
+      ],
+      "compute": {
+        "op": "mean_difference",
+        "field": "responses.recall",
+        "compareAs": {
+          "metric": "regression_coefficient",
+          "reason": "OLS on condition indicators"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.0,
+            "variant": "OLS with inverse probability weights (Table 2 / appendix pairwise, pp. 15, 24)",
+            "evidenceIds": [
+              "e-a-rm3"
+            ]
+          }
+        ],
+        "cells": {
+          "causal": {
+            "mean": 2.22
+          },
+          "innuendo": {
+            "mean": 2.21
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "pText": "ns"
+        },
+        "missing": [
+          "se",
+          "sd per condition"
+        ],
+        "evidenceIds": [
+          "e-a-rm3",
+          "e-a-rp2"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "derivedFrom": {
+    "program": "c82d9638949cc6758e1594bc3ce7beeb96df7524f8a6f94597854af82d37a803",
+    "package": "burton2022-optimism-neutral"
+  },
+  "read": {
+    "status": "yes",
+    "reason": null
+  },
+  "run": {
+    "status": "no",
+    "reason": "blocked by open issues: iss-stimuli",
+    "blocking": [
+      "iss-stimuli"
+    ],
+    "modalities": [
+      "text"
+    ],
+    "excluded": []
+  },
+  "humanData": {
+    "status": "partial",
+    "coverage": [
+      "study1",
+      "study2",
+      "study3"
+    ],
+    "sessions": 300,
+    "source": "human-data/data/study1.csv, study2.csv, study3.csv: trial-level data of Burton, Harris, Shah & Hahn (2022), 100 UK Prolific participants x 51 events per study (5,100 trials each); supplied with the project, no codebook file.",
+    "missing": [
+      {
+        "what": "study1:e1first / study1:ebrfirst / study2:... / study3:...",
+        "reason": "The data files do not record whether E1 or eBR was asked first, so the two order arms cannot be separated. Each participant is loaded once per study with arm = condition = the study id ('study1', 'study2', 'study3')."
+      }
+    ],
+    "key": {
+      "sample": "original",
+      "repository": "https://osf.io/8q74m/",
+      "license": null,
+      "dataFiles": 3,
+      "fetchable": 3
+    },
+    "reason": "source pinned in package/burton2022-optimism-neutral/human/key.json (3 of 3 data files downloadable from it)"
+  },
+  "authorCode": {
+    "status": "no",
+    "route": null,
+    "reason": "no author-code key recorded"
+  },
+  "reproduced": {
+    "package": null,
+    "author": null,
+    "detail": "not checked"
+  },
+  "profiles": {
+    "status": "no",
+    "reason": "the runner does not sample participant profiles yet"
+  }
+}

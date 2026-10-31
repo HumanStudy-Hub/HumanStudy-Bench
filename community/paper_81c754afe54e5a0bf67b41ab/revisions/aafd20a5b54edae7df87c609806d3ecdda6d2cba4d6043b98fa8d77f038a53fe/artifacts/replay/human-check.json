@@ -1,0 +1,43 @@
+{
+  "package": "pennycook2020",
+  "sessions": 1709,
+  "valid": 1688,
+  "arms": [
+    "study1/accuracy",
+    "study1/sharing",
+    "study2/control",
+    "study2/treatment"
+  ],
+  "notMapped": [],
+  "exclusions": "None applied here. The files already hold the paper's analysed samples (853 in Study 1, 856 in Study 2, i.e. after the paper's removal of non-completers/non-passers of the screeners); every row with a complete set of 30 headline answers is kept, including the few rows with Finished=0 or English!=1, because the paper's N matches the row count.",
+  "effects": [
+    {
+      "id": "study1_veracity_x_condition",
+      "label": "Study 1: sharing reduces sensitivity to veracity (-beta of veracity x condition, z-scored yes/no)",
+      "estimate": 0.5204,
+      "p": 0.0,
+      "reported": null
+    },
+    {
+      "id": "study2_veracity_x_treatment",
+      "label": "Study 2: accuracy prompt increases sharing discernment (beta of veracity x treatment, 0-1 scale)",
+      "estimate": 0.0359,
+      "p": 0.000199,
+      "reported": 0.039
+    },
+    {
+      "id": "study2_discernment_ratio",
+      "label": "Study 2: treatment/control sharing discernment ratio",
+      "estimate": 2.913,
+      "p": null,
+      "reported": 2.8
+    },
+    {
+      "id": "items_accuracy_vs_treatment_effect",
+      "label": "Item level: Study 1 accuracy rating vs Study 2 treatment effect (r)",
+      "estimate": 0.757,
+      "p": 1e-06,
+      "reported": 0.76
+    }
+  ]
+}

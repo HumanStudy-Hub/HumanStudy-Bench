@@ -9,6 +9,8 @@ effects from many papers can be pooled later without an agent re-reading any pap
 
     python effects_core.py check <project>                       validate; exits 1 on a problem
     python effects_core.py graph <project>                       hypothesis -> effect -> program nodes
+    python effects_core.py kg <project>                          the paper's whole typed graph (schema 2)
+    python effects_core.py types                                 the core vocabulary (graph-types.json)
     python effects_core.py compute <project> <sessions.json>     result blocks for every effect
 
 Raw quantities are kept: a result block holds the cells (n, mean, sd or counts) and the test, never only
@@ -21,15 +23,20 @@ import re
 import sys
 from pathlib import Path
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2          # new files; schema 1 files stay valid (their "other" values included)
+SCHEMA_VERSIONS = (1, 2)
+VOCAB_VERSION = "2.0.0"     # core vocabulary below; bump the minor version when an extension is promoted
 METRICS = (
     "mean", "mean_difference", "standardized_mean_difference", "hedges_g", "proportion", "risk_difference",
     "risk_ratio", "odds_ratio", "log_odds_ratio", "correlation", "phi", "cramers_v", "chi_square",
     "regression_coefficient", "standardized_coefficient", "t", "F", "z", "bayes_factor", "eta_squared",
-    "partial_eta_squared", "count", "other")
+    "partial_eta_squared", "count", "cohens_q", "auc", "ratio", "percent_change", "other")
 DESIGNS = ("between", "within", "mixed", "correlational", "other")
 OUTCOME_TYPES = ("continuous", "ordinal", "binary", "categorical", "count", "other")
-CONTRASTS = ("two_groups", "paired", "association", "interaction", "omnibus", "single_group", "other")
+CONTRASTS = ("two_groups", "paired", "association", "interaction", "omnibus", "single_group", "linear", "ratio",
+             "model_comparison", "other")
+# Schema 2 never accepts "other" for these: a new kind is declared as an extension (see EXTENSIONS below).
+NO_OTHER = ("contrast", "metric")
 DIRECTIONS = ("positive", "negative", "nonzero", "none", "unspecified")
 OPS = ("mean_difference", "paired_difference", "proportion_difference", "contingency", "correlation", "package")
 ROLES = ("test", "robustness", "check", "descriptive")
@@ -106,6 +113,32 @@ def _numbers(block):
     return out
 
 
+EXT_NAME = re.compile(r"^x:[a-z0-9][a-z0-9_.-]*$")
+EXT_CATEGORIES = ("contrast", "metric", "edge", "node")
+
+
+def core_vocab(category):
+    return {"contrast": CONTRASTS, "metric": METRICS, "edge": tuple(EDGE_TYPES), "node": NODE_KINDS}[category]
+
+
+def extensions(effects):
+    """{name: declaration} for the extensions this file declares, with promoted ones mapped to core."""
+    return {x.get("name"): x for x in (effects or {}).get("extensions") or [] if isinstance(x, dict)}
+
+
+def resolve(category, value, effects=None):
+    """The core term a value stands for: itself, the core term a promoted extension became, or the
+    parent an extension declares. Tools that do not know an extension read it as its parent."""
+    if value in core_vocab(category):
+        return value
+    if value in PROMOTED.get(category, {}):
+        return PROMOTED[category][value]
+    decl = extensions(effects).get(value)
+    if decl and decl.get("category") == category:
+        return decl.get("parent")
+    return None
+
+
 def check(root, effects=None, program=None):
     """(problems, warnings). A problem makes the file unusable; a warning is a gap to look at."""
     root = Path(root)
@@ -120,8 +153,33 @@ def check(root, effects=None, program=None):
     problems, warnings = [], []
     P, W = problems.append, warnings.append
 
-    if effects.get("schemaVersion") != SCHEMA_VERSION:
-        P("schemaVersion must be %d" % SCHEMA_VERSION)
+    if effects.get("schemaVersion") not in SCHEMA_VERSIONS:
+        P("schemaVersion must be one of %s" % ", ".join(map(str, SCHEMA_VERSIONS)))
+    v2 = effects.get("schemaVersion") == 2
+    exts = extensions(effects)
+    if not v2 and (effects.get("extensions") or effects.get("links")):
+        P("extensions and links need schemaVersion 2")
+    for name, x in exts.items():
+        where = "extension %s" % name
+        if not EXT_NAME.match(str(name or "")):
+            P("%s: an extension name is x: followed by lower-case letters, digits, _ . or -" % where)
+        elif x.get("category") not in EXT_CATEGORIES:
+            P("%s: category must be one of %s" % (where, ", ".join(EXT_CATEGORIES)))
+        elif x.get("parent") not in core_vocab(x["category"]) or x.get("parent") == "other":
+            P("%s: parent must be a core %s (what tools that do not know it read it as), not other"
+              % (where, x["category"]))
+        if not x.get("definition"):
+            P("%s: definition is required (what it is, so others can reuse it or merge it)" % where)
+        if x.get("category") == "edge" and not (x.get("from") and x.get("to")):
+            P("%s: an edge extension names the node kinds it connects (from, to)" % where)
+
+    def term(where, category, value):
+        """A vocabulary value: core, a promoted extension, or one this file declares."""
+        if value == "other" and v2 and category in NO_OTHER:
+            P("%s: 'other' is not accepted in schema 2; use a core %s or declare an extension (x:...)"
+              % (where, category))
+        elif resolve(category, value, effects) is None:
+            P("%s: %r is not a core %s or a declared extension" % (where, value, category))
     if effects.get("programId") != program.get("id"):
         P("programId %r does not match program.json id %r" % (effects.get("programId"), program.get("id")))
     if not isinstance(effects.get("topics"), list):
@@ -202,15 +260,20 @@ def check(root, effects=None, program=None):
         if not out.get("higherMeans"):
             W("%s: outcome.higherMeans is empty; say what a higher value means" % where)
         con = e.get("contrast") or {}
-        if con.get("kind") not in CONTRASTS:
-            P("%s: contrast.kind must be one of %s" % (where, ", ".join(CONTRASTS)))
+        term(where + " contrast.kind", "contrast", con.get("kind"))
+        ckind = resolve("contrast", con.get("kind"), effects)
+        if ckind == "linear" and not (isinstance(con.get("weights"), dict) and con["weights"] and all(
+                _num(w) is not None for w in con["weights"].values())):
+            P("%s: a linear contrast needs weights {cell: number} (value = sum of weight x cell, plus constant)" % where)
+        if ckind in ("ratio", "model_comparison") and not (con.get("treatment") and con.get("reference")):
+            P("%s: a %s contrast needs treatment and reference (value = treatment / reference)" % (where, ckind))
         for c in con.get("conditionIds") or []:
             node_ref(where + " contrast.conditionIds", c, ["condition"])
         for c in con.get("factorIds") or []:  # the manipulated or predictor variables
             node_ref(where + " contrast.factorIds", c, ["variable", "record", "measure"])
-        if con.get("kind") in ("two_groups", "paired") and not (con.get("treatment") and con.get("reference")):
+        if ckind in ("two_groups", "paired") and not (con.get("treatment") and con.get("reference")):
             P("%s: a %s contrast needs treatment and reference (the value is treatment minus reference)"
-              % (where, con["kind"]))
+              % (where, ckind))
         pred = e.get("prediction") or {}
         if pred.get("direction") not in DIRECTIONS:
             P("%s: prediction.direction must be one of %s" % (where, ", ".join(DIRECTIONS)))
@@ -230,8 +293,10 @@ def check(root, effects=None, program=None):
         elif comp["op"] != "package" and not comp.get("field"):
             P("%s: compute.op %s needs field (path to the value in a session, e.g. responses.favorable)"
               % (where, comp["op"]))
-        if comp.get("compareAs") and comp["compareAs"].get("metric") not in METRICS:
-            P("%s: compute.compareAs.metric must be a known metric" % where)
+        if comp.get("metric"):
+            term(where + " compute.metric", "metric", comp["metric"])
+        if comp.get("compareAs"):
+            term(where + " compute.compareAs.metric", "metric", comp["compareAs"].get("metric"))
         if comp.get("compareAs") and not comp["compareAs"].get("reason"):
             P("%s: compute.compareAs needs a reason (why the computed and reported numbers are the same quantity)"
               % where)
@@ -249,8 +314,7 @@ def check(root, effects=None, program=None):
         if not rep.get("evidenceIds"):
             P("%s: reported numbers need evidenceIds" % where)
         for j, est in enumerate(rep.get("estimates") or []):
-            if est.get("metric") not in METRICS:
-                P("%s: reported.estimates[%d].metric must be one of the known metrics" % (where, j))
+            term("%s reported.estimates[%d].metric" % (where, j), "metric", est.get("metric"))
         if rep.get("test") and rep["test"].get("statistic") not in ("t", "F", "z", "chi_square", "W", "U", "other"):
             P("%s: reported.test.statistic must be t, F, z, chi_square, W, U or other" % where)
         if not isinstance(rep.get("missing", []), list):
@@ -268,6 +332,9 @@ def check(root, effects=None, program=None):
             P("hypothesis %s is untested but effect(s) name it" % h.get("id"))
     if not effs and not any(h.get("status") == "untested" for h in hyps):
         W("no effects")
+    for i, link in enumerate(effects.get("links") or []):
+        for msg in link_problems(link, effects, program):
+            P("links[%d]: %s" % (i, msg))
     reach = graph(effects, program)
     for nid in reach["unlinked"]:
         W("program %s %s is not reachable from any hypothesis or effect" % (nodes[nid].get("kind"), nid))
@@ -324,6 +391,296 @@ def graph(effects, program):
         todo.extend(adj.get(x, ()))
     unlinked = sorted(nid for nid, n in nodes.items() if n.get("kind") in LINKED_KINDS and nid not in seen)
     return {"edges": edges, "reached": sorted(x for x in seen if x in nodes), "unlinked": unlinked}
+
+
+# ---- the knowledge graph (schema 2) ------------------------------------------------------------------
+#
+# One typed graph per paper: the program's nodes and procedure steps, the effects (estimands), and the
+# constructs they are about, joined by edges from a small core vocabulary. Program relations written with
+# older names are read through RELATION_ALIASES; anything that fits no core term is reported as a gap,
+# never forced into one. The vocabulary grows by extensions (x:name, declared in effects.json with a core
+# parent and a definition); an extension used by several papers is promoted into the core and listed in
+# PROMOTED, so files that used the old name read as the core term without being rewritten.
+
+VARLIKE = ["variable", "record", "measure"]
+NODE_KINDS = ("paper", "construct", "background", "overview", "hypothesis", "design", "participants", "condition",
+              "material", "procedure", "step", "variable", "record", "measure", "analysis", "model", "result", "finding",
+              "limitation", "simulation", "effect")
+EDGE_TYPES = {
+    # claims
+    "about": (["paper"], ["construct"], "the paper is about this construct or topic"),
+    "motivates": (["background"], ["hypothesis"], "background that motivates the hypothesis"),
+    "instance-of": (["hypothesis", "effect"], ["construct"], "tests a case of this phenomenon or construct"),
+    "predicts": (["hypothesis"], ["construct"], "the hypothesis predicts a change in this construct"),
+    "tested-by": (["hypothesis"], ["effect", "analysis", "finding"], "evidence that tests the hypothesis"),
+    "supports": (["result", "finding"], ["hypothesis"], "the paper reads this result as support"),
+    "contradicts": (["result", "finding"], ["hypothesis"], "the paper reads this result as counter-evidence"),
+    # the estimand
+    "measures": (["effect"], VARLIKE, "the effect's outcome variable"),
+    "contrasts": (["effect"], ["condition"], "a condition the effect compares"),
+    "varies": (["effect"], VARLIKE, "a predictor the effect varies"),
+    "estimated-by": (["effect"], ["analysis", "model"], "the analysis that estimates the effect"),
+    "reported-in": (["effect"], ["result", "finding"], "where the paper reports the effect"),
+    "moderates": (VARLIKE + ["condition"], ["effect"], "the effect differs across its levels"),
+    "mediates": (VARLIKE, ["effect"], "the effect runs through it"),
+    "replicates": (["effect"], ["effect"], "the same effect estimated again, in another sample or paper"),
+    "compares": (["effect"], ["effect"], "the effect is defined as a difference between these effects"),
+    # operationalisation and analysis
+    "operationalizes": (VARLIKE, ["construct"], "the variable measures the construct"),
+    "manipulates": (["condition"], ["construct"], "the condition manipulates the construct"),
+    "input-of": (VARLIKE + ["condition"], ["analysis", "model"], "the analysis uses it"),
+    "reports": (["analysis", "model"], ["result", "finding"], "the analysis produced this reported result"),
+    "concerns": (["result", "finding"], VARLIKE + ["condition", "hypothesis"], "the reported result is about it"),
+    "derived-from": (VARLIKE + ["analysis", "model"], VARLIKE + ["analysis", "model"], "computed from it"),
+    # procedure (from program steps)
+    "shows": (["step", "condition"], ["*"], "what a participant sees at this step or in this condition"),
+    "produces": (["step"], ["*"], "what the step records"),
+    "uses": (["step"], ["*"], "an input of the step"),
+    "in-condition": (["step"], ["condition"], "the step belongs to this condition"),
+    "part-of": (["step"], ["step"], "a sub-step"),
+    "next": (["step"], ["step"], "the step that follows"),
+    "performed-by": (["step"], ["*"], "who acts at this step"),
+}
+PROCEDURE_EDGES = ("shows", "produces", "uses", "in-condition", "part-of", "next", "performed-by")
+CONTRAST_DEFS = {
+    "two_groups": "treatment minus reference, two independent groups",
+    "paired": "treatment minus reference, measured on the same units",
+    "single_group": "one group's value, or its difference from a fixed constant",
+    "association": "a correlation or slope between two variables",
+    "interaction": "a difference between two contrasts (difference of differences, or across samples)",
+    "omnibus": "an undirected test over more than two levels; not poolable as a signed effect",
+    "linear": "sum of weight x cell over named cells, plus an optional constant (e.g. 1 vs mean of 2 others)",
+    "ratio": "treatment divided by reference",
+    "model_comparison": "evidence for one model of the data over another (e.g. a Bayes factor)",
+    "other": "schema 1 only",
+}
+# Older program relation names -> core edge candidates (tried forwards, then reversed, against the kinds).
+RELATION_ALIASES = {"uses": ["input-of"], "outcome": ["input-of", "concerns"], "estimates": ["input-of"],
+                    "sees": ["shows"], "analysed-by": ["estimated-by"], "reported-by": ["reports"],
+                    "reports": ["concerns"], "produces": ["reports"]}
+# Promoted extensions: {category: {"x:old-name": "core-name"}}. Empty in 2.0.0.
+PROMOTED = {"contrast": {}, "metric": {}, "edge": {}, "node": {}}
+
+
+def _kind_ok(kind, allowed):
+    return "*" in allowed or kind in allowed
+
+
+def _norm(t):
+    return re.sub(r"[\s_]+", "-", str(t or "").strip().lower())
+
+
+def map_relation(rtype, from_kind, to_kind):
+    """(core edge, reversed) for a program relation, or None when no core edge fits the two kinds."""
+    t = _norm(rtype)
+    for cand in ([t] if t in EDGE_TYPES else []) + RELATION_ALIASES.get(t, []):
+        dom, rng = EDGE_TYPES[cand][0], EDGE_TYPES[cand][1]
+        if _kind_ok(from_kind, dom) and _kind_ok(to_kind, rng):
+            return cand, False
+        if _kind_ok(to_kind, dom) and _kind_ok(from_kind, rng):
+            return cand, True
+    return None
+
+
+def construct_id(label):
+    return "construct:" + re.sub(r"\s+", " ", str(label).strip().lower())
+
+
+def ref_kind(ref, effects, program):
+    """The node kind a reference names, or None when it names nothing."""
+    ref = str(ref or "")
+    if ref.startswith("paper:"):
+        inner = ref.split("/", 1)[1] if "/" in ref else ""
+        return "effect" if inner.startswith("effect:") else ("external" if inner else None)
+    if ref.startswith("construct:"):
+        return "construct" if len(ref) > len("construct:") else None
+    if ref.startswith("effect:"):
+        return "effect" if any(e.get("id") == ref[7:] for e in effects.get("effects") or []) else None
+    for n in program.get("nodes", []):
+        if n.get("id") == ref:
+            return n.get("kind")
+    if any(st.get("id") == ref for st in program.get("steps", [])):
+        return "step"
+    return None
+
+
+def link_problems(link, effects, program):
+    out = []
+    t = link.get("type")
+    core = resolve("edge", t, effects)
+    if core is None:
+        return ["type %r is not a core edge or a declared edge extension" % t]
+    decl = extensions(effects).get(t) if t not in EDGE_TYPES else None
+    dom, rng = (decl.get("from"), decl.get("to")) if decl else EDGE_TYPES[core][:2]
+    fk, tk = ref_kind(link.get("from"), effects, program), ref_kind(link.get("to"), effects, program)
+    if fk is None:
+        out.append("from %r names no node (program node or step id, effect:<id>, construct:<label>, "
+                   "or paper:<programId>/effect:<id>)" % link.get("from"))
+    if tk is None:
+        out.append("to %r names no node" % link.get("to"))
+    if fk and fk != "external" and not _kind_ok(fk, dom if isinstance(dom, list) else [dom]):
+        out.append("%s goes from %s, not from a %s node" % (t, "/".join(dom if isinstance(dom, list) else [dom]), fk))
+    if tk and tk != "external" and not _kind_ok(tk, rng if isinstance(rng, list) else [rng]):
+        out.append("%s goes to %s, not to a %s node" % (t, "/".join(rng if isinstance(rng, list) else [rng]), tk))
+    if link.get("origin") not in ("verbatim", "reported", "derived"):
+        out.append("origin must be verbatim, reported or derived (how the paper supports the edge)")
+    if link.get("origin") in ("verbatim", "reported") and not link.get("evidenceIds"):
+        out.append("a %s edge needs evidenceIds" % link.get("origin"))
+    ev = {e.get("id") for e in program.get("evidence", [])}
+    out += ["evidence %r is not in program evidence" % x for x in link.get("evidenceIds") or [] if x not in ev]
+    return out
+
+
+def _label(n):
+    return n.get("title") or n.get("label") or n.get("id")
+
+
+def kg(effects, program):
+    """The paper's typed graph: {schemaVersion, vocabulary, programId, nodes, edges, gaps, unlinked}.
+    Every edge has a core type (extensions are kept with their core parent in `core`)."""
+    effects = effects or {}
+    nodes, edges, gaps = {}, [], []
+    pid = program.get("id")
+
+    def node(nid, kind, label, **extra):
+        if nid not in nodes:
+            nodes[nid] = dict({"id": nid, "kind": kind, "label": label}, **extra)
+
+    def edge(a, b, t, source, **extra):
+        e = {"from": a, "to": b, "type": t, "source": source}
+        core = resolve("edge", t, effects)
+        if core != t:
+            e["core"] = core
+        e.update({k: v for k, v in extra.items() if v})
+        edges.append(e)
+
+    node("paper", "paper", program.get("title") or pid)
+    kinds = {}
+    for n in program.get("nodes", []):
+        kind = n.get("kind")
+        kinds[n["id"]] = kind
+        if kind not in NODE_KINDS:
+            gaps.append({"what": "node kind", "value": kind, "id": n["id"]})
+        node(n["id"], kind, _label(n), studyIds=n.get("studyIds") or None)
+    for st in program.get("steps", []):
+        kinds[st["id"]] = "step"
+        node(st["id"], "step", st.get("title") or st["id"], studyId=st.get("studyId"))
+    for st in program.get("steps", []):
+        for key, t in (("visibleIds", "shows"), ("outputIds", "produces"), ("inputIds", "uses"),
+                       ("conditionIds", "in-condition"), ("actorIds", "performed-by")):
+            for x in st.get(key) or []:
+                if x in kinds:
+                    edge(st["id"], x, t, "program.steps")
+        for x in st.get("children") or []:
+            if x in kinds:
+                edge(x, st["id"], "part-of", "program.steps")
+        nxt = st.get("next")
+        for x in (nxt if isinstance(nxt, list) else [nxt] if nxt else []):
+            if isinstance(x, dict):
+                x = x.get("to") or x.get("id")
+            if x in kinds:
+                edge(st["id"], x, "next", "program.steps")
+    for r in program.get("relations", []):
+        a, b = r.get("from"), r.get("to")
+        m = map_relation(r.get("type"), kinds.get(a), kinds.get(b))
+        if m is None or a not in kinds or b not in kinds:
+            gaps.append({"what": "relation", "value": r.get("type"), "id": r.get("id"),
+                         "fromKind": kinds.get(a), "toKind": kinds.get(b)})
+            continue
+        t, rev = m
+        edge(b if rev else a, a if rev else b, t, "program.relations", was=r.get("type") if _norm(r.get("type")) != t else None)
+
+    for t in effects.get("topics") or []:
+        node(construct_id(t), "construct", str(t))
+        edge("paper", construct_id(t), "about", "effects.topics")
+    hyp_node = {}
+    for h in effects.get("hypotheses") or []:
+        hn = h.get("nodeId")
+        hyp_node[h.get("id")] = hn
+        if hn in nodes:
+            nodes[hn].update({"status": h.get("status"), "untestedBecause": h.get("untestedBecause")})
+        for b in h.get("backgroundIds") or []:
+            if b in nodes:
+                edge(b, hn, "motivates", "effects.hypotheses")
+        for ph in h.get("phenomena") or []:
+            node(construct_id(ph), "construct", str(ph))
+            edge(hn, construct_id(ph), "instance-of", "effects.hypotheses")
+    for e in effects.get("effects") or []:
+        eid = "effect:" + str(e.get("id"))
+        con, comp = e.get("contrast") or {}, e.get("compute") or {}
+        node(eid, "effect", e.get("label") or e.get("id"), role=e.get("role"),
+             contrast=con.get("kind"), contrastCore=resolve("contrast", con.get("kind"), effects),
+             population=(e.get("population") or {}).get("kind", "human"), op=comp.get("op"))
+        for h in e.get("hypothesisIds") or []:
+            if hyp_node.get(h) in nodes:
+                edge(hyp_node[h], eid, "tested-by", "effects")
+        if "phenomena" in e:
+            for ph in e.get("phenomena") or []:
+                node(construct_id(ph), "construct", str(ph))
+                edge(eid, construct_id(ph), "instance-of", "effects")
+        if (e.get("outcome") or {}).get("variableId") in nodes:
+            edge(eid, e["outcome"]["variableId"], "measures", "effects")
+        for c in con.get("conditionIds") or []:
+            if c in nodes:
+                edge(eid, c, "contrasts", "effects")
+        for c in con.get("factorIds") or []:
+            if c in nodes:
+                edge(eid, c, "varies", "effects")
+        for key, t in (("analysisIds", "estimated-by"), ("resultIds", "reported-in")):
+            for x in e.get(key) or []:
+                if x in nodes:
+                    edge(eid, x, t, "effects")
+    for link in effects.get("links") or []:
+        for end in (link.get("from"), link.get("to")):
+            if str(end).startswith("construct:"):
+                node(end, "construct", end[len("construct:"):])
+            elif str(end).startswith("paper:"):
+                node(end, "external", end)
+        edge(link.get("from"), link.get("to"), link.get("type"), "effects.links",
+             origin=link.get("origin"), evidenceIds=link.get("evidenceIds"))
+    for name, x in extensions(effects).items():
+        gaps.append({"what": "extension", "value": name, "category": x.get("category"), "parent": x.get("parent"),
+                     "definition": x.get("definition")})
+    # reached: from the hypotheses, along every non-procedure edge in either direction
+    adj = {}
+    for e in edges:
+        if (e.get("core") or e["type"]) in PROCEDURE_EDGES:
+            continue
+        adj.setdefault(e["from"], set()).add(e["to"])
+        adj.setdefault(e["to"], set()).add(e["from"])
+    seen, todo = set(), [n for n in hyp_node.values() if n]
+    todo += ["effect:" + str(e.get("id")) for e in effects.get("effects") or [] if not e.get("hypothesisIds")]
+    while todo:
+        x = todo.pop()
+        if x not in seen:
+            seen.add(x)
+            todo.extend(adj.get(x, ()))
+    unlinked = sorted(n["id"] for n in nodes.values() if n["kind"] in LINKED_KINDS and n["id"] not in seen)
+    return {"schemaVersion": 2, "vocabulary": VOCAB_VERSION, "programId": pid, "nodes": list(nodes.values()),
+            "edges": edges, "gaps": gaps, "unlinked": unlinked}
+
+
+def types_registry():
+    """The core vocabulary as data (pack/schema/graph-types.json is this, generated)."""
+    return {
+        "vocabulary": VOCAB_VERSION, "effectsSchemaVersions": list(SCHEMA_VERSIONS),
+        "nodeKinds": list(NODE_KINDS),
+        "edgeTypes": {t: {"from": d[0], "to": d[1], "definition": d[2], "procedure": t in PROCEDURE_EDGES}
+                      for t, d in EDGE_TYPES.items()},
+        "relationAliases": RELATION_ALIASES,
+        "contrasts": {c: CONTRAST_DEFS[c] for c in CONTRASTS},
+        "metrics": list(METRICS), "noOtherInSchema2": list(NO_OTHER),
+        "promoted": PROMOTED,
+        "extensions": {
+            "name": "x: followed by lower-case letters, digits, _ . or -",
+            "categories": list(EXT_CATEGORIES),
+            "declare": "effects.json extensions[]: {name, category, parent (a core term), definition, "
+                       "from/to node kinds for an edge}",
+            "promote": "when several papers declare the same need, add it to the core, bump the vocabulary minor "
+                       "version, and map each old x: name to it in PROMOTED; files are never rewritten",
+            "merge": "two extensions that mean the same thing are both mapped in PROMOTED to one core term",
+        },
+    }
 
 
 # ---- statistics (standard library) -------------------------------------------------------------------
@@ -688,7 +1045,10 @@ def _rounded(x):
 
 def main(argv=None):
     argv = list(sys.argv[1:] if argv is None else argv)
-    if len(argv) < 2 or argv[0] not in ("check", "graph", "compute"):
+    if argv[:1] == ["types"]:
+        print(json.dumps(types_registry(), ensure_ascii=False, indent=2))
+        return 0
+    if len(argv) < 2 or argv[0] not in ("check", "graph", "kg", "compute"):
         print(__doc__)
         return 2
     root = Path(argv[1])
@@ -708,6 +1068,9 @@ def main(argv=None):
         return 1 if problems else 0
     if argv[0] == "graph":
         print(json.dumps(graph(effects, program), ensure_ascii=False, indent=2))
+        return 0
+    if argv[0] == "kg":
+        print(json.dumps(kg(effects, program), ensure_ascii=False, indent=2))
         return 0
     if len(argv) < 3:
         print("compute needs a sessions JSON file (a list, or {\"sessions\": [...]})")

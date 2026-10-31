@@ -1,0 +1,1952 @@
+{
+  "schemaVersion": 2,
+  "programId": "manylabs1",
+  "topics": [
+    "replication",
+    "replicability",
+    "multi-site replication",
+    "judgment and decision making",
+    "survey question effects",
+    "priming",
+    "intergroup contact",
+    "implicit attitudes"
+  ],
+  "hypotheses": [
+    {
+      "id": "h_s01",
+      "nodeId": "hyp_s01",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "sunk cost effect"
+      ]
+    },
+    {
+      "id": "h_s02",
+      "nodeId": "hyp_s02",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "framing effect",
+        "risky choice framing"
+      ]
+    },
+    {
+      "id": "h_s03",
+      "nodeId": "hyp_s03",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "anchoring"
+      ]
+    },
+    {
+      "id": "h_s04",
+      "nodeId": "hyp_s04",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "retrospective gambler's fallacy",
+        "gambler's fallacy"
+      ]
+    },
+    {
+      "id": "h_s05",
+      "nodeId": "hyp_s05",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "response scale effect",
+        "frequency scale effect"
+      ]
+    },
+    {
+      "id": "h_s06",
+      "nodeId": "hyp_s06",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "norm of reciprocity",
+        "question order effect"
+      ]
+    },
+    {
+      "id": "h_s07",
+      "nodeId": "hyp_s07",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "allow/forbid asymmetry",
+        "question wording effect"
+      ]
+    },
+    {
+      "id": "h_s08",
+      "nodeId": "hyp_s08",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "quote attribution",
+        "source effect on persuasion"
+      ]
+    },
+    {
+      "id": "h_s09",
+      "nodeId": "hyp_s09",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "flag priming"
+      ]
+    },
+    {
+      "id": "h_s10",
+      "nodeId": "hyp_s10",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "currency priming",
+        "money priming",
+        "system justification"
+      ]
+    },
+    {
+      "id": "h_s11",
+      "nodeId": "hyp_s11",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "imagined contact"
+      ]
+    },
+    {
+      "id": "h_s12a",
+      "nodeId": "hyp_s12a",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "implicit attitudes",
+        "gender differences in math attitudes"
+      ]
+    },
+    {
+      "id": "h_s12b",
+      "nodeId": "hyp_s12b",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "implicit-explicit attitude correspondence"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "sunk_costs",
+      "label": "Sunk costs: paid vs free ticket, likelihood of going to the game",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s01"
+      ],
+      "studyId": "s01",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s01_vdv",
+        "type": "ordinal",
+        "scale": "1-9 (1 = definitely stay at home, 9 = definitely go)",
+        "higherMeans": "more likely to go to the game",
+        "treatedAs": "numeric, as in the paper's t-test"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "paid",
+        "reference": "free",
+        "conditionIds": [
+          "s01_c_paid",
+          "s01_c_free"
+        ],
+        "valueMeans": "paid minus free"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s01_desc",
+          "e_s01_orig"
+        ]
+      },
+      "analysisIds": [
+        "s01_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s01_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "sunk_costs",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.27,
+            "ci": [
+              0.2,
+              0.34
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s01_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.31,
+            "ci": [
+              0.22,
+              0.39
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s01_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.32,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s01_t2"
+            ]
+          }
+        ],
+        "cells": {
+          "paid": {
+            "mean": 7.85,
+            "sd": 2.02
+          },
+          "free": {
+            "mean": 7.24,
+            "sd": 2.42
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 10.83,
+          "df": 6328,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 6330,
+        "missing": [
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s01_t2",
+          "e_s01_an"
+        ]
+      }
+    },
+    {
+      "id": "framing",
+      "label": "Gain vs loss framing: share choosing the sure option",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s02"
+      ],
+      "studyId": "s02",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s02_vdv",
+        "type": "binary",
+        "scale": "sure option (Program A / C) vs gamble (B / D)",
+        "higherMeans": "more participants choose the sure option"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "gain",
+        "reference": "loss",
+        "conditionIds": [
+          "s02_c_gain",
+          "s02_c_loss"
+        ],
+        "valueMeans": "gain minus loss"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_h_s02",
+          "e_s02_orig"
+        ]
+      },
+      "analysisIds": [
+        "s02_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s02_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "framing",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.6,
+            "ci": [
+              0.53,
+              0.67
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s02_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.62,
+            "ci": [
+              0.52,
+              0.71
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s02_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.58,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s02_t2"
+            ]
+          }
+        ],
+        "cells": {
+          "gain": {
+            "percent": 62.2
+          },
+          "loss": {
+            "percent": 33.5
+          }
+        },
+        "test": {
+          "statistic": "chi_square",
+          "value": 516.4,
+          "df": 1,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 6271,
+        "missing": [
+          "n per condition",
+          "the paper's chi-square-to-d conversion is not stated"
+        ],
+        "evidenceIds": [
+          "e_s02_t2",
+          "e_s02_rep0"
+        ]
+      },
+      "notes": "d from the chi-square; computed as d = 2*phi/sqrt(1-phi^2), which reproduces the Table 2 rows."
+    },
+    {
+      "id": "anchoring_nyc",
+      "label": "Anchoring: high vs low anchor, estimate of the distance from San Francisco to NYC",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s03"
+      ],
+      "studyId": "s03",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s03_vdv",
+        "type": "continuous",
+        "scale": "estimate of the distance from San Francisco to NYC",
+        "higherMeans": "higher estimate",
+        "treatedAs": "rank-transformed, as in the paper's confirmatory analysis"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "high",
+        "reference": "low",
+        "conditionIds": [
+          "s03_c_high",
+          "s03_c_low"
+        ],
+        "valueMeans": "high minus low"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_h_s03",
+          "e_s03_orig"
+        ]
+      },
+      "analysisIds": [
+        "s03_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s03_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "anchoring_nyc",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 1.17,
+            "ci": [
+              1.09,
+              1.25
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2_nyc"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 1.27,
+            "ci": [
+              1.13,
+              1.4
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2_nyc"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 1.18,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2_nyc"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 42.86,
+          "df": 5360,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 5362,
+        "missing": [
+          "cell means and SDs on the rank scale",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s03_t2_nyc",
+          "e_s03_an"
+        ]
+      },
+      "notes": "Human sessions keep only participants who received the same anchor on all four topics (the data randomise the anchor per topic), about 500 of the paper's ~5,300-5,600 per topic. The supplement also prints raw-mile means: high 3994 (SD 1085), low 2851 (SD 868), t(5360) = 42.417."
+    },
+    {
+      "id": "anchoring_chicago",
+      "label": "Anchoring: high vs low anchor, estimate of the population of Chicago",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s03"
+      ],
+      "studyId": "s03",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s03_vdv",
+        "type": "continuous",
+        "scale": "estimate of the population of Chicago",
+        "higherMeans": "higher estimate",
+        "treatedAs": "rank-transformed, as in the paper's confirmatory analysis"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "high",
+        "reference": "low",
+        "conditionIds": [
+          "s03_c_high",
+          "s03_c_low"
+        ],
+        "valueMeans": "high minus low"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_h_s03",
+          "e_s03_orig"
+        ]
+      },
+      "analysisIds": [
+        "s03_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s03_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "anchoring_chicago",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 1.79,
+            "ci": [
+              1.71,
+              1.87
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 2.05,
+            "ci": [
+              1.84,
+              2.25
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 1.88,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 65.0,
+          "df": 5282,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 5284,
+        "missing": [
+          "cell means and SDs on the rank scale",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s03_t2",
+          "e_s03_an"
+        ]
+      },
+      "notes": "Human sessions keep only participants who received the same anchor on all four topics (the data randomise the anchor per topic), about 500 of the paper's ~5,300-5,600 per topic."
+    },
+    {
+      "id": "anchoring_everest",
+      "label": "Anchoring: high vs low anchor, estimate of the height of Mt. Everest",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s03"
+      ],
+      "studyId": "s03",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s03_vdv",
+        "type": "continuous",
+        "scale": "estimate of the height of Mt. Everest",
+        "higherMeans": "higher estimate",
+        "treatedAs": "rank-transformed, as in the paper's confirmatory analysis"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "high",
+        "reference": "low",
+        "conditionIds": [
+          "s03_c_high",
+          "s03_c_low"
+        ],
+        "valueMeans": "high minus low"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_h_s03",
+          "e_s03_orig"
+        ]
+      },
+      "analysisIds": [
+        "s03_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s03_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "anchoring_everest",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 2.23,
+            "ci": [
+              2.14,
+              2.32
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2_everest"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 2.45,
+            "ci": [
+              2.12,
+              2.77
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2_everest"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 2.0,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2_everest"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 83.66,
+          "df": 5625,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 5627,
+        "missing": [
+          "cell means and SDs on the rank scale",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s03_t2_everest",
+          "e_s03_an"
+        ]
+      },
+      "notes": "Human sessions keep only participants who received the same anchor on all four topics (the data randomise the anchor per topic), about 500 of the paper's ~5,300-5,600 per topic."
+    },
+    {
+      "id": "anchoring_babies",
+      "label": "Anchoring: high vs low anchor, estimate of the babies born per day in the US",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s03"
+      ],
+      "studyId": "s03",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s03_vdv",
+        "type": "continuous",
+        "scale": "estimate of the babies born per day in the US",
+        "higherMeans": "higher estimate",
+        "treatedAs": "rank-transformed, as in the paper's confirmatory analysis"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "high",
+        "reference": "low",
+        "conditionIds": [
+          "s03_c_high",
+          "s03_c_low"
+        ],
+        "valueMeans": "high minus low"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_h_s03",
+          "e_s03_orig"
+        ]
+      },
+      "analysisIds": [
+        "s03_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s03_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "anchoring_babies",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 2.42,
+            "ci": [
+              2.33,
+              2.51
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2_babies"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 2.6,
+            "ci": [
+              2.41,
+              2.79
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2_babies"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 2.43,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s03_t2_babies"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 90.49,
+          "df": 5607,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 5609,
+        "missing": [
+          "cell means and SDs on the rank scale",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s03_t2_babies",
+          "e_s03_an"
+        ]
+      },
+      "notes": "Human sessions keep only participants who received the same anchor on all four topics (the data randomise the anchor per topic), about 500 of the paper's ~5,300-5,600 per topic."
+    },
+    {
+      "id": "gamblers_fallacy",
+      "label": "Retrospective gambler's fallacy: three 6's vs two 6's and a 3, estimated earlier rolls",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s04"
+      ],
+      "studyId": "s04",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s04_vdv",
+        "type": "count",
+        "scale": "estimated number of earlier rolls",
+        "higherMeans": "more earlier rolls estimated",
+        "treatedAs": "square root, responses over 3 SD from the mean dropped, as in the paper"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "three6",
+        "reference": "two6one3",
+        "conditionIds": [
+          "s04_c_three6",
+          "s04_c_two6one3"
+        ],
+        "valueMeans": "three6 minus two6one3"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_h_s04",
+          "e_s04_orig"
+        ]
+      },
+      "analysisIds": [
+        "s04_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s04_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "gamblers_fallacy",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.61,
+            "ci": [
+              0.54,
+              0.68
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s04_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.59,
+            "ci": [
+              0.49,
+              0.7
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s04_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.61,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s04_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.623,
+            "variant": "supplement Table S1 (sqrt scale)",
+            "evidenceIds": [
+              "e_s04_rep1"
+            ]
+          }
+        ],
+        "cells": {
+          "three6": {
+            "n": 2680,
+            "mean": 3.76,
+            "sd": 3.32
+          },
+          "two6one3": {
+            "n": 3262,
+            "mean": 2.06,
+            "sd": 2.07
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 24.01,
+          "df": 5940,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 5942,
+        "missing": [],
+        "evidenceIds": [
+          "e_s04_t2",
+          "e_s04_rep1"
+        ]
+      }
+    },
+    {
+      "id": "category_scales",
+      "label": "Category scales: share reporting more than 2.5 h of TV a day, high vs low scale",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s05"
+      ],
+      "studyId": "s05",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s05_vdv",
+        "type": "binary",
+        "scale": "more than 2.5 hours a day (yes / no)",
+        "higherMeans": "more respondents report more than 2.5 hours of TV a day"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "high",
+        "reference": "low",
+        "conditionIds": [
+          "s05_c_high",
+          "s05_c_low"
+        ],
+        "valueMeans": "high minus low"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s05_desc",
+          "e_s05_orig"
+        ]
+      },
+      "analysisIds": [
+        "s05_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s05_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "category_scales",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.49,
+            "ci": [
+              0.4,
+              0.58
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s05_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.51,
+            "ci": [
+              0.42,
+              0.61
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s05_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.5,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s05_t2"
+            ]
+          }
+        ],
+        "cells": {
+          "high": {
+            "percent": 24.6
+          },
+          "low": {
+            "percent": 7.2
+          }
+        },
+        "test": {
+          "statistic": "chi_square",
+          "value": 342.4,
+          "df": 1,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 5899,
+        "missing": [
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s05_t2",
+          "e_s05_an"
+        ]
+      }
+    },
+    {
+      "id": "reciprocity",
+      "label": "Norm of reciprocity: support for other-country reporters, American question first vs second",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s06"
+      ],
+      "studyId": "s06",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s06_vdv",
+        "type": "binary",
+        "scale": "yes / no",
+        "higherMeans": "more support for allowing the other country's reporters"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "us_first",
+        "reference": "nk_first",
+        "conditionIds": [
+          "s06_c_us_first",
+          "s06_c_nk_first"
+        ],
+        "valueMeans": "us_first minus nk_first"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s06_desc",
+          "e_s06_orig"
+        ]
+      },
+      "analysisIds": [
+        "s06_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s06_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "reciprocity",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.3,
+            "ci": [
+              0.23,
+              0.37
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s06_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.27,
+            "ci": [
+              0.18,
+              0.36
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s06_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.27,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s06_t2"
+            ]
+          }
+        ],
+        "cells": {
+          "us_first": {
+            "percent": 77.3
+          },
+          "nk_first": {
+            "percent": 63.9
+          }
+        },
+        "test": {
+          "statistic": "chi_square",
+          "value": 135.3,
+          "df": 1,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 6276,
+        "missing": [
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s06_t2",
+          "e_s06_an"
+        ]
+      }
+    },
+    {
+      "id": "allowed_forbidden",
+      "label": "Allowed/forbidden: share answering 'Yes', allow vs forbid wording (Table 2 test)",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s07"
+      ],
+      "studyId": "s07",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s07_vdv",
+        "type": "binary",
+        "scale": "Yes / No",
+        "higherMeans": "more 'Yes' answers (to allowing, or to forbidding, as worded)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "allow",
+        "reference": "forbid",
+        "conditionIds": [
+          "s07_c_allow",
+          "s07_c_forbid"
+        ],
+        "valueMeans": "allow minus forbid"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s07_desc",
+          "e_s07_orig"
+        ],
+        "text": "The paper's chi-square is on policy choice (Yes/No) by wording; it counts the effect as in the expected direction (positive d)."
+      },
+      "analysisIds": [
+        "s07_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s07_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "allowed_forbidden",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 1.96,
+            "ci": [
+              1.88,
+              2.04
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s07_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 1.87,
+            "ci": [
+              1.58,
+              2.16
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s07_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 1.88,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s07_t2"
+            ]
+          }
+        ],
+        "cells": {
+          "forbid": {
+            "percent": 7.2
+          }
+        },
+        "test": {
+          "statistic": "chi_square",
+          "value": 3088.7,
+          "df": 1,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 6292,
+        "missing": [
+          "share answering 'Yes' to allowing (the supplement prints 23.7% 'No')",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s07_t2",
+          "e_s07_an"
+        ]
+      },
+      "notes": "This contrast mixes the wording effect with the reversal of what 'Yes' means; the restrictive-answer contrast the hypothesis states is effect allowed_forbidden_restrictive."
+    },
+    {
+      "id": "allowed_forbidden_restrictive",
+      "label": "Allowed/forbidden: restrictive answers ('No' to allow vs 'Yes' to forbid)",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h_s07"
+      ],
+      "studyId": "s07",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s07_vdv",
+        "type": "binary",
+        "scale": "restrictive answer (No to allow, Yes to forbid)",
+        "higherMeans": "more restrictive answers"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "allow",
+        "reference": "forbid",
+        "conditionIds": [
+          "s07_c_allow",
+          "s07_c_forbid"
+        ],
+        "valueMeans": "allow minus forbid"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s07_desc",
+          "e_s07_orig"
+        ]
+      },
+      "analysisIds": [
+        "s07_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s07_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "allowed_forbidden_restrictive",
+        "metric": "risk_difference"
+      },
+      "reported": {
+        "cells": {
+          "allow": {
+            "percent": 23.7
+          },
+          "forbid": {
+            "percent": 7.2
+          }
+        },
+        "missing": [
+          "test and effect size for this contrast (the reported chi-square is on Yes/No by wording)",
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s07_an"
+        ]
+      }
+    },
+    {
+      "id": "quote_attribution",
+      "label": "Quote attribution: agreement, liked (Washington) vs disliked (Bin Laden) source",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s08"
+      ],
+      "studyId": "s08",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s08_vdv",
+        "type": "ordinal",
+        "scale": "1-9 agreement (printed 1 = strongly agree, reversed)",
+        "higherMeans": "more agreement with the quotation",
+        "treatedAs": "numeric, as in the paper's t-test"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "liked",
+        "reference": "disliked",
+        "conditionIds": [
+          "s08_c_liked",
+          "s08_c_disliked"
+        ],
+        "valueMeans": "liked minus disliked"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s08_desc",
+          "e_s08_orig"
+        ]
+      },
+      "analysisIds": [
+        "s08_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s08_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "quote_attribution",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.32,
+            "ci": [
+              0.25,
+              0.39
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s08_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.31,
+            "ci": [
+              0.19,
+              0.42
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s08_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.3,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s08_t2"
+            ]
+          }
+        ],
+        "cells": {
+          "liked": {
+            "mean": 5.93,
+            "sd": 2.2
+          },
+          "disliked": {
+            "mean": 5.23,
+            "sd": 2.11
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 12.79,
+          "df": 6323,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 6325,
+        "missing": [
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s08_t2",
+          "e_s08_an"
+        ]
+      }
+    },
+    {
+      "id": "flag_priming",
+      "label": "Flag priming: political attitudes (Republican end), flag vs control, US samples",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s09"
+      ],
+      "studyId": "s09",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s09_vdv",
+        "type": "continuous",
+        "scale": "mean of 8 Republican-Democratic items",
+        "higherMeans": "more conservative (Republican) positions"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "flag",
+        "reference": "control",
+        "conditionIds": [
+          "s09_c_flag",
+          "s09_c_control"
+        ],
+        "valueMeans": "flag minus control"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_h_s09",
+          "e_s09_orig"
+        ]
+      },
+      "analysisIds": [
+        "s09_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s09_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "flag_priming",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.03,
+            "ci": [
+              -0.04,
+              0.1
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s09_t2_signed"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.01,
+            "ci": [
+              -0.07,
+              0.08
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s09_t2_signed"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.02,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s09_t2_signed"
+            ]
+          }
+        ],
+        "cells": {
+          "flag": {
+            "mean": 3.17,
+            "sd": 1.07
+          },
+          "control": {
+            "mean": 3.15,
+            "sd": 1.04
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 0.88,
+          "df": 4894,
+          "p": 0.38,
+          "pRelation": "="
+        },
+        "n": 4896,
+        "missing": [
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s09_t2_signed",
+          "e_s09_an"
+        ]
+      },
+      "notes": "The package's item scoring gives cell means near 4.6, not the paper's 3.15-3.17, and the opposite sign; check the reverse-keyed items in materials.json."
+    },
+    {
+      "id": "currency_priming",
+      "label": "Currency priming: system justification, money vs control",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s10"
+      ],
+      "studyId": "s10",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s10_vdv",
+        "type": "continuous",
+        "scale": "mean of 8 system-justification items",
+        "higherMeans": "more system justification"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "money",
+        "reference": "control",
+        "conditionIds": [
+          "s10_c_money",
+          "s10_c_control"
+        ],
+        "valueMeans": "money minus control"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_h_s10",
+          "e_s10_orig"
+        ]
+      },
+      "analysisIds": [
+        "s10_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s10_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "currency_priming",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": -0.02,
+            "ci": [
+              -0.08,
+              0.04
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s10_t2_signed"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.01,
+            "ci": [
+              -0.06,
+              0.09
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s10_t2_signed"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.0,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s10_t2_signed"
+            ]
+          }
+        ],
+        "cells": {
+          "money": {
+            "mean": 3.58,
+            "sd": 0.99
+          },
+          "control": {
+            "mean": 3.6,
+            "sd": 0.99
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": -0.79,
+          "df": 6331,
+          "p": 0.43,
+          "pRelation": "="
+        },
+        "n": 6333,
+        "missing": [
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s10_t2_signed",
+          "e_s10_an"
+        ]
+      },
+      "notes": "Table 2 prints p = 0.83 for t = -0.79 (df 6,331); the supplement prints p = .43, which matches t. test.p is the supplement's."
+    },
+    {
+      "id": "imagined_contact",
+      "label": "Imagined contact: contact intentions, imagined contact vs control",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s11"
+      ],
+      "studyId": "s11",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s11_vdv",
+        "type": "continuous",
+        "scale": "mean of 4 contact-intention items (1-9)",
+        "higherMeans": "stronger intentions to have contact with the outgroup"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "contact",
+        "reference": "control",
+        "conditionIds": [
+          "s11_c_contact",
+          "s11_c_control"
+        ],
+        "valueMeans": "contact minus control"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_h_s11",
+          "e_s11_orig"
+        ]
+      },
+      "analysisIds": [
+        "s11_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s11_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "imagined_contact",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.13,
+            "ci": [
+              0.07,
+              0.19
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s11_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.1,
+            "ci": [
+              0.0,
+              0.19
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s11_t2"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.12,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s11_t2"
+            ]
+          }
+        ],
+        "cells": {
+          "contact": {
+            "mean": 4.83,
+            "sd": 1.9
+          },
+          "control": {
+            "mean": 4.58,
+            "sd": 1.98
+          }
+        },
+        "test": {
+          "statistic": "t",
+          "value": 5.05,
+          "df": 6334,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 6336,
+        "missing": [
+          "n per condition"
+        ],
+        "evidenceIds": [
+          "e_s11_t2",
+          "e_s11_an"
+        ]
+      },
+      "notes": "The package evaluation returns not_ready for s11 (no scoring key in materials.json)."
+    },
+    {
+      "id": "iat_sex_difference",
+      "label": "Implicit math attitudes: men vs women (IAT D)",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s12a"
+      ],
+      "studyId": "s12",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s12_vim",
+        "type": "continuous",
+        "scale": "IAT D score (math vs arts)",
+        "higherMeans": "more positive implicit attitude toward math"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "men",
+        "reference": "women",
+        "valueMeans": "men minus women"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s12_a",
+          "e_s12_orig"
+        ]
+      },
+      "analysisIds": [
+        "s12_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s12_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "iat_sex_difference",
+        "metric": "standardized_mean_difference"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.53,
+            "ci": [
+              0.46,
+              0.6
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s12_t2a"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.56,
+            "ci": [
+              0.45,
+              0.68
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s12_t2a"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.59,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s12_t2a"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 19.28,
+          "df": 5840,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 5842,
+        "missing": [
+          "cell means, SDs and n by sex"
+        ],
+        "evidenceIds": [
+          "e_s12_t2a",
+          "e_s12_an"
+        ]
+      },
+      "notes": "Not computable from text sessions: the IAT needs reaction-time latencies (capabilities run.excluded)."
+    },
+    {
+      "id": "iat_implicit_explicit",
+      "label": "Implicit-explicit math attitudes: correlation",
+      "role": "test",
+      "hypothesisIds": [
+        "h_s12b"
+      ],
+      "studyId": "s12",
+      "design": "correlational",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "s12_vim",
+        "type": "continuous",
+        "scale": "IAT D score with the explicit composite",
+        "higherMeans": "stronger positive relation"
+      },
+      "contrast": {
+        "kind": "association",
+        "valueMeans": "correlation",
+        "groups": []
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "e_s12_b",
+          "e_s12_orig"
+        ]
+      },
+      "analysisIds": [
+        "s12_an",
+        "s13_an_agg"
+      ],
+      "resultIds": [
+        "s12_res_rep",
+        "s13_res_agg"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "iat_implicit_explicit",
+        "metric": "correlation"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "correlation",
+            "value": 0.38,
+            "variant": "Pearson r, whole dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s12_t2b"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.79,
+            "ci": [
+              0.75,
+              0.83
+            ],
+            "ciLevel": 0.99,
+            "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s12_t2b"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.79,
+            "ci": [
+              0.63,
+              0.96
+            ],
+            "ciLevel": 0.99,
+            "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s12_t2b"
+            ]
+          },
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.84,
+            "variant": "median replication ES across samples (Table 2, p. 7)",
+            "evidenceIds": [
+              "e_s12_t2b"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "p": 0.001,
+          "pRelation": "<",
+          "pText": "r = .38, p < .001"
+        },
+        "n": 5623,
+        "missing": [],
+        "evidenceIds": [
+          "e_s12_t2b",
+          "e_s12_an"
+        ]
+      },
+      "notes": "Not computable from text sessions: the IAT needs reaction-time latencies. Table 2 converts r to d."
+    }
+  ]
+}

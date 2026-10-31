@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "994d305cf245be86bfff35a64d7e1a98c98abaef3c09546b6b58b2ba9186e112",
-  "previousRevision": "bfcbd8b3ba4cbf034d75ef2dd6fa5edd3a01ddbbd0c5c3c2a5be626a39213f9b",
+  "revision": "705f47727844fd0d6d4930f96e307f75831c65f21995e9b20cac287cc5cb593f",
+  "previousRevision": "994d305cf245be86bfff35a64d7e1a98c98abaef3c09546b6b58b2ba9186e112",
   "paper": {
     "title": "The Psychology of Coordination and Common Knowledge",
     "authors": [
@@ -41,13 +41,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "994d305cf245be86bfff35a64d7e1a98c98abaef3c09546b6b58b2ba9186e112",
+    "candidateRevision": "705f47727844fd0d6d4930f96e307f75831c65f21995e9b20cac287cc5cb593f",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
+    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
     "checks": [
       "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "check_quotes.py: every quote on its cited page",
-      "program and evaluation changed by additions only",
+      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
       "study_core.py reproduce with effects.json on the pinned human data: partial [1, 4]",
       "capabilities.py --check",
       "check_package.py",

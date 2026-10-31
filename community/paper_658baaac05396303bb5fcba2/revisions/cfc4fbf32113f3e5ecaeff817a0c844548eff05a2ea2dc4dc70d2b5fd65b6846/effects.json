@@ -1,0 +1,1890 @@
+{
+  "schemaVersion": 2,
+  "programId": "burton2022-optimism-neutral",
+  "topics": [
+    "belief updating",
+    "optimism bias",
+    "update method",
+    "statistical artefact",
+    "unrealistic optimism"
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "nodeId": "n-hyp",
+      "status": "tested",
+      "backgroundIds": [
+        "n-background"
+      ],
+      "phenomena": [
+        "asymmetric belief updating",
+        "optimism bias",
+        "good news/bad news effect"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "neutral_asymmetry_study1",
+      "label": "Study 1: neutral-rated trials, update after downwards vs upwards direction of error",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-main",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s1-main"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "neutral_asymmetry_study1"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 9.13,
+            "se": 0.58,
+            "variant": "LMM, update ~ direction of error, random intercepts by participant, neutral-rated trials after exclusions; Type III, Satterthwaite df (p. 9)",
+            "evidenceIds": [
+              "e-s1-res"
+            ]
+          }
+        ],
+        "cells": {
+          "downwards": {
+            "n": 720,
+            "mean": 11.33,
+            "sd": 15.91
+          },
+          "upwards": {
+            "n": 801,
+            "mean": 2.11,
+            "sd": 4.56
+          }
+        },
+        "n": 1521,
+        "test": {
+          "statistic": "F",
+          "value": 244.47,
+          "df": [
+            1,
+            1515
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "random-intercept variance",
+          "maximal-model statistics (SI Table S2, not supplied)",
+          "confidence interval of the fixed effect"
+        ],
+        "evidenceIds": [
+          "e-s1-res-n",
+          "e-s1-res"
+        ]
+      },
+      "notes": "The paper prints the fixed effect as a decrease of upwards vs downwards; downwards minus upwards is therefore +9.13. The package fits the same random-intercept model in statsmodels (Wald z, not the Satterthwaite F), so test statistics differ; when statsmodels is missing it returns the difference of the neutral-trial cell means (metric mean_difference), compared with the reported cell means."
+    },
+    {
+      "id": "neutral_asymmetry_study2",
+      "label": "Study 2: neutral-rated trials, update after downwards vs upwards direction of error",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study2",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-main",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s2-main"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "neutral_asymmetry_study2"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 6.24,
+            "se": 0.71,
+            "variant": "LMM, update ~ direction of error, random intercepts by participant, neutral-rated trials after exclusions; Type III, Satterthwaite df (p. 9)",
+            "evidenceIds": [
+              "e-s2-res-b"
+            ]
+          }
+        ],
+        "cells": {
+          "downwards": {
+            "n": 868,
+            "mean": 10.08,
+            "sd": 18.06
+          },
+          "upwards": {
+            "n": 831,
+            "mean": 4.16,
+            "sd": 10.01
+          }
+        },
+        "n": 1699,
+        "test": {
+          "statistic": "F",
+          "value": 77.09,
+          "df": [
+            1,
+            1694
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "random-intercept variance",
+          "maximal-model statistics (SI Table S2, not supplied)",
+          "confidence interval of the fixed effect"
+        ],
+        "evidenceIds": [
+          "e-s2-res-n",
+          "e-s2-res-a",
+          "e-s2-res-b"
+        ]
+      },
+      "notes": "The paper prints the fixed effect as a decrease of upwards vs downwards; downwards minus upwards is therefore +6.24. The package fits the same random-intercept model in statsmodels (Wald z, not the Satterthwaite F), so test statistics differ; when statsmodels is missing it returns the difference of the neutral-trial cell means (metric mean_difference), compared with the reported cell means."
+    },
+    {
+      "id": "neutral_asymmetry_study3",
+      "label": "Study 3: neutral-rated trials, update after downwards vs upwards direction of error",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study3",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-main",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s3-main"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "neutral_asymmetry_study3"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 6.51,
+            "se": 0.79,
+            "variant": "LMM, update ~ direction of error, random intercepts by participant, neutral-rated trials after exclusions; Type III, Satterthwaite df (p. 9)",
+            "evidenceIds": [
+              "e-s3-res"
+            ]
+          }
+        ],
+        "cells": {
+          "downwards": {
+            "n": 839,
+            "mean": 10.56,
+            "sd": 20.8
+          },
+          "upwards": {
+            "n": 828,
+            "mean": 4.13,
+            "sd": 8.82
+          }
+        },
+        "n": 1667,
+        "test": {
+          "statistic": "F",
+          "value": 68.48,
+          "df": [
+            1,
+            1662
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "random-intercept variance",
+          "maximal-model statistics (SI Table S2, not supplied)",
+          "confidence interval of the fixed effect"
+        ],
+        "evidenceIds": [
+          "e-s3-res-n",
+          "e-s3-res"
+        ]
+      },
+      "notes": "The paper prints the fixed effect as a decrease of upwards vs downwards; downwards minus upwards is therefore +6.51. The package fits the same random-intercept model in statsmodels (Wald z, not the Satterthwaite F), so test statistics differ; when statsmodels is missing it returns the difference of the neutral-trial cell means (metric mean_difference), compared with the reported cell means."
+    },
+    {
+      "id": "negative_asymmetry_study1",
+      "label": "Study 1: negative-rated trials, update after downwards vs upwards direction of error (comparison for the neutral asymmetry)",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study1",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "no prediction stated for valenced events",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s1-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "negative_asymmetry_study1"
+      },
+      "reported": {
+        "cells": {
+          "downwards": {
+            "n": 683,
+            "mean": 10.73,
+            "sd": 14.23
+          },
+          "upwards": {
+            "n": 979,
+            "mean": 2.86,
+            "sd": 6.31
+          }
+        },
+        "n": 1662,
+        "missing": [
+          "a test of the asymmetry within this valence (only the model's main effects and interaction are tested)",
+          "model estimate for this cell contrast"
+        ],
+        "evidenceIds": [
+          "e-s1-sec"
+        ]
+      }
+    },
+    {
+      "id": "positive_asymmetry_study1",
+      "label": "Study 1: positive-rated trials, update after downwards vs upwards direction of error (comparison for the neutral asymmetry)",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study1",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "no prediction stated for valenced events",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s1-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "positive_asymmetry_study1"
+      },
+      "reported": {
+        "cells": {
+          "downwards": {
+            "n": 882,
+            "mean": 4.97,
+            "sd": 9.41
+          },
+          "upwards": {
+            "n": 696,
+            "mean": 3.1,
+            "sd": 6.65
+          }
+        },
+        "n": 1578,
+        "missing": [
+          "a test of the asymmetry within this valence (only the model's main effects and interaction are tested)",
+          "model estimate for this cell contrast"
+        ],
+        "evidenceIds": [
+          "e-s1-sec"
+        ]
+      }
+    },
+    {
+      "id": "direction_all_valences_study1",
+      "label": "Study 1: direction of error main effect across negative, neutral and positive trials (valence x direction LMM)",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study1",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s1-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "direction_all_valences_study1"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 233.8,
+          "df": [
+            1,
+            98
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "model estimate and se",
+          "pooled cell means over valences"
+        ],
+        "evidenceIds": [
+          "e-s1-sec"
+        ]
+      }
+    },
+    {
+      "id": "valence_x_direction_study1",
+      "label": "Study 1: event valence x direction of error interaction on update",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study1",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate",
+        "treatedAs": "update by valence (negative / neutral / positive) x direction of error"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "negative",
+          "neutral",
+          "positive"
+        ],
+        "valueMeans": "whether the downwards minus upwards asymmetry differs across event valence"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s1-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "valence_x_direction_study1"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 61.8,
+          "df": [
+            2,
+            4706
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "interaction estimates",
+          "effect size"
+        ],
+        "evidenceIds": [
+          "e-s1-sec"
+        ]
+      }
+    },
+    {
+      "id": "negative_asymmetry_study2",
+      "label": "Study 2: negative-rated trials, update after downwards vs upwards direction of error (comparison for the neutral asymmetry)",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study2",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "no prediction stated for valenced events",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s2-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "negative_asymmetry_study2"
+      },
+      "reported": {
+        "cells": {
+          "downwards": {
+            "n": 692,
+            "mean": 13.08,
+            "sd": 21.33
+          },
+          "upwards": {
+            "n": 890,
+            "mean": 3.76,
+            "sd": 10.18
+          }
+        },
+        "n": 1582,
+        "missing": [
+          "a test of the asymmetry within this valence (only the model's main effects and interaction are tested)",
+          "model estimate for this cell contrast"
+        ],
+        "evidenceIds": [
+          "e-s2-sec"
+        ]
+      }
+    },
+    {
+      "id": "positive_asymmetry_study2",
+      "label": "Study 2: positive-rated trials, update after downwards vs upwards direction of error (comparison for the neutral asymmetry)",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study2",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "no prediction stated for valenced events",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s2-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "positive_asymmetry_study2"
+      },
+      "reported": {
+        "cells": {
+          "downwards": {
+            "n": 835,
+            "mean": 4.05,
+            "sd": 10.98
+          },
+          "upwards": {
+            "n": 570,
+            "mean": 4.48,
+            "sd": 10.62
+          }
+        },
+        "n": 1405,
+        "missing": [
+          "a test of the asymmetry within this valence (only the model's main effects and interaction are tested)",
+          "model estimate for this cell contrast"
+        ],
+        "evidenceIds": [
+          "e-s2-sec"
+        ]
+      }
+    },
+    {
+      "id": "direction_all_valences_study2",
+      "label": "Study 2: direction of error main effect across negative, neutral and positive trials (valence x direction LMM)",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study2",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s2-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "direction_all_valences_study2"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 112.85,
+          "df": [
+            1,
+            98
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "model estimate and se",
+          "pooled cell means over valences"
+        ],
+        "evidenceIds": [
+          "e-s2-sec"
+        ]
+      }
+    },
+    {
+      "id": "valence_x_direction_study2",
+      "label": "Study 2: event valence x direction of error interaction on update",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study2",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate",
+        "treatedAs": "update by valence (negative / neutral / positive) x direction of error"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "negative",
+          "neutral",
+          "positive"
+        ],
+        "valueMeans": "whether the downwards minus upwards asymmetry differs across event valence"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s2-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "valence_x_direction_study2"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 43.86,
+          "df": [
+            2,
+            4610
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "interaction estimates",
+          "effect size"
+        ],
+        "evidenceIds": [
+          "e-s2-sec"
+        ]
+      }
+    },
+    {
+      "id": "negative_asymmetry_study3",
+      "label": "Study 3: negative-rated trials, update after downwards vs upwards direction of error (comparison for the neutral asymmetry)",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study3",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "no prediction stated for valenced events",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s3-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "negative_asymmetry_study3"
+      },
+      "reported": {
+        "cells": {
+          "downwards": {
+            "n": 639,
+            "mean": 12.41,
+            "sd": 22.17
+          },
+          "upwards": {
+            "n": 977,
+            "mean": 3.62,
+            "sd": 9.51
+          }
+        },
+        "n": 1616,
+        "missing": [
+          "a test of the asymmetry within this valence (only the model's main effects and interaction are tested)",
+          "model estimate for this cell contrast"
+        ],
+        "evidenceIds": [
+          "e-s3-sec"
+        ]
+      }
+    },
+    {
+      "id": "positive_asymmetry_study3",
+      "label": "Study 3: positive-rated trials, update after downwards vs upwards direction of error (comparison for the neutral asymmetry)",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study3",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "text": "no prediction stated for valenced events",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s3-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "positive_asymmetry_study3"
+      },
+      "reported": {
+        "cells": {
+          "downwards": {
+            "n": 723,
+            "mean": 3.45,
+            "sd": 10.42
+          },
+          "upwards": {
+            "n": 663,
+            "mean": 6.57,
+            "sd": 14.16
+          }
+        },
+        "n": 1386,
+        "missing": [
+          "a test of the asymmetry within this valence (only the model's main effects and interaction are tested)",
+          "model estimate for this cell contrast"
+        ],
+        "evidenceIds": [
+          "e-s3-sec"
+        ]
+      }
+    },
+    {
+      "id": "direction_all_valences_study3",
+      "label": "Study 3: direction of error main effect across negative, neutral and positive trials (valence x direction LMM)",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study3",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s3-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "direction_all_valences_study3"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 42.35,
+          "df": [
+            1,
+            98
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "model estimate and se",
+          "pooled cell means over valences"
+        ],
+        "evidenceIds": [
+          "e-s3-sec"
+        ]
+      }
+    },
+    {
+      "id": "valence_x_direction_study3",
+      "label": "Study 3: event valence x direction of error interaction on update",
+      "role": "descriptive",
+      "hypothesisIds": [],
+      "studyId": "study3",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "variableId": "v-update",
+        "type": "continuous",
+        "scale": "percentage points (signed |E2 - E1|)",
+        "higherMeans": "larger update towards the base rate",
+        "treatedAs": "update by valence (negative / neutral / positive) x direction of error"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "negative",
+          "neutral",
+          "positive"
+        ],
+        "valueMeans": "whether the downwards minus upwards asymmetry differs across event valence"
+      },
+      "prediction": {
+        "direction": "unspecified",
+        "evidenceIds": [
+          "e-sec-an"
+        ]
+      },
+      "analysisIds": [
+        "a-secondary",
+        "a-exclusion"
+      ],
+      "resultIds": [
+        "r-s3-sec"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "valence_x_direction_study3"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 60.09,
+          "df": [
+            2,
+            4586
+          ],
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "interaction estimates",
+          "effect size"
+        ],
+        "evidenceIds": [
+          "e-s3-sec"
+        ]
+      }
+    },
+    {
+      "id": "table1_bayes_diff_study1",
+      "label": "Study 1, neutral trials: Bayesian difference measure (Shah et al., 2016), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Bayesian difference measure (Shah et al., 2016)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_bayes_diff_study1"
+      },
+      "reported": {
+        "test": {
+          "statistic": "t",
+          "p": 0.049,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_bayes_diff_study2",
+      "label": "Study 2, neutral trials: Bayesian difference measure (Shah et al., 2016), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study2",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Bayesian difference measure (Shah et al., 2016)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_bayes_diff_study2"
+      },
+      "reported": {
+        "test": {
+          "statistic": "t",
+          "p": 0.044,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_bayes_diff_study3",
+      "label": "Study 3, neutral trials: Bayesian difference measure (Shah et al., 2016), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study3",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Bayesian difference measure (Shah et al., 2016)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_bayes_diff_study3"
+      },
+      "reported": {
+        "test": {
+          "statistic": "t",
+          "p": 0.013,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_bayes_diff_agg123",
+      "label": "Studies 1-3 aggregated, neutral trials: Bayesian difference measure (Shah et al., 2016), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "agg123",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Bayesian difference measure (Shah et al., 2016)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_bayes_diff_agg123"
+      },
+      "reported": {
+        "test": {
+          "statistic": "t",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_bayes_ratio_study1",
+      "label": "Study 1, neutral trials: Bayesian ratio measure (Shah et al., 2016), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Bayesian ratio measure (Shah et al., 2016)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_bayes_ratio_study1"
+      },
+      "reported": {
+        "test": {
+          "statistic": "W",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_bayes_ratio_study2",
+      "label": "Study 2, neutral trials: Bayesian ratio measure (Shah et al., 2016), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study2",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Bayesian ratio measure (Shah et al., 2016)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_bayes_ratio_study2"
+      },
+      "reported": {
+        "test": {
+          "statistic": "W",
+          "p": 0.784,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_bayes_ratio_study3",
+      "label": "Study 3, neutral trials: Bayesian ratio measure (Shah et al., 2016), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study3",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Bayesian ratio measure (Shah et al., 2016)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_bayes_ratio_study3"
+      },
+      "reported": {
+        "test": {
+          "statistic": "W",
+          "p": 0.449,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_bayes_ratio_agg123",
+      "label": "Studies 1-3 aggregated, neutral trials: Bayesian ratio measure (Shah et al., 2016), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "agg123",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Bayesian ratio measure (Shah et al., 2016)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_bayes_ratio_agg123"
+      },
+      "reported": {
+        "test": {
+          "statistic": "W",
+          "p": 0.01,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_learning_rates_study1",
+      "label": "Study 1, neutral trials: Learning rates (Kuzmanovic & Rigoux), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Learning rates (Kuzmanovic & Rigoux)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_learning_rates_study1"
+      },
+      "reported": {
+        "test": {
+          "statistic": "W",
+          "p": 0.001,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_learning_rates_study2",
+      "label": "Study 2, neutral trials: Learning rates (Kuzmanovic & Rigoux), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study2",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Learning rates (Kuzmanovic & Rigoux)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_learning_rates_study2"
+      },
+      "reported": {
+        "test": {
+          "statistic": "W",
+          "p": 0.704,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_learning_rates_study3",
+      "label": "Study 3, neutral trials: Learning rates (Kuzmanovic & Rigoux), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study3",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Learning rates (Kuzmanovic & Rigoux)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_learning_rates_study3"
+      },
+      "reported": {
+        "test": {
+          "statistic": "W",
+          "p": 0.324,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_learning_rates_agg123",
+      "label": "Studies 1-3 aggregated, neutral trials: Learning rates (Kuzmanovic & Rigoux), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "agg123",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Learning rates (Kuzmanovic & Rigoux)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_learning_rates_agg123"
+      },
+      "reported": {
+        "test": {
+          "statistic": "W",
+          "p": 0.016,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_regression_study1",
+      "label": "Study 1, neutral trials: Regression of update on estimation error (Sharot et al., 2011; unregistered), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Regression of update on estimation error (Sharot et al., 2011; unregistered)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_regression_study1"
+      },
+      "reported": {
+        "test": {
+          "statistic": "t",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_regression_study2",
+      "label": "Study 2, neutral trials: Regression of update on estimation error (Sharot et al., 2011; unregistered), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study2",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Regression of update on estimation error (Sharot et al., 2011; unregistered)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_regression_study2"
+      },
+      "reported": {
+        "test": {
+          "statistic": "t",
+          "p": 0.662,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_regression_study3",
+      "label": "Study 3, neutral trials: Regression of update on estimation error (Sharot et al., 2011; unregistered), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study3",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Regression of update on estimation error (Sharot et al., 2011; unregistered)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_regression_study3"
+      },
+      "reported": {
+        "test": {
+          "statistic": "t",
+          "p": 0.54,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    },
+    {
+      "id": "table1_regression_agg123",
+      "label": "Studies 1-3 aggregated, neutral trials: Regression of update on estimation error (Sharot et al., 2011; unregistered), downwards vs upwards",
+      "role": "robustness",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "agg123",
+      "design": "within",
+      "unit": "trial",
+      "outcome": {
+        "type": "continuous",
+        "scale": "Regression of update on estimation error (Sharot et al., 2011; unregistered)",
+        "higherMeans": "more belief updating as measured by this technique",
+        "treatedAs": "technique details in SI Supplementary Analyses 1.1-1.4 (not supplied)"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "downwards",
+        "reference": "upwards",
+        "valueMeans": "update after a downwards direction of error (BR < E1) minus after an upwards one (BR > E1)"
+      },
+      "prediction": {
+        "direction": "nonzero",
+        "text": "participants will update asymmetrically in response to neutral information",
+        "evidenceIds": [
+          "e-hyp"
+        ]
+      },
+      "analysisIds": [
+        "a-further"
+      ],
+      "resultIds": [
+        "r-table1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "table1_regression_agg123"
+      },
+      "reported": {
+        "test": {
+          "statistic": "t",
+          "p": 0.081,
+          "pRelation": "="
+        },
+        "missing": [
+          "estimate, test statistic value and df (SI only)",
+          "cell values"
+        ],
+        "evidenceIds": [
+          "e-table1-rows",
+          "e-table1-tests"
+        ]
+      }
+    }
+  ]
+}

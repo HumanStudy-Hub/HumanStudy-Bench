@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "580414a9-162f-570b-b0f8-a7383489f8fa",
+  "headCommit": null,
+  "paperKey": "doi:10.1177/0956797620939054",
+  "status": "accepted",
+  "revision": "aafd20a5b54edae7df87c609806d3ecdda6d2cba4d6043b98fa8d77f038a53fe",
+  "previousRevision": "67237cc4521b6ca536da56fdef94844375090945693c4899df337e9cc2ff24e4",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "aafd20a5b54edae7df87c609806d3ecdda6d2cba4d6043b98fa8d77f038a53fe",
+    "reviewer": "maintainer:assassin808",
+    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
+    "checks": [
+      "effects.py check (hypothesis coverage, node links, quoted numbers)",
+      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [7, 7]",
+      "capabilities.py --check",
+      "check_package.py",
+      "agent export self-test",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

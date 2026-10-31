@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "011e9785eda91e2a91d49b78af24601082c06e390a0bf8a0a8987f3542a62ce6",
-  "previousRevision": "c9215423147b702af3f2bbb1123a9cf86d2cc4ff8d2319c0d4d096e266185069",
+  "revision": "0f142f21c894bd2be495c10197fcd2508e1c630090f54902cf9f38d68158f678",
+  "previousRevision": "011e9785eda91e2a91d49b78af24601082c06e390a0bf8a0a8987f3542a62ce6",
   "paper": {
     "title": "Laypeople Can Predict Which Social-Science Studies Will Be Replicated Successfully",
     "authors": [
@@ -39,13 +39,12 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "011e9785eda91e2a91d49b78af24601082c06e390a0bf8a0a8987f3542a62ce6",
+    "candidateRevision": "0f142f21c894bd2be495c10197fcd2508e1c630090f54902cf9f38d68158f678",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json (hypotheses linked to computable effects): every program hypothesis listed, each effect linked to its outcome, conditions, analysis and result nodes, every reported number written in a quote checked against its page. program.json only gained quotes (and hypothesis nodes where the program had none); evaluation.py only gained effect_estimates. Agent skill re-exported with the effects tool.",
+    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
     "checks": [
       "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "check_quotes.py: every quote on its cited page",
-      "program and evaluation changed by additions only",
+      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
       "study_core.py reproduce with effects.json on the pinned human data: pass [5, 5]",
       "capabilities.py --check",
       "check_package.py",
