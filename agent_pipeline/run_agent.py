@@ -7,6 +7,7 @@ import shutil
 import signal
 import subprocess
 import sys
+import tempfile
 import threading
 import time
 import uuid
@@ -17,8 +18,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 try:
+    from agent_pipeline.repair_guard import guard_repair, package_diff
     from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
 except ModuleNotFoundError:  # Direct script execution from the repository root.
+    from repair_guard import guard_repair, package_diff
     from studio_output import studio_mode, validate_build_sidecars, validate_discussion
 
 
@@ -132,6 +135,60 @@ def ensure_readme(package: Path) -> None:
 
 
 MAX_REPAIR_ROUNDS = 3
+# Minutes of the agent budget held back for the repair loop. The first build pass
+# is stopped early enough to leave this much time; at most half the budget.
+DEFAULT_REPAIR_RESERVE_MINUTES = 8.0
+PRE_REPAIR_DIR = "pre_repair"
+
+
+def repair_reserve_minutes(timeout_minutes: float, configured: float | None = None) -> float:
+    if configured is None:
+        raw = os.environ.get("AGENT_REPAIR_RESERVE_MINUTES", "").strip()
+        try:
+            configured = float(raw) if raw else DEFAULT_REPAIR_RESERVE_MINUTES
+        except ValueError:
+            configured = DEFAULT_REPAIR_RESERVE_MINUTES
+    return max(0.0, min(configured, timeout_minutes / 2))
+
+
+def snapshot_package(package: Path) -> Path:
+    """Copy the package as it stood before repair to a private directory outside
+    the job folder. The repair agent can write anywhere in the job folder, so the
+    copy the guard trusts must not live there."""
+    snapshot = Path(tempfile.mkdtemp(prefix="hs-pre-repair-")) / "package"
+    shutil.copytree(package, snapshot)
+    return snapshot
+
+
+def publish_snapshot(snapshot: Path, job: Path) -> None:
+    """Write the trusted pre-repair copy to <job>/pre_repair/, replacing anything
+    the agent put there, so it is committed with the job branch for reviewers."""
+    target = job / PRE_REPAIR_DIR
+    shutil.rmtree(target, ignore_errors=True)
+    shutil.copytree(snapshot, target)
+
+
+def restore_package(snapshot: Path, package: Path) -> None:
+    shutil.rmtree(package, ignore_errors=True)
+    shutil.copytree(snapshot, package)
+
+
+def update_job_state(job: Path, **fields) -> None:
+    """Merge fields into job.json, the state the web review UI reads.
+    A value of None removes the key."""
+    path = job / "job.json"
+    try:
+        data = json.loads(path.read_text())
+    except (OSError, json.JSONDecodeError):
+        return
+    if not isinstance(data, dict):
+        return
+    for key, value in fields.items():
+        if value is None:
+            data.pop(key, None)
+        else:
+            data[key] = value
+    path.write_text(json.dumps(data, indent=2) + "\n")
 
 # Validator messages mapped to the rule in agent_pipeline/CLAUDE.md they enforce
 # and the only acceptable repairs. A repair never fills a gap with new content.
@@ -232,6 +289,11 @@ def repair_prompt(job: Path, detail: str, findings: list[str], round_number: int
         "gets its stated derivation or is relabelled. Keep study.json program, "
         "audit/missing_information.json, source/evidence.json and task/task.json programBindings "
         "consistent with each other.",
+        "A deterministic check compares the package before and after this repair and discards the "
+        "repair if it: resolves, removes or edits the value, extensions, derivation or note of any "
+        "missing/decision item; changes or relabels any verbatim text; adds, edits or removes an "
+        "evidence record; edits or removes an audit entry; or adds or changes a value that is not "
+        "verbatim/reported/derived with existing evidence ids.",
         f"Re-run `python agent_pipeline/validate_package.py {job / 'package'}` until it prints "
         "\"Validated agent package\".",
     ]
@@ -364,6 +426,108 @@ def repair_package(
     return valid, detail, rounds
 
 
+def kill_turns(turns: list) -> None:
+    """SIGKILL every repair turn still running, so none can write after a restore."""
+    for turn in turns:
+        if turn.poll() is None:
+            try:
+                os.killpg(turn.pid, signal.SIGKILL)
+            except (ProcessLookupError, PermissionError):
+                pass
+            try:
+                turn.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                pass
+
+
+def run_guarded_repair(job: Path, package: Path, run_repair, turns: list | None = None) -> tuple[bool, str, str]:
+    """Snapshot the package, run ``run_repair()`` (which returns repair_package's
+    result), then guard the result. The package under review is either the
+    accepted repair or exactly the pre-repair package: if the guard rejects the
+    repair, the repaired package still fails validation, or the repair is
+    interrupted by an error or cancellation, the snapshot is restored.
+    ``turns`` collects the repair processes ``run_repair`` starts, so an
+    interruption can kill them before restoring. Returns (valid, detail, reason)."""
+    turns = turns if turns is not None else []
+    snapshot = snapshot_package(package)
+    update_job_state(job, repaired=False, repair={"attempted": True, "inProgress": True, "snapshot": PRE_REPAIR_DIR})
+    rounds: list = []
+    guard: dict = {"passed": False, "violations": [], "checked": {}, "changedFiles": []}
+    interrupted: BaseException | None = None
+    main_thread = threading.current_thread() is threading.main_thread()
+    previous = {sig: signal.getsignal(sig) for sig in (signal.SIGTERM, signal.SIGINT)} if main_thread else {}
+
+    def terminate(signum, frame):
+        raise KeyboardInterrupt(f"signal {signum}")
+
+    def hold_signals() -> None:
+        # Bookkeeping is short; finish it so the package is never half restored.
+        if main_thread:
+            signal.signal(signal.SIGTERM, signal.SIG_IGN)
+            signal.signal(signal.SIGINT, signal.SIG_IGN)
+
+    try:
+        if main_thread:
+            # A cancelled Actions run sends SIGINT then SIGTERM; both must unwind
+            # through the restore below instead of killing the process mid-repair.
+            signal.signal(signal.SIGTERM, terminate)
+        try:
+            valid, detail, rounds = run_repair()
+            hold_signals()
+            reason = "repaired" if valid else "repair_failed"
+        except BaseException as exc:
+            hold_signals()
+            interrupted = exc
+            kill_turns(turns)
+            try:
+                logged = json.loads((job / "logs/repair.json").read_text())["rounds"]
+                rounds = logged if isinstance(logged, list) else []
+            except (OSError, ValueError, KeyError, TypeError):
+                rounds = []
+            valid, reason = False, "repair_interrupted"
+            detail = f"Repair was interrupted ({type(exc).__name__}: {exc}); the pre-repair package was kept."
+            guard["violations"] = [detail]
+        else:
+            try:
+                guard = guard_repair(package_root(snapshot), package_root(package))
+            except Exception as exc:  # A guard bug must fail closed, not pass the repair.
+                guard["violations"] = [f"fidelity guard error ({type(exc).__name__}: {exc})"]
+        for violation in guard["violations"]:
+            print(f"[package-repair] guard: {violation}", flush=True)
+        if not guard["passed"] and interrupted is None:
+            valid, reason = False, "repair_rejected"
+            detail = ("Repair rejected by the fidelity guard; the pre-repair package was kept: "
+                      + "; ".join(guard["violations"][:20]))
+        (job / "logs").mkdir(parents=True, exist_ok=True)
+        if interrupted is None and (root := package_root(snapshot)):
+            post = package_root(package)
+            if post is not None and post.name == root.name:
+                (job / "logs/repair.diff").write_text(package_diff(root, post))
+        if not valid:
+            restore_package(snapshot, package)
+            ensure_readme(package)
+        publish_snapshot(snapshot, job)
+        (job / "logs/repair.json").write_text(json.dumps(
+            {"maxRounds": MAX_REPAIR_ROUNDS, "rounds": rounds, "turnsStarted": len(turns), "outcome": reason,
+             "guard": guard}, indent=2, default=str) + "\n")
+        update_job_state(job, repaired=valid, error=None if valid else error_summary(detail, 1000), repair={
+            "attempted": bool(rounds) or bool(turns),
+            "accepted": valid,
+            "outcome": reason,
+            "rounds": len(rounds),
+            "turnsStarted": len(turns),
+            "snapshot": PRE_REPAIR_DIR,
+            "guard": {**guard, "violations": guard["violations"][:50], "violationCount": len(guard["violations"])},
+        })
+        if interrupted is not None:
+            raise interrupted
+        return valid, detail, reason
+    finally:
+        shutil.rmtree(snapshot.parent, ignore_errors=True)
+        for sig, handler in previous.items():
+            signal.signal(sig, handler)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--job", required=True, type=Path)
@@ -371,6 +535,8 @@ def main() -> None:
     parser.add_argument("--model", required=True)
     parser.add_argument("--validator", required=True, type=Path)
     parser.add_argument("--timeout-minutes", type=float, default=25)
+    parser.add_argument("--repair-reserve-minutes", type=float, default=None,
+                        help="Budget held back for repair (default: $AGENT_REPAIR_RESERVE_MINUTES or 8).")
     parser.add_argument("--check-interval", type=float, default=10)
     parser.add_argument("--progress-repo")
     parser.add_argument("--progress-branch")
@@ -407,6 +573,11 @@ def main() -> None:
                 # This build must produce its own validated model and reply.
                 (root / "studio-model.json").unlink(missing_ok=True)
                 (root / "studio-reply.md").unlink(missing_ok=True)
+        # A re-run must not inherit an earlier run's repair snapshot or verdict.
+        shutil.rmtree(args.job / PRE_REPAIR_DIR, ignore_errors=True)
+        for stale in ("logs/repair.json", "logs/repair.diff"):
+            (args.job / stale).unlink(missing_ok=True)
+        update_job_state(args.job, repaired=None, repair=None, error=None)
 
     def check_output() -> tuple[bool, str]:
         if not studio_complete(args.job, request_id):
@@ -451,6 +622,8 @@ def main() -> None:
     output_thread = threading.Thread(target=stream_output, args=(process, logs / "agent.log"), daemon=True)
     output_thread.start()
     deadline = time.monotonic() + args.timeout_minutes * 60
+    reserve = repair_reserve_minutes(args.timeout_minutes, args.repair_reserve_minutes) if mode == "build" else 0.0
+    build_deadline = deadline - reserve * 60
 
     try:
         while process.poll() is None:
@@ -503,7 +676,16 @@ def main() -> None:
                     stop_process(process)
                     output_thread.join(timeout=5)
                     return
-            if time.monotonic() >= deadline:
+            now = time.monotonic()
+            if build_deadline <= now < deadline and not missing and not refinement_pending:
+                # The package is complete but not valid and the first pass has used
+                # its share: stop it so the reserved time goes to repair. An
+                # incomplete package keeps building until the full deadline.
+                stop_process(process)
+                output_thread.join(timeout=5)
+                print(f"[package-progress] build pass reached its cap; {reserve:g} min reserved for repair", flush=True)
+                break
+            if now >= deadline:
                 stop_process(process)
                 if missing:
                     valid, detail = False, "Missing required files: " + ", ".join(missing)
@@ -527,7 +709,13 @@ def main() -> None:
             ensure_readme(package)
         valid, detail = check_output()
         reason = "agent_exited"
-        if not valid and mode == "build":
+        if not valid and mode == "build" and not studio_complete(args.job, request_id):
+            # The marker is only the agent's own claim that the Studio turn is
+            # done; a repair turn could write it without doing the work. Never
+            # repair on it alone.
+            reason = "studio_incomplete"
+            update_job_state(args.job, error="The agent stopped before completing the Studio request; no repair was attempted.")
+        elif not valid and mode == "build":
             def publish_repair(number: int, max_rounds: int, errors: str) -> None:
                 if not publisher:
                     return
@@ -537,6 +725,8 @@ def main() -> None:
                                                        {"round": number, "maxRounds": max_rounds, "error": errors[:500]}))
                 except Exception as exc:
                     print(f"[package-repair] could not publish frontend progress: {exc}", flush=True)
+
+            repair_turns: list[subprocess.Popen[str]] = []
 
             def run_turn(prompt: str, number: int, turn_deadline: float) -> int | None:
                 log_path = logs / f"agent-repair-{number}.log"
@@ -548,6 +738,7 @@ def main() -> None:
                     turn = subprocess.Popen(turn_command, cwd=repo_root, stdout=subprocess.PIPE,
                                             stderr=subprocess.STDOUT, text=True, bufsize=1,
                                             start_new_session=True, env=claude_env)
+                    repair_turns.append(turn)
                     turn_log = log_path.with_name(f"{log_path.stem}-fresh.log") if attempt else log_path
                     reader = threading.Thread(target=stream_output, args=(turn, turn_log), daemon=True)
                     reader.start()
@@ -578,9 +769,10 @@ def main() -> None:
                 ensure_readme(package)
                 return returncode
 
-            valid, detail, rounds = repair_package(args.job, package, check_output, run_turn, deadline, detail,
-                                                   publish=publish_repair)
-            reason = "repaired" if valid else "repair_failed"
+            valid, detail, reason = run_guarded_repair(
+                args.job, package, lambda: repair_package(args.job, package, check_output, run_turn, deadline,
+                                                          detail, publish=publish_repair),
+                repair_turns)
         write_result(args.job, reason, valid, detail)
         completed, total, missing = package_progress(package) if mode == "build" else (0, 0, [])
         if publisher:
@@ -589,7 +781,9 @@ def main() -> None:
             except Exception as exc:
                 print(f"[package-progress] could not publish final state: {exc}", flush=True)
         if not valid:
-            suffix = " after repair rounds" if reason == "repair_failed" else ""
+            suffix = {"repair_failed": " after repair rounds", "repair_rejected": " (repair rejected by fidelity guard)",
+                      "repair_interrupted": " (repair interrupted)",
+                      "studio_incomplete": " (Studio request not completed; repair not attempted)"}.get(reason, "")
             raise SystemExit(f"Claude Code exited with {process.returncode}; Studio output validation failed{suffix}: {detail}")
     except BaseException:
         stop_process(process)
