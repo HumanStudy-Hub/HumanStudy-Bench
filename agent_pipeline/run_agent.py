@@ -426,15 +426,32 @@ def repair_package(
     return valid, detail, rounds
 
 
-def run_guarded_repair(job: Path, package: Path, run_repair) -> tuple[bool, str, str]:
+def kill_turns(turns: list) -> None:
+    """SIGKILL every repair turn still running, so none can write after a restore."""
+    for turn in turns:
+        if turn.poll() is None:
+            try:
+                os.killpg(turn.pid, signal.SIGKILL)
+            except (ProcessLookupError, PermissionError):
+                pass
+            try:
+                turn.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                pass
+
+
+def run_guarded_repair(job: Path, package: Path, run_repair, turns: list | None = None) -> tuple[bool, str, str]:
     """Snapshot the package, run ``run_repair()`` (which returns repair_package's
     result), then guard the result. The package under review is either the
     accepted repair or exactly the pre-repair package: if the guard rejects the
     repair, the repaired package still fails validation, or the repair is
-    interrupted by an error or cancellation, the snapshot is restored. Returns (valid, detail, reason)."""
+    interrupted by an error or cancellation, the snapshot is restored.
+    ``turns`` collects the repair processes ``run_repair`` starts, so an
+    interruption can kill them before restoring. Returns (valid, detail, reason)."""
+    turns = turns if turns is not None else []
     snapshot = snapshot_package(package)
     update_job_state(job, repaired=False, repair={"attempted": True, "inProgress": True, "snapshot": PRE_REPAIR_DIR})
-    rounds: list[dict] = []
+    rounds: list = []
     guard: dict = {"passed": False, "violations": [], "checked": {}, "changedFiles": []}
     interrupted: BaseException | None = None
     main_thread = threading.current_thread() is threading.main_thread()
@@ -443,6 +460,12 @@ def run_guarded_repair(job: Path, package: Path, run_repair) -> tuple[bool, str,
     def terminate(signum, frame):
         raise KeyboardInterrupt(f"signal {signum}")
 
+    def hold_signals() -> None:
+        # Bookkeeping is short; finish it so the package is never half restored.
+        if main_thread:
+            signal.signal(signal.SIGTERM, signal.SIG_IGN)
+            signal.signal(signal.SIGINT, signal.SIG_IGN)
+
     try:
         if main_thread:
             # A cancelled Actions run sends SIGINT then SIGTERM; both must unwind
@@ -450,29 +473,33 @@ def run_guarded_repair(job: Path, package: Path, run_repair) -> tuple[bool, str,
             signal.signal(signal.SIGTERM, terminate)
         try:
             valid, detail, rounds = run_repair()
+            hold_signals()
             reason = "repaired" if valid else "repair_failed"
-            guard = guard_repair(package_root(snapshot), package_root(package))
         except BaseException as exc:
+            hold_signals()
             interrupted = exc
+            kill_turns(turns)
             try:
-                rounds = json.loads((job / "logs/repair.json").read_text())["rounds"]
+                logged = json.loads((job / "logs/repair.json").read_text())["rounds"]
+                rounds = logged if isinstance(logged, list) else []
             except (OSError, ValueError, KeyError, TypeError):
-                pass
+                rounds = []
             valid, reason = False, "repair_interrupted"
             detail = f"Repair was interrupted ({type(exc).__name__}: {exc}); the pre-repair package was kept."
             guard["violations"] = [detail]
-        if main_thread:
-            # Bookkeeping is short; finish it so the package is never half restored.
-            signal.signal(signal.SIGTERM, signal.SIG_IGN)
-            signal.signal(signal.SIGINT, signal.SIG_IGN)
+        else:
+            try:
+                guard = guard_repair(package_root(snapshot), package_root(package))
+            except Exception as exc:  # A guard bug must fail closed, not pass the repair.
+                guard["violations"] = [f"fidelity guard error ({type(exc).__name__}: {exc})"]
         for violation in guard["violations"]:
             print(f"[package-repair] guard: {violation}", flush=True)
-        if not guard["passed"] and reason != "repair_interrupted":
+        if not guard["passed"] and interrupted is None:
             valid, reason = False, "repair_rejected"
             detail = ("Repair rejected by the fidelity guard; the pre-repair package was kept: "
                       + "; ".join(guard["violations"][:20]))
         (job / "logs").mkdir(parents=True, exist_ok=True)
-        if root := package_root(snapshot):
+        if interrupted is None and (root := package_root(snapshot)):
             post = package_root(package)
             if post is not None and post.name == root.name:
                 (job / "logs/repair.diff").write_text(package_diff(root, post))
@@ -481,12 +508,14 @@ def run_guarded_repair(job: Path, package: Path, run_repair) -> tuple[bool, str,
             ensure_readme(package)
         publish_snapshot(snapshot, job)
         (job / "logs/repair.json").write_text(json.dumps(
-            {"maxRounds": MAX_REPAIR_ROUNDS, "rounds": rounds, "outcome": reason, "guard": guard}, indent=2) + "\n")
+            {"maxRounds": MAX_REPAIR_ROUNDS, "rounds": rounds, "turnsStarted": len(turns), "outcome": reason,
+             "guard": guard}, indent=2, default=str) + "\n")
         update_job_state(job, repaired=valid, error=None if valid else error_summary(detail, 1000), repair={
-            "attempted": bool(rounds),
+            "attempted": bool(rounds) or bool(turns),
             "accepted": valid,
             "outcome": reason,
             "rounds": len(rounds),
+            "turnsStarted": len(turns),
             "snapshot": PRE_REPAIR_DIR,
             "guard": {**guard, "violations": guard["violations"][:50], "violationCount": len(guard["violations"])},
         })
@@ -697,6 +726,8 @@ def main() -> None:
                 except Exception as exc:
                     print(f"[package-repair] could not publish frontend progress: {exc}", flush=True)
 
+            repair_turns: list[subprocess.Popen[str]] = []
+
             def run_turn(prompt: str, number: int, turn_deadline: float) -> int | None:
                 log_path = logs / f"agent-repair-{number}.log"
                 attempts = [base_command + ["--resume", session_id, prompt],
@@ -707,6 +738,7 @@ def main() -> None:
                     turn = subprocess.Popen(turn_command, cwd=repo_root, stdout=subprocess.PIPE,
                                             stderr=subprocess.STDOUT, text=True, bufsize=1,
                                             start_new_session=True, env=claude_env)
+                    repair_turns.append(turn)
                     turn_log = log_path.with_name(f"{log_path.stem}-fresh.log") if attempt else log_path
                     reader = threading.Thread(target=stream_output, args=(turn, turn_log), daemon=True)
                     reader.start()
@@ -739,7 +771,8 @@ def main() -> None:
 
             valid, detail, reason = run_guarded_repair(
                 args.job, package, lambda: repair_package(args.job, package, check_output, run_turn, deadline,
-                                                          detail, publish=publish_repair))
+                                                          detail, publish=publish_repair),
+                repair_turns)
         write_result(args.job, reason, valid, detail)
         completed, total, missing = package_progress(package) if mode == "build" else (0, 0, [])
         if publisher:

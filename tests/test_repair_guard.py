@@ -305,6 +305,49 @@ def test_audit_entry_removed_or_rewritten_fails(tmp_path: Path, change, message)
     assert _violations(pre, post) == [f"audit/missing_information.json: {message}"]
 
 
+@pytest.mark.parametrize("container", ["records", None])
+def test_evidence_records_outside_an_evidence_list_are_guarded(tmp_path: Path, container) -> None:
+    pre, post = _copies(tmp_path)
+    for root in (pre, post):
+        records = json.loads((root / "source/evidence.json").read_text())["evidence"]
+        (root / "source/evidence.json").write_text(json.dumps({container: records} if container else records))
+    data = json.loads((post / "source/evidence.json").read_text())
+    records = data[container] if container else data
+    records[0]["quote"] = "Participants were 18-65."
+    records.append({"id": "ev_new", "quote": "Invented."})
+    (post / "source/evidence.json").write_text(json.dumps(data))
+    found = _violations(pre, post)
+    assert any("#ev_n: evidence record was changed (quote)" in v for v in found)
+    assert any("#ev_new: repair added a new evidence record" in v for v in found)
+
+
+def test_new_unresolved_item_carrying_a_value_fails(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    _edit(post / "study.json", lambda s: s["program"]["nodes"][0]["fields"].append(
+        {"id": "age2", "label": "Age", "value": "18-65", "origin": "unknown", "state": "decision", "evidenceIds": []}))
+    assert _violations(pre, post) == [
+        "study.json:program.nodes.#participants.fields.#age2: repair added an unresolved item that already "
+        "carries a value"]
+
+
+def test_verbatim_option_label_rewritten_fails(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    for root in (pre, post):
+        _edit(root / "materials/materials.json", lambda m: m.update(options=[
+            {"id": "o1", "origin": "verbatim", "label": "Strongly agree", "evidenceIds": ["ev_item1"]}]))
+    _edit(post / "materials/materials.json", lambda m: m["options"][0].update(label="Agree"))
+    assert _violations(pre, post) == ["materials/materials.json:options.#o1: verbatim text was changed"]
+
+
+def test_legacy_studio_sidecar_is_guarded(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    legacy = {"id": "m", "title": "t", "fields": [{"id": "age", "status": "unresolved", "value": None}]}
+    (pre / "studio-model.json").write_text(json.dumps(legacy))
+    legacy["fields"][0].update(status="reported", value="18-65")
+    (post / "studio-model.json").write_text(json.dumps(legacy))
+    assert any("studio-model.json:fields.#age: moved out of missing/decision" in v for v in _violations(pre, post))
+
+
 # --- Files the guard cannot read -------------------------------------------
 
 def test_unparseable_file_changed_by_repair_fails_closed(tmp_path: Path) -> None:
@@ -392,6 +435,26 @@ def test_interrupted_repair_restores_the_snapshot(tmp_path: Path) -> None:
     state = json.loads((job / "job.json").read_text())
     assert state["repaired"] is False and state["repair"]["outcome"] == "repair_interrupted"
     assert "inProgress" not in state["repair"]
+
+
+def test_interrupt_kills_running_turn_and_counts_it(tmp_path: Path) -> None:
+    job, package = _job_dir(tmp_path)
+    turns: list = []
+
+    def run_repair():
+        turns.append(subprocess.Popen([sys.executable, "-c", "import time; time.sleep(60)"],
+                                      start_new_session=True))
+        _edit(package / "paper/study.json", _derive)
+        (job / "logs/repair.json").write_text(json.dumps({"rounds": "not a list"}))
+        raise RuntimeError("runner lost")
+
+    with pytest.raises(RuntimeError):
+        run_guarded_repair(job, package, run_repair, turns)
+    assert turns[0].poll() is not None
+    assert (package / "paper/study.json").read_text() == (FIXTURE / "study.json").read_text()
+    repair = json.loads((job / "job.json").read_text())["repair"]
+    assert repair["attempted"] is True and repair["turnsStarted"] == 1 and repair["rounds"] == 0
+    assert repair["outcome"] == "repair_interrupted"
 
 
 def test_guard_passing_but_still_invalid_repair_is_rolled_back(tmp_path: Path) -> None:
