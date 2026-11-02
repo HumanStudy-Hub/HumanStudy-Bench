@@ -1,0 +1,108 @@
+{
+ "study": "s1",
+ "design": "3 (task: OJ, ROJ, NJ; within) x 4 (group; between) mixed design",
+ "sampling_unit": "participant (n = AI participants per arm)",
+ "assignment_unit": "participant",
+ "observation_unit": "participant by item by task (32 items per task)",
+ "agents": [
+  {
+   "id": "participant",
+   "kind": "ai_participant",
+   "count": "n per arm",
+   "role": "respondent (estimator)",
+   "scripted": false
+  }
+ ],
+ "scripted_roles": [],
+ "scripted_roles_note": "The paper describes no confederates, experimenters or pre-recorded responses.",
+ "conditions": [
+  {
+   "id": "c_control",
+   "arm": "control"
+  },
+  {
+   "id": "c_feedback",
+   "arm": "feedback"
+  },
+  {
+   "id": "c_domain",
+   "arm": "domain"
+  },
+  {
+   "id": "c_irrelevant",
+   "arm": "irrelevant"
+  }
+ ],
+ "order": [
+  "consent (not replayed)",
+  "phase 1 OJ (32 items, random order)",
+  "phase 2 information (by group; control filler text)",
+  "phase 3 ROJ (same items, same order)",
+  "phase 4 NJ (new set)",
+  "post-experiment questions (not replayed)"
+ ],
+ "visibility": {
+  "oj": "item question only",
+  "info": "values (or filler text) of the participant's group",
+  "roj": "own transcript incl. OJ answers, information phase, ROJ questions",
+  "nj": "own transcript, NJ questions"
+ },
+ "counterbalancing": "Rotation over the six assignments of item sets A, B, C to OJ-set, domain-set and NJ-set (implementation; issue iss_counter).",
+ "replay_adaptations": [
+  "Text only: food images and display are not shown (iss_images).",
+  "8-second and 256-second timings are stated in the prompt but cannot be enforced.",
+  "Each phase is delivered as one numbered list in the participant's randomized order instead of one screen per item.",
+  "The transcript keeps the participant's own OJ answers, so ROJ can reproduce them exactly; people recall imperfectly.",
+  "Consent, device checks, response times, compliance questions and the engagement question are not replayed; outlier and item-weight exclusions are applied in evaluation.",
+  "Minimal response-format frame added by the adapter (implementation); instruction texts are missing (iss_instructions).",
+  "Cities in the irrelevant arm are paired with values by rank, countries/flags omitted except Basel (iss_city)."
+ ],
+ "run_parameters": {
+  "n_per_arm_default": 5,
+  "arms": [
+   "control",
+   "feedback",
+   "domain",
+   "irrelevant"
+  ]
+ },
+ "programBindings": {
+  "programId": "kreis2025hindsight",
+  "stepIds": [
+   "st_consent",
+   "st_oj",
+   "st_info",
+   "st_info_fb",
+   "st_info_dom",
+   "st_info_irr",
+   "st_info_ctl",
+   "st_roj",
+   "st_nj",
+   "st_post"
+  ],
+  "recordNodeIds": [
+   "v_group",
+   "v_task",
+   "v_estimate",
+   "v_absdev",
+   "v_engage",
+   "v_rank",
+   "r_oj",
+   "r_roj",
+   "r_nj",
+   "r_post"
+  ],
+  "analysisNodeIds": [
+   "a_exclusions",
+   "a_perfect",
+   "a_tl",
+   "a_hs",
+   "a_int",
+   "a_priors",
+   "a_map",
+   "a_anchor",
+   "a_eng",
+   "a_subcat"
+  ]
+ }
+}

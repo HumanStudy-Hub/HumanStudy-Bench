@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "86700080-0dff-5a25-bb71-7a0d16dc8b67",
+  "headCommit": null,
+  "paperKey": "doi:10.1027/1864-9335/a000178",
+  "status": "accepted",
+  "revision": "6fcd883c65a8290bb23a42dce9fba8395d57a4d57a9ed8a7823c8d194a255237",
+  "previousRevision": "99dfdc3e990a3a76efcb879d5e4c50619fc7bab7fad8034a8ff1056f838d73ed",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "6fcd883c65a8290bb23a42dce9fba8395d57a4d57a9ed8a7823c8d194a255237",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Audit 1 (desktop #57). Verbatim fields now hold printed text only: s08 printed text is the replication's Washington/Bin Laden quote from the Measures document (the original Jefferson/Lenin quote stays in the description); s09 printed text and s09_vmod.definition are the moderator items as printed (supplement p. 15, paper p. 5). Material wording fields (s01-s08, s11) are the Measures document's text exactly; the condition-tagged, reordered text used by the replay is a separate derived field with its derivation (incl. the SF-NY '(miles)' label). s09_pt.n-analysed now states the US-only flag-priming sample (Table 2 note p. 7, p. 8). allowed_forbidden: direction 'unspecified' (the paper states the asymmetry in restrictive answers; the sign of the Yes-share contrast is not stated). Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
+    "checks": [
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [14, 14]",
+      "capabilities.py recomputed and --check",
+      "check_package.py",
+      "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

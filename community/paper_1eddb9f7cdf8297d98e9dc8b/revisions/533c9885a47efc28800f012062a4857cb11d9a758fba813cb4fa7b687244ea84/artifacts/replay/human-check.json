@@ -1,0 +1,46 @@
+{
+  "package": "frankedegen2016",
+  "sessions": 52,
+  "valid": 52,
+  "arms": [
+    "exp2"
+  ],
+  "unknownArms": [],
+  "notMapped": [
+    {
+      "arm": "exp1",
+      "reason": "No separate Experiment 1 (comprehension) file: exp_s007.csv and exp_s008.csv are identical and match Experiment 2's production proportions; the data has no objects/messages/choice index either."
+    }
+  ],
+  "exclusions": "Load keeps every worker whose language field is English (case-insensitive; all 52 are). The paper's exclusion of the 15% of participants with the highest distractor-error rate on non-ambiguous trials is applied inside evaluation.evaluate, not here. Distractor trials are kept as role 'distractor' (evaluate drops them from the regression). Experiment 1's four speaker warm-up trials are not in the data.",
+  "effects": [
+    {
+      "id": "exp1_simple_vs_harder",
+      "label": "Exp 1 simple vs harder (complex+ambiguous): target-choice log-odds, higher for simple",
+      "estimate": NaN,
+      "p": null,
+      "reported": null
+    },
+    {
+      "id": "exp1_complex_vs_amb",
+      "label": "Exp 1 complex vs ambiguous: target-choice log-odds, higher for complex",
+      "estimate": NaN,
+      "p": null,
+      "reported": null
+    },
+    {
+      "id": "exp2_simple_vs_harder",
+      "label": "Exp 2 simple vs harder (complex+ambiguous): target-choice log-odds, higher for simple",
+      "estimate": 1.656,
+      "p": 4.148487726760917e-34,
+      "reported": 1.63
+    },
+    {
+      "id": "exp2_complex_vs_amb",
+      "label": "Exp 2 complex vs ambiguous: target-choice log-odds, higher for complex",
+      "estimate": 0.081,
+      "p": 0.4924352605050388,
+      "reported": 0.2
+    }
+  ]
+}

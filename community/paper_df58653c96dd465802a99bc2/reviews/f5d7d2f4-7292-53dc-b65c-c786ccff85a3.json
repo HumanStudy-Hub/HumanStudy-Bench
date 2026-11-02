@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "f5d7d2f4-7292-53dc-b65c-c786ccff85a3",
+  "headCommit": null,
+  "paperKey": "doi:10.1073/pnas.2412015122",
+  "status": "accepted",
+  "revision": "c994ec2bcd5344dc83d13962dc918498bdcf85c9ddc95849e543d3c9bb088d4c",
+  "previousRevision": "b6840a3ba88663bc6702a0a09d9828a3d4a234d504606f35c108de240ec89f44",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "c994ec2bcd5344dc83d13962dc918498bdcf85c9ddc95849e543d3c9bb088d4c",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Audit 1 (desktop #57). Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
+    "checks": [
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [3, 3]",
+      "capabilities.py recomputed and --check",
+      "check_package.py",
+      "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

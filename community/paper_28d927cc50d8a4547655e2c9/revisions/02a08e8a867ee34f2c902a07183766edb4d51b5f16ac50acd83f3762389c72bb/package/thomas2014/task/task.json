@@ -1,0 +1,204 @@
+{
+ "programBindings": {
+  "programId": "thomas2014-common-knowledge",
+  "stepIds": [
+   "e1_instr",
+   "e1_reveal",
+   "e1_reveal_prim",
+   "e1_reveal_sec",
+   "e1_reveal_ter",
+   "e1_reveal_ck",
+   "e1_decide",
+   "e1_explain",
+   "e1_comp_pay",
+   "e1_comp_know",
+   "e1_demo",
+   "e1_pay",
+   "e2_instr",
+   "e2_reveal",
+   "e2_reveal_prim",
+   "e2_reveal_sec",
+   "e2_reveal_ter",
+   "e2_reveal_ck",
+   "e2_decide",
+   "e2_explain",
+   "e2_comp",
+   "e2_demo",
+   "e2_pay",
+   "e3_simq",
+   "e3_told",
+   "e3_instr",
+   "e3_reveal",
+   "e3_reveal_prim",
+   "e3_reveal_sec",
+   "e3_reveal_ter",
+   "e3_reveal_ck",
+   "e3_decide",
+   "e3_big5",
+   "e3_comp"
+  ],
+  "recordNodeIds": [
+   "iv_kn_e1",
+   "iv_pay_e1",
+   "dv_dec_e1",
+   "dv_eff_e1",
+   "rec_dec_e1",
+   "rec_expl_e1",
+   "rec_cpay_e1",
+   "rec_cknow_e1",
+   "rec_demo_e1",
+   "iv_kn_e2",
+   "iv_pay_e2",
+   "dv_dec_e2",
+   "dv_eff_e2",
+   "rec_dec_e2",
+   "rec_expl_e2",
+   "rec_comp_e2",
+   "rec_demo_e2",
+   "iv_kn_e3",
+   "iv_sim_e3",
+   "dv_dec_e3",
+   "dv_percsim_e3",
+   "cov_agree_e3",
+   "cov_open_e3",
+   "cov_other_e3",
+   "dv_level_e3",
+   "rec_simans_e3",
+   "rec_percsim_e3",
+   "rec_dec_e3",
+   "rec_big5_e3",
+   "rec_level_e3"
+  ],
+  "analysisNodeIds": [
+   "an_main_e1",
+   "an_inv_e1",
+   "an_eff_e1",
+   "an_main_e2",
+   "an_pay_e2",
+   "an_eff_e2",
+   "an_sim_e3",
+   "an_know_e3",
+   "an_conf_e3",
+   "an_agr_e3",
+   "an_open_e3"
+  ]
+ },
+ "agents": {
+  "participant": "One AI participant per original participant; each session is an independent sequence of screens, received through the injected llm(prompt) call.",
+  "samplingUnit": "participant (one session)",
+  "observationUnit": "participant decision (one per session)",
+  "assignmentUnit": "participant to arm"
+ },
+ "roles": [
+  {
+   "id": "participant",
+   "simulated": true,
+   "roles": [
+    "butcher",
+    "baker"
+   ],
+   "note": "Experiment 1 and 3 alternate butcher/baker; Experiment 2 uses the baker text for all (iss_e2_roles)."
+  },
+  {
+   "id": "scripted_researchers",
+   "simulated": false,
+   "scripted": true,
+   "justification": "The paper's own experimenter/interface role: presents printed screens and performs offline pairing and payment after data collection (ev1_end)."
+  }
+ ],
+ "order": {
+  "exp1": [
+   "instructions",
+   "reveal (by knowledge condition)",
+   "decision",
+   "explanation",
+   "payoff comprehension",
+   "knowledge comprehension"
+  ],
+  "exp2": [
+   "same as exp1"
+  ],
+  "exp3": [
+   "similarity questions",
+   "similarity statement + rating",
+   "instructions",
+   "reveal",
+   "decision",
+   "(Big Five - not administered)",
+   "knowledge comprehension"
+  ]
+ },
+ "visibility": "Each participant sees only their own condition's private/public boxes; the partner's decision is never shown (decisions were independent; pairing was offline). Later screens include earlier screens in the transcript.",
+ "conditions": {
+  "exp1": {
+   "knowledge": [
+    "primary",
+    "secondary",
+    "tertiary",
+    "common"
+   ],
+   "payoff": [
+    1,
+    2,
+    5,
+    10
+   ]
+  },
+  "exp2": {
+   "knowledge": [
+    "primary",
+    "secondary",
+    "tertiary",
+    "common"
+   ],
+   "payoff": [
+    1,
+    2,
+    5,
+    10
+   ]
+  },
+  "exp3": {
+   "knowledge": [
+    "primary",
+    "secondary",
+    "tertiary",
+    "common"
+   ],
+   "payoff": [
+    2
+   ],
+   "similarity": [
+    "similar",
+    "dissimilar"
+   ]
+  }
+ },
+ "arms": "adapter.all_arms() lists 16 + 16 + 8 = 40 arms; run_sessions(llm, seed, n, arms=None) runs n participants per arm.",
+ "paperSampleSizes": {
+  "exp1": {
+   "recruited": 1600,
+   "analysed": 1033
+  },
+  "exp2": {
+   "recruited": 1600,
+   "analysed": 1150
+  },
+  "exp3": {
+   "recruited": 800,
+   "analysed": 550
+  }
+ },
+ "functions": {
+  "build_prompt": "build_prompt(study, condition, role) -> first screen sequence ending in the decision request",
+  "parse_reply": "parse_reply(study, condition, reply) -> 'together'|'alone'|None"
+ },
+ "replayAdaptations": [
+  "Butcher-perspective text is a mechanical Butcher/Baker swap (iss_e1_butcher).",
+  "Experiment 2 runs every participant with the baker-perspective text (iss_e2_roles).",
+  "The common-knowledge placeholders are both filled with the together-payoff (iss_e1_ckvals).",
+  "The silent loudspeaker and the payoff reveal wording are implementation wording (iss_e1_silent, iss_e1_price).",
+  "Demographics are not administered (items not printed, iss_e1_demo).",
+  "Experiment 3 Big Five is not administered (iss_e3_big5)."
+ ]
+}

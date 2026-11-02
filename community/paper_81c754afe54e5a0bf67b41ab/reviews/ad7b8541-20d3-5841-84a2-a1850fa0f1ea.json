@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "ad7b8541-20d3-5841-84a2-a1850fa0f1ea",
+  "headCommit": null,
+  "paperKey": "doi:10.1177/0956797620939054",
+  "status": "accepted",
+  "revision": "f931709f412efcdb90aaeca9cb5807827d145d6004077a6b1962e6fc5bcce57b",
+  "previousRevision": "aafd20a5b54edae7df87c609806d3ecdda6d2cba4d6043b98fa8d77f038a53fe",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "f931709f412efcdb90aaeca9cb5807827d145d6004077a6b1962e6fc5bcce57b",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Audit 1 (desktop #57). m_headlines.items and m_s2_pretest.headlines relabelled 'derived' (veracity labels added; pretest headlines read from images in the Study 2 materials); m_covid_q and m_s2_pretest.question now hold the exact printed wording. Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
+    "checks": [
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [7, 7]",
+      "capabilities.py recomputed and --check",
+      "check_package.py",
+      "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

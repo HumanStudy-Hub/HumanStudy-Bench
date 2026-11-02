@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "cfc4fbf32113f3e5ecaeff817a0c844548eff05a2ea2dc4dc70d2b5fd65b6846",
-  "previousRevision": "26c64ac52d2661680329e3dd9d5996bb3894c8ca2cca748e579034cf0db1c7e9",
+  "revision": "f8d3b9a033e244c2b7ae231ba64536ff142f8eed174c95570090fdd689d7a9c7",
+  "previousRevision": "cfc4fbf32113f3e5ecaeff817a0c844548eff05a2ea2dc4dc70d2b5fd65b6846",
   "paper": {
     "title": "Optimism where there is none: Asymmetric belief updating observed with valence-neutral life events",
     "authors": [
@@ -41,16 +41,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "cfc4fbf32113f3e5ecaeff817a0c844548eff05a2ea2dc4dc70d2b5fd65b6846",
+    "candidateRevision": "f8d3b9a033e244c2b7ae231ba64536ff142f8eed174c95570090fdd689d7a9c7",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
+    "reason": "Audit 1 (desktop #57). m-stimuli.quoted-examples now holds the four quoted events exactly as printed on p. 6 (added attributions moved to the label, a stray closing quote removed).",
     "checks": [
-      "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
       "study_core.py reproduce with effects.json on the pinned human data: pass [3, 3]",
-      "capabilities.py --check",
+      "capabilities.py recomputed and --check",
       "check_package.py",
       "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
       "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
@@ -77,6 +79,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "eadf61c896d66f230472e6fe494fb3c62bff511af2510557f58e248f1a0beeb4"
+    "programDigest": "eee1b52a5e8e14b7280cc1e8361d19295d04c41011174a3d43f8e2e9eb3bdafe"
   }
 }

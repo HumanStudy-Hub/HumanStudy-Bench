@@ -1,0 +1,30 @@
+[
+  {
+    "pattern": "missing-information",
+    "where": "effect zhon",
+    "what": "Which five of the ten rated products are cleaning products is not stated (issue iss-score-zhon). This one blocking issue blocks the whole package, although the other effects could run.",
+    "fallback": "Whole paper blocked today.",
+    "suggestion": "Scope blocking issues to one effect or study, so the rest of a multi-effect paper can run (run.status partial)."
+  },
+  {
+    "pattern": "non-text-stimuli",
+    "where": "effects huan, geis, haus34, nore, gray",
+    "what": "Picture stimuli (huan also needs a click position on a map); the evaluation marks them not_ready.",
+    "fallback": "Run the text effects; label the picture effects not run.",
+    "suggestion": "Decide whether a vision model counts as faithful for picture stimuli (#45 open question)."
+  },
+  {
+    "pattern": "modelling",
+    "where": "effects sava, miya, grah",
+    "what": "Hierarchical logistic, covariate and correlation models are not computed by the evaluation (not_ready).",
+    "fallback": "Label these effects not analysed.",
+    "suggestion": "Author-code route for these models."
+  },
+  {
+    "pattern": "missing-information",
+    "where": "effects alt, inba, van, and, gati",
+    "what": "Scoring keys or composition rules are absent (syllogism key, disgust scale, SVO slider, well-being index, country prominence list); the evaluation marks them not_ready.",
+    "fallback": "Label these effects not analysed.",
+    "suggestion": "Look for the keys in the Many Labs 2 OSF materials."
+  }
+]

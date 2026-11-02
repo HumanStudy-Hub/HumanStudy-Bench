@@ -1,0 +1,29 @@
+{
+  "package": "ml5-risen-gilovich-2008",
+  "sessions": 754,
+  "valid": 754,
+  "arms": [
+    "c00",
+    "c01",
+    "c10",
+    "c11"
+  ],
+  "notMapped": [],
+  "exclusions": "The file is already the prepared dataset: its 'excluded' column is 0 for every row, i.e. the a priori exclusions were applied upstream (n.excl gives the per-site count removed). Rows with a missing likelihood rating are marked invalid. Only the 'b.similar' group (U Penn, UCB, UVA, Stanford) is loaded, the 'similar U.S. university sites' population the package materials target; the MTurk ('a.mturk') and 'c.dissimilar' groups are left out so the pooled estimate matches one reported analysis.",
+  "effects": [
+    {
+      "id": "tempting_fate_main",
+      "label": "Tempting fate raises likelihood (no-load condition, 0-10 points)",
+      "estimate": 0.108,
+      "p": 0.5948699037949466,
+      "reported": 0.11
+    },
+    {
+      "id": "tempting_fate_x_load",
+      "label": "Tempting fate x cognitive load interaction (0-10 points)",
+      "estimate": -0.025,
+      "p": 0.9333872049841703,
+      "reported": -0.02
+    }
+  ]
+}

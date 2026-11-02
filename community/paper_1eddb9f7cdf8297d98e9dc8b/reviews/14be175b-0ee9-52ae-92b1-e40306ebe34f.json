@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "14be175b-0ee9-52ae-92b1-e40306ebe34f",
+  "headCommit": null,
+  "paperKey": "doi:10.1371/journal.pone.0154854",
+  "status": "accepted",
+  "revision": "533c9885a47efc28800f012062a4857cb11d9a758fba813cb4fa7b687244ea84",
+  "previousRevision": "91d8ed30294f248c852941e3264569726cb43c522ef70663c66031667fb8efb7",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "533c9885a47efc28800f012062a4857cb11d9a758fba813cb4fa7b687244ea84",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Audit 1 (desktop #57). artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
+    "checks": [
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [2, 2]",
+      "capabilities.py recomputed and --check",
+      "check_package.py",
+      "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

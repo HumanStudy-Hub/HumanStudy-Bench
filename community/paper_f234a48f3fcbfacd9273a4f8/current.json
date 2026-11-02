@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "0f142f21c894bd2be495c10197fcd2508e1c630090f54902cf9f38d68158f678",
-  "previousRevision": "011e9785eda91e2a91d49b78af24601082c06e390a0bf8a0a8987f3542a62ce6",
+  "revision": "bf3fbb61d96b24cc1c42bd002b6a63c4cde8ecaa8b6aa7bd0abffef3595eb34e",
+  "previousRevision": "0f142f21c894bd2be495c10197fcd2508e1c630090f54902cf9f38d68158f678",
   "paper": {
     "title": "Laypeople Can Predict Which Social-Science Studies Will Be Replicated Successfully",
     "authors": [
@@ -39,16 +39,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "0f142f21c894bd2be495c10197fcd2508e1c630090f54902cf9f38d68158f678",
+    "candidateRevision": "bf3fbb61d96b24cc1c42bd002b6a63c4cde8ecaa8b6aa7bd0abffef3595eb34e",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
+    "reason": "Audit 1 (desktop #57). m-items.descriptions and bayes-factors relabelled 'derived' (text word for word from Supplement Table 1, split into fields with keys added); m-qs tick, q-replicate and q-confidence relabelled 'derived' (read from the Figure 1 screenshots, supplement p. 19, which have no text layer); q-confidence no longer claims more than the screenshot shows. Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
     "checks": [
-      "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
       "study_core.py reproduce with effects.json on the pinned human data: pass [5, 5]",
-      "capabilities.py --check",
+      "capabilities.py recomputed and --check",
       "check_package.py",
       "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
       "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
@@ -75,6 +77,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "9d7cce3c11b5ef65b86cf02eb2ac1fdde1807ab4125b91d34e5d50c3ed9d67c3"
+    "programDigest": "ac49629d7f0253725e62e3230cb2845ced7487244cf644cabdf1234411f48f8e"
   }
 }

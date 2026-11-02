@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "0e4a0ef0-cb6d-5c6b-8179-28eb4a4b5a5e",
+  "headCommit": null,
+  "paperKey": "doi:10.1016/j.cognition.2021.104939",
+  "status": "accepted",
+  "revision": "f8d3b9a033e244c2b7ae231ba64536ff142f8eed174c95570090fdd689d7a9c7",
+  "previousRevision": "cfc4fbf32113f3e5ecaeff817a0c844548eff05a2ea2dc4dc70d2b5fd65b6846",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "f8d3b9a033e244c2b7ae231ba64536ff142f8eed174c95570090fdd689d7a9c7",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Audit 1 (desktop #57). m-stimuli.quoted-examples now holds the four quoted events exactly as printed on p. 6 (added attributions moved to the label, a stray closing quote removed).",
+    "checks": [
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [3, 3]",
+      "capabilities.py recomputed and --check",
+      "check_package.py",
+      "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": false,
+      "humanBenchmark": false
+    }
+  }
+}

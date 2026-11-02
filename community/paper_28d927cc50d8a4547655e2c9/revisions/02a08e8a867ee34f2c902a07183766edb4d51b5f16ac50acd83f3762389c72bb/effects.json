@@ -1,0 +1,5004 @@
+{
+  "schemaVersion": 2,
+  "programId": "thomas2014-common-knowledge",
+  "topics": [
+    "common knowledge",
+    "coordination",
+    "stag hunt",
+    "theory of mind",
+    "recursive mentalizing"
+  ],
+  "hypotheses": [
+    {
+      "id": "h_ck",
+      "nodeId": "hyp_ck",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "common knowledge",
+        "coordination"
+      ]
+    },
+    {
+      "id": "h_sk",
+      "nodeId": "hyp_sk",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "shared knowledge",
+        "theory of mind"
+      ]
+    },
+    {
+      "id": "h_curse",
+      "nodeId": "hyp_curse",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "curse of knowledge"
+      ]
+    },
+    {
+      "id": "h_rep",
+      "nodeId": "hyp_rep",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "recursive mentalizing",
+        "common knowledge representation"
+      ]
+    },
+    {
+      "id": "h_rat",
+      "nodeId": "hyp_rat",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "payoff sensitivity",
+        "rational choice"
+      ]
+    },
+    {
+      "id": "h_heur",
+      "nodeId": "hyp_heur",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "knowledge-level heuristic"
+      ]
+    },
+    {
+      "id": "h_sim",
+      "nodeId": "hyp_sim",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "perceived similarity",
+        "social projection"
+      ]
+    },
+    {
+      "id": "h_alt",
+      "nodeId": "hyp_alt",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "agreeableness",
+        "altruism"
+      ]
+    },
+    {
+      "id": "h_risk",
+      "nodeId": "hyp_risk",
+      "status": "tested",
+      "backgroundIds": [
+        "bg"
+      ],
+      "phenomena": [
+        "openness to experience",
+        "risk seeking"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "exp1_knowledge_all_pay1",
+      "label": "Experiment 1: knowledge level (all four) and working together, $1 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "conditionIds": [
+          "kc_prim_e1",
+          "kc_sec_e1",
+          "kc_ter_e1",
+          "kc_ck_e1",
+          "pc_1_e1"
+        ],
+        "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 1
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), which is the paper's phi = sqrt(chi2 / N) (Table note: chi-square of proportions, df 3)"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.48,
+            "variant": "Table 1, $1 payoff column",
+            "evidenceIds": [
+              "ev1_t1_all"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 63.7,
+          "pText": "*** (df 3, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 276,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_all",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_knowledge_all_pay2",
+      "label": "Experiment 1: knowledge level (all four) and working together, $2 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "conditionIds": [
+          "kc_prim_e1",
+          "kc_sec_e1",
+          "kc_ter_e1",
+          "kc_ck_e1",
+          "pc_2_e1"
+        ],
+        "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 2
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), which is the paper's phi = sqrt(chi2 / N) (Table note: chi-square of proportions, df 3)"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.48,
+            "variant": "Table 1, $2 payoff column",
+            "evidenceIds": [
+              "ev1_t1_all"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 62.79,
+          "pText": "*** (df 3, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 272,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_all",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_knowledge_all_pay5",
+      "label": "Experiment 1: knowledge level (all four) and working together, $5 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "conditionIds": [
+          "kc_prim_e1",
+          "kc_sec_e1",
+          "kc_ter_e1",
+          "kc_ck_e1",
+          "pc_5_e1"
+        ],
+        "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 5
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), which is the paper's phi = sqrt(chi2 / N) (Table note: chi-square of proportions, df 3)"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.49,
+            "variant": "Table 1, $5 payoff column",
+            "evidenceIds": [
+              "ev1_t1_all"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 56.71,
+          "pText": "*** (df 3, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 236,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_all",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_knowledge_all_pay10",
+      "label": "Experiment 1: knowledge level (all four) and working together, $10 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "conditionIds": [
+          "kc_prim_e1",
+          "kc_sec_e1",
+          "kc_ter_e1",
+          "kc_ck_e1",
+          "pc_10_e1"
+        ],
+        "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 10
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), which is the paper's phi = sqrt(chi2 / N) (Table note: chi-square of proportions, df 3)"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.53,
+            "variant": "Table 1, $10 payoff column",
+            "evidenceIds": [
+              "ev1_t1_all"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 70.41,
+          "pText": "*** (df 3, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 249,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_all",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_secondary_vs_primary_pay1",
+      "label": "Experiment 1: secondary vs primary knowledge, working together, $1 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "secondary",
+        "reference": "primary",
+        "conditionIds": [
+          "kc_sec_e1",
+          "kc_prim_e1",
+          "pc_1_e1"
+        ],
+        "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
+        "evidenceIds": [
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "secondary",
+          "primary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 1
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.38,
+            "variant": "Table 1, $1 payoff column",
+            "evidenceIds": [
+              "ev1_t1_12"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 21.26,
+          "pText": "*** (df 1, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 147,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_12",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_secondary_vs_primary_pay2",
+      "label": "Experiment 1: secondary vs primary knowledge, working together, $2 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "secondary",
+        "reference": "primary",
+        "conditionIds": [
+          "kc_sec_e1",
+          "kc_prim_e1",
+          "pc_2_e1"
+        ],
+        "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
+        "evidenceIds": [
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "secondary",
+          "primary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 2
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.42,
+            "variant": "Table 1, $2 payoff column",
+            "evidenceIds": [
+              "ev1_t1_12"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 23.27,
+          "pText": "*** (df 1, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 134,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_12",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_secondary_vs_primary_pay5",
+      "label": "Experiment 1: secondary vs primary knowledge, working together, $5 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "secondary",
+        "reference": "primary",
+        "conditionIds": [
+          "kc_sec_e1",
+          "kc_prim_e1",
+          "pc_5_e1"
+        ],
+        "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
+        "evidenceIds": [
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "secondary",
+          "primary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 5
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.15,
+            "variant": "Table 1, $5 payoff column",
+            "evidenceIds": [
+              "ev1_t1_12"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 2.66,
+          "pText": "ns (df 1, stated in words in the table note)"
+        },
+        "n": 121,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_12",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_secondary_vs_primary_pay10",
+      "label": "Experiment 1: secondary vs primary knowledge, working together, $10 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "secondary",
+        "reference": "primary",
+        "conditionIds": [
+          "kc_sec_e1",
+          "kc_prim_e1",
+          "pc_10_e1"
+        ],
+        "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
+        "evidenceIds": [
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "secondary",
+          "primary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 10
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.4,
+            "variant": "Table 1, $10 payoff column",
+            "evidenceIds": [
+              "ev1_t1_12"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 19.06,
+          "pText": "*** (df 1, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 118,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_12",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_tertiary_vs_secondary_pay1",
+      "label": "Experiment 1: tertiary vs secondary knowledge, working together, $1 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "secondary",
+        "conditionIds": [
+          "kc_ter_e1",
+          "kc_sec_e1",
+          "pc_1_e1"
+        ],
+        "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "tertiary",
+          "secondary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 1
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.07,
+            "variant": "Table 1, $1 payoff column",
+            "evidenceIds": [
+              "ev1_t1_23"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 0.69,
+          "pText": "ns (df 1, stated in words in the table note)"
+        },
+        "n": 141,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_23",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_tertiary_vs_secondary_pay2",
+      "label": "Experiment 1: tertiary vs secondary knowledge, working together, $2 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "secondary",
+        "conditionIds": [
+          "kc_ter_e1",
+          "kc_sec_e1",
+          "pc_2_e1"
+        ],
+        "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "tertiary",
+          "secondary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 2
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.07,
+            "variant": "Table 1, $2 payoff column",
+            "evidenceIds": [
+              "ev1_t1_23"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 0.63,
+          "pText": "ns (df 1, stated in words in the table note)"
+        },
+        "n": 139,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_23",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_tertiary_vs_secondary_pay5",
+      "label": "Experiment 1: tertiary vs secondary knowledge, working together, $5 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "secondary",
+        "conditionIds": [
+          "kc_ter_e1",
+          "kc_sec_e1",
+          "pc_5_e1"
+        ],
+        "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "tertiary",
+          "secondary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 5
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.31,
+            "variant": "Table 1, $5 payoff column",
+            "evidenceIds": [
+              "ev1_t1_23"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 10.88,
+          "pText": "*** (df 1, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 113,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_23",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_tertiary_vs_secondary_pay10",
+      "label": "Experiment 1: tertiary vs secondary knowledge, working together, $10 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "secondary",
+        "conditionIds": [
+          "kc_ter_e1",
+          "kc_sec_e1",
+          "pc_10_e1"
+        ],
+        "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "tertiary",
+          "secondary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 10
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.01,
+            "variant": "Table 1, $10 payoff column",
+            "evidenceIds": [
+              "ev1_t1_23"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 0.01,
+          "pText": "ns (df 1, stated in words in the table note)"
+        },
+        "n": 126,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_23",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_common_vs_tertiary_pay1",
+      "label": "Experiment 1: common vs tertiary knowledge, working together, $1 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "common",
+        "reference": "tertiary",
+        "conditionIds": [
+          "kc_ck_e1",
+          "kc_ter_e1",
+          "pc_1_e1"
+        ],
+        "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "common",
+          "tertiary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 1
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.26,
+            "variant": "Table 1, $1 payoff column",
+            "evidenceIds": [
+              "ev1_t1_3c"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 8.84,
+          "pText": "** (df 1, stated in words in the table note)",
+          "p": 0.01,
+          "pRelation": "<"
+        },
+        "n": 129,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_3c",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_common_vs_tertiary_pay2",
+      "label": "Experiment 1: common vs tertiary knowledge, working together, $2 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "common",
+        "reference": "tertiary",
+        "conditionIds": [
+          "kc_ck_e1",
+          "kc_ter_e1",
+          "pc_2_e1"
+        ],
+        "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "common",
+          "tertiary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 2
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.26,
+            "variant": "Table 1, $2 payoff column",
+            "evidenceIds": [
+              "ev1_t1_3c"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 7.12,
+          "pText": "** (df 1, stated in words in the table note)",
+          "p": 0.01,
+          "pRelation": "<"
+        },
+        "n": 138,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_3c",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_common_vs_tertiary_pay5",
+      "label": "Experiment 1: common vs tertiary knowledge, working together, $5 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "common",
+        "reference": "tertiary",
+        "conditionIds": [
+          "kc_ck_e1",
+          "kc_ter_e1",
+          "pc_5_e1"
+        ],
+        "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "common",
+          "tertiary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 5
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.19,
+            "variant": "Table 1, $5 payoff column",
+            "evidenceIds": [
+              "ev1_t1_3c"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 4.02,
+          "pText": "* (df 1, stated in words in the table note)",
+          "p": 0.05,
+          "pRelation": "<"
+        },
+        "n": 115,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_3c",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp1_common_vs_tertiary_pay10",
+      "label": "Experiment 1: common vs tertiary knowledge, working together, $10 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "common",
+        "reference": "tertiary",
+        "conditionIds": [
+          "kc_ck_e1",
+          "kc_ter_e1",
+          "pc_10_e1"
+        ],
+        "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e1"
+      ],
+      "resultIds": [
+        "res_main_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "common",
+          "tertiary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 10
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.42,
+            "variant": "Table 1, $10 payoff column",
+            "evidenceIds": [
+              "ev1_t1_3c"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 23.05,
+          "pText": "*** (df 1, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 131,
+        "missing": [
+          "per-cell percentages (only in Figure 2)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev1_t1_3c",
+          "ev1_t1_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_knowledge_all_pay1",
+      "label": "Experiment 2: knowledge level (all four) and working together, $1 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "conditionIds": [
+          "kc_prim_e2",
+          "kc_sec_e2",
+          "kc_ter_e2",
+          "kc_ck_e2",
+          "pc_1_e2"
+        ],
+        "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 1
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), which is the paper's phi = sqrt(chi2 / N) (Table note: chi-square of proportions, df 3)"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.49,
+            "variant": "Table 2, $1 payoff column",
+            "evidenceIds": [
+              "ev2_t_all"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 68.24,
+          "pText": "*** (df 3, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 281,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_all",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_knowledge_all_pay2",
+      "label": "Experiment 2: knowledge level (all four) and working together, $2 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "conditionIds": [
+          "kc_prim_e2",
+          "kc_sec_e2",
+          "kc_ter_e2",
+          "kc_ck_e2",
+          "pc_2_e2"
+        ],
+        "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 2
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), which is the paper's phi = sqrt(chi2 / N) (Table note: chi-square of proportions, df 3)"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.39,
+            "variant": "Table 2, $2 payoff column",
+            "evidenceIds": [
+              "ev2_t_all"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 45.32,
+          "pText": "*** (df 3, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 297,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_all",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_knowledge_all_pay5",
+      "label": "Experiment 2: knowledge level (all four) and working together, $5 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "conditionIds": [
+          "kc_prim_e2",
+          "kc_sec_e2",
+          "kc_ter_e2",
+          "kc_ck_e2",
+          "pc_5_e2"
+        ],
+        "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 5
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), which is the paper's phi = sqrt(chi2 / N) (Table note: chi-square of proportions, df 3)"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.41,
+            "variant": "Table 2, $5 payoff column",
+            "evidenceIds": [
+              "ev2_t_all"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 46.36,
+          "pText": "*** (df 3, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 283,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_all",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_knowledge_all_pay10",
+      "label": "Experiment 2: knowledge level (all four) and working together, $10 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "conditionIds": [
+          "kc_prim_e2",
+          "kc_sec_e2",
+          "kc_ter_e2",
+          "kc_ck_e2",
+          "pc_10_e2"
+        ],
+        "valueMeans": "association of knowledge level (4 levels) with working together (phi, unsigned)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge and shared-knowledge hypotheses predict that knowledge level changes coordination attempts; the curse-of-knowledge hypothesis predicts the same rate at every level (phi near 0).",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 10
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), which is the paper's phi = sqrt(chi2 / N) (Table note: chi-square of proportions, df 3)"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.29,
+            "variant": "Table 2, $10 payoff column",
+            "evidenceIds": [
+              "ev2_t_all"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 24.72,
+          "pText": "*** (df 3, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 289,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_all",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_secondary_vs_primary_pay1",
+      "label": "Experiment 2: secondary vs primary knowledge, working together, $1 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "secondary",
+        "reference": "primary",
+        "conditionIds": [
+          "kc_sec_e2",
+          "kc_prim_e2",
+          "pc_1_e2"
+        ],
+        "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
+        "evidenceIds": [
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "secondary",
+          "primary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 1
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.31,
+            "variant": "Table 2, $1 payoff column",
+            "evidenceIds": [
+              "ev2_t_12"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 13.59,
+          "pText": "*** (df 1, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 142,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_12",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_secondary_vs_primary_pay2",
+      "label": "Experiment 2: secondary vs primary knowledge, working together, $2 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "secondary",
+        "reference": "primary",
+        "conditionIds": [
+          "kc_sec_e2",
+          "kc_prim_e2",
+          "pc_2_e2"
+        ],
+        "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
+        "evidenceIds": [
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "secondary",
+          "primary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 2
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.32,
+            "variant": "Table 2, $2 payoff column",
+            "evidenceIds": [
+              "ev2_t_12"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 14.95,
+          "pText": "*** (df 1, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 147,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_12",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_secondary_vs_primary_pay5",
+      "label": "Experiment 2: secondary vs primary knowledge, working together, $5 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "secondary",
+        "reference": "primary",
+        "conditionIds": [
+          "kc_sec_e2",
+          "kc_prim_e2",
+          "pc_5_e2"
+        ],
+        "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
+        "evidenceIds": [
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "secondary",
+          "primary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 5
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.11,
+            "variant": "Table 2, $5 payoff column",
+            "evidenceIds": [
+              "ev2_t_12"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 1.77,
+          "pText": "ns (df 1, stated in words in the table note)"
+        },
+        "n": 148,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_12",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_secondary_vs_primary_pay10",
+      "label": "Experiment 2: secondary vs primary knowledge, working together, $10 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "secondary",
+        "reference": "primary",
+        "conditionIds": [
+          "kc_sec_e2",
+          "kc_prim_e2",
+          "pc_10_e2"
+        ],
+        "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
+        "evidenceIds": [
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "secondary",
+          "primary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 10
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.29,
+            "variant": "Table 2, $10 payoff column",
+            "evidenceIds": [
+              "ev2_t_12"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 11.54,
+          "pText": "*** (df 1, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 140,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_12",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_tertiary_vs_secondary_pay1",
+      "label": "Experiment 2: tertiary vs secondary knowledge, working together, $1 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "secondary",
+        "conditionIds": [
+          "kc_ter_e2",
+          "kc_sec_e2",
+          "pc_1_e2"
+        ],
+        "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "tertiary",
+          "secondary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 1
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.11,
+            "variant": "Table 2, $1 payoff column",
+            "evidenceIds": [
+              "ev2_t_23"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 2.5,
+          "pText": "ns (df 1, stated in words in the table note)"
+        },
+        "n": 132,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_23",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_tertiary_vs_secondary_pay2",
+      "label": "Experiment 2: tertiary vs secondary knowledge, working together, $2 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "secondary",
+        "conditionIds": [
+          "kc_ter_e2",
+          "kc_sec_e2",
+          "pc_2_e2"
+        ],
+        "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "tertiary",
+          "secondary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 2
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.07,
+            "variant": "Table 2, $2 payoff column",
+            "evidenceIds": [
+              "ev2_t_23"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 0.69,
+          "pText": "ns (df 1, stated in words in the table note)"
+        },
+        "n": 153,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_23",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_tertiary_vs_secondary_pay5",
+      "label": "Experiment 2: tertiary vs secondary knowledge, working together, $5 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "secondary",
+        "conditionIds": [
+          "kc_ter_e2",
+          "kc_sec_e2",
+          "pc_5_e2"
+        ],
+        "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "tertiary",
+          "secondary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 5
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.13,
+            "variant": "Table 2, $5 payoff column",
+            "evidenceIds": [
+              "ev2_t_23"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 2.26,
+          "pText": "ns (df 1, stated in words in the table note)"
+        },
+        "n": 137,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_23",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_tertiary_vs_secondary_pay10",
+      "label": "Experiment 2: tertiary vs secondary knowledge, working together, $10 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "secondary",
+        "conditionIds": [
+          "kc_ter_e2",
+          "kc_sec_e2",
+          "pc_10_e2"
+        ],
+        "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "tertiary",
+          "secondary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 10
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.01,
+            "variant": "Table 2, $10 payoff column",
+            "evidenceIds": [
+              "ev2_t_23"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 0.03,
+          "pText": "ns (df 1, stated in words in the table note)"
+        },
+        "n": 149,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_23",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_common_vs_tertiary_pay1",
+      "label": "Experiment 2: common vs tertiary knowledge, working together, $1 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "common",
+        "reference": "tertiary",
+        "conditionIds": [
+          "kc_ck_e2",
+          "kc_ter_e2",
+          "pc_1_e2"
+        ],
+        "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "common",
+          "tertiary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 1
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.27,
+            "variant": "Table 2, $1 payoff column",
+            "evidenceIds": [
+              "ev2_t_3c"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 10.14,
+          "pText": "** (df 1, stated in words in the table note)",
+          "p": 0.01,
+          "pRelation": "<"
+        },
+        "n": 139,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_3c",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_common_vs_tertiary_pay2",
+      "label": "Experiment 2: common vs tertiary knowledge, working together, $2 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "common",
+        "reference": "tertiary",
+        "conditionIds": [
+          "kc_ck_e2",
+          "kc_ter_e2",
+          "pc_2_e2"
+        ],
+        "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "common",
+          "tertiary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 2
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.2,
+            "variant": "Table 2, $2 payoff column",
+            "evidenceIds": [
+              "ev2_t_3c"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 6.21,
+          "pText": "* (df 1, stated in words in the table note)",
+          "p": 0.05,
+          "pRelation": "<"
+        },
+        "n": 150,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_3c",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_common_vs_tertiary_pay5",
+      "label": "Experiment 2: common vs tertiary knowledge, working together, $5 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "common",
+        "reference": "tertiary",
+        "conditionIds": [
+          "kc_ck_e2",
+          "kc_ter_e2",
+          "pc_5_e2"
+        ],
+        "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "common",
+          "tertiary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 5
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.3,
+            "variant": "Table 2, $5 payoff column",
+            "evidenceIds": [
+              "ev2_t_3c"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 12.39,
+          "pText": "*** (df 1, stated in words in the table note)",
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 135,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_3c",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp2_common_vs_tertiary_pay10",
+      "label": "Experiment 2: common vs tertiary knowledge, working together, $10 payoff",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "common",
+        "reference": "tertiary",
+        "conditionIds": [
+          "kc_ck_e2",
+          "kc_ter_e2",
+          "pc_10_e2"
+        ],
+        "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_main_e2"
+      ],
+      "resultIds": [
+        "res_main_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "common",
+          "tertiary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.payoff": 10
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.17,
+            "variant": "Table 2, $10 payoff column",
+            "evidenceIds": [
+              "ev2_t_3c"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 4.23,
+          "pText": "* (df 1, stated in words in the table note)",
+          "p": 0.05,
+          "pRelation": "<"
+        },
+        "n": 149,
+        "missing": [
+          "per-cell percentages (only in Figure 4)",
+          "exact p (only significance stars)",
+          "cell n per knowledge level"
+        ],
+        "evidenceIds": [
+          "ev2_t_3c",
+          "ev2_t_note"
+        ]
+      }
+    },
+    {
+      "id": "exp3_common_vs_tertiary",
+      "label": "Experiment 3: common vs tertiary knowledge, working together",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e3",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "common",
+        "reference": "tertiary",
+        "conditionIds": [
+          "kc_ck_e3",
+          "kc_ter_e3"
+        ],
+        "valueMeans": "phi of common vs tertiary on working together (unsigned; common more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Common-knowledge recognition: more try to work together with common than with tertiary (shared) knowledge; the shared-knowledge and curse-of-knowledge hypotheses predict no difference.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_know_e3"
+      ],
+      "resultIds": [
+        "res_know_e3"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "common",
+          "tertiary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ]
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.29,
+            "variant": "chi-square collapsed over similarity (p. 28)",
+            "evidenceIds": [
+              "ev3_res3"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 22.28,
+          "df": 1,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 270,
+        "missing": [
+          "per-cell percentages (only in Figure 5)"
+        ],
+        "evidenceIds": [
+          "ev3_res3"
+        ]
+      }
+    },
+    {
+      "id": "exp3_secondary_vs_primary",
+      "label": "Experiment 3: secondary vs primary knowledge, working together",
+      "role": "test",
+      "hypothesisIds": [
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e3",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "secondary",
+        "reference": "primary",
+        "conditionIds": [
+          "kc_sec_e3",
+          "kc_prim_e3"
+        ],
+        "valueMeans": "phi of secondary vs primary on working together (unsigned; secondary more often expected)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Shared-knowledge hypothesis: more try to work together with secondary than with primary knowledge; curse of knowledge predicts no difference.",
+        "evidenceIds": [
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_know_e3"
+      ],
+      "resultIds": [
+        "res_know_e3"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "secondary",
+          "primary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ]
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.25,
+            "variant": "chi-square collapsed over similarity (p. 28)",
+            "evidenceIds": [
+              "ev3_res3"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 16.87,
+          "df": 1,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 280,
+        "missing": [
+          "per-cell percentages (only in Figure 5)"
+        ],
+        "evidenceIds": [
+          "ev3_res3"
+        ]
+      }
+    },
+    {
+      "id": "exp3_tertiary_vs_secondary",
+      "label": "Experiment 3: tertiary vs secondary knowledge, working together",
+      "role": "test",
+      "hypothesisIds": [
+        "h_ck",
+        "h_sk",
+        "h_curse"
+      ],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e3",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between knowledge level and trying to work together",
+        "treatedAs": "counts in a knowledge x decision table; phi = sqrt(chi2/N) is unsigned in the paper and in the op; the direction is read from the counts table"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "secondary",
+        "conditionIds": [
+          "kc_ter_e3",
+          "kc_sec_e3"
+        ],
+        "valueMeans": "phi of tertiary vs secondary on working together (unsigned)"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "No hypothesis distinguishes two levels of shared knowledge: no difference expected.",
+        "evidenceIds": [
+          "ev_h_ck",
+          "ev_h_curse",
+          "ev_h_sk"
+        ]
+      },
+      "analysisIds": [
+        "an_know_e3"
+      ],
+      "resultIds": [
+        "res_know_e3"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.knowledge",
+        "groups": [
+          "tertiary",
+          "secondary"
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ]
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.05,
+            "variant": "chi-square collapsed over similarity (p. 28)",
+            "evidenceIds": [
+              "ev3_res3"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 0.72,
+          "df": 1,
+          "p": 0.397,
+          "pRelation": "="
+        },
+        "n": 284,
+        "missing": [
+          "per-cell percentages (only in Figure 5)"
+        ],
+        "evidenceIds": [
+          "ev3_res3"
+        ]
+      }
+    },
+    {
+      "id": "exp1_payoff_within_primary",
+      "label": "Experiment 1: payoff ($1/$2/$5/$10) and working together within primary knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_heur",
+        "h_rat"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between payoff and trying to work together",
+        "treatedAs": "counts in a payoff x decision table; Cramer's V = phi = sqrt(chi2/N), unsigned"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "1",
+          "2",
+          "5",
+          "10"
+        ],
+        "conditionIds": [
+          "pc_1_e1",
+          "pc_2_e1",
+          "pc_5_e1",
+          "pc_10_e1",
+          "kc_prim_e1"
+        ],
+        "valueMeans": "association of payoff (4 levels) with working together, within primary knowledge"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises (an association); knowledge-level heuristic: proportions do not track the payoffs (phi near 0).",
+        "evidenceIds": [
+          "ev_h_heur",
+          "ev_h_rat"
+        ]
+      },
+      "analysisIds": [
+        "an_inv_e1"
+      ],
+      "resultIds": [
+        "res_inv_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.payoff",
+        "groups": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.knowledge": "primary"
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), the paper's phi"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.11,
+            "variant": "chi-square across the four payoffs (pp. 21-22)",
+            "evidenceIds": [
+              "ev1_res5"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 3.13,
+          "df": 3,
+          "p": 0.373,
+          "pRelation": "="
+        },
+        "n": 261,
+        "missing": [
+          "per-cell percentages (only in Figure 2)"
+        ],
+        "evidenceIds": [
+          "ev1_res5"
+        ]
+      }
+    },
+    {
+      "id": "exp1_payoff_within_secondary",
+      "label": "Experiment 1: payoff ($1/$2/$5/$10) and working together within secondary knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_heur",
+        "h_rat"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between payoff and trying to work together",
+        "treatedAs": "counts in a payoff x decision table; Cramer's V = phi = sqrt(chi2/N), unsigned"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "1",
+          "2",
+          "5",
+          "10"
+        ],
+        "conditionIds": [
+          "pc_1_e1",
+          "pc_2_e1",
+          "pc_5_e1",
+          "pc_10_e1",
+          "kc_sec_e1"
+        ],
+        "valueMeans": "association of payoff (4 levels) with working together, within secondary knowledge"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises (an association); knowledge-level heuristic: proportions do not track the payoffs (phi near 0).",
+        "evidenceIds": [
+          "ev_h_heur",
+          "ev_h_rat"
+        ]
+      },
+      "analysisIds": [
+        "an_inv_e1"
+      ],
+      "resultIds": [
+        "res_inv_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.payoff",
+        "groups": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.knowledge": "secondary"
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), the paper's phi"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.17,
+            "variant": "chi-square across the four payoffs (pp. 21-22)",
+            "evidenceIds": [
+              "ev1_res5"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 7.66,
+          "df": 3,
+          "p": 0.054,
+          "pRelation": "="
+        },
+        "n": 259,
+        "missing": [
+          "per-cell percentages (only in Figure 2)"
+        ],
+        "evidenceIds": [
+          "ev1_res5"
+        ]
+      }
+    },
+    {
+      "id": "exp1_payoff_within_tertiary",
+      "label": "Experiment 1: payoff ($1/$2/$5/$10) and working together within tertiary knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_heur",
+        "h_rat"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between payoff and trying to work together",
+        "treatedAs": "counts in a payoff x decision table; Cramer's V = phi = sqrt(chi2/N), unsigned"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "1",
+          "2",
+          "5",
+          "10"
+        ],
+        "conditionIds": [
+          "pc_1_e1",
+          "pc_2_e1",
+          "pc_5_e1",
+          "pc_10_e1",
+          "kc_ter_e1"
+        ],
+        "valueMeans": "association of payoff (4 levels) with working together, within tertiary knowledge"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises (an association); knowledge-level heuristic: proportions do not track the payoffs (phi near 0).",
+        "evidenceIds": [
+          "ev_h_heur",
+          "ev_h_rat"
+        ]
+      },
+      "analysisIds": [
+        "an_inv_e1"
+      ],
+      "resultIds": [
+        "res_inv_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.payoff",
+        "groups": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.knowledge": "tertiary"
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), the paper's phi"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.16,
+            "variant": "chi-square across the four payoffs (pp. 21-22)",
+            "evidenceIds": [
+              "ev1_res5"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 6.81,
+          "df": 3,
+          "p": 0.078,
+          "pRelation": "="
+        },
+        "n": 260,
+        "missing": [
+          "per-cell percentages (only in Figure 2)"
+        ],
+        "evidenceIds": [
+          "ev1_res5"
+        ]
+      }
+    },
+    {
+      "id": "exp1_payoff_within_common",
+      "label": "Experiment 1: payoff ($1/$2/$5/$10) and working together within common knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_heur",
+        "h_rat"
+      ],
+      "studyId": "exp1",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e1",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between payoff and trying to work together",
+        "treatedAs": "counts in a payoff x decision table; Cramer's V = phi = sqrt(chi2/N), unsigned"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "1",
+          "2",
+          "5",
+          "10"
+        ],
+        "conditionIds": [
+          "pc_1_e1",
+          "pc_2_e1",
+          "pc_5_e1",
+          "pc_10_e1",
+          "kc_ck_e1"
+        ],
+        "valueMeans": "association of payoff (4 levels) with working together, within common knowledge"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises (an association); knowledge-level heuristic: proportions do not track the payoffs (phi near 0).",
+        "evidenceIds": [
+          "ev_h_heur",
+          "ev_h_rat"
+        ]
+      },
+      "analysisIds": [
+        "an_inv_e1"
+      ],
+      "resultIds": [
+        "res_inv_e1"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.payoff",
+        "groups": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.knowledge": "common"
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), the paper's phi"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.05,
+            "variant": "chi-square across the four payoffs (pp. 21-22)",
+            "evidenceIds": [
+              "ev1_res5c"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 0.76,
+          "df": 3,
+          "p": 0.859,
+          "pRelation": "="
+        },
+        "n": 253,
+        "missing": [
+          "per-cell percentages (only in Figure 2)"
+        ],
+        "evidenceIds": [
+          "ev1_res5",
+          "ev1_res5c"
+        ]
+      }
+    },
+    {
+      "id": "exp2_payoff_within_primary",
+      "label": "Experiment 2: payoff ($1/$2/$5/$10) and working together within primary knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_heur",
+        "h_rat"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between payoff and trying to work together",
+        "treatedAs": "counts in a payoff x decision table; Cramer's V = phi = sqrt(chi2/N), unsigned"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "1",
+          "2",
+          "5",
+          "10"
+        ],
+        "conditionIds": [
+          "pc_1_e2",
+          "pc_2_e2",
+          "pc_5_e2",
+          "pc_10_e2",
+          "kc_prim_e2"
+        ],
+        "valueMeans": "association of payoff (4 levels) with working together, within primary knowledge"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises; knowledge-level heuristic: no association. The paper states only that rates fell with cost in every knowledge condition (p. 25), with no statistic.",
+        "evidenceIds": [
+          "ev_h_heur",
+          "ev_h_rat"
+        ]
+      },
+      "analysisIds": [
+        "an_pay_e2"
+      ],
+      "resultIds": [
+        "res_pay_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.payoff",
+        "groups": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.knowledge": "primary"
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), the paper's phi"
+        }
+      },
+      "reported": null
+    },
+    {
+      "id": "exp2_payoff_within_secondary",
+      "label": "Experiment 2: payoff ($1/$2/$5/$10) and working together within secondary knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_heur",
+        "h_rat"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between payoff and trying to work together",
+        "treatedAs": "counts in a payoff x decision table; Cramer's V = phi = sqrt(chi2/N), unsigned"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "1",
+          "2",
+          "5",
+          "10"
+        ],
+        "conditionIds": [
+          "pc_1_e2",
+          "pc_2_e2",
+          "pc_5_e2",
+          "pc_10_e2",
+          "kc_sec_e2"
+        ],
+        "valueMeans": "association of payoff (4 levels) with working together, within secondary knowledge"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises; knowledge-level heuristic: no association. The paper states only that rates fell with cost in every knowledge condition (p. 25), with no statistic.",
+        "evidenceIds": [
+          "ev_h_heur",
+          "ev_h_rat"
+        ]
+      },
+      "analysisIds": [
+        "an_pay_e2"
+      ],
+      "resultIds": [
+        "res_pay_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.payoff",
+        "groups": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.knowledge": "secondary"
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), the paper's phi"
+        }
+      },
+      "reported": null
+    },
+    {
+      "id": "exp2_payoff_within_tertiary",
+      "label": "Experiment 2: payoff ($1/$2/$5/$10) and working together within tertiary knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_heur",
+        "h_rat"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between payoff and trying to work together",
+        "treatedAs": "counts in a payoff x decision table; Cramer's V = phi = sqrt(chi2/N), unsigned"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "1",
+          "2",
+          "5",
+          "10"
+        ],
+        "conditionIds": [
+          "pc_1_e2",
+          "pc_2_e2",
+          "pc_5_e2",
+          "pc_10_e2",
+          "kc_ter_e2"
+        ],
+        "valueMeans": "association of payoff (4 levels) with working together, within tertiary knowledge"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises; knowledge-level heuristic: no association. The paper states only that rates fell with cost in every knowledge condition (p. 25), with no statistic.",
+        "evidenceIds": [
+          "ev_h_heur",
+          "ev_h_rat"
+        ]
+      },
+      "analysisIds": [
+        "an_pay_e2"
+      ],
+      "resultIds": [
+        "res_pay_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.payoff",
+        "groups": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.knowledge": "tertiary"
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), the paper's phi"
+        }
+      },
+      "reported": null
+    },
+    {
+      "id": "exp2_payoff_within_common",
+      "label": "Experiment 2: payoff ($1/$2/$5/$10) and working together within common knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_heur",
+        "h_rat"
+      ],
+      "studyId": "exp2",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e2",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger association between payoff and trying to work together",
+        "treatedAs": "counts in a payoff x decision table; Cramer's V = phi = sqrt(chi2/N), unsigned"
+      },
+      "contrast": {
+        "kind": "omnibus",
+        "groups": [
+          "1",
+          "2",
+          "5",
+          "10"
+        ],
+        "conditionIds": [
+          "pc_1_e2",
+          "pc_2_e2",
+          "pc_5_e2",
+          "pc_10_e2",
+          "kc_ck_e2"
+        ],
+        "valueMeans": "association of payoff (4 levels) with working together, within common knowledge"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "Rational actor: fewer try to work together as the cost-benefit ratio rises; knowledge-level heuristic: no association. The paper states only that rates fell with cost in every knowledge condition (p. 25), with no statistic.",
+        "evidenceIds": [
+          "ev_h_heur",
+          "ev_h_rat"
+        ]
+      },
+      "analysisIds": [
+        "an_pay_e2"
+      ],
+      "resultIds": [
+        "res_pay_e2"
+      ],
+      "compute": {
+        "op": "contingency",
+        "field": "decision",
+        "groupBy": "condition.payoff",
+        "groups": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "levels": [
+          "together",
+          "alone"
+        ],
+        "where": {
+          "payoff_correct": true,
+          "condition.knowledge": "common"
+        },
+        "compareAs": {
+          "metric": "phi",
+          "reason": "for a k x 2 table Cramer's V = sqrt(chi2 / N), the paper's phi"
+        }
+      },
+      "reported": null
+    },
+    {
+      "id": "exp3_errors_tertiary_vs_primary",
+      "label": "Experiment 3: knowledge-level report errors, tertiary vs primary knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_rep"
+      ],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_level_e3",
+        "type": "binary",
+        "scale": "reported level wrong / right",
+        "higherMeans": "stronger association between condition and making a report error",
+        "treatedAs": "error = reported level differs from the condition (Table 3 off-diagonal, incl. unclassifiable); phi unsigned"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "primary",
+        "conditionIds": [
+          "kc_ter_e3",
+          "kc_prim_e3"
+        ],
+        "valueMeans": "phi of tertiary vs primary on error rate (unsigned)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Distinct-representation: errors rise with levels of shared knowledge (tertiary most) while common knowledge is about as easy as secondary; single-representation: most errors with common knowledge.",
+        "evidenceIds": [
+          "ev_h_rep1",
+          "ev_h_rep2"
+        ]
+      },
+      "analysisIds": [
+        "an_conf_e3"
+      ],
+      "resultIds": [
+        "res_conf_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_errors_tertiary_vs_primary"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.36,
+            "variant": "planned chi-square comparison (p. 29)",
+            "evidenceIds": [
+              "ev3_conf1"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 33.76,
+          "df": 1,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 266,
+        "missing": [
+          "error counts per condition (Table 3 gives proportions only)"
+        ],
+        "evidenceIds": [
+          "ev3_conf1"
+        ]
+      }
+    },
+    {
+      "id": "exp3_errors_tertiary_vs_secondary",
+      "label": "Experiment 3: knowledge-level report errors, tertiary vs secondary knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_rep"
+      ],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_level_e3",
+        "type": "binary",
+        "scale": "reported level wrong / right",
+        "higherMeans": "stronger association between condition and making a report error",
+        "treatedAs": "error = reported level differs from the condition (Table 3 off-diagonal, incl. unclassifiable); phi unsigned"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "secondary",
+        "conditionIds": [
+          "kc_ter_e3",
+          "kc_sec_e3"
+        ],
+        "valueMeans": "phi of tertiary vs secondary on error rate (unsigned)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Distinct-representation: errors rise with levels of shared knowledge (tertiary most) while common knowledge is about as easy as secondary; single-representation: most errors with common knowledge.",
+        "evidenceIds": [
+          "ev_h_rep1",
+          "ev_h_rep2"
+        ]
+      },
+      "analysisIds": [
+        "an_conf_e3"
+      ],
+      "resultIds": [
+        "res_conf_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_errors_tertiary_vs_secondary"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.31,
+            "variant": "planned chi-square comparison (p. 29)",
+            "evidenceIds": [
+              "ev3_conf1"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 27.91,
+          "df": 1,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 284,
+        "missing": [
+          "error counts per condition (Table 3 gives proportions only)"
+        ],
+        "evidenceIds": [
+          "ev3_conf1"
+        ]
+      }
+    },
+    {
+      "id": "exp3_errors_tertiary_vs_common",
+      "label": "Experiment 3: knowledge-level report errors, tertiary vs common knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_rep"
+      ],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_level_e3",
+        "type": "binary",
+        "scale": "reported level wrong / right",
+        "higherMeans": "stronger association between condition and making a report error",
+        "treatedAs": "error = reported level differs from the condition (Table 3 off-diagonal, incl. unclassifiable); phi unsigned"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "tertiary",
+        "reference": "common",
+        "conditionIds": [
+          "kc_ter_e3",
+          "kc_ck_e3"
+        ],
+        "valueMeans": "phi of tertiary vs common on error rate (unsigned)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Distinct-representation: errors rise with levels of shared knowledge (tertiary most) while common knowledge is about as easy as secondary; single-representation: most errors with common knowledge.",
+        "evidenceIds": [
+          "ev_h_rep1",
+          "ev_h_rep2"
+        ]
+      },
+      "analysisIds": [
+        "an_conf_e3"
+      ],
+      "resultIds": [
+        "res_conf_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_errors_tertiary_vs_common"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.23,
+            "variant": "planned chi-square comparison (p. 29)",
+            "evidenceIds": [
+              "ev3_conf1"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 13.93,
+          "df": 1,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "n": 270,
+        "missing": [
+          "error counts per condition (Table 3 gives proportions only)"
+        ],
+        "evidenceIds": [
+          "ev3_conf1"
+        ]
+      }
+    },
+    {
+      "id": "exp3_errors_common_vs_secondary",
+      "label": "Experiment 3: knowledge-level report errors, common vs secondary knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_rep"
+      ],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_level_e3",
+        "type": "binary",
+        "scale": "reported level wrong / right",
+        "higherMeans": "stronger association between condition and making a report error",
+        "treatedAs": "error = reported level differs from the condition (Table 3 off-diagonal, incl. unclassifiable); phi unsigned"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "common",
+        "reference": "secondary",
+        "conditionIds": [
+          "kc_ck_e3",
+          "kc_sec_e3"
+        ],
+        "valueMeans": "phi of common vs secondary on error rate (unsigned)"
+      },
+      "prediction": {
+        "direction": "none",
+        "text": "Distinct-representation: errors rise with levels of shared knowledge (tertiary most) while common knowledge is about as easy as secondary; single-representation: most errors with common knowledge.",
+        "evidenceIds": [
+          "ev_h_rep1",
+          "ev_h_rep2"
+        ]
+      },
+      "analysisIds": [
+        "an_conf_e3"
+      ],
+      "resultIds": [
+        "res_conf_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_errors_common_vs_secondary"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "phi",
+            "value": 0.09,
+            "variant": "planned chi-square comparison (p. 29)",
+            "evidenceIds": [
+              "ev3_conf2"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 2.43,
+          "df": 1,
+          "p": 0.119,
+          "pRelation": "="
+        },
+        "n": 284,
+        "missing": [
+          "error counts per condition (Table 3 gives proportions only)"
+        ],
+        "evidenceIds": [
+          "ev3_conf2"
+        ]
+      }
+    },
+    {
+      "id": "exp3_tertiary_as_secondary_vs_common",
+      "label": "Experiment 3: tertiary knowledge mistaken for secondary vs for common knowledge",
+      "role": "test",
+      "hypothesisIds": [
+        "h_rep"
+      ],
+      "studyId": "exp3",
+      "design": "within",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_level_e3",
+        "type": "categorical",
+        "scale": "reported knowledge level",
+        "higherMeans": "more tertiary-condition participants report secondary than common knowledge"
+      },
+      "contrast": {
+        "kind": "linear",
+        "treatment": "as_secondary",
+        "reference": "as_common",
+        "conditionIds": [
+          "kc_ter_e3"
+        ],
+        "valueMeans": "share of the tertiary condition reporting secondary minus share reporting common",
+        "weights": {
+          "as_secondary": 1,
+          "as_common": -1
+        }
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "Distinct-representation: levels of shared knowledge are mistaken for each other, not for common knowledge.",
+        "evidenceIds": [
+          "ev_h_rep2"
+        ]
+      },
+      "analysisIds": [
+        "an_conf_e3"
+      ],
+      "resultIds": [
+        "res_conf_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_tertiary_as_secondary_vs_common"
+      },
+      "reported": {
+        "cells": {
+          "as_secondary": {
+            "proportion": 0.23
+          },
+          "as_common": {
+            "proportion": 0.044
+          }
+        },
+        "test": {
+          "statistic": "other",
+          "p": 0.001,
+          "pRelation": "<",
+          "pText": "sign test, p < .001"
+        },
+        "missing": [
+          "number of tertiary-condition participants in Table 3",
+          "sign-test counts"
+        ],
+        "evidenceIds": [
+          "ev3_t3_3",
+          "ev3_t3_sign"
+        ]
+      }
+    },
+    {
+      "id": "exp3_similarity_manipulation",
+      "label": "Experiment 3: perceived similarity, Similar vs Dissimilar partner (manipulation check)",
+      "role": "check",
+      "hypothesisIds": [],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_percsim_e3",
+        "type": "continuous",
+        "scale": "0-100%",
+        "higherMeans": "partner perceived as more similar"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "similar",
+        "reference": "dissimilar",
+        "conditionIds": [
+          "sc_sim_e3",
+          "sc_dis_e3"
+        ],
+        "valueMeans": "t of similar minus dissimilar"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev3_sim2"
+        ]
+      },
+      "analysisIds": [
+        "an_sim_e3"
+      ],
+      "resultIds": [
+        "res_sim_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_similarity_manipulation_t"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "t",
+            "value": 13.87,
+            "df": 548,
+            "variant": "t-test as printed (p. 28)",
+            "evidenceIds": [
+              "ev3_res1"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 13.87,
+          "df": 548,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "means and SDs of perceived similarity per condition"
+        ],
+        "evidenceIds": [
+          "ev3_res1"
+        ]
+      }
+    },
+    {
+      "id": "exp3_similarity_decision",
+      "label": "Experiment 3: perceived similarity and working together (logistic, Wald)",
+      "role": "test",
+      "hypothesisIds": [
+        "h_sim"
+      ],
+      "studyId": "exp3",
+      "design": "correlational",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e3",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger dependence of working together on perceived similarity",
+        "treatedAs": "Wald chi-square of the perceived-similarity slope (unsigned)"
+      },
+      "contrast": {
+        "kind": "association",
+        "valueMeans": "Wald chi-square of perceived similarity predicting working together"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "More perceived similarity, more attempts to coordinate.",
+        "evidenceIds": [
+          "ev_h_sim"
+        ]
+      },
+      "analysisIds": [
+        "an_sim_e3"
+      ],
+      "resultIds": [
+        "res_sim_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_similarity_wald"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "chi_square",
+            "value": 0.01,
+            "df": 1,
+            "p": 0.944,
+            "variant": "Wald chi-square, logistic regression (p. 28)",
+            "evidenceIds": [
+              "ev3_res1"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 0.01,
+          "df": 1,
+          "p": 0.944,
+          "pRelation": "="
+        },
+        "n": 550,
+        "missing": [
+          "logistic regression coefficient and its se"
+        ],
+        "evidenceIds": [
+          "ev3_res1"
+        ]
+      }
+    },
+    {
+      "id": "exp3_agreeableness_interaction",
+      "label": "Experiment 3: knowledge x Agreeableness interaction on working together (logistic, Wald)",
+      "role": "test",
+      "hypothesisIds": [
+        "h_alt"
+      ],
+      "studyId": "exp3",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e3",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger knowledge-dependent effect of agreeableness on working together"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "conditionIds": [
+          "kc_prim_e3",
+          "kc_sec_e3",
+          "kc_ter_e3",
+          "kc_ck_e3"
+        ],
+        "valueMeans": "Wald chi-square (df 3) of the knowledge x agreeableness terms"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_h_alt"
+        ]
+      },
+      "analysisIds": [
+        "an_agr_e3"
+      ],
+      "resultIds": [
+        "res_agr_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_agreeableness_interaction"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "chi_square",
+            "value": 8.18,
+            "df": 3,
+            "p": 0.043,
+            "variant": "Wald chi-square, logistic regression controlling for knowledge",
+            "evidenceIds": [
+              "ev3_agr1",
+              "ev3_agr2"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 8.18,
+          "df": 3,
+          "p": 0.043,
+          "pRelation": "="
+        },
+        "n": 550,
+        "missing": [
+          "logistic coefficients",
+          "Big Five scale items and scoring"
+        ],
+        "evidenceIds": [
+          "ev3_agr1",
+          "ev3_agr2"
+        ]
+      }
+    },
+    {
+      "id": "exp3_agreeableness_secondary",
+      "label": "Experiment 3: Agreeableness, worked together vs alone, secondary knowledge (post-hoc t)",
+      "role": "test",
+      "hypothesisIds": [
+        "h_alt"
+      ],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "cov_agree_e3",
+        "type": "continuous",
+        "scale": "Big Five agreeableness score",
+        "higherMeans": "more agreeableness"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "together",
+        "reference": "alone",
+        "conditionIds": [
+          "kc_sec_e3"
+        ],
+        "valueMeans": "together minus alone (t)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_h_alt"
+        ]
+      },
+      "analysisIds": [
+        "an_agr_e3"
+      ],
+      "resultIds": [
+        "res_agr_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_agreeableness_secondary"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "t",
+            "value": 2.25,
+            "df": 147,
+            "p": 0.013,
+            "pRelation": "=",
+            "variant": "post-hoc t-test (one-tailed p as printed)",
+            "evidenceIds": [
+              "ev3_agr2"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 2.25,
+          "df": 147,
+          "p": 0.013,
+          "pRelation": "="
+        },
+        "missing": [
+          "means and SDs per decision group"
+        ],
+        "evidenceIds": [
+          "ev3_agr2"
+        ]
+      }
+    },
+    {
+      "id": "exp3_agreeableness_tertiary",
+      "label": "Experiment 3: Agreeableness, worked together vs alone, tertiary knowledge (post-hoc t)",
+      "role": "test",
+      "hypothesisIds": [
+        "h_alt"
+      ],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "cov_agree_e3",
+        "type": "continuous",
+        "scale": "Big Five agreeableness score",
+        "higherMeans": "more agreeableness"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "together",
+        "reference": "alone",
+        "conditionIds": [
+          "kc_ter_e3"
+        ],
+        "valueMeans": "together minus alone (t)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_h_alt"
+        ]
+      },
+      "analysisIds": [
+        "an_agr_e3"
+      ],
+      "resultIds": [
+        "res_agr_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_agreeableness_tertiary"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "t",
+            "value": 1.89,
+            "df": 133,
+            "p": 0.03,
+            "pRelation": "=",
+            "variant": "post-hoc t-test (one-tailed p as printed)",
+            "evidenceIds": [
+              "ev3_agr2"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 1.89,
+          "df": 133,
+          "p": 0.03,
+          "pRelation": "="
+        },
+        "missing": [
+          "means and SDs per decision group"
+        ],
+        "evidenceIds": [
+          "ev3_agr2"
+        ]
+      }
+    },
+    {
+      "id": "exp3_openness_interaction",
+      "label": "Experiment 3: knowledge x Openness interaction on working together (logistic, Wald)",
+      "role": "test",
+      "hypothesisIds": [
+        "h_risk"
+      ],
+      "studyId": "exp3",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "dv_dec_e3",
+        "type": "binary",
+        "scale": "work together / work alone",
+        "higherMeans": "stronger knowledge-dependent effect of openness on working together"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "groups": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "common"
+        ],
+        "conditionIds": [
+          "kc_prim_e3",
+          "kc_sec_e3",
+          "kc_ter_e3",
+          "kc_ck_e3"
+        ],
+        "valueMeans": "Wald chi-square (df 3) of the knowledge x openness terms"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_h_risk0",
+          "ev_h_risk"
+        ]
+      },
+      "analysisIds": [
+        "an_open_e3"
+      ],
+      "resultIds": [
+        "res_open_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_openness_interaction"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "chi_square",
+            "value": 13.64,
+            "df": 3,
+            "p": 0.003,
+            "variant": "Wald chi-square, logistic regression controlling for knowledge",
+            "evidenceIds": [
+              "ev3_open"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "chi_square",
+          "value": 13.64,
+          "df": 3,
+          "p": 0.003,
+          "pRelation": "="
+        },
+        "n": 550,
+        "missing": [
+          "logistic coefficients",
+          "Big Five scale items and scoring"
+        ],
+        "evidenceIds": [
+          "ev3_open"
+        ]
+      }
+    },
+    {
+      "id": "exp3_openness_secondary",
+      "label": "Experiment 3: Openness, worked together vs alone, secondary knowledge (post-hoc t)",
+      "role": "test",
+      "hypothesisIds": [
+        "h_risk"
+      ],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "cov_open_e3",
+        "type": "continuous",
+        "scale": "Big Five openness score",
+        "higherMeans": "more openness"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "together",
+        "reference": "alone",
+        "conditionIds": [
+          "kc_sec_e3"
+        ],
+        "valueMeans": "together minus alone (t)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_h_risk0",
+          "ev_h_risk"
+        ]
+      },
+      "analysisIds": [
+        "an_open_e3"
+      ],
+      "resultIds": [
+        "res_open_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_openness_secondary"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "t",
+            "value": 3.3,
+            "df": 147,
+            "p": 0.001,
+            "pRelation": "<",
+            "variant": "post-hoc t-test (one-tailed p as printed)",
+            "evidenceIds": [
+              "ev3_open"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 3.3,
+          "df": 147,
+          "p": 0.001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "means and SDs per decision group"
+        ],
+        "evidenceIds": [
+          "ev3_open"
+        ]
+      }
+    },
+    {
+      "id": "exp3_openness_tertiary",
+      "label": "Experiment 3: Openness, worked together vs alone, tertiary knowledge (post-hoc t)",
+      "role": "test",
+      "hypothesisIds": [
+        "h_risk"
+      ],
+      "studyId": "exp3",
+      "design": "between",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "cov_open_e3",
+        "type": "continuous",
+        "scale": "Big Five openness score",
+        "higherMeans": "more openness"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "together",
+        "reference": "alone",
+        "conditionIds": [
+          "kc_ter_e3"
+        ],
+        "valueMeans": "together minus alone (t)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_h_risk0",
+          "ev_h_risk"
+        ]
+      },
+      "analysisIds": [
+        "an_open_e3"
+      ],
+      "resultIds": [
+        "res_open_e3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "exp3_openness_tertiary"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "t",
+            "value": 1.82,
+            "df": 133,
+            "p": 0.036,
+            "pRelation": "=",
+            "variant": "post-hoc t-test (one-tailed p as printed)",
+            "evidenceIds": [
+              "ev3_open"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "t",
+          "value": 1.82,
+          "df": 133,
+          "p": 0.036,
+          "pRelation": "="
+        },
+        "missing": [
+          "means and SDs per decision group"
+        ],
+        "evidenceIds": [
+          "ev3_open"
+        ]
+      }
+    }
+  ]
+}

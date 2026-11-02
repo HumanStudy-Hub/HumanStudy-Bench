@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "705f47727844fd0d6d4930f96e307f75831c65f21995e9b20cac287cc5cb593f",
-  "previousRevision": "994d305cf245be86bfff35a64d7e1a98c98abaef3c09546b6b58b2ba9186e112",
+  "revision": "02a08e8a867ee34f2c902a07183766edb4d51b5f16ac50acd83f3762389c72bb",
+  "previousRevision": "705f47727844fd0d6d4930f96e307f75831c65f21995e9b20cac287cc5cb593f",
   "paper": {
     "title": "The Psychology of Coordination and Common Knowledge",
     "authors": [
@@ -41,16 +41,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "705f47727844fd0d6d4930f96e307f75831c65f21995e9b20cac287cc5cb593f",
+    "candidateRevision": "02a08e8a867ee34f2c902a07183766edb4d51b5f16ac50acd83f3762389c72bb",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
+    "reason": "Audit 1 (desktop #57). mat_comp.payoff-set and know-set relabelled 'derived' (question texts are word for word from the survey, with numbering, a source prefix and summarised answer options added). Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
     "checks": [
-      "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
       "study_core.py reproduce with effects.json on the pinned human data: partial [1, 4]",
-      "capabilities.py --check",
+      "capabilities.py recomputed and --check",
       "check_package.py",
       "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
       "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
@@ -77,6 +79,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "dc01ecc4528ada3304bbcdfe208d0f75b93dc356e781e84d37db1917b372e43d"
+    "programDigest": "75d3b89dbd2a87d00ae365ab0bc26b2d93fa986602dda5361ce09d16882be58c"
   }
 }

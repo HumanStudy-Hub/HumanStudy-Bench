@@ -1,0 +1,72 @@
+{
+  "package": "nyhan2015",
+  "sessions": 1000,
+  "valid": 978,
+  "arms": [
+    "causal",
+    "control",
+    "denial",
+    "innuendo"
+  ],
+  "unknownArms": [],
+  "notMapped": [],
+  "exclusions": "None applied. The paper states no exclusions beyond the survey sample itself; all 1000 respondents are kept, each in the one arm they were assigned to. Unweighted, like the package evaluation (YouGov weight 'weight' and block IPW 'aw' are not used). A respondent with a missing outcome keeps None for it and valid=False.",
+  "effects": [
+    {
+      "id": "innuendo_favorable",
+      "label": "Innuendo vs control: lower favorability of Swensen",
+      "estimate": 0.582,
+      "p": 0.0,
+      "reported": 0.58
+    },
+    {
+      "id": "innuendo_bribes",
+      "label": "Innuendo vs control: higher belief he took bribes",
+      "estimate": 0.787,
+      "p": 0.0,
+      "reported": 0.78
+    },
+    {
+      "id": "denial_favorable",
+      "label": "Denial vs innuendo: repairs favorability",
+      "estimate": 0.196,
+      "p": 0.053,
+      "reported": null
+    },
+    {
+      "id": "causal_favorable",
+      "label": "Causal correction vs innuendo: repairs favorability",
+      "estimate": 0.643,
+      "p": 0.0,
+      "reported": null
+    },
+    {
+      "id": "denial_bribes",
+      "label": "Denial vs innuendo: lowers belief in bribes",
+      "estimate": 0.236,
+      "p": 0.0142,
+      "reported": null
+    },
+    {
+      "id": "causal_bribes",
+      "label": "Causal correction vs innuendo: lowers belief in bribes",
+      "estimate": 0.701,
+      "p": 0.0,
+      "reported": null
+    },
+    {
+      "id": "denial_investigation",
+      "label": "Denial vs innuendo: lowers belief he resigned due to investigation",
+      "estimate": 0.246,
+      "p": 0.0003,
+      "reported": 0.25
+    },
+    {
+      "id": "causal_investigation",
+      "label": "Causal correction vs innuendo: lowers belief he resigned due to investigation",
+      "estimate": 0.578,
+      "p": 0.0,
+      "reported": 0.58
+    }
+  ]
+}

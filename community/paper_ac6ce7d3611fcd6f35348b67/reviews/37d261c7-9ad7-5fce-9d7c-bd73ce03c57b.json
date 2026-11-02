@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "37d261c7-9ad7-5fce-9d7c-bd73ce03c57b",
+  "headCommit": null,
+  "paperKey": "doi:10.1525/collabra.147499",
+  "status": "accepted",
+  "revision": "6c297f421d68a66291c1e65556840c4c4dea75b3d8c040880800d118d7eefdcf",
+  "previousRevision": "4ee009b5340330b22a288ce8dac6335a028fec838273d4f3b4d93a226db0c911",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "6c297f421d68a66291c1e65556840c4c4dea75b3d8c040880800d118d7eefdcf",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Audit 1 (desktop #57). m_items.items was a summary labelled verbatim: now 'reported'. m_info_irrelevant.cities now lists the 32 cities with longitudes exactly as printed in Table A2 (p. 33). m_engagement.question cites a quote covering the whole printed question (p. 10). capabilities.json recomputed.",
+    "checks": [
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
+      "study_core.py reproduce with effects.json on the pinned human data: None [0, 0]",
+      "capabilities.py recomputed and --check",
+      "check_package.py",
+      "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": false,
+      "humanBenchmark": false
+    }
+  }
+}

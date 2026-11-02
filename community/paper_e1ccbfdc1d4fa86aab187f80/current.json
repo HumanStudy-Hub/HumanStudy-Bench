@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "e8e6c226a63157a1d1bb511ec06a7ae29241bf1426e3abd101328dcff6518fce",
-  "previousRevision": "aa72101d2a8bfa44edd0f57b5e93944f2ce3e4a63261b5944c1114b4bda93e09",
+  "revision": "19d2480fd4921a8063d55cc959a34e7d6d314eb766f48066d3bbe12305a95ed6",
+  "previousRevision": "e8e6c226a63157a1d1bb511ec06a7ae29241bf1426e3abd101328dcff6518fce",
   "paper": {
     "title": "Displacing Misinformation about Events: An Experimental Test of Causal Corrections",
     "authors": [
@@ -39,16 +39,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "e8e6c226a63157a1d1bb511ec06a7ae29241bf1426e3abd101328dcff6518fce",
+    "candidateRevision": "19d2480fd4921a8063d55cc959a34e7d6d314eb766f48066d3bbe12305a95ed6",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
+    "reason": "Audit 1 (desktop #57). Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
     "checks": [
-      "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
       "study_core.py reproduce with effects.json on the pinned human data: pass [11, 11]",
-      "capabilities.py --check",
+      "capabilities.py recomputed and --check",
       "check_package.py",
       "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
       "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {
