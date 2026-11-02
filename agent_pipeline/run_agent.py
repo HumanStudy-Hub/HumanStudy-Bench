@@ -9,6 +9,7 @@ import subprocess
 import sys
 import threading
 import time
+import uuid
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -130,6 +131,125 @@ def ensure_readme(package: Path) -> None:
     )
 
 
+MAX_REPAIR_ROUNDS = 3
+
+# Validator messages mapped to the rule in agent_pipeline/CLAUDE.md they enforce
+# and the only acceptable repairs. A repair never fills a gap with new content.
+REPAIR_RULES = (
+    ("derived value requires derivation",
+     "Evidence labels: `derived` means transformed from reported information with the "
+     "derivation stated. Add the actual derivation (which reported values, what "
+     "transformation, which evidence ids). If you cannot state one from the sources, "
+     "relabel the field: `verbatim`/`reported` only if the source states the value as is, "
+     "otherwise `missing` with a review issue. Do not invent a derivation."),
+    ("requires a review issue",
+     "Evidence labels: `missing` content requires researcher input and is never silently "
+     "filled. Keep the field or rule unresolved and add a review issue to "
+     "study.json program.issues that points at it (nodeId + fieldId, or stepId), and the "
+     "matching entry in audit/missing_information.json (study, field, reason, impact, "
+     "suggested_action). Do not replace the gap with plausible text."),
+    ("disagree",
+     "studio-model.json is the Studio copy of study.json program; after a repair write the "
+     "same program to both files."),
+    ("programBindings",
+     "task/task.json programBindings must be derived from the canonical program in "
+     "study.json: programId, stepIds, recordNodeIds (record and variable nodes) and "
+     "analysisNodeIds, in program order. Change the bindings, not the program."),
+)
+
+
+def program_findings(package: Path) -> list[str]:
+    """List every field and rule that breaks the two label rules the validator
+    stops on, so one repair turn can fix all of them, not just the first."""
+    root = package_root(package)
+    try:
+        program = json.loads((root / "study.json").read_text())["program"]  # type: ignore[operator]
+        nodes, steps, issues = program["nodes"], program["steps"], program["issues"]
+    except Exception:
+        return []
+    findings: list[str] = []
+
+    def derived(field: object, where: str) -> None:
+        if isinstance(field, dict) and field.get("origin") == "derived" and not str(field.get("derivation", "")).strip():
+            findings.append(f"{where}: derived value requires derivation")
+
+    for node in nodes if isinstance(nodes, list) else []:
+        if not isinstance(node, dict):
+            continue
+        for field in node.get("fields", []) if isinstance(node.get("fields"), list) else []:
+            if not isinstance(field, dict):
+                continue
+            where = f"node {node.get('id')} field {field.get('id')}"
+            derived(field, where)
+            if field.get("state") in ("missing", "decision") and not any(
+                isinstance(i, dict) and i.get("nodeId") == node.get("id")
+                and (not i.get("fieldId") or i.get("fieldId") == field.get("id")) for i in issues
+            ):
+                findings.append(f"{where}: unresolved field requires a review issue")
+    for step in steps if isinstance(steps, list) else []:
+        if not isinstance(step, dict) or not isinstance(step.get("rule"), dict):
+            continue
+        where = f"step {step.get('id')} rule"
+        derived(step["rule"], where)
+        if step["rule"].get("state") in ("missing", "decision") and not any(
+            isinstance(i, dict) and i.get("stepId") == step.get("id") for i in issues
+        ):
+            findings.append(f"{where}: unresolved rule requires a review issue")
+    return findings
+
+
+def error_summary(detail: str, limit: int = 4000) -> str:
+    """Keep the validator's own message; drop traceback frames."""
+    lines = [line for line in detail.strip().splitlines() if line.strip()]
+    if any(line.startswith("Traceback") for line in lines):
+        lines = [line for line in lines if not line.startswith((" ", "Traceback"))] or lines[-1:]
+    text = "\n".join(lines)
+    return text if len(text) <= limit else text[:limit] + "\n[truncated]"
+
+
+def repair_prompt(job: Path, detail: str, findings: list[str], round_number: int, max_rounds: int) -> str:
+    errors = error_summary(detail)
+    text = errors + "\n" + "\n".join(findings)
+    rules = [rule for key, rule in REPAIR_RULES if key in text]
+    lines = [
+        f"Repair round {round_number} of {max_rounds}. The study package in {job / 'package'} is "
+        "almost done but failed the pipeline validator. Fix only what the validator reports; "
+        "do not rebuild or restructure the package.",
+        "",
+        "Validator error:",
+        "```",
+        errors,
+        "```",
+    ]
+    if findings:
+        lines += ["", "Every place in study.json program with the same problem:"] + [f"- {f}" for f in findings]
+    if rules:
+        lines += ["", "Rules from agent_pipeline/CLAUDE.md that apply:"] + [f"- {rule}" for rule in rules]
+    lines += [
+        "",
+        "The scientific contract in agent_pipeline/CLAUDE.md still holds: never fill a gap with "
+        "invented content. A missing value stays `missing` with a review issue; a `derived` value "
+        "gets its stated derivation or is relabelled. Keep study.json program, "
+        "audit/missing_information.json, source/evidence.json and task/task.json programBindings "
+        "consistent with each other.",
+        f"Re-run `python agent_pipeline/validate_package.py {job / 'package'}` until it prints "
+        "\"Validated agent package\".",
+    ]
+    if (job / "studio_request.json").is_file():
+        lines += [
+            "This is a Studio build: studio-model.json in the paper folder must carry the same program as "
+            "study.json program (write the repaired program to both), studio-reply.md in the paper "
+            "folder must be non-empty, and studio-complete.json must stay in place. Check the "
+            "sidecars with `python -c \"import sys; from pathlib import Path; "
+            "from agent_pipeline.studio_output import validate_build_sidecars as v; "
+            f"ok, d = v(Path(sys.argv[1])); print(d); sys.exit(0 if ok else 1)\" {job / 'package'}`. "
+            "Stop as soon as both checks pass.",
+        ]
+    else:
+        lines += ["Stop as soon as it passes."]
+    return "\n".join(lines) + "\n"
+
+
 def stop_process(process: subprocess.Popen[str]) -> None:
     if process.poll() is not None:
         return
@@ -176,8 +296,9 @@ def cleanup_materials(job: Path) -> None:
             path.unlink(missing_ok=True)
 
 
-def progress_payload(phase: str, completed: int, total: int, missing: list[str], mode: str = "build") -> dict:
-    return {
+def progress_payload(phase: str, completed: int, total: int, missing: list[str], mode: str = "build",
+                     repair: dict | None = None) -> dict:
+    payload = {
         "phase": phase,
         "completedRequired": completed,
         "totalRequired": 0 if mode == "discuss" else len(REQUIRED),
@@ -185,6 +306,62 @@ def progress_payload(phase: str, completed: int, total: int, missing: list[str],
         "missing": missing,
         "updatedAt": datetime.now(timezone.utc).isoformat(),
     }
+    if repair is not None:
+        payload["repair"] = repair
+    return payload
+
+
+def repair_package(
+    job: Path,
+    package: Path,
+    check_output,
+    run_turn,
+    deadline: float,
+    detail: str,
+    max_rounds: int = MAX_REPAIR_ROUNDS,
+    publish=None,
+) -> tuple[bool, str, list[dict]]:
+    """Send validator errors back to the agent for at most ``max_rounds`` turns.
+
+    ``run_turn(prompt, round_number, deadline)`` runs one agent turn and returns
+    once it exits, the package validates, or the deadline passes. Every round is
+    appended to logs/repair.json.
+    """
+    rounds: list[dict] = []
+    valid = False
+    for number in range(1, max_rounds + 1):
+        if time.monotonic() >= deadline:
+            print("[package-repair] no time left for another repair round", flush=True)
+            break
+        errors = error_summary(detail)
+        findings = program_findings(package)
+        print(f"[package-repair] round {number}/{max_rounds}; validator error:\n{errors}", flush=True)
+        for finding in findings:
+            print(f"[package-repair]   {finding}", flush=True)
+        if publish:
+            publish(number, max_rounds, errors)
+        started = datetime.now(timezone.utc).isoformat()
+        returncode = run_turn(repair_prompt(job, detail, findings, number, max_rounds), number, deadline)
+        try:
+            valid, detail = check_output()
+        except subprocess.TimeoutExpired:
+            valid, detail = False, "Validator timed out."
+        rounds.append({
+            "round": number,
+            "startedAt": started,
+            "finishedAt": datetime.now(timezone.utc).isoformat(),
+            "agentExitCode": returncode,
+            "errorsBefore": errors,
+            "findingsBefore": findings,
+            "valid": valid,
+            "errorsAfter": "" if valid else error_summary(detail),
+        })
+        (job / "logs").mkdir(parents=True, exist_ok=True)
+        (job / "logs/repair.json").write_text(json.dumps({"maxRounds": max_rounds, "rounds": rounds}, indent=2) + "\n")
+        print(f"[package-repair] round {number} validator={'passed' if valid else 'not-ready'}", flush=True)
+        if valid:
+            break
+    return valid, detail, rounds
 
 
 def main() -> None:
@@ -245,7 +422,8 @@ def main() -> None:
     publisher = None
     if progress_token and args.progress_repo and args.progress_branch and args.progress_path:
         publisher = ProgressPublisher(progress_token, args.progress_repo, args.progress_branch, args.progress_path)
-    command = [
+    session_id = str(uuid.uuid4())
+    base_command = [
         "claude",
         "--print",
         "--model",
@@ -253,15 +431,16 @@ def main() -> None:
         "--add-dir",
         str(args.job),
         "--dangerously-skip-permissions",
-        args.prompt.read_text(),
     ]
+    command = base_command + ["--session-id", session_id, args.prompt.read_text()]
     claude_env = os.environ.copy()
     claude_env.pop("PIPELINE_PROGRESS_TOKEN", None)
     claude_env.pop("HUMANSTUDY_PIPELINE_TOKEN", None)
     claude_env.pop("GITHUB_TOKEN", None)
+    repo_root = Path(__file__).resolve().parents[1]
     process = subprocess.Popen(
         command,
-        cwd=Path(__file__).resolve().parents[1],
+        cwd=repo_root,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
@@ -347,7 +526,62 @@ def main() -> None:
         if mode == "build":
             ensure_readme(package)
         valid, detail = check_output()
-        write_result(args.job, "agent_exited", valid, detail)
+        reason = "agent_exited"
+        if not valid and mode == "build":
+            def publish_repair(number: int, max_rounds: int, errors: str) -> None:
+                if not publisher:
+                    return
+                completed, total, missing = package_progress(package)
+                try:
+                    publisher.publish(progress_payload("validating_package", completed, total, missing, mode,
+                                                       {"round": number, "maxRounds": max_rounds, "error": errors[:500]}))
+                except Exception as exc:
+                    print(f"[package-repair] could not publish frontend progress: {exc}", flush=True)
+
+            def run_turn(prompt: str, number: int, turn_deadline: float) -> int | None:
+                log_path = logs / f"agent-repair-{number}.log"
+                attempts = [base_command + ["--resume", session_id, prompt],
+                            base_command + ["--session-id", str(uuid.uuid4()), prompt]]
+                returncode = None
+                for attempt, turn_command in enumerate(attempts):
+                    started = time.monotonic()
+                    turn = subprocess.Popen(turn_command, cwd=repo_root, stdout=subprocess.PIPE,
+                                            stderr=subprocess.STDOUT, text=True, bufsize=1,
+                                            start_new_session=True, env=claude_env)
+                    turn_log = log_path.with_name(f"{log_path.stem}-fresh.log") if attempt else log_path
+                    reader = threading.Thread(target=stream_output, args=(turn, turn_log), daemon=True)
+                    reader.start()
+                    try:
+                        while turn.poll() is None:
+                            if time.monotonic() >= turn_deadline:
+                                print("[package-repair] time budget reached during repair", flush=True)
+                                break
+                            time.sleep(args.check_interval)
+                            if turn.poll() is None and package_progress(package)[2] == []:
+                                try:
+                                    if check_output()[0]:
+                                        print("[package-repair] validator passed; stopping repair turn", flush=True)
+                                        break
+                                except subprocess.TimeoutExpired:
+                                    pass
+                    finally:
+                        stop_process(turn)
+                        reader.join(timeout=5)
+                    returncode = turn.returncode
+                    # A resume that fails at once (no stored session) falls back to a fresh turn
+                    # with the same self-contained repair prompt.
+                    if attempt == 0 and returncode not in (0, None) and time.monotonic() - started < 30 \
+                            and time.monotonic() < turn_deadline:
+                        print(f"[package-repair] resume exited with {returncode}; starting a fresh repair turn", flush=True)
+                        continue
+                    break
+                ensure_readme(package)
+                return returncode
+
+            valid, detail, rounds = repair_package(args.job, package, check_output, run_turn, deadline, detail,
+                                                   publish=publish_repair)
+            reason = "repaired" if valid else "repair_failed"
+        write_result(args.job, reason, valid, detail)
         completed, total, missing = package_progress(package) if mode == "build" else (0, 0, [])
         if publisher:
             try:
@@ -355,7 +589,8 @@ def main() -> None:
             except Exception as exc:
                 print(f"[package-progress] could not publish final state: {exc}", flush=True)
         if not valid:
-            raise SystemExit(f"Claude Code exited with {process.returncode}; Studio output validation failed: {detail}")
+            suffix = " after repair rounds" if reason == "repair_failed" else ""
+            raise SystemExit(f"Claude Code exited with {process.returncode}; Studio output validation failed{suffix}: {detail}")
     except BaseException:
         stop_process(process)
         raise
