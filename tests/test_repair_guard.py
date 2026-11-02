@@ -3,7 +3,9 @@
 Nothing here is mocked: each test copies tests/fixtures/repair_guard/paper to a
 pre- and a post-repair folder, edits the post copy the way a repair turn could,
 and runs the guard (or the whole run_agent watchdog with a fake `claude` on
-PATH) over the files on disk.
+PATH) over the files on disk. The fixture's program is schema-valid Human
+Program v2 except for the one validator error a repair is meant to fix: a
+`derived` field with no derivation.
 """
 import json
 import os
@@ -14,11 +16,13 @@ from pathlib import Path
 
 import pytest
 
-from agent_pipeline.repair_guard import compare_packages, guard_repair, load_package
-from agent_pipeline.run_agent import repair_reserve_minutes
+from agent_pipeline.human_program import validate_human_program
+from agent_pipeline.repair_guard import compare_packages, guard_repair, load_package, package_diff
+from agent_pipeline.run_agent import repair_reserve_minutes, run_guarded_repair
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests/fixtures/repair_guard/paper"
+AGE = "study.json:program.nodes.#participants.fields.#age"
 
 
 def _copies(tmp_path: Path) -> tuple[Path, Path]:
@@ -46,70 +50,132 @@ def _violations(pre: Path, post: Path) -> list[str]:
     return result["violations"]
 
 
+def _derive(study: dict) -> None:
+    _field(study, "dv", "scale_mean")["derivation"] = "Mean of the three uninstall items."
+
+
+# --- What a repair is allowed to do -----------------------------------------
+
+def test_fixture_fails_validation_only_on_the_derivation() -> None:
+    study = json.loads((FIXTURE / "study.json").read_text())
+    with pytest.raises(ValueError, match="derived value requires derivation"):
+        validate_human_program(study["program"])
+    _derive(study)
+    validate_human_program(study["program"])
+
+
 def test_unchanged_package_passes(tmp_path: Path) -> None:
     pre, post = _copies(tmp_path)
     result = guard_repair(pre, post)
-    assert result["passed"] is True
+    assert result["passed"] is True and result["changedFiles"] == []
     assert result["checked"]["unresolvedItems"] == 4
-    assert result["checked"]["verbatimItems"] == 2
-    assert result["checked"]["evidenceQuotes"] == 4
+    assert result["checked"]["verbatimItems"] == 5
+    assert result["checked"]["evidenceRecords"] == 4
+    assert result["checked"]["auditEntries"] == 2
+
+
+def test_stating_a_derivation_passes_even_without_evidence_ids(tmp_path: Path) -> None:
+    """The repair the validator asks for most often; the field has no evidence ids."""
+    pre, post = _copies(tmp_path)
+    _edit(post / "study.json", _derive)
+    assert _field(json.loads((post / "study.json").read_text()), "dv", "scale_mean")["evidenceIds"] == []
+    assert _violations(pre, post) == []
 
 
 def test_allowed_repair_passes(tmp_path: Path) -> None:
-    """What the repair prompt asks for: state a derivation, add a review issue,
-    add an audit entry, move a confirmed field into missing."""
+    """Add a review issue and audit entry, move a confirmed field into missing,
+    reorder nodes, and annotate a verbatim item."""
     pre, post = _copies(tmp_path)
 
     def repair(study: dict) -> None:
-        _field(study, "dv", "scale_mean")["derivation"] = "Mean of the three items (ev_item1)."
-        n = _field(study, "participants", "n")
-        n.update(state="missing", value=None)
-        study["program"]["issues"].append({"id": "i_n", "nodeId": "participants", "fieldId": "n"})
-        study["program"]["nodes"].reverse()  # reordering is not a change
+        _derive(study)
+        _field(study, "participants", "n").update(state="missing", value=None)
+        study["program"]["issues"].append({"id": "i_n", "nodeId": "participants", "fieldId": "n", "title": "n",
+                                           "severity": "check", "reason": "r", "impact": "i",
+                                           "suggestedAction": "s", "evidenceIds": []})
+        study["program"]["nodes"].reverse()
 
     _edit(post / "study.json", repair)
+    validate_human_program(json.loads((post / "study.json").read_text())["program"])
     _edit(post / "audit/missing_information.json", lambda d: d["entries"].append(
         {"study": "study1", "field": "participants.n", "reason": "r", "impact": "i", "suggested_action": "s"}))
+    _edit(post / "materials/materials.json", lambda m: m["shared"]["dependentMeasure"].update(
+        note="See issue i_items23.", evidenceIds=["ev_item1", "ev_n"]))
     assert _violations(pre, post) == []
 
+
+def test_fixing_origin_missing_to_schema_value_passes(tmp_path: Path) -> None:
+    """`origin: missing` is not a v2 origin; the fix is origin unknown, state missing."""
+    pre, post = _copies(tmp_path)
+    _edit(pre / "study.json", lambda s: _field(s, "participants", "age").update(origin="missing"))
+    _edit(post / "study.json", lambda s: _field(s, "participants", "age").update(origin="unknown"))
+    assert _violations(pre, post) == []
+
+
+def test_studio_model_sync_is_not_compared_field_by_field(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    stale = json.loads((pre / "study.json").read_text())["program"]
+    _field({"program": stale}, "participants", "n").update(state="missing")
+    (pre / "studio-model.json").write_text(json.dumps({"program": stale}))
+    shutil.copy(post / "study.json", post / "studio-model.json")
+    assert _violations(pre, post) == []
+
+
+def test_inserting_into_an_id_less_list_does_not_misalign(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    _edit(post / "materials/materials.json", lambda m: m["instructions"].insert(
+        0, {"origin": "reported", "text": "Participants were told the study takes ten minutes.",
+            "evidenceIds": ["ev_n"]}))
+    assert _violations(pre, post) == []
+
+
+# --- Gaps must stay gaps ----------------------------------------------------
 
 def test_missing_field_filled_as_reported_without_evidence_fails(tmp_path: Path) -> None:
     pre, post = _copies(tmp_path)
     _edit(post / "study.json", lambda s: _field(s, "participants", "age").update(
         value="18-65", origin="reported", state="confirmed"))
     found = _violations(pre, post)
-    assert any("participants.fields.#age: state moved out of missing" in v for v in found)
-    assert any("#age: content of an unresolved item was changed" in v for v in found)
-    assert any("#age: reported item added or changed by repair cites no evidence ids" in v for v in found)
+    assert f"{AGE}: moved out of missing/decision (state missing -> confirmed, origin unknown -> reported)" in found
+    assert f"{AGE}: value of an unresolved item was changed" in found
+    assert f"{AGE}: reported item added or changed by repair cites no evidence ids" in found
 
 
 def test_missing_field_filled_even_with_evidence_fails(tmp_path: Path) -> None:
     pre, post = _copies(tmp_path)
     _edit(post / "study.json", lambda s: _field(s, "participants", "age").update(
         value="18-65", origin="reported", state="confirmed", evidenceIds=["ev_n"]))
-    assert any("state moved out of missing" in v for v in _violations(pre, post))
+    assert any("moved out of missing/decision" in v for v in _violations(pre, post))
 
 
 def test_decision_field_resolved_fails(tmp_path: Path) -> None:
     pre, post = _copies(tmp_path)
     _edit(post / "study.json", lambda s: _field(s, "dv", "items23").update(state="check"))
-    assert _violations(pre, post) == ["study.json:program.nodes.#dv.fields.#items23: state moved out of decision (-> check)"]
+    assert _violations(pre, post) == [
+        "study.json:program.nodes.#dv.fields.#items23: moved out of missing/decision "
+        "(state decision -> check, origin unknown -> unknown)",
+    ]
 
 
 def test_missing_rule_given_any_derivation_fails(tmp_path: Path) -> None:
     pre, post = _copies(tmp_path)
     _edit(post / "study.json", lambda s: s["program"]["steps"][0]["rule"].update(
-        value="random", origin="derived", state="confirmed", derivation="standard practice"))
+        value="random", origin="derived", state="confirmed", derivation="standard practice", evidenceIds=["ev_n"]))
     found = _violations(pre, post)
-    assert any("#assign.rule: state moved out of missing" in v for v in found)
-    assert any("#assign.rule: derived item added or changed by repair cites no evidence ids" in v for v in found)
+    assert any("#assign.rule: moved out of missing/decision" in v for v in found)
+    assert any("#assign.rule: derivation was added to an unresolved item" in v for v in found)
 
 
-def test_missing_field_kept_missing_but_filled_fails(tmp_path: Path) -> None:
+@pytest.mark.parametrize("smuggle, message", [
+    ({"value": "18-65"}, "value of an unresolved item was changed"),
+    ({"extensions": {"assumed": "18-65"}}, "value of an unresolved item was changed"),
+    ({"derivation": "Typical student sample, 18-65."}, "derivation was added to an unresolved item"),
+    ({"note": "Probably 18-65."}, "note of an unresolved item was changed"),
+])
+def test_missing_field_kept_missing_but_filled_fails(tmp_path: Path, smuggle, message) -> None:
     pre, post = _copies(tmp_path)
-    _edit(post / "study.json", lambda s: _field(s, "participants", "age").update(value="18-65"))
-    assert _violations(pre, post) == [
-        "study.json:program.nodes.#participants.fields.#age: content of an unresolved item was changed"]
+    _edit(post / "study.json", lambda s: _field(s, "participants", "age").update(smuggle))
+    assert _violations(pre, post) == [f"{AGE}: {message}"]
 
 
 def test_missing_field_deleted_fails(tmp_path: Path) -> None:
@@ -118,36 +184,9 @@ def test_missing_field_deleted_fails(tmp_path: Path) -> None:
     def drop(study: dict) -> None:
         node = study["program"]["nodes"][0]
         node["fields"] = [f for f in node["fields"] if f["id"] != "age"]
-        study["program"]["issues"] = [i for i in study["program"]["issues"] if i.get("fieldId") != "age"]
 
     _edit(post / "study.json", drop)
-    assert "unresolved item was removed" in _violations(pre, post)[0]
-
-
-def test_verbatim_program_value_rewritten_fails(tmp_path: Path) -> None:
-    pre, post = _copies(tmp_path)
-    _edit(post / "study.json", lambda s: _field(s, "dv", "item1").update(
-        value="How likely would you be to delete the app?"))
-    assert _violations(pre, post) == ["study.json:program.nodes.#dv.fields.#item1: verbatim text was changed"]
-
-
-def test_verbatim_material_rewritten_or_relabelled_fails(tmp_path: Path) -> None:
-    pre, post = _copies(tmp_path)
-    _edit(post / "materials/materials.json",
-          lambda m: m["shared"]["dependentMeasure"].update(text="How likely would you uninstall the app?"))
-    assert _violations(pre, post) == ["materials/materials.json:shared.dependentMeasure: verbatim text was changed"]
-
-    _edit(post / "materials/materials.json", lambda m: m["shared"]["dependentMeasure"].update(
-        text="How likely is it that you would uninstall the app?", origin="reported"))
-    assert _violations(pre, post) == [
-        "materials/materials.json:shared.dependentMeasure: verbatim item was relabelled reported"]
-
-
-def test_verbatim_metadata_change_passes(tmp_path: Path) -> None:
-    pre, post = _copies(tmp_path)
-    _edit(post / "materials/materials.json", lambda m: m["shared"]["dependentMeasure"].update(
-        note="See issue i_items23.", evidenceIds=["ev_item1", "ev_n"]))
-    assert _violations(pre, post) == []
+    assert _violations(pre, post) == [f"{AGE}: unresolved item was removed or changed"]
 
 
 def test_missing_material_relabelled_fails(tmp_path: Path) -> None:
@@ -155,20 +194,18 @@ def test_missing_material_relabelled_fails(tmp_path: Path) -> None:
     _edit(post / "materials/materials.json", lambda m: m["shared"]["otherItems"].update(
         evidence_label="reported", text="Would you recommend the app?", evidenceIds=["ev_item1"]))
     found = _violations(pre, post)
-    assert "materials/materials.json:shared.otherItems: label moved out of missing (missing -> reported)" in found
-    assert "materials/materials.json:shared.otherItems: content of an unresolved item was changed" in found
+    assert any("shared.otherItems: moved out of missing/decision" in v for v in found)
+    assert "materials/materials.json:shared.otherItems: value of an unresolved item was changed" in found
 
 
-def test_evidence_quote_changed_fails(tmp_path: Path) -> None:
+@pytest.mark.parametrize("origin", ["researcher", "implementation", "unknown"])
+def test_new_value_without_evidence_origin_fails(tmp_path: Path, origin) -> None:
     pre, post = _copies(tmp_path)
-    _edit(post / "source/evidence.json", lambda e: e["evidence"][0].update(quote="Participants were 18-65."))
-    assert _violations(pre, post) == ["source/evidence.json:evidence.#ev_n: evidence quote was changed"]
-
-
-def test_audit_entry_removed_fails(tmp_path: Path) -> None:
-    pre, post = _copies(tmp_path)
-    _edit(post / "audit/missing_information.json", lambda a: a["entries"].pop())
-    assert _violations(pre, post) == ["audit/missing_information.json: entry for study1 / dv.items23 was removed"]
+    _edit(post / "study.json", lambda s: s["program"]["nodes"][0]["fields"].append(
+        {"id": "age2", "label": "Age", "value": "18-65", "origin": origin, "state": "confirmed", "evidenceIds": []}))
+    assert _violations(pre, post) == [
+        f"study.json:program.nodes.#participants.fields.#age2: repair introduced a resolved value with origin "
+        f"{origin}; only evidence-backed values may be added"]
 
 
 @pytest.mark.parametrize("ids, expected", [
@@ -187,13 +224,124 @@ def test_new_reported_field_needs_resolvable_evidence(tmp_path: Path, ids, expec
         assert len(found) == 1 and expected in found[0]
 
 
-def test_renamed_paper_folder_or_missing_snapshot_fails(tmp_path: Path) -> None:
+def test_evidence_ids_removed_from_reported_field_fails(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    _edit(post / "study.json", lambda s: _field(s, "participants", "n").update(evidenceIds=[]))
+    assert _violations(pre, post) == [
+        "study.json:program.nodes.#participants.fields.#n: evidence ids were removed from a reported item"]
+
+
+# --- Transcribed text must not change ---------------------------------------
+
+def test_verbatim_program_value_rewritten_fails(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    _edit(post / "study.json", lambda s: _field(s, "dv", "item1").update(
+        value="How likely would you be to delete the app?"))
+    found = _violations(pre, post)
+    assert "study.json:program.nodes.#dv.fields.#item1: verbatim text was changed" in found
+
+
+def test_verbatim_material_rewritten_or_relabelled_fails(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    _edit(post / "materials/materials.json",
+          lambda m: m["shared"]["dependentMeasure"].update(text="How likely would you uninstall the app?"))
+    assert "materials/materials.json:shared.dependentMeasure: verbatim text was changed" in _violations(pre, post)
+
+    shutil.copy(pre / "materials/materials.json", post / "materials/materials.json")
+    _edit(post / "materials/materials.json", lambda m: m["shared"]["dependentMeasure"].update(origin="reported"))
+    assert _violations(pre, post) == [
+        "materials/materials.json:shared.dependentMeasure: verbatim item was relabelled reported"]
+
+
+def test_nested_verbatim_text_rewritten_fails(tmp_path: Path) -> None:
+    """Scale anchors live in nested `label` keys; those are text, not metadata."""
+    pre, post = _copies(tmp_path)
+    _edit(post / "materials/materials.json",
+          lambda m: m["shared"]["responseScale"]["options"][1].update(label="Very likely"))
+    assert _violations(pre, post) == ["materials/materials.json:shared.responseScale: verbatim text was changed"]
+
+
+def test_id_less_verbatim_item_rewritten_fails(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    _edit(post / "materials/materials.json",
+          lambda m: m["instructions"][1].update(text="Please answer all questions."))
+    found = _violations(pre, post)
+    assert any(v.startswith("materials/materials.json:instructions.~") and "verbatim item was removed or changed" in v
+               for v in found)
+
+
+# --- Evidence and the audit checklist ----------------------------------------
+
+def test_evidence_quote_changed_fails(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    _edit(post / "source/evidence.json", lambda e: e["evidence"][0].update(quote="Participants were 18-65."))
+    assert _violations(pre, post) == ["source/evidence.json:evidence.#ev_n: evidence record was changed (quote)"]
+
+
+def test_fabricated_evidence_cited_by_new_field_fails(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    record = {"id": "ev_age", "path": "source/paper.pdf", "locator": {"page": 2}, "quote": "Ages ranged 18-65."}
+    _edit(post / "source/evidence.json", lambda e: e["evidence"].append(record))
+    _edit(post / "study.json", lambda s: s["program"]["evidence"].append(record))
+    assert _violations(pre, post) == [
+        "source/evidence.json:evidence.#ev_age: repair added a new evidence record",
+        "study.json:program.evidence.#ev_age: repair added a new evidence record",
+    ]
+
+
+def test_copying_an_existing_evidence_record_passes(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    _edit(pre / "source/evidence.json", lambda e: e["evidence"].pop())
+    assert _violations(pre, post) == []
+
+
+@pytest.mark.parametrize("change, message", [
+    (lambda a: a["entries"].pop(), "entry for study1 / dv.items23 was removed"),
+    (lambda a: a["entries"][1].update(reason="Resolved: items supplied."), "entry for study1 / dv.items23 was changed"),
+])
+def test_audit_entry_removed_or_rewritten_fails(tmp_path: Path, change, message) -> None:
+    pre, post = _copies(tmp_path)
+    _edit(post / "audit/missing_information.json", change)
+    assert _violations(pre, post) == [f"audit/missing_information.json: {message}"]
+
+
+# --- Files the guard cannot read -------------------------------------------
+
+def test_unparseable_file_changed_by_repair_fails_closed(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    (pre / "study.json").write_text((pre / "study.json").read_text()[:200])
+    _edit(post / "study.json", lambda s: _field(s, "participants", "age").update(
+        value="18-65", origin="reported", state="confirmed", evidenceIds=["ev_n"]))
+    assert _violations(pre, post) == [
+        "study.json: was not valid JSON before repair and was changed; the repair cannot be verified"]
+
+
+def test_unparseable_file_left_alone_passes(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    (pre / "extra.json").write_text("{not json")
+    (post / "extra.json").write_text("{not json")
+    assert _violations(pre, post) == []
+
+
+def test_non_json_changes_are_listed_and_diffed(tmp_path: Path) -> None:
+    pre, post = _copies(tmp_path)
+    (pre / "task").mkdir()
+    (pre / "task/adapter.py").write_text("AGE = None\n")
+    (post / "task").mkdir()
+    (post / "task/adapter.py").write_text("AGE = '18-65'\n")
+    result = guard_repair(pre, post)
+    assert result["passed"] is True and result["changedFiles"] == ["task/adapter.py"]
+    diff = package_diff(pre, post)
+    assert "-AGE = None" in diff and "+AGE = '18-65'" in diff
+
+
+def test_paper_folder_problems_fail(tmp_path: Path) -> None:
     pre, post = _copies(tmp_path)
     renamed = post.with_name("other-paper")
     post.rename(renamed)
-    assert guard_repair(pre, renamed)["violations"] == ["repair removed or renamed the paper folder"]
-    assert guard_repair(pre, None)["passed"] is False
-    assert guard_repair(None, renamed)["passed"] is False
+    assert guard_repair(pre, renamed)["violations"] == ["repair renamed the paper folder paper to other-paper"]
+    assert "after repair" in guard_repair(pre, None)["violations"][0]
+    assert "before repair" in guard_repair(None, renamed)["violations"][0]
 
 
 def test_compare_packages_is_pure() -> None:
@@ -201,13 +349,6 @@ def test_compare_packages_is_pure() -> None:
     before = json.dumps(pre, sort_keys=True)
     assert compare_packages(pre, json.loads(before))["passed"] is True
     assert json.dumps(pre, sort_keys=True) == before
-
-
-def test_unparseable_json_is_compared_as_text(tmp_path: Path) -> None:
-    pre, post = _copies(tmp_path)
-    (post / "materials/materials.json").write_text("{not json")
-    found = _violations(pre, post)
-    assert "materials/materials.json:shared.dependentMeasure: verbatim item was removed" in found
 
 
 @pytest.mark.parametrize("timeout, configured, env, expected", [
@@ -226,6 +367,48 @@ def test_repair_reserve(monkeypatch, timeout, configured, env, expected) -> None
     assert repair_reserve_minutes(timeout, configured) == expected
 
 
+# --- run_guarded_repair on real folders --------------------------------------
+
+def _job_dir(tmp_path: Path) -> tuple[Path, Path]:
+    job = tmp_path / "job"
+    package = job / "package"
+    shutil.copytree(FIXTURE, package / "paper")
+    (job / "logs").mkdir()
+    (job / "job.json").write_text(json.dumps({"id": "job-1", "status": "running"}))
+    return job, package
+
+
+def test_interrupted_repair_restores_the_snapshot(tmp_path: Path) -> None:
+    job, package = _job_dir(tmp_path)
+
+    def run_repair():
+        _edit(package / "paper/study.json", lambda s: _field(s, "participants", "age").update(state="confirmed"))
+        raise KeyboardInterrupt("cancelled")
+
+    with pytest.raises(KeyboardInterrupt):
+        run_guarded_repair(job, package, run_repair)
+    assert (package / "paper/study.json").read_text() == (FIXTURE / "study.json").read_text()
+    assert (job / "pre_repair/paper/study.json").read_text() == (FIXTURE / "study.json").read_text()
+    state = json.loads((job / "job.json").read_text())
+    assert state["repaired"] is False and state["repair"]["outcome"] == "repair_interrupted"
+    assert "inProgress" not in state["repair"]
+
+
+def test_guard_passing_but_still_invalid_repair_is_rolled_back(tmp_path: Path) -> None:
+    job, package = _job_dir(tmp_path)
+
+    def run_repair():
+        _edit(package / "paper/study.json", _derive)
+        return False, "ValueError: something else", [{"round": 1}]
+
+    valid, detail, reason = run_guarded_repair(job, package, run_repair)
+    assert (valid, reason) == (False, "repair_failed")
+    assert (package / "paper/study.json").read_text() == (FIXTURE / "study.json").read_text()
+    assert "+" in (job / "logs/repair.diff").read_text()
+    state = json.loads((job / "job.json").read_text())
+    assert state["repair"]["attempted"] is True and state["repair"]["guard"]["passed"] is True
+
+
 # --- Whole watchdog, real files, fake `claude` executable --------------------
 
 FAKE_CLAUDE = r'''#!/usr/bin/env python3
@@ -233,6 +416,9 @@ import json, os, pathlib, shutil, sys, time
 job = pathlib.Path(sys.argv[sys.argv.index('--add-dir') + 1])
 root = job / 'package' / 'paper'
 (job / 'calls.jsonl').open('a').write(json.dumps(sys.argv[1:-1]) + '\n')
+
+def field(study, node, ident):
+    return next(f for n in study['program']['nodes'] if n['id'] == node for f in n['fields'] if f['id'] == ident)
 
 def edit(rel, change):
     path = root / rel
@@ -243,17 +429,14 @@ def edit(rel, change):
 if '--resume' in sys.argv:
     mutation = os.environ['FAKE_REPAIR']
     if mutation == 'fill':
-        def fill(study):
-            field = study['program']['nodes'][0]['fields'][1]
-            field.update(value='18-65', origin='reported', state='confirmed')
-        edit('study.json', fill)
+        edit('study.json', lambda s: field(s, 'participants', 'age').update(
+            value='18-65', origin='reported', state='confirmed'))
         # Tampering with the committed snapshot must not help.
         snap = job / 'pre_repair' / 'paper' / 'study.json'
-        if snap.exists():
-            snap.write_text((root / 'study.json').read_text())
+        snap.parent.mkdir(parents=True, exist_ok=True)
+        snap.write_text((root / 'study.json').read_text())
     elif mutation == 'derive':
-        edit('study.json', lambda s: s['program']['nodes'][1]['fields'][1].update(derivation='Mean of the items.'))
-    (root / 'repaired.txt').write_text('1')
+        edit('study.json', lambda s: field(s, 'dv', 'scale_mean').update(derivation='Mean of the items.'))
     raise SystemExit(0)
 
 shutil.copytree(os.environ['FAKE_FIXTURE'], root)
@@ -263,15 +446,19 @@ for rel in ('source/paper_metadata.json', 'task/task.json'):
 for rel in ('task/adapter.py', 'evaluation/evaluation.py'):
     (root / rel).parent.mkdir(parents=True, exist_ok=True)
     (root / rel).write_text('x\n')
-if os.environ.get('FAKE_MARKER'):
-    (job / 'studio-complete.json').write_text(json.dumps({'requestId': 'req-1', 'status': 'complete'}))
 time.sleep(float(os.environ.get('FAKE_BUILD_SLEEP', '0')))
 '''
 
-FAKE_VALIDATOR = r'''import pathlib, sys
-if (pathlib.Path(sys.argv[1]) / 'paper' / 'repaired.txt').exists():
-    print('Validated agent package: paper'); raise SystemExit(0)
-raise SystemExit('ValueError: scale_mean: derived value requires derivation')
+# Runs the real Human Program validator over study.json, so the fixture's
+# missing derivation is the actual failure the repair has to fix.
+FAKE_VALIDATOR = r'''import json, os, pathlib, sys
+sys.path.insert(0, os.environ['REPO_ROOT'])
+from agent_pipeline.human_program import validate_human_program
+if os.environ.get('FAKE_NEVER_VALID'):
+    raise SystemExit('ValueError: never valid')
+study = json.loads((pathlib.Path(sys.argv[1]) / 'paper' / 'study.json').read_text())
+validate_human_program(study['program'])
+print('Validated agent package: paper')
 '''
 
 
@@ -279,7 +466,8 @@ def _job(tmp_path: Path, repair: str, **env_extra: str) -> tuple[Path, Path, dic
     job = tmp_path / "job"
     (job / "logs").mkdir(parents=True)
     (job / "prompt.md").write_text("Build the package")
-    (job / "job.json").write_text(json.dumps({"id": "job-1", "status": "running", "repaired": True}))
+    (job / "job.json").write_text(json.dumps(
+        {"id": "job-1", "status": "running", "repaired": True, "error": "stale error from an earlier run"}))
     validator = tmp_path / "validator.py"
     validator.write_text(FAKE_VALIDATOR)
     bin_dir = tmp_path / "bin"
@@ -287,7 +475,7 @@ def _job(tmp_path: Path, repair: str, **env_extra: str) -> tuple[Path, Path, dic
     (bin_dir / "claude").write_text(FAKE_CLAUDE)
     (bin_dir / "claude").chmod(0o755)
     env = {**os.environ, "PATH": f"{bin_dir}:{os.environ['PATH']}", "FAKE_REPAIR": repair,
-           "FAKE_FIXTURE": str(FIXTURE), **env_extra}
+           "FAKE_FIXTURE": str(FIXTURE), "REPO_ROOT": str(ROOT), **env_extra}
     return job, validator, env
 
 
@@ -296,7 +484,7 @@ def _run(job: Path, validator: Path, env: dict, timeout_minutes: str = "0.5") ->
         sys.executable, str(ROOT / "agent_pipeline/run_agent.py"),
         "--job", str(job), "--prompt", str(job / "prompt.md"), "--model", "test-model",
         "--validator", str(validator), "--timeout-minutes", timeout_minutes, "--check-interval", "0.05",
-    ], capture_output=True, text=True, env=env, timeout=90)
+    ], capture_output=True, text=True, env=env, timeout=120)
 
 
 def test_watchdog_keeps_accepted_repair_and_records_it(tmp_path: Path) -> None:
@@ -304,14 +492,15 @@ def test_watchdog_keeps_accepted_repair_and_records_it(tmp_path: Path) -> None:
     result = _run(job, validator, env)
     assert result.returncode == 0, result.stdout + result.stderr
     state = json.loads((job / "job.json").read_text())
-    assert state["repaired"] is True
+    assert state["repaired"] is True and "error" not in state
     assert state["repair"]["accepted"] is True and state["repair"]["guard"]["passed"] is True
-    assert state["repair"]["snapshot"] == "pre_repair"
-    assert "error" not in state
+    assert state["repair"]["snapshot"] == "pre_repair" and state["repair"]["rounds"] == 1
+    assert state["repair"]["guard"]["changedFiles"] == ["study.json"]
     post = json.loads((job / "package/paper/study.json").read_text())
     pre = json.loads((job / "pre_repair/paper/study.json").read_text())
     assert _field(post, "dv", "scale_mean")["derivation"] == "Mean of the items."
     assert "derivation" not in _field(pre, "dv", "scale_mean")
+    assert "Mean of the items." in (job / "logs/repair.diff").read_text()
     assert json.loads((job / "logs/repair.json").read_text())["outcome"] == "repaired"
 
 
@@ -324,13 +513,12 @@ def test_watchdog_rejects_repair_that_fills_a_gap(tmp_path: Path) -> None:
     assert watchdog["reason"] == "repair_rejected" and watchdog["package_valid"] is False
     state = json.loads((job / "job.json").read_text())
     assert state["repaired"] is False and state["repair"]["accepted"] is False
-    assert any("state moved out of missing" in v for v in state["repair"]["guard"]["violations"])
+    assert any("moved out of missing/decision" in v for v in state["repair"]["guard"]["violations"])
     assert "fidelity guard" in state["error"]
-    # The package under review and the committed snapshot are both the pre-repair package,
-    # even though the repair turn tried to overwrite the snapshot.
+    # The package under review and the committed snapshot are both the pre-repair
+    # package, even though the repair turn tried to overwrite the snapshot.
     for path in (job / "package/paper/study.json", job / "pre_repair/paper/study.json"):
-        assert _field(json.loads(path.read_text()), "participants", "age")["state"] == "missing"
-    assert not (job / "package/paper/repaired.txt").exists()
+        assert path.read_text() == (FIXTURE / "study.json").read_text()
 
 
 def test_watchdog_does_not_repair_missing_studio_marker(tmp_path: Path) -> None:
@@ -346,11 +534,24 @@ def test_watchdog_does_not_repair_missing_studio_marker(tmp_path: Path) -> None:
     assert "repaired" not in state and "no repair was attempted" in state["error"]
 
 
+def test_watchdog_clears_stale_state_when_first_pass_is_valid(tmp_path: Path) -> None:
+    job, validator, env = _job(tmp_path, "derive")
+    (job / "pre_repair").mkdir()
+    shutil.copytree(FIXTURE, job / "first")
+    _edit(job / "first/study.json", _derive)
+    env["FAKE_FIXTURE"] = str(job / "first")
+    result = _run(job, validator, env)
+    assert result.returncode == 0, result.stdout + result.stderr
+    state = json.loads((job / "job.json").read_text())
+    assert "repaired" not in state and "repair" not in state and "error" not in state
+    assert not (job / "pre_repair").exists()
+
+
 def test_build_pass_is_capped_to_leave_repair_budget(tmp_path: Path) -> None:
-    # 0.3 min total with 0.15 min reserved: the build agent would sleep for 60 s,
+    # 0.6 min total with 0.3 min reserved: the build agent would sleep for 120 s,
     # so without the cap it would use the whole budget and never be repaired.
-    job, validator, env = _job(tmp_path, "derive", FAKE_BUILD_SLEEP="60", AGENT_REPAIR_RESERVE_MINUTES="0.15")
-    result = _run(job, validator, env, timeout_minutes="0.3")
+    job, validator, env = _job(tmp_path, "derive", FAKE_BUILD_SLEEP="120", AGENT_REPAIR_RESERVE_MINUTES="0.3")
+    result = _run(job, validator, env, timeout_minutes="0.6")
     assert result.returncode == 0, result.stdout + result.stderr
     assert "build pass reached its cap" in result.stdout
     assert json.loads((job / "logs/watchdog.json").read_text())["reason"] == "repaired"

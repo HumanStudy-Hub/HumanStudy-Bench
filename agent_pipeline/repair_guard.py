@@ -2,181 +2,246 @@
 
 The repair turn is told, in its prompt, never to fill a gap or rewrite a
 transcribed instrument. This module checks that it did not, by comparing the
-package snapshot taken before repair with the package after repair:
+package snapshot taken before repair with the package after repair. The repair
+is rejected when:
 
-- a field or item that was ``missing`` (label) or in a ``missing``/``decision``
-  state stays unresolved, keeps its content, and is not deleted;
-- a ``verbatim`` item keeps its label and its text exactly;
-- an evidence quote keeps its text exactly;
-- an entry of ``audit/missing_information.json`` is not removed;
-- every item the repair added or changed that is labelled ``verbatim``,
-  ``reported`` or ``derived`` cites at least one evidence id, and every cited id
-  resolves to an evidence record in the package.
+- an unresolved item (labelled ``missing``, or in state ``missing``/``decision``)
+  stops being unresolved, is removed, or changes anything other than its
+  evidence/study ids, its label (while staying unresolved) or the removal of a
+  derivation;
+- a ``verbatim`` item is relabelled, removed, or any part of it other than its
+  own top-level metadata changes (nested text such as scale anchors counts);
+- an evidence record changes, is removed, or is added (unless it copies a record
+  that already existed elsewhere in the package);
+- an entry of ``audit/missing_information.json`` changes or is removed;
+- the repair adds an item, or changes an item's value or label, and the result
+  is resolved without an evidence basis: it must be ``verbatim``, ``reported`` or
+  ``derived`` and cite evidence ids that exist in the package. ``researcher``,
+  ``implementation`` and ``unknown`` values cannot be introduced by a repair;
+- a JSON file that did not parse before repair was changed, because nothing in
+  it could be compared.
 
 Items are found structurally in every JSON file of the paper folder: any object
 that carries an evidence label (``origin``, ``evidence_label``, ``evidenceLabel``
-or ``label`` set to one of the four labels) or a ``state``. Items are matched
-between the two snapshots by file and JSON path, using ``id`` for list entries
-that have one, so reordering a list does not register as a change.
+or ``label`` set to a known origin) or a ``state``. Items are matched between
+the two snapshots by file and JSON path. List entries are keyed by ``id`` when
+they have one and by a hash of their content otherwise, so reordering or
+inserting into a list does not misalign the comparison.
+
+``studio-model.json`` is skipped: the validator already requires it to carry
+exactly the program in ``study.json``, which is guarded.
 """
 from __future__ import annotations
 
+import difflib
+import hashlib
 import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-LABELS = ("verbatim", "reported", "derived", "missing")
+EVIDENCE_LABELS = ("verbatim", "reported", "derived")
+ORIGINS = EVIDENCE_LABELS + ("missing", "researcher", "implementation", "unknown")
 LABEL_KEYS = ("origin", "evidence_label", "evidenceLabel", "label")
 UNRESOLVED_STATES = ("missing", "decision")
+ITEM_STATES = ("confirmed", "check") + UNRESOLVED_STATES
 EVIDENCE_ID_KEYS = ("evidenceIds", "evidence_ids")
-# Keys that describe an item rather than carry its transcribed or reported
-# content. Changing them is not a change of text.
-METADATA_KEYS = frozenset(
-    ("origin", "evidence_label", "evidenceLabel", "label", "state", "evidenceIds", "evidence_ids",
-     "studyIds", "derivation", "note", "notes", "extensions")
-)
+ID_KEYS = EVIDENCE_ID_KEYS + ("studyIds",)
+# Top-level keys that describe an item rather than carry its value.
+ITEM_METADATA = frozenset(LABEL_KEYS + ID_KEYS + ("state", "derivation", "note", "notes"))
+# Keys ignored when hashing an id-less list entry to match it across snapshots.
+HASH_IGNORED = ITEM_METADATA | {"extensions"}
+EVIDENCE_FIELDS = ("quote", "locator", "path", "url", "sourceId", "verification", "page")
 AUDIT_FILE = "audit/missing_information.json"
+SKIPPED_FILES = frozenset(("studio-model.json",))
 
 Path_ = Tuple[str, ...]
 
 
-def _label(item: dict) -> Optional[str]:
+def _origin(item: dict) -> Optional[str]:
     for key in LABEL_KEYS:
         value = item.get(key)
-        if isinstance(value, str) and value in LABELS:
+        if isinstance(value, str) and value in ORIGINS:
             return value
     return None
 
 
-def _content(value: Any) -> Any:
-    """The item's text payload: the value with descriptive metadata removed."""
-    if isinstance(value, dict):
-        return {k: _content(v) for k, v in value.items() if k not in METADATA_KEYS}
-    if isinstance(value, list):
-        return [_content(v) for v in value]
-    return value
+def _unresolved(item: dict) -> bool:
+    return _origin(item) == "missing" or item.get("state") in UNRESOLVED_STATES
 
 
-def _evidence_ids(item: dict) -> List[str]:
-    for key in EVIDENCE_ID_KEYS:
+def _value(item: dict) -> dict:
+    """Everything except the item's own top-level metadata. Nested objects are
+    kept whole, so a nested ``label`` or ``note`` is treated as content."""
+    return {k: v for k, v in item.items() if k not in ITEM_METADATA}
+
+
+def _ids(item: dict, keys=EVIDENCE_ID_KEYS) -> List[str]:
+    for key in keys:
         ids = item.get(key)
         if isinstance(ids, list):
             return [i for i in ids if isinstance(i, str) and i.strip()]
     return []
 
 
-def _walk(value: Any, path: Path_, out: Dict[Path_, dict], evidence: Dict[Path_, dict]) -> None:
+def _strip(value: Any) -> Any:
     if isinstance(value, dict):
-        if _label(value) is not None or value.get("state") in ("confirmed", "check") + UNRESOLVED_STATES:
-            out[path] = value
+        return {k: _strip(v) for k, v in value.items() if k not in HASH_IGNORED}
+    if isinstance(value, list):
+        return [_strip(v) for v in value]
+    return value
+
+
+def _segment(child: Any, index: int, seen: Dict[str, int]) -> str:
+    if isinstance(child, dict) and isinstance(child.get("id"), str) and child["id"]:
+        base = "#" + child["id"]
+    elif isinstance(child, (dict, list)):
+        digest = hashlib.sha1(json.dumps(_strip(child), sort_keys=True, default=str).encode()).hexdigest()[:10]
+        base = "~" + digest
+    else:
+        return f"[{index}]"
+    seen[base] = seen.get(base, 0) + 1
+    return base if seen[base] == 1 else f"{base}@{seen[base]}"
+
+
+def _walk(value: Any, path: Path_, items: Dict[Path_, dict], evidence: Dict[Path_, dict]) -> None:
+    if isinstance(value, dict):
+        if _origin(value) is not None or value.get("state") in ITEM_STATES:
+            items[path] = value
         for key, child in value.items():
             if key == "evidence" and isinstance(child, list):
                 for entry in child:
                     if isinstance(entry, dict) and isinstance(entry.get("id"), str):
                         evidence[path + ("evidence", "#" + entry["id"])] = entry
-            _walk(child, path + (key,), out, evidence)
+            _walk(child, path + (key,), items, evidence)
     elif isinstance(value, list):
         seen: Dict[str, int] = {}
         for index, child in enumerate(value):
-            ident = child.get("id") if isinstance(child, dict) else None
-            if isinstance(ident, str) and ident:
-                seen[ident] = seen.get(ident, 0) + 1
-                segment = "#" + ident if seen[ident] == 1 else f"#{ident}@{seen[ident]}"
-            else:
-                segment = f"[{index}]"
-            _walk(child, path + (segment,), out, evidence)
+            _walk(child, path + (_segment(child, index, seen),), items, evidence)
 
 
-def _audit_keys(documents: Dict[str, Any]) -> set:
-    keys = set()
+def _audit_entries(document: Any) -> Dict[Tuple[str, str], Any]:
+    entries: Dict[Tuple[str, str], Any] = {}
 
     def visit(value: Any) -> None:
         if isinstance(value, dict):
             if isinstance(value.get("field"), str):
-                keys.add((str(value.get("study", "")), value["field"]))
+                entries[(str(value.get("study", "")), value["field"])] = value
             for child in value.values():
                 visit(child)
         elif isinstance(value, list):
             for child in value:
                 visit(child)
 
-    visit(documents.get(AUDIT_FILE))
-    return keys
+    visit(document)
+    return entries
 
 
 def _where(path: Path_) -> str:
     return path[0] + ":" + ".".join(path[1:]) if len(path) > 1 else path[0]
 
 
+def _evidence_record(entry: dict) -> dict:
+    return {k: entry.get(k) for k in EVIDENCE_FIELDS}
+
+
 def compare_packages(pre: Dict[str, Any], post: Dict[str, Any]) -> dict:
     """Compare two packages given as ``{relative json path: parsed json}``.
 
-    Pure function: returns ``{"passed", "violations", "checked"}`` and never
-    touches the file system.
+    A file that did not parse is given as ``Unparsed(text)``. Pure function:
+    returns ``{"passed", "violations", "checked"}`` without touching the disk.
     """
+    violations: List[str] = []
     pre_items: Dict[Path_, dict] = {}
     post_items: Dict[Path_, dict] = {}
     pre_evidence: Dict[Path_, dict] = {}
     post_evidence: Dict[Path_, dict] = {}
     for name, doc in pre.items():
+        if name in SKIPPED_FILES:
+            continue
+        if isinstance(doc, Unparsed):
+            if post.get(name) != doc:
+                violations.append(f"{name}: was not valid JSON before repair and was changed; "
+                                  "the repair cannot be verified")
+            continue
         _walk(doc, (name,), pre_items, pre_evidence)
     for name, doc in post.items():
-        _walk(doc, (name,), post_items, post_evidence)
+        if name not in SKIPPED_FILES and not isinstance(doc, Unparsed) and not isinstance(pre.get(name), Unparsed):
+            _walk(doc, (name,), post_items, post_evidence)
     known_evidence = {path[-1][1:] for path in post_evidence}
 
-    violations: List[str] = []
     unresolved = verbatim = 0
     for path, before in pre_items.items():
         after = post_items.get(path)
         where = _where(path)
-        label = _label(before)
-        if label == "missing" or before.get("state") in UNRESOLVED_STATES:
+        if _unresolved(before):
             unresolved += 1
             if after is None:
-                violations.append(f"{where}: unresolved item was removed")
+                violations.append(f"{where}: unresolved item was removed or changed")
                 continue
-            if label == "missing" and _label(after) != "missing":
-                violations.append(f"{where}: label moved out of missing (missing -> {_label(after)})")
-            if before.get("state") in UNRESOLVED_STATES and after.get("state") not in UNRESOLVED_STATES:
-                violations.append(
-                    f"{where}: state moved out of {before.get('state')} (-> {after.get('state')})")
-            if _content(before) != _content(after):
-                violations.append(f"{where}: content of an unresolved item was changed")
-        if label == "verbatim":
+            if not _unresolved(after):
+                violations.append(f"{where}: moved out of missing/decision "
+                                  f"(state {before.get('state')} -> {after.get('state')}, "
+                                  f"origin {_origin(before)} -> {_origin(after)})")
+            if _value(before) != _value(after):
+                violations.append(f"{where}: value of an unresolved item was changed")
+            if after.get("derivation") not in (None, "", before.get("derivation")):
+                violations.append(f"{where}: derivation was added to an unresolved item")
+            for key in ("note", "notes"):
+                if after.get(key) != before.get(key):
+                    violations.append(f"{where}: {key} of an unresolved item was changed")
+        if _origin(before) == "verbatim":
             verbatim += 1
             if after is None:
-                violations.append(f"{where}: verbatim item was removed")
-            elif _label(after) != "verbatim":
-                violations.append(f"{where}: verbatim item was relabelled {_label(after)}")
-            elif _content(before) != _content(after):
+                violations.append(f"{where}: verbatim item was removed or changed")
+            elif _origin(after) != "verbatim":
+                violations.append(f"{where}: verbatim item was relabelled {_origin(after)}")
+            elif _value(before) != _value(after):
                 violations.append(f"{where}: verbatim text was changed")
 
-    for path, before in pre_evidence.items():
-        after = post_evidence.get(path)
-        if "quote" in before and (after is None or after.get("quote") != before.get("quote")):
-            violations.append(f"{_where(path)}: evidence quote was {'removed' if after is None else 'changed'}")
-
-    changed = 0
+    touched = 0
     for path, after in post_items.items():
         before = pre_items.get(path)
-        if before == after:
-            continue
-        changed += 1
-        label = _label(after)
-        if label not in ("verbatim", "reported", "derived"):
-            continue
-        ids = _evidence_ids(after)
         where = _where(path)
+        origin = _origin(after)
+        if before is not None and _value(before) == _value(after) and _origin(before) == origin:
+            if origin in ("verbatim", "reported") and _ids(before) and not _ids(after):
+                violations.append(f"{where}: evidence ids were removed from a {origin} item")
+            continue
+        touched += 1
+        if _unresolved(after):
+            continue
+        if origin not in EVIDENCE_LABELS:
+            violations.append(f"{where}: repair introduced a resolved value with origin {origin}; "
+                              "only evidence-backed values may be added")
+            continue
+        ids = _ids(after)
         if not ids:
-            violations.append(f"{where}: {label} item added or changed by repair cites no evidence ids")
-        elif known_evidence:
+            violations.append(f"{where}: {origin} item added or changed by repair cites no evidence ids")
+        elif [i for i in ids if i not in known_evidence]:
             unknown = [i for i in ids if i not in known_evidence]
-            if unknown:
-                violations.append(f"{where}: cites unknown evidence ids {', '.join(unknown)}")
+            violations.append(f"{where}: cites unknown evidence ids {', '.join(unknown)}")
 
-    removed_audit = sorted(_audit_keys(pre) - _audit_keys(post))
-    for study, field in removed_audit:
-        violations.append(f"{AUDIT_FILE}: entry for {study or '?'} / {field} was removed")
+    pre_records: Dict[str, List[dict]] = {}
+    for path, entry in pre_evidence.items():
+        pre_records.setdefault(path[-1][1:], []).append(_evidence_record(entry))
+    for path, entry in pre_evidence.items():
+        after = post_evidence.get(path)
+        if after is None:
+            violations.append(f"{_where(path)}: evidence record was removed")
+        elif _evidence_record(after) != _evidence_record(entry):
+            changed = [k for k in EVIDENCE_FIELDS if after.get(k) != entry.get(k)]
+            violations.append(f"{_where(path)}: evidence record was changed ({', '.join(changed)})")
+    for path, entry in post_evidence.items():
+        if path not in pre_evidence and _evidence_record(entry) not in pre_records.get(path[-1][1:], []):
+            violations.append(f"{_where(path)}: repair added a new evidence record")
+
+    pre_audit = _audit_entries(pre.get(AUDIT_FILE))
+    post_audit = _audit_entries(post.get(AUDIT_FILE))
+    for (study, field), entry in sorted(pre_audit.items()):
+        if (study, field) not in post_audit:
+            violations.append(f"{AUDIT_FILE}: entry for {study or '?'} / {field} was removed")
+        elif post_audit[(study, field)] != entry:
+            violations.append(f"{AUDIT_FILE}: entry for {study or '?'} / {field} was changed")
 
     return {
         "passed": not violations,
@@ -185,15 +250,19 @@ def compare_packages(pre: Dict[str, Any], post: Dict[str, Any]) -> dict:
             "files": len(pre),
             "unresolvedItems": unresolved,
             "verbatimItems": verbatim,
-            "evidenceQuotes": sum(1 for e in pre_evidence.values() if "quote" in e),
-            "changedItems": changed,
+            "evidenceRecords": len(pre_evidence),
+            "auditEntries": len(pre_audit),
+            "touchedItems": touched,
         },
     }
 
 
+class Unparsed(str):
+    """Raw text of a JSON file that did not parse."""
+
+
 def load_package(root: Optional[Path]) -> Dict[str, Any]:
-    """Every JSON file under a paper folder, keyed by its relative path.
-    A file that does not parse is kept as its raw text so a change still shows."""
+    """Every JSON file under a paper folder, keyed by its relative path."""
     documents: Dict[str, Any] = {}
     if root is None or not root.is_dir():
         return documents
@@ -204,14 +273,45 @@ def load_package(root: Optional[Path]) -> Dict[str, Any]:
         try:
             documents[path.relative_to(root).as_posix()] = json.loads(text)
         except json.JSONDecodeError:
-            documents[path.relative_to(root).as_posix()] = text
+            documents[path.relative_to(root).as_posix()] = Unparsed(text)
     return documents
+
+
+def changed_files(pre_root: Path, post_root: Path) -> List[str]:
+    """Relative paths of every file added, removed or modified, JSON or not."""
+    def files(root: Path) -> Dict[str, bytes]:
+        return {p.relative_to(root).as_posix(): p.read_bytes() for p in root.rglob("*") if p.is_file()}
+    before, after = files(pre_root), files(post_root)
+    return sorted(name for name in before.keys() | after.keys() if before.get(name) != after.get(name))
+
+
+def package_diff(pre_root: Path, post_root: Path, limit: int = 2_000_000) -> str:
+    """Unified diff of every changed text file, for reviewers (logs/repair.diff)."""
+    chunks: List[str] = []
+    for name in changed_files(pre_root, post_root):
+        old, new = pre_root / name, post_root / name
+        try:
+            a = old.read_text().splitlines(keepends=True) if old.is_file() else []
+            b = new.read_text().splitlines(keepends=True) if new.is_file() else []
+        except UnicodeDecodeError:
+            chunks.append(f"Binary file {name} changed\n")
+            continue
+        chunks.extend(difflib.unified_diff(a, b, f"pre_repair/{name}", f"package/{name}"))
+    text = "".join(chunks)
+    return text if len(text) <= limit else text[:limit] + "\n[truncated]\n"
 
 
 def guard_repair(pre_root: Optional[Path], post_root: Optional[Path]) -> dict:
     """Compare the paper folder before repair with the one after it."""
     if pre_root is None:
-        return {"passed": False, "violations": ["no pre-repair snapshot to compare against"], "checked": {}}
-    if post_root is None or post_root.name != pre_root.name:
-        return {"passed": False, "violations": ["repair removed or renamed the paper folder"], "checked": {}}
-    return compare_packages(load_package(pre_root), load_package(post_root))
+        return {"passed": False, "checked": {}, "changedFiles": [],
+                "violations": ["the package before repair did not contain exactly one paper folder"]}
+    if post_root is None:
+        return {"passed": False, "checked": {}, "changedFiles": [],
+                "violations": ["after repair the package does not contain exactly one paper folder"]}
+    if post_root.name != pre_root.name:
+        return {"passed": False, "checked": {}, "changedFiles": [],
+                "violations": [f"repair renamed the paper folder {pre_root.name} to {post_root.name}"]}
+    result = compare_packages(load_package(pre_root), load_package(post_root))
+    result["changedFiles"] = changed_files(pre_root, post_root)
+    return result

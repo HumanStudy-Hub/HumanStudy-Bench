@@ -1,36 +1,165 @@
 {
   "title": "Fixture study for the repair guard",
   "program": {
+    "schemaVersion": 2,
+    "id": "fixture",
+    "title": "Fixture study for the repair guard",
+    "intent": "reconstruct",
+    "source": {
+      "title": "Fixture paper",
+      "authors": "Anonymous",
+      "filename": "paper.pdf"
+    },
+    "studies": [
+      {
+        "id": "study1",
+        "title": "Study 1",
+        "type": "empirical"
+      }
+    ],
     "nodes": [
       {
         "id": "participants",
         "kind": "participants",
         "fields": [
-          {"id": "n", "label": "Sample size", "value": 120, "origin": "reported", "state": "confirmed", "evidenceIds": ["ev_n"]},
-          {"id": "age", "label": "Age range", "value": null, "origin": "unknown", "state": "missing", "evidenceIds": []}
-        ]
+          {
+            "id": "n",
+            "label": "Sample size",
+            "value": 120,
+            "origin": "reported",
+            "state": "confirmed",
+            "evidenceIds": [
+              "ev_n"
+            ]
+          },
+          {
+            "id": "age",
+            "label": "Age range",
+            "value": null,
+            "origin": "unknown",
+            "state": "missing",
+            "evidenceIds": []
+          }
+        ],
+        "title": "Participants",
+        "studyIds": [
+          "study1"
+        ],
+        "evidenceIds": []
       },
       {
         "id": "dv",
         "kind": "variable",
         "fields": [
-          {"id": "item1", "label": "Item 1 wording", "value": "How likely is it that you would uninstall the app?", "origin": "verbatim", "state": "confirmed", "evidenceIds": ["ev_item1"]},
-          {"id": "scale_mean", "label": "Scale score", "value": "mean of three items", "origin": "derived", "state": "confirmed", "evidenceIds": ["ev_item1"]},
-          {"id": "items23", "label": "Items 2 and 3 wording", "value": null, "origin": "unknown", "state": "decision", "evidenceIds": []}
-        ]
+          {
+            "id": "item1",
+            "label": "Item 1 wording",
+            "value": "How likely is it that you would uninstall the app?",
+            "origin": "verbatim",
+            "state": "confirmed",
+            "evidenceIds": [
+              "ev_item1"
+            ]
+          },
+          {
+            "id": "scale_mean",
+            "label": "Scale score",
+            "value": "mean of three items",
+            "origin": "derived",
+            "state": "confirmed",
+            "evidenceIds": []
+          },
+          {
+            "id": "items23",
+            "label": "Items 2 and 3 wording",
+            "value": null,
+            "origin": "unknown",
+            "state": "decision",
+            "evidenceIds": []
+          }
+        ],
+        "title": "Dv",
+        "studyIds": [
+          "study1"
+        ],
+        "evidenceIds": []
       }
     ],
     "steps": [
-      {"id": "assign", "rule": {"id": "rule", "label": "Assignment rule", "value": null, "origin": "unknown", "state": "missing", "evidenceIds": []}}
+      {
+        "id": "assign",
+        "rule": {
+          "id": "rule",
+          "label": "Assignment rule",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        "studyId": "study1",
+        "kind": "action",
+        "title": "Assign condition",
+        "actorIds": [],
+        "inputIds": [],
+        "outputIds": [],
+        "visibleIds": [],
+        "children": [],
+        "next": [],
+        "evidenceIds": []
+      }
     ],
+    "relations": [],
     "evidence": [
-      {"id": "ev_n", "path": "source/paper.pdf", "locator": {"page": 2}, "quote": "One hundred twenty participants took part."},
-      {"id": "ev_item1", "path": "source/paper.pdf", "locator": {"page": 3}, "quote": "How likely is it that you would uninstall the app?"}
+      {
+        "id": "ev_n",
+        "path": "source/paper.pdf",
+        "locator": {
+          "page": 2
+        },
+        "quote": "One hundred twenty participants took part."
+      },
+      {
+        "id": "ev_item1",
+        "path": "source/paper.pdf",
+        "locator": {
+          "page": 3
+        },
+        "quote": "How likely is it that you would uninstall the app?"
+      }
     ],
     "issues": [
-      {"id": "i_age", "nodeId": "participants", "fieldId": "age"},
-      {"id": "i_items23", "nodeId": "dv", "fieldId": "items23"},
-      {"id": "i_rule", "stepId": "assign"}
+      {
+        "id": "i_age",
+        "nodeId": "participants",
+        "fieldId": "age",
+        "title": "Open item",
+        "severity": "decision",
+        "reason": "Not in the paper.",
+        "impact": "Affects replay.",
+        "suggestedAction": "Researcher supplies it.",
+        "evidenceIds": []
+      },
+      {
+        "id": "i_items23",
+        "nodeId": "dv",
+        "fieldId": "items23",
+        "title": "Open item",
+        "severity": "decision",
+        "reason": "Not in the paper.",
+        "impact": "Affects replay.",
+        "suggestedAction": "Researcher supplies it.",
+        "evidenceIds": []
+      },
+      {
+        "id": "i_rule",
+        "stepId": "assign",
+        "title": "Open item",
+        "severity": "decision",
+        "reason": "Not in the paper.",
+        "impact": "Affects replay.",
+        "suggestedAction": "Researcher supplies it.",
+        "evidenceIds": []
+      }
     ]
   }
 }
