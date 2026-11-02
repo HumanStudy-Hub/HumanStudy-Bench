@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "b6840a3ba88663bc6702a0a09d9828a3d4a234d504606f35c108de240ec89f44",
-  "previousRevision": "c657333302989b79f00bd734c219ee74eed4cd46f7432d52cd80e2446403f17c",
+  "revision": "c994ec2bcd5344dc83d13962dc918498bdcf85c9ddc95849e543d3c9bb088d4c",
+  "previousRevision": "b6840a3ba88663bc6702a0a09d9828a3d4a234d504606f35c108de240ec89f44",
   "paper": {
     "title": "Large language models show amplified cognitive biases in moral decision-making",
     "authors": [
@@ -39,16 +39,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "b6840a3ba88663bc6702a0a09d9828a3d4a234d504606f35c108de240ec89f44",
+    "candidateRevision": "c994ec2bcd5344dc83d13962dc918498bdcf85c9ddc95849e543d3c9bb088d4c",
     "reviewer": "maintainer:assassin808",
-    "reason": "effects.json moved to schema 2: every effect classified with a core contrast and metric (linear, ratio, model_comparison, cohens_q, auc, ratio, percent_change replace 'other'; no number changed), and the package's effect_estimates blocks renamed to the same metrics. The paper reads as one typed graph (study_core.py graph). Agent skill re-exported.",
+    "reason": "Audit 1 (desktop #57). Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
     "checks": [
-      "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "program.json unchanged; evaluation.py: only metric names in effect_estimates changed",
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
       "study_core.py reproduce with effects.json on the pinned human data: pass [3, 3]",
-      "capabilities.py --check",
+      "capabilities.py recomputed and --check",
       "check_package.py",
       "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
       "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {

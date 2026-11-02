@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "d97be835-81f2-5d65-8839-e407b0242785",
+  "headCommit": null,
+  "paperKey": "title:Not unreasonable: Carving vague dimensions with contraries and contradictions",
+  "status": "accepted",
+  "revision": "615188dc2e4ecd4dbb7a88eccf226fdf88832815754a82ce5b3b3ee665fdba7e",
+  "previousRevision": "a7a59b9ac2b240ae9d8c4f5e648ffe0404a5d85d1fb4f875b16f1b4a81f73492",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "615188dc2e4ecd4dbb7a88eccf226fdf88832815754a82ce5b3b3ee665fdba7e",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Audit 1 (desktop #57). res2-*.test verbatim fields hold only the printed text; coefficients whose minus sign the PDF text layer drops are separate 'reported' fields read from the rendered page (b = 5.3e-05, b = -0.011, p = 1.9e-11, p. 6), matching effects.json. v1/v2-adj.type hold the printed Helmert clause only. effects.json no longer states a slider range as a paper fact (the paper gives none; the package's 0-100 and the posted data's 0-1 are labelled as such); higherMeans says where its direction comes from; exp2_three_way and exp2_context_morph record the direction the paper states and that the coefficients' sign convention is not stated. task.json marks the 3-displays-of-four grouping as an assumption (program issue i2-multi, which now notes that the posted data hold 12 four-slider displays). artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
+    "checks": [
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
+      "study_core.py reproduce with effects.json on the pinned human data: None [0, 0]",
+      "capabilities.py recomputed and --check",
+      "check_package.py",
+      "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

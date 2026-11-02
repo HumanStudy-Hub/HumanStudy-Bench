@@ -1,0 +1,16 @@
+[
+  {
+    "pattern": "human-data-incomplete",
+    "where": "exp1 ($1, $5, $10 arms), exp2, exp3",
+    "what": "The public replication data hold one payoff level of Experiment 1 only; Experiments 2 and 3 are not in the data.",
+    "fallback": "Compare Experiment 1 at $2 with people; compare the rest with the paper's reported numbers.",
+    "suggestion": "Look for the original 2014 data."
+  },
+  {
+    "pattern": "missing-information",
+    "where": "exp3",
+    "what": "The Big Five items are not printed, so personality analyses return not_ready.",
+    "fallback": "Run the rest of Experiment 3; label the personality analyses not run.",
+    "suggestion": null
+  }
+]

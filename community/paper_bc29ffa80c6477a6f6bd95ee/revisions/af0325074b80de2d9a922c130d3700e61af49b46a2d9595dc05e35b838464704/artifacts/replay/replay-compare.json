@@ -1,0 +1,254 @@
+{
+  "package": "ml5-risen-gilovich-2008",
+  "source": "study_core.py reproduce (method package, effects.json) on the pinned human data",
+  "humanSessions": 754,
+  "sample": "original",
+  "tolerance": "a result is recovered when |computed - reported| <= max(0.05, 0.15 * |reported|)",
+  "humanMatchesPaper": [
+    2,
+    2
+  ],
+  "checks": [
+    {
+      "id": "tf_main_similar",
+      "label": "Tempting fate vs not, no load: likelihood of being called on (similar sites)",
+      "role": "test",
+      "reported": 0.10763,
+      "human": 0.107626,
+      "human_p": 0.574222,
+      "basis": "computed mean_difference compared as reported regression_coefficient: the package fits the paper's within-site OLS (likelihood ~ tempt * load) with treatment coding; its tempt coefficient is the no-load mean of tempted minus not tempted, i.e. this mean difference (Supplement p. 19 prints that lm fit on the pooled similar sites)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "tf_main_mturk",
+      "label": "Tempting fate vs not, no load: likelihood of being called on (MTurk, RP:P protocol)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs the MTurk subjects",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "tf_main_dissimilar",
+      "label": "Tempting fate vs not, no load: likelihood of being called on (dissimilar universities)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs the dissimilar-site subjects and the paper's mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "tf_main_universities",
+      "label": "Tempting fate vs not, no load: likelihood (all university sites combined)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs all university sites and the paper's mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "tf_main_ml2_ml5_pooled",
+      "label": "Tempting fate vs not, no load: pooled over Many Labs 2 and Many Labs 5 primary sites",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs Many Labs 2 subject-level data, which this package does not hold",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "tf_main_ml5_minus_ml2",
+      "label": "Many Labs 5 minus Many Labs 2: main effect of tempting fate (primary-analysis sites)",
+      "role": "descriptive",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs Many Labs 2 subject-level data, which this package does not hold",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "tf_x_load_similar",
+      "label": "Tempting Fate × Cognitive Load interaction on likelihood (similar sites)",
+      "role": "test",
+      "reported": -0.02497,
+      "human": -0.025,
+      "human_p": 0.933387,
+      "basis": "same metric (regression_coefficient)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "tf_x_load_mturk",
+      "label": "Tempting Fate × Cognitive Load interaction on likelihood (MTurk, RP:P protocol)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs the MTurk subjects",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "tf_x_load_dissimilar",
+      "label": "Tempting Fate × Cognitive Load interaction on likelihood (dissimilar universities)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs the dissimilar-site subjects and the paper's mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "tf_x_load_universities",
+      "label": "Tempting Fate × Cognitive Load interaction on likelihood (all universities combined)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs all university sites and the paper's mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "site_main_similar_vs_mturk",
+      "label": "Similar sites vs MTurk: difference in the tempting-fate main effect",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs MTurk subjects and a mixed model across site types",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "site_int_similar_vs_mturk",
+      "label": "Similar sites vs MTurk: difference in the Tempting Fate × Load interaction",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs MTurk subjects and a mixed model across site types",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "site_main_similar_vs_dissimilar",
+      "label": "Similar vs dissimilar universities: difference in the main effect",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs dissimilar-site subjects and a mixed model across site types",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "site_int_similar_vs_dissimilar",
+      "label": "Similar vs dissimilar universities: difference in the interaction",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs dissimilar-site subjects and a mixed model across site types",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "site_main_university_vs_mturk",
+      "label": "All universities vs MTurk: difference in the main effect",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs all site types and a mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "site_int_university_vs_mturk",
+      "label": "All universities vs MTurk: difference in the Tempting Fate × Load interaction (three-way interaction)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs all site types and a mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "sat_moderates_main",
+      "label": "Median SAT score (per 10 points) as moderator of the tempting-fate main effect",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs all US universities with their median SAT and a mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "sat_moderates_int",
+      "label": "Median SAT score (per 10 points) as moderator of the tempting-fate Tempting Fate × Load interaction",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs all US universities with their median SAT and a mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "load_effort_mturk_vs_university",
+      "label": "MTurk vs university subjects under load: perceived effort of the counting task",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs MTurk subjects' effort ratings and a mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "load_diff_mturk_vs_university",
+      "label": "MTurk vs university subjects under load: perceived difficulty of the counting task",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs MTurk subjects' difficulty ratings and a mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "importance_mturk_vs_similar",
+      "label": "MTurk vs similar universities: perceived importance of answering questions correctly",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs MTurk subjects' importance ratings and a mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "importance_mturk_vs_dissimilar",
+      "label": "MTurk vs dissimilar universities: perceived importance of answering questions correctly",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs MTurk and dissimilar-site importance ratings",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "negativity_mturk_vs_similar",
+      "label": "MTurk vs similar universities: perceived how bad it would feel to answer incorrectly",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs MTurk subjects' negativity ratings and a mixed model",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "negativity_mturk_vs_dissimilar",
+      "label": "MTurk vs dissimilar universities: perceived how bad it would feel to answer incorrectly",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the package's human loader keeps only the similar university sites ('b.similar'), and its evaluation fits one pooled 2x2 OLS; this estimate needs MTurk and dissimilar-site negativity ratings",
+      "humanMatchesPaper": null
+    }
+  ],
+  "agent": "The AI-participant results of the earlier pilot replay were removed: they were computed with an earlier evaluation and effect list. Run a replay to compare AI participants with these results."
+}

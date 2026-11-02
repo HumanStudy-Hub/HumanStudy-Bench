@@ -1,0 +1,160 @@
+{
+  "programBindings": {
+    "programId": "manylabs1",
+    "stepIds": [
+      "s01_expose_paid",
+      "s01_expose_free",
+      "s01_resp",
+      "s02_expose_gain",
+      "s02_expose_loss",
+      "s02_resp",
+      "s03_expose_low",
+      "s03_expose_high",
+      "s03_resp",
+      "s04_expose_three6",
+      "s04_expose_two6one3",
+      "s04_resp",
+      "s05_expose_low",
+      "s05_expose_high",
+      "s05_resp",
+      "s06_expose_us_first",
+      "s06_expose_nk_first",
+      "s06_resp",
+      "s07_expose_allow",
+      "s07_expose_forbid",
+      "s07_resp",
+      "s08_expose_liked",
+      "s08_expose_disliked",
+      "s08_resp",
+      "s09_expose_flag",
+      "s09_expose_control",
+      "s09_resp",
+      "s09_modstep",
+      "s10_expose_money",
+      "s10_expose_control",
+      "s10_resp",
+      "s11_expose_contact",
+      "s11_expose_control",
+      "s11_extra0",
+      "s11_resp",
+      "s12_iat",
+      "s12_expl"
+    ],
+    "recordNodeIds": [
+      "v_demo",
+      "s01_viv",
+      "s01_vdv",
+      "s02_viv",
+      "s02_vdv",
+      "s03_viv",
+      "s03_vdv",
+      "s04_viv",
+      "s04_vdv",
+      "s05_viv",
+      "s05_vdv",
+      "s06_viv",
+      "s06_vdv",
+      "s07_viv",
+      "s07_vdv",
+      "s08_viv",
+      "s08_vdv",
+      "s09_viv",
+      "s09_vdv",
+      "s09_vmod",
+      "s10_viv",
+      "s10_vdv",
+      "s11_viv",
+      "s11_vdv",
+      "s12_viv",
+      "s12_vim",
+      "s12_vex"
+    ],
+    "analysisNodeIds": [
+      "s01_an",
+      "s02_an",
+      "s03_an",
+      "s04_an",
+      "s05_an",
+      "s06_an",
+      "s07_an",
+      "s08_an",
+      "s09_an",
+      "s10_an",
+      "s11_an",
+      "s12_an",
+      "s13_an_agg",
+      "s13_an_icc",
+      "s13_an_het",
+      "s13_an_mod",
+      "s13_an_flag"
+    ]
+  },
+  "agents": [
+    {
+      "role": "participant",
+      "count": "n per run",
+      "source": "AI participant for every original participant",
+      "scripted": false
+    }
+  ],
+  "scripted_roles": [],
+  "scripted_roles_note": "None: laboratory experimenters did not interact with participants (paper p. 6), so no role is scripted.",
+  "order": "One AI participant completes the studies in a random order; each reply is seen by the participant in later prompts. The IAT is excluded (not text-runnable).",
+  "visibility": "A participant sees its own earlier exchanges; no participant sees another's responses.",
+  "conditions": {
+    "s01": [
+      "paid",
+      "free"
+    ],
+    "s02": [
+      "gain",
+      "loss"
+    ],
+    "s03": [
+      "low",
+      "high"
+    ],
+    "s04": [
+      "three6",
+      "two6one3"
+    ],
+    "s05": [
+      "low",
+      "high"
+    ],
+    "s06": [
+      "us_first",
+      "nk_first"
+    ],
+    "s07": [
+      "allow",
+      "forbid"
+    ],
+    "s08": [
+      "liked",
+      "disliked"
+    ],
+    "s09": [
+      "flag",
+      "control"
+    ],
+    "s10": [
+      "money",
+      "control"
+    ],
+    "s11": [
+      "contact",
+      "control"
+    ],
+    "s12": [
+      "all"
+    ]
+  },
+  "units": {
+    "sampling": "participant",
+    "assignment": "participant (balanced random assignment per study: implementation choice, see issue i_*_assignment)",
+    "observation": "one response record per participant per study (per topic for anchoring)"
+  },
+  "n_meaning": "Number of AI participants; each completes every runnable study, so each condition receives about n/2.",
+  "readiness_note": "Wording is verbatim from sources/Measures_US_Version.docx. s01–s08 and s11 run as text; s09/s10 (image primes) and s12 (IAT) are not run."
+}

@@ -1,0 +1,70 @@
+{
+  "agents": [
+    {
+      "id": "subject",
+      "kind": "ai_participant",
+      "description": "One AI participant per original human subject, in a fresh context."
+    }
+  ],
+  "roles": {
+    "subject": "reads own scenario, (load) counting task, rates items"
+  },
+  "scripted_roles": [],
+  "scripted_roles_justification": "The paper describes no confederates or experimenter script.",
+  "order": [
+    "assignment",
+    "scenario (+ counting task under load)",
+    "likelihood judgment",
+    "(load) end number, effort split, difficulty, effort",
+    "importance and negativity"
+  ],
+  "visibility": "Each participant sees only own materials; no other participant's responses (between-subjects).",
+  "conditions": {
+    "c00": "not tempted fate, no load",
+    "c10": "tempted fate, no load",
+    "c01": "not tempted fate, load",
+    "c11": "tempted fate, load"
+  },
+  "arms": [
+    "c00",
+    "c10",
+    "c01",
+    "c11"
+  ],
+  "sampling_unit": "individual subject",
+  "assignment_unit": "individual subject",
+  "observation_unit": "individual subject",
+  "population": "similar-site English-speaking undergraduates (primary replay target); site type, language and lab setting are not varied",
+  "programBindings": {
+    "programId": "ml5-risen-gilovich-2008-study6",
+    "stepIds": [
+      "st_assign",
+      "st_read",
+      "st_read_t",
+      "st_read_n",
+      "st_count",
+      "st_lkl",
+      "st_mc",
+      "st_sal",
+      "st_end"
+    ],
+    "recordNodeIds": [
+      "v_tf",
+      "v_load",
+      "v_site",
+      "v_lkl",
+      "v_effort",
+      "v_diff",
+      "v_imp",
+      "v_neg",
+      "rec1"
+    ],
+    "analysisNodeIds": [
+      "a_site",
+      "a_primary",
+      "a_sec",
+      "a_mech",
+      "a_ml2"
+    ]
+  }
+}

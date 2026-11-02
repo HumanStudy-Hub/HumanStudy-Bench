@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "4d29f9e2-aa28-5bcf-b0ea-84c7c1ff6766",
+  "headCommit": null,
+  "paperKey": "doi:10.1177/2515245918810225",
+  "status": "accepted",
+  "revision": "df5a796a4aa49bd427c9a92057da80b0cb8e1669a09074ee6128d5baa93e9d5e",
+  "previousRevision": "6b38c0003d5e65cc685990662fd3ff450d869c4d0b4632b6a1ce945c8888234f",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "df5a796a4aa49bd427c9a92057da80b0cb8e1669a09074ee6128d5baa93e9d5e",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Audit 1 (desktop #57). 54 *.instrument fields labelled verbatim held only a pointer to the codebook; they now hold the codebook item text itself (CC0, OSF 8cd4r), with the pointer in the label. 10 *.stimulus fields that describe pictures relabelled 'reported'. Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
+    "checks": [
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [14, 14]",
+      "capabilities.py recomputed and --check",
+      "check_package.py",
+      "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

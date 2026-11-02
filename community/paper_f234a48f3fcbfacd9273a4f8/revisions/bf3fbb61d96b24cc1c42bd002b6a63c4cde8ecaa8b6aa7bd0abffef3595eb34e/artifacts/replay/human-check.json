@@ -1,0 +1,48 @@
+{
+  "package": "hoogeveen2020",
+  "sessions": 233,
+  "valid": 233,
+  "arms": [
+    "description_only",
+    "description_plus_evidence"
+  ],
+  "notMapped": [],
+  "exclusions": "Paper's preregistered exclusions: (a) PhD in psychology (phd == 1), (b) not understanding >50% of descriptions, (c) failing the bogus attention-check item 28 (must answer 'no' with confidence 70-80), (d) familiar with the replication projects (knowledge != 5). Only respondents who answered all 28 pages are kept (the paper's N=257 before exclusions). 'I don't understand' ticks are kept as not_understood flags (evaluate drops those answers).",
+  "effects": [
+    {
+      "id": "accuracy_desc",
+      "label": "Accuracy above chance, description only (mean accuracy - .50)",
+      "estimate": 0.08467791180056994,
+      "p": null,
+      "reported": 0.08999999999999997
+    },
+    {
+      "id": "accuracy_evid",
+      "label": "Accuracy above chance, description + evidence (mean accuracy - .50)",
+      "estimate": 0.1709467754467754,
+      "p": null,
+      "reported": 0.17000000000000004
+    },
+    {
+      "id": "auc_desc",
+      "label": "AUC (SDT, from d'), description only",
+      "estimate": 0.6173494090538604,
+      "p": null,
+      "reported": 0.62
+    },
+    {
+      "id": "auc_evid",
+      "label": "AUC (SDT, from d'), description + evidence",
+      "estimate": 0.7353621843133469,
+      "p": null,
+      "reported": 0.74
+    },
+    {
+      "id": "brier_condition",
+      "label": "Evidence benefit: mean log Brier per participant (description only - evidence)",
+      "estimate": 0.15372415370832648,
+      "p": 3.3060922888239475e-09,
+      "reported": null
+    }
+  ]
+}

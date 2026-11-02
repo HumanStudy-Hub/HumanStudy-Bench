@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "91d8ed30294f248c852941e3264569726cb43c522ef70663c66031667fb8efb7",
-  "previousRevision": "4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728",
+  "revision": "533c9885a47efc28800f012062a4857cb11d9a758fba813cb4fa7b687244ea84",
+  "previousRevision": "91d8ed30294f248c852941e3264569726cb43c522ef70663c66031667fb8efb7",
   "paper": {
     "title": "Reasoning in Reference Games: Individual- vs. Population-Level Probabilistic Modeling",
     "authors": [
@@ -39,16 +39,18 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "91d8ed30294f248c852941e3264569726cb43c522ef70663c66031667fb8efb7",
+    "candidateRevision": "533c9885a47efc28800f012062a4857cb11d9a758fba813cb4fa7b687244ea84",
     "reviewer": "maintainer:assassin808",
-    "reason": "Undo a schema 2 migration error: the package's fixed-effects logistic coefficients (no random effects, no position or message-type controls) had been renamed regression_coefficient and so were compared with the paper's mixed-effects b, a different quantity. They now use the declared extension x:fixed-effects-logit-coefficient (parent regression_coefficient) and are not compared, as the original build intended. Files: effects.json, evaluation.py (metric name only).",
+    "reason": "Audit 1 (desktop #57). artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
     "checks": [
-      "effects.py check (hypothesis coverage, node links, quoted numbers)",
-      "program.json unchanged; package changes limited to the files named in the reason",
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
       "study_core.py reproduce with effects.json on the pinned human data: pass [2, 2]",
-      "capabilities.py --check",
+      "capabilities.py recomputed and --check",
       "check_package.py",
       "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
       "schema, package bindings and effects.json (validate_assets)"
     ],
     "verifiedCapabilities": {

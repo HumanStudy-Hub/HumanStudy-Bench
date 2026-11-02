@@ -1,0 +1,3765 @@
+{
+  "schemaVersion": 2,
+  "id": "frankedegen2016",
+  "title": "Reasoning in Reference Games: Individual- vs. Population-Level Probabilistic Modeling",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Reasoning in Reference Games: Individual- vs. Population-Level Probabilistic Modeling",
+    "authors": "Michael Franke, Judith Degen",
+    "filename": "paper.pdf",
+    "venue": "PLOS ONE",
+    "doi": "10.1371/journal.pone.0154854",
+    "version": "May 5, 2016"
+  },
+  "studies": [
+    {
+      "id": "exp1",
+      "title": "Experiment 1: comprehension in reference games",
+      "type": "empirical",
+      "description": "Mechanical Turk participants choose the intended referent among three objects after seeing a pictorial one-feature message; simple and complex ad hoc Quantity implicature trials plus fillers."
+    },
+    {
+      "id": "exp2",
+      "title": "Experiment 2: production in reference games",
+      "type": "empirical",
+      "description": "Mechanical Turk participants choose one of four pictorial messages to describe a highlighted object in the same games."
+    },
+    {
+      "id": "mc",
+      "title": "Individual-level hierarchical modelling and Bayesian model comparison",
+      "type": "analysis",
+      "description": "Latent reasoning-type model fitted to the individual choice counts of Experiments 1 and 2, with homogeneous (Gricean) versus heterogeneous population comparison. Analysis scope, not an experiment.",
+      "dependsOn": [
+        "exp1",
+        "exp2"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ov",
+      "kind": "overview",
+      "title": "Overview",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "year",
+          "label": "Year",
+          "value": "2016",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_abs1"
+          ]
+        },
+        {
+          "id": "method-type",
+          "label": "Method type",
+          "value": "Two online behavioural experiments (reference-game comprehension and production) analysed with a hierarchical Bayesian latent-type model; a third experiment eliciting salience priors is reported only in a supplement (S4 Text).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_exps"
+          ]
+        },
+        {
+          "id": "summary",
+          "label": "Summary",
+          "value": "The paper asks whether speakers and listeners are Gricean individually or only on average, using reference games that need ad hoc Quantity implicatures of varying complexity. A heterogeneous mix of reasoning types predicts the data better than a homogeneous Gricean population, especially for comprehension.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_abs1",
+            "ev_abs2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_abs1",
+        "ev_abs2",
+        "ev_exps"
+      ]
+    },
+    {
+      "id": "bg",
+      "kind": "background",
+      "title": "Question and gap",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "question",
+          "label": "Research question",
+          "value": "Are listeners and speakers Gricean at the individual level or only at the population level?",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_concl",
+            "ev_abs1"
+          ]
+        },
+        {
+          "id": "gap",
+          "label": "Gap",
+          "value": "Probabilistic pragmatics models are usually assessed on population-level data obtained by averaging over participants, which implicitly assumes a homogeneous population.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_intro_gap"
+          ]
+        },
+        {
+          "id": "theory",
+          "label": "Theory",
+          "value": "Rational Speech Act (Gricean S1 speaker, R2 listener) versus iterated best response types S0, S1, S2 and R0, R1, R2 with increasing Theory-of-Mind depth.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_types",
+            "ev_table1"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_intro_gap",
+        "ev_types",
+        "ev_table1",
+        "ev_concl"
+      ]
+    },
+    {
+      "id": "hyp1",
+      "kind": "hypothesis",
+      "title": "Heterogeneous population of reasoning types",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "The population of participants is a heterogeneous mix of pragmatic reasoning types (null hypothesis: all participants are Gricean S1 speakers and R2 listeners); the heterogeneous model is expected to predict individual-level data better than the homogeneous model.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_goal",
+            "ev_abs2"
+          ]
+        },
+        {
+          "id": "scope",
+          "label": "Scope",
+          "value": "Production and comprehension in the monsters-and-robots reference games.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_scope",
+            "ev_concl"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_mc_goal",
+        "ev_abs2"
+      ]
+    },
+    {
+      "id": "lim",
+      "kind": "limitation",
+      "title": "Validity and scope",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "validity",
+          "label": "Validity statements",
+          "value": "Results are contingent on the particular task, the data and the specific modelling choices; reference-game data do not necessarily generalise to other areas of language use.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_lim1",
+            "ev_scope"
+          ]
+        },
+        {
+          "id": "limitations",
+          "label": "Modelling limitations",
+          "value": "Population-level lambda and epsilon are shared across reasoning types and participants; reasoning type is assumed constant over the experiment, which the authors call generally dubious.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_lim2",
+            "ev_lim3"
+          ]
+        },
+        {
+          "id": "replications",
+          "label": "Replications the paper reports",
+          "value": "Experiment 1 is described as a replication of Experiment 1 of reference [9]; Experiment 2 as a replication of Experiment 2 of [9], with caveats (target choices slightly above chance in the complex condition, below ceiling in the simple condition).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_rep",
+            "ev_e2_rep"
+          ]
+        },
+        {
+          "id": "openness",
+          "label": "Materials",
+          "value": "Links to all experiments are given in S3 Text and the derivations in S1, S2, S4 and S5 Text; these supplements are not in paper.pdf.",
+          "origin": "reported",
+          "state": "decision",
+          "evidenceIds": [
+            "ev_exps",
+            "ev_mc_s5"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_lim1",
+        "ev_lim2",
+        "ev_lim3",
+        "ev_e1_rep",
+        "ev_e2_rep"
+      ]
+    },
+    {
+      "id": "e1_part",
+      "kind": "participants",
+      "title": "Participants (AI participants replace every original participant)",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online, Amazon Mechanical Turk.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_part"
+          ]
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "Recruited via Mechanical Turk; IP address limited to US addresses; past work approval rate of at least 95%.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_part"
+          ]
+        },
+        {
+          "id": "n-recruited",
+          "label": "N recruited",
+          "value": 60,
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_part"
+          ]
+        },
+        {
+          "id": "n-analysed",
+          "label": "N analysed",
+          "value": 51,
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_n"
+          ]
+        },
+        {
+          "id": "n-completed",
+          "label": "N completed",
+          "value": "Not stated separately from the number recruited.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "attrition",
+          "label": "Exclusions",
+          "value": "The 15% of participants with the highest error rate on trials that were not ambiguous were excluded (a minimum error rate of 5%; one of them was not a self-reported native English speaker).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_excl",
+            "ev_e1_n"
+          ]
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "$1.00 per participant (hourly rate of $10.00); written consent; Stanford University research subjects review board approval.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_ethics"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Sampling unit",
+          "value": "One participant sees all trial types (within-participant).",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_mat1"
+          ],
+          "derivation": "Every participant saw 66 trials spanning all trial types."
+        },
+        {
+          "id": "characteristics",
+          "label": "Characteristics",
+          "value": "Not reported beyond US IP address and native-English status of excluded cases.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_part",
+        "ev_e1_ethics",
+        "ev_e1_excl",
+        "ev_e1_n"
+      ]
+    },
+    {
+      "id": "e1_design",
+      "kind": "design",
+      "title": "Design",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Within-participant. Critical implicature trials (12 simple, 12 complex) and filler trials (ambiguous and unambiguous baselines and others) are intermixed in one sequence.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_mat1",
+            "ev_e1_order"
+          ]
+        },
+        {
+          "id": "order",
+          "label": "Order",
+          "value": "Trial order randomized, as were target, competitor and distractor order.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_order"
+          ]
+        },
+        {
+          "id": "control",
+          "label": "Baselines",
+          "value": "Unambiguous fillers set the upper bound on target choices; ambiguous fillers show how often the target is chosen by chance.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_fill2"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "No between-participant conditions are reported.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_mat1"
+          ],
+          "derivation": "All trial types are within the single participant group."
+        },
+        {
+          "id": "blinding",
+          "label": "Blinding",
+          "value": "Not reported.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_mat1",
+        "ev_e1_order",
+        "ev_e1_fill2"
+      ]
+    },
+    {
+      "id": "e1_c_simple",
+      "kind": "condition",
+      "title": "Simple implicature trials (12)",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Target is the inexpressible-feature object (robot with hat or monster with scarf) and the competitor shares the message feature.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_simple",
+            "ev_e1_simple2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_simple"
+      ]
+    },
+    {
+      "id": "e1_c_complex",
+      "kind": "condition",
+      "title": "Complex implicature trials (12)",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Competitor and target share the message feature and differ in an expressible feature (two-step implicature).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_cx",
+            "ev_e1_cx2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_cx"
+      ]
+    },
+    {
+      "id": "e1_c_unamb",
+      "kind": "condition",
+      "title": "Unambiguous filler trials",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Only one object has the trigger message feature",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_fill2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_fill2"
+      ]
+    },
+    {
+      "id": "e1_c_amb",
+      "kind": "condition",
+      "title": "Ambiguous filler trials",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Two identical objects are equally viable target candidates",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_fill2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_fill2"
+      ]
+    },
+    {
+      "id": "e1_mat",
+      "kind": "material",
+      "title": "Stimuli and instructions",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "stimuli-structure",
+          "label": "Stimulus structure",
+          "value": "Each display shows three objects crossing kind (robot, green monster, purple monster) with accessory (scarf, blue hat, red hat); four expressible features (green monster, purple monster, red hat, blue hat) appear as pictorial messages at the bottom of every display; robot and scarf are inexpressible.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_proc1",
+            "ev_e1_proc3"
+          ]
+        },
+        {
+          "id": "trial-counts",
+          "label": "Trial counts",
+          "value": "66 trials: 24 critical (12 simple, 12 complex) and 42 fillers (24 on implicature displays, 18 unambiguous/ambiguous baselines).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_mat1",
+            "ev_e1_fill",
+            "ev_e1_fill2"
+          ]
+        },
+        {
+          "id": "instructions",
+          "label": "Printed instructions (verbatim)",
+          "value": "The exact wording of the instructions, the pictures and the response screen is not printed in the paper.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "stimulus-images",
+          "label": "Stimulus images (verbatim)",
+          "value": "The monster/robot pictures and pictorial messages are shown only as Fig 1 images; the paper has no text version.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "generation-rules",
+          "label": "Stimulus generation rules",
+          "value": "See evidence: the target, competitor and distractor are generated by feature constraints per condition after randomly sampling a message; filler displays are re-used implicature displays with a different target plus baseline displays.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_simple",
+            "ev_e1_cx",
+            "ev_e1_fill"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_mat1",
+        "ev_e1_simple",
+        "ev_e1_cx",
+        "ev_e1_fill",
+        "ev_e1_fill2"
+      ]
+    },
+    {
+      "id": "e1_v_choice",
+      "kind": "variable",
+      "title": "Choice (dependent variable)",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_reg3"
+          ],
+          "derivation": "Target versus competitor choice is the outcome of the regression."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Categorical per trial: target, competitor or distractor object; binary (target vs competitor) in the regression after excluding distractor choices.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_reg2"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "One trial of one participant.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_mat1"
+          ],
+          "derivation": "Each participant saw 66 trials and choices are counted per trial."
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The object the participant picks given the pictorial message.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_proc1"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_reg2"
+      ]
+    },
+    {
+      "id": "e1_v_cond",
+      "kind": "variable",
+      "title": "Trial condition (independent variable)",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_reg3"
+          ],
+          "derivation": "Helmert-coded CONDITION is the predictor of interest."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Categorical with levels simple, complex, ambiguous filler (unambiguous fillers excluded from the regression for lack of variance)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_reg1",
+            "ev_e1_reg3"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "One trial.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_mat1"
+          ],
+          "derivation": "Condition is assigned per trial."
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_reg3"
+      ]
+    },
+    {
+      "id": "e1_v_cov",
+      "kind": "variable",
+      "title": "Control predictors",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "covariate",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_reg4"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Centered trial number and its interactions with the Helmert contrasts, message type (accessory vs. species, centered) and target position (left as reference level).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_reg4"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_reg4"
+      ]
+    },
+    {
+      "id": "e1_rec",
+      "kind": "record",
+      "title": "Trial-level record",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "One row per participant and trial: condition, target position, message, chosen object and its role (target/competitor/distractor).",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_mat1"
+          ],
+          "derivation": "Choice counts per participant and game are the data modelled in the hierarchical analysis."
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_mat1",
+        "ev_mc_hier2"
+      ]
+    },
+    {
+      "id": "e1_proc",
+      "kind": "procedure",
+      "title": "Procedure",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "task",
+          "label": "Task",
+          "value": "Referential comprehension: pick which of three objects a pictorial one-feature message refers to.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_proc1",
+            "ev_e1_proc2"
+          ]
+        },
+        {
+          "id": "actions",
+          "label": "Actions",
+          "value": "Four speaker trials first, then 66 comprehension trials.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_spk",
+            "ev_e1_mat1"
+          ]
+        },
+        {
+          "id": "visible",
+          "label": "What is visible",
+          "value": "Three objects, the received message and the four expressible features at the bottom of the display on every trial.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_proc4"
+          ]
+        },
+        {
+          "id": "feedback",
+          "label": "Feedback",
+          "value": "Not reported.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "stopping",
+          "label": "Stopping",
+          "value": "After 66 trials.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_mat1"
+          ],
+          "derivation": "Each participant saw 66 experimental trials."
+        },
+        {
+          "id": "sender",
+          "label": "Source of messages",
+          "value": "Participants were told the message was sent by a previous participant; whether real previous speaker choices or generated messages were used is not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_proc1",
+        "ev_e1_proc2",
+        "ev_e1_mat1"
+      ]
+    },
+    {
+      "id": "e1_an",
+      "kind": "analysis",
+      "title": "Mixed-effects regression",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Test whether target choices differ between simple and complex implicature situations and between complex implicature and ambiguous filler trials, and whether there are learning effects.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_reg1"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Logistic mixed-effects regression of target versus competitor choices; Helmert-coded CONDITION (harder vs. simple; ambiguous vs. complex), centered trial number and its interactions, message type, target position; random by-participant intercepts and slopes for message type and trial number.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_reg3",
+            "ev_e1_reg4"
+          ]
+        },
+        {
+          "id": "inputs",
+          "label": "Inputs",
+          "value": "Choices on simple, complex and ambiguous filler trials; trials with distractor choices (1% in Experiment 1) excluded.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_reg2"
+          ]
+        },
+        {
+          "id": "criterion",
+          "label": "Criterion",
+          "value": "Reported p-values for coefficients (Table 2).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_tab2"
+          ]
+        },
+        {
+          "id": "coding",
+          "label": "Participant exclusion",
+          "value": "Exclude the 15% of participants with the highest error rate on non-ambiguous trials.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_excl"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_reg3"
+      ]
+    },
+    {
+      "id": "e1_r_desc",
+      "kind": "result",
+      "title": "Choice proportions",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_e1_desc1",
+            "ev_e1_desc2"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Descriptives",
+          "value": "Unambiguous fillers: 99% target vs .04% competitor; ambiguous fillers: 46% target vs 51% competitor; simple: 77% target, 23% competitor; complex: 57% target, 42% competitor (Fig 2 left).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_desc1",
+            "ev_e1_desc2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_desc1",
+        "ev_e1_desc2"
+      ]
+    },
+    {
+      "id": "e1_r_reg",
+      "kind": "result",
+      "title": "Regression",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_e1_res",
+            "ev_e1_tab2",
+            "ev_e1_learn"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Effects",
+          "value": "Simple > complex: beta = 1.28, SE = .12, p < .0001. Complex > ambiguous: beta = .44, SE = .13, p < .001. Trial number and its interactions n.s.; centre vs left target position beta = 1.28 (SE .14), right vs left .74 (SE .13), both p < .0001; message type n.s.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_res",
+            "ev_e1_tab2",
+            "ev_e1_learn"
+          ]
+        },
+        {
+          "id": "heterogeneity",
+          "label": "Individual variability",
+          "value": "Individual target-choice proportions are not mirrored by the aggregate pattern; there is substantial individual variability (Fig 2 right).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_var"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_res",
+        "ev_e1_tab2",
+        "ev_e1_learn"
+      ]
+    },
+    {
+      "id": "e1_sim",
+      "kind": "simulation",
+      "title": "Simulation scope",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps",
+          "value": "All 66 trials (preceded by four speaker trials in Experiment 1) can be presented one at a time as text; each trial prompt includes the participant's own earlier trials and choices.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_mat1"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "Each original participant is one AI participant. Messages are generated stimuli (scripted by the design) in comprehension; no addressee in production.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_proc2"
+          ]
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": "All four trial types plus the filler classes are within-participant.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_mat1"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Outcomes",
+          "value": "Target, competitor and distractor choice per trial; per-condition proportions and the Helmert contrasts are computed; mixed-effects estimates are approximated by fixed-effects logistic regression.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_reg3"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "Pictures are rendered as text, instruction wording is paraphrased, MTurk context, payment and pace cannot be simulated, and AI participants are not a model of human samples.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_mat1"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_mat1"
+      ]
+    },
+    {
+      "id": "e2_part",
+      "kind": "participants",
+      "title": "Participants (AI participants replace every original participant)",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online, Amazon Mechanical Turk.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_part"
+          ]
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "Recruited via Mechanical Turk; IP address limited to US addresses; past work approval rate of at least 95%.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_part"
+          ]
+        },
+        {
+          "id": "n-recruited",
+          "label": "N recruited",
+          "value": 60,
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_part"
+          ]
+        },
+        {
+          "id": "n-analysed",
+          "label": "N analysed",
+          "value": 50,
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_n"
+          ]
+        },
+        {
+          "id": "n-completed",
+          "label": "N completed",
+          "value": "Not stated separately from the number recruited.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "attrition",
+          "label": "Exclusions",
+          "value": "The 15% of participants with the highest error rate on trials that were not ambiguous were excluded (a minimum error rate of 10%; two of them were not self-reported native speakers of English).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_excl",
+            "ev_e2_n"
+          ]
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "$1.00 per participant (hourly rate of $10.00); written consent; Stanford University research subjects review board approval.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_ethics"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Sampling unit",
+          "value": "One participant sees all trial types (within-participant).",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_mat1"
+          ],
+          "derivation": "Every participant saw 66 trials spanning all trial types."
+        },
+        {
+          "id": "characteristics",
+          "label": "Characteristics",
+          "value": "Not reported beyond US IP address and native-English status of excluded cases.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_part",
+        "ev_e1_ethics",
+        "ev_e2_excl",
+        "ev_e2_n"
+      ]
+    },
+    {
+      "id": "e2_design",
+      "kind": "design",
+      "title": "Design",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Within-participant. Critical implicature trials (12 simple, 12 complex) and filler trials (ambiguous and unambiguous baselines and others) are intermixed in one sequence.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_mat1",
+            "ev_e2_order"
+          ]
+        },
+        {
+          "id": "order",
+          "label": "Order",
+          "value": "Trial order randomized, with trigger position and message order randomized.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_order"
+          ]
+        },
+        {
+          "id": "control",
+          "label": "Baselines",
+          "value": "Unambiguous fillers set the upper bound on target choices; ambiguous fillers show how often the target is chosen by chance.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_fill2"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "No between-participant conditions are reported.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_mat1"
+          ],
+          "derivation": "All trial types are within the single participant group."
+        },
+        {
+          "id": "blinding",
+          "label": "Blinding",
+          "value": "Not reported.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_mat1",
+        "ev_e2_order",
+        "ev_e2_fill2"
+      ]
+    },
+    {
+      "id": "e2_c_simple",
+      "kind": "condition",
+      "title": "Simple implicature trials (12)",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Target message is more informative than the competitor message; second object is the robot/scarf object sharing the competitor feature.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_simple",
+            "ev_e2_simple2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_simple"
+      ]
+    },
+    {
+      "id": "e2_c_complex",
+      "kind": "condition",
+      "title": "Complex implicature trials (12)",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Competitor and target share the message feature and differ in an expressible feature (two-step implicature).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_cx",
+            "ev_e2_cx2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_cx"
+      ]
+    },
+    {
+      "id": "e2_c_unamb",
+      "kind": "condition",
+      "title": "Unambiguous filler trials",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The highlighted object has one expressible and one inexpressible feature, so the target message is the only good choice.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_fill2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_fill2"
+      ]
+    },
+    {
+      "id": "e2_c_amb",
+      "kind": "condition",
+      "title": "Ambiguous filler trials",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The highlighted object has two expressible features that no other object shares; each is an equally good message.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_fill2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_fill2"
+      ]
+    },
+    {
+      "id": "e2_mat",
+      "kind": "material",
+      "title": "Stimuli and instructions",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "stimuli-structure",
+          "label": "Stimulus structure",
+          "value": "Each display shows three objects crossing kind (robot, green monster, purple monster) with accessory (scarf, blue hat, red hat); four expressible features (green monster, purple monster, red hat, blue hat) appear as pictorial messages at the bottom of every display; robot and scarf are inexpressible.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e1_proc1",
+            "ev_e1_proc3"
+          ]
+        },
+        {
+          "id": "trial-counts",
+          "label": "Trial counts",
+          "value": "66 trials: 24 critical (12 simple, 12 complex) and 42 fillers (24 on implicature displays, 18 unambiguous/ambiguous baselines).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_mat1",
+            "ev_e2_fill",
+            "ev_e2_fill2"
+          ]
+        },
+        {
+          "id": "instructions",
+          "label": "Printed instructions (verbatim)",
+          "value": "The exact wording of the instructions, the pictures and the response screen is not printed in the paper.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "stimulus-images",
+          "label": "Stimulus images (verbatim)",
+          "value": "The monster/robot pictures and pictorial messages are shown only as Fig 1 images; the paper has no text version.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "generation-rules",
+          "label": "Stimulus generation rules",
+          "value": "See evidence: the target, competitor and distractor are generated by feature constraints per condition after randomly sampling a message; filler displays are re-used implicature displays with a different target plus baseline displays.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_simple",
+            "ev_e2_cx",
+            "ev_e2_fill"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_mat1",
+        "ev_e2_simple",
+        "ev_e2_cx",
+        "ev_e2_fill",
+        "ev_e2_fill2"
+      ]
+    },
+    {
+      "id": "e2_v_choice",
+      "kind": "variable",
+      "title": "Choice (dependent variable)",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_reg"
+          ],
+          "derivation": "Target versus competitor choice is the outcome of the regression."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Categorical per trial: target, competitor or distractor message; binary (target vs competitor) in the regression after excluding distractor choices.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_reg"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "One trial of one participant.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_mat1"
+          ],
+          "derivation": "Each participant saw 66 trials and choices are counted per trial."
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The pictorial message the participant picks to describe the highlighted object.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_proc"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_reg"
+      ]
+    },
+    {
+      "id": "e2_v_cond",
+      "kind": "variable",
+      "title": "Trial condition (independent variable)",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_reg"
+          ],
+          "derivation": "Helmert-coded CONDITION is the predictor of interest."
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Categorical: simple, complex, ambiguous (unambiguous fillers excluded from regression).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_reg"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "One trial.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_mat1"
+          ],
+          "derivation": "Condition is assigned per trial."
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_reg"
+      ]
+    },
+    {
+      "id": "e2_v_cov",
+      "kind": "variable",
+      "title": "Control predictors",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "covariate",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_reg"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Trial number (and interactions with the contrasts), message type, and target position centered numeric 1 to 4.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_reg",
+            "ev_e2_trial"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_reg"
+      ]
+    },
+    {
+      "id": "e2_rec",
+      "kind": "record",
+      "title": "Trial-level record",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "One row per participant and trial: condition, target position, message, chosen message and its role (target/competitor/distractor).",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_mat1"
+          ],
+          "derivation": "Choice counts per participant and game are the data modelled in the hierarchical analysis."
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_mat1",
+        "ev_mc_hier2"
+      ]
+    },
+    {
+      "id": "e2_proc",
+      "kind": "procedure",
+      "title": "Procedure",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "task",
+          "label": "Task",
+          "value": "Reference production: click one of four pictorial messages to get another worker to pick the highlighted object.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_proc",
+            "ev_e2_simple"
+          ]
+        },
+        {
+          "id": "actions",
+          "label": "Actions",
+          "value": "66 production trials.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_proc",
+            "ev_e2_mat1"
+          ]
+        },
+        {
+          "id": "visible",
+          "label": "What is visible",
+          "value": "Three objects with the trigger object highlighted by a yellow rectangle and the four pictorial messages.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_proc",
+            "ev_e1_spk"
+          ]
+        },
+        {
+          "id": "feedback",
+          "label": "Feedback",
+          "value": "Not reported.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        },
+        {
+          "id": "stopping",
+          "label": "Stopping",
+          "value": "After 66 trials.",
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_mat1"
+          ],
+          "derivation": "Each participant saw 66 experimental trials."
+        },
+        {
+          "id": "sender",
+          "label": "Addressee",
+          "value": "Messages were said to go to another Mechanical Turk worker; whether a real listener existed is not stated.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_proc",
+        "ev_e2_mat1"
+      ]
+    },
+    {
+      "id": "e2_an",
+      "kind": "analysis",
+      "title": "Mixed-effects regression",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Test whether target choices differ between simple and complex implicature situations and between complex implicature and ambiguous filler trials, and whether there are learning effects.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_reg"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "As Experiment 1, but with random by-participant intercepts only and target position coded as a centered numeric position (1 to 4).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_reg"
+          ]
+        },
+        {
+          "id": "inputs",
+          "label": "Inputs",
+          "value": "Choices on simple, complex and ambiguous filler trials of retained participants.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_reg"
+          ]
+        },
+        {
+          "id": "criterion",
+          "label": "Criterion",
+          "value": "Reported p-values for coefficients (Table 2).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_res"
+          ]
+        },
+        {
+          "id": "coding",
+          "label": "Participant exclusion",
+          "value": "Exclude the 15% of participants with the highest error rate on non-ambiguous trials.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_excl"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_reg"
+      ]
+    },
+    {
+      "id": "e2_r_desc",
+      "kind": "result",
+      "title": "Choice proportions",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_e2_desc1",
+            "ev_e2_desc2"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Descriptives",
+          "value": "Unambiguous fillers: 96% target vs 1% competitor; ambiguous fillers: 48% vs 48%; simple: 82% target, 16% competitor; complex: 53% target, 45% competitor (Fig 3 left).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_desc1",
+            "ev_e2_desc2"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_desc1",
+        "ev_e2_desc2"
+      ]
+    },
+    {
+      "id": "e2_r_reg",
+      "kind": "result",
+      "title": "Regression",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_e2_res",
+            "ev_e2_res2",
+            "ev_e2_trial"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Effects",
+          "value": "Simple > complex: beta = 1.63, SE = .13, p < .0001. Complex > ambiguous: beta = .2, SE = .11, p < .08 (marginal). Trial number beta = -.01, SE = .003, p < .05; message type beta = .41, SE = .10, p < .0001 (more target choices for species messages).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_res",
+            "ev_e2_res2",
+            "ev_e2_trial"
+          ]
+        },
+        {
+          "id": "heterogeneity",
+          "label": "Individual variability",
+          "value": "Individual target-choice proportions are not mirrored by the aggregate pattern; there is substantial individual variability (Fig 3 right).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_rep"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_res",
+        "ev_e2_res2",
+        "ev_e2_trial"
+      ]
+    },
+    {
+      "id": "e2_sim",
+      "kind": "simulation",
+      "title": "Simulation scope",
+      "studyIds": [
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps",
+          "value": "All 66 trials (preceded by four speaker trials in Experiment 1) can be presented one at a time as text; each trial prompt includes the participant's own earlier trials and choices.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_mat1"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "Each original participant is one AI participant. Messages are generated stimuli (scripted by the design) in comprehension; no addressee in production.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_proc"
+          ]
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": "All four trial types plus the filler classes are within-participant.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_mat1"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Outcomes",
+          "value": "Target, competitor and distractor choice per trial; per-condition proportions and the Helmert contrasts are computed; mixed-effects estimates are approximated by fixed-effects logistic regression.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_reg"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "Pictures are rendered as text, instruction wording is paraphrased, MTurk context, payment and pace cannot be simulated, and AI participants are not a model of human samples.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_e2_mat1"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e2_mat1"
+      ]
+    },
+    {
+      "id": "mc_an_model",
+      "kind": "analysis",
+      "title": "Hierarchical latent-type model",
+      "studyIds": [
+        "mc"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Infer each participant's likely reasoning type (S0/S1/S2 for production, R0/R1/R2 for comprehension) and the population distribution over types, and decide whether the homogeneous Gricean model suffices.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_hier1",
+            "ev_mc_goal"
+          ]
+        },
+        {
+          "id": "inputs",
+          "label": "Inputs",
+          "value": "Choice counts per participant, game (simple, complex, unambiguous, ambiguous) and category (target, competitor, distractor 1, possibly distractor 2) for retained participants of Experiments 1 and 2.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_hier2"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Binomial likelihood with probabilities determined by the participant's type, population error rate epsilon and rationality lambda; types drawn from a categorical population distribution with a Dirichlet(1,1,1) prior; Gamma priors on epsilon and lambda; JAGS, 10000 samples after 10000 burn-in, two chains, thinning 2.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_lik",
+            "ev_mc_prior",
+            "ev_mc_jags"
+          ]
+        },
+        {
+          "id": "robustness",
+          "label": "Assumptions",
+          "value": "Types are constant over the experiment; lambda and epsilon are shared across types.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_fixed",
+            "ev_lim2"
+          ]
+        },
+        {
+          "id": "salience",
+          "label": "Salience priors for R2",
+          "value": "Empirical salience priors from Experiment 3 (S4 Text) are needed for the R2 listener but are not in the paper.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "ev_mc_hier1",
+        "ev_mc_lik",
+        "ev_mc_jags"
+      ]
+    },
+    {
+      "id": "mc_an_bf",
+      "kind": "analysis",
+      "title": "Bayesian model comparison",
+      "studyIds": [
+        "mc"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Compare the nested homogeneous model against the heterogeneous model by Bayes factor.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_bf1",
+            "ev_nested"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Bayes factor of nested models approximated by simulation (Savage-Dickey based); charitable near-homogeneous null priors with tolerance epsilon (0.05 for the headline numbers, 0.01 as a check).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_bf1",
+            "ev_mc_bf3"
+          ]
+        },
+        {
+          "id": "criterion",
+          "label": "Criterion",
+          "value": "Bayes factors greater than 3 count as sufficiently strong evidence for a model.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_bf5"
+          ]
+        },
+        {
+          "id": "computation",
+          "label": "Computation details",
+          "value": "Details of the approximation are in S5 Text, which is not in the paper.",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": []
+        }
+      ],
+      "evidenceIds": [
+        "ev_mc_bf1",
+        "ev_mc_bf5"
+      ]
+    },
+    {
+      "id": "mc_r_rsa",
+      "kind": "result",
+      "title": "Population-level RSA fit",
+      "studyIds": [
+        "mc"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_mc_rsa"
+          ]
+        },
+        {
+          "id": "effect",
+          "label": "Fit",
+          "value": "Best-fitting homogeneous RSA parameters reproduce the observed choice frequencies with correlation r = 0.997, p < 0.0001 (Fig 4).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_rsa"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_mc_rsa"
+      ]
+    },
+    {
+      "id": "mc_r_post",
+      "kind": "result",
+      "title": "Posterior reasoning-type distribution (Table 3)",
+      "studyIds": [
+        "mc"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_mc_tab3a"
+          ]
+        },
+        {
+          "id": "descriptives",
+          "label": "Means (95% HDI)",
+          "value": "Speakers: tau0 .117 [.036, .209], tau1 .843 [.741, .940], tau2 .040 [8.43e-05, .095]. Listeners: tau0 .301 [.173, .442], tau1 .560 [.410, .703], tau2 .139 [.054, .236].",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_tab3a",
+            "ev_mc_tab3b",
+            "ev_mc_tab3c"
+          ]
+        },
+        {
+          "id": "themes",
+          "label": "Individual classification",
+          "value": "Production: one participant most likely S2 and four most likely S0; comprehension: only three participants have ambiguous classifications.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_types",
+            "ev_mc_post_c"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_mc_tab3a",
+        "ev_mc_tab3b",
+        "ev_mc_tab3c",
+        "ev_mc_types"
+      ]
+    },
+    {
+      "id": "mc_r_bf",
+      "kind": "result",
+      "title": "Bayes factors",
+      "studyIds": [
+        "mc"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Result kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_mc_bf1"
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Test",
+          "value": "With tolerance 0.05: production BF(hom/het) about 3.955 (favours the near-homogeneous model); comprehension about 2.8e-11 (strongly favours heterogeneous). With tolerance 0.01 for production the BF is 0.004 (about 250 for heterogeneous).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_bf1",
+            "ev_mc_bf2",
+            "ev_mc_bf3",
+            "ev_mc_bf4"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_mc_bf1",
+        "ev_mc_bf2",
+        "ev_mc_bf3"
+      ]
+    },
+    {
+      "id": "mc_find",
+      "kind": "finding",
+      "title": "Findings",
+      "studyIds": [
+        "mc"
+      ],
+      "fields": [
+        {
+          "id": "answer",
+          "label": "Answer",
+          "value": "Most speakers are Gricean (S1) but most listeners are exhaustive R1 listeners; the homogeneous Gricean model is half-supported.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_find1",
+            "ev_find2"
+          ]
+        },
+        {
+          "id": "support",
+          "label": "Support",
+          "value": "Heterogeneous model strongly favoured for comprehension; for production a near-homogeneous model is favoured at 95% tolerance but not at 99%.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_bf1",
+            "ev_mc_bf3",
+            "ev_mc_bf4"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_find1",
+        "ev_find2"
+      ]
+    },
+    {
+      "id": "mc_sim",
+      "kind": "simulation",
+      "title": "Simulation scope",
+      "studyIds": [
+        "mc"
+      ],
+      "fields": [
+        {
+          "id": "steps",
+          "label": "Steps",
+          "value": "The paper's own descriptive checks (per-participant target-choice rates) can be computed from simulated sessions; the JAGS hierarchical model and Bayes factors are not run by the package.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_jags"
+          ]
+        },
+        {
+          "id": "roles",
+          "label": "Roles",
+          "value": "No participants of its own: analysis of the sessions from Experiments 1 and 2.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_hier2"
+          ]
+        },
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "value": "Not applicable.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_hier2"
+          ]
+        },
+        {
+          "id": "outcomes",
+          "label": "Outcomes",
+          "value": "evaluate() returns not_ready for the model comparison and states what is missing.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_s5"
+          ]
+        },
+        {
+          "id": "limits",
+          "label": "Limits",
+          "value": "Needs JAGS, the salience priors of Experiment 3 and S5 Text.",
+          "origin": "implementation",
+          "state": "check",
+          "evidenceIds": [
+            "ev_mc_s5"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_mc_s5"
+      ]
+    },
+    {
+      "id": "hyp2",
+      "kind": "hypothesis",
+      "title": "Graded difficulty of simple and complex implicatures",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "Target choices are graded by implicature complexity: more target choices in simple than in complex implicature situations, and more target choices in complex implicature situations than on ambiguous filler trials (where target and competitor are equally viable), in comprehension (Experiment 1) and production (Experiment 2).",
+          "origin": "reported",
+          "state": "confirmed",
+          "evidenceIds": [
+            "ev_e1_reg1",
+            "ev_table1",
+            "ev_fx_simpler",
+            "ev_fx_above"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_reg1",
+        "ev_fx_simpler"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_abs1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Here we investigate potential individual differences in Theory-of-Mind related depth of pragmatic reasoning in so-called reference games that require drawing ad hoc Quantity implicatures of varying complexity.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_abs2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 1
+      },
+      "quote": "We show by Bayesian model comparison that a model that assumes a heterogenous population is a better predictor of our data, especially for comprehension.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_intro_gap",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "model predictions are usually assessed based on population-level data from suitable experimental tasks. That is, the data to be explained by a given model are obtained by averaging over the answers of all participants.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_intro_models",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "We formulate models of different complexity: one that assumes a homogeneous population of Gricean speakers and listeners, and one that assumes a heterogeneous population with varying proportions of pragmatic reasoning types inspired by game-theoretic approaches.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_rg",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "There are three referents and four possible messages, which are assumed to be common ground between speaker and listener.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_rg_tasks",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "The speaker ’s task is to describe the trigger referent (marked by an asterisk) with one of the message options from set",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_types",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Level-( n + 1) language users choose optimal signals or interpretations based on the belief that the other player is a level- n player.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_table1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Table 1 summarizes the reasoning types that we consider here, their level of Theory-of-Mind reasoning and the choices these idealized types would make in the simple and complex games from Fig 1.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_hom",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "We then compare a homogeneous “null-model” that contains only the Gricean types to a “saturated model” that contains all of the archetypes from Table 1.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_nested",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Since the simpler model is a special case of the complex model, the latter will be able to accommodate every data observation at least as well as the former.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_exps",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Experiment 1 tests the comprehension of referential expressions in reference games like the ones introduced in Fig 1. Experiment 2 tests the production of referential expressions in the same games. Experiment 3 (see S4 Text) elicits salience priors over objects required for modeling the R2 listener.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_scope",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Conclusions based on data from reference games do not necessarily generalize to other areas of language use",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_part",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "60 participants were recruited via Amazon ’s Web Service Mechanical Turk. Participants’ IP address was limited to US addresses only. Only participants with a past work approval rate of at least 95% were accepted.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_ethics",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "All participants gave written consent and received $1.00 for their participation (hourly rate of $10.00) according to the policies set forth by the Stanford University research subjects review board.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_proc1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Participants engaged in a referential comprehension task. On each trial they saw three objects on a display. Each object differed systematically along two dimensions: its ontological kind (robot, green monster, purple monster) and accessory (scarf, blue hat, red hat).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_proc2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "In addition to these three objects, participants saw a pictorial message that they were told was sent to them by a previous participant whose goal was to get them to pick out one of these three objects.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_proc3",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "They were told that the previous participant was allowed to send a message expressing only one feature of a given object, and that the messages the participant could send were furthermore restricted to monsters and hats",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_proc4",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "The four expressible features were visible to participants at the bottom of the display on every trial",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_spk",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Participants initially completed four speaker trials. They saw three objects, one of which was highlighted with a yellow rectangle. Participants were asked to click on one of four pictorial messages to send to another Mechanical Turk worker to get them to pick out the highlighted object.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_spk2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "The four speaker trials contained three unambiguous and one ambiguous trial which could function as fillers in the main experiment.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_mat1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Participants saw 66 experimental trials, which were composed of 24 critical and 42 filler trials. Of the 24 critical trials, 12 constituted a simple implicature situation and 12 a complex one",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_mat2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Stimuli were created by randomly sampling a message and then generating a grid of three objects —a target, a competitor, and a distractor — following different constraints in different conditions.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_simple",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "On simple implicature trials, the target was generated by combining the feature denoted by the sampled message with the inexpressible feature along the other feature dimension.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_simple2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "The competitor was generated by combining the feature denoted by the sampled message with a randomly sampled expressible feature along the other feature dimension.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_simple3",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "The distractor was generated by combining two features that were randomly sampled from the set of features that did not contain those features already present in target and competitor.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_cx",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "On complex implicature trials, the target was generated by combining the feature denoted by the sampled message with an expressible feature along the other feature dimension.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_cx2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "The competitor was generated by combining the feature denoted by the sampled message with the remaining expressible feature along the other feature dimension.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_cx3",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "The distractor was generated by combining the target feature that was not denoted by the sampled message (red hat) with the inexpressible feature along the other feature dimension (robot).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_fill",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Of the 42 filler trials, 24 used the displays from the implicature conditions but the target was a) the competitor from the simple condition (six trials), b) the distractor from the simple condition (six trials), or c) the competitor from the complex condition (12 trials), as identified unambiguously by the trigger message.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_fill2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "On the other 18 filler trials, the target was either entirely unambiguous or entirely ambiguous given the message. That is, there was either only one object with the feature denoted by the trigger message, or there were two identical objects that were equally viable target candidates.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_order",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Trial order as well as target, competitor, and distractor order were randomized.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_excl",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Those 15% of participants with the highest error rate (distractor responses) on trials that were not ambiguous were excluded from the analysis.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_n",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "The data from the 51 remaining participants entered the analysis.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_desc1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "participants were close to ceiling in choosing the target on unambiguous filler trials (99% target choices vs..04% competitor choices) but at chance on ambiguous ones (46% target choices vs. 51% competitor choices).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_desc2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "On simple implicature trials, participants chose the target 77% of the time and the competitor 23% of the time. On complex implicature trials, the target was chosen less often (57% target choices vs. 42% competitor choices).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_reg1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "A logistic mixed-effects regression was conducted to assess whether the observed differences in target choices between the ambiguous and complex, and the complex and simple condition, were significantly different.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_reg2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Trials on which the distractor was selected were excluded to allow for a binary outcome variable (target vs. competitor choice). This led to an exclusion of 1% of the data.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_reg3",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "The model predicted the log odds of choosing a target over a competitor from a",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_reg4",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Finally, following [ 62], the model included the maximal random effect structure that allowed it to converge, which consisted in by-participant intercepts as well as by-participant slopes for message type and trial number.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_res",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "participants made more target choices in simple than in complex implicature situations ( β = 1.28, SE = .12, p < .0001), and they made more target choices in complex implicature situations than on ambiguous filler trials (β = .44, SE = .13, p < .001).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_tab2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "CONDITION (HARDER VS . SIMPLE) 1.28 .12 <.0001 1.63 .13 <.0001",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_var",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "there was a lot of individual variability in participants’ choice behavior.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_learn",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "Neither the main effect of trial number nor its interactions with the two Helmert contrasts reached significance",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e1_rep",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "This experiment constitutes a replication of Experiment 1 of [ 9].",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_part",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 10
+      },
+      "quote": "60 participants were recruited via Amazon ’s Web Service Mechanical Turk. Participants’ IP address was limited to US addresses only. Only participants with a past work approval rate of at least 95% were accepted.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_proc",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "The procedure was identical to that on speaker trials in Experiment 1.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_mat1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "Each participant saw 66 experimental trials. The distribution of trial types was the same as in Experiment 1: 24 critical trials (12 simple, 12 complex, see Fig 1) and 42 filler trials.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_mat2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "Each of the four messages received a trial by trial status as target, competitor, distractor 1, or distractor 2. Stimuli were created by randomly sampling a message and then generating a grid of three objects following different constraints in different conditions. The sampled message was the target.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_simple",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "On simple implicature trials, the trigger object was generated by combining the feature denoted by the sampled message with an expressible feature along the other feature dimension. The message denoting this other feature was the competitor message.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_simple2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "A second object was generated by combining the feature denoted by the competitor message with the inexpressible feature along the other feature dimension.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_simple3",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "A third object was generated by combining the two remaining expressible features. The messages denoting these features were randomly deemed distractor 1 or distractor 2.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_cx",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "On complex implicature trials, the trigger object was generated by combining the feature denoted by the sampled message with an expressible feature along the other feature dimension.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_cx2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "A third object was generated by combining the feature denoted by the sampled message with the remaining expressible feature along the other feature dimension. In our example: a green monster with a blue hat.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_fill",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "Of the 42 filler trials, 24 used the displays from the implicature conditions but the highlighted trigger object was a) the competitor from the simple condition (six trials), b) the distractor from the simple condition (six trials), or c) the distractor from the complex condition (12 trials).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_fill2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "On the remaining 18 filler trials, the target message to refer to the highlighted object was either entirely unambiguous (because the other feature was one of the inexpressible robot or scarf features) or entirely ambiguous (because no other object in the display had the trigger object features but each trigger object feature was an equally good message choice).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_order",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "Trial order, position of the trigger object in the grid, and order of target, competitor, and distractor messages were randomized.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_excl",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 11
+      },
+      "quote": "Again, the 15% of participants with the highest error rate on trials that were not ambiguous were excluded.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_n",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "The data from 50 remaining participants entered the analysis.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_desc1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "participants were close to ceiling in choosing the target on unambiguous filler trials (96% target choices vs. 1% competitor choices) but at chance on ambiguous ones (48% target choices vs. 48% competitor choices).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_desc2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "On simple implicature trials, participants chose the target 82% of the time and the competitor 16% of the time. On complex implicature trials, the target was chosen less often (53% target choices vs. 45% competitor choices).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_reg",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "The mixed effects logistic regression analysis was conducted as in Experiment 1 and predicted target over competitor message choices. The only differences were that a) the random effects structure consisted only of random by-participant intercepts",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_res",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "participants made more target choices in simple than in complex implicature situations (β = 1.63, SE = .13, p <.0001).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_res2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "participants only made marginally more target choices in complex implicature situations than on ambiguous filler trials (β = .2, SE = .11, p <.08)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_trial",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "participants became overall slightly less likely to choose targets as the experiment progressed (β = -.01, SE = .003, p <.05).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_e2_rep",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "This experiment constitutes a replication of Experiment 2 of [ 9], with some caveats",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_goal",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "The main goal of this section is to assess whether it is plausible to maintain the “null hypothesis” that all participants in our experiments can be construed as Gricean, i.e., as S1 and R2 respectively.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_rsa",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "Resulting predictions are well-aligned with the observations, as shown in Fig 4 (correlation r = 0.997, p < 0.0001).",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_hier1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "we take a hierarchical modeling approach [ 63] in which the simpler Gricean model is nested under the more complex heterogeneous type model.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_hier2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "the data that we would like to explain are counts dXijk, one set for production (X = S) and one for comprehension ( X = R), giving the number of choices across the whole experiment of participant i for game j (simple, complex, unambiguous, ambiguous) that fell into category k",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_fixed",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "We assume that each participant i has a ﬁxed type τi 2 {0, 1, 2} that is constant across the experiment.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_lik",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "The likelihood of each dXijk is then given by the binomial distribution",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_prior",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "We assume largely uninformative prior probabilities for parameter values",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_jags",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "we used JAGS [ 65] to collect 10000 samples from the joint posterior distribution after a burn in of 10000 samples, from two chains with a thinning factor of 2.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_post_p",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "The production data suggest that most speakers are S1 Gricean maximizers of relevant information, but also attest a small proportion of literal S0 speakers.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_post_c",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "In contrast, the comprehension data give non-negligible levels of posterior credence to all three listener types.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_types",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 16
+      },
+      "quote": "that is most likely a hyper-pragmatic S2 speaker and there are four participants identified as most likely being literal S0 speakers.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_tab3a",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 16
+      },
+      "quote": "0.036 0.117 0.209 0.173 0.301 0.442",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_tab3b",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 16
+      },
+      "quote": "0.741 0.843 0.940 0.410 0.560 0.703",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_tab3c",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 16
+      },
+      "quote": "8.43e-05 0.040 0.095 0.054 0.139 0.236",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_bf1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "With the fairly charitable value of 0.05, we receive Bayes factor approximations of",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_bf2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "3:955",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_bf3",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "However, if we lower our tolerance and test the assumption that exactly 99% of all participants are Gricean S1 speakers (e = 0.01), we obtain a Bayes factor of only 0.004 in favor of the Gricean model",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_bf4",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "On the other hand, even if we assume 95% Gricean R2 listeners, the odds are very clearly in favor of the complex heterogeneous model.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_bf5",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "Bayes factors greater than 1 suggest that the data provide evidence in favor of the simpler homogeneous model.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_mc_s5",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "Details and further explanations are provided in S5 Text.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_find1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 19
+      },
+      "quote": "the majority of speakers are Gricean (S1), but the majority of listeners are exhaustive listeners ( R1)",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_find2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "Taken together, we reach the nuanced conclusion that the homogeneous Gricean model is half-supported by our data.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_lim1",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 19
+      },
+      "quote": "Although these results are contingent on the particular task we presented participants with, the obtained data, and the specific modeling choices we made",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_lim2",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 19
+      },
+      "quote": "While we modeled individual differences in reasoning type, we assumed fixed population-level error parameters",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_lim3",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "temporally consistent reasoning types is generally dubious, but necessary to keep the model manageable.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_concl",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 21
+      },
+      "quote": "Data came from one production and one comprehension study in reference games that required participants to apply pragmatic reasoning of varying complexity.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_future",
+      "sourceId": "paper",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 21
+      },
+      "quote": "Whether it is necessary for all cases is an empirical question that should be addressed in future work.",
+      "verification": "verified"
+    },
+    {
+      "id": "ev_fx_simpler",
+      "sourceId": "paper",
+      "locator": {
+        "page": 9
+      },
+      "quote": "This suggests that what we are calling simple implicatures are indeed simpler than what we are calling complex implicatures."
+    },
+    {
+      "id": "ev_fx_above",
+      "sourceId": "paper",
+      "locator": {
+        "page": 9
+      },
+      "quote": "while participants performed similarly on complex and ambiguous trials, they nevertheless performed significantly above chance on complex trials."
+    },
+    {
+      "id": "ev_fx_learnq",
+      "sourceId": "paper",
+      "locator": {
+        "page": 9
+      },
+      "quote": "We were also interested in whether participants displayed learning effects"
+    },
+    {
+      "id": "ev_fx_tab2_amb",
+      "sourceId": "paper",
+      "locator": {
+        "page": 10
+      },
+      "quote": "CONDITION (AMBIGUOUS VS. COMPLEX .44 .13 <.001 .20 .11 <.08"
+    },
+    {
+      "id": "ev_fx_tab2_trial",
+      "sourceId": "paper",
+      "locator": {
+        "page": 10
+      },
+      "quote": "TRIAL .00 .00 <.3 −.01 .00 <.05"
+    },
+    {
+      "id": "ev_fx_fixed",
+      "sourceId": "paper",
+      "locator": {
+        "page": 10
+      },
+      "quote": "This is important for our subsequent model comparison, which assumes that participants are of a fixed reasoning type."
+    },
+    {
+      "id": "ev_fx_e2_harder",
+      "sourceId": "paper",
+      "locator": {
+        "page": 12
+      },
+      "quote": "suggesting that complex inferences are more difficult to draw in production than in comprehension."
+    }
+  ],
+  "issues": [
+    {
+      "id": "is_supp",
+      "title": "Supplementary texts S1-S5 and Experiment 3 are not available",
+      "severity": "decision",
+      "reason": "Experiment 3 (salience priors), the derivation of idealised predictions (S1), type definitions (S2), experiment links (S3) and Bayes factor computation (S5) are in supplements that are not part of paper.pdf.",
+      "impact": "Experiment 3 is not modelled as a study; exact printed instructions, stimulus images and the salience priors needed for the R2 listener rule cannot be reproduced from the paper alone.",
+      "suggestedAction": "Supply S1-S5 Text or the experiment materials in sources/ to extend the program.",
+      "evidenceIds": [
+        "ev_exps",
+        "ev_mc_s5"
+      ],
+      "nodeId": "lim",
+      "fieldId": "openness"
+    },
+    {
+      "id": "is_e1_part",
+      "title": "exp1: sample characteristics and completion counts not reported",
+      "severity": "check",
+      "reason": "The paper gives no age, gender or the number who completed versus started.",
+      "impact": "AI participants cannot be matched to the human sample demographically; no persona is simulated.",
+      "suggestedAction": "Treat participants as unconditioned AI participants or supply demographics.",
+      "evidenceIds": [],
+      "studyId": "exp1",
+      "nodeId": "e1_part",
+      "fieldId": "characteristics"
+    },
+    {
+      "id": "is_e1_part2",
+      "title": "exp1: number completed not stated",
+      "severity": "check",
+      "reason": "Only the recruited (60) and analysed counts are reported.",
+      "impact": "Randomised, retained and analysed sizes cannot be fully distinguished.",
+      "suggestedAction": "Supply the completion count.",
+      "evidenceIds": [],
+      "studyId": "exp1",
+      "nodeId": "e1_part",
+      "fieldId": "n-completed"
+    },
+    {
+      "id": "is_e1_blind",
+      "title": "exp1: blinding not reported",
+      "severity": "check",
+      "reason": "The paper does not state blinding.",
+      "impact": "No effect on the replay; participants are AI.",
+      "suggestedAction": "None needed unless the researcher wants a statement.",
+      "evidenceIds": [],
+      "studyId": "exp1",
+      "nodeId": "e1_design",
+      "fieldId": "blinding"
+    },
+    {
+      "id": "is_e1_instr",
+      "title": "exp1: printed instructions and stimuli not in the paper",
+      "severity": "decision",
+      "reason": "The paper paraphrases what participants were told but prints no instruction text, screen or picture.",
+      "impact": "The replay prompts use a paraphrase of the reported instructions and text descriptions of objects and messages; this is a replay adaptation, not the original material.",
+      "suggestedAction": "Supply the original instruction text and stimulus pictures in sources/ to make them verbatim.",
+      "evidenceIds": [],
+      "studyId": "exp1",
+      "nodeId": "e1_mat",
+      "fieldId": "instructions"
+    },
+    {
+      "id": "is_e1_img",
+      "title": "exp1: stimuli are pictures",
+      "severity": "check",
+      "reason": "The original stimuli are pictures (Fig 1) which text-only AI participants cannot see.",
+      "impact": "Objects and messages are rendered as text such as 'a green monster with a red hat'.",
+      "suggestedAction": "Accept the text rendering or provide image-capable participants.",
+      "evidenceIds": [],
+      "studyId": "exp1",
+      "nodeId": "e1_mat",
+      "fieldId": "stimulus-images"
+    },
+    {
+      "id": "is_e1_fill",
+      "title": "exp1: filler displays under-specified",
+      "severity": "decision",
+      "reason": "The 18 baseline fillers are described only as unambiguous or ambiguous; the split between the two kinds, the number of distinct displays and scoring details are not stated.",
+      "impact": "The replay chooses an even split (9 and 9) and the construction rules documented in task/task.json.",
+      "suggestedAction": "Supply the split and the filler construction or confirm the assumption.",
+      "evidenceIds": [
+        "ev_e1_fill2"
+      ],
+      "studyId": "exp1",
+      "nodeId": "e1_mat",
+      "fieldId": "generation-rules"
+    },
+    {
+      "id": "is_e1_fb",
+      "title": "exp1: feedback not reported",
+      "severity": "check",
+      "reason": "The paper does not say whether participants received feedback on their choices.",
+      "impact": "The replay gives no feedback; if feedback existed, learning might differ.",
+      "suggestedAction": "Confirm that no feedback was given.",
+      "evidenceIds": [],
+      "studyId": "exp1",
+      "nodeId": "e1_proc",
+      "fieldId": "feedback"
+    },
+    {
+      "id": "is_e1_snd",
+      "title": "exp1: counterpart of the participant not specified",
+      "severity": "check",
+      "reason": "It is not stated whether the messages (comprehension) or the addressee (production) were real participants or scripted.",
+      "impact": "In the replay the message is the generated trigger message (a scripted stimulus) and no real addressee exists; this follows the stimulus description and is the only runnable reading.",
+      "suggestedAction": "Confirm that messages were generated from the design, not taken from earlier participants.",
+      "evidenceIds": [],
+      "studyId": "exp1",
+      "nodeId": "e1_proc",
+      "fieldId": "sender"
+    },
+    {
+      "id": "is_e1_helmert",
+      "title": "exp1: Helmert contrast scaling not stated",
+      "severity": "check",
+      "reason": "The contrast weights are not printed, so coefficients are only comparable with the paper up to the coding.",
+      "impact": "The evaluator uses standard Helmert weights and fixed-effects logistic regression and flags the difference to the paper's mixed-effects model.",
+      "suggestedAction": "Confirm weights or run glmer externally.",
+      "evidenceIds": [],
+      "studyId": "exp1",
+      "nodeId": "e1_an",
+      "fieldId": "method"
+    },
+    {
+      "id": "is_e2_part",
+      "title": "exp2: sample characteristics and completion counts not reported",
+      "severity": "check",
+      "reason": "The paper gives no age, gender or the number who completed versus started.",
+      "impact": "AI participants cannot be matched to the human sample demographically; no persona is simulated.",
+      "suggestedAction": "Treat participants as unconditioned AI participants or supply demographics.",
+      "evidenceIds": [],
+      "studyId": "exp2",
+      "nodeId": "e2_part",
+      "fieldId": "characteristics"
+    },
+    {
+      "id": "is_e2_part2",
+      "title": "exp2: number completed not stated",
+      "severity": "check",
+      "reason": "Only the recruited (60) and analysed counts are reported.",
+      "impact": "Randomised, retained and analysed sizes cannot be fully distinguished.",
+      "suggestedAction": "Supply the completion count.",
+      "evidenceIds": [],
+      "studyId": "exp2",
+      "nodeId": "e2_part",
+      "fieldId": "n-completed"
+    },
+    {
+      "id": "is_e2_blind",
+      "title": "exp2: blinding not reported",
+      "severity": "check",
+      "reason": "The paper does not state blinding.",
+      "impact": "No effect on the replay; participants are AI.",
+      "suggestedAction": "None needed unless the researcher wants a statement.",
+      "evidenceIds": [],
+      "studyId": "exp2",
+      "nodeId": "e2_design",
+      "fieldId": "blinding"
+    },
+    {
+      "id": "is_e2_instr",
+      "title": "exp2: printed instructions and stimuli not in the paper",
+      "severity": "decision",
+      "reason": "The paper paraphrases what participants were told but prints no instruction text, screen or picture.",
+      "impact": "The replay prompts use a paraphrase of the reported instructions and text descriptions of objects and messages; this is a replay adaptation, not the original material.",
+      "suggestedAction": "Supply the original instruction text and stimulus pictures in sources/ to make them verbatim.",
+      "evidenceIds": [],
+      "studyId": "exp2",
+      "nodeId": "e2_mat",
+      "fieldId": "instructions"
+    },
+    {
+      "id": "is_e2_img",
+      "title": "exp2: stimuli are pictures",
+      "severity": "check",
+      "reason": "The original stimuli are pictures (Fig 1) which text-only AI participants cannot see.",
+      "impact": "Objects and messages are rendered as text such as 'a green monster with a red hat'.",
+      "suggestedAction": "Accept the text rendering or provide image-capable participants.",
+      "evidenceIds": [],
+      "studyId": "exp2",
+      "nodeId": "e2_mat",
+      "fieldId": "stimulus-images"
+    },
+    {
+      "id": "is_e2_fill",
+      "title": "exp2: filler displays under-specified",
+      "severity": "decision",
+      "reason": "The 18 baseline fillers are described only as unambiguous or ambiguous; the split between the two kinds, the number of distinct displays and scoring details are not stated, and which object counts as 'competitor from the simple condition' for production fillers is not defined.",
+      "impact": "The replay chooses an even split (9 and 9) and the construction rules documented in task/task.json.",
+      "suggestedAction": "Supply the split and the filler construction or confirm the assumption.",
+      "evidenceIds": [
+        "ev_e2_fill2"
+      ],
+      "studyId": "exp2",
+      "nodeId": "e2_mat",
+      "fieldId": "generation-rules"
+    },
+    {
+      "id": "is_e2_fb",
+      "title": "exp2: feedback not reported",
+      "severity": "check",
+      "reason": "The paper does not say whether participants received feedback on their choices.",
+      "impact": "The replay gives no feedback; if feedback existed, learning might differ.",
+      "suggestedAction": "Confirm that no feedback was given.",
+      "evidenceIds": [],
+      "studyId": "exp2",
+      "nodeId": "e2_proc",
+      "fieldId": "feedback"
+    },
+    {
+      "id": "is_e2_snd",
+      "title": "exp2: counterpart of the participant not specified",
+      "severity": "check",
+      "reason": "It is not stated whether the messages (comprehension) or the addressee (production) were real participants or scripted.",
+      "impact": "In the replay the message is the generated trigger message (a scripted stimulus) and no real addressee exists; this follows the stimulus description and is the only runnable reading.",
+      "suggestedAction": "Confirm that messages were generated from the design, not taken from earlier participants.",
+      "evidenceIds": [],
+      "studyId": "exp2",
+      "nodeId": "e2_proc",
+      "fieldId": "sender"
+    },
+    {
+      "id": "is_e2_helmert",
+      "title": "exp2: Helmert contrast scaling not stated",
+      "severity": "check",
+      "reason": "The contrast weights are not printed, so coefficients are only comparable with the paper up to the coding.",
+      "impact": "The evaluator uses standard Helmert weights and fixed-effects logistic regression and flags the difference to the paper's mixed-effects model.",
+      "suggestedAction": "Confirm weights or run glmer externally.",
+      "evidenceIds": [],
+      "studyId": "exp2",
+      "nodeId": "e2_an",
+      "fieldId": "method"
+    },
+    {
+      "id": "is_mc_sal",
+      "title": "Salience priors (Experiment 3) are missing",
+      "severity": "check",
+      "reason": "Experiment 3 and S4 Text are not available in paper.pdf.",
+      "impact": "The model comparison cannot be recomputed from the simulated data without them; the evaluator returns not_ready for it.",
+      "suggestedAction": "Supply S4 Text or Experiment 3 data.",
+      "evidenceIds": [],
+      "studyId": "mc",
+      "nodeId": "mc_an_model",
+      "fieldId": "salience"
+    },
+    {
+      "id": "is_mc_s5",
+      "title": "Bayes factor computation is in S5 Text",
+      "severity": "check",
+      "reason": "The approximation procedure is deferred to S5 Text.",
+      "impact": "The Bayes factor cannot be reproduced exactly.",
+      "suggestedAction": "Supply S5 Text.",
+      "evidenceIds": [],
+      "studyId": "mc",
+      "nodeId": "mc_an_bf",
+      "fieldId": "computation"
+    }
+  ],
+  "steps": [
+    {
+      "id": "e1_s_spk",
+      "studyId": "exp1",
+      "kind": "action",
+      "title": "Four speaker trials",
+      "actorIds": [
+        "e1_part"
+      ],
+      "inputIds": [
+        "e1_mat"
+      ],
+      "outputIds": [
+        "e1_rec"
+      ],
+      "visibleIds": [
+        "e1_mat"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "e1_s_trials"
+        }
+      ],
+      "evidenceIds": [
+        "ev_e1_spk",
+        "ev_e1_spk2"
+      ]
+    },
+    {
+      "id": "e1_s_trials",
+      "studyId": "exp1",
+      "kind": "repeat",
+      "title": "66 comprehension trials in random order",
+      "actorIds": [
+        "e1_part"
+      ],
+      "inputIds": [
+        "e1_mat"
+      ],
+      "outputIds": [
+        "e1_rec"
+      ],
+      "visibleIds": [
+        "e1_mat"
+      ],
+      "children": [
+        "e1_s_simple",
+        "e1_s_complex",
+        "e1_s_fdisp",
+        "e1_s_fbase"
+      ],
+      "next": [],
+      "evidenceIds": [
+        "ev_e1_mat1",
+        "ev_e1_order"
+      ]
+    },
+    {
+      "id": "e1_s_simple",
+      "studyId": "exp1",
+      "kind": "action",
+      "title": "Simple implicature trial (x12)",
+      "actorIds": [
+        "e1_part"
+      ],
+      "inputIds": [
+        "e1_mat"
+      ],
+      "outputIds": [
+        "e1_rec"
+      ],
+      "visibleIds": [
+        "e1_mat"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_e1_simple",
+        "ev_e1_simple2",
+        "ev_e1_simple3"
+      ],
+      "conditionIds": [
+        "e1_c_simple"
+      ]
+    },
+    {
+      "id": "e1_s_complex",
+      "studyId": "exp1",
+      "kind": "action",
+      "title": "Complex implicature trial (x12)",
+      "actorIds": [
+        "e1_part"
+      ],
+      "inputIds": [
+        "e1_mat"
+      ],
+      "outputIds": [
+        "e1_rec"
+      ],
+      "visibleIds": [
+        "e1_mat"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_e1_cx",
+        "ev_e1_cx2",
+        "ev_e1_cx3"
+      ],
+      "conditionIds": [
+        "e1_c_complex"
+      ]
+    },
+    {
+      "id": "e1_s_fdisp",
+      "studyId": "exp1",
+      "kind": "action",
+      "title": "Filler trial on an implicature display (x24)",
+      "actorIds": [
+        "e1_part"
+      ],
+      "inputIds": [
+        "e1_mat"
+      ],
+      "outputIds": [
+        "e1_rec"
+      ],
+      "visibleIds": [
+        "e1_mat"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_e1_fill"
+      ]
+    },
+    {
+      "id": "e1_s_fbase",
+      "studyId": "exp1",
+      "kind": "action",
+      "title": "Unambiguous or ambiguous baseline filler (x18)",
+      "actorIds": [
+        "e1_part"
+      ],
+      "inputIds": [
+        "e1_mat"
+      ],
+      "outputIds": [
+        "e1_rec"
+      ],
+      "visibleIds": [
+        "e1_mat"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_e1_fill2"
+      ],
+      "conditionIds": [
+        "e1_c_unamb",
+        "e1_c_amb"
+      ]
+    },
+    {
+      "id": "e2_s_trials",
+      "studyId": "exp2",
+      "kind": "repeat",
+      "title": "66 production trials in random order",
+      "actorIds": [
+        "e2_part"
+      ],
+      "inputIds": [
+        "e2_mat"
+      ],
+      "outputIds": [
+        "e2_rec"
+      ],
+      "visibleIds": [
+        "e2_mat"
+      ],
+      "children": [
+        "e2_s_simple",
+        "e2_s_complex",
+        "e2_s_fdisp",
+        "e2_s_fbase"
+      ],
+      "next": [],
+      "evidenceIds": [
+        "ev_e2_mat1",
+        "ev_e2_order"
+      ]
+    },
+    {
+      "id": "e2_s_simple",
+      "studyId": "exp2",
+      "kind": "action",
+      "title": "Simple implicature trial (x12)",
+      "actorIds": [
+        "e2_part"
+      ],
+      "inputIds": [
+        "e2_mat"
+      ],
+      "outputIds": [
+        "e2_rec"
+      ],
+      "visibleIds": [
+        "e2_mat"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_e2_simple",
+        "ev_e2_simple2",
+        "ev_e2_simple3"
+      ],
+      "conditionIds": [
+        "e2_c_simple"
+      ]
+    },
+    {
+      "id": "e2_s_complex",
+      "studyId": "exp2",
+      "kind": "action",
+      "title": "Complex implicature trial (x12)",
+      "actorIds": [
+        "e2_part"
+      ],
+      "inputIds": [
+        "e2_mat"
+      ],
+      "outputIds": [
+        "e2_rec"
+      ],
+      "visibleIds": [
+        "e2_mat"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_e2_cx",
+        "ev_e2_cx2"
+      ],
+      "conditionIds": [
+        "e2_c_complex"
+      ]
+    },
+    {
+      "id": "e2_s_fdisp",
+      "studyId": "exp2",
+      "kind": "action",
+      "title": "Filler trial on an implicature display (x24)",
+      "actorIds": [
+        "e2_part"
+      ],
+      "inputIds": [
+        "e2_mat"
+      ],
+      "outputIds": [
+        "e2_rec"
+      ],
+      "visibleIds": [
+        "e2_mat"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_e2_fill"
+      ]
+    },
+    {
+      "id": "e2_s_fbase",
+      "studyId": "exp2",
+      "kind": "action",
+      "title": "Unambiguous or ambiguous baseline filler (x18)",
+      "actorIds": [
+        "e2_part"
+      ],
+      "inputIds": [
+        "e2_mat"
+      ],
+      "outputIds": [
+        "e2_rec"
+      ],
+      "visibleIds": [
+        "e2_mat"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_e2_fill2"
+      ],
+      "conditionIds": [
+        "e2_c_unamb",
+        "e2_c_amb"
+      ]
+    },
+    {
+      "id": "mc_s_fit",
+      "studyId": "mc",
+      "kind": "action",
+      "title": "Fit hierarchical type model to retained participants' choice counts",
+      "actorIds": [],
+      "inputIds": [
+        "e1_rec",
+        "e2_rec"
+      ],
+      "outputIds": [
+        "mc_r_post"
+      ],
+      "visibleIds": [
+        "e1_rec",
+        "e2_rec"
+      ],
+      "children": [],
+      "next": [
+        {
+          "to": "mc_s_bf"
+        }
+      ],
+      "evidenceIds": [
+        "ev_mc_hier1",
+        "ev_mc_jags"
+      ]
+    },
+    {
+      "id": "mc_s_bf",
+      "studyId": "mc",
+      "kind": "action",
+      "title": "Approximate Bayes factors, homogeneous vs heterogeneous",
+      "actorIds": [],
+      "inputIds": [
+        "mc_r_post"
+      ],
+      "outputIds": [
+        "mc_r_bf"
+      ],
+      "visibleIds": [
+        "mc_r_post"
+      ],
+      "children": [],
+      "next": [],
+      "evidenceIds": [
+        "ev_mc_bf1"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "id": "r_hyp_e1",
+      "from": "hyp1",
+      "to": "e1_an",
+      "type": "tested-by"
+    },
+    {
+      "id": "r_hyp_mc",
+      "from": "hyp1",
+      "to": "mc_an_bf",
+      "type": "tested-by"
+    },
+    {
+      "id": "r_hyp2_e1",
+      "from": "hyp2",
+      "to": "e1_an",
+      "type": "tested-by"
+    },
+    {
+      "id": "r_hyp2_e2",
+      "from": "hyp2",
+      "to": "e2_an",
+      "type": "tested-by"
+    }
+  ],
+  "extensions": {
+    "presentation": {
+      "open": [
+        "ov",
+        "bg",
+        "hyp1"
+      ],
+      "collapsed": []
+    }
+  }
+}

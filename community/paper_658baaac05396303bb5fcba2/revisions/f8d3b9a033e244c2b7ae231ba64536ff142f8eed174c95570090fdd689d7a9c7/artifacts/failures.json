@@ -1,0 +1,16 @@
+[
+  {
+    "pattern": "materials-not-public",
+    "where": "all studies",
+    "what": "The full event list is in SI Table S1, which is not in the paper or its sources; only four events and two base rates are quoted (issue iss-stimuli).",
+    "fallback": "Blocked: readable and searchable, not runnable. Never invent the missing events.",
+    "suggestion": "Obtain SI Table S1 from the publisher or the authors."
+  },
+  {
+    "pattern": "human-data-incomplete",
+    "where": "study1-3 order arms",
+    "what": "The data files do not record whether E1 or eBR was asked first, so the two order arms cannot be separated.",
+    "fallback": "Load each participant once per study with the order arms pooled.",
+    "suggestion": null
+  }
+]

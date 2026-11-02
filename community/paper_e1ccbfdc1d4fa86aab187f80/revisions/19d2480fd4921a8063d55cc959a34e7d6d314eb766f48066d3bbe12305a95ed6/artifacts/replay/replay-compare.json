@@ -1,0 +1,144 @@
+{
+  "package": "nyhan2015",
+  "source": "study_core.py reproduce (method package, effects.json) on the pinned human data",
+  "humanSessions": 1000,
+  "sample": "original",
+  "tolerance": "a result is recovered when |computed - reported| <= max(0.05, 0.15 * |reported|)",
+  "humanMatchesPaper": [
+    11,
+    11
+  ],
+  "checks": [
+    {
+      "id": "innuendo_favorable",
+      "label": "Innuendo vs control: favorability of Swensen",
+      "role": "test",
+      "reported": -0.58,
+      "human": -0.581532,
+      "human_p": 3.19425e-09,
+      "basis": "computed mean_difference compared as reported regression_coefficient: OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "innuendo_bribes",
+      "label": "Innuendo vs control: belief he took bribes",
+      "role": "test",
+      "reported": 0.79,
+      "human": 0.78694,
+      "human_p": 5.86691e-16,
+      "basis": "computed mean_difference compared as reported regression_coefficient: OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "denial_favorable",
+      "label": "Denial vs innuendo: favorability of Swensen",
+      "role": "test",
+      "reported": 0.19,
+      "human": 0.195918,
+      "human_p": 0.0497023,
+      "basis": "computed mean_difference compared as reported regression_coefficient: OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "causal_favorable",
+      "label": "Causal correction vs innuendo: favorability of Swensen",
+      "role": "test",
+      "reported": 0.66,
+      "human": 0.642872,
+      "human_p": 5.61339e-10,
+      "basis": "computed mean_difference compared as reported regression_coefficient: OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "denial_bribes",
+      "label": "Denial vs innuendo: belief he took bribes",
+      "role": "test",
+      "reported": -0.23,
+      "human": -0.236035,
+      "human_p": 0.00819437,
+      "basis": "computed mean_difference compared as reported regression_coefficient: OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "causal_bribes",
+      "label": "Causal correction vs innuendo: belief he took bribes",
+      "role": "test",
+      "reported": -0.72,
+      "human": -0.701414,
+      "human_p": 5.1793e-13,
+      "basis": "computed mean_difference compared as reported regression_coefficient: OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "denial_investigation",
+      "label": "Denial vs innuendo: belief he resigned because of an investigation",
+      "role": "test",
+      "reported": -0.25,
+      "human": -0.245902,
+      "human_p": 4.76452e-05,
+      "basis": "computed mean_difference compared as reported regression_coefficient: OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "causal_investigation",
+      "label": "Causal correction vs innuendo: belief he resigned because of an investigation",
+      "role": "test",
+      "reported": -0.58,
+      "human": -0.578106,
+      "human_p": 1.09834e-16,
+      "basis": "computed mean_difference compared as reported regression_coefficient: OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "causal_vs_denial_favorable",
+      "label": "Causal correction vs denial: favorability of Swensen (the hypothesis)",
+      "role": "test",
+      "reported": 0.46,
+      "human": 0.446954,
+      "human_p": 1.95389e-05,
+      "basis": "computed mean_difference compared as reported regression_coefficient: OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "causal_vs_denial_bribes",
+      "label": "Causal correction vs denial: belief he took bribes (the hypothesis)",
+      "role": "test",
+      "reported": -0.48,
+      "human": -0.465378,
+      "human_p": 1.85223e-06,
+      "basis": "computed mean_difference compared as reported regression_coefficient: OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "causal_vs_denial_investigation",
+      "label": "Causal correction vs denial: belief in the investigation (the hypothesis)",
+      "role": "test",
+      "reported": -0.34,
+      "human": -0.332205,
+      "human_p": 2.45371e-06,
+      "basis": "computed mean_difference compared as reported regression_coefficient: OLS of the outcome on condition indicators: the coefficient of a condition is the difference between its mean and the reference mean",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "recall_denial",
+      "label": "Recall check: denial vs innuendo, correct answers (0-3)",
+      "role": "check",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs at least 2 values in each arm",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "recall_causal",
+      "label": "Recall check: causal vs innuendo, correct answers (0-3)",
+      "role": "check",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs at least 2 values in each arm",
+      "humanMatchesPaper": null
+    }
+  ],
+  "agent": "The AI-participant results of the earlier pilot replay were removed: they were computed with an earlier evaluation and effect list. Run a replay to compare AI participants with these results."
+}
