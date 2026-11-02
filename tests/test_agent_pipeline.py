@@ -8,7 +8,9 @@ from pathlib import Path
 
 import pytest
 
-from agent_pipeline.run_agent import ProgressPublisher, ensure_readme, package_progress, studio_complete
+from agent_pipeline.run_agent import (
+    ProgressPublisher, ensure_readme, package_progress, program_findings, repair_package, repair_prompt, studio_complete,
+)
 from agent_pipeline.build_prompt import conversation_context, fetch_materials, referenced_messages
 from agent_pipeline.finalize_job import finalize
 from agent_pipeline.studio_output import validate_build_sidecars, validate_discussion, validate_study_model
@@ -693,3 +695,152 @@ def test_finalize_studio_build_rejects_missing_sidecars(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="sidecars"):
         finalize(job, validator)
     assert json.loads((job / "job.json").read_text())["status"] == "running"
+
+
+# --- Repair loop -----------------------------------------------------------
+
+DERIVED_ERROR = (
+    "Traceback (most recent call last):\n"
+    "  File \"agent_pipeline/human_program.py\", line 12, in fail\n"
+    "    raise ValueError(f'{path}: {message}')\n"
+    "ValueError: variable_x: derived value requires derivation"
+)
+
+
+def test_repair_loop_succeeds_after_two_rounds(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    (job / "package").mkdir(parents=True)
+    checks = iter([(False, "ValueError: still broken"), (True, "Validated agent package: paper")])
+    prompts: list[str] = []
+
+    def run_turn(prompt: str, number: int, deadline: float) -> int:
+        prompts.append(prompt)
+        return 0
+
+    published: list[int] = []
+    valid, detail, rounds = repair_package(
+        job, job / "package", lambda: next(checks), run_turn, float("inf"), DERIVED_ERROR,
+        publish=lambda n, m, e: published.append(n),
+    )
+    assert valid is True
+    assert len(rounds) == 2 and published == [1, 2]
+    assert "derived value requires derivation" in prompts[0]
+    assert "Traceback" not in prompts[0]
+    assert "derivation stated" in prompts[0] and "Do not invent" in prompts[0]
+    assert "still broken" in prompts[1]
+    log = json.loads((job / "logs/repair.json").read_text())
+    assert [r["valid"] for r in log["rounds"]] == [False, True]
+
+
+def test_repair_loop_stops_after_three_rounds(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    (job / "package").mkdir(parents=True)
+    calls: list[int] = []
+    valid, detail, rounds = repair_package(
+        job, job / "package", lambda: (False, "ValueError: p: unresolved field requires a review issue"),
+        lambda prompt, number, deadline: calls.append(number) or 0, float("inf"), DERIVED_ERROR,
+    )
+    assert valid is False and calls == [1, 2, 3] and len(rounds) == 3
+    assert "unresolved field requires a review issue" in detail
+    assert json.loads((job / "logs/repair.json").read_text())["rounds"][-1]["errorsAfter"].endswith("review issue")
+
+
+def test_repair_loop_respects_deadline(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    (job / "package").mkdir(parents=True)
+    valid, _, rounds = repair_package(job, job / "package", lambda: (True, ""), lambda *a: 0, 0.0, DERIVED_ERROR)
+    assert valid is False and rounds == []
+
+
+def test_repair_prompt_lists_every_offending_field(tmp_path: Path) -> None:
+    root = tmp_path / "package" / "paper"
+    root.mkdir(parents=True)
+    program = {
+        "nodes": [
+            {"id": "a", "fields": [{"id": "f1", "origin": "derived", "state": "known"},
+                                   {"id": "f2", "origin": "reported", "state": "missing"}]},
+            {"id": "b", "fields": [{"id": "f3", "origin": "derived", "derivation": "mean of items", "state": "known"},
+                                   {"id": "f4", "origin": "reported", "state": "missing"}]},
+        ],
+        "steps": [{"id": "s1", "rule": {"origin": "derived", "state": "decision"}}],
+        "issues": [{"id": "i1", "nodeId": "b", "fieldId": "f4"}],
+    }
+    (root / "study.json").write_text(json.dumps({"program": program}))
+    findings = program_findings(tmp_path / "package")
+    assert findings == [
+        "node a field f1: derived value requires derivation",
+        "node a field f2: unresolved field requires a review issue",
+        "step s1 rule: derived value requires derivation",
+        "step s1 rule: unresolved rule requires a review issue",
+    ]
+    prompt = repair_prompt(tmp_path, DERIVED_ERROR, findings, 1, 3)
+    assert "never silently filled" in prompt and "review issue" in prompt
+
+
+def _fake_repair_setup(tmp_path: Path, needed_repairs: int) -> tuple[Path, Path, dict]:
+    job = tmp_path / "job"
+    (job / "logs").mkdir(parents=True)
+    prompt = job / "prompt.md"
+    prompt.write_text("Build the package")
+    validator = tmp_path / "validator.py"
+    validator.write_text(
+        "import pathlib, sys\n"
+        "count = pathlib.Path(sys.argv[1], 'paper', 'repairs.txt')\n"
+        "n = int(count.read_text()) if count.exists() else 0\n"
+        f"if n >= {needed_repairs}:\n"
+        "    print('Validated agent package: paper'); raise SystemExit(0)\n"
+        "raise SystemExit('ValueError: variable_x: derived value requires derivation')\n"
+    )
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    fake_claude = bin_dir / "claude"
+    fake_claude.write_text(
+        "#!/usr/bin/env python3\n"
+        "import json, pathlib, sys\n"
+        "job = pathlib.Path(sys.argv[sys.argv.index('--add-dir') + 1])\n"
+        "root = job / 'package' / 'paper'\n"
+        "(job / 'calls.jsonl').open('a').write(json.dumps(sys.argv[1:-1]) + '\\n')\n"
+        "if '--resume' in sys.argv:\n"
+        "    assert 'derived value requires derivation' in sys.argv[-1]\n"
+        "    count = root / 'repairs.txt'\n"
+        "    count.write_text(str(int(count.read_text()) + 1 if count.exists() else 1))\n"
+        "    raise SystemExit(0)\n"
+        f"for relative in {REQUIRED!r}:\n"
+        "    path = root / relative\n"
+        "    path.parent.mkdir(parents=True, exist_ok=True)\n"
+        "    path.write_text('{}\\n' if path.suffix == '.json' else 'x\\n')\n"
+    )
+    fake_claude.chmod(0o755)
+    env = {**os.environ, "PATH": f"{bin_dir}:{os.environ['PATH']}"}
+    return job, validator, env
+
+
+def _run_agent(job: Path, validator: Path, env: dict) -> subprocess.CompletedProcess:
+    return subprocess.run([
+        sys.executable, str(ROOT / "agent_pipeline/run_agent.py"),
+        "--job", str(job), "--prompt", str(job / "prompt.md"), "--model", "test-model",
+        "--validator", str(validator), "--timeout-minutes", "0.5", "--check-interval", "0.05",
+    ], capture_output=True, text=True, env=env, timeout=60)
+
+
+def test_run_agent_repairs_failed_package_by_resuming_session(tmp_path: Path) -> None:
+    job, validator, env = _fake_repair_setup(tmp_path, needed_repairs=2)
+    result = _run_agent(job, validator, env)
+    assert result.returncode == 0, result.stdout + result.stderr
+    calls = [json.loads(line) for line in (job / "calls.jsonl").read_text().splitlines()]
+    session = calls[0][calls[0].index("--session-id") + 1]
+    assert [c[c.index("--resume") + 1] for c in calls[1:]] == [session, session]
+    assert json.loads((job / "logs/watchdog.json").read_text())["reason"] == "repaired"
+    assert len(json.loads((job / "logs/repair.json").read_text())["rounds"]) == 2
+    assert "[package-repair] round 2/3" in result.stdout
+
+
+def test_run_agent_gives_up_after_three_repairs(tmp_path: Path) -> None:
+    job, validator, env = _fake_repair_setup(tmp_path, needed_repairs=99)
+    result = _run_agent(job, validator, env)
+    assert result.returncode != 0
+    assert "derived value requires derivation" in result.stderr
+    assert "after repair rounds" in result.stderr
+    assert len((job / "calls.jsonl").read_text().splitlines()) == 4
+    watchdog = json.loads((job / "logs/watchdog.json").read_text())
+    assert watchdog["reason"] == "repair_failed" and watchdog["package_valid"] is False
