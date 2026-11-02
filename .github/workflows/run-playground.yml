@@ -104,14 +104,12 @@ jobs:
           ANTHROPIC_BASE_URL: https://openrouter.ai/api
           CHARTS_AGENT_TOKEN: ${{ secrets.OPENROUTER_API_KEY }}
           ANTHROPIC_API_KEY: ""
-          ANTHROPIC_DIRECT_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ vars.PLAYGROUND_CHARTS_MODEL || vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
           ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ vars.PLAYGROUND_CHARTS_MODEL || vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
           ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ vars.PLAYGROUND_CHARTS_MODEL || vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
           OPENROUTER_MODEL: ${{ vars.PLAYGROUND_CHARTS_MODEL || vars.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5' }}
           CHARTS_TIMEOUT_MINUTES: ${{ vars.PLAYGROUND_CHARTS_TIMEOUT_MINUTES || '8' }}
         run: |
-          source scripts/ci/claude_upstream.sh
           python playground/run_charts.py \
             --run "$GITHUB_WORKSPACE/run-storage/runs/$RUN_ID" \
             --model "$OPENROUTER_MODEL" \
