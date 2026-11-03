@@ -60,7 +60,7 @@ def random_effects_regression(y, X, groups) -> Optional[Dict[str, Any]]:
         return None
     b_w, *_ = np.linalg.lstsq(X_w, y_w, rcond=None)
     sigma_e2 = float(np.sum((y_w - X_w @ b_w) ** 2) / (n_obs - n_groups - k))
-    if sigma_e2 <= 0:
+    if sigma_e2 <= 1e-12 * max(1.0, float(np.var(y))):
         return None
 
     # Between regression (one row per subject) -> subject-level variance.

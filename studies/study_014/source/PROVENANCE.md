@@ -47,8 +47,8 @@ legacy benchmark annotation, not by either paper. Their status is
 
 ## Replication scoring: Davis et al. (2011) only
 
-The owner's decision of 2026-11-03: a study follows its paper and is scored the
-way that paper tests its finding. The rule is recorded in the finding's
+Scoring rule: a study follows its paper and is scored the way that paper tests
+its finding. The rule is recorded in the finding's
 `scoring` block in ground_truth.json.
 
 **Human result.** Davis et al. (2011), Table 2, Model (1), printed page 182.
@@ -95,6 +95,18 @@ both in reserve-price points per additional bidder: `human_effect_size`,
 `agent_effect_size`, `effect_gap` and `agent_coefficient_ci95`. No Cohen's d is
 derived; the paper prints a regression coefficient, and the comparison stays
 in its units.
+
+**Running it.** The evaluator expects one response per round, with
+`trial_info.num_bidders` (and `round` when available), one `individual_data`
+entry per agent. The shipped 60-round baselines in `benchmark/llm_data` are
+scored this way offline. The playground cannot yet run this multi-round game:
+it sends each agent one trial holding all 60 rounds in `trial_info.rounds`, so
+a playground run yields no decisions and stays unscored until a multi-round
+runner exists.
+
+**Units.** `human_effect_size` and `agent_effect_size` are reserve-price points
+per additional bidder (`effect_size_metric`), not Cohen's d. Do not average
+them with d-based effects of other studies.
 
 **History.** From HumanStudy-Bench PR #50 to PR #54 the evaluator left
 `human_significant` and `replication` empty and study_014 was excluded from the

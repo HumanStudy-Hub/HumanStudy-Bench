@@ -61,7 +61,7 @@ def test_n_observations_is_derived_from_printed_inputs():
     assert record["derivation"]
 
 
-# --- Replication scoring (owner decision 2026-11-03: one paper) ------------------
+# --- Replication scoring: the study follows one paper ----------------------------
 # The study follows Davis et al. (2011) only. Human result: Table 2, Model (1)
 # (printed p. 182), random-effects regression of reserve price on n - mean(n),
 # coefficient 2.98 [SE 0.08], p < 0.01. The agent side is fitted the same way.
@@ -118,7 +118,6 @@ def test_scoring_uses_davis_2011_only():
     assert rows["constant"]["coefficient"] == 29.45 and rows["period_minus_mean_period"]["coefficient"] == 0.04
     assert rows["cube"]["coefficient"] == 31.78 and rows["r_squared"] == 0.499
     # Feng 2025 is a reference only.
-    assert "scoring" not in json.dumps(finding["later_benchmark_see_also"]).replace("used_in_scoring", "")
     assert finding["later_benchmark_see_also"]["used_in_scoring"] is False
     assert "verified_printed_benchmark" not in finding
     assert scoring["agent_model"]["differences_from_davis2011"]
@@ -173,7 +172,38 @@ def test_wrong_direction_is_scored_as_not_replicated():
     assert row["replication"] is False
 
 
-def test_study014_counts_in_playground_replication_rate():
+def test_feng_values_do_not_change_the_score():
+    module = _evaluator()
+    data = _sessions(slope=2)
+    before = module.evaluate_study(data)
+    gt = json.loads(GT.read_text())
+    finding = gt["studies"][0]["findings"][0]
+    for key in ("pearson_r", "mean_reserve_price", "sd_reserve_price"):
+        finding["later_benchmark_see_also"][key] = -99.0
+    finding["original_data_points"]["data"]["overall"]["pearson_r"] = -0.99
+    module._ground_truth_cache = gt
+    assert module.evaluate_study(data) == before
+
+
+def test_estimator_matches_pinned_value_on_shipped_human_data():
+    """Regression pin: the legacy human CSV through the agent model (not scored)."""
+    import csv
+    from collections import defaultdict
+    module = _evaluator()
+    rows = defaultdict(list)
+    with open(STUDY / "benchmark/human_data/auction_human_data.csv") as fh:
+        for r in csv.DictReader(fh):
+            rows[r["Bidder Group"]].append((int(r["Stepgroup Loop"]), int(r["numBidders"]), int(r["rPrice"])))
+    data = [{"responses": [{"response_text": str(p), "trial_info": {"num_bidders": n, "round": t}} for t, n, p in v]}
+            for v in rows.values()]
+    row = module.evaluate_study({"individual_data": data})["test_results"][0]
+    assert row["n_agents"] == 40 and row["n_agent_observations"] == 2400
+    assert row["agent_coefficient"] == pytest.approx(2.791, abs=0.001)
+    assert row["agent_standard_error"] == pytest.approx(0.098, abs=0.001)
+
+
+def test_study014_offline_rows_count_in_playground_replication_rate():
+    # Offline per-round data; the playground runner cannot yet produce it (see PROVENANCE.md).
     evaluation = _evaluate(slope=2)
     analysis = build_analysis(evaluation, STUDY, {"id": "r1", "studyId": "study_014"}, {"participants": 8})
     summary = analysis["summary"]
@@ -181,6 +211,7 @@ def test_study014_counts_in_playground_replication_rate():
     assert summary["replicationRate"] == 1.0
     assert summary["meanHumanEffect"] == 2.98
     row = analysis["tests"][0]
+    assert row["effect_metric"] == "re_coefficient_reserve_price_points_per_bidder"
     assert row["agent_effect"] == evaluation["test_results"][0]["agent_coefficient"]
     assert "Davis et al. 2011" in row["reported_statistics"]
     assert "Feng" not in row["reported_statistics"]

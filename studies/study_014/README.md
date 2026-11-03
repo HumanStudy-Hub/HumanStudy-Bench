@@ -25,7 +25,8 @@ The study follows one paper and is scored the way that paper tests its finding (
 - **Human result (printed):** Davis et al. (2011), Table 2, Model (1): coefficient on n − mean(n) = 2.98 [SE 0.08], p < 0.01. Only the bound is printed, so no exact human p-value is reported.
 - **Agent result (computed):** the same regression on the agent decisions: reserve price on n − mean(n) and period − mean(period), random intercept per agent. The Cube indicator is dropped because the agent task uses only the Cuberoot distribution.
 - **Replication:** the agent coefficient on n − mean(n) is significant at 0.05 and positive.
-- **Effect comparison:** the agent coefficient against 2.98, both in reserve-price points per additional bidder.
+- **Effect comparison:** the agent coefficient against 2.98, both in reserve-price points per additional bidder (not Cohen's d).
+- **Data:** one response per round with its number of bidders. The 60-round baselines in `benchmark/llm_data` are scored offline; the playground cannot yet run this multi-round game, so a playground run is not scored.
 
 ## Descriptive statistics (not scored)
 
