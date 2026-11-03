@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "80fdb26b-d27c-5e60-b9d2-0b4bd93d394c",
+  "headCommit": null,
+  "paperKey": "doi:10.1027/1864-9335/a000178",
+  "status": "accepted",
+  "revision": "0f0ae1c95a3001ebb6ba39a741401b1e1e2c4e0628acad2a96f242a6e9b8acbc",
+  "previousRevision": "6fcd883c65a8290bb23a42dce9fba8395d57a4d57a9ed8a7823c8d194a255237",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "0f0ae1c95a3001ebb6ba39a741401b1e1e2c4e0628acad2a96f242a6e9b8acbc",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Issue #57 follow-up. The 'wording' fields are labelled as the text of the instrument document (Measures_US_Version.docx), with the document's notes to experimenters named where a field contains them, instead of participant-visible wording; the text itself is unchanged. The anchoring1b.html supplement records its OSF link as a zip archive URL with the file's path inside the archive.",
+    "checks": [
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [14, 14]",
+      "capabilities.py recomputed and --check",
+      "check_package.py",
+      "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

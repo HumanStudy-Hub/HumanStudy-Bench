@@ -1,0 +1,240 @@
+{
+  "package": "manylabs1",
+  "source": "study_core.py reproduce (method package, effects.json) on the pinned human data",
+  "humanSessions": 61407,
+  "sample": "original",
+  "tolerance": "a result is recovered when |computed - reported| <= max(0.05, 0.15 * |reported|)",
+  "humanMatchesPaper": [
+    14,
+    14
+  ],
+  "checks": [
+    {
+      "id": "sunk_costs",
+      "label": "Sunk costs: paid vs free ticket, likelihood of going to the game",
+      "role": "test",
+      "reported": 0.27,
+      "human": 0.272287,
+      "human_p": 4.35486e-27,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "framing",
+      "label": "Gain vs loss framing: share choosing the sure option",
+      "role": "test",
+      "reported": 0.6,
+      "human": 0.599131,
+      "human_p": 2.5508e-114,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "anchoring_nyc",
+      "label": "Anchoring: high vs low anchor, estimate of the distance from San Francisco to NYC",
+      "role": "test",
+      "reported": 1.17,
+      "human": 1.16918,
+      "human_p": 8.55774e-34,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "anchoring_chicago",
+      "label": "Anchoring: high vs low anchor, estimate of the population of Chicago",
+      "role": "test",
+      "reported": 1.79,
+      "human": 1.72938,
+      "human_p": 1.13613e-62,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "anchoring_everest",
+      "label": "Anchoring: high vs low anchor, estimate of the height of Mt. Everest",
+      "role": "test",
+      "reported": 2.23,
+      "human": 2.37578,
+      "human_p": 7.97048e-98,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "anchoring_babies",
+      "label": "Anchoring: high vs low anchor, estimate of the babies born per day in the US",
+      "role": "test",
+      "reported": 2.42,
+      "human": 2.52596,
+      "human_p": 7.28442e-106,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "gamblers_fallacy",
+      "label": "Retrospective gambler's fallacy: three 6's vs two 6's and a 3, estimated earlier rolls",
+      "role": "test",
+      "reported": 0.61,
+      "human": 0.676344,
+      "human_p": 1.05636e-136,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "category_scales",
+      "label": "Category scales: share reporting more than 2.5 h of TV a day, high vs low scale",
+      "role": "test",
+      "reported": 0.49,
+      "human": 0.496463,
+      "human_p": 1.92252e-76,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "reciprocity",
+      "label": "Norm of reciprocity: support for other-country reporters, American question first vs second",
+      "role": "test",
+      "reported": 0.3,
+      "human": 0.2969,
+      "human_p": 2.80325e-31,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "allowed_forbidden",
+      "label": "Allowed/forbidden: share answering 'Yes', allow vs forbid wording (Table 2 test)",
+      "role": "test",
+      "reported": 1.96,
+      "human": 1.96389,
+      "human_p": 0.0,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "allowed_forbidden_restrictive",
+      "label": "Allowed/forbidden: restrictive answers ('No' to allow vs 'Yes' to forbid)",
+      "role": "robustness",
+      "reported": 0.16499999999999998,
+      "human": 0.165108,
+      "human_p": 1.72853e-73,
+      "basis": "difference of the reported proportions",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "quote_attribution",
+      "label": "Quote attribution: agreement, liked (Washington) vs disliked (Bin Laden) source",
+      "role": "test",
+      "reported": 0.32,
+      "human": 0.321672,
+      "human_p": 5.53235e-37,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "flag_priming",
+      "label": "Flag priming: political attitudes (Republican end), flag vs control, US samples",
+      "role": "test",
+      "reported": 0.03,
+      "human": 0.0251284,
+      "human_p": 0.379394,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "currency_priming",
+      "label": "Currency priming: system justification, money vs control",
+      "role": "test",
+      "reported": -0.02,
+      "human": -0.0197907,
+      "human_p": 0.431052,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "imagined_contact",
+      "label": "Imagined contact: contact intentions, imagined contact vs control",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Item scoring (direction and scale) is not in the materials.; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.13,
+          "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.1,
+          "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.12,
+          "variant": "median replication ES across samples (Table 2, p. 7)"
+        }
+      ]
+    },
+    {
+      "id": "iat_sex_difference",
+      "label": "Implicit math attitudes: men vs women (IAT D)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "The IAT needs reaction-time latencies that a text participant cannot produce.; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.53,
+          "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.56,
+          "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.59,
+          "variant": "median replication ES across samples (Table 2, p. 7)"
+        }
+      ]
+    },
+    {
+      "id": "iat_implicit_explicit",
+      "label": "Implicit-explicit math attitudes: correlation",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "The IAT needs reaction-time latencies that a text participant cannot produce.; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "correlation",
+          "value": 0.38,
+          "variant": "Pearson r, whole dataset (Table 2, p. 7)"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.79,
+          "variant": "weighted replication ES, whole aggregated dataset (Table 2, p. 7)"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.79,
+          "variant": "unweighted mean of the 36 sample ESs (Table 2, p. 7)"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.84,
+          "variant": "median replication ES across samples (Table 2, p. 7)"
+        }
+      ]
+    }
+  ],
+  "agent": "The AI-participant results of the earlier pilot replay were removed: they were computed with an earlier evaluation and effect list. Run a replay to compare AI participants with these results."
+}

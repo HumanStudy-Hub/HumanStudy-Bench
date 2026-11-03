@@ -1,0 +1,72 @@
+{
+ "label": "reported",
+ "note": "The paper prints no instruction text or stimulus pictures (issues is_e1_instr, is_e2_instr). The instruction strings below paraphrase the procedure the paper reports and are NOT verbatim. Objects and messages, shown as pictures in the original, are rendered as text.",
+ "verbatim_instructions": null,
+ "verbatim_stimuli": null,
+ "instructions": {
+  "exp1_comprehension": "You are taking part in an online reference-game experiment. On each trial you see three objects. Each object is a robot, a green monster or a purple monster, and has a scarf, a blue hat or a red hat. You also see a message that was sent to you by a previous participant whose goal was to get you to pick out one of the three objects. That participant could send a message expressing only one feature of the object, and the messages available to them were restricted to monsters and hats: 'green monster', 'purple monster', 'red hat', 'blue hat' (there were no messages for the robot or the scarf). Pick the object you think the sender wanted you to pick.",
+  "exp1_speaker": "You are taking part in an online reference-game experiment. First you will do a few trials as the sender. You see three objects, one of which is highlighted with a yellow rectangle. Each object is a robot, a green monster or a purple monster, and has a scarf, a blue hat or a red hat. Click on one of four messages to send to another worker so that they pick out the highlighted object. The other worker does not know which object is highlighted but knows which messages could be sent. The four messages are 'green monster', 'purple monster', 'red hat' and 'blue hat'.",
+  "exp2_production": "You are taking part in an online reference-game experiment. On each trial you see three objects, one of which is highlighted with a yellow rectangle. Each object is a robot, a green monster or a purple monster, and has a scarf, a blue hat or a red hat. Click on one of four messages to send to another worker so that they pick out the highlighted object. The other worker does not know which object is highlighted but knows which messages could be sent. The four messages are 'green monster', 'purple monster', 'red hat' and 'blue hat'."
+ },
+ "stimulus_space": {
+  "features": {
+   "kinds": [
+    "robot",
+    "green monster",
+    "purple monster"
+   ],
+   "accessories": [
+    "scarf",
+    "blue hat",
+    "red hat"
+   ],
+   "expressible": [
+    "green monster",
+    "purple monster",
+    "red hat",
+    "blue hat"
+   ],
+   "inexpressible": [
+    "robot",
+    "scarf"
+   ]
+  }
+ },
+ "studies": {
+  "exp1": {
+   "conditions": {
+    "simple": "12 trials",
+    "complex": "12 trials",
+    "unamb": "9 baseline fillers (assumed split)",
+    "amb": "9 baseline fillers (assumed split)",
+    "fillers_on_implicature_displays": "6 + 6 + 12",
+    "speaker_practice": "4 trials (3 unambiguous, 1 ambiguous), first"
+   },
+   "generation": "see evidence ev_e1_simple.., ev_e1_cx.., ev_e1_fill.., and adapter.comp_trial",
+   "evidenceIds": [
+    "ev_e1_mat1",
+    "ev_e1_simple",
+    "ev_e1_cx",
+    "ev_e1_fill",
+    "ev_e1_fill2"
+   ]
+  },
+  "exp2": {
+   "conditions": {
+    "simple": "12 trials",
+    "complex": "12 trials",
+    "unamb": "9 (assumed split)",
+    "amb": "9 (assumed split)",
+    "fillers_on_implicature_displays": "6 + 6 + 12"
+   },
+   "generation": "see evidence ev_e2_simple.., ev_e2_cx.., ev_e2_fill.., and adapter.prod_trial",
+   "evidenceIds": [
+    "ev_e2_mat1",
+    "ev_e2_simple",
+    "ev_e2_cx",
+    "ev_e2_fill",
+    "ev_e2_fill2"
+   ]
+  }
+ }
+}

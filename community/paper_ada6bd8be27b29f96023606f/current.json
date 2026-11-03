@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "df5a796a4aa49bd427c9a92057da80b0cb8e1669a09074ee6128d5baa93e9d5e",
-  "previousRevision": "6b38c0003d5e65cc685990662fd3ff450d869c4d0b4632b6a1ce945c8888234f",
+  "revision": "47b592d1757b7fff2a0519030e422b72444d83de66e81fb29f8331cc1c2386f5",
+  "previousRevision": "df5a796a4aa49bd427c9a92057da80b0cb8e1669a09074ee6128d5baa93e9d5e",
   "paper": {
     "title": "Many Labs 2: Investigating Variation in Replicability Across Samples and Settings",
     "authors": [
@@ -41,9 +41,9 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "df5a796a4aa49bd427c9a92057da80b0cb8e1669a09074ee6128d5baa93e9d5e",
+    "candidateRevision": "47b592d1757b7fff2a0519030e422b72444d83de66e81fb29f8331cc1c2386f5",
     "reviewer": "maintainer:assassin808",
-    "reason": "Audit 1 (desktop #57). 54 *.instrument fields labelled verbatim held only a pointer to the codebook; they now hold the codebook item text itself (CC0, OSF 8cd4r), with the pointer in the label. 10 *.stimulus fields that describe pictures relabelled 'reported'. Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
+    "reason": "Issue #57 follow-up. The 54 instrument fields are labelled as codebook text (Qualtrics export with item ids, response codes and entities as written), not as the participant-visible layout; the text itself is unchanged. SOURCE.json uses the title printed on the PDF ('Sample and Setting') and notes the journal title for the DOI. The two typed-passage stimuli of the Zhong et al. replication cite the pictures they are transcribed from: the stimulus pictures already in the package, byte-identical to the pictures in the Slate 2 codebook (sha256 recorded). The pictures have no text layer, so a text search cannot confirm them.",
     "checks": [
       "check_program.py --complete",
       "check_quotes.py against the paper and the cited supplements",
@@ -79,6 +79,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "04367ffd382785776b6ec8c69763f0de141e3a4183bf721ebeef2191bd2a7392"
+    "programDigest": "528e5de65d5aff24bad4f475b46c56d9026324caef75a8e0ec6af9de6add8816"
   }
 }
