@@ -75,3 +75,21 @@ def test_all_benchmark_evaluators_load_in_one_process():
     assert study_ids
     failed = [sid for sid in study_ids if evaluator_runner.load_evaluator(sid) is None]
     assert failed == []
+
+
+def test_host_modules_with_sibling_names_are_restored(tmp_path, monkeypatch):
+    import sys
+    import types
+
+    host_config = types.ModuleType("config")
+    monkeypatch.setitem(sys.modules, "config", host_config)
+    scripts = tmp_path / "studies" / "study_905" / "scripts"
+    scripts.mkdir(parents=True)
+    (scripts / "config.py").write_text("VALUE = 'study'\n")
+    (scripts / "evaluator.py").write_text(
+        "from config import VALUE\n"
+        "def evaluate_study(results):\n"
+        "    return {'score': VALUE}\n"
+    )
+    assert evaluator_runner.run_evaluator("study_905", {}, repo_root=tmp_path) == {"score": "study"}
+    assert sys.modules["config"] is host_config

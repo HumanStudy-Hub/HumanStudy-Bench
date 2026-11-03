@@ -31,13 +31,13 @@ def _isolated_siblings(scripts_dir: Path) -> Iterator[None]:
     """
     names = {path.stem for path in scripts_dir.glob("*.py")}
     saved_path = list(sys.path)
-    for name in names:
-        sys.modules.pop(name, None)
+    saved_modules = {name: sys.modules.pop(name) for name in names if name in sys.modules}
     try:
         yield
     finally:
         for name in names:
             sys.modules.pop(name, None)
+        sys.modules.update(saved_modules)
         sys.path[:] = saved_path
 
 
