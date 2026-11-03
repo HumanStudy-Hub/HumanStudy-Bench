@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "533c9885a47efc28800f012062a4857cb11d9a758fba813cb4fa7b687244ea84",
-  "previousRevision": "91d8ed30294f248c852941e3264569726cb43c522ef70663c66031667fb8efb7",
+  "revision": "cc37669cfe2c41903585bb6abd1f2b6d2e697ca41ba0ec2b6c4ce98f3a137238",
+  "previousRevision": "533c9885a47efc28800f012062a4857cb11d9a758fba813cb4fa7b687244ea84",
   "paper": {
     "title": "Reasoning in Reference Games: Individual- vs. Population-Level Probabilistic Modeling",
     "authors": [
@@ -39,9 +39,9 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "533c9885a47efc28800f012062a4857cb11d9a758fba813cb4fa7b687244ea84",
+    "candidateRevision": "cc37669cfe2c41903585bb6abd1f2b6d2e697ca41ba0ec2b6c4ce98f3a137238",
     "reviewer": "maintainer:assassin808",
-    "reason": "Audit 1 (desktop #57). artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
+    "reason": "Issue #57 follow-up. Evidence paths now point to sources/paper.pdf, where the paper is stored, so all 99 quotes can be checked against their pages. The six fixed-effects logit coefficient effects now give the real reason they are not compared: the paper reports mixed-effects coefficients (e.g. beta = .2, SE = .11, p < .08 on p. 12 of the PDF), while the package fits fixed effects only, without random effects, so the two numbers measure different quantities. replay-compare.json lists the value the package computes next to the paper's estimate for each of them.",
     "checks": [
       "check_program.py --complete",
       "check_quotes.py against the paper and the cited supplements",
@@ -77,6 +77,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "276d89b6546d55dbcc0d1cc1c6f5fecf83bf6f7a9bf84c58a5834fa1c4b2d59a"
+    "programDigest": "2e05e9d990fabfa8a7f3443ea60827a6ca7656ad53fbeb0850d4765cf6ffb6e6"
   }
 }

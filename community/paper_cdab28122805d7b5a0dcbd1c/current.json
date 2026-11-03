@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "6fcd883c65a8290bb23a42dce9fba8395d57a4d57a9ed8a7823c8d194a255237",
-  "previousRevision": "99dfdc3e990a3a76efcb879d5e4c50619fc7bab7fad8034a8ff1056f838d73ed",
+  "revision": "0f0ae1c95a3001ebb6ba39a741401b1e1e2c4e0628acad2a96f242a6e9b8acbc",
+  "previousRevision": "6fcd883c65a8290bb23a42dce9fba8395d57a4d57a9ed8a7823c8d194a255237",
   "paper": {
     "title": "Investigating Variation in Replicability: A \"Many Labs\" Replication Project",
     "authors": [
@@ -41,9 +41,9 @@
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "6fcd883c65a8290bb23a42dce9fba8395d57a4d57a9ed8a7823c8d194a255237",
+    "candidateRevision": "0f0ae1c95a3001ebb6ba39a741401b1e1e2c4e0628acad2a96f242a6e9b8acbc",
     "reviewer": "maintainer:assassin808",
-    "reason": "Audit 1 (desktop #57). Verbatim fields now hold printed text only: s08 printed text is the replication's Washington/Bin Laden quote from the Measures document (the original Jefferson/Lenin quote stays in the description); s09 printed text and s09_vmod.definition are the moderator items as printed (supplement p. 15, paper p. 5). Material wording fields (s01-s08, s11) are the Measures document's text exactly; the condition-tagged, reordered text used by the replay is a separate derived field with its derivation (incl. the SF-NY '(miles)' label). s09_pt.n-analysed now states the US-only flag-priming sample (Table 2 note p. 7, p. 8). allowed_forbidden: direction 'unspecified' (the paper states the asymmetry in restrictive answers; the sign of the Yes-share contrast is not stated). Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
+    "reason": "Issue #57 follow-up. The 'wording' fields are labelled as the text of the instrument document (Measures_US_Version.docx), with the document's notes to experimenters named where a field contains them, instead of participant-visible wording; the text itself is unchanged. The anchoring1b.html supplement records its OSF link as a zip archive URL with the file's path inside the archive.",
     "checks": [
       "check_program.py --complete",
       "check_quotes.py against the paper and the cited supplements",
@@ -79,6 +79,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "0e91a5c3d6488b6111f3347f4da989ee00a04709b0533b2b9dc73805394985a4"
+    "programDigest": "9d43c8087dce3f29ba13236d5384c8f7f5f8858c89c8c377215813d4ac3df237"
   }
 }

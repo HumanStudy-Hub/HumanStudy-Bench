@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "cdece774-1271-555c-ab09-331b536cb50a",
+  "headCommit": null,
+  "paperKey": "doi:10.1177/2515245918810225",
+  "status": "accepted",
+  "revision": "47b592d1757b7fff2a0519030e422b72444d83de66e81fb29f8331cc1c2386f5",
+  "previousRevision": "df5a796a4aa49bd427c9a92057da80b0cb8e1669a09074ee6128d5baa93e9d5e",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "47b592d1757b7fff2a0519030e422b72444d83de66e81fb29f8331cc1c2386f5",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Issue #57 follow-up. The 54 instrument fields are labelled as codebook text (Qualtrics export with item ids, response codes and entities as written), not as the participant-visible layout; the text itself is unchanged. SOURCE.json uses the title printed on the PDF ('Sample and Setting') and notes the journal title for the DOI. The two typed-passage stimuli of the Zhong et al. replication cite the pictures they are transcribed from: the stimulus pictures already in the package, byte-identical to the pictures in the Slate 2 codebook (sha256 recorded). The pictures have no text layer, so a text search cannot confirm them.",
+    "checks": [
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
+      "study_core.py reproduce with effects.json on the pinned human data: pass [14, 14]",
+      "capabilities.py recomputed and --check",
+      "check_package.py",
+      "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}

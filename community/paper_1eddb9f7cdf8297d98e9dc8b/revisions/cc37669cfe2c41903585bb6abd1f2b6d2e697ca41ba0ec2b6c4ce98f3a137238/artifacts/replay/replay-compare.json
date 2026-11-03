@@ -1,0 +1,206 @@
+{
+  "package": "frankedegen2016",
+  "source": "study_core.py reproduce (method package, effects.json) on the pinned human data",
+  "humanSessions": 52,
+  "sample": "original",
+  "tolerance": "a result is recovered when |computed - reported| <= max(0.05, 0.15 * |reported|)",
+  "humanMatchesPaper": [
+    2,
+    2
+  ],
+  "checks": [
+    {
+      "id": "exp1_simple_vs_harder",
+      "label": "Exp 1 (comprehension): target-choice log odds, simple vs harder (complex + ambiguous) Helmert contrast",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no sessions for exp1; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "regression_coefficient",
+          "value": 1.28,
+          "se": 0.12,
+          "p": 0.0001,
+          "pRelation": "<",
+          "variant": "logistic mixed-effects regression, by-participant intercepts and slopes for message type and trial number, with target-position and message-type controls (Table 2)"
+        }
+      ]
+    },
+    {
+      "id": "exp1_complex_vs_amb",
+      "label": "Exp 1 (comprehension): target-choice log odds, complex implicature vs ambiguous filler Helmert contrast",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no sessions for exp1; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "regression_coefficient",
+          "value": 0.44,
+          "se": 0.13,
+          "p": 0.001,
+          "pRelation": "<",
+          "variant": "logistic mixed-effects regression, by-participant intercepts and slopes for message type and trial number, with target-position and message-type controls (Table 2)"
+        }
+      ]
+    },
+    {
+      "id": "exp1_trial",
+      "label": "Exp 1 (comprehension): learning check, main effect of centred trial number",
+      "role": "check",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no sessions for exp1; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "regression_coefficient",
+          "value": 0.0,
+          "se": 0.0,
+          "p": 0.3,
+          "pRelation": "<",
+          "variant": "logistic mixed-effects regression, by-participant intercepts and slopes for message type and trial number, with target-position and message-type controls (Table 2)"
+        }
+      ]
+    },
+    {
+      "id": "exp2_simple_vs_harder",
+      "label": "Exp 2 (production): target-choice log odds, simple vs harder (complex + ambiguous) Helmert contrast",
+      "role": "test",
+      "reported": null,
+      "human": 1.656,
+      "human_p": 4.14849e-34,
+      "basis": "not compared: the package computes x:fixed-effects-logit-coefficient, the paper reports regression_coefficient, a different quantity; the package fits the same Helmert contrasts as a fixed-effects logistic regression (no by-participant random effects, no target-position or message-type controls), so its coefficient (metric x:fixed-effects-logit-coefficient) measures a different quantity from the paper's mixed-effects β in Table 2.",
+      "humanMatchesPaper": null,
+      "humanMetric": "x:fixed-effects-logit-coefficient",
+      "paperEstimates": [
+        {
+          "metric": "regression_coefficient",
+          "value": 1.63,
+          "se": 0.13,
+          "p": 0.0001,
+          "pRelation": "<",
+          "variant": "logistic mixed-effects regression, by-participant intercepts, with target-position and message-type controls (Table 2)"
+        }
+      ]
+    },
+    {
+      "id": "exp2_complex_vs_amb",
+      "label": "Exp 2 (production): target-choice log odds, complex implicature vs ambiguous filler Helmert contrast",
+      "role": "test",
+      "reported": null,
+      "human": 0.081,
+      "human_p": 0.492435,
+      "basis": "not compared: the package computes x:fixed-effects-logit-coefficient, the paper reports regression_coefficient, a different quantity; the package fits the same Helmert contrasts as a fixed-effects logistic regression (no by-participant random effects, no target-position or message-type controls), so its coefficient (metric x:fixed-effects-logit-coefficient) measures a different quantity from the paper's mixed-effects β in Table 2.",
+      "humanMatchesPaper": null,
+      "humanMetric": "x:fixed-effects-logit-coefficient",
+      "paperEstimates": [
+        {
+          "metric": "regression_coefficient",
+          "value": 0.2,
+          "se": 0.11,
+          "p": 0.08,
+          "pRelation": "<",
+          "variant": "logistic mixed-effects regression, by-participant intercepts, with target-position and message-type controls (Table 2)"
+        }
+      ],
+      "knownMismatch": "Known mismatch, kept visible: the package's estimate (0.081, p = .49) is well below the paper's beta = .20 (SE = .11, p < .08, quoted from p. 12 of sources/paper.pdf) and not significant. An earlier version of this file compared the two directly and marked them as not matching. They are now marked not compared because the models differ (fixed effects only versus the paper's mixed-effects model), but the model difference has not been shown to explain the gap."
+    },
+    {
+      "id": "exp2_trial",
+      "label": "Exp 2 (production): learning check, main effect of centred trial number",
+      "role": "check",
+      "reported": null,
+      "human": -0.005,
+      "human_p": 0.0955807,
+      "basis": "not compared: the package computes x:fixed-effects-logit-coefficient, the paper reports regression_coefficient, a different quantity; the package fits the same Helmert contrasts as a fixed-effects logistic regression (no by-participant random effects, no target-position or message-type controls), so its coefficient (metric x:fixed-effects-logit-coefficient) measures a different quantity from the paper's mixed-effects β in Table 2.",
+      "humanMatchesPaper": null,
+      "humanMetric": "x:fixed-effects-logit-coefficient",
+      "paperEstimates": [
+        {
+          "metric": "regression_coefficient",
+          "value": -0.01,
+          "se": 0.003,
+          "p": 0.05,
+          "pRelation": "<",
+          "variant": "logistic mixed-effects regression, by-participant intercepts, with target-position and message-type controls (Table 2)"
+        }
+      ],
+      "knownMismatch": "Known mismatch, kept visible: the paper's trial-number effect is significant (beta = -.01, SE = .003, p < .05, p. 12 of sources/paper.pdf) while the package's estimate (-0.005, p = .096) is not. The models differ (fixed effects only versus the paper's mixed-effects model), but the model difference has not been shown to explain the gap."
+    },
+    {
+      "id": "exp1_rd_simple_complex",
+      "label": "Exp 1 (comprehension): share of target choices, simple minus complex implicature trials",
+      "role": "descriptive",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no sessions for exp1",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_rd_complex_amb",
+      "label": "Exp 1 (comprehension): share of target choices, complex implicature minus ambiguous filler trials",
+      "role": "descriptive",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no sessions for exp1",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_rd_simple_complex",
+      "label": "Exp 2 (production): share of target choices, simple minus complex implicature trials",
+      "role": "descriptive",
+      "reported": 0.2899999999999999,
+      "human": 0.309,
+      "human_p": 2.44616e-12,
+      "basis": "difference of the reported proportions",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "exp2_rd_complex_amb",
+      "label": "Exp 2 (production): share of target choices, complex implicature minus ambiguous filler trials",
+      "role": "descriptive",
+      "reported": 0.050000000000000044,
+      "human": 0.025,
+      "human_p": null,
+      "basis": "difference of the reported proportions",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "bf_production",
+      "label": "Production: Bayes factor of the near-homogeneous Gricean (S1) model over the heterogeneous type model",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "JAGS hierarchical type model and Bayes factors (S5 Text); salience priors from Experiment 3 (S4 Text) needed by the R2 listener; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "bayes_factor",
+          "value": 0.004,
+          "variant": "tolerance e = 0.01 (exactly 99% Gricean S1 speakers), BF hom/het"
+        }
+      ]
+    },
+    {
+      "id": "bf_comprehension",
+      "label": "Comprehension: Bayes factor of the near-homogeneous Gricean (R2) model over the heterogeneous type model",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "JAGS hierarchical type model and Bayes factors (S5 Text); salience priors from Experiment 3 (S4 Text) needed by the R2 listener",
+      "humanMatchesPaper": null
+    }
+  ],
+  "agent": "The AI-participant results of the earlier pilot replay were removed: they were computed with an earlier evaluation and effect list. Run a replay to compare AI participants with these results."
+}

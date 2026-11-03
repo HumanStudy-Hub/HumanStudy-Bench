@@ -1,0 +1,141 @@
+{
+  "package": "manylabs1",
+  "sessions": 61407,
+  "valid": 61407,
+  "arms": [
+    "s01:free",
+    "s01:paid",
+    "s02:gain",
+    "s02:loss",
+    "s03:high",
+    "s03:low",
+    "s04:three6",
+    "s04:two6one3",
+    "s05:high",
+    "s05:low",
+    "s06:nk_first",
+    "s06:us_first",
+    "s07:allow",
+    "s07:forbid",
+    "s08:disliked",
+    "s08:liked",
+    "s09:control",
+    "s09:flag",
+    "s10:control",
+    "s10:money",
+    "s11:contact",
+    "s11:control"
+  ],
+  "unknownArms": [],
+  "notMapped": [
+    {
+      "arm": "s12",
+      "reason": "IAT reaction-time latencies are not a text response and the adapter has no parser for them."
+    },
+    {
+      "arm": "s03 (participants with mixed anchors)",
+      "reason": "The anchor was randomised per question (anch1group..anch4group differ within a participant) but a session holds one condition; those participants are left out (see EXCLUSIONS)."
+    }
+  ],
+  "exclusions": "As stated in the paper/supplement: (1) Flag priming (s09): US samples only (us_or_international == 0) and participants who gave a time-of-day estimate for all four photos (flagfilter == 1; 82 dropped), leaving 4,897. (2) Currency priming (s10): only participants who answered at least 6 of the 8 system-justification items (11 dropped). (3) Gambler's fallacy (s04): the evaluation applies the paper's 3-SD outlier rule itself. (4) All other studies: no participant excluded by the authors; a participant with no valid answer on a study has no session for that study. Not stated by the paper but forced by the adapter's shape: anchoring (s03) keeps only participants who answered all four estimates AND were assigned the same (low or high) anchor on all four, because the data randomise the anchor per question while a session carries one condition.",
+  "effects": [
+    {
+      "id": "sunk_costs",
+      "label": "Sunk costs: paid vs free ticket",
+      "estimate": 0.2722871654115146,
+      "p": 4.3548629561155755e-27,
+      "reported": 0.27
+    },
+    {
+      "id": "framing",
+      "label": "Gain vs loss framing: sure option chosen more in the gain frame",
+      "estimate": 0.5991313791777376,
+      "p": 2.5508035488666293e-114,
+      "reported": 0.6
+    },
+    {
+      "id": "anchoring_nyc",
+      "label": "Anchoring: distance to NYC (high - low)",
+      "estimate": 1.1691843468469238,
+      "p": 8.557741117815049e-34,
+      "reported": 1.17
+    },
+    {
+      "id": "anchoring_chicago",
+      "label": "Anchoring: Chicago population (high - low)",
+      "estimate": 1.729378614289099,
+      "p": 1.1361313090996522e-62,
+      "reported": 1.79
+    },
+    {
+      "id": "anchoring_everest",
+      "label": "Anchoring: Mt. Everest (high - low)",
+      "estimate": 2.3757804316330957,
+      "p": 7.970475689023768e-98,
+      "reported": 2.23
+    },
+    {
+      "id": "anchoring_babies",
+      "label": "Anchoring: babies born per day (high - low)",
+      "estimate": 2.5259564262623133,
+      "p": 7.284421035471548e-106,
+      "reported": 2.42
+    },
+    {
+      "id": "gamblers_fallacy",
+      "label": "Retrospective gambler's fallacy: three 6s vs two 6s and a 3",
+      "estimate": 0.6763444756972671,
+      "p": 1.0563572121673762e-136,
+      "reported": 0.61
+    },
+    {
+      "id": "category_scales",
+      "label": "Category scales: over 2.5 h more often on the low-frequency scale",
+      "estimate": 0.4964632878879243,
+      "p": 1.9225162649682215e-76,
+      "reported": 0.49
+    },
+    {
+      "id": "reciprocity",
+      "label": "Norm of reciprocity: more support when the American question comes first",
+      "estimate": 0.29690045360611644,
+      "p": 2.80324751369253e-31,
+      "reported": 0.3
+    },
+    {
+      "id": "allowed_forbidden",
+      "label": "Allowed/forbidden: more restrictive answers with 'allow' wording",
+      "estimate": 0.4696528063422694,
+      "p": 1.728531068822813e-73,
+      "reported": null
+    },
+    {
+      "id": "quote_attribution",
+      "label": "Quote attribution: more agreement when attributed to the liked speaker",
+      "estimate": 0.321672384399006,
+      "p": 5.532352178472051e-37,
+      "reported": 0.32
+    },
+    {
+      "id": "flag_priming",
+      "label": "Flag priming: flag minus control",
+      "estimate": -0.03817769807823805,
+      "p": 0.18173897678087025,
+      "reported": 0.03
+    },
+    {
+      "id": "currency_priming",
+      "label": "Currency priming: money minus control",
+      "estimate": -0.03799507448806142,
+      "p": 0.13064341597873097,
+      "reported": -0.02
+    },
+    {
+      "id": "imagined_contact",
+      "label": "Imagined contact: contact minus control",
+      "estimate": null,
+      "p": null,
+      "reported": 0.13
+    }
+  ]
+}

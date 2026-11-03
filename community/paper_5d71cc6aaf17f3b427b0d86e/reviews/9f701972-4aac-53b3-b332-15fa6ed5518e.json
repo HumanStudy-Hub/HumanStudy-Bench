@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "proposalId": "9f701972-4aac-53b3-b332-15fa6ed5518e",
+  "headCommit": null,
+  "paperKey": "title:Not unreasonable: Carving vague dimensions with contraries and contradictions",
+  "status": "accepted",
+  "revision": "2681765cb8c29a064123b481a378e88efbb57d77fc85e9b29556698efa6a89d1",
+  "previousRevision": "615188dc2e4ecd4dbb7a88eccf226fdf88832815754a82ce5b3b3ee665fdba7e",
+  "review": {
+    "decision": "accept",
+    "candidateRevision": "2681765cb8c29a064123b481a378e88efbb57d77fc85e9b29556698efa6a89d1",
+    "reviewer": "maintainer:assassin808",
+    "reason": "Issue #57 follow-up. The coefficients are printed as beta on pp. 4 and 6 (the PDF text layer reads the symbol as 'b'): verbatim test fields now hold only the printed t and p text, and each coefficient is a separate reported field written with beta and a minus sign. The printed morphology coefficient is no longer listed as missing in effects.json: a note points to program.json, where it is recorded, as does the context-by-morphology p value; they are not entered as numbers because the text layer drops the sign and exponent. The p value's evidence quote now contains it. SOURCE.json records the eScholarship URL and notes that the paper has no DOI. The adapter no longer clamps out-of-range ratings to 0 or 100 and no longer takes the first number from an ambiguous free-text reply: such replies are recorded as unparsed (None). List markers, a '/100' suffix and a sentence-final full stop are handled, with smoke-test cases for each.",
+    "checks": [
+      "check_program.py --complete",
+      "check_quotes.py against the paper and the cited supplements",
+      "effects.py check",
+      "study_core.py reproduce with effects.json on the pinned human data: None [0, 0]",
+      "capabilities.py recomputed and --check",
+      "check_package.py",
+      "agent export self-test",
+      "audit.py (audit book 0.1) before and after",
+      "schema, package bindings and effects.json (validate_assets)"
+    ],
+    "verifiedCapabilities": {
+      "discoverable": true,
+      "traceable": false,
+      "reanalyzable": true,
+      "replayable": true,
+      "humanBenchmark": true
+    }
+  }
+}
