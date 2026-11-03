@@ -170,6 +170,7 @@ class StudyDavisEtAl2011Config(BaseStudyConfig):
         if len(all_obs) >= 10:
             rprices = np.array([o["reserve_price"] for o in all_obs])
             nbidders = np.array([o["num_bidders"] for o in all_obs])
+            # Descriptive only; scoring is the random-effects regression in evaluator.py.
             r = np.corrcoef(rprices, nbidders)[0, 1]
             final["inferential_statistics"].append({
                 "test": "pearson_correlation",
