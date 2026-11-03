@@ -72,9 +72,9 @@ def validate_assets(files: dict[str, bytes]) -> dict:
         if not errors:
             errors.extend(f"{message}: {hint}" for message, hint in problems_for(program))
     except (KeyError, ValueError, TypeError) as exc:
-        return {"status": "failed", "errors": errors + [f"program.json is missing or invalid: {exc}"]}
+        return {"status": "failed", "errors": errors + [f"program.json is missing or invalid: {exc}"], "warnings": []}
     if errors:
-        return {"status": "failed", "errors": errors}
+        return {"status": "failed", "errors": errors, "warnings": []}
     package_roots = sorted({"/".join(name.split("/")[:2]) for name in files
                             if name.startswith("package/") and len(name.split("/")) >= 3})
     for package in package_roots:

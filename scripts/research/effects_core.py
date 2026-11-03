@@ -97,7 +97,7 @@ def rendered_quote(value, record):
     text = re.sub(r"(?<=\d)([eE])[ \t]+(?=\d+\b)", r"\1-", text)
     # A true minus (U+2212) the text layer split from its digits, only where a number starts: at the start of
     # the quote or after =, (, [ or a comma. Hyphens and en dashes are never joined: "[0.25 – 0.40]" is a range.
-    text = re.sub(r"(^|[=(\[,])([ \t]*)\u2212[ \t]+(?=(?:\d|\.\d))", r"\1\2-", text)
+    text = re.sub(r"(^|[=(\[,])([ \t\u00a0\u2009\u202f]*)\u2212[ \t\u00a0\u2009\u202f]+(?=(?:\d|\.\d))", r"\1\2-", text)
     return quoted(value, [text]) == "exact"
 
 
