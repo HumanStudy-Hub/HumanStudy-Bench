@@ -79,11 +79,11 @@ def evaluate_study(results):
     human_p_value = None
     human_significant = None
     parsed_p, parsed_sig, _ = parse_p_value_from_reported(reported_stats, sig_level)
-    if parsed_p is not None:
+    if stat_test.get("p_value_status") != "missing" and parsed_p is not None:
         human_p_value = parsed_p
         human_significant = parsed_sig
 
-    human_r = ground_truth["studies"][0]["findings"][0]["original_data_points"]["data"]["overall"]["pearson_r"]
+    human_r = finding["verified_printed_benchmark"]["pearson_r"]
 
     # Compute agent statistics
     agent_r = None
@@ -129,6 +129,9 @@ def evaluate_study(results):
         "significant": agent_significant,
         "direction_match": direction_match,
         "human_pearson_r": human_r,
+        "human_source_id": stat_test["source_id"],
+        "human_source_location": stat_test["location"],
+        "human_p_value_status": stat_test["p_value_status"],
         "human_p_value": human_p_value,
         "human_significant": human_significant,
         "replication": replication,
