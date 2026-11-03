@@ -17,33 +17,50 @@
           "main_hypothesis": "The optimal reserve price should not depend on the number of participating bidders (under risk neutrality). However, sellers systematically increase reserve prices as the number of bidders grows.",
           "statistical_tests": [
             {
-              "test_name": "Pearson correlation",
-              "statistical_hypothesis": "Positive association between reserve price and bidder count in the human benchmark reported by Feng et al. (2025)",
-              "reported_statistics": "Pearson r = 0.42; p-value not printed in Feng et al. (2025), Table 2",
-              "significance_level": 0.05,
-              "expected_direction": "positive",
-              "source_id": "feng2025",
-              "location": "Table 2, Human row, printed page 7698",
-              "evidence_label": "reported",
-              "p_value_status": "missing",
-              "scoring_role": "effect_size"
-            },
-            {
-              "test_name": "Random-effects regression",
-              "statistical_hypothesis": "Positive coefficient on number of bidders in a regression of reserve price on bidder count",
-              "reported_statistics": "coefficient on centered bidder count = 2.98, p < .01",
+              "test_name": "Random-effects regression, Table 2 Model (1)",
+              "statistical_hypothesis": "Positive coefficient on the number of bidders minus the average number of bidders (n - mean(n)) in a regression of the observed reserve price in a period, with random effects for individual subjects",
+              "reported_statistics": "Model (1): coefficient on n - mean(n) = 2.98 [SE 0.08], p < 0.01",
               "significance_level": 0.05,
               "expected_direction": "positive",
               "source_id": "davis2011",
-              "location": "Table 2, Models (1) and (2), printed page 182; coefficient discussed on page 181",
+              "location": "Table 2, Model (1), printed page 182; model and coefficient described on page 181",
               "evidence_label": "reported",
+              "dependent_variable": "observed reserve price in a period (page 181)",
+              "random_effects": "individual subjects (page 181)",
               "coefficient": 2.98,
               "standard_error": 0.08,
+              "coefficient_units": "reserve-price points per additional bidder",
+              "coefficient_interpretation": "\"on average, sellers in the Cuberoot treatment increase the reservation price by 2.98 for each additional bidder\" (page 181)",
               "p_value_status": "bound_printed",
               "p_value_bound": 0.01,
-              "p_value_note": "Table 2 marks the coefficient with an asterisk defined in the table note as p < 0.01. No exact p-value is printed; the bound is used as printed and no exact p-value is derived from it.",
-              "sample": "NoInfo treatments of the original experiment (Table 1, p. 181): Cuberoot and Cube pooled with a Cube indicator, bidder sets n in {1, 2, 3, 4} and n in {1, 4, 7, 10}; random effects for individual subjects (p. 181)",
-              "scoring_role": "significance_and_direction"
+              "p_value_note": "Table 2 marks the coefficient with an asterisk that the table note defines as p < 0.01. No exact p-value is printed and none is derived.",
+              "model_1_printed_rows": {
+                "constant": {
+                  "coefficient": 29.45,
+                  "standard_error": 1.83,
+                  "p_value_bound": 0.01
+                },
+                "n_minus_mean_n": {
+                  "coefficient": 2.98,
+                  "standard_error": 0.08,
+                  "p_value_bound": 0.01
+                },
+                "period_minus_mean_period": {
+                  "coefficient": 0.04,
+                  "standard_error": 0.011,
+                  "p_value_bound": 0.01
+                },
+                "cube": {
+                  "coefficient": 31.78,
+                  "standard_error": 2.59,
+                  "p_value_bound": 0.01
+                },
+                "r_squared": 0.499,
+                "location": "Table 2, Model (1) column, printed page 182"
+              },
+              "sample": "NoInfo treatments (Table 1, page 181): Cuberoot and Cube pooled with a Cube indicator, bidder sets n in {1, 2, 3, 4} and n in {1, 4, 7, 10}, 20 seller subjects per cell (80 subjects), 60 decisions each",
+              "other_models_not_scored": "Model (2) adds #B - mean(#B) and keeps 2.98 [0.08]. Model (3) adds (n - mean(n)) x Cube and prints 3.24 [0.11] on n - mean(n) and -0.55 [0.15] on the interaction. The paper calls Model (1) the baseline model and interprets its 2.98 (page 181); that is the scored value.",
+              "scoring_role": "replication_and_effect_comparison"
             }
           ],
           "original_data_points": {
@@ -92,11 +109,37 @@
               "expected_direction": "positive"
             },
             "status": "preserved_for_audit_not_scoring",
-            "reason": "Mixed original regression and later Pearson statistic; both p < .001 claims are unsupported by supplied printed tables. Original regression table marks p < .01; later Pearson table gives no p-value."
+            "reason": "Mixed the original regression with a later Pearson statistic; both p < .001 claims are unsupported by the printed tables. Davis Table 2 marks p < 0.01; Feng Table 2 prints no p-value for r."
           },
-          "verified_printed_benchmark": {
+          "scoring": {
+            "decision": "single_source_davis2011",
+            "source_id": "davis2011",
+            "statistical_test_index": 0,
+            "summary": "Scored against Davis et al. (2011) only: Table 2 Model (1), random-effects regression of reserve price on n - mean(n), coefficient 2.98 [SE 0.08], p < 0.01. The agent decisions are fitted with the same dependent variable, the same bidder-count predictor and a random intercept per agent.",
+            "agent_model": {
+              "description": "Random-intercept GLS regression (Swamy-Arora variance components) of reserve price on n - mean(n) and period - mean(period), random effect per agent; conventional standard errors, two-sided z-test",
+              "dependent_variable": "agent reserve price in a round (integer 0-100)",
+              "predictors": [
+                "n - mean(n)",
+                "period - mean(period)"
+              ],
+              "random_effects": "agent (one simulated seller per individual_data entry)",
+              "differences_from_davis2011": [
+                "No Cube indicator: the agent task replays only the Cuberoot distribution, so Cube is constant and is dropped.",
+                "Bidder set: the agent sees n in {1, 4, 7, 10} only; Davis Model (1) pools the n in {1, 2, 3, 4} and n in {1, 4, 7, 10} sets and both distributions.",
+                "n and period are centered on the agent sample's own means; centering does not change the slope.",
+                "Davis does not name the random-effects estimator; the evaluator uses the Swamy-Arora GLS estimator (the default random-effects estimator in Stata's xtreg). The Hausman test of footnote 5 is not run.",
+                "The model is not estimated with fewer than 4 agents (2 slopes + intercept need at least K + 2 subjects for the between-subject variance)."
+              ]
+            },
+            "replication_rule": "replication = human_significant (Davis Table 2 bound p < 0.01 <= 0.05) and the agent coefficient on n - mean(n) is significant at 0.05 and positive, the sign of the printed 2.98.",
+            "effect_comparison": "agent coefficient on n - mean(n) (computed) vs the printed 2.98, both in reserve-price points per additional bidder; effect_gap = agent - 2.98.",
+            "not_used": "Feng et al. (2025) is a later benchmark, kept only as a reference (see later_benchmark_see_also). Its Pearson r = 0.42 is not used in scoring."
+          },
+          "later_benchmark_see_also": {
             "source_id": "feng2025",
-            "location": "Table 2, Human row, page 7698",
+            "used_in_scoring": false,
+            "location": "Table 2, Human row, printed page 7698",
             "mean_reserve_price": 27.31,
             "sd_reserve_price": 23.22,
             "sell_through_rate": 0.76,
@@ -104,25 +147,23 @@
             "entropy": 5.08,
             "pearson_r": 0.42,
             "pearson_p_value": null,
-            "note": "The Human row contains no p-value; do not reuse the original regression p-value."
+            "note": "Later human benchmark (40 human profiles, Feng et al. 2025 Figure 1A) reported for reference only. No p-value is printed for r, and none is inferred."
           },
-          "scoring": {
-            "decision": "split_sources",
-            "summary": "Human significance and direction come from the Davis et al. (2011) Table 2 regression; the human effect size comes from the Feng et al. (2025) Table 2 Pearson r. The two statistics are different tests on different samples, and each keeps its own source.",
-            "significance_and_direction": {
-              "statistical_test_index": 1,
-              "source_id": "davis2011",
-              "statistic": "random-effects regression coefficient on n - mean(n) = 2.98 [SE 0.08], p < 0.01",
-              "location": "Table 2, Models (1) and (2), printed page 182; coefficient discussed on page 181"
+          "original_paper_descriptives": {
+            "source_id": "davis2011",
+            "used_in_scoring": false,
+            "evidence_label": "reported",
+            "location": "Figure 2(a) NoInfo, Cuberoot bars, printed page 182",
+            "mean_reserve_price_by_n": {
+              "1": 19.2,
+              "2": 23.4,
+              "3": 27.0,
+              "4": 29.5,
+              "7": 38.7,
+              "10": 48.2
             },
-            "effect_size": {
-              "statistical_test_index": 0,
-              "source_id": "feng2025",
-              "statistic": "Pearson r = 0.42, no p-value printed",
-              "location": "Table 2, Human row, printed page 7698"
-            },
-            "not_done": "No p-value is inferred from r = 0.42, and the original regression's p-value bound is not attached to the later Pearson coefficient.",
-            "replication_rule": "replication = human_significant (Davis 2011) and agent_significant and direction_match, where direction is the sign expected by the Davis 2011 coefficient (positive)."
+            "risk_neutral_optimal_reserve": 42,
+            "note": "Bar labels as printed, one decimal place. The figure does not say whether n = 1 and n = 4 pool the two bidder sets. Not used in scoring."
           }
         }
       ]
@@ -133,7 +174,8 @@
       "davis2011",
       "feng2025"
     ],
-    "decision": "Declare both papers; keep original-study evidence separate from the later human benchmark. Davis et al. (2023) is cited by Feng but its paper/data were not inspected.",
+    "scoring_source_id": "davis2011",
+    "decision": "The study follows one paper, Davis et al. (2011): it alone supplies the scored human result. feng2025 is declared only because some retained legacy aggregates are printed there (see value_provenance) and as a later benchmark for reference; it is not used in scoring. Davis et al. (2023) is cited by Feng but its paper and data were not inspected.",
     "extraction_scoring_rule": "Score an item only when its provenance has printed_in containing a supplied source_id, or a fully stated derivation using supplied sources. Legacy unverified/mismatched values are not paper-extraction targets."
   },
   "value_provenance": {

@@ -28,7 +28,7 @@
       "weight": 1.0,
       "tests": [
         {
-          "test_name": "Pearson correlation",
+          "test_name": "Random-effects regression, Table 2 Model (1)",
           "weight": 1.0
         }
       ]
@@ -38,5 +38,13 @@
     "davis2011",
     "feng2025"
   ],
-  "benchmark_provenance": "The Pearson human benchmark is from Feng et al. (2025), Table 2, not Davis et al. (2011). See ground_truth.json value_provenance."
+  "scoring_source": "davis2011",
+  "see_also": [
+    {
+      "source_id": "feng2025",
+      "citation": "Feng, Choudhary & Shrestha (2025), Noise, Adaptation, and Strategy: Assessing LLM Fidelity in Decision-Making, EMNLP 2025",
+      "doi": "10.18653/v1/2025.emnlp-main.391",
+      "role": "Later benchmark on this task (human Pearson r = 0.42, LLM baselines). Reference only; not used in scoring."
+    }
+  ]
 }

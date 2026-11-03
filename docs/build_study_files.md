@@ -203,7 +203,7 @@ def evaluate_study(results):
 
 Common fields in each test result: `study_id`, `sub_study_id`, `finding_id`, `t_stat`, `p_value`, `significant`, `direction_match`, `human_p_value`, `replication`. The exact fields depend on your study — there's no enforced schema, just return a dict with a `test_results` key.
 
-If a finding's human significance and human effect size come from different tests (for example the original paper's test and a later paper's effect size), keep each statistic's source in its own fields and put a `reported_statistics` string in the test result that names both. The playground then displays that string instead of the first `statistical_tests` entry; give the human effect size as `human_effect_d` too, because the effect-size fallback still parses the ground-truth entry. `studies/study_014` is the worked example; its `source/PROVENANCE.md` explains the choice.
+Score a finding against the test its paper reports, and analyse the agent data the same way as far as they allow (same dependent variable, same predictor, a comparable treatment of repeated measures per participant). Do not take significance from one paper and the effect size from another; a later paper that re-analyses the task can be cited as "see also" in the README and metadata. If the paper prints a regression coefficient, compare the agent coefficient with it in the same units and report it as `human_effect_size` / `agent_effect_size`. `studies/study_014` is a worked example: Davis et al. (2011) random-effects regression, agent fitted with a random intercept per agent; its `source/PROVENANCE.md` lists what differs from the paper's model.
 
 </details>
 

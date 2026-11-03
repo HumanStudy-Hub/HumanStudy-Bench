@@ -1,29 +1,41 @@
 # Ground-truth source audit
 
-This package uses two declared documents: Davis et al. (2011), DOI
-10.1287/mnsc.1100.1258, and Feng et al. (2025), DOI
-10.18653/v1/2025.emnlp-main.391. The original copyrighted PDF remains a source
-key only; its exact hash is in SOURCE.json. The later paper is already included.
+The study follows one paper: Davis et al. (2011), DOI 10.1287/mnsc.1100.1258.
+Its printed regression is the only human result used in scoring. The original
+copyrighted PDF remains a source key only; its exact hash is in SOURCE.json.
 
-The human benchmark is not a set of numbers extracted entirely from the 2011
-paper. Every retained aggregate has a JSON-pointer entry in ground_truth.json's
-value_provenance. Exact printed values, differences from printed values,
-lower-precision figure labels, and values not located in either document are
-explicitly distinguished. No expert aggregate has been deleted or silently
-corrected. University-of-Michigan/2023 attribution is retained as legacy
-attribution, not independently established from inspected replication data.
+A second document is declared, Feng et al. (2025), DOI
+10.18653/v1/2025.emnlp-main.391 (included, CC BY 4.0). It is a later paper that
+compares LLM agents with a human benchmark on this task. It is kept for
+reference ("see also") and because some retained legacy aggregates are printed
+there. It is not used in scoring.
 
-Davis Table 2 (page 182) reports the original bidder-count coefficient 2.98 with
-a significance marker defined as p < .01. It does not establish the existing
-p < .001 claim. Feng Table 2 (page 7698) prints human r = .42, mean 27.31,
-SD 23.22, entropy 5.08, sell-through .76 and profit 32.83, without a Pearson
+The retained legacy aggregates (`original_data_points`) are not a set of
+numbers extracted from the 2011 paper. Every one has a JSON-pointer entry in
+ground_truth.json's value_provenance. Exact printed values, differences from
+printed values, lower-precision figure labels, and values not located in either
+document are explicitly distinguished. No expert aggregate has been deleted or
+silently corrected. University-of-Michigan/2023 attribution is retained as
+legacy attribution, not independently established from inspected replication
+data. None of these aggregates is scored.
+
+Davis Table 2 (page 182) reports the original bidder-count coefficient 2.98
+with a significance marker defined as p < .01. It does not establish the legacy
+p < .001 claim. Feng Table 2 (page 7698) prints human r = .42, mean 27.31, SD
+23.22, entropy 5.08, sell-through .76 and profit 32.83, without a Pearson
 p-value. The legacy SD 23.23 and sell-through .74 remain preserved and flagged.
-Figure 2 prints bidder-group means at one decimal place; it does not establish
-all retained two-decimal values. Human sample size 40 is printed in Feng
-Figure 1A (page 7694, "40 Humans"), so it is labelled reported; it describes
-the later paper's human benchmark, not the 2011 sample, which Davis Table 1
-(page 181) prints as 120 seller subjects, 20 per treatment cell. The total of
-2400 observations is derived as 40 x 60 printed rounds.
+Feng Figure 2 prints bidder-group means at one decimal place; it does not
+establish all retained two-decimal values. Human sample size 40 is printed in
+Feng Figure 1A (page 7694, "40 Humans"), so it is labelled reported; it
+describes the later paper's human benchmark, not the 2011 sample, which Davis
+Table 1 (page 181) prints as 120 seller subjects, 20 per treatment cell. The
+total of 2400 observations is derived as 40 x 60 printed rounds.
+
+The 2011 paper's own per-n means are stored separately, unscored, under
+`original_paper_descriptives`: Davis Figure 2(a) (page 182) prints NoInfo
+Cuberoot bars of 19.2, 23.4, 27.0, 29.5, 38.7 and 48.2 for n = 1, 2, 3, 4, 7
+and 10. The figure does not say whether n = 1 and n = 4 pool the two bidder
+sets.
 
 Evidence labels are kept true: `missing` is used only for a gap with no value
 (the Pearson p-value). Retained expert values that could not be located in
@@ -33,52 +45,64 @@ legacy benchmark annotation, not by either paper. Their status is
 `unverified_legacy`, or `differs_from_printed` for the two legacy values
 (SD 23.23, sell-through .74) that conflict with the values Feng Table 2 prints.
 
-## Replication scoring: two tests, two sources
+## Replication scoring: Davis et al. (2011) only
 
-The evaluator scores one finding (F1) with statistics from two different tests
-in two different papers. Each statistic keeps its own source, and the evaluator
-output names both (`scoring_note`, `reported_statistics`, and the
-`human_significance_*` and `human_effect_*` fields). The rule is recorded in
-the finding's `scoring` block in ground_truth.json.
+The owner's decision of 2026-11-03: a study follows its paper and is scored the
+way that paper tests its finding. The rule is recorded in the finding's
+`scoring` block in ground_truth.json.
 
-- **Human significance and direction** come from the original Davis et al.
-  (2011) Table 2 random-effects regression (printed page 182; the coefficient is
-  discussed on page 181): the coefficient on the centered bidder count is 2.98
-  [SE 0.08] in Models (1) and (2), marked with an asterisk that the table note
-  defines as p < 0.01. Only the bound is printed. The evaluator stores the bound
-  (`human_p_value_bound = 0.01`), leaves `human_p_value` empty, and treats the
-  result as significant because the bound is below the 0.05 level. The sign of
-  the coefficient (positive) is the direction the agent must match. This
-  regression is estimated on the NoInfo treatments of the original experiment
-  (Table 1, page 181): Cuberoot and Cube pooled with a Cube indicator, and both
-  bidder sets n in {1, 2, 3, 4} and n in {1, 4, 7, 10}. It is not limited to the
-  Cuberoot n in {1, 4, 7, 10} cell that the agent task replays. Model (3), which
-  adds a bidder-count x Cube interaction, prints a coefficient of 3.24; the
-  scored value is the 2.98 of Models (1) and (2).
-- **Human effect size** comes from the later Feng et al. (2025) Table 2 Human
-  row (printed page 7698): Pearson r = .42, with no p-value printed. It is used
-  only for the effect-size comparison. For the playground's effect-size table,
-  both the human r and the agent r are converted to a Cohen's d equivalent with
-  d = 2r / sqrt(1 - r^2), the identity `playground/analysis.py` applies to any
-  reported r.
+**Human result.** Davis et al. (2011), Table 2, Model (1), printed page 182.
+The paper ran "all regressions with random effects for individual subjects and
+used the observed reserve price in a period as the dependent variable" (page
+181). Model (1), which the paper calls the baseline model, regresses the
+reserve price on n - mean(n), Per - mean(Per) and a Cube indicator. The
+coefficient on n - mean(n) is 2.98 [SE 0.08], marked with an asterisk that the
+table note defines as p < 0.01; the paper reads it as "sellers in the Cuberoot
+treatment increase the reservation price by 2.98 for each additional bidder"
+(page 181). Only the bound is printed, so `human_p_value` stays empty,
+`human_p_value_bound` is 0.01, and the human result counts as significant
+because the bound is below 0.05. The other Model (1) rows are stored as
+printed: constant 29.45 [1.83], period 0.04 [0.011], Cube 31.78 [2.59],
+R-squared 0.499. Model (2) keeps 2.98; Model (3) adds an n x Cube interaction
+and prints 3.24 [0.11] on n - mean(n). Those are recorded and not scored.
 
-No p-value is inferred from r = .42, and the original regression's p-value
-bound is not attached to the later Pearson coefficient: it is attached to the
-regression it was printed for, and the row reports the two tests side by side.
-The agent's own significance test is a Pearson correlation of reserve price
-with bidder count on the agent decisions. It treats every decision as
-independent, whereas Davis et al. (2011) used random effects for subjects, so
-with thousands of decisions a small positive correlation is already
-significant. The replication verdict therefore checks only that reserve prices
-rise with bidder count; how closely the pattern matches the human one is shown
-by the effect-size comparison, not by the verdict.
+**Agent analysis.** The agent decisions are fitted the same way, as far as the
+agent data allow: reserve price on n - mean(n) and period - mean(period), with
+a random intercept per agent (one agent = one `individual_data` entry). The
+estimator is random-intercept GLS with Swamy-Arora variance components and
+conventional standard errors (z-test), written in numpy in
+`scripts/evaluator.py`, because the study's `stats_lib.py` has no panel
+regression and statsmodels is not a dependency. What differs from Davis:
 
-`replication` is true when the human result is significant (Davis 2011), the
-agent correlation is significant at 0.05, and its sign matches the Davis 2011
-coefficient. With this rule study_014 counts toward a replication rate again.
-From HumanStudy-Bench PR #50 until this decision, the evaluator left `human_significant` and `replication` empty and study_014
-was excluded from the playground `replicationRate`; replication rates computed
-in that period exclude it.
+- No Cube indicator. The agent task replays only the Cuberoot distribution, so
+  Cube is constant and is dropped.
+- Bidder set. The agent sees n in {1, 4, 7, 10} only. Davis Model (1) pools the
+  NoInfo n in {1, 2, 3, 4} and n in {1, 4, 7, 10} sets and both distributions
+  (Table 1: 80 seller subjects, 20 per cell, 60 decisions each).
+- Davis does not name the random-effects estimator. Swamy-Arora is the default
+  random-effects estimator in Stata's `xtreg`. The Hausman test of footnote 5 is
+  not run.
+- n and period are centered on the agent sample's own means. Centering does not
+  change the slope.
+- With fewer than 4 agents the between-subject variance cannot be estimated, so
+  the model is not fitted and the row is not scored.
+
+**Score.** `replication` is true when the human result is significant (Davis
+bound p < 0.01), the agent coefficient on n - mean(n) is significant at 0.05,
+and it is positive, the sign of the printed 2.98. The effect comparison is the
+agent coefficient (labelled `computed`) against 2.98 (labelled `printed`),
+both in reserve-price points per additional bidder: `human_effect_size`,
+`agent_effect_size`, `effect_gap` and `agent_coefficient_ci95`. No Cohen's d is
+derived; the paper prints a regression coefficient, and the comparison stays
+in its units.
+
+**History.** From HumanStudy-Bench PR #50 to PR #54 the evaluator left
+`human_significant` and `replication` empty and study_014 was excluded from the
+playground `replicationRate`. PR #54 scored significance against Davis 2011 and
+effect size against the Feng 2025 Pearson r = .42 (as Cohen's d), with the agent
+side a Pearson correlation. That split is replaced by the rule above. A
+replication rate or effect gap computed before this change used a different
+agent test and a different effect metric for study_014.
 
 For paper-extraction scoring, use only items whose printed_in includes a
 provided source identifier, plus derivations whose inputs and reasoning are

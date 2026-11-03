@@ -20,18 +20,29 @@ def test_every_legacy_aggregate_has_explicit_provenance():
     assert gt['value_provenance']['/studies/0/findings/0/original_data_points/data/overall/sell_through_rate']['printed_value'] == .76
 
 
-def test_missing_pearson_p_value_is_not_inferred():
+def test_davis_bound_is_not_turned_into_an_exact_p_value():
     spec = importlib.util.spec_from_file_location('study014_provenance_evaluator', ROOT / 'scripts/evaluator.py')
     evaluator = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(evaluator)
-    responses = [{'response_text': str(5 + i * 3), 'trial_info': {'num_bidders': [1, 4, 7, 10][i % 4]}} for i in range(24)]
-    row = evaluator.evaluate_study({'individual_data': [{'responses': responses}]})['test_results'][0]
-    # Effect size: the later Pearson r, which has no printed p-value.
-    assert row['human_pearson_r'] == .42
-    assert row['human_effect_source_id'] == 'feng2025'
-    assert row['human_effect_p_value_status'] == 'missing'
-    # Significance and direction: the original regression's printed bound, not an exact p.
-    assert row['human_significance_source_id'] == 'davis2011'
+    data = []
+    for a in range(6):
+        responses = [{'response_text': str(5 + a + i % 3 + [1, 4, 7, 10][(i + a) % 4] * 3),
+                      'trial_info': {'num_bidders': [1, 4, 7, 10][(i + a) % 4]}} for i in range(12)]
+        data.append({'responses': responses})
+    row = evaluator.evaluate_study({'individual_data': data})['test_results'][0]
+    # The only human statistic is the original regression's printed bound.
+    assert row['human_source_id'] == 'davis2011'
+    assert row['human_coefficient'] == 2.98
     assert row['human_p_value'] is None
     assert row['human_p_value_bound'] == .01
     assert row['human_significant'] is True
+    assert 'human_pearson_r' not in row
+
+
+def test_later_benchmark_is_reference_only():
+    gt = json.loads((ROOT / 'source/ground_truth.json').read_text())
+    finding = gt['studies'][0]['findings'][0]
+    later = finding['later_benchmark_see_also']
+    assert later['source_id'] == 'feng2025' and later['used_in_scoring'] is False
+    assert later['pearson_r'] == .42 and later['pearson_p_value'] is None
+    assert all(t['source_id'] == 'davis2011' for t in finding['statistical_tests'])
