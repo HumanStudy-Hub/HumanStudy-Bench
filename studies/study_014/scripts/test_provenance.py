@@ -26,8 +26,12 @@ def test_missing_pearson_p_value_is_not_inferred():
     spec.loader.exec_module(evaluator)
     responses = [{'response_text': str(5 + i * 3), 'trial_info': {'num_bidders': [1, 4, 7, 10][i % 4]}} for i in range(24)]
     row = evaluator.evaluate_study({'individual_data': [{'responses': responses}]})['test_results'][0]
+    # Effect size: the later Pearson r, which has no printed p-value.
     assert row['human_pearson_r'] == .42
-    assert row['human_source_id'] == 'feng2025'
+    assert row['human_effect_source_id'] == 'feng2025'
+    assert row['human_effect_p_value_status'] == 'missing'
+    # Significance and direction: the original regression's printed bound, not an exact p.
+    assert row['human_significance_source_id'] == 'davis2011'
     assert row['human_p_value'] is None
-    assert row['human_significant'] is None
-    assert row['replication'] is None
+    assert row['human_p_value_bound'] == .01
+    assert row['human_significant'] is True

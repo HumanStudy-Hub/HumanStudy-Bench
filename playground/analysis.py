@@ -147,7 +147,9 @@ def normalise_tests(evaluation: Dict[str, Any], study_path: Path) -> List[Dict[s
             "label": _label(raw, f"Test {index + 1}"),
             "test_type": _first(raw, "statistical_test_type", "test_type", "test"),
             "hypothesis": gt.get("hypothesis"),
-            "reported_statistics": gt.get("reported_statistics"),
+            # An evaluator may name its own human statistics (study_014 scores
+            # significance and effect size against two different papers).
+            "reported_statistics": raw.get("reported_statistics") or gt.get("reported_statistics"),
             "human_effect": human_effect,
             "agent_effect": agent_effect,
             "human_p": human_p,

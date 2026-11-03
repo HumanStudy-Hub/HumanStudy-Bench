@@ -11,7 +11,7 @@ This study investigates how auctioneers set reserve prices in second-price seale
 
 Specifically, this study tests the Cuberoot distribution treatment with bidder counts in {1, 4, 7, 10} under the NoInfo condition. Computerized bidders follow the weakly dominant strategy of bidding their private valuations, drawn from the Cuberoot distribution F(v) = (v/100)^(1/3) with mean 25 and support [0, 100]. The seller's personal valuation is zero, and the risk-neutral optimal reserve price is 42.
 
-The key finding: sellers systematically increase their reserve prices as the number of bidders grows (Pearson r = 0.42, p < .001), contrary to standard auction theory.
+The key finding: sellers systematically increase their reserve prices as the number of bidders grows, contrary to standard auction theory. In the original paper the random-effects regression coefficient on the number of bidders is 2.98, p < .01 (Davis et al. 2011, Table 2); in the later human benchmark the Pearson correlation is r = 0.42, with no p-value printed (Feng et al. 2025, Table 2).
 
 LLM simulation baselines for this experiment are done and reported in [Feng et al., "Noise, Adaptation, and Strategy: Assessing LLM Fidelity in Decision-Making," EMNLP 2025](https://aclanthology.org/2025.emnlp-main.391.pdf). Baselines from GPT-4o and Claude Sonnet models are available in `benchmark/`.
 
@@ -24,9 +24,11 @@ LLM simulation baselines for this experiment are done and reported in [Feng et a
 
 Due to the unavailability of the original human experiment data (Davis et al. 2011), we use the replicated experiment data (Davis et al. 2023) instead.
 
-- **Pearson correlation (reserve price vs. number of bidders)**
-  Reported: r = 0.42, p < .001
-  Significance level: 0.05
+F1 is scored with two statistics from two papers; each keeps its own source (see `source/PROVENANCE.md`):
+
+- **Significance and direction:** random-effects regression of reserve price on the centered number of bidders, coefficient = 2.98 [SE 0.08], p < .01 (Davis et al. 2011, Table 2, p. 182). Only the bound is printed, so no exact human p-value is reported.
+- **Effect size:** Pearson correlation of reserve price with the number of bidders, r = 0.42, no p-value printed (Feng et al. 2025, Table 2, p. 7698). Used for the effect-size comparison only.
+- Significance level: 0.05. A run replicates F1 when the human result is significant (Davis 2011, p < .01) and the agent correlation is significant and positive, the sign of the Davis coefficient.
 
 ## Effect sizes & auxiliary statistics
 
@@ -36,6 +38,7 @@ Due to the unavailability of the original human experiment data (Davis et al. 20
   7 bidders: 32.93 (SD = 21.25, n = 458),
   10 bidders: 39.50 (SD = 25.12, n = 660).
   Overall: mean = 27.31, SD = 23.23, sell-through rate = 0.74, mean profit = 32.83.
+  (The legacy SD 23.23 and sell-through 0.74 differ from the 23.22 and 0.76 that Feng et al. 2025 Table 2 prints; see `source/PROVENANCE.md`.)
   Risk-neutral optimal reserve price = 42.
   Raw data present in `ground_truth.json`.
 

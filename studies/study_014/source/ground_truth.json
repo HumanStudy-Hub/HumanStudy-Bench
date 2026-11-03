@@ -25,7 +25,8 @@
               "source_id": "feng2025",
               "location": "Table 2, Human row, printed page 7698",
               "evidence_label": "reported",
-              "p_value_status": "missing"
+              "p_value_status": "missing",
+              "scoring_role": "effect_size"
             },
             {
               "test_name": "Random-effects regression",
@@ -35,7 +36,14 @@
               "expected_direction": "positive",
               "source_id": "davis2011",
               "location": "Table 2, Models (1) and (2), printed page 182; coefficient discussed on page 181",
-              "evidence_label": "reported"
+              "evidence_label": "reported",
+              "coefficient": 2.98,
+              "standard_error": 0.08,
+              "p_value_status": "bound_printed",
+              "p_value_bound": 0.01,
+              "p_value_note": "Table 2 marks the coefficient with an asterisk defined in the table note as p < 0.01. No exact p-value is printed; the bound is used as printed and no exact p-value is derived from it.",
+              "sample": "NoInfo treatments of the original experiment (Table 1, p. 181): Cuberoot and Cube pooled with a Cube indicator, bidder sets n in {1, 2, 3, 4} and n in {1, 4, 7, 10}; random effects for individual subjects (p. 181)",
+              "scoring_role": "significance_and_direction"
             }
           ],
           "original_data_points": {
@@ -97,6 +105,24 @@
             "pearson_r": 0.42,
             "pearson_p_value": null,
             "note": "The Human row contains no p-value; do not reuse the original regression p-value."
+          },
+          "scoring": {
+            "decision": "split_sources",
+            "summary": "Human significance and direction come from the Davis et al. (2011) Table 2 regression; the human effect size comes from the Feng et al. (2025) Table 2 Pearson r. The two statistics are different tests on different samples, and each keeps its own source.",
+            "significance_and_direction": {
+              "statistical_test_index": 1,
+              "source_id": "davis2011",
+              "statistic": "random-effects regression coefficient on n - mean(n) = 2.98 [SE 0.08], p < 0.01",
+              "location": "Table 2, Models (1) and (2), printed page 182; coefficient discussed on page 181"
+            },
+            "effect_size": {
+              "statistical_test_index": 0,
+              "source_id": "feng2025",
+              "statistic": "Pearson r = 0.42, no p-value printed",
+              "location": "Table 2, Human row, printed page 7698"
+            },
+            "not_done": "No p-value is inferred from r = 0.42, and the original regression's p-value bound is not attached to the later Pearson coefficient.",
+            "replication_rule": "replication = human_significant (Davis 2011) and agent_significant and direction_match, where direction is the sign expected by the Davis 2011 coefficient (positive)."
           }
         }
       ]
