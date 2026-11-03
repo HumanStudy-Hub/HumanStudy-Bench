@@ -72,9 +72,9 @@ def validate_assets(files: dict[str, bytes]) -> dict:
         if not errors:
             errors.extend(f"{message}: {hint}" for message, hint in problems_for(program))
     except (KeyError, ValueError, TypeError) as exc:
-        return {"status": "failed", "errors": errors + [f"program.json is missing or invalid: {exc}"]}
+        return {"status": "failed", "errors": errors + [f"program.json is missing or invalid: {exc}"], "warnings": []}
     if errors:
-        return {"status": "failed", "errors": errors}
+        return {"status": "failed", "errors": errors, "warnings": []}
     package_roots = sorted({"/".join(name.split("/")[:2]) for name in files
                             if name.startswith("package/") and len(name.split("/")) >= 3})
     for package in package_roots:
@@ -109,8 +109,9 @@ def validate_assets(files: dict[str, bytes]) -> dict:
             except (SyntaxError, ValueError):
                 errors.append(f"{package}/{rel}: invalid Python")
     errors.extend(capability_problems(files))
-    errors.extend(effects_problems(files, program))
-    return {"status": "failed" if errors else "passed", "errors": errors,
+    effect_errors, effect_warnings = effects_report(files, program)
+    errors.extend(effect_errors)
+    return {"status": "failed" if errors else "passed", "errors": errors, "warnings": effect_warnings,
             "checks": {"schema": not errors, "packageBindings": bool(package_roots) and not errors,
                        "codeExecuted": False, "scientificReview": False},
             "capabilities": {"discoverable": True, "traceable": False,
@@ -118,18 +119,20 @@ def validate_assets(files: dict[str, bytes]) -> dict:
             "programDigest": digest(program), "projection": project_program(program)}
 
 
-def effects_problems(files: dict[str, bytes], program: dict) -> list[str]:
+def effects_report(files: dict[str, bytes], program: dict) -> tuple[list[str], list[str]]:
     """effects.json, when present, follows the desktop contract (desktop effects_core.py): every program
-    hypothesis listed, effects linked to program nodes, every reported number written in a cited quote."""
+    hypothesis listed, effects linked to program nodes, every reported number written in a cited quote.
+    Returns (problems, warnings). Warnings are kept: a sign that only the wording or a rendered-page check
+    supplies cannot be verified from the published files, so reviewers must see it."""
     raw = files.get("effects.json")
     if raw is None:
-        return []
+        return [], []
     try:
         effects = json.loads(raw)
     except ValueError:
-        return ["effects.json: invalid JSON"]
-    problems, _warnings = check_effects(Path("."), effects, program)
-    return ["effects.json: " + p for p in problems]
+        return ["effects.json: invalid JSON"], []
+    problems, warnings = check_effects(Path("."), effects, program)
+    return ["effects.json: " + p for p in problems], ["effects.json: " + w for w in warnings]
 
 
 def capability_problems(files: dict[str, bytes]) -> list[str]:

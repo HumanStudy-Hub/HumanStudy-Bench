@@ -247,6 +247,18 @@ def effects_files(program):
     return files, effects
 
 
+def test_effects_warnings_are_kept_in_the_validation_report(program):
+    """A sign the text layer does not print, or one taken from a rendered-page check, stays visible to reviewers."""
+    files, effects = effects_files(program)
+    signed = deepcopy(effects)
+    signed["effects"][0]["reported"]["estimates"] = [{"metric": "risk_difference", "value": -23}]
+    report = validate_assets({**files, "effects.json": json.dumps(signed).encode()})
+    assert report["status"] == "passed", report["errors"]
+    assert any("check the sign" in w for w in report["warnings"]), report.get("warnings")
+    assert all(w.startswith("effects.json: ") for w in report["warnings"])
+    assert validate_assets(files)["warnings"] == []
+
+
 def test_effects_are_checked_and_indexed_for_cross_paper_queries(tmp_path, program):
     files, effects = effects_files(program)
     assert validate_assets(files)["status"] == "passed", validate_assets(files)["errors"]
