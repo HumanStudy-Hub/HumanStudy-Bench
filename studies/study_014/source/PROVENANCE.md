@@ -19,8 +19,19 @@ p < .001 claim. Feng Table 2 (page 7698) prints human r = .42, mean 27.31,
 SD 23.22, entropy 5.08, sell-through .76 and profit 32.83, without a Pearson
 p-value. The legacy SD 23.23 and sell-through .74 remain preserved and flagged.
 Figure 2 prints bidder-group means at one decimal place; it does not establish
-all retained two-decimal values. Human sample size 40 is not verified merely
-because Feng's setup simulates 40 agents.
+all retained two-decimal values. Human sample size 40 is printed in Feng
+Figure 1A (page 7694, "40 Humans"), so it is labelled reported; it describes
+the later paper's human benchmark, not the 2011 sample, which Davis Table 1
+(page 181) prints as 120 seller subjects, 20 per treatment cell. The total of
+2400 observations is derived as 40 x 60 printed rounds.
+
+Evidence labels are kept true: `missing` is used only for a gap with no value
+(the Pearson p-value). Retained expert values that could not be located in
+either document carry `reported_from: "hsb_legacy_expert_annotation"` and an
+empty printed_in list. For these records, `reported` means reported by the
+legacy benchmark annotation, not by either paper. Their status is
+`unverified_legacy`, or `differs_from_printed` for the two legacy values
+(SD 23.23, sell-through .74) that conflict with the values Feng Table 2 prints.
 
 The evaluator uses the later paper's Pearson benchmark and leaves human
 significance and the replication verdict unavailable because that paper does
