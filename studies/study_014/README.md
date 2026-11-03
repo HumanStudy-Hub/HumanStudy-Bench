@@ -28,7 +28,7 @@ F1 is scored with two statistics from two papers; each keeps its own source (see
 
 - **Significance and direction:** random-effects regression of reserve price on the centered number of bidders, coefficient = 2.98 [SE 0.08], p < .01 (Davis et al. 2011, Table 2, p. 182). Only the bound is printed, so no exact human p-value is reported.
 - **Effect size:** Pearson correlation of reserve price with the number of bidders, r = 0.42, no p-value printed (Feng et al. 2025, Table 2, p. 7698). Used for the effect-size comparison only.
-- Significance level: 0.05. A run replicates F1 when the agent correlation is significant and positive.
+- Significance level: 0.05. A run replicates F1 when the human result is significant (Davis 2011, p < .01) and the agent correlation is significant and positive, the sign of the Davis coefficient.
 
 ## Effect sizes & auxiliary statistics
 
@@ -38,6 +38,7 @@ F1 is scored with two statistics from two papers; each keeps its own source (see
   7 bidders: 32.93 (SD = 21.25, n = 458),
   10 bidders: 39.50 (SD = 25.12, n = 660).
   Overall: mean = 27.31, SD = 23.23, sell-through rate = 0.74, mean profit = 32.83.
+  (The legacy SD 23.23 and sell-through 0.74 differ from the 23.22 and 0.76 that Feng et al. 2025 Table 2 prints; see `source/PROVENANCE.md`.)
   Risk-neutral optimal reserve price = 42.
   Raw data present in `ground_truth.json`.
 

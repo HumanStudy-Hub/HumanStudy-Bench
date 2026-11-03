@@ -50,8 +50,11 @@ the finding's `scoring` block in ground_truth.json.
   result as significant because the bound is below the 0.05 level. The sign of
   the coefficient (positive) is the direction the agent must match. This
   regression is estimated on the NoInfo treatments of the original experiment
-  (Table 1, page 181), not only on the Cuberoot n in {1, 4, 7, 10} cell that the
-  agent task replays.
+  (Table 1, page 181): Cuberoot and Cube pooled with a Cube indicator, and both
+  bidder sets n in {1, 2, 3, 4} and n in {1, 4, 7, 10}. It is not limited to the
+  Cuberoot n in {1, 4, 7, 10} cell that the agent task replays. Model (3), which
+  adds a bidder-count x Cube interaction, prints a coefficient of 3.24; the
+  scored value is the 2.98 of Models (1) and (2).
 - **Human effect size** comes from the later Feng et al. (2025) Table 2 Human
   row (printed page 7698): Pearson r = .42, with no p-value printed. It is used
   only for the effect-size comparison. For the playground's effect-size table,
@@ -63,7 +66,12 @@ No p-value is inferred from r = .42, and the original regression's p-value
 bound is not attached to the later Pearson coefficient: it is attached to the
 regression it was printed for, and the row reports the two tests side by side.
 The agent's own significance test is a Pearson correlation of reserve price
-with bidder count on the agent decisions.
+with bidder count on the agent decisions. It treats every decision as
+independent, whereas Davis et al. (2011) used random effects for subjects, so
+with thousands of decisions a small positive correlation is already
+significant. The replication verdict therefore checks only that reserve prices
+rise with bidder count; how closely the pattern matches the human one is shown
+by the effect-size comparison, not by the verdict.
 
 `replication` is true when the human result is significant (Davis 2011), the
 agent correlation is significant at 0.05, and its sign matches the Davis 2011

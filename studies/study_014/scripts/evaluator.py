@@ -89,8 +89,11 @@ def evaluate_study(results):
     tests = finding["statistical_tests"]
     sig_test = tests[scoring["significance_and_direction"]["statistical_test_index"]]
     effect_test = tests[scoring["effect_size"]["statistical_test_index"]]
-    assert sig_test["source_id"] == scoring["significance_and_direction"]["source_id"]
-    assert effect_test["source_id"] == scoring["effect_size"]["source_id"]
+    if sig_test["source_id"] != "davis2011" or effect_test["source_id"] != "feng2025":
+        raise ValueError("study_014 scoring block must point significance at davis2011 and effect size at feng2025")
+    for role, test in (("significance_and_direction", sig_test), ("effect_size", effect_test)):
+        if test["source_id"] != scoring[role]["source_id"]:
+            raise ValueError(f"study_014 scoring block {role} names a different source than its test")
 
     expected_dir = _expected_direction_to_int(sig_test.get("expected_direction", "positive"))
 
@@ -106,7 +109,8 @@ def evaluate_study(results):
     if human_coefficient is not None:
         human_direction = 1 if human_coefficient > 0 else -1 if human_coefficient < 0 else 0
         # The printed coefficient's sign is the human direction the agent must match.
-        assert human_direction == expected_dir, "Davis 2011 coefficient sign disagrees with expected_direction"
+        if human_direction != expected_dir:
+            raise ValueError("Davis 2011 coefficient sign disagrees with expected_direction")
 
     human_r = finding["verified_printed_benchmark"]["pearson_r"]
     human_effect_d = _r_to_d(human_r)
