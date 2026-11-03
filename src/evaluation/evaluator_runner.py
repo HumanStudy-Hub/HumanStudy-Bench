@@ -1,148 +1,106 @@
-import importlib.util
+"""Load and run a benchmark study's own evaluator.
+
+Each study ships `studies/<study_id>/scripts/evaluator.py` exposing
+`evaluate_study(results)`. Loading goes through `playground.study_loader`, so a
+benchmark evaluation and a playground run import the evaluator the same way and
+score identically.
+"""
+
 import sys
+import traceback
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Dict, Any, Optional
-import json
-import time
+from types import ModuleType
+from typing import Any, Dict, Iterator, Optional
 
-# Cache for loaded evaluator modules
-_evaluator_cache = {}
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
-# #region agent log
-def _debug_log(location, message, data, hypothesis_id=None):
+# Cache for loaded evaluator modules, keyed by (repo_root, study_id)
+_evaluator_cache: Dict[Any, Optional[ModuleType]] = {}
+
+
+@contextmanager
+def _isolated_siblings(scripts_dir: Path) -> Iterator[None]:
+    """Keep one study's vendored sibling modules from leaking into another's.
+
+    Every study vendors its own `stats_lib.py` / `study_utils.py` and imports them
+    by bare name, and the copies differ between studies. Without this, the first
+    study loaded in a process would supply those modules to every later one.
+    Siblings are imported at module top level, so the loaded evaluator keeps its
+    own references after they are removed from `sys.modules`.
+    """
+    names = {path.stem for path in scripts_dir.glob("*.py")}
+    saved_path = list(sys.path)
+    saved_modules = {name: sys.modules.pop(name) for name in names if name in sys.modules}
     try:
-        log_path = Path("/Users/assassin808/Desktop/xuan-hs/HS_bench/.cursor/debug.log")
-        with open(log_path, "a", encoding="utf-8") as f:
-            log_entry = {
-                "sessionId": "debug-session",
-                "runId": "run1",
-                "hypothesisId": hypothesis_id,
-                "location": location,
-                "message": message,
-                "data": data,
-                "timestamp": int(time.time() * 1000)
-            }
-            f.write(json.dumps(log_entry) + "\n")
-    except Exception:
-        pass
-# #endregion
+        yield
+    finally:
+        for name in names:
+            sys.modules.pop(name, None)
+        sys.modules.update(saved_modules)
+        sys.path[:] = saved_path
 
-def load_evaluator(study_id: str) -> Optional[Any]:
+
+def load_evaluator(study_id: str, repo_root: Optional[Path] = None) -> Optional[ModuleType]:
     """
     Load and cache the evaluator module for a study.
 
-    This function loads the evaluator module once and caches it for reuse,
-    avoiding redundant file I/O and imports during bootstrap iterations.
+    The module is loaded once and reused, avoiding redundant imports during
+    bootstrap iterations.
 
     Args:
         study_id: Study ID (e.g. 'study_001')
+        repo_root: Benchmark root containing `studies/`; defaults to this repository
 
     Returns:
         The evaluator module object, or None if loading failed
     """
-    # #region agent log
-    _debug_log("evaluator_runner.py:23", "load_evaluator called", {"study_id": study_id}, "A")
-    # #endregion
+    # Requires a source checkout: `playground/` sits beside `src/` at the repo root.
+    from playground.study_loader import StudyNotRunnable, study_dir
+    from playground.study_loader import load_evaluator as load_study_evaluator
 
-    # Check cache first
-    if study_id in _evaluator_cache:
-        # #region agent log
-        _debug_log("evaluator_runner.py:26", "Returning cached evaluator", {"study_id": study_id}, "A")
-        # #endregion
-        return _evaluator_cache[study_id]
+    root = Path(repo_root) if repo_root is not None else REPO_ROOT
+    key = (str(root), study_id)
+    if key in _evaluator_cache:
+        return _evaluator_cache[key]
 
-    evaluator_path = Path(f"src/studies/{study_id}_evaluator.py")
-
-    # #region agent log
-    _debug_log("evaluator_runner.py:30", "Checking evaluator path", {"study_id": study_id, "evaluator_path": str(evaluator_path), "exists": evaluator_path.exists(), "absolute_path": str(evaluator_path.resolve())}, "A")
-    # #endregion
-
-    if not evaluator_path.exists():
-        print(f"Evaluator not found at {evaluator_path}")
-        # #region agent log
-        _debug_log("evaluator_runner.py:34", "Evaluator file not found", {"study_id": study_id, "evaluator_path": str(evaluator_path)}, "A")
-        # #endregion
-        _evaluator_cache[study_id] = None
-        return None
-
+    module: Optional[ModuleType] = None
     try:
-        # #region agent log
-        _debug_log("evaluator_runner.py:38", "Starting module load", {"study_id": study_id}, "B")
-        # #endregion
-
-        # Dynamic import
-        spec = importlib.util.spec_from_file_location(f"{study_id}_evaluator", evaluator_path)
-        module = importlib.util.module_from_spec(spec)
-        sys.modules[f"{study_id}_evaluator"] = module
-
-        # #region agent log
-        _debug_log("evaluator_runner.py:45", "Before exec_module", {"study_id": study_id}, "B")
-        # #endregion
-
-        spec.loader.exec_module(module)
-
-        # #region agent log
-        _debug_log("evaluator_runner.py:48", "After exec_module", {"study_id": study_id, "module_has_evaluate_study": hasattr(module, "evaluate_study")}, "C")
-        # #endregion
-
-        # Verify it has the required function
-        if not hasattr(module, "evaluate_study"):
-            print(f"Evaluator module missing evaluate_study function")
-            # #region agent log
-            _debug_log("evaluator_runner.py:53", "Missing evaluate_study function", {"study_id": study_id, "module_dir": dir(module)}, "C")
-            # #endregion
-            _evaluator_cache[study_id] = None
-            return None
-
-        # Cache and return
-        _evaluator_cache[study_id] = module
-        # #region agent log
-        _debug_log("evaluator_runner.py:60", "Successfully loaded evaluator", {"study_id": study_id}, "A")
-        # #endregion
-        return module
-
+        path = study_dir(root, study_id)
+        with _isolated_siblings(path / "scripts"):
+            module = load_study_evaluator(path)
+    except StudyNotRunnable as e:
+        print(f"Evaluator not available for {study_id}: {e}")
     except Exception as e:
-        print(f"Error loading evaluator: {e}")
-        import traceback
-        exc_traceback = traceback.format_exc()
-        # #region agent log
-        _debug_log("evaluator_runner.py:67", "Exception during load", {"study_id": study_id, "error": str(e), "traceback": exc_traceback}, "B")
-        # #endregion
+        print(f"Error loading evaluator for {study_id}: {e}")
         traceback.print_exc()
-        _evaluator_cache[study_id] = None
-        return None
 
-def run_evaluator(study_id: str, results: Dict[str, Any]) -> Dict[str, Any]:
+    _evaluator_cache[key] = module
+    return module
+
+
+def run_evaluator(
+    study_id: str, results: Dict[str, Any], repo_root: Optional[Path] = None
+) -> Dict[str, Any]:
     """
-    Dynamically loads and runs the generated evaluator for a study.
+    Load and run the evaluator for a study.
 
     Args:
         study_id: Study ID (e.g. 'study_001')
         results: The agent results dictionary
+        repo_root: Benchmark root containing `studies/`; defaults to this repository
 
     Returns:
-        Dict containing score, pi_human, pi_agent, details
+        The evaluator's result dict, or {"score": 0.0, "error": ...} on failure
     """
-    evaluator_path = Path(f"src/studies/{study_id}_evaluator.py")
-
-    if not evaluator_path.exists():
-        print(f"Evaluator not found at {evaluator_path}")
-        return {"score": 0.0, "error": "Evaluator not found"}
+    module = load_evaluator(study_id, repo_root)
+    if module is None:
+        return {"score": 0.0, "error": "Evaluator not found or failed to load"}
 
     try:
-        # Try to use cached module first
-        module = _evaluator_cache.get(study_id)
-        if module is None:
-            # Load if not cached
-            module = load_evaluator(study_id)
-            if module is None:
-                return {"score": 0.0, "error": "Failed to load evaluator"}
-
-        # Run evaluation
-        return module.evaluate_study(results)
-
+        result: Dict[str, Any] = module.evaluate_study(results)
+        return result
     except Exception as e:
-        print(f"Error running evaluator: {e}")
-        import traceback
+        print(f"Error running evaluator for {study_id}: {e}")
         traceback.print_exc()
         return {"score": 0.0, "error": str(e)}
