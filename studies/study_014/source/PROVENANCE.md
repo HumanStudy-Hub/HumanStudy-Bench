@@ -33,11 +33,44 @@ legacy benchmark annotation, not by either paper. Their status is
 `unverified_legacy`, or `differs_from_printed` for the two legacy values
 (SD 23.23, sell-through .74) that conflict with the values Feng Table 2 prints.
 
-The evaluator uses the later paper's Pearson benchmark and leaves human
-significance and the replication verdict unavailable because that paper does
-not print its p-value. The original regression's significance cannot be attached
-to the later Pearson coefficient. The original regression remains separately
-recorded, and the former combined statistic is preserved for audit.
+## Replication scoring: two tests, two sources
+
+The evaluator scores one finding (F1) with statistics from two different tests
+in two different papers. Each statistic keeps its own source, and the evaluator
+output names both (`scoring_note`, `reported_statistics`, and the
+`human_significance_*` and `human_effect_*` fields). The rule is recorded in
+the finding's `scoring` block in ground_truth.json.
+
+- **Human significance and direction** come from the original Davis et al.
+  (2011) Table 2 random-effects regression (printed page 182; the coefficient is
+  discussed on page 181): the coefficient on the centered bidder count is 2.98
+  [SE 0.08] in Models (1) and (2), marked with an asterisk that the table note
+  defines as p < 0.01. Only the bound is printed. The evaluator stores the bound
+  (`human_p_value_bound = 0.01`), leaves `human_p_value` empty, and treats the
+  result as significant because the bound is below the 0.05 level. The sign of
+  the coefficient (positive) is the direction the agent must match. This
+  regression is estimated on the NoInfo treatments of the original experiment
+  (Table 1, page 181), not only on the Cuberoot n in {1, 4, 7, 10} cell that the
+  agent task replays.
+- **Human effect size** comes from the later Feng et al. (2025) Table 2 Human
+  row (printed page 7698): Pearson r = .42, with no p-value printed. It is used
+  only for the effect-size comparison. For the playground's effect-size table,
+  both the human r and the agent r are converted to a Cohen's d equivalent with
+  d = 2r / sqrt(1 - r^2), the identity `playground/analysis.py` applies to any
+  reported r.
+
+No p-value is inferred from r = .42, and the original regression's p-value
+bound is not attached to the later Pearson coefficient: it is attached to the
+regression it was printed for, and the row reports the two tests side by side.
+The agent's own significance test is a Pearson correlation of reserve price
+with bidder count on the agent decisions.
+
+`replication` is true when the human result is significant (Davis 2011), the
+agent correlation is significant at 0.05, and its sign matches the Davis 2011
+coefficient. With this rule study_014 counts toward a replication rate again.
+From HumanStudy-Bench PR #50 until this decision, the evaluator left `human_significant` and `replication` empty and study_014
+was excluded from the playground `replicationRate`; replication rates computed
+in that period exclude it.
 
 For paper-extraction scoring, use only items whose printed_in includes a
 provided source identifier, plus derivations whose inputs and reasoning are
