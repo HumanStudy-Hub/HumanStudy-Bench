@@ -1,5 +1,6 @@
 name: Build HumanStudy package with Claude Code
-# The job ID in the run title lets the web app match a run to its job.
+# The job ID in the run title lets the web app match a run to its job
+# (no web code does this yet).
 run-name: Build ${{ inputs.job_id }}
 
 on:
@@ -206,6 +207,10 @@ jobs:
           JOB_ID: ${{ inputs.job_id }}
           TOKEN: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
         run: |
+          if [ ! -d "jobs/$JOB_ID" ]; then
+            echo "::error::jobs/$JOB_ID does not exist on the job branch; nothing to commit."
+            exit 1
+          fi
           git config user.name "HumanStudy-Hub Agent"
           git config user.email "pipeline@humanstudy-hub.org"
           git add "jobs/$JOB_ID"
