@@ -49,3 +49,29 @@ def test_evaluator_exception_returns_error(tmp_path):
     )
     result = evaluator_runner.run_evaluator("study_902", {}, repo_root=tmp_path)
     assert result == {"score": 0.0, "error": "boom"}
+
+
+def test_studies_get_their_own_sibling_modules(tmp_path):
+    for study_id, factor in (("study_903", 2), ("study_904", 10)):
+        scripts = tmp_path / "studies" / study_id / "scripts"
+        scripts.mkdir(parents=True)
+        (scripts / "shared_lib.py").write_text(f"FACTOR = {factor}\n")
+        (scripts / "evaluator.py").write_text(
+            "from shared_lib import FACTOR\n"
+            "def evaluate_study(results):\n"
+            "    return {'score': FACTOR}\n"
+        )
+    first = evaluator_runner.run_evaluator("study_903", {}, repo_root=tmp_path)
+    second = evaluator_runner.run_evaluator("study_904", {}, repo_root=tmp_path)
+    assert first == {"score": 2}
+    assert second == {"score": 10}
+
+
+def test_all_benchmark_evaluators_load_in_one_process():
+    study_ids = sorted(
+        path.name for path in (REPO_ROOT / "studies").glob("study_*")
+        if (path / "scripts" / "evaluator.py").exists()
+    )
+    assert study_ids
+    failed = [sid for sid in study_ids if evaluator_runner.load_evaluator(sid) is None]
+    assert failed == []

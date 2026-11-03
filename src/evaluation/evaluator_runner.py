@@ -6,15 +6,39 @@ benchmark evaluation and a playground run import the evaluator the same way and
 score identically.
 """
 
+import sys
 import traceback
+from contextlib import contextmanager
 from pathlib import Path
 from types import ModuleType
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Iterator, Optional
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 # Cache for loaded evaluator modules, keyed by (repo_root, study_id)
 _evaluator_cache: Dict[Any, Optional[ModuleType]] = {}
+
+
+@contextmanager
+def _isolated_siblings(scripts_dir: Path) -> Iterator[None]:
+    """Keep one study's vendored sibling modules from leaking into another's.
+
+    Every study vendors its own `stats_lib.py` / `study_utils.py` and imports them
+    by bare name, and the copies differ between studies. Without this, the first
+    study loaded in a process would supply those modules to every later one.
+    Siblings are imported at module top level, so the loaded evaluator keeps its
+    own references after they are removed from `sys.modules`.
+    """
+    names = {path.stem for path in scripts_dir.glob("*.py")}
+    saved_path = list(sys.path)
+    for name in names:
+        sys.modules.pop(name, None)
+    try:
+        yield
+    finally:
+        for name in names:
+            sys.modules.pop(name, None)
+        sys.path[:] = saved_path
 
 
 def load_evaluator(study_id: str, repo_root: Optional[Path] = None) -> Optional[ModuleType]:
@@ -31,6 +55,7 @@ def load_evaluator(study_id: str, repo_root: Optional[Path] = None) -> Optional[
     Returns:
         The evaluator module object, or None if loading failed
     """
+    # Requires a source checkout: `playground/` sits beside `src/` at the repo root.
     from playground.study_loader import StudyNotRunnable, study_dir
     from playground.study_loader import load_evaluator as load_study_evaluator
 
@@ -41,7 +66,9 @@ def load_evaluator(study_id: str, repo_root: Optional[Path] = None) -> Optional[
 
     module: Optional[ModuleType] = None
     try:
-        module = load_study_evaluator(study_dir(root, study_id))
+        path = study_dir(root, study_id)
+        with _isolated_siblings(path / "scripts"):
+            module = load_study_evaluator(path)
     except StudyNotRunnable as e:
         print(f"Evaluator not available for {study_id}: {e}")
     except Exception as e:
