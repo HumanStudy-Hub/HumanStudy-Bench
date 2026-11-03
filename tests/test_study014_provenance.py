@@ -23,10 +23,19 @@ def test_missing_label_only_for_records_without_a_value():
             assert record.get("value") is None, f"{pointer} keeps a value but is labelled missing"
 
 
-def test_reported_records_without_a_printed_source_say_they_are_unverified():
-    for pointer, record in _provenance().items():
-        if record["evidence_label"] == "reported" and not record["printed_in"]:
-            assert record["status"] in {"unverified_legacy", "differs_from_printed"}, pointer
+def test_retained_legacy_values_name_their_source():
+    # Values kept from the legacy expert annotation but not located in either paper.
+    legacy = [
+        (pointer, record)
+        for pointer, record in _provenance().items()
+        if record.get("value") is not None and not record["printed_in"]
+        and record["evidence_label"] != "derived"
+    ]
+    assert len(legacy) == 12
+    for pointer, record in legacy:
+        assert record["evidence_label"] == "reported", pointer
+        assert record["reported_from"] == "hsb_legacy_expert_annotation", pointer
+        assert record["status"] in {"unverified_legacy", "differs_from_printed"}, pointer
 
 
 def test_n_subjects_is_printed_in_feng_figure_1a():
@@ -35,6 +44,8 @@ def test_n_subjects_is_printed_in_feng_figure_1a():
     assert record["evidence_label"] == "reported"
     assert record["printed_in"] == ["feng2025"]
     assert record["location"] == "Figure 1A, p. 7694"
+    assert record["status"] == "verified_printed_figure_label"
+    assert "120" in record["reason"]  # the 2011 sample, so 40 is not mistaken for it
 
 
 def test_n_observations_is_derived_from_printed_inputs():
