@@ -1,4 +1,6 @@
 name: Build HumanStudy package with Claude Code
+# The job ID in the run title lets the web app match a run to its job.
+run-name: Build ${{ inputs.job_id }}
 
 on:
   workflow_dispatch:
@@ -31,6 +33,7 @@ jobs:
           persist-credentials: false
 
       - name: Check out private job storage
+        id: storage
         uses: actions/checkout@v4
         with:
           repository: ${{ inputs.jobs_repo }}
@@ -158,8 +161,22 @@ jobs:
           job="job-storage/jobs/$JOB_ID"
           python agent_pipeline/finalize_job.py "$job" agent_pipeline/validate_package.py
 
+      # Without job storage there is nowhere to record the failure: the token that
+      # failed to check out the jobs branch is the only one that can push to it.
+      # The run itself still fails, so it shows up in the Actions run list.
+      - name: Report unavailable job storage
+        if: always() && steps.storage.outcome == 'failure'
+        env:
+          JOB_ID: ${{ inputs.job_id }}
+        run: |
+          msg="Could not check out job storage (branch jobs/$JOB_ID). The HUMANSTUDY_PIPELINE_TOKEN secret is most likely expired or invalid, or the job branch does not exist. The job state was not updated."
+          echo "::error title=Job storage unavailable::$msg"
+          echo "### Job storage unavailable" >> "$GITHUB_STEP_SUMMARY"
+          echo "$msg" >> "$GITHUB_STEP_SUMMARY"
+          exit 1
+
       - name: Mark failed or cancelled
-        if: failure() || cancelled()
+        if: (failure() || cancelled()) && steps.storage.outcome == 'success'
         env:
           JOB_ID: ${{ inputs.job_id }}
         run: |
@@ -168,6 +185,9 @@ jobs:
           from pathlib import Path
           job = Path("job-storage/jobs") / os.environ["JOB_ID"]
           path = job / "job.json"
+          if not path.exists():
+              print(f"::error::{path} is missing, so the failure could not be recorded on the job branch.")
+              raise SystemExit(0)
           data = json.loads(path.read_text())
           request_path = job / "studio_request.json"
           mode = json.loads(request_path.read_text()).get("mode", "build") if request_path.exists() else "build"
@@ -180,7 +200,7 @@ jobs:
           PY
 
       - name: Commit job state and outputs
-        if: always()
+        if: always() && steps.storage.outcome == 'success'
         working-directory: job-storage
         env:
           JOB_ID: ${{ inputs.job_id }}
