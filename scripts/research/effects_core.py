@@ -37,6 +37,7 @@ CONTRASTS = ("two_groups", "paired", "association", "interaction", "omnibus", "s
              "model_comparison", "other")
 # Schema 2 never accepts "other" for these: a new kind is declared as an extension (see EXTENSIONS below).
 NO_OTHER = ("contrast", "metric")
+TEST_STATISTICS = ("t", "F", "z", "chi_square", "W", "V", "U", "other")
 DIRECTIONS = ("positive", "negative", "nonzero", "none", "unspecified")
 OPS = ("mean_difference", "paired_difference", "proportion_difference", "contingency", "correlation", "package")
 ROLES = ("test", "robustness", "check", "descriptive")
@@ -334,8 +335,16 @@ def check(root, effects=None, program=None):
             P("%s: reported numbers need evidenceIds" % where)
         for j, est in enumerate(rep.get("estimates") or []):
             term("%s reported.estimates[%d].metric" % (where, j), "metric", est.get("metric"))
-        if rep.get("test") and rep["test"].get("statistic") not in ("t", "F", "z", "chi_square", "W", "U", "other"):
-            P("%s: reported.test.statistic must be t, F, z, chi_square, W, U or other" % where)
+        if rep.get("test") and rep["test"].get("statistic") not in TEST_STATISTICS:
+            P("%s: reported.test.statistic must be t, F, z, chi_square, W, V, U or other" % where)
+        p_blocks = [("test", rep.get("test") or {})] + [
+            ("estimates[%d]" % j, est) for j, est in enumerate(rep.get("estimates") or [])]
+        for location, block in p_blocks:
+            p = block.get("p")
+            if isinstance(p, (int, float)) and not isinstance(p, bool) and p <= 0:
+                P("%s: reported.%s.p must be greater than zero; a rounded printed zero is not an exact "
+                  "probability. Preserve the printed text with p: null and describe the missing exact p-value; "
+                  "do not invent an unprinted bound" % (where, location))
         if not isinstance(rep.get("missing", []), list):
             P("%s: reported.missing must be a list of what the paper does not report" % where)
         for loc, value in _numbers(rep):
