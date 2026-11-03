@@ -77,11 +77,26 @@ def quoted(value, quotes):
     """'exact' when the number is written in one of the quotes, 'unsigned' when only its absolute value
     is (the sign comes from the wording), else None."""
     nums = [x for q in quotes for x in numbers_in(q)]
-    if any(abs(x - value) < 1e-9 for x in nums):
+    if any(math.isclose(x, value, rel_tol=1e-9, abs_tol=0.0) for x in nums):
         return "exact"
-    if any(abs(abs(x) - abs(value)) < 1e-9 for x in nums):
+    if any(math.isclose(abs(x), abs(value), rel_tol=1e-9, abs_tol=0.0) for x in nums):
         return "unsigned"
     return None
+
+
+def rendered_quote(value, record):
+    """Allow only documented text-layer sign loss after a rendered-page check."""
+    page = (record.get("locator") or {}).get("page")
+    if type(page) is not int or not 1 <= page <= 100000:
+        return False
+    note = record.get("note")
+    if not isinstance(note, str) or note.strip().casefold() != "rendered page checked":
+        return False
+    text = str(record.get("quote") or "").replace("−", "-").replace("–", "-")
+    # A space may stand in for a lost exponent minus, but an explicit + must survive.
+    text = re.sub(r"(?<=\d)([eE])[ \t]+(?=\d+\b)", r"\1-", text)
+    text = re.sub(r"(?<![\w.])-[ \t]+(?=(?:\d|\.\d))", "-", text)
+    return quoted(value, [text]) == "exact"
 
 
 # ---- validation -------------------------------------------------------------------------------------
@@ -306,11 +321,13 @@ def check(root, effects=None, program=None):
             W("%s: the paper reports no number for it (reported is null)" % where)
             continue
         quotes = []
+        quote_records = []
         for eid in rep.get("evidenceIds") or []:
             if eid not in evidence:
                 P("%s: reported evidence %r is not in program evidence" % (where, eid))
             else:
                 quotes.append(evidence[eid].get("quote") or "")
+                quote_records.append(evidence[eid])
         if not rep.get("evidenceIds"):
             P("%s: reported numbers need evidenceIds" % where)
         for j, est in enumerate(rep.get("estimates") or []):
@@ -321,6 +338,9 @@ def check(root, effects=None, program=None):
             P("%s: reported.missing must be a list of what the paper does not report" % where)
         for loc, value in _numbers(rep):
             q = quoted(value, quotes)
+            if q != "exact" and any(rendered_quote(value, record) for record in quote_records):
+                W("%s: reported %s = %s uses a rendered-page check for text-layer sign loss" % (where, loc, value))
+                continue
             if q is None:
                 P("%s: reported %s = %s is not written in its cited quotes" % (where, loc, value))
             elif q == "unsigned":

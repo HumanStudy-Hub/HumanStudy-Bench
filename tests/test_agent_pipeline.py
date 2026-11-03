@@ -83,7 +83,9 @@ def test_validate_complete_agent_package(tmp_path: Path) -> None:
         if path.suffix == ".json":
             path.write_text("{}\n")
         elif relative == "task/adapter.py":
-            path.write_text("import sys\nraise SystemExit(0 if '--smoke-test' in sys.argv else 1)\n")
+            path.write_text("def run_sessions(agent_fn, seed):\n    return []\n")
+        elif relative == "evaluation/evaluation.py":
+            path.write_text("def evaluate(sessions):\n    return {}\n")
         else:
             path.write_text("Generated test file\n")
 
@@ -173,7 +175,9 @@ def test_watchdog_stops_agent_after_validation(tmp_path: Path) -> None:
         "    path = root / relative\n"
         "    path.parent.mkdir(parents=True, exist_ok=True)\n"
         "    if relative == 'task/adapter.py':\n"
-        "        path.write_text(\"import sys\\nraise SystemExit(0 if '--smoke-test' in sys.argv else 1)\\n\")\n"
+        "        path.write_text(\"def run_sessions(agent_fn, seed):\\n    return []\\n\")\n"
+        "    elif relative == 'evaluation/evaluation.py':\n"
+        "        path.write_text(\"def evaluate(sessions):\\n    return {}\\n\")\n"
         "    elif path.suffix == '.json':\n"
         "        path.write_text(json.dumps({}) + '\\n')\n"
         "    else:\n"
