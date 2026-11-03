@@ -92,10 +92,12 @@ def rendered_quote(value, record):
     note = record.get("note")
     if not isinstance(note, str) or note.strip().casefold() != "rendered page checked":
         return False
-    text = str(record.get("quote") or "").replace("−", "-").replace("–", "-")
+    text = str(record.get("quote") or "")
     # A space may stand in for a lost exponent minus, but an explicit + must survive.
     text = re.sub(r"(?<=\d)([eE])[ \t]+(?=\d+\b)", r"\1-", text)
-    text = re.sub(r"(?<![\w.])-[ \t]+(?=(?:\d|\.\d))", "-", text)
+    # A true minus (U+2212) the text layer split from its digits, only where a number starts: at the start of
+    # the quote or after =, (, [ or a comma. Hyphens and en dashes are never joined: "[0.25 – 0.40]" is a range.
+    text = re.sub(r"(^|[=(\[,])([ \t]*)\u2212[ \t]+(?=(?:\d|\.\d))", r"\1\2-", text)
     return quoted(value, [text]) == "exact"
 
 
@@ -340,6 +342,8 @@ def check(root, effects=None, program=None):
             q = quoted(value, quotes)
             if q != "exact" and any(rendered_quote(value, record) for record in quote_records):
                 W("%s: reported %s = %s uses a rendered-page check for text-layer sign loss" % (where, loc, value))
+                if q == "unsigned":  # the text layer still prints only the absolute value; keep that visible
+                    W("%s: reported %s = %s: only its absolute value is quoted; check the sign" % (where, loc, value))
                 continue
             if q is None:
                 P("%s: reported %s = %s is not written in its cited quotes" % (where, loc, value))
