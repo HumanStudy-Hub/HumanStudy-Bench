@@ -214,6 +214,63 @@ researcher to upload or paste the originals, accept a clearly labelled stand-in,
 or leave that part out. Start `studio-reply.md` with the same list. The per-item
 issues point to this request; do not ask the same question item by item.
 
+## Survey files
+
+A Qualtrics export (`.qsf`) holds every question ever written for the survey,
+including the "Trash / Unused Questions" block and blocks the survey flow never
+shows. Participants saw only what the flow reaches. For every `.qsf` you fetch,
+run (from the repository root)
+
+```
+python agent_pipeline/qsf_flow.py <job-dir>/input/external/<file>.qsf --json <job-dir>/work/<file>.flow.json
+```
+
+It prints the survey in the order participants saw it; the JSON (in `work/`,
+the job's scratch folder) holds the full record. Build the participant flow
+from it, not from the raw `.qsf`:
+
+- **Order and logic.** Follow its block order, randomizers (how many of how
+  many elements, evenly presented or not), branches, groups and embedded data,
+  and its pages. A question is conditional only when it lists `display_logic`;
+  otherwise it is always shown on its page. A question's `skip_logic` decides
+  which later questions a participant skips, and `has_javascript` means a
+  script may change what is shown; check both by hand.
+- **Never show unreachable items.** Anything under `not_reachable` (the Trash
+  block, blocks not in the flow, questions in no block) was never shown. Do not
+  put its text in `materials.json`, the program or the adapter as participant
+  material. To keep one on record, list it by question id under `notShown`, or
+  add `"qsfReachability": "not-shown"` to its item; the adapter, `task.json`
+  and the program steps must then never use that item (by id or question id).
+  An item that mixes shown text with never-shown text (a shown question with
+  options copied from an unused one) gets `"qsfReachability": "mixed"` and
+  state `check`, and a plain question for the researcher. The package check fails
+  survey text that only an unreachable question carries, in program fields
+  found in a `.qsf`, in `materials.json` entries whose source is a `.qsf`, and
+  in string literals in `task/adapter.py`, and fails a marked item the run
+  still uses.
+- **Randomisation.** Reproduce `choice_randomisation` (answer options shuffled
+  per participant, with the seeded generator), `question_randomisation` (which
+  questions swap places within a block) and the listed choice order, which is
+  the display order (it can differ from the choice ids).
+- **Validation.** Reproduce `validation`. `forced` means an answer is
+  required; `requested` means the participant is asked but may skip.
+  `correct_choices` means only that answer is accepted and any other is
+  refused until the participant answers again; never describe such a check as
+  having no correct-answer logic. The export keeps only the
+  `message_description` of the refusal message, which may be the shown text
+  or only the message's name: give the shown message state `check` so a
+  person confirms it, never `verbatim` on its own.
+  If you cap the retries for agents, record the cap as a departure.
+- **Lists the export lacks.** A text box with `autocomplete` draws on a
+  Qualtrics list that is not in the file; label that list `missing`.
+- **Differences from the paper.** Compare the survey's order of measures,
+  conditions and checks with the order the paper describes. When they differ,
+  follow the survey (the instrument participants used), and add one plain
+  question for the researcher naming both orders. Report anything the reader
+  lists under `notes` as something to check, not as a fact.
+- Run `python agent_pipeline/validate_package.py <job-dir>/package` before you
+  finish and fix what it reports.
+
 ## Evidence labels
 
 Every substantive extracted or inferred item must use one of these labels:

@@ -22,11 +22,13 @@ try:
     from agent_pipeline.fetch_public import restore_downloads, verify_downloads
     from agent_pipeline.network_policy import allowed_hosts
     from agent_pipeline.repair_guard import guard_repair, package_diff
+    from agent_pipeline.qsf_flow import never_shown_matcher
     from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
 except ModuleNotFoundError:  # Direct script execution from the repository root.
     from fetch_public import restore_downloads, verify_downloads
     from network_policy import allowed_hosts
     from repair_guard import guard_repair, package_diff
+    from qsf_flow import never_shown_matcher
     from studio_output import studio_mode, validate_build_sidecars, validate_discussion
 
 
@@ -221,6 +223,17 @@ REPAIR_RULES = (
      "with its search list) unless it was found in a downloaded source; every pending item is "
      "named in the single 'materials-request' issue. Never fill a gap with your own wording "
      "to pass this check."),
+    ("survey flow check failed",
+     "Survey files: text from a .qsf question the survey flow never shows (the Trash / Unused "
+     "Questions block, a block not in the flow) is not participant material. Run "
+     "agent_pipeline/qsf_flow.py on the .qsf and follow its flow. Remove each flagged item from "
+     "materials.json, the program and the adapter, or, to keep it on record, add "
+     "\"qsfReachability\": \"not-shown\" to it and change nothing else; then remove every use "
+     "of it from the adapter, task.json and the program steps. An item that mixes shown and "
+     "never-shown text (a shown question with options from an unused one) gets "
+     "\"qsfReachability\": \"mixed\" and state \"check\", nothing else, and a line in "
+     "studio-reply.md naming it for the researcher. "
+     "Never reword the text to pass this check."),
     ("programBindings",
      "task/task.json programBindings must be derived from the canonical program in "
      "study.json: programId, stepIds, recordNodeIds (record and variable nodes) and "
@@ -540,7 +553,9 @@ def run_guarded_repair(job: Path, package: Path, run_repair, turns: list | None 
             guard["violations"] = [detail]
         else:
             try:
-                guard = guard_repair(package_root(snapshot), package_root(package))
+                pre_root = package_root(snapshot)
+                removable = never_shown_matcher(pre_root, job) if pre_root is not None else None
+                guard = guard_repair(pre_root, package_root(package), removable)
             except Exception as exc:  # A guard bug must fail closed, not pass the repair.
                 guard["violations"] = [f"fidelity guard error ({type(exc).__name__}: {exc})"]
         for violation in guard["violations"]:
