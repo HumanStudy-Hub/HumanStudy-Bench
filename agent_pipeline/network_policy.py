@@ -78,14 +78,14 @@ DATA_NAME_RE = re.compile(
     r"results?|export|prolific|mturk|sona|answers?|scores?|P\d+|sub[-_]?\d+|s\d{2,})([^a-z]|$)")
 # Opaque downloads whose file name is not in the URL.
 DOWNLOAD_URL_RE = re.compile(
-    r"(?i)([?&]action=download|[?&]download=|osf\.io/download/|files\.(us\.)?osf\.io/|osf\.io/[a-z0-9]{5}/download|/ndownloader/|"
+    r"(?i)([?&]action=download|[?&]download=|osf\.io/download/|files\.(us\.)?osf\.io/|osf\.io/[a-z0-9]+/download|/ndownloader/|"
     r"zenodo\.org/(api/)?records?/[^ ]*/files/|raw\.githubusercontent\.com/|codeload\.github\.com/|"
     r"/archive/|/releases/download/|dataverse[^ ]*/api/access/|datadryad\.org/[^ ]*/download)")
 
 ARCHIVE_SUFFIXES = (".zip", ".tar", ".gz", ".tgz", ".7z", ".rar")
 FETCHERS = {"curl", "wget", "aria2c", "http", "https", "httpie", "xh", "lynx", "links", "w3m"}
 FORBIDDEN_PROGRAMS = {"nslookup", "dig", "host", "nc", "ncat", "netcat", "telnet", "ssh", "scp", "sftp",
-                      "rsync", "ftp", "socat", "openssl", "aria2c", "lynx", "links", "w3m"}
+                      "rsync", "ftp", "socat", "openssl", "aria2c", "lynx", "links", "w3m", "gh", "svn", "hg"}
 INTERPRETERS = ("python", "node", "perl", "ruby", "php", "deno", "bun")
 SHELLS = {"sh", "bash", "zsh", "dash", "ksh", "fish", "source", "."}
 INSTALLERS = {"pip", "pip3", "npm", "npx", "yarn", "pnpm", "gem", "cargo", "apt", "apt-get", "brew", "uv"}
@@ -108,7 +108,11 @@ WGET_FLAGS = (
      "--timestamping", "-x", "--force-directories"},
     ("", "eiB", "OPrmNx"),
 )
-SECRET_PATH_RE = re.compile(r"/proc/[^\s]*/environ|\.netrc\b|\.git-credentials|\.claude/\.credentials")
+SECRET_PATH_RE = re.compile(r"/proc/[^\s]*/(environ|cmdline)|\.netrc\b|\.git-credentials|\.claude/\.credentials|\.claude\.json")
+# Git internals and the pipeline's private copy: planting a hook, a URL rewrite
+# or an edited guard there would run outside this guard.
+PROTECTED_RE = re.compile(r"(^|[/\s'\"])\.git(/|\s|$|['\"])|\bgit\b[^|;&\n]*(\sconfig\b|\s-c\s)|core\.hooksPath|"
+                          r"humanstudy-network-|GIT_CONFIG|insteadOf")
 SECRET_ENV = ("ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_API_KEY", "OPENROUTER_API_KEY", "PIPELINE_PROGRESS_TOKEN",
               "HUMANSTUDY_PIPELINE_TOKEN", "GITHUB_TOKEN")
 GUARDED_DIRS = ("agent_pipeline", "contracts")
@@ -277,7 +281,8 @@ def _program(tokens: list[str]) -> tuple[str, list[str]]:
     while index < len(tokens):
         token = tokens[index]
         if re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", token) or token in (
-                "sudo", "time", "nohup", "command", "exec", "xargs", "env", "(", "{", "!", "then", "do", "else"):
+                "sudo", "time", "nohup", "command", "exec", "xargs", "env", "(", "{", "!", "then", "do", "else",
+                "stdbuf", "watch", "busybox", "unbuffer", "eval", "builtin", "nice", "ionice"):
             index += 1
         elif token == "timeout" or token == "nice":
             index += 1
@@ -287,7 +292,7 @@ def _program(tokens: list[str]) -> tuple[str, list[str]]:
             break
     if index >= len(tokens):
         return "", []
-    return tokens[index].rsplit("/", 1)[-1].lower(), tokens[index + 1:]
+    return tokens[index].lstrip("({").rsplit("/", 1)[-1].lower(), tokens[index + 1:]
 
 
 def host_of_any(url: str) -> str:
@@ -342,6 +347,9 @@ def _check_fetcher(program: str, args: list[str], segment: str, hosts: list[str]
         elif name in output:
             if value not in ("/dev/null", "-"):
                 return DOWNLOAD_REFUSAL
+        elif re.fullmatch(r"-[A-Za-z]\S+", flag) and flag[:2] in output and not flag[2:].isalpha():
+            if flag[2:] not in ("/dev/null", "-"):  # -o/tmp/x attached value
+                return DOWNLOAD_REFUSAL
         elif re.fullmatch(r"-[A-Za-z]{2,}", flag):  # bundled short flags such as -sLo
             letters = set(flag[1:])
             if letters & set(send_short):
@@ -354,9 +362,10 @@ def _check_fetcher(program: str, args: list[str], segment: str, hosts: list[str]
     for match in re.finditer(r"(?<![0-9&>])>{1,2}\s*(\S+)", segment):
         if match.group(1) not in ("/dev/null",) and not match.group(1).startswith("&"):
             return DOWNLOAD_REFUSAL
+    head_only = any(a in ("-I", "--head", "--spider") or re.fullmatch(r"-[A-Za-z]*I[A-Za-z]*", a) for a in args)
     for arg in args:
         for url in _urls_in(arg):
-            reason = _check_url(url, hosts)
+            reason = _check_url(url, hosts, download_ok=head_only)
             if reason:
                 return reason
     return None
@@ -376,6 +385,8 @@ def _check_code(code: str, hosts: list[str]) -> str | None:
     """Code that makes network calls may only name listed hosts and never downloads files."""
     if not NETWORK_API_RE.search(code):
         return None
+    if re.search(r"""(['"]wb['"]|write_bytes|urlretrieve|shutil\.copyfileobj|iter_content)""", code):
+        return DOWNLOAD_REFUSAL
     for match in URL_RE.finditer(code):
         reason = _check_url(match.group(0).rstrip(".,"), hosts)
         if reason:
@@ -392,9 +403,15 @@ def _is_fetch_helper(path: str, cwd: str | None) -> bool:
         return False
 
 
-def _check_bash(command: str, hosts: list[str], cwd: str | None) -> str | None:
-    if SECRET_PATH_RE.search(command):
+def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0) -> str | None:
+    if depth > 3:
+        return "Nested shells are not allowed in the materials search."
+    if SECRET_PATH_RE.search(command) or re.search(r"(^|[|;&(\s])ps\s+-?[A-Za-z]*e", command):
         return "Commands may not read credentials or another process's environment."
+    if PROTECTED_RE.search(command):
+        return "Git internals, git configuration and the pipeline's private copy are off limits to the build agent."
+    if re.search(r"\b(find\b[^|;&]*-exec(dir)?|xargs)\b[^|;&]*\b(curl|wget)\b", command):
+        return "Run curl or wget directly, not through find -exec or xargs."
     if re.search(r"(?i)(<\(|\$\(|`)\s*(curl|wget)\b", command):
         return "Downloaded content must never be run or substituted into a command."
     stripped, heredocs = _strip_heredocs(command)
@@ -410,14 +427,26 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None) -> str | None:
         if previous_fetch and (program in SHELLS or program.startswith(INTERPRETERS)
                                and (not args or args[0] in ("-", "-i", "/dev/stdin"))):
             return "Downloaded content must never be run: do not pipe a download into a shell or interpreter."
+        if previous_fetch and program == "tee":
+            return DOWNLOAD_REFUSAL
+        if program in SHELLS and args and "-c" not in args and re.search(r"\b(curl|wget)\b", stripped):
+            return "Downloaded content must never be run."
         previous_fetch = False
         if program in FORBIDDEN_PROGRAMS:
             return f"`{program}` is not available to the materials search."
+        if program in SHELLS and "-c" in args:
+            position = args.index("-c")
+            reason = _check_bash(args[position + 1] if position + 1 < len(args) else "", hosts, cwd, depth + 1)
+            if reason:
+                return reason
         if program in INSTALLERS:
             if any("://" in a or a.startswith(("git+", "git@")) for a in args):
                 return "Packages may only be installed from their default registry."
         elif program == "git":
-            sub = next((a for a in args if not a.startswith("-")), "")
+            rest = list(args)
+            while rest and rest[0].startswith("-"):
+                rest = rest[2:] if rest[0] in ("-C", "-c", "--git-dir", "--work-tree") else rest[1:]
+            sub = rest[0] if rest else ""
             if sub in ("clone", "fetch", "pull", "submodule", "archive", "ls-remote", "push", "remote"):
                 return ("Repositories are not cloned: list files with the GitHub API "
                         "(api.github.com/repos/<owner>/<repo>/contents/...) and download each material file with "
@@ -449,6 +478,11 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None) -> str | None:
                         reason = reason or _check_url(url, hosts)
             if reason:
                 return reason
+    # Backstop: a command that names a fetcher may not name an unlisted host anywhere.
+    if re.search(r"(?i)\b(curl|wget)\b", stripped):
+        for match in URL_RE.finditer(stripped):
+            if not host_allowed(host_of_any(match.group(0)), hosts):
+                return HOST_REFUSAL.format(host_of_any(match.group(0)) or repr(match.group(0)[:80]))
     return None
 
 
@@ -469,6 +503,8 @@ def check_tool_call(tool: str, tool_input: dict, hosts: Iterable[str], cwd: str 
             return None
         if any(resolved.is_relative_to(repo / folder) for folder in GUARDED_DIRS):
             return "The pipeline's own code and contracts are read-only for the build agent."
+        if ".git" in resolved.parts or "humanstudy-network-" in str(resolved):
+            return "Git internals and the pipeline's private copy are off limits to the build agent."
         return None
     if tool != "Bash":
         return None

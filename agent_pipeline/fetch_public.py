@@ -22,6 +22,8 @@ import json
 import os
 import re
 import sys
+import socket
+import urllib.error
 import urllib.request
 import zipfile
 from pathlib import Path
@@ -176,9 +178,18 @@ def remote_copy(job: Path, url: str, attempts: int = 3) -> bytes:
                         raise ValueError("file exceeds the size limit")
                     chunks.append(chunk)
             return b"".join(chunks)
+        except urllib.error.HTTPError as exc:
+            if exc.code < 500 and exc.code != 429:
+                # Not found or refused: the recorded URL does not serve this file.
+                raise ValueError(f"{url} answered HTTP {exc.code}; the recorded source is not there") from exc
+            last = exc
+        except urllib.error.URLError as exc:
+            if isinstance(exc.reason, socket.gaierror):
+                raise ValueError(f"{host_of(url)} does not exist; the recorded source is not there") from exc
+            last = exc
         except OSError as exc:
             last = exc
-            time.sleep(2 * (attempt + 1) if attempts > 1 else 0)
+        time.sleep(2 * (attempt + 1) if attempt + 1 < attempts else 0)
     raise ConnectionError(f"could not re-download {url}: {last}")
 
 

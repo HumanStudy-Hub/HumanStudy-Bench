@@ -236,6 +236,8 @@ def pristine_pipeline(workdir: Path) -> Path:
     target = workdir / "pipeline"
     for folder in ("agent_pipeline", "contracts"):
         shutil.copytree(repo / folder, target / folder, ignore=shutil.ignore_patterns("__pycache__"))
+    for path in target.rglob("*"):
+        path.chmod(0o555 if path.is_dir() else 0o444)
     return target
 
 
@@ -646,8 +648,8 @@ def main() -> None:
     def verified_sources() -> tuple[bool, str]:
         """Download each recorded source again (once per recorded set), so a
         mismatch reaches the repair loop instead of failing at publication."""
-        metadata = sorted(package.glob("*/source/paper_metadata.json"))
-        key = metadata[0].read_text(errors="replace") if metadata else ""
+        files = sorted(package.glob("*/source/paper_metadata.json")) + sorted(package.glob("*/study.json"))
+        key = "\n".join(path.read_text(errors="replace") for path in files)
         if key not in verified:
             problems, warnings = verify_downloads(args.job)
             for warning in warnings:
@@ -868,6 +870,9 @@ def main() -> None:
         raise
     finally:
         cleanup_materials(args.job)
+        for path in network_dir.rglob("*"):
+            if path.is_dir():
+                path.chmod(0o755)
         shutil.rmtree(network_dir, ignore_errors=True)
 
 
