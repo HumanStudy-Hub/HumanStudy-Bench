@@ -41,6 +41,7 @@ def run_sessions(llm, seed, n, arms=None):
                     session["status"] = "unparsed"
                 else:
                     session["choice"] = page.value("choice")
+                    session["comment"] = page.value("comment")
             sessions.append(session)
     return sessions
 

@@ -25,6 +25,11 @@ Called by ``validate_package.py`` after the smoke test. Contract:
    estimate, reads the licence from the PDF, and avoids internal vocabulary and
    overclaims.
 
+``check_package`` also runs ``paper_tables`` (tables without a text layer, numbers
+whose minus the text layer drops, impossible CIs), ``recorded_answers`` (every answer
+a participant gives reaches the session record) and ``source_use`` (the authors'
+analysis code, survey versions, questions the downloaded files already answer).
+
 Run as ``python package_checks.py --probe <paper-folder>`` to print the
 stand-in run as JSON (used by the validator and ``estimate_run.py``).
 """
@@ -1062,8 +1067,16 @@ def check_package(root: Path, job: Path) -> list[str]:
             f"{_label(run)}: {run['error']}" for run in failed_runs[:4])
             + ". Every condition id in task/task.json must run with run_sessions(llm, seed, n, arms=[id]) for n = 1, 2 or 4; a "
             "condition that cannot run returns a blocked session record instead of raising.")
+    try:
+        from agent_pipeline import paper_tables, recorded_answers, source_use
+    except ModuleNotFoundError:
+        import paper_tables  # type: ignore[no-redef]
+        import recorded_answers  # type: ignore[no-redef]
+        import source_use  # type: ignore[no-redef]
     for check in (lambda: check_memory(root, result), lambda: check_results(root, job),
-                  lambda: check_analyses(root, job, result), lambda: check_reply(root, job, result)):
+                  lambda: paper_tables.check_tables(root, job), lambda: paper_tables.check_signs(root, job),
+                  lambda: check_analyses(root, job, result), lambda: check_reply(root, job, result),
+                  lambda: recorded_answers.problems(root), lambda: source_use.check(root, job)):
         try:
             problems += check()
         except Exception as exc:  # noqa: BLE001 - a malformed record is reported, not a crash

@@ -59,7 +59,8 @@ CLASSIFICATIONS = ("schema-enough", "needs-original")
 NEEDS_ORIGINAL_STATUSES = ("found-open", "found-private", "pending")
 REQUEST_ISSUE = "materials-request"
 PROSE_WORDS = 4
-TEXT_SUFFIXES = (".txt", ".md", ".html", ".htm", ".xml", ".csv", ".tsv", ".rmd", ".tex", ".js", ".py", ".r")
+TEXT_SUFFIXES = (".txt", ".md", ".html", ".htm", ".xml", ".csv", ".tsv", ".rmd", ".tex", ".js", ".py", ".r",
+                 ".qmd", ".do", ".ado", ".sps", ".sas", ".m", ".jl", ".stan")
 JSON_SUFFIXES = (".json", ".qsf")
 
 
@@ -98,11 +99,15 @@ def file_text(path: Path) -> str | None:
     """Plain text of a downloaded file, or None when it cannot be read here."""
     suffix = path.suffix.lower()
     try:
+        if suffix == ".ipynb":  # a notebook: the code and markdown cells, not the stored outputs
+            cells = json.loads(path.read_text(encoding="utf-8", errors="replace")).get("cells") or []
+            return normalise("\n".join("".join(c.get("source") or []) if isinstance(c.get("source"), list)
+                                       else str(c.get("source") or "") for c in cells if isinstance(c, dict)))
         if suffix in JSON_SUFFIXES:
             return normalise("\n".join(_json_strings(json.loads(path.read_text(encoding="utf-8", errors="replace")))))
         if suffix in TEXT_SUFFIXES:
             text = path.read_text(encoding="utf-8", errors="replace")
-            if suffix in (".js", ".py", ".r", ".rmd"):
+            if suffix in (".js", ".py", ".r", ".rmd", ".qmd"):
                 text = text.replace("\\'", "'").replace('\\"', '"').replace("\\n", "\n")
             return normalise(text)
         if suffix in (".docx", ".pptx", ".odt"):
