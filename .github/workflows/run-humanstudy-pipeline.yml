@@ -248,6 +248,8 @@ jobs:
           cp -R "job-storage/jobs/$JOB_ID" "$publish/jobs/$JOB_ID"
           find "$publish/jobs/$JOB_ID" -name __pycache__ -type d -prune -exec rm -rf {} + 2>/dev/null || true
           find "$publish/jobs/$JOB_ID" -name '*.pyc' -type f -delete 2>/dev/null || true
+          # Signed storage links (paper and supplement downloads) are credentials until they expire.
+          python agent_pipeline/fetch_public.py --job "$publish/jobs/$JOB_ID" --scrub || true
           cd "$publish"
           # progress.json is updated through the API during the run; keep the branch's copy.
           git checkout HEAD -- "jobs/$JOB_ID/progress.json" 2>/dev/null || true

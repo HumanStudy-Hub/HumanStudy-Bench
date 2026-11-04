@@ -43,7 +43,7 @@ import traceback
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence
 
-VERSION = "1"
+VERSION = "2"
 
 RETRY_NOTE = "Your previous reply could not be read{which}. Reply again in the format asked, and nothing else."
 
@@ -56,10 +56,13 @@ class Question:
     kind      "choice" (options), "number" (a numeric entry) or "text" (free text).
     options   the option labels, exactly as participants see them (choice only).
     codes     what a participant types to pick each option. Default: the number
-              each label starts with when every label starts with a different
-              number (a 1-7 scale printed as "1 (strongly disagree)" ...), else
-              1, 2, 3, ... Pass survey codes ("30", "1", "4") or letters ("A",
-              "B") when the screen shows those.
+              each label starts with when the labels are a numbered scale (a 1-7
+              scale printed as "1 (strongly disagree)", "2", ...: every label
+              starts with a different number, set off from its words or running
+              in steps of one), else 1, 2, 3, ..., printed before each label. A
+              percentage or an amount ("70% for auto safety", "200 people",
+              "30 hours") is never a code. Pass survey codes ("30", "1", "4") or
+              letters ("A", "B") only when the screen shows those.
     key       the answer the survey requires to continue: a comprehension or
               attention check, consent, a qualification question. A code or label,
               or a list of accepted ones. For ``multiple=True``, the list of codes
@@ -84,6 +87,9 @@ class Question:
         if self.kind == "choice" and not self.options:
             raise ValueError(f"question {id}: a choice question needs options")
         self.codes = [str(code) for code in codes] if codes is not None else default_codes(self.options)
+        # Positions (1, 2, 3, ...) are always printed before the label, even when a label starts with a number.
+        self.numbered = codes is None and self.codes == [str(n) for n in range(1, len(self.options) + 1)] \
+            and self.codes != _leading_numbers(self.options)
         if len(self.codes) != len(self.options) or len({c.lower() for c in self.codes}) != len(self.codes):
             raise ValueError(f"question {id}: codes must be distinct and one per option")
         self.key = key
@@ -95,7 +101,7 @@ class Question:
 
     def option_line(self, index: int) -> str:
         code, label = self.codes[index], self.options[index]
-        if _starts_with_code(label, code):
+        if not self.numbered and _starts_with_code(label, code):
             return label
         return f"{code}. {label}"
 
@@ -116,18 +122,48 @@ class Question:
         return found
 
 
+LEADING_RE = re.compile(r"\s*([-+]?\d+)(?!\d)(?![.,]\d)(.*)$", re.S)
+# What follows a scale point's number: nothing, a line break, or a separator ("1 (low)", "1 = low", "1 - low", "1: low").
+SET_OFF_RE = re.compile(r"\s*$|[ \t]*\n|\s*[(\[=:)\]/|]|\s*\.(?!\d)|\s+[-\u2013\u2014]\s|\s*[-\u2013\u2014]\s")
+AMOUNT_RE = re.compile(r"(?i)\s*(%|percent\b|per\s?cent\b|pct\b|[$\u20ac\u00a3\u00a5]|(us)?d(ollars?)?\b|cents?\b|"
+                       r"euros?\b|pounds?\b|yen\b|usd\b|eur\b|gbp\b)")
+
+
+def _leading_numbers(options: Sequence[str]) -> Optional[List[str]]:
+    """The distinct number every label starts with, when all do; else None."""
+    matches = [LEADING_RE.match(str(option)) for option in options]
+    if not options or not all(matches):
+        return None
+    numbers = [m.group(1).lstrip("+") for m in matches if m]
+    return numbers if len(set(numbers)) == len(numbers) else None
+
+
 def default_codes(options: Sequence[str]) -> List[str]:
-    leading = [re.match(r"\s*([-+]?\d+)(?!\d)(?![.,]\d)", str(option)) for option in options]
-    if options and all(leading):
-        numbers = [m.group(1).lstrip("+") for m in leading if m]
-        if len(set(numbers)) == len(numbers):
+    """The numbers of a printed scale, else positions 1, 2, 3, ...
+
+    A label's leading number is its code only when every label starts with a
+    different number, none of them is a percentage or an amount, and the numbers
+    are set off from the words ("1 (strongly disagree)", "0\nNeutral") or run in
+    steps of one (a "1 Strongly disagree" ... "7 Strongly agree" scale). Otherwise
+    "70% for auto safety" or "200 people will be saved" would become codes 70 and
+    200 that no participant model types.
+    """
+    numbers = _leading_numbers(options)
+    if numbers is not None:
+        rests = [LEADING_RE.match(str(option)).group(2) for option in options]  # type: ignore[union-attr]
+        values = [int(number) for number in numbers]
+        steps = {b - a for a, b in zip(values, values[1:])}
+        if not any(AMOUNT_RE.match(rest) for rest in rests) and (
+                all(SET_OFF_RE.match(rest) for rest in rests) or (len(values) > 1 and steps in ({1}, {-1}))):
             return numbers
     return [str(number) for number in range(1, len(options) + 1)]
 
 
 def _starts_with_code(label: str, code: str) -> bool:
-    return bool(re.match(rf"\s*\+?{re.escape(code)}(?![\w.,]\d)(\b|\s|$|[(\[:.)-])", label)) and \
-        not re.match(rf"\s*\+?{re.escape(code)}\w", label)
+    """The label already prints its code first ("1 (low)"), so it is shown alone. "70%" is not code 70."""
+    match = re.match(rf"\s*\+?{re.escape(code)}(?![\w.,]\d)(?=\b|\s|$|[(\[:.)-])", label)
+    return bool(match) and not re.match(rf"\s*\+?{re.escape(code)}\w", label) \
+        and not AMOUNT_RE.match(label[match.end():])  # type: ignore[union-attr]
 
 
 def _norm(text: str) -> str:
@@ -434,22 +470,37 @@ def ask(llm: Callable[[str], str], prompt: str, questions: Sequence[Question], r
 class StubParticipant:
     """An offline stand-in model for the smoke test only. It is not a participant.
 
-    It answers keyed questions (comprehension, attention, consent, qualification)
-    correctly, picks a random valid answer otherwise, varies the reply format
-    ("2", "2.", "2. Label", "label", "Answer: 2"), and sometimes sends an
-    unreadable first reply so the retry path runs. Calls that bypass
-    :func:`ask` are counted in ``direct_calls`` and answered with a random
-    number shown in the prompt.
+    It answers the way a model reading the prompt would: it finds each option in
+    the prompt text and replies with the number (or letter) printed before it,
+    or, when the prompt prints the options without numbers, with the option's
+    position, as a model told "reply with the number" does. It never reads
+    ``Question.codes`` to write a reply. Each reply is checked against
+    :func:`parse`: when the number shown on the screen is read as another option,
+    or not read at all, the question is recorded in ``misreads``, because a real
+    model's answer would be lost or misrecorded the same way.
+
+    With ``use_keys=True`` it answers keyed questions (comprehension, attention,
+    consent, qualification) correctly, so the smoke test can tell whether every
+    gate is passable; with ``use_keys=False`` it is blind to keys and picks
+    options at random. It varies the reply format ("2", "2.", "2. Label",
+    "label", "Answer: 2") and sometimes sends an unreadable first reply so the
+    retry path runs. Calls that bypass :func:`ask` are counted in
+    ``direct_calls`` and answered with a random number shown in the prompt.
     """
 
     STYLES = ("{code}", "{code}.", "{code}. {label}", "{label}", "{upper}", "Answer: {code}", "I choose {label}.")
 
-    def __init__(self, seed: int = 0, noise: float = 0.1) -> None:
+    def __init__(self, seed: int = 0, noise: float = 0.1, use_keys: bool = True) -> None:
         self.rng = random.Random(seed)
         self.noise = noise
+        self.use_keys = use_keys
         self.calls = 0
         self.direct_calls = 0
         self.prompts: List[str] = []
+        self.misreads: List[Dict[str, Any]] = []
+        self.unshown: List[str] = []
+        self.ambiguous: List[str] = []
+        self.asked: Dict[str, Question] = {}
 
     def __call__(self, prompt: str) -> str:
         self.calls += 1
@@ -458,37 +509,138 @@ class StubParticipant:
         shown = re.findall(r"(?m)^\s*\(?([0-9]{1,3}|[A-H])[.):=]\s+\S", prompt)
         return self.rng.choice(shown) if shown else "1"
 
-    def _one(self, question: Question) -> str:
+    # -- reading the prompt
+
+    @staticmethod
+    def _region(prompt: str, number: int, total: int) -> str:
+        """The part of the prompt that shows question ``number`` of ``total`` (Q1., Q2., ...)."""
+        if total == 1:
+            return prompt
+        starts = list(re.finditer(rf"(?m)^[ \t]*Q{number}[.:)]\s", prompt))
+        if not starts:
+            return prompt
+        begin = starts[-1].start()
+        after = re.compile(rf"(?m)^[ \t]*Q{number + 1}[.:)]\s").search(prompt, starts[-1].end())
+        return prompt[begin:after.start() if after else len(prompt)]
+
+    @staticmethod
+    def _line_pattern(label: str) -> "re.Pattern[str]":
+        words = [re.escape(word) for word in str(label).split()]
+        body = r"\s+".join(words) if words else re.escape(str(label))
+        selector = r"(?:\(?(?P<sel>[-+]?\d{1,4}|[A-Za-z])\s*[.):=\]]\s*|(?P<dash>[-+]?\d{1,4}|[A-Za-z])\s+[-–—]\s+)"
+        return re.compile(rf"(?im)^[ \t>*-]*{selector}?[*_]*{body}[*_]*[ \t]*$")
+
+    def _shown(self, region: str, question: Question) -> List[Optional[str]]:
+        """Per option, what a model would type to pick it, read from the prompt; None when not shown.
+
+        The options are looked for as the list they were rendered in (in order,
+        the last such list in ``region``), so a label printed twice ("3" on both
+        sides of a bipolar scale) gets the number printed before that copy.
+        """
+        patterns = [self._line_pattern(label) for label in question.options]
+        letters = all(re.fullmatch(r"[A-Za-z]", code) for code in question.codes)
+
+        def typed(match: Any, index: int) -> Optional[str]:
+            if match is None:
+                return None
+            selector = match.group("sel") or match.group("dash")
+            if selector:
+                return selector
+            leading = LEADING_RE.match(question.options[index])
+            if leading and not AMOUNT_RE.match(leading.group(2)):
+                return leading.group(1).lstrip("+")  # "1 (strongly disagree)": the label's own number
+            return chr(ord("A") + index) if letters else str(index + 1)  # unnumbered: its position
+
+        for first in reversed(list(patterns[0].finditer(region))):
+            found, position = [first], first.end()
+            for pattern in patterns[1:]:
+                match = pattern.search(region, position)
+                if match is None:
+                    break
+                found.append(match)
+                position = match.end()
+            if len(found) == len(patterns):
+                return [typed(match, index) for index, match in enumerate(found)]
+        lasts = [list(pattern.finditer(region)) for pattern in patterns]
+        return [typed(matches[-1], index) if matches else None for index, matches in enumerate(lasts)]
+
+    # -- answering
+
+    def _one(self, question: Question, region: str) -> str:
         if question.kind == "text":
             return "No comment."
         if question.kind == "number":
-            if question.key is not None:
+            if question.key is not None and self.use_keys:
                 key = question.key
                 return str(key[0] if isinstance(key, (list, tuple)) and key else key)
             low = question.minimum if question.minimum is not None else 0
             high = question.maximum if question.maximum is not None else max(low, 10)
             value = self.rng.randint(int(low), int(high)) if question.integer else round(self.rng.uniform(low, high), 2)
             return str(value)
-        keyed = question.key_indices()
+        keyed = question.key_indices() if self.use_keys else []
+        shown = self._shown(region, question)
         if question.multiple:
             indices = keyed or sorted(self.rng.sample(range(len(question.options)),
                                                       self.rng.randint(1, len(question.options))))
+            if all(shown[i] is not None for i in indices):
+                reply = ", ".join(str(shown[i]) for i in indices)
+                self._check(question, reply, indices)
+                return reply
+            self.unshown.append(question.id)
             return ", ".join(question.codes[i] for i in indices)
         index = keyed[0] if keyed else self.rng.randrange(len(question.options))
         label = question.options[index]
-        replies = [style.format(code=question.codes[index], label=label, upper=label.upper()) for style in self.STYLES]
+        typed = shown[index]
+        if typed is None:
+            # Not printed as a line of its own: a model would type the words it was asked about.
+            self.unshown.append(question.id)
+            typed = question.codes[index]
+        elif not self._check(question, typed, [index]) and question.id not in self.ambiguous:
+            return typed  # what a model would send; the adapter must cope with it as it would with a real reply
+        replies = [style.format(code=typed, label=label, upper=label.upper()) for style in self.STYLES]
         # Only formats that name this option unambiguously ("3" on a scale that prints 3 twice does not).
         readable = [reply for reply in replies if parse_choice(reply, question).get("index") == index]
-        return self.rng.choice(readable) if readable else question.codes[index]
+        return self.rng.choice(readable) if readable else typed
+
+    def _check(self, question: Question, reply: str, indices: List[int]) -> bool:
+        """True when ``reply`` (what the screen tells a model to type) is read as the options meant."""
+        answer = parse_choice(reply, question)
+        got = answer.get("indices", [answer["index"]] if "index" in answer else None)
+        if answer.get("status") == "ok" and sorted(got or []) == sorted(indices):
+            return True
+        if answer.get("status") == "ambiguous":
+            # A number that is also another option's label ("3" on both sides of a bipolar scale): not
+            # guessed, asked again. Reported, but a reply naming the label too ("2. 3") is read.
+            if question.id not in self.ambiguous:
+                self.ambiguous.append(question.id)
+            return False
+        if not any(m["question"] == question.id for m in self.misreads):
+            self.misreads.append({
+                "question": question.id, "option": " | ".join(question.options[i] for i in indices),
+                "reply": reply, "read_as": (" | ".join(question.options[i] for i in got) if got else answer.get("status")),
+                "codes": list(question.codes)})
+        return False
 
     def answer_for(self, prompt: str, questions: Sequence[Question], attempt: int = 0, final: bool = True) -> str:
         self.calls += 1
         self.prompts.append(prompt)
+        for question in questions:
+            self.asked.setdefault(question.id, question)
         if not final and self.rng.random() < self.noise:
             return "Hmm, I am not sure what to say here."
         if len(questions) == 1:
-            return self._one(questions[0])
-        return "\n".join(f"Q{number}: {self._one(question)}" for number, question in enumerate(questions, 1))
+            return self._one(questions[0], prompt)
+        return "\n".join(f"Q{number}: {self._one(question, self._region(prompt, number, len(questions)))}"
+                         for number, question in enumerate(questions, 1))
+
+
+def _asked_summary(question: Question) -> Dict[str, Any]:
+    try:
+        key = [question.options[i] for i in question.key_indices()] if question.kind == "choice" else question.key
+    except ValueError:
+        key = question.key
+    return {"id": question.id, "kind": question.kind, "text": question.text[:600], "options": list(question.options),
+            "key": key, "required": question.required}
 
 
 COMPLETED = ("completed", "complete")  # "complete": packages built before the contract named it
@@ -527,10 +679,18 @@ def smoke_test(run_sessions: Callable, evaluate: Callable, arms: Sequence[str], 
                seed: int = 0, sizes: Iterable[int] = (2, 8, 32)) -> Dict[str, Any]:
     """Run every arm with :class:`StubParticipant` and check it reaches ``evaluate``.
 
-    Passes when every runnable arm has at least one completed session, no model
-    call bypasses :func:`ask`, and ``evaluate`` returns a non-empty result for the
-    sessions. Sessions are reported by status exactly as the adapter labelled
-    them, so an excluded or unparsed session is never counted as completed.
+    Two passes, both replying from the prompt text as a model would:
+
+    - a key-blind reader (``report["reader"]``): every reply it types from what
+      the screen prints must be read as the option it meant;
+    - a keyed pass (``report["arms"]``): it answers every keyed check correctly,
+      so each runnable arm must have at least one completed session.
+
+    Passes when both hold, no model call bypasses :func:`ask`, and ``evaluate``
+    returns a non-empty result for the sessions. Sessions are reported by status
+    exactly as the adapter labelled them, so an excluded or unparsed session is
+    never counted as completed. ``report["asked"]`` lists every question asked
+    (id, text, options, key), for checks against the survey's own answer rules.
     """
     stub = StubParticipant(seed)
     report: Dict[str, Any] = {"ok": False, "arms": {}, "blocked_arms": list(blocked), "problems": []}
@@ -578,10 +738,41 @@ def smoke_test(run_sessions: Callable, evaluate: Callable, arms: Sequence[str], 
                    "the stub, which cannot see answer keys when the adapter bypasses replies.ask()")
             report["problems"].append(f"arm {arm}: no session completed with {why} ({statuses}); "
                                       "evaluate() would get nothing for this arm")
-    report["model_calls"] = stub.calls
+    reader = StubParticipant(seed + 1, use_keys=False)
+    report["reader"] = {}
+    for arm in arms:
+        try:
+            batch = run_sessions(reader, seed + 1, 4, arms=[arm])
+        except Exception as exc:
+            report["problems"].append(f"run_sessions(arms=[{arm!r}], n=4) raised {type(exc).__name__}: {exc} with a "
+                                      "participant that does not know the correct answers to the checks")
+            continue
+        statuses = {}
+        for session in batch if isinstance(batch, list) else []:
+            if isinstance(session, dict) and arm in _arm_of(session):
+                statuses[str(session.get("status"))] = statuses.get(str(session.get("status")), 0) + 1
+        report["reader"][arm] = statuses
+    seen_misreads = set()
+    for item in stub.misreads + reader.misreads:
+        if item["question"] in seen_misreads:
+            continue
+        seen_misreads.add(item["question"])
+        report["problems"].append(
+            f"question {item['question']}: the prompt tells a model to type {item['reply']!r} for "
+            f"{item['option'][:80]!r}, but replies.ask reads {item['reply']!r} as {str(item['read_as'])[:80]!r} "
+            f"(the question's codes are {', '.join(item['codes'])}). A participant model's answer would be lost or "
+            "misrecorded. Ask with replies.render_questions (it prints each option's number), and pass codes= only "
+            "when the screen prints those codes")
+    asked = dict(reader.asked)
+    asked.update(stub.asked)
+    report["asked"] = [_asked_summary(question) for question in asked.values()]
+    report["unshown_options"] = sorted(set(stub.unshown + reader.unshown))[:20]
+    report["ambiguous_numbers"] = sorted(set(stub.ambiguous + reader.ambiguous))[:20]
+    report["model_calls"] = stub.calls + reader.calls
+    stub.direct_calls += reader.direct_calls
     report["direct_model_calls"] = stub.direct_calls
     if stub.direct_calls:
-        report["problems"].append(f"{stub.direct_calls} of {stub.calls} model calls did not go through "
+        report["problems"].append(f"{stub.direct_calls} of {report['model_calls']} model calls did not go through "
                                   "replies.ask(); every question must be asked with it")
     try:
         result = evaluate(every)

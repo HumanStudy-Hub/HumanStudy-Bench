@@ -266,6 +266,40 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
                 by_url[source[key]] = source
         if isinstance(path, str) and isinstance(logged.get(path), dict) and logged[path].get("final_url"):
             by_url.setdefault(logged[path]["final_url"], source)
+    try:
+        from agent_pipeline.fetch_public import SCRUB_SUFFIXES, strip_signed_urls
+    except ModuleNotFoundError:
+        from fetch_public import SCRUB_SUFFIXES, strip_signed_urls
+    for path in sorted(root.rglob("*")):
+        if path.is_file() and path.suffix.lower() in SCRUB_SUFFIXES and path.stat().st_size <= 20 * 1024 * 1024:
+            try:
+                text = path.read_text(encoding="utf-8")
+            except (OSError, UnicodeDecodeError):
+                continue
+            if strip_signed_urls(text) != text:
+                problems.append(f"{path.relative_to(root).as_posix()} holds a signed storage link (X-Amz-Signature "
+                                "or similar): record final_url without its query, as fetch_public.py prints it")
+    # A licence lookup (fetch_public.py --licence) that found the same file, by SHA-256, under an open licence.
+    try:
+        licence_log = json.loads((job / "input/external/licence_log.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        licence_log = []
+    open_copies: dict[str, dict] = {}
+    for item in licence_log if isinstance(licence_log, list) else []:
+        file_info = item.get("file") if isinstance(item, dict) else None
+        if isinstance(file_info, dict) and isinstance(file_info.get("sha256"), str) \
+                and licence_is_open(str(item.get("licence", ""))):
+            open_copies.setdefault(file_info["sha256"].lower(), item)
+    for index, source in enumerate(sources):
+        if not isinstance(source, dict) or licence_is_open(str(source.get("licence", ""))):
+            continue
+        copy = open_copies.get(str(source.get("sha256", "")).lower())
+        if copy:
+            problems.append(f"external_sources[{index}] ({source.get('path')}) says licence "
+                            f"{source.get('licence')!r}, but the same file (same SHA-256) is published under "
+                            f"{copy.get('licence')} ({copy.get('licence_from')}; input/external/licence_log.json): "
+                            "an identical file carries that licence, so record it with licence_evidence naming that "
+                            "copy, set use to 'open' and drop researcher-own-use-only unless another source needs it")
     if private and metadata.get("redistribution") != "researcher-own-use-only":
         problems.append("source/paper_metadata.json redistribution must be 'researcher-own-use-only' "
                         "because a source without an open licence is used")

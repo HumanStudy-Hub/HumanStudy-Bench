@@ -20,6 +20,7 @@ pages. It is not a sandbox: a command that builds a URL at run time is not seen.
 from __future__ import annotations
 
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -585,8 +586,8 @@ def _check_fetcher(program: str, args: list[str], redirections: list[tuple[str, 
 
 def _read_script(path: str, cwd: str | None) -> str:
     try:
-        target = Path(path) if Path(path).is_absolute() or not cwd else Path(cwd) / path
-        if target.is_file() and target.stat().st_size <= 2_000_000:
+        target = _resolve(path, cwd)
+        if target is not None and target.is_file() and target.stat().st_size <= 2_000_000:
             return target.read_text(encoding="utf-8", errors="replace")
     except OSError:
         pass
@@ -606,13 +607,66 @@ def _check_code(code: str, hosts: list[str]) -> str | None:
     return None
 
 
+# The working directory after a `cd` the guard cannot follow (a variable, a subshell, `cd ... ||`).
+UNKNOWN_CWD = "\0unknown-cwd"
+# `cd <literal dir> &&` at the very start of a command: the rest runs there, or not at all.
+LEADING_CD_RE = re.compile(r"""^\s*(?:cd|pushd)[ \t]+('[^'\n]*'|"[^"$`\\\n]*"|[^\s;&|<>()$`\\'"#*?\[\]{}!-][^\s;&|<>()$`\\'"*?\[\]{}!]*)[ \t]*&&""")
+CD_PROGRAMS = ("cd", "pushd", "popd")
+
+
+def _leading_cd(command: str, cwd: str | None) -> tuple[str | None, int]:
+    """The directory a command's leading ``cd <dir> && ...`` chain moves to, and how many segments it spans.
+
+    Only a literal directory at the start of the command, joined by ``&&``, is
+    followed: the commands after it run there or not at all. A ``cd`` anywhere
+    else (after ``;`` or ``||``, in a subshell, through a variable or CDPATH) is
+    not followed, and later relative paths are then treated as unknown.
+    """
+    if "CDPATH" in command:
+        return cwd, 0
+    rest, count, current = command, 0, cwd
+    while True:
+        match = LEADING_CD_RE.match(rest)
+        if not match:
+            return current, count
+        target = match.group(1)
+        if target[:1] in "'\"":
+            target = target[1:-1]
+        target = os.path.expanduser(target)
+        if not Path(target).is_absolute():
+            if current in (None, UNKNOWN_CWD):
+                return UNKNOWN_CWD, count + 1
+            target = str(Path(current) / target)
+        current = os.path.normpath(target)
+        rest = rest[match.end():]
+        count += 1
+
+
+def _resolve(path: str, cwd: str | None) -> Path | None:
+    """``path`` as the shell sees it from ``cwd``; None when the directory is unknown."""
+    path = os.path.expanduser(path)
+    if Path(path).is_absolute():
+        return Path(path)
+    if cwd == UNKNOWN_CWD:
+        return None
+    return Path(cwd) / path if cwd else Path(path)
+
+
 def _is_fetch_helper(path: str, cwd: str | None) -> bool:
     own = REPO_ROOT / "agent_pipeline" / "fetch_public.py"
     try:
-        target = Path(path) if Path(path).is_absolute() or not cwd else Path(cwd) / path
-        return target.resolve() == own
+        target = _resolve(path, cwd)
+        return target is not None and target.resolve() == own.resolve()
     except OSError:
         return False
+
+
+def _helper_refusal(script: str, cwd: str | None) -> str:
+    where = "an unknown directory (after a `cd` the guard cannot follow)" if cwd == UNKNOWN_CWD else (cwd or "here")
+    helper = REPO_ROOT / "agent_pipeline" / "fetch_public.py"
+    return (f"`{script}` run from {where} is not the pipeline's fetch_public.py, so nothing was downloaded. Run "
+            f"`python {helper} --job <job> <url>` (the absolute path works from any directory), or start the "
+            f"command with `cd {REPO_ROOT} && python agent_pipeline/fetch_public.py ...`.")
 
 
 def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0) -> str | None:
@@ -638,9 +692,12 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
     values = _shell_values(stripped)
     previous_fetch = False
     fetch_pipeline = False  # inside a pipeline that a curl or wget feeds
-    for segment, pipes_on in _pipeline_segments(stripped):
+    cwd, leading = _leading_cd(stripped, cwd)
+    for position_in_command, (segment, pipes_on) in enumerate(_pipeline_segments(stripped)):
         clean, redirections = _redirections(segment)
         program, args = _program(_tokens(clean))
+        if program in CD_PROGRAMS and position_in_command >= leading:
+            cwd = UNKNOWN_CWD  # a cd the guard does not follow: later relative paths are unknown
         if previous_fetch and (program in SHELLS or program.startswith(INTERPRETERS)
                                and (not args or args[0] in ("-", "-i", "/dev/stdin"))):
             return "Downloaded content must never be run: do not pipe a download into a shell or interpreter."
@@ -694,6 +751,10 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
                 flag = "-c" if "-c" in args else "-e"
                 position = args.index(flag)
                 reason = _check_code(args[position + 1] if position + 1 < len(args) else "", hosts)
+            elif script and Path(script).name == "fetch_public.py" and not _is_fetch_helper(script, cwd):
+                hosts_named = [host_of_any(url) for arg in args for url in (_urls_in(arg) if "://" in arg else [])]
+                reason = next((HOST_REFUSAL.format(h or "an unreadable URL") for h in hosts_named
+                               if not host_allowed(h, hosts)), None) or _helper_refusal(script, cwd)
             elif script and _is_fetch_helper(script, cwd):
                 position = args.index(script)
                 rest = args[position + 1:]
