@@ -19,12 +19,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 try:
-    from agent_pipeline.fetch_public import restore_downloads
+    from agent_pipeline.fetch_public import restore_downloads, verify_downloads
     from agent_pipeline.network_policy import allowed_hosts
     from agent_pipeline.repair_guard import guard_repair, package_diff
     from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
 except ModuleNotFoundError:  # Direct script execution from the repository root.
-    from fetch_public import restore_downloads
+    from fetch_public import restore_downloads, verify_downloads
     from network_policy import allowed_hosts
     from repair_guard import guard_repair, package_diff
     from studio_output import studio_mode, validate_build_sidecars, validate_discussion
@@ -228,24 +228,38 @@ REPAIR_RULES = (
 )
 
 
-def network_settings(job: Path, workdir: Path) -> tuple[str, Path]:
-    """Claude Code settings that route WebFetch and shell network calls through
-    the research-host guard, and the hosts file the guard and fetch helper read.
+def pristine_pipeline(workdir: Path) -> Path:
+    """Copy the pipeline code and contracts before the agent starts. The guard and
+    the validator run from this copy, so nothing the agent edits in the
+    repository changes how its work is checked."""
+    repo = Path(__file__).resolve().parents[1]
+    target = workdir / "pipeline"
+    for folder in ("agent_pipeline", "contracts"):
+        shutil.copytree(repo / folder, target / folder, ignore=shutil.ignore_patterns("__pycache__"))
+    return target
 
-    The hook gets the list on its command line; the read-only hosts file outside
-    the job directory is only for fetch_public.py."""
+
+def network_settings(job: Path, workdir: Path, pipeline: Path | None = None) -> tuple[str, Path]:
+    """Claude Code settings that route WebFetch, shell calls and file writes through
+    the research-host guard, and the hosts file fetch_public.py reads.
+
+    The hook gets the list on its command line and runs from the pristine copy
+    of the pipeline; the read-only hosts file outside the job directory is only
+    for fetch_public.py."""
     hosts = allowed_hosts(job)
     hosts_file = workdir / "allowed-hosts.json"
     hosts_file.write_text(json.dumps(hosts, indent=2) + "\n")
     hosts_file.chmod(0o444)
-    guard = Path(__file__).resolve().parent / "network_policy.py"
-    # The hook reads its list from its own command line, which the agent cannot edit.
+    repo = Path(__file__).resolve().parents[1]
+    guard = (pipeline or repo) / "agent_pipeline" / "network_policy.py"
     command = " ".join(shlex.quote(part) for part in (
-        sys.executable, str(guard), "--hosts", ",".join(hosts), "--log", str(job / "logs" / "network-guard.log")))
+        sys.executable, str(guard), "--hosts", ",".join(hosts), "--repo", str(repo),
+        "--log", str(job / "logs" / "network-guard.log")))
     # The guard's host list is stricter than WebFetch's built-in blocklist lookup,
     # which needs an Anthropic endpoint the OpenRouter route does not provide.
     settings = {"skipWebFetchPreflight": True, "hooks": {"PreToolUse": [
-        {"matcher": "WebFetch|Bash", "hooks": [{"type": "command", "command": command, "timeout": 30}]},
+        {"matcher": "WebFetch|Bash|Write|Edit|MultiEdit|NotebookEdit",
+         "hooks": [{"type": "command", "command": command, "timeout": 30}]},
     ]}}
     return json.dumps(settings), hosts_file
 
@@ -623,7 +637,24 @@ def main() -> None:
         valid, detail = validate(args.validator, package)
         if valid and request_id is not None:
             valid, detail = validate_build_sidecars(package, accepted_model)
+        if valid:
+            valid, detail = verified_sources()
         return valid, detail
+
+    verified: dict[str, tuple[bool, str]] = {}
+
+    def verified_sources() -> tuple[bool, str]:
+        """Download each recorded source again (once per recorded set), so a
+        mismatch reaches the repair loop instead of failing at publication."""
+        metadata = sorted(package.glob("*/source/paper_metadata.json"))
+        key = metadata[0].read_text(errors="replace") if metadata else ""
+        if key not in verified:
+            problems, warnings = verify_downloads(args.job)
+            for warning in warnings:
+                print(f"[materials] {warning}", flush=True)
+            verified[key] = (not problems, "external materials check failed:\n- " + "\n- ".join(problems)
+                             if problems else "Validated external sources")
+        return verified[key]
     progress_token = os.environ.get("PIPELINE_PROGRESS_TOKEN", "")
     publisher = None
     if progress_token and args.progress_repo and args.progress_branch and args.progress_path:
@@ -633,7 +664,11 @@ def main() -> None:
         for note in restore_downloads(args.job):
             print(f"[materials] {note}", flush=True)
     network_dir = Path(tempfile.mkdtemp(prefix="humanstudy-network-"))
-    settings, hosts_file = network_settings(args.job, network_dir)
+    pipeline = pristine_pipeline(network_dir)
+    repo_validator = Path(__file__).resolve().parent / "validate_package.py"
+    if args.validator.resolve() == repo_validator:
+        args.validator = pipeline / "agent_pipeline" / "validate_package.py"
+    settings, hosts_file = network_settings(args.job, network_dir, pipeline)
     base_command = [
         "claude",
         "--print",

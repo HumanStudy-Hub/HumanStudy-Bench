@@ -157,26 +157,29 @@ def fetch(job: Path, url: str, name: str | None = None) -> dict:
     return record
 
 
-def remote_sha256(job: Path, url: str, attempts: int = 3) -> str:
-    """SHA-256 of the file now served at ``url``, without saving it."""
+def remote_copy(job: Path, url: str, attempts: int = 3) -> bytes:
+    """The bytes now served at ``url`` (not saved), retried on network errors."""
+    import time
+
     hosts = _hosts(job)
     if urlsplit(url).scheme != "https" or not host_allowed(host_of(url), hosts):
         raise ValueError(f"{url} is not an https URL on this build's research hosts")
     last: Exception | None = None
-    for _ in range(attempts):
+    for attempt in range(attempts):
         try:
-            digest, size = hashlib.sha256(), 0
+            chunks, size = [], 0
             request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
             with urllib.request.build_opener(_CheckedRedirects(hosts)).open(request, timeout=120) as response:
                 while chunk := response.read(CHUNK):
                     size += len(chunk)
                     if size > MAX_FILE:
                         raise ValueError("file exceeds the size limit")
-                    digest.update(chunk)
-            return digest.hexdigest()
-        except (OSError, ValueError) as exc:
+                    chunks.append(chunk)
+            return b"".join(chunks)
+        except OSError as exc:
             last = exc
-    raise ValueError(f"could not re-download {url}: {last}")
+            time.sleep(2 * (attempt + 1) if attempts > 1 else 0)
+    raise ConnectionError(f"could not re-download {url}: {last}")
 
 
 def _external_sources(job: Path) -> list[dict]:
@@ -211,20 +214,60 @@ def restore_downloads(job: Path) -> list[str]:
     return notes
 
 
-def verify_downloads(job: Path) -> list[str]:
-    """Problems found by downloading every recorded source again: a file the agent
-    wrote itself, or edited after download, does not match what the URL serves."""
-    problems = []
+def verify_downloads(job: Path, attempts: int = 3) -> tuple[list[str], list[str]]:
+    """Download every recorded source again; return (problems, warnings).
+
+    A file the agent wrote or edited itself does not match what its URL serves.
+    Files must match byte for byte; a web page (HTML) changes between requests,
+    so for a page every quote the program cites from it must still occur in the
+    page's text. A source that cannot be reached is a warning, not a failure."""
+    try:
+        from agent_pipeline.check_sources import file_text, quote_in_text, normalise
+    except ModuleNotFoundError:
+        from check_sources import file_text, quote_in_text, normalise
+    problems, warnings = [], []
+    quotes = _quotes_by_source(job)
     for source in _external_sources(job):
-        url, sha = source.get("url"), source.get("sha256")
-        if not (isinstance(url, str) and isinstance(sha, str)):
+        url, sha, path = source.get("url"), source.get("sha256"), source.get("path")
+        if not (isinstance(url, str) and isinstance(sha, str) and isinstance(path, str)):
             continue
         try:
-            if remote_sha256(job, url) != sha:
-                problems.append(f"{url} does not serve the file recorded as {source.get('path')} (sha256 differs)")
+            data = remote_copy(job, url, attempts)
+        except ConnectionError as exc:
+            warnings.append(str(exc))
+            continue
         except ValueError as exc:
             problems.append(str(exc))
-    return problems
+            continue
+        if hashlib.sha256(data).hexdigest() == sha:
+            continue
+        if Path(path).suffix.lower() in (".html", ".htm") or data.lstrip()[:15].lower().startswith((b"<!doctype html", b"<html")):
+            import tempfile
+
+            with tempfile.TemporaryDirectory() as tmp:
+                page = Path(tmp) / "page.html"
+                page.write_bytes(data)
+                text = file_text(page) or ""
+            missing = [q for q in quotes.get(path, []) if not quote_in_text(q, text)]
+            if missing:
+                problems.append(f"{url} no longer shows text cited from {path}: {normalise(missing[0])[:80]!r}")
+            continue
+        problems.append(f"{url} does not serve the file recorded as {path} (sha256 differs)")
+    return problems, warnings
+
+
+def _quotes_by_source(job: Path) -> dict[str, list[str]]:
+    package = job / "package"
+    roots = [p for p in package.iterdir() if p.is_dir()] if package.is_dir() else []
+    try:
+        program = json.loads((roots[0] / "study.json").read_text(encoding="utf-8"))["program"]
+    except (IndexError, OSError, ValueError, KeyError, TypeError):
+        return {}
+    quotes: dict[str, list[str]] = {}
+    for record in program.get("evidence", []) if isinstance(program, dict) else []:
+        if isinstance(record, dict) and isinstance(record.get("path"), str) and isinstance(record.get("quote"), str):
+            quotes.setdefault(record["path"], []).append(record["quote"])
+    return quotes
 
 
 def main() -> None:

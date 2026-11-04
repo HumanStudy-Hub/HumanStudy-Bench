@@ -37,9 +37,9 @@ from pathlib import Path
 from typing import Any, Iterable
 
 try:
-    from agent_pipeline.network_policy import looks_like_participant_data
+    from agent_pipeline.network_policy import host_of, looks_like_participant_data
 except ModuleNotFoundError:
-    from network_policy import looks_like_participant_data
+    from network_policy import host_of, looks_like_participant_data
 
 # Open licences, matched against the whole licence name (SPDX ids or the names
 # OSF, GitHub, Zenodo and journals print). NC and ND variants are not open.
@@ -86,6 +86,14 @@ def _json_strings(value: Any) -> Iterable[str]:
             yield from _json_strings(item)
 
 
+def _dehyphenate_both(text: str) -> str:
+    """A line-end hyphen is either a compound ("self-report") or a split word
+    ("experi-ment"); keep both readings so either quote is found."""
+    joined = re.sub(r"-\n(?=[a-z])", "", text)
+    kept = re.sub(r"-\n(?=[a-z])", "-", text)
+    return kept if joined == kept else kept + "\n" + joined
+
+
 def file_text(path: Path) -> str | None:
     """Plain text of a downloaded file, or None when it cannot be read here."""
     suffix = path.suffix.lower()
@@ -93,7 +101,10 @@ def file_text(path: Path) -> str | None:
         if suffix in JSON_SUFFIXES:
             return normalise("\n".join(_json_strings(json.loads(path.read_text(encoding="utf-8", errors="replace")))))
         if suffix in TEXT_SUFFIXES:
-            return normalise(path.read_text(encoding="utf-8", errors="replace"))
+            text = path.read_text(encoding="utf-8", errors="replace")
+            if suffix in (".js", ".py", ".r", ".rmd"):
+                text = text.replace("\\'", "'").replace('\\"', '"').replace("\\n", "\n")
+            return normalise(text)
         if suffix in (".docx", ".pptx", ".odt"):
             with zipfile.ZipFile(path) as archive:
                 parts = [archive.read(name).decode("utf-8", "replace") for name in archive.namelist()
@@ -106,7 +117,7 @@ def file_text(path: Path) -> str | None:
             return normalise(joined)
         if suffix == ".pdf" and shutil.which("pdftotext"):
             result = subprocess.run(["pdftotext", "-q", str(path), "-"], capture_output=True, text=True, timeout=120)
-            return normalise(re.sub(r"-\n(?=[a-z])", "", result.stdout)) if result.returncode == 0 else None
+            return normalise(_dehyphenate_both(result.stdout)) if result.returncode == 0 else None
     except (OSError, ValueError, zipfile.BadZipFile, subprocess.SubprocessError):
         return None
     return None
@@ -268,6 +279,7 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
     if not isinstance(program, dict):
         return problems
     evidence = {e.get("id"): e for e in program.get("evidence", []) if isinstance(e, dict) and isinstance(e.get("id"), str)}
+    paper_urls = {str(metadata.get(k, "")).strip() for k in ("doi", "url", "doi_url")} - {""}
 
     def source_of(record: dict) -> dict | None:
         path, url = record.get("path"), record.get("url")
@@ -312,6 +324,15 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
                 problems.append(f"{where} cites a downloaded source, so it is classified in extensions.material "
                                 "(needs-original, found-open or found-private)")
                 continue
+            if material is None and field.get("origin") == "verbatim":
+                web = [evidence[e] for e in evidence_ids if e in evidence and not evidence[e].get("sourceId")
+                       and not evidence[e].get("path") and isinstance(evidence[e].get("url"), str)
+                       and host_of(evidence[e]["url"]) not in ("doi.org", "dx.doi.org")
+                       and evidence[e]["url"] not in paper_urls]
+                if web:
+                    problems.append(f"{where} is verbatim text from a web page ({web[0]['url']}); it must cite a "
+                                    "downloaded source (fetch_public.py) and be classified in extensions.material")
+                    continue
             if material is None:
                 if (node.get("kind") == "material" and field.get("state") == "missing"
                         and purpose != "accepted-model-sync"):

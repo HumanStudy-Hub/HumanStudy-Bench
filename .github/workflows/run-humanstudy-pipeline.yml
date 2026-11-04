@@ -154,6 +154,14 @@ jobs:
             --progress-branch "jobs/$JOB_ID" \
             --progress-path "jobs/$JOB_ID/progress.json"
 
+      # The agent works inside this checkout. Validate with the pipeline code as
+      # checked out, not as the agent may have left it.
+      - name: Restore pipeline code
+        if: success()
+        run: |
+          git checkout -- agent_pipeline contracts
+          git clean -fdq -- agent_pipeline contracts
+
       - name: Validate result and prepare review
         if: success()
         env:

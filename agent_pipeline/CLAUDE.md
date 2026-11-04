@@ -107,7 +107,9 @@ attention and comprehension checks, stimuli, trial lists, orders, feedback.
 Read pages and API listings with `curl -sL <url>` (to the terminal, or piped
 into `python3 -c` or `jq`). Download every file you use with
 `python agent_pipeline/fetch_public.py --job <job-dir> <url>` (run from the
-repository root): direct downloads with curl, wget or Python are refused. It
+repository root): direct downloads with curl, wget or Python, and cloning
+repositories, are refused (list a repository's files with
+`https://api.github.com/repos/<owner>/<repo>/contents/<path>`). It
 saves the file under `input/external/`, records its URL, final URL, SHA-256 and
 size in `input/external/fetch_log.json`, and refuses hosts outside this build's
 research-host list, participant-data files and archives that contain them.
@@ -116,7 +118,8 @@ recorded source again before publishing and fails the build if a file differs.
 Only hosts the paper prints, hosts the researcher named and research
 repositories can be reached; a refusal is final, so record it and move on.
 Never send data to a site (no POST, upload or form), never run downloaded code,
-never read environment variables or credentials, and never log in.
+never read credentials, never edit the pipeline's own code (`agent_pipeline/`,
+`contracts/`), and never log in.
 
 **Correctness.** Use a source only when it is tied to this paper: linked from
 the paper, from the researcher's note or from the paper's own OSF project, or a

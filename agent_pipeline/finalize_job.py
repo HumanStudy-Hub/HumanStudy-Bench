@@ -44,7 +44,9 @@ def finalize(job: Path, validator: Path) -> None:
             raise ValueError(f"Invalid study package: {detail}")
         # Each recorded external source must be what its URL serves, not a file
         # written or edited in the job directory.
-        mismatches = verify_downloads(job)
+        mismatches, warnings = verify_downloads(job)
+        for warning in warnings:
+            print(f"::warning::{warning}")
         if mismatches:
             raise ValueError("External sources could not be verified: " + "; ".join(mismatches))
         if request is not None:
