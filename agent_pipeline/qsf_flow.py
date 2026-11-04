@@ -709,12 +709,14 @@ def text_sets(report: dict) -> tuple[list[str], list[tuple[str, str, str]]]:
 EXCLUDED_KEY_RE = re.compile(r"(?i)(not[_ -]?(shown|reachable|transcribed|used|in[_ -]?flow)|unused|excluded|"
                              r"unreachable|trash|omitted)")
 # An item can say so itself: {"qsfReachability": "not-shown"} (or "shown": false).
-NOT_SHOWN_VALUE_RE = re.compile(r"(?i)^(not[_ -]?shown|trash([_ -]unused)?|unused|unreachable)$")
-MARKER_KEYS = ("qsfReachability", "flow", "visibility", "status")
+MARKER_KEY = "qsfReachability"
+MARKER_VALUE = "not-shown"
+ITEM_LABEL_KEYS = ("origin", "evidence_label", "evidenceLabel", "label")
+ITEM_LABELS = ("verbatim", "reported", "derived", "missing", "researcher", "implementation", "unknown")
 # Keys that describe an item rather than hold what participants read.
 METADATA_KEYS = frozenset((
-    "id", "ids", "description", "what", "note", "notes", "reason", "rationale", "derivation", "comment",
-    "comments", "why", "kind", "type", "tag", "qsfTag", "qsfId", "qid", "study", "studyIds", "arm", "condition",
+    "id", "ids", "what", "note", "notes", "reason", "rationale", "derivation", "comment",
+    "comments", "why", "kind", "type", "tag", "qsfTag", "qsfId", "qid", "study", "studyIds", "arm",
     "evidence", "evidenceIds", "locator", "sourceId", "sourceIds", "source", "sourceFile", "path", "file",
     "version", "versionUsed", "status", "origin", "state", "evidenceLabel", "label_source", "sha256"))
 SOURCE_ID_KEYS = ("sourceId", "sourceIds", "source")
@@ -743,6 +745,10 @@ class _Reach:
         self.unreachable = [(_squash(t), qid, reason) for t, qid, reason in unreachable
                             if _words(t) >= MIN_WORDS and _squash(t) not in self.reachable]
 
+    def shown(self, text: str) -> bool:
+        """Text of at least MIN_WORDS words that a question participants saw carries."""
+        return _words(text) >= MIN_WORDS and _squash(text) in self.reachable
+
     def never_shown(self, text: str) -> tuple[str, str] | None:
         """(qid, reason) when text is survey wording only an unreachable question carries."""
         pieces = [text] + [line for line in re.split(r"\n+", text) if line.strip() != text.strip()]
@@ -759,9 +765,84 @@ class _Reach:
 
 
 def _marked_not_shown(node: dict) -> bool:
-    if node.get("shown") is False:
-        return True
-    return any(isinstance(node.get(k), str) and NOT_SHOWN_VALUE_RE.match(node[k].strip()) for k in MARKER_KEYS)
+    return node.get(MARKER_KEY) == MARKER_VALUE
+
+
+def _is_item(node: Any) -> bool:
+    """An object the repair guard tracks on its own (it carries an evidence label or a state)."""
+    return isinstance(node, dict) and (any(node.get(k) in ITEM_LABELS for k in ITEM_LABEL_KEYS)
+                                       or node.get("state") in ("confirmed", "check", "missing", "decision"))
+
+
+def _own_strings(item: dict) -> list[str]:
+    """Participant strings of one item, not counting nested items (the guard judges those separately)."""
+    out: list[str] = []
+
+    def walk(value: Any) -> None:
+        if isinstance(value, str):
+            out.append(value)
+        elif isinstance(value, dict):
+            for key, child in value.items():
+                if key in METADATA_KEYS or EXCLUDED_KEY_RE.search(str(key)) or key == MARKER_KEY or _is_item(child):
+                    continue
+                walk(child)
+        elif isinstance(value, list):
+            for child in value:
+                if not _is_item(child):
+                    walk(child)
+
+    walk({k: v for k, v in item.items()})
+    return out
+
+
+def _ids_marked_not_shown(materials: Any) -> list[str]:
+    ids: list[str] = []
+
+    def walk(value: Any, excluded: bool) -> None:
+        if isinstance(value, dict):
+            if (excluded or _marked_not_shown(value)) and isinstance(value.get("id"), str) and value["id"]:
+                ids.append(value["id"])
+            for key, child in value.items():
+                walk(child, excluded or bool(EXCLUDED_KEY_RE.search(str(key))))
+        elif isinstance(value, list):
+            for child in value:
+                if isinstance(child, str) and excluded:
+                    ids.append(child)
+                else:
+                    walk(child, excluded)
+
+    walk(materials, False)
+    return ids
+
+
+def _run_references(root: Path) -> set[str]:
+    """Every string the run uses to pick material: adapter literals and task.json / program step strings."""
+    refs: set[str] = set()
+    import ast
+    try:
+        tree = ast.parse((root / "task/adapter.py").read_text(encoding="utf-8"))
+        refs |= {n.value for n in ast.walk(tree) if isinstance(n, ast.Constant) and isinstance(n.value, str)}
+    except (OSError, SyntaxError, ValueError):
+        pass
+
+    def walk(value: Any) -> None:
+        if isinstance(value, str):
+            refs.add(value)
+        elif isinstance(value, dict):
+            for key, child in value.items():
+                if not EXCLUDED_KEY_RE.search(str(key)):
+                    walk(child)
+        elif isinstance(value, list):
+            for child in value:
+                walk(child)
+
+    for name, pick in (("task/task.json", lambda d: d), ("study.json", lambda d: (d.get("program") or {}).get("steps")
+                                                          if isinstance(d, dict) else None)):
+        try:
+            walk(pick(json.loads((root / name).read_text(encoding="utf-8"))))
+        except (OSError, ValueError, AttributeError):
+            pass
+    return refs
 
 
 def _text_strings(value: Any, path: str) -> Iterable[tuple[str, str]]:
@@ -874,7 +955,8 @@ def package_problems(root: Path, job: Path | None = None) -> list[str]:
     A string of at least MIN_WORDS words fails when only a question participants never saw
     carries it (the Trash block, a block missing from the flow). Metadata keys (description,
     note, ...), lists of what was left out (notShown, notTranscribed, unused, excluded, ...)
-    and objects marked {"qsfReachability": "not-shown"} are not participant text.
+    and objects marked {"qsfReachability": "not-shown"} are not participant text, but the adapter,
+    task.json and program steps must not refer to a marked or left-out item's id.
     """
     job = job if job is not None else root.parent.parent
     reach, keys_of, known_paths = _reaches(root, job)
@@ -919,6 +1001,13 @@ def package_problems(root: Path, job: Path | None = None) -> list[str]:
     for line, text in _adapter_strings(root):
         report(f"task/adapter.py line {line}", text, list(reach))
     problems = []
+    if materials is not None:
+        used = _run_references(root)
+        for item_id in dict.fromkeys(_ids_marked_not_shown(materials)):
+            if item_id in used:
+                problems.append(f"materials/materials.json item {item_id!r} is marked as never shown (or listed "
+                                "as left out), but task/adapter.py, task/task.json or the program steps still "
+                                "use it; the run must not show it")
     for (where, qid), (reason, text, count) in hits.items():
         more = f" and {count - 1} more of its strings" if count > 1 else ""
         problems.append(f"{where} uses survey text from {qid}, which participants never saw ({reason}; "
@@ -946,7 +1035,10 @@ def never_shown_matcher(root: Path, job: Path | None = None):
     def matches(before: dict, after: dict | None) -> bool:
         if after is not None and not (_marked_not_shown(after) and shown_text(after) == shown_text(before)):
             return False  # only removal, or the same item marked not shown, is the asked-for repair
-        return any(r.never_shown(text) for _, text in _text_strings(shown_text(before), "") for r in reach.values())
+        own = _own_strings(shown_text(before))
+        if any(r.shown(text) for text in own for r in reach.values()):
+            return False  # the item also holds text participants saw: only its Trash part may go
+        return any(r.never_shown(text) for text in own for r in reach.values())
 
     return matches
 

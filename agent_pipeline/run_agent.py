@@ -228,8 +228,10 @@ REPAIR_RULES = (
      "Questions block, a block not in the flow) is not participant material. Run "
      "agent_pipeline/qsf_flow.py on the .qsf and follow its flow. Remove each flagged item from "
      "materials.json, the program and the adapter, or, to keep it on record, add "
-     "\"qsfReachability\": \"not-shown\" to it and change nothing else; then make sure the "
-     "adapter no longer shows it. Never reword the text to pass this check."),
+     "\"qsfReachability\": \"not-shown\" to it and change nothing else; then remove every use "
+     "of it from the adapter, task.json and the program steps. An item that mixes shown and "
+     "never-shown text cannot be changed in a repair: leave it and say so in studio-reply.md. "
+     "Never reword the text to pass this check."),
     ("programBindings",
      "task/task.json programBindings must be derived from the canonical program in "
      "study.json: programId, stepIds, recordNodeIds (record and variable nodes) and "

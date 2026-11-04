@@ -235,8 +235,6 @@ def compare_packages(pre: Dict[str, Any], post: Dict[str, Any], removable: Optio
     for path, before in pre_items.items():
         after = post_items.get(path)
         where = _where(path)
-        if _under(path, allowed):
-            continue
         if removable is not None and _origin(before) == "verbatim" and not _unresolved(before) \
                 and removable(before, after):
             verbatim += 1
@@ -269,7 +267,7 @@ def compare_packages(pre: Dict[str, Any], post: Dict[str, Any], removable: Optio
 
     touched = 0
     for path, after in post_items.items():
-        if _under(path, allowed):
+        if path in allowed:
             continue
         before = pre_items.get(path)
         where = _where(path)

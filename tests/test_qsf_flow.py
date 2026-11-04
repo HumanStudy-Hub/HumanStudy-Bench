@@ -305,11 +305,10 @@ def test_package_check_ignores_duplicates_short_strings_metadata_and_markers(tmp
     for element in data["SurveyElements"]:
         if element["Element"] == "BL":
             element["Payload"]["0"]["BlockElements"].append({"Type": "Question", "QuestionID": "QID11"})
-    job, root = make_package(tmp_path, {"sourceId": "osf-qsf", "description": "Unused screener: how serious were you",
+    job, root = make_package(tmp_path, {"sourceId": "osf-qsf", "note": "Unused screener: how serious were you in answering",
                                         "screens": [
         {"id": "s1", "text": "Please read this first. Scenario A: the operation succeeded."},
         {"id": "s2", "text": "Who decided?", "options": ["1 (Not at all)"]},
-        {"id": "s3", "flow": "trash-unused", "text": "Unused screener: how serious were you in answering?"},
         {"id": "s4", "qsfReachability": "not-shown", "text": "Unused screener: how serious were you in answering?"},
         {"id": "s5", "image": {"path": "materials/pic.png"}, "text": "Scenario A: the operation succeeded."}]})
     (job / "input/external/survey.qsf").write_text(json.dumps(data))
@@ -341,3 +340,32 @@ def test_repair_guard_allows_removing_or_marking_never_shown_items(tmp_path: Pat
     assert not compare_packages(pre, {"materials/materials.json": {"screens": [live, reworded]}}, removable)["passed"]
     # A reachable verbatim item still may not be removed.
     assert not compare_packages(pre, {"materials/materials.json": {"screens": [trash]}}, removable)["passed"]
+
+
+def test_package_check_fails_marked_items_the_run_still_uses(tmp_path: Path) -> None:
+    trash = "Unused screener: how serious were you in answering?"
+    job, root = make_package(tmp_path, {"sourceId": "osf-qsf", "screens": [
+        {"id": "s.trash", "qsfReachability": "not-shown", "text": trash},
+        {"id": "s.status", "status": "unused", "text": trash}]})
+    (root / "task").mkdir()
+    (root / "task/adapter.py").write_text('def run(ask):\n    ask("s.trash")\n')
+    problems = qsf_flow.package_problems(root, job)
+    assert any("'s.trash'" in p and "still" in p for p in problems)
+    assert any("screens[1]" in p and "QID7" in p for p in problems)  # only the explicit marker exempts text
+
+
+def test_repair_guard_keeps_nested_and_mixed_items(tmp_path: Path) -> None:
+    trash = "Unused screener: how serious were you in answering?"
+    live = "Scenario A: the operation succeeded."
+    job, root = make_package(tmp_path, {})
+    removable = qsf_flow.never_shown_matcher(root, job)
+    parent = {"id": "p", "origin": "verbatim", "text": trash, "children": [
+        {"id": "c1", "origin": "verbatim", "text": live},
+        {"id": "c2", "origin": "missing", "state": "missing", "value": None}]}
+    pre = {"materials/materials.json": {"screens": [parent]}}
+    result = compare_packages(pre, {"materials/materials.json": {"screens": []}}, removable)
+    assert not result["passed"]
+    assert any("c1" in v for v in result["violations"]) and any("c2" in v for v in result["violations"])
+    mixed = {"id": "m", "origin": "verbatim", "text": live, "options": [trash]}
+    pre = {"materials/materials.json": {"screens": [mixed]}}
+    assert not compare_packages(pre, {"materials/materials.json": {"screens": []}}, removable)["passed"]

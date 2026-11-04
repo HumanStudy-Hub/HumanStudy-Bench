@@ -231,17 +231,20 @@ from it, not from the raw `.qsf`:
 
 - **Order and logic.** Follow its block order, randomizers (how many of how
   many elements, evenly presented or not), branches, groups and embedded data,
-  and its pages. A question is conditional only when it lists `display_logic`,
-  `skip_logic` or `has_javascript` (check the last by hand); otherwise it is
-  always shown on its page.
+  and its pages. A question is conditional only when it lists `display_logic`;
+  otherwise it is always shown on its page. A question's `skip_logic` decides
+  which later questions a participant skips, and `has_javascript` means a
+  script may change what is shown; check both by hand.
 - **Never show unreachable items.** Anything under `not_reachable` (the Trash
   block, blocks not in the flow, questions in no block) was never shown. Do not
   put its text in `materials.json`, the program or the adapter as participant
   material. To keep one on record, list it by question id under `notShown`, or
-  add `"qsfReachability": "not-shown"` to its item. The package check fails
+  add `"qsfReachability": "not-shown"` to its item; the adapter, `task.json`
+  and the program steps must then never use that item. The package check fails
   survey text that only an unreachable question carries, in program fields
   found in a `.qsf`, in `materials.json` entries whose source is a `.qsf`, and
-  in string literals in `task/adapter.py`.
+  in string literals in `task/adapter.py`, and fails a marked item the run
+  still uses.
 - **Randomisation.** Reproduce `choice_randomisation` (answer options shuffled
   per participant, with the seeded generator), `question_randomisation` (which
   questions swap places within a block) and the listed choice order, which is
@@ -251,8 +254,9 @@ from it, not from the raw `.qsf`:
   `correct_choices` means only that answer is accepted and any other is
   refused until the participant answers again; never describe such a check as
   having no correct-answer logic. The export keeps only the
-  `message_description` of the refusal message: use it verbatim only when it
-  reads as a message to participants, otherwise label the shown text `missing`.
+  `message_description` of the refusal message, which may be the shown text
+  or only the message's name: give the shown message state `check` so a
+  person confirms it, never `verbatim` on its own.
   If you cap the retries for agents, record the cap as a departure.
 - **Lists the export lacks.** A text box with `autocomplete` draws on a
   Qualtrics list that is not in the file; label that list `missing`.
