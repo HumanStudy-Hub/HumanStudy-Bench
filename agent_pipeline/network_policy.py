@@ -208,7 +208,7 @@ def looks_like_participant_data(name: str) -> bool:
     if base.endswith(TABLE_SUFFIXES):
         return not MATERIAL_NAME_RE.search(base) or bool(re.search(r"(?i)(^|[^a-z])(raw|responses?|export)([^a-z]|$)", base))
     if base.endswith((".txt", ".json")):
-        # "syntax_data_prep.txt" is SPSS syntax; "analysis_results.json" stays refused.
+        # "spss_syntax.txt" is code; "analysis_data.txt" and "analysis_results.json" stay refused.
         code = base.endswith(".txt") and CODE_NAME_RE.search(base) and not RESPONSE_NAME_RE.search(base)
         return bool(DATA_NAME_RE.search(base)) and not MATERIAL_NAME_RE.search(base) and not code
     return False

@@ -169,7 +169,8 @@ RESULT_CAPTION_RE = re.compile(
     r"percent|anova|test|estimate|coefficient|rating|sample|outcome|choice|score|response|comparison|summary)")
 NON_RESULT_CAPTION_RE = re.compile(
     r"(?i)(power|sensitivity|taxonomy|methodolog|pre-?registration|procedure|material|stimul|wording|"
-    r"instruction|hypothes[ie]s(?! and a comparison)|design\b|previous|prior\b|literature|meta-analy|deviation from)")
+    r"instruction|hypothes[ie]s(?! and a comparison)|design\b|previous|prior\b|literature|meta-analy|deviation from|"
+    r"changes to|analysis plan)")
 
 
 def needs_page_image(table: dict) -> bool:
@@ -237,10 +238,14 @@ def sign_loss(pdf: Path) -> list[dict]:
     found: list[dict] = []
     seen: set[tuple] = set()
     end = _references_start(layout)
-    for index, page in enumerate(layout[:end]):
+    for index, page in enumerate(layout[:end + 1]):
         raw = plain[index] if index < len(plain) else ""
         text = _squash(raw)
         lines = page.splitlines()
+        if index == end:  # the reference list's own page: stop at its heading
+            heading = next((i for i, l in enumerate(lines)
+                            if re.match(r"(?i)\s*(references|bibliography|literature cited)\s*$", l)), len(lines))
+            lines = lines[:heading]
         for at, line in enumerate(lines):
             # Column segments with their start column ("text  text" stays one segment).
             for segment_match in re.finditer(r"\S+(?: \S+)*", line.rstrip()):
@@ -249,7 +254,8 @@ def sign_loss(pdf: Path) -> list[dict]:
                 if not match:
                     continue
                 tail = _squash(segment[:match.start()]).rstrip()[-28:]
-                if len(re.sub(r"\W", "", tail)) < 3:
+                # Not a DOI, page range or identifier split at a line end ("1099-" / "0984").
+                if len(re.sub(r"\W", "", tail)) < 3 or re.search(r"/|\bdoi\b|\d$", tail, re.I):
                     continue
                 # The number that continues this column on the next non-empty line.
                 following = next((l for l in lines[at + 1:at + 3] if l[max(0, column - 3):].strip()), "")
