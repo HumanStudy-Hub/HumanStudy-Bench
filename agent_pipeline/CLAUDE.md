@@ -77,6 +77,45 @@ each. If you could not preserve some part of the original structure, do not
 quietly simplify it: implement what you can, and record the departure in
 `audit/missing_information.json` with its likely effect on the findings.
 
+## Participant memory within a session
+
+A human participant remembers what they have already read and answered. The
+runner's `llm(prompt)` call is stateless, so the adapter carries that memory:
+
+- **Default:** every prompt contains everything *this* participant has seen and
+  answered so far in this session, in the order it happened: each earlier
+  screen as it was shown, followed by the participant's own answer. Then the
+  current screen. A question such as "Do you think outcomes should be taken into
+  account?" must arrive with the scenario and the participant's own rating
+  before it, exactly as a person filling in the survey would have them in mind.
+- Never another participant's screens or answers, except what the original
+  design itself showed this participant (a partner's choice, group feedback);
+  that then appears as part of this participant's own screen.
+- Never internal identifiers: no condition, arm or cell ids or labels
+  ("moneyNoSunk", "physician_success"), no survey question ids (`QID14`), no
+  screen ids or tags (`study5.imc1`), no variable names. Key the reply format by
+  neutral labels (`q1`, `q2`, or the number printed on the screen). A
+  participant must not be able to read their condition from the prompt.
+- Never claim screens that are not sent: write "the screens above" or "your
+  earlier answers" only when they are in the prompt.
+- Record the design in `task/task.json` as `"memory": {"scope": "session",
+  "agents_per_session": 1, "description": "..."}`. `agents_per_session` counts
+  the agents whose turns one session interleaves (2 for a matched pair). Use
+  another `scope` only with a `"reason"`: the paper's design limits what
+  participants could recall (separate sessions on different days, citing the
+  paper), or the full transcript would not fit a model's context window (many
+  hundreds of screens or rounds); then keep the instructions, the current
+  block and a stated window of recent screens and answers. Run cost alone is
+  not a reason.
+
+The package check runs the adapter with an offline stand-in model and reads every
+prompt: a later prompt that carries nothing this participant already saw, a
+prompt that drops the screen just answered, a claim of earlier screens with none
+present, or any condition or screen id in a prompt fails the build. Every
+condition id in `task/task.json` must run with `run_sessions(llm, seed, n,
+arms=[id])` for a small n (1, 2 or 4); a condition that cannot run returns a
+blocked session record instead of raising.
+
 ## Materials the paper does not print
 
 Papers often describe what participants saw without printing it, and the full
@@ -219,7 +258,8 @@ by its `what`, one numbered line each, with where the paper mentions it and
 where it was searched ("not in OSF gf8rc or the journal SI"; "only in the
 participant data files, which we do not open"). Its `suggestedAction` asks the
 researcher to upload or paste the originals, accept a clearly labelled stand-in,
-or leave that part out. Start `studio-reply.md` with the same list. The per-item
+or leave that part out. Summarise it on the reply's "Needs you" line and list it
+right after the reply's three opening lines ("Researcher reply"). The per-item
 issues point to this request; do not ask the same question item by item.
 
 ## Survey files
@@ -278,6 +318,44 @@ from it, not from the raw `.qsf`:
   lists under `notes` as something to check, not as a fact.
 - Run `python agent_pipeline/validate_package.py <job-dir>/package` before you
   finish and fix what it reports.
+
+## Human results to compare against
+
+The replay is only as useful as the human numbers it is compared with. Record
+the paper's own results for every study the package runs, in
+`study.json.program` result nodes (`result_kind: reported`, with evidence):
+
+- **Every printed result table, cell by cell.** One field per table whose value
+  is the table as a JSON object (not a sentence): its number and title, its
+  column labels, and one row per table row with every cell (means, SDs, n,
+  percentages, estimates, CIs, p values) as numbers. Descriptive tables (cell means and SDs, sample
+  composition) count; tables of design, materials or power analysis do not.
+- **Every reported test statistic, effect size, confidence interval and N** in
+  the text: each t, F, χ², z with its df, each d, r, OR, b, η², f with its CI,
+  each p value, and the N or n it rests on. Comparison values from an original
+  study that a replication reports belong here too.
+
+The package check reads the tables and statistics in the PDF text and fails when
+most of a printed result table or most of the reported statistics are absent
+from the result nodes.
+
+**Each recorded result is computed or explicitly not ready.** Give every result
+field `extensions.evaluation`: `{"output": "<key path in evaluate()'s return
+value>"}` for the entry that computes the same statistic from the replay
+sessions, or `{"not_ready": "<the specific missing requirement>"}`. Record these
+links while building: a repair round may add or fix links and may add result
+fields that cite evidence records already in the package, but it cannot add
+evidence records. Compute the
+paper's own test, not a convenient neighbour: the same family and options
+(pooled-variance Student t when the reported df are N - 2, Welch when they are
+fractional; one- or two-tailed as reported), the same model terms (every main
+effect and interaction the paper reports, the same covariates and coding), the
+same outcome scale and denominator as the reported numbers. numpy, scipy,
+pandas and statsmodels are installed in the build and in the replay runtime;
+"library not available" is never a not-ready reason. `evaluate()` returns every
+key on any input, with `{"status": "not_ready", "reason": "..."}` where the
+sessions cannot support the test (too few, a blocked condition), so the check
+can confirm each named output exists.
 
 ## Evidence labels
 
@@ -379,10 +457,11 @@ package/<paper-slug>`. It runs every runnable arm of `task/task.json`
 keyed question correctly and gives random valid answers otherwise, and fails
 unless every arm has at least one `completed` session that reaches `evaluate`,
 every model call goes through `replies.ask`, and `evaluate` returns a non-empty
-result. Fix the adapter until it passes; the package check runs it too. Report
-it in `studio-reply.md` by its counts (for example "16 arms, 2 completed sessions
-each, offline stub, no model"): a stub run is a plumbing check, not a result, and
-an excluded or unparsed session is never described as completed.
+result. Fix the adapter until it passes; the package check runs it too. If
+`studio-reply.md` mentions it, say it in plain words with its counts (for example
+"an offline practice run with made-up answers took all 16 conditions through to
+the analysis, 2 sessions each; no model was used"): it checks the wiring, not a
+result, and an excluded or unparsed session is never described as completed.
 
 `task/adapter.py` must also expose the standard harness interface the playground
 uses to inject any model as the participant:
@@ -412,7 +491,48 @@ expose `evaluate(sessions: list[dict]) -> dict`, where `sessions` is exactly wha
 directly — do not read a separate data file or expect pre-aggregated output. When
 a statistical test cannot be computed from the available sessions, return a
 structured `not_ready` result with the missing requirement; do not mention
-nonexistent future stages.
+nonexistent future stages. Follow "Human results to compare against" for which
+tests to compute and how.
 
 `audit/missing_information.json` is the authoritative researcher checklist.
 Each entry includes `study`, `field`, `reason`, `impact`, and `suggested_action`.
+
+## Researcher reply
+
+Studio builds end with `package/<paper-slug>/studio-reply.md`, in the paper
+folder next to `study.json`. It is read by the professor who asked for the
+study, who knows the paper but not this pipeline or the survey software. Write
+plain sentences in the researcher's language, keeping the three line labels below
+as written. Its first three lines are exactly:
+
+```text
+Ready to run: <which studies and conditions can run now, in the paper's own terms>
+Needs you: <"Nothing." or one sentence summarising the questions below>
+Licence: <the licence printed in the paper PDF, e.g. "CC BY 4.0 (printed on page 1)", or "none printed in the paper">
+```
+
+The licence line reports what the PDF itself prints, first; licences of other
+sources (OSF, the journal's metadata) may follow it in the same line. Then:
+
+1. **Questions** (at most three, numbered). Ask only what the sources do not
+   settle: read the survey file, its flow and the public analysis code first.
+   Each question is answerable with yes/no or a short choice by someone who has
+   not opened the survey file, and says what the package does if there is no
+   answer. Fold the materials request into one of them. No other sentence ends
+   with a question mark.
+2. **Run size**, one line starting with the label `Run size:` (kept in English),
+   for example `Run size: 692 participants, about 3,460 model calls, about $4 at
+   $1 / $5 per million input / output tokens.` Get the numbers with
+   `python agent_pipeline/estimate_run.py <job-dir>/package/<paper-slug> --n
+   <sessions at the paper's analysed N>`, run from the repository root.
+3. **What is not computed yet**, in plain words, for every recorded result whose
+   evaluation is not ready.
+4. **What was used**: sources by name, and what was left out and why.
+
+Avoid internal vocabulary: no survey question ids, "arm", "Trash block",
+"plumbing", "stub", "smoke test", "not_ready", file hashes, issue ids, file or
+function names, "JSON", "QSF". Say "condition", "the survey's unused questions",
+"not computed yet". Never overclaim: no "nothing missing" or "every screen" unless
+a check showed it, and never describe an analysis the evaluation does not
+compute. The package check enforces the opening lines, the licence, the question
+limit, the run-size line, the vocabulary and analysis claims.

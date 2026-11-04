@@ -68,6 +68,10 @@ def test_package_validator_rejects_disconnected_execution_bindings(tmp_path):
         target = root / name; target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text('{}' if target.suffix == '.json' else '# placeholder')
     p = sample('study_009')
+    # Each recorded human result names how it is computed (contract: Human results to compare against).
+    for node in p['nodes']:
+        for field in node['fields'] if node['kind'] == 'result' else []:
+            field.setdefault('extensions', {})['evaluation'] = {'not_ready': 'test harness has no evaluation'}
     (root / 'study.json').write_text(json.dumps({'program': p}))
     command = [sys.executable, str(ROOT / 'agent_pipeline/validate_package.py'), str(root.parent)]
     result = subprocess.run(command, capture_output=True, text=True)

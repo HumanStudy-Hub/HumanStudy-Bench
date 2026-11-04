@@ -8,7 +8,8 @@ is rejected when:
 - an unresolved item (labelled ``missing``, or in state ``missing``/``decision``)
   stops being unresolved, is removed, or changes anything other than its
   evidence/study ids, its label (while staying unresolved), its
-  ``extensions.material`` classification or the removal of a derivation;
+  ``extensions.material`` classification or the removal of a derivation
+  (``extensions.evaluation``, which links a result to the evaluation, is ignored);
 - a ``verbatim`` item is relabelled, removed, or any part of it other than its
   own top-level metadata changes (nested text such as scale anchors counts);
 - an evidence record changes, is removed, or is added (unless it copies a record
@@ -84,8 +85,18 @@ def _value(item: dict) -> dict:
     kept whole, so a nested ``label`` or ``note`` is treated as content. A
     top-level ``label`` is metadata only when it holds an evidence label;
     otherwise it is text (a display name or a response option)."""
-    return {k: v for k, v in item.items()
-            if k not in ITEM_METADATA or (k == "label" and not (isinstance(v, str) and v in ORIGINS))}
+    value = {k: v for k, v in item.items()
+             if k not in ITEM_METADATA or (k == "label" and not (isinstance(v, str) and v in ORIGINS))}
+    # extensions.evaluation names the evaluate() output that computes a result (or why
+    # it is not ready); the package check asks for it, and it is not study content.
+    extensions = value.get("extensions")
+    if isinstance(extensions, dict) and "evaluation" in extensions:
+        rest = {k: v for k, v in extensions.items() if k != "evaluation"}
+        if rest:
+            value["extensions"] = rest
+        else:
+            del value["extensions"]
+    return value
 
 
 def _unresolved_value(item: dict, before: Optional[dict] = None) -> dict:

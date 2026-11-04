@@ -11,10 +11,12 @@ try:
     from agent_pipeline.human_program import validate_human_program
     from agent_pipeline.check_sources import check_package_sources
     from agent_pipeline.qsf_flow import package_problems as qsf_reachability_problems
+    from agent_pipeline.package_checks import check_package
 except ModuleNotFoundError:
     from human_program import validate_human_program
     from check_sources import check_package_sources
     from qsf_flow import package_problems as qsf_reachability_problems
+    from package_checks import check_package
 
 REQUIRED = (
     "study.json",
@@ -106,6 +108,12 @@ def main() -> None:
         raise SystemExit("task/adapter.py must expose run_sessions(agent_fn, seed) so the playground can run it.")
     if not _defines(root / "evaluation/evaluation.py", "evaluate"):
         raise SystemExit("evaluation/evaluation.py must expose evaluate(sessions) so the playground can score it.")
+
+    # What the replay shows participants, what it compares against, and what the
+    # researcher is told (memory, human results, analyses, studio-reply.md).
+    problems = check_package(root, package.parent)
+    if problems:
+        raise SystemExit("package check failed:\n- " + "\n- ".join(problems))
 
     print(f"Validated agent package: {root.name}")
 
