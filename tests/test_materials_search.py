@@ -729,3 +729,197 @@ def test_missing_or_unresolvable_source_is_a_problem(tmp_path: Path, monkeypatch
     monkeypatch.setattr(fetch_public.urllib.request, "build_opener",
                         lambda *h: Gone(urllib.error.URLError(socket.gaierror(-2, "Name or service not known"))))
     assert "does not exist" in fetch_public.verify_downloads(job, attempts=1)[0][0]
+
+
+# --------------------------------------------------------------------------- re-checking recorded sources
+
+class Scripted:
+    """An opener factory that answers each request from a script of responses or exceptions."""
+
+    def __init__(self, script):
+        self.script = script
+        self.requests = []
+
+    def __call__(self, *handlers):
+        return self
+
+    def open(self, request, timeout):
+        self.requests.append(request)
+        for prefix, answers in self.script.items():
+            if request.full_url.startswith(prefix):
+                answer = answers.pop(0) if len(answers) > 1 else answers[0]
+                if isinstance(answer, BaseException):
+                    raise answer
+                return FakeResponse(answer, request.full_url, {})
+        raise AssertionError(f"unexpected request {request.full_url}")
+
+
+def http_error(code: int, headers: dict | None = None):
+    import email.message
+    import urllib.error
+    message = email.message.Message()
+    for name, value in (headers or {}).items():
+        message[name] = value
+    return urllib.error.HTTPError("https://osf.io/x", code, "error", message, None)
+
+
+def osf_file_record(sha: str) -> bytes:
+    return json.dumps({"data": {"type": "files", "attributes": {"extra": {"hashes": {"sha256": sha}}}}}).encode()
+
+
+def test_recheck_retries_a_refusal_with_backoff_and_identifies_itself(tmp_path: Path, monkeypatch) -> None:
+    job, _ = make_job(tmp_path)
+    body = (job / "input/external/survey.qsf").read_bytes()
+    opener = Scripted({"https://osf.io/download/": [http_error(403), http_error(429, {"Retry-After": "120"}), body]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    pauses: list[float] = []
+    assert fetch_public.verify_downloads(job, sleep=pauses.append) == ([], [])
+    # A refusal waits longer than the 2 s outage pause; then the server's Retry-After (capped at 30 s).
+    assert pauses == [fetch_public.REFUSED_PAUSE, fetch_public.RETRY_AFTER_CAP]
+    agent = {r.get_header("User-agent") for r in opener.requests}
+    assert agent == {fetch_public.USER_AGENT} and "mailto:scout@humanstudy-hub.com" in fetch_public.USER_AGENT
+
+
+def test_gone_source_fails_without_retrying(tmp_path: Path, monkeypatch) -> None:
+    job, _ = make_job(tmp_path)
+    opener = Scripted({"https://osf.io/download/": [http_error(410)]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    pauses: list[float] = []
+    problems_, warnings = fetch_public.verify_downloads(job, sleep=pauses.append)
+    assert "HTTP 410" in problems_[0] and warnings == [] and pauses == [] and len(opener.requests) == 1
+
+
+def test_blocked_osf_download_is_verified_by_the_listed_hash(tmp_path: Path, monkeypatch) -> None:
+    job, _ = make_job(tmp_path)
+    sha = hashlib.sha256((job / "input/external/survey.qsf").read_bytes()).hexdigest()
+    opener = Scripted({"https://osf.io/download/": [http_error(403)],
+                       "https://api.osf.io/v2/files/2bshn/": [osf_file_record(sha.upper())]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    notes: list[str] = []
+    assert fetch_public.verify_downloads(job, sleep=lambda s: None, notes=notes) == ([], [])
+    assert "verified by metadata" in notes[0]
+    assert sum(r.full_url.startswith("https://osf.io/download/") for r in opener.requests) == 4
+    assert opener.requests[-1].get_header("Accept") == "application/json"
+
+
+def test_osf_metadata_that_disagrees_or_says_gone_fails(tmp_path: Path, monkeypatch) -> None:
+    job, _ = make_job(tmp_path)
+    for api, expected in ([osf_file_record("0" * 64)], "differs"), ([http_error(404)], "OSF has no file 2bshn"):
+        opener = Scripted({"https://osf.io/download/": [http_error(403)], "https://api.osf.io/v2/files/2bshn/": api})
+        monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+        problems_, warnings = fetch_public.verify_downloads(job, sleep=lambda s: None)
+        assert expected in problems_[0] and warnings == []
+
+
+def test_unreachable_source_without_a_metadata_route_is_a_warning(tmp_path: Path, monkeypatch) -> None:
+    job, _ = make_job(tmp_path)
+    # OSF is down for the download and for its API.
+    opener = Scripted({"https://osf.io/download/": [http_error(503)], "https://api.osf.io/": [http_error(503)]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    problems_, warnings = fetch_public.verify_downloads(job, sleep=lambda s: None)
+    assert problems_ == [] and "after 4 attempts (last answer: HTTP 503)" in warnings[0]
+    assert "check it against https://osf.io/download/2bshn/" in warnings[0]
+    # Refused on every attempt and OSF's API cannot confirm it: the copy is not shipped.
+    opener = Scripted({"https://osf.io/download/": [http_error(403)], "https://api.osf.io/": [http_error(503)]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    problems_, warnings = fetch_public.verify_downloads(job, sleep=lambda s: None)
+    assert warnings == [] and "refuses the re-check" in problems_[0]
+    # OSF lists no hash for the item (a project, not a file): no route, still a warning.
+    opener = Scripted({"https://osf.io/download/": [TimeoutError("timed out")],
+                       "https://api.osf.io/": [json.dumps({"data": {"type": "nodes"}}).encode()]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    problems_, warnings = fetch_public.verify_downloads(job, sleep=lambda s: None)
+    assert problems_ == [] and "TimeoutError" in warnings[0]
+
+
+def test_non_osf_source_that_keeps_failing_is_a_warning(tmp_path: Path, monkeypatch) -> None:
+    job, _ = make_job(tmp_path, source_overrides={"url": "https://github.com/a/b/raw/main/survey.qsf"})
+    opener = Scripted({"https://github.com/": [http_error(502)]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    problems_, warnings = fetch_public.verify_downloads(job, sleep=lambda s: None)
+    assert problems_ == [] and "HTTP 502" in warnings[0] and len(opener.requests) == 4
+
+
+@pytest.mark.parametrize("url", ["https://osf.io/abcde/", "https://osf.io/preprints/psyarxiv/abcde/download",
+                                 "https://osf.io/download/2bshn/?version=1"])
+def test_osf_page_or_pinned_version_has_no_metadata_route(tmp_path: Path, monkeypatch, url) -> None:
+    job, _ = make_job(tmp_path, source_overrides={"url": url})
+    opener = Scripted({"https://osf.io/": [http_error(502)]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    problems_, warnings = fetch_public.verify_downloads(job, sleep=lambda s: None)
+    # Not read as "OSF has no file": the API is not asked, and an outage stays a warning.
+    assert problems_ == [] and "HTTP 502" in warnings[0]
+    assert not any(r.full_url.startswith("https://api.osf.io/") for r in opener.requests)
+
+
+def test_transient_dns_and_truncated_answers_are_retried(tmp_path: Path, monkeypatch) -> None:
+    import http.client
+    import socket
+    import urllib.error
+    job, _ = make_job(tmp_path)
+    body = (job / "input/external/survey.qsf").read_bytes()
+    again = urllib.error.URLError(socket.gaierror(socket.EAI_AGAIN, "Temporary failure in name resolution"))
+    opener = Scripted({"https://osf.io/download/": [again, http.client.IncompleteRead(b"x"), body]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    assert fetch_public.verify_downloads(job, sleep=lambda s: None) == ([], [])
+    assert len(opener.requests) == 3
+
+
+def test_recheck_stops_retrying_when_its_budget_is_spent(tmp_path: Path, monkeypatch) -> None:
+    job, _ = make_job(tmp_path, source_overrides={"url": "https://github.com/a/b/raw/main/survey.qsf"})
+    opener = Scripted({"https://github.com/": [http_error(503)]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    pauses: list[float] = []
+    problems_, warnings = fetch_public.verify_downloads(job, sleep=pauses.append, budget=0)
+    assert problems_ == [] and "after 1 attempt " in warnings[0] and pauses == [] and len(opener.requests) == 1
+
+
+def test_finalize_tells_the_researcher_which_source_was_not_rechecked(tmp_path: Path, monkeypatch) -> None:
+    from agent_pipeline import finalize_job
+    job, _ = make_job(tmp_path)
+    (job / "job.json").write_text(json.dumps({"sourceWarnings": ["stale"]}))
+    monkeypatch.setattr(finalize_job, "validate", lambda validator, package: (True, "ok"))
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener",
+                        Scripted({"https://osf.io/download/": [http_error(503)], "https://api.osf.io/": [http_error(503)]}))
+    monkeypatch.setattr(fetch_public.time, "sleep", lambda s: None)
+    finalize_job.finalize(job, tmp_path / "unused.py")
+    data = json.loads((job / "job.json").read_text())
+    assert data["packageReady"] is True and len(data["sourceWarnings"]) == 1
+    assert "could not be re-checked from the build server (https://osf.io/download/2bshn/)" in data["message"]
+    # A clean re-check clears the warning.
+    body = (job / "input/external/survey.qsf").read_bytes()
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", Scripted({"https://osf.io/download/": [body]}))
+    finalize_job.finalize(job, tmp_path / "unused.py")
+    data = json.loads((job / "job.json").read_text())
+    assert "sourceWarnings" not in data and data["message"] == "Study package is ready for researcher review"
+
+
+def test_review_message_names_unverified_sources() -> None:
+    from agent_pipeline.finalize_job import unverified_note
+    assert unverified_note([]) == ""
+    note = unverified_note(["could not re-download https://osf.io/download/yq8gm/ after 4 attempts (last answer: "
+                            "HTTP 403); input/external/s.qsf was not compared"])
+    assert note.startswith(". 1 public source could not be re-checked") and "(https://osf.io/download/yq8gm/)" in note
+    assert note.endswith("before relying on it")
+
+
+def test_a_single_refusal_is_never_a_verdict(tmp_path: Path, monkeypatch) -> None:
+    job, _ = make_job(tmp_path, source_overrides={"url": "https://github.com/a/b/raw/main/survey.qsf"})
+    opener = Scripted({"https://github.com/": [http_error(403)]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    # The budget is spent: one attempt, one 403 -> unverified, not refused.
+    problems_, warnings = fetch_public.verify_downloads(job, sleep=lambda s: None, budget=0)
+    assert problems_ == [] and "HTTP 403" in warnings[0] and len(opener.requests) == 1
+    # Refusals are retried after a longer pause than an outage.
+    pauses: list[float] = []
+    fetch_public.verify_downloads(job, sleep=pauses.append)
+    assert pauses == [fetch_public.REFUSED_PAUSE, fetch_public.REFUSED_PAUSE, fetch_public.REFUSED_PAUSE]
+
+
+def test_osf_id_download_form_uses_the_metadata_route(tmp_path: Path, monkeypatch) -> None:
+    job, _ = make_job(tmp_path, source_overrides={"url": "https://osf.io/2bshn/download"})
+    sha = hashlib.sha256((job / "input/external/survey.qsf").read_bytes()).hexdigest()
+    opener = Scripted({"https://osf.io/2bshn/download": [http_error(403)],
+                       "https://api.osf.io/v2/files/2bshn/": [osf_file_record(sha)]})
+    monkeypatch.setattr(fetch_public.urllib.request, "build_opener", opener)
+    assert fetch_public.verify_downloads(job, sleep=lambda s: None) == ([], [])

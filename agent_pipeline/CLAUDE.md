@@ -163,7 +163,11 @@ Some hosts are reached only through a redirect (file storage, and `jbaron.org`
 behind `journal.sjdm.org`): record and fetch the URL you asked for, never the
 final URL it redirected to.
 Never write into `input/external/` yourself: the pipeline downloads every
-recorded source again before publishing and fails the build if a file differs.
+recorded source again before publishing and fails the build if a file differs,
+is gone, or is refused on every attempt. A host that is only busy or slow is
+retried (an OSF file is then checked against the hash OSF lists for it) and,
+if it still gives no answer, reported to the researcher as not re-checked; a
+repair round never has to change anything for that.
 Only hosts the paper prints, hosts the researcher named and research
 repositories can be reached. A refused host is final: record it and move on. A
 refusal of how a command is written (curl output written to a file, a URL held

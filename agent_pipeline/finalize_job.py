@@ -4,16 +4,17 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
 
 try:
-    from agent_pipeline.fetch_public import scrub_signed_urls, verify_downloads
+    from agent_pipeline.fetch_public import scrub_signed_urls, strip_signed_urls, verify_downloads
     from agent_pipeline.run_agent import studio_complete, validate
     from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
 except ModuleNotFoundError:  # Direct script execution from the repository root.
-    from fetch_public import scrub_signed_urls, verify_downloads
+    from fetch_public import scrub_signed_urls, strip_signed_urls, verify_downloads
     from run_agent import studio_complete, validate
     from studio_output import studio_mode, validate_build_sidecars, validate_discussion
 
@@ -26,6 +27,19 @@ def remove_bytecode(folder: Path) -> None:
     for stray in folder.rglob("*.py[co]"):
         if stray.is_file():
             stray.unlink()
+
+
+def unverified_note(warnings: list[str]) -> str:
+    """The sentence added to the review message when some sources could not be re-checked."""
+    if not warnings:
+        return ""
+    urls = [match.group(0).rstrip(".,;)") for w in warnings if (match := re.search(r"https://\S+", w))]
+    shown = ", ".join(dict.fromkeys(urls[:3])) + (" and others" if len(urls) > 3 else "")
+    many = len(warnings) != 1
+    where = f" ({shown})" if shown else ""
+    return (f". {len(warnings)} public source{'s' if many else ''} could not be re-checked from the build "
+            f"server{where}; compare the downloaded cop{'ies' if many else 'y'} with the original before "
+            f"relying on {'them' if many else 'it'}")
 
 
 def finalize(job: Path, validator: Path) -> None:
@@ -56,7 +70,12 @@ def finalize(job: Path, validator: Path) -> None:
             raise ValueError(f"Invalid study package: {detail}")
         # Each recorded external source must be what its URL serves, not a file
         # written or edited in the job directory.
-        mismatches, warnings = verify_downloads(job)
+        notes: list[str] = []
+        mismatches, warnings = verify_downloads(job, notes=notes)
+        notes, warnings = [strip_signed_urls(n) for n in notes], [strip_signed_urls(w) for w in warnings]
+        mismatches = [strip_signed_urls(m) for m in mismatches]
+        for note in notes:
+            print(note)
         for warning in warnings:
             print(f"::warning::{warning}")
         if mismatches:
@@ -78,8 +97,15 @@ def finalize(job: Path, validator: Path) -> None:
             "status": "review",
             "currentStage": 1,
             "packageReady": True,
-            "message": "Study package is ready for researcher review",
+            "message": "Study package is ready for researcher review" + unverified_note(warnings),
         })
+        # A source the build server could not reach is unverified, not disproved: the
+        # package is published and the review message says which copy to check
+        # (sourceWarnings keeps the full lines for the job record).
+        if warnings:
+            data["sourceWarnings"] = warnings
+        else:
+            data.pop("sourceWarnings", None)
     job_path.write_text(json.dumps(data, indent=2) + "\n")
 
 
