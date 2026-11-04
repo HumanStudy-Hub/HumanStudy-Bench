@@ -74,7 +74,8 @@ def test_package_validator_rejects_disconnected_execution_bindings(tmp_path):
     assert result.returncode != 0 and 'programBindings' in result.stderr
     (root / 'task/task.json').write_text(json.dumps({'programBindings': {'programId': p['id'], 'stepIds': [s['id'] for s in p['steps']], 'recordNodeIds': ['guesses'], 'analysisNodeIds': []}}))
     # This is a local test harness, not a runnable scientific study.
-    (root / 'task/adapter.py').write_text('def run_sessions(llm, seed, n, arms=None):\n    return []\n')
-    (root / 'evaluation/evaluation.py').write_text('def evaluate(sessions):\n    return {}\n')
+    sys.path.insert(0, str(ROOT / 'tests'))
+    from package_fixture import write_runnable
+    write_runnable(root)
     result = subprocess.run(command, capture_output=True, text=True)
     assert result.returncode == 0, result.stderr

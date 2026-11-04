@@ -49,7 +49,7 @@ DEFAULT_HOSTS = (
     "springer.com", "nature.com", "wiley.com", "tandfonline.com", "sagepub.com",
     "sciencedirect.com", "elsevier.com", "elifesciences.org", "pnas.org", "apa.org",
     "cambridge.org", "oup.com", "mdpi.com", "science.org", "cell.com", "biomedcentral.com",
-    "collabra.org", "online.ucpress.edu", "journalofcognition.org", "psychopen.eu",
+    "collabra.org", "online.ucpress.edu", "journalofcognition.org", "psychopen.eu", "sjdm.org",
     # Supplementary-material file hosts of large publishers
     "els-cdn.com", "silverchair-cdn.com", "silverchair.com", "static-content.springer.com",
 )
@@ -239,8 +239,18 @@ def _strip_heredocs(command: str) -> tuple[str, list[tuple[str, str]]]:
 
 def _segments(command: str) -> list[str]:
     """Split at unquoted |, ;, &, && and newlines."""
+    return [segment for segment, _ in _pipeline_segments(command)]
+
+
+def _pipeline_segments(command: str) -> list[tuple[str, bool]]:
+    """Segments with a flag: True when the segment's output is piped into the next one."""
     segments, current, quote, escaped = [], [], "", False
-    for char in command:
+    pipes: list[bool] = []
+    skip = False
+    for index, char in enumerate(command):
+        if skip:
+            skip = False
+            continue
         if escaped:
             current.append(char)
             escaped = False
@@ -258,13 +268,147 @@ def _segments(command: str) -> list[str]:
             quote = char
             current.append(char)
             continue
+        if char == "&" and ((current and current[-1] in "<>") or command[index + 1:index + 2] == ">"):
+            current.append(char)  # part of a redirection: 2>&1, >&2, &>file
+            continue
+        if char == "|" and current and current[-1] == ">":
+            current.append(char)  # >| file
+            continue
         if char in "|;&\n":
-            segments.append("".join(current))
+            pipe = char == "|"
+            if pipe and command[index + 1:index + 2] == "|":
+                pipe, skip = False, True  # || runs the next command; it is not a pipe
+            if "".join(current).strip():
+                segments.append("".join(current))
+                pipes.append(pipe)
+            elif pipe and pipes:
+                pipes[-1] = True
             current = []
             continue
         current.append(char)
-    segments.append("".join(current))
-    return [segment.strip() for segment in segments if segment.strip()]
+    if "".join(current).strip():
+        segments.append("".join(current))
+        pipes.append(False)
+    return [(segment.strip(), pipe) for segment, pipe in zip(segments, pipes)]
+
+
+REDIRECT_OP_RE = re.compile(r"&>>?|>>|>\||>&|<&|<<<|<<|<>|>|<")
+
+
+def _redirections(segment: str) -> tuple[str, list[tuple[str, str]]]:
+    """Remove unquoted shell redirections; return the rest and (operator, target) pairs.
+
+    ``2>&1``, ``2>/dev/null``, ``> out.json`` and ``&>log`` are redirections, not
+    arguments: left in, they were read as URLs ("'2>' is not a research host").
+    The operator keeps its fd number (``2>``). Quoted text (``grep '>' x``,
+    ``python3 -c "print('>')"``) and process substitution (``<(...)``) are left alone.
+    """
+    out: list[str] = []
+    found: list[tuple[str, str]] = []
+    quote, escaped, index = "", False, 0
+    while index < len(segment):
+        char = segment[index]
+        if escaped or (char == "\\" and quote != "'"):
+            escaped = not escaped
+            out.append(char)
+            index += 1
+            continue
+        if quote or char in "'\"":
+            quote = "" if char == quote else (quote or char)
+            out.append(char)
+            index += 1
+            continue
+        match = REDIRECT_OP_RE.match(segment, index) if char in "<>&" else None
+        if match is None or segment[match.end():match.end() + 1] == "(" or (char == "&" and not match.group(0).startswith("&>")):
+            out.append(char)
+            index += 1
+            continue
+        operator = match.group(0)
+        digits = re.search(r"(^|[\s(])(\d+)$", "".join(out))
+        if digits:  # 2> : the fd number is part of the operator, not an argument
+            del out[len(out) - len(digits.group(2)):]
+            operator = digits.group(2) + operator
+        index = match.end()
+        while index < len(segment) and segment[index] in " \t":
+            index += 1
+        target: list[str] = []
+        tquote = ""
+        while index < len(segment):
+            tchar = segment[index]
+            if tquote:
+                if tchar == tquote:
+                    tquote = ""
+                else:
+                    target.append(tchar)
+            elif tchar in "'\"":
+                tquote = tchar
+            elif tchar in " \t|;&<>()":
+                break
+            else:
+                target.append(tchar)
+            index += 1
+        found.append((operator, "".join(target)))
+        out.append(" ")
+    return "".join(out), found
+
+
+def _writes_file(redirections: list[tuple[str, str]]) -> bool:
+    """True when stdout goes to a file. Stderr to a file, /dev/null and fd copies are fine."""
+    for operator, target in redirections:
+        fd, op = re.match(r"(\d*)(.*)", operator).groups()
+        if "<" in op or fd not in ("", "1"):
+            continue
+        if target == "/dev/null":
+            continue
+        if op in (">&",) and re.fullmatch(r"\d+|-", target) and not op.startswith("&"):
+            continue  # >&2, 1>&2: a copy of another stream, not a file
+        return True
+    return False
+
+
+VAR_RE = re.compile(r"\$\{?([A-Za-z_][A-Za-z0-9_]*)\}?")
+
+
+def _shell_values(command: str) -> dict[str, list[str]]:
+    """Literal values a command gives its variables: ``u=https://...`` and ``for u in a b; do``."""
+    values: dict[str, list[str]] = {}
+    for segment in _segments(command):
+        tokens = _tokens(_redirections(segment)[0])
+        if len(tokens) >= 3 and tokens[0] == "for" and tokens[2] == "in":
+            values.setdefault(tokens[1], []).extend(t for t in tokens[3:] if t not in ("do", ";"))
+            continue
+        for token in tokens:
+            match = re.fullmatch(r"(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)=(.*)", token)
+            if not match:
+                break
+            values.setdefault(match.group(1), []).append(match.group(2))
+        if tokens and tokens[0] in ("export", "readonly", "declare", "local"):
+            for token in tokens[1:]:
+                match = re.fullmatch(r"([A-Za-z_][A-Za-z0-9_]*)=(.*)", token)
+                if match:
+                    values.setdefault(match.group(1), []).append(match.group(2))
+    return values
+
+
+def _expand(arg: str, values: dict[str, list[str]], depth: int = 0) -> list[str] | None:
+    """Every literal value of an argument that uses variables, or None when one is not set literally."""
+    if "$" not in arg:
+        return [arg]
+    if depth > 3 or "$(" in arg or "`" in arg:
+        return None
+    match = VAR_RE.search(arg)
+    if match is None:
+        return None
+    options = values.get(match.group(1))
+    if not options or any("$(" in option or "`" in option for option in options):
+        return None
+    results: list[str] = []
+    for option in options:
+        expanded = _expand(arg[:match.start()] + option + arg[match.end():], values, depth + 1)
+        if expanded is None:
+            return None
+        results.extend(expanded)
+    return results
 
 
 def _tokens(segment: str) -> list[str]:
@@ -320,6 +464,13 @@ DOWNLOAD_REFUSAL = ("Download files only with `python agent_pipeline/fetch_publi
                     "the hash and refuses participant data. curl and wget may only print pages and API listings "
                     "to the terminal (or a pipe).")
 SEND_REFUSAL = "The materials search only reads public pages: sending data (POST, upload, form) is not allowed."
+FILE_OUTPUT_REFUSAL = ("Refused only because curl or wget would write to a file (-o, -O, > file, tee); the host itself "
+                       "is reachable. Run the same command again printing to the terminal or piping into "
+                       "`python3 -c` or `jq`. Download a material file with "
+                       "`python agent_pipeline/fetch_public.py --job <job> <url>`.")
+VARIABLE_REFUSAL = ("The guard cannot see which URL `{}` holds, so fetch_public.py was not run. Write each URL "
+                    "literally in the command (a `for u in <url> <url>; do ... \"$u\"; done` loop over literal "
+                    "URLs is fine).")
 
 
 def _check_url(url: str, hosts: list[str], download_ok: bool = False) -> str | None:
@@ -331,7 +482,7 @@ def _check_url(url: str, hosts: list[str], download_ok: bool = False) -> str | N
     return None
 
 
-def _check_fetcher(program: str, args: list[str], segment: str, hosts: list[str]) -> str | None:
+def _check_fetcher(program: str, args: list[str], redirections: list[tuple[str, str]], hosts: list[str]) -> str | None:
     """curl, wget and similar: read-only, to the terminal, listed hosts, no file downloads."""
     send, route, output, (send_short, route_short, output_short) = CURL_FLAGS if program != "wget" else WGET_FLAGS
     for position, flag in enumerate(args):
@@ -346,10 +497,10 @@ def _check_fetcher(program: str, args: list[str], segment: str, hosts: list[str]
             return f"`{name}` is not allowed in the materials search."
         elif name in output:
             if value not in ("/dev/null", "-"):
-                return DOWNLOAD_REFUSAL
+                return FILE_OUTPUT_REFUSAL
         elif re.fullmatch(r"-[A-Za-z]\S+", flag) and flag[:2] in output and not flag[2:].isalpha():
             if flag[2:] not in ("/dev/null", "-"):  # -o/tmp/x attached value
-                return DOWNLOAD_REFUSAL
+                return FILE_OUTPUT_REFUSAL
         elif re.fullmatch(r"-[A-Za-z]{2,}", flag):  # bundled short flags such as -sLo
             letters = set(flag[1:])
             if letters & set(send_short):
@@ -357,11 +508,10 @@ def _check_fetcher(program: str, args: list[str], segment: str, hosts: list[str]
             if letters & set(route_short):
                 return f"`{flag}` is not allowed in the materials search."
             if letters & set(output_short) and value not in ("/dev/null", "-"):
-                return DOWNLOAD_REFUSAL
+                return FILE_OUTPUT_REFUSAL
     # Output redirection to a file (stderr redirection and /dev/null are fine).
-    for match in re.finditer(r"(?<![0-9&>])>{1,2}\s*(\S+)", segment):
-        if match.group(1) not in ("/dev/null",) and not match.group(1).startswith("&"):
-            return DOWNLOAD_REFUSAL
+    if _writes_file(redirections):
+        return FILE_OUTPUT_REFUSAL
     head_only = any(a in ("-I", "--head", "--spider") or re.fullmatch(r"-[A-Za-z]*I[A-Za-z]*", a) for a in args)
     for arg in args:
         for url in _urls_in(arg):
@@ -421,17 +571,30 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
             reason = _check_code(body, hosts) or (_check_bash(body, hosts, cwd) if program in SHELLS else None)
             if reason:
                 return reason
+    if re.search(r"HUMANSTUDY_ALLOWED_HOSTS_FILE\s*=|export\s+HUMANSTUDY_ALLOWED_HOSTS_FILE", stripped):
+        return "The research-host list is fixed for this build and cannot be replaced."
+    values = _shell_values(stripped)
     previous_fetch = False
-    for segment in _segments(stripped):
-        program, args = _program(_tokens(segment))
+    fetch_pipeline = False  # inside a pipeline that a curl or wget feeds
+    for segment, pipes_on in _pipeline_segments(stripped):
+        clean, redirections = _redirections(segment)
+        program, args = _program(_tokens(clean))
         if previous_fetch and (program in SHELLS or program.startswith(INTERPRETERS)
                                and (not args or args[0] in ("-", "-i", "/dev/stdin"))):
             return "Downloaded content must never be run: do not pipe a download into a shell or interpreter."
-        if previous_fetch and program == "tee":
-            return DOWNLOAD_REFUSAL
-        if program in SHELLS and args and "-c" not in args and re.search(r"\b(curl|wget)\b", stripped):
+        if fetch_pipeline and (program == "tee" or not program.startswith(INTERPRETERS) and _writes_file(redirections)):
+            return FILE_OUTPUT_REFUSAL
+        reads_input = any("<" in operator for operator, _ in redirections)
+        if program in SHELLS and (args or reads_input) and "-c" not in args and re.search(r"\b(curl|wget)\b", stripped):
             return "Downloaded content must never be run."
+        for operator, text in redirections:  # here-strings are code for the program that reads them
+            if operator.endswith("<<<") and (program in SHELLS or program.startswith(INTERPRETERS)):
+                reason = _check_code(text, hosts) or (_check_bash(text, hosts, cwd, depth + 1)
+                                                      if program in SHELLS else None)
+                if reason:
+                    return reason
         previous_fetch = False
+        fetch_pipeline = fetch_pipeline and pipes_on
         if program in FORBIDDEN_PROGRAMS:
             return f"`{program}` is not available to the materials search."
         if program in SHELLS and "-c" in args:
@@ -455,7 +618,8 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
                 return "Proxy settings are not allowed in the materials search."
         elif program in FETCHERS:
             previous_fetch = True
-            reason = _check_fetcher(program, args, segment, hosts)
+            fetch_pipeline = pipes_on
+            reason = _check_fetcher(program, args, redirections, hosts)
             if reason:
                 return reason
         elif program.startswith(INTERPRETERS):
@@ -468,8 +632,17 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
                 position = args.index(script)
                 rest = args[position + 1:]
                 skip = {i + 1 for i, a in enumerate(rest) if a in ("--job", "--name")}
-                urls = [a for i, a in enumerate(rest) if i not in skip and not a.startswith("-")]
-                reason = next((r for r in (_check_url(u, hosts, download_ok=True) for u in urls) if r), None)
+                urls: list[str] = []
+                reason = None
+                for i, arg in enumerate(rest):
+                    if i in skip or arg.startswith("-"):
+                        continue
+                    expanded = _expand(arg, values)
+                    if expanded is None:
+                        reason = VARIABLE_REFUSAL.format(arg[:80])
+                        break
+                    urls.extend(expanded)
+                reason = reason or next((r for r in (_check_url(u, hosts, download_ok=True) for u in urls) if r), None)
             else:
                 reason = _check_code(_read_script(script, cwd), hosts) if script else None
                 # URLs handed to any other script are checked like a fetcher's.

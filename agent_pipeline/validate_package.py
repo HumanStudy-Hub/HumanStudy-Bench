@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import os
 import re
 import subprocess
 import sys
@@ -66,9 +67,28 @@ def main() -> None:
         capture_output=True,
         text=True,
         timeout=60,
+        env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
     )
     if result.returncode != 0:
         raise SystemExit("adapter smoke test failed:\n" + result.stdout + result.stderr)
+    # The pipeline's own smoke test: an answer-aware stub must take every arm to evaluate().
+    smoke = subprocess.run(
+        [sys.executable, str(Path(__file__).resolve().parent / "smoke_test.py"), str(root)],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        timeout=300,
+        env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
+    )
+    if smoke.returncode != 0:
+        try:
+            report = json.loads(smoke.stdout)
+            detail = "\n- ".join(report.get("problems") or ["no detail"])
+            arms = "\n".join(f"  {arm}: {c.get('statuses')}" for arm, c in report.get("arms", {}).items())
+        except ValueError:
+            detail, arms = (smoke.stdout + smoke.stderr)[-4000:], ""
+        raise SystemExit("answer-aware smoke test failed (python agent_pipeline/smoke_test.py <package>):\n- "
+                         + detail + ("\nsessions by arm:\n" + arms if arms else ""))
 
     def _defines(path: Path, name: str) -> bool:
         return bool(re.search(rf"^\s*def\s+{name}\s*\(", path.read_text(encoding="utf-8"), re.MULTILINE))

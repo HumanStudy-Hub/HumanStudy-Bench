@@ -13,6 +13,7 @@ from agent_pipeline.run_agent import (
 )
 from agent_pipeline.build_prompt import conversation_context, fetch_materials, referenced_messages
 from agent_pipeline.finalize_job import finalize
+from package_fixture import write_runnable
 from agent_pipeline.studio_output import validate_build_sidecars, validate_discussion, validate_study_model
 
 
@@ -393,6 +394,7 @@ def test_validate_complete_agent_package(tmp_path: Path) -> None:
             path.write_text("def evaluate(sessions):\n    return {}\n")
         else:
             path.write_text("Generated test file\n")
+    write_runnable(study)
 
     result = subprocess.run([
         sys.executable,
@@ -539,6 +541,9 @@ def test_watchdog_stops_agent_after_validation(tmp_path: Path) -> None:
         "        path.write_text(json.dumps({}) + '\\n')\n"
         "    else:\n"
         "        path.write_text('Generated\\n')\n"
+        f"sys.path.insert(0, {str(ROOT / 'tests')!r})\n"
+        "from package_fixture import write_runnable\n"
+        "write_runnable(root)\n"
         "print('package written; waiting forever', flush=True)\n"
         "time.sleep(60)\n"
     )

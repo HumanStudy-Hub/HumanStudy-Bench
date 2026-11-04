@@ -267,9 +267,14 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
     if sources and not metadata.get("material_searches"):
         problems.append("source/paper_metadata.json material_searches must record where materials were searched")
 
+    recorded = {source.get("path") for source in sources if isinstance(source, dict) and isinstance(source.get("path"), str)}
     for entry in fetch_log:
         if isinstance(entry, dict) and looks_like_participant_data(str(entry.get("path", ""))):
             problems.append(f"{entry.get('path')} looks like participant data, which is never downloaded")
+        elif isinstance(entry, dict) and isinstance(entry.get("path"), str) and entry["path"] not in recorded:
+            problems.append(f"{entry['path']} was downloaded (input/external/fetch_log.json) but is not in "
+                            "source/paper_metadata.json external_sources: record every downloaded file, and say "
+                            "in its `version` when it was not used and why")
 
     try:
         study = json.loads((root / "study.json").read_text(encoding="utf-8"))
