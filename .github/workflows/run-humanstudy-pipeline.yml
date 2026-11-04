@@ -217,6 +217,11 @@ jobs:
               "packageReady": False,
               "message": "The Studio discussion failed or was cancelled" if mode == "discuss" else "The study build failed or was cancelled",
           })
+          # run_agent.py sets researcherMessage when the agent stopped with a
+          # reply (e.g. a materials request); show that instead of the generic line.
+          note = data.get("researcherMessage")
+          if mode != "discuss" and isinstance(note, str) and note.strip():
+              data["message"] = note.strip()[:1000]
           path.write_text(json.dumps(data, indent=2) + "\n")
           PY
 

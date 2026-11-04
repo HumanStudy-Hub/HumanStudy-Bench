@@ -145,6 +145,24 @@ def ensure_readme(package: Path) -> None:
     )
 
 
+def stopped_reply_message(package: Path) -> str | None:
+    """The status line for a build the agent stopped without completing, taken
+    from the opening lines of its researcher reply (for example a request for
+    materials the paper does not print). None when there is no reply."""
+    root = package_root(package)
+    try:
+        text = (root / "studio-reply.md").read_text(errors="replace") if root else ""
+    except OSError:
+        return None
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    labelled = [line for line in lines if line.startswith(("Ready to run:", "Needs you:"))]
+    picked = labelled or lines[:2]
+    if not picked:
+        return None
+    message = "The study build stopped before the package could run. " + " ".join(picked)
+    return message if len(message) <= 1000 else message[:999] + "\u2026"
+
+
 MAX_REPAIR_ROUNDS = 3
 # Minutes of the agent budget held back for the repair loop. The first build pass
 # is stopped early enough to leave this much time; at most half the budget.
@@ -666,7 +684,7 @@ def main() -> None:
         shutil.rmtree(args.job / PRE_REPAIR_DIR, ignore_errors=True)
         for stale in ("logs/repair.json", "logs/repair.diff"):
             (args.job / stale).unlink(missing_ok=True)
-        update_job_state(args.job, repaired=None, repair=None, error=None)
+        update_job_state(args.job, repaired=None, repair=None, error=None, researcherMessage=None)
 
     def check_output() -> tuple[bool, str]:
         if not studio_complete(args.job, request_id):
@@ -832,7 +850,8 @@ def main() -> None:
             # done; a repair turn could write it without doing the work. Never
             # repair on it alone.
             reason = "studio_incomplete"
-            update_job_state(args.job, error="The agent stopped before completing the Studio request; no repair was attempted.")
+            update_job_state(args.job, error="The agent stopped before completing the Studio request; no repair was attempted.",
+                             researcherMessage=stopped_reply_message(package))
         elif not valid and mode == "build":
             def publish_repair(number: int, max_rounds: int, errors: str) -> None:
                 if not publisher:

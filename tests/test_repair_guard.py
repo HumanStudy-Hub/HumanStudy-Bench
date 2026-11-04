@@ -595,6 +595,24 @@ def test_watchdog_does_not_repair_missing_studio_marker(tmp_path: Path) -> None:
     assert not (job / "pre_repair").exists()
     state = json.loads((job / "job.json").read_text())
     assert "repaired" not in state and "no repair was attempted" in state["error"]
+    assert "researcherMessage" not in state  # the fixture writes no researcher reply
+
+
+def test_stopped_build_reports_the_agents_reply(tmp_path: Path) -> None:
+    from agent_pipeline.run_agent import stopped_reply_message
+    package = tmp_path / "package"
+    assert stopped_reply_message(package) is None
+    root = package / "paper"
+    root.mkdir(parents=True)
+    assert stopped_reply_message(package) is None
+    (root / "studio-reply.md").write_text(
+        "Ready to run: Nothing yet.\nNeeds you: Please upload the supplement.\n"
+        "Licence: CC BY 3.0 (printed on page 1)\n\n**Questions**\n")
+    assert stopped_reply_message(package) == (
+        "The study build stopped before the package could run. "
+        "Ready to run: Nothing yet. Needs you: Please upload the supplement.")
+    (root / "studio-reply.md").write_text("x" * 5000)
+    assert len(stopped_reply_message(package)) == 1000
 
 
 def test_watchdog_clears_stale_state_when_first_pass_is_valid(tmp_path: Path) -> None:

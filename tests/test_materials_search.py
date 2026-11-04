@@ -610,6 +610,11 @@ def test_fetch_checks_server_name_archives_and_redirects(tmp_path: Path, monkeyp
         handler.redirect_request(None, None, 302, "", {}, "https://evil.example.com/x")
     with pytest.raises(ValueError, match="https"):
         handler.redirect_request(None, None, 302, "", {}, "http://osf.io/x")
+    # journal.sjdm.org (Judgment and Decision Making) supplements now live on jbaron.org.
+    jdm = fetch_public._CheckedRedirects(["sjdm.org"])
+    url = "https://jbaron.org/journal/15/15923a/supp.pdf"
+    request = fetch_public.urllib.request.Request("https://journal.sjdm.org/15/15923a/supp.pdf")
+    assert jdm.redirect_request(request, None, 301, "", {}, url).full_url == url
 
 
 def test_guard_reads_scripts_and_refuses_secret_values(tmp_path: Path, monkeypatch) -> None:
