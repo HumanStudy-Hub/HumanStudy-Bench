@@ -513,7 +513,7 @@ def test_guard_refuses_wrappers_functions_and_heredocs_that_move_the_shell(repo:
     refused = [
         f"f(){{ cd /tmp; }}; f; {helper}",
         f"cd {repo} && f(){{ cd /tmp; }}; f; {helper}",
-        f"cd {repo} && true; {helper}",            # a leading cd covers only the first command
+        f"cd {repo} && make; {helper}",            # after a command that may move the shell (a Makefile, ...)
         f"eval 'cd /tmp'; {helper}",
         f"if cd /tmp; then {helper}; fi",
         f"cd /tmp && bash <<EOF\n{helper}\nEOF",
@@ -572,3 +572,32 @@ def test_licence_walk_stops_at_an_explicit_no_license(tmp_path: Path, monkeypatc
 def test_counts_with_words_get_printed_positions() -> None:
     q = Question("q", options=["0 times", "1 time", "2 times"])
     assert q.codes == ["1", "2", "3"] and render_options(q).split("\n")[0] == "1. 0 times"
+
+
+def test_second_review_interpreter_options_and_follow_up_commands(repo: Path) -> None:
+    (repo / "e.py").write_text("import urllib.request\nurllib.request.urlopen('https://unlisted.net/')\n")
+    (repo / "e.pl").write_text("use LWP::Simple; get('https://unlisted.net/');\n")
+    (repo / "e.rb").write_text("require 'net/http'; Net::HTTP.get(URI('https://unlisted.net/'))\n")
+    helper = f"{repo}/agent_pipeline/fetch_public.py --job j https://osf.io/download/abc/"
+    refused = [
+        f"ruby -X /tmp agent_pipeline/fetch_public.py --job j https://osf.io/download/abc/",
+        f"perl -W e.pl {helper}", f"ruby -W e.rb {helper}", f"ruby -r e.rb {helper}",
+        "python -mrunpy e.py", "perl -mstrict e.pl",
+        "x=d; c$x /tmp; python agent_pipeline/fetch_public.py --job j https://osf.io/download/abc/",
+        "python agent_pipeline/fetch_public.py --s --job j", "python agent_pipeline/fetch_public.py --scru --job j",
+    ]
+    for command in refused:
+        assert _guard(command, str(repo)) is not None, command
+    url = "https://osf.io/download/abc/"
+    allowed = [
+        f"python agent_pipeline/fetch_public.py --job J {url} && cd J && unzip -l x.zip",
+        f"cd {repo} && python agent_pipeline/fetch_public.py --job J {url} && "
+        f"python agent_pipeline/fetch_public.py --job J {url}",
+        f"cd {repo} && for u in {url} https://osf.io/download/def/; do "
+        'python agent_pipeline/fetch_public.py --job J "$u"; done',
+        f"cd {repo} && python agent_pipeline/fetch_public.py --job J {url} --name x.qsf 2>&1 | tail -3; "
+        "sha256sum J/input/external/x.qsf",
+    ]
+    assert _guard(allowed[0], str(repo)) is None  # the cd comes after the download
+    for command in allowed[1:]:
+        assert _guard(command, "/") is None, command

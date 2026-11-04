@@ -623,6 +623,10 @@ UNKNOWN_CWD = "\0unknown-cwd"
 # `cd <literal dir> &&` at the very start of a command: the rest runs there, or not at all.
 LEADING_CD_RE = re.compile(r"""^\s*(?:cd|pushd)[ \t]+('[^'\n]*'|"[^"$`\\\n]*"|[^\s;&|<>()$`\\'"#*?\[\]{}!-][^\s;&|<>()$`\\'"*?\[\]{}!]*)[ \t]*&&""")
 CD_PROGRAMS = ("cd", "pushd", "popd")
+# External, read-only tools that cannot move the shell (no function may shadow them: a function
+# definition anywhere in the command makes the directory unknown).
+KEEPS_DIR = {"tail", "head", "grep", "sha256sum", "shasum", "md5sum", "ls", "cat", "jq", "echo", "printf", "wc",
+             "unzip", "file", "sort", "uniq", "true", "stat", "du"}
 # Anything that can move the shell elsewhere without a plain `cd` segment: a cd inside another command,
 # functions, eval, traps, sourced files, BASH_ENV, conditions.
 DIR_CHANGE_RE = re.compile(r"(?<![\w./-])(cd|pushd|popd|eval|trap|source|function|if|while|until|case|select|"
@@ -688,13 +692,20 @@ def _helper_refusal(script: str, cwd: str | None) -> str:
             f"command with `cd {REPO_ROOT} && python agent_pipeline/fetch_public.py ...`.")
 
 
-def _script_arg(args: list[str]) -> str:
-    """The script an interpreter runs: the first argument that is not an option or an option's value."""
+def _script_arg(args: list[str], program: str = "python") -> str:
+    """The script an interpreter runs: the first argument that is not an option (or, for python, its value).
+
+    Option values are skipped only for python (``-X opt``, ``-W arg``); perl, ruby and node read the
+    same letters differently (ruby ``-X dir`` changes directory), so for them it is the first
+    non-option argument, as before.
+    """
+    if not program.startswith("python"):
+        return next((a for a in args if not a.startswith("-")), "")
     index = 0
     while index < len(args):
         arg = args[index]
-        if arg in ("-X", "-W", "--check-hash-based-pycs", "-r", "--require"):
-            index += 2  # python -X opt / -W arg, node -r module
+        if arg in ("-X", "-W", "--check-hash-based-pycs"):
+            index += 2  # python -X opt / -W arg
             continue
         if arg == "-m" or (arg.startswith("-m") and len(arg) > 2 and not arg.startswith("--")):
             return ""   # a module, not a script file
@@ -737,21 +748,31 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
     values = _shell_values(stripped)
     previous_fetch = False
     fetch_pipeline = False  # inside a pipeline that a curl or wget feeds
-    # A leading `cd <dir> &&` is trusted for the first command after it (and assignments before it) only;
-    # without one, the session's directory holds until anything that can move the shell appears.
-    next_cwd = UNKNOWN_CWD if moves else after_cd
+    # The directory is followed segment by segment: a leading `cd <dir> &&` sets it; from the first segment
+    # that could move the shell (a cd the guard does not follow, a function, eval, a program name built from
+    # variables) it is unknown. In a loop, any such segment makes the whole command unknown. After a leading
+    # cd, only commands that cannot move the shell (the helper, assignments, read-only tools) keep it known.
+    loop = bool(re.search(r"(?<![\w.-])(for|while|until|select)(?![\w.-])", rest))
+    next_cwd = UNKNOWN_CWD if moves and loop else after_cd
     for position_in_command, (segment, pipes_on) in enumerate(_pipeline_segments(stripped)):
         clean, redirections = _redirections(segment)
         program, args = _program(_tokens(clean))
         if program.startswith("\0wrapper:"):
             return WRAPPER_REFUSAL.format(program.split(":", 1)[1])
-        if program in CD_PROGRAMS and position_in_command >= leading:
-            next_cwd = UNKNOWN_CWD  # a cd the guard does not follow: later relative paths are unknown
+        first = (_tokens(clean) or [""])[0]
+        if position_in_command >= leading and (
+                program in CD_PROGRAMS or DIR_CHANGE_RE.search(segment)
+                or (re.search(r"[$`]", first) and not re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", first))
+                or (program and re.search(r"[$`]", program))):
+            next_cwd = UNKNOWN_CWD  # from here on the shell may be elsewhere
         cwd = next_cwd  # the directory this segment runs in
         assignment_only = bool(_tokens(clean)) and all(
             re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", t) for t in _tokens(clean))
-        if leading and position_in_command >= leading and not assignment_only:
-            next_cwd = UNKNOWN_CWD  # after the first command the shell may have moved (a function, ...)
+        keeps_dir = assignment_only or program in KEEPS_DIR or first in ("for", "done") or (
+            program.startswith("python") and bool(_script_arg(args, program))
+            and _is_fetch_helper(_script_arg(args, program), cwd))
+        if leading and position_in_command >= leading and not keeps_dir:
+            next_cwd = UNKNOWN_CWD  # after another command the shell may have moved
         if previous_fetch and (program in SHELLS or program.startswith(INTERPRETERS)
                                and (not args or args[0] in ("-", "-i", "/dev/stdin"))):
             return "Downloaded content must never be run: do not pipe a download into a shell or interpreter."
@@ -800,20 +821,22 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
             if reason:
                 return reason
         elif program.startswith(INTERPRETERS):
-            script = _script_arg(args)
+            script = _script_arg(args, program)
             if "-c" in args or "-e" in args:
                 flag = "-c" if "-c" in args else "-e"
                 position = args.index(flag)
                 reason = _check_code(args[position + 1] if position + 1 < len(args) else "", hosts)
-            elif script and Path(script).name == "fetch_public.py" and not _is_fetch_helper(script, cwd):
+            elif script and Path(script).name == "fetch_public.py" and not (
+                    program.startswith("python") and _is_fetch_helper(script, cwd)):
                 hosts_named = [host_of_any(url) for arg in args for url in (_urls_in(arg) if "://" in arg else [])]
                 reason = next((HOST_REFUSAL.format(h or "an unreadable URL") for h in hosts_named
                                if not host_allowed(h, hosts)), None) or _helper_refusal(script, cwd)
             elif "://" in script:
                 reason = f"`{script[:80]}` is not a script file: give the interpreter the script, then the URL."
-            elif script and _is_fetch_helper(script, cwd) and "--scrub" in args:
+            elif script and _is_fetch_helper(script, cwd) and any(
+                    len(a.split("=")[0]) > 2 and "--scrub".startswith(a.split("=")[0]) for a in args):
                 reason = "`fetch_public.py --scrub` is run by the pipeline before a commit, not by the build agent."
-            elif script and _is_fetch_helper(script, cwd):
+            elif script and program.startswith("python") and _is_fetch_helper(script, cwd):
                 position = args.index(script)
                 rest = args[position + 1:]
                 skip = {i + 1 for i, a in enumerate(rest) if a in ("--job", "--name")}
@@ -835,8 +858,10 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
                 # Every directory the script may be read from: where the guard believes the shell is, where a
                 # leading cd went, and the session's own directory (a cd it cannot follow never hides a script).
                 places = [c for c in dict.fromkeys((cwd, after_cd, session_cwd)) if c != UNKNOWN_CWD]
-                code = "\n".join(_read_script(script, place) for place in places)
-                reason = _check_code(code, hosts) if script else None
+                # Every non-option argument may be the script (perl -mstrict x.pl, python -mrunpy x.py).
+                candidates = list(dict.fromkeys([script] + [a for a in args if not a.startswith("-")]))[:10]
+                code = "\n".join(_read_script(c, place) for c in candidates if c for place in places)
+                reason = _check_code(code, hosts) if code.strip() else None
                 # URLs handed to any other script are checked like a fetcher's.
                 for arg in args:
                     for url in _urls_in(arg) if "://" in arg else []:

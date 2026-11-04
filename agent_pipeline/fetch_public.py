@@ -498,7 +498,8 @@ def _quotes_by_source(job: Path) -> dict[str, list[str]]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter,
+                                     allow_abbrev=False)
     parser.add_argument("--job", required=True, type=Path)
     parser.add_argument("--name", help="file name to save as (default: the server's name)")
     parser.add_argument("--licence", "--license", dest="licence", metavar="OSF_URL",
