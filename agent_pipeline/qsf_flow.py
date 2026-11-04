@@ -55,7 +55,6 @@ from pathlib import Path
 from typing import Any, Iterable
 
 READER_VERSION = 1
-TRASH_ID_RE = re.compile(r"(?i)trash")
 PIPE_RE = re.compile(r"\$\{[^}]+\}")
 HIDDEN_TYPES = {"Timing", "Meta", "Captcha"}  # recorded silently, or not a question participants answer
 OPERATORS = {
@@ -90,6 +89,7 @@ def html_to_text(value: Any, markers: bool = True) -> str:
     if not isinstance(value, str):
         return ""
     text = re.sub(r"(?is)<(script|style)\b.*?</\1\s*>", "", value)
+    text = re.sub(r"\s+", " ", text)  # a line break in the HTML source renders as a space
     text = re.sub(r"(?i)<br\s*/?>", "\n", text)
     text = re.sub(r"(?i)</?(p|div|li|ul|ol|h[1-6]|tr|table|blockquote)\b[^>]*>", "\n", text)
     if markers:
@@ -154,7 +154,9 @@ def _questions(data: dict) -> dict[str, dict]:
 
 
 def _is_trash(block: dict) -> bool:
-    return str(block.get("Type", "")).lower() == "trash" or bool(TRASH_ID_RE.search(str(block.get("Description", ""))))
+    if block.get("Type"):
+        return str(block["Type"]).lower() == "trash"
+    return str(block.get("Description", "")).strip().lower() == "trash / unused questions"
 
 
 # --------------------------------------------------------------------------- logic
@@ -295,13 +297,17 @@ def _validation(q: dict, questions: dict[str, dict]) -> dict:
     settings = settings if isinstance(settings, dict) else {}
     force = str(settings.get("ForceResponse", "OFF"))
     force_type = str(settings.get("ForceResponseType", ""))
-    if force == "ON" and force_type != "RequestResponse":
-        response = "forced"
-    elif force_type == "RequestResponse" or force == "RequestResponse":
+    # ForceResponse decides; ForceResponseType only says which kind when it is on
+    # (an "OFF" question can keep a remembered type from an earlier setting).
+    if force == "RequestResponse" or (force == "ON" and force_type == "RequestResponse"):
         response = "requested"
+    elif force == "ON":
+        response = "forced"
     else:
         response = "optional"
     record: dict[str, Any] = {"response": response}
+    if response == "requested":
+        record["response_note"] = "the participant is asked to answer but may continue without answering"
     kind = settings.get("Type")
     if kind and kind != "None":
         record["type"] = kind
@@ -311,23 +317,27 @@ def _validation(q: dict, questions: dict[str, dict]) -> dict:
         record["must_satisfy"] = render_logic(logic, questions)
         message = custom.get("Message")
         if isinstance(message, dict):
-            record["message"] = html_to_text(message.get("description"), markers=False) or None
-            record["message_note"] = ("the export stores the message's description from the account's message "
-                                      "library; the text shown is kept there and normally reads the same")
+            record["message_description"] = html_to_text(message.get("description"), markers=False) or None
+            record["message_note"] = ("the export stores only the description of a message in the account's "
+                                      "message library; it may be the shown text (\"The answer is incorrect. "
+                                      "Please choose again.\") or just the message's name (\"Require "
+                                      "response\"). The shown text is not in the export")
         own = [e for e in _logic_expressions(logic) if e.get("QuestionID") == q.get("QuestionID")
                and e.get("Operator") == "Selected"]
         locators = [str(e.get("LeftOperand") or e.get("ChoiceLocator") or "") for e in own]
         choice_ids = [m.group(1) for loc in locators for m in [re.search(r"/SelectableChoice/([^/]+)$", loc)] if m]
-        if choice_ids and len(choice_ids) == len(list(_logic_expressions(logic))):
+        conjunctions = {str(e.get("Conjuction") or e.get("Conjunction") or "").lower()
+                        for e in list(_logic_expressions(logic))[1:]}
+        if choice_ids and len(choice_ids) == len(list(_logic_expressions(logic))) and conjunctions <= {"", "or"}:
             record["correct_choices"] = [{"id": c, "text": _choice_text(questions, q["QuestionID"], c)}
                                          for c in choice_ids]
-            record["summary"] = ("only the correct answer is accepted (" + "; ".join(
+            record["summary"] = ("only the correct answer is accepted (" + " or ".join(
                 f'"{c["text"]}"' for c in record["correct_choices"]) + "); any other answer is refused"
-                + (f' with the message "{record["message"]}"' if record.get("message") else "")
+                + (f' (message description: "{record["message_description"]}")' if record.get("message_description") else "")
                 + " and the participant must answer again")
         else:
             record["summary"] = ("the answer must satisfy the condition in must_satisfy, otherwise it is refused"
-                                 + (f' with the message "{record["message"]}"' if record.get("message") else ""))
+                                 + (f' with the message "{record["message_description"]}"' if record.get("message_description") else ""))
     elif kind == "ContentType":
         content = settings.get("ContentType")
         record["content"] = content
@@ -351,6 +361,8 @@ def _choices(q: dict, questions: dict[str, dict], key: str, order_key: str) -> l
             continue
         seen.add(cid)
         item = choices[cid] if isinstance(choices[cid], dict) else {"Display": str(choices[cid])}
+        if not html_to_text(item.get("Display"), markers=False) and str(item.get("TextEntry", "")).lower() != "true":
+            continue
         record: dict[str, Any] = {"id": cid, "text": html_to_text(item.get("Display")),
                                   "text_plain": html_to_text(item.get("Display"), markers=False)}
         if cid in recodes:
@@ -379,7 +391,7 @@ def _question(q: dict, questions: dict[str, dict], notes: list[str]) -> dict:
         "text": html_to_text(raw), "text_plain": html_to_text(raw, markers=False),
     }
     choices = _choices(q, questions, "Choices", "ChoiceOrder")
-    if qtype == "TE" and selector != "FORM":
+    if (qtype == "TE" and selector != "FORM") or qtype in HIDDEN_TYPES:
         choices = []  # leftover placeholders ("Click to write Choice 1") that a text box never shows
     if choices:
         record["choices" if qtype != "Matrix" else "rows"] = choices
@@ -395,7 +407,8 @@ def _question(q: dict, questions: dict[str, dict], notes: list[str]) -> dict:
                                                       "SnapToGrid", "ShowValue") if k in config}
         if isinstance(q.get("Labels"), dict):
             record["scale"]["labels"] = [html_to_text(v.get("Display") if isinstance(v, dict) else v)
-                                         for _, v in sorted(q["Labels"].items(), key=lambda kv: str(kv[0]))]
+                                         for _, v in sorted(q["Labels"].items(),
+                                                           key=lambda kv: int(kv[0]) if str(kv[0]).isdigit() else 0)]
     rand = _randomisation(q)
     if rand:
         record["choice_randomisation"] = rand
@@ -420,7 +433,14 @@ def _question(q: dict, questions: dict[str, dict], notes: list[str]) -> dict:
         record["has_javascript"] = True
         notes.append(f"{qid} has JavaScript, which can hide, time or auto-advance it; read it before relying on this record")
     if isinstance(q.get("DynamicChoices"), dict):
-        record["carry_forward"] = q["DynamicChoices"].get("Locator")
+        record["carry_forward"] = {"from": q["DynamicChoices"].get("Locator"),
+                                   "note": "the options shown are carried forward from another question's answers"}
+    if isinstance(q.get("SearchSource"), dict) and q["SearchSource"]:
+        source = q["SearchSource"]
+        record["autocomplete"] = {"free_response": str(source.get("AllowFreeResponse", "")).lower() == "true",
+                                  "note": "the text box suggests entries from a Qualtrics list that is not in the "
+                                          "export; label that list missing (a list elsewhere in the file, e.g. in "
+                                          "the Trash block, is not this list)"}
     return record
 
 
@@ -429,7 +449,7 @@ def _question(q: dict, questions: dict[str, dict], notes: list[str]) -> dict:
 def _block_record(block: dict, questions: dict[str, dict], notes: list[str]) -> tuple[dict, list[str]]:
     """The block as shown, and the question ids an advanced randomisation never displays."""
     options = block.get("Options") if isinstance(block.get("Options"), dict) else {}
-    elements = [e for e in block.get("BlockElements", []) if isinstance(e, dict)]
+    elements = [e for e in block.get("BlockElements") or [] if isinstance(e, dict)]
     order = [e["QuestionID"] for e in elements if e.get("Type") == "Question" and isinstance(e.get("QuestionID"), str)]
     pages: list[list[str]] = [[]]
     for element in elements:
@@ -445,32 +465,33 @@ def _block_record(block: dict, questions: dict[str, dict], notes: list[str]) -> 
     shuffled: list[str] = []
     mode = str(options.get("RandomizeQuestions", "false"))
     if mode == "Advanced":
-        advanced = options.get("Randomization", {}).get("Advanced", {}) if isinstance(options.get("Randomization"), dict) else {}
-        advanced = advanced if isinstance(advanced, dict) else {}
-        undisplayed = [q for q in advanced.get("Undisplayed", []) if isinstance(q, str)]
+        randomization = options.get("Randomization") if isinstance(options.get("Randomization"), dict) else {}
+        advanced = randomization.get("Advanced") if isinstance(randomization.get("Advanced"), dict) else {}
+        undisplayed = [q for q in advanced.get("Undisplayed") or [] if isinstance(q, str)]
         per_page = int(str(advanced.get("QuestionsPerPage") or 0) or 0) if str(advanced.get("QuestionsPerPage") or 0).isdigit() else 0
         record["question_randomisation"] = {
             "type": "advanced", "fixed_order": advanced.get("FixedOrder"),
             "randomize_all": advanced.get("RandomizeAll"), "random_subset": advanced.get("RandomSubSet"),
             "total_random_subset": advanced.get("TotalRandSubset"), "undisplayed": undisplayed,
             "questions_per_page": per_page,
-            "even_presentation": bool(options.get("Randomization", {}).get("EvenPresentation")),
+            "even_presentation": bool(randomization.get("EvenPresentation")),
             "summary": "questions in fixed_order keep their place; each '{~Randomized~}' slot is filled with a "
                        "question from randomize_all in a new random order per participant"
                        + ("; random_subset questions are drawn at random" if advanced.get("RandomSubSet") else "")
                        + ("; undisplayed questions are never shown" if undisplayed else "")}
         fixed = advanced.get("FixedOrder") if isinstance(advanced.get("FixedOrder"), list) else []
-        pool = iter([q for q in advanced.get("RandomizeAll", []) or [] if isinstance(q, str)])
+        pool = iter([q for q in advanced.get("RandomizeAll") or [] if isinstance(q, str)])
+        subset = [q for q in advanced.get("RandomSubSet") or [] if isinstance(q, str)]
         slots = []
         for slot in fixed:
             if slot == "{~Randomized~}":
                 slot = next(pool, None)
             elif slot == "{~SubSet~}":
-                slot = None  # filled from random_subset; reported in question_randomisation
+                slot = subset.pop(0) if subset else None  # drawn at random from random_subset
             if isinstance(slot, str) and slot not in undisplayed:
                 slots.append(slot)
-        shuffled = [q for q in advanced.get("RandomizeAll", []) or [] if isinstance(q, str)]
-        shuffled += [q for q in advanced.get("RandomSubSet", []) or [] if isinstance(q, str)]
+        shuffled = [q for q in advanced.get("RandomizeAll") or [] if isinstance(q, str)]
+        shuffled += [q for q in advanced.get("RandomSubSet") or [] if isinstance(q, str)]
         record["question_randomisation"]["note"] = ("pages list the randomised questions in their base order; "
                                                     "their order among the randomised slots differs per participant")
         if per_page > 0 and slots:
@@ -594,12 +615,14 @@ def read_survey(data: dict) -> dict:
     flows = _elements(data, "FL")
     entry = data.get("SurveyEntry") if isinstance(data.get("SurveyEntry"), dict) else {}
     options = next((e.get("Payload") for e in _elements(data, "SO") if isinstance(e.get("Payload"), dict)), {})
+    entry = entry if isinstance(entry, dict) else {}
     seen: list[str] = []
     if not flows:
         notes.append("the export has no survey flow (FL element), so nothing can be confirmed as shown")
         flow: list[dict] = []
     else:
-        flow = _flow(flows[0].get("Payload", {}).get("Flow"), questions, blocks, seen, notes)
+        payload = flows[0].get("Payload") if isinstance(flows[0].get("Payload"), dict) else {}
+        flow = _flow(payload.get("Flow"), questions, blocks, seen, notes)
     reachable_blocks: dict[str, dict] = {}
     undisplayed: dict[str, str] = {}
     for bid in seen:
@@ -608,7 +631,7 @@ def read_survey(data: dict) -> dict:
         for qid in hidden:
             undisplayed[qid] = bid
     shown = {q["qid"] for b in reachable_blocks.values() for q in b["questions"]}
-    block_of = {qid: bid for bid, b in blocks.items() for e in b.get("BlockElements", [])
+    block_of = {qid: bid for bid, b in blocks.items() for e in b.get("BlockElements") or []
                 if isinstance(e, dict) for qid in [e.get("QuestionID")] if isinstance(qid, str)}
     not_blocks = []
     for bid, block in blocks.items():
@@ -617,7 +640,7 @@ def read_survey(data: dict) -> dict:
         reason = ("the Trash / Unused Questions block: never shown to participants" if _is_trash(block)
                   else "not in the survey flow: never shown to participants")
         not_blocks.append({"id": bid, "description": block.get("Description"), "type": block.get("Type"),
-                           "questions": [e.get("QuestionID") for e in block.get("BlockElements", [])
+                           "questions": [e.get("QuestionID") for e in block.get("BlockElements") or []
                                          if isinstance(e, dict) and e.get("QuestionID")], "reason": reason})
     not_questions = []
     for qid, q in questions.items():
@@ -665,7 +688,7 @@ def _record_texts(record: dict) -> list[str]:
     texts += [html_to_text(t, False) for t in record.get("column_labels", []) or []]
     labels = (record.get("scale") or {}).get("labels") if isinstance(record.get("scale"), dict) else None
     texts += [html_to_text(t, False) for t in labels or []]
-    message = (record.get("validation") or {}).get("message")
+    message = (record.get("validation") or {}).get("message_description")
     if message:
         texts.append(message)
     return [t for t in texts if t]
@@ -685,161 +708,247 @@ def text_sets(report: dict) -> tuple[list[str], list[tuple[str, str, str]]]:
 # Package keys under which a build may list what it left out, by id (never as participant material).
 EXCLUDED_KEY_RE = re.compile(r"(?i)(not[_ -]?(shown|reachable|transcribed|used|in[_ -]?flow)|unused|excluded|"
                              r"unreachable|trash|omitted)")
+# An item can say so itself: {"qsfReachability": "not-shown"} (or "shown": false).
+NOT_SHOWN_VALUE_RE = re.compile(r"(?i)^(not[_ -]?shown|trash([_ -]unused)?|unused|unreachable)$")
+MARKER_KEYS = ("qsfReachability", "flow", "visibility", "status")
+# Keys that describe an item rather than hold what participants read.
+METADATA_KEYS = frozenset((
+    "id", "ids", "description", "what", "note", "notes", "reason", "rationale", "derivation", "comment",
+    "comments", "why", "kind", "type", "tag", "qsfTag", "qsfId", "qid", "study", "studyIds", "arm", "condition",
+    "evidence", "evidenceIds", "locator", "sourceId", "sourceIds", "source", "sourceFile", "path", "file",
+    "version", "versionUsed", "status", "origin", "state", "evidenceLabel", "label_source", "sha256"))
+SOURCE_ID_KEYS = ("sourceId", "sourceIds", "source")
+SOURCE_PATH_KEYS = ("sourceFile", "path", "file", "source")
+MIN_WORDS = 5  # shorter strings ("Not at all", "Very good") are too common to attribute to one question
 
 
 def _squash(text: str) -> str:
     text = html.unescape(re.sub(r"<[^>]+>", " ", text)).replace("*", "")
-    text = (text.replace("\u2019", "'").replace("\u2018", "'").replace("\u201c", '"').replace("\u201d", '"')
-            .replace("\u2013", "-").replace("\u2014", "-"))
+    text = (text.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
+            .replace("–", "-").replace("—", "-").replace("\xa0", " "))
     return re.sub(r"\s+", "", text).casefold()
 
 
-def _wording(text: str) -> bool:
-    return len(re.findall(r"\w+", text)) >= 2
+def _words(text: str) -> int:
+    return len(re.findall(r"\w+", text))
 
 
 class _Reach:
+    """What one survey's flow shows, for asking whether a package string was ever shown."""
+
     def __init__(self, report: dict):
         reachable, unreachable = text_sets(report)
         self.reachable = "\x00".join(_squash(t) for t in reachable)
+        # Unused copies of text the flow also shows are not evidence of anything.
         self.unreachable = [(_squash(t), qid, reason) for t, qid, reason in unreachable
-                            if len(re.findall(r"\w+", t)) >= 3]
+                            if _words(t) >= MIN_WORDS and _squash(t) not in self.reachable]
 
     def never_shown(self, text: str) -> tuple[str, str] | None:
         """(qid, reason) when text is survey wording only an unreachable question carries."""
         pieces = [text] + [line for line in re.split(r"\n+", text) if line.strip() != text.strip()]
         for piece in pieces:
-            if not _wording(piece):
+            if _words(piece) < MIN_WORDS:
                 continue
             needle = _squash(piece)
             if not needle or needle in self.reachable:
                 continue
             for hay, qid, reason in self.unreachable:
-                if needle in hay or (len(hay) >= 20 and hay in needle):
+                if needle in hay or (len(hay) >= 25 and hay in needle):
                     return qid, reason
         return None
 
 
-def _strings_outside_excluded(value: Any, path: str) -> Iterable[tuple[str, str]]:
+def _marked_not_shown(node: dict) -> bool:
+    if node.get("shown") is False:
+        return True
+    return any(isinstance(node.get(k), str) and NOT_SHOWN_VALUE_RE.match(node[k].strip()) for k in MARKER_KEYS)
+
+
+def _text_strings(value: Any, path: str) -> Iterable[tuple[str, str]]:
+    """Strings participants would read: skips metadata keys, left-out lists and items marked not shown."""
     if isinstance(value, str):
         yield path, value
     elif isinstance(value, dict):
+        if _marked_not_shown(value):
+            return
         for key, item in value.items():
-            if not EXCLUDED_KEY_RE.search(str(key)):
-                yield from _strings_outside_excluded(item, f"{path}.{key}" if path else str(key))
+            if not EXCLUDED_KEY_RE.search(str(key)) and key not in METADATA_KEYS:
+                yield from _text_strings(item, f"{path}.{key}" if path else str(key))
     elif isinstance(value, list):
         for index, item in enumerate(value):
-            yield from _strings_outside_excluded(item, f"{path}[{index}]")
+            yield from _text_strings(item, f"{path}[{index}]")
 
 
-def _refs(node: dict) -> set[str]:
+def _refs(node: dict, known_paths: set[str]) -> set[str]:
+    """The sources an object declares. Ids always count; a path counts only when it is a recorded source."""
     refs: set[str] = set()
-    for key in ("sourceId", "sourceIds", "source", "sourceFile", "path", "file"):
+    for key in set(SOURCE_ID_KEYS) | set(SOURCE_PATH_KEYS):
         value = node.get(key)
-        values = value if isinstance(value, list) else [value]
-        for item in values:
+        for item in value if isinstance(value, list) else [value]:
+            candidates: list[tuple[str, str]] = []
             if isinstance(item, str):
-                refs.add(item)
+                candidates = [(key, item)]
             elif isinstance(item, dict):
-                refs |= {v for k, v in item.items() if k in ("id", "sourceId", "path") and isinstance(v, str)}
+                candidates = [(k, v) for k, v in item.items() if k in ("id", "sourceId", "path") and isinstance(v, str)]
+            for k, v in candidates:
+                if k in SOURCE_ID_KEYS or k in ("id",) or v in known_paths:
+                    refs.add(v)
     return refs
 
 
-def _qsf_scoped(value: Any, path: str, keys: set[str], inherited: bool) -> Iterable[tuple[str, str]]:
-    """Strings in value whose nearest declared source is one of keys (a .qsf source id or path)."""
+def _qsf_scoped(value: Any, path: str, keys: set[str], known_paths: set[str], inherited: bool
+                ) -> Iterable[tuple[str, str]]:
+    """Participant strings in value whose nearest declared source is one of keys (a .qsf source id or path)."""
     if isinstance(value, dict):
-        refs = _refs(value)
+        if _marked_not_shown(value):
+            return
+        refs = _refs(value, known_paths)
         scoped = bool(refs & keys) if refs else inherited
         for key, item in value.items():
-            if EXCLUDED_KEY_RE.search(str(key)) or key in ("sourceId", "sourceIds", "source", "sourceFile", "path",
-                                                            "file", "evidence", "evidenceIds", "locator"):
+            if EXCLUDED_KEY_RE.search(str(key)) or key in METADATA_KEYS:
                 continue
             child = f"{path}.{key}" if path else str(key)
             if isinstance(item, str):
                 if scoped:
                     yield child, item
             else:
-                yield from _qsf_scoped(item, child, keys, scoped)
+                yield from _qsf_scoped(item, child, keys, known_paths, scoped)
     elif isinstance(value, list):
         for index, item in enumerate(value):
             if isinstance(item, str):
                 if inherited:
                     yield f"{path}[{index}]", item
             else:
-                yield from _qsf_scoped(item, f"{path}[{index}]", keys, inherited)
+                yield from _qsf_scoped(item, f"{path}[{index}]", keys, known_paths, inherited)
+
+
+def _reaches(root: Path, job: Path) -> tuple[dict[str, _Reach], dict[str, set[str]], set[str]]:
+    """Per .qsf source with a survey flow: its reach, the keys that name it; and every recorded source path."""
+    try:
+        metadata = json.loads((root / "source/paper_metadata.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}, {}, set()
+    sources = metadata.get("external_sources") if isinstance(metadata, dict) else None
+    sources = [s for s in sources if isinstance(s, dict)] if isinstance(sources, list) else []
+    known_paths = {s["path"] for s in sources if isinstance(s.get("path"), str)}
+    reach: dict[str, _Reach] = {}
+    keys_of: dict[str, set[str]] = {}
+    for source in sources:
+        path = source.get("path")
+        if not isinstance(path, str) or not path.lower().endswith(".qsf"):
+            continue
+        try:
+            data = load_qsf(job / path)
+            if not _elements(data, "FL"):
+                continue  # without a survey flow nothing can be judged unreachable
+            survey = read_survey(data)
+        except (OSError, NotASurveyExport):
+            continue
+        except Exception:  # an export this reader cannot follow is skipped, never a build failure
+            continue
+        sid = str(source.get("id") or path)
+        reach[sid] = _Reach(survey)
+        keys_of[sid] = {sid, path}
+    return reach, keys_of, known_paths
+
+
+def _adapter_strings(root: Path) -> Iterable[tuple[int, str]]:
+    import ast
+    try:
+        tree = ast.parse((root / "task/adapter.py").read_text(encoding="utf-8"))
+    except (OSError, SyntaxError, ValueError):
+        return
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Constant) and isinstance(node.value, str) and _words(node.value) >= MIN_WORDS:
+            yield node.lineno, node.value
 
 
 def package_problems(root: Path, job: Path | None = None) -> list[str]:
     """Participant-facing text a package copies from a .qsf must be text the survey flow shows.
 
-    Checked: program fields classified found-open / found-private from a .qsf source, and
-    materials/materials.json entries whose declared source (sourceId, source, path, inherited
-    from the enclosing object) is a .qsf source. A string fails when it is wording that only a
-    question participants never saw carries (the Trash block, a block missing from the flow).
-    Keys that list what was left out (notShown, notTranscribed, unused, excluded, ...) are skipped.
+    Checked, for each recorded .qsf source that has a survey flow:
+    - program fields classified found-open / found-private from that source;
+    - materials/materials.json strings whose declared source (sourceId, source, or a recorded
+      source path, inherited from the enclosing object) is that source;
+    - string literals in task/adapter.py.
+    A string of at least MIN_WORDS words fails when only a question participants never saw
+    carries it (the Trash block, a block missing from the flow). Metadata keys (description,
+    note, ...), lists of what was left out (notShown, notTranscribed, unused, excluded, ...)
+    and objects marked {"qsfReachability": "not-shown"} are not participant text.
     """
     job = job if job is not None else root.parent.parent
-    try:
-        metadata = json.loads((root / "source/paper_metadata.json").read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return []
-    sources = metadata.get("external_sources") if isinstance(metadata, dict) else None
-    reach: dict[str, _Reach] = {}
-    keys_of: dict[str, set[str]] = {}
-    for source in sources if isinstance(sources, list) else []:
-        if not isinstance(source, dict) or not str(source.get("path", "")).lower().endswith(".qsf"):
-            continue
-        file = job / str(source["path"])
-        try:
-            data = load_qsf(file)
-        except (OSError, NotASurveyExport):
-            continue
-        if not _elements(data, "FL"):
-            continue  # without a survey flow nothing can be judged unreachable
-        sid = str(source.get("id", source["path"]))
-        reach[sid] = _Reach(read_survey(data))
-        keys_of[sid] = {sid, str(source["path"])}
+    reach, keys_of, known_paths = _reaches(root, job)
     if not reach:
         return []
     hits: dict[tuple[str, str], list] = {}
 
-    def report(where: str, text: str, sid: str) -> None:
-        hit = reach[sid].never_shown(text)
-        if hit:
-            item = re.match(r"^(.*?\[\d+\])", where)
-            hits.setdefault((item.group(1) if item else where, hit[0]), [hit[1], text, 0])[2] += 1
+    def report(where: str, text: str, sids: Iterable[str]) -> None:
+        for sid in sids:
+            hit = reach[sid].never_shown(text)
+            if hit:
+                item = re.match(r"^(.*?\[\d+\])", where)
+                hits.setdefault((item.group(1) if item else where, hit[0]), [hit[1], text, 0])[2] += 1
+                return
 
     try:
         study = json.loads((root / "study.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
         study = {}
     program = study.get("program") if isinstance(study, dict) else None
-    for node in program.get("nodes", []) if isinstance(program, dict) else []:
-        for field in node.get("fields", []) if isinstance(node, dict) else []:
-            if not isinstance(field, dict):
+    nodes = program.get("nodes") if isinstance(program, dict) else None
+    for node in nodes if isinstance(nodes, list) else []:
+        fields = node.get("fields") if isinstance(node, dict) else None
+        for field in fields if isinstance(fields, list) else []:
+            if not isinstance(field, dict) or not isinstance(field.get("extensions"), dict):
                 continue
-            material = (field.get("extensions") or {}).get("material") if isinstance(field.get("extensions"), dict) else None
+            material = field["extensions"].get("material")
             if not isinstance(material, dict) or material.get("status") not in ("found-open", "found-private"):
                 continue
-            for sid in [i for i in material.get("sourceIds") or [] if i in reach]:
-                for where, text in _strings_outside_excluded(field.get("value"), ""):
-                    report(f"{node.get('id')}.{field.get('id')}", text, sid)
+            ids = material.get("sourceIds") if isinstance(material.get("sourceIds"), list) else []
+            sids = [i for i in ids if isinstance(i, str) and i in reach]
+            for _, text in _text_strings(field.get("value"), ""):
+                report(f"{node.get('id')}.{field.get('id')}", text, sids)
     try:
         materials = json.loads((root / "materials/materials.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
         materials = None
     if materials is not None:
         for sid, keys in keys_of.items():
-            for where, text in _qsf_scoped(materials, "", keys, False):
-                report(f"materials/materials.json {where}", text, sid)
+            for where, text in _qsf_scoped(materials, "", keys, known_paths, False):
+                report(f"materials/materials.json {where}", text, [sid])
+    for line, text in _adapter_strings(root):
+        report(f"task/adapter.py line {line}", text, list(reach))
     problems = []
     for (where, qid), (reason, text, count) in hits.items():
         more = f" and {count - 1} more of its strings" if count > 1 else ""
         problems.append(f"{where} uses survey text from {qid}, which participants never saw ({reason}; "
                         f"see agent_pipeline/qsf_flow.py's not_reachable list): {_short(text, 70)!r}{more}. "
-                        "Take it out of the participant material; if the paper says it was shown, ask the "
-                        "researcher about the difference")
+                        "Take it out of the participant material, or move it under notShown or mark it "
+                        "\"qsfReachability\": \"not-shown\" if it must stay on record; if the paper says it "
+                        "was shown, ask the researcher about the difference")
     return problems
+
+
+def never_shown_matcher(root: Path, job: Path | None = None):
+    """For the repair guard: ``matches(before, after)`` is true when a verbatim package item holds
+    survey text participants never saw and the repair removed it (``after`` None) or only marked it
+    {"qsfReachability": "not-shown"}. That is the repair the survey flow check asks for, not a lost
+    transcription. Returns None when the package has no .qsf source with a survey flow.
+    """
+    job = job if job is not None else root.parent.parent
+    reach, _, _ = _reaches(root, job)
+    if not reach:
+        return None
+
+    def shown_text(item: dict) -> dict:
+        return {k: v for k, v in item.items() if k not in ("qsfReachability", "shown")}
+
+    def matches(before: dict, after: dict | None) -> bool:
+        if after is not None and not (_marked_not_shown(after) and shown_text(after) == shown_text(before)):
+            return False  # only removal, or the same item marked not shown, is the asked-for repair
+        return any(r.never_shown(text) for _, text in _text_strings(shown_text(before), "") for r in reach.values())
+
+    return matches
 
 
 # --------------------------------------------------------------------------- outline
@@ -878,7 +987,7 @@ def outline(report: dict) -> str:
                                 flags.append(f"{v['response']} response")
                             if v.get("correct_choices"):
                                 flags.append("correct answer required: " + "; ".join(c["text"] for c in v["correct_choices"])
-                                             + (f" (message: {v['message']!r})" if v.get("message") else ""))
+                                             + (f" (message description: {v['message_description']!r})" if v.get("message_description") else ""))
                             elif v.get("type"):
                                 flags.append(f"validation {v['type']}")
                             if q.get("choice_randomisation"):
@@ -887,6 +996,10 @@ def outline(report: dict) -> str:
                                 flags.append(f"shown only if {q['display_logic']['condition']}")
                             if q.get("skip_logic"):
                                 flags.append("skip logic")
+                            if q.get("autocomplete"):
+                                flags.append("autocomplete from a list not in the export")
+                            if q.get("carry_forward"):
+                                flags.append("options carried forward from another question")
                             if not q["participant_visible"]:
                                 flags.append("not visible (recorded silently)")
                             lines.append(f"{pad}      {qid} {q.get('tag')!s} [{q['kind']}]: {_short(q['text_plain'])}")

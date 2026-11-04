@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from agent_pipeline import qsf_flow
+from agent_pipeline.repair_guard import compare_packages
 
 
 def mc(qid: str, text: str, choices: list[str], order=None, **extra) -> dict:
@@ -70,7 +71,7 @@ def fixture() -> dict:
            Validation={"Settings": {"ForceResponse": "ON", "ForceResponseType": "ON", "Type": "None"}}),
         {"QuestionID": "QID5", "DataExportTag": "where", "QuestionType": "TE", "Selector": "SL",
          "QuestionText": "Where?", "Choices": {"1": {"Display": "Click to write Choice 1"}},
-         "Validation": {"Settings": {"ForceResponse": "OFF", "ForceResponseType": "RequestResponse", "Type": "None"}},
+         "Validation": {"Settings": {"ForceResponse": "ON", "ForceResponseType": "RequestResponse", "Type": "None"}},
          "DisplayLogic": {"0": {"0": selected("QID4", "1"), "Type": "If"}, "Type": "BooleanExpression",
                           "inPage": True}},
         db("QID6", "Scenario B: the operation failed."),
@@ -146,7 +147,7 @@ def test_question_details() -> None:
     check = q["QID3"]
     assert check["validation"]["response"] == "forced"
     assert check["validation"]["correct_choices"] == [{"id": "2", "text": "Patient"}]
-    assert check["validation"]["message"] == "The answer is incorrect. Please choose again."
+    assert check["validation"]["message_description"] == "The answer is incorrect. Please choose again."
     assert check["choice_randomisation"]["type"] == "all"
     assert [c["text"] for c in q["QID4"]["choices"]] == ["No", "Yes"]  # ChoiceOrder is the display order
     assert "display_logic" not in q["QID4"]
@@ -263,3 +264,80 @@ def test_package_check_skips_exports_without_a_flow(tmp_path: Path) -> None:
     (job / "input/external/survey.qsf").write_text(json.dumps(
         {"SurveyElements": [{"Payload": {"QuestionText": "Unused screener: how serious were you"}}]}))
     assert qsf_flow.package_problems(root, job) == []
+
+
+def test_text_quirks_trash_name_autocomplete_and_response_types() -> None:
+    questions = [
+        db("QID1", "If\nyou were a <em>student</em>,<br>read this."),
+        {"QuestionID": "QID2", "DataExportTag": "country", "QuestionType": "TE", "Selector": "SL",
+         "QuestionText": "Which country?", "SearchSource": {"AllowFreeResponse": "false"},
+         "Validation": {"Settings": {"ForceResponse": "OFF", "ForceResponseType": "RequestResponse",
+                                     "Type": "None"}}},
+        mc("QID3", "Asked but optional to answer here?", ["a b", "c d"],
+           Validation={"Settings": {"ForceResponse": "ON", "ForceResponseType": "RequestResponse", "Type": "None"}}),
+    ]
+    blocks = [block("BL_1", "Trash sorting task", ["QID1", "QID2", "QID3"])]
+    report = qsf_flow.read_survey(survey(questions, blocks, [{"Type": "Standard", "ID": "BL_1", "FlowID": "FL_2"}]))
+    assert report["block_order"] == ["BL_1"]  # a block named "Trash ..." is not the Trash block
+    q = {x["qid"]: x for x in report["blocks"]["BL_1"]["questions"]}
+    assert q["QID1"]["text"] == "If you were a *student*,\nread this."
+    assert q["QID2"]["autocomplete"]["free_response"] is False
+    assert q["QID2"]["validation"]["response"] == "optional"
+    assert q["QID3"]["validation"]["response"] == "requested"
+
+
+def test_malformed_exports_do_not_crash() -> None:
+    data = survey([db("QID1", "Some text here.")], [{"ID": "BL_1", "Type": "Standard", "BlockElements": None,
+                                                     "Options": {"RandomizeQuestions": "Advanced",
+                                                                 "Randomization": []}}],
+                  [{"Type": "Standard", "ID": "BL_1", "FlowID": "FL_2"}])
+    report = qsf_flow.read_survey(data)
+    assert report["blocks"]["BL_1"]["questions"] == []
+    data["SurveyElements"] = [e if e.get("Element") != "FL" else {"Element": "FL", "Payload": None}
+                              for e in data["SurveyElements"]]
+    assert qsf_flow.read_survey(data)["flow"] == []
+
+
+def test_package_check_ignores_duplicates_short_strings_metadata_and_markers(tmp_path: Path) -> None:
+    data = fixture()
+    # A Trash copy of reachable text, as Qualtrics keeps when a question is duplicated.
+    data["SurveyElements"].insert(0, {"Element": "SQ", "Payload": db("QID11", "Scenario A: the operation succeeded.")})
+    for element in data["SurveyElements"]:
+        if element["Element"] == "BL":
+            element["Payload"]["0"]["BlockElements"].append({"Type": "Question", "QuestionID": "QID11"})
+    job, root = make_package(tmp_path, {"sourceId": "osf-qsf", "description": "Unused screener: how serious were you",
+                                        "screens": [
+        {"id": "s1", "text": "Please read this first. Scenario A: the operation succeeded."},
+        {"id": "s2", "text": "Who decided?", "options": ["1 (Not at all)"]},
+        {"id": "s3", "flow": "trash-unused", "text": "Unused screener: how serious were you in answering?"},
+        {"id": "s4", "qsfReachability": "not-shown", "text": "Unused screener: how serious were you in answering?"},
+        {"id": "s5", "image": {"path": "materials/pic.png"}, "text": "Scenario A: the operation succeeded."}]})
+    (job / "input/external/survey.qsf").write_text(json.dumps(data))
+    assert qsf_flow.package_problems(root, job) == []
+
+
+def test_package_check_keeps_qsf_scope_past_unrelated_paths_and_scans_adapter(tmp_path: Path) -> None:
+    job, root = make_package(tmp_path, {"sourceId": "osf-qsf", "screens": [
+        {"id": "s1", "path": "materials/pic.png", "text": "Unused screener: how serious were you in answering?"}]})
+    (root / "task").mkdir()
+    (root / "task/adapter.py").write_text('SCREEN = "Old instructions kept in a block the flow never uses."\n')
+    problems = qsf_flow.package_problems(root, job)
+    assert any(p.startswith("materials/materials.json screens[0]") and "QID7" in p for p in problems)
+    assert any(p.startswith("task/adapter.py line 1") and "QID9" in p for p in problems)
+
+
+def test_repair_guard_allows_removing_or_marking_never_shown_items(tmp_path: Path) -> None:
+    trash = {"id": "s2", "origin": "verbatim", "sourceId": "osf-qsf",
+             "text": "Unused screener: how serious were you in answering?"}
+    live = {"id": "s1", "origin": "verbatim", "sourceId": "osf-qsf", "text": "Scenario A: the operation succeeded."}
+    job, root = make_package(tmp_path, {"screens": [live, trash]})
+    removable = qsf_flow.never_shown_matcher(root, job)
+    pre = {"materials/materials.json": {"screens": [live, trash]}}
+    assert not compare_packages(pre, {"materials/materials.json": {"screens": [live]}})["passed"]
+    assert compare_packages(pre, {"materials/materials.json": {"screens": [live]}}, removable)["passed"]
+    marked = dict(trash, qsfReachability="not-shown")
+    assert compare_packages(pre, {"materials/materials.json": {"screens": [live, marked]}}, removable)["passed"]
+    reworded = dict(marked, text="A different sentence entirely, now.")
+    assert not compare_packages(pre, {"materials/materials.json": {"screens": [live, reworded]}}, removable)["passed"]
+    # A reachable verbatim item still may not be removed.
+    assert not compare_packages(pre, {"materials/materials.json": {"screens": [trash]}}, removable)["passed"]

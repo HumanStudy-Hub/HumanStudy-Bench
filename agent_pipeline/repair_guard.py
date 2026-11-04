@@ -45,7 +45,7 @@ import difflib
 import hashlib
 import json
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 EVIDENCE_LABELS = ("verbatim", "reported", "derived")
 ORIGINS = EVIDENCE_LABELS + ("missing", "researcher", "implementation", "unknown")
@@ -194,8 +194,18 @@ def _skipped(documents: Dict[str, Any]) -> set:
     return set()
 
 
-def compare_packages(pre: Dict[str, Any], post: Dict[str, Any]) -> dict:
+Removable = Callable[[dict, Optional[dict]], bool]
+
+
+def _under(path: Path_, roots: set) -> bool:
+    return any(path[:len(root)] == root for root in roots)
+
+
+def compare_packages(pre: Dict[str, Any], post: Dict[str, Any], removable: Optional[Removable] = None) -> dict:
     """Compare two packages given as ``{relative json path: parsed json}``.
+
+    ``removable(before, after)`` may allow a verbatim item to be removed (``after`` is None)
+    or marked as not shown: the survey flow check's repair for text participants never saw.
 
     A file that did not parse is given as ``Unparsed(text)``. Pure function:
     returns ``{"passed", "violations", "checked"}`` without touching the disk.
@@ -221,9 +231,17 @@ def compare_packages(pre: Dict[str, Any], post: Dict[str, Any]) -> dict:
     known_evidence = {entry["id"] for entry in post_evidence.values()}
 
     unresolved = verbatim = 0
+    allowed: set = set()
     for path, before in pre_items.items():
         after = post_items.get(path)
         where = _where(path)
+        if _under(path, allowed):
+            continue
+        if removable is not None and _origin(before) == "verbatim" and not _unresolved(before) \
+                and removable(before, after):
+            verbatim += 1
+            allowed.add(path)
+            continue
         if _unresolved(before):
             unresolved += 1
             if after is None:
@@ -251,6 +269,8 @@ def compare_packages(pre: Dict[str, Any], post: Dict[str, Any]) -> dict:
 
     touched = 0
     for path, after in post_items.items():
+        if _under(path, allowed):
+            continue
         before = pre_items.get(path)
         where = _where(path)
         origin = _origin(after)
@@ -279,6 +299,8 @@ def compare_packages(pre: Dict[str, Any], post: Dict[str, Any]) -> dict:
         pre_records.setdefault(entry["id"], []).append(_evidence_record(entry))
     for path, entry in pre_evidence.items():
         after = post_evidence.get(path)
+        if after is None and _under(path, allowed):
+            continue
         if after is None:
             violations.append(f"{_where(path)}: evidence record was removed")
         elif _evidence_record(after) != _evidence_record(entry):
@@ -354,7 +376,7 @@ def package_diff(pre_root: Path, post_root: Path, limit: int = 2_000_000) -> str
     return text if len(text) <= limit else text[:limit] + "\n[truncated]\n"
 
 
-def guard_repair(pre_root: Optional[Path], post_root: Optional[Path]) -> dict:
+def guard_repair(pre_root: Optional[Path], post_root: Optional[Path], removable: Optional[Removable] = None) -> dict:
     """Compare the paper folder before repair with the one after it."""
     if pre_root is None:
         return {"passed": False, "checked": {}, "changedFiles": [],
@@ -365,6 +387,6 @@ def guard_repair(pre_root: Optional[Path], post_root: Optional[Path]) -> dict:
     if post_root.name != pre_root.name:
         return {"passed": False, "checked": {}, "changedFiles": [],
                 "violations": [f"repair renamed the paper folder {pre_root.name} to {post_root.name}"]}
-    result = compare_packages(load_package(pre_root), load_package(post_root))
+    result = compare_packages(load_package(pre_root), load_package(post_root), removable)
     result["changedFiles"] = changed_files(pre_root, post_root)
     return result

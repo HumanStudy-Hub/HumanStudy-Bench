@@ -225,32 +225,44 @@ run (from the repository root)
 python agent_pipeline/qsf_flow.py <job-dir>/input/external/<file>.qsf --json <job-dir>/work/<file>.flow.json
 ```
 
-It prints the survey in the order participants saw it, and the JSON holds the
-full record. Build the participant flow from it, not from the raw `.qsf`:
+It prints the survey in the order participants saw it; the JSON (in `work/`,
+the job's scratch folder) holds the full record. Build the participant flow
+from it, not from the raw `.qsf`:
 
 - **Order and logic.** Follow its block order, randomizers (how many of how
-  many elements, evenly presented or not), branches, groups and embedded data.
-  A question is conditional only when it lists `display_logic`; one without it
-  is always shown on its page. Keep its page breaks.
+  many elements, evenly presented or not), branches, groups and embedded data,
+  and its pages. A question is conditional only when it lists `display_logic`,
+  `skip_logic` or `has_javascript` (check the last by hand); otherwise it is
+  always shown on its page.
 - **Never show unreachable items.** Anything under `not_reachable` (the Trash
   block, blocks not in the flow, questions in no block) was never shown. Do not
   put its text in `materials.json`, the program or the adapter as participant
-  material; refer to it by question id if you need to mention it. The package
-  check fails text that only an unreachable question carries.
+  material. To keep one on record, list it by question id under `notShown`, or
+  add `"qsfReachability": "not-shown"` to its item. The package check fails
+  survey text that only an unreachable question carries, in program fields
+  found in a `.qsf`, in `materials.json` entries whose source is a `.qsf`, and
+  in string literals in `task/adapter.py`.
 - **Randomisation.** Reproduce `choice_randomisation` (answer options shuffled
   per participant, with the seeded generator), `question_randomisation` (which
   questions swap places within a block) and the listed choice order, which is
   the display order (it can differ from the choice ids).
-- **Validation.** Reproduce `validation`: `forced` means an answer is required;
-  `correct_choices` means only that answer is accepted and the participant sees
-  `message` and answers again. Do not describe such a check as having no
-  correct-answer logic. If you cap the retries for agents, record the cap as a
-  departure.
+- **Validation.** Reproduce `validation`. `forced` means an answer is
+  required; `requested` means the participant is asked but may skip.
+  `correct_choices` means only that answer is accepted and any other is
+  refused until the participant answers again; never describe such a check as
+  having no correct-answer logic. The export keeps only the
+  `message_description` of the refusal message: use it verbatim only when it
+  reads as a message to participants, otherwise label the shown text `missing`.
+  If you cap the retries for agents, record the cap as a departure.
+- **Lists the export lacks.** A text box with `autocomplete` draws on a
+  Qualtrics list that is not in the file; label that list `missing`.
 - **Differences from the paper.** Compare the survey's order of measures,
   conditions and checks with the order the paper describes. When they differ,
   follow the survey (the instrument participants used), and add one plain
   question for the researcher naming both orders. Report anything the reader
-  lists under `notes` (JavaScript, loop & merge) as a check, not a fact.
+  lists under `notes` as something to check, not as a fact.
+- Run `python agent_pipeline/validate_package.py <job-dir>/package` before you
+  finish and fix what it reports.
 
 ## Evidence labels
 
