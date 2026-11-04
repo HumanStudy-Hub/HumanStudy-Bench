@@ -404,3 +404,26 @@ def test_review_docx_blocks_and_text_boxes(tmp_path: Path) -> None:
     assert record["pages"] == [["Consent text"], ["Take a page break now.", "Boxed"]]
     root, job = _visible_package(tmp_path / "v", "Take a page break now.")
     assert docx_text.check(root, job) == []
+
+
+@pytest.mark.parametrize("options,reply,expected", [
+    (BIZIOU_DG, "I give 3", "unparsed"), (BIZIOU_DG, "I give 12", "12c"), (BIZIOU_DG, "I give 10", "ambiguous"),
+    (["0c", "10c", "20c"], "I give 2", "unparsed"), (["0c", "10c", "20c"], "I'd transfer 2", "unparsed"),
+    (BIZIOU_DG, "Option 12", "unparsed"), (BIZIOU_DG, "Option 6", "10c"),
+    (["Rarely", "Sometimes", "Often"], "Two", "unparsed"),
+])
+def test_second_review(options: list, reply: str, expected: str) -> None:
+    assert read(reply, Question("q", options=options)) == expected
+
+
+@pytest.mark.parametrize("question,flagged", [
+    ("Should the 7-point scale run from left to right?", False),
+    ("Should the questionnaire show the items in the order published in the appendix?", False),
+    ("Should the redistribution scenario from the materials be used?", False),
+    ("Should the item about rights of minorities use the survey wording?", False),
+    ("May the item lists from the journal supplement be published?", True),
+    ("Is the supplement covered by a licence?", True),
+])
+def test_second_review_licence_wording(question: str, flagged: bool) -> None:
+    hit = bool(design_checks.LICENCE_RE.search(question) and design_checks.LICENCE_OBJECT_RE.search(question))
+    assert hit is flagged

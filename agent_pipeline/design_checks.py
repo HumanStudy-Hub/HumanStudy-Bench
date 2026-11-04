@@ -28,8 +28,14 @@ from typing import Any
 
 # A licence question names rights or publication *and* a file or material it is about. "Should participants be
 # licensed drivers?" or "Can the donations be made public to the other players?" are study questions.
-LICENCE_RE = re.compile(r"(?i)\b(licen[cs]e\b|licen[cs]es\b|licen[cs]ing|copyright|redistribut\w*|rights?\b|"
-                        r"permission|publish\w*|made public|shared publicly)")
+# A licence question asks about rights to a file: "licence", "copyright", "permission to publish", "rights
+# holder", "may we publish/share/redistribute ...". "Should the scale run left to right?" or "the order published
+# in the appendix" are study questions.
+LICENCE_RE = re.compile(
+    r"(?i)\b(licen[cs]e[sd]?\b|licen[cs]ing|copyright\w*|permission to (use|publish|share|redistribute|reproduce)|"
+    r"rights?[- ]holders?|rights? to (use|publish|share|redistribute|reproduce)|"
+    r"(may|can|could) (we|i|you|the (package|hub|study))( also)? (publish|share|redistribute|reproduce)|"
+    r"\bbe (published|redistributed|reproduced|shared publicly)\b)")
 LICENCE_OBJECT_RE = re.compile(r"(?i)\b(supplement\w*|files?|materials?|item lists?|items|package|survey|"
                                r"questionnaires?|stimul\w*|instruments?|wording|texts?|scales?|cop(y|ies)|appendix|"
                                r"figures?|images?|data ?sets?|exports?|documents?|pdf)\b")

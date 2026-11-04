@@ -22,7 +22,9 @@ label contains it). A reply naming two different options (``1 or 2``,
 
 Amounts. When an option's whole label is an amount (``0c``, ``$0.10``, ``30 hours``,
 ``70%``), a reply may name the amount (``10c``, ``$0.10``, ``I give 10 cents``) and is
-read as that option. A bare number is read by the option number printed before
+read as that option. Named currencies are kept apart (``€10`` is not ``$10``); cents
+(``c``, ``cents``) are hundredths of whichever currency the list uses. In "I give 3"
+the number is the amount given, never option 3; "Option 12" is an option number only. A bare number is read by the option number printed before
 it *and* by the amounts: on ``1. 0c 2. 2c ... 6. 10c ... 10. 18c 11. 20c`` the reply
 ``10`` names option 10 (18c) and the amount 10c (option 6), so it is ambiguous and
 asked again; ``0``, ``20`` and ``6`` name one option each and are read. Such a list
@@ -307,7 +309,8 @@ LEADING_WORD_RE = re.compile(r"(?i)^(" + "|".join(NUMBER_WORDS) + r")(?=\s*$|\s*
 # Labels that count something ("Once", "Never", "1 child", "Two or more"): a number word there is a quantity, not a
 # position, so it is never read as an option number.
 COUNT_WORDS_RE = re.compile(r"(?i)\d|\b(once|twice|thrice|never|none|nothing|times?|more|fewer|less|"
-                            r"several|many|few|couple|dozens?|half|"
+                            r"several|many|few|couple|dozens?|half|rarely|seldom|sometimes|occasionally|often|"
+                            r"frequently|usually|always|daily|weekly|monthly|yearly|hourly|per|every|"
                             + "|".join(NUMBER_WORDS) + r")\b")
 
 
@@ -496,7 +499,12 @@ def _choice_index(text: str, question: Question) -> tuple:
     codes = [code.lower() for code in question.codes]
     labels = [_norm(label) for label in question.options]
     spellings = [question.spellings(i) for i in range(len(labels))]
-    body = LEAD_RE.sub("", _clean(text), count=1).strip().replace("−", "-")
+    explicit = re.match(r"(?i)^\s*(?:(?:my\s+)?(?:answer|choice)\s*(?:is)?\s*[:=-]?\s*)?(?:option|number|no\.)\s*#?\s*"
+                        r"([-+]?\d+)\s*[.!]?\s*$", _clean(text))
+    if explicit:  # "Option 12": an option number, never an amount; none beyond the list
+        number = explicit.group(1).lstrip("+")
+        return (codes.index(number), "ok") if number in codes else (None, "unparsed")
+    body = LEAD_RE.sub("", _clean(text), count=1).strip().replace("\u2212", "-")
     body = re.sub(r"(?<![\w.])\.(\d)", r"0.\1", body)          # ".5%" is 0.5%, not 5%
     if all(re.fullmatch(r"[-+]?\d+", code) for code in codes) and _number_words_allowed(question):
         body = _number_words(body)
@@ -576,8 +584,18 @@ def _choice_index(text: str, question: Question) -> tuple:
             return None, "ambiguous"     # "1 or 2", "1 is not what I'd pick", "1, that is 10c"
         return index, "ok"
     # 3. One option on its own in a sentence: "I pick 2 because ...", "I will transfer 10c".
+    if AMOUNT_SENTENCE_RE.match(body) and any(question.amounts):
+        # "I give 3": the number of cents given, never option 3; read only when the list offers that amount.
+        found_amount = AMOUNT_IN_TEXT_RE.search(body)
+        number = _number_text(found_amount.group("num")) if found_amount else None
+        amount = _amount_of(found_amount) if found_amount else None
+        hits = {i for i, own in enumerate(question.amounts) if own and (
+            _same_amount(own, amount) if amount is not None else own[0] == number)}
+        if amount is None and number in codes and hits and hits != {codes.index(number)}:
+            return None, "ambiguous"     # "I give 10" on "6. 10c ... 10. 18c": still asked again
+        return (hits.pop(), "ok") if len(hits) == 1 else (None, "ambiguous" if hits else "unparsed")
     found_codes = {codes.index(code) for code in _standalone_codes(body, codes)}
-    amounts, unknown = _amount_options(question, body) if AMOUNT_SENTENCE_RE.match(body) else (set(), False)
+    amounts, unknown = set(), False
     named_options = found_codes | amounts
     if (named_options or unknown) and _hedged(body):
         return None, "ambiguous"         # "Not 1", "somewhere around 3-4"
