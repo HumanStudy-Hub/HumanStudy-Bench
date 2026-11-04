@@ -214,6 +214,44 @@ researcher to upload or paste the originals, accept a clearly labelled stand-in,
 or leave that part out. Start `studio-reply.md` with the same list. The per-item
 issues point to this request; do not ask the same question item by item.
 
+## Survey files
+
+A Qualtrics export (`.qsf`) holds every question ever written for the survey,
+including the "Trash / Unused Questions" block and blocks the survey flow never
+shows. Participants saw only what the flow reaches. For every `.qsf` you fetch,
+run (from the repository root)
+
+```
+python agent_pipeline/qsf_flow.py <job-dir>/input/external/<file>.qsf --json <job-dir>/work/<file>.flow.json
+```
+
+It prints the survey in the order participants saw it, and the JSON holds the
+full record. Build the participant flow from it, not from the raw `.qsf`:
+
+- **Order and logic.** Follow its block order, randomizers (how many of how
+  many elements, evenly presented or not), branches, groups and embedded data.
+  A question is conditional only when it lists `display_logic`; one without it
+  is always shown on its page. Keep its page breaks.
+- **Never show unreachable items.** Anything under `not_reachable` (the Trash
+  block, blocks not in the flow, questions in no block) was never shown. Do not
+  put its text in `materials.json`, the program or the adapter as participant
+  material; refer to it by question id if you need to mention it. The package
+  check fails text that only an unreachable question carries.
+- **Randomisation.** Reproduce `choice_randomisation` (answer options shuffled
+  per participant, with the seeded generator), `question_randomisation` (which
+  questions swap places within a block) and the listed choice order, which is
+  the display order (it can differ from the choice ids).
+- **Validation.** Reproduce `validation`: `forced` means an answer is required;
+  `correct_choices` means only that answer is accepted and the participant sees
+  `message` and answers again. Do not describe such a check as having no
+  correct-answer logic. If you cap the retries for agents, record the cap as a
+  departure.
+- **Differences from the paper.** Compare the survey's order of measures,
+  conditions and checks with the order the paper describes. When they differ,
+  follow the survey (the instrument participants used), and add one plain
+  question for the researcher naming both orders. Report anything the reader
+  lists under `notes` (JavaScript, loop & merge) as a check, not a fact.
+
 ## Evidence labels
 
 Every substantive extracted or inferred item must use one of these labels:

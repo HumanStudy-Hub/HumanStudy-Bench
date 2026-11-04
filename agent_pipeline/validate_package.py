@@ -9,9 +9,11 @@ from pathlib import Path
 try:
     from agent_pipeline.human_program import validate_human_program
     from agent_pipeline.check_sources import check_package_sources
+    from agent_pipeline.qsf_flow import package_problems as qsf_reachability_problems
 except ModuleNotFoundError:
     from human_program import validate_human_program
     from check_sources import check_package_sources
+    from qsf_flow import package_problems as qsf_reachability_problems
 
 REQUIRED = (
     "study.json",
@@ -60,6 +62,13 @@ def main() -> None:
                     f"({type(exc).__name__}: {exc}); fix the malformed external source or material record"]
     if problems:
         raise SystemExit("external materials check failed:\n- " + "\n- ".join(problems))
+    # Text copied from a Qualtrics .qsf must be text its survey flow shows (not the Trash block).
+    try:
+        problems = qsf_reachability_problems(root, package.parent)
+    except Exception as exc:
+        problems = [f"the .qsf survey flow could not be checked ({type(exc).__name__}: {exc})"]
+    if problems:
+        raise SystemExit("survey flow check failed:\n- " + "\n- ".join(problems))
     result = subprocess.run(
         [sys.executable, str(root / "task/adapter.py"), "--smoke-test"],
         cwd=root,

@@ -221,6 +221,12 @@ REPAIR_RULES = (
      "with its search list) unless it was found in a downloaded source; every pending item is "
      "named in the single 'materials-request' issue. Never fill a gap with your own wording "
      "to pass this check."),
+    ("survey flow check failed",
+     "Survey files: text from a .qsf question the survey flow never shows (the Trash / Unused "
+     "Questions block, a block not in the flow) is not participant material. Run "
+     "agent_pipeline/qsf_flow.py on the .qsf, remove that text from the participant material "
+     "and the adapter, and follow the reader's flow instead. To mention a removed item, cite "
+     "its question id under a key such as notShown. Never reword the text to pass this check."),
     ("programBindings",
      "task/task.json programBindings must be derived from the canonical program in "
      "study.json: programId, stepIds, recordNodeIds (record and variable nodes) and "
