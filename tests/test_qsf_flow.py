@@ -392,3 +392,12 @@ def test_mixed_items_and_question_id_selectors(tmp_path: Path) -> None:
     (root / "task").mkdir()
     (root / "task/adapter.py").write_text('WRAPUP = ["QID7"]\n')
     assert any("'QID7'" in p for p in qsf_flow.package_problems(root, job))
+
+
+def test_mixed_marker_needs_shown_text(tmp_path: Path) -> None:
+    trash = "Unused screener: how serious were you in answering?"
+    item = {"id": "t", "origin": "verbatim", "state": "check", "qsfReachability": "mixed", "sourceId": "osf-qsf",
+            "text": trash}
+    job, root = make_package(tmp_path, {"screens": [item]})
+    problems = qsf_flow.package_problems(root, job)
+    assert any("screens[0]" in p and "holds no text participants saw" in p for p in problems)

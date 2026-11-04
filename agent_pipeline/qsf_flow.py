@@ -765,7 +765,7 @@ class _Reach:
 
 
 MIXED_VALUE = "mixed"  # holds shown text and never-shown text; a person checks it (state "check")
-SELECTOR_KEYS = ("id", "qsfId", "qid", "qsfTag", "tag", "dataExportTag")
+SELECTOR_KEYS = ("id", "qsfId", "qid")  # export tags are not unique (Trash copies reuse them)
 
 
 def _marked_not_shown(node: dict) -> bool:
@@ -952,6 +952,25 @@ def _adapter_strings(root: Path) -> Iterable[tuple[int, str]]:
             yield node.lineno, node.value
 
 
+def _mixed_items(value: Any, path: str = "materials/materials.json ") -> list[tuple[str, dict]]:
+    found: list[tuple[str, dict]] = []
+    if isinstance(value, dict):
+        if _marked_mixed(value):
+            found.append((path.strip(), value))
+        for key, child in value.items():
+            found += _mixed_items(child, f"{path}{'.' if path.strip() else ''}{key}")
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            found += _mixed_items(child, f"{path.rstrip()}[{index}]")
+    return found
+
+
+def _mixed_fields(program: Any) -> list[tuple[str, str, dict]]:
+    nodes = program.get("nodes") if isinstance(program, dict) else None
+    return [(str(n.get("id")), str(f.get("id")), f) for n in nodes if isinstance(n, dict)
+            for f in n.get("fields") or [] if isinstance(f, dict) and _marked_mixed(f)] if isinstance(nodes, list) else []
+
+
 def package_problems(root: Path, job: Path | None = None) -> list[str]:
     """Participant-facing text a package copies from a .qsf must be text the survey flow shows.
 
@@ -1009,6 +1028,11 @@ def package_problems(root: Path, job: Path | None = None) -> list[str]:
     for line, text in _adapter_strings(root):
         report(f"task/adapter.py line {line}", text, list(reach))
     problems = []
+    for where, item in _mixed_items(materials) + [(f"{n}.{f}", v) for n, f, v in _mixed_fields(program)]:
+        own = _own_strings({k: v for k, v in item.items() if k not in (MARKER_KEY, "state")})
+        if not any(r.shown(text) for text in own for r in reach.values()):
+            problems.append(f"{where} is marked \"qsfReachability\": \"mixed\" but holds no text participants "
+                            "saw; an item with only never-shown text is removed or marked \"not-shown\"")
     if materials is not None:
         used = _run_references(root)
         for item_id in dict.fromkeys(_ids_marked_not_shown(materials)):
