@@ -122,17 +122,27 @@ def _notebook_shows_data(path: Path) -> bool:
     return False
 
 
-# Query parameters that make a storage link a short-lived credential.
-SIGNED_PARAM_RE = re.compile(r"(?i)(^|[?&])(x-amz-[a-z-]+|x-goog-[a-z-]+|signature|sig|expires|key-pair-id|policy|"
-                             r"googleaccessid|awsaccesskeyid|se|sp|sv|sr|skoid|sktid|token|access_token)=")
-SIGNED_URL_RE = re.compile(r"https?://[^\s\"'<>?)\]]+\?[^\s\"'<>)\]]*")
-SCRUB_SUFFIXES = (".json", ".jsonl", ".md", ".txt", ".log", ".py", ".html", ".csv", ".yml", ".yaml")
+# A storage link is a short-lived credential when its query carries a provider's signature: AWS S3 and
+# S3-compatible stores (OSF's Oracle storage), Google Cloud Storage, CloudFront, Azure SAS. An OSF
+# view-only key is a private-access credential too.
+SIGNED_URL_RE = re.compile(r"(?i)https?://[^\s\"'<>?)\]\\]+\?[^\s\"'<>)\]\\]*")
+SCRUB_SUFFIXES = (".json", ".jsonl", ".md", ".txt", ".log", ".html", ".yml", ".yaml")
+
+
+def _is_signed(query: str) -> bool:
+    names = {name.lower() for name, _ in
+             (part.split("=", 1) if "=" in part else (part, "") for part in re.split(r"&(?:amp;)?|;", query))}
+    return bool(
+        names & {"x-amz-signature", "x-amz-credential", "x-amz-security-token", "x-goog-signature",
+                 "x-goog-credential", "view_only"}
+        or ("signature" in names and names & {"expires", "key-pair-id", "googleaccessid", "awsaccesskeyid", "policy"})
+        or ("sig" in names and names & {"sv", "se", "sp", "sr"}))
 
 
 def public_url(url: str) -> str:
     """``url`` without the query of a signed storage link; any other URL unchanged."""
     parts = urlsplit(url)
-    if parts.query and SIGNED_PARAM_RE.search(parts.query):
+    if parts.query and _is_signed(parts.query):
         return parts._replace(query="", fragment="").geturl()
     return url
 
@@ -150,9 +160,11 @@ def scrub_signed_urls(job: Path) -> list[str]:
     scrubbed. Returns the paths that changed, relative to ``job``.
     """
     changed = []
+    base = job.resolve()
     external = (job / "input" / "external").resolve()
     for path in sorted(job.rglob("*")):
-        if not path.is_file() or path.is_symlink() or ".git" in path.relative_to(job).parts:
+        if not path.is_file() or path.is_symlink() or ".git" in path.relative_to(job).parts \
+                or not path.resolve().is_relative_to(base):
             continue
         if path.suffix.lower() not in SCRUB_SUFFIXES or path.stat().st_size > 20 * 1024 * 1024:
             continue
@@ -259,6 +271,7 @@ OSF_LICENCES = {
 }
 OSF_URL_RE = re.compile(r"(?i)^https://(?:www\.|api\.)?osf\.io/(?:v2/(?:nodes|registrations|files|guids)/|download/)?"
                         r"([a-z0-9]{5,24})(?=/|\?|$)")
+OSF_STORAGE_FILE_RE = re.compile(r"(?i)^https://(?:www\.)?osf\.io/[a-z0-9]{5}/files/osfstorage/([a-z0-9]{24})(?=/|\?|$)")
 
 
 def _api_json(job: Path, url: str) -> dict | None:
@@ -295,6 +308,7 @@ def _osf_node(job: Path, kind: str, node_id: str) -> dict | None:
     return {
         "id": node_id, "type": kind, "title": attributes.get("title"), "api": api,
         "licence_name": name or "none stated",
+        "licence_explicitly_none": str(name or "").strip().lower() == "no license",
         "licence": OSF_LICENCES.get(str(name or "no license").strip().lower(), name),
         "copyright_holders": [h for h in holders.get("copyright_holders") or [] if h], "year": holders.get("year"),
         "parent": parent.get("id") if isinstance(parent, dict) else None,
@@ -311,7 +325,7 @@ def osf_licence(job: Path, url: str) -> dict:
     The licence is the nearest one stated on the item or its parent projects.
     The record is appended to ``input/external/licence_log.json``.
     """
-    match = OSF_URL_RE.match(url.strip())
+    match = OSF_STORAGE_FILE_RE.match(url.strip()) or OSF_URL_RE.match(url.strip())
     if not match:
         raise ValueError("--licence takes an OSF project, registration or file URL (https://osf.io/<id>/)")
     osf_id = match.group(1)
@@ -335,12 +349,18 @@ def osf_licence(job: Path, url: str) -> dict:
             break
     if not chain:
         raise ValueError(f"OSF has no public project, registration or file {osf_id}")
-    while chain[-1].get("parent") and len(chain) < 6:
+    # Up the parents until a licence is stated; an explicit "No license" is a statement too and stops the walk.
+    while chain[-1].get("parent") and chain[-1]["licence"] == "none stated" \
+            and not chain[-1]["licence_explicitly_none"] and len(chain) < 6:
         parent = _osf_node(job, chain[-1]["type"], chain[-1]["parent"])
         if not parent:
             break
         chain.append(parent)
     record["projects"] = chain
+    source = chain[0].get("registered_from")
+    if source:
+        # Recorded for the reader; a registration does not take its project's licence automatically.
+        record["registered_from"] = _osf_node(job, "nodes", source)
     stated = next((node for node in chain if node["licence"] != "none stated"), None)
     record["licence"] = stated["licence"] if stated else "none stated"
     record["licence_from"] = (f"OSF {stated['type'][:-1]} {stated['id']} ('{stated['title']}'): "

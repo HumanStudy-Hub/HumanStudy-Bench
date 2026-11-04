@@ -167,7 +167,7 @@ jobs:
       # the pipeline code, so nothing it edited or planted there (including git
       # hooks) takes part in publishing.
       - name: Check out clean pipeline code
-        if: success()
+        if: always() && steps.storage.outcome == 'success'
         uses: actions/checkout@v4
         with:
           path: pipeline-clean
@@ -227,6 +227,21 @@ jobs:
           path.write_text(json.dumps(data, indent=2) + "\n")
           PY
 
+      # Signed storage links (paper and supplement downloads) are credentials until
+      # they expire, so none is committed. This runs the clean pipeline copy, in a
+      # step without the push token, so nothing the agent planted runs with it.
+      - name: Remove signed links from the job folder
+        if: always() && steps.storage.outcome == 'success'
+        env:
+          JOB_ID: ${{ inputs.job_id }}
+        run: |
+          if [ -f pipeline-clean/agent_pipeline/fetch_public.py ]; then
+            python pipeline-clean/agent_pipeline/fetch_public.py --job "job-storage/jobs/$JOB_ID" --scrub \
+              || echo "::warning title=Signed links::Signed links could not be removed from jobs/$JOB_ID; check the committed files."
+          else
+            echo "::warning title=Signed links::The clean pipeline copy is missing, so signed links were not removed from jobs/$JOB_ID."
+          fi
+
       # The agent could write into job-storage/.git (hooks, URL rewrites), so the
       # job folder is published from a fresh clone with hooks disabled.
       - name: Commit job state and outputs
@@ -248,8 +263,6 @@ jobs:
           cp -R "job-storage/jobs/$JOB_ID" "$publish/jobs/$JOB_ID"
           find "$publish/jobs/$JOB_ID" -name __pycache__ -type d -prune -exec rm -rf {} + 2>/dev/null || true
           find "$publish/jobs/$JOB_ID" -name '*.pyc' -type f -delete 2>/dev/null || true
-          # Signed storage links (paper and supplement downloads) are credentials until they expire.
-          python agent_pipeline/fetch_public.py --job "$publish/jobs/$JOB_ID" --scrub || true
           cd "$publish"
           # progress.json is updated through the API during the run; keep the branch's copy.
           git checkout HEAD -- "jobs/$JOB_ID/progress.json" 2>/dev/null || true

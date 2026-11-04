@@ -151,7 +151,8 @@ Read pages and API listings with `curl -sL <url>` (to the terminal, or piped
 into `python3 -c` or `jq`). Download every file you use with
 `python agent_pipeline/fetch_public.py --job <job-dir> <url>` (from the
 repository root; after a `cd` elsewhere, start the command with
-`cd <repository root> && ...` or give the script's absolute path): direct
+`cd <repository root> && python agent_pipeline/fetch_public.py ...` or give the
+script's absolute path, never a `~` path): direct
 downloads with curl, wget or Python, and cloning
 repositories, are refused (list a repository's files with
 `https://api.github.com/repos/<owner>/<repo>/contents/<path>`). It
@@ -235,7 +236,8 @@ registration often has no licence field while the project it was registered
 from has one: look the project up too. A file whose SHA-256 equals that of a
 file in a project with an open licence is the same file and carries that
 licence: record it with `licence_evidence` naming that project, even when the
-copy you downloaded came from the registration (the package check enforces this).
+copy you downloaded came from the registration (the package check enforces this
+for every file you looked up with `--licence`).
 
 Program evidence for a found item cites the downloaded file: `"path":
 "input/external/<file>"` (relative to the job directory), a `locator`
@@ -579,8 +581,9 @@ questions)`. Never write your own reply parser and never call `llm` directly.
   consent, qualification and screening questions. Every check that has a correct
   answer is keyed, whether or not its response is forced: a Qualtrics question
   whose validation accepts only the correct option (`qsf_flow.py` prints
-  "correct answer required") is keyed even with `ForceResponse` off, and the
-  smoke test fails an unkeyed one. The adapter still decides what a wrong answer
+  "correct answer required") is keyed even with `ForceResponse` off; the smoke
+  test fails an unkeyed one it can match to a recorded `.qsf` (same options, and
+  the survey's question id or wording). The adapter still decides what a wrong answer
   does; the key is what the smoke test answers.
 - Give `required=False` to answers the analysis does not use (wrap-up comments,
   "anything else?"). Such an answer that cannot be read is recorded and the

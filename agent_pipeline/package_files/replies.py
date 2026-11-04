@@ -58,8 +58,8 @@ class Question:
     codes     what a participant types to pick each option. Default: the number
               each label starts with when the labels are a numbered scale (a 1-7
               scale printed as "1 (strongly disagree)", "2", ...: every label
-              starts with a different number, set off from its words or running
-              in steps of one), else 1, 2, 3, ..., printed before each label. A
+              starts with a different number, set off from its words, or bare
+              numbers between labelled ends), else 1, 2, 3, ..., printed before each label. A
               percentage or an amount ("70% for auto safety", "200 people",
               "30 hours") is never a code. Pass survey codes ("30", "1", "4") or
               letters ("A", "B") only when the screen shows those.
@@ -87,7 +87,8 @@ class Question:
         if self.kind == "choice" and not self.options:
             raise ValueError(f"question {id}: a choice question needs options")
         self.codes = [str(code) for code in codes] if codes is not None else default_codes(self.options)
-        # Positions (1, 2, 3, ...) are always printed before the label, even when a label starts with a number.
+        # Positions (1, 2, 3, ...) chosen by default are printed before every label, even one starting with a number;
+        # a printed scale's own numbers are its codes and are shown as printed.
         self.numbered = codes is None and self.codes == [str(n) for n in range(1, len(self.options) + 1)] \
             and self.codes != _leading_numbers(self.options)
         if len(self.codes) != len(self.options) or len({c.lower() for c in self.codes}) != len(self.codes):
@@ -144,7 +145,8 @@ def default_codes(options: Sequence[str]) -> List[str]:
     A label's leading number is its code only when every label starts with a
     different number, none of them is a percentage or an amount, and the numbers
     are set off from the words ("1 (strongly disagree)", "0\nNeutral") or run in
-    steps of one (a "1 Strongly disagree" ... "7 Strongly agree" scale). Otherwise
+    steps of one with bare numbers between labelled ends (a "1 Strongly disagree",
+    "2", ..., "7 Strongly agree" scale). Otherwise "0 times", "1 time", or
     "70% for auto safety" or "200 people will be saved" would become codes 70 and
     200 that no participant model types.
     """
@@ -154,7 +156,8 @@ def default_codes(options: Sequence[str]) -> List[str]:
         values = [int(number) for number in numbers]
         steps = {b - a for a, b in zip(values, values[1:])}
         if not any(AMOUNT_RE.match(rest) for rest in rests) and (
-                all(SET_OFF_RE.match(rest) for rest in rests) or (len(values) > 1 and steps in ({1}, {-1}))):
+                all(SET_OFF_RE.match(rest) for rest in rests)
+                or (len(values) > 1 and steps in ({1}, {-1}) and any(not rest.strip() for rest in rests))):
             return numbers
     return [str(number) for number in range(1, len(options) + 1)]
 

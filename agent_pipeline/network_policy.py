@@ -471,13 +471,24 @@ def _tokens(segment: str) -> list[str]:
         return segment.split()
 
 
+# Wrappers whose options can start another program, change its directory or environment (env -C, env -S,
+# sudo -E, exec -a): with options the guard cannot tell what runs, so such a command is refused.
+FLAGGED_WRAPPERS = ("sudo", "env", "exec", "nice", "ionice", "stdbuf", "unbuffer", "time", "command", "builtin",
+                    "nohup", "watch", "busybox", "eval")
+WRAPPER_REFUSAL = ("Run the program directly, not through `{}` with options: the guard cannot tell which program "
+                   "that starts or where.")
+
+
 def _program(tokens: list[str]) -> tuple[str, list[str]]:
     index = 0
     while index < len(tokens):
         token = tokens[index]
+        if token in FLAGGED_WRAPPERS and index + 1 < len(tokens) and tokens[index + 1].startswith("-") \
+                and not (token == "nice" and re.fullmatch(r"-n|-\d+|--adjustment=\S+", tokens[index + 1])):
+            return "\0wrapper:" + token, tokens[index + 1:]
         if re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", token) or token in (
                 "sudo", "time", "nohup", "command", "exec", "xargs", "env", "(", "{", "!", "then", "do", "else",
-                "stdbuf", "watch", "busybox", "unbuffer", "eval", "builtin", "nice", "ionice"):
+                "stdbuf", "watch", "busybox", "unbuffer", "eval", "builtin", "ionice"):
             index += 1
         elif token == "timeout" or token == "nice":
             index += 1
@@ -612,6 +623,11 @@ UNKNOWN_CWD = "\0unknown-cwd"
 # `cd <literal dir> &&` at the very start of a command: the rest runs there, or not at all.
 LEADING_CD_RE = re.compile(r"""^\s*(?:cd|pushd)[ \t]+('[^'\n]*'|"[^"$`\\\n]*"|[^\s;&|<>()$`\\'"#*?\[\]{}!-][^\s;&|<>()$`\\'"*?\[\]{}!]*)[ \t]*&&""")
 CD_PROGRAMS = ("cd", "pushd", "popd")
+# Anything that can move the shell elsewhere without a plain `cd` segment: a cd inside another command,
+# functions, eval, traps, sourced files, BASH_ENV, conditions.
+DIR_CHANGE_RE = re.compile(r"(?<![\w./-])(cd|pushd|popd|eval|trap|source|function|if|while|until|case|select|"
+                           r"coproc|shopt|alias|enable)(?![\w.-])|\w\s*\(\s*\)|BASH_ENV|\bENV=|"
+                           r"(^|[;&|({\n])[ \t]*\.[ \t]|\$'|\bexec\b")
 
 
 def _leading_cd(command: str, cwd: str | None) -> tuple[str | None, int]:
@@ -632,7 +648,9 @@ def _leading_cd(command: str, cwd: str | None) -> tuple[str | None, int]:
         target = match.group(1)
         if target[:1] in "'\"":
             target = target[1:-1]
-        target = os.path.expanduser(target)
+        if target.startswith("~"):
+            # bash expands only an unquoted ~ (and ~+, ~- to $PWD, $OLDPWD): not followed.
+            return UNKNOWN_CWD, count + 1
         if not Path(target).is_absolute():
             if current in (None, UNKNOWN_CWD):
                 return UNKNOWN_CWD, count + 1
@@ -643,8 +661,9 @@ def _leading_cd(command: str, cwd: str | None) -> tuple[str | None, int]:
 
 
 def _resolve(path: str, cwd: str | None) -> Path | None:
-    """``path`` as the shell sees it from ``cwd``; None when the directory is unknown."""
-    path = os.path.expanduser(path)
+    """``path`` as the shell sees it from ``cwd``; None when the directory is unknown or the path uses ~."""
+    if path.startswith("~"):
+        return None  # quoted or not, ~ forms are not resolved here (bash leaves a quoted ~ as a directory name)
     if Path(path).is_absolute():
         return Path(path)
     if cwd == UNKNOWN_CWD:
@@ -669,6 +688,23 @@ def _helper_refusal(script: str, cwd: str | None) -> str:
             f"command with `cd {REPO_ROOT} && python agent_pipeline/fetch_public.py ...`.")
 
 
+def _script_arg(args: list[str]) -> str:
+    """The script an interpreter runs: the first argument that is not an option or an option's value."""
+    index = 0
+    while index < len(args):
+        arg = args[index]
+        if arg in ("-X", "-W", "--check-hash-based-pycs", "-r", "--require"):
+            index += 2  # python -X opt / -W arg, node -r module
+            continue
+        if arg == "-m" or (arg.startswith("-m") and len(arg) > 2 and not arg.startswith("--")):
+            return ""   # a module, not a script file
+        if arg.startswith("-"):
+            index += 1
+            continue
+        return arg
+    return ""
+
+
 def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0) -> str | None:
     if depth > 3:
         return "Nested shells are not allowed in the materials search."
@@ -681,10 +717,19 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
     if re.search(r"(?i)(<\(|\$\(|`)\s*(curl|wget)\b", command):
         return "Downloaded content must never be run or substituted into a command."
     stripped, heredocs = _strip_heredocs(command)
+    session_cwd = cwd
+    after_cd, leading = _leading_cd(stripped, cwd)
+    rest = stripped
+    for _ in range(leading):
+        rest = LEADING_CD_RE.sub("", rest, count=1)
+    moves = bool(DIR_CHANGE_RE.search(rest))
     for opening, body in heredocs:
-        program, _ = _program(_tokens(_segments(opening)[0] if _segments(opening) else ""))
+        parts = _segments(opening)
+        reader = next((part for part in parts if "<<" in part), parts[0] if parts else "")
+        program, _ = _program(_tokens(_redirections(reader)[0]))
         if program in SHELLS or program.startswith(INTERPRETERS):
-            reason = _check_code(body, hosts) or (_check_bash(body, hosts, cwd) if program in SHELLS else None)
+            body_cwd = UNKNOWN_CWD if leading or moves else session_cwd
+            reason = _check_code(body, hosts) or (_check_bash(body, hosts, body_cwd) if program in SHELLS else None)
             if reason:
                 return reason
     if re.search(r"HUMANSTUDY_ALLOWED_HOSTS_FILE\s*=|export\s+HUMANSTUDY_ALLOWED_HOSTS_FILE", stripped):
@@ -692,12 +737,21 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
     values = _shell_values(stripped)
     previous_fetch = False
     fetch_pipeline = False  # inside a pipeline that a curl or wget feeds
-    cwd, leading = _leading_cd(stripped, cwd)
+    # A leading `cd <dir> &&` is trusted for the first command after it (and assignments before it) only;
+    # without one, the session's directory holds until anything that can move the shell appears.
+    next_cwd = UNKNOWN_CWD if moves else after_cd
     for position_in_command, (segment, pipes_on) in enumerate(_pipeline_segments(stripped)):
         clean, redirections = _redirections(segment)
         program, args = _program(_tokens(clean))
+        if program.startswith("\0wrapper:"):
+            return WRAPPER_REFUSAL.format(program.split(":", 1)[1])
         if program in CD_PROGRAMS and position_in_command >= leading:
-            cwd = UNKNOWN_CWD  # a cd the guard does not follow: later relative paths are unknown
+            next_cwd = UNKNOWN_CWD  # a cd the guard does not follow: later relative paths are unknown
+        cwd = next_cwd  # the directory this segment runs in
+        assignment_only = bool(_tokens(clean)) and all(
+            re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", t) for t in _tokens(clean))
+        if leading and position_in_command >= leading and not assignment_only:
+            next_cwd = UNKNOWN_CWD  # after the first command the shell may have moved (a function, ...)
         if previous_fetch and (program in SHELLS or program.startswith(INTERPRETERS)
                                and (not args or args[0] in ("-", "-i", "/dev/stdin"))):
             return "Downloaded content must never be run: do not pipe a download into a shell or interpreter."
@@ -746,7 +800,7 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
             if reason:
                 return reason
         elif program.startswith(INTERPRETERS):
-            script = next((a for a in args if not a.startswith("-")), "")
+            script = _script_arg(args)
             if "-c" in args or "-e" in args:
                 flag = "-c" if "-c" in args else "-e"
                 position = args.index(flag)
@@ -755,6 +809,10 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
                 hosts_named = [host_of_any(url) for arg in args for url in (_urls_in(arg) if "://" in arg else [])]
                 reason = next((HOST_REFUSAL.format(h or "an unreadable URL") for h in hosts_named
                                if not host_allowed(h, hosts)), None) or _helper_refusal(script, cwd)
+            elif "://" in script:
+                reason = f"`{script[:80]}` is not a script file: give the interpreter the script, then the URL."
+            elif script and _is_fetch_helper(script, cwd) and "--scrub" in args:
+                reason = "`fetch_public.py --scrub` is run by the pipeline before a commit, not by the build agent."
             elif script and _is_fetch_helper(script, cwd):
                 position = args.index(script)
                 rest = args[position + 1:]
@@ -774,7 +832,11 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
                     urls.extend(expanded)
                 reason = reason or next((r for r in (_check_url(u, hosts, download_ok=True) for u in urls) if r), None)
             else:
-                reason = _check_code(_read_script(script, cwd), hosts) if script else None
+                # Every directory the script may be read from: where the guard believes the shell is, where a
+                # leading cd went, and the session's own directory (a cd it cannot follow never hides a script).
+                places = [c for c in dict.fromkeys((cwd, after_cd, session_cwd)) if c != UNKNOWN_CWD]
+                code = "\n".join(_read_script(script, place) for place in places)
+                reason = _check_code(code, hosts) if script else None
                 # URLs handed to any other script are checked like a fetcher's.
                 for arg in args:
                     for url in _urls_in(arg) if "://" in arg else []:

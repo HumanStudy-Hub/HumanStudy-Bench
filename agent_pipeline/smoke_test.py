@@ -108,12 +108,14 @@ def unkeyed_checks(checks: list[dict], asked: list[dict]) -> list[str]:
         text = _plain(question.get("text"))
         matched = []
         for check in checks:
+            # Always the same options; then the survey's id (or export tag), or the same wording.
+            if len(options) < 2 or options != {_plain(o) for o in check.get("options") or []}:
+                continue
             by_id = qid in (check.get("qid"), check.get("tag")) or bool(
                 check.get("qid") and re.search(rf"(?<![A-Za-z0-9]){re.escape(str(check['qid']))}(?![0-9])", qid))
-            same_options = len(options) > 1 and options == {_plain(o) for o in check.get("options") or []}
             wording = _plain(check.get("text"))
-            same_text = not text or not wording or wording in text or text in wording
-            if by_id or (same_options and same_text):
+            same_text = bool(text and wording) and (wording in text or text in wording)
+            if by_id or same_text:
                 matched.append((by_id, check))
         if not matched:
             continue

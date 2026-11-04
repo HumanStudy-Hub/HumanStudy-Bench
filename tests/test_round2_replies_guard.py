@@ -491,3 +491,84 @@ def test_identical_file_in_an_open_project_carries_its_licence(tmp_path: Path, m
     meta.pop("redistribution")
     (root / "source/paper_metadata.json").write_text(json.dumps(meta))
     assert not [p for p in check_package_sources(root, job) if "same SHA-256" in p or "redistribution" in p]
+
+
+# --------------------------------------------------------------------------- review follow-ups
+
+def test_guard_never_resolves_tilde_paths(repo: Path, tmp_path: Path) -> None:
+    import os
+    home_relative = os.path.relpath(repo, os.path.expanduser("~"))
+    url = "https://osf.io/download/abc/"
+    for command in (f"python '~/{home_relative}/agent_pipeline/fetch_public.py' --job j {url}",
+                    f'cd "~/{home_relative}" && python agent_pipeline/fetch_public.py --job j {url}',
+                    f"cd ~/{home_relative} && python agent_pipeline/fetch_public.py --job j {url}",
+                    f"cd ~+ && python agent_pipeline/fetch_public.py --job j {url}"):
+        assert _guard(command, str(tmp_path)) is not None, command
+
+
+def test_guard_refuses_wrappers_functions_and_heredocs_that_move_the_shell(repo: Path) -> None:
+    url = "https://osf.io/download/abc/"
+    helper = f"python agent_pipeline/fetch_public.py --job j {url}"
+    net = "python -c \"import urllib.request; urllib.request.urlopen('https://unlisted.net/x')\""
+    refused = [
+        f"f(){{ cd /tmp; }}; f; {helper}",
+        f"cd {repo} && f(){{ cd /tmp; }}; f; {helper}",
+        f"cd {repo} && true; {helper}",            # a leading cd covers only the first command
+        f"eval 'cd /tmp'; {helper}",
+        f"if cd /tmp; then {helper}; fi",
+        f"cd /tmp && bash <<EOF\n{helper}\nEOF",
+        f"env -C /tmp {helper}",
+        f"env -i {net}", f"sudo -E {net}", f"exec -a x {net}", f"time -p {net}", f"nice -n 1 {net}",
+        "python -X agent_pipeline/fetch_public.py https://osf.io/x.py",
+        "python agent_pipeline/fetch_public.py --job / --scrub",
+    ]
+    for command in refused:
+        assert _guard(command, str(repo)) is not None, command
+    assert _guard(f"python3 -X dev agent_pipeline/fetch_public.py --job j {url}", str(repo)) is None
+    assert _guard(f"cd {repo} && J=x && {helper} 2>&1 | tail -3", "/") is None
+
+
+def test_scrub_keeps_json_valid_and_matches_only_signatures() -> None:
+    text = json.dumps({"html": '<a href="https://b.s3.amazonaws.com/f.pdf?X-Amz-Signature=abc">x</a>'})
+    assert json.loads(fetch_public.strip_signed_urls(text))["html"] == '<a href="https://b.s3.amazonaws.com/f.pdf">x</a>'
+    strip = fetch_public.strip_signed_urls
+    assert strip("HTTPS://b.s3.amazonaws.com/f?X-Amz-Signature=1") == "https://b.s3.amazonaws.com/f"
+    assert strip("https://h/f?a=1&amp;X-Amz-Signature=3") == "https://h/f"
+    assert strip("https://osf.io/abcde/?view_only=0123") == "https://osf.io/abcde/"
+    assert strip("https://x.blob.core.windows.net/c/f?sv=2020&se=2026&sig=abc") == "https://x.blob.core.windows.net/c/f"
+    for kept in ("https://amazon.com/dp/B0?sr=8-1&keywords=x", "https://example.org/survey?sp=1",
+                 "https://osf.io/download/3x2bv/?version=2", "https://example.org/a?token=1"):
+        assert strip(kept) == kept
+
+
+def test_survey_check_matching_needs_the_same_options() -> None:
+    checks = [{"qid": "QID1", "tag": "Q1", "text": "Do you agree to take part?", "options": ["Yes", "No"],
+               "correct": ["Yes"], "response": "forced", "source": "s.qsf"},
+              {"qid": "QID12", "tag": "Q12", "text": "", "options": ["Agree", "Disagree"], "correct": ["Agree"],
+               "response": "forced", "source": "s.qsf"}]
+    unrelated = [_asked("QID1", ["Own", "Lease", "None"], text="Do you own a car?"),
+                 _asked("studyB_QID1_car", ["Own", "Lease"], text="Car?"),
+                 _asked("opinion", ["Agree", "Disagree"], text="Policy X is good.")]
+    assert smoke_test.unkeyed_checks(checks, unrelated) == []
+    assert smoke_test.unkeyed_checks(checks, [_asked("consent", ["Yes", "No"], text="Do you agree to take part?")])
+    assert smoke_test.unkeyed_checks(checks, [_asked("QID12", ["Agree", "Disagree"], text="Anything")])
+
+
+def test_licence_walk_stops_at_an_explicit_no_license(tmp_path: Path, monkeypatch) -> None:
+    job, root, sha = _sourced_package(tmp_path)
+    records = {
+        "https://api.osf.io/v2/files/comp1/": None,
+        "https://api.osf.io/v2/nodes/comp1/?embed=license": {"data": {
+            "attributes": {"title": "Component"},
+            "embeds": {"license": {"data": {"attributes": {"name": "No license"}}}},
+            "relationships": {"parent": {"data": {"id": "proj1"}}}}},
+    }
+    monkeypatch.setattr(fetch_public, "_api_json", lambda job, url: records[url])
+    record = fetch_public.osf_licence(job, "https://osf.io/comp1/")
+    assert record["licence"] == "none stated" and [p["id"] for p in record["projects"]] == ["comp1"]
+    assert fetch_public.OSF_STORAGE_FILE_RE.match("https://osf.io/knjhu/files/osfstorage/5bead3eab378ff0018a947dc")
+
+
+def test_counts_with_words_get_printed_positions() -> None:
+    q = Question("q", options=["0 times", "1 time", "2 times"])
+    assert q.codes == ["1", "2", "3"] and render_options(q).split("\n")[0] == "1. 0 times"
