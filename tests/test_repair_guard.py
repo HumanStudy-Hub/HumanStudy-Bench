@@ -503,6 +503,8 @@ if '--resume' in sys.argv:
     raise SystemExit(0)
 
 shutil.copytree(os.environ['FAKE_FIXTURE'], root)
+if os.environ.get('FAKE_REPLY'):
+    (root / 'studio-reply.md').write_text(os.environ['FAKE_REPLY'])
 for rel in ('source/paper_metadata.json', 'task/task.json'):
     (root / rel).parent.mkdir(parents=True, exist_ok=True)
     (root / rel).write_text('{}\n')
@@ -606,13 +608,51 @@ def test_stopped_build_reports_the_agents_reply(tmp_path: Path) -> None:
     root.mkdir(parents=True)
     assert stopped_reply_message(package) is None
     (root / "studio-reply.md").write_text(
-        "Ready to run: Nothing yet.\nNeeds you: Please upload the supplement.\n"
+        "**Ready to run:** Nothing yet.\nneeds you: Please upload the supplement.\n"
         "Licence: CC BY 3.0 (printed on page 1)\n\n**Questions**\n")
     assert stopped_reply_message(package) == (
-        "The study build stopped before the package could run. "
-        "Ready to run: Nothing yet. Needs you: Please upload the supplement.")
-    (root / "studio-reply.md").write_text("x" * 5000)
+        "The study build ended without a finished package. "
+        "Ready to run: Nothing yet. needs you: Please upload the supplement.")
+    (root / "studio-reply.md").write_text("# Reply\nI could not finish.\n")
+    assert stopped_reply_message(package) is None
+    (root / "studio-reply.md").write_text("Needs you: " + "x" * 5000)
     assert len(stopped_reply_message(package)) == 1000
+
+
+def test_watchdog_records_reply_of_a_stopped_build_for_this_run(tmp_path: Path) -> None:
+    job, validator, env = _job(tmp_path, "derive", FAKE_REPLY="Ready to run: Nothing yet.\nNeeds you: Upload S1.\n",
+                               GITHUB_RUN_ID="777")
+    state = json.loads((job / "job.json").read_text())
+    (job / "job.json").write_text(json.dumps({**state, "researcherMessage": {"text": "old", "runId": "1"}}))
+    (job / "studio_request.json").write_text(json.dumps({"version": 1, "requestId": "req-1"}))
+    result = _run(job, validator, env)
+    assert "repair not attempted" in result.stderr
+    note = json.loads((job / "job.json").read_text())["researcherMessage"]
+    assert note == {"text": "The study build ended without a finished package. "
+                            "Ready to run: Nothing yet. Needs you: Upload S1.", "runId": "777"}
+
+
+def _workflow_step(name: str) -> str:
+    import yaml
+    workflow = yaml.safe_load((ROOT / ".github/workflows/run-humanstudy-pipeline.yml").read_text())
+    steps = workflow["jobs"]["build-study"]["steps"]
+    script = next(step["run"] for step in steps if step.get("name") == name)
+    return script.split("<<'PY'\n", 1)[1].rsplit("\nPY", 1)[0]
+
+
+@pytest.mark.parametrize("note, run_id, expected", [
+    ({"text": "Needs you: Upload S1.", "runId": "9"}, "9", "Needs you: Upload S1."),
+    ({"text": "Needs you: Upload S1.", "runId": "8"}, "9", "The study build failed or was cancelled"),
+    ("Needs you: Upload S1.", "9", "The study build failed or was cancelled"),
+    (None, "9", "The study build failed or was cancelled"),
+])
+def test_failure_step_shows_only_this_runs_reply(tmp_path: Path, note, run_id: str, expected: str) -> None:
+    job = tmp_path / "job-storage/jobs/job-1"
+    job.mkdir(parents=True)
+    (job / "job.json").write_text(json.dumps({"id": "job-1", **({"researcherMessage": note} if note else {})}))
+    subprocess.run([sys.executable, "-c", _workflow_step("Mark failed or cancelled")], cwd=tmp_path, check=True,
+                   env={**os.environ, "JOB_ID": "job-1", "GITHUB_RUN_ID": run_id})
+    assert json.loads((job / "job.json").read_text())["message"] == expected
 
 
 def test_watchdog_clears_stale_state_when_first_pass_is_valid(tmp_path: Path) -> None:

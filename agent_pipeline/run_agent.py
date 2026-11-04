@@ -3,6 +3,7 @@ import argparse
 import base64
 import json
 import os
+import re
 import shutil
 import shlex
 import signal
@@ -146,20 +147,21 @@ def ensure_readme(package: Path) -> None:
 
 
 def stopped_reply_message(package: Path) -> str | None:
-    """The status line for a build the agent stopped without completing, taken
-    from the opening lines of its researcher reply (for example a request for
-    materials the paper does not print). None when there is no reply."""
+    """The status line for a build the agent ended without the completion
+    marker, from the "Ready to run:" and "Needs you:" lines of its researcher
+    reply (for example a request for materials the paper does not print).
+    None when the reply has neither line."""
     root = package_root(package)
     try:
         text = (root / "studio-reply.md").read_text(errors="replace") if root else ""
     except OSError:
         return None
-    lines = [line.strip() for line in text.splitlines() if line.strip()]
-    labelled = [line for line in lines if line.startswith(("Ready to run:", "Needs you:"))]
-    picked = labelled or lines[:2]
+    # The same markdown stripping as package_checks.check_reply.
+    lines = [re.sub(r"^[#>\-*\s]+|[*_`]+", "", line).strip() for line in text.splitlines()]
+    picked = [line for line in lines if line.lower().startswith(("ready to run:", "needs you:"))][:2]
     if not picked:
         return None
-    message = "The study build stopped before the package could run. " + " ".join(picked)
+    message = "The study build ended without a finished package. " + " ".join(picked)
     return message if len(message) <= 1000 else message[:999] + "\u2026"
 
 
@@ -850,8 +852,11 @@ def main() -> None:
             # done; a repair turn could write it without doing the work. Never
             # repair on it alone.
             reason = "studio_incomplete"
+            # The workflow shows the reply only for this run (a retry reuses job.json),
+            # and only when Claude Code itself ended normally.
+            note = stopped_reply_message(package) if process.returncode == 0 else None
             update_job_state(args.job, error="The agent stopped before completing the Studio request; no repair was attempted.",
-                             researcherMessage=stopped_reply_message(package))
+                             researcherMessage={"text": note, "runId": os.environ.get("GITHUB_RUN_ID", "")} if note else None)
         elif not valid and mode == "build":
             def publish_repair(number: int, max_rounds: int, errors: str) -> None:
                 if not publisher:

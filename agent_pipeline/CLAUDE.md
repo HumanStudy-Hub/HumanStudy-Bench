@@ -152,6 +152,9 @@ repositories, are refused (list a repository's files with
 saves the file under `input/external/`, records its URL, final URL, SHA-256 and
 size in `input/external/fetch_log.json`, and refuses hosts outside this build's
 research-host list, participant-data files and archives that contain them.
+Some hosts are reached only through a redirect (file storage, and `jbaron.org`
+behind `journal.sjdm.org`): record and fetch the URL you asked for, never the
+final URL it redirected to.
 Never write into `input/external/` yourself: the pipeline downloads every
 recorded source again before publishing and fails the build if a file differs.
 Only hosts the paper prints, hosts the researcher named and research
