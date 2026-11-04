@@ -243,49 +243,66 @@ def _segments(command: str) -> list[str]:
 
 
 def _pipeline_segments(command: str) -> list[tuple[str, bool]]:
-    """Segments with a flag: True when the segment's output is piped into the next one."""
-    segments, current, quote, escaped = [], [], "", False
+    """Segments with a flag: True when the segment's output is piped into the next one.
+
+    Splits at unquoted, unescaped |, ;, &, &&, || and newlines, except the & and |
+    of a redirection (2>&1, &>file, >|file). Comments (# at the start of a word)
+    are dropped, and $'...' quoting honours its backslash escapes, so neither can
+    hide the next command from the checks.
+    """
+    segments, current, quote, escaped, ansi = [], [], "", False, False
     pipes: list[bool] = []
-    skip = False
-    for index, char in enumerate(command):
-        if skip:
-            skip = False
-            continue
+    operator = False  # the last character kept was an unquoted, unescaped < or >
+    index = 0
+    while index < len(command):
+        char = command[index]
+        index += 1
         if escaped:
             current.append(char)
-            escaped = False
+            escaped, operator = False, False
             continue
-        if char == "\\" and quote != "'":
+        if char == "\\" and (quote != "'" or ansi):
             escaped = True
             current.append(char)
             continue
         if quote:
             if char == quote:
-                quote = ""
+                quote, ansi = "", False
             current.append(char)
             continue
         if char in "'\"":
-            quote = char
+            ansi = char == "'" and bool(current) and current[-1] == "$"
+            quote, operator = char, False
             current.append(char)
             continue
-        if char == "&" and ((current and current[-1] in "<>") or command[index + 1:index + 2] == ">"):
-            current.append(char)  # part of a redirection: 2>&1, >&2, &>file
+        if char == "#" and (not current or current[-1] in " \t"):
+            while index < len(command) and command[index] != "\n":
+                index += 1  # a comment runs to the end of the line
             continue
-        if char == "|" and current and current[-1] == ">":
+        if char == "&" and (operator or command[index:index + 1] == ">"):
+            current.append(char)  # part of a redirection: 2>&1, >&2, &>file
+            operator = False
+            continue
+        if char == "|" and operator and current[-1] == ">":
             current.append(char)  # >| file
+            operator = False
             continue
         if char in "|;&\n":
             pipe = char == "|"
-            if pipe and command[index + 1:index + 2] == "|":
-                pipe, skip = False, True  # || runs the next command; it is not a pipe
+            if pipe and command[index:index + 1] == "|":
+                pipe = False  # || runs the next command; it is not a pipe
+                index += 1
+            elif char == "&" and command[index:index + 1] == "&":
+                index += 1
             if "".join(current).strip():
                 segments.append("".join(current))
                 pipes.append(pipe)
             elif pipe and pipes:
                 pipes[-1] = True
-            current = []
+            current, operator = [], False
             continue
         current.append(char)
+        operator = char in "<>"
     if "".join(current).strip():
         segments.append("".join(current))
         pipes.append(False)
@@ -305,15 +322,17 @@ def _redirections(segment: str) -> tuple[str, list[tuple[str, str]]]:
     """
     out: list[str] = []
     found: list[tuple[str, str]] = []
-    quote, escaped, index = "", False, 0
+    quote, escaped, index, ansi = "", False, 0, False
     while index < len(segment):
         char = segment[index]
-        if escaped or (char == "\\" and quote != "'"):
+        if escaped or (char == "\\" and (quote != "'" or ansi)):
             escaped = not escaped
             out.append(char)
             index += 1
             continue
         if quote or char in "'\"":
+            if not quote:
+                ansi = char == "'" and bool(out) and out[-1] == "$"
             quote = "" if char == quote else (quote or char)
             out.append(char)
             index += 1
@@ -353,20 +372,34 @@ def _redirections(segment: str) -> tuple[str, list[tuple[str, str]]]:
 
 
 def _writes_file(redirections: list[tuple[str, str]]) -> bool:
-    """True when stdout goes to a file. Stderr to a file, /dev/null and fd copies are fine."""
+    """True when stdout ends up in a file, following fd copies in order (2>out 1>&2).
+
+    Stderr to a file and /dev/null are fine; ``1<>out`` and ``01>out`` are stdout.
+    """
+    table: dict[int, str | None] = {}
     for operator, target in redirections:
-        fd, op = re.match(r"(\d*)(.*)", operator).groups()
-        if "<" in op or fd not in ("", "1"):
+        digits, op = re.match(r"(\d*)(.*)", operator).groups()
+        if op in ("<<", "<<<"):
             continue
-        if target == "/dev/null":
+        if op.startswith("&>"):
+            table[1] = table[2] = target
             continue
-        if op in (">&",) and re.fullmatch(r"\d+|-", target) and not op.startswith("&"):
-            continue  # >&2, 1>&2: a copy of another stream, not a file
-        return True
-    return False
+        fd = int(digits) if digits else (0 if op in ("<", "<&", "<>") else 1)
+        if op in (">&", "<&") and re.fullmatch(r"\d+", target):
+            table[fd] = table.get(int(target))
+        elif op in (">&", "<&") and target == "-":
+            table[fd] = None
+        elif op == "<":
+            table[fd] = None  # reading a file is not writing one
+        else:
+            table[fd] = target  # >, >>, >|, <>, >&file
+    return table.get(1) not in (None, "/dev/null")
 
 
-VAR_RE = re.compile(r"\$\{?([A-Za-z_][A-Za-z0-9_]*)\}?")
+VAR_RE = re.compile(r"\$(?:\{([A-Za-z_][A-Za-z0-9_]*)\}|([A-Za-z_][A-Za-z0-9_]*))")
+# Ways to set a variable that _shell_values does not follow; with any of them the value is unknown.
+DYNAMIC_VARS_RE = re.compile(r"\b(eval|read|mapfile|readarray|let|getopts|source|declare\s+-n|typeset)\b|"
+                             r"printf\s+-v|\+=|\$\{[^}]*[^A-Za-z0-9_}][^}]*\}|\$\{[!#]")
 
 
 def _shell_values(command: str) -> dict[str, list[str]]:
@@ -396,10 +429,12 @@ def _expand(arg: str, values: dict[str, list[str]], depth: int = 0) -> list[str]
         return [arg]
     if depth > 3 or "$(" in arg or "`" in arg:
         return None
-    match = VAR_RE.search(arg)
-    if match is None:
+    if "${" in arg and not re.search(r"\$\{[A-Za-z_][A-Za-z0-9_]*\}", arg):
         return None
-    options = values.get(match.group(1))
+    match = VAR_RE.search(arg)
+    if match is None or "$" in VAR_RE.sub("", arg):
+        return None  # $(...), $1, $@ or another form whose value is not written in the command
+    options = values.get(match.group(1) or match.group(2))
     if not options or any("$(" in option or "`" in option for option in options):
         return None
     results: list[str] = []
@@ -482,6 +517,16 @@ def _check_url(url: str, hosts: list[str], download_ok: bool = False) -> str | N
     return None
 
 
+def _wget_to_stdout(args: list[str]) -> bool:
+    for position, arg in enumerate(args):
+        following = args[position + 1] if position + 1 < len(args) else ""
+        if arg in ("--spider", "--output-document=-", "-O-") or (arg in ("-O", "--output-document") and following == "-"):
+            return True
+        if re.fullmatch(r"-[A-Za-z]*O-?", arg) and (arg.endswith("-") or following == "-"):
+            return True
+    return False
+
+
 def _check_fetcher(program: str, args: list[str], redirections: list[tuple[str, str]], hosts: list[str]) -> str | None:
     """curl, wget and similar: read-only, to the terminal, listed hosts, no file downloads."""
     send, route, output, (send_short, route_short, output_short) = CURL_FLAGS if program != "wget" else WGET_FLAGS
@@ -512,6 +557,8 @@ def _check_fetcher(program: str, args: list[str], redirections: list[tuple[str, 
     # Output redirection to a file (stderr redirection and /dev/null are fine).
     if _writes_file(redirections):
         return FILE_OUTPUT_REFUSAL
+    if program == "wget" and not _wget_to_stdout(args):
+        return FILE_OUTPUT_REFUSAL  # wget saves to a file unless told -O - (or --spider)
     head_only = any(a in ("-I", "--head", "--spider") or re.fullmatch(r"-[A-Za-z]*I[A-Za-z]*", a) for a in args)
     for arg in args:
         for url in _urls_in(arg):
@@ -595,6 +642,10 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
                     return reason
         previous_fetch = False
         fetch_pipeline = fetch_pipeline and pipes_on
+        closer = _tokens(clean)[:1]
+        if closer and (closer[0] in ("}", "done", "fi", "esac") or closer[0].startswith(")")) \
+                and _writes_file(redirections) and re.search(r"(?i)\b(curl|wget)\b", stripped):
+            return FILE_OUTPUT_REFUSAL  # { curl ...; } > file
         if program in FORBIDDEN_PROGRAMS:
             return f"`{program}` is not available to the materials search."
         if program in SHELLS and "-c" in args:
@@ -637,6 +688,9 @@ def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0)
                 for i, arg in enumerate(rest):
                     if i in skip or arg.startswith("-"):
                         continue
+                    if "$" in arg and DYNAMIC_VARS_RE.search(stripped):
+                        reason = VARIABLE_REFUSAL.format(arg[:80])
+                        break
                     expanded = _expand(arg, values)
                     if expanded is None:
                         reason = VARIABLE_REFUSAL.format(arg[:80])
