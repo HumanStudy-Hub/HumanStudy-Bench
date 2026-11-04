@@ -88,11 +88,14 @@ def _value(item: dict) -> dict:
             if k not in ITEM_METADATA or (k == "label" and not (isinstance(v, str) and v in ORIGINS))}
 
 
-def _unresolved_value(item: dict) -> dict:
-    """The value of an unresolved item, ignoring its ``extensions.material``
-    classification. A repair may classify a gap (the package check requires it)
-    as long as the item stays unresolved and nothing else about it changes."""
+def _unresolved_value(item: dict, before: Optional[dict] = None) -> dict:
+    """The value of an unresolved item, ignoring an ``extensions.material``
+    classification the repair adds to a gap that had none (the package check
+    requires one). An existing classification, with its search record, is
+    compared like any other content."""
     value = _value(item)
+    if before is not None and isinstance(before.get("extensions"), dict) and "material" in before["extensions"]:
+        return value
     extensions = value.get("extensions")
     if isinstance(extensions, dict) and "material" in extensions:
         rest = {k: v for k, v in extensions.items() if k != "material"}
@@ -230,7 +233,7 @@ def compare_packages(pre: Dict[str, Any], post: Dict[str, Any]) -> dict:
                 violations.append(f"{where}: moved out of missing/decision "
                                   f"(state {before.get('state')} -> {after.get('state')}, "
                                   f"origin {_origin(before)} -> {_origin(after)})")
-            if _unresolved_value(before) != _unresolved_value(after):
+            if _unresolved_value(before, before) != _unresolved_value(after, before):
                 violations.append(f"{where}: value of an unresolved item was changed")
             if after.get("derivation") not in (None, "", before.get("derivation")):
                 violations.append(f"{where}: derivation was added to an unresolved item")

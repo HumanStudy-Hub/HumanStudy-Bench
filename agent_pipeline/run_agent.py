@@ -19,10 +19,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 try:
+    from agent_pipeline.fetch_public import restore_downloads
     from agent_pipeline.network_policy import allowed_hosts
     from agent_pipeline.repair_guard import guard_repair, package_diff
     from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
 except ModuleNotFoundError:  # Direct script execution from the repository root.
+    from fetch_public import restore_downloads
     from network_policy import allowed_hosts
     from repair_guard import guard_repair, package_diff
     from studio_output import studio_mode, validate_build_sidecars, validate_discussion
@@ -230,13 +232,16 @@ def network_settings(job: Path, workdir: Path) -> tuple[str, Path]:
     """Claude Code settings that route WebFetch and shell network calls through
     the research-host guard, and the hosts file the guard and fetch helper read.
 
-    The hosts file lives outside the job directory, so nothing the agent writes
-    while building changes the list."""
+    The hook gets the list on its command line; the read-only hosts file outside
+    the job directory is only for fetch_public.py."""
+    hosts = allowed_hosts(job)
     hosts_file = workdir / "allowed-hosts.json"
-    hosts_file.write_text(json.dumps(allowed_hosts(job), indent=2) + "\n")
+    hosts_file.write_text(json.dumps(hosts, indent=2) + "\n")
+    hosts_file.chmod(0o444)
     guard = Path(__file__).resolve().parent / "network_policy.py"
+    # The hook reads its list from its own command line, which the agent cannot edit.
     command = " ".join(shlex.quote(part) for part in (
-        sys.executable, str(guard), "--hosts-file", str(hosts_file), "--log", str(job / "logs" / "network-guard.log")))
+        sys.executable, str(guard), "--hosts", ",".join(hosts), "--log", str(job / "logs" / "network-guard.log")))
     # The guard's host list is stricter than WebFetch's built-in blocklist lookup,
     # which needs an Anthropic endpoint the OpenRouter route does not provide.
     settings = {"skipWebFetchPreflight": True, "hooks": {"PreToolUse": [
@@ -624,6 +629,9 @@ def main() -> None:
     if progress_token and args.progress_repo and args.progress_branch and args.progress_path:
         publisher = ProgressPublisher(progress_token, args.progress_repo, args.progress_branch, args.progress_path)
     session_id = str(uuid.uuid4())
+    if mode == "build":
+        for note in restore_downloads(args.job):
+            print(f"[materials] {note}", flush=True)
     network_dir = Path(tempfile.mkdtemp(prefix="humanstudy-network-"))
     settings, hosts_file = network_settings(args.job, network_dir)
     base_command = [

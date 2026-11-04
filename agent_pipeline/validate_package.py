@@ -53,7 +53,11 @@ def main() -> None:
             raise SystemExit("task programBindings do not match the canonical Human Program")
     # Public materials found outside the paper: provenance, licence, no participant
     # data, and no invented wording passed off as rebuilt structure.
-    problems = check_package_sources(root, package.parent)
+    try:
+        problems = check_package_sources(root, package.parent)
+    except Exception as exc:  # A malformed record must be reported, not crash the repair loop.
+        problems = [f"source/paper_metadata.json or the program could not be checked "
+                    f"({type(exc).__name__}: {exc}); fix the malformed external source or material record"]
     if problems:
         raise SystemExit("external materials check failed:\n- " + "\n- ".join(problems))
     result = subprocess.run(

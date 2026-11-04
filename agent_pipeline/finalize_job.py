@@ -9,9 +9,11 @@ import sys
 from pathlib import Path
 
 try:
+    from agent_pipeline.fetch_public import verify_downloads
     from agent_pipeline.run_agent import studio_complete, validate
     from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
 except ModuleNotFoundError:  # Direct script execution from the repository root.
+    from fetch_public import verify_downloads
     from run_agent import studio_complete, validate
     from studio_output import studio_mode, validate_build_sidecars, validate_discussion
 
@@ -40,6 +42,11 @@ def finalize(job: Path, validator: Path) -> None:
         valid, detail = validate(validator, job / "package")
         if not valid:
             raise ValueError(f"Invalid study package: {detail}")
+        # Each recorded external source must be what its URL serves, not a file
+        # written or edited in the job directory.
+        mismatches = verify_downloads(job)
+        if mismatches:
+            raise ValueError("External sources could not be verified: " + "; ".join(mismatches))
         if request is not None:
             accepted_model = None
             if request.get("purpose") == "accepted-model-sync":

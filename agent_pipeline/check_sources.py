@@ -41,17 +41,24 @@ try:
 except ModuleNotFoundError:
     from network_policy import looks_like_participant_data
 
+# Open licences, matched against the whole licence name (SPDX ids or the names
+# OSF, GitHub, Zenodo and journals print). NC and ND variants are not open.
 OPEN_LICENCE_RE = re.compile(
-    r"(?i)\b(cc[- ]?by|cc0|cc[- ]?zero|creative commons|public domain|mit|apache|bsd|gpl|lgpl|mpl|"
-    r"isc|unlicense|odc[- ]?by|odbl|pddl|open government licence)\b")
-NOT_OPEN_RE = re.compile(r"(?i)\b(nc|nd|non[- ]?commercial|no[- ]?deriv|all rights reserved|none|unknown|not stated|no licen[cs]e)\b")
+    r"(?i)^\s*(cc[- ]?by([- ]?sa)?|cc[- ]?by[- ]attribution([- ]share[- ]?alike)?|"
+    r"creative commons attribution([- ]share[- ]?alike)?|cc[- ]?zero|cc0|"
+    r"creative commons zero|public domain( dedication)?|pddl|odc[- ]?by|odbl|"
+    r"mit( license)?|apache([- ]license)?|bsd[- 0-9a-z]*|gpl[- 0-9a-z.+]*|lgpl[- 0-9a-z.+]*|agpl[- 0-9a-z.+]*|"
+    r"mpl[- 0-9.]*|isc( license)?|unlicense|the unlicense)"
+    r"([- ]?v?\d(\.\d)?)?([- ](international|generic|unported|license|licence|1\.0 universal|universal))*\s*$")
+NOT_OPEN_RE = re.compile(r"(?i)(\bnc|non[- ]?commercial|\bnd(\b|\d)|no[- ]?deriv|all rights reserved|copyright|"
+                         r"none|unknown|not stated|no licen[cs]e|[;,]| and | or |but )")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 USES = ("open", "researcher-own-use-only")
 CLASSIFICATIONS = ("schema-enough", "needs-original")
 NEEDS_ORIGINAL_STATUSES = ("found-open", "found-private", "pending")
 REQUEST_ISSUE = "materials-request"
-PROSE_WORDS = 8
+PROSE_WORDS = 4
 TEXT_SUFFIXES = (".txt", ".md", ".html", ".htm", ".xml", ".csv", ".tsv", ".rmd", ".tex", ".js", ".py", ".r")
 JSON_SUFFIXES = (".json", ".qsf")
 
@@ -92,7 +99,10 @@ def file_text(path: Path) -> str | None:
                 parts = [archive.read(name).decode("utf-8", "replace") for name in archive.namelist()
                          if name.endswith(".xml") and ("word/" in name or "ppt/slides/" in name or name == "content.xml")]
             joined = "\n".join(parts)
-            joined = re.sub(r"</w:p>|</a:p>|</text:p>", "\n", joined)
+            # Word splits a sentence into runs; joining runs must not add spaces.
+            joined = re.sub(r"</w:p>|</a:p>|</text:p>|<w:br\s*/>|<w:cr\s*/>", "\n", joined)
+            joined = re.sub(r"<w:tab\s*/>|<text:tab\s*/>", "\t", joined)
+            joined = re.sub(r"<[^>]+>", "", joined)
             return normalise(joined)
         if suffix == ".pdf" and shutil.which("pdftotext"):
             result = subprocess.run(["pdftotext", "-q", str(path), "-"], capture_output=True, text=True, timeout=120)
@@ -102,20 +112,30 @@ def file_text(path: Path) -> str | None:
     return None
 
 
-def quote_in_text(quote: str, text: str) -> bool:
-    """Every part of the quote (split at an ellipsis) occurs in the text, in order."""
-    segments = [normalise(part) for part in re.split(r"\.\.\.|…|\[\.\.\.\]", quote)]
-    segments = [segment for segment in segments if segment]
-    if not segments:
-        return True
+def _squash(text: str) -> str:
+    return re.sub(r"\s+", "", normalise(text)).casefold()
+
+
+def quote_in_text(quote: str, text: str, allow_ellipsis: bool = True) -> bool:
+    """The quote occurs in the text, ignoring case and whitespace (Word and PDF
+    extraction move spaces). With an ellipsis each part, of at least four words,
+    must occur in order, so scattered words cannot be stitched into a quote."""
+    parts = [normalise(quote)]
+    if allow_ellipsis:
+        parts = [normalise(part) for part in re.split(r"\.\.\.|\u2026|\[\.\.\.\]", quote)]
+        parts = [part for part in parts if part]
+        if len(parts) > 1 and any(len(part.split()) < 4 for part in parts):
+            return False
+    haystack = _squash(text)
     position = 0
-    for segment in segments:
-        found = text.find(segment, position)
-        if found < 0:
-            found = text.casefold().find(segment.casefold(), position)
+    for part in parts:
+        needle = _squash(part)
+        if not needle:
+            continue
+        found = haystack.find(needle, position)
         if found < 0:
             return False
-        position = found + len(segment)
+        position = found + len(needle)
     return True
 
 
@@ -125,6 +145,11 @@ def _strings(value: Any) -> Iterable[str]:
 
 def _is_prose(text: str) -> bool:
     return len(re.findall(r"[A-Za-zÀ-ɏ一-鿿]+", text)) >= PROSE_WORDS
+
+
+def _is_wording(text: str) -> bool:
+    """Two or more words separated by whitespace (identifiers and single tokens are not wording)."""
+    return bool(re.search(r"\s", text.strip())) and len(re.findall(r"\w+", text)) >= 2
 
 
 def _job_purpose(job: Path) -> str | None:
@@ -154,7 +179,11 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
         fetch_log = json.loads(log_path.read_text(encoding="utf-8")) if log_path.is_file() else []
     except ValueError:
         fetch_log = []
-    logged = {item.get("path"): item for item in fetch_log if isinstance(item, dict)}
+    if not isinstance(fetch_log, list):
+        problems.append("input/external/fetch_log.json must be the list fetch_public.py writes")
+        fetch_log = []
+    logged = {item.get("path"): item for item in fetch_log
+              if isinstance(item, dict) and isinstance(item.get("path"), str)}
 
     by_id: dict[str, dict] = {}
     by_url: dict[str, dict] = {}
@@ -167,25 +196,27 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
             problems.append(f"{label} must be an object with url, path, sha256, version, tie, licence and use")
             continue
         sid = source.get("id")
-        if not isinstance(sid, str) or not sid.strip():
-            problems.append(f"{label} needs an id")
+        if not isinstance(sid, str) or not sid.strip() or sid in by_id:
+            problems.append(f"{label} needs a unique id")
         else:
             by_id[sid] = source
         url = source.get("url")
         if not isinstance(url, str) or not re.match(r"^https?://", url):
             problems.append(f"{label} needs the http(s) url it was downloaded from")
-        for key in ("version", "tie", "licence"):
+        for key in ("version", "tie", "licence", "licence_evidence"):
             if not isinstance(source.get(key), str) or not source[key].strip():
                 problems.append(f"{label} needs {key}" + (
                     " (how this source is tied to this paper: linked from the paper or its project, or a DOI/title/author match)"
-                    if key == "tie" else ""))
+                    if key == "tie" else " (where the licence is stated, e.g. the OSF project's licence field)"
+                    if key == "licence_evidence" else ""))
         if not isinstance(source.get("retrieved"), str) or not DATE_RE.match(source["retrieved"]):
             problems.append(f"{label} needs retrieved as YYYY-MM-DD")
         use = source.get("use")
         if use not in USES:
             problems.append(f"{label} use must be 'open' or 'researcher-own-use-only'")
         elif use == "open" and not licence_is_open(str(source.get("licence", ""))):
-            problems.append(f"{label} states no open licence ({source.get('licence')!r}); its use must be 'researcher-own-use-only'")
+            problems.append(f"{label} names no open licence ({source.get('licence')!r}; use an SPDX id such as "
+                            "CC-BY-4.0 or CC0-1.0); otherwise its use must be 'researcher-own-use-only'")
         if use == "researcher-own-use-only":
             private = True
         if source.get("participant_data") is not False:
@@ -200,6 +231,8 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
             file = job / path
             if not file.is_file():
                 problems.append(f"{label} cites {path}, which was not downloaded")
+            elif not file.resolve().is_relative_to((job / "input/external").resolve()):
+                problems.append(f"{label} path leaves input/external/")
             elif hashlib.sha256(file.read_bytes()).hexdigest() != sha:
                 problems.append(f"{label} sha256 does not match {path}")
             else:
@@ -234,27 +267,29 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
     program = study.get("program") if isinstance(study, dict) else None
     if not isinstance(program, dict):
         return problems
-    evidence = {e.get("id"): e for e in program.get("evidence", []) if isinstance(e, dict)}
-    paper_urls = {str(metadata.get("doi", "")).strip()} - {""}
+    evidence = {e.get("id"): e for e in program.get("evidence", []) if isinstance(e, dict) and isinstance(e.get("id"), str)}
 
     def source_of(record: dict) -> dict | None:
-        if record.get("path") in by_path:
-            return by_path[record["path"]]
-        if record.get("url") in by_url:
-            return by_url[record["url"]]
+        path, url = record.get("path"), record.get("url")
+        if isinstance(path, str) and path in by_path:
+            return by_path[path]
+        if isinstance(url, str) and url in by_url:
+            return by_url[url]
         return None
 
+    external_evidence: set[str] = set()
     for eid, record in evidence.items():
-        cites_external = bool(record.get("url")) or str(record.get("path", "")).startswith("input/")
-        if not cites_external or record.get("url") in paper_urls:
-            continue
+        path = record.get("path")
         source = source_of(record)
         if source is None:
-            problems.append(f"evidence {eid} cites {record.get('url') or record.get('path')}, "
-                            "which is not a downloaded source in external_sources")
+            # The paper, uploaded open materials and plain links are first-party
+            # citations; only files under input/external/ must be recorded sources.
+            if isinstance(path, str) and path.lstrip("./").startswith("input/external/"):
+                problems.append(f"evidence {eid} cites {path}, which is not a downloaded source in external_sources")
             continue
+        external_evidence.add(eid)
         quote = record.get("quote")
-        text = texts.get(source.get("path"))
+        text = texts.get(source["path"]) if isinstance(source.get("path"), str) else None
         if isinstance(quote, str) and quote.strip() and text is not None and not quote_in_text(quote, text):
             problems.append(f"evidence {eid}: the quote does not occur in {source.get('path')}")
 
@@ -269,7 +304,14 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
             if not isinstance(field, dict):
                 continue
             where = f"{node.get('id')}.{field.get('id')}"
-            material = (field.get("extensions") or {}).get("material")
+            extensions = field.get("extensions") if isinstance(field.get("extensions"), dict) else {}
+            material = extensions.get("material")
+            evidence_ids = [e for e in field.get("evidenceIds", []) if isinstance(e, str)] \
+                if isinstance(field.get("evidenceIds"), list) else []
+            if material is None and any(e in external_evidence for e in evidence_ids):
+                problems.append(f"{where} cites a downloaded source, so it is classified in extensions.material "
+                                "(needs-original, found-open or found-private)")
+                continue
             if material is None:
                 if (node.get("kind") == "material" and field.get("state") == "missing"
                         and purpose != "accepted-model-sync"):
@@ -285,7 +327,7 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
                 continue
             if not isinstance(material.get("what"), str) or not material["what"].strip():
                 problems.append(f"{where} extensions.material.what must name the material for the researcher")
-            cited = [evidence[e] for e in field.get("evidenceIds", []) if e in evidence]
+            cited = [evidence[e] for e in evidence_ids if e in evidence]
             if kind == "schema-enough":
                 if field.get("origin") not in ("derived", "implementation"):
                     problems.append(f"{where} is schema-enough, so its origin is derived or implementation, "
@@ -296,7 +338,7 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
                     problems.append(f"{where} is schema-enough and must cite the passage it is rebuilt from")
                 quotes = [normalise(str(e.get("quote", ""))) for e in cited]
                 for text in _strings(field.get("value")):
-                    if _is_prose(text) and not any(normalise(text) in quote for quote in quotes):
+                    if _is_prose(text) and not any(_squash(text) in _squash(quote) for quote in quotes):
                         problems.append(f"{where} is schema-enough but holds wording no cited quote prints "
                                         f"({text[:60]!r}); text participants read is needs-original")
                         break
@@ -309,13 +351,13 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
                 pending.append(str(material.get("what", "")))
                 if field.get("state") != "missing" or field.get("origin") != "unknown":
                     problems.append(f"{where} is pending, so it stays state missing with origin unknown")
-                if any(_is_prose(text) for text in _strings(field.get("value"))):
+                if any(_is_wording(text) for text in _strings(field.get("value"))):
                     problems.append(f"{where} is pending but holds text; needs-original wording is never invented")
                 if not isinstance(material.get("search"), list) or not material["search"]:
                     problems.append(f"{where} is pending and must list where it was searched (extensions.material.search)")
                 continue
             ids = material.get("sourceIds")
-            if not isinstance(ids, list) or not ids or any(i not in by_id for i in ids):
+            if not isinstance(ids, list) or not ids or any(not isinstance(i, str) or i not in by_id for i in ids):
                 problems.append(f"{where} is {status} and must list sourceIds of external_sources entries")
                 continue
             expected = "open" if status == "found-open" else "researcher-own-use-only"
@@ -323,19 +365,21 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
                 problems.append(f"{where} is {status}, so its sources must have use {expected!r}")
             if not any(source_of(e) in [by_id[i] for i in ids] for e in cited):
                 problems.append(f"{where} is {status} but cites no evidence record from its sources")
+            if field.get("origin") != "verbatim":
+                problems.append(f"{where} is {status}, so it is transcribed with origin verbatim, never paraphrased")
             # The value itself, not only the cited quote, must be text the source prints.
-            source_texts = [texts.get(by_id[i].get("path")) for i in ids]
-            quotes = [normalise(str(e.get("quote", ""))) for e in cited]
-            for text in _strings(field.get("value")):
-                if not _is_prose(text):
-                    continue
-                readable = [t for t in source_texts if t is not None]
-                in_source = any(quote_in_text(text, t) for t in readable)
-                in_quote = any(normalise(text) in quote for quote in quotes)
-                if not (in_source or (not readable and in_quote)):
-                    problems.append(f"{where} is {status} but its text does not occur in its source "
-                                    f"({text[:60]!r})")
-                    break
+            readable = [texts[path] for path in (by_id[i].get("path") for i in ids)
+                        if isinstance(path, str) and texts.get(path) is not None]
+            if not readable:
+                if field.get("state") != "check":
+                    problems.append(f"{where} is {status} but no text can be read from its source (an image, "
+                                    "archive or unreadable file); set its state to check so a person compares it")
+            else:
+                for text in _strings(field.get("value")):
+                    if _is_wording(text) and not any(quote_in_text(text, t, allow_ellipsis=False) for t in readable):
+                        problems.append(f"{where} is {status} but its text does not occur in its source "
+                                        f"({text[:60]!r})")
+                        break
             if field.get("state") == "missing":
                 problems.append(f"{where} was found, so it is not missing")
     if pending:
@@ -343,6 +387,8 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
             problems.append(f"materials still needed ({'; '.join(pending)}) must be listed in one issue "
                             f"with id '{REQUEST_ISSUE}'")
         else:
+            if request_issue.get("severity") not in ("decision", "blocking"):
+                problems.append(f"the '{REQUEST_ISSUE}' issue has severity decision or blocking")
             body = " ".join(str(request_issue.get(k, "")) for k in ("title", "reason", "suggestedAction"))
             for what in pending:
                 if what and normalise(what).casefold() not in normalise(body).casefold():
