@@ -162,6 +162,10 @@ only inside participant data, say so in the materials request.
 ```
 
 Every search goes in `material_searches`, including those that found nothing.
+Every file in `input/external/fetch_log.json` is listed: in `external_sources`
+when the package uses it, otherwise in `"unused_downloads": [{"path":
+"input/external/<file>", "reason": "pilot version, not the survey the paper
+reports"}]`.
 Write `licence` as an SPDX id (`CC-BY-4.0`, `CC-BY-SA-4.0`, `CC0-1.0`, `MIT`) or
 "none stated", and `licence_evidence` as where it is stated. `use` is `open`
 only when the file, its project or its repository states an open licence

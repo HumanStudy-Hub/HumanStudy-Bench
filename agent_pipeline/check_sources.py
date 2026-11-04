@@ -268,13 +268,21 @@ def check_package_sources(root: Path, job: Path | None = None) -> list[str]:
         problems.append("source/paper_metadata.json material_searches must record where materials were searched")
 
     recorded = {source.get("path") for source in sources if isinstance(source, dict) and isinstance(source.get("path"), str)}
+    # Files downloaded only to look at and then not used: listed with the reason, no licence needed.
+    unused = metadata.get("unused_downloads", [])
+    for index, item in enumerate(unused if isinstance(unused, list) else []):
+        if isinstance(item, dict) and isinstance(item.get("path"), str) and isinstance(item.get("reason"), str) \
+                and item["reason"].strip():
+            recorded.add(item["path"])
+        else:
+            problems.append(f"unused_downloads[{index}] needs the downloaded path and the reason it was not used")
     for entry in fetch_log:
         if isinstance(entry, dict) and looks_like_participant_data(str(entry.get("path", ""))):
             problems.append(f"{entry.get('path')} looks like participant data, which is never downloaded")
         elif isinstance(entry, dict) and isinstance(entry.get("path"), str) and entry["path"] not in recorded:
             problems.append(f"{entry['path']} was downloaded (input/external/fetch_log.json) but is not in "
-                            "source/paper_metadata.json external_sources: record every downloaded file, and say "
-                            "in its `version` when it was not used and why")
+                            "source/paper_metadata.json external_sources: record every downloaded file (a file you "
+                            "looked at and did not use goes in unused_downloads with its path and reason)")
 
     try:
         study = json.loads((root / "study.json").read_text(encoding="utf-8"))

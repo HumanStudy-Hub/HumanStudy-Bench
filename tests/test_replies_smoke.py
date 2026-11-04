@@ -247,3 +247,54 @@ def test_every_downloaded_file_must_be_recorded(tmp_path: Path) -> None:
         "path": "input/external/osf-print-version.pdf", "sha256": "0" * 64}]))
     problems = check_package_sources(root, job)
     assert any("osf-print-version.pdf was downloaded" in p for p in problems), problems
+
+
+# --------------------------------------------------------------------------- review round 1
+
+@pytest.mark.parametrize("reply", ["Not 1", "I would not choose 1", "I refuse to pick 1", "Not option 1",
+                                   "1 is not what I'd pick", "somewhere around 1-2"])
+def test_negations_and_ranges_are_never_read_as_an_option(reply: str) -> None:
+    assert parse(reply, NICE)["status"] == "ambiguous"
+
+
+def test_negations_in_numbers_scales_and_sets() -> None:
+    assert parse("Not 50", Question("n", kind="number", minimum=0, maximum=100))["status"] == "ambiguous"
+    scale = Question("s", options=[str(n) for n in range(1, 8)])
+    assert parse("3-4", scale)["status"] == "ambiguous"
+    assert parse("1 and not 2", Question("m", options=["Red", "Green"], multiple=True))["status"] == "ambiguous"
+    yes_no = Question("c", options=["Yes", "No"])
+    assert parse("No", yes_no)["code"] == "2" and parse("2. No", yes_no)["code"] == "2"
+
+
+def test_scripted_sessions_and_arm_blind_evaluation_fail(tmp_path: Path) -> None:
+    scripted = ("def run_sessions(llm, seed, n, arms=None):\n"
+                "    return [{'arm': a, 'status': 'completed'} for a in (arms or ['control', 'treatment'])"
+                " for _ in range(n)]\n")
+    report = smoke_test.run(make_package(tmp_path, adapter=scripted))
+    assert any("without asking the model" in p for p in report["problems"])
+    one_arm = ("def evaluate(sessions):\n"
+               "    rows = [s for s in sessions if s['arm'] == 'control']\n"
+               "    return {'n': len(rows), 'mean': 1 / len(rows)}\n")
+    report = smoke_test.run(make_package(tmp_path / "b", evaluation=one_arm))
+    assert any("arm treatment: evaluate() on this arm's sessions alone raised" in p for p in report["problems"])
+
+
+def test_stub_answers_a_numeric_key_list() -> None:
+    stub = replies.StubParticipant(0)
+    q = Question("give", kind="number", minimum=0, maximum=10, key=[5, 6])
+    assert parse(stub.answer_for("x", [q]), q)["value"] == 5
+
+
+def test_unused_downloads_are_listed_with_a_reason(tmp_path: Path) -> None:
+    job = tmp_path / "job"
+    root = job / "package" / "paper"
+    (root / "source").mkdir(parents=True)
+    (job / "input/external").mkdir(parents=True)
+    (job / "input/external/fetch_log.json").write_text(json.dumps([{"path": "input/external/pilot.pdf"}]))
+    meta = {"external_sources": [], "material_searches": [],
+            "unused_downloads": [{"path": "input/external/pilot.pdf", "reason": "pilot, not the final survey"}]}
+    (root / "source/paper_metadata.json").write_text(json.dumps(meta))
+    assert not [p for p in check_package_sources(root, job) if "pilot.pdf" in p or "unused_downloads" in p]
+    meta["unused_downloads"][0]["reason"] = ""
+    (root / "source/paper_metadata.json").write_text(json.dumps(meta))
+    assert any("unused_downloads[0]" in p for p in check_package_sources(root, job))

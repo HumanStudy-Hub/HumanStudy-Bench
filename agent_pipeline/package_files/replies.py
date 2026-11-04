@@ -205,6 +205,15 @@ def _result(question: Question, status: str, raw: Any, **values: Any) -> Dict[st
     return result
 
 
+NEGATION_RE = re.compile(r"(?i)\b(not|never|refuse[sd]?|won't|wouldn't|don't|doesn't|didn't|no)\b|n't\b")
+RANGE_RE = re.compile(r"\d\s*(?:-|\u2013|\u2014|to)\s*[-+]?\d")
+
+
+def _hedged(text: str) -> bool:
+    """A negation ("not 1") or a range ("3-4") makes a code in prose unsafe to read."""
+    return bool(NEGATION_RE.search(text) or RANGE_RE.search(text))
+
+
 def _standalone_codes(text: str, codes: Sequence[str]) -> set:
     """Codes written on their own in a sentence. Letters count only as "option B", "(B)" or "B)"."""
     if all(re.fullmatch(r"[-+]?\d+", code) for code in codes):
@@ -249,11 +258,13 @@ def _choice_index(text: str, question: Question) -> tuple:
             return None, "ambiguous"     # "1. Be fair", "1. Don't hand over": the number and the words disagree
         if named:
             return index, "ok"
-        if _standalone_codes(rest, codes) - {codes[index]}:
-            return None, "ambiguous"     # "1 or 2"
+        if _standalone_codes(rest, codes) - {codes[index]} or _hedged(rest):
+            return None, "ambiguous"     # "1 or 2", "1 is not what I'd pick"
         return index, "ok"
     # 3. One code on its own in a sentence: "I pick 2 because ...".
     found_codes = _standalone_codes(body, codes)
+    if found_codes and _hedged(body):
+        return None, "ambiguous"         # "Not 1", "somewhere around 3-4"
     if len(found_codes) == 1:
         return codes.index(found_codes.pop()), "ok"
     return (None, "ambiguous") if found_codes else (None, "unparsed")
@@ -264,6 +275,8 @@ def parse_choice(reply: str, question: Question) -> Dict[str, Any]:
     if question.multiple:
         text = LEAD_RE.sub("", _clean(reply), count=1)
         exact = _norm(text) in [_norm(label) for label in question.options]  # a label with a comma in it
+        if not exact and NEGATION_RE.search(text):
+            return _result(question, "ambiguous", reply)   # "1 and not 2"
         parts = [text] if exact else [p for p in re.split(r"\s*(?:,|;|/|\band\b|\n|&)\s*", text) if p.strip()]
         indices: List[int] = []
         for part in parts:
@@ -289,6 +302,8 @@ def parse_number(reply: str, question: Question) -> Dict[str, Any]:
     values = {float(n.replace(",", ".")) for n in numbers}
     if not values:
         return _result(question, "unparsed", reply)
+    if NEGATION_RE.search(text) or (len(numbers) > 1 and RANGE_RE.search(text)):
+        return _result(question, "ambiguous", reply)
     if len(values) > 1:
         return _result(question, "ambiguous", reply)
     value = values.pop()
@@ -448,7 +463,8 @@ class StubParticipant:
             return "No comment."
         if question.kind == "number":
             if question.key is not None:
-                return str(question.key)
+                key = question.key
+                return str(key[0] if isinstance(key, (list, tuple)) and key else key)
             low = question.minimum if question.minimum is not None else 0
             high = question.maximum if question.maximum is not None else max(low, 10)
             value = self.rng.randint(int(low), int(high)) if question.integer else round(self.rng.uniform(low, high), 2)
@@ -475,7 +491,7 @@ class StubParticipant:
         return "\n".join(f"Q{number}: {self._one(question)}" for number, question in enumerate(questions, 1))
 
 
-COMPLETED = ("completed", "complete")
+COMPLETED = ("completed", "complete")  # "complete": packages built before the contract named it
 
 
 def _arm_of(session: Dict[str, Any]) -> List[str]:
@@ -522,6 +538,7 @@ def smoke_test(run_sessions: Callable, evaluate: Callable, arms: Sequence[str], 
     seen = set()
     for arm in arms:
         sessions: List[Dict[str, Any]] = []
+        calls_before = stub.calls
         for size in sizes:
             try:
                 batch = run_sessions(stub, seed, size, arms=[arm])
@@ -541,7 +558,19 @@ def smoke_test(run_sessions: Callable, evaluate: Callable, arms: Sequence[str], 
             status = str(session.get("status"))
             statuses[status] = statuses.get(status, 0) + 1
         completed = sum(n for status, n in statuses.items() if status in COMPLETED)
-        report["arms"][arm] = {"sessions": len(sessions), "completed": completed, "statuses": statuses}
+        report["arms"][arm] = {"sessions": len(sessions), "completed": completed, "statuses": statuses,
+                               "model_calls": stub.calls - calls_before}
+        if sessions and stub.calls == calls_before:
+            report["problems"].append(f"arm {arm}: sessions were returned without asking the model once; every "
+                                      "participant's answers must come from llm")
+        if completed:
+            try:
+                result = evaluate([s for s in sessions if s.get("status") in COMPLETED])
+                if not isinstance(result, dict) or not result:
+                    report["problems"].append(f"arm {arm}: evaluate() on this arm's sessions returned nothing")
+            except Exception as exc:
+                report["problems"].append(f"arm {arm}: evaluate() on this arm's sessions alone raised "
+                                          f"{type(exc).__name__}: {exc} (the playground can run any subset of arms)")
         if not sessions:
             report["problems"].append(f"arm {arm}: run_sessions returned no session labelled with this arm")
         elif not completed:

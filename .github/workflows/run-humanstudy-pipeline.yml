@@ -204,6 +204,8 @@ jobs:
           data = json.loads(path.read_text())
           request_path = job / "studio_request.json"
           mode = json.loads(request_path.read_text()).get("mode", "build") if request_path.exists() else "build"
+          for key in ("paperUrl", "openMaterialsUrl"):  # signed links are not committed
+              data.pop(key, None)
           data.update({
               "status": "failed",
               "packageReady": False,
