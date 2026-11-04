@@ -25,8 +25,12 @@ Called by ``validate_package.py`` after the smoke test. Contract:
    estimate, reads the licence from the PDF, and avoids internal vocabulary and
    overclaims.
 
-``check_package`` also runs ``paper_tables`` (tables without a text layer, numbers
-whose minus the text layer drops, impossible CIs), ``recorded_answers`` (every answer
+``check_package`` also runs ``results_coverage`` (text statistics with their p values,
+the sample's make-up and the abstract's results), ``paper_tables`` (tables without a
+text layer, numbers whose minus the text layer drops, impossible CIs, a fetched
+supplement's tables), ``evaluation_links`` (from ``check_analyses``: a linked output
+holds the recorded statistic, on the same scale, cell by cell, with the paper's n),
+``recorded_answers`` (every answer
 a participant gives reaches the session record) and ``source_use`` (the authors'
 analysis code, survey versions, questions the downloaded files already answer).
 
@@ -47,6 +51,11 @@ import sys
 from contextlib import redirect_stdout
 from pathlib import Path
 from typing import Any, Iterable
+
+try:
+    from agent_pipeline import evaluation_links
+except ModuleNotFoundError:  # run as a script from agent_pipeline/
+    import evaluation_links  # type: ignore[no-redef]
 
 MAX_ARMS = 40
 MAX_CALLS_PER_ARM = 400
@@ -248,7 +257,8 @@ def probe(root: Path) -> dict:
             with redirect_stdout(io.StringIO()):
                 evaluation = _import(evaluation_path, "humanstudy_probe_evaluation")
                 output = evaluation.evaluate(all_sessions)
-            result["evaluate"] = {"ok": True, "output": _jsonable(output)}
+            result["evaluate"] = {"ok": True, "output": _jsonable(output),
+                                  "output_kinds": _jsonable(getattr(evaluation, "OUTPUT_KINDS", None))}
         except BaseException as exc:  # noqa: BLE001
             result["evaluate"] = {"ok": False, "error": f"{type(exc).__name__}: {str(exc)[:300]}"}
     return result
@@ -772,12 +782,12 @@ def check_analyses(root: Path, job: Path, result: dict | None) -> list[str]:
         unlinked, broken = [], []
         for name, field in _reported_fields(program):
             link = (field.get("extensions") or {}).get("evaluation")
-            if not isinstance(link, dict) or not (isinstance(link.get("output"), str) and link["output"].strip()
-                                                  or isinstance(link.get("not_ready"), str) and link["not_ready"].strip()):
+            if not evaluation_links.has_link(link):
                 unlinked.append(name)
-            elif isinstance(link.get("output"), str) and output is not None:
-                if not _lookup(output, link["output"])[0]:
-                    broken.append(f"{name} -> {link['output']}")
+            elif output is not None:
+                for path in evaluation_links.outputs_named(link):
+                    if not _lookup(output, path)[0]:
+                        broken.append(f"{name} -> {path}")
         if unlinked:
             problems.append(
                 "analyses: recorded human results do not say which evaluate() output computes them: "
@@ -789,6 +799,10 @@ def check_analyses(root: Path, job: Path, result: dict | None) -> list[str]:
                 "analyses: these evaluate() outputs named by recorded results do not exist in evaluate()'s "
                 "return value: " + ", ".join(broken[:10]) + ". evaluate() must always return every key, with a "
                 "not_ready entry when the sessions cannot support the test.")
+        if output is not None:
+            declarations = evaluate.get("output_kinds") if isinstance(evaluate, dict) else None
+            problems += evaluation_links.summary(
+                evaluation_links.check(_reported_fields(program), output, declarations))
 
     problems += _t_test_variant(root, job)
     problems += _reply_analysis_claims(root, output)
@@ -1068,15 +1082,19 @@ def check_package(root: Path, job: Path) -> list[str]:
             + ". Every condition id in task/task.json must run with run_sessions(llm, seed, n, arms=[id]) for n = 1, 2 or 4; a "
             "condition that cannot run returns a blocked session record instead of raising.")
     try:
-        from agent_pipeline import design_checks, docx_text, paper_tables, recorded_answers, source_use
+        from agent_pipeline import (design_checks, docx_text, paper_tables, recorded_answers,
+                                    results_coverage, source_use)
     except ModuleNotFoundError:
         import design_checks  # type: ignore[no-redef]
         import docx_text  # type: ignore[no-redef]
         import paper_tables  # type: ignore[no-redef]
         import recorded_answers  # type: ignore[no-redef]
+        import results_coverage  # type: ignore[no-redef]
         import source_use  # type: ignore[no-redef]
     for check in (lambda: check_memory(root, result), lambda: check_results(root, job),
+                  lambda: results_coverage.check(root, job),
                   lambda: paper_tables.check_tables(root, job), lambda: paper_tables.check_signs(root, job),
+                  lambda: paper_tables.check_supplement_tables(root, job),
                   lambda: check_analyses(root, job, result), lambda: check_reply(root, job, result),
                   lambda: recorded_answers.problems(root), lambda: source_use.check(root, job),
                   lambda: docx_text.check(root, job, result), lambda: design_checks.check(root, job)):

@@ -240,7 +240,13 @@ def test_result_fields_need_an_evaluation_link(tmp_path: Path) -> None:
     problems = pc.check_analyses(root, job, probe_of(root))
     assert any("res-1.anova" in p and "do not say which evaluate() output" in p for p in problems), problems
     assert any("res-1.ttest -> welch.t" in p for p in problems), problems
-    assert not any("res-1.desc" in p or "res-1.effect" in p for p in problems)
+    assert not any("res-1.desc" in p for p in problems), problems
+    # outcome_effect is not ready on the probe, so its kind must be declared
+    assert any("res-1.effect" in p and "OUTPUT_KINDS" in p for p in problems), problems
+    declared = EVALUATION + 'OUTPUT_KINDS = {"outcome_effect": "d"}\n'
+    root, job = make_package(tmp_path / "declared", WITH_MEMORY, evaluation=declared, results=[
+        {"id": "effect", "value": "d = 0.77", "extensions": {"evaluation": {"output": "outcome_effect"}}}])
+    assert pc.check_analyses(root, job, probe_of(root)) == []
 
 
 def test_missing_library_is_not_a_reason(tmp_path: Path) -> None:

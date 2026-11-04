@@ -389,6 +389,154 @@ def check_tables(root: Path, job: Path) -> list[str]:
     return problems
 
 
+# --------------------------------------------------------------------------
+# Supplement tables: numbered tables of a fetched or uploaded PDF other than the paper
+# ("Table S1. Descriptive statistics ...", "Supplementary Table 2").
+
+SUPPLEMENT_CAPTION_RE = re.compile(
+    r"^\s*(?:(?:Supplementary|Supplemental|Online)\s+)?(?:Table|TABLE)\s+(S\s?\d{1,2}[A-Za-z]?|\d{1,2}[A-Za-z]?)"
+    r"(?![\w])\s*[.:|\u2013\u2014-]?\s*(\S[^\n]*)?$")
+DECIMAL_RE = re.compile(r"(?<![\w.])-?(?:\d+\.\d+|\.\d+)(?![\w])")
+
+
+def supplement_pdfs(job: Path) -> list[Path]:
+    """PDFs this build fetched (input/external/fetch_log.json) or was given (input/open_materials/)."""
+    found: list[Path] = []
+    log = _load(job / "input/external/fetch_log.json")
+    for item in log if isinstance(log, list) else []:
+        path = item.get("path") if isinstance(item, dict) else None
+        if isinstance(path, str) and path.lower().endswith(".pdf") and (job / path).is_file():
+            found.append(job / path)
+    folder = job / "input/open_materials"
+    if folder.is_dir():
+        found += sorted(p for p in folder.rglob("*.pdf") if p.is_file())
+    paper = (job / "input/paper.pdf").resolve()
+    out: list[Path] = []
+    for path in found:
+        if path.resolve() != paper and path not in out:
+            out.append(path)
+    return out
+
+
+def supplement_inventory(pdf: Path) -> list[dict]:
+    """Every numbered table of a supplement PDF: its id ("S1"), page, caption, and the
+    decimal values of the table rows the text layer holds under the caption."""
+    layout = page_texts(pdf, layout=True)
+    tables: dict[str, dict] = {}
+    current: dict | None = None
+    for index, page in enumerate(layout):
+        lines = page.splitlines()
+        for at, line in enumerate(lines):
+            caption = SUPPLEMENT_CAPTION_RE.match(line)
+            if caption:
+                number = re.sub(r"\s+", "", caption.group(1)).upper()
+                title = (caption.group(2) or "").strip()
+                if not title and at + 1 < len(lines):
+                    title = lines[at + 1].strip()
+                current = tables.setdefault(number, {"table": number, "page": index + 1,
+                                                     "caption": title[:160], "values": []})
+                continue
+            if current is not None and _table_row(line):
+                current["values"] += DECIMAL_RE.findall(line.replace("\u2212", "-").replace("\u2013", "-"))
+    out = []
+    for table in tables.values():
+        table["values"] = sorted(set(table["values"]))
+        table["text_layer"] = len(table["values"]) >= 6
+        caption = table["caption"]
+        table["result"] = not (NON_RESULT_CAPTION_RE.search(caption) and not re.search(r"(?i)result|effect|mean",
+                                                                                         caption)) \
+            and bool(RESULT_CAPTION_RE.search(caption) or table["text_layer"])
+        out.append(table)
+    return out
+
+
+def _value_keys(value) -> set[str]:
+    keys: set[str] = set()
+    for number in _numbers(value):
+        for places in range(0, 5):
+            keys.add(f"{abs(number):.{places}f}")
+    return keys
+
+
+def _printed_in(value: str, keys: set[str]) -> bool:
+    places = len(value.split(".", 1)[1]) if "." in value else 0
+    return f"{abs(float(value)):.{places}f}" in keys
+
+
+def check_supplement_tables(root: Path, job: Path) -> list[str]:
+    """A fetched supplement's result tables are results: list each in paper_tables
+    (with its source) and record a result table cell by cell."""
+    if _job_purpose(job) == "accepted-model-sync":
+        return []
+    pdfs = supplement_pdfs(job)
+    if not pdfs:
+        return []
+    metadata = _load(root / "source/paper_metadata.json")
+    declared_list = metadata.get("paper_tables") if isinstance(metadata, dict) else None
+    declared: dict[str, list[dict]] = {}
+    for item in declared_list if isinstance(declared_list, list) else []:
+        if isinstance(item, dict) and str(item.get("table", "")).strip():
+            number = re.sub(r"(?i)^(supplementary\s+)?table\s+", "", str(item["table"]).strip())
+            declared.setdefault(re.sub(r"\s+", "", number).upper(), []).append(item)
+    fields = _result_fields(_program(root))
+    problems: list[str] = []
+    by_file: dict[str, list[str]] = {}
+    for pdf in pdfs:
+        try:
+            relative = str(pdf.relative_to(job))
+        except ValueError:
+            relative = pdf.name
+        for table in supplement_inventory(pdf):
+            if not table["result"]:
+                continue
+            candidates = declared.get(table["table"], [])
+            item = next((c for c in candidates if str(c.get("source", "")).strip() == relative), None)
+            if item is None and table["table"].startswith("S"):
+                item = next((c for c in candidates if not str(c.get("source", "")).strip()), None)
+            elif item is None:
+                # "Table 2" of a supplement is only judged when an entry names this file: the
+                # number may be one of the paper's own tables.
+                continue
+            label = f"Table {table['table']} of {relative} (page {table['page']})"
+            if item is None:
+                by_file.setdefault(relative, []).append(f"Table {table['table']} (page {table['page']})")
+                continue
+            kind = item.get("kind")
+            if kind == "result":
+                target = fields.get(str(item.get("recorded_in", "")))
+                if target is None:
+                    problems.append(f"paper_tables {label}: recorded_in must name the result field (<node id>.<field "
+                                    "id>) that holds the table cell by cell")
+                    continue
+                if not table["text_layer"]:
+                    if not re.search(r"(?i)page|image|render", str(item.get("read_from", ""))):
+                        problems.append(f"paper_tables {label}: the text layer has no rows for this table; read it "
+                                        "from the rendered page and set read_from to \"rendered page\"")
+                    continue
+                keys = _value_keys(target.get("value"))
+                absent = [v for v in table["values"] if not _printed_in(v, keys)]
+                if len(absent) > len(table["values"]) / 2:
+                    problems.append(f"paper_tables {label}: {item.get('recorded_in')} holds only "
+                                    f"{len(table['values']) - len(absent)} of the table's {len(table['values'])} "
+                                    "numbers (missing e.g. " + ", ".join(absent[:6]) + "); record every cell")
+            elif kind == "other":
+                if len(re.findall(r"\w+", str(item.get("what", "")))) < 3:
+                    problems.append(f"paper_tables {label}: say in 'what' what the table holds")
+            else:
+                problems.append(f"paper_tables {label}: the supplement was fetched, so its tables are in the package: "
+                                "kind must be 'result' (recorded cell by cell) or 'other' (no results)")
+    if by_file:
+        listing = "; ".join(f"{path}: " + ", ".join(tables) for path, tables in by_file.items())
+        problems.insert(0, "supplement tables: a fetched supplement holds result tables the package does not list ("
+                        + listing + "). The "
+                        "supplement's descriptive and result tables (item means and SDs, correlations) are human "
+                        "results: list each in source/paper_metadata.json paper_tables as {\"table\": \"S1\", "
+                        "\"source\": \"input/external/<file>\", \"page\": <page>, \"kind\": \"result\", \"what\": "
+                        "\"...\", \"recorded_in\": \"<result node id>.<field id>\"} and record it cell by cell, or "
+                        "kind \"other\" when it holds no results (contract 'Human results to compare against').")
+    return problems
+
+
 CI_KEY_RE = re.compile(r"(?i)(^|[_\-.])(ci|ci\d{2}|conf(idence)?[_\- ]?int(erval)?)($|[_\-.])")
 # Effect sizes a bare "ci" key in the same object most likely belongs to (not "value" or a mean).
 ESTIMATE_KEYS = ("estimate", "d", "g", "h", "r", "f", "or", "rr", "b", "beta", "mean_diff", "mdiff",
