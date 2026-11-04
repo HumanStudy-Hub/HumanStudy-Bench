@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import statistics
 from pathlib import Path
 
@@ -53,10 +54,29 @@ def estimate(probe: dict, n: int, price_in: float, price_out: float) -> dict:
     }
 
 
+def total_sessions(root: Path, value: str) -> int:
+    """``--n``: a number, ``id=n,id=n`` per condition, or ``paper`` (each condition's ``paper_n``)."""
+    value = str(value).strip()
+    if re.fullmatch(r"\d+", value):
+        return int(value)
+    if value == "paper":
+        task = json.loads((root / "task/task.json").read_text(encoding="utf-8"))
+        sizes = [c.get("paper_n") for c in task.get("conditions") or [] if isinstance(c, dict)]
+        if not sizes or not all(isinstance(s, int) for s in sizes):
+            raise SystemExit("--n paper needs an integer paper_n on every condition in task/task.json")
+        return sum(sizes)
+    pairs = [part.split("=", 1) for part in value.split(",") if part.strip()]
+    if not pairs or not all(len(p) == 2 and re.fullmatch(r"\s*\d+\s*", p[1]) for p in pairs):
+        raise SystemExit("--n is a number, 'id=n,id=n,...' or 'paper'")
+    return sum(int(p[1]) for p in pairs)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("package", type=Path, help="the paper folder (package/<paper-slug>)")
-    parser.add_argument("--n", type=int, required=True, help="sessions at the paper's sample size")
+    parser.add_argument("--n", required=True,
+                        help="sessions at the paper's sample size: one number, or the paper's cell sizes per "
+                             "condition ('awl_dg=357,awl_pd=257,...'), or 'paper' for task.json conditions' paper_n")
     parser.add_argument("--price-in", type=float, default=1.0, help="USD per million input tokens")
     parser.add_argument("--price-out", type=float, default=5.0, help="USD per million output tokens")
     args = parser.parse_args()
@@ -69,7 +89,7 @@ def main() -> None:
     probe = run_probe(root)
     if not probe:
         raise SystemExit("The stand-in run failed; run task/adapter.py --smoke-test to see why.")
-    result = estimate(probe, args.n, args.price_in, args.price_out)
+    result = estimate(probe, total_sessions(root, args.n), args.price_in, args.price_out)
     print(json.dumps(result, indent=2))
     print(f"\nAt {result['sessions']:,} sessions: about {result['model_calls']:,} model calls "
           f"({result['calls_per_session']} per session), {result['input_tokens'] / 1e6:.1f} million input tokens, "

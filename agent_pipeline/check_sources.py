@@ -110,7 +110,14 @@ def file_text(path: Path) -> str | None:
             if suffix in (".js", ".py", ".r", ".rmd", ".qmd"):
                 text = text.replace("\\'", "'").replace('\\"', '"').replace("\\n", "\n")
             return normalise(text)
-        if suffix in (".docx", ".pptx", ".odt"):
+        if suffix == ".docx":  # paragraphs and line breaks kept, a Qualtrics export's "Page Break" lines dropped
+            try:
+                from agent_pipeline.docx_text import read as read_docx
+            except ModuleNotFoundError:
+                from docx_text import read as read_docx  # type: ignore[no-redef]
+            pages = read_docx(path)["pages"]
+            return normalise("\n\n".join("\n".join(page) for page in pages))
+        if suffix in (".pptx", ".odt"):
             with zipfile.ZipFile(path) as archive:
                 parts = [archive.read(name).decode("utf-8", "replace") for name in archive.namelist()
                          if name.endswith(".xml") and ("word/" in name or "ppt/slides/" in name or name == "content.xml")]
@@ -123,7 +130,7 @@ def file_text(path: Path) -> str | None:
         if suffix == ".pdf" and shutil.which("pdftotext"):
             result = subprocess.run(["pdftotext", "-q", str(path), "-"], capture_output=True, text=True, timeout=120)
             return normalise(_dehyphenate_both(result.stdout)) if result.returncode == 0 else None
-    except (OSError, ValueError, zipfile.BadZipFile, subprocess.SubprocessError):
+    except (OSError, ValueError, KeyError, SyntaxError, zipfile.BadZipFile, subprocess.SubprocessError):
         return None
     return None
 

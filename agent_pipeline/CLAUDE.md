@@ -77,6 +77,35 @@ each. If you could not preserve some part of the original structure, do not
 quietly simplify it: implement what you can, and record the departure in
 `audit/missing_information.json` with its likely effect on the findings.
 
+Two choices are departures even though they look like implementation detail:
+
+- **Layout.** Record how items are paged in `task/task.json` `"presentation":
+  {"layout": "one statement per screen", "origin": "reported" | "verbatim" |
+  "derived", "evidence": "<the passage or survey page, when reported>"}`. When no
+  source says whether items came one per screen or as one list page ("Below are a
+  series of statements" suggests a list), `origin` is `derived` and the choice is a
+  departure entry with `field` `presentation.layout`: what you chose, why, and its
+  likely effect.
+- **Order.** When the replay drops or moves tasks that came before the replayed
+  block (ratings that came 7th, after six cognitive measures, now come first),
+  record the order change and its possible context effect as a departure, besides
+  the omission itself. Say so when the paper itself changed the order between
+  studies on purpose.
+
+**A blocked condition says exactly what is missing.** In `task/task.json` a
+condition with `"status": "blocked"` carries `blocked_reason` (one sentence),
+`blocked_missing` (each missing item by its `what`) and `blocked_results` (the
+result fields or headline findings that cannot be computed without it). List only
+what no source prints: when the paper prints the scale's anchors ("1 (not at all
+profound)") and a supplement its range, the instruction wording is missing, not the
+scale. The reply's "Needs you" line names the headline result that stays blocked.
+
+**Cell sizes.** Give each condition the paper's analysed n as `"paper_n"` when the
+paper reports it. `run_sessions(llm, seed, n, arms)` takes `n` as one number for
+every condition or as a dict from condition id to its number (`{"awl_dg": 357,
+"awl_pd": 257, ...}`), so a run can use the paper's unequal cells; read it with
+`replies.sessions_for(n, arm)`. The smoke test runs one condition with a dict.
+
 ## Participant memory within a session
 
 A human participant remembers what they have already read and answered. The
@@ -143,6 +172,19 @@ attention and comprehension checks, stimuli, trial lists, orders, feedback.
    jsPsych, lab task repos). Crossref, Unpaywall and Europe PMC find DOIs,
    open copies and supplementary files.
 
+**Minimum search list.** Before anything stays `pending`, `material_searches`
+records at least: the journal's own page for the paper and its supplementary
+material, and the journal's *original* site when it changed publisher (Judgment
+and Decision Making before 2023: `journal.sjdm.org/<vol>/<id>/`, which can hold a
+supplement Cambridge lacks); the preprint servers by title (PsyArXiv / OSF
+Preprints, arXiv, SSRN); an open-copy index for the DOI (Unpaywall,
+`https://api.unpaywall.org/v2/<doi>?email=<contact>`, or Europe PMC,
+`https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:<doi>&format=json`);
+and an OSF search by author, not only by title
+(`https://api.osf.io/v2/users/?filter[full_name]=<surname>`, then each match's
+`/nodes/`). The package check fails a pending material when one of these is
+missing.
+
 The same search finds the authors' analysis code (an OSF "Analysis" or "Data and
 code" folder, a GitHub repository, the SI): download and read it as "The authors'
 analysis code" below says.
@@ -195,7 +237,8 @@ data: download it one file at a time, never an archive that also holds the data.
 A notebook whose saved outputs print tables is refused (they can show responses):
 fetch the same analysis as a script or a notebook saved without outputs.
 When something exists only inside participant data, say so in the materials
-request.
+request, item by item ("the demographic coding is only in the data file, which we
+do not open").
 
 **Record every source** in `source/paper_metadata.json`:
 
@@ -347,6 +390,17 @@ from it, not from the raw `.qsf`:
   lists under `notes` as something to check, not as a fact.
 - Run `python agent_pipeline/validate_package.py <job-dir>/package` before you
   finish and fix what it reports.
+
+**Word copies.** Read a `.docx` (a Qualtrics "Export to Word" copy, a materials
+document) with `python agent_pipeline/docx_text.py <job-dir>/input/external/<file>.docx
+[--json <job-dir>/work/<file>.json]`, never by joining its text runs yourself. It
+keeps paragraph and line breaks ("Scenario 1" and "In this study ..." stay
+apart), and a page break, including the grey "Page Break" line a Qualtrics export
+prints between pages, ends a page and is never text. Export lines ("Start of
+Block:", "Display This Question:", "Standard: ... (7 Questions)") are listed apart
+under `export_lines`: they describe the flow, not what participants read. The
+package check fails participant text that carries such markup or runs two lines of
+a Word source together.
 
 **Survey versions.** A project often holds several versions of a survey: the
 Qualtrics export and its Word copy, one per phase, a pilot, an edited copy saved
@@ -604,8 +658,15 @@ questions)`. Never write your own reply parser and never call `llm` directly.
   (`page.unparsed` lists which answer and the replies tried) or `blocked`.
   `evaluate` reports how many sessions of each status every arm had.
 - `ask` already retries an unreadable reply once and never guesses: "1", "1.",
-  "1. Be nice", "Be nice" and "be nice" are read; "1 or 2" and "1. Be fair" are
-  not. A bipolar scale that prints the same label twice (`3 2 1 0 1 2 3`) needs
+  "1. Be nice", "Be nice", "be nice" and a number word ("Three") are read; "1 or
+  2" and "1. Be fair" are not. When every label of a list is an amount ("0c" ...
+  "20c", "$0.10", "30 hours"), a reply naming the amount ("10c", "$0.10", "I give
+  10 cents") is read, and a bare number that is both an option number and another
+  option's amount ("10" on "6. 10c ... 10. 18c") is asked again, never guessed; such
+  a list asks for the number followed by the option as printed. Transcribe printed
+  typos as printed ("Tranfer the 10c"): a reply that spells exactly one label
+  correctly is read, and `aliases={"Tranfer the 10c": ["Transfer"]}` adds other
+  spellings the reader accepts (never shown, never another option's label). A bipolar scale that prints the same label twice (`3 2 1 0 1 2 3`) needs
   `codes` that tell the two sides apart.
 
 **Smoke test.** Before finishing, run `python agent_pipeline/smoke_test.py
@@ -680,8 +741,22 @@ sources (OSF, the journal's metadata) may follow it in the same line. Then:
    by someone who has not opened the survey file, and says what the package does
    if there is no answer. Fold the materials request into one of them. No other
    sentence ends with a question mark.
+   Settle it from the sources first, then ask. The paper itself answers many
+   questions: its own text elsewhere (an exclusion explained on p. 7 explains the
+   n = 125 in Table 3), arithmetic on its own numbers (units: a pooled mean of
+   4.4 cents is the printed "22% of the 20c endowment", so the coefficients are in
+   cents), and which model a number comes from (a text coefficient that matches no
+   table column may come from a pooled model, not a per-condition one). The same
+   holds for a severity `check` that asks the researcher to "confirm" something:
+   when a source settles it, it is a decision taken, not a check.
+   Licence doubts about a third-party file (a supplement with no licence of its
+   own) are never one of the researcher's questions: the researcher does not hold
+   the rights. Record them in `source/paper_metadata.json` `"licence_policy":
+   [{"path", "licence", "evidence", "use"}]` for the Hub, keep `use`
+   `researcher-own-use-only`, and state the doubt on the Licence line.
    Before an issue becomes a question (severity `decision` or `blocking`, or a
-   title ending in "?"), check every downloaded file for the answer: a paper-only
+   title ending in "?"), check the paper and every downloaded file for the
+   answer (`sources_checked` lists `input/paper.pdf` too): a paper-only
    wording may be an unused item of the survey file, a version question is settled
    by the file that matches the paper, a coding question by the analysis code.
    Record it in `source/paper_metadata.json`:

@@ -16,8 +16,24 @@ every question through :func:`ask`, so all packages read replies the same way:
 
 What a reply may look like, for options ``1. Be nice`` / ``2. Be fair``:
 ``1``, ``1.``, ``1)``, ``1. Be nice``, ``Be nice``, ``be NICE``, ``Answer: 1``,
-``I choose Be nice``, ``I pick 1 because ...``. A reply naming two different
-options (``1 or 2``, ``1. Be fair``) is ambiguous and is not read. A label inside a
+``I choose Be nice``, ``I pick 1 because ...``, ``One`` (a number word, when no
+label contains it). A reply naming two different options (``1 or 2``,
+``1. Be fair``) is ambiguous and is not read.
+
+Amounts. When an option's whole label is an amount (``0c``, ``$0.10``, ``30 hours``,
+``70%``), a reply may name the amount (``10c``, ``$0.10``, ``I give 10 cents``) and is
+read as that option. A bare number is read by the option number printed before
+it *and* by the amounts: on ``1. 0c 2. 2c ... 6. 10c ... 10. 18c 11. 20c`` the reply
+``10`` names option 10 (18c) and the amount 10c (option 6), so it is ambiguous and
+asked again; ``0``, ``20`` and ``6`` name one option each and are read. Such a list
+asks for the number followed by the option as printed (``6. 10c``).
+
+Printed typos. Labels keep the source's spelling (``Tranfer the 10c``). A reply
+that spells exactly one label correctly (``Transfer the 10c``) is read as it: word
+for word, at most two words differing by one dropped, added or swapped letter,
+same first letter, words of five or more letters, numbers identical. An adapter
+can also pass ``aliases`` (other spellings the reader accepts for a label, never
+shown). A reply that comes this close to two labels is not read. A label inside a
 longer sentence (``I would not be nice``) is not read either: negations make
 that guess unsafe. A reply that cannot be read is
 asked again once (``retries``); if it still cannot be read the answer is
@@ -43,9 +59,11 @@ import traceback
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence
 
-VERSION = "2"
+VERSION = "3"
 
 RETRY_NOTE = "Your previous reply could not be read{which}. Reply again in the format asked, and nothing else."
+AMBIGUOUS_NOTE = ("Your previous reply could be read as more than one option{which}. Reply with the number (or letter) "
+                  "of the option you choose followed by the option as it is printed, and nothing else.")
 
 
 # --------------------------------------------------------------------------- questions
@@ -72,12 +90,17 @@ class Question:
               when unreadable they are recorded, and the participant stays in.
     multiple  several options may be ticked (a "select all that apply" item).
     minimum, maximum, integer   the accepted range of a numeric entry.
+    aliases   other spellings the reader accepts for an option, never shown: a dict
+              from the option's label (or its index) to a list of strings, for a
+              label printed with a typo ({"Tranfer the 10c": ["Transfer", ...]}).
+              An alias may not be another option's label or alias.
     """
 
     def __init__(self, id: str, text: str = "", options: Optional[Sequence[str]] = None,
                  kind: Optional[str] = None, codes: Optional[Sequence[Any]] = None, key: Any = None,
                  required: bool = True, multiple: bool = False, minimum: Optional[float] = None,
-                 maximum: Optional[float] = None, integer: bool = True) -> None:
+                 maximum: Optional[float] = None, integer: bool = True,
+                 aliases: Optional[Dict[Any, Sequence[str]]] = None) -> None:
         self.id = str(id)
         self.text = text
         self.kind = kind or ("choice" if options else "text")
@@ -99,6 +122,28 @@ class Question:
         self.minimum = minimum
         self.maximum = maximum
         self.integer = integer
+        self.amounts = [_amount(option) for option in self.options]
+        self.aliases: List[List[str]] = [[] for _ in self.options]
+        for which, spellings in (aliases or {}).items():
+            index = which if isinstance(which, int) else (self.options.index(which) if which in self.options else -1)
+            if not 0 <= index < len(self.options):
+                raise ValueError(f"question {id}: alias target {which!r} is not one of its options")
+            self.aliases[index] += [_norm(spelling) for spelling in ([spellings] if isinstance(spellings, str)
+                                                                      else spellings) if _norm(spelling)]
+        seen: Dict[str, int] = {_norm(label): index for index, label in enumerate(self.options)}
+        for index, spellings in enumerate(self.aliases):
+            for spelling in spellings:
+                if seen.setdefault(spelling, index) != index:
+                    raise ValueError(f"question {id}: alias {spelling!r} also names another option")
+
+    def amount_clash(self) -> bool:
+        """A printed option number is also the amount of another option ("10. 18c" and "6. 10c")."""
+        return any(amount is not None and amount[0] in self.codes and self.codes.index(amount[0]) != index
+                   for index, amount in enumerate(self.amounts))
+
+    def spellings(self, index: int) -> List[str]:
+        """The normalised label and the aliases of one option."""
+        return [_norm(self.options[index])] + self.aliases[index]
 
     def option_line(self, index: int) -> str:
         code, label = self.codes[index], self.options[index]
@@ -175,6 +220,101 @@ def _norm(text: str) -> str:
     return text.strip().strip(" .,;:!?\"'`*_()[]")
 
 
+CURRENCY = r"(?:(?:US|CA|AU|NZ|HK|S)?[$\u20ac\u00a3\u00a5]|USD|EUR|GBP)"
+UNIT = (r"(?:%|percent|per\s?cent|pct|\u00a2|c|cents?|p|pence|dollars?|euros?|pounds?|yen|usd|eur|gbp|points?|"
+        r"pts?|tokens?|coins?|credits?|ecus?|hours?|hrs?|minutes?|mins?|seconds?|secs?|days?|weeks?|months?|"
+        r"years?|people|persons?|lives|times?|items?|units?)")
+AMOUNT_ONLY_RE = re.compile(rf"(?i)^\s*(?P<pre>{CURRENCY})?\s*(?P<num>[-+]?\d+(?:[.,]\d+)?)\s*(?P<unit>{UNIT})?\s*$")
+AMOUNT_IN_TEXT_RE = re.compile(rf"(?i)(?<![\w.,])(?P<pre>{CURRENCY})?\s*(?P<num>[-+]?\d+(?:[.,]\d+)?)"
+                               rf"(?:\s*(?P<unit>{UNIT}))?(?![\w%\u00a2]|[.,]\d)")
+# Units read as one: cents are hundredths of the currency, so "10c", "10 cents" and "$0.10" are one amount.
+UNIT_FAMILY = {"%": "%", "percent": "%", "per cent": "%", "pct": "%",
+               "c": "money/100", "\u00a2": "money/100", "cent": "money/100", "p": "money/100", "pence": "money/100",
+               "dollar": "money", "euro": "money", "pound": "money", "yen": "money", "usd": "money", "eur": "money",
+               "gbp": "money", "pt": "point", "hr": "hour", "min": "minute", "sec": "second", "person": "people",
+               "lives": "people"}
+
+
+def _unit_family(pre: Optional[str], unit: Optional[str]) -> Optional[str]:
+    """What an amount counts ("money", "%", "hour"); None for a bare number."""
+    if unit:
+        word = re.sub(r"\s+", " ", unit.lower())
+        if word not in UNIT_FAMILY and word.endswith("s") and len(word) > 2:
+            word = word[:-1]                      # "hours" -> "hour", "points" -> "point"
+        family = UNIT_FAMILY.get(word, word)
+        if pre and family not in ("money", "money/100"):
+            return None                           # "$10 hours" is not an amount
+        return "money" if pre and family == "money" else family
+    return "money" if pre else None
+
+
+def _amount_of(match: "re.Match[str]") -> Optional[tuple]:
+    """(printed number, family, value in the family's base unit) of an amount match; None without a unit."""
+    family = _unit_family(match.group("pre"), match.group("unit"))
+    if family is None:
+        return None
+    number = match.group("num").lstrip("+").replace(",", ".")
+    value = float(number)
+    if family == "money/100":
+        family, value = "money", value / 100
+    return (_number_text(number), family, round(value, 6))
+
+
+def _number_text(number: str) -> str:
+    """"10", "10.0" and "10.00" print the same number: "10"; "0.10" is "0.1"."""
+    value = float(number)
+    return str(int(value)) if value.is_integer() else repr(value)
+
+
+def _amount(label: str) -> Optional[tuple]:
+    """The amount a label consists of ("0c", "$0.10", "30 hours", "70%"), else None."""
+    match = AMOUNT_ONLY_RE.match(str(label))
+    return _amount_of(match) if match else None
+
+
+NUMBER_WORDS = {word: str(number) for number, word in enumerate(
+    "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen "
+    "seventeen eighteen nineteen twenty".split())}
+NUMBER_WORD_RE = re.compile(r"(?i)\b(" + "|".join(NUMBER_WORDS) + r")\b")
+# A number word read as a number: the whole reply, or set off before the rest ("Three (fairly profound)").
+LEADING_WORD_RE = re.compile(r"(?i)^(" + "|".join(NUMBER_WORDS) + r")(?=\s*$|\s*[.):=]|\s*\(|\s+[-\u2013\u2014]\s)")
+
+
+def _number_words(body: str, labels: Iterable[str]) -> str:
+    """``body`` with its number words as digits, when it starts with one and no label uses any of them."""
+    if not LEADING_WORD_RE.match(body):
+        return body
+    words = {word.lower() for word in NUMBER_WORD_RE.findall(body)}
+    if any(re.search(rf"(?i)\b{word}\b", label) for label in labels for word in words):
+        return body
+    return NUMBER_WORD_RE.sub(lambda m: NUMBER_WORDS[m.group(1).lower()], body)
+
+
+def _one_edit(a: str, b: str) -> bool:
+    """``a`` and ``b`` differ by one dropped, added or swapped (adjacent) letter: "tranfer"/"transfer"."""
+    if a == b or abs(len(a) - len(b)) > 1:
+        return False
+    if len(a) == len(b):
+        diff = [i for i in range(len(a)) if a[i] != b[i]]
+        return len(diff) == 2 and diff[1] == diff[0] + 1 and a[diff[0]] == b[diff[1]] and a[diff[1]] == b[diff[0]]
+    short, long_ = (a, b) if len(a) < len(b) else (b, a)
+    i = 0
+    while i < len(short) and short[i] == long_[i]:
+        i += 1
+    return short[i:] == long_[i + 1:]
+
+
+def _near(reply: str, label: str) -> bool:
+    """The reply is the label with at most two of its words spelt differently by one letter (a printed typo)."""
+    got, want = reply.split(" "), label.split(" ")
+    if len(got) != len(want) or got == want:
+        return False
+    pairs = [(g, w) for g, w in zip(got, want) if g != w]
+    return len(pairs) <= 2 and all(
+        g.isalpha() and w.isalpha() and max(len(g), len(w)) >= 5 and g[0] == w[0] and _one_edit(g, w)
+        for g, w in pairs)
+
+
 # --------------------------------------------------------------------------- rendering
 
 def render_options(question: Question) -> str:
@@ -184,6 +324,12 @@ def render_options(question: Question) -> str:
 def instruction(question: Question) -> str:
     if question.kind == "choice":
         what = "letter" if all(re.fullmatch(r"[A-Za-z]", code) for code in question.codes) else "number"
+        if question.amount_clash():
+            # "10" could be option 10 or the amount 10c: ask for both, so the reply names one option.
+            if question.multiple:
+                return (f"Reply with the {what} of every option that applies, each followed by the option as "
+                        "printed, separated by commas.")
+            return f"Reply with the {what} of the option you choose, followed by the option as printed."
         if question.multiple:
             return f"Reply with the {what} of every option that applies, separated by commas."
         return f"Reply with the {what} of the option you choose."
@@ -264,49 +410,112 @@ def _standalone_codes(text: str, codes: Sequence[str]) -> set:
     return {code for code in found if code in codes}
 
 
+def _amount_options(question: Question, text: str) -> tuple:
+    """(options, ambiguous) for amounts written in ``text``: "10c", "$0.10", "10 cents", or a bare "10".
+
+    A written unit names the options with that amount. A bare number names the
+    options whose printed amount has that number and, when it is a code, the
+    option it numbers. Only options whose whole label is an amount take part.
+    """
+    found = set()
+    if not any(question.amounts):
+        return found, False
+    codes = [code.lower() for code in question.codes]
+    for match in AMOUNT_IN_TEXT_RE.finditer(text):
+        amount = _amount_of(match)
+        number = _number_text(match.group("num").lstrip("+").replace(",", "."))
+        if amount is not None:
+            hits = {i for i, own in enumerate(question.amounts) if own and own[1:] == amount[1:]}
+            found |= hits
+            if not hits and any(own and own[1] == amount[1] for own in question.amounts):
+                return found, True    # "15c" on a 0c/10c/20c list: an amount the list does not offer
+        else:
+            found |= {i for i, own in enumerate(question.amounts) if own and own[0] == number}
+            if number in codes:
+                found.add(codes.index(number))
+    return found, False
+
+
 def _choice_index(text: str, question: Question) -> tuple:
     """(index, status) for a single option in ``text``; status "ok", "ambiguous" or "unparsed"."""
     codes = [code.lower() for code in question.codes]
     labels = [_norm(label) for label in question.options]
+    spellings = [question.spellings(i) for i in range(len(labels))]
     body = LEAD_RE.sub("", _clean(text), count=1).strip()
+    if all(re.fullmatch(r"[-+]?\d+", code) for code in codes):
+        body = _number_words(body, question.options + [a for alias in question.aliases for a in alias])
     norm = _norm(body)
     if not norm:
         return None, "unparsed"
 
     def label_in(index: int, haystack: str) -> bool:
-        return bool(labels[index]) and re.search(rf"(?<!\w){re.escape(labels[index])}(?!\w)", haystack) is not None
+        return any(spelling and re.search(rf"(?<!\w){re.escape(spelling)}(?!\w)", haystack) is not None
+                   for spelling in spellings[index])
 
-    # 1. The whole reply is a code ("1", "1.", "(1)", "B)") or a label ("be NICE").
+    def is_label(index: int, words: str) -> bool:
+        return words in spellings[index]
+
+    def near_label(words: str) -> Optional[int]:
+        """The one option whose label the words spell with a printed typo corrected; None if not exactly one."""
+        close = {i for i in range(len(labels)) for spelling in spellings[i] if _near(words, spelling)}
+        return close.pop() if len(close) == 1 else None
+
+    def amount_clash(number: str, index: int) -> bool:
+        """The code ``number`` (option ``index``) is also the printed amount of another option."""
+        return any(own and own[0] == _number_text(number) and i != index for i, own in enumerate(question.amounts)) \
+            if re.fullmatch(r"[-+]?\d+", number) else False
+
+    # 1. The whole reply is a code ("1", "1.", "(1)", "B)"), a label ("be NICE") or an amount ("10c", "0").
     bare = norm.strip("()[]{}")
-    found = {i for i, label in enumerate(labels) if label == norm}
+    found = {i for i in range(len(labels)) if is_label(i, norm)}
     if bare in codes:
         found.add(codes.index(bare))
+    if AMOUNT_IN_TEXT_RE.fullmatch(bare) or AMOUNT_IN_TEXT_RE.fullmatch(body.strip(" .()[]")):
+        amounts, unknown = _amount_options(question, bare)
+        if unknown:
+            return None, "unparsed"
+        found |= amounts
     if found:
         return (found.pop(), "ok") if len(found) == 1 else (None, "ambiguous")
+    close = near_label(norm)
+    if close is not None:
+        return close, "ok"
     # 2. A code, then text: "1. Be nice", "2) Be fair", "B - Defect", "1 because it is kind".
     match = re.match(r"^[(\[]?([-+]?\w{1,4})(?:[)\].:=]+\s*|\s*[-–—]\s+|\s+)(.*)$", body, re.S)
     if match and match.group(1).lower().lstrip("+") in codes:
         index = codes.index(match.group(1).lower().lstrip("+"))
         rest = _norm(match.group(2))
-        if not rest or rest == labels[index] or labels[index].startswith(rest) \
-                or _norm(question.option_line(index)) == norm:
+        if rest and (is_label(index, rest) or _norm(question.option_line(index)) == norm or near_label(rest) == index):
             return index, "ok"
         named = [i for i in range(len(labels)) if label_in(i, rest)]
         named = [i for i in named if not any(j != i and labels[i] in labels[j] for j in named)]  # longest label wins
+        close = near_label(rest)
+        if close is not None and close not in named:
+            named.append(close)              # "2. Transfer the 10c" names option 1 with its typo corrected
         if named and named != [index]:
             return None, "ambiguous"     # "1. Be fair", "1. Don't hand over": the number and the words disagree
         if named:
             return index, "ok"
-        if _standalone_codes(rest, codes) - {codes[index]} or _hedged(rest):
-            return None, "ambiguous"     # "1 or 2", "1 is not what I'd pick"
+        if amount_clash(match.group(1).lstrip("+"), index):
+            return None, "ambiguous"     # "10 because it is fair": option 10 or the amount 10c
+        if not rest or any(spelling.startswith(rest) for spelling in spellings[index]):
+            return index, "ok"
+        if _standalone_codes(rest, codes) - {codes[index]} or _hedged(rest) or \
+                _amount_options(question, rest)[0] - {index}:
+            return None, "ambiguous"     # "1 or 2", "1 is not what I'd pick", "1, that is 10c"
         return index, "ok"
-    # 3. One code on its own in a sentence: "I pick 2 because ...".
-    found_codes = _standalone_codes(body, codes)
-    if found_codes and _hedged(body):
+    # 3. One option on its own in a sentence: "I pick 2 because ...", "I will transfer 10c".
+    found_codes = {codes.index(code) for code in _standalone_codes(body, codes)}
+    amounts, unknown = _amount_options(question, body)
+    named_options = found_codes | amounts
+    if (named_options or unknown) and _hedged(body):
         return None, "ambiguous"         # "Not 1", "somewhere around 3-4"
-    if len(found_codes) == 1:
-        return codes.index(found_codes.pop()), "ok"
-    return (None, "ambiguous") if found_codes else (None, "unparsed")
+    if len(named_options) == 1 and not unknown:
+        index = named_options.pop()
+        if amounts or not any(amount_clash(code, index) for code in _standalone_codes(body, codes)):
+            return index, "ok"
+        return None, "ambiguous"
+    return (None, "ambiguous") if named_options or unknown else (None, "unparsed")
 
 
 def parse_choice(reply: str, question: Question) -> Dict[str, Any]:
@@ -337,6 +546,8 @@ def parse_choice(reply: str, question: Question) -> Dict[str, Any]:
 
 def parse_number(reply: str, question: Question) -> Dict[str, Any]:
     text = LEAD_RE.sub("", _clean(reply), count=1).replace("−", "-")
+    if re.fullmatch(r"(?i)\s*(" + "|".join(NUMBER_WORDS) + r")\s*[.!]?\s*", text):
+        text = NUMBER_WORDS[text.strip(" .!").lower()]      # "Five"
     numbers = re.findall(r"(?<![\w.])[-+]?\d+(?:[.,]\d+)?(?![\w.]\d)", text.replace(",000", "000"))
     values = {float(n.replace(",", ".")) for n in numbers}
     if not values:
@@ -398,6 +609,20 @@ def split_reply(reply: str, questions: Sequence[Question]) -> Dict[str, str]:
         if 1 <= number <= len(questions) and questions[number - 1].id not in parts:
             parts[questions[number - 1].id] = text[mark.end():end].strip()
     return parts
+
+
+# --------------------------------------------------------------------------- run size
+
+def sessions_for(n: Any, arm: str) -> int:
+    """How many sessions ``run_sessions(llm, seed, n, arms)`` runs for ``arm``.
+
+    ``n`` is one number for every condition, or a dict from condition id to its
+    number, so a run can use the paper's own cell sizes ({"awl_dg": 357, ...}).
+    A condition a dict leaves out gets none.
+    """
+    if isinstance(n, dict):
+        return int(n.get(arm, 0) or 0)
+    return int(n)
 
 
 # --------------------------------------------------------------------------- asking
@@ -464,7 +689,11 @@ def ask(llm: Callable[[str], str], prompt: str, questions: Sequence[Question], r
         missing = [number for number, q in enumerate(questions, 1)
                    if q.required and page.answers[q.id]["status"] != "ok"]
         which = "" if len(questions) == 1 else " for " + ", ".join(f"Q{n}" for n in missing)
-        current = prompt + "\n\n" + retry_note.format(which=which)
+        note = retry_note
+        if retry_note == RETRY_NOTE and all(page.answers[q.id]["status"] == "ambiguous" and q.kind == "choice" for q in questions
+                                            if q.required and page.answers[q.id]["status"] != "ok"):
+            note = AMBIGUOUS_NOTE  # "10" on an amount list: say why, so the next reply names one option
+        current = prompt + "\n\n" + note.format(which=which)
     return page
 
 
@@ -489,6 +718,11 @@ class StubParticipant:
     "label", "Answer: 2") and sometimes sends an unreadable first reply so the
     retry path runs. Calls that bypass :func:`ask` are counted in
     ``direct_calls`` and answered with a random number shown in the prompt.
+
+    Once per question it also tries the other ways a model names an option: the
+    number as a word ("Three"), an amount label's amount ("10c", "10"), and the
+    adapter's ``aliases``. Each must be read as that option or asked again; one
+    read as a different option is a misread.
     """
 
     STYLES = ("{code}", "{code}.", "{code}. {label}", "{label}", "{upper}", "Answer: {code}", "I choose {label}.")
@@ -504,6 +738,7 @@ class StubParticipant:
         self.unshown: List[str] = []
         self.ambiguous: List[str] = []
         self.asked: Dict[str, Question] = {}
+        self.probed: set = set()
 
     def __call__(self, prompt: str) -> str:
         self.calls += 1
@@ -600,10 +835,41 @@ class StubParticipant:
             typed = question.codes[index]
         elif not self._check(question, typed, [index]) and question.id not in self.ambiguous:
             return typed  # what a model would send; the adapter must cope with it as it would with a real reply
+        if typed is not None and question.id not in self.probed:
+            self.probed.add(question.id)
+            self._probe(question, index, typed)
         replies = [style.format(code=typed, label=label, upper=label.upper()) for style in self.STYLES]
+        replies += self._variants(question, index, typed)
         # Only formats that name this option unambiguously ("3" on a scale that prints 3 twice does not).
         readable = [reply for reply in replies if parse_choice(reply, question).get("index") == index]
         return self.rng.choice(readable) if readable else typed
+
+    @staticmethod
+    def _variants(question: Question, index: int, typed: str) -> List[str]:
+        """Other ways a model names the option: its number as a word, its amount, a spelling the adapter accepts."""
+        variants = []
+        words = {number: word for word, number in NUMBER_WORDS.items()}
+        if typed in words:
+            variants += [words[typed].capitalize(), words[typed]]
+        amount = question.amounts[index]
+        if amount is not None:
+            variants += [question.options[index].strip(), amount[0], f"I choose {question.options[index].strip()}."]
+        variants += question.aliases[index]
+        return variants
+
+    def _probe(self, question: Question, index: int, typed: str) -> None:
+        """Each variant is read as this option or asked again; one read as another option is a misread."""
+        for reply in self._variants(question, index, typed):
+            answer = parse_choice(reply, question)
+            if answer.get("status") == "ok" and answer.get("index") != index \
+                    and not any(m["question"] == question.id for m in self.misreads):
+                self.misreads.append({"question": question.id, "option": question.options[index], "reply": reply,
+                                      "read_as": question.options[answer["index"]], "codes": list(question.codes)})
+            elif answer.get("status") != "ok" and (reply in question.aliases[index]
+                                                   or reply == question.options[index].strip()) \
+                    and not any(m["question"] == question.id for m in self.misreads):
+                self.misreads.append({"question": question.id, "option": question.options[index], "reply": reply,
+                                      "read_as": answer.get("status"), "codes": list(question.codes)})
 
     def _check(self, question: Question, reply: str, indices: List[int]) -> bool:
         """True when ``reply`` (what the screen tells a model to type) is read as the options meant."""
@@ -624,7 +890,18 @@ class StubParticipant:
                 "codes": list(question.codes)})
         return False
 
+    @staticmethod
+    def _current(question: Any) -> Question:
+        """A question built by an older copy of this file, as this version's Question."""
+        if isinstance(question, Question) and hasattr(question, "aliases"):
+            return question
+        return Question(question.id, question.text, question.options or None, kind=question.kind,
+                        codes=list(question.codes) if question.kind == "choice" else None, key=question.key,
+                        required=question.required, multiple=question.multiple, minimum=question.minimum,
+                        maximum=question.maximum, integer=question.integer)
+
     def answer_for(self, prompt: str, questions: Sequence[Question], attempt: int = 0, final: bool = True) -> str:
+        questions = [self._current(question) for question in questions]
         self.calls += 1
         self.prompts.append(prompt)
         for question in questions:
@@ -761,7 +1038,7 @@ def smoke_test(run_sessions: Callable, evaluate: Callable, arms: Sequence[str], 
             continue
         seen_misreads.add(item["question"])
         report["problems"].append(
-            f"question {item['question']}: the prompt tells a model to type {item['reply']!r} for "
+            f"question {item['question']}: a model reading the screen may type {item['reply']!r} for "
             f"{item['option'][:80]!r}, but replies.ask reads {item['reply']!r} as {str(item['read_as'])[:80]!r} "
             f"(the question's codes are {', '.join(item['codes'])}). A participant model's answer would be lost or "
             "misrecorded. Ask with replies.render_questions (it prints each option's number), and pass codes= only "
@@ -816,7 +1093,23 @@ def smoke_package(root: Path, seed: int = 0) -> Dict[str, Any]:
     if not arms:
         return {"ok": False, "arms": {}, "blocked_arms": blocked,
                 "problems": ["task/task.json lists no runnable conditions (each needs an id)"]}
-    return smoke_test(adapter.run_sessions, evaluation.evaluate, arms, blocked, seed=seed)
+    report = smoke_test(adapter.run_sessions, evaluation.evaluate, arms, blocked, seed=seed)
+    sized = [c["id"] for c in task.get("conditions") or [] if isinstance(c, dict) and c.get("id") in arms
+             and isinstance(c.get("paper_n"), int)]
+    if sized:
+        # The paper's cell sizes: run_sessions takes n as {condition id: sessions} too.
+        arm = sized[0]
+        try:
+            batch = adapter.run_sessions(StubParticipant(seed + 2), seed + 2, {arm: 1}, arms=[arm])
+            if not any(isinstance(s, dict) and arm in _arm_of(s) for s in batch or []):
+                report["problems"].append(f"run_sessions(llm, seed, {{{arm!r}: 1}}, arms=[{arm!r}]) returned no "
+                                          "session for that condition; read n with replies.sessions_for(n, arm)")
+        except Exception as exc:
+            report["problems"].append(f"run_sessions(llm, seed, {{{arm!r}: 1}}, arms=[{arm!r}]) raised "
+                                      f"{type(exc).__name__}: {exc}. task/task.json gives paper_n per condition, "
+                                      "so n may be a dict of cell sizes: read it with replies.sessions_for(n, arm)")
+        report["ok"] = not report["problems"]
+    return report
 
 
 def smoke_main(package_root: Any = None) -> int:

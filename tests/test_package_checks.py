@@ -69,7 +69,8 @@ def make_package(tmp_path: Path, adapter: str, *, task_extra: dict | None = None
     screens = ", ".join(repr(text) for text in (SCENARIO + " " + OUTCOME, RATING, IMPORTANCE))
     (root / "task/adapter.py").write_text(adapter.replace("@SCREENS@", screens))
     (root / "evaluation/evaluation.py").write_text(evaluation)
-    task = {"conditions": [{"id": "physician_success"}, {"id": "patient_failure"}]}
+    task = {"conditions": [{"id": "physician_success"}, {"id": "patient_failure"}],
+            "presentation": {"layout": "one screen per question", "origin": "reported", "evidence": "survey file"}}
     task.update(task_extra or {})
     (root / "task/task.json").write_text(json.dumps(task))
     (root / "materials/materials.json").write_text(json.dumps({"screens": [
