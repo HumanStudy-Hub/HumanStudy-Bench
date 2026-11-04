@@ -185,6 +185,8 @@ CSVs, Qualtrics response exports). A survey file (`.qsf`, `.docx`, `.pdf` of the
 questionnaire) is material; its response export is data. Analysis code (`.R`,
 `.Rmd`, `.qmd`, `.py`, `.ipynb`, Stata `.do`, SPSS `.sps` syntax, `.sas`) is not
 data: download it one file at a time, never an archive that also holds the data.
+A notebook whose saved outputs print tables is refused (they can show responses):
+fetch the same analysis as a script or a notebook saved without outputs.
 When something exists only inside participant data, say so in the materials
 request.
 
@@ -439,7 +441,9 @@ picture. Record every such table in `source/paper_metadata.json`:
 ]
 ```
 
-`kind` is `result`, `other` or `not-in-paper` (a supplementary table). A result
+`kind` is `result`, `other` or `not-in-paper` (a supplementary table). Settle
+these in the build: a repair round cannot add the evidence record a newly read
+table needs. A result
 table is recorded cell by cell like any other (the field named in `recorded_in`),
 with evidence citing its page. The package check fails a table without a text
 layer that `paper_tables` is missing, or a result table not recorded as rows and
@@ -452,7 +456,10 @@ reads "[0.16, 0.54]"), loses an exponent minus (`1.9e 11`) or separates a printe
 minus (`− 0.011`), inspect the rendered page before recording the number.
 `paper_tables.py` lists the numbers it finds under `sign_loss`. Record the signed
 value as printed; on its evidence record set the physical `locator.page` and
-`note: "rendered page checked"`. Only use this note after looking at the page. A
+`note: "rendered page checked"`. When the page really prints the number without
+a minus, record that in `source/paper_metadata.json` `"sign_checks": [{"page": 9,
+"value": 0.16, "note": "rendered page checked"}]` (a repair round can add this,
+not a new evidence note). Only use the note after looking at the page. A
 CI whose lower limit is above its upper limit, an estimate outside its own CI or a p
 value outside 0-1 is impossible: check the rendered page. The package check fails a
 `sign_loss` number recorded only without its minus (unless the evidence for that
@@ -656,7 +663,8 @@ sources (OSF, the journal's metadata) may follow it in the same line. Then:
    not ask: apply the answer, record it in `"decisions_from_sources": [{"what":
    "...", "path": "input/external/<file>", "locator": {...}, "quote": "..."}]`, and
    list it in the reply under "Decided from the sources" as a decision taken, with
-   where it was found. The package check fails a question issue without this record
+   where it was found. Do this while building: a repair round cannot resolve a
+   question item. The package check fails a question issue without this record
    and a record that says a file answers it.
 2. **Run size**, one line starting with the label `Run size:` (kept in English),
    for example `Run size: 692 participants, about 3,460 model calls, about $4 at

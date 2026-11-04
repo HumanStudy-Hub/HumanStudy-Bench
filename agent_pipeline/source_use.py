@@ -49,9 +49,16 @@ SIGNAL_RE = re.compile(
     r"correction|exclud(e|ed|es|ing)|exclusions?|remov(e|ed|es|ing)|drop(ped|s|ping)?|attention[- ]checks?|"
     r"reverse[- ]?(cod\w*|scor\w*)|outliers?)\b")
 RECODE_CALL_RE = re.compile(r"\b(recode|fct_recode|mapvalues|RECODE)\s*\(|^\s*RECODE\b")
+# Stata and SPSS: "recode part 1=0 if ...", "drop if ...", "keep if ...", "SELECT IF".
+STATA_RECODE_RE = re.compile(r"(?i)^\s*(recode\s+\w|drop\s+if\b|keep\s+if\b|select\s+if\b|filter\s+by\b)")
+NOT_SIGNAL_RE = re.compile(r"(?i)standard errors?|type (i+|1|2) errors?|error bars?|errors? terms?|"
+                           r"remove (all )?(objects|everything|the workspace)|rm\(list|clear (all|the) (memory|workspace)|"
+                           r"marginal error|mean squared? error")
 CODE_LISTED_RE = re.compile(
-    r"(?i)\b(analysis|analyses|analytic)\s+(script|code|syntax|file|folder)s?\b|\b(R|Stata|SPSS|Python)\s+"
-    r"(script|code|syntax|markdown)s?\b|\bdata and code\b|\b[\w-]+\.(R|Rmd|qmd|py|ipynb|do|sps|sas)\b")
+    r"(?i:\b(analysis|analyses|analytic)\s+(script|code|syntax|file|folder)s?\b|\b(R|Stata|SPSS|Python)\s+"
+    r"(script|code|syntax|markdown)s?\b|\bdata and code\b)"
+    r"|(?<![\w/.-])(?!fetch_public|qsf_flow|paper_tables|estimate_run|validate_package)[\w-]+"
+    r"\.(R|Rmd|qmd|py|ipynb|do|sps|sas)(?![\w.-])")
 NOT_FETCHED_OK_RE = re.compile(r"(?i)refused|archive|participant data|not public|not found|no (analysis )?code|"
                                r"login|private|not this (paper|study)|different study|other study")
 NOT_THIS_PAPER_RE = re.compile(r"(?i)not this (paper|study)|different (paper|study)|other (paper|study)|pilot|"
@@ -150,9 +157,11 @@ def signal_lines(path: Path) -> list[tuple[int, str]]:
         prose = suffix in (".rmd", ".qmd") and not in_chunk and stripped and not stripped.startswith(("<!--", "---"))
         comment = bool(re.match(r"(#|//|\*|/\*|%)", stripped)) or bool(re.search(r"\s#\s", line)) and \
             suffix in (".r", ".rmd", ".qmd", ".py", ".jl", ".ipynb")
-        if (prose or comment) and SIGNAL_RE.search(stripped):
+        if suffix == ".ipynb" and re.match(r"#{1,6}\s", stripped) and not re.match(r"#\s", stripped):
+            continue  # a markdown heading of a notebook
+        if (prose or comment) and SIGNAL_RE.search(NOT_SIGNAL_RE.sub(" ", stripped)):
             out.append((number, stripped[:160]))
-        elif RECODE_CALL_RE.search(line):
+        elif RECODE_CALL_RE.search(line) or suffix in (".do", ".ado", ".sps") and STATA_RECODE_RE.search(line):
             out.append((number, stripped[:160]))
     return out
 
@@ -271,8 +280,8 @@ def survey_files(paths: list[str]) -> list[str]:
         if suffix == ".qsf":
             out.append(path)
         elif suffix in (".docx", ".doc", ".pdf", ".odt", ".txt", ".html", ".htm") and (
-                stem(path) in stems or STRONG_SURVEY_NAME_RE.search(name)
-                or SURVEY_NAME_RE.search(name) and not NOT_SURVEY_NAME_RE.search(name)):
+                stem(path) in stems or STRONG_SURVEY_NAME_RE.search(name) and not NOT_SURVEY_NAME_RE.search(
+                    STRONG_SURVEY_NAME_RE.sub("", name))):
             out.append(path)
     return out
 
@@ -382,6 +391,8 @@ def check_questions(root: Path, job: Path) -> list[str]:
             for path in ([item.get("path")] if isinstance(item.get("path"), str) else []) + \
                     [p for p in item.get("paths") or [] if isinstance(p, str)]:
                 covered.add(path)
+            if len(re.findall(r"\w+", str(item.get("found", "")))) < 3:
+                unchecked.append(f"'{issue.get('id')}' (say in 'found' what each file says on this point)")
             if item.get("answers") is True:
                 answered.append(f"'{issue.get('id')}' ({item.get('path') or ', '.join(item.get('paths') or [])})")
         missing = [p for p in downloads if p not in covered]

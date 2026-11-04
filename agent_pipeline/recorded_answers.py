@@ -83,7 +83,9 @@ class Answerer:
             return str(int(value) if getattr(question, "integer", True) else float(value))
         if key is not None:
             return str(key[0] if isinstance(key, (list, tuple)) and key else key)
-        return f"My answer to question {call}, version {'abcdefgh'[alternative % 8]}."
+        # Words and digits both differ between versions, so an adapter that keeps only a number
+        # pulled out of free text still sees a different answer.
+        return f"My answer, version {'abcdefgh'[alternative % 8]}, is {17 + 31 * alternative + call}."
 
     def answer_for(self, prompt: str, questions: Any, attempt: int = 0, final: bool = True, **_: Any) -> str:
         self.calls += 1

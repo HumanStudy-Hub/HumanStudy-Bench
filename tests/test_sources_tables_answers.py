@@ -60,7 +60,7 @@ def _source(sid: str, name: str) -> dict:
 
 @pytest.mark.parametrize("name,data", [
     ("analysis.R", False), ("Analysis_2nd_Run.Rmd", False), ("clean_data.Rmd", False), ("data_prep.sps", False),
-    ("study1.do", False), ("notebook.ipynb", False), ("syntax_data_prep.txt", False), ("scores.py", False),
+    ("study1.do", False), ("notebook.ipynb", False), ("spss_syntax.txt", False), ("analysis_data.txt", True), ("scores.py", False),
     ("data.csv", True), ("results.json", True), ("analysis.sav", True), ("raw_data.txt", True),
 ])
 def test_analysis_code_is_fetched_and_data_still_refused(name, data):
@@ -328,3 +328,73 @@ def test_nondeterministic_package_is_not_judged(tmp_path):
     adapter.write_text(text.replace('                    session["comment"] = page.value("comment")\n', ""))
     report = ra.check(root)
     assert report["dropped"] == [] and "differ" in report["skipped"]
+
+
+# -------------------------------------------------------------------------- review follow-ups
+
+def test_two_column_sign_loss_only_flags_the_continued_number(tmp_path, monkeypatch):
+    LAYOUT = ("left column text here and more words      h = 0.19, 95% CI [-\n"
+              "more left column words go on here          0.16, 0.54]. Another result\n"
+              "\n"
+              "still the left column of the page          had h = 0.33, 95% CI [0.30, 0.94].\n")
+    plain = ("left column text here and more words more left column words go on here "
+             "still the left column of the page\nh = 0.19, 95% CI [0.16, 0.54]. Another result "
+             "had h = 0.33, 95% CI [0.30, 0.94].\n")
+    monkeypatch.setattr(pt, "page_texts", lambda pdf, layout: [LAYOUT] if layout else [plain])
+    assert [s["printed"] for s in pt.sign_loss(tmp_path / "x.pdf")] == ["-0.16"]
+
+
+def test_supplementary_tables_and_caption_styles(tmp_path, monkeypatch):
+    page = ("We report it in Supplementary Table 3 and in Extended Data Table 4, and Table 8 in S1 Appendix.\n"
+            "The results are in Table 1 of the main text.\n"
+            " Table 1. Mean ratings by condition\n"
+            "   Self    4.68   7.07\n   Other   5.10   6.80\n   Total   5.33   7.04\n"
+            "Table 2 | Design of the study\n")
+    second = "Table 5 – Means and standard deviations\n"
+    monkeypatch.setattr(pt, "page_texts", lambda pdf, layout: [page, second])
+    tables = {t["table"]: t for t in pt.table_inventory(tmp_path / "x.pdf")}
+    assert set(tables) == {"1", "2", "5"}
+    assert tables["1"]["caption_page"] == 1 and tables["1"]["text_layer"]
+    assert tables["2"]["caption"].startswith("Design") and not tables["2"]["needs_page_image"]
+    assert tables["5"]["caption"].startswith("Means") and tables["5"]["needs_page_image"]
+
+
+def test_mentioned_table_without_result_words_is_not_demanded(tmp_path, monkeypatch):
+    monkeypatch.setattr(pt, "page_texts", lambda pdf, layout: ["The stimuli are listed in Table 2.\n"])
+    assert [t["needs_page_image"] for t in pt.table_inventory(tmp_path / "x.pdf")] == [False]
+
+
+def test_sign_check_in_metadata_clears_a_checked_number(fake_pdf):
+    job, root = fake_pdf
+    _write_program(root, [{"id": "h-ci", "value": [0.16, 0.54]}],
+                   metadata={"sign_checks": [{"page": 1, "value": 0.16, "note": "rendered page checked"}]})
+    assert pt.check_signs(root, job) == []
+
+
+def test_ratio_next_to_log_ci_and_mean_next_to_difference_ci_pass(fake_pdf):
+    job, root = fake_pdf
+    _write_program(root, [{"id": "a", "value": {"or": 2.47, "ci": [0.31, 1.49]}},
+                          {"id": "b", "value": {"value": 4.5, "ci": [0.1, 0.9]}},
+                          {"id": "c", "value": {"city": [5, 2]}}])
+    assert pt.check_signs(root, job) == []
+
+
+def test_notebook_with_printed_tables_is_refused(tmp_path):
+    from agent_pipeline.fetch_public import _notebook_shows_data
+    shows = tmp_path / "a.ipynb"
+    rows = "   id  age  answer\n" + "".join(f"{i}  {20 + i}  {i % 7}\n" for i in range(6))
+    shows.write_text(json.dumps({"cells": [{"cell_type": "code", "source": ["df.head()"],
+                                            "outputs": [{"data": {"text/plain": [rows]}}]}]}))
+    assert _notebook_shows_data(shows)
+    clean = tmp_path / "b.ipynb"
+    clean.write_text(json.dumps({"cells": [{"cell_type": "code", "source": ["t.test(x)"], "outputs": []}]}))
+    assert not _notebook_shows_data(clean)
+
+
+def test_stata_recode_and_noise(tmp_path):
+    do = tmp_path / "a.do"
+    do.write_text('recode part 1=0 if ParticipantNumber=="14"\n* standard errors clustered\nregress y x\n')
+    assert [n for n, _ in su.signal_lines(do)] == [1]
+    metadata = {"material_searches": [{"query": "ran agent_pipeline/fetch_public.py", "result": "cran.r-project.org"}]}
+    assert not su.CODE_LISTED_RE.search(" ".join(m["query"] + " " + m["result"] for m in metadata["material_searches"]))
+    assert su.CODE_LISTED_RE.search("listing shows analysis.R and data.csv")

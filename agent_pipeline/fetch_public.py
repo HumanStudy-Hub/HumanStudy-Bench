@@ -91,6 +91,26 @@ def _archive_has_data(path: Path) -> str | None:
     return None
 
 
+def _notebook_shows_data(path: Path) -> bool:
+    """A notebook whose stored outputs print tables (``df.head()``, a printed data frame)
+    may show participant responses; its code is fetched only without outputs."""
+    try:
+        cells = json.loads(path.read_text(encoding="utf-8", errors="replace")).get("cells") or []
+    except (OSError, ValueError, AttributeError):
+        return False
+    for cell in cells if isinstance(cells, list) else []:
+        for output in (cell.get("outputs") or []) if isinstance(cell, dict) else []:
+            if not isinstance(output, dict):
+                continue
+            data = output.get("data") if isinstance(output.get("data"), dict) else {}
+            html = "".join(data.get("text/html") or []) if isinstance(data.get("text/html"), list) else str(data.get("text/html") or "")
+            texts = [output.get("text"), data.get("text/plain")]
+            plain = "".join("".join(t) if isinstance(t, list) else str(t or "") for t in texts)
+            if "<table" in html.lower() or len([l for l in plain.splitlines() if len(l.split()) >= 3]) >= 5:
+                return True
+    return False
+
+
 def fetch(job: Path, url: str, name: str | None = None) -> dict:
     if urlsplit(url).scheme != "https":
         raise ValueError("only https URLs are fetched")
@@ -145,6 +165,10 @@ def fetch(job: Path, url: str, name: str | None = None) -> dict:
             target.unlink(missing_ok=True)
             raise ValueError(f"the archive contains {member}, which looks like participant data; download the "
                              "material files one by one instead")
+    if target.suffix.lower() == ".ipynb" and _notebook_shows_data(target):
+        target.unlink(missing_ok=True)
+        raise ValueError("this notebook stores cell outputs that print tables, which can show participant data; "
+                         "fetch the same analysis as a script (.R, .Rmd, .py) or a notebook saved without outputs")
     record = {
         "url": url,
         "final_url": final_url,

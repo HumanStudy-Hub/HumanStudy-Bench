@@ -35,7 +35,16 @@ from pathlib import Path
 
 # A caption: "Table 3", "Table 3." or "Table 3: ..." or "TABLE 3 Means ...", never a sentence such as
 # "Table 3 presents the means" (a mention that starts a line).
-CAPTION_RE = re.compile(r"(?:^|\s{2,})(?:Table|TABLE)\s+(\d{1,2})(?![\dSs])(?:\s*$|\s{3,}\S[^\n]*$|[.:]\s*(\S[^\n]*)?$|\s{1,2}([A-Z(][^\n]*)$)")
+# Also "Table 1 | Design", "Table 1 – Means", "Table\t1".
+CAPTION_RE = re.compile(r"(?:^\s*|\s{2,})(?:Table|TABLE)[ \t]+(\d{1,2})(?![\dSs])"
+                        r"(?:\s*$|\s{3,}\S[^\n]*$|\s*[.:|\u2013\u2014-]\s*(\S[^\n]*)?$|\s{1,2}([A-Z(][^\n]*)$)")
+# A mention of a supplementary or appendix table ("Supplementary Table 3", "Extended Data Table 1",
+# "Table 8 in S1 Appendix"): not a table of this PDF's main text.
+SUPPLEMENT_BEFORE_RE = re.compile(r"(?i)(supplement\w*|supplemen-|extended data|\bSI|\bS\d+|appendix|online)\s*$")
+SUPPLEMENT_AFTER_RE = re.compile(r"(?i)^\s*(of|in)\s+(the\s+)?(S\d+\s+)?(online\s+)?(appendix|supplement\w*|SI\b|"
+                                 r"electronic supplementary)")
+RESULT_WORDS_RE = re.compile(r"(?i)result|statistic|descriptive|mean|summar|effect|test|estimate|frequenc|"
+                             r"proportion|percent|odds|correlat|regression|anova|chi|choice|rate|compar")
 # "Table 1", "Tables 1 and 2", "Table 3 and 4", "Tables 2-4"; never "Table 2S" or "Table S2".
 MENTION_RE = re.compile(r"\b(?:Table|TABLE)s?\s+(\d{1,2})(?![\dSs])((?:\s*(?:,|and|&|to|-|–)\s*\d{1,2}(?![\dSs]))*)")
 ELSEWHERE_RE = re.compile(r"(?i)\b(et al\.?|\(\d{4}\)|\d{4}[a-z]?\)|'s|’s)\s*$")
@@ -102,23 +111,24 @@ def table_inventory(pdf: Path) -> list[dict]:
 
     def entry(number: str) -> dict:
         return tables.setdefault(number, {"table": number, "caption_page": None, "caption": "",
-                                          "mentioned_on": [], "text_rows": 0})
+                                          "mentioned_on": [], "text_rows": 0, "mention_context": ""})
 
     for index, page in enumerate(layout):
         lines = page.splitlines()
         for at, line in enumerate(lines):
             caption = CAPTION_RE.search(line)
-            if caption and index < end + 3:
+            if caption:
                 table = entry(caption.group(1))
                 # In a two-column page only the caption's column holds the table.
                 column = caption.start(0) + len(caption.group(0)) - len(caption.group(0).lstrip())
-                after = line[column + len("Table ") + len(caption.group(1)):]
-                if len(after) - len(after.lstrip(" .:")) >= 8 or not after.strip(" .:"):
+                head = re.match(r"(?:Table|TABLE)[ \t]+\d{1,2}", line[column:])
+                after = line[column + (head.end() if head else 0):]
+                if len(after) - len(after.lstrip(" .:|\u2013\u2014-")) >= 8 or not after.strip(" .:|\u2013\u2014-"):
                     # The title is on the next line, in the caption's column (the rest is another column).
                     nxt = lines[at + 1][max(0, column - 2):] if at + 1 < len(lines) else ""
                     title = nxt.strip()
                 else:
-                    title = after.strip(" .:")
+                    title = after.strip(" .:|\u2013\u2014-")
                 title = re.split(r"\s{4,}", title)[0][:120]
                 window = lines[max(0, at - 45):at] + lines[at + 1:at + 46]
                 rows = sum(1 for row in window if _table_row(row[max(0, column - 4):]))
@@ -128,15 +138,23 @@ def table_inventory(pdf: Path) -> list[dict]:
                     table["caption_page"], table["caption"], table["text_rows"] = index + 1, title, rows
             if index >= end:
                 continue
+            previous = lines[at - 1].rstrip() if at else ""
             for segment in re.split(r"\s{2,}", line):
                 for match in MENTION_RE.finditer(segment):
-                    if ELSEWHERE_RE.search(segment[:match.start()]) or \
+                    before = segment[:match.start()].rstrip()
+                    # "Supplemen-" / "tary Table 3" across a line break; a mention that starts a line.
+                    if re.fullmatch(r"(?i)(tary|tal)?", before) and re.search(r"(?i)supplemen-?$|supplementary$|"
+                                                                            r"extended data$|appendix$", previous):
+                        continue
+                    if ELSEWHERE_RE.search(before) or SUPPLEMENT_BEFORE_RE.search(before) \
+                            or SUPPLEMENT_AFTER_RE.match(segment[match.end():]) or \
                             re.match(r"\s*(of|in|from)\s+[A-Z][a-z]+(\s+et al|\s*\(|\s+and\s+[A-Z])", segment[match.end():]):
                         continue
                     for number in _expand(match.group(1), match.group(2) or ""):
                         table = entry(number)
                         if index + 1 not in table["mentioned_on"]:
                             table["mentioned_on"].append(index + 1)
+                        table["mention_context"] += " " + segment[max(0, match.start() - 80):match.end() + 120]
     out = []
     for number in sorted(tables, key=int):
         table = tables[number]
@@ -160,7 +178,9 @@ def needs_page_image(table: dict) -> bool:
     if table.get("text_layer"):
         return False
     if table.get("caption_page") is None:
-        return True
+        # Only mentioned (Xiao: "In Table 1 and 2, we summarized ... the results"): a table of
+        # results when the sentences that mention it say so.
+        return bool(RESULT_WORDS_RE.search(table.get("mention_context") or ""))
     caption = table.get("caption") or ""
     if NON_RESULT_CAPTION_RE.search(caption) and not re.search(r"(?i)result|effect|mean", caption):
         return False
@@ -216,26 +236,36 @@ def sign_loss(pdf: Path) -> list[dict]:
     plain = page_texts(pdf, layout=False)
     found: list[dict] = []
     seen: set[tuple] = set()
-    for index, page in enumerate(layout):
+    end = _references_start(layout)
+    for index, page in enumerate(layout[:end]):
         raw = plain[index] if index < len(plain) else ""
         text = _squash(raw)
-        for line in page.splitlines():
-            for segment in re.split(r"\s{2,}", line.rstrip()):
+        lines = page.splitlines()
+        for at, line in enumerate(lines):
+            # Column segments with their start column ("text  text" stays one segment).
+            for segment_match in re.finditer(r"\S+(?: \S+)*", line.rstrip()):
+                segment, column = segment_match.group(0), segment_match.start()
                 match = LINE_END_MINUS_RE.search(segment)
                 if not match:
                     continue
-                tail = _squash(segment[:match.start()]).rstrip()
-                tail = tail[-28:]
+                tail = _squash(segment[:match.start()]).rstrip()[-28:]
                 if len(re.sub(r"\W", "", tail)) < 3:
                     continue
-                # The plain text joined the minus away: the same words, maybe a space, then the digits.
-                for hit in re.finditer(re.escape(tail) + r" ?" + NUMBER_RE + r"(?!\d)", text):
-                    value = hit.group(1)
-                    key = (index + 1, value)
-                    if key not in seen:
-                        seen.add(key)
-                        found.append({"page": index + 1, "reads": value, "printed": "-" + value,
-                                      "context": f"{tail}-{value}", "how": "minus at a line end"})
+                # The number that continues this column on the next non-empty line.
+                following = next((l for l in lines[at + 1:at + 3] if l[max(0, column - 3):].strip()), "")
+                start_of_next = following[max(0, column - 3):].lstrip()
+                number = re.match(NUMBER_RE + r"(?![\d])", start_of_next)
+                if not number:
+                    continue
+                value = number.group(1)
+                # Confirm that the plain text joined them without the minus.
+                if not re.search(re.escape(tail) + r" ?" + re.escape(value) + r"(?![\d])", text):
+                    continue
+                key = (index + 1, value)
+                if key not in seen:
+                    seen.add(key)
+                    found.append({"page": index + 1, "reads": value, "printed": "-" + value,
+                                  "context": f"{tail}-{value}", "how": "minus at a line end"})
         for hit in SPLIT_MINUS_RE.finditer(raw):
             value = hit.group(2)
             key = (index + 1, value)
@@ -353,9 +383,11 @@ def check_tables(root: Path, job: Path) -> list[str]:
     return problems
 
 
-CI_KEY_RE = re.compile(r"(?i)(^|[_\-.])(ci|ci\d{2}|conf(idence)?[_\- ]?int(erval)?)($|[_\-.])|^ci")
-ESTIMATE_KEYS = ("estimate", "value", "d", "g", "h", "r", "f", "or", "rr", "b", "beta", "mean_diff", "mdiff",
+CI_KEY_RE = re.compile(r"(?i)(^|[_\-.])(ci|ci\d{2}|conf(idence)?[_\- ]?int(erval)?)($|[_\-.])")
+# Effect sizes a bare "ci" key in the same object most likely belongs to (not "value" or a mean).
+ESTIMATE_KEYS = ("estimate", "d", "g", "h", "r", "f", "or", "rr", "b", "beta", "mean_diff", "mdiff",
                  "cohens_d", "cohens_h", "cohens_f", "hedges_g", "odds_ratio", "eta2", "eta_squared", "phi", "w", "v")
+RATIO_KEYS = ("or", "rr", "odds_ratio", "risk_ratio", "hr")
 
 
 def _ci_pair(value) -> tuple[float, float] | None:
@@ -370,8 +402,12 @@ def _ci_pair(value) -> tuple[float, float] | None:
     return None
 
 
-def _outside(estimate: float, lo: float, hi: float) -> bool:
+def _outside(estimate: float, lo: float, hi: float, ratio: bool = False) -> bool:
     slack = 0.01 * abs(hi - lo) + 0.006
+    if ratio and estimate > 0:
+        import math  # a ratio may sit next to a CI on the log scale
+        if lo - slack <= math.log(estimate) <= hi + slack:
+            return False
     return estimate < lo - slack or estimate > hi + slack
 
 
@@ -387,7 +423,8 @@ def _impossible(name: str, value, problems: list[str], depth: int = 0) -> None:
             prefix = re.split(CI_KEY_RE, str(key))[0].rstrip("_-.")
             candidates = [k for k, v in value.items() if isinstance(v, (int, float)) and not isinstance(v, bool)
                           and (k == prefix if prefix else str(k).lower() in ESTIMATE_KEYS)]
-            if len(candidates) == 1 and _outside(float(value[candidates[0]]), lo, hi):
+            if len(candidates) == 1 and _outside(float(value[candidates[0]]), lo, hi,
+                                                 ratio=str(candidates[0]).lower() in RATIO_KEYS):
                 problems.append(f"{name}: {candidates[0]} = {value[candidates[0]]:g} lies outside its CI "
                                 f"[{lo:g}, {hi:g}]")
         for key, item in value.items():
@@ -444,6 +481,11 @@ def check_signs(root: Path, job: Path) -> list[str]:
     recorded = _signed_recorded(fields)
     checked = {(e.get("locator") or {}).get("page") for e in program.get("evidence") or []
                if isinstance(e, dict) and str(e.get("note", "")).strip().casefold() == "rendered page checked"}
+    # The same attestation in source/paper_metadata.json, which a repair round may add.
+    metadata = _load(root / "source/paper_metadata.json")
+    for item in (metadata.get("sign_checks") if isinstance(metadata, dict) else None) or []:
+        if isinstance(item, dict) and str(item.get("note", "")).strip().casefold() == "rendered page checked":
+            checked.add(item.get("page"))
     lost = []
     for spot in sign_loss(pdf):
         reads = spot["reads"]
@@ -456,9 +498,10 @@ def check_signs(root: Path, job: Path) -> list[str]:
     if lost:
         problems.append("human results: the PDF prints " + "; ".join(lost[:6]) + " with a minus sign that its plain "
                         "text layer drops (a minus at a line end is read as a hyphen), and the package records the "
-                        "number only without its sign. " + RENDER_HINT + ", record the signed value, and on its "
-                        "evidence record set locator.page and note \"rendered page checked\" (contract 'Text-layer "
-                        "numeric sign loss').")
+                        "number only without its sign. " + RENDER_HINT + " and record the value with the sign the "
+                        "page prints. When the page really prints it without a minus, add {\"page\": <page>, "
+                        "\"value\": <value>, \"note\": \"rendered page checked\"} to source/paper_metadata.json "
+                        "sign_checks (contract 'Text-layer numeric sign loss').")
     return problems
 
 

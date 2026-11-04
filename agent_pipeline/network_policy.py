@@ -88,7 +88,10 @@ DOWNLOAD_URL_RE = re.compile(
 # The authors' analysis code (scripts, notebooks, syntax files) is read for its recodes,
 # exclusions and test options; it is never participant data, whatever its name says.
 CODE_SUFFIXES = (".r", ".rmd", ".qmd", ".py", ".ipynb", ".do", ".ado", ".sps", ".sas", ".m", ".jl", ".stan", ".js")
-CODE_NAME_RE = re.compile(r"(?i)(syntax|script|code|analysis|analyses|notebook)")
+CODE_NAME_RE = re.compile(r"(?i)(syntax|script)")
+# Words that mark a table of responses whatever else the name says.
+RESPONSE_NAME_RE = re.compile(r"(?i)(^|[^a-z])(raw|responses?|participants?|subjects?|export|answers?|scores?|"
+                              r"data(set)?)([^a-z]|$)")
 
 ARCHIVE_SUFFIXES = (".zip", ".tar", ".gz", ".tgz", ".7z", ".rar")
 FETCHERS = {"curl", "wget", "aria2c", "http", "https", "httpie", "xh", "lynx", "links", "w3m"}
@@ -206,7 +209,7 @@ def looks_like_participant_data(name: str) -> bool:
         return not MATERIAL_NAME_RE.search(base) or bool(re.search(r"(?i)(^|[^a-z])(raw|responses?|export)([^a-z]|$)", base))
     if base.endswith((".txt", ".json")):
         # "syntax_data_prep.txt" is SPSS syntax; "analysis_results.json" stays refused.
-        code = base.endswith(".txt") and CODE_NAME_RE.search(base)
+        code = base.endswith(".txt") and CODE_NAME_RE.search(base) and not RESPONSE_NAME_RE.search(base)
         return bool(DATA_NAME_RE.search(base)) and not MATERIAL_NAME_RE.search(base) and not code
     return False
 

@@ -297,6 +297,19 @@ REPAIR_RULES = (
      "(code only, never data), read it, and record in source/paper_metadata.json analysis_code each "
      "recode, exclusion and test option with its lines and the code quoted, carried over (and applied "
      "in the evaluation) or not applicable with the reason."),
+    ("survey_versions",
+     "Survey versions: each survey_versions entry needs matches_paper (yes, no or partly), what was "
+     "compared and used_for; participant text comes only from a version that matches the paper."),
+    ("analysis_code entry",
+     "The authors' analysis code: each analysis_code entry needs lines in the file, the code quoted "
+     "exactly as written at those lines, what it does, and use 'carried over' (with where) or 'not "
+     "applicable' (with the reason)."),
+    ("paper_tables Table",
+     "Tables without a text layer: each paper_tables entry needs kind; a result table needs read_from "
+     "'rendered page' and recorded_in naming the result field that holds it cell by cell."),
+    ("decisions_from_sources",
+     "Researcher reply, Questions: each decisions_from_sources entry names the downloaded file and quotes "
+     "the passage that settles it, exactly."),
     ("survey versions",
      "Survey versions: compare each downloaded survey file with the paper (scenario count and order, "
      "printed wording, response codes) and record it in source/paper_metadata.json survey_versions; "
