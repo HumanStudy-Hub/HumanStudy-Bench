@@ -230,7 +230,9 @@ REPAIR_RULES = (
      "materials.json, the program and the adapter, or, to keep it on record, add "
      "\"qsfReachability\": \"not-shown\" to it and change nothing else; then remove every use "
      "of it from the adapter, task.json and the program steps. An item that mixes shown and "
-     "never-shown text cannot be changed in a repair: leave it and say so in studio-reply.md. "
+     "never-shown text (a shown question with options from an unused one) gets "
+     "\"qsfReachability\": \"mixed\" and state \"check\", nothing else, and a line in "
+     "studio-reply.md naming it for the researcher. "
      "Never reword the text to pass this check."),
     ("programBindings",
      "task/task.json programBindings must be derived from the canonical program in "

@@ -240,7 +240,10 @@ from it, not from the raw `.qsf`:
   put its text in `materials.json`, the program or the adapter as participant
   material. To keep one on record, list it by question id under `notShown`, or
   add `"qsfReachability": "not-shown"` to its item; the adapter, `task.json`
-  and the program steps must then never use that item. The package check fails
+  and the program steps must then never use that item (by id or question id).
+  An item that mixes shown text with never-shown text (a shown question with
+  options copied from an unused one) gets `"qsfReachability": "mixed"` and
+  state `check`, and a plain question for the researcher. The package check fails
   survey text that only an unreachable question carries, in program fields
   found in a `.qsf`, in `materials.json` entries whose source is a `.qsf`, and
   in string literals in `task/adapter.py`, and fails a marked item the run

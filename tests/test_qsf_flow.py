@@ -369,3 +369,26 @@ def test_repair_guard_keeps_nested_and_mixed_items(tmp_path: Path) -> None:
     mixed = {"id": "m", "origin": "verbatim", "text": live, "options": [trash]}
     pre = {"materials/materials.json": {"screens": [mixed]}}
     assert not compare_packages(pre, {"materials/materials.json": {"screens": []}}, removable)["passed"]
+
+
+def test_mixed_items_and_question_id_selectors(tmp_path: Path) -> None:
+    trash = "Unused screener: how serious were you in answering?"
+    live = "Scenario A: the operation succeeded."
+    mixed = {"id": "m", "origin": "verbatim", "state": "confirmed", "sourceId": "osf-qsf", "text": live,
+             "options": [trash]}
+    job, root = make_package(tmp_path, {"screens": [mixed]})
+    assert qsf_flow.package_problems(root, job)
+    marked = dict(mixed, qsfReachability="mixed", state="check")
+    (root / "materials/materials.json").write_text(json.dumps({"screens": [marked]}))
+    assert qsf_flow.package_problems(root, job) == []
+    removable = qsf_flow.never_shown_matcher(root, job)
+    pre = {"materials/materials.json": {"screens": [mixed]}}
+    assert compare_packages(pre, {"materials/materials.json": {"screens": [marked]}}, removable)["passed"]
+    assert not compare_packages(pre, {"materials/materials.json": {"screens": [dict(marked, state="confirmed")]}},
+                                removable)["passed"]
+    # A not-shown item selected by its question id is still caught.
+    item = {"id": "w1", "qsfId": "QID7", "qsfReachability": "not-shown", "sourceId": "osf-qsf", "text": trash}
+    (root / "materials/materials.json").write_text(json.dumps({"screens": [item]}))
+    (root / "task").mkdir()
+    (root / "task/adapter.py").write_text('WRAPUP = ["QID7"]\n')
+    assert any("'QID7'" in p for p in qsf_flow.package_problems(root, job))

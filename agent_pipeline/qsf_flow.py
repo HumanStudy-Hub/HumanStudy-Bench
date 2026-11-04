@@ -764,8 +764,16 @@ class _Reach:
         return None
 
 
+MIXED_VALUE = "mixed"  # holds shown text and never-shown text; a person checks it (state "check")
+SELECTOR_KEYS = ("id", "qsfId", "qid", "qsfTag", "tag", "dataExportTag")
+
+
 def _marked_not_shown(node: dict) -> bool:
     return node.get(MARKER_KEY) == MARKER_VALUE
+
+
+def _marked_mixed(node: dict) -> bool:
+    return node.get(MARKER_KEY) == MIXED_VALUE and node.get("state") == "check"
 
 
 def _is_item(node: Any) -> bool:
@@ -800,8 +808,8 @@ def _ids_marked_not_shown(materials: Any) -> list[str]:
 
     def walk(value: Any, excluded: bool) -> None:
         if isinstance(value, dict):
-            if (excluded or _marked_not_shown(value)) and isinstance(value.get("id"), str) and value["id"]:
-                ids.append(value["id"])
+            if excluded or _marked_not_shown(value):
+                ids.extend(value[k] for k in SELECTOR_KEYS if isinstance(value.get(k), str) and value[k])
             for key, child in value.items():
                 walk(child, excluded or bool(EXCLUDED_KEY_RE.search(str(key))))
         elif isinstance(value, list):
@@ -850,7 +858,7 @@ def _text_strings(value: Any, path: str) -> Iterable[tuple[str, str]]:
     if isinstance(value, str):
         yield path, value
     elif isinstance(value, dict):
-        if _marked_not_shown(value):
+        if _marked_not_shown(value) or _marked_mixed(value):
             return
         for key, item in value.items():
             if not EXCLUDED_KEY_RE.search(str(key)) and key not in METADATA_KEYS:
@@ -881,7 +889,7 @@ def _qsf_scoped(value: Any, path: str, keys: set[str], known_paths: set[str], in
                 ) -> Iterable[tuple[str, str]]:
     """Participant strings in value whose nearest declared source is one of keys (a .qsf source id or path)."""
     if isinstance(value, dict):
-        if _marked_not_shown(value):
+        if _marked_not_shown(value) or _marked_mixed(value):
             return
         refs = _refs(value, known_paths)
         scoped = bool(refs & keys) if refs else inherited
@@ -1005,7 +1013,8 @@ def package_problems(root: Path, job: Path | None = None) -> list[str]:
         used = _run_references(root)
         for item_id in dict.fromkeys(_ids_marked_not_shown(materials)):
             if item_id in used:
-                problems.append(f"materials/materials.json item {item_id!r} is marked as never shown (or listed "
+                problems.append(f"materials/materials.json item {item_id!r} (its id or question id) is marked as "
+                                "never shown (or listed "
                                 "as left out), but task/adapter.py, task/task.json or the program steps still "
                                 "use it; the run must not show it")
     for (where, qid), (reason, text, count) in hits.items():
@@ -1030,15 +1039,20 @@ def never_shown_matcher(root: Path, job: Path | None = None):
         return None
 
     def shown_text(item: dict) -> dict:
-        return {k: v for k, v in item.items() if k not in ("qsfReachability", "shown")}
+        return {k: v for k, v in item.items() if k not in (MARKER_KEY, "state")}
 
     def matches(before: dict, after: dict | None) -> bool:
-        if after is not None and not (_marked_not_shown(after) and shown_text(after) == shown_text(before)):
-            return False  # only removal, or the same item marked not shown, is the asked-for repair
         own = _own_strings(shown_text(before))
-        if any(r.shown(text) for text in own for r in reach.values()):
-            return False  # the item also holds text participants saw: only its Trash part may go
-        return any(r.never_shown(text) for text in own for r in reach.values())
+        if not any(r.never_shown(text) for text in own for r in reach.values()):
+            return False
+        mixed = any(r.shown(text) for text in own for r in reach.values())
+        if after is None:
+            return not mixed  # an item that also holds text participants saw is never deleted
+        if shown_text(after) != shown_text(before):
+            return False  # nothing but the marker (and, for a mixed item, state check) may change
+        if mixed:
+            return _marked_mixed(after)
+        return _marked_not_shown(after) and after.get("state") == before.get("state")
 
     return matches
 
