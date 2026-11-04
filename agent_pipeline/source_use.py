@@ -118,6 +118,13 @@ def _code_lines(path: Path) -> list[str]:
         return []
 
 
+def _code_squash(text: str) -> str:
+    """Code compared as written: no HTML unescaping or tag stripping (``x < 5 %>%`` is code),
+    only typographic quotes and whitespace evened out."""
+    text = text.replace("\u2019", "'").replace("\u2018", "'").replace("\u201c", '"').replace("\u201d", '"')
+    return re.sub(r"\s+", "", text).casefold()
+
+
 def is_analysis_code(path: Path) -> bool:
     suffix = path.suffix.lower()
     if suffix not in ANALYSIS_SUFFIXES:
@@ -221,7 +228,7 @@ def check_analysis_code(root: Path, job: Path) -> list[str]:
             window = "\n".join(lines[max(0, span[0] - 6):span[1] + 5])
             if not isinstance(quote, str) or not quote.strip():
                 problems.append(f"{label}: quote the code line(s) it is about")
-            elif not quote_in_text(quote, normalise(window), allow_ellipsis=False):
+            elif _code_squash(quote) not in _code_squash(window):
                 problems.append(f"{label}: the quote does not occur at lines {span[0]}-{span[1]} of {path}")
             if len(re.findall(r"\w+", str(record.get("what", "")))) < 3:
                 problems.append(f"{label}: say in 'what' what the code does there (a recode, an exclusion, a test "
