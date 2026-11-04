@@ -154,13 +154,23 @@ jobs:
             --progress-branch "jobs/$JOB_ID" \
             --progress-path "jobs/$JOB_ID/progress.json"
 
+      # The agent worked inside the checkout above. Validate with a fresh copy of
+      # the pipeline code, so nothing it edited or planted there (including git
+      # hooks) takes part in publishing.
+      - name: Check out clean pipeline code
+        if: success()
+        uses: actions/checkout@v4
+        with:
+          path: pipeline-clean
+          persist-credentials: false
+
       - name: Validate result and prepare review
         if: success()
         env:
           JOB_ID: ${{ inputs.job_id }}
         run: |
           job="job-storage/jobs/$JOB_ID"
-          python agent_pipeline/finalize_job.py "$job" agent_pipeline/validate_package.py
+          python pipeline-clean/agent_pipeline/finalize_job.py "$job" pipeline-clean/agent_pipeline/validate_package.py
 
       # Without job storage there is nowhere to record the failure: the token that
       # failed to check out the jobs branch is the only one that can push to it.
@@ -200,20 +210,35 @@ jobs:
           path.write_text(json.dumps(data, indent=2) + "\n")
           PY
 
+      # The agent could write into job-storage/.git (hooks, URL rewrites), so the
+      # job folder is published from a fresh clone with hooks disabled.
       - name: Commit job state and outputs
         if: always() && steps.storage.outcome == 'success'
-        working-directory: job-storage
         env:
           JOB_ID: ${{ inputs.job_id }}
           TOKEN: ${{ secrets.HUMANSTUDY_PIPELINE_TOKEN }}
         run: |
-          if [ ! -d "jobs/$JOB_ID" ]; then
+          if [ ! -d "job-storage/jobs/$JOB_ID" ]; then
             echo "::error::jobs/$JOB_ID does not exist on the job branch; nothing to commit."
             exit 1
           fi
+          remote="https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git"
+          publish="$RUNNER_TEMP/job-publish"
+          rm -rf "$publish"
+          git -c core.hooksPath=/dev/null clone --quiet --depth 1 --branch "jobs/$JOB_ID" "$remote" "$publish"
+          rm -rf "$publish/jobs/$JOB_ID"
+          mkdir -p "$publish/jobs"
+          cp -R "job-storage/jobs/$JOB_ID" "$publish/jobs/$JOB_ID"
+          cd "$publish"
+          # progress.json is updated through the API during the run; keep the branch's copy.
+          git checkout HEAD -- "jobs/$JOB_ID/progress.json" 2>/dev/null || true
           git config user.name "HumanStudy-Hub Agent"
           git config user.email "pipeline@humanstudy-hub.org"
-          git add "jobs/$JOB_ID"
-          git commit -m "agent: build study for $JOB_ID" || true
-          git pull --rebase "https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git" "jobs/$JOB_ID"
-          git push "https://x-access-token:$TOKEN@github.com/${{ inputs.jobs_repo }}.git" "HEAD:jobs/$JOB_ID"
+          git add -A "jobs/$JOB_ID"
+          git -c core.hooksPath=/dev/null commit -m "agent: build study for $JOB_ID" || true
+          for attempt in 1 2 3; do
+            if git -c core.hooksPath=/dev/null push "$remote" "HEAD:jobs/$JOB_ID"; then exit 0; fi
+            git -c core.hooksPath=/dev/null pull --rebase "$remote" "jobs/$JOB_ID"
+          done
+          echo "Could not publish the job after three attempts." >&2
+          exit 1

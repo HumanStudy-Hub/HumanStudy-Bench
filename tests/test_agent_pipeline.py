@@ -173,7 +173,7 @@ def test_build_prompt_includes_job_inputs(tmp_path: Path) -> None:
     assert "Do not invent study facts" in prompt
 
 
-def test_build_prompt_disables_search_without_user_url(tmp_path: Path) -> None:
+def test_build_prompt_searches_without_user_url(tmp_path: Path) -> None:
     job = tmp_path / "jobs" / "paper-only"
     (job / "input").mkdir(parents=True)
     (job / "input" / "paper.pdf").write_bytes(b"%PDF-test")
@@ -195,8 +195,9 @@ def test_build_prompt_disables_search_without_user_url(tmp_path: Path) -> None:
     ], check=True)
 
     prompt = output.read_text()
-    assert "Network research is not authorized" in prompt
-    assert "Use only the uploaded PDF" in prompt
+    assert "Network research is not authorized" not in prompt
+    assert "Search public sources of this paper" in prompt
+    assert "never download participant data" in prompt
 
 
 def test_build_prompt_includes_bounded_studio_feedback(tmp_path: Path) -> None:

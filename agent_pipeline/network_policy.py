@@ -1,0 +1,551 @@
+#!/usr/bin/env python3
+"""Network rules for the build agent's public-materials search.
+
+The build agent may look for public materials of the paper it is building
+(OSF, the journal's supplementary material, the authors' repositories,
+preprints). This module holds the rules that keep that search narrow:
+
+- ``allowed_hosts(job)``: the hosts the agent may contact. It is a fixed list of
+  research hosts plus every host the paper itself prints and every host the
+  researcher wrote in the job (the OSF URL field or the Studio note).
+- ``looks_like_participant_data(name)``: file names the agent must not download,
+  because they hold participant responses rather than materials.
+- ``main()``: a Claude Code ``PreToolUse`` hook. It refuses a ``WebFetch`` of a
+  host outside the list, and a shell command that names such a host in a network
+  call, sends data (POST, upload, form), or pipes downloaded content into a shell.
+
+The hook is a guard against mistakes and against instructions planted in fetched
+pages. It is not a sandbox: a command that builds a URL at run time is not seen.
+"""
+from __future__ import annotations
+
+import json
+import re
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+from typing import Iterable
+from urllib.parse import urlsplit
+
+# Research infrastructure the search needs regardless of what the paper prints.
+DEFAULT_HOSTS = (
+    # Open Science Framework (projects, API, file storage, preprints)
+    "osf.io", "psyarxiv.com", "files.osf.io", "files.us.osf.io",
+    # DOI resolution and bibliographic lookup
+    "doi.org", "dx.doi.org", "crossref.org", "unpaywall.org", "europepmc.org", "ebi.ac.uk",
+    "ncbi.nlm.nih.gov", "openalex.org", "semanticscholar.org", "datacite.org",
+    # Code and data repositories
+    "github.com", "api.github.com", "raw.githubusercontent.com", "codeload.github.com",
+    "objects.githubusercontent.com", "gitlab.com", "zenodo.org", "figshare.com",
+    "datadryad.org", "dataverse.harvard.edu", "researchbox.org", "aspredicted.org",
+    # Preprint servers
+    "arxiv.org", "biorxiv.org", "medrxiv.org", "ssrn.com", "researchsquare.com",
+    "peercommunityin.org",
+    # Experiment hosting with open materials
+    "pavlovia.org", "gorilla.sc", "jspsych.org", "cognition.run",
+    # Publishers' article and supplementary-material pages
+    "royalsocietypublishing.org", "journals.plos.org", "plos.org", "frontiersin.org",
+    "springer.com", "nature.com", "wiley.com", "tandfonline.com", "sagepub.com",
+    "sciencedirect.com", "elsevier.com", "elifesciences.org", "pnas.org", "apa.org",
+    "cambridge.org", "oup.com", "mdpi.com", "science.org", "cell.com", "biomedcentral.com",
+    "collabra.org", "online.ucpress.edu", "journalofcognition.org", "psychopen.eu",
+    # Supplementary-material file hosts of large publishers
+    "els-cdn.com", "silverchair-cdn.com", "silverchair.com", "static-content.springer.com",
+)
+
+URL_RE = re.compile(r"https?://[^\s'\"<>()\[\]{}|;`]+", re.I)
+# Bare hosts written without a scheme, e.g. "osf.io/gf8rc" or "www.example.org/materials".
+BARE_RE = re.compile(r"(?<![@\w.:/-])((?:[a-z0-9-]+\.)+[a-z]{2,24})/", re.I)
+# Storage hosts that research repositories redirect file downloads to. They are
+# reached only through a redirect from a listed host, never named directly.
+REDIRECT_HOSTS = ("oraclecloud.com", "googleapis.com", "amazonaws.com", "githubusercontent.com",
+                  "figstatic.com", "blob.core.windows.net", "cloudfront.net")
+DEFAULT_HOSTS = DEFAULT_HOSTS + ("github.io", "gitlab.io")
+
+# Statistics-package and serialised formats that hold responses, never materials.
+DATA_SUFFIXES = (".sav", ".zsav", ".por", ".dta", ".rds", ".rdata", ".rda", ".feather", ".parquet",
+                 ".sas7bdat", ".xpt", ".omv", ".jasp", ".mat", ".h5", ".hdf5", ".sqlite", ".db",
+                 ".psydat", ".pkl", ".pickle", ".npy", ".npz", ".edf", ".bdf", ".fif", ".log", ".iqdat")
+# Tables: refused unless the name says they are materials (stimuli, items, ...).
+TABLE_SUFFIXES = (".csv", ".tsv", ".xlsx", ".xls", ".xlsm", ".ods", ".jsonl", ".dat")
+MATERIAL_NAME_RE = re.compile(
+    r"(?i)(stimul|item|material|questionnaire|survey|instruction|scale|vignette|scenario|codebook|"
+    r"word[-_ ]?list|wordlist|lists?([^a-z]|$)|conditions?([^a-z]|$)|design|counterbalanc|trial[-_ ]?list|"
+    r"sequence|schedule|lexicon|norms)")
+DATA_NAME_RE = re.compile(
+    r"(?i)(^|[^a-z])(data|dataset|datafile|raw|clean(ed)?|processed|responses?|participants?|subjects?|"
+    r"results?|export|prolific|mturk|sona|answers?|scores?|P\d+|sub[-_]?\d+|s\d{2,})([^a-z]|$)")
+# Opaque downloads whose file name is not in the URL.
+DOWNLOAD_URL_RE = re.compile(
+    r"(?i)([?&]action=download|[?&]download=|osf\.io/download/|files\.(us\.)?osf\.io/|osf\.io/[a-z0-9]+/download|/ndownloader/|"
+    r"zenodo\.org/(api/)?records?/[^ ]*/files/|raw\.githubusercontent\.com/|codeload\.github\.com/|"
+    r"/archive/|/releases/download/|dataverse[^ ]*/api/access/|datadryad\.org/[^ ]*/download)")
+
+ARCHIVE_SUFFIXES = (".zip", ".tar", ".gz", ".tgz", ".7z", ".rar")
+FETCHERS = {"curl", "wget", "aria2c", "http", "https", "httpie", "xh", "lynx", "links", "w3m"}
+FORBIDDEN_PROGRAMS = {"nslookup", "dig", "host", "nc", "ncat", "netcat", "telnet", "ssh", "scp", "sftp",
+                      "rsync", "ftp", "socat", "openssl", "aria2c", "lynx", "links", "w3m", "gh", "svn", "hg"}
+INTERPRETERS = ("python", "node", "perl", "ruby", "php", "deno", "bun")
+SHELLS = {"sh", "bash", "zsh", "dash", "ksh", "fish", "source", "."}
+INSTALLERS = {"pip", "pip3", "npm", "npx", "yarn", "pnpm", "gem", "cargo", "apt", "apt-get", "brew", "uv"}
+NETWORK_API_RE = re.compile(r"(?i)(urllib|urlopen|requests\.|http\.client|httpx|aiohttp|\bfetch\(|socket|"
+                            r"XMLHttpRequest|Net::HTTP|open-uri|LWP::|file_get_contents|https?\.get\(|curl_)")
+# Per-program flags. Values are (flags that send data, flags that reroute or read
+# config, flags that write files, short letters of each kind in bundles like -sLo).
+CURL_FLAGS = (
+    {"-d", "--data", "--data-raw", "--data-binary", "--data-urlencode", "--data-ascii", "-F", "--form",
+     "--form-string", "-T", "--upload-file", "--json", "--url-query"},
+    {"--connect-to", "--resolve", "-x", "--proxy", "--preproxy", "--socks4", "--socks4a", "--socks5",
+     "--socks5-hostname", "-K", "--config", "--unix-socket", "--abstract-unix-socket", "--doh-url", "-:", "--next"},
+    {"-o", "--output", "-O", "--remote-name", "--remote-name-all", "--output-dir", "--create-dirs"},
+    ("dFT", "xK", "oO"),
+)
+WGET_FLAGS = (
+    {"--post-data", "--post-file", "--body-data", "--body-file", "--method"},
+    {"-e", "--execute", "-i", "--input-file", "--config", "--proxy", "-B", "--base"},
+    {"-O", "--output-document", "-P", "--directory-prefix", "-r", "--recursive", "-m", "--mirror", "-N",
+     "--timestamping", "-x", "--force-directories"},
+    ("", "eiB", "OPrmNx"),
+)
+SECRET_PATH_RE = re.compile(r"/proc/[^\s]*/(environ|cmdline)|\.netrc\b|\.git-credentials|\.claude/\.credentials|\.claude\.json")
+# Git internals and the pipeline's private copy: planting a hook, a URL rewrite
+# or an edited guard there would run outside this guard.
+PROTECTED_RE = re.compile(r"(^|[/\s'\"])\.git(/|\s|$|['\"])|\bgit\b[^|;&\n]*(\sconfig\b|\s-c\s)|core\.hooksPath|"
+                          r"humanstudy-network-|GIT_CONFIG|insteadOf")
+SECRET_ENV = ("ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_API_KEY", "OPENROUTER_API_KEY", "PIPELINE_PROGRESS_TOKEN",
+              "HUMANSTUDY_PIPELINE_TOKEN", "GITHUB_TOKEN")
+GUARDED_DIRS = ("agent_pipeline", "contracts")
+# The repository the agent works in. The hook may run from a copy of this module
+# (so the agent cannot edit it); --repo then names the original.
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
+def host_of(url: str) -> str:
+    try:
+        return (urlsplit(url.strip()).hostname or "").lower().rstrip(".")
+    except ValueError:
+        return ""
+
+
+def hosts_in_text(text: str) -> set[str]:
+    hosts = {host_of(match.group(0)) for match in URL_RE.finditer(text)}
+    hosts |= {match.group(1).lower() for match in BARE_RE.finditer(text)}
+    hosts = {host[4:] if host.startswith("www.") else host for host in hosts}
+    return {host for host in hosts if "." in host and not re.fullmatch(r"[\d.]+", host)}
+
+
+def host_allowed(host: str, hosts: Iterable[str]) -> bool:
+    host = host.lower().rstrip(".")
+    if not host:
+        return False
+    return any(host == entry or host.endswith("." + entry) for entry in hosts)
+
+
+def _paper_text(paper: Path) -> str:
+    if not paper.is_file() or shutil.which("pdftotext") is None:
+        return ""
+    try:
+        result = subprocess.run(["pdftotext", "-q", str(paper), "-"], capture_output=True,
+                                text=True, timeout=120)
+    except (OSError, subprocess.SubprocessError):
+        return ""
+    # Hyphenated line breaks split printed URLs; joining them recovers the host.
+    return re.sub(r"-\n", "-", result.stdout or "")
+
+
+def _researcher_text(job: Path) -> str:
+    parts: list[str] = []
+    try:
+        data = json.loads((job / "job.json").read_text(encoding="utf-8"))
+        for key in ("osfUrl", "materialsUrl", "notes", "researcherNote"):
+            if isinstance(data.get(key), str):
+                parts.append(data[key])
+    except (OSError, ValueError):
+        pass
+    try:
+        request = json.loads((job / "studio_request.json").read_text(encoding="utf-8"))
+        if isinstance(request.get("message"), str):
+            parts.append(request["message"])
+        document = request.get("document") if isinstance(request.get("document"), dict) else {}
+        for conversation in document.get("conversations") or []:
+            if not isinstance(conversation, dict):
+                continue
+            for message in conversation.get("messages") or [conversation]:
+                if isinstance(message, dict) and message.get("role") == "user" and isinstance(message.get("text"), str):
+                    parts.append(message["text"])
+    except (OSError, ValueError, AttributeError):
+        pass
+    return "\n".join(parts)
+
+
+def allowed_hosts(job: Path) -> list[str]:
+    """The fixed research hosts plus every host the paper or the researcher names."""
+    hosts = set(DEFAULT_HOSTS)
+    hosts |= hosts_in_text(_paper_text(job / "input" / "paper.pdf"))
+    hosts |= hosts_in_text(_researcher_text(job))
+    return sorted(host for host in hosts if "." in host)
+
+
+def looks_like_participant_data(name: str) -> bool:
+    """True for a file name that marks participant data rather than materials."""
+    base = name.lower().split("?")[0].split("#")[0].rstrip("/").rsplit("/", 1)[-1]
+    if base.endswith(DATA_SUFFIXES):
+        return True
+    if base.endswith(TABLE_SUFFIXES):
+        return not MATERIAL_NAME_RE.search(base) or bool(re.search(r"(?i)(^|[^a-z])(raw|responses?|export)([^a-z]|$)", base))
+    if base.endswith((".txt", ".json")):
+        return bool(DATA_NAME_RE.search(base)) and not MATERIAL_NAME_RE.search(base)
+    return False
+
+
+def _secret_values() -> list[str]:
+    import os
+    import base64
+
+    values = []
+    for key in SECRET_ENV:
+        value = os.environ.get(key, "")
+        if len(value) >= 12:
+            values += [value, value[:24], base64.b64encode(value.encode()).decode()[:24]]
+    return values
+
+
+def redact(text: str) -> str:
+    for value in _secret_values():
+        text = text.replace(value, "[redacted]")
+    return text
+
+
+def _strip_heredocs(command: str) -> tuple[str, list[tuple[str, str]]]:
+    """Remove heredoc bodies; return the command and (opening line, body) pairs."""
+    lines = command.split("\n")
+    kept: list[str] = []
+    bodies: list[tuple[str, str]] = []
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        kept.append(line)
+        index += 1
+        for match in re.finditer(r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1", line):
+            body: list[str] = []
+            while index < len(lines) and lines[index].strip() != match.group(2):
+                body.append(lines[index])
+                index += 1
+            index += 1  # the delimiter line
+            bodies.append((line, "\n".join(body)))
+    return "\n".join(kept), bodies
+
+
+def _segments(command: str) -> list[str]:
+    """Split at unquoted |, ;, &, && and newlines."""
+    segments, current, quote, escaped = [], [], "", False
+    for char in command:
+        if escaped:
+            current.append(char)
+            escaped = False
+            continue
+        if char == "\\" and quote != "'":
+            escaped = True
+            current.append(char)
+            continue
+        if quote:
+            if char == quote:
+                quote = ""
+            current.append(char)
+            continue
+        if char in "'\"":
+            quote = char
+            current.append(char)
+            continue
+        if char in "|;&\n":
+            segments.append("".join(current))
+            current = []
+            continue
+        current.append(char)
+    segments.append("".join(current))
+    return [segment.strip() for segment in segments if segment.strip()]
+
+
+def _tokens(segment: str) -> list[str]:
+    import shlex
+
+    try:
+        return shlex.split(segment, posix=True)
+    except ValueError:
+        return segment.split()
+
+
+def _program(tokens: list[str]) -> tuple[str, list[str]]:
+    index = 0
+    while index < len(tokens):
+        token = tokens[index]
+        if re.match(r"^[A-Za-z_][A-Za-z0-9_]*=", token) or token in (
+                "sudo", "time", "nohup", "command", "exec", "xargs", "env", "(", "{", "!", "then", "do", "else",
+                "stdbuf", "watch", "busybox", "unbuffer", "eval", "builtin", "nice", "ionice"):
+            index += 1
+        elif token == "timeout" or token == "nice":
+            index += 1
+            while index < len(tokens) and (tokens[index].startswith("-") or re.match(r"^\d", tokens[index])):
+                index += 1
+        else:
+            break
+    if index >= len(tokens):
+        return "", []
+    return tokens[index].lstrip("({").rsplit("/", 1)[-1].lower(), tokens[index + 1:]
+
+
+def host_of_any(url: str) -> str:
+    """Host of a URL, or "" when parsers could disagree about it (backslashes, spaces)."""
+    if "\\" in url or re.search(r"\s", url.strip()):
+        return ""
+    return host_of(url)
+
+
+def _urls_in(arg: str) -> list[str]:
+    """URLs named by one argument: ``https://...``, ``--url=https://...``, ``host.tld/path``."""
+    value = arg.split("=", 1)[1] if arg.startswith("-") and "=" in arg else arg
+    value = value.strip("'\"")
+    match = re.search(r"[A-Za-z][A-Za-z0-9+.-]*://\S*", value)
+    if match:
+        return [match.group(0)]
+    if not arg.startswith("-") and re.match(r"^([A-Za-z0-9-]+\.)+[A-Za-z]{2,}([:/?#]|$)", value):
+        return ["https://" + value]
+    return []
+
+
+HOST_REFUSAL = ("{} is not on this build's list of research hosts. Only hosts the paper prints, hosts the "
+                "researcher named, and research repositories may be contacted.")
+DOWNLOAD_REFUSAL = ("Download files only with `python agent_pipeline/fetch_public.py --job <job> <url>`: it records "
+                    "the hash and refuses participant data. curl and wget may only print pages and API listings "
+                    "to the terminal (or a pipe).")
+SEND_REFUSAL = "The materials search only reads public pages: sending data (POST, upload, form) is not allowed."
+
+
+def _check_url(url: str, hosts: list[str], download_ok: bool = False) -> str | None:
+    host = host_of_any(url)
+    if not host_allowed(host, hosts):
+        return HOST_REFUSAL.format(host or repr(url[:80]))
+    if not download_ok and (DOWNLOAD_URL_RE.search(url) or looks_like_participant_data(url)):
+        return DOWNLOAD_REFUSAL
+    return None
+
+
+def _check_fetcher(program: str, args: list[str], segment: str, hosts: list[str]) -> str | None:
+    """curl, wget and similar: read-only, to the terminal, listed hosts, no file downloads."""
+    send, route, output, (send_short, route_short, output_short) = CURL_FLAGS if program != "wget" else WGET_FLAGS
+    for position, flag in enumerate(args):
+        name = flag.split("=", 1)[0]
+        value = flag.split("=", 1)[1] if "=" in flag else (args[position + 1] if position + 1 < len(args) else "")
+        if name in ("-X", "--request", "--method"):
+            if value.upper() not in ("GET", "HEAD"):
+                return SEND_REFUSAL
+        elif name in send:
+            return SEND_REFUSAL
+        elif name in route:
+            return f"`{name}` is not allowed in the materials search."
+        elif name in output:
+            if value not in ("/dev/null", "-"):
+                return DOWNLOAD_REFUSAL
+        elif re.fullmatch(r"-[A-Za-z]\S+", flag) and flag[:2] in output and not flag[2:].isalpha():
+            if flag[2:] not in ("/dev/null", "-"):  # -o/tmp/x attached value
+                return DOWNLOAD_REFUSAL
+        elif re.fullmatch(r"-[A-Za-z]{2,}", flag):  # bundled short flags such as -sLo
+            letters = set(flag[1:])
+            if letters & set(send_short):
+                return SEND_REFUSAL
+            if letters & set(route_short):
+                return f"`{flag}` is not allowed in the materials search."
+            if letters & set(output_short) and value not in ("/dev/null", "-"):
+                return DOWNLOAD_REFUSAL
+    # Output redirection to a file (stderr redirection and /dev/null are fine).
+    for match in re.finditer(r"(?<![0-9&>])>{1,2}\s*(\S+)", segment):
+        if match.group(1) not in ("/dev/null",) and not match.group(1).startswith("&"):
+            return DOWNLOAD_REFUSAL
+    head_only = any(a in ("-I", "--head", "--spider") or re.fullmatch(r"-[A-Za-z]*I[A-Za-z]*", a) for a in args)
+    for arg in args:
+        for url in _urls_in(arg):
+            reason = _check_url(url, hosts, download_ok=head_only)
+            if reason:
+                return reason
+    return None
+
+
+def _read_script(path: str, cwd: str | None) -> str:
+    try:
+        target = Path(path) if Path(path).is_absolute() or not cwd else Path(cwd) / path
+        if target.is_file() and target.stat().st_size <= 2_000_000:
+            return target.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        pass
+    return ""
+
+
+def _check_code(code: str, hosts: list[str]) -> str | None:
+    """Code that makes network calls may only name listed hosts and never downloads files."""
+    if not NETWORK_API_RE.search(code):
+        return None
+    if re.search(r"""(['"]wb['"]|write_bytes|urlretrieve|shutil\.copyfileobj|iter_content)""", code):
+        return DOWNLOAD_REFUSAL
+    for match in URL_RE.finditer(code):
+        reason = _check_url(match.group(0).rstrip(".,"), hosts)
+        if reason:
+            return reason
+    return None
+
+
+def _is_fetch_helper(path: str, cwd: str | None) -> bool:
+    own = REPO_ROOT / "agent_pipeline" / "fetch_public.py"
+    try:
+        target = Path(path) if Path(path).is_absolute() or not cwd else Path(cwd) / path
+        return target.resolve() == own
+    except OSError:
+        return False
+
+
+def _check_bash(command: str, hosts: list[str], cwd: str | None, depth: int = 0) -> str | None:
+    if depth > 3:
+        return "Nested shells are not allowed in the materials search."
+    if SECRET_PATH_RE.search(command) or re.search(r"(^|[|;&(\s])ps\s+-?[A-Za-z]*e", command):
+        return "Commands may not read credentials or another process's environment."
+    if PROTECTED_RE.search(command):
+        return "Git internals, git configuration and the pipeline's private copy are off limits to the build agent."
+    if re.search(r"\b(find\b[^|;&]*-exec(dir)?|xargs)\b[^|;&]*\b(curl|wget)\b", command):
+        return "Run curl or wget directly, not through find -exec or xargs."
+    if re.search(r"(?i)(<\(|\$\(|`)\s*(curl|wget)\b", command):
+        return "Downloaded content must never be run or substituted into a command."
+    stripped, heredocs = _strip_heredocs(command)
+    for opening, body in heredocs:
+        program, _ = _program(_tokens(_segments(opening)[0] if _segments(opening) else ""))
+        if program in SHELLS or program.startswith(INTERPRETERS):
+            reason = _check_code(body, hosts) or (_check_bash(body, hosts, cwd) if program in SHELLS else None)
+            if reason:
+                return reason
+    previous_fetch = False
+    for segment in _segments(stripped):
+        program, args = _program(_tokens(segment))
+        if previous_fetch and (program in SHELLS or program.startswith(INTERPRETERS)
+                               and (not args or args[0] in ("-", "-i", "/dev/stdin"))):
+            return "Downloaded content must never be run: do not pipe a download into a shell or interpreter."
+        if previous_fetch and program == "tee":
+            return DOWNLOAD_REFUSAL
+        if program in SHELLS and args and "-c" not in args and re.search(r"\b(curl|wget)\b", stripped):
+            return "Downloaded content must never be run."
+        previous_fetch = False
+        if program in FORBIDDEN_PROGRAMS:
+            return f"`{program}` is not available to the materials search."
+        if program in SHELLS and "-c" in args:
+            position = args.index("-c")
+            reason = _check_bash(args[position + 1] if position + 1 < len(args) else "", hosts, cwd, depth + 1)
+            if reason:
+                return reason
+        if program in INSTALLERS:
+            if any("://" in a or a.startswith(("git+", "git@")) for a in args):
+                return "Packages may only be installed from their default registry."
+        elif program == "git":
+            rest = list(args)
+            while rest and rest[0].startswith("-"):
+                rest = rest[2:] if rest[0] in ("-C", "-c", "--git-dir", "--work-tree") else rest[1:]
+            sub = rest[0] if rest else ""
+            if sub in ("clone", "fetch", "pull", "submodule", "archive", "ls-remote", "push", "remote"):
+                return ("Repositories are not cloned: list files with the GitHub API "
+                        "(api.github.com/repos/<owner>/<repo>/contents/...) and download each material file with "
+                        "fetch_public.py, so participant data are never pulled in.")
+            if any("http." in a and "proxy" in a for a in args):
+                return "Proxy settings are not allowed in the materials search."
+        elif program in FETCHERS:
+            previous_fetch = True
+            reason = _check_fetcher(program, args, segment, hosts)
+            if reason:
+                return reason
+        elif program.startswith(INTERPRETERS):
+            script = next((a for a in args if not a.startswith("-")), "")
+            if "-c" in args or "-e" in args:
+                flag = "-c" if "-c" in args else "-e"
+                position = args.index(flag)
+                reason = _check_code(args[position + 1] if position + 1 < len(args) else "", hosts)
+            elif script and _is_fetch_helper(script, cwd):
+                position = args.index(script)
+                rest = args[position + 1:]
+                skip = {i + 1 for i, a in enumerate(rest) if a in ("--job", "--name")}
+                urls = [a for i, a in enumerate(rest) if i not in skip and not a.startswith("-")]
+                reason = next((r for r in (_check_url(u, hosts, download_ok=True) for u in urls) if r), None)
+            else:
+                reason = _check_code(_read_script(script, cwd), hosts) if script else None
+                # URLs handed to any other script are checked like a fetcher's.
+                for arg in args:
+                    for url in _urls_in(arg) if "://" in arg else []:
+                        reason = reason or _check_url(url, hosts)
+            if reason:
+                return reason
+    # Backstop: a command that names a fetcher may not name an unlisted host anywhere.
+    if re.search(r"(?i)\b(curl|wget)\b", stripped):
+        for match in URL_RE.finditer(stripped):
+            if not host_allowed(host_of_any(match.group(0)), hosts):
+                return HOST_REFUSAL.format(host_of_any(match.group(0)) or repr(match.group(0)[:80]))
+    return None
+
+
+def check_tool_call(tool: str, tool_input: dict, hosts: Iterable[str], cwd: str | None = None) -> str | None:
+    """Return a refusal reason, or None when the call may proceed."""
+    hosts = list(hosts)
+    serialised = json.dumps(tool_input, ensure_ascii=False)
+    if any(value in serialised for value in _secret_values()):
+        return "A tool call may not contain credentials."
+    if tool == "WebFetch":
+        return _check_url(str(tool_input.get("url", "")), hosts)
+    if tool in ("Write", "Edit", "MultiEdit", "NotebookEdit"):
+        target = str(tool_input.get("file_path") or tool_input.get("notebook_path") or "")
+        repo = REPO_ROOT
+        try:
+            resolved = (Path(cwd or ".") / target).resolve() if not Path(target).is_absolute() else Path(target).resolve()
+        except OSError:
+            return None
+        if any(resolved.is_relative_to(repo / folder) for folder in GUARDED_DIRS):
+            return "The pipeline's own code and contracts are read-only for the build agent."
+        if ".git" in resolved.parts or "humanstudy-network-" in str(resolved):
+            return "Git internals and the pipeline's private copy are off limits to the build agent."
+        return None
+    if tool != "Bash":
+        return None
+    return _check_bash(str(tool_input.get("command", "")), hosts, cwd)
+
+
+def main() -> None:
+    """Claude Code PreToolUse hook: exit 2 with a reason to refuse a call."""
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--hosts-file", type=Path)
+    parser.add_argument("--hosts", help="comma-separated hosts (preferred: not writable by the agent)")
+    parser.add_argument("--log", type=Path, help="append each refusal here for reviewers")
+    parser.add_argument("--repo", type=Path, help="the repository the agent works in")
+    args = parser.parse_args()
+    global REPO_ROOT
+    if args.repo is not None:
+        REPO_ROOT = args.repo.resolve()
+    try:
+        event = json.load(sys.stdin)
+        hosts = args.hosts.split(",") if args.hosts else json.loads(args.hosts_file.read_text(encoding="utf-8"))
+    except (OSError, ValueError, AttributeError) as exc:
+        print(f"The network guard could not read its host list ({exc}); network calls are refused. "
+              "Report this in studio-reply.md and build from the paper and uploaded materials.", file=sys.stderr)
+        sys.exit(2)
+    reason = check_tool_call(str(event.get("tool_name", "")), event.get("tool_input") or {}, hosts,
+                             event.get("cwd"))
+    if reason:
+        if args.log is not None:
+            try:
+                args.log.parent.mkdir(parents=True, exist_ok=True)
+                with args.log.open("a", encoding="utf-8") as sink:
+                    sink.write(redact(json.dumps({"tool": event.get("tool_name"), "input": event.get("tool_input"),
+                                                  "refused": reason}, ensure_ascii=False))[:4000] + "\n")
+            except OSError:
+                pass
+        print(reason, file=sys.stderr)
+        sys.exit(2)
+    sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()

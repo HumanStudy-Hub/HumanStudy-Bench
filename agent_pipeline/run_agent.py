@@ -4,6 +4,7 @@ import base64
 import json
 import os
 import shutil
+import shlex
 import signal
 import subprocess
 import sys
@@ -18,9 +19,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 try:
+    from agent_pipeline.fetch_public import restore_downloads, verify_downloads
+    from agent_pipeline.network_policy import allowed_hosts
     from agent_pipeline.repair_guard import guard_repair, package_diff
     from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
 except ModuleNotFoundError:  # Direct script execution from the repository root.
+    from fetch_public import restore_downloads, verify_downloads
+    from network_policy import allowed_hosts
     from repair_guard import guard_repair, package_diff
     from studio_output import studio_mode, validate_build_sidecars, validate_discussion
 
@@ -208,11 +213,57 @@ REPAIR_RULES = (
     ("disagree",
      "studio-model.json is the Studio copy of study.json program; after a repair write the "
      "same program to both files."),
+    ("external materials check failed",
+     "Materials the paper does not print: a downloaded source needs id, url, path, sha256, "
+     "retrieved, version, tie, licence, use and participant_data false in "
+     "source/paper_metadata.json external_sources; a missing material field gets an "
+     "extensions.material classification and stays missing (needs-original, status pending, "
+     "with its search list) unless it was found in a downloaded source; every pending item is "
+     "named in the single 'materials-request' issue. Never fill a gap with your own wording "
+     "to pass this check."),
     ("programBindings",
      "task/task.json programBindings must be derived from the canonical program in "
      "study.json: programId, stepIds, recordNodeIds (record and variable nodes) and "
      "analysisNodeIds, in program order. Change the bindings, not the program."),
 )
+
+
+def pristine_pipeline(workdir: Path) -> Path:
+    """Copy the pipeline code and contracts before the agent starts. The guard and
+    the validator run from this copy, so nothing the agent edits in the
+    repository changes how its work is checked."""
+    repo = Path(__file__).resolve().parents[1]
+    target = workdir / "pipeline"
+    for folder in ("agent_pipeline", "contracts"):
+        shutil.copytree(repo / folder, target / folder, ignore=shutil.ignore_patterns("__pycache__"))
+    for path in target.rglob("*"):
+        path.chmod(0o555 if path.is_dir() else 0o444)
+    return target
+
+
+def network_settings(job: Path, workdir: Path, pipeline: Path | None = None) -> tuple[str, Path]:
+    """Claude Code settings that route WebFetch, shell calls and file writes through
+    the research-host guard, and the hosts file fetch_public.py reads.
+
+    The hook gets the list on its command line and runs from the pristine copy
+    of the pipeline; the read-only hosts file outside the job directory is only
+    for fetch_public.py."""
+    hosts = allowed_hosts(job)
+    hosts_file = workdir / "allowed-hosts.json"
+    hosts_file.write_text(json.dumps(hosts, indent=2) + "\n")
+    hosts_file.chmod(0o444)
+    repo = Path(__file__).resolve().parents[1]
+    guard = (pipeline or repo) / "agent_pipeline" / "network_policy.py"
+    command = " ".join(shlex.quote(part) for part in (
+        sys.executable, str(guard), "--hosts", ",".join(hosts), "--repo", str(repo),
+        "--log", str(job / "logs" / "network-guard.log")))
+    # The guard's host list is stricter than WebFetch's built-in blocklist lookup,
+    # which needs an Anthropic endpoint the OpenRouter route does not provide.
+    settings = {"skipWebFetchPreflight": True, "hooks": {"PreToolUse": [
+        {"matcher": "WebFetch|Bash|Write|Edit|MultiEdit|NotebookEdit",
+         "hooks": [{"type": "command", "command": command, "timeout": 30}]},
+    ]}}
+    return json.dumps(settings), hosts_file
 
 
 def program_findings(package: Path) -> list[str]:
@@ -588,12 +639,38 @@ def main() -> None:
         valid, detail = validate(args.validator, package)
         if valid and request_id is not None:
             valid, detail = validate_build_sidecars(package, accepted_model)
+        if valid:
+            valid, detail = verified_sources()
         return valid, detail
+
+    verified: dict[str, tuple[bool, str]] = {}
+
+    def verified_sources() -> tuple[bool, str]:
+        """Download each recorded source again (once per recorded set), so a
+        mismatch reaches the repair loop instead of failing at publication."""
+        files = sorted(package.glob("*/source/paper_metadata.json")) + sorted(package.glob("*/study.json"))
+        key = "\n".join(path.read_text(errors="replace") for path in files)
+        if key not in verified:
+            problems, warnings = verify_downloads(args.job)
+            for warning in warnings:
+                print(f"[materials] {warning}", flush=True)
+            verified[key] = (not problems, "external materials check failed:\n- " + "\n- ".join(problems)
+                             if problems else "Validated external sources")
+        return verified[key]
     progress_token = os.environ.get("PIPELINE_PROGRESS_TOKEN", "")
     publisher = None
     if progress_token and args.progress_repo and args.progress_branch and args.progress_path:
         publisher = ProgressPublisher(progress_token, args.progress_repo, args.progress_branch, args.progress_path)
     session_id = str(uuid.uuid4())
+    if mode == "build":
+        for note in restore_downloads(args.job):
+            print(f"[materials] {note}", flush=True)
+    network_dir = Path(tempfile.mkdtemp(prefix="humanstudy-network-"))
+    pipeline = pristine_pipeline(network_dir)
+    repo_validator = Path(__file__).resolve().parent / "validate_package.py"
+    if args.validator.resolve() == repo_validator:
+        args.validator = pipeline / "agent_pipeline" / "validate_package.py"
+    settings, hosts_file = network_settings(args.job, network_dir, pipeline)
     base_command = [
         "claude",
         "--print",
@@ -602,12 +679,15 @@ def main() -> None:
         "--add-dir",
         str(args.job),
         "--dangerously-skip-permissions",
+        "--settings",
+        settings,
     ]
     command = base_command + ["--session-id", session_id, args.prompt.read_text()]
     claude_env = os.environ.copy()
     claude_env.pop("PIPELINE_PROGRESS_TOKEN", None)
     claude_env.pop("HUMANSTUDY_PIPELINE_TOKEN", None)
     claude_env.pop("GITHUB_TOKEN", None)
+    claude_env["HUMANSTUDY_ALLOWED_HOSTS_FILE"] = str(hosts_file)
     repo_root = Path(__file__).resolve().parents[1]
     process = subprocess.Popen(
         command,
@@ -790,6 +870,10 @@ def main() -> None:
         raise
     finally:
         cleanup_materials(args.job)
+        for path in network_dir.rglob("*"):
+            if path.is_dir():
+                path.chmod(0o755)
+        shutil.rmtree(network_dir, ignore_errors=True)
 
 
 if __name__ == "__main__":
