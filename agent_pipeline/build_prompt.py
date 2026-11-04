@@ -468,6 +468,23 @@ def fetch_materials(job_dir: Path, job: dict) -> None:
     print(f"Extracted open materials into {out}")
 
 
+SIGNED_LINK_KEYS = ("paperUrl", "openMaterialsUrl")
+
+
+def scrub_signed_links(job_dir: Path) -> None:
+    """Drop the short-lived signed download links from job.json once the files are fetched.
+
+    The job folder is committed to the job branch; a signed link is a credential
+    for as long as it lasts, so it is not kept there (nor shown to the agent).
+    """
+    path = job_dir / "job.json"
+    data = json.loads(path.read_text())
+    if any(key in data for key in SIGNED_LINK_KEYS):
+        for key in SIGNED_LINK_KEYS:
+            data.pop(key, None)
+        path.write_text(json.dumps(data, indent=2) + "\n")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--contract", required=True, type=Path)
@@ -477,6 +494,7 @@ def main() -> None:
 
     job = json.loads((args.job / "job.json").read_text())
     fetch_materials(args.job, job)
+    scrub_signed_links(args.job)
     studio_request = args.job / "studio_request.json"
     mode = studio_mode(json.loads(studio_request.read_text())) if studio_request.is_file() else "build"
     accepted_sync = studio_request.is_file() and json.loads(studio_request.read_text()).get("purpose") == "accepted-model-sync"

@@ -92,6 +92,8 @@ jobs:
           data = json.loads(path.read_text())
           request_path = path.with_name("studio_request.json")
           mode = json.loads(request_path.read_text()).get("mode", "build") if request_path.exists() else "build"
+          # The paper is on disk by now; its signed download link must not be committed.
+          data.pop("paperUrl", None)
           data.update({
               "status": "running",
               "currentStage": 1,
@@ -202,6 +204,8 @@ jobs:
           data = json.loads(path.read_text())
           request_path = job / "studio_request.json"
           mode = json.loads(request_path.read_text()).get("mode", "build") if request_path.exists() else "build"
+          for key in ("paperUrl", "openMaterialsUrl"):  # signed links are not committed
+              data.pop(key, None)
           data.update({
               "status": "failed",
               "packageReady": False,
@@ -229,6 +233,8 @@ jobs:
           rm -rf "$publish/jobs/$JOB_ID"
           mkdir -p "$publish/jobs"
           cp -R "job-storage/jobs/$JOB_ID" "$publish/jobs/$JOB_ID"
+          find "$publish/jobs/$JOB_ID" -name __pycache__ -type d -prune -exec rm -rf {} + 2>/dev/null || true
+          find "$publish/jobs/$JOB_ID" -name '*.pyc' -type f -delete 2>/dev/null || true
           cd "$publish"
           # progress.json is updated through the API during the run; keep the branch's copy.
           git checkout HEAD -- "jobs/$JOB_ID/progress.json" 2>/dev/null || true

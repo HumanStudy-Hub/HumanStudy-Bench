@@ -137,7 +137,7 @@ def ensure_readme(package: Path) -> None:
         "This HumanStudy-Hub package was reconstructed from a published paper.\n\n"
         "- Review `study.json` for the study overview and readiness status.\n"
         "- Review `audit/missing_information.json` before running the study.\n"
-        "- Run `python task/adapter.py --smoke-test` to check the package entry point.\n"
+        "- Run `python task/adapter.py --smoke-test` for an offline plumbing check (a stub, not a model).\n"
     )
 
 

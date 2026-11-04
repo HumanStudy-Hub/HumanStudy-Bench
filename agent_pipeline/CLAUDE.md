@@ -116,7 +116,11 @@ research-host list, participant-data files and archives that contain them.
 Never write into `input/external/` yourself: the pipeline downloads every
 recorded source again before publishing and fails the build if a file differs.
 Only hosts the paper prints, hosts the researcher named and research
-repositories can be reached; a refusal is final, so record it and move on.
+repositories can be reached. A refused host is final: record it and move on. A
+refusal of how a command is written (curl output written to a file, a URL held
+in a variable the guard cannot read) says how to rewrite it: rewrite it and run
+it again. Never tell the researcher that a site gave no response, or ask them to
+check a site themselves, when the guard refused your command.
 Never send data to a site (no POST, upload or form), never run downloaded code,
 never read credentials, never edit the pipeline's own code (`agent_pipeline/`,
 `contracts/`), and never log in.
@@ -158,6 +162,10 @@ only inside participant data, say so in the materials request.
 ```
 
 Every search goes in `material_searches`, including those that found nothing.
+Every file in `input/external/fetch_log.json` is listed: in `external_sources`
+when the package uses it, otherwise in `"unused_downloads": [{"path":
+"input/external/<file>", "reason": "pilot version, not the survey the paper
+reports"}]`.
 Write `licence` as an SPDX id (`CC-BY-4.0`, `CC-BY-SA-4.0`, `CC0-1.0`, `MIT`) or
 "none stated", and `licence_evidence` as where it is stated. `use` is `open`
 only when the file, its project or its repository states an open licence
@@ -329,16 +337,59 @@ also record the participant structure required by the fidelity rules: the number
 of agents, their roles and order, what each sees of the others, and any scripted
 role with the paper's justification for scripting it.
 
-`task/adapter.py` must run without network access and expose a minimal command
-line smoke test using `--smoke-test`. It may report a clear blocked state when a
-missing researcher decision makes faithful execution impossible.
+`task/adapter.py` must run without network access and expose a command line
+smoke test using `--smoke-test` that calls `replies.smoke_main(Path(__file__))`.
+It may report a clear blocked state when a missing researcher decision makes
+faithful execution impossible.
+
+**Reading replies.** Copy `agent_pipeline/package_files/replies.py` into the
+package as `task/replies.py`, unchanged (the package check compares it byte for
+byte), and ask every question a participant answers through it: import it with
+`sys.path.insert(0, str(Path(__file__).resolve().parent))` then `from replies
+import Question, ask, render_questions`, describe each question as a
+`Question(id, text, options, ...)`, end the prompt with
+`render_questions(questions)`, and read the answers from `ask(llm, prompt,
+questions)`. Never write your own reply parser and never call `llm` directly.
+
+- `options` are the labels exactly as participants see them. Pass `codes` when
+  the screen shows survey codes or letters; otherwise options are numbered
+  1, 2, 3, or read by the number each label starts with (a printed 1-7 scale).
+  Use `kind="number"` with `minimum`/`maximum` for a numeric entry,
+  `kind="text"` for free text, `multiple=True` for "select all that apply".
+- Give `key=` (the correct code or label) to every question the survey requires
+  to answer in a particular way to continue: comprehension and attention checks,
+  consent, qualification and screening questions. The adapter still decides what
+  a wrong answer does; the key is what the smoke test answers.
+- Give `required=False` to answers the analysis does not use (wrap-up comments,
+  "anything else?"). Such an answer that cannot be read is recorded and the
+  participant stays in the data. Only an unreadable *required* answer ends a
+  session, and then with status `unparsed`.
+- Each session's `status` is one of `completed`, `excluded` (with
+  `exclusion_reason`: a failed check, as the paper excludes), `unparsed`
+  (`page.unparsed` lists which answer and the replies tried) or `blocked`.
+  `evaluate` reports how many sessions of each status every arm had.
+- `ask` already retries an unreadable reply once and never guesses: "1", "1.",
+  "1. Be nice", "Be nice" and "be nice" are read; "1 or 2" and "1. Be fair" are
+  not. A bipolar scale that prints the same label twice (`3 2 1 0 1 2 3`) needs
+  `codes` that tell the two sides apart.
+
+**Smoke test.** Before finishing, run `python agent_pipeline/smoke_test.py
+package/<paper-slug>`. It runs every runnable arm of `task/task.json`
+`conditions` through `run_sessions` with an offline stub that answers every
+keyed question correctly and gives random valid answers otherwise, and fails
+unless every arm has at least one `completed` session that reaches `evaluate`,
+every model call goes through `replies.ask`, and `evaluate` returns a non-empty
+result. Fix the adapter until it passes; the package check runs it too. Report
+it in `studio-reply.md` by its counts (for example "16 arms, 2 completed sessions
+each, offline stub, no model"): a stub run is a plumbing check, not a result, and
+an excluded or unparsed session is never described as completed.
 
 `task/adapter.py` must also expose the standard harness interface the playground
 uses to inject any model as the participant:
 
 - `llm(prompt: str) -> str` is the injected model call the runner provides. The
-  adapter builds whatever prompt it needs for one decision and parses the reply
-  text into the action shape its task expects.
+  adapter builds whatever prompt it needs for one decision and reads the reply
+  with `replies.ask` (see "Reading replies" above).
 - `run_sessions(llm, seed, n, arms=None) -> list[dict]` runs the study with that
   model call, using `n` as the requested sampling units. task/task.json must explicitly
   declare sampling, assignment and observation units. For independent

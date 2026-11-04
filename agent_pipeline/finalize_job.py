@@ -18,6 +18,16 @@ except ModuleNotFoundError:  # Direct script execution from the repository root.
     from studio_output import studio_mode, validate_build_sidecars, validate_discussion
 
 
+def remove_bytecode(folder: Path) -> None:
+    """Python's __pycache__ folders are build leftovers, not part of a package."""
+    for cache in sorted(folder.rglob("__pycache__"), reverse=True):
+        if cache.is_dir() and not cache.is_symlink():
+            shutil.rmtree(cache, ignore_errors=True)
+    for stray in folder.rglob("*.py[co]"):
+        if stray.is_file():
+            stray.unlink()
+
+
 def finalize(job: Path, validator: Path) -> None:
     request_path = job / "studio_request.json"
     request = json.loads(request_path.read_text()) if request_path.is_file() else None
@@ -60,6 +70,7 @@ def finalize(job: Path, validator: Path) -> None:
             if not valid:
                 raise ValueError(f"Invalid Studio build sidecars: {detail}")
         (job / "output").mkdir(exist_ok=True)
+        remove_bytecode(job / "package")
         shutil.make_archive(str(job / "output" / "study"), "zip", job / "package")
         data.update({
             "status": "review",
