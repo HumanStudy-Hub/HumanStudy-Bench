@@ -111,12 +111,16 @@ def studio_complete(job: Path, request_id: str | None) -> bool:
 
 
 def validate(validator: Path, package: Path) -> tuple[bool, str]:
-    result = subprocess.run(
-        [sys.executable, str(validator), str(package)],
-        capture_output=True,
-        text=True,
-        timeout=90,
-    )
+    try:
+        result = subprocess.run(
+            [sys.executable, str(validator), str(package)],
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+    except subprocess.TimeoutExpired:
+        return False, ("package check did not finish within 600 s: the adapter's stand-in run or smoke test "
+                       "is too slow; make each condition's session finish quickly with an offline model")
     output = (result.stdout + result.stderr).strip()
     return result.returncode == 0, output
 
@@ -234,6 +238,25 @@ REPAIR_RULES = (
      "\"qsfReachability\": \"mixed\" and state \"check\", nothing else, and a line in "
      "studio-reply.md naming it for the researcher. "
      "Never reword the text to pass this check."),
+    ("participant memory",
+     "Participant memory within a session: each prompt carries this participant's own earlier "
+     "screens and answers in order; never claim screens that are not sent. Fix the adapter's "
+     "prompt builder; declare task/task.json memory (agents_per_session for paired designs)."),
+    ("internal identifiers",
+     "Participant memory within a session: prompts never show condition ids or screen/question "
+     "ids; key answers by neutral labels (q1, q2) and keep ids out of transcript lines."),
+    ("human results",
+     "Human results to compare against: record every printed result table cell by cell and every "
+     "reported statistic in study.json.program result nodes (result_kind reported), citing the "
+     "existing evidence record for that page or table; a repair cannot add evidence records."),
+    ("analyses:",
+     "Human results to compare against: give each result field extensions.evaluation with the "
+     "evaluate() output key that computes the paper's own test, or not_ready with a specific "
+     "reason; numpy, scipy, pandas and statsmodels are installed."),
+    ("studio-reply.md",
+     "Researcher reply: open with 'Ready to run:', 'Needs you:', 'Licence:' (the licence printed "
+     "in the PDF), at most three questions, a 'Run size:' line from agent_pipeline/estimate_run.py, "
+     "plain words without internal ids or file names."),
     ("programBindings",
      "task/task.json programBindings must be derived from the canonical program in "
      "study.json: programId, stepIds, recordNodeIds (record and variable nodes) and "

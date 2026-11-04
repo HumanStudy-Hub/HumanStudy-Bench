@@ -318,8 +318,10 @@ Write the canonical Human Program in `study.json.program`. Write
 `studio-model.json` alongside `study.json` (never at the top level of `package/`)
 as an exact copy of that canonical program, not a separately generated display
 schema. The frontend derives its views. Preserve the original eight-file
-research/runtime contract; additional materials are allowed. Write a concise
-studio-reply.md describing changes and unresolved decisions.
+research/runtime contract; additional materials are allowed. Write
+studio-reply.md in the paper folder (next to study.json), following "Researcher
+reply" in the contract: three opening lines (ready to run, needs you, licence),
+at most three questions, the "Run size:" line, plain words.
 
 Treat document.model.program, when present, as the confirmed scientific design;
 otherwise document.model is the legacy accepted design. Execution files and
