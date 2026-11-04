@@ -4,6 +4,7 @@ import base64
 import json
 import os
 import shutil
+import shlex
 import signal
 import subprocess
 import sys
@@ -18,9 +19,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 try:
+    from agent_pipeline.network_policy import allowed_hosts
     from agent_pipeline.repair_guard import guard_repair, package_diff
     from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
 except ModuleNotFoundError:  # Direct script execution from the repository root.
+    from network_policy import allowed_hosts
     from repair_guard import guard_repair, package_diff
     from studio_output import studio_mode, validate_build_sidecars, validate_discussion
 
@@ -208,11 +211,38 @@ REPAIR_RULES = (
     ("disagree",
      "studio-model.json is the Studio copy of study.json program; after a repair write the "
      "same program to both files."),
+    ("external materials check failed",
+     "Materials the paper does not print: a downloaded source needs id, url, path, sha256, "
+     "retrieved, version, tie, licence, use and participant_data false in "
+     "source/paper_metadata.json external_sources; a missing material field gets an "
+     "extensions.material classification and stays missing (needs-original, status pending, "
+     "with its search list) unless it was found in a downloaded source; every pending item is "
+     "named in the single 'materials-request' issue. Never fill a gap with your own wording "
+     "to pass this check."),
     ("programBindings",
      "task/task.json programBindings must be derived from the canonical program in "
      "study.json: programId, stepIds, recordNodeIds (record and variable nodes) and "
      "analysisNodeIds, in program order. Change the bindings, not the program."),
 )
+
+
+def network_settings(job: Path, workdir: Path) -> tuple[str, Path]:
+    """Claude Code settings that route WebFetch and shell network calls through
+    the research-host guard, and the hosts file the guard and fetch helper read.
+
+    The hosts file lives outside the job directory, so nothing the agent writes
+    while building changes the list."""
+    hosts_file = workdir / "allowed-hosts.json"
+    hosts_file.write_text(json.dumps(allowed_hosts(job), indent=2) + "\n")
+    guard = Path(__file__).resolve().parent / "network_policy.py"
+    command = " ".join(shlex.quote(part) for part in (
+        sys.executable, str(guard), "--hosts-file", str(hosts_file), "--log", str(job / "logs" / "network-guard.log")))
+    # The guard's host list is stricter than WebFetch's built-in blocklist lookup,
+    # which needs an Anthropic endpoint the OpenRouter route does not provide.
+    settings = {"skipWebFetchPreflight": True, "hooks": {"PreToolUse": [
+        {"matcher": "WebFetch|Bash", "hooks": [{"type": "command", "command": command, "timeout": 30}]},
+    ]}}
+    return json.dumps(settings), hosts_file
 
 
 def program_findings(package: Path) -> list[str]:
@@ -594,6 +624,8 @@ def main() -> None:
     if progress_token and args.progress_repo and args.progress_branch and args.progress_path:
         publisher = ProgressPublisher(progress_token, args.progress_repo, args.progress_branch, args.progress_path)
     session_id = str(uuid.uuid4())
+    network_dir = Path(tempfile.mkdtemp(prefix="humanstudy-network-"))
+    settings, hosts_file = network_settings(args.job, network_dir)
     base_command = [
         "claude",
         "--print",
@@ -602,12 +634,15 @@ def main() -> None:
         "--add-dir",
         str(args.job),
         "--dangerously-skip-permissions",
+        "--settings",
+        settings,
     ]
     command = base_command + ["--session-id", session_id, args.prompt.read_text()]
     claude_env = os.environ.copy()
     claude_env.pop("PIPELINE_PROGRESS_TOKEN", None)
     claude_env.pop("HUMANSTUDY_PIPELINE_TOKEN", None)
     claude_env.pop("GITHUB_TOKEN", None)
+    claude_env["HUMANSTUDY_ALLOWED_HOSTS_FILE"] = str(hosts_file)
     repo_root = Path(__file__).resolve().parents[1]
     process = subprocess.Popen(
         command,
@@ -790,6 +825,7 @@ def main() -> None:
         raise
     finally:
         cleanup_materials(args.job)
+        shutil.rmtree(network_dir, ignore_errors=True)
 
 
 if __name__ == "__main__":

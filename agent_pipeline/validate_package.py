@@ -8,8 +8,10 @@ from pathlib import Path
 
 try:
     from agent_pipeline.human_program import validate_human_program
+    from agent_pipeline.check_sources import check_package_sources
 except ModuleNotFoundError:
     from human_program import validate_human_program
+    from check_sources import check_package_sources
 
 REQUIRED = (
     "study.json",
@@ -49,6 +51,11 @@ def main() -> None:
         }
         if task.get("programBindings") != expected:
             raise SystemExit("task programBindings do not match the canonical Human Program")
+    # Public materials found outside the paper: provenance, licence, no participant
+    # data, and no invented wording passed off as rebuilt structure.
+    problems = check_package_sources(root, package.parent)
+    if problems:
+        raise SystemExit("external materials check failed:\n- " + "\n- ".join(problems))
     result = subprocess.run(
         [sys.executable, str(root / "task/adapter.py"), "--smoke-test"],
         cwd=root,

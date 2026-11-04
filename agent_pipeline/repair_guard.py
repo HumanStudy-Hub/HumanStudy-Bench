@@ -7,8 +7,8 @@ is rejected when:
 
 - an unresolved item (labelled ``missing``, or in state ``missing``/``decision``)
   stops being unresolved, is removed, or changes anything other than its
-  evidence/study ids, its label (while staying unresolved) or the removal of a
-  derivation;
+  evidence/study ids, its label (while staying unresolved), its
+  ``extensions.material`` classification or the removal of a derivation;
 - a ``verbatim`` item is relabelled, removed, or any part of it other than its
   own top-level metadata changes (nested text such as scale anchors counts);
 - an evidence record changes, is removed, or is added (unless it copies a record
@@ -86,6 +86,21 @@ def _value(item: dict) -> dict:
     otherwise it is text (a display name or a response option)."""
     return {k: v for k, v in item.items()
             if k not in ITEM_METADATA or (k == "label" and not (isinstance(v, str) and v in ORIGINS))}
+
+
+def _unresolved_value(item: dict) -> dict:
+    """The value of an unresolved item, ignoring its ``extensions.material``
+    classification. A repair may classify a gap (the package check requires it)
+    as long as the item stays unresolved and nothing else about it changes."""
+    value = _value(item)
+    extensions = value.get("extensions")
+    if isinstance(extensions, dict) and "material" in extensions:
+        rest = {k: v for k, v in extensions.items() if k != "material"}
+        if rest:
+            value["extensions"] = rest
+        else:
+            del value["extensions"]
+    return value
 
 
 def _empty(value: object) -> bool:
@@ -215,7 +230,7 @@ def compare_packages(pre: Dict[str, Any], post: Dict[str, Any]) -> dict:
                 violations.append(f"{where}: moved out of missing/decision "
                                   f"(state {before.get('state')} -> {after.get('state')}, "
                                   f"origin {_origin(before)} -> {_origin(after)})")
-            if _value(before) != _value(after):
+            if _unresolved_value(before) != _unresolved_value(after):
                 violations.append(f"{where}: value of an unresolved item was changed")
             if after.get("derivation") not in (None, "", before.get("derivation")):
                 violations.append(f"{where}: derivation was added to an unresolved item")
