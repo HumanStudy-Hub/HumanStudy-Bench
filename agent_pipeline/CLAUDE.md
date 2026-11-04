@@ -149,8 +149,11 @@ analysis code" below says.
 
 Read pages and API listings with `curl -sL <url>` (to the terminal, or piped
 into `python3 -c` or `jq`). Download every file you use with
-`python agent_pipeline/fetch_public.py --job <job-dir> <url>` (run from the
-repository root): direct downloads with curl, wget or Python, and cloning
+`python agent_pipeline/fetch_public.py --job <job-dir> <url>` (from the
+repository root; after a `cd` elsewhere, start the command with
+`cd <repository root> && python agent_pipeline/fetch_public.py ...` or give the
+script's absolute path, never a `~` path): direct
+downloads with curl, wget or Python, and cloning
 repositories, are refused (list a repository's files with
 `https://api.github.com/repos/<owner>/<repo>/contents/<path>`). It
 saves the file under `input/external/`, records its URL, final URL, SHA-256 and
@@ -225,6 +228,16 @@ otherwise `use` is `researcher-own-use-only`, set `"redistribution":
 "researcher-own-use-only"` at the top of `paper_metadata.json` and say in
 `studio-reply.md` that the package may be used by this researcher but not
 published. Never guess a licence: "none stated" is a valid licence value.
+Read an OSF licence without downloading:
+`python agent_pipeline/fetch_public.py --job <job-dir> --licence <OSF project,
+registration or file URL>` prints and records (`input/external/licence_log.json`)
+the file's SHA-256 and the licence of its project and parent projects. A
+registration often has no licence field while the project it was registered
+from has one: look the project up too. A file whose SHA-256 equals that of a
+file in a project with an open licence is the same file and carries that
+licence: record it with `licence_evidence` naming that project, even when the
+copy you downloaded came from the registration (the package check enforces this
+for every file you looked up with `--licence`).
 
 Program evidence for a found item cites the downloaded file: `"path":
 "input/external/<file>"` (relative to the job directory), a `locator`
@@ -555,15 +568,23 @@ import Question, ask, render_questions`, describe each question as a
 `render_questions(questions)`, and read the answers from `ask(llm, prompt,
 questions)`. Never write your own reply parser and never call `llm` directly.
 
-- `options` are the labels exactly as participants see them. Pass `codes` when
-  the screen shows survey codes or letters; otherwise options are numbered
-  1, 2, 3, or read by the number each label starts with (a printed 1-7 scale).
+- `options` are the labels exactly as participants see them. Pass `codes` only
+  when the screen prints survey codes or letters; otherwise options are numbered
+  1, 2, 3 (the number is printed before each label), or read by the number each
+  label starts with when the labels are a printed scale ("1 (strongly
+  disagree)", "2", ...). A percentage or amount at the start of a label ("70%
+  for auto safety", "30 hours") is never a code.
   Use `kind="number"` with `minimum`/`maximum` for a numeric entry,
   `kind="text"` for free text, `multiple=True` for "select all that apply".
 - Give `key=` (the correct code or label) to every question the survey requires
   to answer in a particular way to continue: comprehension and attention checks,
-  consent, qualification and screening questions. The adapter still decides what
-  a wrong answer does; the key is what the smoke test answers.
+  consent, qualification and screening questions. Every check that has a correct
+  answer is keyed, whether or not its response is forced: a Qualtrics question
+  whose validation accepts only the correct option (`qsf_flow.py` prints
+  "correct answer required") is keyed even with `ForceResponse` off; the smoke
+  test fails an unkeyed one it can match to a recorded `.qsf` (same options, and
+  the survey's question id or wording). The adapter still decides what a wrong answer
+  does; the key is what the smoke test answers.
 - Give `required=False` to answers the analysis does not use (wrap-up comments,
   "anything else?"). Such an answer that cannot be read is recorded and the
   participant stays in the data. Only an unreadable *required* answer ends a
@@ -585,11 +606,14 @@ questions)`. Never write your own reply parser and never call `llm` directly.
 
 **Smoke test.** Before finishing, run `python agent_pipeline/smoke_test.py
 package/<paper-slug>`. It runs every runnable arm of `task/task.json`
-`conditions` through `run_sessions` with an offline stub that answers every
-keyed question correctly and gives random valid answers otherwise, and fails
-unless every arm has at least one `completed` session that reaches `evaluate`,
-every model call goes through `replies.ask`, and `evaluate` returns a non-empty
-result. Fix the adapter until it passes; the package check runs it too. If
+`conditions` through `run_sessions` twice with an offline stub that replies from
+the prompt text as a model would (the number printed before the option it picks,
+or the option's position when the screen prints none): once blind to the keys,
+once answering every keyed question correctly. It fails when a reply typed from
+the screen is read as another option or not at all, unless every arm has at
+least one `completed` session in the keyed run that reaches `evaluate`, when a
+model call bypasses `replies.ask`, when `evaluate` returns nothing, and when a
+survey check with a correct answer is asked without a key. Fix the adapter until it passes; the package check runs it too. If
 `studio-reply.md` mentions it, say it in plain words with its counts (for example
 "an offline practice run with made-up answers took all 16 conditions through to
 the analysis, 2 sessions each; no model was used"): it checks the wiring, not a

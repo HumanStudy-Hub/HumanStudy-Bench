@@ -678,6 +678,30 @@ def read_qsf(path: Path) -> dict:
     return read_survey(load_qsf(path))
 
 
+def correct_answer_checks(report: dict) -> list[dict]:
+    """Every question participants saw that accepts only a correct answer (custom validation).
+
+    This holds whether or not the response is forced: Qualtrics refuses any other
+    answer, and an empty one, until the participant chooses a correct option. A
+    package asks each of these with the correct options as its ``key``.
+    """
+    checks = []
+    for block in (report.get("blocks") or {}).values():
+        for question in block.get("questions") or []:
+            correct = (question.get("validation") or {}).get("correct_choices")
+            if not correct:
+                continue
+            by_id = {c.get("id"): c for c in question.get("choices") or [] if isinstance(c, dict)}
+            checks.append({
+                "qid": question.get("qid"), "tag": question.get("tag"), "text": question.get("text_plain") or "",
+                "options": [c.get("text_plain", "") for c in question.get("choices") or [] if isinstance(c, dict)],
+                "correct": [by_id.get(c.get("id"), {}).get("text_plain") or html_to_text(c.get("text"), markers=False)
+                            for c in correct],
+                "response": (question.get("validation") or {}).get("response"),
+            })
+    return checks
+
+
 # --------------------------------------------------------------------------- reachable text (validator)
 
 def _record_texts(record: dict) -> list[str]:

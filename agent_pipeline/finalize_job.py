@@ -9,11 +9,11 @@ import sys
 from pathlib import Path
 
 try:
-    from agent_pipeline.fetch_public import verify_downloads
+    from agent_pipeline.fetch_public import scrub_signed_urls, verify_downloads
     from agent_pipeline.run_agent import studio_complete, validate
     from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
 except ModuleNotFoundError:  # Direct script execution from the repository root.
-    from fetch_public import verify_downloads
+    from fetch_public import scrub_signed_urls, verify_downloads
     from run_agent import studio_complete, validate
     from studio_output import studio_mode, validate_build_sidecars, validate_discussion
 
@@ -36,6 +36,8 @@ def finalize(job: Path, validator: Path) -> None:
     if not studio_complete(job, request_id):
         raise ValueError("Studio completion marker is missing or does not match this request")
 
+    # Signed storage links expire in minutes but are credentials while they last; none is committed or zipped.
+    scrub_signed_urls(job)
     job_path = job / "job.json"
     data = json.loads(job_path.read_text())
     if mode == "discuss":

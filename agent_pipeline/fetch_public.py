@@ -12,6 +12,17 @@ file on disk, so a recorded source is always a file that was really downloaded.
 
 Refused: a host outside this build's research-host list, a file whose name or
 format marks it as participant data, and a file over the size limit.
+
+    python agent_pipeline/fetch_public.py --job <job-dir> --licence <OSF URL>
+
+reads a licence without downloading anything: for an OSF project, component,
+registration or file it asks the OSF API for the file's name and SHA-256 and the
+licence of its project and of each parent project, prints them and appends them
+to ``<job>/input/external/licence_log.json``.
+
+``final_url`` is recorded without the query of a signed storage link
+(``X-Amz-Signature=...``): those links expire within minutes and are
+credentials while they last, so they are never written to the job folder.
 """
 from __future__ import annotations
 
@@ -111,6 +122,65 @@ def _notebook_shows_data(path: Path) -> bool:
     return False
 
 
+# A storage link is a short-lived credential when its query carries a provider's signature: AWS S3 and
+# S3-compatible stores (OSF's Oracle storage), Google Cloud Storage, CloudFront, Azure SAS. An OSF
+# view-only key is a private-access credential too.
+SIGNED_URL_RE = re.compile(r"(?i)https?://[^\s\"'<>?)\]\\]+\?[^\s\"'<>)\]\\]*")
+SCRUB_SUFFIXES = (".json", ".jsonl", ".md", ".txt", ".log", ".html", ".yml", ".yaml")
+
+
+def _is_signed(query: str) -> bool:
+    names = {name.lower() for name, _ in
+             (part.split("=", 1) if "=" in part else (part, "") for part in re.split(r"&(?:amp;)?|;", query))}
+    return bool(
+        names & {"x-amz-signature", "x-amz-credential", "x-amz-security-token", "x-goog-signature",
+                 "x-goog-credential", "view_only"}
+        or ("signature" in names and names & {"expires", "key-pair-id", "googleaccessid", "awsaccesskeyid", "policy"})
+        or ("sig" in names and names & {"sv", "se", "sp", "sr"}))
+
+
+def public_url(url: str) -> str:
+    """``url`` without the query of a signed storage link; any other URL unchanged."""
+    parts = urlsplit(url)
+    if parts.query and _is_signed(parts.query):
+        return parts._replace(query="", fragment="").geturl()
+    return url
+
+
+def strip_signed_urls(text: str) -> str:
+    """Every signed storage link in ``text`` with its query removed."""
+    return SIGNED_URL_RE.sub(lambda match: public_url(match.group(0)), text)
+
+
+def scrub_signed_urls(job: Path) -> list[str]:
+    """Remove signed storage links from every text file of a job folder before it is committed.
+
+    Downloaded files under ``input/external/`` are left byte for byte as fetched
+    (their hashes are checked); only the logs this helper writes there are
+    scrubbed. Returns the paths that changed, relative to ``job``.
+    """
+    changed = []
+    base = job.resolve()
+    external = (job / "input" / "external").resolve()
+    for path in sorted(job.rglob("*")):
+        if not path.is_file() or path.is_symlink() or ".git" in path.relative_to(job).parts \
+                or not path.resolve().is_relative_to(base):
+            continue
+        if path.suffix.lower() not in SCRUB_SUFFIXES or path.stat().st_size > 20 * 1024 * 1024:
+            continue
+        if path.resolve().is_relative_to(external) and path.name not in ("fetch_log.json", "licence_log.json"):
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            continue
+        clean = strip_signed_urls(text)
+        if clean != text:
+            path.write_text(clean, encoding="utf-8")
+            changed.append(path.relative_to(job).as_posix())
+    return changed
+
+
 def fetch(job: Path, url: str, name: str | None = None) -> dict:
     if urlsplit(url).scheme != "https":
         raise ValueError("only https URLs are fetched")
@@ -171,13 +241,135 @@ def fetch(job: Path, url: str, name: str | None = None) -> dict:
                          "fetch the same analysis as a script (.R, .Rmd, .py) or a notebook saved without outputs")
     record = {
         "url": url,
-        "final_url": final_url,
+        "final_url": public_url(final_url),
         "path": target.relative_to(job).as_posix(),
         "sha256": digest.hexdigest(),
         "bytes": size,
         "content_type": content_type,
         "retrieved": dt.date.today().isoformat(),
     }
+    log.append(record)
+    log_path.write_text(json.dumps(log, indent=2) + "\n", encoding="utf-8")
+    return record
+
+
+# OSF's licence names and their SPDX ids.
+OSF_LICENCES = {
+    "cc-by attribution 4.0 international": "CC-BY-4.0",
+    "cc-by attribution-sharealike 4.0 international": "CC-BY-SA-4.0",
+    "cc-by attribution-noderivatives 4.0 international": "CC-BY-ND-4.0",
+    "cc-by attribution-noncommercial 4.0 international": "CC-BY-NC-4.0",
+    "cc-by attribution-noncommercial-sharealike 4.0 international": "CC-BY-NC-SA-4.0",
+    "cc-by attribution-noncommercial-noderivatives 4.0 international": "CC-BY-NC-ND-4.0",
+    "cc0 1.0 universal": "CC0-1.0",
+    "mit license": "MIT",
+    "apache license 2.0": "Apache-2.0",
+    "gnu general public license (gpl) 3.0": "GPL-3.0",
+    "gnu general public license (gpl) 2.0": "GPL-2.0",
+    "mozilla public license 2.0": "MPL-2.0",
+    "no license": "none stated",
+}
+OSF_URL_RE = re.compile(r"(?i)^https://(?:www\.|api\.)?osf\.io/(?:v2/(?:nodes|registrations|files|guids)/|download/)?"
+                        r"([a-z0-9]{5,24})(?=/|\?|$)")
+OSF_STORAGE_FILE_RE = re.compile(r"(?i)^https://(?:www\.)?osf\.io/[a-z0-9]{5}/files/osfstorage/([a-z0-9]{24})(?=/|\?|$)")
+
+
+def _api_json(job: Path, url: str) -> dict | None:
+    """A small JSON document from a listed host; None when it is not there (HTTP 404/410)."""
+    hosts = _hosts(job)
+    if urlsplit(url).scheme != "https" or not host_allowed(host_of(url), hosts):
+        raise ValueError(f"{host_of(url)} is not on this build's list of research hosts")
+    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
+    try:
+        with urllib.request.build_opener(_CheckedRedirects(hosts)).open(request, timeout=60) as response:
+            data = response.read(4 * 1024 * 1024 + 1)
+    except urllib.error.HTTPError as exc:
+        if exc.code in (404, 410):
+            return None
+        raise ValueError(f"{url} answered HTTP {exc.code}") from exc
+    if len(data) > 4 * 1024 * 1024:
+        raise ValueError(f"{url} is not a small API record")
+    return json.loads(data.decode("utf-8"))
+
+
+def _osf_node(job: Path, kind: str, node_id: str) -> dict | None:
+    api = f"https://api.osf.io/v2/{kind}/{node_id}/?embed=license"
+    record = _api_json(job, api)
+    data = record.get("data") if isinstance(record, dict) else None
+    if not isinstance(data, dict):
+        return None
+    attributes = data.get("attributes") or {}
+    embedded = ((data.get("embeds") or {}).get("license") or {}).get("data") or {}
+    name = (embedded.get("attributes") or {}).get("name") if isinstance(embedded, dict) else None
+    relationships = data.get("relationships") or {}
+    parent = ((relationships.get("parent") or {}).get("data") or {})
+    source = ((relationships.get("registered_from") or {}).get("data") or {})
+    holders = (attributes.get("node_license") or {}) if isinstance(attributes.get("node_license"), dict) else {}
+    return {
+        "id": node_id, "type": kind, "title": attributes.get("title"), "api": api,
+        "licence_name": name or "none stated",
+        "licence_explicitly_none": str(name or "").strip().lower() == "no license",
+        "licence": OSF_LICENCES.get(str(name or "no license").strip().lower(), name),
+        "copyright_holders": [h for h in holders.get("copyright_holders") or [] if h], "year": holders.get("year"),
+        "parent": parent.get("id") if isinstance(parent, dict) else None,
+        # A registration is a frozen copy of a project; that project's own licence is checked separately.
+        "registered_from": source.get("id") if isinstance(source, dict) else None,
+    }
+
+
+def osf_licence(job: Path, url: str) -> dict:
+    """The licence of an OSF file's project (or of a project or registration), read from the API.
+
+    Nothing is downloaded. A file's record carries its name and the SHA-256 OSF
+    lists for it, so a copy of the same file elsewhere can be matched by hash.
+    The licence is the nearest one stated on the item or its parent projects.
+    The record is appended to ``input/external/licence_log.json``.
+    """
+    match = OSF_STORAGE_FILE_RE.match(url.strip()) or OSF_URL_RE.match(url.strip())
+    if not match:
+        raise ValueError("--licence takes an OSF project, registration or file URL (https://osf.io/<id>/)")
+    osf_id = match.group(1)
+    record: dict = {"url": url, "osf_id": osf_id, "checked": dt.date.today().isoformat()}
+    file_record = _api_json(job, f"https://api.osf.io/v2/files/{osf_id}/")
+    data = file_record.get("data") if isinstance(file_record, dict) else None
+    chain: list[dict] = []
+    if isinstance(data, dict) and data.get("type") == "files":
+        attributes = data.get("attributes") or {}
+        hashes = (attributes.get("extra") or {}).get("hashes") or {}
+        record["file"] = {"name": attributes.get("name"), "sha256": hashes.get("sha256"),
+                          "guid": attributes.get("guid"), "path": attributes.get("materialized_path")}
+        target = (((data.get("relationships") or {}).get("target") or {}).get("data") or {})
+        kind, node_id = target.get("type"), target.get("id")
+    else:
+        kind, node_id = None, osf_id
+    for candidate in ([kind] if kind else ["nodes", "registrations"]):
+        node = _osf_node(job, candidate, node_id) if node_id else None
+        if node:
+            chain.append(node)
+            break
+    if not chain:
+        raise ValueError(f"OSF has no public project, registration or file {osf_id}")
+    # Up the parents until a licence is stated; an explicit "No license" is a statement too and stops the walk.
+    while chain[-1].get("parent") and chain[-1]["licence"] == "none stated" \
+            and not chain[-1]["licence_explicitly_none"] and len(chain) < 6:
+        parent = _osf_node(job, chain[-1]["type"], chain[-1]["parent"])
+        if not parent:
+            break
+        chain.append(parent)
+    record["projects"] = chain
+    source = chain[0].get("registered_from")
+    if source:
+        # Recorded for the reader; a registration does not take its project's licence automatically.
+        record["registered_from"] = _osf_node(job, "nodes", source)
+    stated = next((node for node in chain if node["licence"] != "none stated"), None)
+    record["licence"] = stated["licence"] if stated else "none stated"
+    record["licence_from"] = (f"OSF {stated['type'][:-1]} {stated['id']} ('{stated['title']}'): "
+                              f"License {stated['licence_name']}") if stated else \
+        "no licence on the OSF item or its parent projects"
+    out_dir = job / "input" / "external"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    log_path = out_dir / "licence_log.json"
+    log = json.loads(log_path.read_text(encoding="utf-8")) if log_path.is_file() else []
     log.append(record)
     log_path.write_text(json.dumps(log, indent=2) + "\n", encoding="utf-8")
     return record
@@ -306,13 +498,25 @@ def _quotes_by_source(job: Path) -> dict[str, list[str]]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter,
+                                     allow_abbrev=False)
     parser.add_argument("--job", required=True, type=Path)
     parser.add_argument("--name", help="file name to save as (default: the server's name)")
-    parser.add_argument("url")
+    parser.add_argument("--licence", "--license", dest="licence", metavar="OSF_URL",
+                        help="read the licence of an OSF project, registration or file (nothing is downloaded)")
+    parser.add_argument("--scrub", action="store_true",
+                        help="remove signed storage links from the job folder's text files (before a commit)")
+    parser.add_argument("url", nargs="?")
     args = parser.parse_args()
+    if args.scrub:
+        for path in scrub_signed_urls(args.job.resolve()):
+            print(f"removed signed links from {path}")
+        return
+    if bool(args.licence) == bool(args.url):
+        parser.error("give one URL to download, or --licence <OSF URL>")
     try:
-        record = fetch(args.job.resolve(), args.url, args.name)
+        record = osf_licence(args.job.resolve(), args.licence) if args.licence else \
+            fetch(args.job.resolve(), args.url, args.name)
     except (ValueError, OSError) as exc:
         print(f"Not fetched: {exc}", file=sys.stderr)
         sys.exit(1)
