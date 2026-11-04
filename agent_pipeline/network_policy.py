@@ -59,8 +59,11 @@ URL_RE = re.compile(r"https?://[^\s'\"<>()\[\]{}|;`]+", re.I)
 BARE_RE = re.compile(r"(?<![@\w.:/-])((?:[a-z0-9-]+\.)+[a-z]{2,24})/", re.I)
 # Storage hosts that research repositories redirect file downloads to. They are
 # reached only through a redirect from a listed host, never named directly.
+# jbaron.org now serves the Judgment and Decision Making archive: every
+# journal.sjdm.org article and supplement link (which Cambridge's pages still
+# print) redirects there permanently.
 REDIRECT_HOSTS = ("oraclecloud.com", "googleapis.com", "amazonaws.com", "githubusercontent.com",
-                  "figstatic.com", "blob.core.windows.net", "cloudfront.net")
+                  "figstatic.com", "blob.core.windows.net", "cloudfront.net", "jbaron.org")
 DEFAULT_HOSTS = DEFAULT_HOSTS + ("github.io", "gitlab.io")
 
 # Statistics-package and serialised formats that hold responses, never materials.

@@ -100,6 +100,7 @@ jobs:
           mode = json.loads(request_path.read_text()).get("mode", "build") if request_path.exists() else "build"
           # The paper is on disk by now; its signed download link must not be committed.
           data.pop("paperUrl", None)
+          data.pop("researcherMessage", None)  # belongs to an earlier run
           data.update({
               "status": "running",
               "currentStage": 1,
@@ -217,6 +218,12 @@ jobs:
               "packageReady": False,
               "message": "The Studio discussion failed or was cancelled" if mode == "discuss" else "The study build failed or was cancelled",
           })
+          # run_agent.py sets researcherMessage when the agent stopped with a
+          # reply (e.g. a materials request); show that instead of the generic line.
+          note = data.get("researcherMessage")
+          if (mode != "discuss" and isinstance(note, dict) and note.get("runId") == os.environ.get("GITHUB_RUN_ID")
+                  and isinstance(note.get("text"), str) and note["text"].strip()):
+              data["message"] = note["text"].strip()[:1000]
           path.write_text(json.dumps(data, indent=2) + "\n")
           PY
 
