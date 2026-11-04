@@ -43,12 +43,14 @@ def read(reply: str, question: Question):
     ("4", "ambiguous"),            # option 4 (6c) or 4c
     ("10 because it is fair", "ambiguous"),
     ("I give 10", "ambiguous"),
-    ("ten", "ambiguous"),
+    ("ten", "unparsed"),           # number words are not read on a list of amounts
     ("0", "0c"), ("20", "20c"),   # amounts that are no option number
     ("1", "0c"), ("2", "2c"),     # an option number that is no other option's amount (or the same option's)
     ("10c", "10c"), ("10 cents", "10c"), ("$0.10", "10c"), ("I will transfer 10c", "10c"),
     ("6. 10c", "10c"), ("10. 18c", "18c"), ("4. 4c", "ambiguous"),
-    ("I give 10c of my 20c", "ambiguous"), ("15c", "unparsed"), ("Not 10c", "ambiguous"),
+    ("I give 10c of my 20c", "unparsed"), ("15c", "unparsed"), ("Not 10c", "unparsed"),
+    ("I keep 20c", "unparsed"), ("more than 10c", "unparsed"), ("20c for me", "ambiguous"),
+    ("I give 20", "20c"), ("I'd transfer $0.10 to the other participant", "10c"), ("1,000", "unparsed"),
 ])
 def test_amount_list_reads_amounts_and_never_guesses(reply: str, expected: str) -> None:
     assert read(reply, Question("dg", options=BIZIOU_DG)) == expected
@@ -130,9 +132,10 @@ def test_near_matches_never_change_meaning_or_guess() -> None:
     assert read("atypical outcome", Question("t", options=["typical outcome", "rare outcome"])) == "unparsed"
     assert read("likely", Question("l", options=["unlikely", "certain"])) == "unparsed"
     # One letter from two labels: not read.
-    assert read("Transfer it", Question("two", options=["Tranfer it", "Trasnfer it"])) == "ambiguous" or \
-        read("Transfer it", Question("two", options=["Tranfer it", "Trasnfer it"])) == "unparsed"
-    assert read("Transfer it", Question("two", options=["Tranfer it", "Trasnfer it"])) != "Tranfer it"
+    assert read("Transfer it", Question("two", options=["Tranfer it", "Transfr it"])) == "unparsed"
+    # Swapped letters make other words ("casual"/"causal", "trail"/"trial"): not corrected.
+    assert read("causal factor", Question("c", options=["casual factor", "no factor"])) == "unparsed"
+    assert read("Males", Question("m", options=["Male", "Female"])) == "unparsed"
     # Short words are not corrected ("lose"/"lost").
     assert read("lost", Question("w", options=["lose", "win"])) == "unparsed"
 
@@ -345,3 +348,59 @@ def test_questions_are_checked_against_the_paper_first(tmp_path: Path) -> None:
     root, job = _design_package(tmp_path / "b", task={"conditions": [], "presentation": REPORTED},
                                 issues=issues, metadata=metadata)
     assert design_checks.check(root, job) == []
+
+
+# --------------------------------------------------------------------------- independent review
+
+@pytest.mark.parametrize("options,reply,expected", [
+    (["Never", "Once", "Twice", "Three times or more"], "Two", "unparsed"),     # a count, not option 2
+    (["Never", "Once", "Twice", "Three times or more"], "One", "unparsed"),
+    (["One", "Two or more", "None"], "Three", "unparsed"),
+    (["No children", "1 child", "2 children", "3 or more children"], "Two", "unparsed"),
+    (["No children", "1 child", "2 children", "3 or more children"], "3 children", "ambiguous"),
+    (["0 hours", "1-5 hours", "6-10 hours"], "One", "unparsed"),
+    (["$500", "$1,000", "$2,000", "$5,000"], "$1", "unparsed"),                  # thousands, not decimals
+    (["$500", "$1,000", "$2,000", "$5,000"], "$1,000", "$1,000"),
+    (["$1", "$1,000"], "$1", "$1"), (["$1", "$1,000"], "$1,000", "$1,000"),
+    (["0.5%", "1%", "5%"], ".5%", "0.5%"),
+    (["-10c", "0c", "10c"], "−10c", "-10c"),
+    (["10 hours", "20 hours", "30 hours"], "1 day", "unparsed"),
+    (["$10", "$20"], "€10", "unparsed"),                                   # another currency
+    (["10c", "20c"], "$0.10", "10c"),
+    (["1 (strongly disagree)", "2", "3", "4", "5", "6", "7 (strongly agree)"], "1 (strongly agree)", "ambiguous"),
+    (["1 (strongly disagree)", "2", "3", "4", "5", "6", "7 (strongly agree)"], "Two (strongly disagree)",
+     "ambiguous"),
+    (["1 (strongly disagree)", "2", "3", "4", "5", "6", "7 (strongly agree)"], "Seven", "7 (strongly agree)"),
+    (["Yes", "No"], "Two", "No"),
+])
+def test_review_false_matches(options: list, reply: str, expected: str) -> None:
+    assert read(reply, Question("q", options=options)) == expected
+
+
+def test_review_multi_select_and_old_copies() -> None:
+    assert parse("1, 2", Question("m", options=["Red", "Green", "Blue"], multiple=True))["codes"] == ["1", "2"]
+    old = type("OldQuestion", (), {"id": "x", "text": "", "options": ["A", "B"], "kind": "choice", "codes": ["1", "2"],
+                                   "key": None, "required": True, "multiple": False})()
+    converted = replies.StubParticipant._current(old)
+    assert converted.legacy and converted.integer and converted.codes == ["1", "2"]
+
+
+def test_review_licence_regex_ignores_study_questions(tmp_path: Path) -> None:
+    head = "Ready to run: all\nNeeds you: one question\nLicence: CC BY 4.0 (printed on page 1)\n\n"
+    for question in ("Should participants be licensed drivers?", "Should we redistribute the endowment?",
+                     "Can the donations be made public to the other players?"):
+        root, job = _design_package(tmp_path / str(abs(hash(question))), task={"conditions": [],
+                                    "presentation": REPORTED}, reply=head + "1. " + question + "\n")
+        assert design_checks.check_licence_questions(root) == [], question
+
+
+def test_review_docx_blocks_and_text_boxes(tmp_path: Path) -> None:
+    box = ('<w:p><w:r><mc:AlternateContent><mc:Choice><w:txbxContent>' + _p(_r("Boxed")) +
+           '</w:txbxContent></mc:Choice><mc:Fallback><w:txbxContent>' + _p(_r("Boxed")) +
+           '</w:txbxContent></mc:Fallback></mc:AlternateContent></w:r></w:p>')
+    body = (_p(_r("Consent text")) + _p(_r("End of Block: Consent")) + _p(_r("Start of Block: Intro"))
+            + _p(_r("Take a page break now.")) + box)
+    record = docx_text.read(_docx(tmp_path / "b.docx", body))
+    assert record["pages"] == [["Consent text"], ["Take a page break now.", "Boxed"]]
+    root, job = _visible_package(tmp_path / "v", "Take a page break now.")
+    assert docx_text.check(root, job) == []

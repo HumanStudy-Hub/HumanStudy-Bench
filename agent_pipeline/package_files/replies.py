@@ -220,32 +220,49 @@ def _norm(text: str) -> str:
     return text.strip().strip(" .,;:!?\"'`*_()[]")
 
 
-CURRENCY = r"(?:(?:US|CA|AU|NZ|HK|S)?[$\u20ac\u00a3\u00a5]|USD|EUR|GBP)"
-UNIT = (r"(?:%|percent|per\s?cent|pct|\u00a2|c|cents?|p|pence|dollars?|euros?|pounds?|yen|usd|eur|gbp|points?|"
+CURRENCY = r"(?:(?:US|CA|AU|NZ|HK|S)?\$|USD|[€£¥]|EUR|GBP|JPY)"
+UNIT = (r"(?:%|percent|per\s?cent|pct|¢|c|cents?|p|pence|dollars?|euros?|pounds?|yen|usd|eur|gbp|points?|"
         r"pts?|tokens?|coins?|credits?|ecus?|hours?|hrs?|minutes?|mins?|seconds?|secs?|days?|weeks?|months?|"
         r"years?|people|persons?|lives|times?|items?|units?)")
-AMOUNT_ONLY_RE = re.compile(rf"(?i)^\s*(?P<pre>{CURRENCY})?\s*(?P<num>[-+]?\d+(?:[.,]\d+)?)\s*(?P<unit>{UNIT})?\s*$")
-AMOUNT_IN_TEXT_RE = re.compile(rf"(?i)(?<![\w.,])(?P<pre>{CURRENCY})?\s*(?P<num>[-+]?\d+(?:[.,]\d+)?)"
-                               rf"(?:\s*(?P<unit>{UNIT}))?(?![\w%\u00a2]|[.,]\d)")
-# Units read as one: cents are hundredths of the currency, so "10c", "10 cents" and "$0.10" are one amount.
+# A number: thousands set off by commas ("1,000"), a decimal point, a leading point (".5"). A comma is never a
+# decimal mark here: "1,5" would be read as one or as fifteen.
+NUMBER = r"[-+]?(?:\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?|\.\d+)"
+AMOUNT_ONLY_RE = re.compile(rf"(?i)^\s*(?P<pre>{CURRENCY})?\s*(?P<num>{NUMBER})\s*(?P<unit>{UNIT})?\s*$")
+AMOUNT_IN_TEXT_RE = re.compile(rf"(?i)(?<![\w.,])(?P<pre>{CURRENCY})?\s*(?P<num>{NUMBER})"
+                               rf"(?:\s*(?P<unit>{UNIT}))?(?![\w%¢]|[.,]\d)")
+# What an amount counts. Cents are hundredths of whatever currency the list uses ("10c" is "$0.10" or "0.10 EUR");
+# pence are hundredths of a pound. Other currencies are kept apart ("$10" is not "10 EUR").
 UNIT_FAMILY = {"%": "%", "percent": "%", "per cent": "%", "pct": "%",
-               "c": "money/100", "\u00a2": "money/100", "cent": "money/100", "p": "money/100", "pence": "money/100",
-               "dollar": "money", "euro": "money", "pound": "money", "yen": "money", "usd": "money", "eur": "money",
-               "gbp": "money", "pt": "point", "hr": "hour", "min": "minute", "sec": "second", "person": "people",
-               "lives": "people"}
+               "c": "cent", "¢": "cent", "cent": "cent", "p": "pence", "pence": "pence",
+               "dollar": "usd", "usd": "usd", "euro": "eur", "eur": "eur", "pound": "gbp", "gbp": "gbp",
+               "yen": "jpy", "jpy": "jpy", "pt": "point", "hr": "hour", "min": "minute", "sec": "second",
+               "person": "people", "lives": "people"}
+CURRENCY_FAMILY = {"$": "usd", "usd": "usd", "€": "eur", "eur": "eur", "£": "gbp", "gbp": "gbp",
+                   "¥": "jpy", "jpy": "jpy"}
+MONEY = ("usd", "eur", "gbp", "jpy")
 
 
 def _unit_family(pre: Optional[str], unit: Optional[str]) -> Optional[str]:
-    """What an amount counts ("money", "%", "hour"); None for a bare number."""
-    if unit:
-        word = re.sub(r"\s+", " ", unit.lower())
-        if word not in UNIT_FAMILY and word.endswith("s") and len(word) > 2:
-            word = word[:-1]                      # "hours" -> "hour", "points" -> "point"
-        family = UNIT_FAMILY.get(word, word)
-        if pre and family not in ("money", "money/100"):
-            return None                           # "$10 hours" is not an amount
-        return "money" if pre and family == "money" else family
-    return "money" if pre else None
+    """What an amount counts ("usd", "cent", "%", "hour"); None for a bare number or a mismatch ("$10 hours")."""
+    currency = None
+    if pre:
+        key = pre.lower()
+        currency = CURRENCY_FAMILY.get(key) or CURRENCY_FAMILY.get(key[-1], "usd")
+    if not unit:
+        return currency
+    word = re.sub(r"\s+", " ", unit.lower())
+    if word not in UNIT_FAMILY and word.endswith("s") and len(word) > 2:
+        word = word[:-1]                      # "hours" -> "hour", "points" -> "point"
+    family = UNIT_FAMILY.get(word, word)
+    if currency is None:
+        return family
+    if family in ("cent", "pence"):
+        return {"cent": currency, "pence": "gbp"}[family] + "/100"
+    return currency if family == currency else None
+
+
+def _numeric(number: str) -> float:
+    return float(number.replace(",", "").replace("−", "-").lstrip("+"))
 
 
 def _amount_of(match: "re.Match[str]") -> Optional[tuple]:
@@ -253,22 +270,31 @@ def _amount_of(match: "re.Match[str]") -> Optional[tuple]:
     family = _unit_family(match.group("pre"), match.group("unit"))
     if family is None:
         return None
-    number = match.group("num").lstrip("+").replace(",", ".")
-    value = float(number)
-    if family == "money/100":
-        family, value = "money", value / 100
+    number = _numeric(match.group("num"))
+    value = number
+    if family.endswith("/100"):
+        family, value = family[:-4], number / 100
+    elif family in ("cent", "pence"):
+        family, value = ("gbp" if family == "pence" else "money"), number / 100
     return (_number_text(number), family, round(value, 6))
 
 
-def _number_text(number: str) -> str:
-    """"10", "10.0" and "10.00" print the same number: "10"; "0.10" is "0.1"."""
-    value = float(number)
+def _number_text(number: Any) -> str:
+    """"10", "10.0", "10.00" and "1,0" -> "10"; "0.10" and ".1" -> "0.1"."""
+    value = _numeric(number) if isinstance(number, str) else float(number)
     return str(int(value)) if value.is_integer() else repr(value)
+
+
+def _same_amount(a: tuple, b: tuple) -> bool:
+    """One amount: equal values in one family; "money" (cents of an unnamed currency) matches any currency."""
+    if round(a[2], 6) != round(b[2], 6):
+        return False
+    return a[1] == b[1] or ("money" in (a[1], b[1]) and {a[1], b[1]} - {"money"} <= set(MONEY))
 
 
 def _amount(label: str) -> Optional[tuple]:
     """The amount a label consists of ("0c", "$0.10", "30 hours", "70%"), else None."""
-    match = AMOUNT_ONLY_RE.match(str(label))
+    match = AMOUNT_ONLY_RE.match(str(label).replace("−", "-"))
     return _amount_of(match) if match else None
 
 
@@ -277,31 +303,43 @@ NUMBER_WORDS = {word: str(number) for number, word in enumerate(
     "seventeen eighteen nineteen twenty".split())}
 NUMBER_WORD_RE = re.compile(r"(?i)\b(" + "|".join(NUMBER_WORDS) + r")\b")
 # A number word read as a number: the whole reply, or set off before the rest ("Three (fairly profound)").
-LEADING_WORD_RE = re.compile(r"(?i)^(" + "|".join(NUMBER_WORDS) + r")(?=\s*$|\s*[.):=]|\s*\(|\s+[-\u2013\u2014]\s)")
+LEADING_WORD_RE = re.compile(r"(?i)^(" + "|".join(NUMBER_WORDS) + r")(?=\s*$|\s*[.):=]|\s*\(|\s+[-–—]\s)")
+# Labels that count something ("Once", "Never", "1 child", "Two or more"): a number word there is a quantity, not a
+# position, so it is never read as an option number.
+COUNT_WORDS_RE = re.compile(r"(?i)\d|\b(once|twice|thrice|never|none|nothing|times?|more|fewer|less|"
+                            r"several|many|few|couple|dozens?|half|"
+                            + "|".join(NUMBER_WORDS) + r")\b")
 
 
-def _number_words(body: str, labels: Iterable[str]) -> str:
-    """``body`` with its number words as digits, when it starts with one and no label uses any of them."""
+def _number_words_allowed(question: "Question") -> bool:
+    """Number words are option numbers on a scale whose labels are its numbers, or whose words count nothing."""
+    printed = _leading_numbers(question.options)
+    if printed is not None and printed == question.codes:
+        return True               # "1 (strongly disagree)" ... "7": the words name the printed numbers
+    return not any(COUNT_WORDS_RE.search(label) for label in question.options) and \
+        not any(COUNT_WORDS_RE.search(alias) for aliases in question.aliases for alias in aliases)
+
+
+def _number_words(body: str) -> str:
+    """``body`` with its number words as digits, when it starts with one ("Three", "Three (fairly profound)")."""
     if not LEADING_WORD_RE.match(body):
-        return body
-    words = {word.lower() for word in NUMBER_WORD_RE.findall(body)}
-    if any(re.search(rf"(?i)\b{word}\b", label) for label in labels for word in words):
         return body
     return NUMBER_WORD_RE.sub(lambda m: NUMBER_WORDS[m.group(1).lower()], body)
 
 
 def _one_edit(a: str, b: str) -> bool:
-    """``a`` and ``b`` differ by one dropped, added or swapped (adjacent) letter: "tranfer"/"transfer"."""
-    if a == b or abs(len(a) - len(b)) > 1:
+    """``a`` and ``b`` differ by one dropped or added letter, not its first: "tranfer"/"transfer".
+
+    Swapped and replaced letters are not typos here: "casual"/"causal", "trail"/"trial" and
+    "increase"/"decrease" are different words.
+    """
+    if abs(len(a) - len(b)) != 1:
         return False
-    if len(a) == len(b):
-        diff = [i for i in range(len(a)) if a[i] != b[i]]
-        return len(diff) == 2 and diff[1] == diff[0] + 1 and a[diff[0]] == b[diff[1]] and a[diff[1]] == b[diff[0]]
     short, long_ = (a, b) if len(a) < len(b) else (b, a)
     i = 0
     while i < len(short) and short[i] == long_[i]:
         i += 1
-    return short[i:] == long_[i + 1:]
+    return i > 0 and short[i:] == long_[i + 1:]
 
 
 def _near(reply: str, label: str) -> bool:
@@ -311,8 +349,7 @@ def _near(reply: str, label: str) -> bool:
         return False
     pairs = [(g, w) for g, w in zip(got, want) if g != w]
     return len(pairs) <= 2 and all(
-        g.isalpha() and w.isalpha() and max(len(g), len(w)) >= 5 and g[0] == w[0] and _one_edit(g, w)
-        for g, w in pairs)
+        g.isalpha() and w.isalpha() and min(len(g), len(w)) >= 5 and _one_edit(g, w) for g, w in pairs)
 
 
 # --------------------------------------------------------------------------- rendering
@@ -411,24 +448,26 @@ def _standalone_codes(text: str, codes: Sequence[str]) -> set:
 
 
 def _amount_options(question: Question, text: str) -> tuple:
-    """(options, ambiguous) for amounts written in ``text``: "10c", "$0.10", "10 cents", or a bare "10".
+    """(options, unknown) for the amounts written in ``text``: "10c", "$0.10", "10 cents", or a bare "10".
 
-    A written unit names the options with that amount. A bare number names the
-    options whose printed amount has that number and, when it is a code, the
-    option it numbers. Only options whose whole label is an amount take part.
+    A written unit names the options with that amount; ``unknown`` is True for an
+    amount of the list's kind that the list does not offer ("15c" on 0c/10c/20c,
+    "1 day" on a list of hours). A bare number names the options whose printed
+    amount has that number and, when it is a code, the option it numbers. Only
+    options whose whole label is an amount take part.
     """
-    found = set()
+    found: set = set()
     if not any(question.amounts):
         return found, False
     codes = [code.lower() for code in question.codes]
     for match in AMOUNT_IN_TEXT_RE.finditer(text):
         amount = _amount_of(match)
-        number = _number_text(match.group("num").lstrip("+").replace(",", "."))
+        number = _number_text(match.group("num"))
         if amount is not None:
-            hits = {i for i, own in enumerate(question.amounts) if own and own[1:] == amount[1:]}
+            hits = {i for i, own in enumerate(question.amounts) if own and _same_amount(own, amount)}
+            if not hits and (match.group("unit") or match.group("pre")):
+                return found, True
             found |= hits
-            if not hits and any(own and own[1] == amount[1] for own in question.amounts):
-                return found, True    # "15c" on a 0c/10c/20c list: an amount the list does not offer
         else:
             found |= {i for i, own in enumerate(question.amounts) if own and own[0] == number}
             if number in codes:
@@ -436,14 +475,31 @@ def _amount_options(question: Question, text: str) -> tuple:
     return found, False
 
 
+AMOUNT_PART = rf"(?:{CURRENCY})?\s*{NUMBER}(?:\s*{UNIT})?"
+# The only sentences an amount is read from: "I give 10c", "I'd transfer $0.10 to the other participant".
+# "I keep 20c", "more than 10c", "20c for me" and "200 die" are not read.
+AMOUNT_SENTENCE_RE = re.compile(
+    rf"(?i)^(?:i(?:\s+will|\s+would|\s+shall|'d|’d|'ll|’ll)?\s+(?:give|transfer|send|donate|offer|"
+    rf"allocate|pay|contribute)\s+(?:the\s+other\s+(?:participant|person|player)\s+)?)?(?:{AMOUNT_PART})"
+    rf"(?:\s+to\s+(?:the\s+other\s+(?:participant|person|player)|them|my\s+partner))?\s*[.!]?$")
+
+
+def _label_words(label: str) -> str:
+    """A scale label without its number: "7 (strongly agree)" -> "strongly agree"."""
+    match = LEADING_RE.match(label)
+    words = match.group(2) if match else label
+    return _norm(re.sub(r"^\s*[(\[=:)\]/|.\-–—]*\s*", "", words)).strip("()[] ")
+
+
 def _choice_index(text: str, question: Question) -> tuple:
     """(index, status) for a single option in ``text``; status "ok", "ambiguous" or "unparsed"."""
     codes = [code.lower() for code in question.codes]
     labels = [_norm(label) for label in question.options]
     spellings = [question.spellings(i) for i in range(len(labels))]
-    body = LEAD_RE.sub("", _clean(text), count=1).strip()
-    if all(re.fullmatch(r"[-+]?\d+", code) for code in codes):
-        body = _number_words(body, question.options + [a for alias in question.aliases for a in alias])
+    body = LEAD_RE.sub("", _clean(text), count=1).strip().replace("−", "-")
+    body = re.sub(r"(?<![\w.])\.(\d)", r"0.\1", body)          # ".5%" is 0.5%, not 5%
+    if all(re.fullmatch(r"[-+]?\d+", code) for code in codes) and _number_words_allowed(question):
+        body = _number_words(body)
     norm = _norm(body)
     if not norm:
         return None, "unparsed"
@@ -470,9 +526,10 @@ def _choice_index(text: str, question: Question) -> tuple:
     found = {i for i in range(len(labels)) if is_label(i, norm)}
     if bare in codes:
         found.add(codes.index(bare))
-    if AMOUNT_IN_TEXT_RE.fullmatch(bare) or AMOUNT_IN_TEXT_RE.fullmatch(body.strip(" .()[]")):
-        amounts, unknown = _amount_options(question, bare)
-        if unknown:
+    whole = re.sub(r"[\s.!;:]+$", "", body).strip("()[] ")
+    if AMOUNT_IN_TEXT_RE.fullmatch(whole):
+        amounts, unknown = _amount_options(question, whole)
+        if unknown and not found:
             return None, "unparsed"
         found |= amounts
     if found:
@@ -480,10 +537,15 @@ def _choice_index(text: str, question: Question) -> tuple:
     close = near_label(norm)
     if close is not None:
         return close, "ok"
+    # 1b. An amount first ("1 day", "15c, I think"): on a list of amounts it is read as one, never as a code.
+    lead = AMOUNT_IN_TEXT_RE.match(body)
+    if lead and any(question.amounts) and _amount_of(lead) is not None:
+        return None, "unparsed" if not _amount_options(question, lead.group(0))[0] else "ambiguous"
     # 2. A code, then text: "1. Be nice", "2) Be fair", "B - Defect", "1 because it is kind".
     match = re.match(r"^[(\[]?([-+]?\w{1,4})(?:[)\].:=]+\s*|\s*[-–—]\s+|\s+)(.*)$", body, re.S)
     if match and match.group(1).lower().lstrip("+") in codes:
-        index = codes.index(match.group(1).lower().lstrip("+"))
+        token = match.group(1).lower().lstrip("+")
+        index = codes.index(token)
         rest = _norm(match.group(2))
         if rest and (is_label(index, rest) or _norm(question.option_line(index)) == norm or near_label(rest) == index):
             return index, "ok"
@@ -492,12 +554,21 @@ def _choice_index(text: str, question: Question) -> tuple:
         close = near_label(rest)
         if close is not None and close not in named:
             named.append(close)              # "2. Transfer the 10c" names option 1 with its typo corrected
+        words = rest.strip("()[] ")
+        anchors = [i for i in range(len(labels)) if words and _label_words(question.options[i]) == words]
+        printed = [(LEADING_RE.match(question.options[i]) or [None, None])[1] for i in anchors]
+        if anchors and (index not in anchors or any(n is not None and n.lstrip("+") != token for n in printed)):
+            return None, "ambiguous"     # "1 (strongly agree)", "3 children": the number and the words disagree
         if named and named != [index]:
             return None, "ambiguous"     # "1. Be fair", "1. Don't hand over": the number and the words disagree
-        if named:
+        if named or anchors:
             return index, "ok"
-        if amount_clash(match.group(1).lstrip("+"), index):
+        if amount_clash(token, index):
             return None, "ambiguous"     # "10 because it is fair": option 10 or the amount 10c
+        if rest and re.fullmatch(r"\d+", token) and any(
+                j != index and (LEADING_RE.match(label) or [None, None])[1] == token
+                for j, label in enumerate(question.options)):
+            return None, "ambiguous"     # "3 children" on "2 children / 3 or more children": a count, not a code
         if not rest or any(spelling.startswith(rest) for spelling in spellings[index]):
             return index, "ok"
         if _standalone_codes(rest, codes) - {codes[index]} or _hedged(rest) or \
@@ -506,7 +577,7 @@ def _choice_index(text: str, question: Question) -> tuple:
         return index, "ok"
     # 3. One option on its own in a sentence: "I pick 2 because ...", "I will transfer 10c".
     found_codes = {codes.index(code) for code in _standalone_codes(body, codes)}
-    amounts, unknown = _amount_options(question, body)
+    amounts, unknown = _amount_options(question, body) if AMOUNT_SENTENCE_RE.match(body) else (set(), False)
     named_options = found_codes | amounts
     if (named_options or unknown) and _hedged(body):
         return None, "ambiguous"         # "Not 1", "somewhere around 3-4"
@@ -835,11 +906,12 @@ class StubParticipant:
             typed = question.codes[index]
         elif not self._check(question, typed, [index]) and question.id not in self.ambiguous:
             return typed  # what a model would send; the adapter must cope with it as it would with a real reply
-        if typed is not None and question.id not in self.probed:
+        if typed is not None and question.id not in self.probed and not getattr(question, "legacy", False):
             self.probed.add(question.id)
             self._probe(question, index, typed)
         replies = [style.format(code=typed, label=label, upper=label.upper()) for style in self.STYLES]
-        replies += self._variants(question, index, typed)
+        if not getattr(question, "legacy", False):
+            replies += self._variants(question, index, typed)
         # Only formats that name this option unambiguously ("3" on a scale that prints 3 twice does not).
         readable = [reply for reply in replies if parse_choice(reply, question).get("index") == index]
         return self.rng.choice(readable) if readable else typed
@@ -895,10 +967,14 @@ class StubParticipant:
         """A question built by an older copy of this file, as this version's Question."""
         if isinstance(question, Question) and hasattr(question, "aliases"):
             return question
-        return Question(question.id, question.text, question.options or None, kind=question.kind,
-                        codes=list(question.codes) if question.kind == "choice" else None, key=question.key,
-                        required=question.required, multiple=question.multiple, minimum=question.minimum,
-                        maximum=question.maximum, integer=question.integer)
+        kind = getattr(question, "kind", "choice")
+        current = Question(question.id, getattr(question, "text", ""), getattr(question, "options", None) or None,
+                           kind=kind, codes=list(question.codes) if kind == "choice" else None,
+                           key=getattr(question, "key", None), required=getattr(question, "required", True),
+                           multiple=getattr(question, "multiple", False), minimum=getattr(question, "minimum", None),
+                           maximum=getattr(question, "maximum", None), integer=getattr(question, "integer", True))
+        current.legacy = True  # read by an older copy: send only the reply forms every version reads
+        return current
 
     def answer_for(self, prompt: str, questions: Sequence[Question], attempt: int = 0, final: bool = True) -> str:
         questions = [self._current(question) for question in questions]

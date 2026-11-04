@@ -26,9 +26,13 @@ import re
 from pathlib import Path
 from typing import Any
 
-LICENCE_RE = re.compile(r"(?i)\b(licen[cs]e[sd]?|copyright|permission to (use|publish|share|redistribute)|"
-                        r"redistribut\w*|rights? (holder|to (use|publish|share))|"
-                        r"(may|can|could)\b[^?]*\b(be )?(published|shared publicly|redistributed|made public))\b")
+# A licence question names rights or publication *and* a file or material it is about. "Should participants be
+# licensed drivers?" or "Can the donations be made public to the other players?" are study questions.
+LICENCE_RE = re.compile(r"(?i)\b(licen[cs]e\b|licen[cs]es\b|licen[cs]ing|copyright|redistribut\w*|rights?\b|"
+                        r"permission|publish\w*|made public|shared publicly)")
+LICENCE_OBJECT_RE = re.compile(r"(?i)\b(supplement\w*|files?|materials?|item lists?|items|package|survey|"
+                               r"questionnaires?|stimul\w*|instruments?|wording|texts?|scales?|cop(y|ies)|appendix|"
+                               r"figures?|images?|data ?sets?|exports?|documents?|pdf)\b")
 # Journals that moved publisher; their original site may still hold supplements the new one lacks.
 LEGACY_SITES = {
     "judgment and decision making": ("sjdm.org", "journal.sjdm.org (the journal's original site, before Cambridge)"),
@@ -41,8 +45,8 @@ SEARCH_KINDS = {
                  "preprint servers by title (PsyArXiv / OSF Preprints, arXiv, SSRN)"),
     "open copy": (re.compile(r"(?i)unpaywall|europepmc|europe pmc|ebi\.ac\.uk"),
                   "an open-copy index for the DOI (Unpaywall or Europe PMC)"),
-    "osf author": (re.compile(r"(?i)api\.osf\.io/v2/users|osf\.io/search\?.*user|osf\b.*\b(author|user)s?\b|"
-                              r"\b(author|user)s?\b.*\bosf\b"),
+    "osf author": (re.compile(r"(?i)api\.osf\.io/v2/users|osf\.io/search\?\S*type=user|\bOSF users?\b|"
+                              r"\b(users?|authors?)\s+search|search\w*\s+(by|for)\s+(the\s+)?(authors?|users?)\b"),
                    "an OSF search by author (https://api.osf.io/v2/users/?filter[full_name]=<surname>, then "
                    "each match's /nodes/), not only by title"),
 }
@@ -56,8 +60,8 @@ def _load(path: Path) -> Any:
 
 
 def _job_purpose(job: Path) -> str | None:
-    data = _load(job / "job.json")
-    return data.get("purpose") if isinstance(data, dict) else None
+    request = _load(job / "studio_request.json")
+    return request.get("purpose") if isinstance(request, dict) else None
 
 
 def _reply_questions(text: str) -> list[str]:
@@ -69,7 +73,7 @@ def check_licence_questions(root: Path) -> list[str]:
     reply = root / "studio-reply.md"
     if not reply.is_file():
         return []
-    asked = [q for q in _reply_questions(reply.read_text(encoding="utf-8", errors="replace")) if LICENCE_RE.search(q)]
+    asked = [q for q in _reply_questions(reply.read_text(encoding="utf-8", errors="replace")) if LICENCE_RE.search(q) and LICENCE_OBJECT_RE.search(q)]
     if not asked:
         return []
     return [f"studio-reply.md asks the researcher about a licence ('{asked[0][:120]}'). The researcher does not hold "
@@ -86,12 +90,14 @@ def _conditions(task: Any) -> list[dict]:
 
 
 def check_blocked(task: Any) -> list[str]:
-    blocked_ids = {item.get("id") if isinstance(item, dict) else item
-                   for item in (task.get("blocked_arms") or [] if isinstance(task, dict) else [])}
+    arms = {}
+    for item in (task.get("blocked_arms") or [] if isinstance(task, dict) else []):
+        arms[item.get("id") if isinstance(item, dict) else item] = item if isinstance(item, dict) else {}
     vague = []
     for condition in _conditions(task):
-        if condition.get("status") != "blocked" and condition.get("id") not in blocked_ids:
+        if condition.get("status") != "blocked" and condition.get("id") not in arms:
             continue
+        condition = {**arms.get(condition.get("id"), {}), **{k: v for k, v in condition.items() if v}}
         missing = condition.get("blocked_missing")
         results = condition.get("blocked_results")
         if not (isinstance(missing, list) and missing and all(isinstance(m, str) and m.strip() for m in missing)) \
@@ -139,7 +145,11 @@ def check_searches(root: Path) -> list[str]:
     searches = [s for s in metadata.get("material_searches") or [] if isinstance(s, dict)]
     blobs = [" ".join(str(s.get(k) or "") for k in ("where", "query", "url")) for s in searches]
     missing = [what for pattern, what in SEARCH_KINDS.values() if not any(pattern.search(b) for b in blobs)]
-    journal = str(metadata.get("journal") or "").casefold()
+    names = [metadata.get(key) for key in ("journal", "venue", "container_title", "journal_title")]
+    for nested in (metadata.get("paper"), metadata.get("bibliographic"), metadata.get("citation")):
+        if isinstance(nested, dict):
+            names += [nested.get(key) for key in ("journal", "venue", "container_title", "journal_title")]
+    journal = " ".join(str(name) for name in names if isinstance(name, str)).casefold()
     for name, (host, what) in LEGACY_SITES.items():
         if name in journal and not any(host in b for b in blobs):
             missing.append(what)

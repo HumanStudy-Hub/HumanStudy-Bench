@@ -36,7 +36,9 @@ from typing import Dict, List
 
 PAGE_SEPARATOR = "--- page break ---"
 # The marker line a Qualtrics Word export prints at each page break.
-PAGE_MARKER_RE = re.compile(r"(?i)^\s*page\s+break\s*$")
+PAGE_MARKER_RE = re.compile(r"^\s*Page Break\s*$")
+# Qualtrics starts every block on a new page.
+BLOCK_LINE_RE = re.compile(r"^\s*(Start of Block:|End of Block:)")
 # Lines a Qualtrics Word export adds that no participant saw.
 EXPORT_LINE_RE = re.compile(
     r"(?i)^\s*(start of block:|end of block:|display this question:|skip to:|carry forward|"
@@ -45,8 +47,8 @@ EXPORT_LINE_RE = re.compile(
 # Text a participant never saw that only a Word or Qualtrics export puts in a file. The package
 # check refuses it in any participant-visible string.
 EXPORT_ARTIFACT_RE = re.compile(
-    r"(?i)(?<!\w)(page break|start of block:|end of block:|display this question:|skip to:|"
-    r"this question was not displayed|end of survey:|question separator)(?!\w)")
+    r"(?<!\w)(Page Break|Start of Block:|End of Block:|Display This Question:|Skip To:|"
+    r"This question was not displayed|End of Survey:|QuestionSeparator)(?!\w)")
 
 
 TOKEN_RE = re.compile(
@@ -62,6 +64,8 @@ def read(path: Path) -> Dict[str, List]:
     """``{"pages": [[paragraph, ...], ...], "export_lines": [...]}`` of a .docx file."""
     with zipfile.ZipFile(path) as archive:
         xml = archive.read("word/document.xml").decode("utf-8", "replace")
+    # A text box is stored twice (mc:Choice and an mc:Fallback copy for old Word): read it once.
+    xml = re.sub(r"<mc:Fallback\b.*?</mc:Fallback>", "", xml, flags=re.S)
     pages: List[List[str]] = [[]]
     export_lines: List[str] = []
     current: List[str] = []
@@ -82,6 +86,8 @@ def read(path: Path) -> Dict[str, List]:
                     new_page()
                 elif EXPORT_LINE_RE.match(line):
                     export_lines.append(line.strip())
+                    if BLOCK_LINE_RE.match(line):
+                        new_page()
                 elif line.strip():
                     pages[-1].append(line)
 
