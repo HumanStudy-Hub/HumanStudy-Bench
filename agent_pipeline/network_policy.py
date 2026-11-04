@@ -85,6 +85,14 @@ DOWNLOAD_URL_RE = re.compile(
     r"zenodo\.org/(api/)?records?/[^ ]*/files/|raw\.githubusercontent\.com/|codeload\.github\.com/|"
     r"/archive/|/releases/download/|dataverse[^ ]*/api/access/|datadryad\.org/[^ ]*/download)")
 
+# The authors' analysis code (scripts, notebooks, syntax files) is read for its recodes,
+# exclusions and test options; it is never participant data, whatever its name says.
+CODE_SUFFIXES = (".r", ".rmd", ".qmd", ".py", ".ipynb", ".do", ".ado", ".sps", ".sas", ".m", ".jl", ".stan", ".js")
+CODE_NAME_RE = re.compile(r"(?i)(syntax|script)")
+# Words that mark a table of responses whatever else the name says.
+RESPONSE_NAME_RE = re.compile(r"(?i)(^|[^a-z])(raw|responses?|participants?|subjects?|export|answers?|scores?|"
+                              r"data(set)?)([^a-z]|$)")
+
 ARCHIVE_SUFFIXES = (".zip", ".tar", ".gz", ".tgz", ".7z", ".rar")
 FETCHERS = {"curl", "wget", "aria2c", "http", "https", "httpie", "xh", "lynx", "links", "w3m"}
 FORBIDDEN_PROGRAMS = {"nslookup", "dig", "host", "nc", "ncat", "netcat", "telnet", "ssh", "scp", "sftp",
@@ -195,10 +203,14 @@ def looks_like_participant_data(name: str) -> bool:
     base = name.lower().split("?")[0].split("#")[0].rstrip("/").rsplit("/", 1)[-1]
     if base.endswith(DATA_SUFFIXES):
         return True
+    if base.endswith(CODE_SUFFIXES):
+        return False
     if base.endswith(TABLE_SUFFIXES):
         return not MATERIAL_NAME_RE.search(base) or bool(re.search(r"(?i)(^|[^a-z])(raw|responses?|export)([^a-z]|$)", base))
     if base.endswith((".txt", ".json")):
-        return bool(DATA_NAME_RE.search(base)) and not MATERIAL_NAME_RE.search(base)
+        # "spss_syntax.txt" is code; "analysis_data.txt" and "analysis_results.json" stay refused.
+        code = base.endswith(".txt") and CODE_NAME_RE.search(base) and not RESPONSE_NAME_RE.search(base)
+        return bool(DATA_NAME_RE.search(base)) and not MATERIAL_NAME_RE.search(base) and not code
     return False
 
 

@@ -277,6 +277,47 @@ REPAIR_RULES = (
      "Researcher reply: open with 'Ready to run:', 'Needs you:', 'Licence:' (the licence printed "
      "in the PDF), at most three questions, a 'Run size:' line from agent_pipeline/estimate_run.py, "
      "plain words without internal ids or file names."),
+    ("paper tables",
+     "Human results to compare against, 'Tables without a text layer': run "
+     "agent_pipeline/paper_tables.py on input/paper.pdf with --render, open the page images, list "
+     "every table it reports without a text layer in source/paper_metadata.json paper_tables "
+     "(kind, what, read_from 'rendered page', recorded_in) and record each result table cell by cell "
+     "in a result field citing the existing evidence record for that page."),
+    ("minus sign that its plain text layer drops",
+     "Text-layer numeric sign loss: look at the rendered page (agent_pipeline/paper_tables.py --render) "
+     "and record the number with the sign the page prints. A repair cannot change evidence records."),
+    ("impossible values",
+     "Text-layer numeric sign loss: an impossible CI or p value usually lost a minus; check the rendered "
+     "page and record the value as printed."),
+    ("recorded answers",
+     "Reading replies, 'Record every answer': store every answer the participant gives in the session "
+     "record run_sessions returns (under a neutral key), including wrap-up and comment questions."),
+    ("analysis code",
+     "The authors' analysis code: download each analysis file with agent_pipeline/fetch_public.py "
+     "(code only, never data), read it, and record in source/paper_metadata.json analysis_code each "
+     "recode, exclusion and test option with its lines and the code quoted, carried over (and applied "
+     "in the evaluation) or not applicable with the reason."),
+    ("survey_versions",
+     "Survey versions: each survey_versions entry needs matches_paper (yes, no or partly), what was "
+     "compared and used_for; participant text comes only from a version that matches the paper."),
+    ("analysis_code entry",
+     "The authors' analysis code: each analysis_code entry needs lines in the file, the code quoted "
+     "exactly as written at those lines, what it does, and use 'carried over' (with where) or 'not "
+     "applicable' (with the reason)."),
+    ("paper_tables Table",
+     "Tables without a text layer: each paper_tables entry needs kind; a result table needs read_from "
+     "'rendered page' and recorded_in naming the result field that holds it cell by cell."),
+    ("decisions_from_sources",
+     "Researcher reply, Questions: each decisions_from_sources entry names the downloaded file and quotes "
+     "the passage that settles it, exactly."),
+    ("survey versions",
+     "Survey versions: compare each downloaded survey file with the paper (scenario count and order, "
+     "printed wording, response codes) and record it in source/paper_metadata.json survey_versions; "
+     "participant text comes only from the version that matches the paper."),
+    ("researcher questions",
+     "Researcher reply, Questions: for each question issue record in source/paper_metadata.json "
+     "researcher_questions which downloaded files were checked and what they say; when a file answers "
+     "the question, record the decision in decisions_from_sources and do not ask it."),
     ("programBindings",
      "task/task.json programBindings must be derived from the canonical program in "
      "study.json: programId, stepIds, recordNodeIds (record and variable nodes) and "

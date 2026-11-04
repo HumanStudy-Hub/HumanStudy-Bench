@@ -143,6 +143,10 @@ attention and comprehension checks, stimuli, trial lists, orders, feedback.
    jsPsych, lab task repos). Crossref, Unpaywall and Europe PMC find DOIs,
    open copies and supplementary files.
 
+The same search finds the authors' analysis code (an OSF "Analysis" or "Data and
+code" folder, a GitHub repository, the SI): download and read it as "The authors'
+analysis code" below says.
+
 Read pages and API listings with `curl -sL <url>` (to the terminal, or piped
 into `python3 -c` or `jq`). Download every file you use with
 `python agent_pipeline/fetch_public.py --job <job-dir> <url>` (run from the
@@ -178,8 +182,13 @@ published SI over a draft) and say which version you used.
 responses, trial-level or session files, or demographic answers, not even to
 recover the order or sequence participants saw (`.sav`, `.dta`, `.rds`, data
 CSVs, Qualtrics response exports). A survey file (`.qsf`, `.docx`, `.pdf` of the
-questionnaire) is material; its response export is data. When something exists
-only inside participant data, say so in the materials request.
+questionnaire) is material; its response export is data. Analysis code (`.R`,
+`.Rmd`, `.qmd`, `.py`, `.ipynb`, Stata `.do`, SPSS `.sps` syntax, `.sas`) is not
+data: download it one file at a time, never an archive that also holds the data.
+A notebook whose saved outputs print tables is refused (they can show responses):
+fetch the same analysis as a script or a notebook saved without outputs.
+When something exists only inside participant data, say so in the materials
+request.
 
 **Record every source** in `source/paper_metadata.json`:
 
@@ -322,6 +331,75 @@ from it, not from the raw `.qsf`:
 - Run `python agent_pipeline/validate_package.py <job-dir>/package` before you
   finish and fix what it reports.
 
+**Survey versions.** A project often holds several versions of a survey: the
+Qualtrics export and its Word copy, one per phase, a pilot, an edited copy saved
+under the same name. Before transcribing, compare each downloaded survey file with
+the paper: the number and order of scenarios or blocks, the wording of every item
+the paper prints, and the response codes against their option text. Build each
+study from the one version that matches what the paper reports and say why. Never
+take some screens from one version and the rest from another unless both are the
+same version (a Word copy of the same export); never use a version the paper
+contradicts. When two or more survey files were downloaded, record the comparison
+in `source/paper_metadata.json`:
+
+```json
+"survey_versions": [
+  {"path": "input/external/Survey_v3.docx", "study": "phase1", "matches_paper": "yes",
+   "compared": "two scenarios in fixed order as on p. 6; option d 'Decrease ... by 20%' as printed on p. 7; codes agree with the option text",
+   "used_for": "every phase 1 screen"},
+  {"path": "input/external/Survey_v3.qsf", "study": "phase1", "matches_paper": "no",
+   "compared": "four scenarios in random order; option d reads 'Increase'; options 3 and 4 of framing B are coded in reverse",
+   "used_for": "not used (a later edit of the survey)"}
+]
+```
+
+`matches_paper` is `yes`, `no` or `partly`. A file marked `no` supplies no
+participant text. One study's text from two files needs `used_for` on each saying
+which screens it supplies.
+
+## The authors' analysis code
+
+When the authors publish their analysis code, it settles what the paper leaves
+unsaid. Download every analysis file of this paper (code only, never data) and read
+it before writing `evaluation/evaluation.py`. Carry over:
+
+- **recodes**, including corrections of the survey's own coding ("There were coding
+  errors in ... corrected using the following chunk"): the replay records choices
+  with the survey's codes, so apply the same recode, and check that each option's
+  code matches its text in every condition;
+- **exclusions** and which tests they apply to (per-test exclusions, a condition
+  left out of one comparison because of a questionnaire error);
+- **the exact test and its options**: Welch or pooled (`var.equal`), continuity
+  correction (`correct = FALSE`), one- or two-tailed, the equivalence test
+  (`TOSTER::tsum_TOST` with its bounds), how a CI is computed (`esc::esc_mean_se`,
+  a noncentral F), the order of model terms (`aov(y ~ A * B)` is sequential: fit
+  the terms in the script's order).
+
+Record what you took, line by line, in `source/paper_metadata.json` (the file is
+also listed in `external_sources`):
+
+```json
+"analysis_code": [
+  {"source": "osf-analysis-2nd", "lines": "79-90",
+   "quote": "There were coding errors in sc-cond3/sc-Status quo B and sc-cond4/sc-Status quo C.",
+   "what": "Scenario 1 framings B and C: options 3 and 4 (B) and 1 and 4 (C) are recoded",
+   "use": "carried over", "where": "evaluation/evaluation.py RECODE, applied before every Scenario 1 test"},
+  {"source": "osf-analysis-2nd", "lines": 923,
+   "quote": "# Exclude subjects' data according to pre-registered criteria",
+   "what": "excludes English proficiency below 5 and seriousness below 4, in the supplement's analyses only",
+   "use": "not applicable", "reason": "the main text analyses every participant; the replay does the same"}
+]
+```
+
+`quote` is the code (or its comment) exactly as written at those lines. The package
+check lists every comment or prose line of the code that reports a coding error, a
+recode, an exclusion or a removal, and every recode call, and fails when no entry
+covers it. A listing that shows analysis code (in `material_searches`) with nothing
+downloaded fails too; when the code really cannot be fetched (the guard refused the
+host, it exists only inside an archive with participant data) add `{"source": "not
+fetched", "reason": "..."}`. "Not needed for the survey wording" is not a reason.
+Never run the downloaded code.
+
 ## Human results to compare against
 
 The replay is only as useful as the human numbers it is compared with. Record
@@ -341,6 +419,51 @@ the paper's own results for every study the package runs, in
 The package check reads the tables and statistics in the PDF text and fails when
 most of a printed result table or most of the reported statistics are absent
 from the result nodes.
+
+**Tables without a text layer.** Many PDFs draw tables as vector graphics or
+images: the text mentions "Table 1 and 2" but `pdftotext` returns nothing for them.
+Run (from the repository root)
+
+```
+python agent_pipeline/paper_tables.py <job-dir>/input/paper.pdf --render <job-dir>/work/pages
+```
+
+It lists every numbered table, the page that captions or mentions it and whether
+the text layer holds its rows, and writes the pages of tables without one as PNG
+images; open them (the Read tool shows images) and read each table from the
+picture. Record every such table in `source/paper_metadata.json`:
+
+```json
+"paper_tables": [
+  {"table": "1", "page": 10, "kind": "result", "what": "Phase 1, Scenario 1: choices by framing, chi-square, OR and h",
+   "read_from": "rendered page", "recorded_in": "result-phase1-table1.table"},
+  {"table": "4", "page": 5, "kind": "other", "what": "design of the four conditions, no results"}
+]
+```
+
+`kind` is `result`, `other` or `not-in-paper` (a supplementary table). Settle
+these in the build: a repair round cannot add the evidence record a newly read
+table needs. A result
+table is recorded cell by cell like any other (the field named in `recorded_in`),
+with evidence citing its page. The package check fails a table without a text
+layer that `paper_tables` is missing, or a result table not recorded as rows and
+columns of numbers.
+
+**Text-layer numeric sign loss.** Keep the extracted quote unchanged. If a PDF text
+layer loses a minus (a minus at the end of a line is read as a hyphen and dropped
+when the line is joined: the page prints "95% CI [-0.16, 0.54]", the plain text
+reads "[0.16, 0.54]"), loses an exponent minus (`1.9e 11`) or separates a printed
+minus (`− 0.011`), inspect the rendered page before recording the number.
+`paper_tables.py` lists the numbers it finds under `sign_loss`. Record the signed
+value as printed; on its evidence record set the physical `locator.page` and
+`note: "rendered page checked"`. When the page really prints the number without
+a minus, record that in `source/paper_metadata.json` `"sign_checks": [{"page": 9,
+"value": 0.16, "note": "rendered page checked"}]` (a repair round can add this,
+not a new evidence note). Only use the note after looking at the page. A
+CI whose lower limit is above its upper limit, an estimate outside its own CI or a p
+value outside 0-1 is impossible: check the rendered page. The package check fails a
+`sign_loss` number recorded only without its minus (unless the evidence for that
+page says "rendered page checked") and these impossible values.
 
 **Each recorded result is computed or explicitly not ready.** Give every result
 field `extensions.evaluation`: `{"output": "<key path in evaluate()'s return
@@ -445,6 +568,12 @@ questions)`. Never write your own reply parser and never call `llm` directly.
   "anything else?"). Such an answer that cannot be read is recorded and the
   participant stays in the data. Only an unreadable *required* answer ends a
   session, and then with status `unparsed`.
+- **Record every answer.** Every question a participant answers is stored in the
+  session record `run_sessions` returns (under a neutral key), whether or not the
+  analysis uses it: wrap-up questions, hypothesis guesses, "have you seen these
+  materials", comments. A researcher may later code them, and the survey stored
+  them. The package check reruns one participant with a single answer changed and
+  fails when the returned sessions do not change.
 - Each session's `status` is one of `completed`, `excluded` (with
   `exclusion_reason`: a failed check, as the paper excludes), `unparsed`
   (`page.unparsed` lists which answer and the replies tried) or `blocked`.
@@ -518,11 +647,25 @@ The licence line reports what the PDF itself prints, first; licences of other
 sources (OSF, the journal's metadata) may follow it in the same line. Then:
 
 1. **Questions** (at most three, numbered). Ask only what the sources do not
-   settle: read the survey file, its flow and the public analysis code first.
-   Each question is answerable with yes/no or a short choice by someone who has
-   not opened the survey file, and says what the package does if there is no
-   answer. Fold the materials request into one of them. No other sentence ends
-   with a question mark.
+   settle: read the survey file, its flow, its other versions and the public
+   analysis code first. Each question is answerable with yes/no or a short choice
+   by someone who has not opened the survey file, and says what the package does
+   if there is no answer. Fold the materials request into one of them. No other
+   sentence ends with a question mark.
+   Before an issue becomes a question (severity `decision` or `blocking`, or a
+   title ending in "?"), check every downloaded file for the answer: a paper-only
+   wording may be an unused item of the survey file, a version question is settled
+   by the file that matches the paper, a coding question by the analysis code.
+   Record it in `source/paper_metadata.json`:
+   `"researcher_questions": [{"issue": "<issue id>", "sources_checked": [{"paths":
+   ["input/external/<file>", ...], "answers": false, "found": "<what the file says
+   on this point>"}]}]`, covering every downloaded file. When a file answers it, do
+   not ask: apply the answer, record it in `"decisions_from_sources": [{"what":
+   "...", "path": "input/external/<file>", "locator": {...}, "quote": "..."}]`, and
+   list it in the reply under "Decided from the sources" as a decision taken, with
+   where it was found. Do this while building: a repair round cannot resolve a
+   question item. The package check fails a question issue without this record
+   and a record that says a file answers it.
 2. **Run size**, one line starting with the label `Run size:` (kept in English),
    for example `Run size: 692 participants, about 3,460 model calls, about $4 at
    $1 / $5 per million input / output tokens.` Get the numbers with
