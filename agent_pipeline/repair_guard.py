@@ -410,7 +410,10 @@ def source_quote_matcher(job: Path) -> Callable[[dict], bool]:
         path, quote = record.get("path"), record.get("quote")
         if not isinstance(path, str) or not isinstance(quote, str) or len(quote.strip()) < MIN_QUOTE:
             return False
-        relative = path.strip().lstrip("./")
+        relative = path.strip()
+        relative = relative[2:] if relative.startswith("./") else relative
+        if relative.startswith("/") or ".." in relative.replace("\\", "/").split("/"):
+            return False
         if not (relative == QUOTE_SOURCES[0] or relative.startswith(QUOTE_SOURCES[1:])):
             return False
         target = (base / relative).resolve()
@@ -419,7 +422,11 @@ def source_quote_matcher(job: Path) -> Callable[[dict], bool]:
         if relative not in texts:
             texts[relative] = file_text(target)
         text = texts[relative]
-        return bool(text) and quote_in_text(quote, text, allow_ellipsis=False)
+        # A minus printed as U+2212 and a soft hyphen are the same text as "-" and nothing.
+        def plain(value: str) -> str:
+            return value.replace("\u2212", "-").replace("\u00ad", "")
+
+        return bool(text) and quote_in_text(plain(quote), plain(text), allow_ellipsis=False)
 
     return verified
 

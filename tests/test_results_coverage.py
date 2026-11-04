@@ -131,10 +131,10 @@ def test_pairs_need_both_numbers_together(tmp_path: Path) -> None:
 
 
 def test_results_not_recorded_clears_a_passage_and_needs_the_exact_text(tmp_path: Path) -> None:
-    payoff_page = RESULTS_PAGE + "\nThe exchange rate was t = 4.5 points, SE = 0.25 cents, b = 0.75 and F(1, 2) = 3.5.\n"
+    payoff_page = RESULTS_PAGE + "\nThe exchange rate was z = 4.5 points, SE = 0.25 cents, b = 0.75 and F(1, 2) = 3.5.\n"
     root, job = package(tmp_path, ALL_TEXT_RESULTS, CLAIMS, participants=SAMPLE)
     assert any("results passages" in p for p in rc.check(root, job, pages=[ABSTRACT_PAGE, payoff_page]))
-    skip = {"page": 2, "quote": "The exchange rate was t = 4.5 points", "reason": "a design value, not a result"}
+    skip = {"page": 2, "quote": "The exchange rate was z = 4.5 points", "reason": "a design value, not a result"}
     root, job = package(tmp_path / "b", ALL_TEXT_RESULTS, {**CLAIMS, "results_not_recorded": [skip]},
                         participants=SAMPLE)
     assert rc.check(root, job, pages=[ABSTRACT_PAGE, payoff_page]) == []
@@ -169,6 +169,40 @@ def test_abstract_finding_mapped_to_an_unrelated_field_fails(tmp_path: Path) -> 
     claims["abstract_results"][2]["recorded_in"] = ["res.missing"]
     root, job = package(tmp_path / "b", ALL_TEXT_RESULTS, claims, participants=SAMPLE)
     assert "do not exist" in rc.check(root, job, pages=PAGES)[0]
+
+
+def test_each_finding_takes_its_own_claim_and_split_words_match(tmp_path: Path) -> None:
+    fields = ALL_TEXT_RESULTS + [{"id": "pos", "label": "positively correlated", "value": 1.43},
+                                 {"id": "neg", "label": "negatively correlated", "value": -1.14}]
+    claims = json.loads(json.dumps(CLAIMS))
+    claims["abstract_results"][0] = {"claim": claims["abstract_results"][0]["claim"], "recorded_in": ["res.pos"]}
+    claims["abstract_results"][1] = {"claim": claims["abstract_results"][1]["claim"], "recorded_in": ["res.neg"]}
+    root, job = package(tmp_path, fields, claims, participants=SAMPLE)
+    assert rc.check(root, job, pages=PAGES) == []
+    # A text layer that splits words ("o f", "W e") or breaks them at a soft hyphen still matches.
+    split = [ABSTRACT_PAGE.replace("aversion to telling a", "aversion t o telling a").replace(
+        "cooperation", "coop\u00aderation"), PAGES[1]]
+    assert rc.check(root, job, pages=split) == []
+    claims["abstract_results"][2]["claim"] = "men lie more than women do"
+    root, job = package(tmp_path / "b", fields, claims, participants=SAMPLE)
+    assert any("not the abstract's own words" in p for p in rc.check(root, job, pages=PAGES))
+
+
+def test_p_values_under_other_key_names_count() -> None:
+    program = {"nodes": [{"kind": "result", "fields": [
+        {"id": "a", "value": {"coef": 0.25, "p.value": 0.048, "sig": 0.031}},
+        {"id": "b", "value": {"columns": ["b", "se", "p"], "rows": [[0.25, 0.1, 0.012]]}},
+        {"id": "c", "value": "coeff 0.3, P = 0.021; p-value 0.044"}]}]}
+    keys = rc.recorded_p_keys(program)
+    assert all(rc.is_recorded(v, keys) for v in ("0.048", "0.031", "0.012", "0.021", "0.044"))
+
+
+def test_design_probabilities_and_superscript_citations_are_not_results() -> None:
+    text = ("The left option paid with probability p = 0.8 and the right one (Binomial, p = .50). Meder et al.30 "
+            "(n = 52, M = 6.35, SD = 1.2) found the same. Here, t(40) = 2.5, p = .016.")
+    stats = rc.statistics_in(text)
+    assert [s["value"] for s in stats if s["kind"] == "p"] == [".016"]
+    assert not any(s["value"] in ("6.35", "1.2") for s in stats)
 
 
 def test_abstract_finding_matched_through_cited_quote(tmp_path: Path) -> None:
@@ -318,6 +352,47 @@ def test_a_row_with_a_smaller_n_needs_the_exclusion() -> None:
     assert el.check([linked("table", varied, "exp2.table3")], output, declarations) == []
 
 
+def test_df_p_n_go_with_their_statistic() -> None:
+    output = {"s": {"test": {"t": 2.0, "df": 30, "p": 0.04}, "rating": {"mean": 4.0, "sd": 1.1, "n": 280},
+                    "corr": {"r": 0.3, "p": 0.01, "n": 280}}}
+    assert el.check([linked("t_test", {"t": 2.3, "df": 30, "p": 0.03}, "s.test")], output, None) == []
+    assert el.check([linked("mean_rating", {"mean": 4.1, "sd": 1.2, "n": 280}, "s.rating")], output, None) == []
+    assert el.check([linked("correlation_bsr", {"r": 0.31, "p": 0.01, "n": 280}, "s.corr")], output, None) == []
+    cells = {"t": "s.test.t", "df": "s.test.df", "p": "s.test.p"}
+    assert el.check([linked("t_test", {"t": 2.3, "df": 30, "p": 0.03}, cells=cells)], output, None) == []
+
+
+def test_words_in_ids_are_not_statistics() -> None:
+    output = {"s": {"awl": 0.2, "rating_by_sex": {"m": 4.0, "f": 3.8}, "b_share": 0.4}}
+    assert "name no statistic" in el.check([linked("awl_or_pwl_share", 0.23, "s.awl")], output, None)[0]
+    assert el.check([linked("awl_or_pwl_share", 0.23, "s.awl")], output, {"s.awl": "share"}) == []
+    assert el.check([linked("option_b_share", 0.41, "s.b_share")], output, None) == []
+    assert el.check([linked("rating_by_sex", {"m": 4.1, "f": 3.9}, "s.rating_by_sex")], output, None) == []
+
+
+def test_a_declaration_names_what_an_unnamed_output_holds() -> None:
+    output = {"s": {"main_effect": 2.1, "scipy": {"statistic": 2.1, "pvalue": 0.04, "df": 30}}}
+    assert el.check([linked("t_test", {"t": 2.3}, "s.main_effect")], output, {"s.main_effect": "t"}) == []
+    assert el.check([linked("t_test", {"t": 2.3}, "s.scipy")], output, {"s.scipy": "t df p"}) == []
+
+
+def test_exact_declaration_beats_a_pattern() -> None:
+    assert el.declared({"s.*": "t", "s.test": "r"}, "s.test")["kinds"] == {"r"}
+
+
+def test_between_subject_conditions_are_not_a_dropped_group() -> None:
+    table = {"rows": [{"label": c, "n": n, "mean": 4.0} for c, n in zip("abcd", (50, 50, 50, 41))]}
+    output = {"t": {"rows": [{"mean": 4.0}] * 4}}
+    assert el.check([linked("table", table, "t")], output, {"t": {"kinds": "mean", "rows": True}}) == []
+
+
+def test_cell_keys_may_hold_dots_and_slashes() -> None:
+    value = {"rows": {"50A/50H": {"chi2": 1.2}, "Q1.2": {"chi2": 2.0}}}
+    output = {"x": {"chi2": 1.0}, "y": {"chi2": 2.0}}
+    cells = {"rows.50A/50H.chi2": "x.chi2", "rows.Q1.2.chi2": "y.chi2"}
+    assert el.check([linked("t", value, not_ready="other rows", cells=cells)], output, None) == []
+
+
 def test_summary_starts_with_analyses() -> None:
     assert el.summary(["x"])[0].startswith("analyses:")
     assert el.summary([]) == []
@@ -350,3 +425,11 @@ def test_repair_may_add_evidence_quoted_word_for_word(tmp_path: Path, monkeypatc
     outside = dict(record, path="../elsewhere.pdf")
     post["study.json"]["program"]["evidence"][-1] = outside
     assert not compare_packages(pre, post, None, verified)["passed"]
+    for path in ("input/external/../paper.pdf", "/input/paper.pdf"):
+        post["study.json"]["program"]["evidence"][-1] = dict(record, path=path)
+        assert not compare_packages(pre, post, None, verified)["passed"]
+    # The paper prints a minus as U+2212; the same quote typed with "-" is the same text.
+    monkeypatch.setattr(check_sources, "file_text", lambda path: "age: coeff = \u22120.00, p = 0.85 and more words")
+    verified = source_quote_matcher(job)
+    post["study.json"]["program"]["evidence"][-1] = dict(record, quote="age: coeff = -0.00, p = 0.85 and more")
+    assert compare_packages(pre, post, None, verified)["passed"]

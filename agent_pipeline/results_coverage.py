@@ -38,8 +38,10 @@ NUMBER = r"-?(?:\d+\.\d+|\.\d+|\d+)"
 STATISTIC_RES = [
     # coefficients and effect sizes: "coeff = 0.25", "b = -0.18", "OR = 4.30", "d = 0.42", "h = 0.71"
     ("estimate", re.compile(r"(?<![\w.])(?:coeff(?:icient)?|b|B|β|beta|estimate|OR|odds ratio|RR|d|g|h|r|ρ|rho|"
-                            r"φ|phi|w|V|R2|R²|η2|η²|ηp2|ηp²|η\s*p\s*2)\s*=\s*(" + NUMBER + r")")),
-    ("test", re.compile(r"(?<![\w.])(?:t|z|U|W|H|Z)\s*(?:\(\s*\d+(?:\.\d+)?\s*\))?\s*=\s*(" + NUMBER + r")")),
+                            r"φ|phi|V|R2|R²|η2|η²|ηp2|ηp²|η\s*p\s*2)\s*=\s*(" + NUMBER + r")")),
+    # t only with its df: a bare "t = 1" is usually a period or a design value.
+    ("test", re.compile(r"(?<![\w.])t\s*\(\s*\d+(?:\.\d+)?\s*\)\s*=\s*(" + NUMBER + r")")),
+    ("test", re.compile(r"(?<![\w.])(?:z|U|W|H|Z)\s*(?:\(\s*\d+(?:\.\d+)?\s*\))?\s*=\s*(" + NUMBER + r")")),
     ("test", re.compile(r"(?<![\w.])F\s*\(\s*\d+(?:\.\d+)?\s*,\s*\d+(?:\.\d+)?\s*\)\s*=\s*(" + NUMBER + r")")),
     ("test", re.compile(r"(?:χ|χ2|χ²|chi-square|chi2|X2)\s*(?:2|²)?\s*\([^)=]{0,30}\)\s*=\s*(" + NUMBER + r")")),
     ("descriptive", re.compile(r"(?<![\w.])(?:M|SD|SE|S\.E\.|SEM|Mdn|mean|median|α|alpha)\s*=\s*(" + NUMBER + r")")),
@@ -58,7 +60,10 @@ AGE_RE = re.compile(r"(?:(?i:mean|average)\s+age|\bM\s?age|\bage\s*\(?\s*M|\bMag
 # Numbers just after these words are another study's result, a power analysis or a design value.
 NOT_OWN_RE = re.compile(r"(?i)power|sensitivity|pilot|g\*power|meta-analy|previous (stud|research|work)|"
                         r"prior (stud|research|work)|et al\.?,? \(?\d{4}|\(\d{4}[a-z]?\)[^.]{0,60}(found|report|show)|"
-                        r"\b(found|reported|showed) (that )?[^.]{0,40}\(\d{4}")
+                        r"\b(found|reported|showed) (that )?[^.]{0,40}\(\d{4}|"
+                        r"et al\.?\s?\d{1,3}(?![\d.,]\d)")
+# A probability the design sets ("with probability p = 0.8", "(Binomial, p = .50)") is not a result.
+DESIGN_P_RE = re.compile(r"(?i)(probabilit(?:y|ies)(?: of)?|binomial,?)\s*$")
 CITATION_RE = re.compile(r"\(\s*[A-Z][A-Za-z'’\-]+(?: et al\.?| (?:and|&) [A-Z][A-Za-z'’\-]+)?,? \d{4}[a-z]?\s*\)|"
                          r"[A-Z][A-Za-z'’\-]+(?: et al\.?| (?:and|&) [A-Z][A-Za-z'’\-]+)? \(\d{4}[a-z]?\)")
 # Where the paper's own empirical part begins.
@@ -93,7 +98,7 @@ def _norm(text: str) -> str:
     text = (text.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
             .replace("–", "-").replace("—", "-").replace("−", "-").replace(" ", " ")
             .replace(" ", " ").replace(" ", " "))
-    return re.sub(r"[ \t]+", " ", text)
+    return re.sub(r"[ \t]+", " ", text.replace("\u00ad", ""))
 
 
 def _load(path: Path) -> Any:
@@ -160,7 +165,7 @@ def passages(pages: list[str]) -> list[dict]:
 def _own(text: str, start: int) -> bool:
     """A number is the paper's own result unless the words just before it cite
     another study or a power analysis."""
-    before = text[max(0, start - 160):start]
+    before = text[max(0, start - 400):start]
     # Only the sentence the number is in ("... reported by Erat and Gneezy (2012). In our
     # sample, men ... (26% vs 18%)" is this paper's result).
     sentences = list(re.finditer(r"(?<!\bal)(?<!\be\.g)(?<!\bi\.e)\.\s+(?=[A-Z(])", before))
@@ -174,6 +179,8 @@ def statistics_in(text: str) -> list[dict]:
     found: list[dict] = []
     seen: set[int] = set()
     for match in P_EXACT_RE.finditer(text):
+        if DESIGN_P_RE.search(text[max(0, match.start() - 30):match.start()]):
+            continue
         if _own(text, match.start()) and "x" not in match.group(1) and "×" not in match.group(1):
             found.append({"kind": "p", "value": match.group(1), "at": match.start(1)})
             seen.add(match.start(1))
@@ -259,8 +266,10 @@ def _add(keys: set[str], number: float) -> None:
             keys.add(f"{abs(number) / 100:.{places}f}")
 
 
-P_KEY_RE = re.compile(r"(?i)^p$|^p[_\- ]|[_\- ]p$|[_\- ]p[_\- ]|p_?val|pvalue|^p\d$|p_printed")
-P_TEXT_RE = re.compile(r"(?<![\w.])p(?:'s)?\s*(?:=|<|>|≤|≥|<=|>=)\s*(0?\.\d+|1(?:\.0+)?)")
+P_KEY_RE = re.compile(r"(?i)^p$|^p[_\-. ]|[_\- ]p$|[_\- ]p[_\- ]|p_?val|pvalue|^p\d$|p_printed|^sig(nif\w*)?\.?$|"
+                      r"^pr$|^pr\s*\(|^pr_|_sig$")
+P_TEXT_RE = re.compile(r"(?i)(?<![\w.])p(?:'s)?(?:\s*(?:=|<|>|≤|≥|<=|>=)|[\- ]values?\s*(?:=|<|>|:)?)\s*"
+                       r"(0?\.\d+|1(?:\.0+)?)")
 
 
 def recorded_p_keys(program: Any) -> set[str]:
@@ -280,6 +289,17 @@ def recorded_p_keys(program: Any) -> set[str]:
         key, item = stack.pop()
         if isinstance(item, dict):
             stack.extend((str(k), v) for k, v in item.items())
+            # {"columns": ["b", "se", "p"], "rows": [[0.25, 0.1, 0.048]]}: a column name keys its cells.
+            columns = item.get("columns")
+            if isinstance(columns, list) and isinstance(item.get("rows"), (list, dict)):
+                rows = item["rows"].values() if isinstance(item["rows"], dict) else item["rows"]
+                for row in rows:
+                    cells = row.get("cells", row.get("values")) if isinstance(row, dict) else row
+                    if isinstance(cells, list) and len(cells) >= len(columns) - 1:
+                        offset = len(cells) - len(columns)
+                        for index, column in enumerate(columns):
+                            if 0 <= index + offset < len(cells):
+                                stack.append((str(column), cells[index + offset]))
         elif isinstance(item, list):
             stack.extend((key, v) for v in item)
         elif isinstance(item, (int, float)) and not isinstance(item, bool):
@@ -357,6 +377,12 @@ def _skipped_spans(root: Path, pages: list[str]) -> list[tuple[int, str]]:
 
 def _flat(text: str) -> str:
     return re.sub(r"\s+", " ", _norm(_dehyphen(text))).strip().casefold()
+
+
+def _squash(text: str) -> str:
+    """Text without spaces or hyphens: text layers split words ("W e", "o f") and break them
+    at soft hyphens."""
+    return re.sub(r"[\s\-]+", "", _norm(text)).casefold()
 
 
 def skip_problems(root: Path, pages: list[str]) -> list[str]:
@@ -642,19 +668,27 @@ def abstract_problems(root: Path, pages: list[str], program: Any) -> list[str]:
     metadata = _load(root / "source/paper_metadata.json")
     claims = metadata.get("abstract_results") if isinstance(metadata, dict) else None
     claims = [c for c in claims if isinstance(c, dict)] if isinstance(claims, list) else []
-    flat_abstract = _flat(abstract)
     problems: list[str] = []
     uncovered: list[str] = []
     # Words every finding shares (the paper's topic) do not tell findings apart.
     common = set.intersection(*[_words(f) for f in findings]) if len(findings) > 1 else set()
+    squashed = _squash(abstract)
+    usable = [c for c in claims if _squash(str(c.get("claim", ""))) and _squash(str(c.get("claim", ""))) in squashed]
+    unmatched = [str(c.get("claim", "")) for c in claims if c not in usable]
+    if unmatched:
+        problems.append("human results: abstract_results claims that are not the abstract's own words (copy them from "
+                        "the abstract as printed): " + "; ".join(f"\"{_snippet(u, 60)}\"" for u in unmatched[:3]))
     for finding in findings:
         words = _words(finding)
-        best = None
-        for claim in claims:
+        best, best_score = None, 0.0
+        for claim in usable:
             text = str(claim.get("claim", ""))
-            if _flat(text) and _flat(text) in flat_abstract and len(words & _words(text)) >= 0.6 * len(words):
-                best = claim
-                break
+            shared = len(words & _words(text))
+            # The claim that holds this finding wins; otherwise the one sharing most of its words.
+            score = 3.0 if _squash(finding) in _squash(text) else (
+                shared / max(1, len(words | _words(text))) + shared / max(1, len(words)))
+            if shared >= 0.6 * len(words) and score > best_score:
+                best, best_score = claim, score
         if best is None:
             uncovered.append(_snippet(finding, 90))
             continue

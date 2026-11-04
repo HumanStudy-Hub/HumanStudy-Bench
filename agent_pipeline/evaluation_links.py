@@ -62,8 +62,17 @@ KINDS: dict[str, tuple[str, ...]] = {
 # Kinds a link must hold. p, df, n and CIs go with a test and are not judged alone.
 MULTIWORD = {"cohens_d", "cohen_d", "hedges_g", "cohens_h", "cohen_h", "odds_ratio", "standard_deviation",
              "chi_square", "mann_whitney", "eta_squared", "partial_eta2", "pearson_r", "t_stat", "t_value",
-             "f_value", "z_value"}
+             "f_value", "z_value", "t_test", "z_test", "f_test", "chi2_test", "chi_squared"}
+# One letter (and "or") names a statistic only as a whole key: "or" in "awl_or_pwl_share", "b" in
+# "option_b_share" and "d" in "study_d_mean" are words, not an odds ratio, a coefficient or a d.
+SHORT = {"m", "t", "f", "z", "r", "d", "g", "h", "b", "u", "or", "x2"}
+STAT_WORDS = {"test", "tests", "stat", "stats", "statistic", "value", "values", "vs"}
+# Keys that go with a statistic and are not one: a test's df, p, n, SE and CI.
+COMPANION_RE = re.compile(r"(?i)^(n|n\d|n_\w+|\w+_n|ns|df\d?|dfs?|df_\w+|p|p[_.\- ]?values?|pval|p_\w+|sig\w*|pr|"
+                          r"se|sem|se_\w+|std_err|stderr|ci|ci\d*|ci_\w+|\w+_ci|lower|upper|lo|hi|low|high|ll|ul|lcl|ucl|"
+                          r"total|k|df_num|df_den)$")
 TOKEN_KIND = {word: kind for kind, words in KINDS.items() for word in words}
+TOKEN_KIND.update({"t_test": "t", "z_test": "z", "f_test": "f", "chi2_test": "chi2", "chi_squared": "chi2"})
 UNITS: dict[str, tuple[str, ...]] = {
     "share": ("share", "shares", "proportion", "proportions", "fraction", "prop"),
     "percent": ("percent", "percentage", "pct"),
@@ -98,7 +107,18 @@ def tokens(name: str) -> list[str]:
 
 
 def kinds_of(name: str) -> set[str]:
-    return {TOKEN_KIND[t] for t in tokens(name) if t in TOKEN_KIND}
+    words = tokens(name)
+    found = set()
+    for index, word in enumerate(words):
+        if word not in TOKEN_KIND:
+            continue
+        # A short token counts at either end of the name ("or_min", "mean_sd_t") or before
+        # "test"/"stat"/"vs"; in the middle of words ("awl_or_pwl", "option_b_share") it is a word.
+        after = words[index + 1] if index + 1 < len(words) else ""
+        if word in SHORT and 0 < index < len(words) - 1 and after not in STAT_WORDS:
+            continue
+        found.add(TOKEN_KIND[word])
+    return found
 
 
 def units_of(name: str) -> set[str]:
@@ -115,8 +135,10 @@ def leaves(value: Any, path: tuple[str, ...] = (), with_none: bool = False) -> I
     if isinstance(value, dict):
         # Keys "a", "b", "c" side by side are group labels, not a coefficient b.
         letters = sum(1 for k in value if re.fullmatch(r"[A-Ea-e]", str(k)))
+        # "m" and "f" side by side are men and women, not a mean and an F.
+        sexes = {str(k).lower() for k in value} >= {"m", "f"}
         for key, item in value.items():
-            label = letters >= 2 and re.fullmatch(r"[A-Ea-e]", str(key))
+            label = (letters >= 2 and re.fullmatch(r"[A-Ea-e]", str(key))) or (sexes and str(key).lower() in ("m", "f"))
             yield from leaves(item, path + (("label",) if label else (str(key),)), with_none)
     elif isinstance(value, list):
         if value and all(_number(v) for v in value) and len(value) <= 3:  # [estimate, se] or a CI: one cell
@@ -131,6 +153,8 @@ def leaves(value: Any, path: tuple[str, ...] = (), with_none: bool = False) -> I
 
 
 def _leaf_kind(path: tuple[str, ...], default: set[str]) -> set[str]:
+    if path and COMPANION_RE.match(path[-1]):
+        return set()  # a df, p, n, SE or CI goes with its statistic
     for key in reversed(path):
         if META_KEYS.match(key):
             return set()
@@ -208,14 +232,15 @@ def declared(declarations: Any, path: str) -> dict | None:
     """The OUTPUT_KINDS entry for an output path ({"kinds", "unit", "rows"}), or None."""
     if not isinstance(declarations, dict):
         return None
-    for pattern, entry in declarations.items():
+    ordered = sorted(declarations.items(), key=lambda item: item[0] != path)  # an exact entry beats a pattern
+    for pattern, entry in ordered:
         if not isinstance(pattern, str):
             continue
         if pattern == path or ("*" in pattern and len(pattern.split(".")) == len(path.split("."))
                                and fnmatch.fnmatchcase(path, pattern)):
             if isinstance(entry, str):
                 entry = {"kinds": entry}
-            elif isinstance(entry, list):
+            elif isinstance(entry, (list, tuple, set)):
                 entry = {"kinds": " ".join(map(str, entry))}
             if not isinstance(entry, dict):
                 return None
@@ -316,7 +341,28 @@ def outputs_named(link: Any) -> list[str]:
 
 
 def _sub(value: Any, cell: str) -> tuple[bool, Any]:
-    return lookup(value, cell) if cell else (True, value)
+    """A cell path into a recorded value; a key may itself hold "." or "/" ("rows.50A/50H.n")."""
+    if not cell:
+        return True, value
+    parts = re.split(r"([./])", cell)
+    words, seps = parts[0::2], parts[1::2]
+
+    def walk(current: Any, index: int) -> tuple[bool, Any]:
+        if index == len(words):
+            return True, current
+        for end in range(len(words), index, -1):
+            key = words[index] + "".join(seps[i] + words[i + 1] for i in range(index, end - 1))
+            if isinstance(current, dict) and key in current:
+                found, item = walk(current[key], end)
+                if found:
+                    return found, item
+            elif isinstance(current, list) and key.isdigit() and int(key) < len(current):
+                found, item = walk(current[int(key)], end)
+                if found:
+                    return found, item
+        return False, None
+
+    return walk(value, 0)
 
 
 def _is_table(value: Any) -> bool:
@@ -362,13 +408,20 @@ def check_field(name: str, field: dict, output: Any, declarations: Any) -> list[
                     "\"<output key path>\"}}")
                 continue
         # Rows are judged one by one when the output is a table of them.
-        rec_kinds, rec_counts = recorded_kinds(field_id if not cell else cell.split(".")[-1] + " " + field_id, sub)
+        if cell and COMPANION_RE.match(re.split(r"[./]", cell)[-1]):
+            rec_kinds, rec_counts = set(), Counter()  # a df, p or n cell: nothing to judge on its own
+        else:
+            # A cell is named by its own key ("chi2" of a "t_test" field is a chi2); else by the field.
+            rec_kinds, rec_counts = recorded_kinds(re.split(r"[./]", cell)[-1], sub) if cell else (set(), Counter())
+            if not rec_kinds:
+                rec_kinds, rec_counts = recorded_kinds(field_id, sub)
         out_kinds, out_counts, out_units = output_kinds(path, out)
         if declaration:
             out_kinds |= declaration["kinds"]
             out_units |= declaration["unit"]
-            if not _hidden(out):
-                contradicted = sorted(k for k in declaration["kinds"] - output_kinds(path, out)[0])
+            own = output_kinds(path, out)[0]
+            if not _hidden(out) and own:  # keys that name no kind ("statistic", a scalar) trust the declaration
+                contradicted = sorted(k for k in declaration["kinds"] - own)
                 if contradicted:
                     problems.append(f"evaluation/evaluation.py OUTPUT_KINDS declares {', '.join(contradicted)} for "
                                     f"{path}, but the computed output holds no such value")
@@ -385,6 +438,12 @@ def check_field(name: str, field: dict, output: Any, declarations: Any) -> list[
                     f"{where} records {', '.join(missing)} and links to {path}, which is not computed on the stand-in "
                     "run, so the check cannot see what it holds. Declare it in evaluation/evaluation.py: OUTPUT_KINDS "
                     f"= {{\"{path}\": \"<kinds it returns, e.g. t df p mean sd>\"}}; if it does not compute "
+                    f"{', '.join(missing)}, link the output that does or give that value its own not_ready.")
+            elif not out_kinds:
+                problems.append(
+                    f"{where} records {', '.join(missing)} and links to {path}, whose keys name no statistic. Name "
+                    f"the key after what it computes, or declare it in evaluation/evaluation.py: OUTPUT_KINDS = "
+                    f"{{\"{path}\": \"<kinds it returns, e.g. {' '.join(missing)}>\"}}; if it does not compute "
                     f"{', '.join(missing)}, link the output that does or give that value its own not_ready.")
             else:
                 problems.append(
@@ -439,9 +498,11 @@ def _n_problems(name: str, field: dict, link: dict) -> list[str]:
     by_path: dict[tuple[str, ...], list[tuple[Any, float]]] = {}
     for key, row in items:
         ns = _n_paths(row)
-        for path, n in ns.items():
-            by_path.setdefault(path, []).append((key, n))
-        if len(ns) >= 2:  # the row's groups together: the same participants re-split in every row
+        # Only rows that split participants into groups: a table of conditions with one n each
+        # (50, 50, 50, 41) is a between-subjects design, not a dropped group.
+        if len(ns) >= 2:
+            for path, n in ns.items():
+                by_path.setdefault(path, []).append((key, n))
             by_path.setdefault(("all groups",), []).append((key, sum(ns.values())))
     found = []
     for path, values in by_path.items():
@@ -453,7 +514,8 @@ def _n_problems(name: str, field: dict, link: dict) -> list[str]:
                                                                            cell_notes):
                 label = rows[key].get("option") or rows[key].get("label") or key if isinstance(rows, list) \
                     and isinstance(rows[key], dict) else key
-                found.append(f"row {label} {'.'.join(path)} n = {n:g} (other rows {mode:g})")
+                where = ".".join(p for p in path if p not in ("n", "N")) or "n"
+                found.append(f"row {label} {where} n = {n:g} (other rows {mode:g})")
     if not found:
         return []
     return [f"{name}: the paper's n is smaller in one row than in the others ({'; '.join(found[:3])}), so the "

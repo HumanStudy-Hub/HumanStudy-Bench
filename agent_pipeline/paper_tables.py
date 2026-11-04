@@ -479,6 +479,10 @@ def check_supplement_tables(root: Path, job: Path) -> list[str]:
             number = re.sub(r"(?i)^(supplementary\s+)?table\s+", "", str(item["table"]).strip())
             declared.setdefault(re.sub(r"\s+", "", number).upper(), []).append(item)
     fields = _result_fields(_program(root))
+    # A download the package says it does not use (a pilot version, another paper) is not its supplement.
+    unused = {str(u.get("path", "")).strip() for u in (metadata.get("unused_downloads") or [])
+              if isinstance(u, dict)} if isinstance(metadata, dict) and isinstance(
+        metadata.get("unused_downloads"), list) else set()
     problems: list[str] = []
     by_file: dict[str, list[str]] = {}
     for pdf in pdfs:
@@ -486,6 +490,8 @@ def check_supplement_tables(root: Path, job: Path) -> list[str]:
             relative = str(pdf.relative_to(job))
         except ValueError:
             relative = pdf.name
+        if relative in unused:
+            continue
         for table in supplement_inventory(pdf):
             if not table["result"]:
                 continue
@@ -503,7 +509,12 @@ def check_supplement_tables(root: Path, job: Path) -> list[str]:
                 continue
             kind = item.get("kind")
             if kind == "result":
-                target = fields.get(str(item.get("recorded_in", "")))
+                names = item.get("recorded_in")
+                names = names if isinstance(names, list) else [names]
+                targets = [fields[str(n)] for n in names if str(n) in fields]
+                # A table recorded across several fields is judged on all of them together.
+                target = {"value": [t.get("value") for t in targets]} if len(targets) == len(names) and targets \
+                    else None
                 if target is None:
                     problems.append(f"paper_tables {label}: recorded_in must name the result field (<node id>.<field "
                                     "id>) that holds the table cell by cell")
