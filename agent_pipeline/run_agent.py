@@ -20,13 +20,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 try:
-    from agent_pipeline.fetch_public import restore_downloads, verify_downloads
+    from agent_pipeline.fetch_public import restore_downloads, strip_signed_urls, verify_downloads
     from agent_pipeline.network_policy import allowed_hosts
     from agent_pipeline.repair_guard import guard_repair, package_diff
     from agent_pipeline.qsf_flow import never_shown_matcher
     from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
 except ModuleNotFoundError:  # Direct script execution from the repository root.
-    from fetch_public import restore_downloads, verify_downloads
+    from fetch_public import restore_downloads, strip_signed_urls, verify_downloads
     from network_policy import allowed_hosts
     from repair_guard import guard_repair, package_diff
     from qsf_flow import never_shown_matcher
@@ -246,7 +246,9 @@ REPAIR_RULES = (
      "extensions.material classification and stays missing (needs-original, status pending, "
      "with its search list) unless it was found in a downloaded source; every pending item is "
      "named in the single 'materials-request' issue. Never fill a gap with your own wording "
-     "to pass this check."),
+     "to pass this check. A recorded source that 'refuses the re-check' (HTTP 403) needs no "
+     "edit: never remove, rewrite or re-point its record to get past it; the pipeline checks "
+     "it again after this round."),
     ("survey flow check failed",
      "Survey files: text from a .qsf question the survey flow never shows (the Trash / Unused "
      "Questions block, a block not in the flow) is not participant material. Run "
@@ -729,7 +731,8 @@ def main() -> None:
             (args.job / stale).unlink(missing_ok=True)
         update_job_state(args.job, repaired=None, repair=None, error=None, researcherMessage=None)
 
-    def check_output() -> tuple[bool, str]:
+    def check_output(fresh_sources: bool = False) -> tuple[bool, str]:
+        failed_stage["sources"] = False
         if not studio_complete(args.job, request_id):
             return False, "Studio completion marker is missing or does not match this request."
         if mode == "discuss":
@@ -739,20 +742,31 @@ def main() -> None:
         if valid and request_id is not None:
             valid, detail = validate_build_sidecars(package, accepted_model)
         if valid:
-            valid, detail = verified_sources()
+            valid, detail = verified_sources(fresh_sources)
+            failed_stage["sources"] = not valid
         return valid, detail
+
+    # Whether the last check failed only on the re-download of recorded sources:
+    # a check that needs no agent edit, so it is worth repeating before a verdict.
+    failed_stage = {"sources": False}
 
     verified: dict[str, tuple[bool, str]] = {}
 
-    def verified_sources() -> tuple[bool, str]:
-        """Download each recorded source again (once per recorded set), so a
-        mismatch reaches the repair loop instead of failing at publication."""
+    def verified_sources(fresh: bool = False) -> tuple[bool, str]:
+        """Download each recorded source again, so a mismatch reaches the repair
+        loop instead of failing at publication. The polling loop reuses the last
+        answer for an unchanged record (it runs every few seconds); ``fresh``
+        downloads again, and every decision point (end of the build pass, after
+        each repair turn) asks for that, so a host's passing refusal is never
+        carried into a repair round or a failed build."""
         files = sorted(package.glob("*/source/paper_metadata.json")) + sorted(package.glob("*/study.json"))
         key = "\n".join(path.read_text(errors="replace") for path in files)
-        if key not in verified:
-            problems, warnings = verify_downloads(args.job)
-            for warning in warnings:
-                print(f"[materials] {warning}", flush=True)
+        if fresh or key not in verified:
+            notes: list[str] = []
+            problems, warnings = verify_downloads(args.job, notes=notes)
+            problems = [strip_signed_urls(line) for line in problems]
+            for line in notes + warnings:
+                print(f"[materials] {strip_signed_urls(line)}", flush=True)
             verified[key] = (not problems, "external materials check failed:\n- " + "\n- ".join(problems)
                              if problems else "Validated external sources")
         return verified[key]
@@ -871,7 +885,7 @@ def main() -> None:
                 elif not studio_complete(args.job, request_id):
                     valid, detail = False, "Studio refinement did not complete."
                 else:
-                    valid, detail = check_output()
+                    valid, detail = check_output(fresh_sources=True)
                 write_result(args.job, "timeout", valid, detail)
                 if publisher:
                     try:
@@ -886,7 +900,9 @@ def main() -> None:
         output_thread.join(timeout=5)
         if mode == "build":
             ensure_readme(package)
-        valid, detail = check_output()
+        # A fresh source check: the build pass may have stopped on a cached answer from a
+        # host that refused once, and re-checking costs no agent round.
+        valid, detail = check_output(fresh_sources=True)
         reason = "agent_exited"
         if not valid and mode == "build" and not studio_complete(args.job, request_id):
             # The marker is only the agent's own claim that the Studio turn is
@@ -952,10 +968,27 @@ def main() -> None:
                 ensure_readme(package)
                 return returncode
 
+            # Whether the pre-repair package failed only on the source re-download; a failed
+            # repair restores that package, so this is what a final re-check is about.
+            pre_repair_sources_only = failed_stage["sources"]
             valid, detail, reason = run_guarded_repair(
-                args.job, package, lambda: repair_package(args.job, package, check_output, run_turn, deadline,
-                                                          detail, publish=publish_repair),
+                args.job, package, lambda: repair_package(args.job, package, lambda: check_output(fresh_sources=True),
+                                                          run_turn, deadline, detail, publish=publish_repair),
                 repair_turns)
+            if not valid and reason in ("repair_failed", "repair_rejected") \
+                    and (pre_repair_sources_only or failed_stage["sources"]):
+                # The package that stands now (the restored pre-repair copy) failed only on the
+                # source re-download; the full check runs once more, fresh, before failing.
+                print("[package-repair] re-checking the recorded sources before declaring failure", flush=True)
+                recheck, recheck_detail = check_output(fresh_sources=True)
+                if recheck:
+                    valid, detail, reason = True, recheck_detail, "validator_passed_on_recheck"
+                    try:
+                        repair_state = json.loads((args.job / "job.json").read_text()).get("repair")
+                    except (OSError, ValueError, AttributeError):
+                        repair_state = None
+                    update_job_state(args.job, error=None, repair={
+                        **(repair_state if isinstance(repair_state, dict) else {}), "outcome": reason})
         write_result(args.job, reason, valid, detail)
         completed, total, missing = package_progress(package) if mode == "build" else (0, 0, [])
         if publisher:

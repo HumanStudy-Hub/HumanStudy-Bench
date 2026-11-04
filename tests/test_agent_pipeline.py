@@ -850,3 +850,96 @@ def test_run_agent_gives_up_after_three_repairs(tmp_path: Path) -> None:
     assert len((job / "calls.jsonl").read_text().splitlines()) == 4
     watchdog = json.loads((job / "logs/watchdog.json").read_text())
     assert watchdog["reason"] == "repair_failed" and watchdog["package_valid"] is False
+
+
+SITE_FAKE_OSF = r'''
+# Loaded by every Python process of the test (PYTHONPATH): OSF serves the wrong bytes on the
+# first download only, as a host that answers one request badly would.
+import io, os, pathlib, urllib.request
+
+class _Response(io.BytesIO):
+    def __init__(self, body, url):
+        super().__init__(body)
+        self._url, self.headers = url, {}
+    def geturl(self):
+        return self._url
+    def __enter__(self):
+        return self
+    def __exit__(self, *exc):
+        return False
+
+class _Opener:
+    def open(self, request, timeout=None):
+        counter = pathlib.Path(os.environ["FAKE_OSF_COUNTER"])
+        n = int(counter.read_text()) if counter.exists() else 0
+        counter.write_text(str(n + 1))
+        if os.environ.get("FAKE_OSF_GOOD_AFTER_REPAIR"):
+            # Wrong bytes until the repair loop has finished (its log then records an outcome).
+            log = pathlib.Path(os.environ["FAKE_OSF_GOOD_AFTER_REPAIR"])
+            good = log.is_file() and '"outcome"' in log.read_text()
+        else:
+            good = n > 0
+        return _Response(b"survey bytes" if good else b"an error page", request.full_url)
+
+urllib.request.build_opener = lambda *handlers: _Opener()
+'''
+
+
+def _source_recheck_setup(tmp_path: Path) -> tuple[Path, Path, dict]:
+    import hashlib
+    job = tmp_path / "job"
+    (job / "logs").mkdir(parents=True)
+    (job / "prompt.md").write_text("Build the package")
+    validator = tmp_path / "validator.py"
+    validator.write_text("print('Validated agent package: paper')\n")
+    site = tmp_path / "site"
+    site.mkdir()
+    (site / "sitecustomize.py").write_text(SITE_FAKE_OSF)
+    sha = hashlib.sha256(b"survey bytes").hexdigest()
+    metadata = {"external_sources": [{"id": "s", "url": "https://osf.io/download/abcde/",
+                                      "path": "input/external/survey.qsf", "sha256": sha}]}
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    fake_claude = bin_dir / "claude"
+    fake_claude.write_text(
+        "#!/usr/bin/env python3\n"
+        "import json, pathlib, sys, time\n"
+        "job = pathlib.Path(sys.argv[sys.argv.index('--add-dir') + 1])\n"
+        "root = job / 'package' / 'paper'\n"
+        "(job / 'calls.jsonl').open('a').write(json.dumps(sys.argv[1:-1]) + '\\n')\n"
+        f"for relative in {REQUIRED!r}:\n"
+        "    path = root / relative\n"
+        "    path.parent.mkdir(parents=True, exist_ok=True)\n"
+        "    path.write_text('{}\\n' if path.suffix == '.json' else 'x\\n')\n"
+        f"(root / 'source/paper_metadata.json').write_text({json.dumps(metadata)!r})\n"
+        "(job / 'input/external').mkdir(parents=True, exist_ok=True)\n"
+        "(job / 'input/external/survey.qsf').write_bytes(b'survey bytes')\n"
+        "time.sleep(1.5)\n"  # the watchdog polls (and caches the bad answer) before the pass ends
+    )
+    fake_claude.chmod(0o755)
+    env = {**os.environ, "PATH": f"{bin_dir}:{os.environ['PATH']}",
+           "PYTHONPATH": os.pathsep.join([str(site), os.environ.get("PYTHONPATH", "")]),
+           "FAKE_OSF_COUNTER": str(tmp_path / "osf-requests")}
+    return job, validator, env
+
+
+def test_run_agent_rechecks_sources_before_spending_a_repair_round(tmp_path: Path) -> None:
+    """A source check that failed once is repeated fresh when the build pass ends,
+    so a host's one bad answer neither starts a repair round nor fails the build."""
+    job, validator, env = _source_recheck_setup(tmp_path)
+    result = _run_agent(job, validator, env)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "sha256 differs" in result.stdout  # the polling loop saw the bad answer
+    assert len((job / "calls.jsonl").read_text().splitlines()) == 1  # no repair turn
+    assert json.loads((job / "logs/watchdog.json").read_text())["reason"] == "agent_exited"
+
+
+def test_run_agent_rechecks_sources_after_a_failed_repair(tmp_path: Path) -> None:
+    """When repair rounds cannot help (the package failed only on the source re-download),
+    the standing package is checked once more, fresh, before the build is declared failed."""
+    job, validator, env = _source_recheck_setup(tmp_path)
+    env["FAKE_OSF_GOOD_AFTER_REPAIR"] = str(job / "logs/repair.json")
+    result = _run_agent(job, validator, env)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "re-checking the recorded sources before declaring failure" in result.stdout
+    assert json.loads((job / "logs/watchdog.json").read_text())["reason"] == "validator_passed_on_recheck"

@@ -29,11 +29,13 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import hashlib
+import http.client
 import json
 import os
 import re
 import sys
 import socket
+import time
 import urllib.error
 import urllib.request
 import zipfile
@@ -52,7 +54,14 @@ except ModuleNotFoundError:  # Direct script execution from the repository root.
 MAX_FILE = 40 * 1024 * 1024
 MAX_TOTAL = 100 * 1024 * 1024
 CHUNK = 1024 * 1024
-USER_AGENT = "HumanStudy-Hub materials search (+https://github.com/HumanStudy-Hub/HumanStudy-Bench)"
+# Sent on every request this module makes (download, licence lookup, re-check), so a host sees one
+# identified client with a contact address, never a bare urllib default it may block.
+USER_AGENT = ("HumanStudy-Hub materials search (+https://github.com/HumanStudy-Hub/HumanStudy-Bench; "
+              "mailto:scout@humanstudy-hub.com)")
+# Answers that mean the recorded URL no longer serves a file. Anything else (403 and 429 from rate
+# limits or bot filters, 5xx, timeouts) says nothing about the source and is retried.
+GONE_CODES = (404, 410)
+RETRY_AFTER_CAP = 30.0
 
 
 def _hosts(job: Path) -> list[str]:
@@ -375,38 +384,124 @@ def osf_licence(job: Path, url: str) -> dict:
     return record
 
 
-def remote_copy(job: Path, url: str, attempts: int = 3) -> bytes:
-    """The bytes now served at ``url`` (not saved), retried on network errors."""
-    import time
+class SourceGone(ValueError):
+    """The recorded URL answered that the file is not there (HTTP 404/410, or no such host)."""
 
+
+class Refused(ConnectionError):
+    """Every attempt was refused (HTTP 401/403): no outage, but no copy to compare either."""
+
+
+REFUSED_CODES = (401, 403)
+# Re-checks use a shorter socket timeout than an agent download, and one verification pass
+# has a total budget: once it is spent, the remaining sources get a single attempt each.
+RECHECK_TIMEOUT = 30
+RECHECK_BUDGET = 240.0
+# An OSF URL that names a file (and not a project, registration or preprint page).
+OSF_FILE_URL_RE = re.compile(r"(?i)^https://(?:www\.)?osf\.io/download/([a-z0-9]{5,24})/?(?:\?|$)|"
+                             r"^https://api\.osf\.io/v2/files/([a-z0-9]{5,24})/?(?:\?|$)|"
+                             r"^https://(?:www\.)?osf\.io/([a-z0-9]{5})/download/?(?:\?|$)")
+# A refusal is retried after a longer pause than an outage: a host throttling a CI address
+# usually lets it back in within seconds, not milliseconds.
+REFUSED_PAUSE = 10.0
+
+
+def _retry_after(exc: urllib.error.HTTPError) -> float | None:
+    value = exc.headers.get("Retry-After") if exc.headers is not None else None
+    try:
+        return min(max(float(value), 0.0), RETRY_AFTER_CAP) if value is not None else None
+    except (TypeError, ValueError):
+        return None
+
+
+def _get(job: Path, url: str, attempts: int, *, accept: str | None = None, limit: int = MAX_FILE,
+         sleep=time.sleep, timeout: float = RECHECK_TIMEOUT, deadline: float | None = None) -> bytes:
+    """The bytes now served at ``url`` (not saved).
+
+    Raises SourceGone when the server says the file is not there, ValueError for
+    a URL off this build's hosts or over the size limit, Refused when every
+    attempt answered 401/403, and ConnectionError when no conclusive answer came
+    back after ``attempts`` tries (403, 429, 5xx, timeouts and network errors
+    are retried with a growing pause, honouring a short Retry-After). No retry
+    starts after ``deadline`` (a ``time.monotonic()`` value)."""
     hosts = _hosts(job)
     if urlsplit(url).scheme != "https" or not host_allowed(host_of(url), hosts):
         raise ValueError(f"{url} is not an https URL on this build's research hosts")
-    last: Exception | None = None
+    headers = {"User-Agent": USER_AGENT}
+    if accept:
+        headers["Accept"] = accept
+    attempts = max(1, attempts)
+    last, refused, tried = "no answer", True, 0
     for attempt in range(attempts):
+        tried += 1
+        wait = 2.0 * 2 ** attempt
         try:
             chunks, size = [], 0
-            request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-            with urllib.request.build_opener(_CheckedRedirects(hosts)).open(request, timeout=120) as response:
+            request = urllib.request.Request(url, headers=headers)
+            with urllib.request.build_opener(_CheckedRedirects(hosts)).open(request, timeout=timeout) as response:
                 while chunk := response.read(CHUNK):
                     size += len(chunk)
-                    if size > MAX_FILE:
-                        raise ValueError("file exceeds the size limit")
+                    if size > limit:
+                        raise ValueError(f"{url} serves more than the {limit // (1024 * 1024)} MiB limit")
                     chunks.append(chunk)
             return b"".join(chunks)
         except urllib.error.HTTPError as exc:
-            if exc.code < 500 and exc.code != 429:
-                # Not found or refused: the recorded URL does not serve this file.
-                raise ValueError(f"{url} answered HTTP {exc.code}; the recorded source is not there") from exc
-            last = exc
+            exc.close()
+            if exc.code in GONE_CODES:
+                raise SourceGone(f"{url} answered HTTP {exc.code}; the recorded source is not there") from exc
+            last = f"HTTP {exc.code}"
+            refused = refused and exc.code in REFUSED_CODES
+            wait = max(wait, _retry_after(exc) or 0.0, REFUSED_PAUSE if exc.code in REFUSED_CODES else 0.0)
         except urllib.error.URLError as exc:
-            if isinstance(exc.reason, socket.gaierror):
-                raise ValueError(f"{host_of(url)} does not exist; the recorded source is not there") from exc
-            last = exc
-        except OSError as exc:
-            last = exc
-        time.sleep(2 * (attempt + 1) if attempt + 1 < attempts else 0)
-    raise ConnectionError(f"could not re-download {url}: {last}")
+            reason = exc.reason
+            if isinstance(reason, socket.gaierror) and reason.errno != getattr(socket, "EAI_AGAIN", None):
+                raise SourceGone(f"{host_of(url)} does not exist; the recorded source is not there") from exc
+            last, refused = f"{type(reason).__name__}: {reason}", False
+        except (OSError, http.client.HTTPException) as exc:  # Timeouts, resets, truncated answers.
+            last, refused = f"{type(exc).__name__}: {exc}", False
+        if attempt + 1 >= attempts or (deadline is not None and time.monotonic() + wait >= deadline):
+            break
+        sleep(wait)
+    # One refusal is not a verdict: Refused needs at least two attempts, all refused.
+    error = Refused if refused and tried >= 2 else ConnectionError
+    raise error(f"could not re-download {url} after {tried} attempt{'s' if tried != 1 else ''} "
+                f"(last answer: {last})")
+
+
+def remote_copy(job: Path, url: str, attempts: int = 4, sleep=time.sleep, deadline: float | None = None) -> bytes:
+    """The bytes now served at ``url`` (not saved); see ``_get`` for what it raises."""
+    return _get(job, url, attempts, sleep=sleep, deadline=deadline)
+
+
+def osf_listed_sha256(job: Path, url: str, attempts: int = 3, sleep=time.sleep,
+                      deadline: float | None = None) -> str | None:
+    """The SHA-256 the OSF API lists for the file at an OSF file download URL.
+
+    Nothing is downloaded but the file's metadata record. None when there is no
+    metadata route: ``url`` is not an OSF file URL (a project, registration or
+    preprint page), pins a file version (the API lists the latest version's
+    hash), or OSF lists no hash. Raises SourceGone when OSF has no such file and
+    ConnectionError when the API cannot be reached either."""
+    match = OSF_FILE_URL_RE.match(url.strip())
+    if not match or "version=" in urlsplit(url).query.lower():
+        return None
+    file_id = match.group(1) or match.group(2) or match.group(3)
+    try:
+        raw = _get(job, f"https://api.osf.io/v2/files/{file_id}/", attempts, accept="application/json",
+                   limit=4 * 1024 * 1024, sleep=sleep, deadline=deadline)
+    except SourceGone as exc:
+        raise SourceGone(f"{url}: OSF has no file {file_id}; the recorded source is not there") from exc
+    except ValueError:  # api.osf.io is not on this build's hosts.
+        return None
+    try:
+        data = json.loads(raw.decode("utf-8")).get("data")
+    except (UnicodeDecodeError, ValueError, AttributeError):
+        return None
+    if not isinstance(data, dict) or data.get("type") != "files":
+        return None
+    hashes = ((data.get("attributes") or {}).get("extra") or {}).get("hashes") or {}
+    sha = hashes.get("sha256") if isinstance(hashes, dict) else None
+    return sha.lower() if isinstance(sha, str) and re.fullmatch(r"[0-9a-fA-F]{64}", sha) else None
 
 
 def _external_sources(job: Path) -> list[dict]:
@@ -441,27 +536,63 @@ def restore_downloads(job: Path) -> list[str]:
     return notes
 
 
-def verify_downloads(job: Path, attempts: int = 3) -> tuple[list[str], list[str]]:
+def verify_downloads(job: Path, attempts: int = 4, sleep=time.sleep, notes: list[str] | None = None,
+                     budget: float = RECHECK_BUDGET) -> tuple[list[str], list[str]]:
     """Download every recorded source again; return (problems, warnings).
 
     A file the agent wrote or edited itself does not match what its URL serves.
     Files must match byte for byte; a web page (HTML) changes between requests,
     so for a page every quote the program cites from it must still occur in the
-    page's text. A source that cannot be reached is a warning, not a failure."""
+    page's text.
+
+    A problem is a source that is really gone (HTTP 404/410, no such host),
+    that serves something other than the record, or that refused every attempt
+    (HTTP 401/403) with no other way to confirm it. A source that gave no
+    conclusive answer after the retries is checked against the OSF API's file
+    metadata when it is an OSF file: a listed SHA-256 equal to the record
+    verifies it (added to ``notes``), a different one is a problem. A source
+    that is only unreachable (429, 5xx, timeouts, network errors) and has no
+    metadata route is a warning for the researcher: unverified, not disproved.
+    The pass stops retrying once ``budget`` seconds are spent."""
     try:
         from agent_pipeline.check_sources import file_text, quote_in_text, normalise
     except ModuleNotFoundError:
         from check_sources import file_text, quote_in_text, normalise
     problems, warnings = [], []
     quotes = _quotes_by_source(job)
+    deadline = time.monotonic() + budget
     for source in _external_sources(job):
         url, sha, path = source.get("url"), source.get("sha256"), source.get("path")
         if not (isinstance(url, str) and isinstance(sha, str) and isinstance(path, str)):
             continue
+        tries = attempts if time.monotonic() < deadline else 1
         try:
-            data = remote_copy(job, url, attempts)
+            data = remote_copy(job, url, tries, sleep=sleep, deadline=deadline)
         except ConnectionError as exc:
-            warnings.append(str(exc))
+            try:
+                listed = osf_listed_sha256(job, url, min(tries, 3), sleep=sleep, deadline=deadline)
+            except ValueError as gone:  # SourceGone: OSF itself says the file is not there.
+                problems.append(str(gone))
+                continue
+            except ConnectionError:
+                listed = None
+            if listed and listed == sha.lower():
+                if notes is not None:
+                    notes.append(f"{url} could not be downloaded ({exc}); the OSF API lists the recorded "
+                                 f"SHA-256 for it, so {path} is verified by metadata")
+                continue
+            if listed:
+                problems.append(f"{url}: the OSF API lists a SHA-256 that differs from the one recorded "
+                                f"for {path}")
+                continue
+            if isinstance(exc, Refused):
+                # The same client downloaded it during this build; a host that now refuses every
+                # attempt leaves the recorded copy unconfirmed, and an unconfirmed copy is not shipped.
+                problems.append(f"{exc}; the host refuses the re-check, so {path} cannot be confirmed as "
+                                "what it serves (the pipeline checks again after each repair round)")
+                continue
+            warnings.append(f"{exc}; {path} was not compared with its source, so check it against {url} "
+                            "before relying on it")
             continue
         except ValueError as exc:
             problems.append(str(exc))
