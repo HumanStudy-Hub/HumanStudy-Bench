@@ -1,0 +1,110 @@
+{
+  "_purpose": "Participant-visible material, grouped by study and condition. Every item carries an evidence_label and a source pointer into source/evidence.json. Items labeled 'missing' are NOT filled with invented text; the field is left explicit so a researcher can supply the real wording from the paper's Online Appendix.",
+
+  "study_1_main_experiment": {
+    "paper_section": "Section 4 (pp. 1443-1448)",
+    "participant_facing_terminology": {
+      "evidence_label": "verbatim",
+      "evidence_ref": "E01,E04",
+      "note": "The paper deliberately uses lab-friendly terms with participants instead of the theoretical vocabulary. Use these terms in all agent-facing prompts.",
+      "mapping": {
+        "advertiser (theory)": "participant",
+        "ad slot (theory)": "good",
+        "auction (theory)": "match",
+        "bid-adjustment cost C (theory)": "cost of changing your bid"
+      }
+    },
+    "treatments_table_verbatim": {
+      "evidence_label": "verbatim",
+      "evidence_ref": "E03",
+      "table_title": "Table 4. Treatments Summary",
+      "rows": [
+        { "treatments": "Between-Subjects", "parameter_varied": "C in {0.0, 0.1}", "description": "Costless or costly bid adjustment within matches" },
+        { "treatments": "Within-Subjects", "parameter_varied": "alpha in {0.2, 0.5, 0.8}", "description": "Value of the second good as a fraction of the first good" }
+      ]
+    },
+    "payoff_rule_verbatim": {
+      "evidence_label": "verbatim",
+      "evidence_ref": "E07",
+      "text": "At the beginning of a match, each participant j submitted a bid bj at no cost. Participants could then revise their bids in continuous time during the match. Participants could lock the bids to see the associated outcome and payoff with the current combination of bids. Specifically, if a participant's bid, bj, was the highest, then the participant would get the first good and pay the amount equal to the second-highest bid minus the friction cost incurred during the match, (v(1) - b(2)) - C(1). If the participant's bid was the second highest, then the participant would get the second good and pay the amount equal to the third-highest bid times alpha minus the friction cost incurred during the match, that is, alpha(v(2) - b(3)) - C(2). If the participant's bid was the lowest, the participant would not receive any good and would pay only the friction cost incurred. We announced that alpha would be the same for all participants in the group during the instructions and had a reminder on the screen to ensure its common knowledge."
+    },
+    "design_remarks_verbatim": {
+      "evidence_label": "verbatim",
+      "items": [
+        { "remark": "Remark 1", "text": "We used a random-termination protocol.", "evidence_ref": "E05" },
+        { "remark": "Remark 2", "text": "We used common random numbers in matches 5-10 such that, for each match, m in {5,...,10}, all groups had the same three valuations {v1m, v2m, v3m}; m in {5,...,10}, there was at least one group for each value of alpha.", "evidence_ref": "E06" },
+        { "remark": "Remark 3", "text": "We used a last (randomly occurring) period compensation mechanism.", "evidence_ref": "E08" },
+        { "remark": "Remark 4", "text": "We used a silent protocol.", "evidence_ref": "E09" }
+      ]
+    },
+    "interface_visibility_verbatim": {
+      "evidence_label": "verbatim",
+      "evidence_ref": "E10",
+      "text": "The participant's screen summarized information provided for that match (#1) as well as the current action and the outcome associated with this action (#2). The outcomes are updated live and depend on the actions of all three participants in the group. Scale that is used to place and revise bids (#3). Scales for the other two participants (#4) remain blank until the match is over, at which point the actions of the other participants are revealed. Reminders about the rules of the experiment (#5)."
+    },
+    "instructions_handout": {
+      "evidence_label": "missing",
+      "evidence_ref": "E12",
+      "reason": "Verbatim instructions live in Online Appendix L, which could not be retrieved (Cloudflare 403 on the authorized supplement URL).",
+      "researcher_action_needed": "Supply the verbatim instructions handout text (Online Appendix L) if exact wording is required for participant onboarding. Until supplied, task/adapter.py uses only the paper's own verbatim description of the rules (payoff_rule_verbatim, design_remarks_verbatim above) as the operative instructions."
+    },
+    "practice_tasks": {
+      "evidence_label": "reported",
+      "evidence_ref": "E11",
+      "text": "Six practice tasks dealing with placing and modifying the bid (proceed to next only after correctly completing the previous), followed by five randomly generated examples practicing bid placement/revision against hypothetical opponent actions.",
+      "exact_content": {
+        "evidence_label": "missing",
+        "reason": "The specific numeric values and correct answers used in the six practice tasks and five examples are only in Online Appendix L."
+      }
+    },
+    "point_to_currency_conversion": {
+      "evidence_label": "missing",
+      "evidence_ref": "E22",
+      "reason": "No explicit points-to-dollars exchange rate or show-up fee is stated in the accessible main text."
+    }
+  },
+
+  "study_2_mechanism_experiment": {
+    "paper_section": "Section 5 (pp. 1448-1450)",
+    "design_summary_verbatim": {
+      "evidence_label": "verbatim",
+      "evidence_ref": "E14,E16",
+      "text": "We implemented a 2x2 factorial design in which we varied the cost of bid adjustment (as is the main treatment variation in the original set of experiment) and the cost of the information. For all four treatments, we fixed the same alpha = 0.5. The differences from the original experiments include (i) discrete-time setup, (ii) duration of the interaction, (iii) multiple duration realizations, and (iv) independent random draws for each subject in each match. Specifically, in the discrete-time setting, subjects faced an uncertain number of decision periods. Within each period, they had unlimited time to make a desired bid adjustment (if any). Once all participants in their group submitted their decisions, each saw the outcome for that period."
+    },
+    "information_feature_verbatim": {
+      "evidence_label": "verbatim",
+      "evidence_ref": "E15",
+      "text": "The information consisted of an interactive plot that displayed possible payoffs for any bid conditional on the other two group members holding the bids as they did in the previous period. The treatment variation included the cost of accessing this plot. In the costly information treatment, subjects incurred a cost of $0.5 every period in which they accessed this information, whereas in the free information treatment, subjects did not incur any cost."
+    },
+    "termination_redesign_verbatim": {
+      "evidence_label": "verbatim",
+      "evidence_ref": "E14",
+      "text": "To make the discrete-time setup feasible within the time constraints offered by the laboratory experiment, we reduced the number of expected interactions to 10 (i.e., probability of termination was 0.1 instead of 0.01). In addition, to ensure that one specific sequence of match durations did not bias the results, we now consider four sequences of supergame length (see Online Table N.1)."
+    },
+    "instructions_and_screens": {
+      "evidence_label": "missing",
+      "evidence_ref": "E17",
+      "reason": "Online Appendix N.1 (instructions/decision screens) and N.2 (info-plot screenshots) and Online Table N.1 (the four duration sequences) could not be retrieved."
+    },
+    "software_platform": {
+      "evidence_label": "verbatim",
+      "evidence_ref": "E13",
+      "text": "The new experiment was programmed in oTree software (Chen et al. 2016a)."
+    }
+  },
+
+  "shared_theoretical_material": {
+    "paper_section": "Section 3.1 (pp. 1440-1441)",
+    "gsp_payoff_formula_verbatim": {
+      "evidence_label": "verbatim",
+      "evidence_ref": "E18",
+      "text": "The payoff for the kth highest bidding advertiser (allotted to the kth slot) is given by alpha_k(v(k) - b(k+1)). Frictions are modeled as an additional cost Cj incurred by advertiser j from revising bids: pi_j = alpha_k(vj - b(k+1)) - Cj."
+    },
+    "metrics_verbatim": {
+      "evidence_label": "verbatim",
+      "evidence_ref": "E19",
+      "allocative_efficiency": "Psi = sum_{k=1}^{K} alpha_k*v(k) divided by sum_{j=1}^{K} alpha_j*v^j",
+      "bid_to_value_ratio": "Omega_j = b_j / v_j"
+    }
+  }
+}
