@@ -138,8 +138,12 @@ def evaluate_study(results):
             w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
         for i,goal in enumerate(GOALS):
             output=tmp/(goal+'.json')
-            run=subprocess.run(['Rscript',str(study/'scripts/run_statistics.R'),str(inputs),str(output),goal,
-                                '5000','10000','20',str(20261020+i)],capture_output=True,text=True,timeout=14400)
+            try:
+                run=subprocess.run(['Rscript',str(study/'scripts/run_statistics.R'),str(inputs),str(output),goal,
+                                    '5000','10000','20',str(20261020+i)],capture_output=True,text=True,timeout=14400)
+            except (FileNotFoundError,subprocess.TimeoutExpired) as error:
+                return {'status':'not_scored','reason':'Original-method statistics unavailable: '+type(error).__name__,
+                        'test_results':[]}
             if run.returncode:
                 return {'status':'not_scored','reason':'Original-method fit failed for '+goal,
                         'diagnostic':run.stderr[-2500:],'test_results':[]}

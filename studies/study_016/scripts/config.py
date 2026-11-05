@@ -12,6 +12,8 @@ except ImportError:
 
 class StudyGeniusSelfEfficacyConfig(BaseStudyConfig):
     REQUIRES_GROUP_TRIALS=True
+    PLAYGROUND_PROTOCOL_VERSION=1
+    MAX_MODEL_CALLS_PER_PARTICIPANT=28
 
     def __init__(self,study_path,specification=None):
         self.study_path=Path(study_path)
@@ -71,3 +73,45 @@ class StudyGeniusSelfEfficacyConfig(BaseStudyConfig):
             record['participant_calls']=getattr(participant,'calls',[])
             records.append(record)
         return {'individual_data':records,'execution_kind':'agent_run','reconstruction_mode':mode}
+
+    def run_playground_protocol(self,trials,settings,profiles,on_participant):
+        """Bridge the hosted runner to the original persistent protocol.
+
+        Shared fixtures are explicitly synthetic; live calls use the runner's
+        configured OpenRouter endpoint, with one participant context per slot.
+        """
+        import hashlib
+        from runtime import make_participant_factory,ReconstructedFeedback
+        from scorer_features import BaselineSurrogate
+        live=settings['use_real_llm']
+        scorer=BaselineSurrogate(self.study_path)
+        if live:
+            base_factory=make_participant_factory(self.study_path,settings)
+            feedback=ReconstructedFeedback(self.study_path,settings)
+        else:
+            from run_study import fixture
+            base_factory=lambda profile:fixture
+            digest=hashlib.sha256((self.study_path/'source/materials/feedback_reconstruction.json').read_bytes()).hexdigest()
+            feedback=lambda context:{'text':'SYNTHETIC FEEDBACK','origin':'developer_fixture','reconstruction_sha256':digest}
+        records=[]
+        for index,trial in enumerate(trials):
+            def factory(profile):
+                participant=base_factory({**profile,'instructions':profile['instructions']+'\n'+settings['participant_prompts'][index]})
+                def ask(context):
+                    settings['on_stage'](index,context['stage'])
+                    return participant(context)
+                ask.calls=getattr(participant,'calls',[])
+                return ask
+            result=self.run_group_experiment([trial],self.get_instructions(),{
+                **settings,'participant_factory':factory,'feedback_provider':feedback,'baseline_scorer':scorer,
+            })
+            record=result['individual_data'][0]
+            record['participant_id']=profiles[index]['participant_id']
+            record['profile']=profiles[index]
+            if not live:record['execution_kind']='synthetic_developer_fixture'
+            records.append(record)
+            on_participant(record)
+        return {'individual_data':records,'execution_kind':'agent_run' if live else 'synthetic_developer_fixture',
+                'participant_model':settings['model'],'feedback_model':settings['feedback_model'],
+                'limitations':['Feedback generation and baseline scoring are declared methodological reconstructions.',
+                               'The frozen scorer has not been validated on generated essays.']}

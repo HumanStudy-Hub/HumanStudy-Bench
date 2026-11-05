@@ -178,3 +178,30 @@ and contribution credit are recorded separately. AI-assisted extraction, code
 and scoring-model development are disclosed. See `RIGHTS.md` in this study directory.
 
 The study folder contains the materials and scripts required for execution.
+
+## HumanStudy library and playground integration
+
+The library ID is `study_016`; the original contribution ID and author credit
+are retained in `source/metadata.json`. The original scientific specification,
+materials, scorer, reference values and attribution remain with the contribution.
+This package includes expressly authorized pseudonymous participant-level human
+reference extracts for evaluation. Those extracts are not participant inputs.
+
+The hosted playground uses the versioned persistent-protocol bridge rather than
+the independent-trial pool. Each participant keeps one context through all 23
+administrations. Each feedback event starts with a fresh current-block context.
+The selected participant model is also the feedback model unless `feedbackModel`
+is explicitly provided in the run configuration; both choices are recorded.
+The hosted provider is OpenRouter, including for Claude model names.
+
+The shared run budget accounts for up to 28 model calls per participant, so a
+shared-key diagnostic run contains two sessions (one per condition). Such a run
+cannot receive an 801-participant reference-comparison score. Offline fixtures
+are labelled synthetic and are never scientific results. The standalone runner
+remains available for explicitly configured full runs. Full inference requires
+R and the packages in `source/dependencies.json`; missing R or a statistics
+execution timeout returns `not_scored`, not a fabricated comparison.
+
+Compatibility tests use stand-ins only. Live-provider acceptance, full-sample
+statistical execution and validity of the scorer on generated essays remain
+separate checks; no live-provider or human-likeness claim follows from these tests.
