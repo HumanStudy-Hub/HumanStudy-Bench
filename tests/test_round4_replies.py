@@ -116,3 +116,15 @@ def test_a_labelled_answer_keeps_its_commas_and_thousands_are_not_split():
         "contribute": "10", "influenced": "1, 3", "comments": "It was fine, though long"}
     two = [Question("a", text="first", kind="number"), Question("b", text="second", kind="number")]
     assert split_reply("1,000", two) == {}
+
+
+def test_the_verb_of_the_asking_sentence_and_never_someone_elses_number():
+    rules = Question("c", text="Each token you keep earns 1 point; each token you contribute earns 0.4 points for "
+                               "each member. How much do you contribute?", kind="number")
+    assert parse("I keep 5 and contribute 15", rules)["value"] == 15
+    assert parse("I contribute 15", rules)["value"] == 15
+    asked = Question("c", text="How many tokens do you contribute?", kind="number")
+    for reply in ("Since others contribute 15 on average, I'll put in 10.",
+                  "Others contributed 12 last round; I'll put in 6.", "Others give 15 on average."):
+        assert parse(reply, asked)["status"] == "ambiguous", reply
+    assert parse("Others typically contribute 5, I'll contribute 8.", asked)["value"] == 8

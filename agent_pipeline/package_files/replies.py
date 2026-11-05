@@ -668,15 +668,18 @@ FILLER = r"(?:(?:about|around|exactly|only|just|all|the|my|of|a|an|total|sum|amo
          r"dollars?|cents?|euros?|money|mus?|ecus?|credits?|is|be|will|would|to|it|into|in)\s+){0,4}"
 
 
+def _asking(text: str) -> str:
+    """The sentence that asks: the last one ending in "?", else the last sentence ("Your contribution:")."""
+    sentences = [s for s in re.split(r"(?<=[.?!:])\s+|\n+", text or "") if s.strip()]
+    asked = [s for s in sentences if s.rstrip().endswith("?")]
+    return (asked or sentences or [""])[-1]
+
+
 def _asked_verbs(question: Question) -> set:
-    """The verbs of the question text. When it names both sides of a split ("How much do you contribute? What you do
-    not contribute you keep"), the side named first is the one asked."""
-    found = [m.group(1).lower() for m in VERB_RE.finditer(question.text or "")]
-    sides = [v for v in found if v in KEEP_VERBS or v in PASS_VERBS]
-    if sides:
-        first = KEEP_VERBS if sides[0] in KEEP_VERBS else PASS_VERBS
-        found = [v for v in found if v in first or (v not in KEEP_VERBS and v not in PASS_VERBS)]
-    return set(found)
+    """The verbs of the sentence that asks ("Each token you keep earns 1 point. How much do you contribute?" asks
+    contribute). A sentence naming both sides of a split ("how much do you keep and how much do you give?") asks
+    both, so no single number is taken from a reply."""
+    return {m.group(1).lower() for m in VERB_RE.finditer(_asking(question.text or ""))}
 
 
 def _tied(text: str) -> List[tuple]:
@@ -690,6 +693,32 @@ def _tied(text: str) -> List[tuple]:
     return out
 
 
+# Someone other than the participant: "others contribute 15 on average", "the group gave 12 last round".
+OTHERS_RE = re.compile(r"(?i)\b(?:others?|they|their|them|he|she|his|her|people|everyone|everybody|someone|somebody|"
+                       r"members?|participants?|players?|partners?|group|average|typically|usually|last|previous|"
+                       r"you)\b")
+CLAUSE_RE = re.compile(r"(?i)[.;:!?,\n]|\b(?:and|but|so|while|whereas|since|because|as|though|although)\b")
+
+
+def _by_others(text: str, start: int) -> bool:
+    """The clause before a verb names someone else, or the past ("others contribute", "last round I gave")."""
+    clause = CLAUSE_RE.split(text[:start])[-1] if text[:start] else ""
+    return bool(OTHERS_RE.search(clause))
+
+
+def _by_others_only(text: str, question: Question) -> bool:
+    """Every number tied to the question's verb, or every number of the reply, is someone else's ("Others give 15
+    on average."): never read as this participant's answer."""
+    tied = _tied(text)
+    verbs = _asked_verbs(question)
+    asked = [position for verb, _, position in tied if verb in verbs]
+    if asked and all(_by_others(text, position) for position in asked):
+        return True
+    positions = {position for _, _, position in tied}
+    numbers = [m.start() for m in re.finditer(NUMBER_IN_TEXT, text)]
+    return bool(numbers) and all(n in positions and _by_others(text, n) for n in numbers)
+
+
 def _verb_number(text: str, question: Question) -> Optional[str]:
     """The one number written right after the question's own verb ("I keep 5 and contribute 15" -> "15"), when
     every other number of the reply is accounted for: tied to another verb, or a round or item counter ("Round 3").
@@ -698,7 +727,8 @@ def _verb_number(text: str, question: Question) -> Optional[str]:
     if not verbs:
         return None
     tied = _tied(text)
-    mine = {number for verb, number, _ in tied if verb in verbs}
+    # Someone else's number is accounted for but never the answer ("Others give 5 on average; I contribute 8").
+    mine = {number for verb, number, position in tied if verb in verbs and not _by_others(text, position)}
     if len(mine) != 1:
         return None
     accounted = {position for _, _, position in tied}
@@ -734,7 +764,7 @@ def parse_number(reply: str, question: Question) -> Dict[str, Any]:
         return _result(question, "unparsed", reply)
     if NEGATION_RE.search(text) or (len(numbers) > 1 and RANGE_RE.search(text)):
         return _result(question, "ambiguous", reply)
-    if _other_side(text, question):
+    if _other_side(text, question) or _by_others_only(text, question):
         return _result(question, "ambiguous", reply)
     if len(values) > 1:
         tied = _verb_number(text.replace(",000", "000"), question)
@@ -1090,15 +1120,20 @@ class StubParticipant:
     def _number_reply(self, question: Question, value: Any) -> str:
         """The number alone, or in a sentence with the question's verb next to another number ("I keep 5 and
         contribute 15") when the reader takes that sentence back as the number meant."""
-        verb = VERB_RE.search(question.text or "")
+        verb = VERB_RE.search(_asking(question.text or ""))
         if verb is None or getattr(question, "legacy", False) or self.rng.random() < 0.5:
             return str(value)
         word = verb.group(0).lower()
         other = "keep" if not word.startswith("keep") else "give"
         reply = f"I {other} {self.rng.randint(1, 99) + 0.0:g} and {word} {value}."
         answer = parse_number(reply, question)
-        # Only a sentence the reader takes back as this number: a question text naming both sides ("what you do
-        # not contribute you keep") may leave it ambiguous, which is the reader's caution, not the adapter's fault.
+        if answer.get("status") == "ok" and answer.get("value") != value \
+                and not any(m["question"] == question.id for m in self.misreads):
+            # A wrong number read with confidence is the worst outcome: always reported.
+            self.misreads.append({"question": question.id, "option": str(value), "reply": reply,
+                                  "read_as": str(answer.get("value")), "codes": []})
+        # Only a sentence the reader takes back as this number: a reply it leaves ambiguous is the reader's
+        # caution, not the adapter's fault.
         return reply if answer.get("status") == "ok" and answer.get("value") == value else str(value)
 
     def _labelled(self, questions: Sequence[Question], answers: List[str]) -> Optional[str]:

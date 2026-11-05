@@ -732,7 +732,9 @@ questions)`. Never write your own reply parser and never call `llm` directly.
   `codes` that tell the two sides apart. A number question read from a sentence
   with several numbers takes the one after the question's own verb ("I keep 5
   and contribute 15" to "How many points do you contribute?" is 15; "I keep 5"
-  alone is asked again). Several questions on one screen are read from `Q1:`
+  alone is asked again). The verb is the one of the sentence that asks, and a
+  number someone else gave ("others contribute 15 on average") is never the
+  answer. Several questions on one screen are read from `Q1:`
   lines, a JSON object, answers keyed by the word that tells the questions apart
   ("A: 2, B: 0, C: 3" for "Points for participant A/B/C"), or, when all ask for
   numbers, the numbers in order ("2, 0, 3").
