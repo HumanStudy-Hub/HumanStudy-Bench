@@ -840,10 +840,12 @@ def question_labels(questions: Sequence[Question]) -> Dict[str, tuple]:
     """Per question, the words of its text that no other question on the screen has (lower case): "a" for
     "Points for participant A" next to B and C; "contribute" next to "keep". A reply may key answers by them."""
     words = [{w.lower() for w in re.findall(r"[A-Za-z0-9]+", question.text or "")} for question in questions]
+    stem = lambda w: w[:6] if len(w) > 6 else w      # "contribution" and "contribute" name the same thing
     out = {}
     for index, question in enumerate(questions):
         others = set().union(*(w for j, w in enumerate(words) if j != index)) if len(words) > 1 else set()
-        out[question.id] = tuple(sorted(words[index] - others))
+        stems = {stem(w) for w in others}
+        out[question.id] = tuple(sorted(w for w in words[index] - others if stem(w) not in stems))
     return out
 
 

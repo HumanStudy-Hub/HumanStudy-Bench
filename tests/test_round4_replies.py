@@ -128,3 +128,9 @@ def test_the_verb_of_the_asking_sentence_and_never_someone_elses_number():
                   "Others contributed 12 last round; I'll put in 6.", "Others give 15 on average."):
         assert parse(reply, asked)["status"] == "ambiguous", reply
     assert parse("Others typically contribute 5, I'll contribute 8.", asked)["value"] == 8
+
+
+def test_a_word_another_question_shares_in_another_form_is_no_label():
+    guess = [Question("c", text="Amount to contribute", kind="number"),
+             Question("g", text="Your guess of the others' average contribution", kind="number")]
+    assert split_reply("My contribution: 10\nExpected: 8", guess) == {}
