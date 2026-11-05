@@ -1,0 +1,96 @@
+{
+  "_description": "Verbatim transcription of the participant-facing CASSEL lab instruction slide deck, extracted from the contributor-uploaded open materials at input/open_materials/instructions.pdf. This is the script read/shown to every human participant before and during the main (8-per-side, both-sides-propose) treatment. Slide repeats present in the source PDF (the deck reveals bullet points one at a time across several near-duplicate slides) are preserved faithfully but collapsed into one slide entry with a note, so the wording is not lost but is not needlessly duplicated.",
+  "evidence_label": "verbatim",
+  "source": "input/open_materials/instructions.pdf, all pages",
+  "slides": [
+    {
+      "id": "welcome",
+      "text": "Welcome to CASSEL\nWelcome to the CASSEL Lab, and thank you for participating in today's experiment.\n\nPlace all of your personal belongings away, so we can have your complete attention.\n\nIt is very important that you do not touch the computer until you are instructed to do so. When you are told to use the computer, please use it only as instructed. In particular, do not attempt to browse the web or use programs unrelated to the experiment.\n\nRaise your hand if you need a writing utensil."
+    },
+    {
+      "id": "the_experiment_intro",
+      "text": "The Experiment\nToday's experiment is an experiment on matching.\n\nYou will be paid for your participation in cash. Each of you may earn different amounts. How much you earn depends on your and others' decisions.\n\nYou will be using the computer for the entire experiment, and all interaction between you and others will be through the computer terminals.\n\nPlease DO NOT socialize or talk."
+    },
+    {
+      "id": "computer_instructions",
+      "text": "Computer Instructions\nWe will go through this computer practice session very slowly and it is important that you follow the instructions.\n\nIf you have any questions, raise your hand and your question will be answered so everyone can hear.\n\nAgain, please do not hit any keys until you are told to do so, and when you are told to enter information, type exactly what you are told to type."
+    },
+    {
+      "id": "start_program",
+      "text": "To Start The Program\nPlease double click on the ICON labeled \"MC\"."
+    },
+    {
+      "id": "log_on",
+      "text": "Log On Screen\nWhen the computer prompts you to Log In, type your first and last name.\n\nThen click \"submit\" to confirm."
+    },
+    {
+      "id": "experimental_interface_intro",
+      "text": "Experimental Interface\nYou should now see the experimental interface. The screen is divided into several sections."
+    },
+    {
+      "id": "the_experiment_rules",
+      "note": "This slide's bullet points are built up one-at-a-time across 6 near-identical slides in the source deck (pages repeat the growing bullet list). The full, final bullet list is transcribed once here; no wording differs across the repeats other than which bullets have appeared so far.",
+      "text": "The Experiment\n\n• In each round, you will randomly be assigned the role of a \"color\" or a \"fruit\".\n\n• There will be 8 colors and 8 fruit in your group.\n\n• You will try to match with a member of the opposite group.\n\n• For example, if you are color blue you may match with \"apple,\" \"banana,\" etc.\n\n• You derive different payoffs from different matches.\n\n• In each round of the experiment you will see all payoffs from each possible matching."
+    },
+    {
+      "id": "experimental_interface_layout",
+      "text": "Experimental Interface\n\nYour Type\n\nPotential Matches"
+    },
+    {
+      "id": "payoffs_1",
+      "text": "Payoffs\nIn each round, you see a table (left panel) with the payoff you get from each match.\n\nSuppose you are cyan:"
+    },
+    {
+      "id": "payoffs_2",
+      "text": "Payoffs\nTo summarize, in each round, if you match with someone, you receive the corresponding payoff in the table.\n\nIf you match with no one, your payoff in that round is 0."
+    },
+    {
+      "id": "getting_matched_preview",
+      "text": "Getting Matched - Preview\n\nYou get matched by making an offer that gets accepted, or by accepting an offer you receive.\n\nA match is broken if an alternative offer is accepted."
+    },
+    {
+      "id": "making_offers",
+      "text": "Making Offers\n\nYou make an offer by clicking on the name you want to match with (right panel).\n\n[Clickable buttons. Only one offer at a time.]"
+    },
+    {
+      "id": "making_offers_interface",
+      "text": "Making Offers - Interface\n\nAfter choosing a target for an offer, you will have to confirm."
+    },
+    {
+      "id": "response_to_offers",
+      "text": "Response to Offers\n\nIf you receive an offer, a window opens.\n\nYou can accept or reject.\n\nIf you wait more than 10 seconds the offer is rejected for you."
+    },
+    {
+      "id": "response_to_offers_interface",
+      "text": "Response to Offers - Interface\n\n[Offer Timer]\n[Offer Decision]"
+    },
+    {
+      "id": "current_matches",
+      "text": "Current Matches\nIn each round, you see a table (right) with the current matches.\n\n[Example shown: blue matched to cherry]"
+    },
+    {
+      "id": "matches_temporary",
+      "text": "Matches are Temporary\nUntil the round ends, matches are temporary.\n\nA match can be broken by accepting alternative offers."
+    },
+    {
+      "id": "end_of_round",
+      "text": "The End of a Round\nA round ends when there are no new offers during 30 seconds.\n\n[Game Timer]"
+    },
+    {
+      "id": "end_of_round_recording",
+      "text": "The End of a Round - Recording\nAt the end of each round, please record the details of the round on the provided sheet (please fill id now)."
+    },
+    {
+      "id": "earnings",
+      "text": "Your Earnings\n\nToday 1 point = 1 cent.\n\nYou will be paid at the end of the experiment the total amount you have earned in all rounds but the practice round.\n\nYou need not tell any other participant how much you have earned."
+    },
+    {
+      "id": "begin",
+      "text": "Let the Experiment Begin!\n\nTo ensure your privacy and that of others in the experiment, please pull out the dividers as far as they will go.\n\nIf there are no questions, we will now begin the actual experiment."
+    }
+  ],
+  "not_covered_by_this_script": {
+    "evidence_label": "missing",
+    "note": "The uploaded instructions.pdf only covers the main treatment: 8 participants per side, both sides free to propose. The paper states auxiliary treatments (unilateral offers -- only foods propose; large markets -- 15 per side) 'otherwise operated as in our main treatments' / 'resembles our main treatments', but does not reproduce the exact slide wording used for those sessions. task/adapter.py derives (evidence_label='derived') adapted instruction text for those arms by substituting the group size and adding an explicit proposing-rule sentence; the exact original wording for those variants is unavailable and is flagged in audit/missing_information.json."
+  }
+}

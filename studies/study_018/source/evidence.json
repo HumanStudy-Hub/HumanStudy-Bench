@@ -1,0 +1,152 @@
+{
+  "_description": "Complete evidence and provenance record. Every substantive claim, design parameter, or material used elsewhere in this package (materials/, task/, evaluation/, audit/) is traceable to one entry here. 'location' cites the page/section of input/paper.pdf unless another source file is named. Evidence labels: verbatim (quoted/transcribed exactly), reported (faithfully paraphrased), derived (transformed, derivation stated), missing (unavailable, left for researcher).",
+  "entries": [
+    {
+      "id": "design_two_sided_market",
+      "claim": "Decentralized one-to-one, two-sided market with no transfers; sides called 'foods' and 'colors'; participants fully informed of everyone's payoffs (all F x C match payoffs); unmatched agent earns 0.",
+      "evidence_label": "reported",
+      "source": "paper.pdf",
+      "location": "Section 4, 'Experimental Design', p.10"
+    },
+    {
+      "id": "design_offer_mechanics",
+      "claim": "At any point a participant may propose to any member of the opposite side (matched or not), one outstanding offer at a time; a received offer must be answered within 10 seconds or is auto-rejected; accepting a new offer breaks any existing (tentative) match; a market/round ends after 30 seconds elapse with no new offer.",
+      "evidence_label": "verbatim/reported mix; timing figures (10s, 30s) verbatim",
+      "source": "paper.pdf and input/open_materials/instructions.pdf",
+      "location": "paper.pdf Section 4 p.10; instructions.pdf slides 'Making Offers', 'Response to Offers', 'The End of a Round'"
+    },
+    {
+      "id": "design_main_treatment_sizes",
+      "claim": "Three main treatments use 8 participants per side (both sides may propose); 5 sessions, 2 practice + 10 real rounds each (fewer in one session); 85 usable experimental-market rounds after dropping 5 malfunctioning markets.",
+      "evidence_label": "reported",
+      "source": "paper.pdf",
+      "location": "Section 4, p.10-11 and footnote 8"
+    },
+    {
+      "id": "design_market_structures",
+      "claim": "Three market-structure conditions by number of stable partners per agent: (1) unique stable matching (every agent has exactly 1 stable partner); (2) two embedded 4x4 sub-markets (most agents have 2 stable partners, avg 1.75); (3) five stable matchings with exactly 3 stable partners per agent.",
+      "evidence_label": "reported",
+      "source": "paper.pdf",
+      "location": "Table 1 and surrounding text, p.11-13"
+    },
+    {
+      "id": "design_cardinal_variation",
+      "claim": "For each ordinal market, several cardinal (dollar-value) representations were used, varying utilitarian welfare, marginal utility differences between successively ranked partners (e.g. 20 cents vs 70 cents), and correlation/alignment of preferences across sides -- to test whether cardinal payoffs (not just ordinal ranks) affect which stable matching is selected.",
+      "evidence_label": "reported",
+      "source": "paper.pdf",
+      "location": "Section 4, p.11-14"
+    },
+    {
+      "id": "design_auxiliary_unilateral",
+      "claim": "Auxiliary 'unilateral offers' treatment: 8-per-side markets identical to main treatments except only foods may propose offers (colors may only accept/reject). 4 sessions; one session dropped for a termination-rule software glitch; 43 usable experimental markets.",
+      "evidence_label": "reported",
+      "source": "paper.pdf",
+      "location": "Section 4 p.14 and Section 6, p.21-25, footnote 11"
+    },
+    {
+      "id": "design_auxiliary_large",
+      "claim": "Auxiliary 'large markets' treatment: 15 participants per side (instead of 8), both sides propose, otherwise as main treatment. 3 sessions, 12 usable experimental markets; markets with a unique stable matching or with 3 stable partners.",
+      "evidence_label": "reported",
+      "source": "paper.pdf",
+      "location": "Section 4 p.14, Section 6 p.21, 25, footnote 11"
+    },
+    {
+      "id": "design_lab_and_subjects",
+      "claim": "Run at the California Social Science Experimental Laboratory (CASSEL) using a modified version of 'multi-stage' software; participants were UCLA undergraduates; each participant took part in only one session; $5 show-up fee; average total pay $40 (main), $33 (unilateral), $24 (large).",
+      "evidence_label": "verbatim (payment figures) / reported (rest)",
+      "source": "paper.pdf",
+      "location": "Section 4 p.14-15"
+    },
+    {
+      "id": "instructions_script",
+      "claim": "Full participant instruction slide deck for the main (8-per-side, bilateral) treatment.",
+      "evidence_label": "verbatim",
+      "source": "input/open_materials/instructions.pdf",
+      "location": "all pages; transcribed in materials/instructions_script.json"
+    },
+    {
+      "id": "payoff_matrices_all",
+      "claim": "31 cardinal payoff-matrix treatments (7 unique-SM baseline, 6 4-by-4 baseline, 4 5-SM baseline, 2 unique-SM one-sided, 4 4-by-4 one-sided, 3 5-SM one-sided, 3 large unique-SM, 2 large 3-stable-partner), each with per-cell (food payoff, color payoff) in cents.",
+      "evidence_label": "verbatim",
+      "source": "input/open_materials/Payoff Matrices.txt",
+      "location": "full file; transcribed in materials/payoff_matrices_verbatim.json",
+      "verification_note": "Brute-force stable-matching enumeration (permutation search) over the transcribed matrices confirms treatment #1 (unique-SM/two_aligned) has exactly 1 stable matching, #8 (4-by-4/Mkt_1) has exactly 4, and #15 (5-SM/20-20) has exactly 5 -- consistent with the paper's Table 1 counts, corroborating the transcription."
+    },
+    {
+      "id": "finding_stability_rate_main",
+      "claim": "88.24% of main-treatment markets (75/85) reach a fully stable matching; 95.44% of matched pairs have no blocking partner on average; even unstable markets are 'close' to stable (median payoff loss from not exploiting the best blocking opportunity is 2.1% / about 10 cents).",
+      "evidence_label": "verbatim (percentages) / reported",
+      "source": "paper.pdf",
+      "location": "Section 5.1, Table 2, p.15-19"
+    },
+    {
+      "id": "finding_stability_by_structure",
+      "claim": "Stability rate by market structure (main treatments): unique stable matching 90.00%, two embedded 4-by-4 94.29%, five stable matchings 75.00%.",
+      "evidence_label": "verbatim",
+      "source": "paper.pdf",
+      "location": "Table 2, p.17"
+    },
+    {
+      "id": "finding_median_dominance",
+      "claim": "In markets with three stable partners (five market-wide stable matchings): 80% of market-wide stable matchings are the median stable matching (0% food-optimal, 0% color-optimal); at the individual match level, 77% of stable matches are median-stable matches.",
+      "evidence_label": "verbatim",
+      "source": "paper.pdf",
+      "location": "Section 5.2, Table 3 (top panel, 'All' column), p.19-21"
+    },
+    {
+      "id": "finding_cardinal_effect",
+      "claim": "The side of the market with steeper marginal cardinal incentives ('more to lose') achieves its most-preferred stable matching more often -- e.g. across the four 5-stable-matching cardinal variants, % median|stable ranges 60-100% and food/color-optimal shares shift with the 20/70-cent marginal-difference manipulation (Table 3).",
+      "evidence_label": "verbatim",
+      "source": "paper.pdf",
+      "location": "Table 3 and Section 7, p.19-27"
+    },
+    {
+      "id": "finding_unilateral_comparison",
+      "claim": "With unilateral (foods-only) offers: 60.47% of markets (26/43) reach a stable matching (vs 88.24% main); 83.30% of pairs have no blocking partner (vs 95.44%); median stable matching remains modal (80% median|stable in 5-SM markets, same as main); foods (the proposing side) achieve their optimal stable matching far more often (86% of 4-stable-matching markets vs 27% in main).",
+      "evidence_label": "verbatim",
+      "source": "paper.pdf",
+      "location": "Table 4, Table 3 (bottom panel), Section 6, p.21-25"
+    },
+    {
+      "id": "finding_large_market_comparison",
+      "claim": "Large (15-per-side) markets: 66.67% of markets (8/12) reach a stable matching; 93.33% of pairs have no blocking partner; convergence slower (avg 4.47 min to final matching vs 1.62 min in main); every agent with three stable partners matches with their median stable partner (market-wide stable matchings are exclusively median).",
+      "evidence_label": "verbatim",
+      "source": "paper.pdf",
+      "location": "Table 4, Section 6, p.25, 934-956"
+    },
+    {
+      "id": "finding_convergence_speed",
+      "claim": "Main treatments: average 1.62 minutes (sd 1.00) to final matching, average 44.8/39.7/59.2 offers (unique/4x4/5-SM) with 8x8=64 possible directional offers; 89% of markets terminate before 5 minutes.",
+      "evidence_label": "verbatim",
+      "source": "paper.pdf",
+      "location": "Section 5.1 p.18-19, Table 5 p.33"
+    },
+    {
+      "id": "finding_strategic_targeting",
+      "claim": "Proposers are more likely to target blocking partners (probability of offering to a blocking partner ~0.15 higher than to a non-blocking partner) and more likely to target blocking partners who gain more from the match; not all offers to blocking partners are accepted (offers to blocking pairs accepted 60.5% early vs higher later); agents avoid the theoretically-possible indefinite cycles of blocking pairs that naive sequential-blocking-pair or DA-type dynamics would produce.",
+      "evidence_label": "reported",
+      "source": "paper.pdf",
+      "location": "Section 8, Table 6, Table 9, p.34-46"
+    },
+    {
+      "id": "egalitarian_matching_avoidance",
+      "claim": "In markets containing a salient but unstable egalitarian matching (all agents get equal payoff), participants consistently avoid it in favor of the (unequal) stable matching -- none of the main-treatment egalitarian-matching markets end at the unstable egalitarian outcome.",
+      "evidence_label": "verbatim",
+      "source": "paper.pdf",
+      "location": "Section 7, p.26-27"
+    },
+    {
+      "id": "simulation_benchmarks_note",
+      "claim": "The paper also simulates four theoretical dynamic-matching algorithms (2RDA, DACC, RPS, RBR) 10,000 times per market as comparison benchmarks (Tables 7-8). This package's evaluation.py does not reimplement these algorithms as comparison baselines -- see audit/missing_information.json entry 'dynamic_model_benchmarks'.",
+      "evidence_label": "reported",
+      "source": "paper.pdf",
+      "location": "Section 8.4-8.5, Tables 7-8, p.35-43"
+    },
+    {
+      "id": "appendix_check",
+      "claim": "input/open_materials/paper/matching_experiment_appendix.pdf (the paper's own Online Appendix) was read in full; it contains additional figures/robustness tables and formal definitions (e.g. match-level cycle) referenced by the main text, but no additional participant-facing instructions, payoff matrices, or materials beyond what is in Payoff Matrices.txt and instructions.pdf.",
+      "evidence_label": "reported",
+      "source": "input/open_materials/paper/matching_experiment_appendix.pdf"
+    }
+  ]
+}
