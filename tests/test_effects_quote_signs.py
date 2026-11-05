@@ -27,3 +27,37 @@ def test_separated_minus_is_joined_only_for_a_true_minus_where_a_number_starts()
         assert not core.rendered_quote(value, {**record, "quote": quote}), quote
     for value, quote in [(-0.011, "b = − 0.011"), (-0.5, "(− 0.5)"), (-0.4, "95% CI [0.1, − 0.4]")]:
         assert core.rendered_quote(value, {**record, "quote": quote}), quote
+
+
+def statistic_fixture():
+    import json
+    program = json.loads((Path(__file__).parents[1] / "tests/fixtures/research-program.json").read_text())
+    program["evidence"].append({"id": "statistic-row", "quote": "Wilcoxon V = 18, p = 0.000."})
+    doc = {"schemaVersion": 2, "programId": program["id"], "topics": [],
+           "hypotheses": [{"id": "h", "nodeId": "hypothesis", "status": "tested", "phenomena": []}],
+           "effects": [{"id": "e", "label": "Signed-rank comparison", "role": "test", "hypothesisIds": ["h"], "studyId": "exp-1",
+                        "design": "within", "unit": "participant",
+                        "outcome": {"variableId": "intentionality", "type": "binary"},
+                        "contrast": {"kind": "paired", "treatment": "harm", "reference": "help"},
+                        "prediction": {"direction": "unspecified"}, "analysisIds": ["analysis"],
+                        "resultIds": ["result-1"], "compute": {"op": "package", "key": "e"},
+                        "reported": {"test": {"statistic": "V", "value": 18, "p": None,
+                                              "pText": "0.000 (printed rounded zero)"},
+                                     "missing": ["Exact p-value is unavailable"], "evidenceIds": ["statistic-row"]}}]}
+    return doc, program
+
+
+def test_wilcoxon_v_and_rounded_p_text_remain_distinct():
+    doc, program = statistic_fixture()
+    assert core.check(Path("."), doc, program)[0] == []
+    for relation in ("=", "<"):
+        doc["effects"][0]["reported"]["test"].update(p=0, pRelation=relation)
+        problems, _ = core.check(Path("."), doc, program)
+        assert any("rounded" in problem for problem in problems)
+
+
+def test_zero_p_attached_to_estimate_is_also_rejected():
+    doc, program = statistic_fixture()
+    doc["effects"][0]["reported"]["estimates"] = [{"metric": "mean", "value": 18, "p": 0}]
+    problems, _ = core.check(Path("."), doc, program)
+    assert any("estimates[0].p" in problem for problem in problems)
