@@ -1068,15 +1068,18 @@ def check_package(root: Path, job: Path) -> list[str]:
             + ". Every condition id in task/task.json must run with run_sessions(llm, seed, n, arms=[id]) for n = 1, 2 or 4; a "
             "condition that cannot run returns a blocked session record instead of raising.")
     try:
-        from agent_pipeline import paper_tables, recorded_answers, source_use
+        from agent_pipeline import design_checks, docx_text, paper_tables, recorded_answers, source_use
     except ModuleNotFoundError:
+        import design_checks  # type: ignore[no-redef]
+        import docx_text  # type: ignore[no-redef]
         import paper_tables  # type: ignore[no-redef]
         import recorded_answers  # type: ignore[no-redef]
         import source_use  # type: ignore[no-redef]
     for check in (lambda: check_memory(root, result), lambda: check_results(root, job),
                   lambda: paper_tables.check_tables(root, job), lambda: paper_tables.check_signs(root, job),
                   lambda: check_analyses(root, job, result), lambda: check_reply(root, job, result),
-                  lambda: recorded_answers.problems(root), lambda: source_use.check(root, job)):
+                  lambda: recorded_answers.problems(root), lambda: source_use.check(root, job),
+                  lambda: docx_text.check(root, job, result), lambda: design_checks.check(root, job)):
         try:
             problems += check()
         except Exception as exc:  # noqa: BLE001 - a malformed record is reported, not a crash

@@ -59,6 +59,9 @@ EVALUATION = '''def evaluate(sessions):
 '''
 
 
+PRESENTATION = {"layout": "one question per screen", "origin": "reported", "evidence": "the paper's procedure"}
+
+
 def write_runnable(root: Path) -> None:
     """Write a runnable adapter, evaluation, replies copy and task conditions into ``root``."""
     (root / "task").mkdir(parents=True, exist_ok=True)
@@ -73,4 +76,5 @@ def write_runnable(root: Path) -> None:
         task = {}
     task = task if isinstance(task, dict) else {}
     task["conditions"] = [{"id": "control"}, {"id": "treatment"}]
+    task.setdefault("presentation", PRESENTATION)
     task_path.write_text(json.dumps(task, indent=2) + "\n")

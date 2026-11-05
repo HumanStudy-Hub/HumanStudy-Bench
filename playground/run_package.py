@@ -543,7 +543,24 @@ def _finalize(run_dir: Path, sessions: Any, evaluate_fn: Callable[[Any], Any], r
     return result
 
 
-def _call_run_sessions(fn: Callable[..., Any], llm: Callable[..., str], seed: int, n: int, arms: Optional[List[str]], on_session: Optional[Callable[[Any], None]]) -> List[dict]:
+def per_condition_sizes(package: Path, run: dict) -> Optional[Dict[str, int]]:
+    """{condition id: sessions} when the run asks for unequal cells, else None."""
+    sizes = run.get("participantsPerCondition")
+    if not isinstance(sizes, dict) and run.get("paperCellSizes"):
+        try:
+            task = json.loads((package / "task" / "task.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            task = {}
+        conditions = task.get("conditions") if isinstance(task, dict) else None
+        sizes = {c["id"]: c["paper_n"] for c in conditions or []
+                 if isinstance(c, dict) and isinstance(c.get("id"), str) and isinstance(c.get("paper_n"), int)}
+    if not isinstance(sizes, dict):
+        return None
+    clean = {str(k): int(v) for k, v in sizes.items() if isinstance(v, (int, float)) and int(v) > 0}
+    return clean or None
+
+
+def _call_run_sessions(fn: Callable[..., Any], llm: Callable[..., str], seed: int, n: Any, arms: Optional[List[str]], on_session: Optional[Callable[[Any], None]]) -> List[dict]:
     """Run the package's run_sessions, honouring optional arms and on_session."""
     try:
         params = inspect.signature(fn).parameters
@@ -637,11 +654,18 @@ def main() -> None:
     cache = _load_cache(run_dir, selection)
     llm = _make_llm(model, api_key, temperature, on_step, cache, lambda c: _save_cache(run_dir, c, selection))
 
-    n = int(run.get("participantsPerScenario") or 8)
+    n: Any = int(run.get("participantsPerScenario") or 8)
     # Number of sessions (markets) this run will complete: one condition has `n`
     # sessions; a whole run has `n` per arm. Unknown for whole runs (the package
     # decides how many arms), so it stays None there.
     total_sessions = n * len(arms) if arms else None
+    # The paper's own cell sizes: run.json "participantsPerCondition" ({condition id: n}), or
+    # "paperCellSizes": true to take each condition's "paper_n" from task/task.json. Packages
+    # read either form of n with replies.sessions_for(n, arm).
+    per_condition = per_condition_sizes(package, run)
+    if per_condition:
+        n = per_condition
+        total_sessions = sum(v for k, v in per_condition.items() if not arms or k in arms)
     # Rough call budget per market (max_ticks + offers); used only to give the
     # progress bar a call-based denominator so "0 of 1 sessions" doesn't read 0%.
     estimated_total_calls = total_sessions * 600 if total_sessions else None
