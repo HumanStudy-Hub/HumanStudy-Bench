@@ -13,7 +13,8 @@ is rejected when:
 - a ``verbatim`` item is relabelled, removed, or any part of it other than its
   own top-level metadata changes (nested text such as scale anchors counts);
 - an evidence record changes, is removed, or is added (unless it copies a record
-  that already existed elsewhere in the package);
+  that already existed elsewhere in the package, or its quote occurs word for word
+  in the paper or downloaded file it cites: ``source_quote_matcher``);
 - an entry of ``audit/missing_information.json`` changes or is removed;
 - the repair adds an item, or changes an item's value or label, and the result
   is resolved without an evidence basis: it must be ``verbatim``, ``reported`` or
@@ -212,11 +213,15 @@ def _under(path: Path_, roots: set) -> bool:
     return any(path[:len(root)] == root for root in roots)
 
 
-def compare_packages(pre: Dict[str, Any], post: Dict[str, Any], removable: Optional[Removable] = None) -> dict:
+def compare_packages(pre: Dict[str, Any], post: Dict[str, Any], removable: Optional[Removable] = None,
+                     verified: Optional[Callable[[dict], bool]] = None) -> dict:
     """Compare two packages given as ``{relative json path: parsed json}``.
 
     ``removable(before, after)`` may allow a verbatim item to be removed (``after`` is None)
     or marked as not shown: the survey flow check's repair for text participants never saw.
+    ``verified(record)`` may allow a new evidence record: one whose quote the cited source
+    prints word for word (a result passage the build did not record), which is not new
+    content.
 
     A file that did not parse is given as ``Unparsed(text)``. Pure function:
     returns ``{"passed", "violations", "checked"}`` without touching the disk.
@@ -317,7 +322,8 @@ def compare_packages(pre: Dict[str, Any], post: Dict[str, Any], removable: Optio
             violations.append(f"{_where(path)}: evidence record was changed ({', '.join(changed)})")
     for path, entry in post_evidence.items():
         if path not in pre_evidence and _evidence_record(entry) not in pre_records.get(entry["id"], []):
-            violations.append(f"{_where(path)}: repair added a new evidence record")
+            if entry["id"] in pre_records or verified is None or not verified(entry):
+                violations.append(f"{_where(path)}: repair added a new evidence record")
 
     pre_audit = _audit_entries(pre.get(AUDIT_FILE))
     post_audit = _audit_entries(post.get(AUDIT_FILE))
@@ -385,7 +391,48 @@ def package_diff(pre_root: Path, post_root: Path, limit: int = 2_000_000) -> str
     return text if len(text) <= limit else text[:limit] + "\n[truncated]\n"
 
 
-def guard_repair(pre_root: Optional[Path], post_root: Optional[Path], removable: Optional[Removable] = None) -> dict:
+QUOTE_SOURCES = ("input/paper.pdf", "input/external/", "input/open_materials/")
+MIN_QUOTE = 20
+
+
+def source_quote_matcher(job: Path) -> Callable[[dict], bool]:
+    """Accept a new evidence record whose quote occurs, word for word and without
+    ellipses, in the job file its ``path`` names (the paper, a downloaded or an uploaded
+    source). Anything else stays refused."""
+    try:
+        from agent_pipeline.check_sources import file_text, quote_in_text
+    except ModuleNotFoundError:
+        from check_sources import file_text, quote_in_text  # type: ignore[no-redef]
+    texts: Dict[str, Optional[str]] = {}
+    base = job.resolve()
+
+    def verified(record: dict) -> bool:
+        path, quote = record.get("path"), record.get("quote")
+        if not isinstance(path, str) or not isinstance(quote, str) or len(quote.strip()) < MIN_QUOTE:
+            return False
+        relative = path.strip()
+        relative = relative[2:] if relative.startswith("./") else relative
+        if relative.startswith("/") or ".." in relative.replace("\\", "/").split("/"):
+            return False
+        if not (relative == QUOTE_SOURCES[0] or relative.startswith(QUOTE_SOURCES[1:])):
+            return False
+        target = (base / relative).resolve()
+        if base not in target.parents or not target.is_file():
+            return False
+        if relative not in texts:
+            texts[relative] = file_text(target)
+        text = texts[relative]
+        # A minus printed as U+2212 and a soft hyphen are the same text as "-" and nothing.
+        def plain(value: str) -> str:
+            return value.replace("\u2212", "-").replace("\u00ad", "")
+
+        return bool(text) and quote_in_text(plain(quote), plain(text), allow_ellipsis=False)
+
+    return verified
+
+
+def guard_repair(pre_root: Optional[Path], post_root: Optional[Path], removable: Optional[Removable] = None,
+                 verified: Optional[Callable[[dict], bool]] = None) -> dict:
     """Compare the paper folder before repair with the one after it."""
     if pre_root is None:
         return {"passed": False, "checked": {}, "changedFiles": [],
@@ -396,6 +443,6 @@ def guard_repair(pre_root: Optional[Path], post_root: Optional[Path], removable:
     if post_root.name != pre_root.name:
         return {"passed": False, "checked": {}, "changedFiles": [],
                 "violations": [f"repair renamed the paper folder {pre_root.name} to {post_root.name}"]}
-    result = compare_packages(load_package(pre_root), load_package(post_root), removable)
+    result = compare_packages(load_package(pre_root), load_package(post_root), removable, verified)
     result["changedFiles"] = changed_files(pre_root, post_root)
     return result

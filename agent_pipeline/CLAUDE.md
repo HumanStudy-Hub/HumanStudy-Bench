@@ -483,13 +483,38 @@ the paper's own results for every study the package runs, in
   percentages, estimates, CIs, p values) as numbers. Descriptive tables (cell means and SDs, sample
   composition) count; tables of design, materials or power analysis do not.
 - **Every reported test statistic, effect size, confidence interval and N** in
-  the text: each t, F, χ², z with its df, each d, r, OR, b, η², f with its CI,
-  each p value, and the N or n it rests on. Comparison values from an original
-  study that a replication reports belong here too.
+  the text: each t, F, χ², z with its df, each d, r, OR, b (a "coeff = 0.25"), η², f
+  with its CI and SE, **each p value next to the statistic it belongs to**, and the N
+  or n it rests on. Comparison values from an original study that a replication
+  reports belong here too. Results printed only in the text count as much as the
+  tables: "men 26% vs women 18%", "85 (45.5%) knew the source", "12 out of the 16
+  options", a pooled model the tables do not show, and a pattern or verdict rule the
+  paper states in words (record its counts and its rule).
+- **The sample's make-up** for each study: sex or gender counts or shares and age
+  (mean, SD), in a result or participants node, with `not_ready` when the replay does
+  not ask it.
+- **Every result the abstract names.** Record it (with `not_ready` when the replay
+  cannot compute it) and map each finding the abstract states in
+  `source/paper_metadata.json`:
+  `"abstract_results": [{"claim": "men are more likely than women to tell an altruistic
+  white lie", "recorded_in": ["result-gender.awl_logit"]}, {"claim": "<an
+  interpretation>", "not_recorded": "a reading of results (i) and (ii), no statistic of
+  its own"}]`. `claim` is the abstract's own words; `recorded_in` names the result
+  fields (`<node id>.<field id>`) whose ids, values or cited quotes are about it.
+- **The supplement's tables.** When you fetch a supplement (or the researcher uploads
+  one), its numbered descriptive and result tables (item means and SDs, item-total
+  correlations, regression tables) are human results: record each cell by cell like a
+  paper table and list it in `paper_tables` with `"table": "S1"` and `"source":
+  "input/external/<file>"`.
 
-The package check reads the tables and statistics in the PDF text and fails when
-most of a printed result table or most of the reported statistics are absent
-from the result nodes.
+The package check reads the tables and statistics in the PDF text (and the fetched
+supplement's tables) and fails when most of a printed result table, most of the text's
+exact p values or of its "x% vs y%" and "n (x%)" pairs, the sample's sex or age, or
+every number of a results paragraph are absent from the result nodes, and when an
+abstract finding is not in `abstract_results`. A passage it reads as a result that is
+not one (a payoff or design value, a power analysis, another study's result) goes in
+`source/paper_metadata.json` `"results_not_recorded": [{"page": 4, "quote": "<the
+passage's exact text>", "reason": "..."}]`; never list a result of this paper there.
 
 **Tables without a text layer.** Many PDFs draw tables as vector graphics or
 images: the text mentions "Table 1 and 2" but `pdftotext` returns nothing for them.
@@ -512,9 +537,10 @@ picture. Record every such table in `source/paper_metadata.json`:
 ]
 ```
 
-`kind` is `result`, `other` or `not-in-paper` (a supplementary table). Settle
-these in the build: a repair round cannot add the evidence record a newly read
-table needs. A result
+`kind` is `result`, `other` or `not-in-paper` (a supplementary table that was not
+fetched; a fetched supplement's tables are `result` or `other`, with `source`). Settle
+these in the build: a repair round can add only an evidence record whose quote the
+PDF's text layer prints, not the one a table read from the page image needs. A result
 table is recorded cell by cell like any other (the field named in `recorded_in`),
 with evidence citing its page. The package check fails a table without a text
 layer that `paper_tables` is missing, or a result table not recorded as rows and
@@ -541,8 +567,9 @@ field `extensions.evaluation`: `{"output": "<key path in evaluate()'s return
 value>"}` for the entry that computes the same statistic from the replay
 sessions, or `{"not_ready": "<the specific missing requirement>"}`. Record these
 links while building: a repair round may add or fix links and may add result
-fields that cite evidence records already in the package, but it cannot add
-evidence records. Compute the
+fields that cite evidence records already in the package; the only evidence records
+it may add are quotes copied word for word, without ellipses, from the paper or a
+downloaded file (`path`, `locator`, `quote`). Compute the
 paper's own test, not a convenient neighbour: the same family and options
 (pooled-variance Student t when the reported df are N - 2, Welch when they are
 fractional; one- or two-tailed as reported), the same model terms (every main
@@ -553,6 +580,35 @@ pandas and statsmodels are installed in the build and in the replay runtime;
 key on any input, with `{"status": "not_ready", "reason": "..."}` where the
 sessions cannot support the test (too few, a blocked condition), so the check
 can confirm each named output exists.
+
+A link claims that the output computes *that* statistic, so:
+
+- **The output holds the recorded kind** (r, α, t, F, χ², z, OR, h, d, b, mean, SD,
+  share): a correlation or an α never links to a paired t, a mean and SD never to a
+  test that returns no SD. Declare what each output returns in
+  `evaluation/evaluation.py`, because many outputs are not ready on the check's
+  one-participant run and their keys cannot be seen:
+  `OUTPUT_KINDS = {"study2.bsr_vs_chopra_participant": "mean t df p", "descriptives.dg_mean_share":
+  {"kinds": "mean", "unit": "share"}, "exp2.table3": {"kinds": "chi2 p or h n", "rows": True},
+  "stage1_lie.*": "n share"}` (`*` is one key segment; `rows` marks an output that is a
+  table of the recorded rows). A computed output that lacks a declared kind fails.
+- **Same scale.** A share of the endowment never links to a mean in cents, a share
+  never to a percentage: compute the output on the paper's scale.
+- **Cell by cell.** A table, or a field holding several values ("AWL" and "PWL"
+  shares), links each computed cell or value on its own, with a whole-field
+  `not_ready` for the rest: `{"not_ready": "columns II, III, V and VI need the
+  demographics, which the replay does not ask", "cells": {"rows.AWL.I":
+  "dg_truth_regression.AWL", "rows.PWL.IV": "dg_truth_regression.PWL"}}`. A cell is a
+  key path into the field's value. Judge readiness per cell: a correlation of two
+  measures the replay collects, or a scale's α, is computed even when the rest of its
+  table needs measures the replay does not run.
+- **The paper's n.** When a table's n is smaller in one row than in the others (36/125
+  where every other row has 188), the paper dropped part of a group from that
+  comparison, often in a sentence of the text ("an error in the questionnaire used in
+  the second-phase replication"). Find the reason, drop the same participants in
+  `evaluate()` for that row, and say so in the link: `"exclusion": "framing A had no
+  50/50 option in phase 2 (p. 7); evaluate() leaves it out of this row's comparison
+  group"`.
 
 ## Evidence labels
 

@@ -22,13 +22,13 @@ from pathlib import Path
 try:
     from agent_pipeline.fetch_public import restore_downloads, strip_signed_urls, verify_downloads
     from agent_pipeline.network_policy import allowed_hosts
-    from agent_pipeline.repair_guard import guard_repair, package_diff
+    from agent_pipeline.repair_guard import guard_repair, package_diff, source_quote_matcher
     from agent_pipeline.qsf_flow import never_shown_matcher
     from agent_pipeline.studio_output import studio_mode, validate_build_sidecars, validate_discussion
 except ModuleNotFoundError:  # Direct script execution from the repository root.
     from fetch_public import restore_downloads, strip_signed_urls, verify_downloads
     from network_policy import allowed_hosts
-    from repair_guard import guard_repair, package_diff
+    from repair_guard import guard_repair, package_diff, source_quote_matcher
     from qsf_flow import never_shown_matcher
     from studio_output import studio_mode, validate_build_sidecars, validate_discussion
 
@@ -269,12 +269,27 @@ REPAIR_RULES = (
      "ids; key answers by neutral labels (q1, q2) and keep ids out of transcript lines."),
     ("human results",
      "Human results to compare against: record every printed result table cell by cell and every "
-     "reported statistic in study.json.program result nodes (result_kind reported), citing the "
-     "existing evidence record for that page or table; a repair cannot add evidence records."),
+     "reported statistic in study.json.program result nodes (result_kind reported): text statistics "
+     "with their p values and SEs, '26% vs 18%' comparisons, the sample's sex and age, and every result "
+     "the abstract names (source/paper_metadata.json abstract_results), with not_ready when the replay "
+     "cannot compute it. Cite the existing evidence record for that page, or add a new evidence record "
+     "{\"id\", \"path\": \"input/paper.pdf\", \"locator\": {\"page\": <page>}, \"quote\": \"<text copied "
+     "word for word from the PDF, no ellipsis>\"}: a repair may add evidence records only with a quote "
+     "the cited file prints exactly. A passage that holds no result of this paper goes in "
+     "results_not_recorded with its exact text and the reason; never use it to skip a real result."),
+    ("supplement tables",
+     "Human results to compare against, supplement tables: list each result table of the fetched "
+     "supplement in source/paper_metadata.json paper_tables with its source file, and record it cell by "
+     "cell in a result field (evidence quoting the supplement file), or kind 'other' when it holds no "
+     "results."),
     ("analyses:",
      "Human results to compare against: give each result field extensions.evaluation with the "
      "evaluate() output key that computes the paper's own test, or not_ready with a specific "
-     "reason; numpy, scipy, pandas and statsmodels are installed."),
+     "reason; numpy, scipy, pandas and statsmodels are installed. The linked output must hold the "
+     "recorded statistic (r, alpha, t, mean, SD, share ...) on the same scale; link table cells and "
+     "separate values individually with extensions.evaluation.cells; declare what each output holds in "
+     "evaluation/evaluation.py OUTPUT_KINDS; apply a row's exclusion in evaluate() and state it in "
+     "extensions.evaluation.exclusion."),
     ("studio-reply.md",
      "Researcher reply: open with 'Ready to run:', 'Needs you:', 'Licence:' (the licence printed "
      "in the PDF), at most three questions, a 'Run size:' line from agent_pipeline/estimate_run.py, "
@@ -641,7 +656,7 @@ def run_guarded_repair(job: Path, package: Path, run_repair, turns: list | None 
             try:
                 pre_root = package_root(snapshot)
                 removable = never_shown_matcher(pre_root, job) if pre_root is not None else None
-                guard = guard_repair(pre_root, package_root(package), removable)
+                guard = guard_repair(pre_root, package_root(package), removable, source_quote_matcher(job))
             except Exception as exc:  # A guard bug must fail closed, not pass the repair.
                 guard["violations"] = [f"fidelity guard error ({type(exc).__name__}: {exc})"]
         for violation in guard["violations"]:
