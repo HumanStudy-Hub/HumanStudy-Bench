@@ -1,0 +1,210 @@
+{
+  "status": "local_surrogate_pilot_not_validated_benchmark_scorer",
+  "source_sha256": "9f269b76c4e33db75bc4daaa292620b73f9f2a7ca7962d0b10b5b859a75c34a9",
+  "source_rows": 801,
+  "included": 757,
+  "original_class_source_sha256": "b6bc46f6f64a981564ef6579f71df13a75388c0c540a88385f4e7d142e409d22",
+  "class_source": "Original survey token; artificial pooled missing-class code in analysis CSV is not used.",
+  "source_wle_crosscheck": "All 801 IDs and WLE/missing values agree with published analysis data.rds (independently checked).",
+  "source_reference": "https://doi.org/10.2378/peu2026.art12d",
+  "scoring_reference": "https://aclanthology.org/2024.bea-1.18/",
+  "excluded_sequential": {
+    "missing_wle": 22,
+    "missing_class": 22,
+    "empty_text": 0
+  },
+  "observed_classes": 50,
+  "split_components_after_duplicate_union": 50,
+  "duplicate_normalized_texts": 0,
+  "target": "Existing algorithm-derived baseline p2_wle, NOT human ratings",
+  "predictors": "Only baseline p2_draft; no outcomes, feedback, profiles or IDs",
+  "validation": "5 outer class-grouped folds; alpha selected with 3 inner grouped folds; all vectorizers fit inside folds",
+  "metrics": {
+    "mean": {
+      "n": 757,
+      "pearson_r": -0.11052055486375384,
+      "spearman_r": -0.12408612847611124,
+      "r2": -0.006861589990046824,
+      "mae_wle": 0.6076161385178966,
+      "rmse_wle": 0.7976840059600985,
+      "bias_pred_minus_reference": -7.021786832926785e-05
+    },
+    "length": {
+      "n": 757,
+      "pearson_r": 0.7076419831873361,
+      "spearman_r": 0.6509627190890789,
+      "r2": 0.5007518861757876,
+      "mae_wle": 0.4271255188312888,
+      "rmse_wle": 0.5616997283732594,
+      "bias_pred_minus_reference": -0.001724902936065022
+    },
+    "text": {
+      "n": 757,
+      "pearson_r": 0.793898123118055,
+      "spearman_r": 0.7507762077172636,
+      "r2": 0.6300236227939342,
+      "mae_wle": 0.36998176779397224,
+      "rmse_wle": 0.48354065585692996,
+      "bias_pred_minus_reference": 0.011305733024133693
+    }
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "n_train": 605,
+      "n_test": 152,
+      "length": {
+        "alpha": 1.0,
+        "n": 152,
+        "pearson_r": 0.7639906075039011,
+        "spearman_r": 0.7192038946889056,
+        "r2": 0.5831148610124274,
+        "mae_wle": 0.38825704065654404,
+        "rmse_wle": 0.49901202580817267,
+        "bias_pred_minus_reference": 0.009577857182238289
+      },
+      "text": {
+        "alpha": 1.0,
+        "n": 152,
+        "pearson_r": 0.8139725777860425,
+        "spearman_r": 0.7434765123197189,
+        "r2": 0.6495925607923831,
+        "mae_wle": 0.35280991794917693,
+        "rmse_wle": 0.4574982781543338,
+        "bias_pred_minus_reference": 0.011952002662511724
+      }
+    },
+    {
+      "fold": 2,
+      "n_train": 607,
+      "n_test": 150,
+      "length": {
+        "alpha": 1.0,
+        "n": 150,
+        "pearson_r": 0.6763101738963775,
+        "spearman_r": 0.5829198997659942,
+        "r2": 0.4573282734296469,
+        "mae_wle": 0.419090052081774,
+        "rmse_wle": 0.5852794293328271,
+        "bias_pred_minus_reference": -0.00029594581241918644
+      },
+      "text": {
+        "alpha": 1.0,
+        "n": 150,
+        "pearson_r": 0.7928075308447684,
+        "spearman_r": 0.701915433105719,
+        "r2": 0.6219319579515334,
+        "mae_wle": 0.35669799734687224,
+        "rmse_wle": 0.4885169610669302,
+        "bias_pred_minus_reference": 0.017021819389088443
+      }
+    },
+    {
+      "fold": 3,
+      "n_train": 606,
+      "n_test": 151,
+      "length": {
+        "alpha": 10.0,
+        "n": 151,
+        "pearson_r": 0.7168647113024186,
+        "spearman_r": 0.6553582583904038,
+        "r2": 0.5094649219778273,
+        "mae_wle": 0.4341303825757282,
+        "rmse_wle": 0.5643923858163648,
+        "bias_pred_minus_reference": -0.04689144722466464
+      },
+      "text": {
+        "alpha": 1.0,
+        "n": 151,
+        "pearson_r": 0.8197034632154432,
+        "spearman_r": 0.7876445559598705,
+        "r2": 0.6706159276370325,
+        "mae_wle": 0.36696399573353183,
+        "rmse_wle": 0.4624847414916846,
+        "bias_pred_minus_reference": -0.02438122000102854
+      }
+    },
+    {
+      "fold": 4,
+      "n_train": 607,
+      "n_test": 150,
+      "length": {
+        "alpha": 10.0,
+        "n": 150,
+        "pearson_r": 0.6158384497570516,
+        "spearman_r": 0.6307840103691099,
+        "r2": 0.37809887583660806,
+        "mae_wle": 0.47591077553313804,
+        "rmse_wle": 0.6121691692430529,
+        "bias_pred_minus_reference": 0.025954583076474046
+      },
+      "text": {
+        "alpha": 1.0,
+        "n": 150,
+        "pearson_r": 0.6894804266796793,
+        "spearman_r": 0.6866463274468554,
+        "r2": 0.4668438509521218,
+        "mae_wle": 0.44014471874284916,
+        "rmse_wle": 0.5668106394325564,
+        "bias_pred_minus_reference": 0.06215658548833851
+      }
+    },
+    {
+      "fold": 5,
+      "n_train": 603,
+      "n_test": 154,
+      "length": {
+        "alpha": 1.0,
+        "n": 154,
+        "pearson_r": 0.7413280829680949,
+        "spearman_r": 0.6194825425660495,
+        "r2": 0.5407819904418905,
+        "mae_wle": 0.41892945236570883,
+        "rmse_wle": 0.542323581823418,
+        "bias_pred_minus_reference": 0.00305342290269282
+      },
+      "text": {
+        "alpha": 1.0,
+        "n": 154,
+        "pearson_r": 0.851574571538052,
+        "spearman_r": 0.7697085048068132,
+        "r2": 0.7070443580147837,
+        "mae_wle": 0.33448779170480875,
+        "rmse_wle": 0.4331616172708682,
+        "bias_pred_minus_reference": -0.009438058551242252
+      }
+    }
+  ],
+  "python_sklearn": "1.8.0",
+  "limitations": [
+    "Agreement with existing automated WLE is not validity against human gold.",
+    "Direct WLE regression does not reproduce the original 10 indicators and PCM.",
+    "No validation on model-generated essays or a separate student cohort.",
+    "Classes, not schools, are held out.",
+    "No inference-equivalence test for the original moderator effects.",
+    "No claim of parity with the published scoring algorithms.",
+    "No external training or participant-agent training performed."
+  ],
+  "text_fixed_oof_cluster_bootstrap_95pct": {
+    "pearson_r": [
+      0.747354664978435,
+      0.8317561744542069
+    ],
+    "r2": [
+      0.5575306747445142,
+      0.6908403173986076
+    ],
+    "mae_wle": [
+      0.34681036592714887,
+      0.3967988646669746
+    ],
+    "rmse_wle": [
+      0.4497553341311033,
+      0.5192166213770718
+    ]
+  },
+  "final_fit_alpha": 1.0,
+  "model_sha256": "86fadb66e384ce85c3ae640bf7588fe0738a4cfac6e7c86c368636893e941eb2",
+  "packaged_model_sha256": "9d836995137ec3d344fac50e2fe919751e019a702d0260061b7bede31248e766",
+  "portable_class_module": "scorer_features"
+}

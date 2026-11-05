@@ -140,6 +140,15 @@ def cap_trials(study_config: Any, run: Dict[str, Any], has_own_key: bool, log) -
     max_total, max_per_scenario = settings.trial_limits(has_own_key)
     requested = int(run.get("participantsPerScenario") or settings.DEFAULT_PER_SCENARIO)
     per_scenario = max(1, min(requested, max_per_scenario))
+    calls_per_participant = getattr(study_config, "MAX_MODEL_CALLS_PER_PARTICIPANT", 1)
+    if type(calls_per_participant) is not int or calls_per_participant < 1:
+        raise StudyNotRunnable("Invalid model-call budget declaration.")
+    if calls_per_participant > 1:
+        per_scenario = min(per_scenario, max_total // calls_per_participant)
+        if per_scenario < 1:
+            raise StudyNotRunnable("This persistent protocol exceeds the available run budget.")
+        log(f"Persistent protocol allows up to {calls_per_participant} model calls per participant; "
+            f"this run is capped at {per_scenario} participant sessions.")
     if per_scenario != requested:
         log(f"Requested {requested} participants per condition; capped to {per_scenario} for this run budget.")
 
@@ -151,6 +160,8 @@ def cap_trials(study_config: Any, run: Dict[str, Any], has_own_key: bool, log) -
     trials = [trial for trial in trials if isinstance(trial, dict)]
     if not trials:
         raise SystemExit("The study produced no trials to run.")
+    if calls_per_participant > 1 and len(trials) * calls_per_participant > max_total:
+        raise StudyNotRunnable("The study returned more participant sessions than the model-call budget allows.")
 
     if len(trials) > max_total:
         # Subsample evenly across conditions so every condition keeps participants.
@@ -176,9 +187,9 @@ def build_profiles(trials: List[Dict[str, Any]], specification: Dict[str, Any], 
     sampling. Otherwise every participant keeps the profile the study drew for
     them, with any demographic the researcher pinned applied on top.
     """
-    population = specification.get("participants", {}).get("population")
+    population = specification.get("participants", {}).get("population") or specification.get("population")
     recruitment = specification.get("participants", {}).get("recruitment_source")
-    defaults = {"study_id": study_id, "population": population, "education": recruitment or "college student"}
+    defaults = {"study_id": study_id, "population": population, "education": specification.get("participants", {}).get("education") or recruitment or ("" if population else "college student")}
 
     group = run.get("personaGroup")
     if group:
@@ -356,73 +367,99 @@ def main() -> None:
         # part, and reproduce or edit it for the next run.
         (output_dir / "profiles.json").write_text(json.dumps(profiles, indent=2, default=str) + "\n")
 
-        from src.agents.llm_participant_agent import ParticipantPool
+        if getattr(study_config, "REQUIRES_GROUP_TRIALS", False):
+            from playground.persistent_study import run_persistent_protocol, persistent_stats, persistent_transcript
+            if getattr(study_config, "PLAYGROUND_PROTOCOL_VERSION", None) != 1:
+                raise StudyNotRunnable("This study requires a persistent protocol that is not supported by this runner.")
+            def on_stage(index, stage):
+                labels = {"baseline_writing": "Writing the first essay", "after_baseline": "Answering the questionnaire",
+                          "holistic_revision": "Revising the complete essay", "post_self_efficacy": "Reporting writing confidence",
+                          "post_reflection": "Reflecting on the writing task"}
+                label = labels.get(stage, "Working through the writing and feedback tasks")
+                progress.write({"phase": "running_participants", "completedTrials": index, "totalTrials": len(trials),
+                                "message": f"Participant {index + 1} of {len(trials)}: {label}"})
+            checkpoints = output_dir / "participants"
+            checkpoints.mkdir(exist_ok=True)
+            def on_participant(record):
+                index = len(list(checkpoints.glob("participant_*.json")))
+                (checkpoints / f"participant_{index:04d}.json").write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n")
+            scored_input = run_persistent_protocol(study_config, trials, profiles, run, api_key, args.simulate,
+                                                  preset, override, on_participant, on_stage)
+            stats = persistent_stats(scored_input)
+            (output_dir / "responses.json").write_text(json.dumps(scored_input, ensure_ascii=False, indent=2) + "\n")
+            (output_dir / "transcript_sample.json").write_text(json.dumps(persistent_transcript(scored_input, study_path), ensure_ascii=False, indent=2) + "\n")
+            log(f"Completed {len(trials)} persistent participant sessions; feedback model: {scored_input['feedback_model']}.")
+        else:
+            from src.agents.llm_participant_agent import ParticipantPool
 
-        prompt_builder = study_config.get_prompt_builder()
-        pool = ParticipantPool(
-            study_specification=specification,
-            n_participants=len(trials),
-            use_real_llm=not args.simulate,
-            model=str(run.get("model") or settings.DEFAULT_MODEL),
-            api_key=api_key,
-            # Passing the OpenRouter base explicitly is what routes every model —
-            # including Claude and Gemini names — through OpenRouter.
-            api_base=settings.OPENROUTER_API_BASE,
-            random_seed=int(run.get("seed") or 42),
-            num_workers=int(run.get("workers") or settings.DEFAULT_WORKERS),
-            profiles=profiles,
-            prompt_builder=prompt_builder,
-            system_prompt_override=override,
-            system_prompt_preset=preset,
-            study_id=study_path.name,
-            temperature=float(run.get("temperature") or 1.0),
-        )
+            prompt_builder = study_config.get_prompt_builder()
+            pool = ParticipantPool(
+                study_specification=specification,
+                n_participants=len(trials),
+                use_real_llm=not args.simulate,
+                model=str(run.get("model") or settings.DEFAULT_MODEL),
+                api_key=api_key,
+                # Passing the OpenRouter base explicitly is what routes every model —
+                # including Claude and Gemini names — through OpenRouter.
+                api_base=settings.OPENROUTER_API_BASE,
+                random_seed=int(run.get("seed") or 42),
+                num_workers=int(run.get("workers") or settings.DEFAULT_WORKERS),
+                profiles=profiles,
+                prompt_builder=prompt_builder,
+                system_prompt_override=override,
+                system_prompt_preset=preset,
+                study_id=study_path.name,
+                temperature=float(run.get("temperature") or 1.0),
+            )
 
-        # A hand-written prompt with placeholders is rendered per agent, so a
-        # custom prompt and a persona group can be used together.
-        if override and "{{" in override:
-            for agent, profile in zip(pool.participants, profiles):
-                agent.system_prompt_override = render_prompt(override, profile)
-            log("Custom prompt contains placeholders; each agent received its own version.")
+            # A hand-written prompt with placeholders is rendered per agent, so a
+            # custom prompt and a persona group can be used together.
+            if override and "{{" in override:
+                for agent, profile in zip(pool.participants, profiles):
+                    agent.system_prompt_override = render_prompt(override, profile)
+                log("Custom prompt contains placeholders; each agent received its own version.")
 
-        state = {"done": 0}
+            state = {"done": 0}
 
-        def on_trial(*_: Any) -> None:
-            state["done"] += 1
-            progress.write({
-                "phase": "running_participants",
-                "completedTrials": state["done"],
-                "totalTrials": len(trials),
-                "message": f"{state['done']} of {len(trials)} participant sessions complete",
-            })
+            def on_trial(*_: Any) -> None:
+                state["done"] += 1
+                progress.write({
+                    "phase": "running_participants",
+                    "completedTrials": state["done"],
+                    "totalTrials": len(trials),
+                    "message": f"{state['done']} of {len(trials)} participant sessions complete",
+                })
 
-        progress.write({"phase": "running_participants", "completedTrials": 0, "totalTrials": len(trials), "message": "Participants are starting"}, force=True)
-        pool.run_experiment(
-            trials=trials,
-            instructions=study_config.get_instructions(),
-            prompt_builder=prompt_builder,
-            one_to_one=True,
-            save_callback=on_trial,
-        )
+            progress.write({"phase": "running_participants", "completedTrials": 0, "totalTrials": len(trials), "message": "Participants are starting"}, force=True)
+            pool.run_experiment(
+                trials=trials,
+                instructions=study_config.get_instructions(),
+                prompt_builder=prompt_builder,
+                one_to_one=True,
+                save_callback=on_trial,
+            )
 
-        pool_results = pool.aggregate_results()
-        stats = response_stats(pool_results)
-        scored_input = evaluation_input(pool_results, study_path)
-        log(f"Collected {stats['answeredTrials']} answers from {stats['participants']} participants.")
-        (output_dir / "responses.json").write_text(json.dumps(scored_input, indent=2, default=str) + "\n")
-        (output_dir / "transcript_sample.json").write_text(json.dumps(sample_transcript(pool_results, prompt_builder), indent=2, default=str) + "\n")
+            pool_results = pool.aggregate_results()
+            stats = response_stats(pool_results)
+            scored_input = evaluation_input(pool_results, study_path)
+            log(f"Collected {stats['answeredTrials']} answers from {stats['participants']} participants.")
+            (output_dir / "responses.json").write_text(json.dumps(scored_input, indent=2, default=str) + "\n")
+            (output_dir / "transcript_sample.json").write_text(json.dumps(sample_transcript(pool_results, prompt_builder), indent=2, default=str) + "\n")
 
         progress.write({"phase": "scoring", "completedTrials": stats["completedTrials"], "totalTrials": len(trials), "message": "Scoring against the published findings"}, force=True)
         evaluation = evaluate_in_study_dir(evaluator, scored_input, study_path)
+        evaluation["limitations"] = list(dict.fromkeys([
+            *(scored_input.get("limitations") or []), *(evaluation.get("limitations") or []),
+        ]))
         (output_dir / "evaluation.json").write_text(json.dumps(evaluation, indent=2, default=str) + "\n")
 
         analysis = build_analysis(evaluation, study_path, run, stats)
         (output_dir / "analysis.json").write_text(json.dumps(analysis, indent=2, default=str) + "\n")
         summary = analysis["summary"]
-        log(
-            "Replication: "
-            f"{summary['replicatedTests']}/{summary['scoredTests']} tests reproduced the published direction and significance."
-        )
+        if summary['scoredTests']:
+            log(f"Replication: {summary['replicatedTests']}/{summary['scoredTests']} tests reproduced the published direction and significance.")
+        else:
+            log("No scientific replication score: " + str(evaluation.get("reason") or evaluation.get("status") or "No comparable tests"))
 
         run.update({
             "status": "analysing",

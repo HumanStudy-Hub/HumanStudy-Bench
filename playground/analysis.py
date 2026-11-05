@@ -249,5 +249,8 @@ def build_analysis(evaluation: Dict[str, Any], study_path: Path, run: Dict[str, 
         "completedTrials": responses.get("completedTrials"),
         "summary": summarise(rows, scoped_evaluation),
         "tests": rows,
+        "evaluationStatus": scoped_evaluation.get("status"),
+        "evaluationReason": scoped_evaluation.get("reason"),
+        "limitations": scoped_evaluation.get("limitations") or [],
         "findings": scoped_evaluation.get("finding_results") or [],
     }

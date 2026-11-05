@@ -33,11 +33,17 @@ jobs:
             exit 0
           fi
           for study_path in $CHANGED_STUDIES; do
+            if [ ! -d "$study_path" ]; then
+              echo "Study directory removed or moved: $study_path"
+              continue
+            fi
             study_id=$(basename "$study_path")
             echo "--- Verifying $study_id ---"
             bash scripts/verify_study.sh "$study_id"
             echo ""
           done
+      - name: Test study discovery and persistent playground integration
+        run: python -m pytest tests/test_build_studies_index.py tests/test_playground.py tests/test_genius_integration.py -o addopts='' -q
       - name: Verify contributor attribution
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}

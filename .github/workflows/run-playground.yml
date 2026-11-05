@@ -52,7 +52,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install numpy scipy pandas tqdm openai cryptography
+          pip install numpy scipy pandas tqdm openai cryptography scikit-learn==1.8.0 'joblib>=1.4'
           npm install --global @anthropic-ai/claude-code@latest
 
       - name: Mark run running
