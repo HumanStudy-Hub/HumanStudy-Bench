@@ -44,7 +44,21 @@ recorded as unparsed, never guessed.
 Unparsed answers are counted, not hidden: :class:`Page` lists them, and a
 session ends as ``unparsed`` only when a *required* answer could not be read.
 An optional question (``required=False``, e.g. a wrap-up comment) that cannot be
-read is recorded and the participant stays in the data.
+read is recorded and the participant stays in the data. An optional answer the
+analysis uses (a contribution in round 7) passes ``retry=True``: it is asked
+again once like a required one, and stays unparsed (never 0, never guessed) if
+the second reply cannot be read either.
+
+Several numbers in one reply. "I keep 5 and contribute 15" to "How many points do
+you contribute?" is read as 15: the number that follows the question's own verb
+(contribute, give, send, keep, assign, ...). Two numbers after that verb, or a
+negation, are not read.
+
+Several questions in one reply. Besides ``Q1: ...`` lines and a JSON object, a
+reply may key its answers by the word that tells the questions apart in their
+text (``A: 2, B: 0, C: 3`` for "Points for participant A/B/C", or
+``contribute: 5, keep: 15``), or, when every question asks for a number, list the
+numbers in order (``2, 0, 3``).
 
 The answer-aware smoke test (:func:`smoke_test`) lives here too, so a package
 downloaded from the Hub can run the same check offline:
@@ -61,7 +75,7 @@ import traceback
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence
 
-VERSION = "3"
+VERSION = "4"
 
 RETRY_NOTE = "Your previous reply could not be read{which}. Reply again in the format asked, and nothing else."
 AMBIGUOUS_NOTE = ("Your previous reply could be read as more than one option{which}. Reply with the number (or letter) "
@@ -92,6 +106,10 @@ class Question:
               when unreadable they are recorded, and the participant stays in.
     multiple  several options may be ticked (a "select all that apply" item).
     minimum, maximum, integer   the accepted range of a numeric entry.
+    retry     ask again once when this answer cannot be read. Default: only when
+              ``required``. Pass ``retry=True`` for an optional answer the analysis
+              uses (a per-round decision), so one unreadable reply is asked again
+              before it is recorded as unparsed.
     aliases   other spellings the reader accepts for an option, never shown: a dict
               from the option's label (or its index) to a list of strings, for a
               label printed with a typo ({"Tranfer the 10c": ["Transfer", ...]}).
@@ -102,7 +120,7 @@ class Question:
                  kind: Optional[str] = None, codes: Optional[Sequence[Any]] = None, key: Any = None,
                  required: bool = True, multiple: bool = False, minimum: Optional[float] = None,
                  maximum: Optional[float] = None, integer: bool = True,
-                 aliases: Optional[Dict[Any, Sequence[str]]] = None) -> None:
+                 aliases: Optional[Dict[Any, Sequence[str]]] = None, retry: Optional[bool] = None) -> None:
         self.id = str(id)
         self.text = text
         self.kind = kind or ("choice" if options else "text")
@@ -120,6 +138,7 @@ class Question:
             raise ValueError(f"question {id}: codes must be distinct and one per option")
         self.key = key
         self.required = required
+        self.retry = required if retry is None else bool(retry)
         self.multiple = multiple
         self.minimum = minimum
         self.maximum = maximum
@@ -633,18 +652,125 @@ def parse_choice(reply: str, question: Question) -> Dict[str, Any]:
     return _result(question, "ok", reply, index=index, code=question.codes[index], label=question.options[index])
 
 
+# Verbs a numeric question asks with ("How many points do you contribute?"): in a reply holding several numbers,
+# the one after the question's own verb is its answer ("I keep 5 and contribute 15" -> 15).
+ACTION_VERBS = ("contribut", "keep", "kept", "give", "gave", "send", "sent", "transfer", "invest", "offer", "allocat",
+                "assign", "deduct", "donat", "pay", "paid", "return", "bid", "spend", "spent", "put", "take", "took",
+                "guess", "estimat", "demand", "request", "withdraw", "withdrew", "claim", "accept", "reject", "share",
+                "split", "rate", "rating", "choose", "chose", "pick", "select", "enter", "report", "save", "wager", "bet")
+# A verb is the stem with a verb ending only: "contribute", "contributed", "contribution", never "between" or "payoff".
+VERB_RE = re.compile(r"(?i)\b(" + "|".join(ACTION_VERBS) + r")(?:e|es|ed|ing|s|d|ion|ions|ted|ting|ped|ping|ten|"
+                     r"n|al)?\b")
+# Numbers that name a round or an item, not an amount ("Round 3: I contribute 8").
+COUNTER_RE = re.compile(r"(?i)\b(?:round|period|trial|stage|part|step|block|question|item|q|no\.?|number|#)\s*#?\s*$")
+NUMBER_IN_TEXT = r"(?<![\w.])[-+]?\d+(?:[.,]\d+)?(?![\w.]\d)"
+FILLER = r"(?:(?:about|around|exactly|only|just|all|the|my|of|a|an|total|sum|amount|points?|tokens?|coins?|units?|" \
+         r"dollars?|cents?|euros?|money|mus?|ecus?|credits?|is|be|will|would|to|it|into|in)\s+){0,4}"
+
+
+def _asking(text: str) -> str:
+    """The sentence that asks: the last one ending in "?", else the last sentence ("Your contribution:")."""
+    sentences = [s for s in re.split(r"(?<=[.?!:])\s+|\n+", text or "") if s.strip()]
+    asked = [s for s in sentences if s.rstrip().endswith("?")]
+    return (asked or sentences or [""])[-1]
+
+
+def _asked_verbs(question: Question) -> set:
+    """The verbs of the sentence that asks ("Each token you keep earns 1 point. How much do you contribute?" asks
+    contribute). A sentence naming both sides of a split ("how much do you keep and how much do you give?") asks
+    both, so no single number is taken from a reply."""
+    return {m.group(1).lower() for m in VERB_RE.finditer(_asking(question.text or ""))}
+
+
+def _tied(text: str) -> List[tuple]:
+    """(verb, number, position of the number) for every number written right after an action verb."""
+    out = []
+    for m in VERB_RE.finditer(text):
+        after = re.match(r"[\s:=]*" + FILLER + r"(" + NUMBER_IN_TEXT[len(r"(?<![\w.])"):] + r")",
+                         text[m.end():], re.I)
+        if after:
+            out.append((m.group(1).lower(), after.group(1), m.end() + after.start(1)))
+    return out
+
+
+# Someone other than the participant: "others contribute 15 on average", "the group gave 12 last round".
+OTHERS_RE = re.compile(r"(?i)\b(?:others?|they|their|them|he|she|his|her|people|everyone|everybody|someone|somebody|"
+                       r"members?|participants?|players?|partners?|group|average|typically|usually|last|previous|"
+                       r"you)\b")
+CLAUSE_RE = re.compile(r"(?i)[.;:!?,\n]|\b(?:and|but|so|while|whereas|since|because|as|though|although)\b")
+
+
+def _by_others(text: str, start: int) -> bool:
+    """The clause before a verb names someone else, or the past ("others contribute", "last round I gave")."""
+    clause = CLAUSE_RE.split(text[:start])[-1] if text[:start] else ""
+    return bool(OTHERS_RE.search(clause))
+
+
+def _by_others_only(text: str, question: Question) -> bool:
+    """Every number tied to the question's verb, or every number of the reply, is someone else's ("Others give 15
+    on average."): never read as this participant's answer."""
+    tied = _tied(text)
+    verbs = _asked_verbs(question)
+    asked = [position for verb, _, position in tied if verb in verbs]
+    if asked and all(_by_others(text, position) for position in asked):
+        return True
+    positions = {position for _, _, position in tied}
+    numbers = [m.start() for m in re.finditer(NUMBER_IN_TEXT, text)]
+    return bool(numbers) and all(n in positions and _by_others(text, n) for n in numbers)
+
+
+def _verb_number(text: str, question: Question) -> Optional[str]:
+    """The one number written right after the question's own verb ("I keep 5 and contribute 15" -> "15"), when
+    every other number of the reply is accounted for: tied to another verb, or a round or item counter ("Round 3").
+    A number left over ("assign 2 to member 1 and 5 to member 3", "6 for me and 4 for them") leaves it unread."""
+    verbs = _asked_verbs(question)
+    if not verbs:
+        return None
+    tied = _tied(text)
+    # Someone else's number is accounted for but never the answer ("Others give 5 on average; I contribute 8").
+    mine = {number for verb, number, position in tied if verb in verbs and not _by_others(text, position)}
+    if len(mine) != 1:
+        return None
+    accounted = {position for _, _, position in tied}
+    for m in re.finditer(NUMBER_IN_TEXT, text):
+        if m.start() not in accounted and not COUNTER_RE.search(text[:m.start()]):
+            return None
+    return mine.pop()
+
+
+KEEP_VERBS = ("keep", "kept", "save")
+PASS_VERBS = ("contribut", "give", "gave", "send", "sent", "transfer", "invest", "offer", "allocat", "donat", "pay",
+              "paid", "return", "spend", "spent", "put", "share")
+
+
+def _other_side(text: str, question: Question) -> bool:
+    """The reply ties its number to the opposite of what is asked: "I keep 5" to "How much do you contribute?"
+    (5 kept is 15 contributed), or "I give 5" to "How much do you keep?". Asked again, never read."""
+    asked = _asked_verbs(question)
+    said = {verb for verb, _, _ in _tied(text)}
+    if not asked or said & asked:
+        return False
+    return bool((asked & set(PASS_VERBS) and said & set(KEEP_VERBS)) or
+                (asked & set(KEEP_VERBS) and said & set(PASS_VERBS)))
+
+
 def parse_number(reply: str, question: Question) -> Dict[str, Any]:
     text = LEAD_RE.sub("", _clean(reply), count=1).replace("−", "-")
     if re.fullmatch(r"(?i)\s*(" + "|".join(NUMBER_WORDS) + r")\s*[.!]?\s*", text):
         text = NUMBER_WORDS[text.strip(" .!").lower()]      # "Five"
-    numbers = re.findall(r"(?<![\w.])[-+]?\d+(?:[.,]\d+)?(?![\w.]\d)", text.replace(",000", "000"))
+    numbers = re.findall(NUMBER_IN_TEXT, text.replace(",000", "000"))
     values = {float(n.replace(",", ".")) for n in numbers}
     if not values:
         return _result(question, "unparsed", reply)
     if NEGATION_RE.search(text) or (len(numbers) > 1 and RANGE_RE.search(text)):
         return _result(question, "ambiguous", reply)
-    if len(values) > 1:
+    if _other_side(text, question) or _by_others_only(text, question):
         return _result(question, "ambiguous", reply)
+    if len(values) > 1:
+        tied = _verb_number(text.replace(",000", "000"), question)
+        if tied is None:
+            return _result(question, "ambiguous", reply)
+        values = {float(tied.replace(",", "."))}
     value = values.pop()
     if question.integer and not value.is_integer():
         return _result(question, "unparsed", reply)
@@ -690,6 +816,14 @@ def split_reply(reply: str, questions: Sequence[Question]) -> Dict[str, str]:
                         break
             if parts:
                 return parts
+            labels = question_labels(questions)
+            for question in questions:
+                hits = [k for k in data if isinstance(k, str) and k.lower() in labels.get(question.id, ())]
+                if len(hits) == 1:
+                    value = data[hits[0]]
+                    parts[question.id] = ", ".join(map(str, value)) if isinstance(value, list) else str(value)
+            if parts:
+                return parts
     pattern = re.compile(r"(?im)^\s*(?:q(?:uestion)?\s*)(\d+)\s*[:.)=-]\s*")
     marks = list(pattern.finditer(text))
     for position, mark in enumerate(marks):
@@ -697,7 +831,52 @@ def split_reply(reply: str, questions: Sequence[Question]) -> Dict[str, str]:
         end = marks[position + 1].start() if position + 1 < len(marks) else len(text)
         if 1 <= number <= len(questions) and questions[number - 1].id not in parts:
             parts[questions[number - 1].id] = text[mark.end():end].strip()
+    if not parts:
+        parts = _labelled(text, questions) or _in_order(text, questions)
     return parts
+
+
+def question_labels(questions: Sequence[Question]) -> Dict[str, tuple]:
+    """Per question, the words of its text that no other question on the screen has (lower case): "a" for
+    "Points for participant A" next to B and C; "contribute" next to "keep". A reply may key answers by them."""
+    words = [{w.lower() for w in re.findall(r"[A-Za-z0-9]+", question.text or "")} for question in questions]
+    stem = lambda w: w[:6] if len(w) > 6 else w      # "contribution" and "contribute" name the same thing
+    out = {}
+    for index, question in enumerate(questions):
+        others = set().union(*(w for j, w in enumerate(words) if j != index)) if len(words) > 1 else set()
+        stems = {stem(w) for w in others}
+        out[question.id] = tuple(sorted(w for w in words[index] - others if stem(w) not in stems))
+    return out
+
+
+def _labelled(text: str, questions: Sequence[Question]) -> Dict[str, str]:
+    """Answers keyed by each question's own label ("A: 2, B: 0, C: 3", "Participant B: 5"): a label followed by
+    ":" or "=", its answer up to the next label or the end of the line (a comma inside an answer stays in it). A question whose label is written
+    twice with different answers is left out (unparsed, asked again)."""
+    labels = question_labels(questions)
+    marks = []
+    for question in questions:
+        for label in labels.get(question.id, ()):
+            for m in re.finditer(rf"(?i)(?<![\w]){re.escape(label)}\s*[:=]\s*", text):
+                marks.append((m.start(), m.end(), question.id))
+    marks.sort()
+    found: Dict[str, set] = {}
+    for position, (_, end, qid) in enumerate(marks):
+        stop = marks[position + 1][0] if position + 1 < len(marks) else len(text)
+        value = text[end:stop].split("\n", 1)[0].strip().rstrip(",;").strip()
+        if value:
+            found.setdefault(qid, set()).add(value)
+    return {qid: values.pop() for qid, values in found.items() if len(values) == 1}
+
+
+def _in_order(text: str, questions: Sequence[Question]) -> Dict[str, str]:
+    """"2, 0, 3" for three number questions: one bare number per question, in the order asked."""
+    if not questions or any(q.kind != "number" for q in questions) or re.search(r"\d,\d{3}(?!\d)", text):
+        return {}                      # "1,000" is a thousand, not two answers
+    pieces = [p.strip() for p in re.split(r"[,;\n]", text.strip().rstrip(".")) if p.strip()]
+    if len(pieces) != len(questions) or not all(re.fullmatch(r"[-+]?\d+(?:\.\d+)?", p) for p in pieces):
+        return {}
+    return {q.id: p for q, p in zip(questions, pieces)}
 
 
 # --------------------------------------------------------------------------- run size
@@ -753,8 +932,9 @@ def ask(llm: Callable[[str], str], prompt: str, questions: Sequence[Question], r
 
     ``prompt`` is the full text the participant sees, ending with
     ``render_questions(questions)`` (or the same questions in the package's own
-    words). An unreadable required answer is asked again up to ``retries`` times;
-    answers already read are kept. The model's replies are in ``page.replies``.
+    words). An unreadable required answer (or one with ``retry=True``) is asked
+    again up to ``retries`` times; answers already read are kept. An answer that
+    still cannot be read stays unparsed: the adapter records it, never a default. The model's replies are in ``page.replies``.
     """
     if isinstance(questions, Question):
         questions = [questions]
@@ -773,14 +953,14 @@ def ask(llm: Callable[[str], str], prompt: str, questions: Sequence[Question], r
             piece = pieces.get(question.id)
             page.answers[question.id] = parse(piece, question) if piece is not None else \
                 _result(question, "unparsed", "")
-        if page.ok:
-            break
         missing = [number for number, q in enumerate(questions, 1)
-                   if q.required and page.answers[q.id]["status"] != "ok"]
+                   if getattr(q, "retry", q.required) and page.answers[q.id]["status"] != "ok"]
+        if not missing:
+            break
         which = "" if len(questions) == 1 else " for " + ", ".join(f"Q{n}" for n in missing)
         note = retry_note
         if retry_note == RETRY_NOTE and all(page.answers[q.id]["status"] == "ambiguous" and q.kind == "choice" for q in questions
-                                            if q.required and page.answers[q.id]["status"] != "ok"):
+                                            if getattr(q, "retry", q.required) and page.answers[q.id]["status"] != "ok"):
             note = AMBIGUOUS_NOTE  # "10" on an amount list: say why, so the next reply names one option
         current = prompt + "\n\n" + note.format(which=which)
     return page
@@ -812,6 +992,11 @@ class StubParticipant:
     number as a word ("Three"), an amount label's amount ("10c", "10"), and the
     adapter's ``aliases``. Each must be read as that option or asked again; one
     read as a different option is a misread.
+
+    Numbers and several questions are answered the ways models write them too: a
+    number in a sentence with the question's verb ("I keep 5 and contribute 15"),
+    and a screen of questions keyed by their labels ("A: 2, B: 0, C: 3") or as
+    ``Q1:`` lines. A reply the reader takes as another number is a misread.
     """
 
     STYLES = ("{code}", "{code}.", "{code}. {label}", "{label}", "{upper}", "Answer: {code}", "I choose {label}.")
@@ -903,7 +1088,7 @@ class StubParticipant:
             low = question.minimum if question.minimum is not None else 0
             high = question.maximum if question.maximum is not None else max(low, 10)
             value = self.rng.randint(int(low), int(high)) if question.integer else round(self.rng.uniform(low, high), 2)
-            return str(value)
+            return self._number_reply(question, value)
         keyed = question.key_indices() if self.use_keys else []
         shown = self._shown(region, question)
         if question.multiple:
@@ -933,6 +1118,37 @@ class StubParticipant:
         # Only formats that name this option unambiguously ("3" on a scale that prints 3 twice does not).
         readable = [reply for reply in replies if parse_choice(reply, question).get("index") == index]
         return self.rng.choice(readable) if readable else typed
+
+    def _number_reply(self, question: Question, value: Any) -> str:
+        """The number alone, or in a sentence with the question's verb next to another number ("I keep 5 and
+        contribute 15") when the reader takes that sentence back as the number meant."""
+        verb = VERB_RE.search(_asking(question.text or ""))
+        if verb is None or getattr(question, "legacy", False) or self.rng.random() < 0.5:
+            return str(value)
+        word = verb.group(0).lower()
+        other = "keep" if not word.startswith("keep") else "give"
+        reply = f"I {other} {self.rng.randint(1, 99) + 0.0:g} and {word} {value}."
+        answer = parse_number(reply, question)
+        if answer.get("status") == "ok" and answer.get("value") != value \
+                and not any(m["question"] == question.id for m in self.misreads):
+            # A wrong number read with confidence is the worst outcome: always reported.
+            self.misreads.append({"question": question.id, "option": str(value), "reply": reply,
+                                  "read_as": str(answer.get("value")), "codes": []})
+        # Only a sentence the reader takes back as this number: a reply it leaves ambiguous is the reader's
+        # caution, not the adapter's fault.
+        return reply if answer.get("status") == "ok" and answer.get("value") == value else str(value)
+
+    def _labelled(self, questions: Sequence[Question], answers: List[str]) -> Optional[str]:
+        """The answers keyed by each question's label ("A: 2, B: 0"), when every question has one and the reader
+        gives each answer back to its own question; else None."""
+        if any(getattr(q, "legacy", False) or "\n" in a or "," in a for q, a in zip(questions, answers)):
+            return None
+        labels = question_labels(questions)
+        keys = [min(labels.get(q.id) or ("",), key=len) for q in questions]
+        if not all(keys):
+            return None
+        reply = ", ".join(f"{key.upper() if len(key) == 1 else key}: {answer}" for key, answer in zip(keys, answers))
+        return reply if split_reply(reply, questions) == {q.id: a for q, a in zip(questions, answers)} else None
 
     @staticmethod
     def _variants(question: Question, index: int, typed: str) -> List[str]:
@@ -1004,8 +1220,10 @@ class StubParticipant:
             return "Hmm, I am not sure what to say here."
         if len(questions) == 1:
             return self._one(questions[0], prompt)
-        return "\n".join(f"Q{number}: {self._one(question, self._region(prompt, number, len(questions)))}"
-                         for number, question in enumerate(questions, 1))
+        answers = [self._one(question, self._region(prompt, number, len(questions)))
+                   for number, question in enumerate(questions, 1)]
+        keyed = self._labelled(questions, answers) if self.rng.random() < 0.5 else None
+        return keyed or "\n".join(f"Q{number}: {answer}" for number, answer in enumerate(answers, 1))
 
 
 def _asked_summary(question: Question) -> Dict[str, Any]:
