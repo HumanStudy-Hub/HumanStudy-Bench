@@ -12,7 +12,7 @@ every question through :func:`ask`, so all packages read replies the same way:
     q = Question("pd-decision", text="Which option do you choose?", options=["Cooperate", "Defect"])
     page = ask(llm, screen_text + "\\n\\n" + render_questions([q]), [q])
     if page.ok:
-        choice = page.answers["pd-decision"]["label"]
+        choice = page.value("pd-decision")      # the label as printed; page.code() / page.number() for the code
 
 What a reply may look like, for options ``1. Be nice`` / ``2. Be fair``:
 ``1``, ``1.``, ``1)``, ``1. Be nice``, ``Be nice``, ``be NICE``, ``Answer: 1``,
@@ -57,8 +57,37 @@ negation, are not read.
 Several questions in one reply. Besides ``Q1: ...`` lines and a JSON object, a
 reply may key its answers by the word that tells the questions apart in their
 text (``A: 2, B: 0, C: 3`` for "Points for participant A/B/C", or
-``contribute: 5, keep: 15``), or, when every question asks for a number, list the
-numbers in order (``2, 0, 3``).
+``contribute: 5, keep: 15``), or give them in order without labels (``2, 0, 3``,
+``2 0 3``, ``1. Second`` / ``2. No``, ``Second place. No, I haven't seen it.``):
+read only when the reply splits into exactly one piece per question and every
+piece is read as its own question's answer.
+
+Words, not only numbers (version 5). A numeric entry reads number words
+(``Fifty``, ``twenty-five``), ``.9``, the question's own bounds beside the answer
+(``70 out of 100``, ``75/100``, ``On a scale of 0 to 100, 20``), a scale label
+beside the number when it fits the number's end of the scale (``0 (not at all
+accurate)``, ``He doesn't know - 15``; ``90 (not at all)`` and ``5 (knows)`` by
+"100 = knows" are not read), a zero said in words of the participant's own amount
+(``nothing``, ``I would not take anything``, ``I won't deduct any points``, ``none
+of the boxes``) and the screen's own phrase for a number (``I choose the lottery in
+all nine rows`` for "Enter 10 if you choose the lottery in all nine rows";
+``corners=`` for other wording). A reply about the other side of a split is never
+read as the asked amount: to "How much do you take?", ``I'd leave all 1.70 to
+UNICEF``, ``I'd give UNICEF the full 1.70`` and ``1.70 to UNICEF`` are ambiguous,
+as ``I keep nothing`` is to "How much do you contribute?". A choice reads the words
+a label starts with (``Take the bet`` for "Take the bet - 50% chance ...", but never
+for "NOT take the bet"; ``YES`` for "YES - I will purchase ..."; ``New novel``),
+``I'll take the bet`` / ``I won't take the bet``, ``Lottery four``, and a worded yes
+or no (``No, I have not seen it before.``, ``Nope``, ``I haven't``, ``Yes, I've seen
+it``; ``Yes, but I haven't`` and ``I don't know`` are not read).
+
+Free text. :func:`final_answer` gives the answer a reply asserts among the ones the
+analysis codes (``You'd be in second place, not first.`` asserts "second").
+
+Text the reader adds. A numeric range in the reply instruction ("Reply with a
+number from 0 to 50.") that the question text does not state is listed in
+``Page.added`` and the smoke report's ``reader_added_text``: record it as a replay
+adaptation, or pass ``range_hint=False``.
 
 The answer-aware smoke test (:func:`smoke_test`) lives here too, so a package
 downloaded from the Hub can run the same check offline:
@@ -75,9 +104,11 @@ import traceback
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence
 
-VERSION = "4"
+VERSION = "5"
 
 RETRY_NOTE = "Your previous reply could not be read{which}. Reply again in the format asked, and nothing else."
+RANGE_NOTE = "Your previous reply{which} is outside what can be entered: {ranges}. Reply again in the format asked, " \
+             "and nothing else."
 AMBIGUOUS_NOTE = ("Your previous reply could be read as more than one option{which}. Reply with the number (or letter) "
                   "of the option you choose followed by the option as it is printed, and nothing else.")
 
@@ -114,13 +145,25 @@ class Question:
               from the option's label (or its index) to a list of strings, for a
               label printed with a typo ({"Tranfer the 10c": ["Transfer", ...]}).
               An alias may not be another option's label or alias.
+    corners   phrases that stand for a number on a numeric entry, as the screen defines them:
+              {"I never take the sure payment": 10}. The screen's own "Enter 10 if you choose the
+              lottery in all nine rows" is read without this; pass corners only for wording the
+              screen defines another way. A reply is read as the number when it says the phrase
+              (with I for you) and nothing else.
+    range_hint  whether "Reply with a number from 0 to 50." names the range. Default (None): named
+              unless the question text already states it. The range is text the reader adds to the
+              screen, so it is listed in ``Page.added`` and in the smoke report's
+              ``reader_added_text``: record it in the package's replay adaptations, or pass
+              ``range_hint=False`` when participants never saw the range (a silent validation); an
+              answer out of range is then asked again with the range, as the survey's validation would.
     """
 
     def __init__(self, id: str, text: str = "", options: Optional[Sequence[str]] = None,
                  kind: Optional[str] = None, codes: Optional[Sequence[Any]] = None, key: Any = None,
                  required: bool = True, multiple: bool = False, minimum: Optional[float] = None,
                  maximum: Optional[float] = None, integer: bool = True,
-                 aliases: Optional[Dict[Any, Sequence[str]]] = None, retry: Optional[bool] = None) -> None:
+                 aliases: Optional[Dict[Any, Sequence[str]]] = None, retry: Optional[bool] = None,
+                 corners: Optional[Dict[str, float]] = None, range_hint: Optional[bool] = None) -> None:
         self.id = str(id)
         self.text = text
         self.kind = kind or ("choice" if options else "text")
@@ -144,6 +187,8 @@ class Question:
         self.maximum = maximum
         self.integer = integer
         self.amounts = [_amount(option) for option in self.options]
+        self.corners = {str(phrase): float(value) for phrase, value in (corners or {}).items()}
+        self.range_hint = range_hint
         self.aliases: List[List[str]] = [[] for _ in self.options]
         for which, spellings in (aliases or {}).items():
             index = which if isinstance(which, int) else (self.options.index(which) if which in self.options else -1)
@@ -171,6 +216,21 @@ class Question:
         if not self.numbered and _starts_with_code(label, code):
             return label
         return f"{code}. {label}"
+
+    def corner_phrases(self) -> List[tuple]:
+        """(phrase, number) the screen defines: "Enter 10 if you choose the lottery in all nine rows", and
+        ``corners``."""
+        found = [(m.group(2).strip(), float(m.group(1))) for m in CORNER_RE.finditer(self.text or "")]
+        return found + list(self.corners.items())
+
+    def added_text(self) -> Optional[str]:
+        """What the reader adds to the screen for this question that the question text does not say: the range
+        of a numeric entry ("from 0 to 50"). None when nothing is added."""
+        if self.kind != "number" or self.minimum is None or self.maximum is None or self.range_hint is False:
+            return None
+        if self.range_hint is None and _states_range(self.text, self.minimum, self.maximum):
+            return None
+        return f"from {_fmt(self.minimum)} to {_fmt(self.maximum)}"
 
     def key_indices(self) -> List[int]:
         """Indices of the options the key names (empty when there is no key)."""
@@ -393,9 +453,8 @@ def instruction(question: Question) -> str:
             return f"Reply with the {what} of every option that applies, separated by commas."
         return f"Reply with the {what} of the option you choose."
     if question.kind == "number":
-        span = ""
-        if question.minimum is not None and question.maximum is not None:
-            span = f" from {_fmt(question.minimum)} to {_fmt(question.maximum)}"
+        added = question.added_text()
+        span = f" {added}" if added else ""
         return f"Reply with a {'whole ' if question.integer else ''}number{span}."
     return "Reply in your own words."
 
@@ -427,6 +486,29 @@ def render_questions(questions: Sequence[Question]) -> str:
 
 def _fmt(value: float) -> str:
     return str(int(value)) if float(value).is_integer() else str(value)
+
+
+def _same_number(text: str, value: Optional[float]) -> bool:
+    try:
+        return value is not None and abs(_numeric(text) - float(value)) < 1e-9
+    except ValueError:
+        return False
+
+
+SPAN_RE = re.compile(r"(?i)(?<![\w.])([-+]?\d+(?:\.\d+)?)\s*(?:%|[a-z]{1,6}\b)?\s*(?:to|and|-|\u2013|\u2014)\s*"
+                     r"(?:[$\u20ac\u00a3]\s*)?([-+]?\d+(?:\.\d+)?)(?![\d])")
+
+
+def _states_range(text: str, minimum: float, maximum: float) -> bool:
+    """The question text already prints the range ("(0 to 20)", "between 0 and 1.70 GBP", "from 0 to 100")."""
+    return any(_same_number(m.group(1), minimum) and _same_number(m.group(2), maximum)
+               for m in SPAN_RE.finditer(text or ""))
+
+
+def reader_added_text(questions: Sequence[Question]) -> List[Dict[str, str]]:
+    """Text the reader adds to the screen beyond what each question says (a numeric range): a replay adaptation
+    to record, or to switch off with ``range_hint=False``."""
+    return [{"question": q.id, "added": q.added_text()} for q in questions if q.added_text()]
 
 
 # --------------------------------------------------------------------------- parsing
@@ -564,6 +646,12 @@ def _choice_index(text: str, question: Question) -> tuple:
     close = near_label(norm)
     if close is not None:
         return close, "ok"
+    # 1a. The words that start a label ("Take the bet" for "Take the bet - 50% chance ...", "YES" for "YES - I
+    # will purchase ...", "New novel" for "New novel by your favorite author"), "I'll take the bet", "I won't take
+    # the bet" (= "not take the bet"), a worded yes or no ("No, I have not seen it before."), "Lottery four".
+    index, status = _worded_choice(body, question)
+    if status != "unparsed":
+        return index, status
     # 1b. An amount first ("1 day", "15c, I think"): on a list of amounts it is read as one, never as a code.
     lead = AMOUNT_IN_TEXT_RE.match(body)
     if lead and any(question.amounts) and _amount_of(lead) is not None:
@@ -626,6 +714,79 @@ def _choice_index(text: str, question: Question) -> tuple:
     return (None, "ambiguous") if named_options or unknown else (None, "unparsed")
 
 
+LABEL_HEAD_RE = re.compile(r"\s+[-\u2013\u2014:]\s+|\s*\(|:\s")
+SUBJECT_RE = re.compile(r"^i\s+(?:(?:will|would|shall|do|am\s+going\s+to)\s+)?(?:(?:rather|choose\s+to|decide\s+to|"
+                        r"want\s+to|prefer\s+to)\s+)?")
+YES_RE = re.compile(r"^(?:yes|yeah|yep|yup|i\s+(?:have|did|do|am|would|will)(?!\s+(?:not|never)\b))\b")
+NO_RE = re.compile(r"^(?:no|nope|nah|never|i\s+have\s+not|i\s+did\s+not|i\s+do\s+not|i\s+am\s+not|"
+                   r"i\s+would\s+not|i\s+will\s+not|i\s+have\s+never|not\s+seen)\b")
+
+# "No" that is not an answer of no: "No doubt about it", "No question", "No problem".
+NOT_NO_RE = re.compile(r"^no\s+(?:doubt|question|problem|worries|kidding|way\s+i\s+would\s+not)\b")
+UNSURE_RE = re.compile(r"\b(?:know|remember|recall|sure|certain|idea|maybe|perhaps|unsure|possibly|might)\b")
+
+
+def _head(label: str) -> Optional[str]:
+    """The words before a label's first separator ("Take the bet" of "Take the bet - 50% chance to win $40"), or
+    None when the label has none."""
+    parts = LABEL_HEAD_RE.split(str(label), maxsplit=1)
+    head = _norm(parts[0]) if len(parts) > 1 else ""
+    return head or None
+
+
+def _yes_no(question: Question) -> Optional[tuple]:
+    """(index of the yes option, index of the no option) when the options are a yes/no pair ("Yes"/"No", "YES -
+    I will purchase ..."/"NO - I will NOT purchase ...")."""
+    yes = [i for i, label in enumerate(question.options) if (_head(label) or _norm(label)) == "yes"]
+    no = [i for i, label in enumerate(question.options) if (_head(label) or _norm(label)) == "no"]
+    return (yes[0], no[0]) if len(yes) == 1 and len(no) == 1 else None
+
+
+def _worded_choice(body: str, question: Question) -> tuple:
+    """(index, status) for a reply that names an option by the words its label starts with, or a worded yes/no.
+    "unparsed" when it does neither, so the other readings are tried."""
+    labels = [_norm(label) for label in question.options]
+    heads = [_head(label) for label in question.options]
+    expanded = _norm(_expand(body))
+    forms = [expanded]
+    subjectless = SUBJECT_RE.sub("", expanded, count=1)
+    if subjectless != expanded:
+        forms.append(subjectless)
+    worded = _words_to_digits(expanded)
+    if worded != expanded:
+        forms.append(worded)                 # "Lottery four" for "Lottery 4"
+    for form in forms:
+        if not form:
+            continue
+        found = {i for i, label in enumerate(labels) if form == label or form == heads[i]
+                 or form in question.aliases[i]}
+        if not found and len(form.split()) >= 2:
+            found = {i for i, label in enumerate(labels) if label.startswith(form + " ")}
+        if found:
+            return (found.pop(), "ok") if len(found) == 1 else (None, "ambiguous")
+    pair = _yes_no(question)
+    if pair is None:
+        return None, "unparsed"
+    yes, no = pair
+    first = re.split(r"[,.;:!\-\u2013\u2014]", expanded, maxsplit=1)[0].strip()
+    said_yes, said_no = bool(YES_RE.match(first)), bool(NO_RE.match(first))
+    if said_no and NOT_NO_RE.match(first):
+        return None, "ambiguous"         # "No doubt about it", "No question": an emphatic yes, never a no
+    said = NO_RE.match(first)
+    if said_no and not re.match(r"(?:no|nope|nah)\b", said.group(0)) and re.search(r"\bno\b", expanded[said.end():]):
+        return None, "ambiguous"         # "I would not say no", "I am not saying no": a double negation
+    if said_yes == said_no:
+        return None, "unparsed"
+    if UNSURE_RE.search(expanded):
+        return None, "ambiguous"         # "I don't know", "No idea", "I'm not sure": neither
+    rest = expanded[len(first):]
+    others = [label for i, label in enumerate(labels) if i not in pair and label and label in rest]
+    if others or (said_yes and (NEGATION_RE.search(expanded) or re.search(r"\bno\b", rest))) or \
+            (said_no and re.search(r"\b(?:yes|yeah|yep)\b", rest)):
+        return None, "ambiguous"         # "Yes, but I haven't", "No - yes": contradictory
+    return (yes if said_yes else no), "ok"
+
+
 def parse_choice(reply: str, question: Question) -> Dict[str, Any]:
     """Read one option (or, for ``multiple``, a set of options) from a reply."""
     if question.multiple:
@@ -657,7 +818,8 @@ def parse_choice(reply: str, question: Question) -> Dict[str, Any]:
 ACTION_VERBS = ("contribut", "keep", "kept", "give", "gave", "send", "sent", "transfer", "invest", "offer", "allocat",
                 "assign", "deduct", "donat", "pay", "paid", "return", "bid", "spend", "spent", "put", "take", "took",
                 "guess", "estimat", "demand", "request", "withdraw", "withdrew", "claim", "accept", "reject", "share",
-                "split", "rate", "rating", "choose", "chose", "pick", "select", "enter", "report", "save", "wager", "bet")
+                "split", "rate", "rating", "choose", "chose", "pick", "select", "enter", "report", "save", "wager", "bet",
+                "leav", "left", "collect")
 # A verb is the stem with a verb ending only: "contribute", "contributed", "contribution", never "between" or "payoff".
 VERB_RE = re.compile(r"(?i)\b(" + "|".join(ACTION_VERBS) + r")(?:e|es|ed|ing|s|d|ion|ions|ted|ting|ped|ping|ten|"
                      r"n|al)?\b")
@@ -738,32 +900,419 @@ def _verb_number(text: str, question: Question) -> Optional[str]:
     return mine.pop()
 
 
-KEEP_VERBS = ("keep", "kept", "save")
+KEEP_VERBS = ("keep", "kept", "save", "take", "took", "claim", "withdraw", "withdrew")
 PASS_VERBS = ("contribut", "give", "gave", "send", "sent", "transfer", "invest", "offer", "allocat", "donat", "pay",
-              "paid", "return", "spend", "spent", "put", "share")
+              "paid", "return", "spend", "spent", "put", "share", "leav", "left")
+# "to UNICEF", "for the other participant": the amount goes to someone else. "for me": it stays with the participant.
+TO_OTHER_RE = re.compile(r"(?i:\b(?:to|for)\s+(?:the\s+|a\s+|an\s+|my\s+)?(?:other|others|them|him|her|charity|"
+                         r"recipient|partner|group|project|cause|organi[sz]ation|children|someone|everyone|"
+                         r"receiver|responder|proposer)\b)|\b(?i:to|for)\s+(?!(?:Me|Myself|Mine|My)\b)[A-Z][A-Za-z]{2,}")
+TO_SELF_RE = re.compile(r"(?i)\b(?:to|for)\s+(?:me|myself)\b")
+
+
+LEFT_STEMS = ("leav", "left")
+# "leave 5 to the other", "5 left for him": with a recipient, leaving is passing on. "I have 5 left", "I leave 5" alone
+# say what remains, not to whom: on its own side only when the question itself asks with leave.
+RECIPIENT_AFTER_RE = re.compile(r"(?i)^(?:[\s:=]+[^\s.;:!?,]+){0,5}?\s+(?:to|for)\s+(?!(?:me|myself|mine|later)\b)"
+                                r"[a-z]")
+
+
+def _with_recipient(text: str, end: int) -> bool:
+    """A leave/left verb ending at ``end`` is followed (in its clause) by to/for someone else."""
+    clause = CLAUSE_RE.split(text[end:], maxsplit=1)[0]
+    return bool(RECIPIENT_AFTER_RE.match(clause))
+
+
+def _bare_left(stem: str, text: str, end: int, question: Question) -> bool:
+    """A leave/left that says what remains, not who receives it, in a question not asked with leave."""
+    return stem in LEFT_STEMS and not _with_recipient(text, end) and not (_asked_verbs(question) & set(LEFT_STEMS))
+
+
+def _side(stems: Iterable[str]) -> Optional[str]:
+    """"keep" or "pass" for verbs all on one side of a split (keep/take vs give/leave); None otherwise."""
+    stems = set(stems)
+    keep, give = bool(stems & set(KEEP_VERBS)), bool(stems & set(PASS_VERBS))
+    return "keep" if keep and not give else "pass" if give and not keep else None
+
+
+def _said_verbs(text: str, question: Optional[Question] = None) -> set:
+    """The action verbs the participant says of themself (not "others give", not "last round I gave"). A bare
+    leave/left ("I have 5 left") is "left over": on neither side of a split."""
+    out = set()
+    for m in VERB_RE.finditer(text):
+        if _by_others(text, m.start()):
+            continue
+        stem = m.group(1).lower()
+        out.add("left over" if question is not None and _bare_left(stem, text, m.end(), question) else stem)
+    return out
 
 
 def _other_side(text: str, question: Question) -> bool:
-    """The reply ties its number to the opposite of what is asked: "I keep 5" to "How much do you contribute?"
-    (5 kept is 15 contributed), or "I give 5" to "How much do you keep?". Asked again, never read."""
-    asked = _asked_verbs(question)
-    said = {verb for verb, _, _ in _tied(text)}
-    if not asked or said & asked:
+    """The reply speaks of the opposite of what is asked: "I keep 5" to "How much do you contribute?" (5 kept is
+    15 contributed), "I'd leave all 1.70 to UNICEF" or "1.70 to UNICEF" to "How much do you take?", "5 for me"
+    to "How much do you give?". Asked again, never read."""
+    side = _side(_asked_verbs(question))
+    if side is None:
         return False
-    return bool((asked & set(PASS_VERBS) and said & set(KEEP_VERBS)) or
-                (asked & set(KEEP_VERBS) and said & set(PASS_VERBS)))
+    said = _said_verbs(text, question)
+    own, other = (KEEP_VERBS, PASS_VERBS) if side == "keep" else (PASS_VERBS, KEEP_VERBS)
+    if said & set(own):
+        return False
+    if said & (set(other) | {"left over"}):
+        return True     # "I keep 5" to a give question; "I have 5 left" to either: what remains, not what is asked
+    return bool((TO_OTHER_RE if side == "keep" else TO_SELF_RE).search(text))
+
+
+def _opposite_positions(text: str, question: Question) -> set:
+    """Positions of numbers tied to a verb on the other side of the split ("I leave 0.5" when "take" is asked)."""
+    side = _side(_asked_verbs(question))
+    if side is None:
+        return set()
+    other = set(PASS_VERBS if side == "keep" else KEEP_VERBS)
+    bare = {m.end() for m in VERB_RE.finditer(text) if _bare_left(m.group(1).lower(), text, m.end(), question)}
+    out = set()
+    for verb, _, position in _tied(text):
+        if verb in other or (verb in LEFT_STEMS and any(end <= position for end in bare)
+                             and not CLAUSE_RE.search(text[max(e for e in bare if e <= position):position])):
+            out.add(position)
+    return out
+
+
+# --------------------------------------------------------------------------- words, corners and scale labels
+
+CONTRACTIONS = ((r"\bwon't\b", "will not"), (r"\bcan't\b", "can not"), (r"\bcannot\b", "can not"),
+                (r"\bshan't\b", "shall not"), (r"n't\b", " not"), (r"\bi'm\b", "i am"), (r"'ll\b", " will"),
+                (r"'d\b", " would"), (r"'ve\b", " have"), (r"'re\b", " are"))
+
+
+def _expand(text: str) -> str:
+    """Lower case, curly quotes straightened, contractions written out: "I won't" -> "i will not"."""
+    text = str(text or "").lower().replace("\u2019", "'").replace("\u2018", "'")
+    for pattern, full in CONTRACTIONS:
+        text = re.sub(pattern, full, text)
+    return re.sub(r"[ \t\u00a0]+", " ", text).strip()
+
+
+UNIT_WORDS = {word: n for n, word in enumerate(
+    "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen "
+    "seventeen eighteen nineteen".split())}
+TENS_WORDS = {word: 10 * n for n, word in enumerate("twenty thirty forty fifty sixty seventy eighty ninety".split(), 2)}
+_NUMBER_WORD = "|".join(sorted(list(UNIT_WORDS) + list(TENS_WORDS) + ["hundred", "thousand"], key=len, reverse=True))
+NUMBER_PHRASE_RE = re.compile(rf"(?i)\b(?:{_NUMBER_WORD})(?:(?:\s+|-|\s+and\s+)(?:{_NUMBER_WORD}))*\b")
+
+
+def _phrase_value(phrase: str) -> Optional[int]:
+    """"fifty" 50, "twenty-five" 25, "one hundred and twenty" 120; None for "one two" or "five and ten"."""
+    total, chunk, previous = 0, 0, None
+    tokens = [t for t in re.split(r"[\s-]+", phrase.lower()) if t]
+    for position, token in enumerate(tokens):
+        if token == "and":
+            if previous not in ("hundred", "thousand") or position == len(tokens) - 1:
+                return None
+            previous = "and"
+        elif token in TENS_WORDS:
+            if previous not in (None, "hundred", "thousand", "and") or chunk % 100:
+                return None
+            chunk, previous = chunk + TENS_WORDS[token], "tens"
+        elif token in UNIT_WORDS:
+            value = UNIT_WORDS[token]
+            if previous == "tens" and 1 <= value <= 9:
+                chunk += value
+            elif previous is None or (previous in ("hundred", "thousand", "and") and chunk % 100 == 0 and value):
+                chunk += value
+            else:
+                return None
+            previous = "unit"
+        elif token == "hundred":
+            if previous != "unit" or not 1 <= chunk <= 9:
+                return None
+            chunk, previous = chunk * 100, "hundred"
+        elif token == "thousand":
+            if previous not in ("unit", "tens", "hundred") or not chunk or total:
+                return None
+            total, chunk, previous = chunk * 1000, 0, "thousand"
+    return total + chunk
+
+
+def _words_to_digits(text: str) -> str:
+    """Number words written as digits: "fifty boxes" -> "50 boxes". A phrase that is not one number stays."""
+    def one(match: "re.Match[str]") -> str:
+        value = _phrase_value(match.group(0))
+        return match.group(0) if value is None else str(value)
+    return NUMBER_PHRASE_RE.sub(one, text)
+
+
+CHOOSE_WORDS = {"pick", "select", "take", "opt", "prefer", "chose", "chosen", "picked", "selected"}
+FILLER_WORDS = {"i", "would", "will", "shall", "so", "then", "my", "answer", "is", "choice", "decision", "that",
+                "means", "therefore", "thus", "ok", "okay", "well", "enter", "final", "here", "it"}
+PERSON = {"you": "i", "your": "my", "yours": "mine", "yourself": "myself"}
+# "Enter 10 if you choose the lottery in all nine rows": the screen defines a number by a phrase.
+CORNER_RE = re.compile(r"(?i)\b(?:enter|type|write|put|answer|reply\s+with|respond\s+with|select|give)\s+"
+                       r"(?:the\s+(?:number|value)\s+)?([-+]?\d+(?:\.\d+)?)\s+(?:if|when|in\s+case)\s+([^.;?!\n]+)")
+
+
+def _words(text: str) -> List[str]:
+    """Words for matching a phrase: written-out contractions, digits for number words, I for you, "choose" for
+    "pick"/"select"/"take"."""
+    text = _words_to_digits(_expand(text))
+    words = re.findall(r"[a-z]+|\d+(?:\.\d+)?", text)
+    words = [PERSON.get(word, word) for word in words]
+    return ["choose" if word in CHOOSE_WORDS else word for word in words]
+
+
+def _clause(phrase: str) -> List[str]:
+    words = _words(phrase)
+    while words and words[0] in ("i", "would", "will", "shall", "if", "do"):
+        words = words[1:]
+    return words
+
+
+def _corner_value(text: str, question: Question) -> Any:
+    """The number a reply names by the screen's own phrase ("I choose the lottery in all nine rows" -> 10), None
+    when it names none, "ambiguous" when it names two."""
+    reply = _words(text)
+    hits = set()
+    for phrase, value in question.corner_phrases():
+        clause = _clause(phrase)
+        for start in range(len(reply) - len(clause) + 1) if clause else ():
+            if reply[start:start + len(clause)] == clause:
+                after = reply[start + len(clause):start + len(clause) + 1]
+                if after and after[0] in EXCEPTING:
+                    continue        # "all nine rows except one": not the corner
+                rest = reply[:start] + reply[start + len(clause):]
+                if all(word in FILLER_WORDS or word == _number_text(value) for word in rest):
+                    hits.add(value)
+    hits |= {value for value in [_never_corner(reply, question)] if value is not None}
+    if len(hits) > 1:
+        return "ambiguous"
+    return hits.pop() if hits else None
+
+
+EXCEPTING = {"except", "but", "excepting", "save", "apart", "other", "minus", "less", "fewer", "besides"}
+# A number that is not the answer itself but a part of one: "all but one", "everything except two", "none of my
+# tokens except five", "one third", "10 less than half", "minus 2", "more than 5", "10 percent of my tokens".
+EXCEPTED_RE = re.compile(
+    r"\b(?:but|except(?:ing)?|other\s+than|apart\s+from|save\s+for|besides|minus|less(?:\s+than)?|"
+    r"fewer(?:\s+than)?|more\s+than)\s+(?:(?:the|a|an|about|maybe|only|just)\s+)?(?:\d|(?:a\s+)?(?:third|half|quarter)\b)"
+    r"|\d+(?:\.\d+)?\s+(?:less|fewer|more\s+than|minus|except|other\s+than)\b"
+    r"|\b(?:\d+|a|an|one)[\s-]+(?:thirds?|halves|half|quarters?|fifths?|tenths?)\b"
+    r"|\d+(?:\.\d+)?\s*(?:%|percent|per\s?cent)\s+of\b"
+    r"|\b(?:all|everything|every|each|none|nothing|no)\b[^.;!?\d]{0,40}\b(?:but|except|other\s+than|apart\s+from|"
+    r"save)\b")
+
+
+def _excepted(text: str) -> bool:
+    """The reply states its number relative to another amount or as a share of one; never read."""
+    return bool(EXCEPTED_RE.search(_words_to_digits(_expand(text))))
+
+
+def _never_corner(reply: List[str], question: Question) -> Optional[float]:
+    """"Never" (or "I never choose the sure payment") to "In which row do you first choose the sure payment?",
+    when the screen defines one number for choosing the other side in all rows ("Enter 10 if ... in all nine
+    rows")."""
+    asking = _asking(question.text or "")
+    if not re.match(r"(?i)\s*(?:(?:in|from|at|on|by)\s+)?which\b|\s*when\b", asking):
+        return None
+    every = [value for phrase, value in question.corner_phrases() if re.search(r"(?i)\b(?:all|every|each)\b", phrase)]
+    words = [w for w in reply if w not in ("i", "would", "will")]
+    if len(every) != 1 or not words or words[0] != "never":
+        return None
+    asked = set(_words(asking)) | {"choose", "it", "at", "all", "the", "a", "an", "one", "switch", "to", "on"}
+    return every[0] if all(word in asked for word in words[1:]) else None
+
+
+def _count_pairs(text: str) -> set:
+    """("9", "rows") for every number followed by a word: "all nine rows", "all 9 rows"."""
+    return set(re.findall(r"(\d+(?:\.\d+)?)\s+([a-z]+)", _words_to_digits(_expand(text))))
+
+
+SPELLED = {n: w for w, n in list(UNIT_WORDS.items()) + list(TENS_WORDS.items())}
+
+
+def _spell(number: str) -> List[str]:
+    """"9" -> ["9", "nine"]; "25" -> ["25", "twenty-five", "twenty five"]."""
+    out = [number]
+    if re.fullmatch(r"\d{1,2}", number):
+        n = int(number)
+        if n in SPELLED:
+            out.append(SPELLED[n])
+        elif n > 20:
+            out += [f"{SPELLED[n - n % 10]}-{SPELLED[n % 10]}", f"{SPELLED[n - n % 10]} {SPELLED[n % 10]}"]
+    return out
+
+
+def _drop_restated_counts(text: str, question: Question) -> str:
+    """A count the screen's corner phrase prints is not an answer: in "Lottery in all nine rows" or "10 (all 9
+    rows)" the 9 is dropped, so only an answer the reply gives is read."""
+    for phrase, _ in question.corner_phrases():
+        for number, word in _count_pairs(phrase):
+            spellings = "|".join(re.escape(s) for s in _spell(number))
+            text = re.sub(rf"(?i)(?<![\w.])(?:{spellings})\s+(?={re.escape(word)}\b)", "", text)
+    return text
+
+
+ZERO_SUBJECT = (r"(?:i\s+(?:(?:will|would|shall|do|did|can|could|should|am\s+going\s+to|want\s+to|choose\s+to|"
+                r"decide\s+to|plan\s+to|wish\s+to)\s+)*)")
+ZERO_NOT = (r"i\s+(?:will|would|shall|do|did|can|could|should|am)\s+not\s+(?:(?:want|going|choose|decide|plan|wish)"
+            r"\s+to\s+)?")
+ZERO_OBJECT = r"(?P<object>nothing|none|zero|nil|nought|naught|no\s+(?P<noun>[a-z]+))"
+ZERO_TAIL = r"(?:\s+(?!(?:but|except|than|more|less|other|else)\b)[a-z]+){0,4}"
+ZERO_RE = re.compile(rf"^(?:(?:{ZERO_SUBJECT})?(?P<verb>[a-z]+)\s+)?{ZERO_OBJECT}{ZERO_TAIL}$")
+AMOUNT_NOUNS = {"points", "point", "tokens", "token", "coins", "coin", "credits", "credit", "money", "dollars", "cents",
+                "euros", "pounds", "pence", "units", "ecus", "mus", "boxes", "items", "hours", "minutes", "days",
+                "deduction", "deductions", "bonus", "amount", "contribution"}
+ZERO_ANY_RE = re.compile(rf"^{ZERO_NOT}(?P<verb>[a-z]+)\s+(?:any|anything|a\s+(?:single\s+)?(?:thing|penny|cent|"
+                         rf"point|token))(?:\s+at\s+all)?{ZERO_TAIL}$")
+
+
+def _zero(text: str, question: Question) -> Optional[str]:
+    """"ok" for a reply that says the participant's own amount is nothing ("nothing", "I'll take nothing", "I would
+    not take anything", "I won't deduct any points", "none of the boxes"), "ambiguous" for nothing on the other
+    side ("I keep nothing" to "How much do you contribute?", "nothing for me" to a give question), else None."""
+    body = re.sub(r"[.!]+$", "", _expand(text)).strip()
+    if re.search(r"\d", body) or not body:
+        return None
+    match = ZERO_RE.match(body) or ZERO_ANY_RE.match(body)
+    if not match:
+        return None
+    verb = match.groupdict().get("verb")
+    asked = set(_words(_asking(question.text or ""))) | set(_words(question.text or ""))
+    noun = match.groupdict().get("noun")
+    if noun and noun not in AMOUNT_NOUNS and noun not in asked:
+        return None              # "no idea", "no comment": not an amount
+    if verb:
+        stem = VERB_RE.fullmatch(verb)
+        if stem is None and verb not in asked:
+            return None          # "I know nothing", "I want none": not an amount
+    if _other_side(str(text), question):
+        return "ambiguous"
+    return "ok"
+
+
+def _anchors(question: Question) -> Dict[float, str]:
+    """The scale's labelled points the question text prints: "0 = only believes, 100 = knows", "(scale 0 to 100:
+    Not at all accurate ... Extremely accurate)", "1 (not at all)"."""
+    text = question.text or ""
+    found: Dict[float, str] = {}
+    for m in re.finditer(r"(?i)([-+]?\d+(?:\.\d+)?)\s*(?:to|-|\u2013)\s*([-+]?\d+(?:\.\d+)?)\s*:\s*([^.\n()]+?)\s*"
+                         r"(?:\.\.\.|\u2026)\s*([^.\n()]+?)\s*(?:\)|$|\n)", text):
+        found[float(_numeric(m.group(1)))] = _norm(m.group(3))
+        found[float(_numeric(m.group(2)))] = _norm(m.group(4))
+        text = text.replace(m.group(0), " ")
+    for m in re.finditer(r"(?<![\w.])([-+]?\d+(?:\.\d+)?)\s*(?:=|:|\(|[-\u2013\u2014]\s)\s*(?![\d\s])"
+                         r"([^,;\n=()0-9.]{2,60}?)\s*(?=\)|,|;|\n|\.|$)", text):
+        words = _norm(m.group(2))
+        if words and not re.fullmatch(r"(?i)(?:to|and|or)\b.*", words):
+            found.setdefault(float(_numeric(m.group(1))), words)
+    return found
+
+
+COMMENT_RE = re.compile(rf"\s*(?:(?P<num>{NUMBER})\s*(?:[-\u2013\u2014:,(=]|\s[-\u2013\u2014]\s)\s*(?P<after>[^\d]*?)"
+                        rf"|(?P<before>[^\d]+?)\s*(?:[-\u2013\u2014:,(=]|\s[-\u2013\u2014]\s)\s*(?P<num2>{NUMBER}))"
+                        rf"\s*\)?\s*[.!]?\s*$")
+
+
+def _comment(text: str) -> Optional[tuple]:
+    """(number, words) for a number with a label beside it: "0 (not at all accurate)", "He doesn't know - 15"."""
+    match = COMMENT_RE.fullmatch(text)
+    if not match:
+        return None
+    number = match.group("num") or match.group("num2")
+    words = _norm(match.group("after") if match.group("num") else match.group("before"))
+    return (float(_numeric(number)), words) if words else None
+
+
+def _comment_status(text: str, question: Question) -> Optional[str]:
+    """For a number with words beside it: "ok" when the words fit the number's end of the scale, "ambiguous" when
+    they contradict it ("5 (knows)" when the screen prints "100 = knows"; "90, not very" on 0-100), None for a
+    reply of another shape. Negating words ("not at all", "doesn't know") are the low end of a scale whose high
+    end is not itself a negation, so "10 (not at all)" is read just as "100 - extremely accurate" is."""
+    shaped = _comment(text)
+    if shaped is None:
+        return None
+    value, words = shaped
+    anchors = _anchors(question)
+
+    def names(anchor: str) -> bool:
+        return bool(anchor) and (re.search(rf"(?<!\w){re.escape(anchor)}(?!\w)", words) is not None
+                                 or (len(words) >= 5 and re.search(rf"(?<!\w){re.escape(words)}(?!\w)", anchor)
+                                     is not None))
+    low, high = question.minimum, question.maximum
+    middle = (low + high) / 2 if low is not None and high is not None else None
+
+    def end(point: float) -> Any:
+        return point if middle is None or point == middle else point < middle
+
+    named = {point for point, anchor in anchors.items() if anchor == words} or \
+        {point for point, anchor in anchors.items() if names(anchor)}
+    named = {p for p in named if not any(q != p and anchors[p] != anchors[q] and anchors[p] in anchors[q]
+                                         for q in named)}
+    if named:   # the words are the screen's label of the number's own end ("10 (not at all)" by "0 = not at all")
+        return "ok" if all(p == value or end(p) == end(value) for p in named) else "ambiguous"
+    if not NEGATION_RE.search(words):
+        return "ok"
+    if middle is None or UNCERTAIN_RE.search(words):
+        return "ambiguous"       # "5 (no idea)", "80, not sure": doubt about the number, not a scale label
+    reversed_scale = any(point >= middle and NEGATION_RE.search(anchor) for point, anchor in anchors.items())
+    return "ok" if value < middle and not reversed_scale else "ambiguous"
+
+
+UNCERTAIN_RE = re.compile(r"(?i)\b(?:i\s+(?:do\s+not|don't|dont)\s+know|not\s+(?:sure|certain)|no\s+(?:idea|clue)|"
+                          r"unsure|hard\s+to\s+say|can't\s+say|cannot\s+say|guess)\b")
+
+
+def _drop_restated_scale(text: str, question: Question) -> str:
+    """"70 out of 100", "75/100", "On a scale of 0 to 100, 20", "33 (between 0 and 100)": the question's own
+    bounds written beside the answer are dropped. Other numbers stay."""
+    low, high = question.minimum, question.maximum
+    if high is not None:
+        text = re.sub(rf"(?i)\s*(?:out\s+of|/)\s*({NUMBER})(?![\d.])",
+                      lambda m: "" if _same_number(m.group(1), high) else m.group(0), text)
+    if low is not None and high is not None:
+        text = re.sub(rf"(?i)\(?\s*(?:(?:on\s+(?:a|the|this)\s+)?scale\s+)?(?:of|from|between)?\s*(?<![\w.])({NUMBER})"
+                      rf"\s*(?:to|and|-|\u2013|\u2014)\s*({NUMBER})(?![\d.])\s*(?:scale\s*)?\)?",
+                      lambda m: " " if _same_number(m.group(1), low) and _same_number(m.group(2), high)
+                      else m.group(0), text)
+        text = re.sub(r"^\s*[,;:]\s*|\s*[,;:]\s*$", "", text.strip())
+    return text
 
 
 def parse_number(reply: str, question: Question) -> Dict[str, Any]:
-    text = LEAD_RE.sub("", _clean(reply), count=1).replace("−", "-")
-    if re.fullmatch(r"(?i)\s*(" + "|".join(NUMBER_WORDS) + r")\s*[.!]?\s*", text):
-        text = NUMBER_WORDS[text.strip(" .!").lower()]      # "Five"
+    """Read a numeric entry. Besides digits: number words ("Fifty", "twenty-five"), a leading point (".9"), the
+    question's own bounds written beside the answer ("70 out of 100", "75/100", "On a scale of 0 to 100, 20"),
+    a scale label beside the number when it fits the number's end of the scale ("0 (not at all accurate)", "He
+    doesn't know - 15"), nothing said of the participant's own amount ("nothing", "I would not take anything",
+    "none of the boxes": 0), and the screen's own phrase for a number ("I choose the lottery in all nine rows"
+    for "Enter 10 if you choose the lottery in all nine rows"). A reply about the other side of a split ("I'd
+    leave all 1.70 to UNICEF" to "How much do you take?") is never read as the asked amount."""
+    cleaned = _clean(reply).replace("\u2212", "-")
+    text = LEAD_RE.sub("", cleaned, count=1)
+    text = re.sub(r"(?<![\w.])\.(\d)", r"0.\1", text)                 # ".9" is 0.9
+    if _excepted(text):
+        return _result(question, "ambiguous", reply)   # "all but one", "everything except two", "one third"
+    corner = _corner_value(cleaned, question)
+    if corner == "ambiguous":
+        return _result(question, "ambiguous", reply)
+    if corner is not None:
+        return _number_result(question, reply, corner)
+    text = _drop_restated_counts(text, question)
+    text = _drop_restated_scale(text, question)
+    if not re.search(r"\d", text):
+        zero = _zero(text, question)
+        if zero == "ambiguous":
+            return _result(question, "ambiguous", reply)
+        if zero == "ok":
+            return _number_result(question, reply, 0.0)
+        text = _words_to_digits(text)                                      # "Fifty", "I'd collect fifty boxes"
     numbers = re.findall(NUMBER_IN_TEXT, text.replace(",000", "000"))
     values = {float(n.replace(",", ".")) for n in numbers}
     if not values:
         return _result(question, "unparsed", reply)
-    if NEGATION_RE.search(text) or (len(numbers) > 1 and RANGE_RE.search(text)):
+    if len(numbers) > 1 and RANGE_RE.search(text):
         return _result(question, "ambiguous", reply)
+    comment = _comment_status(text, question) if len(values) == 1 else None
+    if comment == "ambiguous" or (comment is None and NEGATION_RE.search(text)):
+        return _result(question, "ambiguous", reply)   # "Not 50", "I don't contribute 5", "5 (knows)" by "100 = knows"
     if _other_side(text, question) or _by_others_only(text, question):
         return _result(question, "ambiguous", reply)
     if len(values) > 1:
@@ -771,9 +1320,17 @@ def parse_number(reply: str, question: Question) -> Dict[str, Any]:
         if tied is None:
             return _result(question, "ambiguous", reply)
         values = {float(tied.replace(",", "."))}
-    value = values.pop()
-    if question.integer and not value.is_integer():
-        return _result(question, "unparsed", reply)
+    else:
+        opposite = _opposite_positions(text, question)
+        places = [m.start() for m in re.finditer(NUMBER_IN_TEXT, text)]
+        if opposite and all(place in opposite for place in places):
+            return _result(question, "ambiguous", reply)   # "I leave 0.5 and take the rest" to a take question
+    return _number_result(question, reply, values.pop())
+
+
+def _number_result(question: Question, reply: str, value: float) -> Dict[str, Any]:
+    if question.integer and not float(value).is_integer():
+        return _result(question, "unparsed", reply, reason="not a whole number")
     if (question.minimum is not None and value < question.minimum) or \
             (question.maximum is not None and value > question.maximum):
         return _result(question, "out_of_range", reply, value=value)
@@ -870,13 +1427,133 @@ def _labelled(text: str, questions: Sequence[Question]) -> Dict[str, str]:
 
 
 def _in_order(text: str, questions: Sequence[Question]) -> Dict[str, str]:
-    """"2, 0, 3" for three number questions: one bare number per question, in the order asked."""
-    if not questions or any(q.kind != "number" for q in questions) or re.search(r"\d,\d{3}(?!\d)", text):
-        return {}                      # "1,000" is a thousand, not two answers
-    pieces = [p.strip() for p in re.split(r"[,;\n]", text.strip().rstrip(".")) if p.strip()]
-    if len(pieces) != len(questions) or not all(re.fullmatch(r"[-+]?\d+(?:\.\d+)?", p) for p in pieces):
+    """Unlabelled answers in the order asked: "2, 0, 3", "2 0 3", "1. Second\n2. No", "Second place. No, I haven't
+    seen it.", "right, 80". Read only when the reply splits (by lines, sentences, semicolons, commas, or spaces
+    between bare numbers) into exactly one piece per question and every piece is read as its question's answer;
+    otherwise nothing is read. A page of text questions only is never split."""
+    if len(questions) < 2 or all(q.kind == "text" for q in questions):
         return {}
-    return {q.id: p for q, p in zip(questions, pieces)}
+    text = text.strip()
+    thousands = re.search(r"\d,\d{3}(?!\d)", text)        # "1,000" is a thousand, not two answers
+    splits = [re.split(r"\s*\n\s*", text), re.split(r"(?<=[.!?])\s+(?=\S)", text), re.split(r"\s*;\s*", text)]
+    if not thousands:
+        splits.append(re.split(r"\s*,\s*", text))
+    if re.fullmatch(r"[-+]?\d+(?:\.\d+)?(?:\s+[-+]?\d+(?:\.\d+)?)+\.?", text):
+        splits.append(text.rstrip(".").split())
+    for pieces in splits:
+        pieces = [p.strip() for p in pieces if p.strip()]
+        if len(pieces) != len(questions):
+            continue
+        marks = [re.match(rf"\(?{n}\s*[.):]\s+(?=\S)", piece) for n, piece in enumerate(pieces, 1)]
+        if all(marks):
+            pieces = [piece[m.end():] for piece, m in zip(pieces, marks)]   # "1. Second", "2. No"
+        pieces = [re.sub(r"[\s.;,]+$", "", piece) for piece in pieces]
+        if any(re.match(r"[A-Za-z][\w '\u2019-]{0,40}\s*[:=]\s*\S", piece) for piece in pieces):
+            return {}        # "Expected: 8": keyed by words that name no question; never read by position
+        if all(piece and parse(piece, q).get("status") == "ok" for piece, q in zip(pieces, questions)):
+            return {q.id: piece for q, piece in zip(questions, pieces)}
+    return {}
+
+
+# --------------------------------------------------------------------------- free-text answers
+
+ORDINALS = {"1st": "first", "2nd": "second", "3rd": "third", "4th": "fourth", "5th": "fifth", "6th": "sixth",
+            "7th": "seventh", "8th": "eighth", "9th": "ninth", "10th": "tenth"}
+# Where a reply states its conclusion: "15 - 7 = 8", "the answer is 8", "I first thought 7, but it's 8".
+CONCLUSION_RE = re.compile(r"=|\banswer\s*(?:is|:)|\bso\b|\btherefore\b|\bthus\b|\bactually\b|\bbut\b|"
+                           r"\bhowever\b|\bmeaning\b")
+DENIED_BEFORE_RE = re.compile(r"\b(?:not|never|nor|rather\s+than|instead\s+of|than|no)\s+"
+                              r"(?:(?:in|the|a|an|at|on|be|is|was|it|its|place)\s+){0,2}$")
+DENIED_AFTER_RE = re.compile(r"^\s*(?:(?:place|one|sheep)\s+)?(?:is|was|would\s+be|seems)\s+(?:wrong|incorrect|"
+                             r"the\s+(?:intuitive|obvious|tempting|trap)|a\s+trap|tempting|a\s+common\s+mistake)")
+OPERAND_BEFORE_RE = re.compile(r"[-+*/\u00d7\u00f7]\s*$")
+OPERAND_AFTER_RE = re.compile(r"^\s*(?:[-+*/\u00d7\u00f7]|x(?=\s*\d))\s*\d")
+
+
+def _answer_words(text: str) -> str:
+    text = re.sub(r"[*_`]+", " ", _expand(text))
+    for short, word in ORDINALS.items():
+        text = re.sub(rf"\b{short}\b", word, text)
+    return re.sub(r"\s+", " ", _words_to_digits(text)).strip()
+
+
+def final_answer(reply: str, answers: Dict[str, Any]) -> Dict[str, Any]:
+    """The answer a free-text reply asserts, among the ones the analysis codes (the correct answer, the
+    intuitive lure, ...).
+
+    ``answers`` maps a name to the spellings that state it: {"correct": ["second"], "lure": ["first"]}. A
+    mention that is denied ("not first", "Emily (not June)", "rather than 7", "27 is the intuitive answer") or
+    an operand of a sum ("15 - 7 = 8") is not an assertion, and the reply's last conclusion ("= 8", "the answer
+    is", "but it's 8") is preferred. Returns {"answer": name or None, "status": "ok" | "none" | "ambiguous"}:
+    "none" when no answer is asserted (code it as the paper codes other answers), "ambiguous" when two are.
+    Never "matches the correct answer and not the lure": "You'd be in second place, not first." is second.
+    """
+    text = _answer_words(reply)
+    spellings = {name: [_answer_words(s) for s in ([given] if isinstance(given, str) else list(given))]
+                 for name, given in answers.items()}
+
+    def asserted(segment: str) -> set:
+        found = set()
+        for name, words in spellings.items():
+            for word in words:
+                if not word:
+                    continue
+                numeric = re.fullmatch(r"[-+]?\d+(?:\.\d+)?", word) is not None
+                pattern = rf"(?<![\w.]){re.escape(word)}(?![\w]|\.\d)" if numeric else \
+                    rf"(?<!\w){re.escape(word)}(?!\w)"
+                for m in re.finditer(pattern, segment):
+                    before, after = segment[:m.start()], segment[m.end():]
+                    if DENIED_BEFORE_RE.search(before) or DENIED_AFTER_RE.match(after):
+                        continue
+                    if numeric and (OPERAND_BEFORE_RE.search(before) or OPERAND_AFTER_RE.match(after)):
+                        continue
+                    found.add(name)
+        return found
+
+    marks = [m.end() for m in CONCLUSION_RE.finditer(text)]
+    for start in sorted(marks, reverse=True) + [0]:
+        found = asserted(text[start:])
+        if len(found) == 1:
+            return {"answer": found.pop(), "status": "ok"}
+        if found:
+            return {"answer": None, "status": "ambiguous"}
+    return {"answer": None, "status": "none"}
+
+
+# --------------------------------------------------------------------------- the screen's own wording
+
+def own_wording(question: Question) -> List[tuple]:
+    """Replies in the screen's own words and what each must be read as: (reply, number) for a numeric entry,
+    (reply, option index) for a choice. "I choose the lottery in all nine rows" for "Enter 10 if you choose the
+    lottery in all nine rows"; "0 (only believes)" for "0 = only believes"; "Take the bet" for "Take the bet - 50%
+    chance ..."; "Yes"/"No" for "YES - ..."/"NO - ...". check_replies.py feeds them back for every question a
+    package asks, so a package is tested on its own prompts' wording."""
+    cases: List[tuple] = []
+    if question.kind == "number":
+        low, high = question.minimum, question.maximum
+        inside = lambda v: (low is None or v >= low) and (high is None or v <= high) and \
+            (not question.integer or float(v).is_integer())
+        for phrase, value in question.corner_phrases():
+            words = re.sub(r"(?i)^\s*(?:if\s+)?(?:you|i)\s+", "", phrase).strip()
+            words = re.sub(r"(?i)\byour\b", "my", re.sub(r"(?i)\byou\b", "I", words))
+            if inside(value):
+                cases.append((f"I {words}", value))
+        for value, words in _anchors(question).items():
+            if inside(value):
+                cases += [(f"{_fmt(value)} ({words})", value), (f"{_fmt(value)} - {words}", value)]
+        for value in (low, high):
+            if value is not None and inside(value):
+                cases.append((_fmt(value), value))
+    elif question.kind == "choice" and not question.multiple:
+        heads = [_head(label) for label in question.options]
+        for index, head in enumerate(heads):
+            if head and heads.count(head) == 1 and head not in [_norm(label) for label in question.options] \
+                    and not re.fullmatch(r"[-+]?\d+", head):
+                cases.append((LABEL_HEAD_RE.split(question.options[index], maxsplit=1)[0].strip(), index))
+        pair = _yes_no(question)
+        if pair is not None:
+            cases += [("Yes", pair[0]), ("No", pair[1]), ("No, I have not.", pair[1]), ("Yes, I have.", pair[0])]
+    return cases
 
 
 # --------------------------------------------------------------------------- run size
@@ -902,6 +1579,8 @@ class Page:
         self.questions = list(questions)
         self.answers: Dict[str, Dict[str, Any]] = {}
         self.replies: List[str] = []
+        # Text the reader added to the screen (a numeric range): a replay adaptation to record.
+        self.added: List[Dict[str, str]] = reader_added_text(self.questions)
 
     @property
     def ok(self) -> bool:
@@ -916,7 +1595,11 @@ class Page:
                 for q in self.questions if self.answers.get(q.id, {}).get("status") != "ok"]
 
     def value(self, question_id: str) -> Any:
-        """The label (choice), labels (multiple), number or text of an answer; None when unread."""
+        """The label (choice), labels (multiple), number or text of an answer; None when unread.
+
+        For a choice this is the label as printed ("6 (Extremely attractive)"), kept so adapters can show and
+        compare labels. An analysis that needs the scale point uses :meth:`number` (6), and :meth:`code` gives
+        what the participant typed to pick it ("6")."""
         answer = self.answers.get(question_id, {})
         if answer.get("status") != "ok":
             return None
@@ -924,6 +1607,35 @@ class Page:
             if key in answer:
                 return answer[key]
         return None
+
+    def code(self, question_id: str) -> Any:
+        """The code (choice) or codes (multiple) of an answer: "6" for "6 (Extremely attractive)"; None when unread
+        or for a number or text answer."""
+        answer = self.answers.get(question_id, {})
+        if answer.get("status") != "ok":
+            return None
+        return answer.get("code", answer.get("codes"))
+
+    def number(self, question_id: str) -> Any:
+        """The answer as a number, for the analysis: a numeric entry's value, or a choice's numeric code (6 for
+        "6 (Extremely attractive)" on a printed scale, the position 1, 2, ... for an unnumbered list); a list for
+        ``multiple``. None when unread or when the code is not a number (letters)."""
+        answer = self.answers.get(question_id, {})
+        if answer.get("status") != "ok":
+            return None
+        if "value" in answer:
+            return answer["value"] if isinstance(answer["value"], (int, float)) else None
+
+        def as_number(code: Any) -> Any:
+            try:
+                number = float(code)
+            except (TypeError, ValueError):
+                return None
+            return int(number) if number.is_integer() else number
+        if "codes" in answer:
+            numbers = [as_number(code) for code in answer["codes"]]
+            return None if any(n is None for n in numbers) else numbers
+        return as_number(answer.get("code"))
 
 
 def ask(llm: Callable[[str], str], prompt: str, questions: Sequence[Question], retries: int = 1,
@@ -962,6 +1674,13 @@ def ask(llm: Callable[[str], str], prompt: str, questions: Sequence[Question], r
         if retry_note == RETRY_NOTE and all(page.answers[q.id]["status"] == "ambiguous" and q.kind == "choice" for q in questions
                                             if getattr(q, "retry", q.required) and page.answers[q.id]["status"] != "ok"):
             note = AMBIGUOUS_NOTE  # "10" on an amount list: say why, so the next reply names one option
+        failed = [q for q in questions if getattr(q, "retry", q.required) and page.answers[q.id]["status"] != "ok"]
+        if retry_note == RETRY_NOTE and failed and all(page.answers[q.id]["status"] == "out_of_range"
+                                                       and q.minimum is not None and q.maximum is not None
+                                                       for q in failed):
+            # As the survey's own validation would: say the range once an answer falls outside it.
+            note = RANGE_NOTE.replace("{ranges}", "; ".join(
+                f"a number from {_fmt(q.minimum)} to {_fmt(q.maximum)}" for q in failed))
         current = prompt + "\n\n" + note.format(which=which)
     return page
 
@@ -1011,7 +1730,7 @@ class StubParticipant:
         self.misreads: List[Dict[str, Any]] = []
         self.unshown: List[str] = []
         self.ambiguous: List[str] = []
-        self.asked: Dict[str, Question] = {}
+        self.asked: Dict[Any, Question] = {}   # every distinct question (an id is often reused across screens)
         self.probed: set = set()
 
     def __call__(self, prompt: str) -> str:
@@ -1215,7 +1934,8 @@ class StubParticipant:
         self.calls += 1
         self.prompts.append(prompt)
         for question in questions:
-            self.asked.setdefault(question.id, question)
+            self.asked.setdefault((question.id, question.text, tuple(question.options), question.minimum,
+                                   question.maximum), question)
         if not final and self.rng.random() < self.noise:
             return "Hmm, I am not sure what to say here."
         if len(questions) == 1:
@@ -1231,8 +1951,11 @@ def _asked_summary(question: Question) -> Dict[str, Any]:
         key = [question.options[i] for i in question.key_indices()] if question.kind == "choice" else question.key
     except ValueError:
         key = question.key
-    return {"id": question.id, "kind": question.kind, "text": question.text[:600], "options": list(question.options),
-            "key": key, "required": question.required}
+    return {"id": question.id, "kind": question.kind, "text": question.text[:2000], "options": list(question.options),
+            "key": key, "required": question.required, "codes": list(question.codes),
+            "minimum": question.minimum, "maximum": question.maximum, "integer": question.integer,
+            "multiple": question.multiple, "corners": dict(getattr(question, "corners", {}) or {}),
+            "added": question.added_text() if hasattr(question, "added_text") else None}
 
 
 COMPLETED = ("completed", "complete")  # "complete": packages built before the contract named it
@@ -1357,8 +2080,12 @@ def smoke_test(run_sessions: Callable, evaluate: Callable, arms: Sequence[str], 
             "when the screen prints those codes")
     asked = dict(reader.asked)
     asked.update(stub.asked)
-    report["asked"] = [_asked_summary(question) for question in asked.values()]
+    report["asked"] = [_asked_summary(question) for question in list(asked.values())[:500]]
     report["unshown_options"] = sorted(set(stub.unshown + reader.unshown))[:20]
+    # Text the reader added to the screens (a numeric range the questions do not state): record it as a replay
+    # adaptation, or pass range_hint=False when participants never saw it.
+    report["reader_added_text"] = [dict(question=qid, added=added) for qid, added in dict.fromkeys(
+        (item["id"], item["added"]) for item in report["asked"] if item.get("added"))]
     report["ambiguous_numbers"] = sorted(set(stub.ambiguous + reader.ambiguous))[:20]
     report["model_calls"] = stub.calls + reader.calls
     stub.direct_calls += reader.direct_calls
@@ -1426,6 +2153,7 @@ def smoke_package(root: Path, seed: int = 0) -> Dict[str, Any]:
 
 def smoke_main(package_root: Any = None) -> int:
     """``python task/adapter.py --smoke-test``: print the report; exit 1 when it fails."""
+    sys.dont_write_bytecode = True   # evaluation.py and the adapter's siblings leave no __pycache__ in the package
     root = Path(package_root) if package_root else Path(__file__).resolve().parents[1]
     if root.is_file():
         root = root.resolve().parents[1]
