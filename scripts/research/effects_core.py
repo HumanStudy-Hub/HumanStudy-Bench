@@ -43,6 +43,18 @@ OPS = ("mean_difference", "paired_difference", "proportion_difference", "conting
 ROLES = ("test", "robustness", "check", "descriptive")
 POPULATIONS = ("human", "ai-model", "human-vs-ai-model", "ai-model-vs-ai-model")
 UNTESTED = ("not-an-effect", "not-tested-in-paper", "not-computable", "out-of-scope")
+# tested: every effect naming it is computed by the replay and they cover its scope; partial: some of its effects
+# are computed but others are excluded (capabilities.json run.excluded), or they cover only part of its scope
+# (one design or site of a pooled hypothesis, one side of a comparison), with a reason; untested: none computed.
+HYPOTHESIS_STATUSES = ("tested", "partial", "untested")
+# Metrics that live on a 0-1 scale but are often printed in percentage points: estimates say which (`scale`).
+PROPORTION_METRICS = ("proportion", "risk_difference")
+SCALES = ("proportion", "percentage_points")
+# Metrics without a sign: on a two-group or paired contrast they hide which arm is higher.
+UNSIGNED_METRICS = ("phi", "cramers_v", "chi_square", "F", "eta_squared", "partial_eta_squared")
+ESTIMATE_TYPES = ("descriptive", "model-based")
+# whose numbers `reported` holds, relative to what the replay runs
+REPORTED_SCOPES = ("replayed-sample", "pooled", "other-sample")
 ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]*$")
 NUMBER_FIELDS = ("value", "se", "df", "p", "n", "lower", "upper")
 TOLERANCE = "a result is recovered when |computed - reported| <= max(0.05, 0.15 * |reported|)"
@@ -53,6 +65,18 @@ def load(root):
     if not path.is_file():
         return None
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def excluded_effects(root):
+    """Effect ids capabilities.json run.excluded[].effects lists (the replay does not compute them)."""
+    try:
+        caps = json.loads((Path(root) / "capabilities.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        return set()
+    run = caps.get("run") if isinstance(caps, dict) and isinstance(caps.get("run"), dict) else {}
+    items = run.get("excluded") if isinstance(run.get("excluded"), list) else []
+    return {str(x) for item in items if isinstance(item, dict) and isinstance(item.get("effects"), list)
+            for x in item["effects"]}
 
 
 # ---- numbers in quotes -----------------------------------------------------------------------------
@@ -227,8 +251,10 @@ def check(root, effects=None, program=None):
             node_ref(where + " backgroundIds", b)
         if not isinstance(h.get("phenomena"), list):
             P("%s: phenomena must be a list of keywords (may be empty)" % where)
-        if h.get("status") not in ("tested", "untested"):
-            P("%s: status must be tested or untested" % where)
+        if h.get("status") not in HYPOTHESIS_STATUSES:
+            P("%s: status must be tested, partial or untested" % where)
+        if h.get("status") == "partial" and not str(h.get("reason") or "").strip():
+            P("%s: a partial hypothesis needs a reason (which part of it the replay does not compute)" % where)
         if h.get("status") == "untested" and (h.get("untestedBecause") not in UNTESTED or not h.get("reason")):
             P("%s: an untested hypothesis needs untestedBecause (%s) and a reason" % (where, ", ".join(UNTESTED)))
     for nid, n in nodes.items():
@@ -335,6 +361,19 @@ def check(root, effects=None, program=None):
             P("%s: reported numbers need evidenceIds" % where)
         for j, est in enumerate(rep.get("estimates") or []):
             term("%s reported.estimates[%d].metric" % (where, j), "metric", est.get("metric"))
+            at = "%s reported.estimates[%d]" % (where, j)
+            if "scale" in est and est["scale"] not in SCALES:
+                P("%s: scale must be one of %s" % (at, ", ".join(SCALES)))
+            elif est.get("scale") == "proportion" and _num(est.get("value")) is not None and abs(est["value"]) > 1:
+                P("%s: %s = %s is not on a 0-1 proportion scale; a value printed in percentage points has scale "
+                  "percentage_points" % (at, est.get("metric"), est.get("value")))
+            if "estimateType" in est and est["estimateType"] not in ESTIMATE_TYPES:
+                P("%s: estimateType must be one of %s" % (at, ", ".join(ESTIMATE_TYPES)))
+        if "scope" in rep and rep["scope"] not in REPORTED_SCOPES:
+            P("%s: reported.scope must be one of %s" % (where, ", ".join(REPORTED_SCOPES)))
+        elif rep.get("scope") in ("pooled", "other-sample") and not str(rep.get("scopeNote") or "").strip():
+            P("%s: reported.scope %s needs scopeNote (whose numbers these are: \"pooled across 61 countries\")"
+              % (where, rep["scope"]))
         if rep.get("test") and rep["test"].get("statistic") not in TEST_STATISTICS:
             P("%s: reported.test.statistic must be t, F, z, chi_square, W, V, U or other" % where)
         p_blocks = [("test", rep.get("test") or {})] + [
@@ -358,11 +397,15 @@ def check(root, effects=None, program=None):
                 P("%s: reported %s = %s is not written in its cited quotes" % (where, loc, value))
             elif q == "unsigned":
                 W("%s: reported %s = %s: only its absolute value is quoted; check the sign" % (where, loc, value))
+    not_run = excluded_effects(root)
     for h in hyps:
-        if h.get("status") == "tested" and h.get("id") not in tested:
-            P("hypothesis %s is tested but no effect names it" % h.get("id"))
+        if h.get("status") in ("tested", "partial") and h.get("id") not in tested:
+            P("hypothesis %s is %s but no effect names it" % (h.get("id"), h.get("status")))
         if h.get("status") == "untested" and h.get("id") in tested:
-            P("hypothesis %s is untested but effect(s) name it" % h.get("id"))
+            naming = [e.get("id") for e in effs if h.get("id") in (e.get("hypothesisIds") or [])]
+            # an untested (not-computable) hypothesis may keep its effects when the replay excludes all of them
+            if h.get("untestedBecause") != "not-computable" or any(x not in not_run for x in naming):
+                P("hypothesis %s is untested but effect(s) name it" % h.get("id"))
     if not effs and not any(h.get("status") == "untested" for h in hyps):
         W("no effects")
     for i, link in enumerate(effects.get("links") or []):
@@ -904,7 +947,7 @@ def op_proportion_difference(rows, effect):
     table = [[a["k"], a["n"] - a["k"]], [b["k"], b["n"] - b["k"]]]
     chi = _chi_square(table)
     return {"status": "computed", "metric": "risk_difference", "value": diff, "se": se, "n": a["n"] + b["n"],
-            "cells": cells, "table": {"rows": [t_arm, r_arm], "columns": ["success", "other"], "counts": table},
+            "scale": "proportion", "cells": cells, "table": {"rows": [t_arm, r_arm], "columns": ["success", "other"], "counts": table},
             "test": chi, "method": "difference in proportions, treatment minus reference; Pearson chi-square"}
 
 
@@ -935,9 +978,44 @@ def op_contingency(rows, effect):
                 "table": {"rows": arms, "columns": levels, "counts": counts}}
     n, k = chi["n"], min(len(arms), len(levels))
     v = math.sqrt(chi["value"] / (n * (k - 1))) if k > 1 else None
-    return {"status": "computed", "metric": "phi" if len(arms) == 2 and len(levels) == 2 else "cramers_v",
-            "value": v, "n": n, "table": {"rows": arms, "columns": levels, "counts": counts}, "test": chi,
-            "method": "Pearson chi-square without continuity correction; phi / Cramer's V = sqrt(chi2 / (N (k-1)))"}
+    block = {"status": "computed", "metric": "phi" if len(arms) == 2 and len(levels) == 2 else "cramers_v",
+             "value": v, "n": n, "table": {"rows": arms, "columns": levels, "counts": counts}, "test": chi,
+             "method": "Pearson chi-square without continuity correction; phi / Cramer's V = sqrt(chi2 / (N (k-1)))"}
+    sign = _contingency_sign(effect, arms, levels, counts)
+    if sign is not None and v is not None:
+        block.update(value=sign * v, signed=True, method=block["method"] + "; signed by the share of the success "
+                     "level(s), treatment minus reference")
+    elif directional(effect):
+        block["signed"] = False
+    return block
+
+
+def directional(effect):
+    """A two-group or paired contrast: its value has a sign (treatment minus reference)."""
+    con = effect.get("contrast") if isinstance(effect.get("contrast"), dict) else {}
+    return con.get("kind") in ("two_groups", "paired")
+
+
+def _contingency_sign(effect, arms, levels, counts):
+    """+1 / -1 / 0 when a two-row table of a two-group contrast has success levels (compute.success): the sign of
+    the treatment row's share of them minus the reference row's; None when the table cannot be signed."""
+    con, comp = effect.get("contrast") or {}, effect.get("compute") or {}
+    if not directional(effect) or len(arms) != 2 or "success" not in comp:
+        return None
+    names = [str(a) for a in arms]
+    if str(con.get("treatment")) not in names or str(con.get("reference")) not in names:
+        return None
+    ok = [j for j, lv in enumerate(levels) if _success(lv, effect)]
+    if not ok or len(ok) == len(levels):
+        return None
+    share = {}
+    for name, row in zip(names, counts):
+        total = sum(row)
+        if not total:
+            return None
+        share[name] = sum(row[j] for j in ok) / total
+    diff = share[str(con["treatment"])] - share[str(con["reference"])]
+    return (diff > 0) - (diff < 0)
 
 
 def op_correlation(rows, effect):
@@ -1022,28 +1100,107 @@ def compute(effects, sessions, evaluation=None, module=None, key_effects=None, s
 def compare(effect, block):
     """Computed against reported, in the same quantity. Basis: the same metric; or the effect's
     compute.compareAs (a stated equivalence, e.g. an OLS coefficient on a condition dummy is the mean
-    difference); or the difference of the reported cell means. Otherwise not comparable."""
+    difference); or the difference of the reported cell means. Otherwise not comparable.
+
+    A proportion or risk difference is put on one scale first (estimates[].scale: proportion or
+    percentage_points; a block may say its scale); with no scale and |value| > 1 it is not compared
+    (scaleUnknown). An unsigned metric (phi, Cramer's V, chi-square, F, eta squared) on a two-group or paired
+    contrast is judged only when both sides carry a sign (a negative printed value or signBasis, and a block with
+    signed: true); otherwise withinTolerance is None. A pooled, other-sample or model-based reported value is
+    labelled likeForLike: false (the replay runs one sample and fits no model)."""
     rep = effect.get("reported") or {}
     if block.get("status") != "computed" or block.get("value") is None:
         return {"comparable": False, "reason": block.get("reason") or "not computed"}
     metric = block.get("metric")
     for est in rep.get("estimates") or []:
         if est.get("metric") == metric and _num(est.get("value")) is not None:
-            return _cmp(block["value"], est["value"], "same metric (%s)" % metric)
+            return _estimate_cmp(effect, block, est, "same metric (%s)" % metric)
     alias = (effect.get("compute") or {}).get("compareAs")
     if alias:
         for est in rep.get("estimates") or []:
             if est.get("metric") == alias.get("metric") and _num(est.get("value")) is not None:
-                return _cmp(block["value"], est["value"], "computed %s compared as reported %s: %s"
-                            % (metric, alias["metric"], alias.get("reason")))
+                return _estimate_cmp(effect, block, est, "computed %s compared as reported %s: %s"
+                                     % (metric, alias["metric"], alias.get("reason")))
     con, cells = effect.get("contrast") or {}, rep.get("cells") or {}
     t, r = cells.get(con.get("treatment")) or {}, cells.get(con.get("reference")) or {}
     if metric == "mean_difference" and _num(t.get("mean")) is not None and _num(r.get("mean")) is not None:
-        return _cmp(block["value"], t["mean"] - r["mean"], "difference of the reported cell means")
+        return _like(effect, None, _cmp(block["value"], t["mean"] - r["mean"], "difference of the reported cell means"))
     pt, pr = _share(t), _share(r)
     if metric == "risk_difference" and pt is not None and pr is not None:
-        return _cmp(block["value"], pt - pr, "difference of the reported proportions")
+        value, why = _on_proportion_scale(block["value"], block.get("scale"), "computed")
+        if value is None:
+            return {"comparable": False, "scaleUnknown": True, "reason": why}
+        return _like(effect, None, _cmp(value, pt - pr, "difference of the reported proportions"))
     return {"comparable": False, "reason": "the paper reports no %s for this effect" % metric}
+
+
+PERCENTAGE_POINTS = re.compile(r"(?i)percentage[- ]points?|\bpp\b")
+MODEL_WORDS = re.compile(r"(?i)posterior|bayesian|hierarchical|multi-?level|mixed[- ](?:effects?[- ])?model|"
+                         r"random[- ]effects|meta-?analy|\bREML\b|\bmodel \d|covariate|adjusted")
+POOLED_WORDS = re.compile(r"(?i)\bpooled\b|\baggregate\b|meta-?analy|across (?:all |the )?(?:\d+ )?"
+                          r"(?:countries|sites|labs|laboratories|designs|samples|teams|studies|nations)")
+
+
+def reported_scale(effect, est):
+    """'proportion' | 'percentage_points' | None for a proportion-type reported estimate: its `scale`, else (older
+    files) the words "percentage points" in its variant or in the outcome's scale."""
+    if est.get("scale") in SCALES:
+        return est["scale"]
+    out = effect.get("outcome") if isinstance(effect.get("outcome"), dict) else {}
+    if PERCENTAGE_POINTS.search(" ".join(str(x or "") for x in (est.get("variant"), out.get("scale")))):
+        return "percentage_points"
+    return None
+
+
+def _on_proportion_scale(value, scale, side):
+    """(value on the 0-1 scale, None), or (None, why it cannot be put there)."""
+    if scale == "percentage_points":
+        return value / 100.0, None
+    if scale == "proportion" or abs(value) <= 1:
+        return value, None
+    return None, ("the %s value %s is not on a 0-1 scale and no scale (proportion or percentage_points) says what "
+                  "it is on" % (side, value))
+
+
+def _estimate_cmp(effect, block, est, basis):
+    """compare() for a matched reported estimate: one scale, and a sign on both sides when the metric has none."""
+    computed, reported = block["value"], est["value"]
+    if est.get("metric") in PROPORTION_METRICS or block.get("metric") in PROPORTION_METRICS:
+        reported, why = _on_proportion_scale(reported, reported_scale(effect, est), "reported")
+        computed, why2 = (None, None) if reported is None else \
+            _on_proportion_scale(computed, block.get("scale"), "computed")
+        if reported is None or computed is None:
+            return {"comparable": False, "scaleUnknown": True, "reason": why or why2}
+        if reported != est["value"] or computed != block["value"]:
+            basis += "; both on the 0-1 proportion scale"
+    out = _cmp(computed, reported, basis)
+    unsigned = [m for m in (est.get("metric"), block.get("metric")) if m in UNSIGNED_METRICS]
+    if unsigned and directional(effect):
+        rep_signed = reported < 0 or bool(str(est.get("signBasis") or "").strip())
+        if not (rep_signed and block.get("signed") is True):
+            out.update(withinTolerance=None, signChecked=False,
+                       caveat="%s has no sign, so a reversed result would look like a match; the computed block needs "
+                              "signed: true (treatment minus reference) and the reported value a printed sign or "
+                              "signBasis" % unsigned[0])
+    return _like(effect, est, out)
+
+
+def _like(effect, est, out):
+    """Label a comparison whose reported number is pooled, from another sample, or model-based."""
+    rep = effect.get("reported") or {}
+    why = []
+    if rep.get("scope") in ("pooled", "other-sample"):
+        why.append("reported %s: %s" % (rep["scope"], rep.get("scopeNote") or ""))
+    elif "scope" not in rep and POOLED_WORDS.search(" ".join(str(x) for x in (rep.get("missing") or [])) + " " +
+                                                    str((est or {}).get("variant") or "")):
+        why.append("the reported value looks pooled across samples")
+    if est is not None:
+        kind = est.get("estimateType")
+        if kind == "model-based" or (kind is None and MODEL_WORDS.search(str(est.get("variant") or ""))):
+            why.append("the reported value is model-based (%s)" % (est.get("variant") or "estimateType model-based"))
+    if why:
+        out.update(likeForLike=False, basis="not like-for-like (%s); %s" % ("; ".join(why).strip(), out.get("basis")))
+    return out
 
 
 def _share(cell):
