@@ -64,6 +64,11 @@ def proposal_from_ref(ref: str, base: str, author: str) -> tuple[Path, dict, dic
             raise ValueError("Hub submissions require their server-signed contributor identity")
     elif str(contributor.get("github", "")).casefold() != author.casefold():
         raise ValueError("the contributor must match the authenticated GitHub PR author")
+    # A protocol release credits the same person in study.json (V080 §2.1): append when absent.
+    login = author if author.casefold() != bot.casefold() else str(contributor.get("github", ""))
+    if "study.json" in files and "protocol.json" in files and login:
+        from scripts.check_contributors import with_contributor
+        files["study.json"] = with_contributor(files["study.json"], login, str(contributor.get("name", "")))
     # Existing Hub key encoding remains compatible, but no contribution may write another paper's path.
     expected = "paper_" + hashlib.sha256(metadata["paperKey"].encode()).hexdigest()[:24]
     if paper_dir != expected or len(paper_dir) > 300:
@@ -109,7 +114,8 @@ def proposal_from_ref(ref: str, base: str, author: str) -> tuple[Path, dict, dic
 def maintain(ref: str, base: str, author: str, *, agent_review: bool) -> dict:
     folder, metadata, files = proposal_from_ref(ref, base, author)
     result = integrate(folder, metadata, files)
-    if result.get("candidateRevision") and agent_review:
+    # A protocol release always waits for a maintainer, so no agent review is spent on it.
+    if result.get("candidateRevision") and agent_review and not result.get("requiresMaintainer"):
         pointer = folder / "current.json"
         current = json.loads(pointer.read_text()) if pointer.exists() else None
         candidate, conflicts = merge_assets(load_revision(folder, metadata.get("baseRevision")),

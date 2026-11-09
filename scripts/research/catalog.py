@@ -235,10 +235,25 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
             file = revision / entry["path"]
             if not file.resolve().is_relative_to(revision.resolve()) or file.is_symlink() or hashlib.sha256(file.read_bytes()).hexdigest() != entry["sha256"]:
                 raise ValueError(f"community revision content changed: {file}")
-        program = json.loads((revision / "program.json").read_text())
-        projection = project_program(program)
+        paths = {entry["path"] for entry in manifest["files"]}
         paper = current["paper"]
-        if not paper.get("description"):
+        # A v0.8 protocol release (V080 §3.1) may have no program.json; its block holds counts and ids only.
+        protocol_extra, capabilities = {}, current["capabilities"]
+        if "protocol.json" in paths:
+            from scripts.research.protocols import protocol_capabilities, summary
+            study_doc = json.loads((revision / "study.json").read_text())
+            protocol_doc = json.loads((revision / "protocol.json").read_text())
+            protocol_extra = {"protocol": {**summary(study_doc, protocol_doc), "revision": current["revision"]}}
+            capabilities = {**capabilities, **protocol_capabilities(protocol_doc)}
+        if "program.json" in paths:
+            program = json.loads((revision / "program.json").read_text())
+            projection = project_program(program)
+        else:
+            program = {}
+            projection = {"studies": [], "issues": [], "effectEstimates": [],
+                          "searchText": "\n".join(strings({k: paper.get(k) for k in ("title", "authors", "year")})
+                                                  + strings(protocol_extra.get("protocol", {}).get("slug")))}
+        if not paper.get("description") and program:
             paper = {**paper, "description": community_description(revision, manifest, program)}
         pid = paper["id"]
         previous = papers.get(pid, {})
@@ -253,7 +268,8 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
                        "aliases": sorted(set(previous.get("aliases", []) + paper.get("aliases", []))),
                        "currentRevision": current["revision"],
                        "assetRoot": revision.relative_to(root).as_posix(), "assetFiles": manifest["files"],
-                       "coverage": "human-program", "capabilities": current["capabilities"],
+                       "coverage": "human-program" if program else "protocol-release", "capabilities": capabilities,
+                       **protocol_extra,
                        **({"studyCapabilities": study_caps} if study_caps else {}),
                        "effectEstimates": estimates,
                        **({"graph": graph} if graph else {}),

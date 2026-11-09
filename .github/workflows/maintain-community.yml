@@ -33,6 +33,9 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jsonschema==4.26.0 pypdf==6.1.1
+      # trusted, pinned engine from main's requirements.txt; never from the proposal
+      # hsenv pin lives only in requirements.txt: hsenv @ git+https://github.com/HumanStudy-Hub/hsenv@fd38302574260b5876cfeaa6741540c5163ba662  # v0.8.0
+      - run: grep '^hsenv' requirements.txt > "$RUNNER_TEMP/hsenv-pin.txt" && pip install -r "$RUNNER_TEMP/hsenv-pin.txt"
       - name: Read exact proposal commits
         id: proposal
         env:

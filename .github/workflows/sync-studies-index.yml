@@ -21,6 +21,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Install the pinned protocol engine
+        # effects_core is hsenv's (V080 B1). hsenv pin lives only in requirements.txt: hsenv @ git+https://github.com/HumanStudy-Hub/hsenv@fd38302574260b5876cfeaa6741540c5163ba662  # v0.8.0
+        run: grep '^hsenv' requirements.txt > "$RUNNER_TEMP/hsenv-pin.txt" && pip install -r "$RUNNER_TEMP/hsenv-pin.txt"
       - name: Build studies index
         run: python scripts/build_studies_index.py
       - name: Commit updated index

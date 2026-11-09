@@ -6,6 +6,9 @@ on:
       - "studies/**"
       - "scripts/build_studies_index.py"
       - "scripts/verify_study.sh"
+      - "scripts/check_contributors.py"
+      - "community/**"
+      - "scripts/research/protocols.py"
 
 jobs:
   validate:
@@ -57,43 +60,50 @@ jobs:
             exit 0
           fi
           # A failed diff must fail the job, never read as "no studies changed".
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- studies/)
-          CHANGED_STUDIES=$(printf '%s\n' "$CHANGED_FILES" | grep -oP 'studies/[^/]+' | sort -u || true)
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- studies/ community/)
+          CHANGED_STUDIES=$(printf '%s\n' "$CHANGED_FILES" | grep -oP '^studies/[^/]+|^community/paper_[a-f0-9]+/revisions/[a-f0-9]{64}' | sort -u || true)
           if [ -z "$CHANGED_STUDIES" ]; then
             exit 0
           fi
-          FAILED=0
-          for study_path in $CHANGED_STUDIES; do
-            INDEX="$study_path/index.json"
-            if [ ! -f "$INDEX" ]; then
-              continue
-            fi
-            # Check if any contributor github field contains the PR author's username
-            MATCH=$(python3 -c "
-          import json, sys
-          with open('$INDEX') as f:
-              data = json.load(f)
-          contributors = data.get('contributors', [])
-          if not contributors:
-              print('MISSING')
-              sys.exit(0)
-          author = '$PR_AUTHOR'.lower()
-          for c in contributors:
-              gh = c.get('github', '').lower()
-              # Match 'username' or 'https://github.com/username'
-              if gh.rstrip('/').split('/')[-1] == author:
-                  print('MATCH')
-                  sys.exit(0)
-          print('MISMATCH')
-          ")
-            study_id=$(basename "$study_path")
-            if [ "$MATCH" = "MISSING" ] || [ "$MATCH" = "MISMATCH" ]; then
-              echo "::error file=$INDEX::Contributor check failed for $study_id. Your GitHub username is '$PR_AUTHOR'. Please add the following to your index.json:%0A%0A\"contributors\": [%0A  { \"name\": \"Your Name\", \"github\": \"$PR_AUTHOR\" }%0A]"
-              FAILED=1
-            else
-              echo "$study_id: Contributor @$PR_AUTHOR verified."
-            fi
+          # Same rule for legacy index.json and protocol study.json (V080 B2); a dir with neither is skipped.
+          python scripts/check_contributors.py --author "$PR_AUTHOR" $CHANGED_STUDIES
+
+  # V080-PLATFORM §2.1: a maintainer release PR adds files under community/**. Every changed revision that
+  # holds protocol.json is checked with the hsenv engine. This job runs the PR's own checker
+  # (scripts/research/protocols.py), its tests and its requirements.txt hsenv pin, so a PR can change its own
+  # checks: it has no secrets, a read-only token and a time limit, and reviewers must look at any change to
+  # those files. Protocol files themselves are read as data by the engine.
+  validate-protocols:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install the pinned engine
+        # hsenv pin lives only in requirements.txt: hsenv @ git+https://github.com/HumanStudy-Hub/hsenv@fd38302574260b5876cfeaa6741540c5163ba662  # v0.8.0
+        run: |
+          pip install jsonschema==4.26.0 pytest==8.4.2
+          grep '^hsenv' requirements.txt > "$RUNNER_TEMP/hsenv-pin.txt" && pip install -r "$RUNNER_TEMP/hsenv-pin.txt"
+      - name: Validate changed protocol releases
+        run: |
+          # A failed diff must fail the job, never read as "no revisions changed".
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- community/)
+          REVISIONS=$(printf '%s\n' "$CHANGED_FILES" | grep -oP '^community/paper_[a-f0-9]+/revisions/[a-f0-9]{64}' | sort -u || true)
+          DIRS=""
+          for rev in $REVISIONS; do
+            if [ -f "$rev/protocol.json" ]; then DIRS="$DIRS $rev"; fi
           done
-          if [ "$FAILED" -eq 1 ]; then
-            exit 1
+          if [ -z "$DIRS" ]; then
+            echo "No protocol releases changed."
+            exit 0
           fi
+          python -m scripts.research.protocols --sessions 300 $DIRS
+      - name: Test the protocol release rules
+        run: python -m pytest tests/test_protocol_release.py tests/test_check_contributors.py tests/test_hsenv_pin.py -o addopts='' -q
