@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jsonschema==4.26.0 pytest==8.4.2
-      # hsenv pin lives only in requirements.txt: hsenv @ git+https://github.com/HumanStudy-Hub/hsenv@fd38302574260b5876cfeaa6741540c5163ba662  # v0.8.0
+      # hsenv pin lives only in requirements.txt: hsenv @ git+https://github.com/HumanStudy-Hub/hsenv@db85a9c82f4c7cedeb808a3d39ae2858605d5a20  # v0.8.1
       - run: grep '^hsenv' requirements.txt > "$RUNNER_TEMP/hsenv-pin.txt" && pip install -r "$RUNNER_TEMP/hsenv-pin.txt"
       - run: python -m pytest -o addopts='' tests/test_research_catalog.py tests/test_community_worker.py tests/test_build_studies_index.py tests/test_hsenv_pin.py -q
       - run: python scripts/build_studies_index.py

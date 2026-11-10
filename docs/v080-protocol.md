@@ -106,8 +106,8 @@ The hsenv tests skip when hsenv is not installed.
 
 ## Open items (hsenv H1 and maintainer decisions)
 
-- **hsenv is installed, not vendored.** `requirements.txt` pins hsenv v0.8.0 by its commit SHA
-  (`fd38302`). The desktop pins the same release (B1 is chained to it).
+- **hsenv is installed, not vendored.** `requirements.txt` pins hsenv v0.8.1 by its commit SHA
+  (`db85a9c`). The desktop pins the same release (B1 is chained to it).
 - **Engine schema vs design.** `study.v1.json` has `additionalProperties: false` and lacks the design's §1.1
   fields (`slug`, `paper`, `contributors`, `visibility`, `hsenv`, `fidelity`, `arms`, `paperId`, `release`).
   Bench validates those itself and removes them before calling `schema_check` (`protocols.RELEASE_FIELDS`).
