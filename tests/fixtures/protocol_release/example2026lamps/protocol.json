@@ -1,0 +1,174 @@
+{
+ "schema_version": "1",
+ "id": "example2026lamps",
+ "meta": {
+  "citation": "Example, A., & Sample, B. (2026). An invented lamp-rating study. Public test fixture, not a real paper. CC0-1.0.",
+  "language": "en",
+  "licence": {
+   "survey": "CC0-1.0 (invented fixture)"
+  },
+  "sources": {
+   "survey": "sources/open/survey.txt"
+  },
+  "sample": {
+   "n": 40,
+   "cite": {
+    "label": "reported",
+    "source": "survey",
+    "page": 1
+   }
+  }
+ },
+ "arms": [
+  {
+   "id": "main",
+   "n_paper": 40,
+   "runnable": true,
+   "cite": {
+    "label": "reported",
+    "source": "survey",
+    "page": 1
+   }
+  }
+ ],
+ "data": {
+  "warm": {
+   "text": "The lamp gives a warm, soft light.",
+   "cite": {
+    "label": "verbatim",
+    "source": "survey",
+    "page": 1
+   }
+  },
+  "cool": {
+   "text": "The lamp gives a cool, bright light.",
+   "cite": {
+    "label": "verbatim",
+    "source": "survey",
+    "page": 1
+   }
+  }
+ },
+ "stages": {
+  "q": {
+   "content": [
+    {
+     "id": "t",
+     "value": {
+      "expr": "data[cond]"
+     }
+    }
+   ],
+   "responses": [
+    {
+     "id": "like",
+     "kind": "slider",
+     "range": [
+      1,
+      7
+     ],
+     "step": 1,
+     "integer": true,
+     "prompt": "How much would you like this lamp in your room?",
+     "widget": "hslider",
+     "cite": {
+      "label": "verbatim",
+      "source": "survey",
+      "page": 1
+     }
+    }
+   ],
+   "presentation": {
+    "back": "not_allowed",
+    "advance": "self"
+   }
+  }
+ },
+ "flow": {
+  "seq": [
+   {
+    "set": {
+     "cond": {
+      "expr": "choice(['warm', 'cool'])"
+     }
+    }
+   },
+   {
+    "stage": "q"
+   }
+  ]
+ },
+ "units": {
+  "s": {
+   "per": "session",
+   "fields": {
+    "condition": "cond",
+    "like": "answer('q.like')"
+   }
+  }
+ },
+ "exclusions": [],
+ "analysis": {
+  "targets": [
+   {
+    "id": "like_warm",
+    "unit": "s",
+    "where": {
+     "condition": "warm"
+    },
+    "field": "like",
+    "stat": "mean",
+    "human": {
+     "value": 5.1,
+     "cite": {
+      "label": "reported",
+      "source": "survey",
+      "page": 1
+     }
+    }
+   }
+  ],
+  "effects": [
+   {
+    "id": "warm_vs_cool",
+    "unit": "s",
+    "contrast": {
+     "kind": "two_groups",
+     "treatment": "warm",
+     "reference": "cool"
+    },
+    "compute": {
+     "op": "mean_difference",
+     "field": "like",
+     "groupBy": "condition"
+    },
+    "reported": {
+     "cells": {
+      "warm": {
+       "n": 20,
+       "mean": 5.1,
+       "sd": 1.2
+      },
+      "cool": {
+       "n": 20,
+       "mean": 4.2,
+       "sd": 1.3
+      }
+     },
+     "cite": {
+      "label": "reported",
+      "source": "survey",
+      "page": 1
+     }
+    }
+   }
+  ],
+  "unsupported": []
+ },
+ "keyed": {
+  "why": "invented pattern: warm rated higher",
+  "answers": {
+   "q.like": "6 if cond == 'warm' else 3"
+  }
+ }
+}

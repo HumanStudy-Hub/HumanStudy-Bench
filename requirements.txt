@@ -5,6 +5,11 @@ pandas>=1.3.0
 # Statistical analysis (used in study configs and evaluation)
 scipy>=1.7.0  # For statistical tests (ttest, ANOVA, etc.)
 
+# Protocol engine (V080-PLATFORM B1): the one hsenv release Bench, the web runner and the desktop share.
+# This line is the single pin: every workflow and test reads it from here (`grep '^hsenv' requirements.txt`, then `pip install -r`).
+# Pinned by commit SHA (the commit of tag v0.8.0), not by the mutable tag.
+hsenv @ git+https://github.com/HumanStudy-Hub/hsenv@fd38302574260b5876cfeaa6741540c5163ba662  # v0.8.0
+
 # Data validation
 jsonschema>=4.0.0
 pydantic>=2.0.0

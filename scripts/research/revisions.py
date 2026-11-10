@@ -27,7 +27,10 @@ CORE = ("study.json", "source/paper_metadata.json", "materials/materials.json", 
         "task/adapter.py", "evaluation/evaluation.py")
 STANDALONE_VIEWS = ("source/evidence.json", "audit/missing_information.json")
 PROGRAM_REF = "../../program.json"
-TOP_LEVEL = {"program.json", "capabilities.json", "effects.json"}
+TOP_LEVEL = {"program.json", "capabilities.json", "effects.json", "study.json", "protocol.json"}
+# Asset folders. review/, sourcetext/ and variants/ belong to protocol releases (V080 §1.2), whose stricter
+# allowlist (hsenv release PUBLIC_PATHS) is applied in validate_assets' protocol branch.
+ASSET_DIRS = {"package", "artifacts", "sources", "review", "sourcetext", "variants"}
 PRIVATE = {".env", ".git", ".opencode", ".humanstudy", "node_modules", "__pycache__",
            "threads", "conversations", "chat", "chats", "credentials", "account.json", "settings.json"}
 
@@ -40,7 +43,7 @@ def safe_path(name: str) -> str:
         raise ValueError("asset paths must stay inside the contribution")
     if any(p.lower() in PRIVATE or p.lower().startswith(".env.") for p in parts):
         raise ValueError("private project files are not community assets")
-    if name not in TOP_LEVEL and parts[0] not in {"package", "artifacts", "sources"}:
+    if name not in TOP_LEVEL and parts[0] not in ASSET_DIRS:
         raise ValueError(f"not a public research asset: {name}")
     return name
 
@@ -59,6 +62,51 @@ def read_assets(directory: Path) -> dict[str, bytes]:
 
 
 def validate_assets(files: dict[str, bytes]) -> dict:
+    if "protocol.json" in files:
+        return validate_protocol_assets(files)
+    return validate_program_assets(files)
+
+
+def validate_protocol_assets(files: dict[str, bytes]) -> dict:
+    """A v0.8 protocol release (V080 §2.1): program.json is optional; the pinned hsenv engine checks the
+    protocol as data. Nothing in the contribution is imported or executed."""
+    from scripts.research.protocols import protocol_capabilities, validate_protocol_files
+    errors = []
+    for name in files:
+        try:
+            safe_path(name)
+        except ValueError as exc:
+            errors.append(str(exc))
+    result = validate_protocol_files(files)
+    errors += result["errors"]
+    warnings = list(result["warnings"])
+    projection = {"protocol": result.get("summary")}
+    if "program.json" in files and not errors:
+        program_result = validate_program_assets({k: v for k, v in files.items() if k != "effects.json"})
+        errors += program_result["errors"]
+        warnings += program_result["warnings"]
+        projection = {**program_result.get("projection", {}), **projection}
+    caps = {"discoverable": True, "traceable": False, "reanalyzable": False, "replayable": False,
+            "humanBenchmark": False}
+    if not errors:
+        caps.update(protocol_capabilities(json.loads(files["protocol.json"])))
+    return {"status": "failed" if errors else "passed", "errors": errors, "warnings": warnings,
+            "checks": {"schema": not errors, "protocol": not errors, "codeExecuted": False,
+                       "scientificReview": False},
+            "capabilities": caps, "protocolSha256": result.get("protocolSha256"), "projection": projection}
+
+
+def release_source(files: dict[str, bytes]) -> dict:
+    """The paper a revision reconstructs: program.json source, else the protocol release's study.json."""
+    if "program.json" in files:
+        return json.loads(files["program.json"])["source"]
+    study = json.loads(files["study.json"])
+    paper = study.get("paper") if isinstance(study.get("paper"), dict) else {}
+    return {"title": paper.get("title") or study.get("title"), "authors": paper.get("authors") or study.get("authors", []),
+            "year": paper.get("year") or study.get("year"), "doi": paper.get("doi") or study.get("doi")}
+
+
+def validate_program_assets(files: dict[str, bytes]) -> dict:
     errors = []
     for name in files:
         try:
@@ -284,12 +332,20 @@ def integrate(paper_dir: Path, metadata: dict, proposed: dict[str, bytes], *, re
         validation = validate_assets(merged)
         if validation["status"] != "passed":
             return {"status": "checks_failed", "validation": validation}
-        source_doi = json.loads(merged["program.json"])["source"].get("doi")
+        source_doi = release_source(merged).get("doi")
         if source_doi and key.startswith("doi:") and normalise_doi(source_doi) != key[4:]:
             return {"status": "needs_review", "reason": "The program and contribution refer to different source papers."}
         rid = revision_id(merged)
         if rid == current_id:
             return {"status": "unchanged", "revision": rid}
+        # A protocol release (V080 §2.1) is published only through a maintainer release PR. On this proposal
+        # path no review dict can accept it: not an agent's "accept", and not the release's own
+        # fidelity.signed_by or checks-latest PASS, which the contributor wrote.
+        if "protocol.json" in merged:
+            return {"status": "needs_review", "candidateRevision": rid, "validation": validation,
+                    "requiresMaintainer": True,
+                    "reason": "Protocol checks passed. A protocol release is published only by a maintainer "
+                              "release PR; this proposal waits for a maintainer."}
         # An independent agent or curator reviews an exact candidate; approval cannot be replayed.
         if not review or review.get("candidateRevision") != rid or review.get("decision") != "accept" or not review.get("reviewer"):
             return {"status": "needs_review", "candidateRevision": rid, "validation": validation,
@@ -311,7 +367,7 @@ def integrate(paper_dir: Path, metadata: dict, proposed: dict[str, bytes], *, re
                 shutil.rmtree(staging, ignore_errors=True)
         else:
             load_revision(paper_dir, rid)
-        source = json.loads(merged["program.json"])["source"]
+        source = release_source(merged)
         pid, aliases = community_identity(metadata.get("paper", source), metadata["paperKey"])
         resolved = metadata.get("_resolvedPaper", {})
         pid = resolved.get("id", current["paper"]["id"] if current else pid)
