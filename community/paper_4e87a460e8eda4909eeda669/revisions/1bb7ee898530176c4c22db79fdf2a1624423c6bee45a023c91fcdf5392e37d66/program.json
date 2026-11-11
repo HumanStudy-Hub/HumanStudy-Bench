@@ -1,0 +1,271 @@
+{
+  "schemaVersion": 2,
+  "id": "study_015",
+  "title": "Testing the decoy effect to improve online survey participation: Evidence from a field experiment",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Testing the decoy effect to improve online survey participation: Evidence from a field experiment",
+    "authors": "Sandro T. Stoffel, Yining Sun, Yasemin Hirst, Christian von Wagner, Ivo Vlaev",
+    "filename": "",
+    "venue": "Journal of Behavioral and Experimental Economics (2023)",
+    "doi": "10.1016/j.socec.2023.102103"
+  },
+  "studies": [
+    {
+      "id": "scope-01",
+      "title": "Preliminary questionnaire · Which options seem attractive?",
+      "type": "empirical"
+    },
+    {
+      "id": "scope-02",
+      "title": "Field experiment · Actual target completion",
+      "type": "empirical"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "question",
+      "kind": "background",
+      "title": "Research question",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "question",
+          "label": "Question",
+          "value": "Does adding a less attractive survey option increase actual completion of the original survey, and does its position in the invitation matter?",
+          "evidenceIds": [
+            "paper-question"
+          ],
+          "state": "check",
+          "origin": "reported"
+        },
+        {
+          "id": "scope",
+          "label": "What the paper covers",
+          "value": "A preliminary recruitment and preference questionnaire followed by an email field experiment.",
+          "evidenceIds": [
+            "e-01",
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "paper-question",
+        "e-01",
+        "e-02"
+      ]
+    },
+    {
+      "id": "takeaway",
+      "kind": "finding",
+      "title": "Main takeaway",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "finding",
+          "label": "Across the paper",
+          "value": "The target-first invitation increased actual target completion. The decoy-first invitation did not show a clear increase over offering only the target.",
+          "evidenceIds": [
+            "e-01",
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-01",
+        "e-02"
+      ]
+    },
+    {
+      "id": "prediction",
+      "kind": "hypothesis",
+      "title": "What the authors tested",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "prediction",
+          "label": "Expectation or comparison",
+          "value": "Adding a less attractive alternative was expected to increase target completion. The study separately tests whether which option appears first changes completion.",
+          "evidenceIds": [
+            "paper-question",
+            "e-01",
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "paper-question",
+        "e-01",
+        "e-02"
+      ]
+    },
+    {
+      "id": "reading-notes",
+      "kind": "limitation",
+      "title": "What the evidence supports",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "limits",
+          "label": "Interpretation and limits",
+          "value": "Several numbers conflict within the article. Figure 2 shows 61.4% preferred closed-ended questions and 7.9% preferred open-ended; §3.1.2 says 60.0% preferred open-ended. For aggregate decoy target completion, §3.2.2 reports 55.9% while Table 2 shows 59.8%. The order-specific rates and adjusted odds ratios are shown separately. The Bench choice-only adaptation does not measure completion.",
+          "evidenceIds": [
+            "e-01",
+            "e-02",
+            "e-legacy-adaptation"
+          ],
+          "state": "check",
+          "origin": "derived",
+          "derivation": "Scope of the published evidence and, where linked, differences from the Bench adaptation."
+        }
+      ],
+      "evidenceIds": [
+        "e-01",
+        "e-02",
+        "e-legacy-adaptation"
+      ]
+    },
+    {
+      "id": "scope-01-design",
+      "kind": "design",
+      "title": "How it was studied",
+      "studyIds": [
+        "scope-01"
+      ],
+      "fields": [
+        {
+          "id": "design",
+          "label": "Participants, procedure and measures",
+          "value": "Students reported preferences about question format and timing of payment, and could leave an email address for the field experiment. The article reports 241 starts and 210 completions.",
+          "evidenceIds": [
+            "e-01"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-01"
+      ]
+    },
+    {
+      "id": "scope-01-result",
+      "kind": "result",
+      "title": "What the paper reports",
+      "studyIds": [
+        "scope-01"
+      ],
+      "fields": [
+        {
+          "id": "result",
+          "label": "Result",
+          "value": "86.1% said they would not respond if payment were four weeks later. The question-format percentage is inconsistent between Figure 2 and the prose; see the reading note.",
+          "evidenceIds": [
+            "e-01"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-01"
+      ]
+    },
+    {
+      "id": "scope-02-design",
+      "kind": "design",
+      "title": "How it was studied",
+      "studyIds": [
+        "scope-02"
+      ],
+      "fields": [
+        {
+          "id": "design",
+          "label": "Participants, procedure and measures",
+          "value": "Of 210 invitations, 203 were delivered. Recipients saw the eight-item target survey alone or alongside an open-ended alternative with later payment. Order was randomized between people in the two-option arm. Six people who completed the alternative were counted as not completing the target.",
+          "evidenceIds": [
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-02"
+      ]
+    },
+    {
+      "id": "scope-02-result",
+      "kind": "result",
+      "title": "What the paper reports",
+      "studyIds": [
+        "scope-02"
+      ],
+      "fields": [
+        {
+          "id": "result",
+          "label": "Result",
+          "value": "Target completion was 32.7% in control, 82.7% with target first and 28.0% with decoy first. The corresponding adjusted odds ratios vs control were 11.18 (95% CI 4.57–27.33) and 0.75 (95% CI 0.34–1.63). See the reading note for the conflicting pooled percentage.",
+          "evidenceIds": [
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-02"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "paper-question",
+      "sourceId": "paper",
+      "url": "https://discovery.ucl.ac.uk/id/eprint/10178643/",
+      "locator": {
+        "pointer": "Abstract and introduction"
+      }
+    },
+    {
+      "id": "e-01",
+      "sourceId": "paper",
+      "url": "https://discovery.ucl.ac.uk/id/eprint/10178643/",
+      "locator": {
+        "pointer": "§§2.1–2.2.1, 3.1; Figs. 1–2"
+      }
+    },
+    {
+      "id": "e-02",
+      "sourceId": "paper",
+      "url": "https://discovery.ucl.ac.uk/id/eprint/10178643/",
+      "locator": {
+        "pointer": "§§2.2.2–2.4, 3.2; Fig. 3; Table 2"
+      }
+    },
+    {
+      "id": "e-legacy-adaptation",
+      "sourceId": "bench",
+      "url": "https://github.com/HumanStudy-Hub/HumanStudy-Bench/tree/main/studies/study_015",
+      "locator": {
+        "pointer": "Existing Bench study materials and adaptation notes"
+      }
+    }
+  ],
+  "steps": [],
+  "relations": [],
+  "issues": [],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "publication": "reading-only"
+    }
+  }
+}

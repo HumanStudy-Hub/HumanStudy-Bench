@@ -1,0 +1,271 @@
+{
+  "schemaVersion": 2,
+  "id": "study_014",
+  "title": "Do Auctioneers Pick Optimal Reserve Prices?",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Do Auctioneers Pick Optimal Reserve Prices?",
+    "authors": "Andrew M. Davis, Elena Katok, Anthony M. Kwasnica",
+    "filename": "",
+    "venue": "Management Science (2011)",
+    "doi": "10.1287/mnsc.1100.1258"
+  },
+  "studies": [
+    {
+      "id": "scope-01",
+      "title": "Original auction · Distributions and bidder information",
+      "type": "empirical"
+    },
+    {
+      "id": "scope-02",
+      "title": "NoInfo and FullInfo · Reserve-price regressions",
+      "type": "analysis"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "question",
+      "kind": "background",
+      "title": "Research question",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "question",
+          "label": "Question",
+          "value": "How do sellers set a minimum acceptable price when the number of potential bidders changes?",
+          "evidenceIds": [
+            "paper-question"
+          ],
+          "state": "check",
+          "origin": "reported"
+        },
+        {
+          "id": "scope",
+          "label": "What the paper covers",
+          "value": "The original Davis, Katok and Kwasnica experiment crossed bidder-value distributions with information conditions. The later Bench agent task covers a narrower setting.",
+          "evidenceIds": [
+            "e-01",
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "paper-question",
+        "e-01",
+        "e-02"
+      ]
+    },
+    {
+      "id": "takeaway",
+      "kind": "finding",
+      "title": "Main takeaway",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "finding",
+          "label": "Across the paper",
+          "value": "Sellers increased their reserve prices as bidder counts rose, including in treatments where the standard benchmark predicts a constant reserve.",
+          "evidenceIds": [
+            "e-01",
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-01",
+        "e-02"
+      ]
+    },
+    {
+      "id": "prediction",
+      "kind": "hypothesis",
+      "title": "What the authors tested",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "prediction",
+          "label": "Expectation or comparison",
+          "value": "Under the standard benchmark the optimal reserve is independent of bidder count for a given distribution. The treatments probe why sellers might depart from that benchmark.",
+          "evidenceIds": [
+            "paper-question",
+            "e-01",
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "paper-question",
+        "e-01",
+        "e-02"
+      ]
+    },
+    {
+      "id": "reading-notes",
+      "kind": "limitation",
+      "title": "What the evidence supports",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "limits",
+          "label": "Interpretation and limits",
+          "value": "The separate Feng benchmark is not a finding from this paper. The one-decision Bench adapter does not reproduce the original multi-round seller task.",
+          "evidenceIds": [
+            "e-01",
+            "e-02",
+            "e-legacy-adaptation"
+          ],
+          "state": "check",
+          "origin": "derived",
+          "derivation": "Scope of the published evidence and, where linked, differences from the Bench adaptation."
+        }
+      ],
+      "evidenceIds": [
+        "e-01",
+        "e-02",
+        "e-legacy-adaptation"
+      ]
+    },
+    {
+      "id": "scope-01-design",
+      "kind": "design",
+      "title": "How it was studied",
+      "studyIds": [
+        "scope-01"
+      ],
+      "fields": [
+        {
+          "id": "design",
+          "label": "Participants, procedure and measures",
+          "value": "120 sellers participated across treatment cells that varied the bidder-value distribution and what sellers knew. Sellers set reserve prices across rounds with different bidder counts. The value distribution changes the theoretical optimal reserve; standard theory predicts it is independent of the number of bidders.",
+          "evidenceIds": [
+            "e-01"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-01"
+      ]
+    },
+    {
+      "id": "scope-01-result",
+      "kind": "result",
+      "title": "What the paper reports",
+      "studyIds": [
+        "scope-01"
+      ],
+      "fields": [
+        {
+          "id": "result",
+          "label": "Result",
+          "value": "The authors compare reserve prices with standard theory and use information treatments to test explanations for why sellers respond to bidder count.",
+          "evidenceIds": [
+            "e-01"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-01"
+      ]
+    },
+    {
+      "id": "scope-02-design",
+      "kind": "design",
+      "title": "How it was studied",
+      "studyIds": [
+        "scope-02"
+      ],
+      "fields": [
+        {
+          "id": "design",
+          "label": "Participants, procedure and measures",
+          "value": "The NoInfo regression covers 80 of the 120 sellers. FullInfo treatments are analyzed separately. The dependent variable is the seller’s reserve price.",
+          "evidenceIds": [
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-02"
+      ]
+    },
+    {
+      "id": "scope-02-result",
+      "kind": "result",
+      "title": "What the paper reports",
+      "studyIds": [
+        "scope-02"
+      ],
+      "fields": [
+        {
+          "id": "result",
+          "label": "Result",
+          "value": "The NoInfo table reports a positive coefficient of 2.98 (SE 0.08, p<.01) for bidder count in its initial pooled specification. The original study reports reserve prices rising with bidder count in cases where the standard benchmark predicts a constant reserve.",
+          "evidenceIds": [
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-02"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "paper-question",
+      "sourceId": "paper",
+      "url": "https://doi.org/10.1287/mnsc.1100.1258",
+      "locator": {
+        "pointer": "Abstract and introduction"
+      }
+    },
+    {
+      "id": "e-01",
+      "sourceId": "paper",
+      "url": "https://doi.org/10.1287/mnsc.1100.1258",
+      "locator": {
+        "pointer": "Experimental Design; Table 1"
+      }
+    },
+    {
+      "id": "e-02",
+      "sourceId": "paper",
+      "url": "https://doi.org/10.1287/mnsc.1100.1258",
+      "locator": {
+        "pointer": "Results; Tables 2–3"
+      }
+    },
+    {
+      "id": "e-legacy-adaptation",
+      "sourceId": "bench",
+      "url": "https://github.com/HumanStudy-Hub/HumanStudy-Bench/tree/main/studies/study_014",
+      "locator": {
+        "pointer": "Existing Bench study materials and adaptation notes"
+      }
+    }
+  ],
+  "steps": [],
+  "relations": [],
+  "issues": [],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "publication": "reading-only"
+    }
+  }
+}
