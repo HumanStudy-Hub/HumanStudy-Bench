@@ -1,0 +1,328 @@
+{
+  "schemaVersion": 2,
+  "id": "study_004",
+  "title": "Subjective Probability: A Judgment of Representativeness",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Subjective Probability: A Judgment of Representativeness",
+    "authors": "Daniel Kahneman, Amos Tversky",
+    "filename": "",
+    "venue": "Cognitive Psychology (1972)",
+    "doi": "10.1016/0010-0285(72)90016-3"
+  },
+  "studies": [
+    {
+      "id": "scope-01",
+      "title": "What makes a sample look representative?",
+      "type": "empirical"
+    },
+    {
+      "id": "scope-02",
+      "title": "Sample size and sampling distributions",
+      "type": "empirical"
+    },
+    {
+      "id": "scope-03",
+      "title": "Posterior probability from prior and sample",
+      "type": "empirical"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "question",
+      "kind": "background",
+      "title": "Research question",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "question",
+          "label": "Question",
+          "value": "When people estimate probability, do they judge how representative an outcome looks instead of using the probability rules relevant to the problem?",
+          "evidenceIds": [
+            "paper-question"
+          ],
+          "state": "check",
+          "origin": "reported"
+        },
+        {
+          "id": "scope",
+          "label": "What the paper covers",
+          "value": "The paper groups questionnaire evidence by theoretical question. The groups below are families of tasks, not numbered standalone experiments.",
+          "evidenceIds": [
+            "e-01",
+            "e-02",
+            "e-03"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "paper-question",
+        "e-01",
+        "e-02",
+        "e-03"
+      ]
+    },
+    {
+      "id": "takeaway",
+      "kind": "finding",
+      "title": "Main takeaway",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "finding",
+          "label": "Across the paper",
+          "value": "People often judge whether a sample looks typical of its source and underweight how much evidence the sample actually provides.",
+          "evidenceIds": [
+            "e-01",
+            "e-02",
+            "e-03"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-01",
+        "e-02",
+        "e-03"
+      ]
+    },
+    {
+      "id": "prediction",
+      "kind": "hypothesis",
+      "title": "What the authors tested",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "prediction",
+          "label": "Expectation or comparison",
+          "value": "The representativeness account predicts higher judged probability for samples that resemble the underlying population or look like a random process.",
+          "evidenceIds": [
+            "paper-question",
+            "e-01",
+            "e-02",
+            "e-03"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "paper-question",
+        "e-01",
+        "e-02",
+        "e-03"
+      ]
+    },
+    {
+      "id": "reading-notes",
+      "kind": "limitation",
+      "title": "What the evidence supports",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "limits",
+          "label": "Interpretation and limits",
+          "value": "Questionnaire patterns support a descriptive account; they are not evidence that every probability judgment uses the same rule.",
+          "evidenceIds": [
+            "e-01",
+            "e-02",
+            "e-03"
+          ],
+          "state": "check",
+          "origin": "derived",
+          "derivation": "Scope of the published evidence and, where linked, differences from the Bench adaptation."
+        }
+      ],
+      "evidenceIds": [
+        "e-01",
+        "e-02",
+        "e-03"
+      ]
+    },
+    {
+      "id": "scope-01-design",
+      "kind": "design",
+      "title": "How it was studied",
+      "studyIds": [
+        "scope-01"
+      ],
+      "fields": [
+        {
+          "id": "design",
+          "label": "Participants, procedure and measures",
+          "value": "Compare judgments for outcomes that match features of the source population or exhibit more or less irregularity. The paper uses binary-sequence problems and other verbal scenarios.",
+          "evidenceIds": [
+            "e-01"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-01"
+      ]
+    },
+    {
+      "id": "scope-01-result",
+      "kind": "result",
+      "title": "What the paper reports",
+      "studyIds": [
+        "scope-01"
+      ],
+      "fields": [
+        {
+          "id": "result",
+          "label": "Result",
+          "value": "People favored sequences and samples that appeared locally balanced and irregular, even when the relevant outcomes had equal probabilities.",
+          "evidenceIds": [
+            "e-01"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-01"
+      ]
+    },
+    {
+      "id": "scope-02-design",
+      "kind": "design",
+      "title": "How it was studied",
+      "studyIds": [
+        "scope-02"
+      ],
+      "fields": [
+        {
+          "id": "design",
+          "label": "Participants, procedure and measures",
+          "value": "Elicit judgments about how variable sample statistics should be, using different numbers of observations and comparisons involving sample proportions, ranges and rankings.",
+          "evidenceIds": [
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-02"
+      ]
+    },
+    {
+      "id": "scope-02-result",
+      "kind": "result",
+      "title": "What the paper reports",
+      "studyIds": [
+        "scope-02"
+      ],
+      "fields": [
+        {
+          "id": "result",
+          "label": "Result",
+          "value": "Judgments often underweighted the size of the sample. The distributions people drew did not consistently reflect how sampling variability changes with sample size.",
+          "evidenceIds": [
+            "e-02"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-02"
+      ]
+    },
+    {
+      "id": "scope-03-design",
+      "kind": "design",
+      "title": "How it was studied",
+      "studyIds": [
+        "scope-03"
+      ],
+      "fields": [
+        {
+          "id": "design",
+          "label": "Participants, procedure and measures",
+          "value": "Ask which population generated a sample and how likely it was, varying prior information and properties of the sample.",
+          "evidenceIds": [
+            "e-03"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-03"
+      ]
+    },
+    {
+      "id": "scope-03-result",
+      "kind": "result",
+      "title": "What the paper reports",
+      "studyIds": [
+        "scope-03"
+      ],
+      "fields": [
+        {
+          "id": "result",
+          "label": "Result",
+          "value": "Estimates tracked how well the sample seemed to match the candidate population. They did not consistently reflect prior odds and the diagnostic value of sample size.",
+          "evidenceIds": [
+            "e-03"
+          ],
+          "state": "check",
+          "origin": "reported"
+        }
+      ],
+      "evidenceIds": [
+        "e-03"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "paper-question",
+      "sourceId": "paper",
+      "url": "https://doi.org/10.1016/0010-0285(72)90016-3",
+      "locator": {
+        "pointer": "Abstract and introduction"
+      }
+    },
+    {
+      "id": "e-01",
+      "sourceId": "paper",
+      "url": "https://doi.org/10.1016/0010-0285(72)90016-3",
+      "locator": {
+        "pointer": "Determinants of Representativeness, pp. 432–437"
+      }
+    },
+    {
+      "id": "e-02",
+      "sourceId": "paper",
+      "url": "https://doi.org/10.1016/0010-0285(72)90016-3",
+      "locator": {
+        "pointer": "Sampling Distributions, pp. 437–445"
+      }
+    },
+    {
+      "id": "e-03",
+      "sourceId": "paper",
+      "url": "https://doi.org/10.1016/0010-0285(72)90016-3",
+      "locator": {
+        "pointer": "Posterior Probability, pp. 445–449; Table 1"
+      }
+    }
+  ],
+  "steps": [],
+  "relations": [],
+  "issues": [],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "publication": "reading-only"
+    }
+  }
+}
