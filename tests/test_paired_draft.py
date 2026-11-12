@@ -1,4 +1,5 @@
 """Invented CC0 Desktop export: structural intake never grants publication or execution."""
+import hashlib
 import json
 from pathlib import Path
 
@@ -86,3 +87,34 @@ def test_bad_program_checked_even_with_other_publication_errors():
 def test_no_doi_draft_still_checks_submission_title(tmp_path):
     m = meta(); m["paper"]["title"] = "Another paper"
     assert integrate(tmp_path, m, files())["status"] == "checks_failed"
+
+
+def test_program_only_proposal_cannot_remove_a_recommended_protocol(tmp_path):
+    paired = files()
+    current = revision_id(paired)
+    folder = tmp_path / "revisions" / current
+    manifest = []
+    for name, raw in paired.items():
+        path = folder / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(raw)
+        manifest.append({"path": name, "sha256": hashlib.sha256(raw).hexdigest()})
+    (folder / "manifest.json").write_text(json.dumps({"files": manifest}))
+    pointer = tmp_path / "current.json"
+    pointer.write_text(json.dumps({"revision": current}))
+    proposal = {"program.json": paired["program.json"]}
+    def program_only(p):
+        p["extensions"]["scholarly"].pop("protocol")
+        p["evidence"].append({"id": "withheld", "path": "handout.txt", "sourceSha256": "b" * 64,
+                              "locator": {"page": 1}})
+    edit(proposal, "program.json", program_only)
+    standalone = {"paperKey": "title:lamp-study", "paper": {"title": "Lamp study", "year": 2026},
+                  "baseRevision": current}
+    result = integrate(tmp_path, standalone, proposal,
+                       review={"decision": "accept", "reviewer": "curator", "candidateRevision": revision_id(proposal)})
+    assert result["status"] == "needs_review"
+    assert result["requiresMaintainer"] is True
+    assert result["validation"]["status"] == "passed"
+    assert not result["validation"]["capabilities"]["replayable"]
+    assert json.loads(pointer.read_text())["revision"] == current
+    assert not (tmp_path / "revisions" / revision_id(proposal)).exists()

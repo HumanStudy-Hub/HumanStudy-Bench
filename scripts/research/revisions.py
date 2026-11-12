@@ -328,6 +328,20 @@ def integrate(paper_dir: Path, metadata: dict, proposed: dict[str, bytes], *, re
             current_files = load_revision(paper_dir, current_id)
         except (ValueError, FileNotFoundError):
             return {"status": "needs_review", "reason": "The contribution baseline is unavailable or invalid."}
+        if set(proposed) == {"program.json"} and "protocol.json" in current_files:
+            # A standalone Program may be shared without an execution bundle. Its omitted files
+            # are outside the proposal's scope, so this cannot remove the recommended protocol.
+            validation = validate_program_assets(proposed)
+            if validation["status"] != "passed":
+                return {"status": "checks_failed", "validation": validation}
+            source = release_source(proposed)
+            if normalise(str(source.get("title", ""))) != normalise(str(metadata.get("paper", {}).get("title", ""))):
+                return {"status": "checks_failed", "reason": "The Program and submission paper titles disagree."}
+            if key.startswith("doi:") and normalise_doi(str(source.get("doi") or "")) != key[4:]:
+                return {"status": "checks_failed", "reason": "The Program and contribution refer to different source papers."}
+            return {"status": "needs_review", "candidateRevision": revision_id(proposed), "validation": validation,
+                    "requiresMaintainer": True,
+                    "reason": "Program-only contribution. Maintainer review is required to update the recommended protocol."}
         merged, conflicts = merge_assets(base_files, current_files, proposed)
         if conflicts:
             return {"status": "needs_review", "conflicts": conflicts,
