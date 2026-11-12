@@ -7,8 +7,8 @@ scipy>=1.7.0  # For statistical tests (ttest, ANOVA, etc.)
 
 # Protocol engine (V080-PLATFORM B1): the one hsenv release Bench, the web runner and the desktop share.
 # This line is the single pin: every workflow and test reads it from here (`grep '^hsenv' requirements.txt`, then `pip install -r`).
-# Pinned by commit SHA (the commit of tag v0.8.0), not by the mutable tag.
-hsenv @ git+https://github.com/HumanStudy-Hub/hsenv@433fd3fb06ad86a89b91f0bb61fe2e197a52fad8  # dev, v0.8.1-compatible
+# Reviewed development commit of the v0.8.1 engine.
+hsenv @ git+https://github.com/HumanStudy-Hub/hsenv@433fd3fb06ad86a89b91f0bb61fe2e197a52fad8  # v0.8.1
 
 # Data validation
 jsonschema>=4.0.0
