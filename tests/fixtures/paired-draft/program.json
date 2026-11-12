@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "id": "lamp",
+  "title": "Lamp study",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Lamp study",
+    "authors": "A. Example",
+    "filename": "sources/open/survey.txt"
+  },
+  "studies": [
+    {
+      "id": "main",
+      "title": "Lamp preference",
+      "type": "empirical"
+    }
+  ],
+  "nodes": [],
+  "steps": [],
+  "relations": [],
+  "evidence": [],
+  "issues": [
+    {
+      "id": "missing",
+      "title": "Missing instructions",
+      "severity": "blocking",
+      "reason": "Original instructions unavailable",
+      "impact": "The missing arm cannot run.",
+      "suggestedAction": "Provide the original instructions.",
+      "evidenceIds": []
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "protocol": {
+        "path": "protocol.json",
+        "id": "lamp",
+        "sha256": "c19935680c10798a8f36c9ec485e6933ee9c2089eba739c49b9b0588290b0c7c"
+      }
+    }
+  }
+}
