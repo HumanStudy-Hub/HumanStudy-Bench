@@ -2,7 +2,8 @@ name: Maintain community research
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
-    branches: [main, dev]
+    # GitHub runs pull_request_target from the default branch. Use dispatch on dev for preview proposals.
+    branches: [main]
     paths: ['community/**']
   workflow_dispatch:
     inputs:
