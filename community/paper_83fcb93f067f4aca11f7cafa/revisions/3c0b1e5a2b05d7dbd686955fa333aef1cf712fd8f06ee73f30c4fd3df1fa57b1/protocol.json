@@ -1,0 +1,987 @@
+{
+  "id": "mazzarella2018politeness",
+  "schema": "hsenv-protocol/0.1",
+  "meta": {
+    "citation": "Mazzarella, D., Trouche, E., Mercier, H., & Noveck, I. (2018). Believing what you're told: Politeness and scalar inferences. Frontiers in Psychology, 9, 908. https://doi.org/10.3389/fpsyg.2018.00908",
+    "doi": "10.3389/fpsyg.2018.00908",
+    "language": "en",
+    "language_cite": {
+      "label": "reported",
+      "source": "paper",
+      "page": 5,
+      "note": "the vignette and questions are printed in English (6a-6d); recruitment through Amazon Mechanical Turk (p. 5); the paper does not state the participants' language or country, so English is read from the printed English stimuli, not from a stated fact"
+    },
+    "scope": "Study 1 (speech vignette, semantic compatibility + conversational implicature questions) and Study 2 (modified story, semantic compatibility question only), face-threat vs face-boost between subjects; reaction-time results not replayed",
+    "licence": {
+      "paper": "CC BY 4.0 (printed on p. 11; Crossref license https://creativecommons.org/licenses/by/4.0/)"
+    },
+    "sources": {
+      "paper": {
+        "file": "sources/open/paper.pdf",
+        "url": "https://www.frontiersin.org/articles/10.3389/fpsyg.2018.00908/pdf",
+        "doi": "10.3389/fpsyg.2018.00908",
+        "sha256": "1d2f8db33a2f14e8b08b549ecbb5b4d88483c53af0790c1ddb6123bd1fe801da",
+        "licence": "CC BY 4.0 (printed on p. 11)",
+        "what": "version of record, 12 pages, born-digital text layer (sourcetext/paper.txt by pages.py); PDF page = journal page; Appendix A p. 12",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC-BY-4.0",
+          "url": "https://doi.org/10.3389/fpsyg.2018.00908",
+          "sha256": "1d2f8db33a2f14e8b08b549ecbb5b4d88483c53af0790c1ddb6123bd1fe801da",
+          "format": "pdf",
+          "attribution": "Mazzarella, D., Trouche, E., Mercier, H., & Noveck, I. (2018). Believing what you're told: Politeness and scalar inferences. Frontiers in Psychology 9: 908. doi:10.3389/fpsyg.2018.00908. CC BY"
+        }
+      }
+    },
+    "not_fetched": [],
+    "sources_searched": "see STATUS",
+    "sample": {
+      "n_recruited": 797,
+      "n_analysed": 586,
+      "study1": 292,
+      "study2": 294,
+      "population": "Amazon Mechanical Turk workers (Study 1: 228 men, 171 women, mean age 32.3; Study 2: 230 men, 168 women, 32.6)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "note": "Study 1 p. 5, Study 2 p. 8"
+      }
+    },
+    "conflicts": [
+      {
+        "what": "Study 1 question wording in Bonnefon et al. 2011 vs here",
+        "paper": "Appendix A p. 12 prints the original story and the two modified versions side by side; the participants of this paper saw the Study 1 / Study 2 columns",
+        "used": "the Study 1 / Study 2 columns"
+      },
+      {
+        "what": "conversational implicature question tense",
+        "paper": "Appendix A and p. 5: 'Given what Denise tells you' (6d, present) vs 'Given what Denise told you' (6c, past)",
+        "used": "as printed, each question as in its own row"
+      },
+      {
+        "what": "exclusion arithmetic (not applied)",
+        "paper": "Study 1: 399 - 91 - 3 - 13 = 292; Study 2: 398 - 87 - 2 - 15 = 294 (pp. 5, 8)",
+        "used": "reconciles; no analysis code deposited, so no code count to compare"
+      }
+    ],
+    "paper_inconsistencies": [
+      "Tables 3-4 (p. 6) are consistent with integer cells (e.g. 2/62/8/70 of 142 and 42/6/54/48 of 150); the cell n are not printed, so only the 'Proportion of total' column is used as targets",
+      "Table 5 / 7 RT cells and the ANOVAs are not replayable (no timings); not used"
+    ],
+    "omitted_decision": "The paper describes no instruction or title page (contrast LESSONS 494, where an instruction page is described and its text missing); its only screen statements are '(6a) and (6b) were displayed in two separate screens' (p. 5), 'displayed separately in two steps' (p. 8) and Appendix A's advance lines (p. 12), all modelled as stages. Consent appears only as 'All subjects gave written informed consent' (pp. 5, 8): it is HIT / booklet context, not task content, and is listed in `omitted` as missing with the button labels and the debrief; no stage is served for it. Nothing converter-written is served (README Decided 16(d)). Same treatment as hall2024gettier, aiyer2023outcomebias. Searched: paper, Appendix A, Frontiers page, Crossref; the Europe PMC page returned HTTP 403 and was not read. Alternative: block both arms until a consent / instruction text is known",
+    "engine_requests": [],
+    "title": "Believing what you're told: Politeness and scalar inferences"
+  },
+  "arms": [
+    {
+      "id": "s1",
+      "label": "Study 1: original scenario, with the conversational implicature question",
+      "n_paper": 292,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "note": "final sample"
+      },
+      "n_recruited": {
+        "value": 399,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "'We recruited 399 participants through Amazon Mechanical Turk'"
+        }
+      },
+      "n_analysed": {
+        "value": 292,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "'Our final sample included 292 participants'"
+        }
+      },
+      "runnable": true,
+      "exclusion_caveat": "the paper's RT and click-count exclusions (clicked the relevant screen more than once; RTUTTERANCE > 20 s, RTQUESTION > 30 s; 2.5 SD log-RT outliers) need screen timings and click counts the replay does not record; not applied",
+      "assignment": "face-threat vs face-boost between subjects"
+    },
+    {
+      "id": "s2",
+      "label": "Study 2: speaker described as knowing the audience's reactions, no implicature question",
+      "n_paper": 294,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 8,
+        "note": "final sample"
+      },
+      "n_recruited": {
+        "value": 398,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "'We recruited 398 participants through Amazon Mechanical Turk'"
+        }
+      },
+      "n_analysed": {
+        "value": 294,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "'Our final sample included 294 participants'"
+        }
+      },
+      "runnable": true,
+      "exclusion_caveat": "the paper's RT and click-count exclusions (clicked the relevant screen more than once; RTUTTERANCE > 20 s, RTQUESTION > 30 s; 2.5 SD log-RT outliers) need screen timings and click counts the replay does not record; not applied",
+      "assignment": "face-threat vs face-boost between subjects"
+    }
+  ],
+  "data": {
+    "context": {
+      "s1": {
+        "text": "Imagine you gave a speech at a small political meeting. You are discussing your speech with Denise, who was also there. There were 6 other people in the audience that day. You tell Denise that you are thinking about giving the same speech to another group.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 5,
+          "note": "(6a), Study 1"
+        }
+      },
+      "s2": {
+        "text": "Imagine you gave a speech at a small political meeting. You are discussing your speech with Denise, who was also there. There were 6 other people in the audience that day and you know that Denise spoke with all of them about it later. You tell Denise that you would like to know the audience’s reaction.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 8,
+          "note": "(6a), Study 2"
+        }
+      }
+    },
+    "utt": {
+      "pre": {
+        "text": "Hearing this, Denise tells you that “Some people",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 5,
+          "note": "(6b) up to the condition word"
+        }
+      },
+      "word": {
+        "threat": {
+          "text": "hated",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 5,
+            "note": "(6b) face-threat version"
+          }
+        },
+        "boost": {
+          "text": "loved",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 5,
+            "note": "'In the face-boost version, Some people hated your speech was replaced with Some people loved your speech'"
+          }
+        }
+      },
+      "post": {
+        "text": "your speech.”",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 5,
+          "note": "(6b) after the condition word"
+        }
+      }
+    },
+    "scq": {
+      "pre": {
+        "text": "Given what Denise told you, do you think that it is possible that everybody",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 5,
+          "note": "(6c), identical in Study 2 (p. 8)"
+        }
+      },
+      "word": {
+        "threat": {
+          "text": "hated",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 5,
+            "note": "(6c) 'hated [loved]': face-threat word"
+          }
+        },
+        "boost": {
+          "text": "loved",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 5,
+            "note": "(6c) bracketed word = the face-boost version"
+          }
+        }
+      },
+      "post": {
+        "text": "your speech?",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 5
+        }
+      }
+    },
+    "icq": {
+      "text": "Given what Denise tells you, do you think that she means that you should give the speech again to another group?",
+      "cite": {
+        "label": "verbatim",
+        "source": "paper",
+        "page": 5,
+        "note": "(6d), Study 1 only"
+      }
+    },
+    "yes": {
+      "text": "Yes",
+      "cite": {
+        "label": "verbatim",
+        "source": "paper",
+        "page": 5,
+        "note": "'two options, “Yes” and “No.”' (order Yes, No as listed; on-screen placement not printed)"
+      }
+    },
+    "no": {
+      "text": "No",
+      "cite": {
+        "label": "verbatim",
+        "source": "paper",
+        "page": 5,
+        "note": "see Yes"
+      }
+    }
+  },
+  "stages": {
+    "context": {
+      "content": [
+        {
+          "id": "story",
+          "value": {
+            "expr": "data['context'][arm]"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 12,
+        "note": "separate screens: Appendix A p. 12 ('Horizontal lines indicate where participants were asked to advance the text'), p. 5 ('displayed in two separate screens'). Whether a back button existed and what the advance control was labelled are not printed; each screen shows only its own text (the rows of Appendix A), the earlier screens are not reviewable (alternative: the story stays above the question, which would change what the question screen shows)"
+      }
+    },
+    "utterance": {
+      "content": [
+        {
+          "id": "said",
+          "value": {
+            "expr": "data['utt']['pre']['text'] + ' ' + data['utt']['word'][cond]['text'] + ' ' + data['utt']['post']['text']"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 12,
+        "note": "separate screens: Appendix A p. 12 ('Horizontal lines indicate where participants were asked to advance the text'), p. 5 ('displayed in two separate screens'). Whether a back button existed and what the advance control was labelled are not printed; each screen shows only its own text (the rows of Appendix A), the earlier screens are not reviewable (alternative: the story stays above the question, which would change what the question screen shows)"
+      }
+    },
+    "scq": {
+      "responses": [
+        {
+          "id": "answer",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['scq']['pre']['text'] + ' ' + data['scq']['word'][cond]['text'] + ' ' + data['scq']['post']['text']"
+          },
+          "options": [
+            {
+              "code": "yes",
+              "label": {
+                "expr": "data['yes']"
+              }
+            },
+            {
+              "code": "no",
+              "label": {
+                "expr": "data['no']"
+              }
+            }
+          ],
+          "options_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "order Yes, No follows the sentence 'two options, “Yes” and “No.”'; the on-screen order (and whether the two buttons were side by side or stacked) is not printed. Alternative: No first, which would change only the position of the options"
+          },
+          "required": true,
+          "depends_on": [
+            "context",
+            "utterance"
+          ],
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 5,
+              "note": "arm s1: 'Participants were required to click on one of them'"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 8,
+              "note": "arm s2: p. 8 gives no such sentence; carried over from Study 1 (same two-option click task)"
+            }
+          ]
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 12,
+        "note": "separate screens: Appendix A p. 12 ('Horizontal lines indicate where participants were asked to advance the text'), p. 5 ('displayed in two separate screens'). Whether a back button existed and what the advance control was labelled are not printed; each screen shows only its own text (the rows of Appendix A), the earlier screens are not reviewable (alternative: the story stays above the question, which would change what the question screen shows)"
+      }
+    },
+    "icq": {
+      "responses": [
+        {
+          "id": "answer",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['icq']"
+          },
+          "options": [
+            {
+              "code": "yes",
+              "label": {
+                "expr": "data['yes']"
+              }
+            },
+            {
+              "code": "no",
+              "label": {
+                "expr": "data['no']"
+              }
+            }
+          ],
+          "options_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "order Yes, No follows the sentence 'two options, “Yes” and “No.”'; the on-screen order (and whether the two buttons were side by side or stacked) is not printed. Alternative: No first, which would change only the position of the options"
+          },
+          "required": true,
+          "depends_on": [
+            "context",
+            "utterance"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "'These questions were followed by two options, “Yes” and “No.” Participants were required to click on one of them.'"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 12,
+        "note": "separate screens: Appendix A p. 12 ('Horizontal lines indicate where participants were asked to advance the text'), p. 5 ('displayed in two separate screens'). Whether a back button existed and what the advance control was labelled are not printed; each screen shows only its own text (the rows of Appendix A), the earlier screens are not reviewable (alternative: the story stays above the question, which would change what the question screen shows)"
+      }
+    }
+  },
+  "flow": [
+    {
+      "set": {
+        "cond": {
+          "expr": "choice(['threat', 'boost'])"
+        }
+      }
+    },
+    {
+      "stage": "context"
+    },
+    {
+      "stage": "utterance"
+    },
+    {
+      "stage": "scq"
+    },
+    {
+      "stage": "icq",
+      "if": "arm == 's1'"
+    }
+  ],
+  "flow_cites": {
+    "assignment": {
+      "label": "derived",
+      "source": "paper",
+      "page": 5,
+      "note": "'Each participant read the Speech vignette either in the face-boosting version or in the face-threatening one' (p. 5; Study 2 p. 8): independent random assignment, equal probability; the mechanism (balanced quota vs independent draw) and realised cell sizes are not printed. Alternative: balanced assignment, which would equalise cell sizes"
+    },
+    "order": {
+      "label": "reported",
+      "source": "paper",
+      "page": 5,
+      "note": "6a, 6b, 6c, 6d 'always in this order'; 6d only in Study 1 (p. 8: 'There was no conversational implicature question')"
+    }
+  },
+  "units": {
+    "subjects": {
+      "per": "session",
+      "fields": {
+        "experiment": "arm",
+        "condition": "cond",
+        "scq_yes": "None if answer('scq.answer') is None else (1 if answer('scq.answer') == 'yes' else 0)",
+        "icq_yes": "None if answer('icq.answer') is None else (1 if answer('icq.answer') == 'yes' else 0)",
+        "joint": "None if answer('icq.answer') is None else ('S' + ('Y' if answer('scq.answer') == 'yes' else 'N') + 'I' + ('Y' if answer('icq.answer') == 'yes' else 'N'))"
+      },
+      "cites": {
+        "scq_yes": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "share answering Yes to the semantic compatibility question (Results, Table 2)"
+        },
+        "icq_yes": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "share answering Yes to the conversational implicature question (Table 2; Study 1 only)"
+        },
+        "joint": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "Tables 3-4: the four Yes/No combinations (semantic question first); coded SxIy"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "exclusions_note": "the paper's three exclusions (repeated clicks, RT cut-offs, RT outliers) need timing and click data; declared in arms[].exclusion_caveat",
+  "omitted": [
+    {
+      "what": "consent form ('All subjects gave written informed consent', p. 5) and any instruction / title screen",
+      "why": "text not printed",
+      "label": "missing"
+    },
+    {
+      "what": "labels of the advance / answer controls beyond 'Yes' and 'No'",
+      "why": "not printed",
+      "label": "missing"
+    },
+    {
+      "what": "demographics (age, gender collected: 228 men, 171 women, mean age 32.3)",
+      "why": "reported as a sample description; the questions asked are not printed",
+      "label": "missing"
+    },
+    {
+      "what": "reaction times (RTUTTERANCE, RTQUESTION), click counts",
+      "why": "measured by the authors; the replay does not record screen timings",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5
+      }
+    }
+  ],
+  "analysis": {
+    "targets": [
+      {
+        "id": "s1_threat_scq_yes",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "threat"
+        },
+        "field": "scq_yes",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.45,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "'45% of participants answered \"Yes\"' (p. 5), Table 2 (p. 6)"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s1_boost_scq_yes",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "boost"
+        },
+        "field": "scq_yes",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.32,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "'dropped to 32% in the face-boost condition' (p. 5), Table 2"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s1_threat_icq_yes",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "threat"
+        },
+        "field": "icq_yes",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.07,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "'only 7% responded with \"Yes\"' (p. 6), Table 2"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s1_boost_icq_yes",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "boost"
+        },
+        "field": "icq_yes",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.64,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "'36% said \"No\" and 64% answered \"Yes\"' (p. 6), Table 2"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s2_threat_scq_yes",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s2",
+          "condition": "threat"
+        },
+        "field": "scq_yes",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.45,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "Table 6 (p. 8): 45%"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s2_boost_scq_yes",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s2",
+          "condition": "boost"
+        },
+        "field": "scq_yes",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.125,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "Table 6 (p. 8): 12.5%"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s1_threat_joint_syiy",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "threat"
+        },
+        "field": "joint",
+        "stat": "share",
+        "success": "SYIY",
+        "human": {
+          "value": 0.01,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "Table 3 (p. 6), 'Proportion of total'"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s1_threat_joint_syin",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "threat"
+        },
+        "field": "joint",
+        "stat": "share",
+        "success": "SYIN",
+        "human": {
+          "value": 0.44,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "Table 3 (p. 6), 'Proportion of total'"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s1_threat_joint_sniy",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "threat"
+        },
+        "field": "joint",
+        "stat": "share",
+        "success": "SNIY",
+        "human": {
+          "value": 0.06,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "Table 3 (p. 6), 'Proportion of total'"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s1_threat_joint_snin",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "threat"
+        },
+        "field": "joint",
+        "stat": "share",
+        "success": "SNIN",
+        "human": {
+          "value": 0.49,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "Table 3 (p. 6), 'Proportion of total'"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s1_boost_joint_syiy",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "boost"
+        },
+        "field": "joint",
+        "stat": "share",
+        "success": "SYIY",
+        "human": {
+          "value": 0.28,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "Table 4 (p. 6), 'Proportion of total'"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s1_boost_joint_syin",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "boost"
+        },
+        "field": "joint",
+        "stat": "share",
+        "success": "SYIN",
+        "human": {
+          "value": 0.04,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "Table 4 (p. 6), 'Proportion of total'"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s1_boost_joint_sniy",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "boost"
+        },
+        "field": "joint",
+        "stat": "share",
+        "success": "SNIY",
+        "human": {
+          "value": 0.36,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "Table 4 (p. 6), 'Proportion of total'"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      },
+      {
+        "id": "s1_boost_joint_snin",
+        "unit": "subjects",
+        "where": {
+          "experiment": "s1",
+          "condition": "boost"
+        },
+        "field": "joint",
+        "stat": "share",
+        "success": "SNIN",
+        "human": {
+          "value": 0.32,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "Table 4 (p. 6), 'Proportion of total'"
+          },
+          "no_uncertainty": "cell n not printed (analysed N 292 / 294 pooled over the two conditions, pp. 5, 8); no CI printed"
+        }
+      }
+    ],
+    "effects": [
+      {
+        "id": "s1_scq_threat_vs_boost",
+        "label": "Study 1: share Yes to the semantic compatibility question, face-threat minus face-boost",
+        "unit": "subjects",
+        "studyId": "s1",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "threat",
+          "reference": "boost"
+        },
+        "compute": {
+          "op": "proportion_difference",
+          "field": "scq_yes",
+          "success": [
+            1
+          ],
+          "groupBy": "condition",
+          "where": {
+            "experiment": "s1"
+          }
+        },
+        "reported": {
+          "value": 0.13,
+          "metric": "risk_difference",
+          "value_note": "derived: difference of the two printed percentages (face-threat minus face-boost); the Fisher p and OR are the reported test",
+          "no_uncertainty": "cell sizes not printed; cells given as printed percentages only; the printed test is an exact test (no statistic value)",
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 5,
+              "note": "value = 45.0% - 32.0% = difference of the printed shares (p. 5)"
+            },
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 5,
+              "note": "Fisher exact p = 0.02, OR = 1.7 (p. 5)"
+            }
+          ],
+          "test": {
+            "statistic": "other",
+            "statisticName": "Fisher exact test",
+            "p": 0.02,
+            "pRelation": "="
+          }
+        }
+      },
+      {
+        "id": "s2_scq_threat_vs_boost",
+        "label": "Study 2: share Yes to the semantic compatibility question, face-threat minus face-boost",
+        "unit": "subjects",
+        "studyId": "s2",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "threat",
+          "reference": "boost"
+        },
+        "compute": {
+          "op": "proportion_difference",
+          "field": "scq_yes",
+          "success": [
+            1
+          ],
+          "groupBy": "condition",
+          "where": {
+            "experiment": "s2"
+          }
+        },
+        "reported": {
+          "value": 0.325,
+          "metric": "risk_difference",
+          "value_note": "derived: difference of the two printed percentages (face-threat minus face-boost); the Fisher p and OR are the reported test",
+          "no_uncertainty": "cell sizes not printed; cells given as printed percentages only; the printed test is an exact test (no statistic value)",
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 8,
+              "note": "value = 45.0% - 12.5% = difference of the printed shares (p. 8)"
+            },
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 8,
+              "note": "Fisher exact p < 0.001, OR = 5.7 (p. 8)"
+            }
+          ],
+          "test": {
+            "statistic": "other",
+            "statisticName": "Fisher exact test",
+            "p": 0.001,
+            "pRelation": "<"
+          }
+        }
+      },
+      {
+        "id": "s1_icq_threat_vs_boost",
+        "label": "Study 1: share Yes to the conversational implicature question, face-threat minus face-boost",
+        "unit": "subjects",
+        "studyId": "s1",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "threat",
+          "reference": "boost"
+        },
+        "compute": {
+          "op": "proportion_difference",
+          "field": "icq_yes",
+          "success": [
+            1
+          ],
+          "groupBy": "condition",
+          "where": {
+            "experiment": "s1"
+          }
+        },
+        "reported": {
+          "value": -0.57,
+          "metric": "risk_difference",
+          "value_note": "derived: difference of the two printed percentages (face-threat minus face-boost); the Fisher p and OR are the reported test",
+          "no_uncertainty": "cell sizes not printed; cells given as printed percentages only",
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 6,
+              "note": "value = 7.0% - 64.0% = difference of the printed shares (Table 2, p. 6)"
+            }
+          ]
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "what": "reaction-time ANOVAs (Tables 5, 7) and the logistic regression on response type",
+        "why": "need screen timings and click counts"
+      },
+      {
+        "what": "Study 1 vs Study 2 comparison of face-boost Yes rates (32% vs 12.5%)",
+        "why": "no cross-arm contrast declared; each arm's share is a target"
+      }
+    ]
+  },
+  "keyed": {
+    "why": "paper's pattern: face-threat -> more Yes to the semantic question; implicature question Yes in boost, No in threat",
+    "answers": {
+      "scq.answer": "'yes' if cond == 'threat' else 'no'",
+      "icq.answer": "'no' if cond == 'threat' else 'yes'"
+    }
+  },
+  "schema_version": "1",
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {},
+    "strict": true,
+    "attribution": [
+      {
+        "source": "paper",
+        "licence": "CC-BY-4.0",
+        "attribution": "Mazzarella, D., Trouche, E., Mercier, H., & Noveck, I. (2018). Believing what you're told: Politeness and scalar inferences. Frontiers in Psychology 9: 908. doi:10.3389/fpsyg.2018.00908. CC BY"
+      }
+    ]
+  }
+}

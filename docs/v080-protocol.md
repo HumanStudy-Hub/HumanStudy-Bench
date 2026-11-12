@@ -85,6 +85,14 @@ For a current revision with `protocol.json`, the paper entry gains these fields:
 
 The block holds counts and ids only, never protocol text. `studies_index.json` keeps its legacy shape.
 
+The Web library checks the catalog-level `publications` map for the **Validated** label.
+Maintainers record `{"kind": "maintainer-reviewed-protocol", "revision": "<sha256>"}` by paper ID in
+`catalog/publications.json` after reviewing the exact release. The catalog includes the record only while
+it points to the current signed runnable protocol. A new recommendation does not inherit the label.
+Contributor-editable paper metadata cannot populate this map. The catalog snapshot digest covers active
+publication records. Validation is for the supported protocol scope; it does not certify replication of
+the original findings.
+
 ## Test fixture
 
 `tests/fixtures/protocol_release/example2026lamps/` is an invented study under CC0-1.0. Its material is two
