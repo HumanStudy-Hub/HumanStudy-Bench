@@ -13,7 +13,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 
 from jsonschema import Draft202012Validator
-from scripts.research.catalog import community_identity, digest, normalise_doi, project_program
+from scripts.research.catalog import community_identity, digest, normalise, normalise_doi, project_program
 from scripts.research.capabilities import validate as check_capabilities
 from scripts.research.effects_core import check as check_effects
 from scripts.research.program_rules import problems_for
@@ -61,13 +61,13 @@ def read_assets(directory: Path) -> dict[str, bytes]:
     return files
 
 
-def validate_assets(files: dict[str, bytes]) -> dict:
+def validate_assets(files: dict[str, bytes], *, draft: bool = False) -> dict:
     if "protocol.json" in files:
-        return validate_protocol_assets(files)
+        return validate_protocol_assets(files, draft=draft)
     return validate_program_assets(files)
 
 
-def validate_protocol_assets(files: dict[str, bytes]) -> dict:
+def validate_protocol_assets(files: dict[str, bytes], *, draft: bool = False) -> dict:
     """A v0.8 protocol release (V080 §2.1): program.json is optional; the pinned hsenv engine checks the
     protocol as data. Nothing in the contribution is imported or executed."""
     from scripts.research.protocols import protocol_capabilities, validate_protocol_files
@@ -77,18 +77,21 @@ def validate_protocol_assets(files: dict[str, bytes]) -> dict:
             safe_path(name)
         except ValueError as exc:
             errors.append(str(exc))
-    result = validate_protocol_files(files)
+    result = validate_protocol_files(files, draft=draft)
     errors += result["errors"]
     warnings = list(result["warnings"])
     projection = {"protocol": result.get("summary")}
-    if "program.json" in files and not errors:
+    if draft:
+        from scripts.research.drafts import draft_problems
+        errors += draft_problems(files)
+    if "program.json" in files or draft:
         program_result = validate_program_assets({k: v for k, v in files.items() if k != "effects.json"})
         errors += program_result["errors"]
         warnings += program_result["warnings"]
         projection = {**program_result.get("projection", {}), **projection}
     caps = {"discoverable": True, "traceable": False, "reanalyzable": False, "replayable": False,
             "humanBenchmark": False}
-    if not errors:
+    if not errors and not draft:
         caps.update(protocol_capabilities(json.loads(files["protocol.json"])))
     return {"status": "failed" if errors else "passed", "errors": errors, "warnings": warnings,
             "checks": {"schema": not errors, "protocol": not errors, "codeExecuted": False,
@@ -329,12 +332,19 @@ def integrate(paper_dir: Path, metadata: dict, proposed: dict[str, bytes], *, re
         if conflicts:
             return {"status": "needs_review", "conflicts": conflicts,
                     "reason": "These changes disagree with the current research; the previous version is retained."}
-        validation = validate_assets(merged)
+        try:
+            draft = metadata.get("kind") == "protocol" and json.loads(merged.get("study.json", b"{}")).get("quality") == "draft"
+        except (ValueError, AttributeError):
+            draft = False
+        validation = validate_assets(merged, draft=draft)
         if validation["status"] != "passed":
             return {"status": "checks_failed", "validation": validation}
-        source_doi = release_source(merged).get("doi")
+        source = release_source(merged)
+        if draft and normalise(str(source.get("title", ""))) != normalise(str(metadata.get("paper", {}).get("title", ""))):
+            return {"status": "checks_failed", "reason": "The draft and submission paper titles disagree."}
+        source_doi = source.get("doi")
         if source_doi and key.startswith("doi:") and normalise_doi(source_doi) != key[4:]:
-            return {"status": "needs_review", "reason": "The program and contribution refer to different source papers."}
+            return {"status": "checks_failed" if draft else "needs_review", "reason": "The program and contribution refer to different source papers."}
         rid = revision_id(merged)
         if rid == current_id:
             return {"status": "unchanged", "revision": rid}
@@ -344,8 +354,10 @@ def integrate(paper_dir: Path, metadata: dict, proposed: dict[str, bytes], *, re
         if "protocol.json" in merged:
             return {"status": "needs_review", "candidateRevision": rid, "validation": validation,
                     "requiresMaintainer": True,
-                    "reason": "Protocol checks passed. A protocol release is published only by a maintainer "
-                              "release PR; this proposal waits for a maintainer."}
+                    "reason": ("Draft structure and source declarations checked; execution and scientific fidelity remain unreviewed. "
+                               "This proposal waits for a maintainer." if draft else
+                               "Protocol checks passed. A protocol release is published only by a maintainer "
+                               "release PR; this proposal waits for a maintainer.")}
         # An independent agent or curator reviews an exact candidate; approval cannot be replayed.
         if not review or review.get("candidateRevision") != rid or review.get("decision") != "accept" or not review.get("reviewer"):
             return {"status": "needs_review", "candidateRevision": rid, "validation": validation,

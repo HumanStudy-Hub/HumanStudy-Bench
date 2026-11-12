@@ -154,8 +154,8 @@ def _image_sources(value, path=""):
             yield from _image_sources(v, f"{path}/{i}")
 
 
-def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed: int = 1) -> dict:
-    """Checks 1-4 on the files of one release (published path -> bytes)."""
+def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed: int = 1, draft: bool = False) -> dict:
+    """Check data-only structure; draft intake omits publication approval and execution gates."""
     errors: list[str] = []
     warnings: list[str] = []
     study = _json(files, "study.json", errors)
@@ -169,7 +169,7 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
     if isinstance(study, dict):
         _schema({k: v for k, v in study.items() if k not in RELEASE_FIELDS}, "study", "study.json", errors)
     _schema(protocol, "protocol", "protocol.json", errors)
-    if not isinstance(study, dict) or not isinstance(protocol, dict):
+    if errors or not isinstance(study, dict) or not isinstance(protocol, dict):
         return {"status": "failed", "errors": errors, "warnings": warnings}
 
     # 2. release rules
@@ -177,11 +177,14 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
     errors.extend(p for p in (path_problem(n, sources) for n in sorted(files)) if p)
     if study.get("id") != protocol.get("id") or study.get("slug", study.get("id")) != study.get("id"):
         errors.append("study.json: id (and slug) must equal protocol.json id")
-    if study.get("visibility") != "public":
+    if not draft and study.get("visibility") != "public":
         errors.append('study.json: visibility must be "public" for a release')
     fidelity = study.get("fidelity") or {}
-    if study.get("quality") != "high_fidelity" or fidelity.get("verdict") not in SIGNED_VERDICTS \
-            or not fidelity.get("signed_by"):
+    if not isinstance(fidelity, dict):
+        errors.append("study.json: fidelity must be an object")
+        fidelity = {}
+    if not draft and (study.get("quality") != "high_fidelity" or fidelity.get("verdict") not in SIGNED_VERDICTS \
+            or not fidelity.get("signed_by")):
         errors.append("study.json: a release needs quality high_fidelity, a HIGH FIDELITY verdict and signed_by (G2)")
     if fidelity.get("review") and fidelity["review"] not in files:
         errors.append(f"study.json: fidelity.review {fidelity['review']} is not in the release")
@@ -211,7 +214,9 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
 
     # 3. checks
     report = _json(files, "review/checks-latest.json", errors)
-    if not isinstance(report, dict):
+    if report is None and draft and "review/checks-latest.json" not in files:
+        warnings.append("Draft intake only: no execution or independent fidelity review has been approved.")
+    elif not isinstance(report, dict):
         errors.append("review/checks-latest.json: missing; run hsenv checks and commit the report")
     else:
         if report.get("PASS") is not True:
@@ -221,7 +226,7 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
         if report.get("release_hold"):
             errors.append("review/checks-latest.json: reports arms on release_hold")
     fuzz = None
-    if sessions and not errors:
+    if sessions and not errors and not draft:
         fuzz = replay(protocol, sessions, seed)
         errors.extend("engine: " + p for p in fuzz["problems"])
 

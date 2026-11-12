@@ -121,3 +121,20 @@ The hsenv tests skip when hsenv is not installed.
   it calls `compile` and `eval`. It does so on an AST whose node types it has checked against a whitelist,
   and it runs with `__builtins__` emptied. The CI test pins that whitelist and a set of escape attempts.
 - **Maintainer decisions:** who signs a release (G2), and how B4 keeps public Actions logs quiet (G3).
+
+## Hosted community drafts
+
+A proposal explicitly marked `kind: protocol` whose study card has `quality: draft`
+uses draft intake, not formal release validation. It must include a schema-valid Program,
+a matching raw protocol binding, a matching canonical study binding, hosted-source
+bytes with declared redistributable licenses and hashes, and consistent paper identity.
+Private/raw paths, held material, malformed schemas, stale reports and mismatched versions
+remain failures. Draft intake does not require a curated fidelity signature, public
+release visibility, or an execution report; missing those is not scientific approval.
+
+Passing intake always yields `needs_review` with `requiresMaintainer: true`. No agent
+review, contributed code, random session or participant model is executed. It creates no
+current revision and awards no runnable/validated capability. Formal release validation
+retains all its existing gates. The test fixture in `tests/fixtures/paired-draft` is an
+invented CC0 lamp study exported by Desktop's paired exporter, including an honestly
+blocked arm; it is not an empirical research asset.
