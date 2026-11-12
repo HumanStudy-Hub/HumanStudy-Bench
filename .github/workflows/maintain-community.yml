@@ -2,6 +2,7 @@ name: Maintain community research
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
+    branches: [main, dev]
     paths: ['community/**']
   workflow_dispatch:
     inputs:
@@ -24,16 +25,36 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - name: Identify the trusted proposal target
+        id: target
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pull_request }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+          number = int(os.environ['PR_NUMBER'])
+          repo = os.environ['GITHUB_REPOSITORY']
+          request = urllib.request.Request(f'https://api.github.com/repos/{repo}/pulls/{number}', headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN']})
+          pr = json.load(urllib.request.urlopen(request))
+          target = pr['base']['ref']
+          if pr['state'] != 'open' or target not in {'main', 'dev'} or not pr['head']['ref'].startswith('community/'):
+              raise SystemExit('Not an open community proposal against main or dev')
+          if os.environ['GITHUB_REF'] != f'refs/heads/{target}':
+              raise SystemExit('Run the workflow from the proposal target branch')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f'branch={target}\n')
+          PY
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ steps.target.outputs.branch }}
           persist-credentials: false
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install jsonschema==4.26.0 pypdf==6.1.1
-      # trusted, pinned engine from main's requirements.txt; never from the proposal
+      # Use the engine pinned by the trusted target branch.
       # hsenv pin lives only in requirements.txt: hsenv @ git+https://github.com/HumanStudy-Hub/hsenv@db85a9c82f4c7cedeb808a3d39ae2858605d5a20  # v0.8.1
       - run: grep '^hsenv' requirements.txt > "$RUNNER_TEMP/hsenv-pin.txt" && pip install -r "$RUNNER_TEMP/hsenv-pin.txt"
       - name: Read exact proposal commits
@@ -42,6 +63,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pull_request }}
           REPOSITORY: ${{ github.repository }}
+          TARGET_BRANCH: ${{ steps.target.outputs.branch }}
         run: |
           python - <<'PY'
           import json, os, subprocess, urllib.request
@@ -49,8 +71,8 @@ jobs:
           repo = os.environ['REPOSITORY']
           request = urllib.request.Request(f'https://api.github.com/repos/{repo}/pulls/{number}', headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN']})
           pr = json.load(urllib.request.urlopen(request))
-          if pr['state'] != 'open' or pr['base']['ref'] != 'main' or not pr['head']['ref'].startswith('community/'):
-              raise SystemExit('Not an open community proposal against main')
+          if pr['state'] != 'open' or pr['base']['ref'] != os.environ['TARGET_BRANCH'] or not pr['head']['ref'].startswith('community/'):
+              raise SystemExit('Proposal changed while loading; retry')
           subprocess.run(['git','fetch','origin',f'pull/{number}/head'],check=True)
           head = subprocess.check_output(['git','rev-parse','FETCH_HEAD'],text=True).strip()
           if head != pr['head']['sha']: raise SystemExit('Proposal changed while loading; retry')
@@ -59,32 +81,39 @@ jobs:
           PY
       - name: Validate, review and prepare recommendation
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_API_KEY: ${{ steps.target.outputs.branch == 'main' && secrets.OPENROUTER_API_KEY || '' }}
           OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
           HEAD_SHA: ${{ steps.proposal.outputs.head }}
           BASE_SHA: ${{ steps.proposal.outputs.base }}
           PR_AUTHOR: ${{ steps.proposal.outputs.author }}
           COMMUNITY_BOT_LOGIN: ${{ vars.COMMUNITY_BOT_LOGIN || 'humanstudy-bot' }}
-        run: python scripts/maintain_community.py --head "$HEAD_SHA" --base "$BASE_SHA" --author "$PR_AUTHOR" --agent-review > /tmp/community-result.json
+          TARGET_BRANCH: ${{ steps.target.outputs.branch }}
+        run: |
+          review=()
+          if [[ "$TARGET_BRANCH" == main ]]; then review=(--agent-review); fi
+          python scripts/maintain_community.py --head "$HEAD_SHA" --base "$BASE_SHA" --author "$PR_AUTHOR" "${review[@]}" > /tmp/community-result.json
       - name: Publish one atomic catalog update
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pull_request }}
           HEAD_SHA: ${{ steps.proposal.outputs.head }}
           REPOSITORY: ${{ github.repository }}
-          CATALOG_SYNC_URL: ${{ vars.RESEARCH_CATALOG_SYNC_URL }}
-          CATALOG_SYNC_SECRET: ${{ secrets.RESEARCH_INDEX_SYNC_SECRET }}
+          TARGET_BRANCH: ${{ steps.target.outputs.branch }}
+          CATALOG_SYNC_URL: ${{ steps.target.outputs.branch == 'main' && vars.RESEARCH_CATALOG_SYNC_URL || '' }}
+          CATALOG_SYNC_SECRET: ${{ steps.target.outputs.branch == 'main' && secrets.RESEARCH_INDEX_SYNC_SECRET || '' }}
         run: |
           python - <<'PY'
           import base64,json,os,subprocess,urllib.request,urllib.error
           repo=os.environ['REPOSITORY']; token=os.environ['GH_TOKEN']; number=int(os.environ['PR_NUMBER'])
+          target=os.environ['TARGET_BRANCH']
+          if target not in {'main', 'dev'}:raise SystemExit('Unexpected target branch')
           def api(path,data=None,method=None):
               r=urllib.request.Request('https://api.github.com/repos/'+repo+'/'+path,data=json.dumps(data).encode() if data is not None else None,headers={'Authorization':'Bearer '+token,'Content-Type':'application/json'},method=method)
               with urllib.request.urlopen(r) as response:return json.load(response)
           pr=api(f'pulls/{number}')
-          if pr['head']['sha']!=os.environ['HEAD_SHA'] or pr['state']!='open':raise SystemExit('Proposal changed; retry against its new head')
+          if pr['head']['sha']!=os.environ['HEAD_SHA'] or pr['base']['ref']!=target or pr['state']!='open':raise SystemExit('Proposal changed; retry')
           base=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
-          if api('git/ref/heads/main')['object']['sha']!=base:raise SystemExit('Main changed; retry integration without forcing the recommendation')
+          if api(f'git/ref/heads/{target}')['object']['sha']!=base:raise SystemExit('Target changed; retry integration without forcing the recommendation')
           subprocess.run(['git','add','--','community','co_website/data/research_index.json'],check=True)
           paths=subprocess.check_output(['git','diff','--cached','--name-only','-z']).decode().split('\0')
           entries=[]
@@ -96,7 +125,7 @@ jobs:
           if entries:
               tree=api('git/trees',{'base_tree':api('git/commits/'+base)['tree']['sha'],'tree':entries})
               commit=api('git/commits',{'message':f'Community: validate proposal #{number} and update recommendation','tree':tree['sha'],'parents':[base]})
-              api('git/refs/heads/main',{'sha':commit['sha'],'force':False},'PATCH')
+              api(f'git/refs/heads/{target}',{'sha':commit['sha'],'force':False},'PATCH')
               published=commit['sha']
           else:published=base
           report=json.load(open('/tmp/community-result.json'))
