@@ -221,6 +221,23 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
             else:
                 papers[pid] = item
 
+    # Imports keep a source's citation text verbatim. catalog/bibliography.json (built by
+    # scripts/research/bibliography.py) supplies the title, authors and year to display for it.
+    bibliography = root / "catalog/bibliography.json"
+    for pid, entry in (json.loads(bibliography.read_text()).get("papers", {}) if bibliography.exists() else {}).items():
+        paper = papers.get(pid)
+        if not paper:
+            continue
+        paper["title"] = entry["title"]
+        if entry.get("authors"):
+            paper["authors"] = entry["authors"]
+        if entry.get("year"):
+            paper["year"] = entry["year"]
+        if entry.get("description") and not paper.get("description"):
+            paper["description"] = entry["description"]
+        paper["bibliography"] = {k: entry[k] for k in ("method", "doi") if entry.get(k)}
+        paper["searchText"] = "\n".join([entry["title"], *entry.get("authors", []), paper.get("searchText", "")])
+
     # Only current.json publishes a community asset. Proposals and older snapshots never become cards.
     for pointer in sorted((root / "community").glob("*/current.json")):
         current = json.loads(pointer.read_text())

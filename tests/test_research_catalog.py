@@ -284,3 +284,17 @@ def test_effects_are_checked_and_indexed_for_cross_paper_queries(tmp_path, progr
     graph = paper["graph"]
     assert graph["edges"]["measures"] == 1 and graph["edges"]["tested-by"] >= 1
     assert "Side-effect effect" in graph["constructs"] and graph["gaps"] == []
+
+
+def test_published_titles_are_titles_not_citations():
+    """Imported citations are split through catalog/bibliography.json; a card title never carries a reference."""
+    index = json.loads((ROOT / "co_website/data/research_index.json").read_text())
+    citation = __import__("re").compile(r"https?://|doi\.org|\bdoi:|\(\d{4}[a-z]?[^)]*\)\.|^\W*\**references?\s*[:*\n]", __import__("re").I)
+    offenders = [p["title"] for p in index["papers"] if citation.search(p["title"])]
+    assert offenders == []
+    bibliography = json.loads((ROOT / "catalog/bibliography.json").read_text())
+    for entry in bibliography["papers"].values():
+        assert entry["title"] and not entry["title"].endswith(".")
+        if entry["method"] == "reference-text":
+            # Hand-filled entries copy the title as written in the source reference.
+            assert entry["title"].lower().replace('"', "") in entry["reference"].lower().replace('"', "")
