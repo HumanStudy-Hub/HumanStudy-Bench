@@ -63,7 +63,13 @@ def _match(name: str, pattern: str) -> bool:
 
 
 def path_problem(name: str, sources: dict) -> str | None:
-    """Why `name` may not be published, or None. `sources` = protocol meta.sources (key -> file)."""
+    """Why `name` may not be published, or None. `sources` is protocol meta.sources."""
+    from scripts.research.revisions import safe_path
+
+    try:
+        safe_path(name)
+    except ValueError as exc:
+        return f"{name}: {exc}"
     if any(_match(name, p) for p in NEVER):
         return f"{name}: never public (private source, run data or paper)"
     if not any(_match(name, p) for p in PUBLIC_PATHS):
@@ -71,8 +77,17 @@ def path_problem(name: str, sources: dict) -> str | None:
     if name.startswith("sourcetext/"):
         key = re.split(r"[#.]", name.split("/", 1)[1], maxsplit=1)[0]
         src = sources.get(key)
+        if isinstance(src, dict):
+            distribution = src.get("distribution")
+            if not isinstance(distribution, dict) or distribution.get("tier") != "hosted":
+                return f"{name}: structured source text requires a hosted source"
+            src = src.get("file")
         if not (isinstance(src, str) and src.startswith("sources/open/")):
             return f"{name}: source text of a source that is not under sources/open"
+        try:
+            safe_path(src)
+        except ValueError as exc:
+            return f"{name}: invalid open source path ({exc})"
     return None
 
 
