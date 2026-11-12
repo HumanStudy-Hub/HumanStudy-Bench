@@ -231,7 +231,7 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
         paper["title"] = entry["title"]
         if entry.get("authors"):
             paper["authors"] = entry["authors"]
-        if entry.get("year"):
+        if "year" in entry:
             paper["year"] = entry["year"]
         if entry.get("description") and not paper.get("description"):
             paper["description"] = entry["description"]

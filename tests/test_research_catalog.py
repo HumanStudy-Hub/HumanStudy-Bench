@@ -298,3 +298,12 @@ def test_published_titles_are_titles_not_citations():
         if entry["method"] == "reference-text":
             # Hand-filled entries copy the title as written in the source reference.
             assert entry["title"].lower().replace('"', "") in entry["reference"].lower().replace('"', "")
+
+
+def test_replication_dataset_does_not_inherit_the_original_papers_metadata():
+    index = json.loads((ROOT / "co_website/data/research_index.json").read_text())
+    paper = next(p for p in index["papers"] if "psych201:rausch_unpublished_replication" in p["aliases"])
+    assert paper["authors"] == ["Manuel Rausch"]
+    assert paper["year"] is None
+    assert paper["title"].startswith("Psych-201 dataset:")
+    assert paper["bibliography"] == {"method": "source-directory"}
