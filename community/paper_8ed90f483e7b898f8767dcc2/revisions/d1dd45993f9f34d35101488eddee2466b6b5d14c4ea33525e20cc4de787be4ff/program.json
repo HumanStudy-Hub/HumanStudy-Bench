@@ -1,0 +1,652 @@
+{
+  "schemaVersion": 2,
+  "id": "vonasch2023lessisbetter",
+  "title": "“Less is better” in separate evaluations versus “more is better” in joint evaluations: Mostly successful close replication and extension of Hsee (1998)",
+  "intent": "reconstruct",
+  "source": {
+    "title": "“Less is better” in separate evaluations versus “more is better” in joint evaluations: Mostly successful close replication and extension of Hsee (1998)",
+    "authors": "Andrew J. Vonasch, Wing Yiu Hung, Wai Yee Leung, Anna Thao Bich Nguyen, Stephanie Chan, Bo Ley Cheng, Gilad Feldman",
+    "doi": "10.1525/collabra.77859",
+    "filename": "sources/paper.pdf"
+  },
+  "studies": [
+    {
+      "id": "gift",
+      "title": "Replication of Study1 · Gift",
+      "type": "empirical",
+      "description": "One shared cohort across three scenarios; added joint-evaluation extension."
+    },
+    {
+      "id": "icecream",
+      "title": "Replication of Study2 · Ice cream",
+      "type": "empirical",
+      "description": "Same cohort and condition assignment, different scenario."
+    },
+    {
+      "id": "dishes",
+      "title": "Replication of Study4 · Dish sets",
+      "type": "empirical",
+      "description": "Same cohort; original Study3 was not repeated."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "background",
+      "kind": "background",
+      "title": "Evaluability and less-is-better judgments",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [
+        "overview",
+        "discussion"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Evaluability and less-is-better judgments",
+          "value": "People may value a smaller but favorably contextualized option more when evaluated separately, yet prefer the larger option when directly compared. This preregistered close replication tests three classic scenarios plus additional evaluations.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "overview",
+            "discussion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "question",
+      "kind": "question",
+      "title": "When does comparison reverse valuation?",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [
+        "overview",
+        "gift-joint",
+        "discussion"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "When does comparison reverse valuation?",
+          "value": "Reproduce separate-evaluation less-is-better and joint-evaluation more-is-better effects across gifts, ice cream and dish sets; test extensions to attractiveness, feelings and preference.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "overview",
+            "gift-joint",
+            "discussion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hypothesis",
+      "kind": "hypothesis",
+      "title": "Separate versus joint evaluation",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [
+        "gift-material",
+        "ice-results",
+        "dish-results",
+        "discussion"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Separate versus joint evaluation",
+          "value": "Separate evaluation predicts scarf over coat, smaller overflowing ice cream over larger underfilled ice cream, and smaller intact dish set over larger partially broken set. Joint evaluation predicts the higher-quantity/value option, with exploratory exceptions explicitly reported.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "gift-material",
+            "ice-results",
+            "dish-results",
+            "discussion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "participants",
+      "kind": "participants",
+      "title": "One shared sample, not three independent cohorts",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [
+        "method",
+        "assignment"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "One shared sample, not three independent cohorts",
+          "value": "403American MTurk/CloudResearch recruits;3declined participation,400analyzed(192male,208female,meanage39.3,range18–77). Same condition across all three scenarios:135high,131low,134joint. Do not sum these as1200unique participants.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "method",
+            "assignment"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "kind": "design",
+      "title": "Three scenarios, same randomized condition",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [
+        "method",
+        "assignment",
+        "overview"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Three scenarios, same randomized condition",
+          "value": "Between-person high/low/joint evaluation; scenario order counterbalanced, each primary outcome followed on a subsequent page by extension questions. Study3from the original paper was not replicated.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "method",
+            "assignment",
+            "overview"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "materials",
+      "kind": "material",
+      "title": "Gift, ice cream and dish-set vignettes",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [
+        "gift-material",
+        "ice-results",
+        "dish-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Gift, ice cream and dish-set vignettes",
+          "value": "Gift compares $55coat in a $50–500range with $45scarf in a $5–50range. Ice cream compares smaller overflowing with larger underfilled portions. Dish sets compare intact smaller with larger partly broken collections. Images originating in Hsee1998 are not redistributed in this reading package.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "gift-material",
+            "ice-results",
+            "dish-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "procedure",
+      "kind": "procedure",
+      "title": "Read scenario and evaluate",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [
+        "method",
+        "gift-material",
+        "ice-results",
+        "dish-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Read scenario and evaluate",
+          "value": "Read each hypothetical vignette in randomized scenario order → primary generosity or willingness-to-pay response → extension ratings and joint-condition preferences. Same condition applies throughout; no real purchase or actual consumption is implied.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "method",
+            "gift-material",
+            "ice-results",
+            "dish-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "variables",
+      "kind": "variable",
+      "title": "Valuation and extension outcomes",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [
+        "gift-result",
+        "gift-joint",
+        "ice-results",
+        "dish-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Valuation and extension outcomes",
+          "value": "Gift generosity; ice-cream/dish willingness-to-pay; attractiveness and affect ratings; binary joint preferences. Separate comparisons are between participants, joint ratings are paired within participants.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "gift-result",
+            "gift-joint",
+            "ice-results",
+            "dish-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analysis",
+      "kind": "analysis",
+      "title": "Separate and paired comparisons with exclusions",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [
+        "gift-result",
+        "gift-preference",
+        "ice-exclusions",
+        "ice-results",
+        "dish-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Separate and paired comparisons with exclusions",
+          "value": "Welch tests for separate conditions, paired t-tests for joint ratings, binomial preference tests. Ice-cream analysis excludes responses>$10.39(3SD pooled); report analyses with and without those outliers. Separate standardized d and paired dz are not interchangeable.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "gift-result",
+            "gift-preference",
+            "ice-exclusions",
+            "ice-results",
+            "dish-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gift-result",
+      "kind": "result",
+      "title": "Gift: separate effect, joint test unavailable",
+      "studyIds": [
+        "gift"
+      ],
+      "evidenceIds": [
+        "gift-result",
+        "gift-joint",
+        "gift-preference"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Gift: separate effect, joint test unavailable",
+          "value": "Scarf generosity5.45 versus coat4.18,Welch t(223)=8.11,p<.001,d=.99,95%CI[.72,1.25]inResults. Joint generosity question accidentally measured overall friend generosity, so predicted gift-specific reversal could not be tested. Joint preference instead favors scarf63%versus37%,p=.002.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "gift-result",
+            "gift-joint",
+            "gift-preference"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ice-result",
+      "kind": "result",
+      "title": "Ice cream: exclusion-sensitive separate effect",
+      "studyIds": [
+        "icecream"
+      ],
+      "evidenceIds": [
+        "ice-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Ice cream: exclusion-sensitive separate effect",
+          "value": "With exclusions smaller portion WTP3.99 versus larger3.54,t(257.95)=2.59,p=.010,d=.32. Without outliers excluded:3.99vs3.86,p=.640,d=.06. Joint larger exceeds smaller with exclusions4.28vs3.76,t(131)=6.92,p<.001,dz=.60;without4.35vs3.88,t(133)=5.61,p<.001,dz=.48. Attractiveness and affect extensions are nonsignificant.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ice-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dishes-result",
+      "kind": "result",
+      "title": "Dish sets: separate effect, joint WTP null",
+      "studyIds": [
+        "dishes"
+      ],
+      "evidenceIds": [
+        "dish-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Dish sets: separate effect, joint WTP null",
+          "value": "Separate smaller intact set WTP$33.70 versus larger partly broken$23.96,t(257.03)=6.23,p<.001,d=.76. Joint larger$31.67 versus smaller$30.35,t(133)=1.26,p=.210,dz=.11; no significant more-is-better WTP difference. A distinct forced-preference item favors larger59%,p=.047. Attractiveness and affect extension ratings favor the smaller set (both p<.001; d=.58 and .62, respectively).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "dish-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "kind": "finding",
+      "title": "Mostly successful, with important exceptions",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [
+        "discussion",
+        "ice-results",
+        "gift-joint",
+        "dish-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Mostly successful, with important exceptions",
+          "value": "Separate less-is-better patterns mostly replicate, although ice-cream significance depends on exclusions. Joint more-is-better is supported for ice cream, not dish WTP; gift joint generosity is not interpretable due to question wording.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "discussion",
+            "ice-results",
+            "gift-joint",
+            "dish-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "limits",
+      "kind": "limitation",
+      "title": "Wording and analysis qualifications",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [
+        "method",
+        "gift-joint",
+        "ice-exclusions",
+        "ice-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Wording and analysis qualifications",
+          "value": "The same online cohort evaluates all scenarios. Gift joint measurement cannot answer the intended question. Ice-cream outlier rules differ across preregistrations and materially change separate-condition inference. Summary descriptions of overall success must retain those qualifications.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "method",
+            "gift-joint",
+            "ice-exclusions",
+            "ice-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "source-inconsistencies",
+      "kind": "limitation",
+      "title": "Source numbers and restricted stimulus images",
+      "studyIds": [
+        "gift",
+        "icecream",
+        "dishes"
+      ],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Source numbers and restricted stimulus images",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable"
+          }
+        }
+      ]
+    }
+  ],
+  "steps": [],
+  "relations": [],
+  "issues": [
+    {
+      "id": "source-inconsistencies",
+      "title": "Source numbers and restricted stimulus images",
+      "severity": "check",
+      "reason": "Abstract versus Results differ for some effect sizes (e.g. ice-cream joint dz=.33 in abstract versus.60 in primary Results). Gift joint N is printed133 in one paragraph versus134overall;gift d upperCI1.26abstract versus1.25Results. Preserve these inconsistencies for review. Hsee1998 stimulus image rights are not cleared; no image bytes or restricted rawmaterial exported.",
+      "impact": "Exact replay of this part remains limited; this is not a completed original replication.",
+      "suggestedAction": "Obtain the original source before reconstructing missing content.",
+      "nodeId": "source-inconsistencies",
+      "fieldId": "summary",
+      "evidenceIds": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "overview",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.77859",
+      "locator": {
+        "page": 1
+      },
+      "quote": "We found support for “less is better” across all studies (N = 403; Study 1 original d = 0.70 \n[0.24,1.15], replication d = 0.99 [0.72,1.26]; Study 2 original d = 0.74 [0.12,1.35], \nreplication d = 0.32 [0.07,0.56]; Study 4 original d = 0.97 [0.43,1.50], replication d = 0.76 \n[0.50,1.02]), with weaker support for “more is better” (Study 2 original d = 0.92 \n[0.42,1.40], replication dz = 0.33 [.23,.43]; Study 4 original d = 0.37 [0.02,0.72], replication \ndz = 0.09 [-0.05,0.23]). Some results of our exploratory extensions were surprising, \nleading to open questions. We discuss remaining implications and directions for theory \nand measurement relating to economic rationality and the evaluability hypothesis.",
+      "verification": "unverified"
+    },
+    {
+      "id": "method",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.77859",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Procedure  \nAll three vignettes are the same as in the original Hsee \n(1998) study, and instructions were close to identical, ex-\ncept for explaining that there would be three vignettes (in-\nstead of one) and that there would be several questions \nfollowing each vignette (instead of one). The study con-\nsisted of three hypothetical scenarios: goodbye gift sce-\nnario, ice cream vendor scenario and dinnerware set sales \nscenario. Participants were randomly assigned to different \nconditions of each experiment using the Qualtrics random-\nizer. The order of vignettes was counterbalanced so any or-\nder of studies was possible. Participants read each vignette \nand answered the main dependent measure, followed on \nthe next page by the extension measures for that vignette \n(except as noted below). \nParticipants  \nA power analysis using G*power indicated we would \nachieve 80% power to detect the original effect size with 90 \nparticipants in Study 1, and 122 in Studies 2 and 4. For de-\ntails on power analysis calculations, see the supplemental \nmaterials. To increase power and account for possible ex-\nclusions, we increased the planned sample to 400. \nFour hundred and three American participants were re-\ncruited online via MTurk CloudResearch/TurkPrime (Lit-\nman et al., 2016) and received payment after completing \nthe Qualtrics survey. Three participants were excluded from \ndata analysis for refusing to participate in the study, leav-\ning a sample size of 400 (192 males; 208 females; Mage 39.3; \nMrange 18-77).",
+      "verification": "unverified"
+    },
+    {
+      "id": "assignment",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.77859",
+      "locator": {
+        "page": 3
+      },
+      "quote": "dition across the three scenarios, with 135 participants in \nthe high condition, 131 in the low condition, and 134 in the \njoint condition.",
+      "verification": "unverified"
+    },
+    {
+      "id": "gift-material",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.77859",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Replication of Study 1: The Gift scenario        \nIn Study 1, participants were randomly assigned into one \nof three conditions, consistent across the three scenarios. \nIn all conditions, participants were asked to imagine that \nthey were about to study abroad and received a goodbye gift \nfrom a friend. In the coat condition, they received a coat; \nin the scarf condition they received a scarf, and in the joint \ncondition, they were offered a choice between the coat or \nthe scarf. We predicted a successful replication of the less \nis better effect across the coat and scarf conditions: that \npeople would prefer a less expensive scarf (more expensive \nfrom the lower price range) to a more expensive coat (less \nexpensive of the higher price range) when they judge them \nseparately. The original study only included the coat and \nscarf conditions, not the joint condition, which we added as \nan extension to mirror the other two scenarios. \nCoat condition presented a coat on the lower end of a \n$50- $500 price range (N = 135): \nIt is a wool coat, from a nearby department store. The \nstore carries a variety of wool coats. The worst costs \n$50 and the best costs $500. The one your friend \nbought you costs $55. \nThe Scarf condition was similar, but instead of a coat \nthey were given a scarf which was on the higher end of a \nmuch lower price range $5 to $50 (N = 131): \nIt is a wool scarf, from a nearby department store. The \nstore carries a variety of wool scarves. The worst costs \n$5 and the best costs $50. The one your friend bought \nyou costs $45.",
+      "verification": "unverified"
+    },
+    {
+      "id": "gift-result",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.77859",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Results and Discussion    \nPreregistered Hypotheses: Separate Evaluations     \n(predicted less is better effect)      \nThe less is better effect replicated successfully. As pre-\ndicted, participants rated the scarf (M = 5.45, SD = 0.95) as \na more generous gift than the coat (M = 4.18, SD = 1.55), \nWelch’s t(223) = 8.11, p < .001, (d = 0.99, 95% CI: [0.72, \n1.25]).",
+      "verification": "unverified"
+    },
+    {
+      "id": "gift-joint",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.77859",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Extensions: Joint evaluations    \nWe predicted, based on the evaluability hypothesis, that \nin the joint condition we would observe “more is better” ef-\nfects across domains. The evaluability hypothesis predicts \nthis specifically in the domain of generosity, but related \nconstructs also seemed likely to produce more is better ef-\nfects: preferences between gifts, ratings of the attractive-\nness of the gifts, and feelings about the gifts. We did not \nask participants in the joint condition to rate which gift was \nmore expensive, because we presumed they would simply \ncompare the prices and observe that the coat was literally \nmore expensive. We also asked participants about generos-\nity in the joint condition— yet there was an oversight in the \nway we framed the question: We asked about the friend’s \noverall generosity, rather than about the generosity of each \npotential gift. Thus, we were unable to test any predictions \nabout generosity in the joint evaluations condition.",
+      "verification": "unverified"
+    },
+    {
+      "id": "gift-preference",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.77859",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Exploratory Analyses   \nAttractiveness and positive affect \nCounter to expectations, participants in the joint condi-\ntion rated the scarf as more attractive and felt better about \nreceiving it than the coat. Insofar as these constructs carry \na similar meaning to generosity (as argued above), this is \nconsistent with a less is better effect in the joint condi-\ntion. This is surprising, because for generosity Hsee (1998)'s \nmodel would predict a more is better effect, and these seem \nlike similar constructs. \nPreference \nCounter to expectations, but consistent with ratings of \nattractiveness and positive affect, participants in the joint \ncondition preferred the scarf (63%) to the coat (37%; bino-\nmial: p = .002).",
+      "verification": "unverified"
+    },
+    {
+      "id": "ice-exclusions",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.77859",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Study Specific Exclusion Criteria     \nThe two teams designing the preregistrations chose \nslightly different exclusion criteria. One group specified ad-\nditional exclusions criteria in Study 2, to match the criteria \nof Hsee (1998), but the other group did not specify this. \nThe lead author, who was not part of either team, indepen-\ndently decided that matching the exclusion criteria of Hsee \n(1998) was the most appropriate, as it removes two out-\nliers listing extreme values of willingness to pay for an ice \ncream cup. However, the results do change somewhat de-\npending on criteria chosen, so we have elected to first re-\nport the results using Hsee’s criteria, and second to report \nthe results without excluding the outliers. Hsee’s criteria: \nAnswers over three standard deviations from the mean will-",
+      "verification": "unverified"
+    },
+    {
+      "id": "ice-results",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.77859",
+      "locator": {
+        "page": 6
+      },
+      "quote": "ingness to pay across all conditions were excluded (re-\nsponses over $10.39 for an ice cream). Two responses in \nthe joint condition and two in the separate conditions were \nexcluded for this reason. Additionally, participants giving \ncontradictory responses would have been excluded, but no \nresponses were contradictory. Exploratory analyses in-\nspired by a reviewer comment revealed varying the exclu-\nsion criteria in this study slightly did not have any mean-\ningful effect on the final analyses’ significant or effect sizes. \nResults  \nSeparate evaluation condition (preregistered     \nprediction: less is better effect)      \nThe less is better effect successfully replicated. In the \nseparate evaluation condition, participants were willing to \npay more for the smaller cup (M = 3.99, SD = 1.49) than \nfor the larger cup (M = 3.54, SD = 1.34), Welch’s t(257.95) \n= 2.59, p = .010, (d = 0.32, 95% CI [0.07, 0.56]). The effect \nsize was smaller than in the original study (d = 0.74, 95% CI \n[0.12, 1.35]). \nWithout excluding the two outliers, the less is better effect \ndid not successfully replicate. In the separate evaluation \ncondition, we found no support for willingness to pay more \nfor the smaller cup (M = 3.99, SD = 1.49) than for the larger \ncup (M = 3.86, SD = 2.98), Welch’s t(198.52) = 0.47, p = .640, \n(d = 0.06, 95% CI [-0.18, 0.30]). \nJoint evaluation condition (preregistered prediction:      \nmore is better effect)     \nThe more is better hypothesis was supported. In the \njoint condition, as predicted, participants were willing to \npay more for the larger amount of ice cream (M = 4.28, SD \n= 1.63) than for the smaller amount (M = 3.76, SD = 1.53), \nt(131) = 6.92, p < .001, (dz = 0.60, 95% CI [.42, .79]). The ef-\nfect size was smaller than in the original study (d = 0.92, \n95% CI [0.42, 1.40]). \nWithout excluding outliers, the more is better hypothesis \nwas still supported. In the joint condition, as predicted, \nparticipants were willing to pay more for the larger amount \nof ice cream (M = 4.35, SD = 1.72) than for the smaller \namount (M = 3.88, SD = 1.82), t(133) = 5.61, p < .001, (dz = \n0.48, 95% CI [.31, .66]). The effect size was smaller than in \nthe original study. \nExtensions  \nIn the two extensions testing the attractiveness of the \nice cream and participants’ feelings toward the price we \nfound no support for differences between the conditions \n(Table 2). There was no support for differences in attrac-\ntiveness or in affect in any condition. Thus, contrary to our \npredictions, we found no evidence of a pattern similar to \nwillingness to pay for attractiveness and affect.",
+      "verification": "unverified"
+    },
+    {
+      "id": "dish-results",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.77859",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Results  \nSeparate Evaluations Condition (preregistered     \nprediction: less is better effect)      \nThe less is better effect was supported, see Table 4. As \npredicted, in the separate evaluation condition, partici-\npants were willing to pay more for the smaller set of unbro-\nken dishes (M = $33.70, SD = 11.45) than for the larger set \nthat included some broken dishes (M = $23.96, SD = 13.94), \nWelch’s t(257.03) = 6.23, p < .001, (d = 0.76, 95% CI [0.50, \n1.02]). The effect size was smaller than in the original study \n(d = 0.97, 95% CI [0.43, 1.50]). \nJoint Evaluations Condition (preregistered     \nprediction: more is better effect)      \nThe more is better effect was not supported, see Table \n4. Although participants were willing to pay more for the \nlarger set of dishes (M = $31.67, SD = 15.96) than for the \nsmaller set (M = $30.35, SD = 12.75), the difference was not \nsignificant, t(133) = 1.26, p = .210, (dz = 0.11, 95% CI [-0.06, \n0.28]). The effect size was smaller than in the original study \n(d = 0.37, 95% CI [0.02, 0.72]). \nExtensions  \nWillingness to pay more \nIn the joint evaluation condition, most participants \n(59%) were willing to pay more for the larger set than for \nthe smaller one (41%), binomial test: p = .047. \nSeparate evaluations \nAs predicted, in the separate evaluation conditions, par-\nticipants’ ratings of the dishes’ other qualities matched \ntheir willingness to pay. Participants rated the larger set (M \n= 3.91, SD = 1.41) as less attractive than the smaller set (M = \n4.63, SD = 1.08), Welch’s t(250.07) = 4.70, p < .001, d = 0.58, \n95%CI: [.32, .82]. They also had less positive feelings about \nthe larger set’s price (M = 4.01, SD = 1.44) than about the \nsmaller set’s price (M = 4.79, SD = 1.05), Welch’s t(244.43) \n= 5.05, p < .001, d = 0.62, 95%CI: [.36, .87].",
+      "verification": "unverified"
+    },
+    {
+      "id": "discussion",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.77859",
+      "locator": {
+        "page": 8
+      },
+      "quote": "General Discussion   \nOverall, we found support for four of the five effects in \nHsee (1998), with no support for the fifth effect, which was \nin the right direction (Table 5). Our extensions resulted \nin insightful findings. We conclude robust evidence for the \nless is better effect, with effect size varying when compared \nto the original, depending on the vignette used. However, \nthere was weaker evidence for the more is better effect, \nwith only Study 2 showing significant support for it. This \nmeans there was weaker than anticipated evidence for the \nevaluability hypothesis, despite successfully replicating its \nmost surprising findings. Below, we discuss each effect, as \nwell as some open questions about theory and measure-\nment relating to economic rationality and the evaluability \nhypothesis. \nLess is better effect     \nThree variations of the less is better effect (Hsee, 1998) \nreplicated successfully: When making separate evaluations, \npeople thought $45 scarves were more generous gifts than \n$55 coats, smaller overflowing ice creams were worth more \nthan larger underfilled ice creams, and smaller dish-sets \nwere more valuable than larger ones with some broken \npieces. Thus, the less is better effect, as tested in these par-\nadigms, is on very strong ground as a reliable effect. \nMore is better effect",
+      "verification": "unverified"
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "studyArms": {
+        "gift": [
+          "high",
+          "low",
+          "joint"
+        ],
+        "icecream": [
+          "high",
+          "low",
+          "joint"
+        ],
+        "dishes": [
+          "high",
+          "low",
+          "joint"
+        ]
+      }
+    },
+    "communityExport": {
+      "scope": "program-only",
+      "sources": [
+        {
+          "evidenceIds": [
+            "overview",
+            "method",
+            "assignment",
+            "gift-material",
+            "gift-result",
+            "gift-joint",
+            "gift-preference",
+            "ice-exclusions",
+            "ice-results",
+            "dish-results",
+            "discussion"
+          ],
+          "url": "https://doi.org/10.1525/collabra.77859",
+          "attribution": "Andrew J. Vonasch, Wing Yiu Hung, Wai Yee Leung, Anna Thao Bich Nguyen, Stephanie Chan, Bo Ley Cheng, Gilad Feldman. “Less is better” in separate evaluations versus “more is better” in joint evaluations: Mostly successful close replication and extension of Hsee (1998) (2023).",
+          "license": "CC-BY-4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sha256": "ba2b5394bf0fe9d671dc963012f62145cd23a5c49c0b7a6d2290c77b388f1395",
+          "title": "“Less is better” in separate evaluations versus “more is better” in joint evaluations: Mostly successful close replication and extension of Hsee (1998)",
+          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
+        }
+      ],
+      "withheldEvidenceQuotes": {
+        "ids": [],
+        "reason": "redistribution-unverified"
+      }
+    }
+  }
+}
