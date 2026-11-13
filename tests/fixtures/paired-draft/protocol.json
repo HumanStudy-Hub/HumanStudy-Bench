@@ -1,0 +1,85 @@
+{
+  "schema_version": "1",
+  "id": "lamp",
+  "meta": {
+    "citation": "Example (2026)",
+    "licence": {
+      "survey": "CC0-1.0"
+    },
+    "sample": {
+      "n": 1
+    },
+    "sources": {
+      "survey": {
+        "file": "sources/open/survey.txt",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC0-1.0",
+          "attribution": "A. Example",
+          "sha256": "017b9869a81f6f2a4735ec4513bce56e194411e0bae29f76341dd9dbd1868c12",
+          "format": "text"
+        }
+      }
+    }
+  },
+  "arms": [
+    {
+      "id": "main",
+      "runnable": true,
+      "n_paper": 1,
+      "cite": {
+        "label": "reported",
+        "source": "survey",
+        "page": 1
+      }
+    },
+    {
+      "id": "missing",
+      "runnable": false,
+      "n_paper": null,
+      "why": "Original instructions unavailable"
+    }
+  ],
+  "stages": {
+    "q": {
+      "content": [
+        {
+          "id": "prompt",
+          "text": "Would you choose the brighter lamp?",
+          "cite": {
+            "label": "verbatim",
+            "source": "survey",
+            "page": 1
+          }
+        }
+      ]
+    }
+  },
+  "flow": {
+    "stage": "q"
+  },
+  "units": {},
+  "exclusions": [],
+  "analysis": {
+    "targets": [],
+    "effects": [],
+    "unsupported": []
+  },
+  "keyed": {
+    "answers": {}
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {},
+    "strict": true,
+    "attribution": [
+      {
+        "source": "survey",
+        "licence": "CC0-1.0",
+        "attribution": "A. Example"
+      }
+    ]
+  }
+}

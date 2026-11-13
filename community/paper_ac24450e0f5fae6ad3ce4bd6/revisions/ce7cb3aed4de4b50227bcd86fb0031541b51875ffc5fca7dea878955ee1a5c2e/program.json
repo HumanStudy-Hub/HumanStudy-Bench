@@ -1,0 +1,790 @@
+{
+  "schemaVersion": 2,
+  "id": "brick2021selfinterest",
+  "title": "Self-interest Is Overestimated: Two Successful Pre-registered Replications and Extensions of Miller and Ratner (1998)",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Self-interest Is Overestimated: Two Successful Pre-registered Replications and Extensions of Miller and Ratner (1998)",
+    "authors": "Brick, C.; Fillon, A.; Yeung, S. K.; Wang, M.; Lyu, H.; Ho, J. Y. J.; Wong, S. C.; Feldman, G.",
+    "doi": "10.1525/collabra.23443",
+    "filename": "sources/bundle/paper/paper.pdf"
+  },
+  "studies": [
+    {
+      "id": "s1",
+      "title": "Study 1 · Blood donation",
+      "type": "empirical",
+      "description": "Two online samples complete paid/unpaid intentions and estimates; shares respondents with Study 4."
+    },
+    {
+      "id": "s4",
+      "title": "Study 4 · Smoking policies",
+      "type": "empirical",
+      "description": "Self versus others policy judgments, including an ordinal-smoking extension in MTurk."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "question",
+      "kind": "background",
+      "title": "Do people exaggerate others’ self-interest?",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "overview",
+        "limits"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Do people exaggerate others’ self-interest?",
+          "value": "The paper independently replicates two Miller and Ratner paradigms in US MTurk and UK Prolific samples. It compares self-reported intentions or attitudes with estimates for others, rather than measuring actual blood donation or voting.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "overview",
+            "limits"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hypothesis",
+      "kind": "hypothesis",
+      "title": "Original predictions and communal orientation",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "hypotheses",
+        "communal"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Original predictions and communal orientation",
+          "value": "Study 1 predicts overestimating the payment effect and no relation between personal payment sensitivity and overestimation. Study 4 predicts less policy support among smokers and overestimation of smoking-status differences. The extension predicts communal orientation relates to prosocial responses and more accurate estimates.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "hypotheses",
+            "communal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "kind": "design",
+      "title": "Two tasks per respondent, two independent samples",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "sample",
+        "s1method",
+        "payment",
+        "s4method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Two tasks per respondent, two independent samples",
+          "value": "All participants complete Studies 1 and 4 in randomized order. Study 1 compares paid/unpaid conditions within-person. Study 4 assigns self-report versus estimates-for-others; the MTurk extension additionally varies binary versus five-category smoking status. These tasks share respondents and are not four independent samples.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "sample",
+            "s1method",
+            "payment",
+            "s4method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "participants",
+      "kind": "participants",
+      "title": "799 analyzed respondents per sample",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "sample",
+        "prolific"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "799 analyzed respondents per sample",
+          "value": "800 US MTurk respondents completed; one reporting age 11 was excluded outside preregistration. All 799 UK Prolific respondents were analyzed. MTurk Study 4 was allocated to direct replication (414 before exclusion) or ordinal-smoking extension (386).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "sample",
+            "prolific"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "material",
+      "kind": "material",
+      "title": "Donation scenario, eight policies and communal scale",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "payment",
+        "measures",
+        "s4method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Donation scenario, eight policies and communal scale",
+          "value": "The donation scenario describes an American Red Cross neighborhood blood drive, with $15 or no payment; even the UK sample saw the American wording. Study 4 asks about cigarette taxation, advertising bans and restrictions in public spaces, restaurants, workplaces, transport, airplanes and hotels. Communal orientation uses a 14-item scale.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "payment",
+            "measures",
+            "s4method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "procedure",
+      "kind": "procedure",
+      "title": "Give personal judgments or estimates about others",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "sample",
+        "measures",
+        "s4method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Give personal judgments or estimates about others",
+          "value": "Respondents complete both study tasks in randomized order. Study 1 elicits yes/no willingness in paid and unpaid conditions plus percentage estimates for peers. Study 4 elicits own smoking status and policy attitudes in the Self group, or estimated support by smoking group in the Others group.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "sample",
+            "measures",
+            "s4method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "variables",
+      "kind": "variable",
+      "title": "Self-interest is a difference, not observed selfish behavior",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "s1results",
+        "s4results",
+        "s4method",
+        "measures"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Self-interest is a difference, not observed selfish behavior",
+          "value": "Study 1 compares paid-minus-unpaid willingness/estimates. Study 4 compares nonsmoker-minus-smoker policy support/estimates. Own policy answers are coded oppose=0, no opinion=0.5, support=1; others’ support estimates span 0–100%. Communal orientation is a measured moderator.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s1results",
+            "s4results",
+            "s4method",
+            "measures"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analysis",
+      "kind": "analysis",
+      "title": "Compare estimated and self-reported differences",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "analysis",
+        "s1results",
+        "s4table",
+        "communalresults"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Compare estimated and self-reported differences",
+          "value": "The published overestimation tests compare participant estimates with a fixed self-report difference, using one-sample t-tests against zero after subtraction. Inferential tests are two-tailed with alpha .05 unless explicitly exploratory. Correlations address communal orientation; original effect sizes cannot be reconstructed precisely without original variances. Reported constants require reconciliation before reproducing numerical analyses.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "analysis",
+            "s1results",
+            "s4table",
+            "communalresults"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s1result",
+      "kind": "result",
+      "title": "Study 1: reported overestimation in both samples",
+      "studyIds": [
+        "s1"
+      ],
+      "evidenceIds": [
+        "s1results",
+        "s1table"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study 1: reported overestimation in both samples",
+          "value": "Table 5 reports overestimation of 12.2 percentage points in MTurk (d=.59, CI [.51,.66]) and 11.8 in Prolific (d=.57, CI [.49,.64]); all p<.0001. The table’s MTurk difference conflicts with Table 4: estimated paid–unpaid gap 17.9 minus own gap 13.5 is 4.4, not 12.2. Reported test values are retained as reported, not independently reproduced.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s1results",
+            "s1table"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s1contrary",
+      "kind": "result",
+      "title": "Personal price sensitivity did matter",
+      "studyIds": [
+        "s1"
+      ],
+      "evidenceIds": [
+        "hypotheses",
+        "s1contrary"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Personal price sensitivity did matter",
+          "value": "Contrary to the original H1B null prediction, price-sensitive respondents estimated greater self-interest in others: the paper reports t(1596)=−7.67, p<.0001, d=.19, CI [.14,.24]. This qualifies the overall successful-replication framing.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "hypotheses",
+            "s1contrary"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s4result",
+      "kind": "result",
+      "title": "Study 4: reported overestimation across policies",
+      "studyIds": [
+        "s4"
+      ],
+      "evidenceIds": [
+        "s4table",
+        "s4results",
+        "limits"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study 4: reported overestimation across policies",
+          "value": "Reported mean overestimation was 18.5 percentage points in MTurk (d=.75, CI [.59,.90]) and 19.9 in Prolific (d=.84, CI [.73,.96]); both p<.0001. The pooled estimate was 19.5 points. Excluding no-opinion ratings reduced the reported pooled overestimation to 12%, preserving its direction. These compare intentions/attitudes rather than observed behavior.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s4table",
+            "s4results",
+            "limits"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ordinalresult",
+      "kind": "result",
+      "title": "Ordinal-smoking extension remains descriptive",
+      "studyIds": [
+        "s4"
+      ],
+      "evidenceIds": [
+        "ordinal"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Ordinal-smoking extension remains descriptive",
+          "value": "Light, moderate and heavy smoker cells were small (15,18,6). The authors did not conduct inferential actual-versus-estimated tests for this extension; its apparent larger error for heavier smokers is descriptive and requires caution.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ordinal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "communalresult",
+      "kind": "result",
+      "title": "Communal orientation did not predict greater accuracy",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "communalresults"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Communal orientation did not predict greater accuracy",
+          "value": "The key communal-orientation correlations with overestimation were null: Study 1 r=−.02, p=.53; Study 4 r=.02, p=.72. Communality related positively to donation willingness/estimates but not significantly to smoking-policy support/estimates. These detailed results qualify any broad claim that all prosocial associations were supported.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "communalresults"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "kind": "finding",
+      "title": "The replicated pattern concerns perceptions of self-interest",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "discussion",
+        "s1contrary",
+        "communalresults",
+        "ordinal"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "The replicated pattern concerns perceptions of self-interest",
+          "value": "The authors conclude that respondents overestimate self-interest in both paradigms and samples. Original effect magnitudes cannot be compared precisely because original variances are missing. The original H1B null, communal accuracy hypothesis, and ordinal extension have distinct outcomes rather than uniformly positive evidence.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "discussion",
+            "s1contrary",
+            "communalresults",
+            "ordinal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "kind": "limitation",
+      "title": "Accurate estimates plus biased self-reports remain possible",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "limits",
+        "ordinal"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Accurate estimates plus biased self-reports remain possible",
+          "value": "Self-reported willingness or policy support is not actual behavior; accurate estimates combined with overly prosocial self-reports could explain the pattern. Sparse target information and demand/expectancy effects may focus respondents on smoking status. The ordinal cells are underpowered.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "limits",
+            "ordinal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reconcile",
+      "kind": "limitation",
+      "title": "Reconcile reported statistics before numerical reuse",
+      "studyIds": [
+        "s1",
+        "s4"
+      ],
+      "evidenceIds": [
+        "s1table",
+        "s1results"
+      ],
+      "fields": [
+        {
+          "id": "gap",
+          "label": "Reconcile reported statistics before numerical reuse",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "s1table",
+            "s1results"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Table 4 and Table 5 do not reproduce the same MTurk overestimation under the stated subtraction; the retained protocol also records source-code/constant and order-label discrepancies. Independent numerical reconstruction is not supplied by this reading Program. Reported paper values remain visible."
+          }
+        }
+      ]
+    }
+  ],
+  "steps": [],
+  "evidence": [
+    {
+      "id": "overview",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Self-interest is a central driver of attitudes and behaviors, but people also act against\ntheir immediate self-interest through prosocial behaviors, voting incongruously with\ntheir finances, or punishing others at personal cost. How much people believe that\nself-interest causes attitudes and behaviors is important, because this belief may shape\nregulation, shared narratives, and institutional structures. An influential paper claimed\nthat people overestimate the power of self-interest on others’ attitudes and behavioral\nintentions (Miller & Ratner, 1998). We present two registered, close, and successful\nreplications (U.S. MTurk, N = 800; U.K. Prolific, N = 799) that compared actual to\nestimated intentions, with open data and code. Consistent with the original article,\nparticipants overestimated the impact of payment on blood donation in Study 1, ds = 0.59\n[0.51, 0.66], 0.57 [0.49, 0.64], and overestimated the importance of smoking status for\nsmoking policy preferences in Study 4, ds = 0.75 [0.59, 0.90], 0.84 [0.73, 0.96]. These\nreplications included two extensions: 1) communal orientation as a moderator of\noverestimation and 2) a more detailed measure of self-interest in Study 4 (ordinal\nsmoking status). Communal orientation did not predict overestimation, and the ordinal\nsmoking measure yielded similar results to the main study. Verifying the overestimation\nerror informs behavioral theories across several fields and has practical implications for\ninstitutions that require trust and cooperation. All materials, data, and code are available\nat osf.io/57mdc/",
+      "verification": "unverified"
+    },
+    {
+      "id": "hypotheses",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Table 1. Hypotheses of Miller and Ratner (1998)\nStudy Hypothesis\n1 1A: Participants overestimate how much payment changes others' willingness to donate blood.\n1B: The individual tendency to overestimate is unrelated to how much payment influenced that individual's willingness to\ndonate blood.\n4 4A: Smokers are more opposed than nonsmokers to policies restricting smoking.\n4B: Participants overestimate the impact of smoking status on others' attitudes towards these policies.\nNote. Original effect sizes were not provided and could not be precisely estimated because variance was not reported either.",
+      "verification": "unverified"
+    },
+    {
+      "id": "analysis",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 3
+      },
+      "quote": "All studies, samples, measures, manipulations, and ex-\nclusions conducted for this investigation are reported, all\ninferential tests not explicitly marked “exploratory” were\npre-registered with power analyses, and data collection was\ncompleted before hypothesis testing. All t-tests were two-\ntailed and α = .05.",
+      "verification": "unverified"
+    },
+    {
+      "id": "sample",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Participants and Overview\nAll participants completed Studies 1 and 4 in randomized\norder to minimize order effects (in the 1998 paper, partic-\nipants only completed one of the studies). After every sce-\nnario, the participants responded to comprehension ques-\ntions to make sure they understood the content. Also, the\nresults are overall very similar between the two samples,\nwhich suggests there were not major quality issues. Finally,\nwe used planned exclusions for lack of English proficiency\nor self-reported lack of understanding the materials. The\nreplication sample characteristics are compared to the orig-\ninal article in Table 2.\nMTurk\nA total of 800 United States residents recruited through\nAmazon Mechanical Turk (MTurk) completed the study\nthrough Cloudresearch/TurkPrime (Litman et al., 2017) (age\nM = 41.6 years, SD = 12.8; 401 men, 393 women, and six\nother/rather not disclose). One person reporting an age of\n11 was excluded; this was not pre-registered, and see the\nSupplement for a complete list of deviations. For Study 4,\nthe MTurk sample was randomized to either the direct\nreplication (n = 414) or the extension with a more granular\nmeasure of smoking status (n = 386).",
+      "verification": "unverified"
+    },
+    {
+      "id": "prolific",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Prolific\nA total of 799 United Kingdom residents recruited\nthrough Prolific completed the study (age M = 40.8 years,\nSD = 13.7; 319 men, 476 women, and four other/prefer not\nto say); for demographics of the overall Prolific population,\nsee Palan & Schitter (2018). For example, the modal Prolific\npanel member in the larger population was employed full-\ntime and had a bachelor’s degree.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s1method",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Study 1\nThis study investigated the impact of financial incentives\non the reported willingness to donate blood. Participants\nestimated the likelihood to donate blood for themselves and\nothers, both when there was payment and when there was\nnone.\nMethod\nParticipants completed a two-condition (payment or not)\nwithin-subjects design nearly identical to the original (see\nTable 3, and Table S1 for the vignette text). Participants\nwere told that the blood supply in the United States had\nreached record lows in the past month and that the Amer-\nican Red Cross would be coming to the neighborhood for\na blood drive in several weeks. The Red Cross was asking\nto get a sense of how many people would be willing to do-\nnate blood and what factors might make volunteering more",
+      "verification": "unverified"
+    },
+    {
+      "id": "payment",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 5
+      },
+      "quote": "attractive. Both the US and UK samples saw the same text\nabout the American Red Cross.\nManipulation: Payment\nIn the paid condition, participants were told that the\nRed Cross was considering paying $15 to each individual\nwho donates blood. In the unpaid condition, participants\nwere told that the Red Cross was considering collecting do-\nnations without financial compensation. Participants saw\nboth payment conditions in random order.",
+      "verification": "unverified"
+    },
+    {
+      "id": "communal",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 5
+      },
+      "quote": "This extension tested communalism as a potential mod-\nerator of overestimation. Communal motivation means be-\nlieving that others’ needs and feelings are vital in relation-\nships and that people should help and care for each other\n(Clark et al., 1987). Individuals with higher communal mo-\ntivation care more for the welfare and needs of others, and\nexpect others to be responsive and concerned about their\nwelfare. A meta-analysis recently showed that communal\nmotivation is positively associated with personal well-being\nand relationship partner satisfaction (Le et al., 2018). Com-\npared to less communal individuals, we hypothesized:\nHypothesis 2. More communal individuals will report be-\ning more willing to donate blood (H2A) and support re-\nstrictive smoking policies (H2B); More communal individ-\nuals will more often estimate that others are willing to\ndonate blood (H2C) and support restrictive smoking poli-\ncies (H2D);\nand the key test:\nMore communal individuals will overestimate self-interest\nless in estimates for donation (H2E) and policy support\n(H2F) (i.e., estimate more accurately).",
+      "verification": "unverified"
+    },
+    {
+      "id": "measures",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Measures and Procedures\nCommunalism was measured with the 14-item Commu-\nnal Orientation Scale (Clark et al., 1987) (see Supplement\nfor all items). An example item was “When making a deci-\nsion, I take other people’s needs and feelings into account”,\nrated from 1 (extremely uncharacteristic of me) to 7 (extremely\ncharacteristic of me); Cronbach’s α = .84. Participants then\nindicated whether they would donate blood (yes or no) for\nboth payment conditions. Participants then estimated the\npercentage of their peers who would donate blood by giving\na number from 0 - 100 (%) for both payment conditions.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s1table",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Table 4. Blood Donation Rates in Study 1\nSelf Others (Estimated)\nOriginal MTurk Prolific Original MTurk Prolific\nn 54 799 799 54 799 799\n% M (SD)\nPaid 73.2 72.7 76.8 62.5 (?) 55.8 (27.0) 59.9 (26.4)\nUnpaid 62.5 59.2 71.2 32.6 (?) 37.9 (26.0) 42.4 (27.8)\nDifference 10.7 13.5 5.7 29.9 17.9 17.5\nNote. SDs were not reported in the original paper.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s1results",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Table 5. Overestimation of Self-Interest in Study 1\nSample n M SD t d 95% CI Interpretation\nMTurk 799 12.2% 20.8 16.6 0.59 [0.51, 0.66] Signal Same Direction\nProlific 799 11.8% 20.8 16.1 0.57 [0.49, 0.64] Signal Same Direction\nCombined 1598 12.0% 20.8 23.1 0.58 [0.53, 0.63] Signal Same Direction\nNote. Overestimation M was calculated by taking the mean difference of estimates between paid and unpaid conditions and subtracting the mean difference between paid and unpaid\nconditions of self-reported willingness. The one-sample t-tests were against M = 0 (equivalence). All ps < .0001. The interpretation is based on LeBel et al. (2019), and the size of the\neffects could not be precisely compared to the original due to missing information.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s1contrary",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Hypothesis 1B (combined samples). Whether the paid vs.\nunpaid difference in willingness to donate was related to\nthe estimation of others was examined with a t-test. Par-\nticipants who were willing to donate in the paid but not\nunpaid condition were labeled price-sensitive, and partic-\nFigure 1. Estimated Donation Willingness (%) by\nPayment (Study 1; N = 1598)\nNote. Shown as raincloud plots (Allen et al., 2019). The boxes indicate the in-\nterquartile range of that row (25–75%), the whiskers the values within 1.5 times\nthat range, and the vertical black lines the medians.\nFigure 2. Histogram of Overestimation of Self-\nInterest in Study 1 (N = 1598)\nipants whose willingness did not change on payment (or\nchanged in the other direction) were labeled price-insensi-\ntive. Price sensitivity predicted higher estimates of self-in-\nterest in others, t(1596) = -7.67, p < .0001, d = 0.19 [0.14,\n0.24]. See Table S3 for the tests by sample.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s4method",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Method\nParticipants were told that the study was to investigate\nsmokers’ and nonsmokers’ attitudes toward smoking-re-\nlated policies and were then randomized to the conditions\nbelow (see Table 3 to compare the method with the original,\nand Table S2 for the exact text).\nManipulation 1: Self or Others’ Attitudes\nParticipants were randomized to one of two main con-\nditions. In the Self group, participants indicated their own\nsmoking status and their own attitudes towards policies.\nIn the Others group, participants only estimated what per-\ncentage of others would support the policy based on others’\nsmoking status.\nManipulation 2: Smoking Status (MTurk Sample\nOnly)\nThis extension is about a more precise measurement of\nsmoking status. In the Prolific sample and the original study\nin the own-attitudes condition, participants reported their\nFigure 3. Estimated Policy Support by Others’\nSmoking Status (N = 965)\nNote. Shown as raincloud plots (Allen et al., 2019). The boxes indicate the in-\nterquartile range of that row (25–75%), the whiskers the values within 1.5 times\nthat range, and the vertical black lines the medians.\nsmoking status as “yes” or “no”. In the MTurk sample only,\nparticipants were randomized either to that binary choice\nor to a five-item ordinal scale: 1 (nonsmokers: never\nsmoked for more than 6 months), 2 (former smokers: not\nsmoking currently, but having smoked for more than 6\nmonths), 3 (light smokers: <10 cigarettes per day), 4 (mod-\nerate smokers: 10-20 cigarettes per day), or 5 (heavy smok-\ners: >20 cigarettes per day). Similarly, in the Prolific sample\nand the original in the others-attitudes condition, partici-\npants estimated the policy support of others based on oth-\ners’ smoking status as “smoker” or “nonsmoker”, but the\nMTurk sample only, participants were randomized either to\nthat same design or to estimate others’ policy preferences\nfor each of the five categories above.\nMeasures\nParticipants rated attitudes towards eight smoking-re-\nlated policies: (1) increased tax on cigarettes; (2) a complete\nban on cigarette advertisement; (3) a complete ban on\nsmoking in public spaces, and restrictions on smoking in\n(4) restaurants, (5) workplaces, (6) buses and trains, (7) air-\nplanes, and (8) hotels and motels. Participants in the Self\ncondition rated the items support, oppose, or no opinion. For\nmeans and tests, the answers were coded 0 (oppose; 12.3%),\n0.5 (no opinion; 5.5%), 1 (support; 82.1%). See below for a\nrobustness check excluding “no opinion” values; the main\nresults are consistent.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s4results",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Hypothesis 4B: Overestimation. This is the key result in\nStudy 4. First, we conducted one-sample t-tests on the\nreplications to compare the actual vs. estimated differences\nbetween smokers and nonsmokers. We replicated the dis-\ncrepancies between self and others in all policies in both\nsamples: estimated self-interest was higher than actual\nself-interest for all policies (all ps < .001) (Table S5).\nOverestimation of self-interest was measured by sub-\ntracting the estimate for smokers from nonsmokers within\neach policy, and then taking the mean of all policies within\nparticipants to yield an estimate of self-interest. From this\nvalue, we subtracted the actual discrepancy between smok-\ners and nonsmokers from the other condition of the study,\nwhich was M = 27.1%. Overall, participants overestimated\nthe self-interest of smokers by M = 19.5% (see Table 7 and\nFigure 4 for the results by sample). The one-sample t-test\nagainst μ = 0 for overestimation in both samples combined\nwas t(604) = 19.9, p < .0001, d = 0.81 [0.72, 0.90]. As a sepa-\nrate robustness check, the “no opinion” ratings (5.5% of re-\nsponses) were excluded and these calculations re-run. The\nresult also showed overestimation across both samples (M =\n12%) and the interpretation in the Discussion remains con-\nsistent with either effect size.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s4table",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Table 7. Overestimation of Self-Interest in Study 4\nSample M SD df t d 95% CI Interpretation\nMTurk 18.5 24.9 205 10.7 0.75 [0.59, 0.90] Signal Same Direction\nProlific 19.9 23.7 398 16.8 0.84 [0.73, 0.96] Signal Same Direction\nCombined 19.5 24.1 604 19.9 0.81 [0.72, 0.90] Signal Same Direction\nNote. Overestimation was calculated by subtracting the estimate for smokers from nonsmokers within each policy, and then taking the mean of all policies within participants to yield\nestimated self-interest. From this value, we subtracted the actual discrepancy between smokers and nonsmokers from the self-reported condition. The one-sample t-tests were against\nM = 0 (equivalence); both ps < .0001. The lower df for MTurk is because of randomization to the extension. The interpretation is based on LeBel et al. (2019), and the size of the effects\ncould not be precisely compared to the original due to missing information.",
+      "verification": "unverified"
+    },
+    {
+      "id": "ordinal",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Extension: Smoking Status Measure (MTurk\nSample)\nAn ordinal smoking status measure was introduced for\na random half of the MTurk sample to help test how self-\ninterest impacts actual and estimated attitudes towards\nsmoking policies. Actual and estimated policy support by\nordinal smoking status is shown in Table 8.\nThe rarity of light (n = 15), moderate (n = 18), and heavy\n(n = 6) smokers meant there was not enough power for in-\nferential tests on actual vs. estimated policy support in the\nextension. However, visual analysis suggests that overesti-\nmation may be most pronounced when individuals consider\nothers with stronger vested interests (here: more frequent\nsmokers). For example, the actual policy support of mod-\nerate smokers was M = 72% and heavy smokers M = 71%,\nbut others sharply underestimated those values (moderate\nsmoker support estimated at M = 36%; heavy smokers M =\n27%). Any overestimation effect in these groups should be\ntreated with special caution due to the small samples and\nthe analytic choice to use one-sample t-tests against a cer-\ntain value, since this does not include variance underlying\nthat value’s estimate.",
+      "verification": "unverified"
+    },
+    {
+      "id": "communalresults",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Extension: Communalism (Prolific Sample)\nHypothesis 2 informs whether the individual difference\nof communalism is associated with prosocial behavior, esti-\nmates for others, and the degree of overestimation (Prolific\nsample only).\nProsocial behavior. In Study 1, correlations suggested\nthat more communal individuals were more likely to donate\nin both the paid, r(797) = .16, p < .001, and unpaid condi-\ntions, r(797) = .25, p < .001 (H2A; point-biserial). In Study 4,\ncommunality appeared unrelated to support for the smok-\ning restrictions for smokers, r(158) = .03, p = .72, and non-\nsmokers, r(455) = .02, p = .73 (H2B; Pearson’s r).\nEstimates for others. Correlations suggested that more\ncommunal individuals gave higher estimations of others\ndonating blood in the paid, r(797) = .15, p < .001, and unpaid\nconditions, r(797) = .16, p < .001 (H2C; Pearson’s r). In Study\n4, communality seemed unrelated to policy estimations for\nsmokers, r(397) = .04, p = .48, and estimations for nonsmok-\ners, r(397) = .08, p = .09 (H2D; Pearson’s r).\nOverestimation. The key test in this extension was\nwhether more communal individuals would overestimate\nless; that is, whether their estimates would be more ac-\ncurate than less communal individuals. Communalism was\nunrelated to overestimation using Pearson’s r correlation in\nStudy 1, r(797) = -.02, p = .53 (H2E), or in Study 4, r(397)\n= .02, p = .72 (H2F). In exploratory correlations between\noverestimation in both studies with age, social class, gen-\nder, skill in English, and participating carefully, most effects\nwere null or small except for younger people overestimating\nmore in Study 1, r(1596) = -.23, p < .0001. This is consistent\nwith younger people being more sensitive to payment in\nStudy 1 (younger people showed more self-interest; corre-\nlation between age and Study 1 self-interest r(1596) = -.17,\np < .0001).",
+      "verification": "unverified"
+    },
+    {
+      "id": "discussion",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 9
+      },
+      "quote": "General Discussion\nThe results in both samples and both studies strongly\nsupported the original findings. Individuals overestimated\nthe impact of self-interest on intentions to donate blood,\nand also how much smoking status determined support of\nsmoking regulations (ds > 0.58). The overestimation effects\nmay have been smaller than the original paper, but original\neffect sizes could not be precisely calculated because the\nvariances were not reported. Any discrepancies in effect\nsize from the original could be attributed to noise from their\nsmall sample size, an estimation error due to the lack of\ntheir reported statistics, or differences in the context or ma-\nnipulation strength. For example, because of currency in-\nflation, $15 was less incentive in 2019 than in 1998, which\ncould lead to smaller perceived incentive in the replication.",
+      "verification": "unverified"
+    },
+    {
+      "id": "limits",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1525/collabra.23443",
+      "sourceSha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+      "locator": {
+        "page": 10
+      },
+      "quote": "Limitations and Future Directions\nAlternative Explanations\nSelf-reported willingness to donate blood or endorse\nsmoking policies is not equivalent to objective behaviors\nlike blood donation or voting. The main narrative in this\npaper is that people over-estimate others’ self-interest, but\nthe results are also consistent with the pattern that such\nestimates are accurate and that self-reported willingness is\ninaccurate; that in actual behavior people would manifest\nmore self-interest than they expect or are willing to report.\nFurther studies with observed behavior would be valuable\nfor testing this account.\nThe experimental paradigms were copied from the orig-\ninal manuscript and not validated before testing the hy-\npotheses. The vignettes and manipulations might have con-\nfounds or unknown effects orthogonal to the theory and\npredictions used here. Additionally, the participants were\nonly given very sparse information about the targets, e.g.,\nthat they were smokers or nonsmokers. This could have cre-\nated an expectancy effect or at the least an ecologically un-\nusual focus on a single attribute when predicting how indi-\nviduals would evaluate policies. By failing to provide rich,\ncomplex targets with varied mental experiences, the par-\nadigms here may have encouraged individuals to focus on\nexternal behaviors like smoking, which could alter attri-\nbutions and perceived self-interest (Vuolevi & Van Lange,\n2009). Future studies could consider richer, more life-like\nvignettes, or paying participants for their accuracy.",
+      "verification": "unverified"
+    }
+  ],
+  "relations": [],
+  "issues": [
+    {
+      "id": "reconcile-issue",
+      "severity": "check",
+      "title": "Reconcile reported statistics before numerical reuse",
+      "reason": "Table 4 and Table 5 do not reproduce the same MTurk overestimation under the stated subtraction; the retained protocol also records source-code/constant and order-label discrepancies. Independent numerical reconstruction is not supplied by this reading Program. Reported paper values remain visible.",
+      "impact": "Source fidelity or exact reproduction remains uncertain.",
+      "suggestedAction": "Consult the original source and obtain the missing evidence before treating this scope as verified.",
+      "evidenceIds": [
+        "s1table",
+        "s1results"
+      ],
+      "nodeId": "reconcile",
+      "fieldId": "gap"
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "studyArms": {
+        "s1": [
+          "mturk",
+          "mturk_ext",
+          "prolific"
+        ],
+        "s4": [
+          "mturk",
+          "mturk_ext",
+          "prolific"
+        ]
+      },
+      "review": "Independent source and publication review pending; no simulation or protocol validation claimed."
+    },
+    "publication": {
+      "sources": [
+        {
+          "title": "Self-interest Is Overestimated: Two Successful Pre-registered Replications and Extensions of Miller and Ratner (1998)",
+          "authors": [
+            "Brick, C.",
+            "Fillon, A.",
+            "Yeung, S. K.",
+            "Wang, M.",
+            "Lyu, H.",
+            "Ho, J. Y. J.",
+            "Wong, S. C.",
+            "Feldman, G."
+          ],
+          "url": "https://doi.org/10.1525/collabra.23443",
+          "license": "CC-BY-4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution": "Brick, C.; Fillon, A.; Yeung, S. K.; Wang, M.; Lyu, H.; Ho, J. Y. J.; Wong, S. C.; Feldman, G.. Self-interest Is Overestimated: Two Successful Pre-registered Replications and Extensions of Miller and Ratner (1998) (2021). https://doi.org/10.1525/collabra.23443",
+          "changes": "Paper summarized into a reading Program; original paper and protocol unchanged."
+        }
+      ]
+    },
+    "communityExport": {
+      "scope": "program-only",
+      "sources": [
+        {
+          "evidenceIds": [
+            "overview",
+            "hypotheses",
+            "analysis",
+            "sample",
+            "prolific",
+            "s1method",
+            "payment",
+            "communal",
+            "measures",
+            "s1table",
+            "s1results",
+            "s1contrary",
+            "s4method",
+            "s4results",
+            "s4table",
+            "ordinal",
+            "communalresults",
+            "discussion",
+            "limits"
+          ],
+          "url": "https://doi.org/10.1525/collabra.23443",
+          "attribution": "Brick, C.; Fillon, A.; Yeung, S. K.; Wang, M.; Lyu, H.; Ho, J. Y. J.; Wong, S. C.; Feldman, G.. Self-interest Is Overestimated: Two Successful Pre-registered Replications and Extensions of Miller and Ratner (1998) (2021). https://doi.org/10.1525/collabra.23443",
+          "license": "CC-BY-4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sha256": "53d4da9fe9e7d5109d99e66dd5ec299a9cce09d4f336c3292fc0a9d828c7dd8c",
+          "title": "Self-interest Is Overestimated: Two Successful Pre-registered Replications and Extensions of Miller and Ratner (1998)",
+          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
+        }
+      ],
+      "withheldEvidenceQuotes": {
+        "ids": [],
+        "reason": "redistribution-unverified"
+      }
+    }
+  }
+}

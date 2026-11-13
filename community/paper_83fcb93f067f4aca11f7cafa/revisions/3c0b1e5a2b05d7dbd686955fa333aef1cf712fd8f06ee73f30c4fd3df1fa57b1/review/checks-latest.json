@@ -1,0 +1,124 @@
+{
+ "protocol_sha256": "3f62abdb8f30da6a8e1555cca0a54d80139f1a897ed838d621a97b8d3a33ed53",
+ "public": true,
+ "refs": [],
+ "fuzz": {
+  "sessions": 1200,
+  "unreached_stages": [],
+  "leaks": [],
+  "state_expr_leaks": [],
+  "n_state_expr_leaks": 0,
+  "foreign_language_tokens": [],
+  "stages_only_in_blocked_arms": [],
+  "unanswerable": [],
+  "n_unanswerable": 0,
+  "blocked_effects_not_computed": [],
+  "blocked_arm_problems": [],
+  "sessions_run": 600,
+  "coverage_pass": false,
+  "problems": [],
+  "constant_images": [],
+  "table_spans_unserved": [],
+  "unprompted_responses": [],
+  "excluded_share": 0.0,
+  "population_excluded_sessions": {},
+  "effects_not_computed": [],
+  "pending_share": {},
+  "targets_pending_share": {}
+ },
+ "script_texts_not_served": [],
+ "keyed": {
+  "problems": [],
+  "excluded_share": 0.0,
+  "signs": [
+   {
+    "effect": "s1_scq_threat_vs_boost",
+    "human": 0.13,
+    "keyed": 1.0,
+    "same_sign": true
+   },
+   {
+    "effect": "s2_scq_threat_vs_boost",
+    "human": 0.325,
+    "keyed": 1.0,
+    "same_sign": true
+   },
+   {
+    "effect": "s1_icq_threat_vs_boost",
+    "human": -0.57,
+    "keyed": -1.0,
+    "same_sign": true
+   }
+  ],
+  "state_expr_leaks": []
+ },
+ "source_text_control_chars": {},
+ "verbatim": {
+  "found": 13,
+  "not_found": [],
+  "unchecked": 0,
+  "unchecked_sources": [],
+  "bad_source": [],
+  "image_unconfirmed": [],
+  "image_disputed": [],
+  "image_uncertain_only": [],
+  "image_uncertain_legacy": [],
+  "reading_annotations": [],
+  "style_unserved": [],
+  "image_matches": [],
+  "image_match_rules": {},
+  "checked_privately": []
+ },
+ "reading_annotations": [],
+ "coding": {},
+ "paper_consistency_warnings": [],
+ "statistic_vocabulary": [],
+ "printed_item_tests": [],
+ "second_readings": [],
+ "release_hold": [],
+ "targets_random": [
+  {
+   "id": "s1_threat_scq_yes",
+   "agent": 0.4984423676012461,
+   "n_agent": 321,
+   "k_agent": 160,
+   "sd_agent": null,
+   "pending_share": 0.0,
+   "uncoded_share": 0.0,
+   "held_out": {
+    "uncoded": 0.0
+   },
+   "human": 0.45
+  },
+  {
+   "id": "s1_boost_scq_yes",
+   "agent": 0.5017921146953405,
+   "n_agent": 279,
+   "k_agent": 140,
+   "sd_agent": null,
+   "pending_share": 0.0,
+   "uncoded_share": 0.0,
+   "held_out": {
+    "uncoded": 0.0
+   },
+   "human": 0.32
+  },
+  {
+   "id": "s1_threat_icq_yes",
+   "agent": 0.5077881619937694,
+   "n_agent": 321,
+   "k_agent": 163,
+   "sd_agent": null,
+   "pending_share": 0.0,
+   "uncoded_share": 0.0,
+   "held_out": {
+    "uncoded": 0.0
+   },
+   "human": 0.07
+  }
+ ],
+ "effect_dropout_random": {
+  "s1_icq_threat_vs_boost": 0.5
+ },
+ "PASS": true
+}

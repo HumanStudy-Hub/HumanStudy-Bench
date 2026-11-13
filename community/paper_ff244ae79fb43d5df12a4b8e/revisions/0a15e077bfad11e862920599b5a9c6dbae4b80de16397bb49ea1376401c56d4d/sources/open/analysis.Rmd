@@ -1,0 +1,857 @@
+---
+title: "Heyman and Ariely (2004) Replication Final Codes"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::readthedown:
+    code_folding: hide
+    format: readthedown
+    toc_depth: 3
+  html_document:
+    df_print: paged
+    toc_depth: '3'
+---
+
+# Package Loading
+
+```{r, message = FALSE, warning = FALSE}
+library(jmv)
+library(jmvReadWrite)
+library(effectsize)
+library(PupillometryR)
+library(BayesFactor)
+library(sjPlot)
+library(tidyverse)
+```
+
+# Notes for readers
+
+We preregistered analysis codes using Jamovi and we therefore use functions from {jmv} so that we can exactly follow the preregistered codes. Yet, for better presentations, we use several R functions which could not be found in the preregistered codes. Whenever we introduce non-preregistered analyses (such as effect size computations) or deviate from the planned analyses, we explicitly state this.
+
+In the OSF repository, we have "A pre-registered analysis codes and results.omv" and "B pre-registered analysis codes and results.omv". They are data sets for Study 1 and Study 2, respectively. On these omv files, we computed several variables based on preregistration and we used them for preregistered analyses. As such, we use these "organized" data sets rather than raw data sets. For initial data wrangling / organization, please see the omv files.
+
+On the omv files, the order of the analyses was not coherent with the order of reporting in the main manuscript. To help readers follow the manuscript and analysis codes, we re-ordered preregistered analyses such that their order is coherent to results sections in the manuscript.
+
+Finally, we would like to note that because we presents results for both Studies 1 and 2 on this document, data sets for the studies are called s1 and s2, respectively. Correspondingly, we changed the name of the data frame in preregistered analysis codes (from data to s1/s2).
+
+------------------------------------------------------------------------
+
+# Study 1
+
+## Data loading
+
+```{r, message = FALSE, warning = FALSE}
+# Data loading
+s1 <- read_omv("A pre-registered analysis codes and results.omv") %>% 
+  slice(-c(1, 2))# removing the first two rows (e.g., question labels)
+```
+
+## Replication
+
+### Descriptive statistics
+
+While the original codes in preregistered omv file contained plots, we suppressed them for now and we will create plots which better represent the data.
+
+```{r}
+# candy conditions
+jmv::descriptives(
+    formula = `Expected WTH ratings` ~ `Conditions for Candy`,
+    data = s1,
+    box = FALSE,
+    violin = FALSE,
+    dot = FALSE,
+    sd = TRUE,
+    se = TRUE)
+
+# money conditions
+jmv::descriptives(
+    formula = `Expected WTH ratings` ~ `Conditions for Money`,
+    data = s1,
+    box = FALSE,
+    violin = FALSE,
+    dot = FALSE,
+    sd = TRUE,
+    se = TRUE)
+
+# m-candy conditions
+jmv::descriptives(
+    formula = `Expected WTH ratings` ~ `Conditions for monetized-candy`,
+    data = s1,
+    box = FALSE,
+    violin = FALSE,
+    dot = FALSE,
+    sd = TRUE,
+    se = TRUE)
+
+# control conditions
+jmv::descriptives(
+    formula = `Expected WTH ratings` ~ `Conditions for control groups`,
+    data = s1,
+    box = FALSE,
+    violin = FALSE,
+    dot = FALSE,
+    sd = TRUE,
+    se = TRUE)
+```
+
+### Plot
+
+```{r, message = FALSE, warning = FALSE}
+# data organization
+s1 <- s1 %>% 
+  mutate(level = case_when(`Conditions with conditions name` == "Low cash payment" ~ "low",
+                           `Conditions with conditions name` == "Low monetized-candy payment" ~ "low",
+                           `Conditions with conditions name` == "Low candy payment" ~ "low",
+                           `Conditions with conditions name` == "Medium cash payment" ~ "medium",
+                           `Conditions with conditions name` == "Medium monetized-candy payment" ~ "medium",
+                           `Conditions with conditions name` == "Medium candy payment" ~ "medium",
+                           `Conditions with conditions name` == "With mention control" ~ "none",
+                           `Conditions with conditions name` == "Without mention control" ~ "none"),
+          form = case_when(`Conditions with conditions name` == "Low cash payment" ~ "cash",
+                           `Conditions with conditions name` == "Low monetized-candy payment" ~ "monetized-candy",
+                           `Conditions with conditions name` == "Low candy payment" ~ "candy",
+                           `Conditions with conditions name` == "Medium cash payment" ~ "cash",
+                           `Conditions with conditions name` == "Medium monetized-candy payment" ~ "monetized-candy",
+                           `Conditions with conditions name` == "Medium candy payment" ~ "candy",
+                           `Conditions with conditions name` == "With mention control" ~ "with-mention",
+                           `Conditions with conditions name` == "Without mention control" ~ "without-mention"))
+s1$level <- factor(s1$level)
+s1$form<- factor(s1$form)
+
+# plot (Figure 1)
+s1 %>% 
+  group_by(level, form) %>% 
+  summarise(n = n(),
+            mean = mean(`Expected WTH ratings`),
+            sd = sd(`Expected WTH ratings`),
+            se = parameters::standard_error(`Expected WTH ratings`))%>% 
+  ggplot(aes(y = mean, x = level, group = form))+ 
+  geom_line(aes(color = form, linetype = form), size = 1)+
+  geom_point(aes(color = form), size = 2)+
+  theme_classic()+
+  scale_color_manual(values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7"))+
+  theme(text = element_text(size = 12))+  
+  geom_errorbar(aes(ymin = mean - se, ymax= mean + se), width=.1)+
+  theme(panel.grid.major.y = element_line(color = "gray", linetype = "dotted"),
+        legend.position="top")+
+  scale_linetype_manual(values=c("solid", "dotted", "dashed", "F1", "1F"))+
+  scale_y_continuous(expand = c(0, 0), breaks=seq(0,11,0.5))+
+        coord_cartesian(ylim = c(1, 11))+
+        labs(x = "Payment Level", y = "Expected Willingness to Help")+
+   labs(linetype = "Payment Form", colour = "Payment Form")
+
+# plot with data distribution
+s1 %>% 
+  ggplot(aes(x = level, y = `Expected WTH ratings`, fill = form)) +
+  geom_flat_violin(aes(fill = form),
+                   trim = FALSE,
+                   alpha = .5, colour = NA,
+                   position = position_nudge(x = .3, y = 0)) +
+  geom_boxplot(aes(x = level, y = `Expected WTH ratings`, fill = form),
+               outlier.shape = NA, alpha = .5, width = .5) +
+  geom_point(aes(x = level, y = `Expected WTH ratings`, fill = form, color = form),
+             position = position_jitter(width = .2), size = 1, alpha = .5) +
+  geom_point(data = s1 %>% 
+               group_by(form, level) %>% 
+               summarise(mean = mean(`Expected WTH ratings`, na.rm = TRUE),
+                         sd = sd(`Expected WTH ratings`, na.rm = TRUE),
+                         se = parameters::standard_error(`Expected WTH ratings`, na.rm = TRUE)),
+             aes(x = level, y = mean, group = form, colour = form), 
+             shape = 18, size = 3,
+             position = position_nudge(x = .3, y = 0)) +
+  geom_errorbar(data = s1 %>% 
+                  group_by(form, level) %>%
+                  summarise(mean = mean(`Expected WTH ratings`, na.rm = TRUE),
+                            se = parameters::standard_error(`Expected WTH ratings`)), 
+                aes(x = level, y = mean, group = form, colour = form, ymin = mean-se, ymax = mean+se),
+                width = .05,
+                position = position_nudge(x = .3, y = 0))+
+  theme_classic() +
+  labs(y = "Expected Willingness to Help",
+       x = "Payment Level") +
+  guides(fill = guide_legend("Payment Form"),
+         colour = guide_legend("Payment Form"),
+         shape = guide_legend("Payment Form")) +
+  scale_y_continuous(limits = c(1, 11),
+                     breaks = c(1:11),
+                     expand = c(0, 0)) +
+  scale_fill_manual("Payment Form", values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7")) +
+  scale_colour_manual("Payment Form", values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7")) 
+```
+
+### A 3 (payment form: cash vs. candy vs. m-candy) x 2 (payment level: low vs. medium) between-subject ANOVA and post-hoc tests
+
+```{r, message = FALSE, warning = FALSE}
+jmv::ANOVA(
+    formula = `Expected WTH ratings` ~ `Forms of payment` + `Levels of payment` + `Forms of payment`:`Levels of payment`,
+    data = s1,
+    effectSize = "partEta",
+    postHoc = ~ `Forms of payment` + `Levels of payment` + `Forms of payment`:`Levels of payment`) 
+```
+
+#### CI calculations {.tabset}
+
+##### Eta squared for the ANOVA
+
+```{r}
+lm(`Expected WTH ratings` ~ `Forms of payment` + `Levels of payment` + `Forms of payment`:`Levels of payment`, s1) %>% 
+  eta_squared(ci = .90, alternative = "two.sided")
+```
+
+For the main effect of payment form, we aided the analysis with <https://effect-size-calculator.herokuapp.com/>
+
+![](ef%20aid0.PNG)
+
+##### d for post-hoc tests {.tabset}
+
+###### low cash vs. medium cash (H1a)
+
+```{r}
+# function building
+d.ci.posthoc.ewh <- function(g1, g2){
+  subset <- s1 %>% 
+    dplyr::filter(`Conditions with conditions name` == g1 |`Conditions with conditions name` == g2)
+  subset$`Conditions with conditions name` <- as.factor(subset$`Conditions with conditions name`)
+  effectsize::cohens_d(`Expected WTH ratings` ~ `Conditions with conditions name`, data = subset) %>% 
+    tibble::as.tibble() %>% 
+    dplyr::mutate(group1 = g1,
+           group2 = g2) %>% 
+    dplyr::relocate(c(group1, group2))
+}
+
+d.ci.posthoc.ewh("Low cash payment", "Medium cash payment")  
+```
+
+###### low candy vs. medium candy (H1b)
+
+```{r}
+d.ci.posthoc.ewh("Low candy payment", "Medium candy payment")  
+```
+
+###### low m-candy vs. medium m-candy (H2)
+
+```{r}
+d.ci.posthoc.ewh("Low monetized-candy payment", "Medium monetized-candy payment")  
+```
+
+### A 1 x 4 between-subject Welch's ANOVA
+
+```{r}
+jmv::anovaOneW(
+    formula = `Expected WTH ratings` ~ `Oneway ANOVA for control and money conditions`,
+    data = s1,
+    eqv = TRUE,
+    phMethod = "gamesHowell",
+    phTest = TRUE)
+```
+
+#### CI calculations {.tabset}
+
+##### Eta squared for the ANOVA
+
+```{r}
+oneway.test(`Expected WTH ratings` ~ `Oneway ANOVA for control and money conditions`, s1, var.equal = FALSE) %>% 
+  eta_squared(ci = .90, alternative = "two.sided")
+```
+
+##### d for post-hoc tests {.tabset}
+
+###### nonpayment without mention vs. low cash (H1c)
+
+```{r}
+d.ci.posthoc.ewh("Without mention control", "Low cash payment")  
+```
+
+### Bayse factor for H1b
+
+```{r}
+s1.bf <- s1 %>%
+  filter(`Conditions with conditions name` == "Low candy payment" |`Conditions with conditions name` == "Medium candy payment") %>% 
+  mutate(condition = fct_drop(`Conditions with conditions name`)) 
+ttestBF(data = s1.bf,
+        formula = `Expected WTH ratings` ~ condition)
+```
+
+## Extensions
+
+### Descriptive statistics
+
+While the original codes in preregistered omv file contained plots, we suppressed them for now and we will create plots which better represent the data.
+
+In preregistration, we missed codes to generate descriptive statistics of perceived joy in the two control conditions, and these are therefore added.
+
+```{r}
+# experimental conditions
+jmv::descriptives(
+    formula = STAT_joy ~ `Forms of payment`:`Levels of payment`,
+    data = s1,
+    sd = TRUE,
+    se = TRUE)
+
+# control conditions
+jmv::descriptives(
+    formula = STAT_joy ~ `Conditions for control groups`,
+    data = s1,
+    sd = TRUE,
+    se = TRUE)
+```
+
+### Plot
+
+```{r, message = FALSE, warning = FALSE}
+# plot (Figure 2)
+s1 %>% 
+  group_by(level, form) %>% 
+  summarise(n = n(),
+            mean = mean(STAT_joy),
+            sd = sd(STAT_joy),
+            se = parameters::standard_error(STAT_joy))%>% 
+  ggplot(aes(y = mean, x = level, group = form))+ 
+  geom_line(aes(color = form, linetype = form), size = 1)+
+  geom_point(aes(color = form), size = 2)+
+  theme_classic()+
+  scale_color_manual(values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7"))+
+  theme(text = element_text(size = 12))+  
+  geom_errorbar(aes(ymin = mean - se, ymax= mean + se), width=.1)+
+  theme(panel.grid.major.y = element_line(color = "gray", linetype = "dotted"),
+        legend.position="top")+
+  scale_linetype_manual(values=c("solid", "dotted", "dashed", "F1", "1F"))+
+  scale_y_continuous(expand = c(0, 0), breaks=seq(0,11,0.5))+
+        coord_cartesian(ylim = c(1, 11))+
+        labs(x = "Payment Level", y = "Expected Joy")+
+   labs(linetype = "Payment Form", colour = "Payment Form")
+
+# plot (Figure 2)
+s1 %>% 
+  group_by(level, form) %>% 
+  summarise(n = n(),
+            mean = mean(STAT_regret),
+            sd = sd(STAT_regret),
+            se = parameters::standard_error(STAT_regret))%>% 
+  ggplot(aes(y = mean, x = level, group = form))+ 
+  geom_line(aes(color = form, linetype = form), size = 1)+
+  geom_point(aes(color = form), size = 2)+
+  theme_classic()+
+  scale_color_manual(values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7"))+
+  theme(text = element_text(size = 12))+  
+  geom_errorbar(aes(ymin = mean - se, ymax= mean + se), width=.1)+
+  theme(panel.grid.major.y = element_line(color = "gray", linetype = "dotted"),
+        legend.position="top")+
+  scale_linetype_manual(values=c("solid", "dotted", "dashed", "F1", "1F"))+
+  scale_y_continuous(expand = c(0, 0), breaks=seq(0,11,0.5))+
+        coord_cartesian(ylim = c(1, 11))+
+        labs(x = "Payment Level", y = "Expected regret")+
+   labs(linetype = "Payment Form", colour = "Payment Form")
+
+
+# plot with data distribution (joy)
+s1 %>% 
+  ggplot(aes(x = level, y = STAT_joy, fill = form)) +
+  geom_flat_violin(aes(fill = form),
+                   trim = FALSE,
+                   alpha = .5, colour = NA,
+                   position = position_nudge(x = .3, y = 0)) +
+  geom_boxplot(aes(x = level, y = STAT_joy, fill = form),
+               outlier.shape = NA, alpha = .5, width = .5) +
+  geom_point(aes(x = level, y = STAT_joy, fill = form, color = form),
+             position = position_jitter(width = .2), size = 1, alpha = .5) +
+  geom_point(data = s1 %>% 
+               group_by(form, level) %>% 
+               summarise(mean = mean(STAT_joy, na.rm = TRUE),
+                         sd = sd(STAT_joy, na.rm = TRUE),
+                         se = parameters::standard_error(STAT_joy, na.rm = TRUE)),
+             aes(x = level, y = mean, group = form, colour = form), 
+             shape = 18, size = 3,
+             position = position_nudge(x = .3, y = 0)) +
+  geom_errorbar(data = s1 %>% 
+                  group_by(form, level) %>%
+                  summarise(mean = mean(STAT_joy, na.rm = TRUE),
+                            se = parameters::standard_error(STAT_joy)), 
+                aes(x = level, y = mean, group = form, colour = form, ymin = mean-se, ymax = mean+se),
+                width = .05,
+                position = position_nudge(x = .3, y = 0))+
+  theme_classic() +
+  labs(y = "Expected Joy",
+       x = "Payment Level") +
+  guides(fill = guide_legend("Payment Form"),
+         colour = guide_legend("Payment Form"),
+         shape = guide_legend("Payment Form")) +
+  scale_y_continuous(limits = c(1, 11),
+                     breaks = c(1:11),
+                     expand = c(0, 0)) +
+  scale_fill_manual("Payment Form", values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7")) +
+  scale_colour_manual("Payment Form", values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7")) 
+
+# plot with data distribution (regret)
+s1 %>% 
+  ggplot(aes(x = level, y = STAT_regret, fill = form)) +
+  geom_flat_violin(aes(fill = form),
+                   trim = FALSE,
+                   alpha = .5, colour = NA,
+                   position = position_nudge(x = .3, y = 0)) +
+  geom_boxplot(aes(x = level, y = STAT_regret, fill = form),
+               outlier.shape = NA, alpha = .5, width = .5) +
+  geom_point(aes(x = level, y = STAT_regret, fill = form, color = form),
+             position = position_jitter(width = .2), size = 1, alpha = .5) +
+  geom_point(data = s1 %>% 
+               group_by(form, level) %>% 
+               summarise(mean = mean(STAT_regret, na.rm = TRUE),
+                         sd = sd(STAT_regret, na.rm = TRUE),
+                         se = parameters::standard_error(STAT_regret, na.rm = TRUE)),
+             aes(x = level, y = mean, group = form, colour = form), 
+             shape = 18, size = 3,
+             position = position_nudge(x = .3, y = 0)) +
+  geom_errorbar(data = s1 %>% 
+                  group_by(form, level) %>%
+                  summarise(mean = mean(STAT_regret, na.rm = TRUE),
+                            se = parameters::standard_error(STAT_regret)), 
+                aes(x = level, y = mean, group = form, colour = form, ymin = mean-se, ymax = mean+se),
+                width = .05,
+                position = position_nudge(x = .3, y = 0))+
+  theme_classic() +
+  labs(y = "Expected Regret",
+       x = "Payment Level") +
+  guides(fill = guide_legend("Payment Form"),
+         colour = guide_legend("Payment Form"),
+         shape = guide_legend("Payment Form")) +
+  scale_y_continuous(limits = c(1, 11),
+                     breaks = c(1:11),
+                     expand = c(0, 0)) +
+  scale_fill_manual("Payment Form", values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7")) +
+  scale_colour_manual("Payment Form", values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7")) 
+```
+
+### A 3 (payment form: cash vs. candy vs. m-candy) x 2 (payment level: low vs. medium) between-subject ANOVA on joy and post-hoc tests
+
+```{r, message = FALSE, warning = FALSE}
+jmv::ANOVA(
+    formula = STAT_joy ~ `Forms of payment` + `Levels of payment` + `Forms of payment`:`Levels of payment`,
+    data = s1,
+    effectSize = "partEta",
+    postHoc = ~ `Forms of payment` + `Levels of payment` + `Forms of payment`:`Levels of payment`) 
+```
+
+#### CI calculations {.tabset}
+
+##### Eta squared for the ANOVA
+
+```{r}
+lm(STAT_joy ~ `Forms of payment` + `Levels of payment` + `Forms of payment`:`Levels of payment`, s1) %>% 
+  eta_squared(ci = .90, alternative = "two.sided", digits = 5)
+```
+
+For the main effect of payment form and the interaction, we aided the analysis with <https://effect-size-calculator.herokuapp.com/>
+
+![](ef%20aid1.PNG)
+
+![](ef%20aid2.PNG)
+
+##### d for post-hoc tests {.tabset}
+
+###### low cash vs. medium cash (H3a)
+
+```{r}
+s1.joy1 <- s1 %>% 
+  filter(`Conditions with conditions name` == "Low cash payment" | `Conditions with conditions name` == "Medium cash payment") %>% 
+  mutate(condition = fct_drop(`Conditions with conditions name`)) 
+cohens_d(s1.joy1$STAT_joy ~ s1.joy1$condition)
+```
+
+###### low m-candy vs. medium m-candy (H3a)
+
+```{r}
+s1.joy2 <- s1 %>% 
+  filter(`Conditions with conditions name` == "Low monetized-candy payment" | `Conditions with conditions name` == "Medium monetized-candy payment") %>% 
+  mutate(condition = fct_drop(`Conditions with conditions name`)) 
+cohens_d(s1.joy2$STAT_joy ~ s1.joy2$condition)
+```
+
+###### low candy vs. medium candy (H3b)
+
+```{r}
+s1.joy3 <- s1 %>% 
+  filter(`Conditions with conditions name` == "Low candy payment" | `Conditions with conditions name` == "Medium candy payment") %>% 
+  mutate(condition = fct_drop(`Conditions with conditions name`)) 
+cohens_d(s1.joy3$STAT_joy ~ s1.joy3$condition)
+```
+
+###### candy vs. cash (H4)
+
+```{r}
+s1.joy4 <- s1 %>% 
+  filter(form == "cash" | form == "candy") %>% 
+  mutate(condition = fct_drop(form)) 
+cohens_d(s1.joy4$STAT_joy ~ s1.joy4$condition)
+```
+
+###### candy vs. m-candy
+
+```{r}
+s1.joy5 <- s1 %>% 
+  filter(form == "monetized-candy" | form == "candy") %>% 
+  mutate(condition = fct_drop(form)) 
+cohens_d(s1.joy5$STAT_joy ~ s1.joy5$condition)
+```
+
+### Bayse factor for H3b
+
+```{r}
+ttestBF(data = s1.bf,
+        formula = STAT_joy ~ condition)
+```
+
+### without mention vs. with mention
+
+This exploratory analysis was not preregistered.
+
+```{r}
+jmv::ttestIS(
+    formula = `Expected WTH ratings` ~ `Conditions for control groups`,
+    data = s1,
+    vars = `Expected WTH ratings`,
+    welchs = TRUE,
+    effectSize = TRUE)
+
+s1.joy6 <- s1 %>% 
+  filter(`Conditions with conditions name` == "With mention control" | `Conditions with conditions name` == "Without mention control") %>% 
+  mutate(condition = fct_drop(`Conditions with conditions name`)) 
+cohens_d(s1.joy6$`Expected WTH ratings` ~ s1.joy6$condition)
+```
+
+## Supplementary results for Study 1
+
+### A 1 x 4 (low candy vs. medium candy vs. withou-mention vs. with-mention) within-subject ANOVA
+
+```{r}
+# anova
+jmv::anovaOneW(
+    formula = `Expected WTH ratings` ~ `Oneway ANOVA for control and candy`,
+    data = s1,
+    eqv = TRUE,
+    phMethod = "tukey",
+    phTest = TRUE)
+
+# ci
+oneway.test(`Expected WTH ratings` ~ `Oneway ANOVA for control and candy`, s1, var.equal = FALSE) %>% 
+  eta_squared(ci = .90, alternative = "two.sided")
+```
+
+### A 1 x 4 (low m-candy vs. medium m-candy vs. withou-mention vs. with-mention) within-subject ANOVA
+
+```{r}
+# anova
+jmv::anovaOneW(
+    formula = `Expected WTH ratings` ~ `Oneway ANOVA for control and monetized-candy`,
+    data = s1,
+    eqv = TRUE,
+    phMethod = "gamesHowell",
+    phTest = TRUE)
+
+# ci
+oneway.test(`Expected WTH ratings` ~ `Oneway ANOVA for control and monetized-candy`, s1, var.equal = FALSE) %>% 
+  eta_squared(ci = .90, alternative = "two.sided")
+```
+
+### CIs for comparisons
+
+```{r}
+# ci for comparison 1
+s1.supp1 <- s1 %>% 
+  filter(form == "cash" | form == "monetized-candy") %>% 
+  mutate(condition = fct_drop(form)) 
+cohens_d(s1.supp1$`Expected WTH ratings` ~ s1.supp1$condition)
+
+# ci for comparison 2
+s1.supp2 <- s1 %>% 
+  filter(form == "candy" | form == "monetized-candy") %>% 
+  mutate(condition = fct_drop(form)) 
+cohens_d(s1.supp2$`Expected WTH ratings` ~ s1.supp2$condition)
+
+# ci for comparison 3
+d.ci.posthoc.ewh("Without mention control", "Low candy payment")  
+
+# ci for comparison 4
+d.ci.posthoc.ewh("Without mention control", "Low monetized-candy payment")  
+
+```
+
+### Correlations among DVs
+
+```{r}
+s1 %>% 
+  select(`Expected WTH ratings`, STAT_regret, STAT_joy) %>% 
+  tab_corr(p.numeric = TRUE, fade.ns = TRUE, digits = 2, triangle = "lower")
+```
+
+# Study 2
+
+## Data loading
+
+For some reason, RStudio cannot import "b pre-regsitered analysis codes and results.omv" and we exported a RDS file from the omv file then imported the RDS file to RStudio.
+
+```{r, message = FALSE, warning = FALSE}
+# Data loading
+s2 <- readRDS("B r object from jamovi.rds")
+s2$ID <- c(1:nrow(s2))
+```
+
+## Descriptive statistics
+
+While the original codes in preregistered omv file contained plots, we suppressed them for now and we will create plots which better represent the data.
+
+```{r}
+jmv::descriptives(
+    data = s2,
+    vars = vars(cash_low, cash_medium, candy_low, candy_medium, monetized_low, monetized_medium, "no with notice", "no without notice"),
+    box = FALSE,
+    violin = FALSE,
+    dot = FALSE,
+    n = FALSE,
+    missing = TRUE,
+    median = FALSE,
+    sd = TRUE,
+    min = FALSE,
+    max = FALSE,
+    se = TRUE)
+```
+
+## Plot
+
+```{r, message = FALSE, warning = FALSE}
+# data organization
+s2.long <- s2 %>% 
+  rename(nonewithoutmention = `no without notice`,
+         nonewithmention = `no with notice`,
+         lowcandy = candy_low,
+         lowcash = cash_low,
+         lowmonetizedcandy = monetized_low,
+         mediumcandy = candy_medium,
+         mediumcash = cash_medium,
+         mediummonetizedcandy = monetized_medium) %>% 
+  pivot_longer(cols = c("nonewithoutmention", "nonewithmention",
+                        "lowcandy", "mediumcandy",
+                        "lowcash", "mediumcash",
+                        "lowmonetizedcandy", "mediummonetizedcandy"),
+               names_to = "level",
+               values_to = "PWH") %>% 
+  extract(level, c("level", "form"), "(none|low|medium)(candy|cash|monetizedcandy|withoutmention|withmention)")
+
+# factor
+s2.long$level <- factor(s2.long$level)
+s2.long$form <- factor(s2.long$form)
+
+# plot (Figure 1)
+s2.long %>% 
+  group_by(level, form) %>% 
+  summarise(n = n(),
+            mean = mean(PWH),
+            sd = sd(PWH),
+            se = parameters::standard_error(PWH))%>% 
+  ggplot(aes(y = mean, x = level, group = form))+ 
+  geom_line(aes(color = form, linetype = form), size = 1)+
+  geom_point(aes(color = form), size = 2)+
+  theme_classic()+
+  scale_color_manual(values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7"))+
+  theme(text = element_text(size = 12))+  
+  geom_errorbar(aes(ymin = mean - se, ymax= mean + se), width=.1)+
+  theme(panel.grid.major.y = element_line(color = "gray", linetype = "dotted"),
+        legend.position="top")+
+  scale_linetype_manual(values=c("solid", "dotted", "dashed", "F1", "1F"))+
+  scale_y_continuous(expand = c(0, 0), breaks=seq(0,11,0.5))+
+        coord_cartesian(ylim = c(1, 11))+
+        labs(x = "Payment Level", y = "Expected Willingness to Help")+
+   labs(linetype = "Payment Form", colour = "Payment Form")
+
+# plot with data distribution
+s2.long %>% 
+  ggplot(aes(x = level, y = PWH, fill = form)) +
+  geom_flat_violin(aes(fill = form),
+                   trim = FALSE,
+                   alpha = .5, colour = NA,
+                   position = position_nudge(x = .3, y = 0)) +
+  geom_boxplot(aes(x = level, y = PWH, fill = form),
+               outlier.shape = NA, alpha = .5, width = .5) +
+  geom_point(aes(x = level, y = PWH, fill = form, color = form),
+             position = position_jitter(width = .2), size = 1, alpha = .5) +
+  geom_point(data = s2.long %>% 
+               group_by(form, level) %>% 
+               summarise(mean = mean(PWH, na.rm = TRUE),
+                         sd = sd(PWH, na.rm = TRUE),
+                         se = parameters::standard_error(PWH, na.rm = TRUE)),
+             aes(x = level, y = mean, group = form, colour = form), 
+             shape = 18, size = 3,
+             position = position_nudge(x = .3, y = 0)) +
+  geom_errorbar(data = s2.long %>% 
+                  group_by(form, level) %>%
+                  summarise(mean = mean(PWH, na.rm = TRUE),
+                            se = parameters::standard_error(PWH)), 
+                aes(x = level, y = mean, group = form, colour = form, ymin = mean-se, ymax = mean+se),
+                width = .05,
+                position = position_nudge(x = .3, y = 0))+
+  theme_classic() +
+  labs(y = "Expected Willingness to Help",
+       x = "Payment Level") +
+  guides(fill = guide_legend("Payment Form"),
+         colour = guide_legend("Payment Form"),
+         shape = guide_legend("Payment Form")) +
+  scale_y_continuous(limits = c(1, 11),
+                     breaks = c(1:11),
+                     expand = c(0, 0)) +
+  scale_fill_manual("Payment Form", values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7")) +
+  scale_colour_manual("Payment Form", values = c("#D55E00", "#0072B2", "#F0E442", "#009E73", "#CC79A7")) 
+```
+
+## A 3 x 2 ANOVA and post-hoc tests
+
+```{r}
+jmv::anovaRM(
+    data = s2,
+    rm = list(
+        list(
+            label="payment form",
+            levels=c("cash", "candy", "monetized")),
+        list(
+            label="payment level",
+            levels=c("low", "medium"))),
+    rmCells = list(
+        list(
+            measure="cash_low",
+            cell=c("cash", "low")),
+        list(
+            measure="cash_medium",
+            cell=c("cash", "medium")),
+        list(
+            measure="candy_low",
+            cell=c("candy", "low")),
+        list(
+            measure="candy_medium",
+            cell=c("candy", "medium")),
+        list(
+            measure="monetized_low",
+            cell=c("monetized", "low")),
+        list(
+            measure="monetized_medium",
+            cell=c("monetized", "medium"))),
+    effectSize = "partEta",
+    rmTerms = ~ `payment form` + `payment level` + `payment form`:`payment level`,
+    spherTests = TRUE,
+    spherCorr = c("none", "GG", "HF"),
+    postHoc = list(
+        c("payment form", "payment level"),
+        "payment level",
+        "payment form"),
+    postHocCorr = "bonf",
+    emMeans = ~ `payment form` + `payment level` + `payment form`:`payment level`,
+    emmPlots = FALSE,
+    emmTables = TRUE)
+```
+
+### CI for eta squred
+
+For convenience, we relied on <https://effect-size-calculator.herokuapp.com/>.
+
+![](ef%20aid3.PNG)
+
+![](ef%20aid4.PNG)
+
+![](ef%20aid5.PNG)
+
+## Pairwise t-tests (hypothesis testing)
+
+```{r}
+jmv::ttestPS(
+    data = s2,
+    pairs = list(
+        list(
+            i1="no with notice",
+            i2="cash_low"),
+        list(
+            i1="no with notice",
+            i2="cash_medium"),
+        list(
+            i1="no with notice",
+            i2="candy_low"),
+        list(
+            i1="no with notice",
+            i2="candy_medium"),
+        list(
+            i1="no with notice",
+            i2="monetized_low"),
+        list(
+            i1="no with notice",
+            i2="monetized_medium"),
+        list(
+            i1="no without notice",
+            i2="cash_low"),
+        list(
+            i1="no without notice",
+            i2="cash_medium"),
+        list(
+            i1="no without notice",
+            i2="candy_low"),
+        list(
+            i1="no without notice",
+            i2="candy_medium"),
+        list(
+            i1="no without notice",
+            i2="monetized_low"),
+        list(
+            i1="no without notice",
+            i2="monetized_medium"),
+        list(
+            i1="no with notice",
+            i2="no without notice")),
+    meanDiff = TRUE,
+    ci = TRUE,
+    effectSize = TRUE,
+    ciES = TRUE)
+
+jmv::ttestPS(
+    data = s2,
+    pairs = list(
+        list(
+            i1="cash_low",
+            i2="cash_medium"),
+        list(
+            i1="candy_low",
+            i2="candy_medium"),
+        list(
+            i1="no with notice",
+            i2="monetized_low"),
+        list(
+            i1="no with notice",
+            i2="no without notice"),
+        list(
+            i1="monetized_low",
+            i2="monetized_medium")),
+    meanDiff = TRUE,
+    ci = TRUE,
+    effectSize = TRUE,
+    ciES = TRUE,
+    desc = TRUE)
+```
+
+## Bayes factor for H1b
+
+```{r}
+ttestBF(s2$candy_low, s2$candy_medium, paired = TRUE)
+```
+
+## Supplementary results for Study 2
+
+Comparisons 3 and 4 in the supplementary can be found in the table in "Pairwise t-tests (hypothesis testing)" section on this document
+
+```{r}
+jmv::ttestPS(
+    data = s2,
+    pairs = list(
+        list(
+            i1="money",
+            i2="Monetized"),
+        list(
+            i1="Candy",
+            i2="Monetized")),
+    meanDiff = TRUE,
+    effectSize = TRUE,
+    ciES = TRUE,
+    desc = TRUE)
+```

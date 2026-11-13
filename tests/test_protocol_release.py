@@ -96,11 +96,40 @@ def test_non_public_paths_are_refused(name):
     assert name in errors(files)
 
 
-def test_open_source_text_and_assets_are_public():
+@pytest.mark.parametrize("source", [
+    "sources/open/survey.txt",
+    {"file": "sources/open/survey.txt", "distribution": {
+        "tier": "hosted", "licence": "CC0-1.0", "attribution": "Fixture Author",
+    }},
+])
+def test_open_source_text_and_assets_are_public(source):
     files = fixture_files()
+    edit(files, "protocol.json", lambda p: p["meta"]["sources"].update(survey=source))
+    rebind(files)
     files["sourcetext/survey#second.txt"] = b"x"
     files["variants/short.json"] = b"{}"
     assert errors(files) == ""
+
+
+@pytest.mark.parametrize("source", [
+    "sources/private/survey.txt",
+    "sources/open/../private/survey.txt",
+    "sources/open//survey.txt",
+    "sources/open/survey\\private.txt",
+    {"file": "sources/private/survey.txt", "distribution": {"tier": "hosted"}},
+    {"file": "sources/open/../private/survey.txt", "distribution": {"tier": "hosted"}},
+    {"file": "sources/open/.env", "distribution": {"tier": "hosted"}},
+    {"file": "sources/open/survey.txt", "distribution": {"tier": "link"}},
+    {"file": "sources/open/survey.txt", "distribution": {"tier": "user"}},
+    {"file": "sources/open/survey.txt"},
+])
+def test_source_text_cannot_point_to_unhosted_or_unsafe_source(source):
+    assert protocols.path_problem("sourcetext/survey.txt", {"survey": source}) is not None
+
+
+@pytest.mark.parametrize("name", ["sources/open/../private/survey.txt", "sourcetext/../protocol.json"])
+def test_release_allowlist_rejects_traversal_paths(name):
+    assert protocols.path_problem(name, {}) is not None
 
 
 def test_protocol_hash_and_stale_report_fail():

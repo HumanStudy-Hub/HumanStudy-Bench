@@ -85,6 +85,14 @@ For a current revision with `protocol.json`, the paper entry gains these fields:
 
 The block holds counts and ids only, never protocol text. `studies_index.json` keeps its legacy shape.
 
+The Web library checks the catalog-level `publications` map for the **Validated** label.
+Maintainers record `{"kind": "maintainer-reviewed-protocol", "revision": "<sha256>"}` by paper ID in
+`catalog/publications.json` after reviewing the exact release. The catalog includes the record only while
+it points to the current signed runnable protocol. A new recommendation does not inherit the label.
+Contributor-editable paper metadata cannot populate this map. The catalog snapshot digest covers active
+publication records. Validation is for the supported protocol scope; it does not certify replication of
+the original findings.
+
 ## Test fixture
 
 `tests/fixtures/protocol_release/example2026lamps/` is an invented study under CC0-1.0. Its material is two
@@ -121,3 +129,20 @@ The hsenv tests skip when hsenv is not installed.
   it calls `compile` and `eval`. It does so on an AST whose node types it has checked against a whitelist,
   and it runs with `__builtins__` emptied. The CI test pins that whitelist and a set of escape attempts.
 - **Maintainer decisions:** who signs a release (G2), and how B4 keeps public Actions logs quiet (G3).
+
+## Hosted community drafts
+
+A proposal explicitly marked `kind: protocol` whose study card has `quality: draft`
+uses draft intake, not formal release validation. It must include a schema-valid Program,
+a matching raw protocol binding, a matching canonical study binding, hosted-source
+bytes with declared redistributable licenses and hashes, and consistent paper identity.
+Private/raw paths, held material, malformed schemas, stale reports and mismatched versions
+remain failures. Draft intake does not require a curated fidelity signature, public
+release visibility, or an execution report; missing those is not scientific approval.
+
+Passing intake always yields `needs_review` with `requiresMaintainer: true`. No agent
+review, contributed code, random session or participant model is executed. It creates no
+current revision and awards no runnable/validated capability. Formal release validation
+retains all its existing gates. The test fixture in `tests/fixtures/paired-draft` is an
+invented CC0 lamp study exported by Desktop's paired exporter, including an honestly
+blocked arm; it is not an empirical research asset.

@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.research.catalog import build_catalog, community_identity, digest, paper_identity, project_program, taxonomy_errors
+from scripts.research.catalog import build_catalog, community_identity, current_publications, digest, paper_identity, project_program, taxonomy_errors
 from scripts.research.imports import psych201_records, reanalysis_records
 from scripts.research.revisions import integrate, merge_assets, merge_json, revision_id, safe_path, validate_assets
 
@@ -36,6 +36,25 @@ def test_identity_links_doi_but_never_collapses_title_only_records():
     b = paper_identity({"doi": "doi:10.1234/abc"}, "source:b")
     assert a[0] == b[0]
     assert paper_identity({"title": "Same title"}, "source:a")[0] != paper_identity({"title": "Same title"}, "source:b")[0]
+
+
+def test_publication_provenance_requires_a_trusted_record_for_the_exact_revision(tmp_path):
+    pid, revision = "paper_" + "a" * 24, "b" * 64
+    entry = {"kind": "maintainer-reviewed-protocol", "revision": revision}
+    paper = {"currentRevision": revision, "publication": entry, "protocol": {
+        "schemaVersion": "1", "revision": revision,
+        "fidelity": {"verdict": "HIGH FIDELITY", "signed_by": "fixture reviewer"},
+        "arms": [{"id": "a", "runnable": True}],
+    }}
+    papers = {pid: paper}
+    assert current_publications(tmp_path, papers) == {}
+    registry = tmp_path / "catalog/publications.json"
+    registry.parent.mkdir()
+    registry.write_text(json.dumps({"schemaVersion": 1, "papers": {pid: entry}}))
+    assert current_publications(tmp_path, papers) == {pid: entry}
+    assert current_publications(tmp_path, {pid: {**paper, "currentRevision": "c" * 64}}) == {}
+    with pytest.raises(ValueError, match="lacks a signed runnable protocol"):
+        current_publications(tmp_path, {pid: {"currentRevision": revision, "publication": entry}})
 
 
 def test_legacy_slug_collisions_cannot_reassign_canonical_paper_identity():
@@ -284,3 +303,26 @@ def test_effects_are_checked_and_indexed_for_cross_paper_queries(tmp_path, progr
     graph = paper["graph"]
     assert graph["edges"]["measures"] == 1 and graph["edges"]["tested-by"] >= 1
     assert "Side-effect effect" in graph["constructs"] and graph["gaps"] == []
+
+
+def test_published_titles_are_titles_not_citations():
+    """Imported citations are split through catalog/bibliography.json; a card title never carries a reference."""
+    index = json.loads((ROOT / "co_website/data/research_index.json").read_text())
+    citation = __import__("re").compile(r"https?://|doi\.org|\bdoi:|\(\d{4}[a-z]?[^)]*\)\.|^\W*\**references?\s*[:*\n]", __import__("re").I)
+    offenders = [p["title"] for p in index["papers"] if citation.search(p["title"])]
+    assert offenders == []
+    bibliography = json.loads((ROOT / "catalog/bibliography.json").read_text())
+    for entry in bibliography["papers"].values():
+        assert entry["title"] and not entry["title"].endswith(".")
+        if entry["method"] == "reference-text":
+            # Hand-filled entries copy the title as written in the source reference.
+            assert entry["title"].lower().replace('"', "") in entry["reference"].lower().replace('"', "")
+
+
+def test_replication_dataset_does_not_inherit_the_original_papers_metadata():
+    index = json.loads((ROOT / "co_website/data/research_index.json").read_text())
+    paper = next(p for p in index["papers"] if "psych201:rausch_unpublished_replication" in p["aliases"])
+    assert paper["authors"] == ["Manuel Rausch"]
+    assert paper["year"] is None
+    assert paper["title"].startswith("Psych-201 dataset:")
+    assert paper["bibliography"] == {"method": "source-directory"}

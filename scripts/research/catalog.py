@@ -177,6 +177,35 @@ def graph_summary(effects: dict, program: dict) -> dict:
             "extensions": [x for x in g["gaps"] if x["what"] == "extension"], "unlinked": len(g["unlinked"])}
 
 
+def current_publications(root: Path, papers: dict[str, dict]) -> dict:
+    """Read maintainer provenance separately from contributor-editable paper records."""
+    path = root / "catalog/publications.json"
+    if not path.exists():
+        return {}
+    registry = json.loads(path.read_text())
+    if not isinstance(registry, dict) or registry.get("schemaVersion") != 1 or not isinstance(registry.get("papers"), dict):
+        raise ValueError("invalid publication registry")
+    result = {}
+    for pid, entry in sorted(registry["papers"].items()):
+        if (not re.fullmatch(r"paper_[a-f0-9]{24}", pid) or not isinstance(entry, dict)
+                or set(entry) != {"kind", "revision"}
+                or entry["kind"] not in ("user-submitted", "maintainer-reviewed-protocol")
+                or not isinstance(entry["revision"], str) or not re.fullmatch(r"[a-f0-9]{64}", entry["revision"])):
+            raise ValueError(f"invalid publication registry entry: {pid}")
+        paper = papers.get(pid, {})
+        if entry["revision"] != paper.get("currentRevision"):
+            continue  # An attestation does not follow a changed recommendation.
+        if entry["kind"] == "maintainer-reviewed-protocol":
+            protocol = paper.get("protocol", {})
+            fidelity = protocol.get("fidelity", {})
+            if (protocol.get("revision") != entry["revision"] or protocol.get("schemaVersion") != "1"
+                    or fidelity.get("verdict") not in ("HIGH FIDELITY", "high_fidelity") or not fidelity.get("signed_by")
+                    or not any(a.get("runnable") for a in protocol.get("arms", []))):
+                raise ValueError(f"maintainer publication lacks a signed runnable protocol: {pid}")
+        result[pid] = entry
+    return result
+
+
 def build_catalog(root: Path, legacy: list[dict]) -> dict:
     taxonomy = json.loads((root / "catalog/taxonomy.json").read_text())
     errors = taxonomy_errors(taxonomy)
@@ -221,6 +250,24 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
             else:
                 papers[pid] = item
 
+    # Imports keep a source's citation text verbatim. catalog/bibliography.json (built by
+    # scripts/research/bibliography.py) supplies the title, authors and year to display for it.
+    bibliography = root / "catalog/bibliography.json"
+    for pid, entry in (json.loads(bibliography.read_text()).get("papers", {}) if bibliography.exists() else {}).items():
+        paper = papers.get(pid)
+        if not paper:
+            continue
+        paper["title"] = entry["title"]
+        if entry.get("authors"):
+            paper["authors"] = entry["authors"]
+        if "year" in entry:
+            paper["year"] = entry["year"]
+        if entry.get("description") and not paper.get("description"):
+            paper["description"] = entry["description"]
+        paper["bibliography"] = {k: entry[k] for k in ("method", "doi") if entry.get(k)}
+        paper["searchText"] = "\n".join([entry["title"], *entry.get("authors", []), paper.get("searchText", "")])
+
+    user_publications = {}
     # Only current.json publishes a community asset. Proposals and older snapshots never become cards.
     for pointer in sorted((root / "community").glob("*/current.json")):
         current = json.loads(pointer.read_text())
@@ -237,6 +284,9 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
                 raise ValueError(f"community revision content changed: {file}")
         paths = {entry["path"] for entry in manifest["files"]}
         paper = current["paper"]
+        user_publication = {"kind": "user-submitted", "revision": current["revision"]}
+        if "program.json" in paths and "protocol.json" not in paths and current.get("publication") == user_publication:
+            user_publications[paper["id"]] = user_publication
         # A v0.8 protocol release (V080 §3.1) may have no program.json; its block holds counts and ids only.
         protocol_extra, capabilities = {}, current["capabilities"]
         if "protocol.json" in paths:
@@ -285,8 +335,11 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
     ordered = sorted(papers.values(), key=lambda p: p["id"])
     source_versions = {path.stem: json.loads(path.read_text())["sourceVersion"]
                        for path in sorted(sources.glob("*.json"))} if sources.exists() else {}
+    publications = {**user_publications, **current_publications(root, papers)}
+    publication_fields = {"publications": publications} if publications else {}
     return {"schemaVersion": VERSION, "taxonomyVersion": taxonomy["version"],
-            "snapshot": digest({"papers": ordered, "taxonomy": taxonomy}),
+            "snapshot": digest({"papers": ordered, "taxonomy": taxonomy, **publication_fields}),
+            **publication_fields,
             "sourceVersions": source_versions, "papers": ordered, "taxonomy": taxonomy,
             "graphVocabulary": VOCAB_VERSION,
             # extensions papers declared, by name: the proposals for promoting a term into the core

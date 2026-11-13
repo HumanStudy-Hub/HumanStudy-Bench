@@ -1,0 +1,564 @@
+{
+  "schemaVersion": 2,
+  "id": "mandel2018framing",
+  "title": "Cognitive Style and Frame Susceptibility in Decision-Making",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Cognitive Style and Frame Susceptibility in Decision-Making",
+    "authors": "David R. Mandel, Irina V. Kapler",
+    "doi": "10.3389/fpsyg.2018.01461",
+    "filename": "sources/bundle/paper/paper.pdf"
+  },
+  "studies": [
+    {
+      "id": "exp1",
+      "title": "Experiment 1 · Undergraduate sample",
+      "type": "empirical",
+      "description": "Framing and option order crossed; cognitive styles measured."
+    },
+    {
+      "id": "exp2",
+      "title": "Experiment 2 · MTurk replication",
+      "type": "empirical",
+      "description": "Larger online sample and added hemisphericity measure."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "background",
+      "kind": "background",
+      "title": "Why do gain and loss descriptions change choices?",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "evidenceIds": [
+        "question",
+        "hypothesis"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Why do gain and loss descriptions change choices?",
+          "value": "The paper examines whether cognitive styles predict susceptibility to framing. It jointly models several correlated measures rather than splitting people into high and low groups, and distinguishes making a theory-consistent choice from merely detecting a between-frame difference.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "question",
+            "hypothesis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hypothesis",
+      "kind": "hypothesis",
+      "title": "Do cognitive styles explain frame susceptibility?",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "evidenceIds": [
+        "hypothesis",
+        "s2-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Do cognitive styles explain frame susceptibility?",
+          "value": "The authors test whether cognitive reflection, subjective numeracy, actively open-minded thinking and need for cognition predict frame-consistent choice. Experiment 2 adds hemisphericity. Sex and age are controlled. These are the paper’s research tests; no preregistration is asserted.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "hypothesis",
+            "s2-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "kind": "design",
+      "title": "Equivalent investments, different descriptions",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "evidenceIds": [
+        "s1-method",
+        "procedure",
+        "s2-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Equivalent investments, different descriptions",
+          "value": "Each experiment randomly assigns frame (positive or negative) and option order (certain or uncertain first). The financial problem uses an investment worth $600, with a certain $200 kept/$400 lost versus a one-third chance of retaining all and two-thirds chance of retaining none. Quantities are explicitly exact.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s1-method",
+            "procedure",
+            "s2-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "participants",
+      "kind": "participants",
+      "title": "Two different online populations",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "evidenceIds": [
+        "s1-method",
+        "s2-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Two different online populations",
+          "value": "Experiment 1 recruited 201 first-year York psychology students for course credit; 190 remained after exclusions for implausible completion time, low English proficiency or implausible age. The reported sample mean age was 21.7 and 74.2% female. Experiment 2 recruited 323 adult Canada/US MTurk workers (at least 1,000 HITs and 95% approval), paid $1.50; 316 remained after time/language exclusions. Mean age was 30.4 and 39.2% female.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s1-method",
+            "s2-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "materials",
+      "kind": "material",
+      "title": "Investment choice and cognitive-style measures",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "evidenceIds": [
+        "procedure",
+        "s2-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Investment choice and cognitive-style measures",
+          "value": "The investment scenario is followed by CRT, SNS, AOT and NFC measures in that order. Experiment 2 adds the 20-item ZPT, scored by subtracting left-hemisphere from right-hemisphere preference scores. Measurement labels are not claims that the study experimentally manipulated cognitive style.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "procedure",
+            "s2-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "procedure",
+      "kind": "procedure",
+      "title": "Consent, demographics, decision, questionnaires",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "evidenceIds": [
+        "s1-method",
+        "procedure",
+        "s2-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Consent, demographics, decision, questionnaires",
+          "value": "Qualtrics presents consent and demographics before random assignment. Participants select one investment option and rate preference strength from 1 to 7, then complete the cognitive-style measures. Experiment 2 follows the same method except sample and ZPT.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s1-method",
+            "procedure",
+            "s2-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "variables",
+      "kind": "variable",
+      "title": "Frame-consistent choice and preference strength",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "evidenceIds": [
+        "procedure",
+        "s1-result"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Frame-consistent choice and preference strength",
+          "value": "Certain choices under a positive frame and uncertain choices under a negative frame count as frame-consistent. These receive +1, other choices −1; multiplying by preference strength yields weighted frame consistency. The analysis also reports conventional between-frame choices.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "procedure",
+            "s1-result"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analysis",
+      "kind": "analysis",
+      "title": "Predict choices while accounting for frame",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "evidenceIds": [
+        "s1-result",
+        "s1-models",
+        "s2-models",
+        "s2-weighted"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Predict choices while accounting for frame",
+          "value": "Binomial tests assess frame-consistent choice against chance; t-tests examine conventional framing and weighted choices. Nested logistic models add cognitive styles, then sex and age, after frame. Bootstrap multiple linear regression analyzes weighted choices. Option-order comparisons are also reported.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s1-result",
+            "s1-models",
+            "s2-models",
+            "s2-weighted"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s1-result",
+      "kind": "result",
+      "title": "Framing is detected; style predictors do not survive controls",
+      "studyIds": [
+        "exp1"
+      ],
+      "evidenceIds": [
+        "s1-result",
+        "s1-models"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Framing is detected; style predictors do not survive controls",
+          "value": "Experiment 1: 118/190 (62%) made frame-consistent choices, p<.001; the paper reports the stricter theory-constrained effect d=.20, smaller than conventional framing t(188)=3.43, d=.50, p=.001. CRT has an initial zero-order association, but controlling frame gives r=.11, p=.12. Frame alone is significant in the nested logistic and weighted models; cognitive styles do not improve logistic fit (p=.13). Option order is not significant (p=.23). Weighted consistency differs from zero, M=1.09, p=.002.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s1-result",
+            "s1-models"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2-result",
+      "kind": "result",
+      "title": "Replication retains framing but not cognitive-style effects",
+      "studyIds": [
+        "exp2"
+      ],
+      "evidenceIds": [
+        "s2-result",
+        "s2-models",
+        "s2-weighted"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Replication retains framing but not cognitive-style effects",
+          "value": "Experiment 2: 184/316 (58.2%) chose consistently with frame, p=.002; the stricter theory-constrained effect d=.17 is smaller than conventional framing t(314)=3.00, d=.34, p=.003. No cognitive-style correlation is significant; only frame is a significant logistic predictor. Adding styles does not improve logistic fit (p=.11); option order p=.31. Weighted consistency M=.90, p=.002; ZPT and the weighted style block approach rather than reach significance (block p=.073).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s2-result",
+            "s2-models",
+            "s2-weighted"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "kind": "finding",
+      "title": "These measures offer little explanation of this framing effect",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "evidenceIds": [
+        "conclusion"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "These measures offer little explanation of this framing effect",
+          "value": "Across samples, framing persists but measured cognitive styles show weak predictive relationships. The authors argue against attributing these framing effects largely to intuitive versus deliberate style; the conclusion is specific to this task family, not all cognitive biases.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "conclusion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "kind": "limitation",
+      "title": "Online samples and one framing-task family",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "evidenceIds": [
+        "limits",
+        "conclusion"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Online samples and one framing-task family",
+          "value": "Both experiments were remote online. The authors recommend testing other ADP variants and nonremote settings. Null style coefficients do not demonstrate universally absent style effects.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "limits",
+            "conclusion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "replay-gaps",
+      "kind": "limitation",
+      "title": "Missing exact administration and questionnaire material",
+      "studyIds": [
+        "exp1",
+        "exp2"
+      ],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Missing exact administration and questionnaire material",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable"
+          }
+        }
+      ]
+    }
+  ],
+  "steps": [],
+  "relations": [],
+  "issues": [
+    {
+      "id": "replay-gaps",
+      "title": "Missing exact administration and questionnaire material",
+      "severity": "check",
+      "reason": "The retained protocol marks both scopes nonrunnable. Consent, demographics and several questionnaire screens, plus uncertain-option-first wording, are not fully recovered; predictor regressions cannot be treated as implemented merely because the paper describes them.",
+      "impact": "Exact replay of this part remains limited; this is not a completed original replication.",
+      "suggestedAction": "Obtain the original source before reconstructing missing content.",
+      "nodeId": "replay-gaps",
+      "fieldId": "summary",
+      "evidenceIds": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "question",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 3
+      },
+      "quote": "The Present Research\nThe present research builds on prior work examining how\ncognitive-style measures relate to susceptibility to framing.\nAlthough several studies have examined this issue, there has\nbeen little attempt to jointly examine cognitive-style measures\nas predictors of frame susceptibility. Multi-measure analyses\nare critical, however, because measures such as NFC, AOT,\nCRT, and SNS share considerable variance.2\nSeveral studies also\nhave binned participants into high versus low categories based\non median splits. This is usually a poor statistical method\nof analysis because it adds error, reducing statistical power\nand increasing the likelihood of Type II errors in many cases\n(Humphreys and Fleishman, 1974; Cohen, 1983). Moreover,\nin other cases, dichotomizing continuous variables can lead\nto spurious statistical significance or Type 1 errors (Maxwell\nand Delaney, 1993). As well, most studies have taken a rather\ncoarse moderator approach to analysis in which the cognitive-style measure, partitioned into high versus low scores, is crossed\nwith a framing manipulation. Evidence of moderation takes the\nform of showing that the framing effect is smaller in one group\nthan the other. This method is theoretically imprecise because\nsignificant effects of framing do not necessarily conform to\ntheoretical expectation. Consider a hypothetical case of an ADP\nexperiment using a large sample in which 90% of participants\nin the positive-frame condition choose option A, whereas “only”\n75% choose option A in the negative-frame condition. The\nframing effect may be significant, yet most participants who\nencountered the negative frame would not have responded as\npredicted by prospect theory (Kahneman and Tversky, 1979) or\nother theories of framing, such as the explicated valence account\n(Tombu and Mandel, 2015; also Wallin et al., 2016) or the\nfuzzy trace account (Reyna and Brainerd, 1991), all of which\nmake the same predictions for the standard ADP (but which\ndiverge in prediction as well as explanation under other task\nconditions).\nTherefore, in the present research, we examine frame\nsusceptibility in a theoretically precise manner. Participants are\nsaid to be frame susceptible or to have made frame-consistent\nchoices if and only if they choose the certain option given a\npositive frame or else they choose the uncertain option given\n2West et al. (2012) examined the relations between NFC, AOT, and CRT and\na composite measure of responses from judgment and decision-making tasks\nassociated with cognitive biases. These tasks included the ADP, but unfortunately,",
+      "verification": "unverified"
+    },
+    {
+      "id": "hypothesis",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 4
+      },
+      "quote": "a negative frame. This operationalization of frame-consistent\nchoice thus requires the demonstration of what has been referred\nto in previous literature as bidirectional framing effects (Wang,\n1996) or meeting the reference distribution criterion (Mandel,\n2001). In two experiments, we test various predictive models\nof frame susceptibility. To the extent that these predictors\nsignificantly predict frame susceptibility, it would therefore\nprovide more compelling evidence of moderation of framing\neffects than we have seen in previous studies. In addition to\nexamining NFC, AOT, CRT, and SNS, we include participants’\nsex and age in our analysis. This is important because sex\nhas been shown to moderate framing effects (with females\nshowing stronger framing effects; see Piñon and Gambara,\n2005 for a meta-analysis) and there is some evidence for\nsex differences on measures such as CRT (Frederick, 2005),\nnumeracy (objective: Peters et al., 2011; subjective: Peters and\nBjalkebring, 2015) and AOT (Toplak et al., 2017) measures,\nwith males scoring higher than females. In terms of age, there\nappears to be age-related stability in susceptibility to framing\n(Mayhorn et al., 2002; Rönnlund et al., 2005; Strough et al., 2011).\nMore generally, description-based (as opposed to experience-based) tasks like the ADP tend to show negligible age effects\n(Mata et al., 2011). Nevertheless, we statistically control for age\nin the predictive models tested in the present research as a\nprecautionary measure.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s1-method",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 4
+      },
+      "quote": "We recruited 201 undergraduate students enrolled in a\nfirst-year psychology course at York University. Students\nwere awarded course credit for participation. Mean age of the\nsample was 21.7 years (SD = 4.2), and 74.2% were female.\nEleven participants were removed from the analysis because the\nintegrity of the collected data was low. Specifically, participants\nwere removed due to (a) unreasonable time for completion\n(over 24 h, or under 4 min), (b) below 50% self-reported English\nproficiency (current range 55–100, M = 92.8, SD = 10.7) or (c)\nunwarranted age for a university sample (e.g., one participant\nreported being 10 years old). Data from the remaining 190\nparticipants were analyzed.\nExperiment 1, which took 15 min of average to complete\n(SD = 12.50), was conducted online using the Qualtrics survey\nsoftware system. First, participants completed electronic\ninformed consent, where, after reading study details, they had the\nchoice of proceeding with the study or quitting. By proceeding\nthey gave their consent for participation. Participants then\nwere asked to fill out a short demographic questionnaire that\nasked about age, sex, native language, and self-reported English\nproficiency.\nNext, participants were randomly assigned to one of the four\nexperimental conditions in a 2 (Frame: positive, negative) × 2\n(Order: certain-option first, uncertain-option first) between-subjects design. They were then presented with a modified\nfinancial version of the ADP taken from Tombu and Mandel\n(2015). Unlike the original ADP, the numeric quantifiers in the\ntwo options were qualified with the term exactly to increase\nthe likelihood that the two frames would be represented by\nparticipants as extensionally equivalent (Mandel, 2014). As well,\nto reinforce understanding that the numeric quantifiers referred\nto exact amounts, they were dually described in terms of number\nand a fraction of the total amount in question. Specifically, in the\npositive-frame condition, participants were presented with the\nfollowing description:\nImagine that a financial investment of yours worth $600 has\ngone sour. If you do nothing you will lose all of it for sure.\nHowever, you have two options that are not as bad:\nIf you choose option A, you will keep exactly one-third ($200)\nof your investment for sure.",
+      "verification": "unverified"
+    },
+    {
+      "id": "procedure",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 5
+      },
+      "quote": "If you choose option B, you have exactly a one-third chance\nof keeping everything ($600) and a two-thirds chance of keeping\nnothing ($0).\nIn the negative-frame condition, the options were alternatively\ndescribed as follows:\nIf you choose option A, you will lose exactly two-thirds ($400)\nof your investment for sure.\nIf you choose option B, you have exactly a one-third chance of\nlosing nothing ($0) and a two-thirds chance of losing everything\n($600).\nAs in the ADP, the first task was to choose one of the\ntwo options. Subsequently, participants were asked how much\nthey preferred their chosen option over the other option on\na scale from 1 (no preference) to 7 (strong preference). The\nchoice and preference measures were recoded as follows for the\npurpose of data analysis. Choices were coded as frame-consistent\nif and only if they were (a) certain-option choices made in the\npositive-frame condition or (b) uncertain-option choices made\nin the negative-frame condition. Next, frame-consistent choices\nwere dummy coded 1, whereas frame-inconsistent choices were\ndummy coded -1, and these values were multiplied by the\nstrength of preference scores to provide a preference-weighted\nmeasure of frame consistency.\nAfter the decision-making task, participants completed the\nfour cognitive-style measures described earlier in the following\norder: CRT (Frederick, 2005); SNS (Fagerlin et al., 2007); AOT\n(Baron, 1993; Haran et al., 2013); and NFC (Cacioppo et al.,\n1984).",
+      "verification": "unverified"
+    },
+    {
+      "id": "s1-result",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Out of 190 participants, 118 (62%) made frame-consistent\nchoices (see Supplementary Data Sheet S1 for data from\nExperiments 1 and 2). This proportion significantly exceeds\nchance, as the binomial probability of finding 118 or more frame-consistent choices is 5.21 × 10−4\n(in more conventional terms,\np < 0.001). Recall that frame-consistent choices were coded as 1\nand frame-inconsistent choices were coded as −1. The expected\nvalue based on chance selection is 0, and the observed mean value\nis 0.19 (SD = 0.98). By Cohen’s (1992) criteria, this corresponds to\na small effect size, d = 0.20.\nIt is of theoretical interest to compare the difference between\nthis effect size estimate and one obtained from a traditional\nbetween groups test of the framing effect. Given that the former\nis more conservative (i.e., it requires choosing the certain option\nin the positive-frame condition or the uncertain option in the\nnegative-frame condition), we expect that the effect size of the\ntraditional effect will be larger. Indeed, this is the case. Coding\nselections of the certain and uncertain options as 1 and −1,\nrespectively, reveals a mean value of 0.02 (SD = 1.01) in the\nnegative-frame condition and a mean value of 0.49 (SD = 0.88)\nin the positive-frame condition, t(188) = 3.43, d = 0.50, p = 0.001.\nThus, by applying the stricter (theory-constrained) criterion, the\neffect size is more than halved.\nRecall that Schwitzgebel and Cushman (2015) found that, in\nline with the reachability bias, frame-consistent choice was more\nprobable when the frame-consistent option was presented first.\nTo test for this effect, we computed a binary measure of whether\nthe frame-consistent choice was presented first or second.\nThe proportion of frame-consistent choices when the frame-consistent option was presented first (0.67) was not significantly\ngreater than the proportion of such choices when the frame-consistent option was presented second (0.58), p = 0.23 by Fisher’s\ntwo-sided exact test.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s1-models",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Next, we examined the relations among frame-consistent\nchoice, strength of preference, and the four cognitive-style\nmeasures. Table 1 shows the zero-order (Pearson) correlations.\nThe cognitive-style measures were positively correlated with each\nother. Frame-consistent choice was significantly correlated with\nCRT in the predicted direction, but not with any other measure.\nHowever, recall that CRT differed across frame. The partial\ncorrelation between CRT and frame-consistent choice controlling\nfor frame was not significant, r(187) = 0.11, p = 0.12.\nWe followed up the initial correlational analysis by running a\nbinary-logistic regression analysis testing three models. Model 1\nincludes only the fixed effect (frame), Model 2 further includes\nthe cognitive-style measures, and Model 3 further includes the\ncontrol variables, sex and age. As Table 2 shows, the only\nsignificant predictor in each of the three models was frame. This\nresult is explained by the fact that the proportion of participants\nmaking frame-consistent choices was much larger in the positive-frame condition (0.75) than in the negative-frame condition\n(0.49). The one-parameter (frame) model was significant, χ\n2\n(1,\nN = 190) = 13.19, Nagelkerke R\n2 = 0.09, p < 0.001. Model 2 did\nnot significantly improve fit, χ\n2\n(4, N = 190) = 7.13, Nagelkerke\nR\n2 = 0.14, p = 0.13. Likewise, Model 3 did not improve fit despite\nan effect of SNS that was almost significant, χ\n2\n(2, N = 190) = 1.38,\nNagelkerke R\n2 = 0.15, p = 0.50.\nNext, we examined whether preference-weighted frame-consistent choices showed consistent results. Mean preference-weighted choice differed significantly from a test value of zero (as\nexpected by chance) in the frame-consistent direction, M = 1.09,\n95% CI [0.40, 1.80], one-sample t(189) = 3.13, d = 0.23, p = 0.002.\nThe effect size is comparable to that found in the earlier analysis\nof unweighted frame-consistent choice. Moreover, this effect size\nbased on the conservative test is, once again, substantially smaller\nthan that obtained by the usual between-groups method. We find\na mean value of 0.16 (SD = 4.95) in the negative-frame condition\nand a mean value of 2.28 (SD = 4.43) in the positive-frame\ncondition, t(188) = 3.10, d = 0.45, p = 0.002. Finally, consistent\nwith the earlier results of the order-effect analysis on unweighted\nchoice, there was no significant effect of frame-consistent option\norder on preference-weighted choice, t(188) = 0.97, d = 0.14,\np = 0.34.\nFinally, we tested a bootstrap multiple linear regression model\nwith frame, NFC, AOT, CRT, SNS, sex, and age as predictors\nof weighted frame-consistent choice. Model 1 includes only the\nfixed effect (frame), Model 2 further includes the cognitive-style\nmeasures, and Model 3 further includes the control variables,\nsex and age. The last column of Table 3 shows that the variance\ninflation factors (VIFs) are all close to 1, which indicates\nthat the interpretability of the models is not threatened by\nmulticollinearity. Table 3 shows that, as with the binary-choice\nmeasure, only the effect of frame was significant, Model 1 F(1,\n188) = 12.82, adjusted R\n2 = 0.06, p < 0.001. Model 2 did not\nsignificantly improve fit, Fchange(4, 184) = 1.48, p = 0.21. Likewise,\nModel 3 did not improve upon the fit of Model 2, Fchange(2,\n182) = 0.73, p = 0.48. The results are therefore highly consistent\nbetween analyses of binary and preference-weighted choices.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s2-method",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 6
+      },
+      "quote": "The aim of Experiment 2 was to assess the reproducibility of\nfindings from Experiment 1. In most respects, the methods of\nExperiment 2 were identical to Experiment 1, except that a larger\nsample of participants was recruited from Amazon Mechanical\nTurk, and we added one additional cognitive-style measure,\nZenhausern’s Preference Test (ZPT, Morton, 2002). ZPT was\ndeveloped in the 1970s as a measure of hemispheric dominance.\nThe 20-item test includes 10 “right hemisphere” (ZPT-R) and\n10 “left hemisphere” (ZPT-L) items, with a hemisphericity index\nscored as the difference of the two subscales (i.e., ZPT-R – ZPT-L). Higher ZPT index values have been interpreted as being\nindicative of a cognitive disposition toward the use of intuitive\nSystem 1 reasoning processes. In particular, McElroy and Seta\n(2003) found that participants in the highest quartile on the index\nshowed much stronger framing effects than those in the lowest\nquartile, and they interpreted their findings as supporting the\nview that frame susceptibility is a cognitive bias owing to reliance\non intuitive System 1 reasoning processes. To the best of our\nknowledge, however, no other study has examined whether this\nmeasure predicts frame susceptibility.\nMaterials and Methods\nA sample of 323 Amazon Mechanical Turk (MTurk) workers\nparticipated in Experiment 2. The sample was limited to\nparticipants who were 18 years of age or older, residing in Canada\nor the United States, and who completed greater than or equal\nto 1,000 Human Intelligence Tasks or “HITs” with an approval\nrate greater than or equal to 95%. Participants were compensated\n$1.50. Mean age for the sample was 30.4 years (SD = 6.7), and\n39.2% were female. Seven participants were removed from the\nanalysis because of either (a) unreasonable time for completion\n(over 24 h, or under 4 min) or (b) reported English proficiency\nwas below 50%. Data from the remaining 316 participants were\nanalyzed.\nExcept for the change of sample and inclusion of ZPT in the\nbattery of cognitive-style measures, the methods were identical\nto Experiment 1.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s2-result",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Out of 316 participants, 184 (58.2%) made frame-consistent\nchoices. As in Experiment 1, this proportion significantly\nexceeds chance: the binomial probability of finding 184 or\nmore frame-consistent choices is 0.002. As noted earlier,\nthe expected value based on chance selection is 0, and the\nobserved mean value is 0.16 (SD = 0.99). This corresponds\nto a small effect size, d = 0.17, which is very close in\nmagnitude to that found in Experiment 1. By comparison,\nusing the traditional between-groups analysis, we find a mean\nvalue of −0.03 (SD = 1.00) in the negative-frame condition\nand a mean value of 0.30 (SD = 0.96) in the positive-frame\ncondition, t(314) = 3.00, d = 0.34, p = 0.003. Therefore,\nby applying the stricter, theory-constrained, criterion, the",
+      "verification": "unverified"
+    },
+    {
+      "id": "s2-models",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 8
+      },
+      "quote": "As in Experiment 1, no order effect was found: the proportion\nof frame-consistent choices when the frame-consistent option\nwas presented first (0.65) was not significantly greater than the\nproportion of such choices when the frame-consistent option was\npresented second (0.55), p = 0.31 by Fisher’s two-sided exact test,\nGoodman and Kruskal τ = 0.004.\nAs Table 4 shows, and replicating the findings of Experiment\n1, frame-consistent choice was not significantly correlated\nwith strength of preference or any of the cognitive-style\nmeasures. We followed up the zero-order correlational analysis\nby running a binary logistic regression analysis. As in Experiment\n1, we tested three models: Model 1 included frame only,\nModel 2 additionally included CRT, SNS, AOT, NFC, and\nZPT, and Model 3 additionally included sex and age. As\nTable 5 shows, the only significant predictor of frame-consistent\nchoice was frame. As in Experiment 1, the proportion of\nparticipants making frame-consistent choices was larger in the\npositive-frame condition (0.65) than in the negative-frame\ncondition (0.52). The one-parameter (frame) model was\nsignificant, χ\n2\n(1, N = 316) = 5.85, Nagelkerke R\n2 = 0.03, p = 0.02.\nModel 2 did not significantly improve fit, χ\n2\n(5, N = 316) = 8.89,\nNagelkerke R\n2 = 0.06, p = 0.11. Likewise, Model 3 did not improve\nfit over Model 2 in spite of effects of ZPT and age that were almost\nsignificant, χ\n2\n(2, N = 316) = 3.16, Nagelkerke R\n2 = 0.07, p = 0.21.\nNext, we examined whether preference-weighted choices\nshowed consistent results. Mean preference-weighted choice\ndiffered significantly from a test value of zero in the frame-consistent direction, M = 0.90, 95% CI [0.32, 1.42], one-sample\nt(315) = 3.05, d = 0.17, p = 0.002. The effect size for the\nweighted measure was identical to what we reported earlier\nfor the unweighted measure. Moreover, this effect size based\non the conservative test is, once again, substantially smaller\nthan that obtained by the between-groups method. We find a\nmean value of 0.09 (SD = 5.09) in the negative-frame condition\nand a mean value of 1.89 (SD = 5.07) in the positive-frame\ncondition, t(314) = 3.13, d = 0.35, p = 0.002.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s2-weighted",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 9
+      },
+      "quote": "strong consistency with the results of Experiment 1, there was no\nsignificant effect of frame-consistent option order on preference-weighted choice, t(314) = 1.05, d = 0.12, p = 0.30.\nFinally, we tested a bootstrap multiple linear regression model\nwith frame, CRT, SNS, AOT, NFC, ZPT, sex, and age as predictors\nof weighted frame-consistent choice. The model structure for\nthis analysis was identical to that tested in Experiment 1.\nAs the VIF values shown in the last column of Table 6\nindicate, the interpretability of the models is not threatened by\nmulticollinearity. As Table 6 shows, Model 1, which includes\nonly frame as a predictor, was significant, F(1, 314) = 11.77,\nadjusted R\n2 = 0.03, p = 0.001. Frame was once again significant\nin Model 2, and ZPT approached significance, as did the Model\n2 improvement of fit, Fchange(5, 309) = 2.04, adjusted R\n2 = 0.05,\np = 0.073. Model 3 did not improve upon the fit of Model 2,\nFchange(2, 307) = 1.55, p = 0.22. As in Experiment 1, then, the\nresults were highly consistent between analyses of participants’\nbinary and preference-weighted choices.",
+      "verification": "unverified"
+    },
+    {
+      "id": "limits",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 9
+      },
+      "quote": "The two online experiments that we conducted yielded highly\nconsistent results despite the fact that one experiment relied on\na university undergraduate sample where participants received\ncourse credit and the other experiment relied on a MTurk worker\nsample whose members were paid a nominal rate for their\nparticipation. Although it would be advantageous to attempt to\nreplicate the findings in experiments in which participants were\nnot completing the experiment remotely online and in which\nother variants of the ADP-type task were used, we believe several\nof the present findings are nevertheless noteworthy.",
+      "verification": "unverified"
+    },
+    {
+      "id": "conclusion",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+      "locator": {
+        "page": 10
+      },
+      "quote": "A key finding of this research was that cognitive-style\nmeasures had very small predictive effects on frame susceptibility.\nAll were non-significant in each experiment, although there\nwas a small zero-order correlation between CRT and frame\nsusceptibility in Experiment 1 that explained approximately 2.5%\nof the variance. Taken together, these findings do not support the\nhypothesis that individual differences in frame susceptibility in\ndecision-making are substantially due to differences in cognitive\nstyle—or more specifically, in the degree to which people choose\nintuitively or deliberately. Moreover, if the true relation between\ncognitive-style measures and frame susceptibility is weak in the\ngeneral population, we would expect to see a pattern of results\nmuch like we observe in the literature; namely, one in which\nthere appears to be “mixed evidence” in which some studies\nfind significant (but weak) relations and other studies find non-significant relations (that are weak but usually in the expected\ndirection).\nSuch evidence is “mixed” only in a trivial sense—namely,\nwhen researchers pay undue attention to statistical significance\nacross studies that vary in statistical power. The significant\neffects of cognitive style on frame susceptibility in ADP-type\ntasks that have been reported in the literature are in most\ncases small, even when large samples have been used to boost\nthe likelihood of detecting a significant effect (e.g., West et al.,\n2008). Those results, moreover, are in line with other findings\nshowing that the effect of cognitive ability on judgment and\ndecision-making tasks used to demonstrate cognitive biases and\nuse of heuristic processes is small (e.g., Stanovich and West,\n2008; West et al., 2012). The true magnitude of the effect of\ncognitive style (gauging the System 1/System 2 distinction) on\nframe susceptibility is therefore likely to lie somewhere between\nvery small and small, using Cohen’s (1992) criteria. The precise\nvalue is theoretically unimportant because the range is sufficient\nto indicate that any theory positing that framing effects are largely\ndue to reliance on heuristic “System 1” reasoning processes is\nwrong. Of course, we do not carelessly generalize this claim\nto other judgment and decision-making tasks.",
+      "verification": "unverified"
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "studyArms": {
+        "exp1": [
+          "exp1"
+        ],
+        "exp2": [
+          "exp2"
+        ]
+      }
+    },
+    "communityExport": {
+      "scope": "program-only",
+      "sources": [
+        {
+          "evidenceIds": [
+            "question",
+            "hypothesis",
+            "s1-method",
+            "procedure",
+            "s1-result",
+            "s1-models",
+            "s2-method",
+            "s2-result",
+            "s2-models",
+            "s2-weighted",
+            "limits",
+            "conclusion"
+          ],
+          "url": "https://www.frontiersin.org/articles/10.3389/fpsyg.2018.01461/pdf",
+          "attribution": "David R. Mandel, Irina V. Kapler. Cognitive Style and Frame Susceptibility in Decision-Making (2018). Copyright 2018 Her Majesty the Queen in Right of Canada, as represented by Defence Research and Development Canada.",
+          "license": "CC-BY-4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sha256": "6727d0db1f5c4c2f60ce169de1070b87bfbc2925885a88a44d9ff976f0a8a1d9",
+          "title": "Cognitive Style and Frame Susceptibility in Decision-Making",
+          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
+        }
+      ],
+      "withheldEvidenceQuotes": {
+        "ids": [],
+        "reason": "redistribution-unverified"
+      }
+    }
+  }
+}
