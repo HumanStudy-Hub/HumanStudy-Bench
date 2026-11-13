@@ -250,6 +250,7 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
             else:
                 papers[pid] = item
 
+    user_publications = {}
     # Only current.json publishes a community asset. Proposals and older snapshots never become cards.
     for pointer in sorted((root / "community").glob("*/current.json")):
         current = json.loads(pointer.read_text())
@@ -266,6 +267,9 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
                 raise ValueError(f"community revision content changed: {file}")
         paths = {entry["path"] for entry in manifest["files"]}
         paper = current["paper"]
+        user_publication = {"kind": "user-submitted", "revision": current["revision"]}
+        if "program.json" in paths and "protocol.json" not in paths and current.get("publication") == user_publication:
+            user_publications[paper["id"]] = user_publication
         # A v0.8 protocol release (V080 §3.1) may have no program.json; its block holds counts and ids only.
         protocol_extra, capabilities = {}, current["capabilities"]
         if "protocol.json" in paths:
@@ -314,7 +318,7 @@ def build_catalog(root: Path, legacy: list[dict]) -> dict:
     ordered = sorted(papers.values(), key=lambda p: p["id"])
     source_versions = {path.stem: json.loads(path.read_text())["sourceVersion"]
                        for path in sorted(sources.glob("*.json"))} if sources.exists() else {}
-    publications = current_publications(root, papers)
+    publications = {**user_publications, **current_publications(root, papers)}
     publication_fields = {"publications": publications} if publications else {}
     return {"schemaVersion": VERSION, "taxonomyVersion": taxonomy["version"],
             "snapshot": digest({"papers": ordered, "taxonomy": taxonomy, **publication_fields}),

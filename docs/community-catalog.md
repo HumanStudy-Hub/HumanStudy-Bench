@@ -72,6 +72,13 @@ is a non-forced ref update with the previous main as parent; another writer caus
 not an overwrite. The contribution PR is archived/closed after integration rather than merging
 untrusted code changes into the implementation.
 
+On dev, dispatch the workflow with the proposal PR number to produce a review receipt. A repository
+admin or maintainer other than the proposal author can approve an eligible Program by dispatching
+again with the receipt's exact `headCommit` and `candidateRevision`. The worker recomputes the
+candidate against the current catalog and rejects an approval if either identity changed. Paired
+protocols continue through the separate maintainer release path. Accepted Programs receive
+revision-bound `user-submitted` provenance from the worker.
+
 **The workflow is off unless `COMMUNITY_MAINTAINER_ENABLED=true`. Do not enable it before the
 owner reviews all coordinated PRs and approves rollout.** `COMMUNITY_BOT_LOGIN` must match
 the actual bot token account in both the Hub and Bench settings.
