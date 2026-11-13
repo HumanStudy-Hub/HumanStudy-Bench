@@ -115,7 +115,7 @@ def maintain(ref: str, base: str, author: str, *, agent_review: bool,
              curator: str | None = None, reviewed_revision: str | None = None) -> dict:
     folder, metadata, files = proposal_from_ref(ref, base, author)
     if curator is not None and curator.casefold() == author.casefold():
-        raise ValueError("the curator must be independent of the proposal author")
+        raise ValueError("the curator must use a different GitHub account from the PR author")
     report_path = folder / "reviews" / (metadata["proposalId"] + ".json")
     if report_path.exists():
         existing = json.loads(report_path.read_text())
@@ -132,7 +132,7 @@ def maintain(ref: str, base: str, author: str, *, agent_review: bool,
     if curator is not None:
         reviewed = {"candidateRevision": reviewed_revision, "decision": "accept",
                     "reviewer": f"github:{curator}",
-                    "reason": "Independent curator accepted the exact Program candidate on dev."}
+                    "reason": "Repository curator accepted the exact Program candidate on dev."}
         result = integrate(folder, metadata, files, review=reviewed)
         result["review"] = reviewed
     # A protocol release always waits for a maintainer, so no agent review is spent on it.

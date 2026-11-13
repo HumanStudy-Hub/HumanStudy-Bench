@@ -73,8 +73,10 @@ not an overwrite. The contribution PR is archived/closed after integration rathe
 untrusted code changes into the implementation.
 
 On dev, dispatch the workflow with the proposal PR number to produce a review receipt. A repository
-admin or maintainer other than the proposal author can approve an eligible Program by dispatching
-again with the receipt's exact `headCommit` and `candidateRevision`. The worker recomputes the
+admin or maintainer can approve an eligible Program by dispatching again with the receipt's exact
+`headCommit` and `candidateRevision`. The workflow requires a different GitHub account from the PR
+author. For bot-submitted PRs, the repository curator must check for contributor conflicts separately.
+The worker recomputes the
 candidate against the current catalog and rejects an approval if either identity changed. Paired
 protocols continue through the separate maintainer release path. Accepted Programs receive
 revision-bound `user-submitted` provenance from the worker.

@@ -44,7 +44,7 @@ def test_worker_reads_untrusted_git_blobs_without_checkout_or_execution(tmp_path
     pending = worker.maintain(head, base, "researcher", agent_review=False)
     assert pending["status"] == "needs_review"
     candidate = pending["candidateRevision"]
-    for curator, reviewed, message in [("researcher", candidate, "independent"),
+    for curator, reviewed, message in [("researcher", candidate, "different GitHub account"),
                                        ("curator", "0" * 64, "exact eligible")]:
         with pytest.raises(ValueError, match=message):
             worker.maintain(head, base, "researcher", agent_review=False,
