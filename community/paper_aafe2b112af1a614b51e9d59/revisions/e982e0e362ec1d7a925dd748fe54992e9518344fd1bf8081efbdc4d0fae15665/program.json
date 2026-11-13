@@ -1,0 +1,678 @@
+{
+  "schemaVersion": 2,
+  "id": "wiegmann2023lying",
+  "title": "Does lying require objective falsity?",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Does lying require objective falsity?",
+    "authors": "Alex Wiegmann",
+    "doi": "10.1007/s11229-023-04291-3",
+    "filename": "sources/bundle/paper/paper.pdf"
+  },
+  "studies": [
+    {
+      "id": "e1",
+      "title": "Experiment1 · Perspective prompt",
+      "type": "empirical",
+      "description": "Simple yes/no judgment with or without an explicit observer-perspective prompt."
+    },
+    {
+      "id": "e2",
+      "title": "Experiment2 · Response-format classification",
+      "type": "empirical",
+      "description": "Question format × self/researcher classification."
+    },
+    {
+      "id": "e3",
+      "title": "Experiment3 · Explicit truth contrast",
+      "type": "empirical",
+      "description": "Single sample chooses between two explicit philosophical descriptions."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "background",
+      "kind": "background",
+      "title": "Believed false versus actually false statements",
+      "studyIds": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "evidenceIds": [
+        "e1-rationale",
+        "conclusion"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Believed false versus actually false statements",
+          "value": "The philosophical dispute asks whether an intentional deceptive statement can count as lying when, unbeknownst to the speaker, it is actually true. Prior response formats may confuse apparent versus actual lying with speaker belief versus reality.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e1-rationale",
+            "conclusion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "question",
+      "kind": "question",
+      "title": "Do objective truth and response wording change lie attribution?",
+      "studyIds": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "evidenceIds": [
+        "e1-rationale",
+        "e2-rationale",
+        "e3-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Do objective truth and response wording change lie attribution?",
+          "value": "Test whether perspective instructions explain lie judgments, whether contrast-format answers mean what researchers assume, and whether people explicitly classify objectively true but believed-false statements as lies.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e1-rationale",
+            "e2-rationale",
+            "e3-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hypothesis",
+      "kind": "hypothesis",
+      "title": "Subjective view and classification discrepancy",
+      "studyIds": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "evidenceIds": [
+        "e1-rationale",
+        "e2-rationale",
+        "e3-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Subjective view and classification discrepancy",
+          "value": "An observer-perspective prompt tests the account that perspective-taking inflates lie judgments. Experiment2 predicts more participants selecting “thinks she lied but did not actually lie” than subsequently classifying that answer as “did not lie”. Experiment3 directly pits lying despite truth against not lying because of truth.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e1-rationale",
+            "e2-rationale",
+            "e3-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "kind": "design",
+      "title": "Three distinct experiments",
+      "studyIds": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "evidenceIds": [
+        "e1-method",
+        "e2-method",
+        "e3-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Three distinct experiments",
+          "value": "Experiment1random prompt/no-prompt;Experiment2random2×2simple/contrast question × researcher/self classification;Experiment3one sample with explicit contrast choices. All use the Pool/Karen scenario, not three independently manipulated story contents.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e1-method",
+            "e2-method",
+            "e3-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e1-participants",
+      "kind": "participants",
+      "title": "Experiment1 sample",
+      "studyIds": [
+        "e1"
+      ],
+      "evidenceIds": [
+        "e1-method",
+        "e1-response"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Experiment1 sample",
+          "value": "300valid Prolific responses,150percondition;native English speakers,adults;meanage33,44%male,56%female;£.25for estimated2minutes. Only correct scenario-comprehension responses are analyzed.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e1-method",
+            "e1-response"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e2-participants",
+      "kind": "participants",
+      "title": "Experiment2 sample",
+      "studyIds": [
+        "e2"
+      ],
+      "evidenceIds": [
+        "e2-method",
+        "e1-response"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Experiment2 sample",
+          "value": "600valid Prolific responses,approximately150percell;native English adults;meanage35,39%male,60%female,1%nonbinary;£.25for estimated2minutes. Same comprehension eligibility rule.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e2-method",
+            "e1-response"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e3-participants",
+      "kind": "participants",
+      "title": "Experiment3 sample",
+      "studyIds": [
+        "e3"
+      ],
+      "evidenceIds": [
+        "e3-method",
+        "e1-response"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Experiment3 sample",
+          "value": "150valid Prolific responses;native English adults;meanage25,27%male,71%female,2%nonbinary;£.15for estimated1minute. Same comprehension eligibility rule.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e3-method",
+            "e1-response"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "material",
+      "kind": "material",
+      "title": "Pool vignette and response formats",
+      "studyIds": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "evidenceIds": [
+        "e1-response",
+        "e2-method",
+        "e3-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Pool vignette and response formats",
+          "value": "The Karen/Pool case is borrowed from prior work; present study’s paper supplies the test wording. Simple format asks whether Karen lied; contrast separates thinks-she-lied/actually-lied. Experiment3 explicitly contrasts lied although factually true versus did-not-lie because factually true. No unlicensed original Turri preprint is redistributed.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e1-response",
+            "e2-method",
+            "e3-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "procedure",
+      "kind": "procedure",
+      "title": "Judgment then comprehension",
+      "studyIds": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "evidenceIds": [
+        "e1-response",
+        "e2-method",
+        "e3-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Judgment then comprehension",
+          "value": "Present scenario and assigned prompt/format → lie response;Experiment2 repeats scenario and asks self/researcher classification on next page → two comprehension checks (intended deception and actual swimming). Valid responses only. Exact rejected-response recruitment totals are not supplied in these passages.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e1-response",
+            "e2-method",
+            "e3-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "variables",
+      "kind": "variable",
+      "title": "Lie judgment and consistency",
+      "studyIds": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "evidenceIds": [
+        "e1-method",
+        "e1-response",
+        "e2-method",
+        "e2-consistency",
+        "e3-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Lie judgment and consistency",
+          "value": "Binary lie attribution or contrast choice;Experiment2binary classification of previous answer and agreement between those answers. Perspective prompt and response/classification formats are manipulations; the scenario’s truth is fixed.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e1-method",
+            "e1-response",
+            "e2-method",
+            "e2-consistency",
+            "e3-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analysis",
+      "kind": "analysis",
+      "title": "Proportions and contrasts",
+      "studyIds": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "evidenceIds": [
+        "e1-response",
+        "e1-null",
+        "e2-consistency",
+        "e3-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Proportions and contrasts",
+          "value": "Binomial comparisons against50%for majority judgments and χ²tests for condition/consistency differences. A null prompt comparison is not equivalent to proving perspective-taking never matters.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e1-response",
+            "e1-null",
+            "e2-consistency",
+            "e3-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e1-result",
+      "kind": "result",
+      "title": "Experiment1: prompt does not detectably change judgment",
+      "studyIds": [
+        "e1"
+      ],
+      "evidenceIds": [
+        "e1-response",
+        "e1-null"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Experiment1: prompt does not detectably change judgment",
+          "value": "Lie attribution110/150(73.3%)prompt versus109/150(72.7%)no-prompt;bothmajoritiesp<.0001. Between-condition χ²=.0169,p=.897.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e1-response",
+            "e1-null"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e2-result",
+      "kind": "result",
+      "title": "Experiment2: contrast responses are not equivalent classifications",
+      "studyIds": [
+        "e2"
+      ],
+      "evidenceIds": [
+        "e2-results",
+        "e2-consistency"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Experiment2: contrast responses are not equivalent classifications",
+          "value": "Simple lie judgments72%researcher/66%self; subsequent consistent classifications94%/93%. Contrast “thinks lied but not actually” chosen87%/82%, yet only38%/36%classify as not-lie;consistency48%/52%. Consistency differences χ²62.77and74.97,bothp<.001. Of266contrast-not-actually choices,154(58%)later classify as did-lie,p=.012.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e2-results",
+            "e2-consistency"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e3-result",
+      "kind": "result",
+      "title": "Experiment3: explicitly true statement still counted as lying",
+      "studyIds": [
+        "e3"
+      ],
+      "evidenceIds": [
+        "e3-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Experiment3: explicitly true statement still counted as lying",
+          "value": "123/150(82%)choose that Karen lied although what she said was factually true,p<.001.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e3-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "kind": "finding",
+      "title": "Support for subjective falsity, with measurement sensitivity",
+      "studyIds": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "evidenceIds": [
+        "conclusion",
+        "e2-consistency"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Support for subjective falsity, with measurement sensitivity",
+          "value": "Most participants can call the objectively true statement a lie when the speaker believed it false. Contrast-format responses cannot be automatically recoded as literal not-lie judgments; the paper draws a philosophical conclusion from this evidence.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "conclusion",
+            "e2-consistency"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "kind": "limitation",
+      "title": "Scope of inference",
+      "studyIds": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "evidenceIds": [
+        "e1-method",
+        "e1-response",
+        "e2-method",
+        "e3-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Scope of inference",
+          "value": "One repeated scenario and selected native-English online respondents constrain generalization. These are judgments about a story, not observed deception behavior. Comprehension exclusions select valid responders; precise rejected totals remain unspecified here.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "e1-method",
+            "e1-response",
+            "e2-method",
+            "e3-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "source-conflict",
+      "kind": "limitation",
+      "title": "Unresolved source reporting and original materials",
+      "studyIds": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Unresolved source reporting and original materials",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable"
+          }
+        }
+      ]
+    }
+  ],
+  "steps": [],
+  "relations": [],
+  "issues": [
+    {
+      "id": "source-conflict",
+      "title": "Unresolved source reporting and original materials",
+      "severity": "check",
+      "reason": "Experiment2text prints p>.001 for87%Researcher contrast choices, while describing a clearmajority; retain this inequality as source discrepancy rather than silently repair. Figure captions refer to Experiment1 within Experiment2. Earlier Turri materials have unconfirmed redistribution rights; exact unpublished administration still requires source clarification.",
+      "impact": "Exact replay of this part remains limited; this is not a completed original replication.",
+      "suggestedAction": "Obtain the original source before reconstructing missing content.",
+      "nodeId": "source-conflict",
+      "fieldId": "summary",
+      "evidenceIds": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1-rationale",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1007/s11229-023-04291-3",
+      "locator": {
+        "page": 11
+      },
+      "quote": "3 Experiment 1\nAs described above, Turri and Turri (2021) argue that perspective taking artificially \ninflates lie attributions in studies that employ a simple question-and-response for-mat. This claim seems to be based on the following reasoning. If perspective taking \ncauses artificially inflated lie attributions, then employing a question-and-response \nformat that inhibits perspective taking should result in a lower rate of lie attribu-tions. Response options of the form “S thinks she lied but did not actually lie”/“S\nthinks she lied and actually did lie” do “respect the appearance/reality distinction \nand disentangle the agent’s perspective from what actually occurs” (p. 10), thereby \ninhibiting perspective taking. When these response options are actually employed, \nit turns out that significantly more participants choose the “S thinks she lied but did \nnot actually lie”-option than choose the “S did not lie”-option. So perspective taking \nhas artificially inflated lie attributions in previous studies that employed a simple \nquestion-and-response format.\nFor this reasoning to be valid, two assumptions need to be made. First, the mea-sures implemented to inhibit perspective taking do not affect lie attributions in any \nway other than what was intended (in more psychological terms: no confound was \npresent). Second, participants choosing the option “S thinks she lied but did not actu-ally lie” express the same judgement as when choosing “S did not lie”, namely that \nthe speaker did not lie. These assumptions, however, could be avoided if we were to \nfind a way to inhibit perspective taking without changing the wording of the response \noptions; and there seems to be a straightforward way to do this. For instance, one \ncould just tell the participants explicitly that they should answer the question of \nwhether a speaker is lying from their (i.e. each participant’s) perspective, and explic-itly state that they are allowed to take into account all the information provided in the \nvignette. This method was employed in the experiment described next.",
+      "verification": "unverified"
+    },
+    {
+      "id": "e1-method",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1007/s11229-023-04291-3",
+      "locator": {
+        "page": 11
+      },
+      "quote": "3.1 Participants\nParticipants were recruited using Prolific Academic, completed an online survey \nimplemented in Unipark, and were required to be at least 18 years old and native \nEnglish speakers. The experiment was run until the valid responses of 300 partici-pants were collected (150 in each condition). Mean age was 33 years, 44% were \nmale and 56% female. Participants received £0.25 for an estimated 2 min of their \ntime (£7.50/h).\n3.2 Design, procedure and materials\nParticipants were randomly assigned to one of two conditions (Prompt vs. No Prompt). \nAll participants were then presented with Pool scenario (Turri & Turri, 2021):\nOnly in the Prompt condition, participants saw the following prompt (in bold font) \nbefore the test question:",
+      "verification": "unverified"
+    },
+    {
+      "id": "e1-response",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1007/s11229-023-04291-3",
+      "locator": {
+        "page": 12
+      },
+      "quote": "Please answer the following question from your perspective, which means that \nyou are allowed to take into account all of the facts provided in the description \nof the story.\nThe wording of the lie-question was as follows:\nDid Karen lie to her neighbor?\n– Yes.\n– No.\nAfterwards, two questions were asked to make sure that the participants understood \nthe scenario in the intended way. The first asked whether Karen intended to deceive \nher neighbor; the second whether Karen’s children actually swam in the neighbor’s \npool. Only the data of participants who answered both questions correctly were used \nin the following analysis (the same applies to the other experiments).\n3.3 Results\nThe results are summarized in Fig. 1. In both conditions, the clear majority of par-ticipants (110 out of 150, i.e. 73.3%, in Prompt; and 109 out of 150, i.e. 72.7%, in \nNo Prompt) judged that Karen did lie to her neighbour (binomial test against 0.5,",
+      "verification": "unverified"
+    },
+    {
+      "id": "e1-null",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1007/s11229-023-04291-3",
+      "locator": {
+        "page": 13
+      },
+      "quote": "p<.0001).9\n The difference between the two conditions was not significant, χ2\n1, N =\n300=.0169, p=.897.",
+      "verification": "unverified"
+    },
+    {
+      "id": "e2-rationale",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1007/s11229-023-04291-3",
+      "locator": {
+        "page": 13
+      },
+      "quote": "4 Experiment 2\nThe previous experiment adds to the previously motivated worry that participants \nwho chose “Karen thinks she lied but did not actually lie” might not have wanted \nto indicate that Karen did not lie. To test this possibility, participants in the current \nexperiment were first presented with the Karen case and the Contrast format (“Which \noption better describes the case? Karen thinks she lied and did actually lie/Karen \nthinks she lied but did not actually lie”) used by Turri and Turri (2021). Then, after \nchoosing one of the two response options, they were asked how their choice should \nbe classified in terms of the question of whether Karen lied, either as “Karen did lie” \nor as “Karen did not lie”. This classification task came in two variants. In one con-dition, participants were asked how they themselves would classify the option they \nchose, while participants in the other condition were asked to guess how a researcher\ninterested in the question of whether Karen lied would classify the response they (the \nparticipant) provided.10 Assuming that some of the participants who chose the “Karen \nthinks she lied but did not actually lie”-option indeed did not mean to express that \nKaren did not lie, the following – and perhaps absurd-sounding – prediction follows. \nThe number of participants who first choose “Karen thinks she lied but did not actu-ally lie” will be significantly and substantially higher than the number of participants \nwho classify this response as “Karen did not lie” in the subsequent classification task.",
+      "verification": "unverified"
+    },
+    {
+      "id": "e2-method",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1007/s11229-023-04291-3",
+      "locator": {
+        "page": 14
+      },
+      "quote": "English speakers. The experiment was run until the valid responses of 600 partici-pants were collected (~150 in each of the four conditions). Mean age was 35 years, \n39% were male, 60% female, and 1% non-binary. Participants received £0.25 for an \nestimated 2 min of their time (£7.50/h).\n4.2 Design, procedure and materials\nParticipants were randomly assigned to one of four conditions in a 2 (Lie question: \nSimple vs. Turri) * 2 (classification: Researcher vs. Self) between-subjects design. \nAll participants were then presented with the Pool vignette used by Turri and Turri \n(2021):\nIn the Simple condition, the wording of the lie-question was as follows:\nDid Karen lie to her neighbor?\n– Yes.\n– No.\nIn the Turri condition, the wording of the test question was identical to the version \nTurri and Turri used to inhibit perspective taking:\nWhich option better describes the case?\n– Karen thinks she lied and did actually lie.\n– Karen thinks she lied but did not actually lie.\nOn the next page, the scenario was presented again and participants were asked a \nquestion about the classification of their response.\nIn the Researcher condition, the classification question was:\nImagine a researcher is interested in whether people think that Karen lied.\nHow will this researcher classify the option you chose on the previous page?\n– The researcher will classify my response as “Karen did lie”.\n– The researcher will classify my response as “Karen did not lie”.\nIn the Self condition, the question was worded as follows:\nJust to make sure we understood you correctly and classify your answer \naccordingly:\nHow do you classify your previous judgment in terms of the question of whether \nKaren lied?\n– Karen did lie.\n– Karen did not lie.",
+      "verification": "unverified"
+    },
+    {
+      "id": "e2-results",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1007/s11229-023-04291-3",
+      "locator": {
+        "page": 15
+      },
+      "quote": "4.3 Results\nThe results are summarized in Figs. 2 and 3. Let us first look at the Simple condition \n(Fig. 1). When asked whether Karen lied to her neighbour, a clear majority of partici-pants indicated that she did so (72% in the Researcher condition and 66% in the Self\ncondition, p<.001). The results for the subsequently asked classification question \nlook very similar to the results for the lie question. In the Researcher condition, 73% \nindicated that a researcher would classify their response as “Karen did lie” (vs. 72% \npreviously responding “yes” to the question “Did Karen lie?”); in the Self condition, \n71% indicated that they would classify their response as “Karen did lie” (vs. 66% \npreviously responding “yes” to the question “Did Karen lie?”).\nLet us define consistency across the lie question and the classification question as \n(a participant) responding “yes” to the lie-question and choosing the response includ-ing “Karen did lie” to the subsequent classification question, or responding “no” \nto the lie question and “Karen did not lie” to the classification question. Applying \nthis measure revealed that 94% of all participants in Researcher provided consistent \nanswers, and that 93% did so in the Self condition.\nFigure 3 summarizes the results for the condition in which the Contrast design \nfrom Turri and Turri (2021) was used. When asked “Which option better describes \nthe case”, a very clear majority of participants chose “Karen thinks she lied but did \nnot actually lie” (87% in the Researcher condition, p>.001 and 82% in the Self con-dition, p<.001). The results for the subsequently asked classification question are as \nfollows. In the Researcher condition, only a minority of 38% (p=.0025) indicated \nthat a researcher would classify their response as “Karen did not lie” (vs. 87% pre-viously having chosen “Karen thinks she lied but did not actually lie”). In the Self\ncondition, only a minority of 36% (p<.001) indicated that they would classify their \nresponse as “Karen did not lie”, although 82% chose the option stating that Karen \ndid not actually lie on the previous page.",
+      "verification": "unverified"
+    },
+    {
+      "id": "e2-consistency",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1007/s11229-023-04291-3",
+      "locator": {
+        "page": 16
+      },
+      "quote": "sify their previous choice, or responding “Karen thinks she lied but did not actually \nlie” to the lie question and “Karen did not lie” to the classification question, then only \n48% of all participants in Researcher provided consistent answers, and only 52% did \nso in the Self condition.\nThe proportions of participants providing consistent responses when Turri and \nTurri’s Contrast format was employed were significantly lower than in the corre-sponding conditions in which the simple question- and answer-format was used (48% \nvs. 94% in the Researcher condition, χ2\n1, N = 300=62.77, p<.001; and 52% vs. 93% in \nthe Self condition; χ2\n1, N = 300=74.97, p<.001).\nFinally, let us limit our analysis to the Contrast conditions and to those partici-pants who first chose the option that Turri and Turri (2021) counted as favouring the \nobjective view. Out of 266 participants who first chose the option “Karen thinks she \nlied but did not actually lie”, the majority (154, i.e. 58%, p=.012) chose “Karen did \nlie” in the subsequent classification task.",
+      "verification": "unverified"
+    },
+    {
+      "id": "e3-method",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1007/s11229-023-04291-3",
+      "locator": {
+        "page": 17
+      },
+      "quote": "5 Experiment 3\nThe aim of the concluding experiment is to make sure that participants take into \naccount the fact that the speaker’s statement was true, and to explicitly test whether \nthis fact means (entails) that the person in the scenario did not lie. Participants were \nasked which option better described the Karen case, and were given two response \noptions. One stated that the speaker lied although what she said was actually true, \nwhile the other stated that she did not lie because what she said was actually true. This \nformat prevents participants from neglecting the objective truth value and allows the \nsubjective view to be explicitly tested against the objective view.\n5.1 Participants\nParticipants were recruited using Prolific Academic, completed an online survey \nimplemented in Unipark, and were required to be at least 18 years old and native \nEnglish speakers. The experiment was run until the valid responses of 150 partici-pants were collected. Mean age was 25 years, 27% were male,71% female, and 2% \nnon-binary. Participants received £0.15 for an estimated 1 min of their time (£9/h).\n5.2 Design, procedure and materials\nAll participants were again presented with the Pool vignette used by Turri and Turri \n(2021):\nThe wording of the test-question was as follows:\nWhich option better describes the case?\n– Karen lied to her neighbour although what she said was factually true.\n– Karen did not lie to her neighbour because what she said was factually true.\n5.3 Results\n123 out of 150 (82%) participants chose the option stating that Karen lied to her \nneighbour, despite the fact that what she said was actually true (p<.001).",
+      "verification": "unverified"
+    },
+    {
+      "id": "conclusion",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1007/s11229-023-04291-3",
+      "locator": {
+        "page": 19
+      },
+      "quote": "In the concluding Experiment 3, the response options were worded in a way that \nallowed for a rather explicit test of the subjective view against the objective view. \nOne option stated that the speaker lied although what she said was actually true, \nwhile the other stated that she did not lie because what she said was actually true. \nThe clear majority indicated that the speaker lied although what she said was actually \ntrue, thereby providing evidence for the subjective view.\nTo sum up the empirical part, the experiments reported in this paper provide strong \nevidence that most participants consider subjectively false but objectively true state-ments to be lies. Moreover, they also explain why some studies seemingly found \nevidence for the objective view. On the basis of these findings and the review of the \nliterature it is concluded that empirical evidence consistently favours the subjective \nview of lying, according to which lying does not require objective falsity.",
+      "verification": "unverified"
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "studyArms": {
+        "e1": [
+          "e1_prompt",
+          "e1_noprompt"
+        ],
+        "e2": [
+          "e2_simple_researcher",
+          "e2_simple_self",
+          "e2_turri_researcher",
+          "e2_turri_self"
+        ],
+        "e3": [
+          "e3"
+        ]
+      }
+    },
+    "communityExport": {
+      "scope": "program-only",
+      "sources": [
+        {
+          "evidenceIds": [
+            "e1-rationale",
+            "e1-method",
+            "e1-response",
+            "e1-null",
+            "e2-rationale",
+            "e2-method",
+            "e2-results",
+            "e2-consistency",
+            "e3-method",
+            "conclusion"
+          ],
+          "url": "https://hss-opus.ub.ruhr-uni-bochum.de/opus4/files/14066/WiegmannAlex.pdf",
+          "attribution": "Alex Wiegmann. Does lying require objective falsity? (2023).",
+          "license": "CC-BY-4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sha256": "1b402e66d5617bb67c49fe4ea8b14654af642db30ac1731101fa7e43127093de",
+          "title": "Does lying require objective falsity?",
+          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
+        }
+      ],
+      "withheldEvidenceQuotes": {
+        "ids": [],
+        "reason": "redistribution-unverified"
+      }
+    }
+  }
+}
