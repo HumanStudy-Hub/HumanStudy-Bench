@@ -1,0 +1,3006 @@
+{
+  "schemaVersion": 2,
+  "id": "degen2021projection",
+  "title": "Prior Beliefs Modulate Projection",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Prior Beliefs Modulate Projection",
+    "authors": "Judith Degen; Judith Tonhauser",
+    "filename": "paper.pdf",
+    "venue": "Open Mind: Discoveries in Cognitive Science, 5, 59–70",
+    "doi": "10.1162/opmi_a_00042"
+  },
+  "studies": [
+    {
+      "id": "exp1",
+      "title": "Experiment 1: prior probability and projection in one within-participant session",
+      "type": "empirical",
+      "description": "Prior block and projection block in the same participants."
+    },
+    {
+      "id": "exp2a",
+      "title": "Experiment 2a: prior probability ratings (separate group)",
+      "type": "empirical",
+      "description": "Prior block alone, replicating the prior manipulation."
+    },
+    {
+      "id": "exp2b",
+      "title": "Experiment 2b: projection ratings (separate group)",
+      "type": "empirical",
+      "description": "Projection block alone; group-level prior means from the separate prior group.",
+      "dependsOn": [
+        "exp2a"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n-overview",
+      "kind": "overview",
+      "title": "Overview",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "year",
+          "label": "Year",
+          "value": 2021,
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-cite"
+          ]
+        },
+        {
+          "id": "method-type",
+          "label": "Method type",
+          "value": "Two online rating experiments (Amazon Mechanical Turk) with slider responses",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1p1",
+            "ev-e1prior"
+          ]
+        },
+        {
+          "id": "summary",
+          "label": "Summary",
+          "value": "Three experiments test whether listeners' prior beliefs about the probability of the content of a clause-embedding predicate's complement modulate how strongly the speaker is taken to be committed to it (projection).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-abs"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-abs",
+        "ev-cite"
+      ]
+    },
+    {
+      "id": "n-bg",
+      "kind": "background",
+      "title": "Question and gap",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "question",
+          "label": "Question",
+          "value": "Whether subjective prior beliefs about the probability of utterance content modulate projection.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-abs",
+            "ev-proj"
+          ]
+        },
+        {
+          "id": "gap",
+          "label": "Gap",
+          "value": "Previous research yielded conflicting results (Lorson, 2018; Mahler, 2020).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-gap"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-abs",
+        "ev-gap"
+      ]
+    },
+    {
+      "id": "n-h1",
+      "kind": "hypothesis",
+      "title": "Higher prior probability content projects more",
+      "studyIds": [
+        "exp1",
+        "exp2a",
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "Higher prior probability content is more likely to project.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-hyp1",
+            "ev-hypsrc"
+          ]
+        },
+        {
+          "id": "scope",
+          "label": "Scope",
+          "value": "Tested at the group and the participant level for 20 clause-embedding predicates.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-aims"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-hyp1",
+        "ev-hypsrc",
+        "ev-aims"
+      ]
+    },
+    {
+      "id": "m-targets",
+      "kind": "material",
+      "title": "Target clauses and facts",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "clauses-and-facts",
+          "label": "The 20 target clauses with lower and higher probability facts",
+          "value": {
+            "table": "Experiment 1: Target and control stimuli (list)",
+            "title": "20 clauses with their lower and higher probability facts",
+            "page": 1,
+            "source": "sources/opmi-05-59-s001.pdf",
+            "columns": [
+              "No.",
+              "Clause",
+              "Lower probability fact",
+              "Higher probability fact"
+            ],
+            "rows": [
+              [
+                "1.",
+                "Mary is pregnant.",
+                "Mary is a middle school student",
+                "Mary is taking a prenatal yoga class"
+              ],
+              [
+                "2.",
+                "Josie went on vacation to France.",
+                "Josie doesn’t have a passport",
+                "Josie loves France"
+              ],
+              [
+                "3.",
+                "Emma studied on Saturday morning.",
+                "Emma is in ﬁrst grade",
+                "Emma is in law school"
+              ],
+              [
+                "4.",
+                "Olivia sleeps until noon.",
+                "Olivia has two small children",
+                "Olivia works the third shift"
+              ],
+              [
+                "5.",
+                "Sophia got a tattoo.",
+                "Sophia is a high end fashion model",
+                "Sophia is a hipster"
+              ],
+              [
+                "6.",
+                "Mia drank 2 cocktails last night.",
+                "Mia is a nun",
+                "Mia is a college student"
+              ],
+              [
+                "7.",
+                "Isabella ate a steak on Sunday.",
+                "Isabella is a vegetarian",
+                "Isabella is from Argentina"
+              ],
+              [
+                "8.",
+                "Emily bought a car yesterday.",
+                "Emily never has any money",
+                "Emily has been saving for a year"
+              ],
+              [
+                "9.",
+                "Grace visited her sister.",
+                "Grace hates her sister",
+                "Grace loves her sister"
+              ],
+              [
+                "10.",
+                "Zoe calculated the tip.",
+                "Zoe is 5 years old",
+                "Zoe is a math major"
+              ],
+              [
+                "11.",
+                "Danny ate the last cupcake.",
+                "Danny is a diabetic",
+                "Danny loves cake"
+              ],
+              [
+                "12.",
+                "Frank got a cat.",
+                "Frank is allergic to cats",
+                "Frank has always wanted a pet"
+              ],
+              [
+                "13.",
+                "Jackson ran 10 miles.",
+                "Jackson is obese",
+                "Jackson is training for a marathon"
+              ],
+              [
+                "14.",
+                "Jayden rented a car.",
+                "Jayden doesn’t have a driver’s license",
+                "Jayden’s car is in the shop"
+              ],
+              [
+                "15.",
+                "Tony had a drink last night.",
+                "Tony has been sober for 20 years",
+                "Tony really likes to party with his friends"
+              ],
+              [
+                "16.",
+                "Josh learned to ride a bike yesterday.",
+                "Josh is a 75-year old man",
+                "Josh is a 5-year old boy"
+              ],
+              [
+                "17.",
+                "Owen shoveled snow last winter.",
+                "Owen lives in New Orleans",
+                "Owen lives in Chicago"
+              ],
+              [
+                "18.",
+                "Julian dances salsa.",
+                "Julian is German",
+                "Julian is Cuban"
+              ],
+              [
+                "19.",
+                "Jon walks to work.",
+                "Jon lives 10 miles away from work",
+                "Jon lives 2 blocks away from work"
+              ],
+              [
+                "20.",
+                "Charley speaks Spanish.",
+                "Charley lives in Korea",
+                "Charley lives in Mexico"
+              ]
+            ]
+          },
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1mat"
+          ]
+        },
+        {
+          "id": "predicates",
+          "label": "The 20 clause-embedding predicates",
+          "value": [
+            "acknowledge",
+            "admit",
+            "announce",
+            "be annoyed",
+            "be right",
+            "confess",
+            "confirm",
+            "demonstrate",
+            "discover",
+            "establish",
+            "hear",
+            "inform",
+            "know",
+            "pretend",
+            "prove",
+            "reveal",
+            "say",
+            "see",
+            "suggest",
+            "think"
+          ],
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-fig1"
+          ]
+        },
+        {
+          "id": "realization",
+          "label": "How target stimuli were realized in the projection block",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "pairing",
+          "label": "Pairing and fact assignment per participant",
+          "value": {
+            "predicates": 20,
+            "clauses": 20,
+            "highFacts": 10,
+            "lowFacts": 10,
+            "pairing": "random one-to-one",
+            "factAssignment": "random half and half",
+            "seeded": true
+          },
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1gen"
+          ],
+          "derivation": "Built from the printed description: predicates and clauses randomly paired, half of the stimuli randomly assigned the higher-probability fact and half the lower-probability fact.",
+          "extensions": {
+            "material": {
+              "kind": "schema-enough",
+              "what": "Per-participant pairing of predicates with clauses and assignment of facts",
+              "mentioned": "paper p. 5, Materials and Procedure",
+              "basis": "Printed description of the random pairing and the half and half assignment of facts."
+            }
+          }
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1mat",
+        "ev-e1gen"
+      ]
+    },
+    {
+      "id": "m-screens",
+      "kind": "material",
+      "title": "Trial screens and response scales",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "prior-question",
+          "label": "Prior block question",
+          "value": "How likely is it that…?",
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1prior"
+          ]
+        },
+        {
+          "id": "prior-anchors",
+          "label": "Prior slider anchors",
+          "value": [
+            "impossible",
+            "definitely"
+          ],
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1prior"
+          ]
+        },
+        {
+          "id": "projection-anchors",
+          "label": "Projection slider anchors",
+          "value": [
+            "no",
+            "yes"
+          ],
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1proj"
+          ]
+        },
+        {
+          "id": "projection-question",
+          "label": "Projection question",
+          "value": "Participants rated whether the speaker was certain of the content of the complement, taking into consideration the fact; Figure 1B shows the screen \"Fact (which Nancy knows): Julian is German. Nancy asks: \"Did Cole discover that Julian dances salsa?\" Is Nancy certain that Julian dances salsa?\"",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1proj",
+            "ev-fig1"
+          ]
+        },
+        {
+          "id": "prior-screen",
+          "label": "Prior block screen layout",
+          "value": "Figure 1A: \"Fact: Julian is German.\" then \"How likely is it that Julian dances salsa?\" with an \"impossible\" to \"definitely\" slider and a Next button.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-fig1"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1prior",
+        "ev-e1proj",
+        "ev-fig1"
+      ]
+    },
+    {
+      "id": "m-instr",
+      "kind": "material",
+      "title": "Participant instructions",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "party-scenario",
+          "label": "Party scenario for the projection block",
+          "value": "Participants were told to imagine that they are at a party and that, on walking into the kitchen, they overhear somebody ask somebody else a question.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1party"
+          ]
+        },
+        {
+          "id": "instruction-screens",
+          "label": "Instruction screens shown to participants",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev-e1party"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1party"
+      ]
+    },
+    {
+      "id": "m-frames",
+      "kind": "material",
+      "title": "Projection question frames",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "frames",
+          "label": "Wording of the 20 projection questions and of the six control questions",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        }
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "m-controls1",
+      "kind": "material",
+      "title": "Experiment 1 control and filler clauses",
+      "studyIds": [
+        "exp1",
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "controls",
+          "label": "Six control clauses and facts",
+          "value": {
+            "table": "Six control and filler clauses (list)",
+            "title": "The six clauses used in the control and filler stimuli of Exp. 1, with their facts",
+            "page": 2,
+            "source": "sources/opmi-05-59-s001.pdf",
+            "columns": [
+              "No.",
+              "Clause",
+              "Fact"
+            ],
+            "rows": [
+              [
+                "1.",
+                "Zack is coming to the meeting tomorrow.",
+                "Zack is a member of the golf club."
+              ],
+              [
+                "2.",
+                "Mary’s aunt is sick.",
+                "Mary visited her aunt on Sunday."
+              ],
+              [
+                "3.",
+                "Todd played football in high school.",
+                "Todd goes to the gym 3 times a week."
+              ],
+              [
+                "4.",
+                "Vanessa is good at math.",
+                "Vanessa won a prize at school."
+              ],
+              [
+                "5.",
+                "Madison had a baby.",
+                "Trish sent Madison a card."
+              ],
+              [
+                "6.",
+                "Hendrick’s car was expensive.",
+                "Hendrick just bought a car."
+              ]
+            ]
+          },
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1ctl",
+            "ev-e1fill"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1fill"
+      ]
+    },
+    {
+      "id": "m-controls2a",
+      "kind": "material",
+      "title": "Experiment 2a control items",
+      "studyIds": [
+        "exp2a"
+      ],
+      "fields": [
+        {
+          "id": "controls",
+          "label": "Two control items",
+          "value": [
+            [
+              "(1a)",
+              "Fact: Barry lives in Germany.",
+              "How likely is it that Barry lives in Europe?"
+            ],
+            [
+              "(1b)",
+              "Fact: Tammy is a rabbit.",
+              "How likely is it that Tammy speaks Italian and Greek?"
+            ]
+          ],
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat"
+          ]
+        }
+      ],
+      "evidenceIds": []
+    },
+    {
+      "id": "v-fact",
+      "kind": "variable",
+      "title": "Fact type (lower vs higher probability fact)",
+      "studyIds": [
+        "exp1",
+        "exp2a",
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1mat",
+            "ev-e1priormodel"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "binary",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1mat",
+            "ev-e1priormodel"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "one target trial",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1mat",
+            "ev-e1priormodel"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Whether the content was presented with the lower or the higher probability fact (reference level: lower probability).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1mat",
+            "ev-e1priormodel"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1mat",
+        "ev-e1priormodel"
+      ]
+    },
+    {
+      "id": "v-prior-rating",
+      "kind": "variable",
+      "title": "Prior probability rating",
+      "studyIds": [
+        "exp1",
+        "exp2a"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1prior"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous slider 0-1",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1prior"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "one prior-block trial",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1prior"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Slider rating of how likely the content is given the fact: \"impossible\" coded 0, \"definitely\" coded 1.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1prior"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1prior"
+      ]
+    },
+    {
+      "id": "v-certainty",
+      "kind": "variable",
+      "title": "Certainty (projection) rating",
+      "studyIds": [
+        "exp1",
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1proj"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous slider 0-1",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1proj"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "one projection-block trial",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1proj"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Slider rating of whether the speaker is certain of the content of the complement: \"no\" coded 0, \"yes\" coded 1.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1proj"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1proj"
+      ]
+    },
+    {
+      "id": "v-prior-group",
+      "kind": "variable",
+      "title": "Group-level by-item mean prior belief",
+      "studyIds": [
+        "exp1",
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1cert",
+            "ev-e2bres"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1cert",
+            "ev-e2bres"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "one content and fact",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1cert",
+            "ev-e2bres"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Mean prior probability rating of a content with its fact, used as a continuous group-level predictor.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1cert",
+            "ev-e2bres"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1cert",
+        "ev-e2bres"
+      ]
+    },
+    {
+      "id": "v-prior-indiv",
+      "kind": "variable",
+      "title": "Individual prior probability rating",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "iv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1indiv"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1indiv"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "one participant and content",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1indiv"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The participant's own prior probability rating of the content, used as a continuous predictor.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1indiv"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1indiv"
+      ]
+    },
+    {
+      "id": "pt-exp1",
+      "kind": "participants",
+      "title": "Participants exp1",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online, Amazon Mechanical Turk",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1p1"
+          ]
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "Participants with U.S. IP addresses and at least 99% of previous human intelligence tasks (HITs) approved.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1p1"
+          ]
+        },
+        {
+          "id": "n-recruited",
+          "label": "Recruited",
+          "value": 300,
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1p1"
+          ]
+        },
+        {
+          "id": "n-analysed",
+          "label": "Analysed",
+          "value": {
+            "participants": 286,
+            "dataPoints": 5720
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1excl"
+          ]
+        },
+        {
+          "id": "characteristics",
+          "label": "Sample make-up (recruited)",
+          "value": "ages 18–82, median 35.5; 119 female, 179 male, 1 other, 1 undeclared",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1p2"
+          ]
+        },
+        {
+          "id": "characteristics-analysed",
+          "label": "Sample make-up (analysed)",
+          "value": "ages 18–82; median 35.5; 116 female, 186 male, 1 other, 1 undeclared",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1excl"
+          ]
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "Paid $1.80; 9.1 minutes on average",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1p2"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Unit of analysis",
+          "value": "Ratings (trials) nested in participants and items",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1priormodel"
+          ]
+        },
+        {
+          "id": "table-a1",
+          "label": "Table A1: Data exclusion in Exps. 1 and 2",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "studyIds": [
+            "exp1",
+            "exp2a",
+            "exp2b"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "exclusion-rules",
+          "label": "Exclusion criteria",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "studyIds": [
+            "exp1",
+            "exp2a",
+            "exp2b"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1p1",
+        "ev-e1p2",
+        "ev-e1excl"
+      ]
+    },
+    {
+      "id": "pt-exp2a",
+      "kind": "participants",
+      "title": "Participants exp2a",
+      "studyIds": [
+        "exp2a"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online, Amazon Mechanical Turk",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2p0"
+          ]
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "Participants with U.S. IP addresses and at least 99% of previous HITs approved.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2p0"
+          ]
+        },
+        {
+          "id": "n-recruited",
+          "label": "Recruited",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "n-analysed",
+          "label": "Analysed",
+          "value": {
+            "participants": 75,
+            "dataPoints": 1500
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2ex_a"
+          ]
+        },
+        {
+          "id": "characteristics",
+          "label": "Sample make-up (recruited)",
+          "value": "ages 21–75, median 33; 45 female, 50 male",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2a_p"
+          ]
+        },
+        {
+          "id": "characteristics-analysed",
+          "label": "Sample make-up (analysed)",
+          "value": "ages 21–75; median 35; 34 female, 41 male",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2ex_b"
+          ]
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "Paid 55 cents; 3.9 minutes on average",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2a_p"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Unit of analysis",
+          "value": "Ratings (trials) nested in participants and items",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1priormodel"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2p0",
+        "ev-e2a_p",
+        "ev-e2ex_a",
+        "ev-e2ex_b"
+      ]
+    },
+    {
+      "id": "pt-exp2b",
+      "kind": "participants",
+      "title": "Participants exp2b",
+      "studyIds": [
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Online, Amazon Mechanical Turk",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2p0"
+          ]
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "Participants with U.S. IP addresses and at least 99% of previous HITs approved.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2p0"
+          ]
+        },
+        {
+          "id": "n-recruited",
+          "label": "Recruited",
+          "value": 300,
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2b_p"
+          ]
+        },
+        {
+          "id": "n-analysed",
+          "label": "Analysed",
+          "value": {
+            "participants": 266,
+            "dataPoints": 5320
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2ex_b"
+          ]
+        },
+        {
+          "id": "characteristics",
+          "label": "Sample make-up (recruited)",
+          "value": "ages 21–72, median 36; 145 female, 154 male, 1 undeclared",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2b_p"
+          ]
+        },
+        {
+          "id": "characteristics-analysed",
+          "label": "Sample make-up (analysed)",
+          "value": "ages 21–72; median 36; 129 female, 136 male, 1 undeclared",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2ex_c"
+          ]
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "Paid 85 cents; 7.1 minutes on average",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2b_p"
+          ]
+        },
+        {
+          "id": "overlap",
+          "label": "Overlap with Experiment 2a",
+          "value": "28 participants took Experiment 2b after taking Experiment 2a two weeks before; analyses excluding them did not change the results.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-fn6"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Unit of analysis",
+          "value": "Ratings (trials) nested in participants and items",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1priormodel"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2p0",
+        "ev-e2b_p",
+        "ev-e2ex_b",
+        "ev-e2ex_c",
+        "ev-fn6"
+      ]
+    },
+    {
+      "id": "c-exp1-low",
+      "kind": "condition",
+      "title": "exp1: content with lower probability fact",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The content of the clause is presented with its lower probability fact (within participants, half of the stimuli each).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1mat",
+            "ev-e1gen"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1mat",
+        "ev-e1gen"
+      ]
+    },
+    {
+      "id": "c-exp1-high",
+      "kind": "condition",
+      "title": "exp1: content with higher probability fact",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The content of the clause is presented with its higher probability fact (within participants, half of the stimuli each).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1mat",
+            "ev-e1gen"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1mat",
+        "ev-e1gen"
+      ]
+    },
+    {
+      "id": "c-exp2a-low",
+      "kind": "condition",
+      "title": "exp2a: content with lower probability fact",
+      "studyIds": [
+        "exp2a"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The content of the clause is presented with its lower probability fact (within participants, half of the stimuli each).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1mat"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2mat",
+        "ev-e1mat"
+      ]
+    },
+    {
+      "id": "c-exp2a-high",
+      "kind": "condition",
+      "title": "exp2a: content with higher probability fact",
+      "studyIds": [
+        "exp2a"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The content of the clause is presented with its higher probability fact (within participants, half of the stimuli each).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1mat"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2mat",
+        "ev-e1mat"
+      ]
+    },
+    {
+      "id": "c-exp2b-low",
+      "kind": "condition",
+      "title": "exp2b: content with lower probability fact",
+      "studyIds": [
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The content of the clause is presented with its lower probability fact (within participants, half of the stimuli each).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1mat"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2mat",
+        "ev-e1mat"
+      ]
+    },
+    {
+      "id": "c-exp2b-high",
+      "kind": "condition",
+      "title": "exp2b: content with higher probability fact",
+      "studyIds": [
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "The content of the clause is presented with its higher probability fact (within participants, half of the stimuli each).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1mat"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2mat",
+        "ev-e1mat"
+      ]
+    },
+    {
+      "id": "ds-exp1",
+      "kind": "design",
+      "title": "Design exp1",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Design type",
+          "value": "Within-participant manipulation of fact type (lower vs higher probability), ratings collected for 20 contents.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1gen"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Half of each participant's stimuli were randomly assigned the higher-probability fact, half the lower-probability fact.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1gen"
+          ]
+        },
+        {
+          "id": "order",
+          "label": "Order",
+          "value": "Block order and within-block trial order were randomized; 52 trials: 20 target trials in each block, six control trials in the projection block and six filler trials in the prior block.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1gen"
+          ]
+        },
+        {
+          "id": "manipulation-check",
+          "label": "Manipulation check",
+          "value": "Prior probability ratings test whether the facts changed the prior probability of the contents.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1priormodel"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1gen"
+      ]
+    },
+    {
+      "id": "ds-exp2a",
+      "kind": "design",
+      "title": "Design exp2a",
+      "studyIds": [
+        "exp2a"
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Design type",
+          "value": "Within-participant manipulation of fact type (lower vs higher probability), ratings collected for 20 contents.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Half of each participant's stimuli were randomly assigned the higher-probability fact, half the lower-probability fact.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1gen"
+          ]
+        },
+        {
+          "id": "order",
+          "label": "Order",
+          "value": "Trial order was random; 20 target trials and two control trials.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat"
+          ]
+        },
+        {
+          "id": "manipulation-check",
+          "label": "Manipulation check",
+          "value": "Prior probability ratings test whether the facts changed the prior probability of the contents.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1priormodel"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2mat"
+      ]
+    },
+    {
+      "id": "ds-exp2b",
+      "kind": "design",
+      "title": "Design exp2b",
+      "studyIds": [
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Design type",
+          "value": "Within-participant manipulation of fact type (lower vs higher probability), ratings collected for 20 contents.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1ctl"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Assignment",
+          "value": "Half of each participant's stimuli were randomly assigned the higher-probability fact, half the lower-probability fact.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1gen"
+          ]
+        },
+        {
+          "id": "order",
+          "label": "Order",
+          "value": "Trial order was random; 20 target trials and six control trials.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1ctl"
+          ]
+        },
+        {
+          "id": "manipulation-check",
+          "label": "Manipulation check",
+          "value": "Prior probability ratings test whether the facts changed the prior probability of the contents.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1priormodel"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2mat",
+        "ev-e1ctl"
+      ]
+    },
+    {
+      "id": "pr-exp1",
+      "kind": "procedure",
+      "title": "Procedure exp1",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "task",
+          "label": "Task",
+          "value": "Prior block and projection block with 20 target trials each (plus six filler trials in the prior block and six control trials in the projection block); optional demographic survey afterwards.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1prior",
+            "ev-e1proj",
+            "ev-e1gen",
+            "ev-e1demo"
+          ]
+        },
+        {
+          "id": "visible",
+          "label": "What each participant saw",
+          "value": "One trial screen at a time: a fact and the question, plus (projection block) the named speaker's question.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-fig1",
+            "ev-e1prior"
+          ]
+        },
+        {
+          "id": "feedback",
+          "label": "Feedback",
+          "value": "None reported.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1prior",
+            "ev-e1proj",
+            "ev-e1gen",
+            "ev-e1demo"
+          ]
+        },
+        {
+          "id": "not-told",
+          "label": "What participants were not told",
+          "value": [],
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1party"
+          ]
+        },
+        {
+          "id": "replay-memory",
+          "label": "Replay memory design",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev-e1prior",
+            "ev-e1proj",
+            "ev-e1gen",
+            "ev-e1demo"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "response-format",
+          "label": "Response format in the replay",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev-e1prior",
+            "ev-e1proj",
+            "ev-e1gen",
+            "ev-e1demo"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "payment",
+          "label": "Payment note",
+          "value": "Participants were told they would be paid no matter what answers they gave in the survey.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1pay"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1prior",
+        "ev-e1proj",
+        "ev-e1gen",
+        "ev-e1demo"
+      ]
+    },
+    {
+      "id": "pr-exp2a",
+      "kind": "procedure",
+      "title": "Procedure exp2a",
+      "studyIds": [
+        "exp2a"
+      ],
+      "fields": [
+        {
+          "id": "task",
+          "label": "Task",
+          "value": "Prior block alone, procedure identical to the prior block of Experiment 1.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1prior"
+          ]
+        },
+        {
+          "id": "visible",
+          "label": "What each participant saw",
+          "value": "One trial screen at a time: a fact and the question, plus (projection block) the named speaker's question.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-fig1",
+            "ev-e1prior"
+          ]
+        },
+        {
+          "id": "feedback",
+          "label": "Feedback",
+          "value": "None reported.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1prior"
+          ]
+        },
+        {
+          "id": "not-told",
+          "label": "What participants were not told",
+          "value": [],
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1party"
+          ]
+        },
+        {
+          "id": "replay-memory",
+          "label": "Replay memory design",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1prior"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "response-format",
+          "label": "Response format in the replay",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1prior"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2mat",
+        "ev-e1prior"
+      ]
+    },
+    {
+      "id": "pr-exp2b",
+      "kind": "procedure",
+      "title": "Procedure exp2b",
+      "studyIds": [
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "task",
+          "label": "Task",
+          "value": "Projection block alone, procedure identical to the projection block of Experiment 1.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1proj"
+          ]
+        },
+        {
+          "id": "visible",
+          "label": "What each participant saw",
+          "value": "One trial screen at a time: a fact and the question, plus (projection block) the named speaker's question.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-fig1",
+            "ev-e1prior"
+          ]
+        },
+        {
+          "id": "feedback",
+          "label": "Feedback",
+          "value": "None reported.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1proj"
+          ]
+        },
+        {
+          "id": "not-told",
+          "label": "What participants were not told",
+          "value": [],
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1party"
+          ]
+        },
+        {
+          "id": "replay-memory",
+          "label": "Replay memory design",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1proj"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "response-format",
+          "label": "Response format in the replay",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev-e2mat",
+            "ev-e1proj"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2mat",
+        "ev-e1proj"
+      ]
+    },
+    {
+      "id": "an-exp1",
+      "kind": "analysis",
+      "title": "Analysis exp1",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "aim",
+          "label": "Aim",
+          "value": "Test whether prior beliefs modulate projection at the categorical, group and individual level.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1cert"
+          ]
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Mixed-effects linear regression with random by-item and by-participant intercepts and slopes for fact type, fitted in R with lme4. Prior check: slider rating predicted from dummy-coded fact type (reference: lower probability). Projection: certainty rating predicted from fact type, from group-level by-item mean prior belief, or from the participant's individual prior rating.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1priormodel",
+            "ev-e1cert",
+            "ev-e1indiv"
+          ]
+        },
+        {
+          "id": "criterion",
+          "label": "Model comparison",
+          "value": "Bayesian information criterion (BIC) comparison of the three models, with AIC as a robustness check.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1bic",
+            "ev-e1aic"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1priormodel",
+        "ev-e1cert",
+        "ev-e1indiv",
+        "ev-e1bic"
+      ]
+    },
+    {
+      "id": "an-exp2a",
+      "kind": "analysis",
+      "title": "Analysis exp2a",
+      "studyIds": [
+        "exp2a"
+      ],
+      "fields": [
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Mixed-effects linear regression with random by-item and by-participant intercepts and slopes for fact type, fitted in R with lme4. Slider rating predicted from dummy-coded fact type.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1priormodel",
+            "ev-e2aprior"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2aprior"
+      ]
+    },
+    {
+      "id": "an-exp2b",
+      "kind": "analysis",
+      "title": "Analysis exp2b",
+      "studyIds": [
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Mixed-effects linear regression with random by-item and by-participant intercepts and slopes for fact type, fitted in R with lme4. Certainty rating predicted from categorical fact type or from continuous group-level prior means.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2bres",
+            "ev-e1cert"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2bres"
+      ]
+    },
+    {
+      "id": "rs-exp1",
+      "kind": "result",
+      "title": "Results exp1",
+      "studyIds": [
+        "exp1"
+      ],
+      "fields": [
+        {
+          "id": "prior-check",
+          "label": "Prior ratings by fact type",
+          "value": {
+            "beta": 0.45,
+            "SE": 0.01,
+            "t": 31.12,
+            "p": "< .0001"
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1priorres"
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "cert-categorical",
+          "label": "Certainty by fact type (categorical)",
+          "value": {
+            "beta": 0.14,
+            "SE": 0.01,
+            "t": 12.24,
+            "p": "< .0001"
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1cert"
+          ]
+        },
+        {
+          "id": "cert-group",
+          "label": "Certainty by group-level prior mean",
+          "value": {
+            "beta": 0.31,
+            "SE": 0.02,
+            "t": 12.58,
+            "p": "< .0001"
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1cert"
+          ]
+        },
+        {
+          "id": "cert-individual",
+          "label": "Certainty by individual prior rating",
+          "value": {
+            "beta": 0.28,
+            "SE": 0.02,
+            "t": 13.85,
+            "p": "< .0001"
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1indivres"
+          ]
+        },
+        {
+          "id": "bic",
+          "label": "BIC of the three models",
+          "value": {
+            "categorical": 2654,
+            "group-level": 2586,
+            "individual-level": 2291
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1bic"
+          ]
+        },
+        {
+          "id": "aic",
+          "label": "AIC of the three models",
+          "value": {
+            "categorical": 2607,
+            "group-level": 2539,
+            "individual-level": 2244
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1aic"
+          ]
+        },
+        {
+          "id": "combos",
+          "label": "Ratings per predicate/clause combination",
+          "value": {
+            "min": 5,
+            "max": 25,
+            "mean": 14.3
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1combo"
+          ]
+        },
+        {
+          "id": "spearman-td",
+          "label": "Spearman correlation with Experiment 1a of Tonhauser and Degen (2020)",
+          "value": {
+            "rho": 0.991
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e1spear"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e1priorres",
+        "ev-e1cert",
+        "ev-e1indivres",
+        "ev-e1bic"
+      ]
+    },
+    {
+      "id": "rs-exp2a",
+      "kind": "result",
+      "title": "Results exp2a",
+      "studyIds": [
+        "exp2a"
+      ],
+      "fields": [
+        {
+          "id": "prior-check",
+          "label": "Prior ratings by fact type",
+          "value": {
+            "beta": 0.54,
+            "SE": 0.04,
+            "t": 15.07,
+            "p": "< .0001"
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2aprior"
+          ]
+        },
+        {
+          "id": "spearman-exp1",
+          "label": "Spearman correlation of mean prior ratings with Experiment 1",
+          "value": {
+            "r": 0.977
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2aspear"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2aprior",
+        "ev-e2aspear"
+      ]
+    },
+    {
+      "id": "rs-exp2b",
+      "kind": "result",
+      "title": "Results exp2b",
+      "studyIds": [
+        "exp2b"
+      ],
+      "fields": [
+        {
+          "id": "cert-categorical",
+          "label": "Certainty by fact type (categorical)",
+          "value": {
+            "beta": 0.18,
+            "SE": 0.01,
+            "t": 12.81,
+            "p": "< .0001"
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2bres"
+          ]
+        },
+        {
+          "id": "cert-group",
+          "label": "Certainty by group-level prior mean",
+          "value": {
+            "beta": 0.34,
+            "SE": 0.03,
+            "t": 13.27,
+            "p": "< .0001"
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2bres"
+          ]
+        },
+        {
+          "id": "combos",
+          "label": "Ratings per predicate/clause combination",
+          "value": {
+            "min": 4,
+            "max": 27,
+            "mean": 13.3
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2bcombo"
+          ]
+        },
+        {
+          "id": "spearman-supp",
+          "label": "Spearman correlations of mean by-predicate certainty ratings",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        }
+      ],
+      "evidenceIds": [
+        "ev-e2bres",
+        "ev-e2bcombo"
+      ]
+    },
+    {
+      "id": "fd-main",
+      "kind": "finding",
+      "title": "Main finding",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "answer",
+          "label": "Answer",
+          "value": "Content is more likely to project the more a priori likely it is.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-conc"
+          ]
+        },
+        {
+          "id": "support",
+          "label": "Support",
+          "value": "Experiment 1 supports group-level and participant-level associations; Experiment 2b replicates the group-level association using prior ratings from a separate group in Experiment 2a.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-e2brepl",
+            "ev-hyp1",
+            "ev-e2brepl-continuation"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-conc",
+        "ev-hyp1"
+      ]
+    },
+    {
+      "id": "lim-1",
+      "kind": "limitation",
+      "title": "Scope and limits",
+      "studyIds": [],
+      "fields": [
+        {
+          "id": "scope",
+          "label": "Scope",
+          "value": "English clause-embedding predicates; 20 properties of individuals as prior manipulation; MTurk samples.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-aims",
+            "ev-e1p1"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "ev-aims"
+      ]
+    }
+  ],
+  "steps": [],
+  "relations": [],
+  "evidence": [
+    {
+      "id": "ev-abs",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Intwoexperiments,wetestedwhethersubjectivepriorbeliefsabouttheprobability of utterance content modulate projection, that is, listeners’ inferences about speaker commitmenttothatcontent.Wefindthatpriorbeliefspredictprojectionatboththegroupand theparticipantlevel:thehigherthepriorbeliefinacontent,themorespeakersaretakentobe committed to it.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-lic",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Attribution4.0International (CCBY4.0)license",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-cite",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Citation:Degen,J.,&Tonhauser,J.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-gap",
+      "locator": {
+        "page": 2
+      },
+      "quote": "There is conflicting evidence for the hypothesis that prior beliefs modulate projection.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-hypsrc",
+      "locator": {
+        "page": 2
+      },
+      "quote": "beliefsmodulateprojectionwasinitiallyputforthbyStevensetal.(2017)andTonhauseretal. (2018),",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-proj",
+      "locator": {
+        "page": 2
+      },
+      "quote": "Thisphenomenonofspeakercommitmenttoutterancecontentthatoccursinnegated sentences or questions is termed projection.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-aims",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Experiment1investigatedtheeffectofpriorbeliefsonprojectionbymeasuringpriorprobability andprojectioninawithin-participantdesign.InExperiments2aand2b,priorprobabilityand projectionweremeasuredinseparategroups,asinMahler(2020)andLorson(2018).",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1p1",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Participants Three hundred participants with U.S. IP addresses and at least 99% of previous\nhuman intelligence tasks (HITs) approved were recruited on Amazon’s Mechanical Turk plat-\nform (ages: 18–82, median: 35.5; 119 female, 179 male, 1 other, 1 undeclared). They were\npaid $1.80 and took 9.1 minutes on average to complete the experiment.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1p2",
+      "locator": {
+        "page": 3
+      },
+      "quote": "(ages: 18–82, median: 35.5; 119 female, 179 male, 1 other, 1 undeclared). They were paid $1.80 and took 9.1 minutes on average to complete the experiment.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1mat",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Each clause (e.g., Julian dances salsa) was paired with twofactsbetweenparticipants:Thecontentoftheclausewasexpectedtohaveahigherprior probability in the presence of one fact (e.g., Julian is Cuban) than of the other (e.g., Julian is German).",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1prior",
+      "locator": {
+        "page": 4
+      },
+      "quote": "In the prior block, the 20 clauses were realized as the complements of How likely is it that…?questions.AsshowninFigure1A,eachtargetstimulusconsistedofoneofthetwo factsforthatclauseandtheHowlikelyisitthat…?question.Participantsreadthefactand assessed the likelihood of the content, given the fact. They gave their responses on a slider marked “impossible” at one end (coded as 0) and “definitely” at the other (coded as 1).",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1proj",
+      "locator": {
+        "page": 4
+      },
+      "quote": "In the projection block, target stimuli consisted of a fact and a polar question that was ut- tered by a named speaker, as shown in Figure 1B. The polar questions were formed by real- izingthe20clausesasthecomplementsofthe20clause-embeddingpredicatesinFigure1C. Participantsweretoldtoimaginethattheyareatapartyandthat,onwalkingintothekitchen, they overhear somebody ask somebody else a question. Projection was measured using the “certain that” diagnostic (Djärv & Bacovcin, 2017; Lorson, 2018; Mahler, 2020; Tonhauser etal.,2018):participantswereaskedtoratewhetherthespeakerwascertainoftheCC,taking into consideration the fact. They gave their responses on a slider marked “no” at one end (codedas0)and“yes”attheother(codedas1).GreaterspeakercommitmenttotheCCshould result in higher slider ratings.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1party",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Participantsweretoldtoimaginethattheyareatapartyandthat,onwalkingintothekitchen, they overhear somebody ask somebody else a question.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1ctl",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Theprojectionblockalsoincludedsixcontroltrials,whichfunctionedasattentionchecks.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-fig1",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Figure 1. Example trials and 20 clause-embedding predicates. A. Example target trial in prior block. B. Example target trial in projection block.C. The 20clause-embedding predicates. D. Examplefiller trial in priorblock. E.Example control trial",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1fill",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Thesame six main clauses were also used to form 6 filler trials in the prior block; a sample stimulus is giveninFigure1D.Thesefillerstimuliwerenotusedtoassessparticipants’attention.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1gen",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Each participant’s stimulus set was semi-randomly generated by first randomly pairing up the20predicatesandclauses.Halfofthestimuliwerethenrandomlyassignedtherespective clause’s higher-probability fact, and half its lower-probability fact. Participants completed a total of 52 trials: 20 target trials in each block, six control trials in the projection block, and six filler trials in the prior block. Each participant completed the same six filler and control trials. Block order and within-block trial order were randomized.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1demo",
+      "locator": {
+        "page": 5
+      },
+      "quote": "After completing the experiment, participants filled out a short optional demographic",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1pay",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Toencouragetruthfulresponses,participantsweretoldthattheywouldbepaidnomatter what answers they gave in the survey.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1excl",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Datawereexcludedbasedonself-declarednon-nativespeakerstatusandother criteriagivenintheSupplementalMaterials,leaving5,720datapointsfrom286participantsto beanalyzed(ages18–82;median:35.5;116female,186male,1other,1undeclared).",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1priormodel",
+      "locator": {
+        "page": 5
+      },
+      "quote": "a mixed-effects linear regression predicting slider rating from dummy-coded fact type (reference level: “lower probability”) and random by-item and by-participant intercepts and slopes for fact type",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1priorres",
+      "locator": {
+        "page": 6
+      },
+      "quote": "fact(β=0.45,SE=0.01,t=31.12,p<.0001).",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1cert",
+      "locator": {
+        "page": 6
+      },
+      "quote": "a mixed effects linear regression predicting certainty ratings from dummy-coded fact type (reference level: “lower probability”) and random by-item and by-participant intercepts and slopes for fact type. The mean certainty ratings were higher for contents presented with higherprobabilityfactsthanforcontentspresentedwithlowerprobabilityfacts(β=0.14,SE= 0.01,t=12.24,p<.0001).Thesamewastruewhenusingthegroup-levelby-itemmeanprior beliefasapredictor(β=0.31,SE=0.02,t=12.58,p<.0001).",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1combo",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Each predicate/clause combination was rated 5–25 times (mean 14.3).",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1spear",
+      "locator": {
+        "page": 6
+      },
+      "quote": "TheSpearmanrank correlation between the mean certainty ratings in Experiment 1 (collapsing over facts) and Experiment 1a of Tonhauser and Degen (2020) is .991",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1indiv",
+      "locator": {
+        "page": 7
+      },
+      "quote": "weconducted thesamemixed-effectsanalysisreportedabove,butusedparticipants’individual,continuous priorprobabilityratingsasthefixedeffectpriorpredictor.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1indivres",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Again,higherprior–probabilityCCs weremorelikelytoproject(β=0.28,SE=0.02,t=13.85,p<.0001).",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1bic",
+      "locator": {
+        "page": 7
+      },
+      "quote": "(categoricalmodelBIC:2654;group-levelmodelBIC:2586;individual-levelmodel BIC: 2291)",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e1aic",
+      "locator": {
+        "page": 7
+      },
+      "quote": "(categorical model AIC: 2607; group-levelmodelAIC:2539;individual-levelmodelAIC:2244)",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-hyp1",
+      "locator": {
+        "page": 8
+      },
+      "quote": "The results of Experiment 1 provide empirical support for the hypothesis that higher prior probabilitycontentismorelikelytoproject.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2p0",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Participants Participants with U.S. IP addresses and at least 99% of previous HITs approved\nwere recruited on Amazon’s Mechanical Turk platform. The 95 participants in Experiment 2a\n(ages: 21–75, median: 33; 45 female, 50 male) were paid 55 cents and took 3.9 minutes on\naverage to complete the experiment. The 300 participants in Experiment 2b (ages: 21–72, me-\ndian: 36; 145 female, 154 male, 1 undeclared) were paid 85 cents and took 7.1 minutes on\naverage.\nMaterials and Procedures",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2a_p",
+      "locator": {
+        "page": 8
+      },
+      "quote": "The95participantsinExperiment2a (ages: 21–75, median: 33; 45 female, 50 male) were paid 55 cents and took 3.9 minutes on averagetocompletetheexperiment.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2b_p",
+      "locator": {
+        "page": 8
+      },
+      "quote": "The300participantsinExperiment2b(ages:21–72,me- dian: 36; 145 female, 154 male, 1 undeclared) were paid 85 cents and took 7.1 minutes on average.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2mat",
+      "locator": {
+        "page": 8
+      },
+      "quote": "The target stimuli of Experiment 2a were identical to those of the prior block of Experiment 1. Each participant saw two control stimuli as attention checks (see the Supplemental Materials). The materials of Experiment 2b were identical to those of the projection block of Experiment 1. Trial order in both experiments was random. The pro- ceduresofExperiments2aand2bwereidenticaltothoseofthepriorandprojectionblocksof Experiment 1, respectively.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2ex_a",
+      "locator": {
+        "page": 8
+      },
+      "quote": "We excluded data based on the criteria given in the Supplemental Materials, leavingdatafrom75participantstobeanalyzedinExperiment2a(1,500datapoints",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2ex_b",
+      "locator": {
+        "page": 8
+      },
+      "quote": "75;median:35;34female,41male)andfrom266participantsinExperiment2b(5,320data points",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2ex_c",
+      "locator": {
+        "page": 8
+      },
+      "quote": "ages 21–72; median: 36; 129 female, 136 male, 1 undeclared)",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2aprior",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Experiment 2a successfully replicated the prior probability manipulation of Experiment 1: contents were rated as more likely when presented with a higher probability fact (β = 0.54, SE = 0.04, t = 15.07, p < .0001).",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2aspear",
+      "locator": {
+        "page": 8
+      },
+      "quote": "The Spearman rank correlation was very high, at r = .977.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2bcombo",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Eachpredicate/clausecombinationwasrated4–27times (mean13.3).",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2bres",
+      "locator": {
+        "page": 8
+      },
+      "quote": "This wastruewhenthepriorpredictorwasenteredasacategoricalpredictor(referencelevel:“lower probability”;β=0.18,SE=0.01,t=12.81,p<.0001)andwhenitwasenteredasacontinuous predictor representing group-level prior means (β = 0.34, SE = 0.03, t = 13.27, p < .0001).",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2brepl",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Thus, Experiment 2b replicates the critical result of Experiment 1 that prior content probability",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-fn6",
+      "locator": {
+        "page": 10
+      },
+      "quote": "28participants tookExperiment 2bafter takingExperiment 2atwo weeksbefore.Analysesthatexcluded theseparticipants’datadidnotchangetheresults.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-conc",
+      "locator": {
+        "page": 10
+      },
+      "quote": "thatcontentismorelikelytoprojectthemoreapriorilikelyitis",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-n1",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "leaving5,720datapointsfrom286participants",
+      "note": "text layer of this PDF lacks spaces between words; spacing restored in the quote",
+      "verification": "unverified",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-n2a",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "leavingdatafrom75participantstobeanalyzedinExperiment2a(1,500datapoints",
+      "note": "text layer lacks spaces; spacing restored",
+      "verification": "unverified",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-n2b",
+      "path": "paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "andfrom266participantsinExperiment2b(5,320data points",
+      "note": "text layer lacks spaces; spacing restored",
+      "verification": "unverified",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    },
+    {
+      "id": "ev-e2brepl-continuation",
+      "locator": {
+        "page": 10
+      },
+      "quote": "modulates its projection.6\nThe replication suggests that the result of Experiment 1 is not an\nartifact of the within-participant design of Experiment 1.",
+      "verification": "unverified",
+      "path": "paper.pdf",
+      "sourceSha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+      "url": "https://doi.org/10.1162/opmi_a_00042"
+    }
+  ],
+  "issues": [
+    {
+      "id": "reading-gap-0",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "m-targets",
+      "fieldId": "realization",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-1",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "m-instr",
+      "fieldId": "instruction-screens",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-2",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "m-frames",
+      "fieldId": "frames",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-3",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "pt-exp1",
+      "fieldId": "table-a1",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-4",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "pt-exp1",
+      "fieldId": "exclusion-rules",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-5",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "pt-exp2a",
+      "fieldId": "n-recruited",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-6",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "pr-exp1",
+      "fieldId": "replay-memory",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-7",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "pr-exp1",
+      "fieldId": "response-format",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-8",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "pr-exp2a",
+      "fieldId": "replay-memory",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-9",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "pr-exp2a",
+      "fieldId": "response-format",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-10",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "pr-exp2b",
+      "fieldId": "replay-memory",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-11",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "pr-exp2b",
+      "fieldId": "response-format",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-12",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "rs-exp2b",
+      "fieldId": "spearman-supp",
+      "evidenceIds": []
+    },
+    {
+      "id": "printed-demographics-conflict",
+      "title": "Analyzed sample demographics do not sum to the reported sample",
+      "severity": "check",
+      "reason": "Experiment1 reports286 analyzed participants but lists116female,186male,1other,1undeclared, totaling304. Values are retained as printed.",
+      "impact": "Do not infer a corrected gender breakdown.",
+      "suggestedAction": "Check original data or ask authors to reconcile the printed demographics.",
+      "evidenceIds": [
+        "ev-e1excl"
+      ]
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "studyArms": {
+        "exp1": [
+          "exp1"
+        ],
+        "exp2a": [
+          "exp2a"
+        ],
+        "exp2b": [
+          "exp2b"
+        ]
+      },
+      "review": "Existing source-linked reading adapted; independent source/publication review pending. No runtime validation claimed."
+    },
+    "publication": {
+      "sources": [
+        {
+          "title": "Prior Beliefs Modulate Projection",
+          "authors": [
+            "Judith Degen",
+            "Judith Tonhauser"
+          ],
+          "url": "https://doi.org/10.1162/opmi_a_00042",
+          "license": "CC-BY-4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution": "Judith Degen; Judith Tonhauser. Prior Beliefs Modulate Projection (2021).",
+          "changes": "Existing source-linked reading organized into scholarly Program; original source and protocol unchanged."
+        }
+      ]
+    },
+    "communityExport": {
+      "scope": "program-only",
+      "sources": [
+        {
+          "evidenceIds": [
+            "ev-abs",
+            "ev-lic",
+            "ev-cite",
+            "ev-gap",
+            "ev-hypsrc",
+            "ev-proj",
+            "ev-aims",
+            "ev-e1p1",
+            "ev-e1p2",
+            "ev-e1mat",
+            "ev-e1prior",
+            "ev-e1proj",
+            "ev-e1party",
+            "ev-e1ctl",
+            "ev-fig1",
+            "ev-e1fill",
+            "ev-e1gen",
+            "ev-e1demo",
+            "ev-e1pay",
+            "ev-e1excl",
+            "ev-e1priormodel",
+            "ev-e1priorres",
+            "ev-e1cert",
+            "ev-e1combo",
+            "ev-e1spear",
+            "ev-e1indiv",
+            "ev-e1indivres",
+            "ev-e1bic",
+            "ev-e1aic",
+            "ev-hyp1",
+            "ev-e2p0",
+            "ev-e2a_p",
+            "ev-e2b_p",
+            "ev-e2mat",
+            "ev-e2ex_a",
+            "ev-e2ex_b",
+            "ev-e2ex_c",
+            "ev-e2aprior",
+            "ev-e2aspear",
+            "ev-e2bcombo",
+            "ev-e2bres",
+            "ev-e2brepl",
+            "ev-fn6",
+            "ev-conc",
+            "ev-n1",
+            "ev-n2a",
+            "ev-n2b",
+            "ev-e2brepl-continuation"
+          ],
+          "url": "https://doi.org/10.1162/opmi_a_00042",
+          "attribution": "Judith Degen; Judith Tonhauser. Prior Beliefs Modulate Projection (2021).",
+          "license": "CC-BY-4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sha256": "7e5dd92c989da118459b3711f296a9866e32db10173041783f862d349b5c8417",
+          "title": "Prior Beliefs Modulate Projection",
+          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
+        }
+      ],
+      "withheldEvidenceQuotes": {
+        "ids": [],
+        "reason": "redistribution-unverified"
+      }
+    }
+  }
+}
