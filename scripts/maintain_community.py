@@ -111,11 +111,32 @@ def proposal_from_ref(ref: str, base: str, author: str) -> tuple[Path, dict, dic
     return ROOT / "community" / canonical_id, metadata, files
 
 
-def maintain(ref: str, base: str, author: str, *, agent_review: bool) -> dict:
+def maintain(ref: str, base: str, author: str, *, agent_review: bool,
+             curator: str | None = None, reviewed_revision: str | None = None) -> dict:
     folder, metadata, files = proposal_from_ref(ref, base, author)
+    if curator is not None and curator.casefold() == author.casefold():
+        raise ValueError("the curator must use a different GitHub account from the PR author")
+    report_path = folder / "reviews" / (metadata["proposalId"] + ".json")
+    if report_path.exists():
+        existing = json.loads(report_path.read_text())
+        if existing.get("status") == "accepted":
+            if existing.get("headCommit") != ref or curator is not None and existing.get("revision") != reviewed_revision:
+                raise ValueError("an accepted proposal is immutable")
+            return existing
     result = integrate(folder, metadata, files)
+    if curator is not None and (result.get("status") != "needs_review"
+                               or not result.get("candidateRevision")
+                               or result.get("requiresMaintainer")
+                               or result["candidateRevision"] != reviewed_revision):
+        raise ValueError("approval must match the exact eligible Program candidate")
+    if curator is not None:
+        reviewed = {"candidateRevision": reviewed_revision, "decision": "accept",
+                    "reviewer": f"github:{curator}",
+                    "reason": "Repository curator accepted the exact Program candidate on dev."}
+        result = integrate(folder, metadata, files, review=reviewed)
+        result["review"] = reviewed
     # A protocol release always waits for a maintainer, so no agent review is spent on it.
-    if result.get("candidateRevision") and agent_review and not result.get("requiresMaintainer"):
+    if curator is None and result.get("candidateRevision") and agent_review and not result.get("requiresMaintainer"):
         pointer = folder / "current.json"
         current = json.loads(pointer.read_text()) if pointer.exists() else None
         candidate, conflicts = merge_assets(load_revision(folder, metadata.get("baseRevision")),
@@ -128,9 +149,8 @@ def maintain(ref: str, base: str, author: str, *, agent_review: bool) -> dict:
               "paperKey": metadata["paperKey"], **{k: v for k, v in result.items() if k != "validation"}}
     if "validation" in result:
         report["validation"] = {k: v for k, v in result["validation"].items() if k != "projection"}
-    reports = folder / "reviews"
-    reports.mkdir(parents=True, exist_ok=True)
-    (reports / (metadata["proposalId"] + ".json")).write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     # Keep the submitted assets immutable for attribution and future revalidation, never as visible cards.
     proposal = folder / "proposals" / metadata["proposalId"]
     proposal.mkdir(parents=True, exist_ok=True)
@@ -139,6 +159,11 @@ def maintain(ref: str, base: str, author: str, *, agent_review: bool) -> dict:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(raw)
     (proposal / "CONTRIBUTION.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n")
+    if result["status"] == "accepted":
+        pointer = folder / "current.json"
+        current = json.loads(pointer.read_text())
+        current["publication"] = {"kind": "user-submitted", "revision": result["revision"]}
+        pointer.write_text(json.dumps(current, ensure_ascii=False, indent=2) + "\n")
     write_catalog(ROOT, build_index())
     return report
 
@@ -149,5 +174,10 @@ if __name__ == "__main__":
     parser.add_argument("--base", required=True)
     parser.add_argument("--author", required=True)
     parser.add_argument("--agent-review", action="store_true")
+    parser.add_argument("--curator")
+    parser.add_argument("--reviewed-revision")
     args = parser.parse_args()
-    print(json.dumps(maintain(args.head, args.base, args.author, agent_review=args.agent_review), ensure_ascii=False))
+    if bool(args.curator) != bool(args.reviewed_revision):
+        parser.error("curator and reviewed revision are required together")
+    print(json.dumps(maintain(args.head, args.base, args.author, agent_review=args.agent_review,
+                              curator=args.curator, reviewed_revision=args.reviewed_revision), ensure_ascii=False))

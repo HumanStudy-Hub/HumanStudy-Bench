@@ -41,14 +41,29 @@ def test_worker_reads_untrusted_git_blobs_without_checkout_or_execution(tmp_path
     shutil.copy(ROOT / "catalog/taxonomy.json", tmp_path / "catalog/taxonomy.json")
     monkeypatch.setattr(worker, "ROOT", tmp_path)
     monkeypatch.setattr(worker, "build_index", lambda: [])
-    monkeypatch.setattr(worker, "review_candidate", lambda files, rid, paper: {"candidateRevision": rid, "decision": "accept", "reviewer": "independent-test-reviewer"})
-    report = worker.maintain(head, base, "researcher", agent_review=True)
+    pending = worker.maintain(head, base, "researcher", agent_review=False)
+    assert pending["status"] == "needs_review"
+    candidate = pending["candidateRevision"]
+    for curator, reviewed, message in [("researcher", candidate, "different GitHub account"),
+                                       ("curator", "0" * 64, "exact eligible")]:
+        with pytest.raises(ValueError, match=message):
+            worker.maintain(head, base, "researcher", agent_review=False,
+                            curator=curator, reviewed_revision=reviewed)
+    catalog_path = tmp_path / "co_website/data/research_index.json"
+    assert not json.loads(catalog_path.read_text())["papers"]
+    report = worker.maintain(head, base, "researcher", agent_review=False,
+                             curator="curator", reviewed_revision=candidate)
     assert report["status"] == "accepted"
+    assert report["review"]["reviewer"] == "github:curator"
     assert git("rev-parse", "HEAD") == base
-    catalog = json.loads((tmp_path / "co_website/data/research_index.json").read_text())
+    catalog = json.loads(catalog_path.read_text())
     assert len(catalog["papers"]) == 1
     assert catalog["papers"][0]["currentRevision"] == report["revision"]
     assert not catalog["papers"][0]["capabilities"]["replayable"]
+    paper_id = catalog["papers"][0]["id"]
+    assert catalog["publications"] == {paper_id: {"kind": "user-submitted", "revision": candidate}}
+    assert worker.maintain(head, base, "researcher", agent_review=False,
+                           curator="curator", reviewed_revision=candidate) == report
     with pytest.raises(ValueError, match="authenticated GitHub"):
         worker.proposal_from_ref(head, base, "someone-else")
 
