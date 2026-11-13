@@ -1,0 +1,519 @@
+{
+  "schemaVersion": 2,
+  "id": "novakova2013stakes",
+  "title": "How Much Is Our Fairness Worth? The Effect of Raising Stakes on Offers by Proposers and Minimum Acceptable Offers in Dictator and Ultimatum Games",
+  "intent": "reconstruct",
+  "source": {
+    "title": "How Much Is Our Fairness Worth? The Effect of Raising Stakes on Offers by Proposers and Minimum Acceptable Offers in Dictator and Ultimatum Games",
+    "authors": "Julie Novakova, Jaroslav Flegr",
+    "doi": "10.1371/journal.pone.0060966",
+    "filename": "sources/bundle/paper/paper.pdf"
+  },
+  "studies": [
+    {
+      "id": "study",
+      "title": "Questionnaire study · Stakes and fairness",
+      "type": "empirical",
+      "description": "One study compares single-stake and five-stake questionnaire formats; the game outcomes are repeated measures, not separate recruited experiments."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "background",
+      "kind": "background",
+      "title": "How expensive is fairness?",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "question"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "How expensive is fairness?",
+          "value": "The paper asks whether very large stakes reduce the relative amounts people offer others or are willing to accept, comparing a Dictator Game with Ultimatum Game offers and minimum acceptable offers.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "question"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hypothesis",
+      "kind": "hypothesis",
+      "title": "Higher stakes and exposure to increasing stakes",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "question",
+        "treatment-hypothesis"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Higher stakes and exposure to increasing stakes",
+          "value": "The authors predict more self-oriented relative offers and acceptance thresholds when stakes rise. They additionally predict that seeing all five increasing stakes makes the decline steeper than answering about one amount.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "question",
+            "treatment-hypothesis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "kind": "design",
+      "title": "One versus five hypothetical stake amounts",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "method",
+        "limitations"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "One versus five hypothetical stake amounts",
+          "value": "Treatment Five has 101 participants answer the three game questions for CZK 20, 200, 2,000, 20,000 and 200,000. Treatment One has 423 participants divided across the same five stake amounts, each answering for one amount. The paper does not state a random allocation procedure. These are questionnaire judgments without real transfers.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "method",
+            "limitations"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "participants",
+      "kind": "participants",
+      "title": "524 Czech university students",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "524 Czech university students",
+          "value": "Biology undergraduates at Charles University completed the questionnaire after an optional written exam; mean age 20.88 (SD 2.11). The paper prints 388 women and 71%, which do not reconcile for N=524; both remain reported rather than corrected.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "materials",
+      "kind": "material",
+      "title": "Three questions about monetary divisions",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Three questions about monetary divisions",
+          "value": "The article prints English explanations of anonymous, nonrepeated Dictator and Ultimatum Games and asks the amount offered in each plus the minimum acceptable Ultimatum offer. The smallest indivisible unit is CZK 1. The administered questionnaire language is not explicitly established by these English quotations.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "procedure",
+      "kind": "procedure",
+      "title": "Consent and a post-exam questionnaire",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "method",
+        "treatment-hypothesis"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Consent and a post-exam questionnaire",
+          "value": "Students consent and answer after the exam. Those in Treatment Five see all five amounts; Treatment One respondents see one. No co-player feedback is part of the described design.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "method",
+            "treatment-hypothesis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "variables",
+      "kind": "variable",
+      "title": "Relative offers and minimum acceptable shares",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "analysis"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Relative offers and minimum acceptable shares",
+          "value": "The three outcomes are proportional Dictator offers, Ultimatum offers and Ultimatum minimum acceptable offers. Predictors are log stake, treatment and gender; within-person repeated responses occur in Treatment Five.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "analysis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analysis",
+      "kind": "analysis",
+      "title": "Mixed models separate stakes and format",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "analysis",
+        "result-cont"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Mixed models separate stakes and format",
+          "value": "SPSS mixed linear models account for repeated observations, include treatment-by-stake interactions, and use two-sided p<.05. Models without interactions additionally test direct treatment differences. Separate regressions describe explained variability.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "analysis",
+            "result-cont"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "results",
+      "kind": "result",
+      "title": "Relative shares fall as stakes rise",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "result",
+        "means"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Relative shares fall as stakes rise",
+          "value": "Reported negative stake relationships are Dictator p=.034, Ultimatum offer p<.001 and minimum acceptable offer p=.001. Between CZK20 and CZK200,000, mean shares fall 28.3%→23.3%, 45.8%→37.2%, and 41.9%→30.1% respectively. The abstract prints Dictator p=.0034, differing from Results/Table2 p=.034; use the latter with the discrepancy visible.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "result",
+            "means"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nulls",
+      "kind": "result",
+      "title": "Format changes levels, not the stake slope",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "result-cont",
+        "treatment-result"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Format changes levels, not the stake slope",
+          "value": "The predicted steeper decline under Treatment Five is not supported. In no-interaction models, offers in both games are lower in Treatment Five (both p<.001), but the treatment effect on minimum acceptable offers is not significant (p=.567). Women offer more in the Dictator Game (p=.007); this gender effect is not observed in the Ultimatum Game.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "result-cont",
+            "treatment-result"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "kind": "finding",
+      "title": "High hypothetical stakes reduce shares without eliminating fairness",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "means",
+        "treatment-result"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "High hypothetical stakes reduce shares without eliminating fairness",
+          "value": "Relative generosity and acceptance thresholds decline, but even the highest stake retains substantial offers and thresholds. The distinct format-slope null prevents interpreting repeated amounts as a demonstrated learning mechanism.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "means",
+            "treatment-result"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "limits",
+      "kind": "limitation",
+      "title": "Hypothetical judgments and student sampling",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [
+        "limitations",
+        "sample-limit"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Hypothetical judgments and student sampling",
+          "value": "The authors discuss mixed evidence about hypothetical versus real incentives; their design permits unusually large hypothetical sums but does not demonstrate behavior with actual payments. A homogeneous student sample limits direct generalization.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "limitations",
+            "sample-limit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "language-gap",
+      "kind": "limitation",
+      "title": "Original administered questionnaire wording",
+      "studyIds": [
+        "study"
+      ],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Original administered questionnaire wording",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable"
+          }
+        }
+      ]
+    }
+  ],
+  "steps": [],
+  "relations": [],
+  "issues": [
+    {
+      "id": "language-gap",
+      "title": "Original administered questionnaire wording",
+      "severity": "check",
+      "reason": "The retained protocol blocks both treatments because the original questionnaire language and exact administered text have not been confirmed. English article quotations must not automatically become Czech participant screens.",
+      "impact": "Exact replay of this part remains limited; this is not a completed original replication.",
+      "suggestedAction": "Obtain the original source before reconstructing missing content.",
+      "nodeId": "language-gap",
+      "fieldId": "summary",
+      "evidenceIds": []
+    },
+    {
+      "id": "reporting-discrepancies",
+      "title": "Published percentage and p-value discrepancies",
+      "severity": "check",
+      "reason": "388/524 does not equal the printed 71%; the abstract Dictator p=.0034 differs from main Results p=.034.",
+      "impact": "Use the reported main-text test with its caveat; do not silently repair participant demographics.",
+      "suggestedAction": "Check original analysis or author clarification before quantitative reuse.",
+      "nodeId": "results",
+      "fieldId": "summary",
+      "evidenceIds": [
+        "method",
+        "result"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "question",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1371/journal.pone.0060966",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Background: The aim of this study was to determine whether people respond differently to low and high stakes in Dictator\nand Ultimatum Games. We assumed that if we raised the stakes high enough, we would observe more self-orientated\nbehavior because fairness would become too costly, in spite of a possible risk of a higher punishment.",
+      "verification": "unverified"
+    },
+    {
+      "id": "treatment-hypothesis",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1371/journal.pone.0060966",
+      "locator": {
+        "page": 3
+      },
+      "quote": "We also decided to study the effect of playing a single game\nversus five different games, each one with increasing amounts at\nstake. We assumed that seeing the raising stakes could push the\nsubjects even more toward a more selfish behavior, because – in\nspite of not repeating the same game and having no feedback from\na co-player – it could evoke a learning situation, similar to playing\nwith repetitions, such as in Roth and Erev [30] who observed a\nlowering in offers when the UG was played repeatedly. While in a\none-shot game, the players both consciously and unconsciously use\nprinciples from everyday life, which are useful in reality but not in\nthe game, in the subsequent rounds of a repeated game they\ngradually learn strategies closer to the basic game-theoretical\nmodel of Homo economicus, better suited for an anonymous game.\nPlaying several different games with raising amounts could have\nan analogous effect.",
+      "verification": "unverified"
+    },
+    {
+      "id": "method",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1371/journal.pone.0060966",
+      "locator": {
+        "page": 3
+      },
+      "quote": "We used a questionnaire method because it enabled testing a\nlarge sample of subjects and offer very high stakes. The sample\nconsisted of 524 undergraduate students of the Faculty of Science\nof the Charles University, their mean age being 20.88 (median 20,\ns.d. 2.11). 388 (71%) of the subjects were females. The students\nwere invited to take part in the study during regular evolutionary\nbiology courses. They signed the informed consent form and filled\nout the questionnaire immediately after a written test which was\nan optional part of the evolutionary biology exam. For previous\nusage of this sample recruitment method, see Flegr and Přı́platová\n[31]. Approximately 90% of students of Evolutionary Biology and\nMicroevolution & Macroevolution took part in the written exam\nand about 95% of them consented to take part in the study. The\nstudy was approved by the IRB Charles University, the Faculty of\nScience.\nRules of the Ultimatum and Dictator Games were explained to\nthe subjects in the questionnaire as stated below:\n‘‘The Dictator Game is played non-repeatedly and anonymous￾ly by two players, the Allocator and the Recipient. The Allocator is\ngiven an amount which they can divide between themself and the\nRecipient (the smallest, indivisible unit being CZK 1). They both\nkeep the proposed shares.’’\n‘‘The Ultimatum Game is played non-repeatedly and anony￾mously by two players, the Proposer and the Responder. The\nProposer is given an amount which they can divide between\nthemself and the Responder (the smallest, indivisible unit being\nCZK 1). This game is different in the aspect that the Responder\ncan influence it: If they accept the offer, both players get the\nproposed shares. If they reject it, both get nothing.’’\nThe experimental questions were ‘‘How much would you offer\nin the Dictator Game?’’, ‘‘How much would you offer in the\nUltimatum Game?’’ and ‘‘What is the minimum offer you would\naccept in the Ultimatum Game?’’.\nBesides the effect of raising the stakes, we also tested two\ndifferent treatments on our sample; in Treatment Five, 101\nstudents were given a questionnaire in which they answered the\nquestions for five different amounts: CZK 20, 200, 2,000, 20,000\nand 200,000 ($1 = approximately CZK 20). Another 423 students\nin Treatment One were divided into five groups and each one\nprovided answers in a game with just one of these amounts (which\nis why we chose a larger sample for the second treatment).",
+      "verification": "unverified"
+    },
+    {
+      "id": "analysis",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1371/journal.pone.0060966",
+      "locator": {
+        "page": 3
+      },
+      "quote": "We used a mixed linear model in SPSS 18.00 (IBM corporation)\nto estimate the relationship between the amount at stake and the\nshares allocated, and also for assessing the influence of the two\ntreatments and gender of the subjects. Within-subjects effects of\nmultiple observations for one person in Treatment Five were\nfiltered in the model. Results with p,0.05 in a two-sided test were\nconsidered significant. The analyzed dataset is available for\ndownload as a supplement of this paper, Dataset S1.\nResults\nThe mean relative offers and minimum acceptable shares\ngradually lowered with the increasing stakes, as listed in Table 1.\nThe dependent variables in the LMM analysis were the relative\nshares offered in the DG and the UG and the relative MAOs in\nthe UG; the explanatory variables were a logarithm of the amount\nat stake and two binary variables, the treatment (one amount vs.\nfive amounts at stake) and gender. The logarithmic transformation\nwas used because the average shares (as seen in Table 1) dropped\napproximately the same for each step, not still more as the stakes\nrose; therefore we deemed this transformation useful to describe\nthe influence of the stakes on the shares correctly. We included the\nsubjects’ gender in the model because men and women had\nproven to behave differently in experimental economics games (as\ndiscussed in the next section) – and hence the gender could explain\na part of the variability of the data. We estimated the influence of\nthe treatment on the effect of the amount at stake on the offers and\nMAOs by including an interaction between the treatment and the\namount at stake in the model. The mixed linear model provides an\nestimation of parameters of the line best fitting to describe the\nrelationships between tested variables; however, it cannot provide\nthe effect size. Therefore we also calculated an estimated effect size\nfrom a linear regression analysis for each treatment (see Figures 1,\n2, and 3).",
+      "verification": "unverified"
+    },
+    {
+      "id": "result",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1371/journal.pone.0060966",
+      "locator": {
+        "page": 3
+      },
+      "quote": "We found a significant negative relationship between the\nlogarithm of the amount at stake and offers in the DG\n(p= 0.034), proposed shares in the UG (p,0.001) and MAOs in\nthe UG (p= 0.001) as listed in Table 2 and shown in Figures 1 to 3.\nThe effect of the treatment was insignificant, as well as the\ninteractions of the treatment and the stakes.",
+      "verification": "unverified"
+    },
+    {
+      "id": "result-cont",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1371/journal.pone.0060966",
+      "locator": {
+        "page": 4
+      },
+      "quote": "proved significantly more generous in their offers than men\n(p= 0.007); this effect was not observed in the UG. An analysis\nwithout interactions was run too to estimate how the treatment\ninfluenced the shares directly – not how it influenced the relation\nbetween them and the stakes. In this case, the effect of the\ntreatment was significant in offers in both games (p,0.001 in both\ncases); the effects of the stakes and in the DG also gender\nremained. In MAOs in the UG, the effect of the treatment on the\nshares was insignificant (p= 0.567).",
+      "verification": "unverified"
+    },
+    {
+      "id": "means",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1371/journal.pone.0060966",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Table 1. Mean offers in the DG and the UG.\nMean offer in the DG Mean offer in the UG Mean MAO in the UG\nCZK 20 28.3% 45.8% 41.9%\nCZK 200 27.9% 43.4% 37.9%\nCZK 2,000 24.7% 40.0% 34.7%\nCZK 20,000 23.6% 38.7% 33.4%\nCZK 200,000 23.3% 37.2% 30.1%\nMean offers in the Dictator and Ultimatum Games and minimum acceptable offers in the Ultimatum Game (expressed as a percentage of the amount at stake).\ndoi:10.1371/journal.pone.0060966.t001",
+      "verification": "unverified"
+    },
+    {
+      "id": "treatment-result",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1371/journal.pone.0060966",
+      "locator": {
+        "page": 6
+      },
+      "quote": "The absence of a significant effect of the treatment on the\nrelationship between the stakes and the relative shares rejected our\nhypothesis that in Treatment Five, the subjects would lower their\nshares more rapidly. The treatment alone had an effect on offers\nmade by the Allocators and Proposers, which were lower in\nTreatment Five, but the slope of the line fit to the shares\ndecreasing with the increasing amount at stake remained\npractically the same in both treatments.",
+      "verification": "unverified"
+    },
+    {
+      "id": "limitations",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1371/journal.pone.0060966",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Limitations\nIt could be supposed that in a questionnaire study, the subjects\nhad no reason to be honest about their real behavior; however,\nGüth et al. [1] found no significant difference between results from\nexperiments with hypothetical and real stakes in their initial UG\nexperiment. Camerer and Hogarth [27] mentioned in their review\nof the use of high incentives in experimental games that the\nAllocators usually kept more for themselves when the monies were\nreal. Cameron [18] found the Proposers greedier in hypothetical\ngames under high stakes than in real-money games; the\nResponders seemed more fairness-oriented in games with hypo￾thetical money, more willing to turn down unfair offers.\nHertwig and Ortmann [34] investigated the effect of financial\nincentives in psychological and economic studies published in the\nJournal of Behavioral Decision Making. The results were inconsistent; in\nvarious cases, the incentives reduced data variability, decreased an\neffect of framing, influenced people’s judgement, brought decisions\ncloser to a modelled situation, impaired subjects’ performance or\nhad no effect at all. However, they focused mainly on tasks of\njudgement and decision.\nLindová et al. [35] conducted a real-money Dictator Game\nexperiment with a similar sample (biology students at the Faculty\nof Science of Charles University in Prague) as we had with our\nhypothetical stakes and the Allocators gave the Recipients CZK\n3.19 on average from the whole amount of CZK 10. The share of\n31.9% is quite consistent with our results of 28.3% for CZK 20.\nThe proportion given from CZK 10 is only a little higher, which\nsupports the hypothesis that with rising stakes, the shares lower\naccordingly.\nEngel [26] performed a meta-analytical study of 131 papers on\nthe DG. He found the effect of asking hypothetical questions\nindistinguishable from real incentives at stake. Amir et al. [36]\nfound that stakes of $1, compared to zero stakes, significantly\nreduced the mean offer in the DG, but in contrast, caused a\nmarginally significant increase in the UG. Given the significance\nof 9.7% and a small effect size, the authors concluded that stakes\nhave only little effect on the proposals in the UG. There was no\nsignificant effect found in the case of the MAOs in the UG. On the\nbasis of these studies, we can assume that the hypothetical stakes\nhave most likely a minor or negligible effect on the subjects’\nanswers. Using hypothetical instead of real stakes also had two\nlarge advantages – it enabled us to use very large amounts at stake\nand helped us achieve an absolutely blind design of the study.",
+      "verification": "unverified"
+    },
+    {
+      "id": "sample-limit",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1371/journal.pone.0060966",
+      "locator": {
+        "page": 7
+      },
+      "quote": "In our study, we worked with student participants; it could be\nsupposed that such a homogeneous sample tells little about the\nbehavior of the majority of people.",
+      "verification": "unverified"
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "studyArms": {
+        "study": [
+          "one",
+          "five"
+        ]
+      }
+    },
+    "communityExport": {
+      "scope": "program-only",
+      "sources": [
+        {
+          "evidenceIds": [
+            "question",
+            "treatment-hypothesis",
+            "method",
+            "analysis",
+            "result",
+            "result-cont",
+            "means",
+            "treatment-result",
+            "limitations",
+            "sample-limit"
+          ],
+          "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0060966&type=printable",
+          "attribution": "Julie Novakova, Jaroslav Flegr. How Much Is Our Fairness Worth? The Effect of Raising Stakes on Offers by Proposers and Minimum Acceptable Offers in Dictator and Ultimatum Games (2013).",
+          "license": "CC-BY-4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sha256": "4394e006e63c5f95f01230a7a64b99a82967879b455dd65f3fbaa664e9f1f6c0",
+          "title": "How Much Is Our Fairness Worth? The Effect of Raising Stakes on Offers by Proposers and Minimum Acceptable Offers in Dictator and Ultimatum Games",
+          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
+        }
+      ],
+      "withheldEvidenceQuotes": {
+        "ids": [],
+        "reason": "redistribution-unverified"
+      }
+    }
+  }
+}
