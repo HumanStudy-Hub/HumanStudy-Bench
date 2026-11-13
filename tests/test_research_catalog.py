@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.research.catalog import build_catalog, community_identity, digest, paper_identity, project_program, taxonomy_errors
+from scripts.research.catalog import build_catalog, community_identity, current_publications, digest, paper_identity, project_program, taxonomy_errors
 from scripts.research.imports import psych201_records, reanalysis_records
 from scripts.research.revisions import integrate, merge_assets, merge_json, revision_id, safe_path, validate_assets
 
@@ -36,6 +36,25 @@ def test_identity_links_doi_but_never_collapses_title_only_records():
     b = paper_identity({"doi": "doi:10.1234/abc"}, "source:b")
     assert a[0] == b[0]
     assert paper_identity({"title": "Same title"}, "source:a")[0] != paper_identity({"title": "Same title"}, "source:b")[0]
+
+
+def test_publication_provenance_requires_a_trusted_record_for_the_exact_revision(tmp_path):
+    pid, revision = "paper_" + "a" * 24, "b" * 64
+    entry = {"kind": "maintainer-reviewed-protocol", "revision": revision}
+    paper = {"currentRevision": revision, "publication": entry, "protocol": {
+        "schemaVersion": "1", "revision": revision,
+        "fidelity": {"verdict": "HIGH FIDELITY", "signed_by": "fixture reviewer"},
+        "arms": [{"id": "a", "runnable": True}],
+    }}
+    papers = {pid: paper}
+    assert current_publications(tmp_path, papers) == {}
+    registry = tmp_path / "catalog/publications.json"
+    registry.parent.mkdir()
+    registry.write_text(json.dumps({"schemaVersion": 1, "papers": {pid: entry}}))
+    assert current_publications(tmp_path, papers) == {pid: entry}
+    assert current_publications(tmp_path, {pid: {**paper, "currentRevision": "c" * 64}}) == {}
+    with pytest.raises(ValueError, match="lacks a signed runnable protocol"):
+        current_publications(tmp_path, {pid: {"currentRevision": revision, "publication": entry}})
 
 
 def test_legacy_slug_collisions_cannot_reassign_canonical_paper_identity():
