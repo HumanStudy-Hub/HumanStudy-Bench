@@ -1,0 +1,752 @@
+{
+  "schemaVersion": 2,
+  "id": "thomson2016crt2",
+  "title": "Investigating an alternate form of the cognitive reflection test",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Investigating an alternate form of the cognitive reflection test",
+    "authors": "Keela S. Thomson, Daniel M. Oppenheimer",
+    "doi": "10.1017/S1930297500007622",
+    "filename": "sources/paper.pdf"
+  },
+  "studies": [
+    {
+      "id": "s1",
+      "title": "Study 1 · Prior exposure",
+      "type": "empirical",
+      "description": "Two MTurk recruitment pools, not randomized experimental arms."
+    },
+    {
+      "id": "s2",
+      "title": "Study 2 · Construct validation",
+      "type": "empirical",
+      "description": "UCLA student cognitive battery."
+    },
+    {
+      "id": "validity",
+      "title": "Additional familiarity-validity study",
+      "type": "empirical",
+      "description": "Separate MTurk sample described in Discussion and AppendixA."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "background",
+      "kind": "background",
+      "title": "Why develop another cognitive reflection test?",
+      "studyIds": [
+        "s1",
+        "s2",
+        "validity"
+      ],
+      "evidenceIds": [
+        "overview"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Why develop another cognitive reflection test?",
+          "value": "Prior familiarity with common CRT questions can inflate scores, and numerical ability overlaps with the original CRT. The authors propose a four-item CRT-2 and test familiarity, construct relationships and predictive validity.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "overview"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "question",
+      "kind": "question",
+      "title": "Does CRT-2 provide a useful alternative?",
+      "studyIds": [
+        "s1",
+        "s2",
+        "validity"
+      ],
+      "evidenceIds": [
+        "overview",
+        "numeracy",
+        "validity-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Does CRT-2 provide a useful alternative?",
+          "value": "Assess lower prior exposure, overlap with the original CRT, weaker numeracy dependence, and associations with other rational-thinking measures. Separately ask whether prior exposure reduces the original CRT’s predictive validity.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "overview",
+            "numeracy",
+            "validity-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hypotheses",
+      "kind": "hypothesis",
+      "title": "Validation expectations",
+      "studyIds": [
+        "s1",
+        "s2",
+        "validity"
+      ],
+      "evidenceIds": [
+        "overview",
+        "numeracy"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Validation expectations",
+          "value": "CRT-2 should require reflection while reducing numeracy dependence and familiarity relative to the original three items. These are validation aims; this reading does not invent a preregistered directional hypothesis for every demographic or item correlation.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "overview",
+            "numeracy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "kind": "design",
+      "title": "Three samples with different purposes",
+      "studyIds": [
+        "s1",
+        "s2",
+        "validity"
+      ],
+      "evidenceIds": [
+        "s1-method",
+        "s2-method",
+        "validity-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Three samples with different purposes",
+          "value": "Study1 compares nonrandom MTurk Masters-required/optional pools. Study2 is a correlational cognitive battery. The additional MTurk validity sample compares self-reported exposure groups; exposure itself is not randomized.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s1-method",
+            "s2-method",
+            "validity-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s1-participants",
+      "kind": "participants",
+      "title": "Study 1 recruitment",
+      "studyIds": [
+        "s1"
+      ],
+      "evidenceIds": [
+        "s1-method",
+        "s1-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study 1 recruitment",
+          "value": "200 MTurk respondents,100 per recruitment pool, approval≥95%; prevent repeat participation. One Masters-optional respondent removed for apparently random responses.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s1-method",
+            "s1-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s1-procedure",
+      "kind": "procedure",
+      "title": "Study 1 tasks",
+      "studyIds": [
+        "s1"
+      ],
+      "evidenceIds": [
+        "s1-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study 1 tasks",
+          "value": "Original CRT, four CRT-2 items and four novel decoys intermixed in individually randomized order; ask prior exposure after each item. Decoys assess overclaiming familiarity.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s1-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s1-results",
+      "kind": "result",
+      "title": "Study 1: less exposure to CRT-2",
+      "studyIds": [
+        "s1"
+      ],
+      "evidenceIds": [
+        "s1-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study 1: less exposure to CRT-2",
+          "value": "Prior exposure to at least one original CRT item:62.6% Masters-optional,94.0% Masters-required; CRT-2:17.2%,29.0%. Comparisons t(98)=7.406 and t(99)=13.559,both p<.001. Decoy overclaiming2.0% and0.0%.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s1-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2-participants",
+      "kind": "participants",
+      "title": "Study 2 recruitment and available cases",
+      "studyIds": [
+        "s2"
+      ],
+      "evidenceIds": [
+        "s2-method"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study 2 recruitment and available cases",
+          "value": "143 UCLA undergraduates, mean age20.50,68%female; nine did not finish within session time. Additional unanswered/uninterpretable responses yield varying analysis Ns; scale scores require all items answered.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s2-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "materials",
+      "kind": "material",
+      "title": "Cognitive battery",
+      "studyIds": [
+        "s1",
+        "s2",
+        "validity"
+      ],
+      "evidenceIds": [
+        "s2-method",
+        "s2-scoring",
+        "s2-measures"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Cognitive battery",
+          "value": "Original three-item CRT and four-item CRT-2, belief-bias syllogisms, numeracy, time and risk preferences, 18-item need-for-cognition and five denominator-neglect problems. Prior exposure and syllogism training are also measured. Exact item sources and unresolved scoring conflicts remain in the local protocol.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s2-method",
+            "s2-scoring",
+            "s2-measures"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2-procedure",
+      "kind": "procedure",
+      "title": "Study 2 order",
+      "studyIds": [
+        "s2"
+      ],
+      "evidenceIds": [
+        "s2-method",
+        "s2-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study 2 order",
+          "value": "Belief bias → numeracy (CRT/CRT-2 intermixed randomly) → time preference → risk preference → need for cognition → demographics. Denominator-neglect questions distributed between tasks; prior exposure and syllogism-training questions at end. CRT/numeracy items on one page may allow revising earlier answers.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s2-method",
+            "s2-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "variables",
+      "kind": "variable",
+      "title": "Scores and response classes",
+      "studyIds": [
+        "s1",
+        "s2",
+        "validity"
+      ],
+      "evidenceIds": [
+        "s2-scoring",
+        "numeracy",
+        "s2-measures"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Scores and response classes",
+          "value": "CRT and CRT-2 total correct; incorrect answers separated into intuitive errors versus other. Numeracy and other scale scores, prior exposure and demographics are measured variables; no randomized numeracy intervention.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s2-scoring",
+            "numeracy",
+            "s2-measures"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analysis",
+      "kind": "analysis",
+      "title": "Reliability and associations",
+      "studyIds": [
+        "s1",
+        "s2",
+        "validity"
+      ],
+      "evidenceIds": [
+        "s2-results",
+        "numeracy",
+        "s2-correlations",
+        "s2-nulls",
+        "validity-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Reliability and associations",
+          "value": "Spearman correlations, Cronbach alpha and attenuation-adjusted correlations; corrected Steiger/Hoerger dependent-correlation contrasts. Available cases differ by scale. Additional exposure groups use Welch t and correlation-difference tests; time/risk item analyses replace unreliable time subscales.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s2-results",
+            "numeracy",
+            "s2-correlations",
+            "s2-nulls",
+            "validity-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2-main",
+      "kind": "result",
+      "title": "Study 2: overlap and reduced numeracy association",
+      "studyIds": [
+        "s2"
+      ],
+      "evidenceIds": [
+        "s2-results",
+        "numeracy"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study 2: overlap and reduced numeracy association",
+          "value": "Correct46.3%original versus56.2%CRT-2. Alpha .624 original,.511 CRT-2,.705combined. Original–CRT-2 rs=.511,p<.001(disattenuated.905). Numeracy correlation original.576 versus CRT-2.307,both p<.001; dependent-correlation contrast ZH=3.67,p<.001. Weaker is not zero numeracy association.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s2-results",
+            "numeracy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2-nulls",
+      "kind": "result",
+      "title": "Study 2: qualifications and null findings",
+      "studyIds": [
+        "s2"
+      ],
+      "evidenceIds": [
+        "s2-correlations",
+        "s2-nulls",
+        "s2-gender"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study 2: qualifications and null findings",
+          "value": "Both tests correlate with belief bias, need for cognition, denominator neglect and GPA; differences are not significant for those associations, but original CRT relates more strongly to SAT. CRT-2 correlates significantly with none of11risk items and only1of8time items; original CRT only1of11 and3of8. CRT-2 gender difference is nonsignificant(t(131)=1.406,p>.05). Syllogism-training groups’ predictive correlations also do not differ significantly(Z=.80,p>.05).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s2-correlations",
+            "s2-nulls",
+            "s2-gender"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "validity-method",
+      "kind": "participants",
+      "title": "Additional study: familiarity and validity",
+      "studyIds": [
+        "validity"
+      ],
+      "evidenceIds": [
+        "validity-method",
+        "validity-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Additional study: familiarity and validity",
+          "value": "200 MTurk respondents approval≥95%, excluding repeats across related surveys. CRT in random order with per-item familiarity, then rational-thinking battery; z-scores summed with denominator neglect reversed. Compare56no-exposure with120all-three-exposed respondents.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "validity-method",
+            "validity-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "validity-result",
+      "kind": "result",
+      "title": "Exposure raises scores; predictive difference inconclusive",
+      "studyIds": [
+        "validity"
+      ],
+      "evidenceIds": [
+        "validity-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Exposure raises scores; predictive difference inconclusive",
+          "value": "High-exposure CRT mean1.86 versus1.29,Welch t(118.79)=3.0345,p=.003. Composite correlation low-exposure r=.270,p=.044 versus high-exposure.165,p=.071; correlation difference p=.51. Significant versus nonsignificant individually does not establish a between-group difference.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "validity-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "kind": "finding",
+      "title": "Useful alternative with limits",
+      "studyIds": [
+        "s1",
+        "s2",
+        "validity"
+      ],
+      "evidenceIds": [
+        "overview",
+        "numeracy",
+        "s2-nulls",
+        "validity-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Useful alternative with limits",
+          "value": "CRT-2 adds less familiar, less numerically loaded items and converges with related measures. Evidence does not establish invariance across populations or immunity from future familiarity; prior exposure’s effect on predictive validity remains inconclusive.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "overview",
+            "numeracy",
+            "s2-nulls",
+            "validity-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "kind": "limitation",
+      "title": "Reliability, sampling and scoring caveats",
+      "studyIds": [
+        "s1",
+        "s2",
+        "validity"
+      ],
+      "evidenceIds": [
+        "s2-results",
+        "s2-method",
+        "s2-nulls",
+        "validity-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Reliability, sampling and scoring caveats",
+          "value": "CRT-2 alpha is low in Study2; available-case Ns vary, time/risk findings are weak, and observational familiarity comparisons do not isolate causal exposure effects. Exact full-battery replay needs unresolved administrative and scoring sources.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "s2-results",
+            "s2-method",
+            "s2-nulls",
+            "validity-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "source-conflicts",
+      "kind": "limitation",
+      "title": "Unresolved full-replay details",
+      "studyIds": [
+        "s1",
+        "s2",
+        "validity"
+      ],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Unresolved full-replay details",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable"
+          }
+        }
+      ]
+    }
+  ],
+  "steps": [],
+  "relations": [],
+  "issues": [
+    {
+      "id": "source-conflicts",
+      "title": "Unresolved full-replay details",
+      "severity": "check",
+      "reason": "The original protocol records contradictory CRT-2 Q3/Q4 scoring examples, task-order discrepancy, missing page/navigation details and denominator-neglect source gaps. Its chosen resolutions are not silently endorsed here; privately retained codebook has no confirmed redistribution licence.",
+      "impact": "Exact replay of this part remains limited; this is not a completed original replication.",
+      "suggestedAction": "Obtain the original source before reconstructing missing content.",
+      "nodeId": "source-conflicts",
+      "fieldId": "summary",
+      "evidenceIds": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "overview",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Much research in cognitive psychology has focused on the tendency to conserve limited cognitive resources. The CRT is\nthe predominant measure of such miserly information processing, and also predicts a number of frequently studied decision-\nmaking traits (such as belief bias and need for cognition). However, many subjects from common subject populations have\nalready been exposed to the questions, which might add considerable noise to data. Moreover, the CRT has been shown\nto be confounded with numeracy. To increase the pool of available questions and to try to address numeracy confounds, we\ndeveloped and tested the CRT-2. CRT-2 questions appear to rely less on numeracy than the original CRT but appear to measure\nclosely related constructs in other respects. Crucially, substantially fewer subjects from Amazon’s Mechanical Turk have been\npreviously exposed to CRT-2 questions. Though our primary purpose was investigating the CRT-2, we also found that belief\nbias questions appear suitable as an additional source of new items. Implications and remaining measurement challenges are\ndiscussed. Keywords:",
+      "verification": "unverified"
+    },
+    {
+      "id": "s1-method",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Subjects. Two hundred workers on Amazon’s Mechani-\ncal Turk participated in the study. Because researchers can\nrestrict the types of eligible workers and thus sample differ-\nent populations, 100 responses were collected from a batch\nof Masters workers5\n(Masters-required sample), and 100 re-\nsponses were collected from a batch that did not require\na Masters certification (Masters-optional sample). Batches\nwere launched simultaneously, and workers were prevented\nfrom taking both surveys using the Unique Turker Service\nwebsite (http://uniqueturker.myleott.com/). In both pools,\nwe restricted access to only workers who have at least a 95%\napproval rating, since this is a commonly used restriction\n(e.g., Chandler et al., 2014; Berinsky et al., 2012).\nProcedure. Subjects answered the original CRT, CRT-2,\nand four decoy questions (Appendix B) intermixed in a ran-\ndom order chosen for each subject. Decoy questions were\nincluded to determine the rate of overclaiming prior expo-\nsure. They were written to have a similar format to the CRT\nand CRT-2 questions, be easy to answer, and be completely\nnovel so that subjects could not have seen them before. Im-\nmediately after each item, subjects were asked whether they\nhad seen that question prior to taking the survey.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s1-results",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 4
+      },
+      "quote": "One subject from the Masters-optional sample was removed\nfrom analysis for apparently random responding.\nA very high percentage of subjects had been exposed to at\nleast one question from the CRT: 62.6% from the Masters-\noptional and 94.0% from the Masters-required sample. For\nthe CRT-2, 17.2% of the Masters-optional sample and\n29.0% of the Masters-required sample had been exposed to\nat least one of the questions. Crucially, subjects were less\nlikely to have been exposed to the CRT-2 than to the CRT in\nboth the Masters-optional sample, t(98) = 7.406, p < .001,\nand the Masters-required sample, t(99) = 13.559, p < .001.\nOverclaiming of prior exposure was minimal; only 2.0%\nof the Masters-optional sample and 0.0% of the Masters-\nrequired sample reported having seen any of the decoy ques-\ntions before.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s2-method",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Subjects. 143 subjects from the UCLA undergraduate\nsubject pool completed the study (M age = 20.50 years, SD\n= 2.686; 68% female). The pool consists of students who are\ncurrently enrolled in undergraduate psychology classes at\nUCLA and who take part in studies to meet part of a course\nrequirement or for extra credit. Sample sizes for individ-\nual items were variable because nine subjects did not finish\nthe study (because they exceeded the time limit of the study\nsession), and some additional cells are missing due to unan-\nswered questions and uninterpretable responses. Scores for\neach scale were calculated only for subjects who gave an-\nswers to every question on the scale. Each test was run with\nall of the data available for that analysis.\nProcedure. Subjects took the original CRT, the CRT-2,\nand several other rational thinking measures that have a\ndemonstrated relationship with CRT scores. Subjects com-\npleted tasks in the following order: belief bias, numeracy\nscale, time preference, risk preference, need for cognition\n(short scale), and demographic questions. The CRT and\nCRT-2 were intermixed with the numeracy questions in a\nrandom order chosen for each subject, and five denomina-\ntor neglect questions were distributed throughout the study,\nseparated by the other tasks. At the end of the study, sub-\njects were asked to indicate whether they had seen any of the\nquestions before and to provide details about which ques-\ntions they had seen in a free response box. Subjects were\nalso asked whether they had been trained in logical syllo-\ngisms, and to provide details about the training. Descrip-\ntions of each task follow.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s2-scoring",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 5
+      },
+      "quote": "CRT and CRT-2. The CRT and CRT-2 scores were cal-\nculated as the number of items correct on each scale. In\norder to validate that respondents who answered incorrectly\nwere tempted by the intuitive lures, a second coding system\nsplit the responses into three categories: correct, intuitive er-\nror, and other, which included both non-intuitive errors and\n“I don’t know” type responses.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s2-measures",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Need for cognition scale. Subjects completed the 18-item\nshort need for cognition scale assessing their tendency to en-\ngage in and enjoy effortful thinking (Cacioppo, Petty & Kao,\n1996), answering on a scale from 1 (extremely uncharacter-\nistic) to 5 (extremely characteristic).\nDenominator Neglect. As in Toplak et al. (2014a), five\ndenominator neglect problems were adapted from Kirk-\npatrick and Epstein (1992). Subjects were asked about their\npreference to select a marble from a small tray which con-\ntained fewer “winning” marbles but a higher relative likeli-\nhood of winning (due to the presence of few “losing” mar-\nbles), or a large tray, with more “winning” marbles but a\nlower relative chance of winning (due to the presence of\nmany “losing” marbles). Subjects answered each question\non a scale from 1 (“I would definitely pick from the small\ntray”) to 6 (“I would definitely pick from the large tray”).\nSee Appendix F for the denominator neglect questions.\nDemographic questions. Subjects also answered de-\nmographic questions indicating their age, gender, year in\nschool, high school and college GPA, and SAT/ACT score.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s2-results",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Subjects on average got 46.3% of the original CRT items\ncorrect and 56.2% of the CRT-2 items correct. The surpris-\ningly high scores (relative to pre-established norms) may\nbe partially due to the fact that the questions were all pre-\nsented on the same page; once subjects realized that some\nitems were trick questions, they could change their answers\nto previous items. The high scores may also be due to prior\nexperience with the items.\nAs with the CRT, most errors on the CRT-2 were intuitive\nerrors. The CRT-2 actually produced fewer other-type re-\nsponses (M = 3.0%) than the CRT (M = 11.1%), t(140) =\n4.803, p < .001. See Appendix G for the percentages of re-\nsponses in each category (correct responses, intuitive errors,\nand other).\nOf the 134 subjects who made it to the end of the study,\n45 reported that they had seen some of the questions in the\nstudy before and 89 reported that they had not. Of those\n45 subjects who had seen some items before, 7 did not dis-\nclose which they had seen. Eleven had seen at least one of\nthe original CRT questions, and another three implied they\nmight have but didn’t give enough information to deduce\nwith certainty. Nineteen had seen at least one of the new\nCRT-2 questions, and another two implied they might have\nbut didn’t give enough information to know for sure.\nThe internal consistency of the CRT-2 was somewhat low\n(α = 0.511), as was the internal consistency of the original\nCRT (α = 0.624), but the internal consistency of the seven-\nitem composite (combining the CRT and CRT-2 into a single\nmeasure) was acceptable (α = .705). There was a large cor-\nrelation between the CRT-2 and the original CRT, rs(136) =\n.511, p < .001. When corrected for attenuation, this corre-\nlation is even higher, at .905. (Ordinarily, estimated corre-\nlation magnitudes can be weakened by measurement error,\nand disattenuating correlations corrects for this error.) Table\n1 shows Spearman correlations among the seven CRT ques-\ntions as well as with composite scores for the original CRT,\nthe CRT-2, and a seven-item composite of all the items. All\nof the 45 correlations were positive and 42 of the 45 were\nstatistically significant.",
+      "verification": "unverified"
+    },
+    {
+      "id": "numeracy",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Numeracy. Numeracy scores were calculated as the sum\nof all correct responses to both Schwartz et al.’s (1997) gen-\neral numeracy scale and Lipkus et al.’s (2001) expanded\nnumeracy scale. The mean numeracy score was 9.23 out\nof 11 (SD = 1.948, N = 141) and Cronbach’s alpha was\n.719. There was a significant correlation between the orig-\ninal CRT and numeracy, rs(136) = .576, p < .001 (disatten-\nuated correlation = .860), as well as a significant correla-\ntion between the CRT-2 and numeracy, rs(139) = .307, p\n< .001 (disattenuated correlation = .506). Hoerger’s (2013)\ncorrected version of Steiger’s (1980) z-score revealed that\nthe correlation between the CRT-2 and numeracy was sig-\nnificantly weaker than the correlation between the original\nCRT and numeracy, ZH(135) = 3.67, p < .001.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s2-correlations",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Relationship of CRT, CRT-2, and belief bias with ra-\ntional thinking measures. Previously observed correla-\ntions of the original CRT with belief bias (Toplak et al.,\n2014a), need for cognition (Frederick, 2005; Toplak et al.,\n2014a), and denominator neglect (Toplak et al., 2014a) were\nreplicated, and corresponding correlations were observed\nbetween the CRT-2 and these scales. There were signifi-\ncant correlations between the CRT and both SAT scores and\ncollege GPA, and also between the CRT-2 and both SAT\nscores and college GPA, consistent with several other stud-\nies suggesting that CRT scores are related to cognitive abil-\nity (Frederick, 2005; Obrecht et al., 2009). Steiger’s Z-test\nfor the difference of dependent correlations did not reveal\nsignificant differences between the CRT and the CRT-2 in\nthe strength of their correlations with belief bias, need for\ncognition, denominator neglect, or GPA but the CRT was\nsignificantly more correlated with SAT scores than the CRT-\n2. Table 2 shows Spearman correlations of the original CRT\nand the CRT-2 with the rational thinking measure scores as\nwell as Z-values from tests of differences in dependent cor-\nrelations.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s2-nulls",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Frederick’s (2005) findings for risk preference and time\npreference were not fully replicated. Frederick compared\nthe responses of subjects in a low CRT group (0/3 items\ncorrect, 33% of respondents) with those from a high CRT\ngroups (3/3 items correct, 17% of overall respondents).\nHowever, instead of using a high-low split we calculated\ncorrelations because our sample size was much smaller and\nbecause dichotomous measures have been criticized for sac-\nrificing statistical power (e.g., Irwin & McClelland, 2001,\n2003; Jaccard et al., 2006; MacCallum, Zhang, Preacher &\nRucker, 2002) and creating spurious effects (Maxwell & De-\nlaney, 1993; Vargha, Rudas, Delaney & Maxwell, 1996).\nFor the original CRT, only 1/11 risk preference items and\n3/8 time preference items were significant (all significant in\nthe expected direction). For the CRT-2, none of the risk pref-\nerence items were significant and 1/8 time preference items\nwas significant (in the expected direction).10\nHowever, it is\npossible that the smaller sample size, the difference in anal-\nysis strategy, or the fact that we used only a subset of the\noriginal items contributes to differences in the results. Sim-\nilarly, there were no significant correlations between belief\nbias and any of the risk preference items, but belief bias was\nsignificantly correlated with 5/8 time preference items.",
+      "verification": "unverified"
+    },
+    {
+      "id": "s2-gender",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 9
+      },
+      "quote": "findings (Frederick, 2005), but men (M = 60.5% correct) and\nwomen (M = 53.3% correct) were not reliably different on\nthe CRT-2, t(131) = 1.406, p > .05. See Appendix I for an\nanalysis of gender differences on individual test questions\nand gender differences on rational thinking measures.\nThe typical gender difference has not been fully ex-\nplained, but some researchers have speculated that it may\nbe due to differences in numeracy, which is usually higher\nin men (Frederick, 2005; Baron et al., 2015). This expla-\nnation would fit well with the present data since the CRT-2\nrelies less on numeracy than the original CRT. There was\nnot a statistically significant difference in belief bias scores\nbetween men (M = 5.44) and women (M = 4.48), but there\nwas a trend for men to score higher, t(132) = 1.821, p < .10.\nTraining in logical syllogisms. Prior exposure may prove\nto be less problematic for belief bias items than for items\nsimilar in structure to the original CRT items, since new\nquestions can be easily generated by using the same struc-\nture with different content. However, previous training in\nlogical syllogisms might undermine the validity of belief\nbias questions. We computed a rational thinking composite\nscore equivalent to that used to examine the effects of prior\nexposure on the CRT’s validity (reported in the introduc-\ntion), but with belief bias necessarily eliminated from the\ncomposite. Thus, we added the Z-scores from the need for\ncognition, denominator neglect, and numeracy scales, with\ndenominator neglect reverse-scored.\nSubjects who reported prior training in logical syllogisms\nanswered more belief bias items correctly (M = 5.63) than\nthose who did not (M = 4.46), t(132) = 2.164, p < .05. Belief\nbias scores were significantly correlated with performance\non a rational thinking composite only for subjects who did\nnot report training in logical syllogisms, rs(92) = .431, p <\n.001. Belief bias scores did not significantly predict ratio-\nnal thinking composite scores for subjects who had received\nprior training, though the data were trending, rs(36) = .293,\np < .10. These results indicate cause for concern, but are not\nentirely conclusive, since a Fisher’s R to Z transformation\ndid not reveal a significant difference in the strengths of the\ntwo correlations, Z = 0.80, p > .05.",
+      "verification": "unverified"
+    },
+    {
+      "id": "validity-results",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 10
+      },
+      "quote": "In order to assess the extent to which prior exposure poses\na problem for studies using the CRT, we administered the\nCRT to 200 subjects on MTurk along with a rational think-\ning battery including many of the same measures used in\nStudy 2: belief bias, numeracy, denominator neglect, and\nneed for cognition. In this sample, 56 subjects (28%) re-\nported prior exposure to none of the three questions, and\n120 (60%) reported prior exposure to all three. We con-\ncentrated on these two groups.11\nThe high-exposure group\nanswered more CRT questions correctly (M = 1.86) than the\nlow-exposure group (M = 1.29), Welch’s t(118.79) = 3.0345,\n11All results reported here are essentially unchanged if we split the sam-\nple into groups based on prior exposure to 0 versus more than 0 problems,\nor on prior exposure to 0 or 1 versus 2 or 3 problems.\np = 0.003. Thus, prior exposure did inflate CRT scores, in-\ndicating that scores should not be compared across subjects\nwith differential levels of prior exposure.\nThe results were mixed with respect to whether or not\nprior exposure on the CRT undermines predictive validity.\nCRT scores significantly predicted performance on the ra-\ntional thinking battery for the low-exposure group, (r = .270,\np = .044), but not quite significantly for the high-exposure\ngroup (r = .165, p = 0.071). The difference between these\ntwo correlations was not significant (by R to Z transforma-\ntion, p = .51).\nIndividual correlations with each of the rational thinking\nmeasures (rather than analyzing a composite) also produced\ninconclusive results. The high-exposure group showed\nhigher correlations between CRT and numeracy (NS, .30\nvs. .23) but lower correlations between CRT and belief bias\n(BB, .28 vs. .31), between CRT and Need for Cognition\n(NFC, –.06 vs. .12) and between CRT and denominator ne-\nglect (DN, –.04 vs. .04). Note that correlations with DN and\nNFC did not approach significance even for the whole sam-\nple, so it is not clear what to make of these comparisons.\nThe general result was that none of these differences in cor-\nrelations approached significance. Even regression of the\nCRT score on all four measures and their interactions with\nexposure showed no effect whatsoever of the interaction.\nThus, we have some reason to believe that the CRT’s va-\nlidity may be undermined by prior exposure, but we have no\nclear evidence of any effect. To a first approximation, any\neffect is not very large. We thus suggest that future studies\nshould not rely on the original three items if many subjects\nhave seen them, but we have no reason to seriously question\nprior results that have ignored the problem of prior exposure.",
+      "verification": "unverified"
+    },
+    {
+      "id": "validity-method",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500007622",
+      "locator": {
+        "page": 13
+      },
+      "quote": "Two hundred subjects on Amazon’s Mechanical Turk com-\npleted the study. We restricted the respondents to those\nwho had at least a 95% approval rate. Subjects were pre-\nvented from taking more than one related survey in our lab\nin which the CRT or CRT-2 was administered using the\nUnique Turker Service (http://uniqueturker.myleott.com/).\nSubjects first answered each of the CRT questions in ran-\ndom order. After each item, subjects were asked whether\nthey had seen that item before. Next, subjects took a ra-\ntional thinking battery including eight belief bias items, the\n18-item need for cognition scale, and an 11-item numeracy\nscale. Subjects also provided their gender, and five denom-\ninator neglect questions were distributed throughout the ra-\ntional thinking battery. These same measures are also used\nand described in more detail in Study 2. Z scores for each\nof the rational thinking measures were summed to create a\nrational thinking composite score, with denominator neglect\nreverse-scored.",
+      "verification": "unverified"
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "studyArms": {
+        "s1": [
+          "study1_masters_required",
+          "study1_masters_optional"
+        ],
+        "s2": [
+          "study2_printed",
+          "study2_full"
+        ],
+        "validity": [
+          "validity_mturk"
+        ]
+      }
+    },
+    "communityExport": {
+      "scope": "program-only",
+      "sources": [
+        {
+          "evidenceIds": [
+            "overview",
+            "s1-method",
+            "s1-results",
+            "s2-method",
+            "s2-scoring",
+            "s2-measures",
+            "s2-results",
+            "numeracy",
+            "s2-correlations",
+            "s2-nulls",
+            "s2-gender",
+            "validity-results",
+            "validity-method"
+          ],
+          "url": "https://doi.org/10.1017/S1930297500007622",
+          "attribution": "Keela S. Thomson, Daniel M. Oppenheimer. Investigating an alternate form of the cognitive reflection test (2016).",
+          "license": "CC-BY-3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+          "sha256": "7b791a62d6aa437fbc1ed214f26b27b783f7eff293c3f4a81832c5aa04021870",
+          "title": "Investigating an alternate form of the cognitive reflection test",
+          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
+        }
+      ],
+      "withheldEvidenceQuotes": {
+        "ids": [],
+        "reason": "redistribution-unverified"
+      }
+    }
+  }
+}
