@@ -1,0 +1,35 @@
+{
+  "_purpose": "Bibliographic metadata for the source paper and a record of any externally authorized sources actually consulted. All fields except external_sources describe the uploaded PDF only.",
+  "title": "Analyzing Frictions in Generalized Second-Price Auction Markets",
+  "authors": [
+    { "name": "Karthik Kannan", "affiliation": "Eller College of Management, University of Arizona" },
+    { "name": "Vandith Pamuru", "affiliation": "Indian School of Business, Hyderabad" },
+    { "name": "Yaroslav Rosokha", "affiliation": "Krannert School of Management, Purdue University" }
+  ],
+  "journal": "Information Systems Research",
+  "volume": "34",
+  "issue": "4",
+  "pages": "1437-1454",
+  "year": 2023,
+  "published_online": "2022-12-14",
+  "doi": "10.1287/isre.2022.1187",
+  "publisher": "INFORMS",
+  "issn": { "print": "1047-7047", "online": "1526-5536" },
+  "source_file": "input/paper.pdf",
+  "source_file_original_name": "EBSCO-FullText-08_06_2026.pdf",
+  "evidence_label": "verbatim",
+  "extraction_tool": "pdftotext -layout",
+  "external_sources": [
+    {
+      "url": "https://pubsonline.informs.org/doi/suppl/10.1287/isre.2022.1187/suppl_file/isre.2022.1187.sm1.pdf",
+      "authorized_by": "job.json osfUrl field, explicitly supplied by contributor Yuanjun",
+      "purpose": "Retrieve the paper's Online Appendix, which contains the verbatim participant instructions (Appendix L for the main experiment, Appendix N.1-N.2 for the second experiment) and additional robustness tables.",
+      "access_attempted": true,
+      "access_result": "blocked",
+      "access_detail": "Requests (via the WebFetch tool and via curl with standard browser user-agent headers, on 2026-08-10) received HTTP 403 responses. The response body was a Cloudflare 'Just a moment...' interactive bot-check challenge page, not the PDF. No content from this URL was retrieved or used.",
+      "links_followed_from_this_source": [],
+      "content_incorporated": false
+    }
+  ],
+  "external_research_policy_note": "Per job policy, only the single URL above was authorized. No web search, general web fetch, DOI lookup, or author-page lookup was performed. The supplemental PDF could not be retrieved (Cloudflare bot challenge), so this package is built entirely from input/paper.pdf. Any content that only exists in the inaccessible Online Appendix (e.g., the verbatim instructions handout, Online Tables/Figures referenced as 'Online Appendix X') is labeled 'missing' throughout this package rather than reconstructed."
+}
