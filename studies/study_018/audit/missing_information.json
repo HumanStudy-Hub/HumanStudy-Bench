@@ -1,0 +1,55 @@
+{
+  "_description": "Authoritative researcher checklist. Each entry names a place where this package could not, or by design does not, perfectly reproduce the original study, why, and what a researcher should decide or do next.",
+  "study": "decentralized_matching_experiment",
+  "entries": [
+    {
+      "study": "decentralized_matching_experiment",
+      "field": "task.timing_discretization",
+      "reason": "The original market runs in continuous real time (10-second offer-response window; 30-second end-of-market inactivity window). A turn-based agent harness has no wall clock, so task/adapter.py discretizes both into a random-draw tick model (see task/task.json 'timing_discretization').",
+      "impact": "Qualitative properties are preserved (full information, free asynchronous-order offers, tentative matches, no scripted turn order), but exact real-time race conditions (e.g. two participants acting within the same second) cannot occur, and the mapping from 'ticks' to seconds is a modeling choice, not measured data. inactivity_ticks/max_ticks are set heuristically (task.json defaults) and have not been calibrated against the paper's empirical offer-rate distributions (Table 5).",
+      "suggested_action": "If precise convergence-time comparisons to Table 5 (minutes to final matching) matter, calibrate inactivity_ticks/max_ticks against the paper's reported offers-per-minute figures, or extend adapter.py with an explicit simulated clock rather than a tick counter."
+    },
+    {
+      "study": "decentralized_matching_experiment",
+      "field": "materials.instructions_script (unilateral and large arms)",
+      "reason": "The uploaded open materials (input/open_materials/instructions.pdf) contain the verbatim instruction slides only for the main 8-per-side, both-sides-propose treatment. The paper states the auxiliary treatments 'operated as in our main treatments' with the stated size/proposing-rule change, but does not reproduce their exact slide wording.",
+      "impact": "task/adapter.py's build_instructions() derives unilateral/large instruction text by substituting the group-size number and inserting a proposing-rule sentence for unilateral arms (evidence_label='derived', see materials/materials.json and materials/instructions_script.json 'not_covered_by_this_script'). This is a plausible but not verbatim adaptation.",
+      "suggested_action": "If the researcher has the original unilateral/large-market instruction slides, replace build_instructions()'s substitution logic with the verbatim text for those arms."
+    },
+    {
+      "study": "decentralized_matching_experiment",
+      "field": "evaluation.median_classification_large_markets",
+      "reason": "evaluation.py classifies final matchings as median/food-optimal/color-optimal by brute-force enumeration of all stable matchings (permutation search), which is only tractable up to n_per_side<=9 (MAX_ENUMERABLE_N). The two 'large' arms use n_per_side=15.",
+      "impact": "For large_unique_sm and large_three_stable, evaluate() reports market- and pair-level stability (blocking-pair counts) correctly, but the 'median_and_extremal_classification' block is skipped for those two arms and reports a 'skipped_reason' instead of numbers. This means the paper's most striking large-market finding (every 3-stable-partner agent in large markets matches with their median stable partner) cannot currently be checked by this package.",
+      "suggested_action": "Implement a polynomial-time stable-matching-lattice / rotation-poset enumeration algorithm (e.g. Irving-Leather rotations) in evaluation.py to replace brute-force permutation search for n>9, or compute food-/color-optimal matchings via the already-implemented deferred_acceptance() and median status via a lattice-based algorithm without full enumeration."
+    },
+    {
+      "study": "decentralized_matching_experiment",
+      "field": "evaluation.dynamic_model_benchmarks",
+      "reason": "The paper compares experimental dynamics against four simulated theoretical algorithms (2RDA, DACC, RPS, RBR; Tables 7-8) and against conditional-logit regressions of offer targeting (Tables 6, 9, A5-A7). These are substantial separate analyses beyond the core stability/median outcome measures.",
+      "impact": "This package's evaluate() does not reimplement those baseline algorithms or regressions, so it cannot reproduce Tables 6-9's specific comparisons (e.g. offers-to-blocking-partners over time, match-level cycle counts vs. RPS/RBR simulations).",
+      "suggested_action": "If needed, add a separate analysis module that (a) replays the same payoff matrices through 2RDA/DACC/RPS/RBR (algorithm descriptions are in the paper's Online Appendix, input/open_materials/paper/matching_experiment_appendix.pdf, Section on 'Comparison with Dynamic Models') and (b) fits the same conditional-logit specification to the events log evaluate() already receives."
+    },
+    {
+      "study": "decentralized_matching_experiment",
+      "field": "task.conditions (payoff_treatment_index defaults)",
+      "reason": "The paper ran 140 experimental markets across 31 cardinal payoff treatments per Table 1; this package's task.json wires each of its 8 arms to one representative treatment (chosen, where possible, so a bilateral arm and its unilateral counterpart use the *same* underlying cardinal matrix). All 31 treatments are transcribed verbatim in materials/payoff_matrices_verbatim.json.",
+      "impact": "Running this package's default 8 arms will not, by itself, reproduce the paper's full cardinal-representation comparisons (e.g. Table 3's four 5-stable-matching cardinal variants, or the two-alignment/generic-correlation unique-SM variants).",
+      "suggested_action": "To replicate a specific cardinal comparison from the paper, add further arms to task.json's 'conditions' list pointing payoff_treatment_index at the desired treatment index (1-31); no code change to adapter.py is required."
+    },
+    {
+      "study": "decentralized_matching_experiment",
+      "field": "task.run_sessions sample size",
+      "reason": "The paper's headline percentages (e.g. 88.24% of main-treatment markets stable) are computed over 85/43/12 real experimental markets across many sessions of human subjects. run_sessions(llm, seed, n) lets a researcher choose n sessions per arm at run time; it does not hard-code or guarantee the paper's original sample sizes.",
+      "impact": "Small n (e.g. the n=1 used by --smoke-test) will produce noisy, non-representative estimates; evaluation.py's 'notes' field says so explicitly on every call.",
+      "suggested_action": "Run with a larger n (e.g. n>=10-20 per arm) before treating evaluate()'s output as informative about a given model's tendency to reach stability/median outcomes."
+    },
+    {
+      "study": "decentralized_matching_experiment",
+      "field": "source.participant_population",
+      "reason": "Original participants were UCLA undergraduates recruited through CASSEL; the paper reports no demographic breakdown beyond that, and average/SD payments per treatment (source/evidence.json:design_lab_and_subjects).",
+      "impact": "This package cannot condition simulated agents on the original subject pool's demographics because none beyond 'UCLA undergraduate, lab-experiment-experienced' were reported; all simulated agents are otherwise-undifferentiated instances of the injected model.",
+      "suggested_action": "No action possible without additional demographic data from the authors; treat any injected model as a stand-in for 'an incentivized lab participant', not a specific population."
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "paper": {
+    "title": "An Experimental Study of Decentralized Matching",
+    "authors": [
+      "Federico Echenique",
+      "Alejandro Robinson-Cortes",
+      "Leeat Yariv"
+    ],
+    "date": "2024-10-14",
+    "metadata_file": "source/paper_metadata.json"
+  },
+  "empirical_studies": [
+    {
+      "id": "decentralized_matching_experiment",
+      "design": "A single experimental paradigm (a decentralized, full-information, one-to-one two-sided matching market with no transfers and non-binding offers) run across three main treatments and two auxiliary treatments, all varying only the market's structural parameters -- see 'conditions' below. There is one underlying study design, not several unrelated experiments.",
+      "participants": "UCLA undergraduates recruited at the California Social Science Experimental Laboratory (CASSEL); 8 participants per side (main and unilateral treatments) or 15 per side (large-market treatment); each participant took part in one session only, playing several rounds (experimental markets).",
+      "conditions": [
+        {
+          "name": "Main: unique stable matching",
+          "n_per_side": 8,
+          "proposing": "both sides",
+          "n_experimental_markets_in_paper": 30
+        },
+        {
+          "name": "Main: two embedded 4x4 markets",
+          "n_per_side": 8,
+          "proposing": "both sides",
+          "n_experimental_markets_in_paper": 35
+        },
+        {
+          "name": "Main: five stable matchings, three stable partners",
+          "n_per_side": 8,
+          "proposing": "both sides",
+          "n_experimental_markets_in_paper": 20
+        },
+        {
+          "name": "Auxiliary: unilateral offers (foods propose only)",
+          "n_per_side": 8,
+          "proposing": "foods only",
+          "n_experimental_markets_in_paper": 43
+        },
+        {
+          "name": "Auxiliary: large markets",
+          "n_per_side": 15,
+          "proposing": "both sides",
+          "n_experimental_markets_in_paper": 12
+        }
+      ],
+      "outcomes": [
+        "Whether a market's final matching is stable (no blocking pairs)",
+        "Which stable matching is reached when several exist (median / food-optimal / color-optimal / other)",
+        "Distance to stability for unstable outcomes (# blocking pairs, payoff loss)",
+        "Market dynamics: number/timing of offers and matches, offer targeting (blocking pairs, stable partners), cycles"
+      ]
+    }
+  ],
+  "external_sources_authorized": "Contributor-uploaded open materials only (input/open_materials/); no network research was requested or performed. See source/paper_metadata.json 'external_sources' (empty) and 'external_sources_note'.",
+  "package_entry_point": "task/adapter.py (run_sessions / --smoke-test); evaluation via evaluation/evaluation.py:evaluate()",
+  "readiness_status": {
+    "status": "ready_with_documented_limitations",
+    "summary": "All 8 condition arms run end-to-end offline (verified via `python task/adapter.py --smoke-test`) using verbatim payoff matrices and, for the main bilateral treatment, verbatim participant instructions. Two categories of departure from the original are documented rather than silently patched: (1) continuous real-time offer/inactivity clocks are discretized into a tick model, and (2) exact median/extremal stable-matching classification is only computed for arms with n_per_side<=9 (the two 15-per-side 'large' arms report stability but not median classification). See audit/missing_information.json for the full list and suggested actions."
+  },
+  "contributors": [
+    {
+      "name": "tanzhou"
+    }
+  ]
+}

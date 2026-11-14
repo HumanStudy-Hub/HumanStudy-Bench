@@ -1,0 +1,108 @@
+{
+  "_description": "Runnable task definition for the decentralized two-sided matching-market experiment. One 'session' below = one experimental market (one 'round' in the paper): a full group of food-side and color-side agents interacting until the market ends. task/adapter.py's run_sessions() runs the requested number of sessions for every arm listed under 'conditions'.",
+  "study": "decentralized_matching_experiment",
+  "entry_point": "task/adapter.py",
+  "harness_interface": {
+    "llm_signature": "llm(prompt: str) -> str",
+    "run_sessions_signature": "run_sessions(llm, seed, n) -> list[dict]  # n sessions per condition-arm, every arm below is run",
+    "evaluate_signature": "evaluate(sessions: list[dict]) -> dict, in evaluation/evaluation.py"
+  },
+  "participant_structure": {
+    "every_original_subject_is_an_agent": true,
+    "scripted_roles": [],
+    "scripted_roles_justification": "The paper's participants were exclusively human subjects recruited at CASSEL (UCLA undergraduates); no confederates, experimenters-in-role, or pre-recorded stimuli stood in for any market participant (source/evidence.json:design_lab_and_subjects). Every food-side and color-side role in every arm below is therefore played by an independent call to the injected llm().",
+    "agents_per_session": {
+      "main_treatments": "8 food agents + 8 color agents = 16 independent LLM-driven participants",
+      "unilateral_treatments": "8 food agents + 8 color agents = 16 independent LLM-driven participants (colors' action space is restricted to accept/reject; they still make their own decisions)",
+      "large_treatments": "15 food agents + 15 color agents = 30 independent LLM-driven participants"
+    },
+    "order_of_action": "Not fixed by the researcher. As in the original (participants act asynchronously and freely, subject only to a 10-second offer-response window and a 30-second end-of-market inactivity window), the adapter draws, at each discrete tick, one agent uniformly at random from the set of agents currently eligible to initiate an offer (both sides in bilateral arms, food side only in unilateral arms) and asks it to decide. This preserves the property that no participant's turn order is scripted and that the realized order is a genuine consequence of (simulated) independent, uncoordinated agents, matching the paper's decentralized design (paper.pdf Section 4).",
+    "visibility": {
+      "full_information": true,
+      "each_decision_prompt_includes": [
+        "the acting agent's own role label (e.g. 'food-3')",
+        "the complete cardinal payoff matrix for both sides (every food-color pair's [food_payoff, color_payoff]), exactly as participants 'observe all potential payoffs from a numerical matrix on the experimental interface' (source/evidence.json:design_two_sided_market)",
+        "the current, publicly-visible match board (who is matched to whom right now, including nobody if unmatched) -- visible to all agents, as in the original 'Current Matches' panel",
+        "the acting agent's own private history of offers it made and received so far this session (with outcomes), since a human participant naturally remembers their own past interactions even though the interface does not broadcast others' offer histories"
+      ],
+      "not_shown": "Other agents' offers/rejections that did not involve the acting agent are not shown to the acting agent, matching the original (only accepted offers -- i.e. matches -- become public; the process of making an offer itself is private until/unless accepted)."
+    },
+    "sequential_dependency_preserved": "Because match state and each agent's private history are threaded through the whole session and every subsequent decision (by that agent or any other) reads the live state, one agent's action can and does change what later agents see and how they respond -- e.g. an accepted offer immediately changes the match board every other agent's next prompt shows, exactly as in the original decentralized market. No participant's response is pre-computed, sampled from a fixed distribution, or otherwise decided without a fresh llm() call conditioned on the live state."
+  },
+  "timing_discretization": {
+    "original_mechanism": "Continuous real time: any participant may act at any instant; a received offer auto-rejects if unanswered after 10 seconds; the market ends after 30 seconds elapse with no new offer of any kind (accepted or not).",
+    "adapter_mechanism": "Discrete ticks. Each tick draws one eligible proposer uniformly at random and asks it 'offer or pass'; if it offers, the single targeted recipient is immediately asked 'accept or reject' (standing in for the 10-second response window, since a discrete-tick simulation has no wall clock). A running counter of consecutive no-offer ticks stands in for the 30-second inactivity clock: it resets to 0 on any offer (accepted or rejected) and increments on a pass; the market ends when the counter reaches inactivity_ticks, or when max_ticks (a compute-budget safety cap, never reached in the paper's own data) is hit first.",
+    "evidence_label": "derived",
+    "departure_from_original_and_likely_effect": "This is a necessary discretization for a turn-based agent harness and is recorded in audit/missing_information.json ('timing_discretization_is_approximate'). It preserves the qualitative properties the fidelity rules require (full information, free asynchronous offers to anyone, tentative matches, non-binding offers, no scripted order) but does not reproduce exact real-time race conditions (e.g. two humans clicking within the same second). The paper itself finds behavior is not sensitive to fine-grained timing, so this is judged a low-risk departure.",
+    "default_inactivity_ticks": {"main": 16, "unilateral": 16, "large": 30},
+    "default_max_ticks": {"main": 300, "unilateral": 300, "large": 900}
+  },
+  "action_protocol": {
+    "propose_or_pass_prompt": "Given to the randomly-drawn eligible proposer; must reply with either 'PASS' or 'OFFER: <role>' naming one current member of the opposite side.",
+    "respond_prompt": "Given to the recipient of a just-made offer; must reply with either 'ACCEPT' or 'REJECT'.",
+    "parsing": "task/adapter.py parses the first ACCEPT/REJECT or PASS/OFFER token found (case-insensitive); an unparseable reply is treated as PASS / REJECT respectively and logged as a 'parse_fallback' event so evaluation.py and the researcher can see how often this occurred."
+  },
+  "conditions": [
+    {
+      "arm": "main_unique_sm",
+      "size": "main", "n_per_side": 8, "proposing": "bilateral", "structure": "unique_stable_matching",
+      "payoff_treatment_index": 6, "payoff_treatment_label": "baseline:unique-SM [generic_udif20]",
+      "paired_unilateral_arm": "unilateral_unique_sm"
+    },
+    {
+      "arm": "main_four_by_four",
+      "size": "main", "n_per_side": 8, "proposing": "bilateral", "structure": "two_embedded_four_by_four",
+      "payoff_treatment_index": 8, "payoff_treatment_label": "baseline:4-by-4 [Mkt_1]",
+      "paired_unilateral_arm": "unilateral_four_by_four"
+    },
+    {
+      "arm": "main_five_stable",
+      "size": "main", "n_per_side": 8, "proposing": "bilateral", "structure": "five_stable_matchings",
+      "payoff_treatment_index": 14, "payoff_treatment_label": "baseline:5-SMs [20-20shift]",
+      "paired_unilateral_arm": "unilateral_five_stable"
+    },
+    {
+      "arm": "unilateral_unique_sm",
+      "size": "main", "n_per_side": 8, "proposing": "unilateral_food_only", "structure": "unique_stable_matching",
+      "payoff_treatment_index": 18, "payoff_treatment_label": "1-sided:unique-SM [generic_udif20]",
+      "paired_bilateral_arm": "main_unique_sm"
+    },
+    {
+      "arm": "unilateral_four_by_four",
+      "size": "main", "n_per_side": 8, "proposing": "unilateral_food_only", "structure": "two_embedded_four_by_four",
+      "payoff_treatment_index": 20, "payoff_treatment_label": "1-sided:4-by-4 [Mkt_1]",
+      "paired_bilateral_arm": "main_four_by_four"
+    },
+    {
+      "arm": "unilateral_five_stable",
+      "size": "main", "n_per_side": 8, "proposing": "unilateral_food_only", "structure": "five_stable_matchings",
+      "payoff_treatment_index": 24, "payoff_treatment_label": "1-sided:5-SMs [20-20shift]",
+      "paired_bilateral_arm": "main_five_stable"
+    },
+    {
+      "arm": "large_unique_sm",
+      "size": "large", "n_per_side": 15, "proposing": "bilateral", "structure": "unique_stable_matching",
+      "payoff_treatment_index": 27, "payoff_treatment_label": "large:unique-SM [one_aligned]"
+    },
+    {
+      "arm": "large_three_stable",
+      "size": "large", "n_per_side": 15, "proposing": "bilateral", "structure": "multiple_stable_matchings",
+      "payoff_treatment_index": 30, "payoff_treatment_label": "large:3-SPs [all_3_SPrs]"
+    }
+  ],
+  "conditions_note": "The paper ran 140 experimental markets across 31 cardinal payoff treatments (materials/payoff_matrices_verbatim.json has all 31, verbatim). The 8 arms above are the minimal set that covers every comparison the paper's headline results require: bilateral vs. unilateral (bargaining power), main vs. large (market size), and unique- vs. four-by-four vs. five-stable market structure (emergence and selection of median stable matchings). Each arm's bilateral/unilateral pair uses the *same* underlying cardinal matrix label where the source data allows it (see paired_*_arm fields), matching the paper's own within-matrix comparison design. A researcher can add further arms by pointing payoff_treatment_index at any of the other 23 treatments in payoff_matrices_verbatim.json without any code change.",
+  "materials_references": [
+    "materials/materials.json",
+    "materials/instructions_script.json",
+    "materials/payoff_matrices_verbatim.json"
+  ],
+  "outputs": {
+    "session_log_fields": [
+      "arm, structure, proposing, size, n_per_side, payoff_treatment_index, seed",
+      "events: ordered list of {tick, actor, action(PASS|OFFER|ACCEPT|REJECT), target, parse_fallback:bool}",
+      "final_matching: {food_role: color_role or null, ...}",
+      "n_ticks_used, terminated_by ('inactivity'|'max_ticks')",
+      "payoff_matrix: the exact matrix used (embedded so evaluation.py is self-sufficient)"
+    ]
+  }
+}
