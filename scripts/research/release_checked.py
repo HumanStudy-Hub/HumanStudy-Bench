@@ -56,15 +56,18 @@ def dumps(data) -> bytes:
 
 OPEN_LICENCE = re.compile(r"\bCC[- ]?0\b|public domain|\bCC[- ]?BY\b(?![- ]?(?:NC|ND|SA))", re.I)
 SHA_PREFIX = re.compile(r"sha256[^0-9a-f]{0,6}([0-9a-f]{8,64})", re.I)
-PATH = re.compile(r"((?:/Users/|sources/|\./)?[^\s'\"(),]+\.(?:pdf|qsf|docx|txt|html?|json|csv|md))", re.I)
+PATH = re.compile(r"((?:/Users/|sources/|\./)?[^\s'\"(),]+\.(?:pdf|qsf|docx|txt|html?|json|csv|md|rmd|r))", re.I)
+LICENCE_HOLD = re.compile(r"licen[cs]|copyright|redistribut|publisher|paywall|permission", re.I)
+TEXT_FORMATS = {"r", "rmd", "txt", "md", "csv", "tsv", "sps", "do", "py"}
 URL = re.compile(r"https?://[^\s'\"()<>,]+")
 CACHE = Path(os.environ.get("RELEASE_SOURCE_CACHE", tempfile.gettempdir())) / "hs-release-sources"
 
 
 def open_licence(src) -> bool:
-    """CC BY (not NC/ND/SA), CC0 or public domain, as stated anywhere in the source declaration."""
-    text = json.dumps(src, ensure_ascii=False) if not isinstance(src, str) else src
-    return bool(OPEN_LICENCE.search(text or ""))
+    """CC BY (not NC/ND/SA), CC0 or public domain by the source's structured licence id (distribution.licence), as
+    the engine checks it for hosting. Free-text notes never count ("Not CC BY", "CC BY journal page" ...)."""
+    dist = src.get("distribution") if isinstance(src, dict) else None
+    return isinstance(dist, dict) and release.hosted_licence_ok(dist.get("licence"))
 
 
 def _download(url: str, sha: str) -> bytes | None:
@@ -85,6 +88,26 @@ def _download(url: str, sha: str) -> bytes | None:
     return raw
 
 
+def url_serves(url: str, sha: str) -> bool:
+    """This exact URL serves the file with this sha256 (a URL-specific check: the hash cache alone would accept any
+    URL once the file is cached). Verified URLs are remembered per (URL, sha256)."""
+    import urllib.request
+    mark = CACHE / "urls" / hashlib.sha256(f"{url}\n{sha}".encode()).hexdigest()
+    if mark.is_file():
+        return True
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "humanstudy-release/1.0"})
+        raw = urllib.request.urlopen(req, timeout=60).read()
+    except Exception:
+        return False
+    if hashlib.sha256(raw).hexdigest() != sha:
+        return False
+    mark.parent.mkdir(parents=True, exist_ok=True)
+    mark.write_text(url)
+    (CACHE / sha).write_bytes(raw)
+    return True
+
+
 def resolve_sources(study_dir: Path, protocol: dict) -> dict[str, bytes]:
     """The private copy of every declared source the projection can use: the named file, a file in the study folder
     or at the path written in the declaration whose sha256 (or its printed prefix) matches, else a download of the
@@ -92,17 +115,29 @@ def resolve_sources(study_dir: Path, protocol: dict) -> dict[str, bytes]:
     locate held text and scan notes for quotes."""
     found: dict[str, bytes] = {}
     index: dict[str, Path] | None = None
+    declared = (protocol.get("meta") or {}).get("sources") or {}
+    # Where a declared relative path may live: the study folder, the build folder the protocol names as its root,
+    # the stage-1 run folders of the same slug, and the workspace above them (paths written as "stage1/runs/...").
+    workspace = study_dir.parents[3] if len(study_dir.parents) > 3 else study_dir
+    bases = [study_dir]
+    root = declared.get("root") if isinstance(declared.get("root"), str) else None
+    if root:
+        bases.append(Path(root) if root.startswith("/") else workspace / root)
+    bases += [workspace / "stage1" / run / study_dir.name for run in ("runs", "runs-b2", "runs-b3")]
+    bases.append(workspace)
+    bases = [b for b in dict.fromkeys(bases) if b.is_dir()]
 
     def by_hash() -> dict[str, Path]:
         nonlocal index
         if index is None:
             index = {}
-            for path in sorted(study_dir.rglob("*")):
-                if path.is_file() and not path.is_symlink() and "runs" not in path.parts:
-                    index.setdefault(hashlib.sha256(path.read_bytes()).hexdigest(), path)
+            for base in bases[:-1]:   # never hash the whole workspace
+                for path in sorted(base.rglob("*")):
+                    if path.is_file() and not path.is_symlink() and "runs" not in path.relative_to(base).parts:
+                        index.setdefault(hashlib.sha256(path.read_bytes()).hexdigest(), path)
         return index
 
-    for key, src in ((protocol.get("meta") or {}).get("sources") or {}).items():
+    for key, src in declared.items():
         text = src if isinstance(src, str) else json.dumps(src, ensure_ascii=False) if isinstance(src, dict) else ""
         dist = (src.get("distribution") or {}) if isinstance(src, dict) else {}
         sha = (src.get("sha256") if isinstance(src, dict) else None) or dist.get("sha256")
@@ -116,12 +151,14 @@ def resolve_sources(study_dir: Path, protocol: dict) -> dict[str, bytes]:
         paths += PATH.findall(text)
         raw = None
         for name in paths:
-            path = Path(name) if name.startswith("/") else study_dir / name
-            if path.is_file():
-                candidate = path.read_bytes()
-                if not sha or hashlib.sha256(candidate).hexdigest().startswith(sha):
-                    raw = candidate
-                    break
+            for path in ([Path(name)] if name.startswith("/") else [b / name for b in bases]):
+                if path.is_file():
+                    candidate = path.read_bytes()
+                    if not sha or hashlib.sha256(candidate).hexdigest().startswith(sha):
+                        raw = candidate
+                        break
+            if raw is not None:
+                break
         if raw is None and sha:
             hit = next((p for h, p in by_hash().items() if h.startswith(sha)), None)
             raw = hit.read_bytes() if hit else None
@@ -154,6 +191,28 @@ def _usable(raw: bytes) -> bool:
 
 def project(study_dir: Path) -> tuple[dict, dict]:
     protocol = json.loads((study_dir / "protocol.json").read_text())
+    # Plain-text sources declared by their file type (an R script, R Markdown, a .txt readme) are format "text" to
+    # the engine; the projection reads, locates and restores them as text.
+    for src in ((protocol.get("meta") or {}).get("sources") or {}).values():
+        dist = src.get("distribution") if isinstance(src, dict) else None
+        if isinstance(dist, dict) and str(dist.get("format", "")).lower() in TEXT_FORMATS:
+            dist["format"] = "text"
+    # Hosting is only kept where the engine accepts the licence id and the credit is complete. A CC0 / public-domain
+    # source without a written attribution gets one (title, link, licence; no credit is legally required). Anything
+    # else that cannot be hosted as written is served as tier "link" instead (never published, restored locally).
+    for key, src in ((protocol.get("meta") or {}).get("sources") or {}).items():
+        dist = src.get("distribution") if isinstance(src, dict) else None
+        if not isinstance(dist, dict) or dist.get("tier") != "hosted":
+            continue
+        lic = str(dist.get("licence") or "")
+        if not release.hosted_licence_ok(lic):
+            dist["tier"] = "link"
+        elif not str(dist.get("attribution") or "").strip():
+            if re.match(r"(?i)(cc0|public.?domain|pdm)", lic):
+                dist["attribution"] = "%s. %s. %s." % (str(src.get("what") or key).split(";")[0][:200],
+                                                     dist.get("url") or src.get("url") or "", lic)
+            else:
+                dist["tier"] = "link"
     sources = resolve_sources(study_dir, protocol)
     # Strict except for one finding: a text cited to a HOSTED source but not found in that file ships either way
     # (hosted = openly licensed), typically a platform button label. Any other finding fails the paper.
@@ -183,12 +242,49 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         raise ProjectionBlocked("no runnable arm: the paper does not print the materials every arm needs")
     if projected.get("schema_version") is None and projected.get("schema") in (None, "hsenv-protocol/0.1"):
         projected["schema_version"] = "1"
+    # An arm hold is cleared only when it is a licence hold, which the projection resolves by holding the text;
+    # any other hold (materials missing, a decision pending) keeps the arm out of the runnable set.
     holds = {}
     for arm in projected.get("arms") or []:
         why = arm.pop("release_hold", None)
-        if why:
+        if not why:
+            continue
+        if LICENCE_HOLD.search(json.dumps(why, ensure_ascii=False)):
             holds[arm["id"]] = why
+        else:
+            arm["runnable"] = False
+            arm.setdefault("why", why if isinstance(why, str) else json.dumps(why, ensure_ascii=False))
+    if not any(a.get("runnable", True) is not False for a in projected.get("arms") or []):
+        raise ProjectionBlocked("no runnable arm: the remaining arm holds are not licence holds")
+    restorable(projected, protocol)
     return projected, {"held": report.get("held", 0), "holdsResolved": holds}
+
+
+def restorable(projected: dict, private: dict) -> None:
+    """Every held item must be restorable by the desktop helper: its source is tier "user" (the researcher's own
+    file) or tier "link" with a URL that downloads to the declared sha256 (the helper fetches it and checks the hash).
+    A held item against a hosted source is never fetched. A link URL that serves something else (an abstract page) is
+    replaced by another URL declared for that source that does hash correctly, else the paper is blocked."""
+    shipped = (projected.get("meta") or {}).get("sources") or {}
+    declared = (private.get("meta") or {}).get("sources") or {}
+    used = {e.get("source") for e in ((projected.get("distribution") or {}).get("held") or {}).values()}
+    for key in sorted(k for k in used if k):
+        dist = (shipped.get(key) or {}).get("distribution") or {}
+        tier = dist.get("tier")
+        if tier == "user":
+            continue
+        if tier != "link":
+            raise ProjectionBlocked(f"held text against source {key} (tier {tier}) cannot be restored by the app")
+        sha = str(dist.get("sha256") or "").lower()
+        src = declared.get(key)
+        text = json.dumps(src, ensure_ascii=False) if src is not None else ""
+        urls = [dist.get("url"), src.get("url") if isinstance(src, dict) else None, *URL.findall(text)]
+        ok = next((u for u in dict.fromkeys(urls) if isinstance(u, str) and u.startswith("http") and len(sha) == 64
+                   and url_serves(u, sha)), None)
+        if not ok:
+            raise ProjectionBlocked(f"link source {key}: no declared URL downloads to its sha256, so the app cannot "
+                                    "restore its held text")
+        dist["url"] = ok
 
 
 def run_checks(protocol: dict, sessions: int) -> dict:

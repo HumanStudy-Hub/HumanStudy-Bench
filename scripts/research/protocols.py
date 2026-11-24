@@ -238,6 +238,19 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
             errors.append("review/checks-latest.json: stale (protocol_sha256 is not this protocol's sha256)")
         if report.get("release_hold"):
             errors.append("review/checks-latest.json: reports arms on release_hold")
+        if quality == UNREVIEWED and report.get("public") is not True:
+            errors.append("review/checks-latest.json: a checked release needs a public (--public) checks report")
+    if not draft and quality == UNREVIEWED:
+        evidence = study.get("quality_evidence")
+        if evidence not in (None, [], ["review/checks-latest.json"]):
+            errors.append("study.json: a checked release cites only review/checks-latest.json as quality evidence")
+    if sessions and not errors and not draft and quality == UNREVIEWED:
+        # The committed report is the maintainer's word; a checked release has no reviewer behind it, so CI runs
+        # the full public checks itself and only its own result counts.
+        fresh = public_checks(protocol, sessions)
+        if fresh.get("PASS") is not True:
+            errors.append("hsenv checks --public (re-run): did not PASS: " + json.dumps(
+                {k: v for k, v in fresh.items() if k not in ("PASS",) and v}, ensure_ascii=False)[:600])
     fuzz = None
     if sessions and not errors and not draft:
         fuzz = replay(protocol, sessions, seed)
@@ -257,6 +270,23 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
 
     return {"status": "failed" if errors else "passed", "errors": errors, "warnings": warnings,
             "protocolSha256": sha, "summary": summary(study, protocol), **({"replay": fuzz} if fuzz else {})}
+
+
+def public_checks(protocol: dict, sessions: int) -> dict:
+    """`python -m hsenv.checks <dir> --public --sessions N` on this protocol; its JSON report."""
+    import subprocess
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        (Path(tmp) / "protocol.json").write_text(json.dumps(protocol, ensure_ascii=False))
+        out = subprocess.run([sys.executable, "-m", "hsenv.checks", ".", "--public", "--sessions", str(sessions)],
+                             cwd=tmp, capture_output=True, text=True, timeout=1800)
+    start = out.stdout.find("{")
+    if start < 0:
+        return {"PASS": False, "error": (out.stderr or out.stdout)[-400:]}
+    try:
+        return json.loads(out.stdout[start:])
+    except ValueError:
+        return {"PASS": False, "error": out.stdout[-400:]}
 
 
 def replay(protocol: dict, sessions: int, seed: int = 1) -> dict:

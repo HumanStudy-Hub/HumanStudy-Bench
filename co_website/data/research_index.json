@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "taxonomyVersion": "2026-10-21.1",
-  "snapshot": "9ae49c5d95bcbb5bda55d89fe8c2877506d36c0fe63c9476061732883d81f33e",
+  "snapshot": "07cf9eeb9f7f2a7f2ae529bd17a4e4bf9f9c37e483bf542ed740df42f79987db",
   "publications": {
     "paper_83fcb93f067f4aca11f7cafa": {
       "kind": "maintainer-reviewed-protocol",
@@ -2099,53 +2099,22 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "9e79272b21b15bd06f50c66a7eaaac40facbff01b4b0e2379ad426d481273d36",
-      "assetRoot": "community/paper_1801b1347f89ef91e2ef3436/revisions/9e79272b21b15bd06f50c66a7eaaac40facbff01b4b0e2379ad426d481273d36",
+      "currentRevision": "5f868ee6d3a0ad4155261288b4501c6b2ba8abcf7f72b99021028fbaaab9f007",
+      "assetRoot": "community/paper_1801b1347f89ef91e2ef3436/revisions/5f868ee6d3a0ad4155261288b4501c6b2ba8abcf7f72b99021028fbaaab9f007",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "2326d744a4b4947171413437adfe7b989e77d958b4f376b3d4cc60f7c450db9e",
           "bytes": 75547
-        },
-        {
-          "path": "protocol.json",
-          "sha256": "7f6874803f7955417334927710db7aac82ad4dba6f8d481ff3aeae94d2dd9e47",
-          "bytes": 220558
-        },
-        {
-          "path": "review/checks-latest.json",
-          "sha256": "26c0f64929e555f52b9329b9d660b6fca8dbc92c4f4f27f88de794db093bc73f",
-          "bytes": 4583
-        },
-        {
-          "path": "study.json",
-          "sha256": "eee755634dad7843cb14eba3a8bd99489d3102b9c2c99bf770e6ea72dae3b6cb",
-          "bytes": 1045
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": false,
+        "traceable": true,
         "reanalyzable": false,
-        "replayable": true,
-        "humanBenchmark": true
-      },
-      "protocol": {
-        "slug": "aiyer2023outcomebias",
-        "schemaVersion": "1",
-        "hsenv": ">=0.8.1,<0.9",
-        "fidelity": {},
-        "arms": [
-          {
-            "id": "mturk",
-            "runnable": true,
-            "nPaper": 692
-          }
-        ],
-        "runExcluded": [],
-        "effects": 15,
-        "revision": "9e79272b21b15bd06f50c66a7eaaac40facbff01b4b0e2379ad426d481273d36"
+        "replayable": false,
+        "humanBenchmark": false
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -6476,22 +6445,53 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "e2e531ec2a8bcc48cdf6a8309dd920cf25c9f08e4fea7e3fe0d0a515a44ccd10",
-      "assetRoot": "community/paper_263c9d9052a4583912cd272e/revisions/e2e531ec2a8bcc48cdf6a8309dd920cf25c9f08e4fea7e3fe0d0a515a44ccd10",
+      "currentRevision": "15f069ad9a229a9596c3e1c81cb75283cf2df47535769f06ad91e3f2d0486782",
+      "assetRoot": "community/paper_263c9d9052a4583912cd272e/revisions/15f069ad9a229a9596c3e1c81cb75283cf2df47535769f06ad91e3f2d0486782",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "4a4cec2e1c1367e164dbcabf2b2c49c0e6cb08604df6a7671647dfff3f422ff8",
           "bytes": 48355
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "dfd8fa3485f5a93f695dfe7392aebbfc526eb173cdf9707a516a141920f1346b",
+          "bytes": 1178220
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "0d0c67aae61c35fa1e951fbf027c66a0b97039b9e1d84eb5786ec16125abd58e",
+          "bytes": 9272
+        },
+        {
+          "path": "study.json",
+          "sha256": "ae825062f75c3c03a14a6f2b95a02dee32d72724b5518066ce5642cea647a782",
+          "bytes": 1010
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
-        "humanBenchmark": false
+        "replayable": true,
+        "humanBenchmark": true
+      },
+      "protocol": {
+        "slug": "yeung2026stigma",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "mturk",
+            "runnable": true,
+            "nPaper": 804
+          }
+        ],
+        "runExcluded": [],
+        "effects": 43,
+        "revision": "15f069ad9a229a9596c3e1c81cb75283cf2df47535769f06ad91e3f2d0486782"
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -37369,22 +37369,63 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "ce7cb3aed4de4b50227bcd86fb0031541b51875ffc5fca7dea878955ee1a5c2e",
-      "assetRoot": "community/paper_ac24450e0f5fae6ad3ce4bd6/revisions/ce7cb3aed4de4b50227bcd86fb0031541b51875ffc5fca7dea878955ee1a5c2e",
+      "currentRevision": "606a39a4a620a2cb1336a36b913ffefd311975df868e292c6a68da2a5d1a9415",
+      "assetRoot": "community/paper_ac24450e0f5fae6ad3ce4bd6/revisions/606a39a4a620a2cb1336a36b913ffefd311975df868e292c6a68da2a5d1a9415",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "19d39d6f47db13331e05201f849b2dba60a66f48296e18f2526c836bf4646187",
           "bytes": 45846
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "53f6ea8ec491aa47a11a6ec8ec5a63ffdcfae3e76c353cad21c63e6a6c263ace",
+          "bytes": 591019
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "974437461e61a481a8f3e38887fdfd414ace683a7f002155bed9711b930795ae",
+          "bytes": 8668
+        },
+        {
+          "path": "study.json",
+          "sha256": "dec13965db51f2b6c03877304bd952ba5dcc0d6bb1008467aadb63d0a355026f",
+          "bytes": 1057
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
-        "humanBenchmark": false
+        "replayable": true,
+        "humanBenchmark": true
+      },
+      "protocol": {
+        "slug": "brick2021selfinterest",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "mturk",
+            "runnable": true,
+            "nPaper": 414
+          },
+          {
+            "id": "mturk_ext",
+            "runnable": false,
+            "nPaper": 386
+          },
+          {
+            "id": "prolific",
+            "runnable": true,
+            "nPaper": 799
+          }
+        ],
+        "runExcluded": [],
+        "effects": 38,
+        "revision": "606a39a4a620a2cb1336a36b913ffefd311975df868e292c6a68da2a5d1a9415"
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -57203,8 +57244,8 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "fceec132cbcc0b4b2a8633a0ac8de04e638b125e38881d13b3740ba826e5ba4d",
-      "assetRoot": "community/paper_d4c44401b1ea3b066c2c8320/revisions/fceec132cbcc0b4b2a8633a0ac8de04e638b125e38881d13b3740ba826e5ba4d",
+      "currentRevision": "9a0205f6555a53e3deeb9a812708abe7f0ca4213b591fc9c4b7520ba96fc566e",
+      "assetRoot": "community/paper_d4c44401b1ea3b066c2c8320/revisions/9a0205f6555a53e3deeb9a812708abe7f0ca4213b591fc9c4b7520ba96fc566e",
       "assetFiles": [
         {
           "path": "program.json",
@@ -57213,17 +57254,17 @@
         },
         {
           "path": "protocol.json",
-          "sha256": "8f9ffd06ea64a5a7953fdc509212e08df626fa3c6814d2846b63e9b026974287",
+          "sha256": "b664425c18f2efaef2e9d3282bb7043bb9ff88dad0495ed1f636337340a18fb0",
           "bytes": 70498
         },
         {
           "path": "review/checks-latest.json",
-          "sha256": "5b1a32fa29f17dc4983f7591ceff3af75643ac91c3e08f1d843b64fdcb81704a",
+          "sha256": "0ede8a8897f206324b0ea6c3ee50af0e956de3e2e1bc2c264a7a90a9e8eaf90e",
           "bytes": 2466
         },
         {
           "path": "study.json",
-          "sha256": "47247e8afd5f0b937ddccfb05debe4737c2971e8c9c3f40241a054c619766b0a",
+          "sha256": "25c562f5bfd10b6e49d7785c046087e9766d43600600924acc898e6a1633730d",
           "bytes": 915
         }
       ],
@@ -57277,7 +57318,7 @@
           null
         ],
         "effects": 0,
-        "revision": "fceec132cbcc0b4b2a8633a0ac8de04e638b125e38881d13b3740ba826e5ba4d"
+        "revision": "9a0205f6555a53e3deeb9a812708abe7f0ca4213b591fc9c4b7520ba96fc566e"
       },
       "conceptIds": [],
       "conceptAssignments": []

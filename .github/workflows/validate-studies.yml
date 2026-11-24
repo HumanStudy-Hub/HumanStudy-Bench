@@ -1,7 +1,7 @@
 name: Validate studies
 on:
   pull_request:
-    branches: [main]
+    branches: [main, dev]
     paths:
       - "studies/**"
       - "scripts/build_studies_index.py"
@@ -75,7 +75,7 @@ jobs:
   # those files. Protocol files themselves are read as data by the engine.
   validate-protocols:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 60
     permissions:
       contents: read
     steps:
