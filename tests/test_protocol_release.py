@@ -177,6 +177,14 @@ def test_unreviewed_release_cannot_claim_fidelity_or_be_private(change):
     assert errors(files)
 
 
+def test_checked_release_needs_a_runnable_arm():
+    files = fixture_files()
+    edit(files, "study.json", _unreviewed)
+    edit(files, "protocol.json", lambda p: [a.update(runnable=False) for a in p["arms"]])
+    rebind(files)
+    assert "at least one runnable arm" in errors(files)
+
+
 def test_unreviewed_release_still_needs_passing_checks():
     files = fixture_files()
     edit(files, "study.json", _unreviewed)

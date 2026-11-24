@@ -192,6 +192,9 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
         # may not claim any fidelity verdict or signature.
         if fidelity:
             errors.append("study.json: a checked (unreviewed) release cannot carry a fidelity verdict or signature")
+        if not any(a.get("runnable", True) is not False and not a.get("release_hold")
+                   for a in protocol.get("arms") or [] if isinstance(a, dict)):
+            errors.append("protocol.json: a checked release needs at least one runnable arm")
     elif not draft and (quality != "high_fidelity" or fidelity.get("verdict") not in SIGNED_VERDICTS \
             or not fidelity.get("signed_by")):
         errors.append("study.json: a release needs quality high_fidelity with a HIGH FIDELITY verdict and "

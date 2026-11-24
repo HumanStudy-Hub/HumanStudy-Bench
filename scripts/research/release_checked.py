@@ -3,7 +3,8 @@
     python -m scripts.research.release_checked --private <studies-dir> --map <map.json> [--only paper_<id> ...]
 
 For each library paper, `map.json` names exactly one private hsenv study (`{paper_id: {"matches": [slug]}}`). The
-private protocol goes through the pinned engine's distribution projection (hsenv.release.project, strict): any
+private protocol goes through the pinned engine's distribution projection (hsenv.release.project; strict except that a hosted
+text missing from its hosted file ships, recorded as distribution.strict false): any
 participant-facing text whose source is not hosted becomes a placeholder with a text hash and a locator, which the
 desktop app fills in on the researcher's computer. Arm-level `release_hold` reasons are licence holds on that text,
 so they are dropped once the projection has held it. The projection is checked with `hsenv.checks --public`; the
@@ -28,6 +29,7 @@ from pathlib import Path
 
 from hsenv import distribution, release, schema_check
 
+from scripts.research.protocols import validate_protocol_files
 from scripts.research.revisions import load_revision, revision_id, safe_path, validate_assets
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -52,13 +54,107 @@ def dumps(data) -> bytes:
     return (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode()
 
 
+OPEN_LICENCE = re.compile(r"\bCC[- ]?0\b|public domain|\bCC[- ]?BY\b(?![- ]?(?:NC|ND|SA))", re.I)
+SHA_PREFIX = re.compile(r"sha256[^0-9a-f]{0,6}([0-9a-f]{8,64})", re.I)
+PATH = re.compile(r"((?:/Users/|sources/|\./)?[^\s'\"(),]+\.(?:pdf|qsf|docx|txt|html?|json|csv|md))", re.I)
+URL = re.compile(r"https?://[^\s'\"()<>,]+")
+CACHE = Path(os.environ.get("RELEASE_SOURCE_CACHE", tempfile.gettempdir())) / "hs-release-sources"
+
+
+def open_licence(src) -> bool:
+    """CC BY (not NC/ND/SA), CC0 or public domain, as stated anywhere in the source declaration."""
+    text = json.dumps(src, ensure_ascii=False) if not isinstance(src, str) else src
+    return bool(OPEN_LICENCE.search(text or ""))
+
+
+def _download(url: str, sha: str) -> bytes | None:
+    """A public source file by its URL, kept only when it hashes to the declared sha256."""
+    import urllib.request
+    CACHE.mkdir(parents=True, exist_ok=True)
+    cached = CACHE / sha
+    if cached.is_file():
+        return cached.read_bytes()
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "humanstudy-release/1.0"})
+        raw = urllib.request.urlopen(req, timeout=60).read()
+    except Exception:
+        return None
+    if hashlib.sha256(raw).hexdigest() != sha:
+        return None
+    cached.write_bytes(raw)
+    return raw
+
+
+def resolve_sources(study_dir: Path, protocol: dict) -> dict[str, bytes]:
+    """The private copy of every declared source the projection can use: the named file, a file in the study folder
+    or at the path written in the declaration whose sha256 (or its printed prefix) matches, else a download of the
+    declared URL that hashes to the declared full sha256. Nothing here is published; it only lets the projection
+    locate held text and scan notes for quotes."""
+    found: dict[str, bytes] = {}
+    index: dict[str, Path] | None = None
+
+    def by_hash() -> dict[str, Path]:
+        nonlocal index
+        if index is None:
+            index = {}
+            for path in sorted(study_dir.rglob("*")):
+                if path.is_file() and not path.is_symlink() and "runs" not in path.parts:
+                    index.setdefault(hashlib.sha256(path.read_bytes()).hexdigest(), path)
+        return index
+
+    for key, src in ((protocol.get("meta") or {}).get("sources") or {}).items():
+        text = src if isinstance(src, str) else json.dumps(src, ensure_ascii=False) if isinstance(src, dict) else ""
+        dist = (src.get("distribution") or {}) if isinstance(src, dict) else {}
+        sha = (src.get("sha256") if isinstance(src, dict) else None) or dist.get("sha256")
+        if not isinstance(sha, str):
+            m = SHA_PREFIX.search(text)
+            sha = m.group(1) if m else None
+        sha = sha.lower() if isinstance(sha, str) else None
+        paths = []
+        if isinstance(src, dict) and isinstance(src.get("file"), str):
+            paths.append(src["file"])
+        paths += PATH.findall(text)
+        raw = None
+        for name in paths:
+            path = Path(name) if name.startswith("/") else study_dir / name
+            if path.is_file():
+                candidate = path.read_bytes()
+                if not sha or hashlib.sha256(candidate).hexdigest().startswith(sha):
+                    raw = candidate
+                    break
+        if raw is None and sha:
+            hit = next((p for h, p in by_hash().items() if h.startswith(sha)), None)
+            raw = hit.read_bytes() if hit else None
+        if raw is None and sha and len(sha) == 64:
+            for url in [dist.get("url"), src.get("url") if isinstance(src, dict) else None, *URL.findall(text)]:
+                if isinstance(url, str) and url.startswith("http"):
+                    raw = _download(url, sha)
+                    if raw:
+                        break
+        if raw is not None and _usable(raw):
+            found[key] = raw
+    return found
+
+
+def _usable(raw: bytes) -> bool:
+    """Only formats the projection reads (pdf, docx, qsf, html, UTF-8 text): pictures, archives and other binaries
+    are left out rather than failing the paper (their texts then count as unlocated, which blocks honestly)."""
+    try:
+        kind = distribution.sniff(raw)
+    except Exception:
+        return False
+    if kind in ("pdf", "docx"):
+        return True
+    try:
+        raw.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        return False
+    return True
+
+
 def project(study_dir: Path) -> tuple[dict, dict]:
     protocol = json.loads((study_dir / "protocol.json").read_text())
-    sources = {}
-    for key, src in ((protocol.get("meta") or {}).get("sources") or {}).items():
-        name = isinstance(src, dict) and src.get("file")
-        if name and (study_dir / name).is_file():
-            sources[key] = (study_dir / name).read_bytes()
+    sources = resolve_sources(study_dir, protocol)
     # Strict except for one finding: a text cited to a HOSTED source but not found in that file ships either way
     # (hosted = openly licensed), typically a platform button label. Any other finding fails the paper.
     projected, report = release.project(protocol, sources=sources,
@@ -66,6 +162,25 @@ def project(study_dir: Path) -> tuple[dict, dict]:
     blocking = [e for e in report.get("errors") or [] if not HOSTED_UNLOCATED.search(e)]
     if blocking:
         raise ProjectionBlocked("; ".join(e[:160] for e in blocking[:4]))
+    # Held items that need a reading of a picture cannot be restored by the desktop helper (it restores text
+    # by locators only), so such a release would not run on the researcher's computer.
+    if report.get("requires_reading"):
+        raise ProjectionBlocked(f"{len(report['requires_reading'])} held item(s) need an image reading the app cannot restore")
+    # Notes, conflicts and other operator fields are not withheld by the projection; they are only safe when the
+    # engine could scan them against every non-hosted source's text. Unscanned -> do not publish.
+    msrc = (protocol.get("meta") or {}).get("sources") or {}
+    closed = [k for k in report.get("quote_scan_unchecked") or [] if not open_licence(msrc.get(k))]
+    if closed:
+        raise ProjectionBlocked(f"source(s) {', '.join(closed[:6])} without an open licence could not be scanned for "
+                                "quotes in notes; supply their text before release")
+    tiers = report.get("tiers") or {}
+    for key, raw in sources.items():
+        if tiers.get(key) != "hosted" and raw[:5] == b"%PDF-":
+            text = "".join(distribution.pdfium_extractor()(raw))
+            if len(text.strip()) < 2000:   # a scan without a text layer: the quote scan saw nothing
+                raise ProjectionBlocked(f"non-hosted PDF {key} has no text layer, so notes cannot be scanned for quotes")
+    if not any(a.get("runnable", True) is not False for a in projected.get("arms") or []):
+        raise ProjectionBlocked("no runnable arm: the paper does not print the materials every arm needs")
     if projected.get("schema_version") is None and projected.get("schema") in (None, "hsenv-protocol/0.1"):
         projected["schema_version"] = "1"
     holds = {}
@@ -121,6 +236,11 @@ def build(paper_id: str, slug: str, private: Path, sessions: int) -> dict:
     files["study.json"] = dumps(study)
     files["review/checks-latest.json"] = dumps(report)
     validation = validate_assets(files)
+    if validation["status"] == "passed":
+        # CI replays 300 sessions (validate-studies.yml); a release must pass exactly that, not only our 1,000-session run.
+        replayed = validate_protocol_files(files, sessions=300)
+        if replayed["status"] != "passed":
+            validation = {**validation, "status": "failed", "errors": replayed["errors"]}
     if validation["status"] != "passed":
         return {"paper": paper_id, "slug": slug, "status": "invalid", "errors": validation["errors"][:8]}
     rid = revision_id(files)
