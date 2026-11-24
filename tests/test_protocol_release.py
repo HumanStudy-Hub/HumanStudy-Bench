@@ -157,6 +157,33 @@ def test_release_needs_public_visibility_and_signed_fidelity(change):
     assert errors(files)
 
 
+def _unreviewed(s):
+    s.update(quality="checked")
+    s.pop("fidelity", None)
+
+
+def test_unreviewed_release_passes_without_a_fidelity_claim():
+    files = fixture_files()
+    edit(files, "study.json", _unreviewed)
+    assert not errors(files)
+
+
+@pytest.mark.parametrize("change", [lambda s: s.update(fidelity={"verdict": "HIGH FIDELITY", "signed_by": "x"}),
+                                    lambda s: s.update(visibility="private")])
+def test_unreviewed_release_cannot_claim_fidelity_or_be_private(change):
+    files = fixture_files()
+    edit(files, "study.json", _unreviewed)
+    edit(files, "study.json", change)
+    assert errors(files)
+
+
+def test_unreviewed_release_still_needs_passing_checks():
+    files = fixture_files()
+    edit(files, "study.json", _unreviewed)
+    edit(files, "review/checks-latest.json", lambda r: r.update(PASS=False))
+    assert "did not PASS" in errors(files)
+
+
 def test_arms_in_study_json_follow_the_protocol():
     files = fixture_files()
     edit(files, "study.json", lambda s: s.update(arms=[{"id": "main", "runnable": False}]))

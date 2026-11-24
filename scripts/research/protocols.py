@@ -49,6 +49,9 @@ NEVER = ("sources/researcher/**", "sources/private/**", "sources/quarantine/**",
 # to the engine's schema; then this list goes.
 RELEASE_FIELDS = ("slug", "paper", "contributors", "visibility", "hsenv", "fidelity", "arms", "paperId", "release")
 SIGNED_VERDICTS = {"HIGH FIDELITY", "high_fidelity"}
+# "checked": a runnable release whose fidelity nobody has signed (owner 2026-11-24: every library paper runnable,
+# labelled unreviewed). Only catalog/publications.json makes a paper Validated.
+UNREVIEWED = "checked"
 ASSET = re.compile(r"^asset:([0-9a-f]{16})$")
 
 
@@ -183,9 +186,16 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
     if not isinstance(fidelity, dict):
         errors.append("study.json: fidelity must be an object")
         fidelity = {}
-    if not draft and (study.get("quality") != "high_fidelity" or fidelity.get("verdict") not in SIGNED_VERDICTS \
+    quality = study.get("quality")
+    if not draft and quality == UNREVIEWED:
+        # Runnable but not independently reviewed: the engine checks below must still PASS, and the release
+        # may not claim any fidelity verdict or signature.
+        if fidelity:
+            errors.append("study.json: a checked (unreviewed) release cannot carry a fidelity verdict or signature")
+    elif not draft and (quality != "high_fidelity" or fidelity.get("verdict") not in SIGNED_VERDICTS \
             or not fidelity.get("signed_by")):
-        errors.append("study.json: a release needs quality high_fidelity, a HIGH FIDELITY verdict and signed_by (G2)")
+        errors.append("study.json: a release needs quality high_fidelity with a HIGH FIDELITY verdict and "
+                      "signed_by (G2), or quality checked without a fidelity claim")
     if fidelity.get("review") and fidelity["review"] not in files:
         errors.append(f"study.json: fidelity.review {fidelity['review']} is not in the release")
     if study.get("release_hold"):
