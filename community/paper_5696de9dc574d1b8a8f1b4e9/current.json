@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "4f09be565d2e1b51736ab3eeed425be7ce51039e2abc608562c6ea54b265b4b4",
-  "previousRevision": null,
+  "revision": "2d49187d85878bf8a324862f39b5795b479889dcde05062e40fd3807c7b3c842",
+  "previousRevision": "4f09be565d2e1b51736ab3eeed425be7ce51039e2abc608562c6ea54b265b4b4",
   "paper": {
     "title": "It’s personal: The effect of personal value on utilitarian moral judgments",
     "authors": [
@@ -35,52 +35,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "4f09be565d2e1b51736ab3eeed425be7ce51039e2abc608562c6ea54b265b4b4",
-    "reviewer": "independent-agent:program-pilot",
-    "reason": "Independent reading-layer review and public-export checks completed; source-backed summaries and explicit missing items retained. No protocol or raw source files are distributed.",
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Reading Program, reported findings, source references and public-content boundaries only. Not a Validated protocol or replication of human outcomes.",
-    "sourcePolicy": {
-      "publicFiles": [
-        "program.json"
-      ],
-      "sourceCredits": [
-        {
-          "evidenceIds": [
-            "motivation",
-            "question",
-            "s1-method",
-            "s1-procedure",
-            "s1-results",
-            "s2-sample",
-            "s2-method",
-            "s2-results",
-            "interpretation",
-            "limits"
-          ],
-          "url": "https://jbaron.org/journal/16/16428/jdm16428.pdf",
-          "attribution": "Charles Millar, Christina Starmans, Jonathan Fugelsang, Ori Friedman. It’s personal: The effect of personal value on utilitarian moral judgments (2016).",
-          "license": "CC-BY-3.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-          "sha256": "c0e301bfae52a1a91740a1e4c9b9a2d085a5b29adaed4f407970aa87bb02fc4a",
-          "title": "It’s personal: The effect of personal value on utilitarian moral judgments",
-          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
-        }
-      ],
-      "inputExportSha256": "0820c1fa9d2a9ecc212c2f6bf8854d9ac7b11b02edf04a1825ace74a79b68f88"
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Runnable protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "2d49187d85878bf8a324862f39b5795b479889dcde05062e40fd3807c7b3c842"
   },
   "validation": {
     "status": "passed",
@@ -88,7 +53,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -96,9 +61,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "fe4e3ca9b89fd8754278c87e26d9d62d305f99f78029352cb832eaa4a8a2182e"
+    "protocolSha256": "4fa4993b1ce0394a2d49aae05b35a3a231c9938dcd1b76c5089ade361d4ef7be"
   }
 }

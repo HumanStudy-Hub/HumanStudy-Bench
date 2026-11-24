@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "0b5ff460e97761a192091d0a3c71503bf2187707e94419686a544ea4566f4685",
-  "previousRevision": null,
+  "revision": "2feba89d4fa548728bd597d7b23bc555bffb631603eba99b484bf6ff3b5357f8",
+  "previousRevision": "0b5ff460e97761a192091d0a3c71503bf2187707e94419686a544ea4566f4685",
   "paper": {
     "title": "Revisiting the status quo bias: Replication of Samuelson and Zeckhauser (1988)",
     "authors": [
@@ -33,32 +33,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "0b5ff460e97761a192091d0a3c71503bf2187707e94419686a544ea4566f4685",
-    "reviewer": "independent-agent:gpt-6-astra:/root/astra_public_program",
-    "reason": "Accepted revised reading-only scholarly reconstruction after provenance and locator fixes; reported contradictions and source limitations remain explicit.",
-    "checks": [
-      "Inspected two phases (N=311 and N=316), hypothetical four-option scenarios, between-person framing within each repeated scenario, and weak wagon-color findings.",
-      "27 PDF text quotations matched their physical pages; seven table records now have physical-page locators. Independently rendered and visually checked pages 9, 10, 11 and 12 against every quoted White, investment, College C and wagon row, including exact p-values and confidence intervals.",
-      "Read archived original preregistrations for H1/H2, Phase 1 Word/QSF two-versus-four-scenario conflict, QSF2 QID56 choice 4, and preprint error documentation explaining missing 50/50 alternate cell. White-wagon and investment-scenario reporting discrepancies retained."
-    ],
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Independent public-Program and primary-paper review, with linked instrument claims checked against archived source files. No raw-data reproduction or protocol-fidelity attestation.",
-    "limitations": [
-      "Web tool could not open external download endpoints; archived-source review does not certify present remote endpoint availability.",
-      "Xiao rendered tables are readable in the original PDF but cannot all be verified by the text-only automated quote extractor."
-    ]
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Runnable protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "2feba89d4fa548728bd597d7b23bc555bffb631603eba99b484bf6ff3b5357f8"
   },
   "validation": {
     "status": "passed",
@@ -66,7 +51,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -74,9 +59,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "3ef95cdb5bcc780f16561cd5b252cb8cece15a1fca69e18aa2da9d55abd5d200"
+    "protocolSha256": "996ed5fc789df36baba5eb450b488f54e9f78b616a33d13cd80b9ae558d6f210"
   }
 }
