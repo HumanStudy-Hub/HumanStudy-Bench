@@ -58,6 +58,9 @@ OPEN_LICENCE = re.compile(r"\bCC[- ]?0\b|public domain|\bCC[- ]?BY\b(?![- ]?(?:N
 SHA_PREFIX = re.compile(r"sha256[^0-9a-f]{0,6}([0-9a-f]{8,64})", re.I)
 PATH = re.compile(r"((?:/Users/|sources/|\./)?[^\s'\"(),]+\.(?:pdf|qsf|docx|txt|html?|json|csv|md|rmd|r))", re.I)
 LICENCE_HOLD = re.compile(r"licen[cs]|copyright|redistribut|publisher|paywall|permission", re.I)
+# Anything besides the licence that a hold may name; such a hold is never cleared by the projection.
+OTHER_HOLD = re.compile(r"missing|not printed|unprinted|pending|approv|decision|decide|unclear|incomplete|unresolved|"
+                        r"todo|to do|not yet|reconstruct|fidelity|review|bug|broken|error", re.I)
 TEXT_FORMATS = {"r", "rmd", "txt", "md", "csv", "tsv", "sps", "do", "py"}
 URL = re.compile(r"https?://[^\s'\"()<>,]+")
 CACHE = Path(os.environ.get("RELEASE_SOURCE_CACHE", tempfile.gettempdir())) / "hs-release-sources"
@@ -249,7 +252,8 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         why = arm.pop("release_hold", None)
         if not why:
             continue
-        if LICENCE_HOLD.search(json.dumps(why, ensure_ascii=False)):
+        reason = json.dumps(why, ensure_ascii=False)
+        if LICENCE_HOLD.search(reason) and not OTHER_HOLD.search(reason):
             holds[arm["id"]] = why
         else:
             arm["runnable"] = False
