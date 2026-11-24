@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "taxonomyVersion": "2026-10-21.1",
-  "snapshot": "db43ce4647107598bb34b5bdd46f8ca3cbe70f208b0760d66d7fae89e5b0e715",
+  "snapshot": "07cf9eeb9f7f2a7f2ae529bd17a4e4bf9f9c37e483bf542ed740df42f79987db",
   "publications": {
     "paper_83fcb93f067f4aca11f7cafa": {
       "kind": "maintainer-reviewed-protocol",
@@ -6445,22 +6445,53 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "e2e531ec2a8bcc48cdf6a8309dd920cf25c9f08e4fea7e3fe0d0a515a44ccd10",
-      "assetRoot": "community/paper_263c9d9052a4583912cd272e/revisions/e2e531ec2a8bcc48cdf6a8309dd920cf25c9f08e4fea7e3fe0d0a515a44ccd10",
+      "currentRevision": "15f069ad9a229a9596c3e1c81cb75283cf2df47535769f06ad91e3f2d0486782",
+      "assetRoot": "community/paper_263c9d9052a4583912cd272e/revisions/15f069ad9a229a9596c3e1c81cb75283cf2df47535769f06ad91e3f2d0486782",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "4a4cec2e1c1367e164dbcabf2b2c49c0e6cb08604df6a7671647dfff3f422ff8",
           "bytes": 48355
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "dfd8fa3485f5a93f695dfe7392aebbfc526eb173cdf9707a516a141920f1346b",
+          "bytes": 1178220
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "0d0c67aae61c35fa1e951fbf027c66a0b97039b9e1d84eb5786ec16125abd58e",
+          "bytes": 9272
+        },
+        {
+          "path": "study.json",
+          "sha256": "ae825062f75c3c03a14a6f2b95a02dee32d72724b5518066ce5642cea647a782",
+          "bytes": 1010
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
-        "humanBenchmark": false
+        "replayable": true,
+        "humanBenchmark": true
+      },
+      "protocol": {
+        "slug": "yeung2026stigma",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "mturk",
+            "runnable": true,
+            "nPaper": 804
+          }
+        ],
+        "runExcluded": [],
+        "effects": 43,
+        "revision": "15f069ad9a229a9596c3e1c81cb75283cf2df47535769f06ad91e3f2d0486782"
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -16247,13 +16278,23 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "606d0a39e6116bbf50732f9bf2d3725e9f58a0c4bbc78777feb8ec7ac0edb10d",
-      "assetRoot": "community/paper_47cf151680c842ef282b7777/revisions/606d0a39e6116bbf50732f9bf2d3725e9f58a0c4bbc78777feb8ec7ac0edb10d",
+      "currentRevision": "21ec8450136d105269d134b621c2b818a63da1e5bf97bd9cf78cfbc47f28e1c4",
+      "assetRoot": "community/paper_47cf151680c842ef282b7777/revisions/21ec8450136d105269d134b621c2b818a63da1e5bf97bd9cf78cfbc47f28e1c4",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "62cdc840b430b5d301d692824552362f9b7c158f997d6b75dc18586ad17b8924",
           "bytes": 48467
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "d8912fb140eb34db4b54a1b9f7e0a6ba8ec626395e4762154a73ae13cdf21494",
+          "bytes": 106980
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "d99568405bcb17734a44ef070675c69a7c668c0c0b1c50bb2f92cb1ad5450cd9",
+          "bytes": 3787
         },
         {
           "path": "sources/SOURCE.json",
@@ -16264,15 +16305,36 @@
           "path": "sources/open/paper.pdf",
           "sha256": "63e23b4ee3788cc61f2eb2f0c2a7ded1c16cac75eca50ff0a4bca994eaafd7fd",
           "bytes": 791140
+        },
+        {
+          "path": "study.json",
+          "sha256": "79bb683bef9956c5cb4b69b1c9eb5742c93bf6f1e6dae592869ef49d6d702186",
+          "bytes": 976
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
-        "humanBenchmark": false
+        "replayable": true,
+        "humanBenchmark": true
+      },
+      "protocol": {
+        "slug": "alcala2022taintedaltruism",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "prolific",
+            "runnable": true,
+            "nPaper": 501
+          }
+        ],
+        "runExcluded": [],
+        "effects": 9,
+        "revision": "21ec8450136d105269d134b621c2b818a63da1e5bf97bd9cf78cfbc47f28e1c4"
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -17742,22 +17804,63 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "2eddfa371a8e75e90031ec6e03f74c63261773a6b51776226c0552504b0d9fdc",
-      "assetRoot": "community/paper_5416b740c5811f5929f08da6/revisions/2eddfa371a8e75e90031ec6e03f74c63261773a6b51776226c0552504b0d9fdc",
+      "currentRevision": "c65785cc2ac2d40259da79c585a079f1668095d3e7309a813acfc92d8823eead",
+      "assetRoot": "community/paper_5416b740c5811f5929f08da6/revisions/c65785cc2ac2d40259da79c585a079f1668095d3e7309a813acfc92d8823eead",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "eb741dff65fb2f5b92742f23e7b1e9633bfdf657dd4eb73c648d882785371918",
           "bytes": 48637
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "7b0d817ce3ce29afaf440458b63d7375882229163a9e252077cceeb187c680d7",
+          "bytes": 315346
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "e18b52ea7132f7236146eff5429b8253d3075f79fecc943870444e08863edcdf",
+          "bytes": 5162
+        },
+        {
+          "path": "study.json",
+          "sha256": "a5966b38d0c5de613e2d3c6863a0f357c5356cc85526f7a7753ceb963639be96",
+          "bytes": 1086
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
-        "humanBenchmark": false
+        "replayable": true,
+        "humanBenchmark": true
+      },
+      "protocol": {
+        "slug": "fillon2023inactionagents",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "s1a",
+            "runnable": true,
+            "nPaper": 339
+          },
+          {
+            "id": "s1b",
+            "runnable": true,
+            "nPaper": 339
+          },
+          {
+            "id": "s2",
+            "runnable": true,
+            "nPaper": 460
+          }
+        ],
+        "runExcluded": [],
+        "effects": 16,
+        "revision": "c65785cc2ac2d40259da79c585a079f1668095d3e7309a813acfc92d8823eead"
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -18147,22 +18250,58 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "4f09be565d2e1b51736ab3eeed425be7ce51039e2abc608562c6ea54b265b4b4",
-      "assetRoot": "community/paper_5696de9dc574d1b8a8f1b4e9/revisions/4f09be565d2e1b51736ab3eeed425be7ce51039e2abc608562c6ea54b265b4b4",
+      "currentRevision": "2d49187d85878bf8a324862f39b5795b479889dcde05062e40fd3807c7b3c842",
+      "assetRoot": "community/paper_5696de9dc574d1b8a8f1b4e9/revisions/2d49187d85878bf8a324862f39b5795b479889dcde05062e40fd3807c7b3c842",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "d2a7a4faef0dd84dace1668d2d7d69ff52b1089f23ae71fd8ee4986ba204ee5a",
           "bytes": 28312
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "c1d11e3bf93713fbe7e87ef42ab3fa211f341937c4da7db7fc365d42709b3f62",
+          "bytes": 293818
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "deaefb8a57b5d068ffa1e6a83d9ce8e25baccaea813efb3c8ad33482103ec530",
+          "bytes": 4839
+        },
+        {
+          "path": "study.json",
+          "sha256": "ad76fabf32ad6dcb2decf02ed1f225172ecc99ea31f425401d7852e4aac4abc7",
+          "bytes": 1023
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
-        "humanBenchmark": false
+        "replayable": true,
+        "humanBenchmark": true
+      },
+      "protocol": {
+        "slug": "millar2016personal",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "exp1",
+            "runnable": true,
+            "nPaper": 391
+          },
+          {
+            "id": "exp2",
+            "runnable": true,
+            "nPaper": 788
+          }
+        ],
+        "runExcluded": [],
+        "effects": 20,
+        "revision": "2d49187d85878bf8a324862f39b5795b479889dcde05062e40fd3807c7b3c842"
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -26236,22 +26375,73 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "023e80bf37430d0707df70f974adda51f5ff188bf337a08ac3b9ee5e3a9a8d9f",
-      "assetRoot": "community/paper_7264965f9ef7270855aa8cd2/revisions/023e80bf37430d0707df70f974adda51f5ff188bf337a08ac3b9ee5e3a9a8d9f",
+      "currentRevision": "bfa40627c6a7ce26a9ff2b85eb93f826b0b15f81c06ec82e87a5cf176ae02b08",
+      "assetRoot": "community/paper_7264965f9ef7270855aa8cd2/revisions/bfa40627c6a7ce26a9ff2b85eb93f826b0b15f81c06ec82e87a5cf176ae02b08",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "a977368d0d33c2d614d4c700015078892db0d23cfc8cd464f808db95edc0cb93",
           "bytes": 59644
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "edf249841c17b39b63b7365e68e8de6e33321109bf3d814fd7c2f0ccec9ece16",
+          "bytes": 373857
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "b62e7ddbdd25caf71487b29ec9cc621b14f680dec516a6369719d16453898f6e",
+          "bytes": 7323
+        },
+        {
+          "path": "study.json",
+          "sha256": "6adb705bd8252836e81d5ebfb19b693ea9fdd705d8dd39c5e1326425af2dafa1",
+          "bytes": 1361
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
-        "humanBenchmark": false
+        "replayable": true,
+        "humanBenchmark": true
+      },
+      "protocol": {
+        "slug": "brohmer2024genericmasculine",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "control",
+            "runnable": true,
+            "nPaper": 594
+          },
+          {
+            "id": "generic_masculine",
+            "runnable": true,
+            "nPaper": 550
+          },
+          {
+            "id": "internal_i",
+            "runnable": true,
+            "nPaper": 473
+          },
+          {
+            "id": "pair_form",
+            "runnable": true,
+            "nPaper": 551
+          },
+          {
+            "id": "gender_star",
+            "runnable": true,
+            "nPaper": 529
+          }
+        ],
+        "runExcluded": [],
+        "effects": 13,
+        "revision": "bfa40627c6a7ce26a9ff2b85eb93f826b0b15f81c06ec82e87a5cf176ae02b08"
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -34664,22 +34854,70 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "6149b5e4bf3db70fdbf12bbe7b23070a83ea60e74a2cb90d25d1c5533bfedec8",
-      "assetRoot": "community/paper_9d333fcaf90e316b1b543296/revisions/6149b5e4bf3db70fdbf12bbe7b23070a83ea60e74a2cb90d25d1c5533bfedec8",
+      "currentRevision": "fe6dc7392dc030e9b9a6e94a43632969c3354f84e06cb4398fc4b329aee0e104",
+      "assetRoot": "community/paper_9d333fcaf90e316b1b543296/revisions/fe6dc7392dc030e9b9a6e94a43632969c3354f84e06cb4398fc4b329aee0e104",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "d00a56bd01afb56fc047b70aa5257d907634caf67f511566f543335517179654",
           "bytes": 28442
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "bebf391dd0f7177a0cbd5b98377a44c52687761a71c6f67b84ada1219104cad4",
+          "bytes": 324922
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "3b46b4d01b58ed6b4026f4030a9814aa922c91afed1f91203b83b69549efe7b7",
+          "bytes": 3470
+        },
+        {
+          "path": "study.json",
+          "sha256": "73b8bf7675f00eb8014d18a931c792e22aec38acbabe5bb92d9ce1eaab24738f",
+          "bytes": 951
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
+        "replayable": true,
         "humanBenchmark": false
+      },
+      "protocol": {
+        "slug": "winking2014anonymity",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "control",
+            "runnable": false,
+            "nPaper": 98
+          },
+          {
+            "id": "private",
+            "runnable": true,
+            "nPaper": 98
+          },
+          {
+            "id": "private_positive",
+            "runnable": true,
+            "nPaper": 94
+          },
+          {
+            "id": "private_zero",
+            "runnable": true,
+            "nPaper": 93
+          }
+        ],
+        "runExcluded": [
+          null
+        ],
+        "effects": 0,
+        "revision": "fe6dc7392dc030e9b9a6e94a43632969c3354f84e06cb4398fc4b329aee0e104"
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -36143,22 +36381,53 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "36e2a10c7672134ccb9d773ab121e7160e86127393d07b89b6a209a702dc2bf3",
-      "assetRoot": "community/paper_a5d705128061292e3813f777/revisions/36e2a10c7672134ccb9d773ab121e7160e86127393d07b89b6a209a702dc2bf3",
+      "currentRevision": "210e2388fad6ac0eb61e4a9b8e8bd5de305ef4f70146e40834256b2f083e10e0",
+      "assetRoot": "community/paper_a5d705128061292e3813f777/revisions/210e2388fad6ac0eb61e4a9b8e8bd5de305ef4f70146e40834256b2f083e10e0",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "1d50b702f218c0f06d3aaaf4760e71db68ab8496326adc46b809a95067873cdb",
           "bytes": 52868
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "427e6014c35bce53e4282fcaa2082708d1408a047297a7b46fdb6735283ee01d",
+          "bytes": 479107
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "c6d498e347a80b6dd1d292aa3600a3c8b86d75baeaa25a23d539b2f1b9a6b006",
+          "bytes": 8245
+        },
+        {
+          "path": "study.json",
+          "sha256": "60ddc633abd4565e7a808b3b172ad3f9d6aeefb84bf3c77aacc057fcd2bb9904",
+          "bytes": 918
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
-        "humanBenchmark": false
+        "replayable": true,
+        "humanBenchmark": true
+      },
+      "protocol": {
+        "slug": "zhu2025waste",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "prolific",
+            "runnable": true,
+            "nPaper": 659
+          }
+        ],
+        "runExcluded": [],
+        "effects": 30,
+        "revision": "210e2388fad6ac0eb61e4a9b8e8bd5de305ef4f70146e40834256b2f083e10e0"
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -37100,22 +37369,63 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "ce7cb3aed4de4b50227bcd86fb0031541b51875ffc5fca7dea878955ee1a5c2e",
-      "assetRoot": "community/paper_ac24450e0f5fae6ad3ce4bd6/revisions/ce7cb3aed4de4b50227bcd86fb0031541b51875ffc5fca7dea878955ee1a5c2e",
+      "currentRevision": "606a39a4a620a2cb1336a36b913ffefd311975df868e292c6a68da2a5d1a9415",
+      "assetRoot": "community/paper_ac24450e0f5fae6ad3ce4bd6/revisions/606a39a4a620a2cb1336a36b913ffefd311975df868e292c6a68da2a5d1a9415",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "19d39d6f47db13331e05201f849b2dba60a66f48296e18f2526c836bf4646187",
           "bytes": 45846
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "53f6ea8ec491aa47a11a6ec8ec5a63ffdcfae3e76c353cad21c63e6a6c263ace",
+          "bytes": 591019
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "974437461e61a481a8f3e38887fdfd414ace683a7f002155bed9711b930795ae",
+          "bytes": 8668
+        },
+        {
+          "path": "study.json",
+          "sha256": "dec13965db51f2b6c03877304bd952ba5dcc0d6bb1008467aadb63d0a355026f",
+          "bytes": 1057
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
-        "humanBenchmark": false
+        "replayable": true,
+        "humanBenchmark": true
+      },
+      "protocol": {
+        "slug": "brick2021selfinterest",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "mturk",
+            "runnable": true,
+            "nPaper": 414
+          },
+          {
+            "id": "mturk_ext",
+            "runnable": false,
+            "nPaper": 386
+          },
+          {
+            "id": "prolific",
+            "runnable": true,
+            "nPaper": 799
+          }
+        ],
+        "runExcluded": [],
+        "effects": 38,
+        "revision": "606a39a4a620a2cb1336a36b913ffefd311975df868e292c6a68da2a5d1a9415"
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -56934,22 +57244,81 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "c6d2f883f9562405b30b9361e9f4715beb9527daa17a6c1565ccabf9e0b75233",
-      "assetRoot": "community/paper_d4c44401b1ea3b066c2c8320/revisions/c6d2f883f9562405b30b9361e9f4715beb9527daa17a6c1565ccabf9e0b75233",
+      "currentRevision": "9a0205f6555a53e3deeb9a812708abe7f0ca4213b591fc9c4b7520ba96fc566e",
+      "assetRoot": "community/paper_d4c44401b1ea3b066c2c8320/revisions/9a0205f6555a53e3deeb9a812708abe7f0ca4213b591fc9c4b7520ba96fc566e",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "2685f2040493d185babc5981daa978d1f8b4ea64fb846e01fb33eb892faa40ad",
           "bytes": 39810
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "b664425c18f2efaef2e9d3282bb7043bb9ff88dad0495ed1f636337340a18fb0",
+          "bytes": 70498
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "0ede8a8897f206324b0ea6c3ee50af0e956de3e2e1bc2c264a7a90a9e8eaf90e",
+          "bytes": 2466
+        },
+        {
+          "path": "study.json",
+          "sha256": "25c562f5bfd10b6e49d7785c046087e9766d43600600924acc898e6a1633730d",
+          "bytes": 915
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
+        "replayable": true,
         "humanBenchmark": false
+      },
+      "protocol": {
+        "slug": "capraro2014goodactions",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "s1_baseline",
+            "runnable": false,
+            "nPaper": 81
+          },
+          {
+            "id": "s1_control1",
+            "runnable": true,
+            "nPaper": 75
+          },
+          {
+            "id": "s1_control2",
+            "runnable": true,
+            "nPaper": 76
+          },
+          {
+            "id": "s2_baseline",
+            "runnable": false,
+            "nPaper": 112
+          },
+          {
+            "id": "s2_control1",
+            "runnable": true,
+            "nPaper": 115
+          },
+          {
+            "id": "s2_control2",
+            "runnable": true,
+            "nPaper": 113
+          }
+        ],
+        "runExcluded": [
+          null,
+          null
+        ],
+        "effects": 0,
+        "revision": "9a0205f6555a53e3deeb9a812708abe7f0ca4213b591fc9c4b7520ba96fc566e"
       },
       "conceptIds": [],
       "conceptAssignments": []
@@ -58391,13 +58760,23 @@
         }
       ],
       "effectEstimates": [],
-      "currentRevision": "0b5ff460e97761a192091d0a3c71503bf2187707e94419686a544ea4566f4685",
-      "assetRoot": "community/paper_db4af7cbf0234db4454780e2/revisions/0b5ff460e97761a192091d0a3c71503bf2187707e94419686a544ea4566f4685",
+      "currentRevision": "2feba89d4fa548728bd597d7b23bc555bffb631603eba99b484bf6ff3b5357f8",
+      "assetRoot": "community/paper_db4af7cbf0234db4454780e2/revisions/2feba89d4fa548728bd597d7b23bc555bffb631603eba99b484bf6ff3b5357f8",
       "assetFiles": [
         {
           "path": "program.json",
           "sha256": "0993ee2c9487de46b5d5054cd4b583f99397332b939c3e29b010d408181f643e",
           "bytes": 48643
+        },
+        {
+          "path": "protocol.json",
+          "sha256": "925539a792d15f7b20e23e77575ecd3230994239405374318aa653b4625680f8",
+          "bytes": 3113194
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "c4961827bcd848038dcff6d15d5a995cbc0155b2f9e3e69403c5cae8e39fda9a",
+          "bytes": 18767
         },
         {
           "path": "sources/SOURCE.json",
@@ -58408,15 +58787,41 @@
           "path": "sources/open/paper.pdf",
           "sha256": "29e8a76f1d5d99dffbe78f9a5b213579955af7e7b90c57f5fa07f5aa9660a488",
           "bytes": 2177990
+        },
+        {
+          "path": "study.json",
+          "sha256": "30a3c6e259c9763b7623a57f1f1bb45f892ef3ccd3af73e73ab06c4733e7ad20",
+          "bytes": 937
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
-        "traceable": true,
+        "traceable": false,
         "reanalyzable": false,
-        "replayable": false,
-        "humanBenchmark": false
+        "replayable": true,
+        "humanBenchmark": true
+      },
+      "protocol": {
+        "slug": "xiao2021statusquo",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "phase1",
+            "runnable": true,
+            "nPaper": 311
+          },
+          {
+            "id": "phase2",
+            "runnable": true,
+            "nPaper": 316
+          }
+        ],
+        "runExcluded": [],
+        "effects": 96,
+        "revision": "2feba89d4fa548728bd597d7b23bc555bffb631603eba99b484bf6ff3b5357f8"
       },
       "conceptIds": [],
       "conceptAssignments": []

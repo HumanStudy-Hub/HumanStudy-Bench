@@ -1,0 +1,2912 @@
+{
+  "id": "alcala2022taintedaltruism",
+  "schema_version": "1",
+  "meta": {
+    "citation": "Alcala V, Johnson K, Steele C, Wu J, Zhang D, Pashler H. 2022 The tainted altruism effect: a successful pre-registered replication. R. Soc. Open Sci. 9: 211152. doi:10.1098/rsos.211152 (direct replication of Newman & Cain 2014, Psychol. Sci. 25: 648-655, Experiments 3 and 2)",
+    "doi": "10.1098/rsos.211152",
+    "language": "en",
+    "language_cite": {
+      "label": "reported",
+      "source": "paper",
+      "page": 1,
+      "note": "US participants on Prolific; English materials"
+    },
+    "licence": {
+      "paper": "CC BY 4.0 (printed on p. 1: 'Published by the Royal Society under the terms of the Creative Commons Attribution License http://creativecommons.org/licenses/by/4.0/')",
+      "si": "CC BY 4.0 (figshare API https://api.figshare.com/v2/articles/18668913, license.name 'CC BY 4.0', read 2026-11-10; the .docx itself prints no licence line)",
+      "nc2014": "unknown, reference only: not stored, nothing served from it",
+      "fully_public": true
+    },
+    "fully_public": true,
+    "sources": {
+      "paper": {
+        "file": "sources/bundle/paper/paper.pdf",
+        "url": "https://doi.org/10.1098/rsos.211152",
+        "sha256": "63e23b4ee3788cc61f2eb2f0c2a7ded1c16cac75eca50ff0a4bca994eaafd7fd",
+        "licence": "CC BY 4.0 (printed on p. 1; PMC8790362 'cc by')",
+        "what": "version of record (PMC OA copy, PMC8790362.1); settles the Experiment 1 passages and questions, the scale, the Experiment 2 design, exclusions and all printed results",
+        "text": "sourcetext/paper.txt (tools/render_sources.py)",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC-BY-4.0",
+          "url": "https://doi.org/10.1098/rsos.211152",
+          "sha256": "63e23b4ee3788cc61f2eb2f0c2a7ded1c16cac75eca50ff0a4bca994eaafd7fd",
+          "format": "pdf",
+          "attribution": "Alcala, V., Johnson, K., Steele, C., Wu, J., Zhang, D., & Pashler, H. (2022). The tainted altruism effect: a successful pre-registered replication. R. Soc. Open Sci. 9: 211152. CC BY 4.0"
+        }
+      },
+      "si": {
+        "file": "sources/si/rsos211152_si_001.docx",
+        "url": "https://doi.org/10.6084/m9.figshare.18668913",
+        "sha256": "a77dc1e8f4a882139ded3f551ce84d245e7717395a01c46549dac06ca16ef37d",
+        "download": "https://ndownloader.figshare.com/files/33451560 (md5 e30ddb319b3466148c8ecc05ba3594eb, verified)",
+        "licence": "CC BY 4.0 (figshare API); no tracked changes or comments in the file (word/document.xml checked)",
+        "what": "Electronic supplementary material: 'Materials for Experiment 2' - both Daniel P. stories, the 12 A/B pairs, the five ratings (it holds no Experiment 1 material)",
+        "text": "sourcetext/si.txt (tools/render_sources.py)",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC-BY-4.0",
+          "url": "https://doi.org/10.6084/m9.figshare.18668913",
+          "sha256": "a77dc1e8f4a882139ded3f551ce84d245e7717395a01c46549dac06ca16ef37d",
+          "format": "docx",
+          "attribution": "Alcala, V., Johnson, K., Steele, C., Wu, J., Zhang, D., & Pashler, H. (2022). The tainted altruism effect: a successful pre-registered replication. R. Soc. Open Sci. 9: 211152. CC BY 4.0"
+        }
+      },
+      "nc2014": {
+        "file": null,
+        "url": "https://sdimakis.github.io/moral_psychology/exams/final_readings/Newman_2014.pdf",
+        "sha256": "49b5232be2f607eb307ad8ff8967d1c83c4a30fc61cb70d22a9ca541bd17e46b",
+        "licence": "withheld:fea7a2053b393807",
+        "what": "REFERENCE source only (Decided 16(b)): read for the original procedure, journal pp. 650-652 (PDF pp. 3-5): comprehension-check pair, B-A-B exclusion, the liking items, the altruism item 'on a separate page'. Cited with label reported; no text is served from it",
+        "distribution": {
+          "tier": "link",
+          "licence": "unknown (none printed)",
+          "url": "https://sdimakis.github.io/moral_psychology/exams/final_readings/Newman_2014.pdf",
+          "sha256": "49b5232be2f607eb307ad8ff8967d1c83c4a30fc61cb70d22a9ca541bd17e46b",
+          "format": "pdf"
+        }
+      }
+    },
+    "sample": {
+      "n": 501,
+      "n_recruited": 501,
+      "description": "Prolific, US residents, stratified on age (five 9-year brackets), sex and ethnicity (representative of the US population); mean age 46.3, 51% female / 49% male; the same participants did Experiment 1 then Experiment 2",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "note": "§2.1.1; §3.1.1"
+      }
+    },
+    "not_fetched": [
+      {
+        "what": "participant data https://tinyurl.com/2bvkwr9z -> figshare 14885523 'Pashler replication of Newman and Cain for Figshare 2021.csv' (CC BY 4.0, 420,471 bytes)",
+        "why": "participant-level rows: never fetched or opened. The file's own description says 'Variable labels are in rows 1, 2, and 3', so the only public codebook sits in the data file; a header-only peek is a coordinator action (it could settle item order and wording of Experiment 1 and the attention check). Not blocking"
+      },
+      {
+        "what": "analysis code, figshare private link https://figshare.com/s/f67f46b85cf9a756be7a (paper pp. 4, 6)",
+        "why": "blocked: the link answers HTTP 202 with an empty body and 'x-amzn-waf-action: challenge' (AWS WAF browser challenge), no API listing for a private link. Owner action (not blocking): the R code would settle the exclusion order, the attention-check handling and the cell sizes (arms n_analysed_note)"
+      },
+      {
+        "what": "pre-registration https://aspredicted.org/~7E94fcbelU (paper p. 2)",
+        "why": "that is a one-time login link ('The login link you provided is not valid'); the public AsPredicted number is not printed. A web search surfaced only #27,356 (Hafenbradl, 'Social rewards protection theory: Study 4'), a different study, not stored. Owner action (not blocking): the AsPredicted number"
+      },
+      {
+        "what": "the SAGE supplemental materials of Newman & Cain (2014) (source of the Mulberry and Daniel P. passages)",
+        "why": "SAGE returns HTTP 403 (Cloudflare challenge); no open copy found. The article itself is read as the reference source nc2014. Owner action (not blocking): the original supplement (instruction lines, item layout)"
+      }
+    ],
+    "searched": "2026-11-10: bundle (paper.pdf, links.txt, program.json stub); journal DOI / PMC8790362 (same PDF); figshare API for article 18668913 (SI, one file) and collection 5798745 (lists only that article); figshare article 14885523 (metadata only: one CSV of participant rows, no code); the private analysis-code link (WAF challenge); AsPredicted link (invalid login link) and a web search for the registration; SAGE page and supplement of the original article (403); an openly hosted course copy of the original article (found by the fidelity review, read as reference source nc2014, not stored); Crossref record of the original. No OSF component, GitHub repository, qsf, survey export or screenshots are linked from the paper.",
+    "conflicts": [
+      {
+        "what": "Experiment 2: order of the story and the 'imagine' paragraph",
+        "paper": "withheld:d4caa3d0a4580b39",
+        "si": "the story ('Please read the following story.' + Daniel P. paragraph) comes first, then 'Now, imagine that you are the head of ...'",
+        "used": "SI order (the materials list; the paper's sentence summarises the design)"
+      },
+      {
+        "what": "Experiment 2: number of hiring choices",
+        "paper": "p. 5: eleven binary hiring choices ('Newman and Cain stated that they used 10 choices but the supplementary materials showed 11'), plus one comprehension-check pair presented before them (p. 6)",
+        "si": "lists 12 A/B pairs per fundraiser; the first (Daniel P. $1,000,000 + $50,000 vs other organizer $1,100,000 + $10,000) is dominated, the other 11 match Figure 4's eleven 'extra amount' points ($0 to $1,000 thousand)",
+        "used": "12 pairs on one page; pair 1 treated as the comprehension check (derived in the exclusion cite)"
+      },
+      {
+        "what": "Experiment 1 passage typography",
+        "paper": "p. 2: for the counterfactual groups 'the added language is shown in italics' (an editorial device of the paper)",
+        "used": "served as plain text; italics are not claimed for participants' screens"
+      },
+      {
+        "what": "deceptiveness with the counterfactual (resolved by Figure 3)",
+        "paper": "p. 5: 'Mulberry was seen as less deceptive for donating to charity (M = 4.34), t232 = 2.22, p = 0.014. Interestingly, there was no reversal of the effect, however.'",
+        "figure": "Figure 3 (p. 5) plots Charity 5.06 -> 4.34 with the counterfactual and Advertising 3.36 -> about 3.8",
+        "used": "the contrast is Charity vs Charity with counterfactual (derived from the figure; the two sentences then agree): effect e1_deceptive_cf, target t_dec_charity_cf; the Advertising-with-counterfactual mean stays unsupported"
+      },
+      {
+        "what": "Experiment 1 item set and anchors, replication vs original",
+        "paper": "p. 4: the liking composite is the first three questions (ethical, approve, like; alpha 0.899); p. 3: the scale '(1 = absolutely not to 9 = absolutely)' is stated once for all items",
+        "nc2014": "journal p. 651: four items averaged (ethical, moral, approve, like; alpha .87); p. 652: the labels are printed for the altruism item only",
+        "used": "the replication's list and statement (the replication is the direct source); the anchors on ethical / approve / like / deceptiveness are `reported`, on altruism `verbatim`; the original's 'moral' item is not served. A header-only look at the figshare CSV could settle both"
+      },
+      {
+        "what": "Number of arms",
+        "paper": "four Experiment 1 groups and two Experiment 2 groups (6 conditions), same 501 participants (p. 5)",
+        "used": "one arm with two crossed between factors c1 (4) and c2 (2), because every participant did both experiments in one session; drawn independently (flow_cites.assignment)"
+      }
+    ],
+    "paper_inconsistencies": [
+      {
+        "what": "sample sizes",
+        "printed": "501 recruited; 6 failed an attention check; Experiment 2 excluded 123 + 26 = 149; F1,490 (Experiment 1 ANOVA); t343 (Experiment 2 after exclusions); t495 (no exclusion)",
+        "check": "501 - 6 = 495; 495 - 149 = 346; the degrees of freedom imply N = 494 (F1,490 = N - 4), 345 (t343 = N - 2) and 497 (t495), so 1 and 4 participants are unaccounted for; 149 / 501 = 29.7% ('30%', p. 6) matches. The Student df of t206 + t226 (436 participants in the four groups) cannot reach the ANOVA N of 494 either (Welch df or unreported subsets). No cell n is printed, so none of this can be resolved",
+        "used": "arm n_paper = 501 (recruited); no analysed n served; target cells carry no n"
+      },
+      {
+        "what": "deceptiveness sentence typo",
+        "printed": "p. 5: 'than in the Advertising condition (3.36) (M = 5.06), t238 = 6.24'",
+        "check": "the second '(M = 5.06)' repeats the Charity mean; Figure 3 shows Advertising at about 3.35",
+        "used": "resolved by Figure 3: Advertising 3.36 (target t_dec_advertising); the repeated mean is ignored"
+      },
+      {
+        "what": "tails of the printed p values",
+        "printed": "t343 = 2.64, p = 0.004 (morality); t232 = 2.22, p = 0.014 (deceptiveness with counterfactual); t495 = 2.89, p = 0.004",
+        "check": "two-sided p for t = 2.64, df 343 is 0.0086 (0.004 is the one-sided value); for t = 2.22, df 232 it is 0.027 (0.014 one-sided); for t = 2.89, df 495 it is 0.004 (two-sided); t = 0.40 -> .69 and 0.14 -> .89 are two-sided. The paper never states its tails",
+        "used": "p served as printed; the paper states no tail, so test.tail is 'one-sided' (derived tail_cite) on e2_morality and e1_deceptive_cf, whose printed p equals the one-sided value; the other p values carry no tail field"
+      }
+    ],
+    "engine_requests": [],
+    "scope": "both experiments: Exp 1 (4 passages, liking page then altruism + deceptiveness page; 11 targets plus 5 effects) and Exp 2 (2 fundraisers, 12 A/B pairs, 5 ratings; morality and benefit with and without the paper's exclusions); one arm, runnable; choice proportions (Figure 4) and the attention-check item not covered",
+    "pages": [
+      {
+        "page": "Experiment 1 page 1: Mulberry passage (one of four) and the ethical / approve / like ratings (paper pp. 2-3; original p. 651)",
+        "stages": "e1_rate"
+      },
+      {
+        "page": "Experiment 1 page 2: altruism rating and the added deceptiveness rating, passage no longer in view (original p. 652 'on a separate page'; derived at replication level, alternatives in the stage's presentation_cite)",
+        "stages": "e1_alt"
+      },
+      {
+        "page": "Experiment 2: story, imagine paragraph, instruction, 'I would prefer:' and 12 A/B pairs (SI)",
+        "stages": "e2_choices"
+      },
+      {
+        "page": "Experiment 2: 'Please rate:' groups with five ratings (SI)",
+        "stages": "e2_ratings"
+      }
+    ]
+  },
+  "arms": [
+    {
+      "id": "prolific",
+      "label": "Prolific US sample (stratified on age, sex, ethnicity); Experiment 1 (4 groups) then Experiment 2 (2 groups)",
+      "what": "one session: Mulberry passage and three ratings, then two more ratings on a second page, then Daniel P. story, 12 A/B hiring pairs and five ratings; text only",
+      "assignment": "between, twice: Experiment 1 passage (4) and Experiment 2 fundraiser (2), drawn independently (derived)",
+      "n_paper": 501,
+      "n_recruited": {
+        "value": 501,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "note": "'Five hundred and one participants ... were recruited through Prolific.org' (§2.1.1)"
+        }
+      },
+      "n_analysed_note": "the paper prints no analysed n per experiment or cell (searched pp. 3-7). The degrees of freedom imply about 494 in the Experiment 1 ANOVA (F(1,490)) and 345 in Experiment 2 (t343) after the exclusions; meta.paper_inconsistencies 'sample sizes' reconciles them with 501",
+      "n_note": "n_paper = 501, the recruited sample (both experiments used the same participants, p. 5); the replay applies the Experiment 2 exclusions to the Experiment 2 analyses only",
+      "exclusion_caveat": "the six participants who failed an attention check (p. 3) cannot be replayed: the item's text, position and format are not printed (omitted[1]). The Experiment 2 exclusions (comprehension pair, order constraint) are replayed and scoped to the Experiment 2 analyses; whether the attention-check failures were also dropped from the analyses is not stated",
+      "runnable": true,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "note": "§2.1.1 participants; §3.1.1 'the same 501 participants'"
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "id": "c1",
+      "factor": "withheld:0109875baa2d2efa",
+      "levels": {
+        "charity": null,
+        "advertising": null,
+        "charity_cf": null,
+        "advertising_cf": null
+      },
+      "assignment": "between, random (derived: flow_cites.assignment)",
+      "n_note": "cell sizes are not printed",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 2,
+        "note": "four groups: Charity, Advertising, Charity with Counterfactual, Advertising with Counterfactual (§2)"
+      }
+    },
+    {
+      "id": "c2",
+      "factor": "Experiment 2 fundraiser: charity / corporate",
+      "levels": {
+        "charity": null,
+        "corporate": null
+      },
+      "assignment": "between, random (derived: flow_cites.assignment)",
+      "n_note": "cell sizes are not printed",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "note": "withheld:f813a15639adf4e4"
+      }
+    }
+  ],
+  "data": {
+    "e1_passage": {
+      "charity": {
+        "text": "Frank Mulberry is the owner of a large chain of ‘Mulberry’s’ department stores located throughout the Midwest. Recently, Mulberry donated several million dollars to a local children’s hospital in Omaha, Nebraska, where his company is based. Mulberry donated the money because he knew that the good publicity would boost the reputation of his company and get more people to come to his stores.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 2,
+          "note": "quoted passage block, p. 2"
+        }
+      },
+      "advertising": {
+        "text": "Frank Mulberry is the owner of a large chain of ‘Mulberry’s’ department stores located throughout the Midwest. Recently, Mulberry invested several million dollars in an extensive advertising campaign in Omaha, Nebraska, where his company is based. Mulberry invested the money because he knew that the good publicity would boost the reputation of his company and get more people to come to his stores.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 2,
+          "note": "quoted passage block, p. 2"
+        }
+      },
+      "charity_cf": {
+        "text": "Frank Mulberry is the owner of a large chain of ‘Mulberry’s’ department stores located throughout the Midwest. Recently, Mulberry donated several million dollars to a local children’s hospital in Omaha, Nebraska, where his company is based. Mulberry donated the money because he knew that the good publicity would boost the reputation of his company and get more people to come to his stores. Keep in mind that if he wanted to, Mulberry could have instead invested the money in advertising. This would have also increased the reputation of his company, but none of the money would have gone to charity.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 3,
+          "note": "quoted passage block, p. 3"
+        }
+      },
+      "advertising_cf": {
+        "text": "Frank Mulberry is the owner of a large chain of ‘Mulberry’s’ department stores located throughout the Midwest. Recently, Mulberry invested several million dollars in an extensive advertising campaign in Omaha, Nebraska, where his company is based. Mulberry invested the money because he knew that the good publicity would boost the reputation of his company and get more people to come to his stores. Keep in mind that if he wanted to, Mulberry could have instead donated the money to charity. This would have also increased the reputation of his company, but all of the money would have gone to charity.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": "2-3",
+          "note": "quoted passage block, p. 2-3"
+        }
+      }
+    },
+    "e2_text": {
+      "charity": [
+        {
+          "text": "Please read the following story.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "charity fundraiser, paragraph 1"
+          }
+        },
+        {
+          "text": "Daniel P. works as a promoter of charitable events. His organization handles the planning, promotion, and execution for major fundraising drives to raise donations for charity. Daniel P.’s organization is a for-profit company. After all of the organizational costs have been settled, he and his staff take a percentage of the remaining funds. Therefore, the more money that is earned for the charitable cause, the more profits go to Daniel P. and his staff.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "charity fundraiser, paragraph 2"
+          }
+        },
+        {
+          "text": "Now, imagine that you are the head of a large charitable organization. You are planning a fundraising drive and you need to decide whether or not you will hire Daniel P.’s company or instead, whether you will go with an alternative promoter.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "charity fundraiser, paragraph 3"
+          }
+        },
+        {
+          "text": "Listed below are a number of possible outcomes for the fundraising drive, including how much money will go to your charity and how much will go to the promoter (either Daniel P. or an alternative promoter). For each one, please indicate whether you would hire Daniel P. or the alternative promoter.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "charity fundraiser, paragraph 4"
+          }
+        }
+      ],
+      "corporate": [
+        {
+          "text": "Please read the following story.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "corporate fundraiser, paragraph 1"
+          }
+        },
+        {
+          "text": "Daniel P. works as a promoter of corporate events. His organization handles the planning, promotion, and execution for major fundraising drives to raise seed money from investors. Daniel P.’s organization is a for-profit company. After all of the organizational costs have been settled, he and his staff take a percentage of the remaining funds. Therefore, the more money that is earned for the corporate cause, the more profits go to Daniel P. and his staff.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "corporate fundraiser, paragraph 2"
+          }
+        },
+        {
+          "text": "Now, imagine that you are the head of a large company. You are planning an investor fundraising drive and you need to decide whether or not you will hire Daniel P.’s company or instead, whether you will go with an alternative promoter.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "corporate fundraiser, paragraph 3"
+          }
+        },
+        {
+          "text": "Listed below are a number of possible outcomes for the fundraising drive, including how much money will go to your company and how much will go to the promoter (either Daniel P. or “other organizer”). For each pair of options, please indicate whether you would hire Daniel P. (A) or the other organizer (B) assuming the details provided.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "corporate fundraiser, paragraph 4"
+          }
+        }
+      ]
+    },
+    "e2_pref": {
+      "charity": {
+        "text": "I would prefer:",
+        "cite": {
+          "label": "verbatim",
+          "source": "si",
+          "where": "charity fundraiser, line before the first pair"
+        }
+      },
+      "corporate": {
+        "text": "I would prefer:",
+        "cite": {
+          "label": "verbatim",
+          "source": "si",
+          "where": "corporate fundraiser, line before the first pair"
+        }
+      }
+    },
+    "e2_opts": {
+      "charity": [
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $1,000,000; Daniel P. earns $50,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 1"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,100,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 1"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $1,000,000; Daniel P. earns $50,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 2"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 2"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $1,100,000; Daniel P. earns $55,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 3"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 3"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $1,200,000; Daniel P. earns $60,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 4"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 4"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $1,300,000; Daniel P. earns $65,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 5"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 5"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $1,400,000; Daniel P. earns $70,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 6"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 6"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $1,500,000; Daniel P. earns $75,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 7"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 7"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $1,600,000; Daniel P. earns $80,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 8"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 8"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $1,700,000; Daniel P. earns $85,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 9"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 9"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $1,800,000; Daniel P. earns $90,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 10"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 10"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $1,900,000; Daniel P. earns $95,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 11"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 11"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your charity earns $2,000,000; Daniel P. earns $100,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 12"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your charity earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "charity fundraiser, pair 12"
+            }
+          }
+        ]
+      ],
+      "corporate": [
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $1,000,000; Daniel P. earns $50,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 1"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,100,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 1"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $1,000,000; Daniel P. earns $50,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 2"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 2"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $1,100,000; Daniel P. earns $55,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 3"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 3"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $1,200,000; Daniel P. earns $60,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 4"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 4"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $1,300,000; Daniel P. earns $65,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 5"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 5"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $1,400,000; Daniel P. earns $70,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 6"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 6"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $1,500,000; Daniel P. earns $75,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 7"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 7"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $1,600,000; Daniel P. earns $80,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 8"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 8"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $1,700,000; Daniel P. earns $85,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 9"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 9"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $1,800,000; Daniel P. earns $90,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 10"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 10"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $1,900,000; Daniel P. earns $95,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 11"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 11"
+            }
+          }
+        ],
+        [
+          {
+            "code": "A",
+            "label": "Option A: Your company earns $2,000,000; Daniel P. earns $100,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 12"
+            }
+          },
+          {
+            "code": "B",
+            "label": "Option B: Your company earns $1,000,000; other organizer earns $10,000",
+            "cite": {
+              "label": "verbatim",
+              "source": "si",
+              "where": "corporate fundraiser, pair 12"
+            }
+          }
+        ]
+      ]
+    },
+    "please": [
+      {
+        "text": "Please rate:",
+        "cite": {
+          "label": "verbatim",
+          "source": "si",
+          "where": "Subject ratings, first group"
+        }
+      },
+      {
+        "text": "Please rate:",
+        "cite": {
+          "label": "verbatim",
+          "source": "si",
+          "where": "Subject ratings, second group"
+        }
+      }
+    ]
+  },
+  "stages": {
+    "e1_rate": {
+      "content": [
+        {
+          "id": "passage",
+          "value": {
+            "expr": "data['e1_passage'][c1]"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "ethical",
+          "kind": "scale",
+          "prompt": "How ethical is Mulberry?",
+          "range": [
+            1,
+            9
+          ],
+          "required": true,
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "'a 9-point scale (1 = absolutely not to 9 = absolutely)'; Figures 1-3 axes run 1-9. Whole points follow from the engine's scale kind (a 9-point scale)"
+          },
+          "anchors": {
+            "left": "absolutely not",
+            "right": "absolutely"
+          },
+          "anchors_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "the replication states the scale once for all rating items of the experiment ('various dimensions ... 1 = absolutely not to 9 = absolutely'); the original prints these labels for the altruism item only (meta.conflicts). The words are quoted; the labels as end labels of the scale is a presentation choice (see the stage's presentation_cite)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 3,
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional (the paper mentions no missing answers for Experiment 1)."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 3,
+            "note": "question quoted in §2.1.2 (the paper's list order)"
+          }
+        },
+        {
+          "id": "approve",
+          "kind": "scale",
+          "prompt": "How much do you approve of Mulberry’s behaviour?",
+          "range": [
+            1,
+            9
+          ],
+          "required": true,
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "'a 9-point scale (1 = absolutely not to 9 = absolutely)'; Figures 1-3 axes run 1-9. Whole points follow from the engine's scale kind (a 9-point scale)"
+          },
+          "anchors": {
+            "left": "absolutely not",
+            "right": "absolutely"
+          },
+          "anchors_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "the replication states the scale once for all rating items of the experiment ('various dimensions ... 1 = absolutely not to 9 = absolutely'); the original prints these labels for the altruism item only (meta.conflicts). The words are quoted; the labels as end labels of the scale is a presentation choice (see the stage's presentation_cite)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 3,
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional (the paper mentions no missing answers for Experiment 1)."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 3,
+            "note": "question quoted in §2.1.2 (the paper's list order)"
+          }
+        },
+        {
+          "id": "like",
+          "kind": "scale",
+          "prompt": "How much do you like Mulberry?",
+          "range": [
+            1,
+            9
+          ],
+          "required": true,
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "'a 9-point scale (1 = absolutely not to 9 = absolutely)'; Figures 1-3 axes run 1-9. Whole points follow from the engine's scale kind (a 9-point scale)"
+          },
+          "anchors": {
+            "left": "absolutely not",
+            "right": "absolutely"
+          },
+          "anchors_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "the replication states the scale once for all rating items of the experiment ('various dimensions ... 1 = absolutely not to 9 = absolutely'); the original prints these labels for the altruism item only (meta.conflicts). The words are quoted; the labels as end labels of the scale is a presentation choice (see the stage's presentation_cite)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 3,
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional (the paper mentions no missing answers for Experiment 1)."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 3,
+            "note": "question quoted in §2.1.2 (the paper's list order)"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": [
+        {
+          "label": "reported",
+          "source": "nc2014",
+          "page": 651,
+          "note": "withheld:78982508a274472b"
+        },
+        {
+          "label": "derived",
+          "source": "paper",
+          "page": 3,
+          "note": "Neither paper prints the screen layout beyond the page break before the altruism item: derived = the passage stays in view on the page with the liking items. Back navigation, the continue button, widget and forced answers are not stated (back: unknown)."
+        }
+      ]
+    },
+    "e1_alt": {
+      "content": [],
+      "responses": [
+        {
+          "id": "altruism",
+          "kind": "scale",
+          "prompt": "Did Mulberry act as altruistically as he could have?",
+          "range": [
+            1,
+            9
+          ],
+          "required": true,
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "'a 9-point scale (1 = absolutely not to 9 = absolutely)'; Figures 1-3 axes run 1-9. Whole points follow from the engine's scale kind (a 9-point scale)"
+          },
+          "anchors": {
+            "left": "absolutely not",
+            "right": "absolutely"
+          },
+          "anchors_cite": [
+            {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 3,
+              "note": "the scale is stated once for all rating items: '(1 = absolutely not to 9 = absolutely)'; words quoted"
+            },
+            {
+              "label": "reported",
+              "source": "nc2014",
+              "page": 652,
+              "note": "withheld:99d80453c3ebfc07"
+            }
+          ],
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 3,
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional (the paper mentions no missing answers for Experiment 1)."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 3,
+            "note": "question quoted in §2.1.2 (the paper's list order)"
+          }
+        },
+        {
+          "id": "deceptive",
+          "kind": "scale",
+          "prompt": "How deceptive do you think Mulberry is?",
+          "range": [
+            1,
+            9
+          ],
+          "required": true,
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "'a 9-point scale (1 = absolutely not to 9 = absolutely)'; Figures 1-3 axes run 1-9. Whole points follow from the engine's scale kind (a 9-point scale)"
+          },
+          "anchors": {
+            "left": "absolutely not",
+            "right": "absolutely"
+          },
+          "anchors_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "the replication states the scale once for all rating items of the experiment ('various dimensions ... 1 = absolutely not to 9 = absolutely'); the original prints these labels for the altruism item only (meta.conflicts). The words are quoted; the labels as end labels of the scale is a presentation choice (see the stage's presentation_cite)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 3,
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional (the paper mentions no missing answers for Experiment 1)."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 3,
+            "note": "question quoted in §2.1.2 ('One additional question')"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": [
+        {
+          "label": "reported",
+          "source": "nc2014",
+          "page": 652,
+          "note": "withheld:a73eb5df1c5482a9"
+        },
+        {
+          "label": "derived",
+          "source": "paper",
+          "page": 3,
+          "note": "Replication level: the paper says it 'followed the target study ... in all particulars except as noted' (p. 3) and notes no paging change, but that sentence is not exhaustive (the replication drops the original's 'moral' item without noting it, p. 4 vs original p. 651), so a separate altruism page is an inference. Derived = the altruism page follows the liking page and the passage is no longer in view on it (in `seen`, not reviewable). Alternatives: all five items on the passage page; or a separate page that repeats the passage"
+        },
+        {
+          "label": "derived",
+          "source": "paper",
+          "page": 3,
+          "note": "The added deceptiveness item (replication only, 'asked ... on an exploratory basis') is placed on this page, after the altruism item (derived). Alternative: on its own page, or on the liking page; the paper does not say. Back, button, widget and forced answers are not stated (back: unknown)."
+        }
+      ]
+    },
+    "e2_choices": {
+      "content": [
+        {
+          "id": "t1",
+          "value": {
+            "expr": "data['e2_text'][c2][0]"
+          }
+        },
+        {
+          "id": "t2",
+          "value": {
+            "expr": "data['e2_text'][c2][1]"
+          }
+        },
+        {
+          "id": "t3",
+          "value": {
+            "expr": "data['e2_text'][c2][2]"
+          }
+        },
+        {
+          "id": "t4",
+          "value": {
+            "expr": "data['e2_text'][c2][3]"
+          }
+        },
+        {
+          "id": "pref",
+          "value": {
+            "expr": "data['e2_pref'][c2]"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "c0",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][0]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 1 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        },
+        {
+          "id": "c1",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][1]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 2 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        },
+        {
+          "id": "c2",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][2]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 3 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        },
+        {
+          "id": "c3",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][3]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 4 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        },
+        {
+          "id": "c4",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][4]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 5 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        },
+        {
+          "id": "c5",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][5]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 6 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        },
+        {
+          "id": "c6",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][6]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 7 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        },
+        {
+          "id": "c7",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][7]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 8 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        },
+        {
+          "id": "c8",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][8]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 9 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        },
+        {
+          "id": "c9",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][9]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 10 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        },
+        {
+          "id": "c10",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][10]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 11 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        },
+        {
+          "id": "c11",
+          "kind": "choice",
+          "options": {
+            "expr": "data['e2_opts'][c2][11]"
+          },
+          "required": true,
+          "widget": "radio",
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "pair 12 of the chosen fundraiser"
+          },
+          "widget_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "a choice between Option A and Option B; the widget is not stated (radio buttons assumed)"
+          }
+        }
+      ],
+      "layout": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "pref",
+        "c0",
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9",
+        "c10",
+        "c11"
+      ],
+      "layout_cite": {
+        "label": "verbatim",
+        "source": "si",
+        "where": "Materials for Experiment 2",
+        "note": "order of the SI: story, imagine paragraph, instruction, 'I would prefer:', then the pairs"
+      },
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "si",
+        "where": "Materials for Experiment 2",
+        "note": "Paper p. 6: 'All these binary choices were presented on the same web page which participants scrolled down to view (submitting the web page when they were ready)', confirmed with the original authors (Newman, 21 April 2021). The SI lists the story, the imagine paragraph, the instruction line and the 12 pairs one after the other and the paper does not say whether the story had a page of its own: derived = story, instruction and pairs on that one page; alternative: the story on a page of its own before the pairs (the story would then be in `seen`). Back, the continue button and forced answers are not stated (back: unknown)."
+      }
+    },
+    "e2_ratings": {
+      "content": [
+        {
+          "id": "pr1",
+          "value": {
+            "expr": "data['please'][0]"
+          }
+        },
+        {
+          "id": "pr2",
+          "value": {
+            "expr": "data['please'][1]"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "ethical",
+          "kind": "scale",
+          "prompt": "How ethical Daniel P. is",
+          "range": [
+            1,
+            9
+          ],
+          "required": true,
+          "anchors": {
+            "left": "completely unethical",
+            "right": "completely ethical"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Subject ratings",
+            "note": "the parenthesis '(1 = ..., 9 = ...)' after the item, shown as end labels of the 1-9 scale (placement is not stated)"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "withheld:f324b376f7e2f0c9"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Subject ratings, item 1"
+          }
+        },
+        {
+          "id": "moral",
+          "kind": "scale",
+          "prompt": "How moral Daniel P. is",
+          "range": [
+            1,
+            9
+          ],
+          "required": true,
+          "anchors": {
+            "left": "completely immoral",
+            "right": "completely moral"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Subject ratings",
+            "note": "the parenthesis '(1 = ..., 9 = ...)' after the item, shown as end labels of the 1-9 scale (placement is not stated)"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "withheld:f324b376f7e2f0c9"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Subject ratings, item 2"
+          }
+        },
+        {
+          "id": "approve",
+          "kind": "scale",
+          "prompt": "The extent to which you approve of Daniel P.’s actions",
+          "range": [
+            1,
+            9
+          ],
+          "required": true,
+          "anchors": {
+            "left": "definitely not",
+            "right": "definitely so"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Subject ratings",
+            "note": "the parenthesis '(1 = ..., 9 = ...)' after the item, shown as end labels of the 1-9 scale (placement is not stated)"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "withheld:f324b376f7e2f0c9"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Subject ratings, item 3"
+          }
+        },
+        {
+          "id": "beneficial",
+          "kind": "scale",
+          "prompt": "How beneficial Daniel P.’s actions are",
+          "range": [
+            1,
+            9
+          ],
+          "required": true,
+          "anchors": {
+            "left": "not at all",
+            "right": "very beneficial"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Subject ratings",
+            "note": "the parenthesis '(1 = ..., 9 = ...)' after the item, shown as end labels of the 1-9 scale (placement is not stated)"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "withheld:f324b376f7e2f0c9"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Subject ratings, item 4"
+          }
+        },
+        {
+          "id": "better",
+          "kind": "scale",
+          "prompt": "Does Daniel P. make the world a better place?",
+          "range": [
+            1,
+            9
+          ],
+          "required": true,
+          "anchors": {
+            "left": "not at all",
+            "right": "very much so"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Subject ratings",
+            "note": "the parenthesis '(1 = ..., 9 = ...)' after the item, shown as end labels of the 1-9 scale (placement is not stated)"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "withheld:f324b376f7e2f0c9"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Materials for Experiment 2",
+            "note": "Whether answers were forced is not stated. Derived: required; alternative: optional. The comprehension-check exclusion (a chosen Option A in pair 1) needs an answer to that pair."
+          },
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Subject ratings, item 5"
+          }
+        }
+      ],
+      "layout": [
+        "pr1",
+        "ethical",
+        "moral",
+        "approve",
+        "pr2",
+        "beneficial",
+        "better"
+      ],
+      "layout_cite": {
+        "label": "verbatim",
+        "source": "si",
+        "where": "Subject ratings",
+        "note": "withheld:7030f05fe4dbfc9f"
+      },
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 6,
+        "note": "Paper p. 6: 'After making their hypothetical hiring decisions, participants were asked to rate Daniel P. across several measures'; the SI lists the five ratings under 'Subject ratings'. Whether they shared one page, and whether the story stayed in view, is not stated: derived = one page, story not in view; alternative: one page per measure group or the story still visible. Back, button and forced answers are not stated (back: unknown)."
+      }
+    }
+  },
+  "flow": {
+    "seq": [
+      {
+        "set": {
+          "c1": {
+            "expr": "choice(['charity', 'advertising', 'charity_cf', 'advertising_cf'])"
+          },
+          "c2": {
+            "expr": "choice(['charity', 'corporate'])"
+          }
+        }
+      },
+      {
+        "stage": "e1_rate"
+      },
+      {
+        "stage": "e1_alt"
+      },
+      {
+        "stage": "e2_choices"
+      },
+      {
+        "stage": "e2_ratings"
+      }
+    ]
+  },
+  "flow_cites": {
+    "assignment": {
+      "label": "derived",
+      "source": "paper",
+      "page": "2, 5",
+      "note": "withheld:3e3b7227ffac4d7d"
+    },
+    "order": {
+      "label": "reported",
+      "source": "paper",
+      "page": 5,
+      "note": "'conducted with the same 501 participants'; 'completed the questions included in this experiment after completing the first experiment' (Experiment 1 first; the paper presents the two in the order 3, 2 of Newman & Cain)"
+    },
+    "e1_items": {
+      "label": "derived",
+      "source": "paper",
+      "page": 3,
+      "note": "Item order = the order of the paper's list (ethical, approve, like, altruism); the added deceptiveness question ('One additional question') is placed last, on the altruism page. Alternative: on its own page or on the liking page, or before the altruism item. The deceptiveness item is itself scored (t_dec_*, e1_deceptive_*) and shares a page with the scored altruism item, so each alternative changes the context of scored items: on the liking page the passage stays in view; on its own page it is not next to the altruism item; before the altruism item the altruism item follows it. The liking composite (first three items) is unaffected"
+    },
+    "e1_paging_original": {
+      "label": "reported",
+      "source": "nc2014",
+      "page": "651-652",
+      "note": "withheld:276de7062c15f538"
+    },
+    "e1_paging": {
+      "label": "derived",
+      "source": "paper",
+      "page": 3,
+      "note": "Replication level: 'in all particulars except as noted' (p. 3) carries the original's separate altruism page over, but the replication has an unnoted deviation (no 'moral' item), so this is an inference. Alternatives: all five items on the passage page (round-0 build); a separate page repeating the passage"
+    },
+    "e2_order": {
+      "label": "reported",
+      "source": "paper",
+      "page": 6,
+      "note": "'The order in which these questions were asked was fixed across subjects'; ratings after the choices"
+    }
+  },
+  "units": {
+    "exp1": {
+      "per": "session",
+      "fields": {
+        "cell": "c1",
+        "domain": "'charity' if c1 in ['charity', 'charity_cf'] else 'advertising'",
+        "cf": "'present' if c1 in ['charity_cf', 'advertising_cf'] else 'absent'",
+        "liking": "None if (answer('e1_rate.ethical') is None or answer('e1_rate.approve') is None or answer('e1_rate.like') is None) else (answer('e1_rate.ethical') + answer('e1_rate.approve') + answer('e1_rate.like')) / 3",
+        "altruism": "answer('e1_alt.altruism')",
+        "deceptive": "answer('e1_alt.deceptive')"
+      },
+      "cites": {
+        "cell": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2,
+          "note": "the four groups of §2"
+        },
+        "domain": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2,
+          "note": "'the difference between the averaged liking ratings from the Charity and Advertising conditions'"
+        },
+        "cf": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2,
+          "note": "counterfactual language added to the vignettes (conditions 3 and 4)"
+        },
+        "liking": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "'each subject's responses to the first three questions were averaged together to yield an overall liking rating' (Cronbach's alpha 0.899): ethical, approve, like"
+        },
+        "altruism": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:f89b9b2561017dba"
+        },
+        "deceptive": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "the exploratory deceptiveness question analysed on its own"
+        }
+      }
+    },
+    "exp2": {
+      "per": "session",
+      "fields": {
+        "cell": "c2",
+        "morality": "None if (answer('e2_ratings.ethical') is None or answer('e2_ratings.moral') is None or answer('e2_ratings.approve') is None) else (answer('e2_ratings.ethical') + answer('e2_ratings.moral') + answer('e2_ratings.approve')) / 3",
+        "benefit": "None if (answer('e2_ratings.beneficial') is None or answer('e2_ratings.better') is None) else (answer('e2_ratings.beneficial') + answer('e2_ratings.better')) / 2"
+      },
+      "cites": {
+        "cell": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "Charity or Corporation (§3.1.2)"
+        },
+        "morality": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:fc91b4d3deb4d4d7"
+        },
+        "benefit": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:3f5009e064cb6f55"
+        }
+      }
+    }
+  },
+  "exclusions": [
+    {
+      "id": "e2_comprehension",
+      "if": "answer('e2_choices.c0') == 'A'",
+      "applies_to": [
+        "e2_morality",
+        "e2_benefit",
+        "t_mor_charity",
+        "t_mor_corporate",
+        "t_ben_charity",
+        "t_ben_corporate"
+      ],
+      "cite": [
+        {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "'The first was if they failed an initial comprehension check question (excluding 123 subjects)': choosing Daniel P.'s firm when it charged more and earned less"
+        },
+        {
+          "label": "reported",
+          "source": "nc2014",
+          "page": 650,
+          "note": "withheld:c5f8d916ecc94262"
+        },
+        {
+          "label": "derived",
+          "source": "si",
+          "where": "both fundraisers, first pair",
+          "note": "the check is identified with the first of the 12 pairs: Option A (Daniel P., $1,000,000 for the organisation, $50,000 fee) against Option B (other organizer, $1,100,000, $10,000), i.e. the firm that charged more and raised less; the SI does not label it. The other 11 pairs match the 11 hiring choices (meta.conflicts 'Experiment 2 choice count')"
+        }
+      ]
+    },
+    {
+      "id": "e2_order_constraint",
+      "if": "any(s[j] == 'A' and 'B' in s[:j] and 'B' in s[j + 1:] for s in [[answer('e2_choices.c1'), answer('e2_choices.c2'), answer('e2_choices.c3'), answer('e2_choices.c4'), answer('e2_choices.c5'), answer('e2_choices.c6'), answer('e2_choices.c7'), answer('e2_choices.c8'), answer('e2_choices.c9'), answer('e2_choices.c10'), answer('e2_choices.c11')]] for j in range(11))",
+      "applies_to": [
+        "e2_morality",
+        "e2_benefit",
+        "t_mor_charity",
+        "t_mor_corporate",
+        "t_ben_charity",
+        "t_ben_corporate"
+      ],
+      "cite": [
+        {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:16c803349f210952"
+        },
+        {
+          "label": "derived",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:d326384ae26404ab"
+        }
+      ]
+    }
+  ],
+  "analysis": {
+    "targets": [
+      {
+        "id": "t_lik_charity",
+        "unit": "exp1",
+        "field": "liking",
+        "stat": "mean",
+        "where": {
+          "cell": "charity"
+        },
+        "human": {
+          "mean": 5.28,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "overall liking rating, charity (s.e. printed; n not printed)"
+          },
+          "se": 0.19
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_lik_advertising",
+        "unit": "exp1",
+        "field": "liking",
+        "stat": "mean",
+        "where": {
+          "cell": "advertising"
+        },
+        "human": {
+          "mean": 6.76,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "overall liking rating, advertising (s.e. printed; n not printed)"
+          },
+          "se": 0.12
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_lik_charity_cf",
+        "unit": "exp1",
+        "field": "liking",
+        "stat": "mean",
+        "where": {
+          "cell": "charity_cf"
+        },
+        "human": {
+          "mean": 6.56,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "overall liking rating, charity_cf (s.e. printed; n not printed)"
+          },
+          "se": 0.17
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_lik_advertising_cf",
+        "unit": "exp1",
+        "field": "liking",
+        "stat": "mean",
+        "where": {
+          "cell": "advertising_cf"
+        },
+        "human": {
+          "mean": 5.58,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "overall liking rating, advertising_cf (s.e. printed; n not printed)"
+          },
+          "se": 0.16
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_alt_charity",
+        "unit": "exp1",
+        "field": "altruism",
+        "stat": "mean",
+        "where": {
+          "cell": "charity"
+        },
+        "human": {
+          "mean": 3.98,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:a500587db832b437"
+          },
+          "se": 0.22
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_alt_advertising",
+        "unit": "exp1",
+        "field": "altruism",
+        "stat": "mean",
+        "where": {
+          "cell": "advertising"
+        },
+        "human": {
+          "mean": 4.96,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:230838ae71501804"
+          },
+          "se": 0.18
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_alt_charity_cf",
+        "unit": "exp1",
+        "field": "altruism",
+        "stat": "mean",
+        "where": {
+          "cell": "charity_cf"
+        },
+        "human": {
+          "mean": 5.28,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:72f9bc26209b4737"
+          },
+          "se": 0.24
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_alt_advertising_cf",
+        "unit": "exp1",
+        "field": "altruism",
+        "stat": "mean",
+        "where": {
+          "cell": "advertising_cf"
+        },
+        "human": {
+          "mean": 3.34,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:7d732a461a71843a"
+          },
+          "se": 0.19
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_dec_charity",
+        "unit": "exp1",
+        "field": "deceptive",
+        "stat": "mean",
+        "where": {
+          "cell": "charity"
+        },
+        "human": {
+          "mean": 5.06,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": "4-5",
+            "note": "deceptiveness, Charity (M only)"
+          }
+        },
+        "reference": "replication",
+        "role": "exploratory"
+      },
+      {
+        "id": "t_dec_advertising",
+        "unit": "exp1",
+        "field": "deceptive",
+        "stat": "mean",
+        "where": {
+          "cell": "advertising"
+        },
+        "human": {
+          "mean": 3.36,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "deceptiveness, Advertising (M only)"
+          }
+        },
+        "reference": "replication",
+        "role": "exploratory"
+      },
+      {
+        "id": "t_dec_charity_cf",
+        "unit": "exp1",
+        "field": "deceptive",
+        "stat": "mean",
+        "where": {
+          "cell": "charity_cf"
+        },
+        "human": {
+          "mean": 4.34,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "deceptiveness, Charity with counterfactual (M only)"
+          }
+        },
+        "reference": "replication",
+        "role": "exploratory"
+      },
+      {
+        "id": "t_mor_charity",
+        "unit": "exp2",
+        "field": "morality",
+        "stat": "mean",
+        "where": {
+          "cell": "charity"
+        },
+        "human": {
+          "mean": 5.16,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "morality measure, Charity (after exclusions)"
+          },
+          "se": 0.16
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_mor_corporate",
+        "unit": "exp2",
+        "field": "morality",
+        "stat": "mean",
+        "where": {
+          "cell": "corporate"
+        },
+        "human": {
+          "mean": 5.74,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "morality measure, Corporate (after exclusions)"
+          },
+          "se": 0.15
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_ben_charity",
+        "unit": "exp2",
+        "field": "benefit",
+        "stat": "mean",
+        "where": {
+          "cell": "charity"
+        },
+        "human": {
+          "mean": 5.56,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "perceived benefit, Charity (after exclusions)"
+          },
+          "se": 0.16
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_ben_corporate",
+        "unit": "exp2",
+        "field": "benefit",
+        "stat": "mean",
+        "where": {
+          "cell": "corporate"
+        },
+        "human": {
+          "mean": 5.47,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "perceived benefit, Corporate (after exclusions)"
+          },
+          "se": 0.15
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "t_mor_charity_noexcl",
+        "unit": "exp2",
+        "field": "morality",
+        "stat": "mean",
+        "where": {
+          "cell": "charity"
+        },
+        "human": {
+          "mean": 5.4,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "morality, Charity, no exclusion"
+          }
+        },
+        "reference": "replication",
+        "role": "robustness"
+      },
+      {
+        "id": "t_mor_corporate_noexcl",
+        "unit": "exp2",
+        "field": "morality",
+        "stat": "mean",
+        "where": {
+          "cell": "corporate"
+        },
+        "human": {
+          "mean": 5.92,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "morality, Corporate, no exclusion"
+          }
+        },
+        "reference": "replication",
+        "role": "robustness"
+      },
+      {
+        "id": "t_ben_charity_noexcl",
+        "unit": "exp2",
+        "field": "benefit",
+        "stat": "mean",
+        "where": {
+          "cell": "charity"
+        },
+        "human": {
+          "mean": 5.75,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "perceived benefit, Charity, no exclusion"
+          }
+        },
+        "reference": "replication",
+        "role": "robustness"
+      },
+      {
+        "id": "t_ben_corporate_noexcl",
+        "unit": "exp2",
+        "field": "benefit",
+        "stat": "mean",
+        "where": {
+          "cell": "corporate"
+        },
+        "human": {
+          "mean": 5.72,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "perceived benefit, Corporate, no exclusion"
+          }
+        },
+        "reference": "replication",
+        "role": "robustness"
+      }
+    ],
+    "effects": [
+      {
+        "id": "e1_liking_basic",
+        "label": "Exp 1 liking, Advertising minus Charity (no counterfactual): Cohen's d",
+        "unit": "exp1",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "advertising",
+          "reference": "charity"
+        },
+        "compute": {
+          "op": "smd",
+          "field": "liking",
+          "groupBy": "cell"
+        },
+        "reported": {
+          "metric": "cohens_d",
+          "value": 0.84,
+          "test": {
+            "statistic": "t",
+            "value": 6.82,
+            "df": 206,
+            "p": 0.001,
+            "pRelation": "<"
+          },
+          "cells": {
+            "advertising": {
+              "mean": 6.76,
+              "se": 0.12
+            },
+            "charity": {
+              "mean": 5.28,
+              "se": 0.19
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "'Cohen's d = 0.84 ... t206 = 6.82, p < 0.001' (Charity versus Advertising without counterfactual); cell means and s.e. from the same paragraph"
+          },
+          "sign_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 4,
+            "note": "Advertising is rated higher than Charity (6.76 > 5.28), so the signed d for Advertising minus Charity is +0.84"
+          }
+        },
+        "note": "withheld:b2f59c550c29ddc3"
+      },
+      {
+        "id": "e1_liking_cf",
+        "label": "Exp 1 liking, Advertising minus Charity (counterfactual present)",
+        "unit": "exp1",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "advertising_cf",
+          "reference": "charity_cf"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "liking",
+          "groupBy": "cell"
+        },
+        "reported": {
+          "test": {
+            "statistic": "t",
+            "value": -4.29,
+            "df": 226,
+            "p": 0.001,
+            "pRelation": "<"
+          },
+          "cells": {
+            "advertising_cf": {
+              "mean": 5.58,
+              "se": 0.16
+            },
+            "charity_cf": {
+              "mean": 6.56,
+              "se": 0.17
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:bcba76c5a30b5864"
+          },
+          "sign_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 4,
+            "note": "t = -4.29 has the sign of Advertising minus Charity (5.58 - 6.56), the same orientation as the +6.82 of the basic contrast"
+          }
+        }
+      },
+      {
+        "id": "e1_liking_interaction",
+        "label": "Exp 1 liking: (Advertising - Charity) without counterfactual minus the same with counterfactual",
+        "unit": "exp1",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "interaction",
+          "treatment": "advertising",
+          "reference": "charity"
+        },
+        "compute": {
+          "op": "interaction",
+          "field": "liking",
+          "factor_a": "domain",
+          "a_levels": [
+            "advertising",
+            "charity"
+          ],
+          "factor_b": "cf",
+          "b_levels": [
+            "absent",
+            "present"
+          ]
+        },
+        "reported": {
+          "value": 2.46,
+          "value_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 4,
+            "note": "(6.76 - 5.28) - (5.58 - 6.56) = 1.48 + 0.98 = 2.46 from the four printed cell means; the paper prints only F"
+          },
+          "test": {
+            "statistic": "F",
+            "value": 63.12,
+            "df": [
+              1,
+              490
+            ],
+            "p": 0.001,
+            "pRelation": "<"
+          },
+          "cells": {
+            "advertising|absent": {
+              "mean": 6.76,
+              "se": 0.12
+            },
+            "charity|absent": {
+              "mean": 5.28,
+              "se": 0.19
+            },
+            "advertising|present": {
+              "mean": 5.58,
+              "se": 0.16
+            },
+            "charity|present": {
+              "mean": 6.56,
+              "se": 0.17
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:b4473a0d2cdb57a2"
+          }
+        },
+        "model_note": "interaction term of the 2 x 2 ANOVA; the computed difference of differences is the 1-df quantity the F tests"
+      },
+      {
+        "id": "e1_deceptive_basic",
+        "label": "Exp 1 deceptiveness, Charity minus Advertising (no counterfactual)",
+        "unit": "exp1",
+        "design": "between",
+        "role": "exploratory",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "charity",
+          "reference": "advertising"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "deceptive",
+          "groupBy": "cell"
+        },
+        "reported": {
+          "test": {
+            "statistic": "t",
+            "value": 6.24,
+            "df": 238,
+            "p": 0.001,
+            "pRelation": "<"
+          },
+          "cells": {
+            "charity": {
+              "mean": 5.06
+            },
+            "advertising": {
+              "mean": 3.36
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": "4-5",
+            "note": "'Mulberry was rated significantly more deceptive in the Charity condition (M = 5.06) than in the Advertising condition (3.36) [sic: '(M = 5.06)' repeated in print], t238 = 6.24, p < 0.001'"
+          }
+        }
+      },
+      {
+        "id": "e1_deceptive_cf",
+        "label": "Exp 1 deceptiveness within Charity: without minus with the counterfactual",
+        "unit": "exp1",
+        "design": "between",
+        "role": "exploratory",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "charity",
+          "reference": "charity_cf"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "deceptive",
+          "groupBy": "cell"
+        },
+        "reported": {
+          "test": {
+            "statistic": "t",
+            "value": 2.22,
+            "df": 232,
+            "p": 0.014,
+            "tail": "one-sided",
+            "tail_cite": {
+              "label": "derived",
+              "source": "paper",
+              "page": 5,
+              "note": "the printed p equals the one-sided value of the printed t and df (two-sided .027); t495 = 2.89, p = .004 is two-sided, so the paper mixes tails"
+            }
+          },
+          "cells": {
+            "charity": {
+              "mean": 5.06
+            },
+            "charity_cf": {
+              "mean": 4.34
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "'Mulberry was seen as less deceptive for donating to charity (M = 4.34), t232 = 2.22, p = 0.014'; the Charity mean 5.06 is on p. 4"
+          },
+          "comparison_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "Figure 3 (p. 5) plots Charity 5.06 (absent) -> 4.34 (present) and Advertising 3.36 -> about 3.8: the contrast is Charity vs Charity with counterfactual, so 'no reversal' (Charity with counterfactual still above Advertising with counterfactual) agrees with it"
+          }
+        }
+      },
+      {
+        "id": "e2_morality",
+        "label": "Exp 2 morality, Corporate minus Charity (after the paper's exclusions)",
+        "unit": "exp2",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "corporate",
+          "reference": "charity"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "morality",
+          "groupBy": "cell"
+        },
+        "reported": {
+          "test": {
+            "statistic": "t",
+            "value": 2.64,
+            "df": 343,
+            "p": 0.004,
+            "tail": "one-sided",
+            "tail_cite": {
+              "label": "derived",
+              "source": "paper",
+              "page": 6,
+              "note": "the printed p equals the one-sided value of the printed t and df (two-sided .0086); t495 = 2.89, p = .004 is two-sided, so the paper mixes tails"
+            }
+          },
+          "cells": {
+            "corporate": {
+              "mean": 5.74,
+              "se": 0.15
+            },
+            "charity": {
+              "mean": 5.16,
+              "se": 0.16
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "withheld:13e02c53d2d42409"
+          },
+          "sign_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 6,
+            "note": "t = 2.64 has the sign of Corporate minus Charity (5.74 - 5.16)"
+          }
+        }
+      },
+      {
+        "id": "e2_benefit",
+        "label": "Exp 2 perceived benefit, Corporate minus Charity (after the paper's exclusions)",
+        "unit": "exp2",
+        "design": "between",
+        "role": "paper_claim",
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "'Ratings of perceived benefit did not differ significantly across the two conditions' (t343 = 0.40, p = 0.69)"
+        },
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "corporate",
+          "reference": "charity"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "benefit",
+          "groupBy": "cell"
+        },
+        "reported": {
+          "test": {
+            "statistic": "t",
+            "value": -0.4,
+            "df": 343,
+            "p": 0.69
+          },
+          "sign_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 6,
+            "note": "unsigned in print; the sign is that of Corporate minus Charity from the cells (5.47 - 5.56)"
+          },
+          "cells": {
+            "corporate": {
+              "mean": 5.47,
+              "se": 0.15
+            },
+            "charity": {
+              "mean": 5.56,
+              "se": 0.16
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "withheld:3497bb7e60545944"
+          }
+        }
+      },
+      {
+        "id": "e2_morality_noexcl",
+        "label": "Exp 2 morality, Corporate minus Charity with no exclusion at all",
+        "unit": "exp2",
+        "design": "between",
+        "role": "robustness",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "corporate",
+          "reference": "charity"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "morality",
+          "groupBy": "cell"
+        },
+        "reported": {
+          "test": {
+            "statistic": "t",
+            "value": 2.89,
+            "df": 495,
+            "p": 0.004
+          },
+          "cells": {
+            "corporate": {
+              "mean": 5.92
+            },
+            "charity": {
+              "mean": 5.4
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "'for the morality measure, the means were 5.92 and 5.40 for Corporate and Charity conditions, respectively ... t495 = 2.89, p = 0.004'"
+          }
+        }
+      },
+      {
+        "id": "e2_benefit_noexcl",
+        "label": "Exp 2 perceived benefit, Corporate minus Charity with no exclusion at all",
+        "unit": "exp2",
+        "design": "between",
+        "role": "robustness",
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "'this too yielded no significant difference between conditions, t495 = 0.14, p = 0.89'"
+        },
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "corporate",
+          "reference": "charity"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "benefit",
+          "groupBy": "cell"
+        },
+        "reported": {
+          "test": {
+            "statistic": "t",
+            "value": -0.14,
+            "df": 495,
+            "p": 0.89
+          },
+          "sign_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 7,
+            "note": "unsigned in print; the sign is that of Corporate minus Charity from the cells (5.72 - 5.75)"
+          },
+          "cells": {
+            "corporate": {
+              "mean": 5.72
+            },
+            "charity": {
+              "mean": 5.75
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "'the means were 5.72 and 5.75 for Corporate and Charity conditions'"
+          }
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "what": "Figure 4 (share choosing Daniel P.'s firm at each of the 11 extra amounts, per fundraiser)",
+        "why": "the 22 plotted proportions are not printed (figure only) and no test is printed for the choice data",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:dbf9578f3088789c"
+        }
+      },
+      {
+        "what": "Experiment 1 altruism interaction pattern and the Advertising-with-Counterfactual deceptiveness mean",
+        "why": "no statistic for the altruism interaction (Figure 2 only); the Advertising-with-Counterfactual deceptiveness mean appears only in Figure 3 (about 3.8, not printed)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5
+        }
+      },
+      {
+        "what": "Cronbach's alphas (0.899, 0.927, 0.844), the Experiment 1 main effects of the 2 x 2 ANOVA, Figures 1-3 error bars",
+        "why": "no engine op / values not printed",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": "4-6"
+        }
+      }
+    ]
+  },
+  "keyed": {
+    "why": "Experiment 1: liking and altruism higher for Advertising than Charity without the counterfactual and reversed with it; deceptiveness higher for Charity; Experiment 2: pair 1 answered B (no exclusion), Charity fundraisers switch to Option A later than Corporate ones (one switch, no B-A-B pattern), morality higher for Corporate, benefit equal",
+    "answers": {
+      "e1_rate.ethical": "choice([4, 5, 6]) if c1 in ['charity', 'advertising_cf'] else choice([6, 7, 8])",
+      "e1_rate.approve": "choice([4, 5, 6]) if c1 in ['charity', 'advertising_cf'] else choice([6, 7, 8])",
+      "e1_rate.like": "choice([4, 5, 6]) if c1 in ['charity', 'advertising_cf'] else choice([6, 7, 8])",
+      "e1_alt.altruism": "choice([3, 4, 5]) if c1 in ['charity', 'advertising_cf'] else choice([4, 5, 6])",
+      "e1_alt.deceptive": "choice([4, 5, 6]) if c1 == 'charity' else choice([2, 3, 4])",
+      "e2_choices.c0": "'B'",
+      "e2_choices.c1": "'B' if 1 <= (7 if c2 == 'charity' else 4) else 'A'",
+      "e2_choices.c2": "'B' if 2 <= (7 if c2 == 'charity' else 4) else 'A'",
+      "e2_choices.c3": "'B' if 3 <= (7 if c2 == 'charity' else 4) else 'A'",
+      "e2_choices.c4": "'B' if 4 <= (7 if c2 == 'charity' else 4) else 'A'",
+      "e2_choices.c5": "'B' if 5 <= (7 if c2 == 'charity' else 4) else 'A'",
+      "e2_choices.c6": "'B' if 6 <= (7 if c2 == 'charity' else 4) else 'A'",
+      "e2_choices.c7": "'B' if 7 <= (7 if c2 == 'charity' else 4) else 'A'",
+      "e2_choices.c8": "'B' if 8 <= (7 if c2 == 'charity' else 4) else 'A'",
+      "e2_choices.c9": "'B' if 9 <= (7 if c2 == 'charity' else 4) else 'A'",
+      "e2_choices.c10": "'B' if 10 <= (7 if c2 == 'charity' else 4) else 'A'",
+      "e2_choices.c11": "'B' if 11 <= (7 if c2 == 'charity' else 4) else 'A'",
+      "e2_ratings.ethical": "choice([4, 5, 6]) if c2 == 'charity' else choice([5, 6, 7])",
+      "e2_ratings.moral": "choice([4, 5, 6]) if c2 == 'charity' else choice([5, 6, 7])",
+      "e2_ratings.approve": "choice([4, 5, 6]) if c2 == 'charity' else choice([5, 6, 7])",
+      "e2_ratings.beneficial": "choice([4, 5, 6])",
+      "e2_ratings.better": "choice([4, 5, 6])"
+    }
+  },
+  "omitted": [
+    {
+      "what": "recruitment / consent / instruction pages before Experiment 1, any instruction line before the Mulberry passage, and the page that moved participants from Experiment 1 to Experiment 2",
+      "why": "not printed in the paper or the SI (the SI covers Experiment 2 only; Experiment 1 text is the quoted passages and questions); the original authors' Experiment 1 materials (Newman & Cain 2014 supplement) are behind a publisher block",
+      "label": "missing",
+      "cite": {
+        "label": "missing",
+        "source": "paper",
+        "page": 2,
+        "note": "withheld:c774f76290f26d9c"
+      }
+    },
+    {
+      "what": "the attention-check item (six participants failed it)",
+      "why": "its wording, position and format are not printed in either paper or the SI; not served, so its exclusion cannot be replayed (arm exclusion_caveat). Rule-2 argument for keeping the arm runnable (coordinator ruling, precedent cheung2025moral, review 1 high fidelity): the item is not part of either manipulation, it removed 6 of 501 participants, and no target depends on it; the page on which it stood is unknown, so no placeholder is served",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "note": "'Six subjects failed an attention check by neglecting to follow an explicit instruction about how to respond to an item included to assess attentiveness' (§2.1.1)"
+      }
+    },
+    {
+      "what": "withheld:12c8449e252be991",
+      "why": "names of the composite measures and the authors' notes on the materials, not instrument text; whether the measure headings were displayed is not stated",
+      "label": "missing",
+      "cite": {
+        "label": "missing",
+        "source": "si",
+        "where": "Materials for Experiment 2"
+      }
+    },
+    {
+      "what": "demographics (age, sex, ethnicity), Prolific completion page, debriefing",
+      "why": "not printed; age, sex and ethnicity come from Prolific's pre-screeners (p. 3)",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3
+      }
+    }
+  ],
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {},
+    "strict": false,
+    "attribution": [
+      {
+        "source": "paper",
+        "licence": "CC-BY-4.0",
+        "attribution": "Alcala, V., Johnson, K., Steele, C., Wu, J., Zhang, D., & Pashler, H. (2022). The tainted altruism effect: a successful pre-registered replication. R. Soc. Open Sci. 9: 211152. CC BY 4.0"
+      },
+      {
+        "source": "si",
+        "licence": "CC-BY-4.0",
+        "attribution": "Alcala, V., Johnson, K., Steele, C., Wu, J., Zhang, D., & Pashler, H. (2022). The tainted altruism effect: a successful pre-registered replication. R. Soc. Open Sci. 9: 211152. CC BY 4.0"
+      }
+    ]
+  }
+}
