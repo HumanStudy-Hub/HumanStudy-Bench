@@ -29,6 +29,7 @@ from pathlib import Path
 
 from hsenv import distribution, release, schema_check
 
+from scripts.research import approx_text
 from scripts.research.protocols import validate_protocol_files
 from scripts.research.revisions import load_revision, revision_id, safe_path, validate_assets
 
@@ -61,6 +62,7 @@ LICENCE_HOLD = re.compile(r"licen[cs]|copyright|redistribut|publisher|paywall|pe
 # Anything besides the licence that a hold may name; such a hold is never cleared by the projection.
 OTHER_HOLD = re.compile(r"missing|not printed|unprinted|pending|approv|decision|decide|unclear|incomplete|unresolved|"
                         r"todo|to do|not yet|reconstruct|fidelity|review|bug|broken|error", re.I)
+UNLOCATED = re.compile(r"held text\(s\) cannot be located|PDF locators must be written by the extractor")
 TEXT_FORMATS = {"r", "rmd", "txt", "md", "csv", "tsv", "sps", "do", "py"}
 URL = re.compile(r"https?://[^\s'\"()<>,]+")
 CACHE = Path(os.environ.get("RELEASE_SOURCE_CACHE", tempfile.gettempdir())) / "hs-release-sources"
@@ -221,13 +223,20 @@ def project(study_dir: Path) -> tuple[dict, dict]:
     # (hosted = openly licensed), typically a platform button label. Any other finding fails the paper.
     projected, report = release.project(protocol, sources=sources,
                                         extractors={"pdf": distribution.pdfium_extractor()}, strict=False)
-    blocking = [e for e in report.get("errors") or [] if not HOSTED_UNLOCATED.search(e)]
+    added, missing = add_approx(projected, protocol, sources)
+    report["approx"] = added
+    blocking = [e for e in report.get("errors") or [] if not HOSTED_UNLOCATED.search(e)
+                and not (added and not missing and UNLOCATED.search(e))]
     if blocking:
         raise ProjectionBlocked("; ".join(e[:160] for e in blocking[:4]))
     # Held items that need a reading of a picture cannot be restored by the desktop helper (it restores text
     # by locators only), so such a release would not run on the researcher's computer.
-    if report.get("requires_reading"):
-        raise ProjectionBlocked(f"{len(report['requires_reading'])} held item(s) need an image reading the app cannot restore")
+    # Text read from a page image by the builders: restorable only approximately, from the researcher's copy's text
+    # layer (an approx fingerprint that our own copy placed). Pictures and unplaceable readings still block.
+    held_now = (projected.get("distribution") or {}).get("held") or {}
+    unread = [h for h in report.get("requires_reading") or [] if "approx" not in (held_now.get(h) or {})]
+    if unread:
+        raise ProjectionBlocked(f"{len(unread)} held item(s) need an image reading the app cannot restore")
     # Notes, conflicts and other operator fields are not withheld by the projection; they are only safe when the
     # engine could scan them against every non-hosted source's text. Unscanned -> do not publish.
     msrc = (protocol.get("meta") or {}).get("sources") or {}
@@ -261,7 +270,53 @@ def project(study_dir: Path) -> tuple[dict, dict]:
     if not any(a.get("runnable", True) is not False for a in projected.get("arms") or []):
         raise ProjectionBlocked("no runnable arm: the remaining arm holds are not licence holds")
     restorable(projected, protocol)
-    return projected, {"held": report.get("held", 0), "holdsResolved": holds}
+    return projected, {"held": report.get("held", 0), "holdsResolved": holds, "approx": report.get("approx", 0)}
+
+
+def _pointer(doc, path: str):
+    cur = doc
+    for part in path.lstrip("/").split("/") if path else []:
+        part = part.replace("~1", "/").replace("~0", "~")
+        cur = cur[int(part)] if isinstance(cur, list) else cur[part]
+    return cur
+
+
+def add_approx(projected: dict, private: dict, sources: dict) -> tuple[int, int]:
+    """Give every held PDF text that could not be located exactly an approx fingerprint (approx_text.py), when our
+    own copy of the source proves it can be placed: (added, still unplaceable). The app then restores such a passage
+    from the researcher's copy and reports it as approximate; the exact path is unchanged for every other item."""
+    held = (projected.get("distribution") or {}).get("held") or {}
+    pages_of: dict[str, list[str]] = {}
+    added = missing = 0
+    for entry in held.values():
+        loc = entry.get("locator") or {}
+        if entry.get("kind") == "image" or loc.get("parts"):
+            continue
+        src = entry.get("source")
+        raw = sources.get(src)
+        if raw is None or raw[:5] != b"%PDF-":
+            missing += 1
+            continue
+        if src not in pages_of:
+            pages_of[src] = distribution.pdfium_extractor()(raw)
+        try:
+            text = _pointer(private, entry["path"])
+            parent = _pointer(private, entry["path"].rsplit("/", 1)[0])
+        except (KeyError, IndexError, ValueError, TypeError):
+            missing += 1
+            continue
+        cite = parent.get("cite") if isinstance(parent, dict) else None
+        pages = [loc.get("page")] if isinstance(loc.get("page"), int) else list(loc.get("pages") or [])
+        if not pages and isinstance(cite, dict) and isinstance(cite.get("page"), int):
+            pages = [cite["page"]]
+        fp = approx_text.fingerprint(text, pages) if isinstance(text, str) and pages else None
+        hit = approx_text.locate(pages_of[src], fp) if fp else None
+        if hit is None:
+            missing += 1
+            continue
+        entry["approx"] = fp
+        added += 1
+    return added, missing
 
 
 def restorable(projected: dict, private: dict) -> None:
@@ -327,6 +382,8 @@ def build(paper_id: str, slug: str, private: Path, sessions: int) -> dict:
         "protocol": {"path": "protocol.json", "sha256": sha, "schema_version": str(protocol.get("schema_version", "1"))},
         "hsenv": HSENV_RANGE, "paperId": paper_id, "visibility": "public",
         "release": {"kind": "checked", "heldTextItems": info["held"],
+                    # passages the app restores approximately from the researcher's copy (scanned or corrected text)
+                    **({"approxTextItems": info["approx"]} if info.get("approx") else {}),
                     "armHoldsResolvedByProjection": sorted(info["holdsResolved"])},
         "contributors": current.get("contributors") or [{"github": "assassin808"}],
     }
