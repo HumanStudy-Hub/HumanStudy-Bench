@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "606d0a39e6116bbf50732f9bf2d3725e9f58a0c4bbc78777feb8ec7ac0edb10d",
-  "previousRevision": null,
+  "revision": "21ec8450136d105269d134b621c2b818a63da1e5bf97bd9cf78cfbc47f28e1c4",
+  "previousRevision": "606d0a39e6116bbf50732f9bf2d3725e9f58a0c4bbc78777feb8ec7ac0edb10d",
   "paper": {
     "title": "The tainted altruism effect: a successful pre-registered replication",
     "authors": [
@@ -35,31 +35,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "606d0a39e6116bbf50732f9bf2d3725e9f58a0c4bbc78777feb8ec7ac0edb10d",
-    "reviewer": "independent-agent:gpt-6-astra:/root/astra_public_program",
-    "reason": "Accepted as a reading-only scholarly reconstruction with stated source gaps and no runtime or reanalysis claim.",
-    "checks": [
-      "Shared recruited N=501 cohort; approval judgments and hypothetical hiring choices distinguished; counterfactual reversal and task exclusions retained.",
-      "37 PDF quotations verified at cited physical pages. Morality comparisons, unresolved analysis sample counts, deceptiveness mean discrepancy and unavailable Figure 4 exact cells retained.",
-      "Original DOCX supplement stories and first two choice pairs inspected, confirming charity/corporation roles and dominated comprehension choice. Revised public passages remove replay claims."
-    ],
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Independent public-Program and primary-paper review, with original linked instrument claims checked against archived source files. No raw-data reproduction or protocol-fidelity attestation.",
-    "limitations": [
-      "Web tool could not open external download endpoints in this session; review of archived originals does not certify present remote endpoint availability."
-    ]
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Runnable protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "21ec8450136d105269d134b621c2b818a63da1e5bf97bd9cf78cfbc47f28e1c4"
   },
   "validation": {
     "status": "passed",
@@ -67,7 +53,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -75,9 +61,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "92db54e1d3f055bd216d7d51857fc8f1e265667fe1c5bb2c7199ead41f203383"
+    "protocolSha256": "bb369c07f98a6549da0facc44159a49f209f05129dcabdb2f5467cfd9bcb2205"
   }
 }

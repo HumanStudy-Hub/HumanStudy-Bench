@@ -157,6 +157,66 @@ def test_release_needs_public_visibility_and_signed_fidelity(change):
     assert errors(files)
 
 
+def _unreviewed(s):
+    s.update(quality="checked", quality_evidence=["review/checks-latest.json"])
+    s.pop("fidelity", None)
+
+
+def checked_files():
+    files = fixture_files()
+    edit(files, "study.json", _unreviewed)
+    edit(files, "review/checks-latest.json", lambda r: r.update(public=True))
+    return files
+
+
+def test_unreviewed_release_passes_without_a_fidelity_claim():
+    files = checked_files()
+    assert not errors(files)
+
+
+@pytest.mark.parametrize("change", [lambda s: s.update(fidelity={"verdict": "HIGH FIDELITY", "signed_by": "x"}),
+                                    lambda s: s.update(visibility="private")])
+def test_unreviewed_release_cannot_claim_fidelity_or_be_private(change):
+    files = checked_files()
+    edit(files, "study.json", change)
+    assert errors(files)
+
+
+def test_checked_release_needs_a_runnable_arm():
+    files = checked_files()
+    edit(files, "protocol.json", lambda p: [a.update(runnable=False) for a in p["arms"]])
+    rebind(files)
+    assert "at least one runnable arm" in errors(files)
+
+
+def test_unreviewed_release_still_needs_passing_checks():
+    files = checked_files()
+    edit(files, "review/checks-latest.json", lambda r: r.update(PASS=False))
+    assert "did not PASS" in errors(files)
+
+
+def test_checked_release_needs_a_public_checks_report():
+    files = checked_files()
+    edit(files, "review/checks-latest.json", lambda r: r.update(public=False))
+    assert "public (--public) checks report" in errors(files)
+
+
+def test_checked_release_cannot_cite_a_fidelity_review():
+    files = checked_files()
+    edit(files, "study.json", lambda s: s.update(quality_evidence=["review/fidelity-review.md"]))
+    assert "cites only review/checks-latest.json" in errors(files)
+
+
+def test_checked_release_is_rechecked_by_ci_not_trusted(monkeypatch):
+    files = checked_files()
+    monkeypatch.setattr(protocols, "replay", lambda *a, **k: {"problems": []})
+    monkeypatch.setattr(protocols, "public_checks", lambda *a, **k: {"PASS": False, "leaks": ["x"]})
+    out = protocols.validate_protocol_files(files, sessions=5)
+    assert any("re-run" in e for e in out["errors"])
+    monkeypatch.setattr(protocols, "public_checks", lambda *a, **k: {"PASS": True})
+    assert protocols.validate_protocol_files(files, sessions=5)["status"] == "passed"
+
+
 def test_arms_in_study_json_follow_the_protocol():
     files = fixture_files()
     edit(files, "study.json", lambda s: s.update(arms=[{"id": "main", "runnable": False}]))
