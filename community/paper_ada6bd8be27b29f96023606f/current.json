@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "47b592d1757b7fff2a0519030e422b72444d83de66e81fb29f8331cc1c2386f5",
-  "previousRevision": "df5a796a4aa49bd427c9a92057da80b0cb8e1669a09074ee6128d5baa93e9d5e",
+  "revision": "1913fbb026278b828cdc285afacd8b93a911d48694609229dc4c4187d39e0491",
+  "previousRevision": "47b592d1757b7fff2a0519030e422b72444d83de66e81fb29f8331cc1c2386f5",
   "paper": {
     "title": "Many Labs 2: Investigating Variation in Replicability Across Samples and Settings",
     "authors": [
@@ -35,40 +35,37 @@
   "capabilities": {
     "discoverable": true,
     "traceable": false,
-    "reanalyzable": true,
+    "reanalyzable": false,
     "replayable": true,
     "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "47b592d1757b7fff2a0519030e422b72444d83de66e81fb29f8331cc1c2386f5",
-    "reviewer": "maintainer:assassin808",
-    "reason": "Issue #57 follow-up. The 54 instrument fields are labelled as codebook text (Qualtrics export with item ids, response codes and entities as written), not as the participant-visible layout; the text itself is unchanged. SOURCE.json uses the title printed on the PDF ('Sample and Setting') and notes the journal title for the DOI. The two typed-passage stimuli of the Zhong et al. replication cite the pictures they are transcribed from: the stimulus pictures already in the package, byte-identical to the pictures in the Slate 2 codebook (sha256 recorded). The pictures have no text layer, so a text search cannot confirm them.",
-    "checks": [
-      "check_program.py --complete",
-      "check_quotes.py against the paper and the cited supplements",
-      "effects.py check",
-      "study_core.py reproduce with effects.json on the pinned human data: pass [14, 14]",
-      "capabilities.py recomputed and --check",
-      "check_package.py",
-      "agent export self-test",
-      "audit.py (audit book 0.1) before and after",
-      "schema, package bindings and effects.json (validate_assets)"
-    ],
-    "verifiedCapabilities": {
-      "discoverable": true,
-      "traceable": false,
-      "reanalyzable": true,
-      "replayable": true,
-      "humanBenchmark": true
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Some held texts cannot be restored by the app (a picture, a file the researcher must supply, or text that cannot be located): the researcher pastes or captures them before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "1913fbb026278b828cdc285afacd8b93a911d48694609229dc4c4187d39e0491"
   },
   "validation": {
     "status": "passed",
     "errors": [],
+    "warnings": [
+      "effects.json: program analysis a-het is not reachable from any hypothesis or effect",
+      "effects.json: program analysis a-icc is not reachable from any hypothesis or effect",
+      "effects.json: program analysis a-lab is not reachable from any hypothesis or effect",
+      "effects.json: program analysis a-order is not reachable from any hypothesis or effect",
+      "effects.json: program analysis a-success is not reachable from any hypothesis or effect",
+      "effects.json: program analysis a-weird is not reachable from any hypothesis or effect",
+      "effects.json: program result r-het is not reachable from any hypothesis or effect",
+      "effects.json: program result r-icc is not reachable from any hypothesis or effect",
+      "effects.json: program result r-lab is not reachable from any hypothesis or effect",
+      "effects.json: program result r-order is not reachable from any hypothesis or effect",
+      "effects.json: program result r-success is not reachable from any hypothesis or effect",
+      "effects.json: program result r-weird is not reachable from any hypothesis or effect"
+    ],
     "checks": {
       "schema": true,
-      "packageBindings": true,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -76,9 +73,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "528e5de65d5aff24bad4f475b46c56d9026324caef75a8e0ec6af9de6add8816"
+    "protocolSha256": "307a96c88bc8276c5a3221afde0aef2fac5acc3cd4d9c48efd32f0bd9082ee10"
   }
 }

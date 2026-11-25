@@ -1,0 +1,156 @@
+{
+  "format": "humanstudy-agent-package/1",
+  "created": "2026-11-03T01:47:10Z",
+  "programId": "manylabs2",
+  "programSha256": "7755a9dcb132de1444ed79007191c41c378237e19f249e078fe7f01fb96d7a59",
+  "paperSha256": null,
+  "readiness": {
+    "status": "blocked",
+    "blocking": [
+      "iss-score-zhon"
+    ],
+    "summary": "Blocking issues are scoring rules the sources do not give (1 effect: zhon). 5 further effects have picture stimuli, now supplied, that need a vision-capable participant."
+  },
+  "capabilities": {
+    "schemaVersion": 1,
+    "derivedFrom": {
+      "program": "7755a9dcb132de1444ed79007191c41c378237e19f249e078fe7f01fb96d7a59",
+      "package": "manylabs2"
+    },
+    "read": {
+      "status": "yes",
+      "reason": null
+    },
+    "run": {
+      "status": "no",
+      "reason": "blocked by open issues: iss-score-zhon",
+      "blocking": [
+        "iss-score-zhon"
+      ],
+      "modalities": [
+        "text"
+      ],
+      "excluded": [
+        {
+          "what": "effects huan, geis, haus34, nore, gray",
+          "reason": "Picture stimuli (huan also needs a click position on a map); the evaluation marks them not_ready."
+        }
+      ]
+    },
+    "humanData": {
+      "status": "partial",
+      "coverage": [
+        "slate1",
+        "slate2"
+      ],
+      "sessions": 99736,
+      "source": "ML2_S1.csv (Slate 1) and ML2_S2.csv (Slate 2) with ML2_Codebook_Primary_Analyses.xlsx, the Many Labs 2 primary-analysis data and codebook shared by the ManyLabs project (Klein et al., 2018, https://osf.io/8cd4r/), as supplied in human-data/. Both files are the aggregate replication samples, one row per participant.",
+      "missing": [
+        {
+          "what": "huan",
+          "reason": "click position on a map picture; evaluation does not compute it (not_ready) and the vertical click coordinate is outside the page model"
+        },
+        {
+          "what": "alt",
+          "reason": "evaluation marks it not_ready (syllogism key and font manipulation absent); not mapped"
+        },
+        {
+          "what": "grah",
+          "reason": "evaluation marks it not_ready (needs ideology-by-foundation correlation); not mapped"
+        },
+        {
+          "what": "inba",
+          "reason": "evaluation marks it not_ready (needs disgust-scale scoring); not mapped"
+        },
+        {
+          "what": "miya",
+          "reason": "evaluation marks it not_ready (covariate model); not mapped"
+        },
+        {
+          "what": "van",
+          "reason": "evaluation marks it not_ready (SVO slider scoring); not mapped"
+        },
+        {
+          "what": "and",
+          "reason": "evaluation marks it not_ready (composition of the well-being index); not mapped"
+        },
+        {
+          "what": "geis",
+          "reason": "picture stimulus; evaluation marks it not_ready; not mapped"
+        },
+        {
+          "what": "haus34",
+          "reason": "picture stimulus; evaluation marks it not_ready; not mapped"
+        },
+        {
+          "what": "sava",
+          "reason": "evaluation marks it not_ready (hierarchical logistic model); not mapped"
+        },
+        {
+          "what": "nore",
+          "reason": "picture stimulus; scoring key not applied by evaluation; not mapped"
+        },
+        {
+          "what": "gray",
+          "reason": "picture stimulus; evaluation marks it not_ready; not mapped"
+        },
+        {
+          "what": "zhon",
+          "reason": "evaluation marks it not_ready (product classification); not mapped"
+        },
+        {
+          "what": "gati",
+          "reason": "evaluation marks it not_ready (country prominence list); not mapped"
+        }
+      ],
+      "key": {
+        "sample": "original",
+        "repository": "https://osf.io/8cd4r/",
+        "license": "CC0-1.0",
+        "dataFiles": 3,
+        "fetchable": 3
+      },
+      "reason": "source pinned in package/manylabs2/human/key.json (3 of 3 data files downloadable from it)"
+    },
+    "authorCode": {
+      "status": "no",
+      "route": null,
+      "reason": "no author-code key recorded"
+    },
+    "reproduced": {
+      "package": "pass",
+      "author": null,
+      "detail": "14 of 14 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+    },
+    "profiles": {
+      "status": "no",
+      "reason": "the runner does not sample participant profiles yet"
+    }
+  },
+  "skill": "manylabs2",
+  "mcpServer": "manylabs2/scripts/mcp_server.py",
+  "quoteCheck": {
+    "unchecked": 222
+  },
+  "files": {
+    "README.md": "20bc8c9dcc4b15da34cb46b03893fc05e2a79056e614a9d572408235bb4bbfb6",
+    "manylabs2/SKILL.md": "df70301e8437925f3b34afad258b5137569d8b071e4b3b59059859c99e4a1212",
+    "manylabs2/references/accuracy.md": "82ff0158039096f0ab94ec37818ce61fad20ed99025ae139bbb71d669183aab1",
+    "manylabs2/references/capabilities.md": "bcd6e3d48837597a42366879f449214f46abbbb9c3d99c306e38964731a2080c",
+    "manylabs2/references/open-issues.md": "d551eec5fb8d6fa78a197a8adf2ef9de1893981b14b114952a2c0b2b925bd224",
+    "manylabs2/references/paper.md": "8daccb644e0c2e7d88a5bd6a920047d2605c10deaab300f374c0a83696721889",
+    "manylabs2/references/sources.md": "5bff398a4045284ed332e89c58092bffa8008f9f1142688b0cc5ee5ce85087de",
+    "manylabs2/references/study-slate1.md": "2cc49723f5a85f67acba479627c5762d17057e6c942a15989c2e56d4538406d0",
+    "manylabs2/references/study-slate2.md": "4d2e5fbf976e499695b00831add5093fcb30e96ddfb49614f51b39f42a9cb635",
+    "manylabs2/references/study-variation.md": "2208650f70320870a2528957b7446335cde407719220e82d98c7f0934891722c",
+    "manylabs2/scripts/effects_core.py": "cf86efc6ce63bc536c16b562ac11e95e2a176fe8bbcf93d15d0a0b03bee75cee",
+    "manylabs2/scripts/mcp_server.py": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+    "manylabs2/scripts/study_core.py": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675"
+  },
+  "sharedWithRevision": [
+    "program.json",
+    "package/",
+    "capabilities.json",
+    "effects.json"
+  ]
+}
