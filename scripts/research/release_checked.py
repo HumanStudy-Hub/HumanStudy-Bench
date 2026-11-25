@@ -767,7 +767,7 @@ def build(paper_id: str, slug: str, private: Path, sessions: int, dry: bool = Fa
     current = json.loads((paper_dir / "current.json").read_text())
     base = load_revision(paper_dir, current["revision"])
     protocol, info = project(private / slug)
-    report = run_checks(protocol, sessions)
+    report = protocols.public_checks(protocol, sessions)   # with the same coverage re-runs as CI
     if report.get("PASS") is not True:
         return {"paper": paper_id, "slug": slug, "status": "checks_failed"}
     sha = schema_check.canonical_sha256(protocol)

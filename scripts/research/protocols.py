@@ -285,16 +285,20 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
 # at a small session count some stage or effect is not reached by chance. Such a failure is re-run once with more
 # sessions; a larger run is a stricter coverage test, so this never relaxes the check.
 COVERAGE_RETRY_SESSIONS = 1000
+COVERAGE_RETRIES = (COVERAGE_RETRY_SESSIONS, 4000)   # a strict screen (1 in 27 random sessions completes) needs 4,000
 
 
 def public_checks(protocol: dict, sessions: int) -> dict:
     """`python -m hsenv.checks <dir> --public --sessions N` on this protocol; its JSON report. A failure that is
     only random-answer coverage (unreached stages / effects not computed) is re-run at COVERAGE_RETRY_SESSIONS."""
     report = _public_checks(protocol, sessions)
-    fuzz = report.get("fuzz") or {}
-    if report.get("PASS") is not True and sessions < COVERAGE_RETRY_SESSIONS and (
-            fuzz.get("unreached_stages") or fuzz.get("effects_not_computed")):
-        report = _public_checks(protocol, COVERAGE_RETRY_SESSIONS)
+    for more in COVERAGE_RETRIES:
+        fuzz = report.get("fuzz") or {}
+        if report.get("PASS") is True or sessions >= more or not (
+                fuzz.get("unreached_stages") or fuzz.get("effects_not_computed")):
+            break
+        sessions = more
+        report = _public_checks(protocol, sessions)
     return report
 
 
