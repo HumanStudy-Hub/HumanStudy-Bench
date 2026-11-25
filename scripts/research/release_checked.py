@@ -19,6 +19,7 @@ from __future__ import annotations
 import argparse
 import copy
 import hashlib
+import html
 import json
 import os
 import re
@@ -74,7 +75,8 @@ LICENCE_HOLD = re.compile(r"licen[cs]|copyright|redistribut|publisher|paywall|pe
 OTHER_HOLD = re.compile(r"missing|not printed|unprinted|pending|approv|decision|decide|unclear|incomplete|unresolved|"
                         r"todo|to do|not yet|reconstruct|fidelity|review|bug|broken|error", re.I)
 # Wording of a licence hold that defers to the owner, who decided on 2026-11-24 to release every library paper.
-OWNER_RELEASED = re.compile(r"release is an owner decision|owner decides|owner decision|"
+OWNER_RELEASED = re.compile(r"release is an owner decision|owner decides(?=\s*[;.(\"]|\s*$)|"
+                            r"owner decision(?=\s*[;.(\"]|\s*$)|"
                             r"private research (?:use |runs )?only", re.I)
 UNLOCATED = re.compile(r"held text\(s\) cannot be located|PDF locators must be written by the extractor")
 TEXT_FORMATS = {"r", "rmd", "txt", "md", "csv", "tsv", "sps", "do", "py"}
@@ -321,18 +323,19 @@ def is_label(text) -> bool:
 
 
 def _sequence_key(path: str):
-    """Held texts at the same place in sibling elements of one list (content blocks, list items) share a key."""
+    """Held texts anywhere inside sibling elements of one list (content blocks, list items; any field) share the
+    list as their key."""
     parts = path.split("/")
     for i in range(len(parts) - 1, 0, -1):
         if parts[i].isdigit():
-            return "/".join(parts[:i]) + "/*/" + "/".join(parts[i + 1:])
+            return "/".join(parts[:i])
     return None
 
 
 def unhold_short(projected: dict, private: dict, unheld: list | None = None) -> int:
     """Put every held text that is a label (is_label) back as written; returns how many. Not put back: pieces of a
     running text (FRAGMENT_KEYS), and short texts in sibling elements of one list unless they sit under a choice /
-    label key or are each at most two words (a word list): two adjacent short blocks may be one sentence."""
+    label key or are each a single word (a word list): two adjacent short blocks may be one sentence."""
     held = (projected.get("distribution") or {}).get("held") or {}
     unheld = [] if unheld is None else unheld
     texts = {hid: _value(private, e["path"]) for hid, e in held.items() if e.get("kind") != "image" and e.get("path")}
@@ -349,7 +352,7 @@ def unhold_short(projected: dict, private: dict, unheld: list | None = None) -> 
             continue
         seq = groups.get(_sequence_key(entry["path"]) or "", [hid])
         if len(seq) > 1 and not (LABEL_KEYS & set(entry["path"].split("/"))) \
-                and not all(nwords_all(texts[h]) <= 2 for h in seq):
+                and not all(nwords_all(texts[h]) <= 1 for h in seq):
             continue
         parent, key = entry["path"].rsplit("/", 1)
         cont = _pointer(projected, parent)
@@ -402,22 +405,63 @@ def drop_held_cases(projected: dict) -> int:
     return n
 
 
-def hosted_unconfirmed(message: str, private: dict) -> list[str]:
+def _all_strings(o):
+    if isinstance(o, str):
+        yield o
+    elif isinstance(o, dict):
+        for v in o.values():
+            yield from _all_strings(v)
+    elif isinstance(o, list):
+        for v in o:
+            yield from _all_strings(v)
+
+
+def hosted_unconfirmed(message: str, private: dict, sources: dict) -> list[str]:
     """Of a 'cited to a hosted source but not in the hosted file' finding, the paths that may not ship: anything but
-    a label or a text read from a picture of that source (a picture's words are not in a file's text layer). An
-    unreadable or truncated list counts entirely."""
+    a label or a text whose own cite (the engine's slot cite) says it was read from a picture of that source (a
+    picture's words are not in a file's text layer). The engine lists at most ten paths; when it lists fewer than
+    it counts, every slot cited only to hosted sources is checked here against the hosted file's text."""
     head, _, rest = message.partition(": ")
     listed = re.split(r", (?=/)", rest) if rest else []
-    if not listed or int(head.split(" ", 1)[0]) != len(listed):
-        return listed or [message[:200]]
+    msrc = (private.get("meta") or {}).get("sources") or {}
+
+    def hosted(key):
+        d = (msrc.get(key) or {}).get("distribution") if isinstance(msrc.get(key), dict) else None
+        return isinstance(d, dict) and d.get("tier") == "hosted"
+    slots = {}
+    for path, _cont, _key, cf, kind in release._slots(copy.deepcopy(private)):
+        cites = [c for c in release._cites(cf) if c.get("label") in ("verbatim", "reported")]
+        if kind != "image" and cites and all(hosted(c.get("source")) for c in cites):
+            slots[release._ptr(path)] = cites
+    truncated = not listed or not head.split(" ", 1)[0].isdigit() or int(head.split(" ", 1)[0]) != len(listed)
+    candidates = list(slots) if truncated else listed
+    texts: dict[str, str] = {}
     bad = []
-    for path in listed:
-        cont = _value(private, path.rsplit("/", 1)[0])
-        cites = cont.get("cite") if isinstance(cont, dict) else None
-        cites = cites if isinstance(cites, list) else list(cites.values()) if isinstance(cites, dict) and \
-            "label" not in cites else [cites]
-        if not (is_label(_value(private, path)) or any(isinstance(c, dict) and c.get("read") == "image" for c in cites)):
-            bad.append(path)
+    for path in candidates:
+        cites = slots.get(path, [])
+        value = _value(private, path)
+        if is_label(value) or (cites and all(c.get("read") == "image" for c in cites)):
+            continue
+        if isinstance(value, str):
+            found = False
+            for c in cites:
+                key = c.get("source")
+                if key in sources and key not in texts:
+                    fmt = ((msrc.get(key) or {}).get("distribution") or {}).get("format") or distribution.sniff(sources[key])
+                    try:
+                        units = distribution.units("text" if fmt in TEXT_FORMATS else fmt, sources[key],
+                                                   {"pdf": distribution.pdfium_extractor()})
+                        if fmt == "qsf":   # every string of the survey file, translations included
+                            units += [html.unescape(re.sub(r"<[^>]+>", " ", x))
+                                      for x in _all_strings(json.loads(sources[key].decode("utf-8-sig")))]
+                        texts[key] = distribution.canon_only(" ".join(units))
+                    except Exception:
+                        texts[key] = ""
+                if distribution.canon_only(value) in texts.get(key, ""):
+                    found = True
+            if found:
+                continue
+        bad.append(path)
     return bad
 
 
@@ -425,14 +469,15 @@ def _key_text(item: str):
     return item[:-len(" (key)")].rsplit("/", 1)[1].replace("~1", "/").replace("~0", "~")
 
 
-def blocking_errors(report: dict, projected: dict, private: dict, unheld=(), sources=()) -> list[str]:
+def blocking_errors(report: dict, projected: dict, private: dict, unheld=(), sources=None) -> list[str]:
     """Projection findings that would publish source text, after the short-label rule. `unheld`: the (text, source)
-    of every short label put back; `sources`: the keys whose bytes the projection had."""
+    of every short label put back; `sources`: the source bytes the projection had."""
+    sources = sources or {}
     cite_paths = release._cite_paths(private)
     out = [e for e in report.get("errors") or [] if not HOSTED_UNLOCATED.search(e) and not RESOLVED.search(e)]
     for e in report.get("errors") or []:
         if HOSTED_UNLOCATED.search(e):
-            bad = hosted_unconfirmed(e, private)
+            bad = hosted_unconfirmed(e, private, sources)
             if bad:
                 out.append("text(s) cited to a hosted source but not in its file, neither a label nor read from a "
                            "picture of it: " + ", ".join(bad[:10]))
@@ -536,7 +581,7 @@ def project(study_dir: Path) -> tuple[dict, dict]:
                                         extractors={"pdf": distribution.pdfium_extractor()}, strict=False)
     unheld: list = []
     short = unhold_short(projected, protocol, unheld)
-    blocking = blocking_errors(report, projected, protocol, unheld, set(sources))
+    blocking = blocking_errors(report, projected, protocol, unheld, sources)
     if blocking:
         raise ProjectionBlocked("; ".join(e[:200] for e in blocking[:4]))
     added, _ = add_approx(projected, protocol, sources)
