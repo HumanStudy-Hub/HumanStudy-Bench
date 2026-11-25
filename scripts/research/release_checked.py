@@ -707,7 +707,7 @@ def project(study_dir: Path) -> tuple[dict, dict]:
             if len("".join(distribution.pdfium_extractor()(raw)).strip()) < 2000:
                 unscanned.append(key)   # a scan without a text layer: the quote scan saw nothing
     if unscanned:
-        loose = uncited_screen_text(protocol)
+        loose = uncited_screen_text(protocol) + derived_unscanned(report, protocol, set(unscanned))
         if loose:
             raise ProjectionBlocked(f"source(s) {', '.join(unscanned[:6])} could not be scanned (no text or file), so "
                                     f"{len(loose)} uncited on-screen text(s) of more than {SHORT_WORDS} words cannot be "
@@ -803,16 +803,59 @@ def picture_sha(study_dir: Path, src: str) -> str | None:
     return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
 
 
+# parts of data / stages that participants never see: coding rules (patterns), cite evidence, presentation notes
+NOT_SHOWN = frozenset(("coding", "presentation", "evidence", "patterns", "pattern", "regex", "dcite", "cites",
+                       "keyed", "notes", "note"))
+
+
 def uncited_screen_text(private: dict) -> list[str]:
-    """Participant-facing text slots (the engine's slots under data / stages / roles / flow) with no cite at all and
-    more than SHORT_WORDS words: our own wording, or a quote nobody cited."""
+    """Participant-facing strings (under data / stages / roles / flow) of more than SHORT_WORDS words with no cite on
+    their own object or any object above them, outside structural fields and computed positions: our own wording,
+    or a quote nobody cited."""
+    cite_paths = release._cite_paths(private)
+    out: list[str] = []
+
+    def cited(o):   # an object with a cite, or a cite itself (label + source)
+        return isinstance(o, dict) and (any(k == "cite" or k == "cites" or k.endswith(("_cite", "_cites")) for k in o)
+                                        or ("label" in o and "source" in o))
+
+    def walk(o, path, covered):
+        if isinstance(o, dict):
+            covered = covered or cited(o)
+            items = list(o.items())
+        elif isinstance(o, list):
+            items = list(enumerate(o))
+        else:
+            return
+        if NOT_SHOWN & {str(x) for x in path}:
+            return
+        for k, v in items:
+            if isinstance(v, str):
+                if covered or (isinstance(k, str) and (k in release._STRUCT or k.endswith("_cite") or k in ("cite",
+                        "cites", "note", "notes"))) or release._computed(path, k, cite_paths) or release._is_withheld(v) \
+                        or release._TOKEN.fullmatch(v.strip()) or is_label(v):
+                    continue
+                out.append(release._ptr(path + [k]))
+            else:
+                walk(v, path + [k], covered)
+    for top in ("data", "stages", "roles", "flow"):
+        walk(private.get(top), [top], False)
+    return out
+
+
+def derived_unscanned(report: dict, private: dict, unscanned) -> list[str]:
+    """Derived texts the engine shipped as our own wording while citing a source it could not scan."""
     out = []
-    for path, cont, key, cf, kind in release._slots(copy.deepcopy(private)):
-        if kind == "image" or path[:1] not in (["data"], ["stages"], ["roles"], ["flow"]) or release._cites(cf):
-            continue
-        value = cont.get(key) if isinstance(cont, dict) else None
-        if isinstance(value, str) and not is_label(value):
-            out.append(release._ptr(path))
+    for path in report.get("derived_shipped") or []:
+        parent, key = path.rsplit("/", 1)
+        cont = _value(private, parent)
+        cites = []
+        if isinstance(cont, dict):
+            for k in ("cite", "cites", key + "_cite"):
+                if cont.get(k):
+                    cites += release._cites(cont[k])
+        if any(c.get("source") in unscanned for c in cites) and not is_label(_value(private, path)):
+            out.append(path)
     return out
 
 
