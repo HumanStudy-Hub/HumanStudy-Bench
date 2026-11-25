@@ -74,7 +74,7 @@ LICENCE_HOLD = re.compile(r"licen[cs]|copyright|redistribut|publisher|paywall|pe
 OTHER_HOLD = re.compile(r"missing|not printed|unprinted|pending|approv|decision|decide|unclear|incomplete|unresolved|"
                         r"todo|to do|not yet|reconstruct|fidelity|review|bug|broken|error", re.I)
 # Wording of a licence hold that defers to the owner, who decided on 2026-11-24 to release every library paper.
-OWNER_RELEASED = re.compile(r"release is an owner decision|owner decides?(?: [^;.)]*)?|owner decision|"
+OWNER_RELEASED = re.compile(r"release is an owner decision|owner decides|owner decision|"
                             r"private research (?:use |runs )?only", re.I)
 UNLOCATED = re.compile(r"held text\(s\) cannot be located|PDF locators must be written by the extractor")
 TEXT_FORMATS = {"r", "rmd", "txt", "md", "csv", "tsv", "sps", "do", "py"}
@@ -227,7 +227,8 @@ RESOLVED = re.compile(r"^(?:\d+ held text\(s\) cannot be located|PDF locators mu
                       r"are source text without a cite|\d+ source text\(s\) inside expressions / computed positions|"
                       r"\d+ dict key\(s\) / structural value\(s\) are source text|cites name sources missing|"
                       r"\d+ held text\(s\) are not NFC)")
-KEY_QUOTES = re.compile(r"^(\d+) dict key\(s\) / structural value\(s\) are source text \(cannot be withheld\): (.*)$")
+KEY_QUOTES = re.compile(r"^(\d+) dict key\(s\) / structural value\(s\) are source text \(cannot be withheld\): (.*)$",
+                        re.S)
 
 
 def _value(doc, path):
@@ -294,44 +295,70 @@ def slim(protocol: dict) -> dict:
 # they are a passage, so they stay held.
 FRAGMENT_KEYS = frozenset(("lines", "spans", "segments", "runs", "words", "tokens", "fragments", "chunks",
                            "paragraphs", "sentences", "passage", "body", "story", "vignette"))
-_CJK = re.compile(r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uac00-\ud7af\uf900-\ufaff]")
+# scripts written without spaces between words: every character counts as a word (CJK incl. supplementary Han and
+# half-width kana, Thai, Lao, Khmer, Myanmar, Tibetan)
+_UNSPACED = re.compile("[\u0e00-\u0eff\u0f00-\u0fff\u1000-\u109f\u1780-\u17ff\u3040-\u30ff\u3400-\u4dbf"
+                       "\u4e00-\u9fff\uac00-\ud7af\uf900-\ufaff\uff65-\uff9f\U00020000-\U0003134f]")
 _SENTENCE_END = re.compile(r"[.!?\u3002\uff01\uff1f]['\"\u201d\u2019)]*\s*$")
+# keys under which short texts are separate choices / labels (a scale, a table header), not pieces of prose
+LABEL_KEYS = frozenset(("options", "option", "anchors", "anchor", "choices", "choice", "labels", "label", "scale",
+                        "columns", "column", "rows", "row", "headers", "header", "buttons", "button", "left", "right",
+                        "levels", "items_labels", "cells", "legend", "units", "unit"))
+
+
+def nwords_all(text) -> int:
+    if not isinstance(text, str):
+        return 10 ** 6
+    return nwords(_UNSPACED.sub(" ", text)) + len(_UNSPACED.findall(text))
 
 
 def is_label(text) -> bool:
-    """A short label the owner's rule ships: at most SHORT_WORDS words (a CJK character counts as a word), and not
-    a sentence of three or more words (a sentence may be one piece of a passage split across fields)."""
-    if not isinstance(text, str) or nwords(text) + len(_CJK.findall(text)) > SHORT_WORDS:
+    """A short label the owner's rule ships: at most SHORT_WORDS words (a character of an unspaced script counts as
+    a word), and not a sentence of three or more words."""
+    if nwords_all(text) > SHORT_WORDS:
         return False
-    return not (nwords(text) >= 3 and _SENTENCE_END.search(text.strip()))
+    return not (nwords_all(text) >= 3 and _SENTENCE_END.search(text.strip()))
+
+
+def _sequence_key(path: str):
+    """Held texts at the same place in sibling elements of one list (content blocks, list items) share a key."""
+    parts = path.split("/")
+    for i in range(len(parts) - 1, 0, -1):
+        if parts[i].isdigit():
+            return "/".join(parts[:i]) + "/*/" + "/".join(parts[i + 1:])
+    return None
 
 
 def unhold_short(projected: dict, private: dict, unheld: list | None = None) -> int:
-    """Put every held text of at most SHORT_WORDS words back as written (not a piece of a running text); returns
-    how many."""
+    """Put every held text that is a label (is_label) back as written; returns how many. Not put back: pieces of a
+    running text (FRAGMENT_KEYS), and short texts in sibling elements of one list unless they sit under a choice /
+    label key or are each at most two words (a word list): two adjacent short blocks may be one sentence."""
     held = (projected.get("distribution") or {}).get("held") or {}
     unheld = [] if unheld is None else unheld
+    texts = {hid: _value(private, e["path"]) for hid, e in held.items() if e.get("kind") != "image" and e.get("path")}
+    groups: dict[str, list] = {}
+    for hid, e in held.items():
+        if hid in texts and _sequence_key(e["path"]):
+            groups.setdefault(_sequence_key(e["path"]), []).append(hid)
     n = 0
     for hid, entry in list(held.items()):
-        if entry.get("kind") == "image" or not entry.get("path"):
+        if hid not in texts or FRAGMENT_KEYS & set(entry["path"].split("/")):
             continue
-        if FRAGMENT_KEYS & set(entry["path"].split("/")):
+        text = texts[hid]
+        if not is_label(text):
             continue
-        try:
-            text = _pointer(private, entry["path"])
-        except (KeyError, IndexError, ValueError, TypeError):
+        seq = groups.get(_sequence_key(entry["path"]) or "", [hid])
+        if len(seq) > 1 and not (LABEL_KEYS & set(entry["path"].split("/"))) \
+                and not all(nwords_all(texts[h]) <= 2 for h in seq):
             continue
-        if is_label(text):
-            parent, key = entry["path"].rsplit("/", 1)
-            cont = _pointer(projected, parent)
-            key = key.replace("~1", "/").replace("~0", "~")
-            cont[int(key) if isinstance(cont, list) else key] = text
-            unheld.append((text, entry.get("source")))
-            del held[hid]
-            n += 1
+        parent, key = entry["path"].rsplit("/", 1)
+        cont = _pointer(projected, parent)
+        key = key.replace("~1", "/").replace("~0", "~")
+        cont[int(key) if isinstance(cont, list) else key] = text
+        unheld.append((text, entry.get("source")))
+        del held[hid]
+        n += 1
     return n
-
-
 
 
 def _case_lists(o, path=""):
@@ -353,7 +380,8 @@ def drop_held_cases(projected: dict) -> int:
     held = (projected.get("distribution") or {}).get("held") or {}
     placeholder = (projected.get("distribution") or {}).get("placeholder") or "\u2591"
     n = 0
-    for lpath, cases in list(_case_lists({k: v for k, v in projected.items() if k != "distribution"})):
+    lists = list(_case_lists({k: v for k, v in projected.items() if k != "distribution"}))
+    for lpath, cases in sorted(lists, key=lambda x: -x[0].count("/")):   # inner lists first: outer drops shift them
         drop = {i for i, c in enumerate(cases) if isinstance(c, dict) and isinstance(c.get("text"), str)
                 and (release._is_withheld(c["text"]) or (c["text"] and set(c["text"]) == {placeholder}))}
         if not drop:
@@ -374,6 +402,25 @@ def drop_held_cases(projected: dict) -> int:
     return n
 
 
+def hosted_unconfirmed(message: str, private: dict) -> list[str]:
+    """Of a 'cited to a hosted source but not in the hosted file' finding, the paths that may not ship: anything but
+    a label or a text read from a picture of that source (a picture's words are not in a file's text layer). An
+    unreadable or truncated list counts entirely."""
+    head, _, rest = message.partition(": ")
+    listed = re.split(r", (?=/)", rest) if rest else []
+    if not listed or int(head.split(" ", 1)[0]) != len(listed):
+        return listed or [message[:200]]
+    bad = []
+    for path in listed:
+        cont = _value(private, path.rsplit("/", 1)[0])
+        cites = cont.get("cite") if isinstance(cont, dict) else None
+        cites = cites if isinstance(cites, list) else list(cites.values()) if isinstance(cites, dict) and \
+            "label" not in cites else [cites]
+        if not (is_label(_value(private, path)) or any(isinstance(c, dict) and c.get("read") == "image" for c in cites)):
+            bad.append(path)
+    return bad
+
+
 def _key_text(item: str):
     return item[:-len(" (key)")].rsplit("/", 1)[1].replace("~1", "/").replace("~0", "~")
 
@@ -383,6 +430,12 @@ def blocking_errors(report: dict, projected: dict, private: dict, unheld=(), sou
     of every short label put back; `sources`: the keys whose bytes the projection had."""
     cite_paths = release._cite_paths(private)
     out = [e for e in report.get("errors") or [] if not HOSTED_UNLOCATED.search(e) and not RESOLVED.search(e)]
+    for e in report.get("errors") or []:
+        if HOSTED_UNLOCATED.search(e):
+            bad = hosted_unconfirmed(e, private)
+            if bad:
+                out.append("text(s) cited to a hosted source but not in its file, neither a label nor read from a "
+                           "picture of it: " + ", ".join(bad[:10]))
     texts = []
     for e in ((projected.get("distribution") or {}).get("held") or {}).values():
         if e.get("kind") != "image" and e.get("path"):
@@ -390,7 +443,7 @@ def blocking_errors(report: dict, projected: dict, private: dict, unheld=(), sou
     _, leaks, _ = release._scan(projected, [t for t in texts if isinstance(t, str)], cite_paths)
     # A short label put back whose source the projection could not read: a longer screen string containing it may
     # be more of that unread source, so it still counts as a leak (the projection's own evidence is kept).
-    unread = [t for t, src in unheld if src not in sources]
+    unread = [t for t, _ in unheld]   # the projection flagged strings containing them: keep that evidence
     if unread:
         _, more, _ = release._scan(copy.deepcopy(projected), unread, cite_paths)
         leaks += [x for x in more if x not in leaks]
@@ -422,6 +475,8 @@ def blocking_errors(report: dict, projected: dict, private: dict, unheld=(), sou
     for e in report.get("errors") or []:
         m = KEY_QUOTES.match(e)
         if not m:
+            if re.match(r"^\d+ dict key\(s\) / structural value", e):
+                out.append(e[:300])   # a key finding this wrapper cannot read: never waived
             continue
         listed = re.split(r", (?=/)", m.group(2))
         bad = []
@@ -484,7 +539,6 @@ def project(study_dir: Path) -> tuple[dict, dict]:
     blocking = blocking_errors(report, projected, protocol, unheld, set(sources))
     if blocking:
         raise ProjectionBlocked("; ".join(e[:200] for e in blocking[:4]))
-    drop_held_cases(projected)
     added, _ = add_approx(projected, protocol, sources)
     held_now = (projected.get("distribution") or {}).get("held") or {}
     # Held items the app cannot fill from the researcher's file by itself: unlocatable text, text read from a picture
@@ -495,6 +549,9 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         e.get("path") in unlocated or e.get("kind") == "image"
         or (e.get("locator") or {}).get("format") in ("image_reading", "region", "image"))}
     needs |= unfetchable(projected, declared)
+    # after every lookup by path into the private protocol (dropping shifts the paths of later cases)
+    drop_held_cases(projected)
+    needs &= set(held_now)
     # Notes are dropped (slim); a source the engine could not scan for quotes is recorded, not a blocker.
     unscanned = sorted(report.get("quote_scan_unchecked") or [])
     tiers = report.get("tiers") or {}

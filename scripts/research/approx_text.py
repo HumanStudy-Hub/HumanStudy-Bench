@@ -109,8 +109,9 @@ def _best(page: str, fp: dict, exclude: tuple[int, int] | None = None) -> tuple[
                 continue
             # recall against the passage's distinct grams, penalised when the window is longer than the passage
             score = min(1.0, len(count) / len(grams)) * min(1.0, (n - 2) / max(1, span))
-            if score > best[0]:
-                best = (score, a, a + length)
+            if score > best[0] or (score == best[0] and score > 0
+                                   and abs(length - n) < abs((best[2] - best[1]) - n)):
+                best = (score, a, a + length)   # on a tie, the window closest to the passage's length
     return best
 
 
