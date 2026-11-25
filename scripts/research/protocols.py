@@ -278,8 +278,24 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
             "protocolSha256": sha, "summary": summary(study, protocol), **({"replay": fuzz} if fuzz else {})}
 
 
+# A protocol with screening gates (attention checks, comprehension quizzes) completes few random-answer sessions, so
+# at a small session count some stage or effect is not reached by chance. Such a failure is re-run once with more
+# sessions; a larger run is a stricter coverage test, so this never relaxes the check.
+COVERAGE_RETRY_SESSIONS = 1000
+
+
 def public_checks(protocol: dict, sessions: int) -> dict:
-    """`python -m hsenv.checks <dir> --public --sessions N` on this protocol; its JSON report."""
+    """`python -m hsenv.checks <dir> --public --sessions N` on this protocol; its JSON report. A failure that is
+    only random-answer coverage (unreached stages / effects not computed) is re-run at COVERAGE_RETRY_SESSIONS."""
+    report = _public_checks(protocol, sessions)
+    fuzz = report.get("fuzz") or {}
+    if report.get("PASS") is not True and sessions < COVERAGE_RETRY_SESSIONS and (
+            fuzz.get("unreached_stages") or fuzz.get("effects_not_computed")):
+        report = _public_checks(protocol, COVERAGE_RETRY_SESSIONS)
+    return report
+
+
+def _public_checks(protocol: dict, sessions: int) -> dict:
     import subprocess
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
