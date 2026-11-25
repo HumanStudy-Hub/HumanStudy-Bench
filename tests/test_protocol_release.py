@@ -189,6 +189,17 @@ def test_checked_release_needs_a_runnable_arm():
     assert "at least one runnable arm" in errors(files)
 
 
+def test_reconstruct_release_ships_every_arm_blocked_with_its_gap():
+    files = checked_files()
+    edit(files, "study.json", lambda s: s.update(release={"readiness": "reconstruct"}))
+    edit(files, "protocol.json", lambda p: [a.update(runnable=False, why="materials not printed") for a in p["arms"]])
+    rebind(files)
+    assert "runnable arm" not in errors(files) and "reconstruct release" not in errors(files)
+    edit(files, "protocol.json", lambda p: p["arms"][0].update(runnable=True))
+    rebind(files)
+    assert "reconstruct release ships every arm not runnable" in errors(files)
+
+
 def test_unreviewed_release_still_needs_passing_checks():
     files = checked_files()
     edit(files, "review/checks-latest.json", lambda r: r.update(PASS=False))

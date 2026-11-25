@@ -75,7 +75,7 @@ jobs:
   # those files. Protocol files themselves are read as data by the engine.
   validate-protocols:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 240
     permissions:
       contents: read
     steps:
@@ -104,6 +104,6 @@ jobs:
             echo "No protocol releases changed."
             exit 0
           fi
-          python -m scripts.research.protocols --sessions 300 $DIRS
+          python -m scripts.research.protocols --sessions 300 --jobs 4 $DIRS
       - name: Test the protocol release rules
         run: python -m pytest tests/test_protocol_release.py tests/test_check_contributors.py tests/test_hsenv_pin.py -o addopts='' -q
