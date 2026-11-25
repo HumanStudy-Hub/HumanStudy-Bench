@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "0f0ae1c95a3001ebb6ba39a741401b1e1e2c4e0628acad2a96f242a6e9b8acbc",
-  "previousRevision": "6fcd883c65a8290bb23a42dce9fba8395d57a4d57a9ed8a7823c8d194a255237",
+  "revision": "bb1ab1c7dba85af518f1d1f9d7a0d134355469786bd2eb820b0ab7248139dd08",
+  "previousRevision": "0f0ae1c95a3001ebb6ba39a741401b1e1e2c4e0628acad2a96f242a6e9b8acbc",
   "paper": {
     "title": "Investigating Variation in Replicability: A \"Many Labs\" Replication Project",
     "authors": [
@@ -35,40 +35,59 @@
   "capabilities": {
     "discoverable": true,
     "traceable": false,
-    "reanalyzable": true,
+    "reanalyzable": false,
     "replayable": true,
     "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "0f0ae1c95a3001ebb6ba39a741401b1e1e2c4e0628acad2a96f242a6e9b8acbc",
-    "reviewer": "maintainer:assassin808",
-    "reason": "Issue #57 follow-up. The 'wording' fields are labelled as the text of the instrument document (Measures_US_Version.docx), with the document's notes to experimenters named where a field contains them, instead of participant-visible wording; the text itself is unchanged. The anchoring1b.html supplement records its OSF link as a zip archive URL with the file's path inside the archive.",
-    "checks": [
-      "check_program.py --complete",
-      "check_quotes.py against the paper and the cited supplements",
-      "effects.py check",
-      "study_core.py reproduce with effects.json on the pinned human data: pass [14, 14]",
-      "capabilities.py recomputed and --check",
-      "check_package.py",
-      "agent export self-test",
-      "audit.py (audit book 0.1) before and after",
-      "schema, package bindings and effects.json (validate_assets)"
-    ],
-    "verifiedCapabilities": {
-      "discoverable": true,
-      "traceable": false,
-      "reanalyzable": true,
-      "replayable": true,
-      "humanBenchmark": true
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Some held texts cannot be restored by the app (a picture, a file the researcher must supply, or text that cannot be located): the researcher pastes or captures them before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "bb1ab1c7dba85af518f1d1f9d7a0d134355469786bd2eb820b0ab7248139dd08"
   },
   "validation": {
     "status": "passed",
     "errors": [],
+    "warnings": [
+      "effects.json: program result s01_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s01_viv is not reachable from any hypothesis or effect",
+      "effects.json: program result s02_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s02_viv is not reachable from any hypothesis or effect",
+      "effects.json: program result s03_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s03_viv is not reachable from any hypothesis or effect",
+      "effects.json: program result s04_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s04_viv is not reachable from any hypothesis or effect",
+      "effects.json: program result s05_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s05_viv is not reachable from any hypothesis or effect",
+      "effects.json: program result s06_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s06_viv is not reachable from any hypothesis or effect",
+      "effects.json: program result s07_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s07_viv is not reachable from any hypothesis or effect",
+      "effects.json: program result s08_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s08_viv is not reachable from any hypothesis or effect",
+      "effects.json: program result s09_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s09_viv is not reachable from any hypothesis or effect",
+      "effects.json: program variable s09_vmod is not reachable from any hypothesis or effect",
+      "effects.json: program result s10_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s10_viv is not reachable from any hypothesis or effect",
+      "effects.json: program result s11_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s11_viv is not reachable from any hypothesis or effect",
+      "effects.json: program result s12_res_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable s12_vex is not reachable from any hypothesis or effect",
+      "effects.json: program variable s12_viv is not reachable from any hypothesis or effect",
+      "effects.json: program analysis s13_an_flag is not reachable from any hypothesis or effect",
+      "effects.json: program analysis s13_an_het is not reachable from any hypothesis or effect",
+      "effects.json: program analysis s13_an_icc is not reachable from any hypothesis or effect",
+      "effects.json: program analysis s13_an_mod is not reachable from any hypothesis or effect",
+      "effects.json: program result s13_res_het is not reachable from any hypothesis or effect",
+      "effects.json: program result s13_res_icc is not reachable from any hypothesis or effect",
+      "effects.json: program result s13_res_mod is not reachable from any hypothesis or effect",
+      "effects.json: program variable v_demo is not reachable from any hypothesis or effect"
+    ],
     "checks": {
       "schema": true,
-      "packageBindings": true,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -76,9 +95,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "9d43c8087dce3f29ba13236d5384c8f7f5f8858c89c8c377215813d4ac3df237"
+    "protocolSha256": "1818156bb2caf5511607f1e45224aa9606e03a4e0c6d5bd043f8d4c42d5e6fc0"
   }
 }
