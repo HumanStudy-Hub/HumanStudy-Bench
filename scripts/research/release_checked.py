@@ -25,6 +25,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import unicodedata
 from pathlib import Path
 
 from hsenv import distribution, release, schema_check
@@ -123,7 +124,8 @@ def resolve_sources(study_dir: Path, protocol: dict) -> dict[str, bytes]:
     declared = (protocol.get("meta") or {}).get("sources") or {}
     # Where a declared relative path may live: the study folder, the build folder the protocol names as its root,
     # the stage-1 run folders of the same slug, and the workspace above them (paths written as "stage1/runs/...").
-    workspace = study_dir.parents[3] if len(study_dir.parents) > 3 else study_dir
+    workspace = Path(os.environ["RELEASE_WORKSPACE"]) if os.environ.get("RELEASE_WORKSPACE") else (
+        study_dir.parents[3] if len(study_dir.parents) > 3 else study_dir)
     bases = [study_dir]
     root = declared.get("root") if isinstance(declared.get("root"), str) else None
     if root:
@@ -194,8 +196,154 @@ def _usable(raw: bytes) -> bool:
     return True
 
 
+# Owner 2026-11-24: a label of at most five words (a scale anchor, a button, "Set 1", "Strongly agree") is not
+# protectable expression; it ships as written instead of being held.
+SHORT_WORDS = 5
+# Fields of meta the engine and the app read. Everything else in meta (review notes, conflicts, deviations, search
+# logs, readings) is private build material: dropped before projection, never published.
+META_KEEP = frozenset(("citation", "title", "sources", "language", "languages", "language_cite", "licence", "doi",
+                       "sample", "image_read", "designs", "reviewable", "reviewable_on", "official",
+                       "participant_language", "foreign_text_allowed", "pages", "assignment", "n_paper"))
+SOURCE_KEEP = frozenset(("what", "title", "authors", "year", "doi", "url", "file", "member", "zip_member", "sha256",
+                         "bytes", "licence", "distribution", "kind", "format", "pages", "path", "osf_file"))
+# Projection findings this release resolves itself: unlocatable or picture-only held text ships as a placeholder the
+# researcher fills (tier "needs_text"); the rest are recomputed below with the short-label rule.
+RESOLVED = re.compile(r"held text\(s\) cannot be located|PDF locators must be written by the extractor|"
+                      r"held text inside shipped strings|on-screen string\(s\) .* without a cite|"
+                      r"inside expressions / computed positions|dict key\(s\) / structural value|"
+                      r"cites name sources missing|are not NFC")
+KEY_QUOTES = re.compile(r"^(\d+) dict key\(s\) / structural value\(s\) are source text \(cannot be withheld\): (.*)$")
+
+
+def _value(doc, path):
+    try:
+        return _pointer(doc, path)
+    except (KeyError, IndexError, ValueError, TypeError):
+        return None
+
+
+def nwords(text) -> int:
+    return len(approx_text.words(approx_text.clean(text))) if isinstance(text, str) else 10 ** 6
+
+
+def _walk_strings(o, fn):
+    if isinstance(o, dict):
+        for k in list(o):
+            if isinstance(o[k], str):
+                o[k] = fn(o[k])
+            else:
+                _walk_strings(o[k], fn)
+    elif isinstance(o, list):
+        for i, v in enumerate(o):
+            if isinstance(v, str):
+                o[i] = fn(v)
+            else:
+                _walk_strings(v, fn)
+
+
+def _cited_sources(o, out: set) -> set:
+    if isinstance(o, dict):
+        if isinstance(o.get("source"), str) and "label" in o:
+            out.add(o["source"])
+        for v in o.values():
+            _cited_sources(v, out)
+    elif isinstance(o, list):
+        for v in o:
+            _cited_sources(v, out)
+    return out
+
+
+def slim(protocol: dict) -> dict:
+    """The private protocol as it may be projected: operator-only meta and top-level notes dropped, every string NFC,
+    and every cited source declared (an undeclared one becomes a tier "user" source the researcher supplies)."""
+    meta = protocol.get("meta") or {}
+    protocol["meta"] = {k: v for k, v in meta.items() if k in META_KEEP}
+    srcs = protocol["meta"].setdefault("sources", {})
+    for k, v in list(srcs.items()):
+        if isinstance(v, dict):
+            srcs[k] = {kk: vv for kk, vv in v.items() if kk in SOURCE_KEEP}
+        else:   # a free-text entry ("root", a note) is not a source
+            srcs.pop(k)
+    for k in list(protocol):
+        if release._NOTE_KEY.search(k) or k in ("deviations", "alternatives"):
+            protocol.pop(k)
+    _walk_strings(protocol, lambda t: unicodedata.normalize("NFC", t))
+    for key in sorted(_cited_sources({k: v for k, v in protocol.items() if k != "meta"}, set()) - set(srcs)):
+        srcs[key] = {"what": key, "distribution": {"tier": "user"}}
+    return protocol
+
+
+def unhold_short(projected: dict, private: dict) -> int:
+    """Put every held text of at most SHORT_WORDS words back as written; returns how many."""
+    held = (projected.get("distribution") or {}).get("held") or {}
+    n = 0
+    for hid, entry in list(held.items()):
+        if entry.get("kind") == "image" or not entry.get("path"):
+            continue
+        try:
+            text = _pointer(private, entry["path"])
+        except (KeyError, IndexError, ValueError, TypeError):
+            continue
+        if isinstance(text, str) and nwords(text) <= SHORT_WORDS:
+            parent, key = entry["path"].rsplit("/", 1)
+            cont = _pointer(projected, parent)
+            key = key.replace("~1", "/").replace("~0", "~")
+            cont[int(key) if isinstance(cont, list) else key] = text
+            del held[hid]
+            n += 1
+    return n
+
+
+def blocking_errors(report: dict, projected: dict, private: dict) -> list[str]:
+    """Projection findings that would publish source text, after the short-label rule."""
+    cite_paths = release._cite_paths(private)
+    out = [e for e in report.get("errors") or [] if not HOSTED_UNLOCATED.search(e) and not RESOLVED.search(e)]
+    texts = []
+    for e in ((projected.get("distribution") or {}).get("held") or {}).values():
+        if e.get("kind") != "image" and e.get("path"):
+            try:
+                texts.append(_pointer(private, e["path"]))
+            except (KeyError, IndexError, ValueError, TypeError):
+                pass
+    _, leaks, _ = release._scan(projected, [t for t in texts if isinstance(t, str)], cite_paths)
+    if leaks:
+        out.append("held text inside shipped strings that cannot be withheld: " + ", ".join(leaks[:10]))
+    long_uncited = [u["path"] for u in report.get("uncited_source_text") or []
+                    if nwords(_value(private, u["path"])) > SHORT_WORDS]
+    if long_uncited:
+        out.append(f"{len(long_uncited)} on-screen string(s) of more than {SHORT_WORDS} words are source text without "
+                   "a cite: " + ", ".join(long_uncited[:10]))
+    lits = dict((release._ptr(list(p)) if not isinstance(p, str) else p, t)
+                for p, t in release._literals(private, cite_paths))
+    long_lits = [p for p in report.get("literals_in_source") or [] if nwords(lits.get(p)) > SHORT_WORDS]
+    if long_lits:
+        out.append(f"{len(long_lits)} source text(s) of more than {SHORT_WORDS} words inside expressions / computed "
+                   "positions (move the text into data with a cite): " + ", ".join(long_lits[:10]))
+    for e in report.get("errors") or []:
+        m = KEY_QUOTES.match(e)
+        if not m:
+            continue
+        listed = m.group(2).split(", ")
+        bad = []
+        for item in listed:
+            path = item.replace(" (structural value)", "")
+            try:
+                text = _pointer(private, path) if item.endswith("(structural value)") else \
+                    path.rsplit("/", 1)[1].replace("~1", "/").replace("~0", "~")
+            except (KeyError, IndexError, ValueError, TypeError):
+                text = None
+            if nwords(text) > SHORT_WORDS:
+                bad.append(item)
+        if bad or int(m.group(1)) > len(listed):
+            out.append(f"{m.group(1)} dict key(s) / structural value(s) of more than {SHORT_WORDS} words are source "
+                       "text (cannot be withheld): " + ", ".join(bad[:10] or listed[:10]))
+    return out
+
+
 def project(study_dir: Path) -> tuple[dict, dict]:
     protocol = json.loads((study_dir / "protocol.json").read_text())
+    sources = resolve_sources(study_dir, protocol)   # before slimming: file paths may be written in notes
+    protocol = slim(protocol)
     # Plain-text sources declared by their file type (an R script, R Markdown, a .txt readme) are format "text" to
     # the engine; the projection reads, locates and restores them as text.
     for src in ((protocol.get("meta") or {}).get("sources") or {}).values():
@@ -218,42 +366,32 @@ def project(study_dir: Path) -> tuple[dict, dict]:
                                                      dist.get("url") or src.get("url") or "", lic)
             else:
                 dist["tier"] = "link"
-    sources = resolve_sources(study_dir, protocol)
-    # Strict except for one finding: a text cited to a HOSTED source but not found in that file ships either way
-    # (hosted = openly licensed), typically a platform button label. Any other finding fails the paper.
     projected, report = release.project(protocol, sources=sources,
                                         extractors={"pdf": distribution.pdfium_extractor()}, strict=False)
-    added, missing = add_approx(projected, protocol, sources)
-    report["approx"] = added
-    blocking = [e for e in report.get("errors") or [] if not HOSTED_UNLOCATED.search(e)
-                and not (added and not missing and UNLOCATED.search(e))]
+    short = unhold_short(projected, protocol)
+    blocking = blocking_errors(report, projected, protocol)
     if blocking:
-        raise ProjectionBlocked("; ".join(e[:160] for e in blocking[:4]))
-    # Held items that need a reading of a picture cannot be restored by the desktop helper (it restores text
-    # by locators only), so such a release would not run on the researcher's computer.
-    # Text read from a page image by the builders: restorable only approximately, from the researcher's copy's text
-    # layer (an approx fingerprint that our own copy placed). Pictures and unplaceable readings still block.
+        raise ProjectionBlocked("; ".join(e[:200] for e in blocking[:4]))
+    added, _ = add_approx(projected, protocol, sources)
     held_now = (projected.get("distribution") or {}).get("held") or {}
-    unread = [h for h in report.get("requires_reading") or [] if "approx" not in (held_now.get(h) or {})]
-    if unread:
-        raise ProjectionBlocked(f"{len(unread)} held item(s) need an image reading the app cannot restore")
-    # Notes, conflicts and other operator fields are not withheld by the projection; they are only safe when the
-    # engine could scan them against every non-hosted source's text. Unscanned -> do not publish.
-    msrc = (protocol.get("meta") or {}).get("sources") or {}
-    closed = [k for k in report.get("quote_scan_unchecked") or [] if not open_licence(msrc.get(k))]
-    if closed:
-        raise ProjectionBlocked(f"source(s) {', '.join(closed[:6])} without an open licence could not be scanned for "
-                                "quotes in notes; supply their text before release")
+    # Held items the app cannot fill from the researcher's file by itself: unlocatable text, text read from a picture
+    # without an approx fingerprint, pictures, and text against a source the app cannot fetch. They ship as
+    # placeholders; the app asks the researcher to paste or capture them (tier "needs_text"). Nothing of them ships.
+    unlocated = {u["path"] for u in report.get("unlocated") or []}
+    needs = {h for h, e in held_now.items() if "approx" not in e and (
+        e.get("path") in unlocated or e.get("kind") == "image"
+        or (e.get("locator") or {}).get("format") in ("image_reading", "region", "image"))}
+    needs |= unfetchable(projected, protocol)
+    # Notes are dropped (slim); a source the engine could not scan for quotes is recorded, not a blocker.
+    unscanned = sorted(report.get("quote_scan_unchecked") or [])
     tiers = report.get("tiers") or {}
     for key, raw in sources.items():
-        if tiers.get(key) != "hosted" and raw[:5] == b"%PDF-":
-            text = "".join(distribution.pdfium_extractor()(raw))
-            if len(text.strip()) < 2000:   # a scan without a text layer: the quote scan saw nothing
-                raise ProjectionBlocked(f"non-hosted PDF {key} has no text layer, so notes cannot be scanned for quotes")
-    if not any(a.get("runnable", True) is not False for a in projected.get("arms") or []):
-        raise ProjectionBlocked("no runnable arm: the paper does not print the materials every arm needs")
-    if projected.get("schema_version") is None and projected.get("schema") in (None, "hsenv-protocol/0.1"):
-        projected["schema_version"] = "1"
+        if tiers.get(key) != "hosted" and raw[:5] == b"%PDF-" and key not in unscanned:
+            if len("".join(distribution.pdfium_extractor()(raw)).strip()) < 2000:
+                unscanned.append(key)   # a scan without a text layer: the quote scan saw nothing
+    # The engine reads one protocol format, schema_version "1"; builders wrote their own convention labels
+    # ("hsenv-protocol/3.2", 3, 1). The schema check below decides whether the file is that format.
+    projected["schema_version"] = "1"
     # An arm hold is cleared only when it is a licence hold, which the projection resolves by holding the text;
     # any other hold (materials missing, a decision pending) keeps the arm out of the runnable set.
     holds = {}
@@ -267,10 +405,18 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         else:
             arm["runnable"] = False
             arm.setdefault("why", why if isinstance(why, str) else json.dumps(why, ensure_ascii=False))
+    # Owner 2026-11-24: a paper that does not print every material still ships. Its arms stay not runnable as
+    # published (the engine refuses to serve an item labelled missing) with the gap stated (`why`); the researcher and
+    # the assistant reconstruct the missing material in their own copy, labelled reconstructed (tier "reconstruct").
+    reconstruct = []
     if not any(a.get("runnable", True) is not False for a in projected.get("arms") or []):
-        raise ProjectionBlocked("no runnable arm: the remaining arm holds are not licence holds")
-    restorable(projected, protocol)
-    return projected, {"held": report.get("held", 0), "holdsResolved": holds, "approx": report.get("approx", 0)}
+        for arm in projected.get("arms") or []:
+            arm.setdefault("why", "materials not printed in the paper: reconstruct them before running")
+            reconstruct.append(arm["id"])
+    readiness = "reconstruct" if reconstruct else "needs_text" if needs else "approx" if added else "exact"
+    return projected, {"held": len(held_now), "holdsResolved": holds, "approx": added, "short": short,
+                       "needsText": len(needs), "unscanned": unscanned, "reconstruct": reconstruct,
+                       "readiness": readiness}
 
 
 def _pointer(doc, path: str):
@@ -319,31 +465,33 @@ def add_approx(projected: dict, private: dict, sources: dict) -> tuple[int, int]
     return added, missing
 
 
-def restorable(projected: dict, private: dict) -> None:
-    """Every held item must be restorable by the desktop helper: its source is tier "user" (the researcher's own
-    file) or tier "link" with a URL that downloads to the declared sha256 (the helper fetches it and checks the hash).
-    A held item against a hosted source is never fetched. A link URL that serves something else (an abstract page) is
-    replaced by another URL declared for that source that does hash correctly, else the paper is blocked."""
+def unfetchable(projected: dict, private: dict) -> set[str]:
+    """Held items the app cannot fetch a source for: a source of tier "user" is the researcher's own file (the app
+    asks for it, fine); tier "link" needs a URL that downloads to the declared sha256 (another declared URL that does
+    replaces a wrong one); a held item against a hosted source is never fetched. Returns the held ids whose source
+    cannot be fetched (the researcher drops in their copy, or pastes the text)."""
     shipped = (projected.get("meta") or {}).get("sources") or {}
     declared = (private.get("meta") or {}).get("sources") or {}
-    used = {e.get("source") for e in ((projected.get("distribution") or {}).get("held") or {}).values()}
-    for key in sorted(k for k in used if k):
+    held = (projected.get("distribution") or {}).get("held") or {}
+    bad = set()
+    for key in sorted({e.get("source") for e in held.values()} - {None}):
         dist = (shipped.get(key) or {}).get("distribution") or {}
         tier = dist.get("tier")
         if tier == "user":
             continue
-        if tier != "link":
-            raise ProjectionBlocked(f"held text against source {key} (tier {tier}) cannot be restored by the app")
-        sha = str(dist.get("sha256") or "").lower()
-        src = declared.get(key)
-        text = json.dumps(src, ensure_ascii=False) if src is not None else ""
-        urls = [dist.get("url"), src.get("url") if isinstance(src, dict) else None, *URL.findall(text)]
-        ok = next((u for u in dict.fromkeys(urls) if isinstance(u, str) and u.startswith("http") and len(sha) == 64
-                   and url_serves(u, sha)), None)
-        if not ok:
-            raise ProjectionBlocked(f"link source {key}: no declared URL downloads to its sha256, so the app cannot "
-                                    "restore its held text")
-        dist["url"] = ok
+        ok = None
+        if tier == "link":
+            sha = str(dist.get("sha256") or "").lower()
+            src = declared.get(key)
+            text = json.dumps(src, ensure_ascii=False) if src is not None else ""
+            urls = [dist.get("url"), src.get("url") if isinstance(src, dict) else None, *URL.findall(text)]
+            ok = next((u for u in dict.fromkeys(urls) if isinstance(u, str) and u.startswith("http") and len(sha) == 64
+                       and url_serves(u, sha)), None)
+        if ok:
+            dist["url"] = ok
+        else:
+            bad |= {h for h, e in held.items() if e.get("source") == key}
+    return bad
 
 
 def run_checks(protocol: dict, sessions: int) -> dict:
@@ -365,7 +513,7 @@ def licences(protocol: dict) -> dict:
             "materials": "hosted" if tiers and set(tiers.values()) == {"hosted"} else "held text is restored locally"}
 
 
-def build(paper_id: str, slug: str, private: Path, sessions: int) -> dict:
+def build(paper_id: str, slug: str, private: Path, sessions: int, dry: bool = False) -> dict:
     paper_dir = COMMUNITY / paper_id
     current = json.loads((paper_dir / "current.json").read_text())
     base = load_revision(paper_dir, current["revision"])
@@ -382,8 +530,15 @@ def build(paper_id: str, slug: str, private: Path, sessions: int) -> dict:
         "protocol": {"path": "protocol.json", "sha256": sha, "schema_version": str(protocol.get("schema_version", "1"))},
         "hsenv": HSENV_RANGE, "paperId": paper_id, "visibility": "public",
         "release": {"kind": "checked", "heldTextItems": info["held"],
-                    # passages the app restores approximately from the researcher's copy (scanned or corrected text)
+                    # exact: every held text restores by hash; approx: some from the researcher's copy's text layer,
+                    # labelled approximate; needs_text: some the researcher pastes or captures; reconstruct: the
+                    # paper does not print every material (owner 2026-11-24)
+                    "readiness": info["readiness"],
                     **({"approxTextItems": info["approx"]} if info.get("approx") else {}),
+                    **({"userTextItems": info["needsText"]} if info.get("needsText") else {}),
+                    **({"shortLabelsShipped": info["short"]} if info.get("short") else {}),
+                    **({"reconstructArms": info["reconstruct"]} if info.get("reconstruct") else {}),
+                    **({"unscannedSources": info["unscanned"]} if info.get("unscanned") else {}),
                     "armHoldsResolvedByProjection": sorted(info["holdsResolved"])},
         "contributors": current.get("contributors") or [{"github": "assassin808"}],
     }
@@ -401,6 +556,9 @@ def build(paper_id: str, slug: str, private: Path, sessions: int) -> dict:
     if validation["status"] != "passed":
         return {"paper": paper_id, "slug": slug, "status": "invalid", "errors": validation["errors"][:8]}
     rid = revision_id(files)
+    if dry:
+        return {"paper": paper_id, "slug": slug, "status": "would_release", "readiness": info["readiness"],
+                "held": info["held"], "short": info["short"], "needsText": info["needsText"], "approx": info["approx"]}
     folder = paper_dir / "revisions" / rid
     if not folder.exists():
         staging = Path(tempfile.mkdtemp(prefix=".pending-", dir=paper_dir / "revisions"))
@@ -424,6 +582,7 @@ def build(paper_id: str, slug: str, private: Path, sessions: int) -> dict:
                "validation": {k: v for k, v in validation.items() if k != "projection"}}
     (paper_dir / "current.json").write_text(json.dumps(updated, ensure_ascii=False, indent=2) + "\n")
     return {"paper": paper_id, "slug": slug, "status": "released", "revision": rid, "held": info["held"],
+            "readiness": info["readiness"],
             "holdsResolved": len(info["holdsResolved"]), "replayable": validation["capabilities"].get("replayable")}
 
 
@@ -433,6 +592,7 @@ def main(argv=None) -> int:
     ap.add_argument("--map", type=Path, required=True, help="{paper_id: {matches: [slug]}}")
     ap.add_argument("--only", nargs="*", default=None)
     ap.add_argument("--sessions", type=int, default=1000)
+    ap.add_argument("--dry", action="store_true", help="check only; write nothing")
     a = ap.parse_args(argv)
     mapping = json.loads(a.map.read_text())
     results = []
@@ -447,7 +607,7 @@ def main(argv=None) -> int:
             results.append({"paper": paper_id, "status": "already_runnable"})
         else:
             try:
-                results.append(build(paper_id, slugs[0], a.private, a.sessions))
+                results.append(build(paper_id, slugs[0], a.private, a.sessions, a.dry))
             except ProjectionBlocked as exc:
                 results.append({"paper": paper_id, "slug": slugs[0], "status": "needs_fix", "error": str(exc)[:600]})
             except Exception as exc:  # one paper's failure must not stop the batch
