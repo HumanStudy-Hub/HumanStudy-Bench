@@ -419,20 +419,32 @@ def validate_revision_dir(folder: Path, *, sessions: int = 0) -> dict:
     return validate_protocol_files(files, sessions=sessions)
 
 
+def _validate_one(args):
+    d, sessions = args
+    return d, validate_revision_dir(d, sessions=sessions)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Validate protocol releases in community revisions")
     ap.add_argument("dirs", nargs="+", type=Path)
     ap.add_argument("--sessions", type=int, default=0, help="also replay N random sessions in the engine")
+    ap.add_argument("--jobs", type=int, default=1, help="revisions validated in parallel")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
     failed = False
-    for d in a.dirs:
-        result = validate_revision_dir(d, sessions=a.sessions)
+    work = [(d, a.sessions) for d in a.dirs]
+    if a.jobs > 1:
+        from concurrent.futures import ProcessPoolExecutor
+        with ProcessPoolExecutor(a.jobs) as pool:
+            results = list(pool.map(_validate_one, work))
+    else:
+        results = map(_validate_one, work)
+    for d, result in results:
         failed |= result["status"] != "passed"
         if a.json:
-            print(json.dumps({"dir": str(d), **result}, ensure_ascii=False))
+            print(json.dumps({"dir": str(d), **result}, ensure_ascii=False), flush=True)
             continue
-        print(f"{d}: {result['status']}")
+        print(f"{d}: {result['status']}", flush=True)
         for e in result["errors"]:
             print(f"::error file={d}/study.json::{e}")
         for w in result["warnings"]:
