@@ -273,12 +273,20 @@ def slim(protocol: dict) -> dict:
     return protocol
 
 
+# Pieces of one running text (the lines of a picture, the spans of a paragraph): each may be short while together
+# they are a passage, so they stay held.
+FRAGMENT_KEYS = frozenset(("lines", "spans", "segments", "runs", "words", "tokens", "fragments", "chunks"))
+
+
 def unhold_short(projected: dict, private: dict) -> int:
-    """Put every held text of at most SHORT_WORDS words back as written; returns how many."""
+    """Put every held text of at most SHORT_WORDS words back as written (not a piece of a running text); returns
+    how many."""
     held = (projected.get("distribution") or {}).get("held") or {}
     n = 0
     for hid, entry in list(held.items()):
         if entry.get("kind") == "image" or not entry.get("path"):
+            continue
+        if FRAGMENT_KEYS & set(entry["path"].split("/")):
             continue
         try:
             text = _pointer(private, entry["path"])
