@@ -163,6 +163,8 @@ def resolve_sources(study_dir: Path, protocol: dict) -> dict[str, bytes]:
         text = src if isinstance(src, str) else json.dumps(src, ensure_ascii=False) if isinstance(src, dict) else ""
         dist = (src.get("distribution") or {}) if isinstance(src, dict) else {}
         sha = (src.get("sha256") if isinstance(src, dict) else None) or dist.get("sha256")
+        if dist.get("tier") == "hosted" and isinstance(dist.get("sha256"), str):
+            sha = dist["sha256"]   # a hosted source is judged by the exact file that is hosted
         if not isinstance(sha, str):
             m = SHA_PREFIX.search(text)
             sha = m.group(1) if m else None
@@ -404,15 +406,20 @@ def drop_held_cases(projected: dict) -> int:
     return n
 
 
-def _all_strings(o):
+QSF_SHOWN = frozenset(("QuestionText", "Display"))   # what a respondent sees (incl. translations); not descriptions
+
+
+def _all_strings(o, shown=False):
+    """Strings of a survey file that respondents see: QuestionText and Display values, in every language."""
     if isinstance(o, str):
-        yield o
+        if shown:
+            yield o
     elif isinstance(o, dict):
-        for v in o.values():
-            yield from _all_strings(v)
+        for k, v in o.items():
+            yield from _all_strings(v, k in QSF_SHOWN)
     elif isinstance(o, list):
         for v in o:
-            yield from _all_strings(v)
+            yield from _all_strings(v, shown)
 
 
 def hosted_unconfirmed(message: str, private: dict, sources: dict) -> list[str]:
@@ -597,6 +604,19 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         e.get("path") in unlocated or e.get("kind") == "image"
         or (e.get("locator") or {}).get("format") in ("image_reading", "region", "image"))}
     needs |= unfetchable(projected, declared)
+    # A held picture keeps no private file path: its src becomes asset:<sha256 prefix> of the picture (the id the engine
+    # gives the file), which the researcher's own copy fills in.
+    for e in held_now.values():
+        if e.get("kind") != "image" or not e.get("path"):
+            continue
+        cont = _value(projected, e["path"])
+        holder, key = (cont, "src") if isinstance(cont, dict) else (_value(projected, e["path"].rsplit("/", 1)[0]),
+                                                                      e["path"].rsplit("/", 1)[1])
+        if isinstance(holder, dict) and isinstance(holder.get(key), str) and \
+                not holder[key].startswith(("http://", "https://", "asset:")):
+            digest = str(e.get("sha256") or hashlib.sha256(holder[key].encode()).hexdigest())
+            e.setdefault("sha256", digest)
+            holder[key] = "asset:" + digest[:16]
     # after every lookup by path into the private protocol (dropping shifts the paths of later cases)
     drop_held_cases(projected)
     needs &= set(held_now)

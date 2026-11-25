@@ -221,6 +221,9 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
     if declared.get("path", "protocol.json") != "protocol.json":
         errors.append("study.json: protocol.path must be protocol.json")
     open_assets = {hashlib.sha256(raw).hexdigest()[:16] for n, raw in files.items() if n.startswith("sources/open/")}
+    # a held picture (distribution.held, kind image) is filled in from the researcher's own copy by its hash
+    open_assets |= {str(e.get("sha256"))[:16] for e in ((protocol.get("distribution") or {}).get("held") or {}).values()
+                    if isinstance(e, dict) and e.get("kind") == "image" and e.get("sha256")}
     for where, src in _image_sources(protocol):
         m = ASSET.match(src)
         if not (src.startswith(("https://", "http://")) or (m and m.group(1) in open_assets)):
