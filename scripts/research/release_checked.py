@@ -415,6 +415,44 @@ def drop_held_cases(projected: dict) -> int:
 QSF_SHOWN = frozenset(("QuestionText", "Display"))   # what a respondent sees (incl. translations); not descriptions
 
 
+class _Visible(__import__("html.parser").parser.HTMLParser):
+    """The text a browser shows: nothing inside script/style/template/... or any hidden element (nested too)."""
+    HIDE = {"script", "style", "template", "noscript", "textarea", "select", "object", "iframe", "svg", "head", "title"}
+    VOID = {"br", "img", "input", "hr", "meta", "link", "area", "base", "col", "embed", "source", "track", "wbr"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack, self.out = [], []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in self.VOID:
+            return
+        a = " ".join(f"{k}={v}" for k, v in attrs).lower()
+        hidden = tag in self.HIDE or "hidden" in a or re.search(r"display\s*:\s*none|visibility\s*:\s*hidden", a)
+        self.stack.append(bool(hidden) or (self.stack[-1] if self.stack else False))
+
+    def handle_endtag(self, tag):
+        if tag not in self.VOID and self.stack:
+            self.stack.pop()
+
+    def handle_data(self, data):
+        if not (self.stack and self.stack[-1]):
+            self.out.append(data)
+
+    def handle_comment(self, data):
+        pass
+
+
+def visible_text(fragment: str) -> str:
+    parser = _Visible()
+    try:
+        parser.feed(fragment)
+        parser.close()
+    except Exception:
+        return ""
+    return " ".join(parser.out)
+
+
 def _all_strings(o, shown=False):
     """Strings of a survey file that respondents see: QuestionText and Display values, in every language."""
     if isinstance(o, str):
@@ -473,10 +511,7 @@ def hosted_unconfirmed(message: str, private: dict, sources: dict) -> list[str]:
                         units = [] if fmt == "qsf" else distribution.units(
                             "text" if fmt in TEXT_FORMATS else fmt, sources[key], {"pdf": distribution.pdfium_extractor()})
                         if fmt == "qsf":   # what respondents see, translations included (hidden elements removed)
-                            units += [html.unescape(re.sub(r"<[^>]+>", " ", re.sub(
-                                          r"(?is)<(script|style|template|noscript|textarea|select|object|iframe|"
-                                          r"svg|head|title)\b.*?</\1\s*>|<!--.*?-->|<(\w+)[^>]*\b(hidden|display\s*:\s*none|"
-                                          r"visibility\s*:\s*hidden)[^>]*>.*?</\3\s*>", " ", x)))
+                            units += [visible_text(x)
                                       for x in _all_strings(json.loads(sources[key].decode("utf-8-sig")))]
                         texts[key] = [_canon(u) for u in units]   # field by field, never joined
                     except Exception:
@@ -628,8 +663,7 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         holder, key = (cont, "src") if isinstance(cont, dict) else (_value(projected, e["path"].rsplit("/", 1)[0]),
                                                                       e["path"].rsplit("/", 1)[1])
         if isinstance(holder, dict) and isinstance(holder.get(key), str):
-            if not e.get("sha256"):
-                e["sha256"] = picture_sha(study_dir, holder[key])
+            e["sha256"] = picture_sha(study_dir, holder[key]) or e.get("sha256")   # the bytes, when they are here
             if not holder[key].startswith("asset:") and e.get("sha256"):
                 holder[key] = "asset:" + str(e["sha256"])[:16]
     # A picture with a private file path that is not held (an openly licensed figure) cannot ship as a path: it is
@@ -641,7 +675,7 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         if path.startswith("/meta/"):   # an operator's picture (a design note): not needed to run, never shipped
             holder.pop("src")
             continue
-        digest = holder.get("sha256") or picture_sha(study_dir, holder["src"])
+        digest = picture_sha(study_dir, holder["src"]) or holder.get("sha256")
         if not digest:   # the file is not here: nothing can verify it, so it is not shipped at all
             holder.pop("src")
             continue

@@ -323,7 +323,7 @@ def coverage_only(report: dict) -> bool:
         other.append("coding/hold")
     not_computed = set(fuzz.get("effects_not_computed") or [])
     return not other or other == ["keyed signs"] and all(
-        x.get("same_sign") or x.get("effect") in not_computed for x in keyed["signs"])
+        x.get("same_sign") or (x.get("effect") in not_computed and x.get("keyed") is None) for x in keyed["signs"])
 
 
 def _public_checks(protocol: dict, sessions: int) -> dict:
@@ -364,6 +364,7 @@ def replay(protocol: dict, sessions: int, seed: int = 1) -> dict:
             earlier.append(f"{stats['n_unanswerable']} unanswerable screens")
         sessions = more
         _, probs, stats = checks.play(p, sessions, seed, "random")
+    problems += [x for x in probs[:10] if x not in problems]
     problems += [x for x in earlier if x not in problems]
     for key in ("unreached_stages", "leaks", "state_expr_leaks", "blocked_effects_not_computed"):
         if stats.get(key):
