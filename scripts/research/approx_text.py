@@ -85,19 +85,30 @@ def _best(page: str, fp: dict, exclude: tuple[int, int] | None = None) -> tuple[
     if len(ws) < 3 or not grams:
         return 0.0, 0, 0
     w = [x for x, _, _ in ws]
-    hit = [1 if _gram(salt, w, i) in grams else 0 for i in range(len(w) - 2)]
-    pre = [0]
-    for h in hit:
-        pre.append(pre[-1] + h)
+    # the gram at each position when it is one of the passage's (else None); a window scores its DISTINCT grams, so
+    # a repeated phrase cannot stand in for the words it lacks
+    hit = [g if g in grams else None for g in (_gram(salt, w, i) for i in range(len(w) - 2))]
     best = (0.0, 0, 0)
     lo, hi = max(3, int(n * (1 - SPREAD))), int(n * (1 + SPREAD)) + 1
     for length in range(lo, min(hi, len(w)) + 1):
+        span = length - 2   # grams inside a window of `length` words
+        count: dict[str, int] = {}
+        for g in hit[:span]:
+            if g is not None:
+                count[g] = count.get(g, 0) + 1
         for a in range(0, len(w) - length + 1):
+            if a:
+                out_g, in_g = hit[a - 1], hit[a + span - 1]
+                if out_g is not None:
+                    count[out_g] -= 1
+                    if not count[out_g]:
+                        del count[out_g]
+                if in_g is not None:
+                    count[in_g] = count.get(in_g, 0) + 1
             if exclude and a < exclude[1] and a + length > exclude[0]:
                 continue
-            hits = pre[a + length - 2] - pre[a]
-            # recall against the passage, penalised when the window is longer than the passage
-            score = min(1.0, hits / (n - 2)) * min(1.0, (n - 2) / max(1, length - 2))
+            # recall against the passage's distinct grams, penalised when the window is longer than the passage
+            score = min(1.0, len(count) / len(grams)) * min(1.0, (n - 2) / max(1, span))
             if score > best[0]:
                 best = (score, a, a + length)
     return best
