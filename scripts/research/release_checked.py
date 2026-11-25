@@ -471,7 +471,8 @@ def hosted_unconfirmed(message: str, private: dict, sources: dict) -> list[str]:
                                                    {"pdf": distribution.pdfium_extractor()})
                         if fmt == "qsf":   # every string of the survey file, translations included
                             units += [html.unescape(re.sub(r"<[^>]+>", " ", re.sub(
-                                          r"(?is)<(script|style)\b.*?</\1\s*>|<!--.*?-->", " ", x)))
+                                          r"(?is)<(script|style|template|noscript|textarea|select|object|iframe|"
+                                          r"svg|head|title)\b.*?</\1\s*>|<!--.*?-->", " ", x)))
                                       for x in _all_strings(json.loads(sources[key].decode("utf-8-sig")))]
                         texts[key] = [_canon(u) for u in units]   # field by field, never joined
                     except Exception:
@@ -572,8 +573,6 @@ def format_agrees(declared: str, raw: bytes) -> bool:
 def project(study_dir: Path) -> tuple[dict, dict]:
     protocol = json.loads((study_dir / "protocol.json").read_text())
     declared = copy.deepcopy(protocol)   # the full declarations: URLs and file paths may be written in notes
-    sources = resolve_sources(study_dir, protocol)
-    protocol = slim(protocol)
     # Plain-text sources declared by their file type (an R script, R Markdown, a .txt readme) are format "text" to
     # the engine; the projection reads, locates and restores them as text.
     for src in ((protocol.get("meta") or {}).get("sources") or {}).values():
@@ -596,6 +595,9 @@ def project(study_dir: Path) -> tuple[dict, dict]:
                                                      dist.get("url") or src.get("url") or "", lic)
             else:
                 dist["tier"] = "link"
+    # after the final tiers: a hosted source is resolved to its hosted file, any other to the private copy
+    sources = resolve_sources(study_dir, protocol)
+    protocol = slim(protocol)
     projected, report = release.project(protocol, sources=sources,
                                         extractors={"pdf": distribution.pdfium_extractor()}, strict=False)
     unheld: list = []
@@ -623,7 +625,8 @@ def project(study_dir: Path) -> tuple[dict, dict]:
                                                                       e["path"].rsplit("/", 1)[1])
         if isinstance(holder, dict) and isinstance(holder.get(key), str) and not holder[key].startswith("asset:"):
             digest = str(e.get("sha256") or hashlib.sha256(holder[key].encode()).hexdigest())
-            e.setdefault("sha256", digest)
+            if not e.get("sha256"):
+                e["sha256"] = digest
             holder[key] = "asset:" + digest[:16]
     # after every lookup by path into the private protocol (dropping shifts the paths of later cases)
     drop_held_cases(projected)

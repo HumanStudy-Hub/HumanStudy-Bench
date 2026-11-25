@@ -329,8 +329,12 @@ def replay(protocol: dict, sessions: int, seed: int = 1) -> dict:
         return {"problems": [f"protocol does not load: {exc}"]}
     problems = list(checks.check_refs(p))
     _, probs, stats = checks.play(p, sessions, seed, "random")
-    if sessions < COVERAGE_RETRY_SESSIONS and stats.get("unreached_stages"):
-        _, probs, stats = checks.play(p, COVERAGE_RETRY_SESSIONS, seed, "random")   # see COVERAGE_RETRY_SESSIONS
+    for more in COVERAGE_RETRIES:   # coverage only is re-run; every other problem of the first run is kept
+        if sessions >= more or not stats.get("unreached_stages"):
+            break
+        sessions = more
+        _, more_probs, stats = checks.play(p, sessions, seed, "random")
+        probs = probs + [x for x in more_probs if x not in probs]
     problems += probs[:10]
     for key in ("unreached_stages", "leaks", "state_expr_leaks", "blocked_effects_not_computed"):
         if stats.get(key):
