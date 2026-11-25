@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "taxonomyVersion": "2026-10-21.1",
-  "snapshot": "99badcd940cf05f07b6cec313e839447bc0212dfd7a1e104f26ced841b89dad7",
+  "snapshot": "ceeb1f56007d943a3fd8e1cc7d76ba98d1d3790e41bc370d6d87ae9c87f8ac28",
   "publications": {
     "paper_83fcb93f067f4aca11f7cafa": {
       "kind": "maintainer-reviewed-protocol",
@@ -55935,7 +55935,7 @@
           "github": "assassin808"
         }
       ],
-      "description": "Replicability of 13 effects tested across 36 independent samples totaling 6,344 participants; aggregate and site-level moderation by lab versus online and US versus international.",
+      "description": "13 studies: Study 1: Sunk costs; Study 2: Gain versus loss framing; Study 3: Anchoring; Study 4: Retrospective gambler's fallacy; Study 5: Low-versus-high category scales; Study 6: Norm of reciprocity; Study 7: Allowed/Forbidden; Study 8: Quote attribution; Study 9: Flag priming; Study 10: Currency priming; Study 11: Imagined contact; Study 12: Implicit math attitudes (sex differences and implicit-explicit relation); Cross-site analysis of replicability and moderation",
       "programId": "manylabs1",
       "schemaVersion": 2,
       "studies": [
@@ -58915,8 +58915,8 @@
           ]
         }
       ],
-      "currentRevision": "0f0ae1c95a3001ebb6ba39a741401b1e1e2c4e0628acad2a96f242a6e9b8acbc",
-      "assetRoot": "community/paper_cdab28122805d7b5a0dcbd1c/revisions/0f0ae1c95a3001ebb6ba39a741401b1e1e2c4e0628acad2a96f242a6e9b8acbc",
+      "currentRevision": "bb1ab1c7dba85af518f1d1f9d7a0d134355469786bd2eb820b0ab7248139dd08",
+      "assetRoot": "community/paper_cdab28122805d7b5a0dcbd1c/revisions/bb1ab1c7dba85af518f1d1f9d7a0d134355469786bd2eb820b0ab7248139dd08",
       "assetFiles": [
         {
           "path": "artifacts/agent/MANIFEST.json",
@@ -59064,63 +59064,134 @@
           "bytes": 50560
         },
         {
-          "path": "package/manylabs1/evaluation/evaluation.py",
-          "sha256": "926a36a990291fc673b5133b213a4402e4c0266b8d6758271bb8db5dbf22ffc2",
-          "bytes": 16364
-        },
-        {
-          "path": "package/manylabs1/human/human_sessions.py",
-          "sha256": "a04a74992dd50786c13ca8965173bdc955cd82662c0af7c5a0ef9d62a07155c6",
-          "bytes": 12669
-        },
-        {
-          "path": "package/manylabs1/human/key.json",
-          "sha256": "ac47a7ef56b036713544dddaf45ed2bbf350d9ab8cbd85a445c32bcc8d7875da",
-          "bytes": 1806
-        },
-        {
-          "path": "package/manylabs1/materials/materials.json",
-          "sha256": "b126f31cff2a900158209fa70601fede635052562fe172f978c2a2772d0af9e0",
-          "bytes": 29398
-        },
-        {
-          "path": "package/manylabs1/source/paper_metadata.json",
-          "sha256": "45fd2348a4a7306393fc54d04b0928a82e098dbfd0d881f9082abe05c48eaaec",
-          "bytes": 402
-        },
-        {
-          "path": "package/manylabs1/study.json",
-          "sha256": "1b4b2bfd8cb2ff58a947792399019783691cfd80e6daf529a3adc75a49273f73",
-          "bytes": 640
-        },
-        {
-          "path": "package/manylabs1/task/adapter.py",
-          "sha256": "8ac21b768b7a3c41cf01223024ac72b5a59059622b8b493a13182726a94725a6",
-          "bytes": 8965
-        },
-        {
-          "path": "package/manylabs1/task/task.json",
-          "sha256": "453265b9ff34f9791909ae65ca7861fde5cfb121753912dea38d01863de471ae",
-          "bytes": 3512
-        },
-        {
           "path": "program.json",
           "sha256": "a85fa4b523803b1e8989a17613b4688a9b3b1ccf41d74a5d21512a90687a70b2",
           "bytes": 332941
         },
         {
+          "path": "protocol.json",
+          "sha256": "d8e6c3a22b2d60b773e4da2ed4e7f324958d218b2b74ec966229859e9712b51c",
+          "bytes": 6168822
+        },
+        {
+          "path": "review/checks-latest.json",
+          "sha256": "a37cf3cc5dc2b2b17749a1139c24e99188f37d75899bc5a5d183074ac2ee1afb",
+          "bytes": 5697
+        },
+        {
           "path": "sources/SOURCE.json",
           "sha256": "c6e0c59478b0ea0c9ab5084a1a1caba69dcdf6be4089b5144daff5b19eb87a9d",
           "bytes": 3066
+        },
+        {
+          "path": "study.json",
+          "sha256": "c2c506dadfbfcc89267c979280014312783d736657fa2c69fc397a0445acd2b5",
+          "bytes": 1550
         }
       ],
       "coverage": "human-program",
       "capabilities": {
         "discoverable": true,
         "traceable": false,
-        "reanalyzable": true,
+        "reanalyzable": false,
         "replayable": true,
         "humanBenchmark": true
+      },
+      "protocol": {
+        "slug": "manylabs1",
+        "schemaVersion": "1",
+        "hsenv": ">=0.8.1,<0.9",
+        "fidelity": {},
+        "arms": [
+          {
+            "id": "manylabs1",
+            "runnable": true,
+            "nPaper": 600
+          },
+          {
+            "id": "manylabs2",
+            "runnable": true,
+            "nPaper": 1330
+          },
+          {
+            "id": "manylabsonline1",
+            "runnable": true,
+            "nPaper": 368
+          },
+          {
+            "id": "manylabsonline2",
+            "runnable": true,
+            "nPaper": 225
+          },
+          {
+            "id": "manylabsmturk1",
+            "runnable": true,
+            "nPaper": 1000
+          },
+          {
+            "id": "manylabspi1",
+            "runnable": true,
+            "nPaper": 1329
+          },
+          {
+            "id": "mlcanada1",
+            "runnable": true,
+            "nPaper": 197
+          },
+          {
+            "id": "mlengland1",
+            "runnable": true,
+            "nPaper": 277
+          },
+          {
+            "id": "mlmalaysia1",
+            "runnable": true,
+            "nPaper": 102
+          },
+          {
+            "id": "mlufsunscreen1",
+            "runnable": true,
+            "nPaper": 127
+          },
+          {
+            "id": "mlbrasilia1",
+            "runnable": true,
+            "nPaper": 120
+          },
+          {
+            "id": "mlczech2",
+            "runnable": true,
+            "nPaper": 84
+          },
+          {
+            "id": "mldutch1",
+            "runnable": true,
+            "nPaper": 80
+          },
+          {
+            "id": "mlpoland1",
+            "runnable": true,
+            "nPaper": 79
+          },
+          {
+            "id": "mlpolandonline1",
+            "runnable": true,
+            "nPaper": 169
+          },
+          {
+            "id": "mlturkishonline1",
+            "runnable": true,
+            "nPaper": 113
+          },
+          {
+            "id": "mlitalianonline1",
+            "runnable": true,
+            "nPaper": 144
+          }
+        ],
+        "runExcluded": [],
+        "effects": 15,
+        "revision": "bb1ab1c7dba85af518f1d1f9d7a0d134355469786bd2eb820b0ab7248139dd08"
       },
       "studyCapabilities": {
         "schemaVersion": 1,
