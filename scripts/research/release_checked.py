@@ -606,7 +606,7 @@ def project(study_dir: Path) -> tuple[dict, dict]:
     if blocking:
         raise ProjectionBlocked("; ".join(e[:200] for e in blocking[:4]))
     added, _ = add_approx(projected, protocol, sources)
-    held_now = (projected.get("distribution") or {}).get("held") or {}
+    held_now = projected.setdefault("distribution", {}).setdefault("held", {})
     # Held items the app cannot fill from the researcher's file by itself: unlocatable text, text read from a picture
     # without an approx fingerprint, pictures, and text against a source the app cannot fetch. They ship as
     # placeholders; the app asks the researcher to paste or capture them (tier "needs_text"). Nothing of them ships.
@@ -628,6 +628,21 @@ def project(study_dir: Path) -> tuple[dict, dict]:
             if not e.get("sha256"):
                 e["sha256"] = digest
             holder[key] = "asset:" + digest[:16]
+    # A picture with a private file path that is not held (an openly licensed figure) cannot ship as a path: it is
+    # held like the others (the researcher's copy of the source fills it in by its hash).
+    held_srcs = {e.get("path") for e in held_now.values() if e.get("kind") == "image"}
+    for path, holder in _local_pictures(projected):
+        if path in held_srcs or path.rsplit("/", 1)[0] in held_srcs:
+            continue
+        digest = str(holder.get("sha256") or hashlib.sha256(holder["src"].encode()).hexdigest())
+        cite = (release._cites(_own_cite(holder)) or [{}])[0]
+        hid = f"p{len(held_now) + 1}"
+        while hid in held_now:
+            hid += "x"
+        held_now[hid] = {"path": path.rsplit("/", 1)[0], "source": cite.get("source"), "kind": "image",
+                         "sha256": digest, "locator": {"format": "image", "page": cite.get("page")}}
+        holder["src"] = "asset:" + digest[:16]
+        needs.add(hid)
     # after every lookup by path into the private protocol (dropping shifts the paths of later cases)
     drop_held_cases(projected)
     needs &= set(held_now)
@@ -652,7 +667,10 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         if LICENCE_HOLD.search(reason) and not OTHER_HOLD.search(reason):
             holds[arm["id"]] = why
             # the builders also set runnable false for a licence hold; the projection resolved it
-            if arm.get("runnable") is False and not arm.get("why"):
+            # (only an arm with its own cite and no other recorded reason: not in run_excluded, no `why`)
+            excluded = json.dumps(protocol.get("run_excluded") or [], ensure_ascii=False)
+            if arm.get("runnable") is False and not arm.get("why") and arm.get("cite") \
+                    and f'"{arm.get("id")}"' not in excluded:
                 arm.pop("runnable")
         else:
             arm["runnable"] = False
@@ -715,6 +733,24 @@ def add_approx(projected: dict, private: dict, sources: dict) -> tuple[int, int]
         entry["approx"] = fp
         added += 1
     return added, missing
+
+
+def _own_cite(holder: dict):
+    return holder.get("cite") or holder.get("cites")
+
+
+def _local_pictures(o, path=""):
+    """(pointer of src, the picture dict) of every picture whose src is a local path."""
+    if isinstance(o, dict):
+        src = o.get("src")
+        if isinstance(src, str) and not src.startswith(("http://", "https://", "asset:")):
+            yield path + "/src", o
+        for k, v in o.items():
+            if k != "distribution":
+                yield from _local_pictures(v, f"{path}/{str(k).replace('~', '~0').replace('/', '~1')}")
+    elif isinstance(o, list):
+        for i, v in enumerate(o):
+            yield from _local_pictures(v, f"{path}/{i}")
 
 
 def unfetchable(projected: dict, private: dict) -> set[str]:
