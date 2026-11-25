@@ -335,7 +335,7 @@ def _sequence_key(path: str):
 def unhold_short(projected: dict, private: dict, unheld: list | None = None) -> int:
     """Put every held text that is a label (is_label) back as written; returns how many. Not put back: pieces of a
     running text (FRAGMENT_KEYS), and short texts in sibling elements of one list unless they sit under a choice /
-    label key or are each a single word (a word list): two adjacent short blocks may be one sentence."""
+    label key: adjacent short blocks (even single words) may be one sentence."""
     held = (projected.get("distribution") or {}).get("held") or {}
     unheld = [] if unheld is None else unheld
     texts = {hid: _value(private, e["path"]) for hid, e in held.items() if e.get("kind") != "image" and e.get("path")}
@@ -351,8 +351,7 @@ def unhold_short(projected: dict, private: dict, unheld: list | None = None) -> 
         if not is_label(text):
             continue
         seq = groups.get(_sequence_key(entry["path"]) or "", [hid])
-        if len(seq) > 1 and not (LABEL_KEYS & set(entry["path"].split("/"))) \
-                and not all(nwords_all(texts[h]) <= 1 for h in seq):
+        if len(seq) > 1 and not (LABEL_KEYS & set(entry["path"].split("/"))):
             continue
         parent, key = entry["path"].rsplit("/", 1)
         cont = _pointer(projected, parent)
@@ -435,7 +434,7 @@ def hosted_unconfirmed(message: str, private: dict, sources: dict) -> list[str]:
             slots[release._ptr(path)] = cites
     truncated = not listed or not head.split(" ", 1)[0].isdigit() or int(head.split(" ", 1)[0]) != len(listed)
     candidates = list(slots) if truncated else listed
-    texts: dict[str, str] = {}
+    texts: dict[str, list] = {}
     bad = []
     for path in candidates:
         cites = slots.get(path, [])
@@ -446,7 +445,11 @@ def hosted_unconfirmed(message: str, private: dict, sources: dict) -> list[str]:
             found = False
             for c in cites:
                 key = c.get("source")
-                if key in sources and key not in texts:
+                want = str(((msrc.get(key) or {}).get("distribution") or {}).get("sha256") or "").lower()
+                if key in sources and key not in texts and (
+                        not want or hashlib.sha256(sources[key]).hexdigest() != want):
+                    texts[key] = []   # only the exact hosted file (its distribution sha256) can confirm a text
+                elif key in sources and key not in texts:
                     fmt = ((msrc.get(key) or {}).get("distribution") or {}).get("format") or distribution.sniff(sources[key])
                     try:
                         units = distribution.units("text" if fmt in TEXT_FORMATS else fmt, sources[key],
@@ -454,10 +457,10 @@ def hosted_unconfirmed(message: str, private: dict, sources: dict) -> list[str]:
                         if fmt == "qsf":   # every string of the survey file, translations included
                             units += [html.unescape(re.sub(r"<[^>]+>", " ", x))
                                       for x in _all_strings(json.loads(sources[key].decode("utf-8-sig")))]
-                        texts[key] = distribution.canon_only(" ".join(units))
+                        texts[key] = [distribution.canon_only(u) for u in units]   # field by field, never joined
                     except Exception:
-                        texts[key] = ""
-                if distribution.canon_only(value) in texts.get(key, ""):
+                        texts[key] = []
+                if any(distribution.canon_only(value) in u for u in texts.get(key, [])):
                     found = True
             if found:
                 continue
