@@ -188,7 +188,8 @@ def resolve_sources(study_dir: Path, protocol: dict) -> dict[str, bytes]:
                     raw = _download(url, sha)
                     if raw:
                         break
-        if raw is not None and _usable(raw):
+        declared_fmt = str(dist.get("format") or "").lower()
+        if raw is not None and _usable(raw) and format_agrees(declared_fmt, raw):
             found[key] = raw
     return found
 
@@ -435,6 +436,18 @@ def blocking_errors(report: dict, projected: dict, private: dict, unheld=(), sou
             out.append(f"{m.group(1)} dict key(s) / structural value(s) of more than {SHORT_WORDS} words are source "
                        "text (cannot be withheld): " + ", ".join(bad[:10] or listed[:10]))
     return out
+
+
+def format_agrees(declared: str, raw: bytes) -> bool:
+    """The bytes are the declared kind of file (a hash prefix can match the wrong file, e.g. a .docx for an image)."""
+    if not declared:
+        return True
+    kind = distribution.sniff(raw)
+    if declared in ("pdf", "docx", "qsf", "html"):
+        return kind == declared
+    if declared in TEXT_FORMATS or declared == "text":
+        return kind in ("text", "html", "qsf")
+    return False   # an image, an archive or another binary format is never read as text
 
 
 def project(study_dir: Path) -> tuple[dict, dict]:
