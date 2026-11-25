@@ -275,6 +275,37 @@ def _cited_sources(o, out: set) -> set:
     return out
 
 
+# a path on a maintainer's machine (it names the account): only its file name may ship
+LOCAL_PATH = re.compile(r"(?:~|/Users/[^/\s\"']+|/home/[^/\s\"']+|/private/(?:tmp|var)|/var/folders|/tmp)"
+                        r"(?:/[^\s\"',;()]+)+")
+# operator records of the build and its reviews (who decided what, probe files, tuning history): not the study
+CODING_NOTES = frozenset(("decision", "tuning_probes", "heldout_probes", "bias_note", "known_weak_spots"))
+
+
+def _drop_operator_notes(protocol: dict) -> None:
+    for item in protocol.get("run_excluded") or []:
+        if isinstance(item, dict) and isinstance(item.get("decision"), str):
+            item.pop("decision")
+
+    def coding(o):
+        if isinstance(o, dict):
+            for k in list(o):
+                if k in CODING_NOTES and isinstance(o[k], str):
+                    o.pop(k)
+                else:
+                    coding(o[k])
+        elif isinstance(o, list):
+            for v in o:
+                coding(v)
+    coding(protocol.get("coding"))
+
+
+def local_paths(files: dict) -> list[str]:
+    """Shipped files that still name a path on a maintainer's machine."""
+    return sorted(name for name, raw in files.items()
+                  if re.search(rb"/Users/[^/\s\"']+/|/home/[^/\s\"']+/|/private/tmp/|/var/folders/", raw))
+
+
 def slim(protocol: dict) -> dict:
     """The private protocol as it may be projected: operator-only meta and top-level notes dropped, every string NFC,
     and every cited source declared (an undeclared one becomes a tier "user" source the researcher supplies)."""
@@ -291,7 +322,9 @@ def slim(protocol: dict) -> dict:
     for k in list(protocol):
         if release._NOTE_KEY.search(k) or k in ("deviations", "alternatives"):
             protocol.pop(k)
-    _walk_strings(protocol, lambda t: unicodedata.normalize("NFC", t))
+    _drop_operator_notes(protocol)
+    _walk_strings(protocol, lambda t: LOCAL_PATH.sub(lambda m: m.group(0).rstrip("/").rsplit("/", 1)[-1],
+                                                     unicodedata.normalize("NFC", t)))
     for key in sorted(_cited_sources({k: v for k, v in protocol.items() if k != "meta"}, set()) - set(srcs)):
         srcs[key] = {"what": key, "distribution": {"tier": "user"}}
     return protocol
@@ -965,6 +998,9 @@ def build(paper_id: str, slug: str, private: Path, sessions: int, dry: bool = Fa
     files["protocol.json"] = dumps(protocol)
     files["study.json"] = dumps(study)
     files["review/checks-latest.json"] = dumps(report)
+    if local_paths(files):
+        return {"paper": paper_id, "slug": slug, "status": "invalid",
+                "errors": ["a shipped file names a path on a maintainer's machine: " + ", ".join(local_paths(files))]}
     validation = validate_assets(files)
     if validation["status"] == "passed":
         # CI replays 300 sessions (validate-studies.yml); a release must pass exactly that, not only our 1,000-session run.
