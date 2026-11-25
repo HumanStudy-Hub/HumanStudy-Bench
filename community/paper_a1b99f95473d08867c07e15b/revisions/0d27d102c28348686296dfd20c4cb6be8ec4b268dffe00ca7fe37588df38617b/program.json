@@ -1,0 +1,2618 @@
+{
+  "schemaVersion": 2,
+  "id": "holzmeister2021risk",
+  "title": "The risk elicitation puzzle revisited: Across-methods (in)consistency?",
+  "intent": "reconstruct",
+  "source": {
+    "title": "The risk elicitation puzzle revisited: Across-methods (in)consistency?",
+    "authors": "Felix Holzmeister; Matthias Stefan",
+    "filename": "paper.pdf",
+    "venue": "Experimental Economics 24:593-616",
+    "doi": "10.1007/s10683-020-09674-8"
+  },
+  "studies": [
+    {
+      "id": "study-1",
+      "title": "Within-subject experiment with four risk elicitation tasks",
+      "type": "empirical",
+      "description": "198 participants, ten sessions, Innsbruck EconLab"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ov",
+      "kind": "overview",
+      "title": "Overview",
+      "studyIds": [],
+      "evidenceIds": [
+        "ev-abs"
+      ],
+      "fields": [
+        {
+          "id": "year",
+          "label": "Year",
+          "value": "2021",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-abs"
+          ]
+        },
+        {
+          "id": "method-type",
+          "label": "Method",
+          "value": "Laboratory experiment, within-subject, four incentivized risk preference elicitation tasks plus questionnaires",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-within"
+          ]
+        },
+        {
+          "id": "summary",
+          "label": "Summary",
+          "value": "198 students each completed four risk elicitation tasks (bomb risk elicitation task, certainty equivalent method, multiple price list, single choice list) in random order, rated the riskiness of each choice, and answered comparative questionnaires; revealed risk preferences varied across methods while subjects' perceived riskiness mirrored the variation.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-abs",
+            "ev-abs2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bg-puzzle",
+      "kind": "background",
+      "title": "The risk elicitation puzzle",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-abs",
+        "ev-aim"
+      ],
+      "fields": [
+        {
+          "id": "question",
+          "label": "Question",
+          "value": "Do different elicitation methods give rise to different risk preference estimates, and are subjects aware of the variation in the riskiness of their choices across methods?",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-abs",
+            "ev-abs2"
+          ]
+        },
+        {
+          "id": "concepts",
+          "label": "Concepts",
+          "value": "Procedural invariance, preference stability, inconsistency",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-aim"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "h-variation",
+      "kind": "hypothesis",
+      "title": "Revealed risk preferences vary across methods",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-abs"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "The different elicitation methods give rise to considerably varying estimates of individual and aggregate level risk preferences.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-abs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "h-awareness",
+      "kind": "hypothesis",
+      "title": "Perceived riskiness tracks revealed risk across tasks",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-hyp-risk",
+        "ev-abs2"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "If preferences were stable and the tasks elicited the same preference relation, perceived riskiness would be similar across tasks; the paper reports instead that subjects are aware of the variation in the riskiness of their choices.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-hyp-risk",
+            "ev-abs2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "h-noise",
+      "kind": "hypothesis",
+      "title": "Noisier behaviour in tasks perceived as complex",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-hyp-noise"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "More noisy behavior within tasks that are perceived to be complex.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-hyp-noise"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "h-ability",
+      "kind": "hypothesis",
+      "title": "Numeracy and comprehension relate negatively to across-methods variation",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-hyp-comp"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "A negative relation between across-methods preference variation and comprehension and numeracy, respectively.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-hyp-comp"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "h-domain",
+      "kind": "hypothesis",
+      "title": "Less variation between methods assigned to the same domain",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-hyp-dom"
+      ],
+      "fields": [
+        {
+          "id": "statement",
+          "label": "Statement",
+          "value": "Less variation in revealed preferences for elicitation methods that are assigned to the same domain compared to methods associated with different domains.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-hyp-dom"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pt",
+      "kind": "participants",
+      "title": "Participants",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-sample",
+        "ev-recruit"
+      ],
+      "fields": [
+        {
+          "id": "setting",
+          "label": "Setting",
+          "value": "Innsbruck EconLab, ten sessions, computerized (oTree), conducted in German, about 40 minutes",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-sample",
+            "ev-german"
+          ]
+        },
+        {
+          "id": "recruitment",
+          "label": "Recruitment",
+          "value": "Bachelor and master students from various fields of study, recruited using hroot",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-recruit"
+          ]
+        },
+        {
+          "id": "n-recruited",
+          "label": "Participants",
+          "value": "198",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-sample"
+          ]
+        },
+        {
+          "id": "characteristics",
+          "label": "Characteristics",
+          "value": "55% female; age mean 22.9 years, SD 2.5",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-sample"
+          ]
+        },
+        {
+          "id": "compensation",
+          "label": "Compensation",
+          "value": "Average payment of EUR 21.35 including a show-up fee of EUR 4.00 (SD 6.25, min 8.00, max 38.50)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-pay"
+          ]
+        },
+        {
+          "id": "unit-of-analysis",
+          "label": "Unit",
+          "value": "participant",
+          "origin": "derived",
+          "derivation": "Each participant completes all four tasks (within-subject).",
+          "state": "check",
+          "evidenceIds": [
+            "ev-within"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "kind": "design",
+      "title": "Within-subject design",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-within",
+        "ev-order"
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "Within-subject: every participant completes all four elicitation methods",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-within"
+          ]
+        },
+        {
+          "id": "order",
+          "label": "Order",
+          "value": "Each participant faced a random sequence of the four risk preference elicitation methods.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-order"
+          ]
+        },
+        {
+          "id": "assignment",
+          "label": "Incentive",
+          "value": "Random lottery incentive system: only one of the four tasks was randomly chosen for the final payment",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-rli"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "proc",
+      "kind": "procedure",
+      "title": "Procedure",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-instr"
+      ],
+      "fields": [
+        {
+          "id": "task",
+          "label": "Task",
+          "value": "Each participant completes four incentivized risk elicitation tasks in a random sequence, each followed by riskiness and confidence ratings; afterwards comparative questionnaires, comprehension questions, a numeracy inventory and a demographics survey.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-order",
+            "ev-quest",
+            "ev-compare"
+          ]
+        },
+        {
+          "id": "visible",
+          "label": "Instruction timing",
+          "value": "The instructions for each of the elicitation methods were displayed just before participants were asked to make their choice(s).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-instr"
+          ]
+        },
+        {
+          "id": "feedback",
+          "label": "Feedback",
+          "value": "The location of the bomb is only revealed at the end of the task.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-notold"
+          ]
+        },
+        {
+          "id": "payoff",
+          "label": "Payoff",
+          "value": "Random lottery incentive: only one of the four tasks was randomly chosen for the final payment.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-rli"
+          ]
+        },
+        {
+          "id": "not-told",
+          "label": "Not told",
+          "value": [
+            {
+              "statement": "The location of the bomb is only revealed at the end of the task.",
+              "page": 7,
+              "withheld": "where the bomb is located among the boxes",
+              "terms": [
+                "bomb location",
+                "bomb's box"
+              ]
+            }
+          ],
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-notold"
+          ]
+        },
+        {
+          "id": "replay-memory",
+          "label": "Replay memory",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev-compare",
+            "ev-quest"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        }
+      ]
+    },
+    {
+      "id": "m-lotteries",
+      "kind": "material",
+      "title": "Task parameters (printed in the paper)",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-bret",
+        "ev-cem",
+        "ev-mpl",
+        "ev-scl2"
+      ],
+      "fields": [
+        {
+          "id": "bret",
+          "label": "BRET structure",
+          "value": "The BRET has 100 boxes, EUR 0.50 per collected box; one box hides a bomb destroying all earnings; boxes are collected one per second after Start until Stop; the bomb location is revealed only at the end.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-bret",
+            "ev-bret2",
+            "ev-bret3"
+          ]
+        },
+        {
+          "id": "cem",
+          "label": "CEM structure",
+          "value": {
+            "rows": 9,
+            "high": 15.0,
+            "low": 5.0,
+            "p_high": 0.5,
+            "sure": [
+              5.0,
+              6.25,
+              7.5,
+              8.75,
+              10.0,
+              11.25,
+              12.5,
+              13.75,
+              15.0
+            ],
+            "switching": "single"
+          },
+          "origin": "derived",
+          "state": "check",
+          "evidenceIds": [
+            "ev-cem",
+            "ev-switch",
+            "ev-cem2",
+            "ev-cem3"
+          ],
+          "derivation": "The probability of the high outcome is not printed in the text; p = 0.5 is the value for which a risk-neutral subject's expected earnings equal the printed 11.39 euros across the nine sure amounts (also the authors' Stata coding treats row 4 vs 5 as the risk-neutral switch).",
+          "extensions": {
+            "material": {
+              "kind": "schema-enough",
+              "what": "CEM lottery probability",
+              "mentioned": "p. 7, CEM paragraph",
+              "basis": "derived from the printed risk-neutral expected payoff of 11.39 euros and the printed amounts",
+              "status": "pending",
+              "search": []
+            }
+          }
+        },
+        {
+          "id": "mpl",
+          "label": "MPL structure",
+          "value": "Ten binary choices between lottery (EUR 19.25 with probability p, else EUR 0.50) and lottery (EUR 10.00 with probability p, else EUR 8.00) with p = 0.10, 0.20, ..., 1.00; single switching point enforced; risk-neutral expectation EUR 12.14.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-mpl",
+            "ev-mpl2",
+            "ev-switch"
+          ]
+        },
+        {
+          "id": "scl",
+          "label": "SCL lotteries",
+          "value": "Six 50/50 lotteries L1 = (9.00; 9.00), L2 = (7.50; 12.00), L3 = (6.00; 15.00), L4 = (4.50; 18.00), L5 = (3.00; 21.00), L6 = (0.00; 24.00), one is chosen to be played.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-scl",
+            "ev-scl2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-questions",
+      "kind": "material",
+      "title": "Rating questions after each task",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-quest",
+        "ev-scale"
+      ],
+      "fields": [
+        {
+          "id": "riskiness",
+          "label": "Riskiness question",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "confidence",
+          "label": "Confidence question",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "scale",
+          "label": "Scale",
+          "value": "1 (“not at all risky/confident”) to 7 (“very risky/confident”)",
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "ev-scale"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-instr",
+      "kind": "material",
+      "title": "Instruction screens of the four tasks",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-instr"
+      ],
+      "fields": [
+        {
+          "id": "instruction-text",
+          "label": "Instruction screens (four tasks, reminders, comparison screen, comprehension, numeracy)",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "ev-instr"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        }
+      ]
+    },
+    {
+      "id": "m-compare",
+      "kind": "material",
+      "title": "Comparative questionnaire about the four methods",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-compare",
+        "ev-compare2"
+      ],
+      "fields": [
+        {
+          "id": "items",
+          "label": "Items",
+          "value": "Each method is evaluated on (1) whether the instructions are easy to understand, (2) whether answering involves complex calculations, (3) whether the task is boring, each from 1 (“not agree at all’) to 7 (“fully agree”); (4) domain association: investment, gambling or insurance (drop-down).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-compare",
+            "ev-compare2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-risky",
+      "kind": "variable",
+      "title": "Number of risky choices per task",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-t1"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-t1"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "count",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-t1"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant x task",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-t1"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Number of risky choices in each of the four tasks (boxes collected in the BRET; risky choices in the CEM and MPL; lottery chosen in the SCL).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-t1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-riskiness",
+      "kind": "variable",
+      "title": "Perceived riskiness of own decision",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-quest",
+        "ev-scale"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-quest",
+            "ev-scale"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "ordinal 1-7",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-quest",
+            "ev-scale"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant x task",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-quest",
+            "ev-scale"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Self-reported riskiness of the decision just made, 1 to 7.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-quest",
+            "ev-scale"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-confidence",
+      "kind": "variable",
+      "title": "Confidence in own decision",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-quest",
+        "ev-scale"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-quest",
+            "ev-scale"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "ordinal 1-7",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-quest",
+            "ev-scale"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant x task",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-quest",
+            "ev-scale"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Self-reported confidence in the decision just made, 1 to 7.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-quest",
+            "ev-scale"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-compare",
+      "kind": "variable",
+      "title": "Comparative ratings of the methods",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-compare",
+        "ev-compare2"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-compare",
+            "ev-compare2"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "ordinal 1-7 and category",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-compare",
+            "ev-compare2"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant x task",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-compare",
+            "ev-compare2"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Ease of instructions, complexity of calculations, boredom (1 to 7) and domain association for each method.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-compare",
+            "ev-compare2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-psi",
+      "kind": "variable",
+      "title": "Preference stability index",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-psi"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "dv",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-psi"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "count 0-6",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-psi"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-psi"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Sum of six binary indicators, one per pairwise comparison of methods, equal to one if the implied CRRA parameter intervals overlap.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-psi"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-ability",
+      "kind": "variable",
+      "title": "Comprehension error and numeracy",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-comp",
+        "ev-numeracy"
+      ],
+      "fields": [
+        {
+          "id": "role",
+          "label": "Role",
+          "value": "covariate",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-comp",
+            "ev-numeracy"
+          ]
+        },
+        {
+          "id": "type",
+          "label": "Type",
+          "value": "continuous",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-comp",
+            "ev-numeracy"
+          ]
+        },
+        {
+          "id": "observation-unit",
+          "label": "Observation unit",
+          "value": "participant",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-comp",
+            "ev-numeracy"
+          ]
+        },
+        {
+          "id": "definition",
+          "label": "Definition",
+          "value": "Relative absolute deviation of answers to the comprehension questions; score on the eight-item numeracy inventory.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-comp",
+            "ev-numeracy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rec-session",
+      "kind": "record",
+      "title": "Participant session record",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-quest"
+      ],
+      "fields": [
+        {
+          "id": "content",
+          "label": "Content",
+          "value": "Choice in each of the four tasks, riskiness and confidence ratings per task, comparative ratings",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-quest",
+            "ev-compare"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-corr",
+      "kind": "analysis",
+      "title": "Rank correlations of risky choices across tasks",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-t1",
+        "ev-corr-text"
+      ],
+      "fields": [
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Spearman rank correlations (and polychoric correlations) between the numbers of risky choices in the four tasks, n = 198",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-t1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-psi",
+      "kind": "analysis",
+      "title": "Preference stability index",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-psi",
+        "ev-psi-n185",
+        "ev-psi-method"
+      ],
+      "fields": [
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Choices are translated into CRRA parameter intervals; the index sums overlap indicators over the six method pairs; benchmarked by simulations (n = 185)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-psi",
+            "ev-psi-low",
+            "ev-psi-n185",
+            "ev-psi-method"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-struct",
+      "kind": "analysis",
+      "title": "Structural models per method (Fechner error)",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-t2",
+        "ev-phir"
+      ],
+      "fields": [
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Maximum likelihood estimation of CRRA parameter and noise sigma per method with standard errors clustered on subject; extended with perceived riskiness and complexity",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-t2",
+            "ev-phir"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-ability",
+      "kind": "analysis",
+      "title": "Preference stability vs. comprehension and numeracy",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-comp-corr"
+      ],
+      "fields": [
+        {
+          "id": "method",
+          "label": "Method",
+          "value": "Correlations of the preference stability index with comprehension deviation and numeracy score",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-comp-corr"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "res-t1",
+      "kind": "result",
+      "title": "Correlation matrix (Table 1)",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-t1",
+        "ev-t1rows",
+        "ev-corr-text"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-t1"
+          ]
+        },
+        {
+          "id": "table-1",
+          "label": "Table 1: Correlation matrix",
+          "value": {
+            "table": "Table 1",
+            "title": "Correlation matrix. The lower triangular matrix reports Spearman rank correlations between the observed number of risky choices in the four tasks; the upper triangular matrix depicts polychoric correlations",
+            "page": 13,
+            "columns": [
+              "",
+              "bret",
+              "cem",
+              "mpl",
+              "scl"
+            ],
+            "rows": [
+              [
+                "bret",
+                "",
+                "0.245",
+                "0.350",
+                "0.336"
+              ],
+              [
+                "",
+                "",
+                "(0.001)",
+                "(0.000)",
+                "(0.000)"
+              ],
+              [
+                "cem",
+                "0.222",
+                "",
+                "0.283",
+                "0.400"
+              ],
+              [
+                "",
+                "(0.002)",
+                "",
+                "(0.000)",
+                "(0.000)"
+              ],
+              [
+                "mpl",
+                "0.367",
+                "0.244",
+                "",
+                "0.387"
+              ],
+              [
+                "",
+                "(0.000)",
+                "(0.001)",
+                "",
+                "(0.000)"
+              ],
+              [
+                "scl",
+                "0.341",
+                "0.338",
+                "0.354",
+                ""
+              ],
+              [
+                "",
+                "(0.000)",
+                "(0.000)",
+                "(0.000)",
+                ""
+              ]
+            ],
+            "notes": [
+              "p values are reported in parentheses ( n = 198 )."
+            ]
+          },
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "ev-t1",
+            "ev-t1rows"
+          ]
+        },
+        {
+          "id": "consistently-risk-averse",
+          "label": "Share risk averse in all tasks",
+          "value": "71.7% consistently risk averse in all four tasks; 28.3% risk loving at least once",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-corr-text"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "res-t2",
+      "kind": "result",
+      "title": "Structural estimates (Table 2)",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-t2",
+        "ev-t2rows",
+        "ev-t2b"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-t2"
+          ]
+        },
+        {
+          "id": "table-2a",
+          "label": "Table 2 Panel A: ML estimates",
+          "value": {
+            "table": "Table 2",
+            "title": "(A) Maximum likelihood estimates of structural models with Fechner error terms for each of the four risk preference elicitation methods",
+            "page": 15,
+            "columns": [
+              "",
+              "bret",
+              "cem",
+              "mpl",
+              "scl"
+            ],
+            "rows": [
+              [
+                "φ",
+                "0.626***",
+                "0.838***",
+                "0.602***",
+                "0.387***"
+              ],
+              [
+                "",
+                "(0.021)",
+                "(0.090)",
+                "(0.033)",
+                "(0.034)"
+              ],
+              [
+                "σ",
+                "0.046***",
+                "0.263***",
+                "0.977***",
+                "0.720***"
+              ],
+              [
+                "",
+                "(0.002)",
+                "(0.048)",
+                "(0.066)",
+                "(0.057)"
+              ],
+              [
+                "ln L",
+                "− 5,298",
+                "− 458",
+                "− 600",
+                "− 572"
+              ],
+              [
+                "No. of Obs.",
+                "19,800",
+                "1782",
+                "1980",
+                "990"
+              ],
+              [
+                "Clusters",
+                "198",
+                "198",
+                "198",
+                "198"
+              ]
+            ],
+            "notes": [
+              "Standard errors, clustered on the subject level, are reported in parentheses."
+            ]
+          },
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "ev-t2",
+            "ev-t2rows"
+          ]
+        },
+        {
+          "id": "table-2b",
+          "label": "Table 2 Panel B: pairwise differences",
+          "value": {
+            "table": "Table 2",
+            "title": "(B) Pairwise differences in point estimates of risk preference parameters φ (lower-triangular matrix) and the standard deviation of noise parameters σ (upper-triangular matrix)",
+            "page": 15,
+            "columns": [
+              "",
+              "bret",
+              "cem",
+              "mpl",
+              "scl"
+            ],
+            "rows": [
+              [
+                "bret",
+                "",
+                "− 0.217***",
+                "− 0.932***",
+                "− 0.674***"
+              ],
+              [
+                "cem",
+                "0.212*",
+                "",
+                "− 0.715***",
+                "− 0.457***"
+              ],
+              [
+                "mpl",
+                "− 0.025",
+                "− 0.237**",
+                "",
+                "0.257**"
+              ],
+              [
+                "scl",
+                "− 0.240***",
+                "− 0.452***",
+                "− 0.215***",
+                ""
+              ]
+            ],
+            "notes": [
+              "p values are based on pairwise Wald tests. * p < 0.05 , **p < 0.01 , ***p < 0.001"
+            ]
+          },
+          "origin": "verbatim",
+          "state": "check",
+          "evidenceIds": [
+            "ev-t2",
+            "ev-t2b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "res-text",
+      "kind": "result",
+      "title": "Results reported in the text",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-psi",
+        "ev-psi-low",
+        "ev-dom-n",
+        "ev-phir",
+        "ev-comp-corr"
+      ],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Kind",
+          "value": "reported",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-psi"
+          ]
+        },
+        {
+          "id": "psi-mean",
+          "label": "Preference stability index",
+          "value": "mean 2.8, SD 1.5 out of 6 (n = 185)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-psi"
+          ]
+        },
+        {
+          "id": "psi-lower",
+          "label": "Lower benchmark (uniform random choices)",
+          "value": "mean 1.3, SD 1.1",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-psi-low"
+          ]
+        },
+        {
+          "id": "dominated",
+          "label": "Dominated choices",
+          "value": {
+            "table": "",
+            "title": "assembled from the text: subjects choosing a dominated lottery",
+            "page": 13,
+            "columns": [
+              "Task",
+              "n",
+              "%"
+            ],
+            "rows": [
+              [
+                "any task",
+                "13",
+                "6.6%"
+              ],
+              [
+                "bret",
+                "1",
+                "0.5%"
+              ],
+              [
+                "cem",
+                "6",
+                "3.0%"
+              ],
+              [
+                "mpl",
+                "9",
+                "4.5%"
+              ]
+            ],
+            "notes": []
+          },
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-dom-n"
+          ]
+        },
+        {
+          "id": "phi-r",
+          "label": "Riskiness effect on phi",
+          "value": "phi_r = -0.131, p < 0.001",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-phir",
+            "ev-phir3"
+          ]
+        },
+        {
+          "id": "sigma-c",
+          "label": "Complexity effect on sigma",
+          "value": "sigma_c = 0.065, p < 0.001",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-phir",
+            "ev-phir3"
+          ]
+        },
+        {
+          "id": "ability",
+          "label": "Preference stability vs comprehension and numeracy",
+          "value": "rho = -0.089, p = 0.210 (comprehension); rho = 0.033, p = 0.649 (numeracy)",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-comp-corr",
+            "ev-comp-corr2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fnd",
+      "kind": "finding",
+      "title": "Findings",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-abs",
+        "ev-abs2"
+      ],
+      "fields": [
+        {
+          "id": "answer",
+          "label": "Answer",
+          "value": "Revealed risk preferences vary considerably across methods, yet subjects are well aware of the variation in the riskiness of their choices; the authors argue this calls into question interpreting the variation as inconsistent.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-abs",
+            "ev-abs2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lim",
+      "kind": "limitation",
+      "title": "Limitations",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [
+        "ev-abs"
+      ],
+      "fields": [
+        {
+          "id": "limitations",
+          "label": "Limitations",
+          "value": "The design cannot test which characteristics of the elicitation methods cause the heterogeneity; Expected Utility Theory may not be the most appropriate framework (Discussion, p. 20).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "ev-lim"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "res-si",
+      "kind": "result",
+      "title": "Supplement results (SI Appendices 1-6)",
+      "studyIds": [
+        "study-1"
+      ],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "result_kind",
+          "label": "Kind",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "table-s3",
+          "label": "Table S3: PSI and questionnaire correlations",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "value": null,
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "table-s4",
+          "label": "Table S4: PSI by same or different domain",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "value": null,
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "table-s5a",
+          "label": "Table S5 Panel A: estimates by position in sequence",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "value": null,
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "table-s5b",
+          "label": "Table S5 Panel B: pairwise differences by position",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "value": null,
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "table-s6",
+          "label": "Table S6: estimates controlling for the preceding task",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "value": null,
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "table-s7a",
+          "label": "Table S7 Panel A: random parameter models",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "value": null,
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "table-s7b",
+          "label": "Table S7 Panel B: pairwise differences",
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "value": null,
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "preferred-task",
+          "label": "Preferred task for future experiments",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "comprehension-deviation",
+          "label": "Comprehension deviation from correct answers",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "numeracy",
+          "label": "Numeracy score",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        },
+        {
+          "id": "ks-share",
+          "label": "Kolmogorov-Smirnov bootstrap",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Original material or implementation detail is outside the verified article-only reading scope; consult the separately maintained protocol."
+          }
+        }
+      ]
+    }
+  ],
+  "steps": [],
+  "relations": [],
+  "evidence": [
+    {
+      "id": "ev-abs",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Based on a within-subject experimental design using four widespread risk preference elicitation tasks, we find that the different methods indeed give rise to considerably varying estimates of individual and aggregate level risk preferences.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-abs2",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Our study, however, provides evidence that subjects are surprisingly well aware of the variation in the riskiness of their choices.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-aim",
+      "locator": {
+        "page": 3
+      },
+      "quote": "In addition to incentivized risk preference elicitation tasks, our experimental protocol comprises survey items, which allow for examining participants’ subjective accounts of the different methods—in particular, their awareness of the risk they are willing to take in the different tasks.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-sample",
+      "locator": {
+        "page": 5
+      },
+      "quote": "We conducted ten experimental sessions with a total of 198 participants (55% female; age: m = 22.9 years, sd = 2.5 ) in the Innsbruck EconLab.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-recruit",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Participants—bachelor and master students from various fields of study—were recruited using hroot (Bock et al. 2014).",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-seated",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Upon arrival in the laboratory, participants were seated randomly and asked to start the experiment after having carefully read the instructions on screen.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-german",
+      "locator": {
+        "page": 6
+      },
+      "quote": "conducted in German, took approximately 40 min, and were all administered by the same experimenters.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-pay",
+      "locator": {
+        "page": 6
+      },
+      "quote": "Participants received an average payment of €21.35 including a show-up fee of €4.00 (sd = €6.25, min = €8.00, max = €38.50).",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-within",
+      "locator": {
+        "page": 6
+      },
+      "quote": "We used a within-subject design to measure individual-level risk preferences in four different risk elicitation methods, all of which are commonly applied in social science experiments: (1) the “bomb” risk elicitation task ( bret), (2) the certainty equivalent method ( cem), (3) a multiple choice list between pairs of lotteries ( mpl), and (4) a single choice list ( scl).",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-param",
+      "locator": {
+        "page": 6
+      },
+      "quote": "The parametrization of each task has been mapped to the lottery payoffs and probabilities proposed in the original articles but were scaled in such a way that the expected payoffs of a risk neutral decision maker are similar across tasks (approximately €12.00).",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-instr",
+      "locator": {
+        "page": 6
+      },
+      "quote": "The instructions for each of the elicitation methods were displayed just before participants were asked to make their choice(s) in the particular decision problem. Translated instructions and screenshots of the entire experiment are provided in Appendix 7 in Electronic Supplementary Material.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-order",
+      "locator": {
+        "page": 6
+      },
+      "quote": "each participant faced a random sequence of the four risk preference elicitation methods.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-rli",
+      "locator": {
+        "page": 6
+      },
+      "quote": "a random lottery incentive system was implemented, i.e., only one of the four tasks was randomly chosen for a subject’s final payment",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-switch",
+      "locator": {
+        "page": 6
+      },
+      "quote": "we enforced a single switching point in the two multiple price list tasks",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-bret",
+      "locator": {
+        "page": 7
+      },
+      "quote": "boxes were collected dynamically and randomly with a time interval of one second for each box once the “Start” button was hit until the “Stop” button was hit.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-bret2",
+      "locator": {
+        "page": 7
+      },
+      "quote": "The location of the bomb is only revealed at the end of the task.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-cem",
+      "locator": {
+        "page": 7
+      },
+      "quote": "We implement the parametrization used by Abdellaoui et al. (2011) with n = 9 binary choices, scaled by a factor of 0.5",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-mpl",
+      "locator": {
+        "page": 7
+      },
+      "quote": "We use the parametrization with n = 10 lotteries as proposed by Holt and Laury (2002) but scaled the payoffs by a factor of 5",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-scl",
+      "locator": {
+        "page": 7
+      },
+      "quote": "The menu consists of six lotteries",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-scl2",
+      "locator": {
+        "page": 7
+      },
+      "quote": "L1 = (€9.00, 0.50; €9.00), L2 = (€7.50, 0.50; €12.00), L3 = (€6.00, 0.50; €15.00), L4 = (€4.50, 0.50; €18.00), L5 = (€3.00, 0.50; €21.00), and L6 = (€0.00, 0.50; €24.00).",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-quest",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Directly after a decision in any of the four tasks has been submitted, participants were asked to assess how risky they perceive their decision to be and how confident they feel about the particular choice they made.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-scale",
+      "locator": {
+        "page": 8
+      },
+      "quote": "questions were answered on a scale from 1 (“not at all risky/confident”) to 7 (“very risky/confident”).",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-comp",
+      "locator": {
+        "page": 8
+      },
+      "quote": "subjects were shown a screenshot of the risk neutral decision in each of the four tasks, and were asked to estimate (1) the expected payoff, (2) the probability to earn less than €5.50, and (3) the probability to earn more than €14.50.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-numeracy",
+      "locator": {
+        "page": 8
+      },
+      "quote": "numeracy inventory (Weller et al. 2013)",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-compare",
+      "locator": {
+        "page": 8
+      },
+      "quote": "After completing all elicitation methods, subjects were presented with additional questionnaires, requiring them to explicitly compare the four elicitation methods with regards to various dimensions on a single screen.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-compare2",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Each of the questions (1) to (3) was answered on a scale from 1 (“not agree at all’) to 7 (“fully agree”). For answering question (4), subjects had to indicate one of the domains using a drop-down field.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-hyp-risk",
+      "locator": {
+        "page": 8
+      },
+      "quote": "one would expect to observe identical",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-hyp-comp",
+      "locator": {
+        "page": 8
+      },
+      "quote": "We, thus, conjecture that the likelihood of making mistakes is negatively related to subject’s numeracy and comprehension of tasks. Accordingly, we expect to observe a negative relation between across-methods preference variation and comprehension and numeracy, respectively.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-hyp-noise",
+      "locator": {
+        "page": 9
+      },
+      "quote": "We hypothesize to find more noisy behavior within tasks that are perceived to be complex.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-hyp-dom",
+      "locator": {
+        "page": 9
+      },
+      "quote": "We conjecture to find less variation in revealed preferences for elicitation methods that are assigned to the same domain compared to elicitation methods that are associated with different domains.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-notold",
+      "locator": {
+        "page": 7
+      },
+      "quote": "The location of the bomb is only revealed at the end of the task.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-t1",
+      "locator": {
+        "page": 13
+      },
+      "quote": "Table 1 Correlation matrix. The lower triangular matrix reports Spearman rank correlations between the observed number of risky choices in the four tasks; the upper triangular matrix depicts polychoric correlations",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-t1rows",
+      "locator": {
+        "page": 13
+      },
+      "quote": "bret 0.245 0.350 0.336 (0.001) (0.000) (0.000) cem 0.222 0.283 0.400 (0.002) (0.000) (0.000) mpl 0.367 0.244 0.387 (0.000) (0.001) (0.000) scl 0.341 0.338 0.354",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-corr-text",
+      "locator": {
+        "page": 12
+      },
+      "quote": "Spearman rank correlations between the observed number of risky choices in the four tasks are moderate but significantly different from zero, varying between 0.222 and 0.367; polychoric correlations are slightly higher and vary between 0.245 and 0.400 (Table 1). Only 71.7% of the participants are consistently risk averse in all four tasks. For the remaining 28.3% of the participants, choices are associated with risk loving preferences at least once.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-psi",
+      "locator": {
+        "page": 13
+      },
+      "quote": "subjects on average reveal stable risk preferences in 2.8 ( sd = 1.5 ) out of 6 possible combinations.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-psi-low",
+      "locator": {
+        "page": 13
+      },
+      "quote": "the lower benchmark is substantially larger than zero ( m = 1.3 , sd = 1.1 )",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-dom-n",
+      "locator": {
+        "page": 13
+      },
+      "quote": "Of the 198 subjects in our sample, 13 (6.6%) violate basic rationality by choosing a dominated lottery in at least one of the tasks: 1 (0.5%) in bret, 6 (3.0%) in cem, and 9 (4.5%) in mpl.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-t2",
+      "locator": {
+        "page": 15
+      },
+      "quote": "Table 2 (A) Maximum likelihood estimates of structural models with Fechner error terms for each of the four risk preference elicitation methods.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-t2rows",
+      "locator": {
+        "page": 15
+      },
+      "quote": "0.626*** 0.838*** 0.602*** 0.387*** (0.021) (0.090) (0.033) (0.034) 0.046*** 0.263*** 0.977*** 0.720*** (0.002) (0.048) (0.066) (0.057) ln L − 5,298 − 458 − 600 − 572 No. of Obs. 19,800 1782 1980 990 Clusters 198 198 198 198",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-t2b",
+      "locator": {
+        "page": 15
+      },
+      "quote": "bret − 0.217*** − 0.932*** − 0.674*** cem 0.212* − 0.715*** − 0.457*** mpl − 0.025 − 0.237** 0.257** scl − 0.240*** − 0.452*** − 0.215***",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-phir",
+      "locator": {
+        "page": 17
+      },
+      "quote": "We provide additional evidence on subjects’ awareness of varying levels of\nrisk associated with seemingly inconsistent choices across methods by extend-\ning the structural model specification outlined in Sect. 4. In particular, we estimate\n̂\n𝜑 = ̂\n𝜑0 + ̂\n𝜑r ⋅ rp and ̂\n𝜎 = ̂\n𝜎0 + ̂\n𝜎c ⋅ cp, where ̂\n𝜑0 and ̂\n𝜎0 are estimates of the constants\nand rp and cp refer to perceived (subject-level demeaned) riskiness and complexity,\nrespectively. The maximum likelihood estimates of this model indicates that risk\naversion is significantly related to participants’ evaluation of the choice’s riskiness\n( ̂\n𝜑r = −0.131, p < 0.001), and that the variance of the structural noise term sig-\nnificantly varies depending on subjects’ appraisal of task complexity (̂\n𝜎c = 0.065,\np < 0.001). Overall, our results indicate that subjects seem to be well aware of the\nriskiness of their choices as well as the complexity of the decision situation.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-phir2",
+      "locator": {
+        "page": 17
+      },
+      "quote": "p < 0.001 ), and that the variance of the structural noise term sig-",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-comp-corr",
+      "locator": {
+        "page": 17
+      },
+      "quote": "Our findings are in line with the observed zero correlation of (1) numeracy and\n(2) task comprehension with the preference stability index in our experimental data:\nWe hypothesized that subjects’ ability to reveal their risk preferences may vary\nacross the different elicitation methods. Subjects might make mistakes in evaluat-\ning the lotteries that are explicitly and implicitly contained in the elicitation pro-\ncedures, and thus in correctly choosing the lotteries that match their preferences.\nAccordingly, we should find a significant correlation between subjects’ level of\npreference stability and (1) the absolute difference between the responses and the\ncorrect answers to the comprehension questions,15\nand (2) the achieved numeracy\nscore. However, both correlations are low and insignificant (𝜚 = −0.089, p = 0.210\nand 𝜚 = 0.033, p = 0.649, respectively).",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-bret3",
+      "locator": {
+        "page": 7
+      },
+      "quote": "In our experiment, we set n to 100 and",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-cem2",
+      "locator": {
+        "page": 7
+      },
+      "quote": "A risk neutral subject expects to earn €11.39.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-mpl2",
+      "locator": {
+        "page": 7
+      },
+      "quote": "A risk neutral individual expects a payoff of €12.14.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-phir3",
+      "locator": {
+        "page": 17
+      },
+      "quote": "We provide additional evidence on subjects’ awareness of varying levels of\nrisk associated with seemingly inconsistent choices across methods by extend-\ning the structural model specification outlined in Sect. 4. In particular, we estimate\n̂\n𝜑 = ̂\n𝜑0 + ̂\n𝜑r ⋅ rp and ̂\n𝜎 = ̂\n𝜎0 + ̂\n𝜎c ⋅ cp, where ̂\n𝜑0 and ̂\n𝜎0 are estimates of the constants\nand rp and cp refer to perceived (subject-level demeaned) riskiness and complexity,\nrespectively. The maximum likelihood estimates of this model indicates that risk\naversion is significantly related to participants’ evaluation of the choice’s riskiness\n( ̂\n𝜑r = −0.131, p < 0.001), and that the variance of the structural noise term sig-\nnificantly varies depending on subjects’ appraisal of task complexity (̂\n𝜎c = 0.065,\np < 0.001). Overall, our results indicate that subjects seem to be well aware of the\nriskiness of their choices as well as the complexity of the decision situation.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-comp-corr2",
+      "locator": {
+        "page": 17
+      },
+      "quote": "Our findings are in line with the observed zero correlation of (1) numeracy and\n(2) task comprehension with the preference stability index in our experimental data:\nWe hypothesized that subjects’ ability to reveal their risk preferences may vary\nacross the different elicitation methods. Subjects might make mistakes in evaluat-\ning the lotteries that are explicitly and implicitly contained in the elicitation pro-\ncedures, and thus in correctly choosing the lotteries that match their preferences.\nAccordingly, we should find a significant correlation between subjects’ level of\npreference stability and (1) the absolute difference between the responses and the\ncorrect answers to the comprehension questions,15\nand (2) the achieved numeracy\nscore. However, both correlations are low and insignificant (𝜚 = −0.089, p = 0.210\nand 𝜚 = 0.033, p = 0.649, respectively).",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-lim",
+      "locator": {
+        "page": 20
+      },
+      "quote": "Although our study does not provide conclusive insights into these matters, we hope that our finding help to identify promising avenues for future research.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-cem3",
+      "locator": {
+        "page": 7
+      },
+      "path": "paper.pdf",
+      "quote": "ah = €15.00, al = €5.00",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-n198",
+      "locator": {
+        "page": 13
+      },
+      "path": "paper.pdf",
+      "quote": "p values are reported in parentheses ( n = 198 ).",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-psi-n",
+      "locator": {
+        "page": 13
+      },
+      "path": "paper.pdf",
+      "quote": "any result referring to the preference stability index is based on the sample with n = 185.",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-phir4",
+      "locator": {
+        "page": 17
+      },
+      "path": "paper.pdf",
+      "quote": "=− 0.131 , p < 0.001",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-sigc4",
+      "locator": {
+        "page": 17
+      },
+      "path": "paper.pdf",
+      "quote": "= 0.065 ,",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-ab4",
+      "locator": {
+        "page": 17
+      },
+      "path": "paper.pdf",
+      "quote": "=− 0.089, p = 0.210 and",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-ab5",
+      "locator": {
+        "page": 17
+      },
+      "path": "paper.pdf",
+      "quote": "= 0.033, p = 0.649",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-nclu",
+      "locator": {
+        "page": 16
+      },
+      "path": "paper.pdf",
+      "quote": "Standard errors in the maximum likelihood estimations are clustered on the individual level; n = 198 .",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-psi-n185",
+      "locator": {
+        "page": 13
+      },
+      "quote": "bret, mpl, and cem include at least one first-order dominated choice each. Of the 198 subjects in our\nsample, 13 (6.6%) violate basic rationality by choosing a dominated lottery in at least one of the tasks:\n1 (0.5%) in bret, 6 (3.0%) in cem, and 9 (4.5%) in mpl. As dominated choices cannot be reasonably\ntranslated into crra intervals, the preference stability index cannot be determined for participants violat-\ning rationality. Thus, any result referring to the preference stability index is based on the sample with\nn = 185.",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    },
+    {
+      "id": "ev-psi-method",
+      "locator": {
+        "page": 10
+      },
+      "quote": "602 F. Holzmeister, M. Stefan\n1 3\nmagnitude of correlations between the number of risky choices in two tasks can-\nnot be readily interpreted as evidence in favor of or against the stability of risk\npreferences.\nFor this reason, we use another individual-level measure of across-methods sta-\nbility of revealed preferences. Note that the assumption of a parametric functional\nform of a participant’s utility function implies that observed choices in a risk prefer-\nence elicitation method translate into parameter intervals rather than point estimates.\nWe define choices in two independent tasks as “stable” if the implied parameter\nintervals overlap (see, e.g., Bruner 2009). Whenever the sets of feasible param-\neters implied by the choices in two methods intersect, it cannot be ruled out that the\nobserved choices do indeed stem from the same latent parameter 𝜑. In particular,\nwe define an indicator for each pairwise comparison of methods, which is equal to\none if the implied parameter intervals overlap, and zero otherwise. As a preference\nstability index, we sum up these binary indicators for all six unique pairwise com-\nbinations of the four experimental risk preference elicitation methods, implying a\nmeasure between 0 and 6 on the individual level. This measure is conservative for\ntwo reasons: First, overlapping parameter intervals do not necessarily imply identi-\ncal risk aversion parameters and, thus, across-methods stability of risk preferences.\nSecond, overlapping parameter intervals could eventually be the result of random\nbehavior or chance. For these reasons, the index has to be interpreted as a proxy for\npreference invariance.\nIn addition to the individual-level preference stability index we examine across-\nmethods variation of risk preferences on the aggregate level by estimating a struc-\ntural model for each elicitation method. We follow the procedure for structural\nmodel estimation for binary discrete choices under risk discussed in Harrison and\nRuström (2008) and Wilcox (2008). Given the assumption of an eut framework,\nthe probabilities pk for the high and low lottery payoffs k ∈ {h, l} are those that are\ninduced in the particular elicitation method by the experimenter. Thus, the expected\nutility of lottery j ∈ {A, B}, E[uj], is the utility of each lottery outcome, uk, weighted\nby the corresponding probability:\nFor each of the i = 1, 2, … , n lottery pairs, participants are assumed to choose\neither the less risky (or safe) lottery Ai or the more risky lottery Bi by evaluating\nthe difference between their expected utilities.8\nIn addition, we allow for mistakes\n(2)\nE[uj] =\n∑\nk\npkuk ∀ k ∈ {h, l}\nFootnote 7 (continued)\nwill converge to zero as n → ∞. In general, whenever the parameter intervals implied by the choices in\nthe two elicitation methods do not exactly coincide, the magnitude of (rank order) correlations between\nthe choices in two tasks may be considerably smaller than 1, even if preferences are stable across tasks.\n8\nIn order to apply this procedure, choices in all elicitation methods need to be expressed as a series of\nbinary choices between lottery pairs. While this is the case for the cem and the mpl by default, data from\nthe bret and the scl need to be transformed. Following Dave et al. (2010) and Crosetto and Filippin\n(2015), we convert the gambles in bret and scl into implicit binary choices between two adjacent gam-\nbles assuming that utility functions are well-behaved, i.e., that preferences are single-peaked. Thus, for\nthe bret, for instance, a subject selecting 40 out of 100 boxes is assumed not only to reveal that 40 boxes\n",
+      "path": "paper.pdf",
+      "sourceSha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+      "url": "https://doi.org/10.1007/s10683-020-09674-8",
+      "verification": "unverified"
+    }
+  ],
+  "issues": [
+    {
+      "id": "reading-gap-0",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "proc",
+      "fieldId": "replay-memory",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-1",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "m-questions",
+      "fieldId": "riskiness",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-2",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "m-questions",
+      "fieldId": "confidence",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-3",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "m-instr",
+      "fieldId": "instruction-text",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-4",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "result_kind",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-5",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "table-s3",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-6",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "table-s4",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-7",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "table-s5a",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-8",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "table-s5b",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-9",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "table-s6",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-10",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "table-s7a",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-11",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "table-s7b",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-12",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "preferred-task",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-13",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "comprehension-deviation",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-14",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "numeracy",
+      "evidenceIds": []
+    },
+    {
+      "id": "reading-gap-15",
+      "title": "Additional source verification required",
+      "severity": "check",
+      "reason": "This field is not established by the licensed article evidence retained in this reading package. No inferred or restricted material is published.",
+      "impact": "Exact reproduction may require additional source materials.",
+      "suggestedAction": "Review the separate protocol and obtain the original material with appropriate permission.",
+      "nodeId": "res-si",
+      "fieldId": "ks-share",
+      "evidenceIds": []
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "studyArms": {
+        "study-1": [
+          "lab"
+        ]
+      },
+      "review": "Existing source-linked reading adapted; independent source/publication review pending. No runtime validation claimed."
+    },
+    "publication": {
+      "sources": [
+        {
+          "title": "The risk elicitation puzzle revisited: Across-methods (in)consistency?",
+          "authors": [
+            "Felix Holzmeister",
+            "Matthias Stefan"
+          ],
+          "url": "https://doi.org/10.1007/s10683-020-09674-8",
+          "license": "CC-BY-4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution": "Felix Holzmeister; Matthias Stefan. The risk elicitation puzzle revisited: Across-methods (in)consistency? (2021).",
+          "changes": "Existing source-linked reading organized into scholarly Program; original source and protocol unchanged."
+        }
+      ]
+    },
+    "communityExport": {
+      "scope": "program-only",
+      "sources": [
+        {
+          "evidenceIds": [
+            "ev-abs",
+            "ev-abs2",
+            "ev-aim",
+            "ev-sample",
+            "ev-recruit",
+            "ev-seated",
+            "ev-german",
+            "ev-pay",
+            "ev-within",
+            "ev-param",
+            "ev-instr",
+            "ev-order",
+            "ev-rli",
+            "ev-switch",
+            "ev-bret",
+            "ev-bret2",
+            "ev-cem",
+            "ev-mpl",
+            "ev-scl",
+            "ev-scl2",
+            "ev-quest",
+            "ev-scale",
+            "ev-comp",
+            "ev-numeracy",
+            "ev-compare",
+            "ev-compare2",
+            "ev-hyp-risk",
+            "ev-hyp-comp",
+            "ev-hyp-noise",
+            "ev-hyp-dom",
+            "ev-notold",
+            "ev-t1",
+            "ev-t1rows",
+            "ev-corr-text",
+            "ev-psi",
+            "ev-psi-low",
+            "ev-dom-n",
+            "ev-t2",
+            "ev-t2rows",
+            "ev-t2b",
+            "ev-phir",
+            "ev-phir2",
+            "ev-comp-corr",
+            "ev-bret3",
+            "ev-cem2",
+            "ev-mpl2",
+            "ev-phir3",
+            "ev-comp-corr2",
+            "ev-lim",
+            "ev-cem3",
+            "ev-n198",
+            "ev-psi-n",
+            "ev-phir4",
+            "ev-sigc4",
+            "ev-ab4",
+            "ev-ab5",
+            "ev-nclu",
+            "ev-psi-n185",
+            "ev-psi-method"
+          ],
+          "url": "https://doi.org/10.1007/s10683-020-09674-8",
+          "attribution": "Felix Holzmeister; Matthias Stefan. The risk elicitation puzzle revisited: Across-methods (in)consistency? (2021).",
+          "license": "CC-BY-4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sha256": "0d63e103474276241c5ba277f2aced0306f4bafde94a6eb48c8968b5d95728b7",
+          "title": "The risk elicitation puzzle revisited: Across-methods (in)consistency?",
+          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
+        }
+      ],
+      "withheldEvidenceQuotes": {
+        "ids": [],
+        "reason": "redistribution-unverified"
+      }
+    }
+  }
+}

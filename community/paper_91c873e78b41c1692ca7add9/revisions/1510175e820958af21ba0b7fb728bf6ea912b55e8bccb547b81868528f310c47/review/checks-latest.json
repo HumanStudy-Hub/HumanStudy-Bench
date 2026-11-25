@@ -1,0 +1,156 @@
+{
+  "protocol_sha256": "c8da61d18c1f6b31a04b6e4088f9a497b3e05e1f14a298aa37615ca617cbde2a",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 3000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 0.0,
+    "population_excluded_sessions": {},
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "cons_bris",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "cons_real",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "safe_cons_bris",
+        "human": -0.54,
+        "keyed": -0.929,
+        "same_sign": true
+      },
+      {
+        "effect": "safe_cons_real",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "safe_all_bris",
+        "human": -0.46,
+        "keyed": -0.935,
+        "same_sign": true
+      },
+      {
+        "effect": "safe_all_real",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "safe_cons_bris_vs_real",
+        "human": -0.673,
+        "keyed": -1.929,
+        "same_sign": true
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "supp"
+    ]
+  },
+  "reading_annotations": [],
+  "coding": {},
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [],
+  "printed_item_tests": [],
+  "second_readings": [],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "cons_real",
+      "agent": 0.187,
+      "n_agent": 1000,
+      "k_agent": 187,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.8166666666666667
+    },
+    {
+      "id": "cons_bris",
+      "agent": 0.18,
+      "n_agent": 1000,
+      "k_agent": 180,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.8596491228070176
+    },
+    {
+      "id": "cons_hyp",
+      "agent": 0.192,
+      "n_agent": 1000,
+      "k_agent": 192,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.8688524590163934
+    }
+  ],
+  "effect_dropout_random": {
+    "safe_cons_bris": 0.814,
+    "safe_cons_real": 0.814,
+    "safe_cons_bris_vs_real": 0.814
+  },
+  "PASS": true
+}

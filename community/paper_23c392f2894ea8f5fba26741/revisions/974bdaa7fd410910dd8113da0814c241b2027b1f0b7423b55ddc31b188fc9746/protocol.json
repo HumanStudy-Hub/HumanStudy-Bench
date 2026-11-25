@@ -1,0 +1,2738 @@
+{
+  "id": "jacowitz1995anchoring",
+  "schema": "hsenv-protocol/0.1",
+  "meta": {
+    "citation": "Jacowitz, K. E., & Kahneman, D. (1995). Measures of anchoring in estimation tasks. Personality and Social Psychology Bulletin, 21(11), 1161-1166. https://doi.org/10.1177/01461672952111004",
+    "doi": "10.1177/01461672952111004",
+    "language": "en",
+    "licence": {
+      "paper": "closed licence: PSPB 1995 (c) Society for Personality and Social Psychology, SAGE ('All Rights Reserved'); Bench SOURCE.json 'publisher copyright (no open license found)', OpenAlex closed access. Private research only"
+    },
+    "sources": {
+      "paper": {
+        "file": "sources/paper.pdf",
+        "sha256": "425441fe80b310a8ca37667b196bf34f859f50477d0889ff777643e95d72b6f7",
+        "what": "version of record, PSPB 21(11):1161-1166, 6 pp.; image-only page scans (CCITT 600 dpi), no text layer. Cite pages are PDF pages (journal page = 1160 + PDF page)",
+        "licence": "closed (publisher copyright); private",
+        "distribution": {
+          "tier": "user",
+          "format": "pdf",
+          "sha256": "425441fe80b310a8ca37667b196bf34f859f50477d0889ff777643e95d72b6f7"
+        }
+      }
+    },
+    "sample": {
+      "n": 156,
+      "calib": 53,
+      "anch": 103,
+      "population": "withheld:8d8aa6bd30f29b19",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 2,
+        "note": "withheld:876c1159b2b32c62"
+      }
+    },
+    "image_read": "the whole PDF is image-only. Nothing served on screen. Read off the image (first reading, converter): Table 1 labels and numbers (pdf p. 3; operator-only data and targets) and the statistics quoted from pdf pp. 2-5 (cites)"
+  },
+  "arms": [
+    {
+      "id": "calib",
+      "n_paper": 53,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 2,
+        "note": "withheld:40471205a7fd18ed"
+      },
+      "runnable": false,
+      "why": "every on-screen text is missing: the question for each of the 15 quantities (Table 1 prints row labels only), the confidence question and its 10-point scale labels, instructions (DESIGN 2 rule 2)",
+      "label_note": "calibration group (no anchors)"
+    },
+    {
+      "id": "anch",
+      "n_paper": 103,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 2,
+        "note": "withheld:6104eabcc80be61d"
+      },
+      "runnable": false,
+      "why": "every on-screen text is missing: the judgment question with the anchor and its answer labels, the estimate and confidence questions, scale labels, instructions; and which quantities had high anchors in which of the two questionnaire versions (DESIGN 2 rule 2)",
+      "label_note": "anchored groups (high/low anchors mixed within subject)"
+    }
+  ],
+  "run_excluded": [
+    {
+      "arm": "calib",
+      "n_paper": 53,
+      "why": "every on-screen text is missing: the question for each of the 15 quantities (Table 1 prints row labels only), the confidence question and its 10-point scale labels, instructions (DESIGN 2 rule 2)",
+      "missing": [
+        "data.missing.calib_item",
+        "data.missing.estimate_prompt",
+        "data.missing.confidence_prompt"
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 2
+      }
+    },
+    {
+      "arm": "anch",
+      "n_paper": 103,
+      "why": "every on-screen text is missing: the judgment question with the anchor and its answer labels, the estimate and confidence questions, scale labels, instructions; and which quantities had high anchors in which of the two questionnaire versions (DESIGN 2 rule 2)",
+      "missing": [
+        "data.missing.anch_judgment",
+        "data.missing.judgment_option",
+        "data.missing.estimate_prompt",
+        "data.missing.confidence_prompt",
+        "data.missing.version_split"
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 2
+      }
+    }
+  ],
+  "data": {
+    "item_ids": [
+      "q1",
+      "q2",
+      "q3",
+      "q4",
+      "q5",
+      "q6",
+      "q7",
+      "q8",
+      "q9",
+      "q10",
+      "q11",
+      "q12",
+      "q13",
+      "q14",
+      "q15"
+    ],
+    "idx": {
+      "q1": 0,
+      "q2": 1,
+      "q3": 2,
+      "q4": 3,
+      "q5": 4,
+      "q6": 5,
+      "q7": 6,
+      "q8": 7,
+      "q9": 8,
+      "q10": 9,
+      "q11": 10,
+      "q12": 11,
+      "q13": 12,
+      "q14": 13,
+      "q15": 14
+    },
+    "items": {
+      "q1": {
+        "table_label": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "calib_median": 800,
+        "low": 70,
+        "high": 2000,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q2": {
+        "table_label": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "calib_median": 12000,
+        "low": 2000,
+        "high": 45500,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q3": {
+        "table_label": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "calib_median": 180,
+        "low": 50,
+        "high": 1000,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q4": {
+        "table_label": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "calib_median": 3200,
+        "low": 1500,
+        "high": 6000,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q5": {
+        "table_label": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "calib_median": 200,
+        "low": 65,
+        "high": 550,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q6": {
+        "table_label": "Number of United Nations members",
+        "calib_median": 50,
+        "low": 14,
+        "high": 127,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q7": {
+        "table_label": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "calib_median": 50,
+        "low": 25,
+        "high": 130,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q8": {
+        "table_label": "Population of Chicago (in millions)",
+        "calib_median": 1.0,
+        "low": 0.2,
+        "high": 5.0,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q9": {
+        "table_label": "Year telephone was invented",
+        "calib_median": 1889,
+        "low": 1850,
+        "high": 1920,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q10": {
+        "table_label": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "calib_median": 2000,
+        "low": 100,
+        "high": 50000,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q11": {
+        "table_label": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "calib_median": 18,
+        "low": 7,
+        "high": 30,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q12": {
+        "table_label": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "calib_median": 50,
+        "low": 20,
+        "high": 80,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q13": {
+        "table_label": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "calib_median": 20,
+        "low": 10,
+        "high": 85,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q14": {
+        "table_label": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "calib_median": 30,
+        "low": 20,
+        "high": 100,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      },
+      "q15": {
+        "table_label": "Number of Lincoln's presidency",
+        "calib_median": 16,
+        "low": 7,
+        "high": 17,
+        "note": "operator-only: Table 1 row label and anchors; the on-screen wording is missing",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image",
+          "note": "withheld:7097f093fe281d9e"
+        }
+      }
+    },
+    "missing": {
+      "calib_item": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 2,
+          "note": "withheld:471ed37629c19542"
+        }
+      },
+      "anch_judgment": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 2,
+          "note": "withheld:04f4c4791f285482"
+        }
+      },
+      "judgment_option": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 2,
+          "note": "withheld:ac631fb0a91ca622"
+        }
+      },
+      "estimate_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 2,
+          "note": "withheld:ab6f7c8b2a5b6435"
+        }
+      },
+      "confidence_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 2,
+          "note": "withheld:e8b10901d59c657f"
+        }
+      },
+      "version_split": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 3,
+          "note": "withheld:0e8917549a14b189"
+        }
+      }
+    }
+  },
+  "stages": {
+    "calib_q": {
+      "content": [
+        {
+          "id": "item",
+          "value": {
+            "expr": "data['missing']['calib_item']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "est",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['estimate_prompt']"
+          },
+          "range": [
+            0,
+            null
+          ],
+          "required": false,
+          "depends_on": [
+            "calib_q.item"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "note": "withheld:549b880e4de5e2cc"
+          },
+          "range_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 2,
+            "note": "withheld:a5b11f6584b4fdd1"
+          }
+        },
+        {
+          "id": "conf",
+          "kind": "scale",
+          "prompt": {
+            "expr": "data['missing']['confidence_prompt']"
+          },
+          "range": [
+            1,
+            10
+          ],
+          "integer": true,
+          "required": false,
+          "anchors_missing": "data.missing.confidence_prompt",
+          "depends_on": [
+            "calib_q.item"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "note": "withheld:6fa8ee31c21b92c9"
+          },
+          "range_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 2,
+            "note": "withheld:d3aa1ee68e2a94a9"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 2,
+        "note": "withheld:1af0e99c9025fd4c"
+      },
+      "note": "one stage per quantity (binding q); Table 1 order (derived: the paper says only that 'The quantities appeared in the same order in all questionnaires', p. 1163)"
+    },
+    "anch_q": {
+      "content": [
+        {
+          "id": "item",
+          "value": {
+            "expr": "data['missing']['anch_judgment']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "judg",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['anch_judgment']"
+          },
+          "options": [
+            {
+              "code": "gt",
+              "label": {
+                "expr": "data['missing']['judgment_option']"
+              }
+            },
+            {
+              "code": "lt",
+              "label": {
+                "expr": "data['missing']['judgment_option']"
+              }
+            }
+          ],
+          "required": false,
+          "depends_on": [
+            "anch_q.item"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "note": "withheld:09036a3fbe32689e"
+          }
+        },
+        {
+          "id": "est",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['estimate_prompt']"
+          },
+          "range": [
+            0,
+            null
+          ],
+          "required": false,
+          "depends_on": [
+            "anch_q.item"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "note": "withheld:549b880e4de5e2cc"
+          },
+          "range_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 2,
+            "note": "withheld:a5b11f6584b4fdd1"
+          }
+        },
+        {
+          "id": "conf",
+          "kind": "scale",
+          "prompt": {
+            "expr": "data['missing']['confidence_prompt']"
+          },
+          "range": [
+            1,
+            10
+          ],
+          "integer": true,
+          "required": false,
+          "anchors_missing": "data.missing.confidence_prompt",
+          "depends_on": [
+            "anch_q.item"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "note": "withheld:6fa8ee31c21b92c9"
+          },
+          "range_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 2,
+            "note": "withheld:d3aa1ee68e2a94a9"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 2,
+        "note": "withheld:1af0e99c9025fd4c"
+      },
+      "note": "'three consecutive questions about each of the 15 quantities' (p. 1162): judgment, estimate, confidence on one stage per quantity (binding q; page layout derived). The anchor shown is data.items[q][low|high] (Table 1) per the per-session anchor draw; it is part of the missing judgment text"
+    }
+  },
+  "flow": [
+    {
+      "if": "arm == 'calib'",
+      "then": [
+        {
+          "for": "q",
+          "in": [
+            "q1",
+            "q2",
+            "q3",
+            "q4",
+            "q5",
+            "q6",
+            "q7",
+            "q8",
+            "q9",
+            "q10",
+            "q11",
+            "q12",
+            "q13",
+            "q14",
+            "q15"
+          ],
+          "do": {
+            "stage": "calib_q"
+          }
+        }
+      ]
+    },
+    {
+      "if": "arm == 'anch'",
+      "then": [
+        {
+          "set": {
+            "dirs": {
+              "expr": "[balanced('dir_' + q, ['low', 'high']) for q in data['item_ids']]"
+            }
+          }
+        },
+        {
+          "for": "q",
+          "in": [
+            "q1",
+            "q2",
+            "q3",
+            "q4",
+            "q5",
+            "q6",
+            "q7",
+            "q8",
+            "q9",
+            "q10",
+            "q11",
+            "q12",
+            "q13",
+            "q14",
+            "q15"
+          ],
+          "do": {
+            "stage": "anch_q"
+          }
+        }
+      ]
+    }
+  ],
+  "flow_cites": {
+    "arms": {
+      "label": "reported",
+      "source": "paper",
+      "page": 2,
+      "note": "withheld:07ac226aa682235c"
+    },
+    "dirs": {
+      "label": "derived",
+      "source": "paper",
+      "page": 3,
+      "note": "withheld:ae1a88c8db7fcf90"
+    },
+    "order": {
+      "label": "reported",
+      "source": "paper",
+      "page": 3,
+      "note": "withheld:e1337880d65d0ab5"
+    }
+  },
+  "units": {
+    "calib_items": {
+      "per": "calib_q",
+      "arms": [
+        "calib"
+      ],
+      "fields": {
+        "q": "q",
+        "est": "answer('calib_q.est', q=q)",
+        "conf": "answer('calib_q.conf', q=q)"
+      },
+      "cites": {
+        "est": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "note": "withheld:495048b006e68c6d"
+        },
+        "conf": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2,
+          "note": "withheld:0ca84425f7904d14"
+        }
+      }
+    },
+    "anch_items": {
+      "per": "anch_q",
+      "arms": [
+        "anch"
+      ],
+      "fields": {
+        "q": "q",
+        "dir": "dirs[data['idx'][q]]",
+        "anchor": "data['items'][q][dirs[data['idx'][q]]]",
+        "judg": "answer('anch_q.judg', q=q)",
+        "est": "answer('anch_q.est', q=q)",
+        "conf": "answer('anch_q.conf', q=q)",
+        "extreme": "None if est is None else ((est > anchor) if dir == 'high' else (est < anchor))",
+        "consistent": "None if est is None or judg is None or est == anchor else ((est > anchor) == (judg == 'gt'))"
+      },
+      "cites": {
+        "judg": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2,
+          "note": "withheld:0f4b9adb37531ab9"
+        },
+        "est": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "note": "withheld:037dee03098f90f2"
+        },
+        "conf": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2,
+          "note": "withheld:0ca84425f7904d14"
+        },
+        "extreme": {
+          "label": "derived",
+          "source": "paper",
+          "page": 3,
+          "note": "withheld:40d03fed3face4c3"
+        },
+        "consistent": {
+          "label": "derived",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:465b9bbf7334167f"
+        },
+        "dir": {
+          "label": "derived",
+          "source": "paper",
+          "page": 3,
+          "note": "withheld:05640905a0c9c2d6"
+        }
+      }
+    },
+    "subj": {
+      "per": "session",
+      "fields": {
+        "arm": "arm",
+        "conf_mean": "mean([answer('calib_q.conf', q=q) for q in data['item_ids']]) if arm == 'calib' else mean([answer('anch_q.conf', q=q) for q in data['item_ids']])",
+        "ext_high": "None if arm != 'anch' else mean([(1 if answer('anch_q.est', q=q) > data['items'][q]['high'] else 0) for q in data['item_ids'] if dirs[data['idx'][q]] == 'high' and answer('anch_q.est', q=q) is not None])",
+        "ext_low": "None if arm != 'anch' else mean([(1 if answer('anch_q.est', q=q) < data['items'][q]['low'] else 0) for q in data['item_ids'] if dirs[data['idx'][q]] == 'low' and answer('anch_q.est', q=q) is not None])"
+      },
+      "cites": {
+        "conf_mean": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:cd999fb10cb578c9"
+        },
+        "ext_high": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "note": "withheld:290d006b4728086e"
+        },
+        "ext_low": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "note": "withheld:45a33afd5279e229"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "omitted": [
+    {
+      "what": "instructions, consent, debriefing, any questionnaire cover page",
+      "why": "not printed",
+      "label": "missing",
+      "cite": {
+        "label": "missing",
+        "source": "paper",
+        "page": 2
+      }
+    },
+    {
+      "what": "the 'close replication' with a discredited anchor and the Green et al. (1995) WTP study (p. 1164)",
+      "why": "other studies, summarised only",
+      "label": "reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4
+      }
+    }
+  ],
+  "analysis": {
+    "targets": [],
+    "effects": [],
+    "blocked_arm_targets": [
+      {
+        "id": "q1_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q1"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 800,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:01612b0f9ffff734"
+          }
+        }
+      },
+      {
+        "id": "q1_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q1",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 300,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:2b21f8e1d3c7ae36"
+          }
+        }
+      },
+      {
+        "id": "q1_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q1",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 1500,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:779b648ce8502ed7"
+          }
+        }
+      },
+      {
+        "id": "q1_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q1",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.1,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:75dc5464bb683fce"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q1_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q1",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.37,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:4427dd7d98d526b7"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q2_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q2"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 12000,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:b14d84945415d3ce"
+          }
+        }
+      },
+      {
+        "id": "q2_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q2",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 8000,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:8ddcbd9b8dd318ef"
+          }
+        }
+      },
+      {
+        "id": "q2_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q2",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 42550,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:53d140c06828c082"
+          }
+        }
+      },
+      {
+        "id": "q2_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q2",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.16,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:299f5c8a68330d1e"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q2_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q2",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.48,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:79044717800bb918"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q3_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q3"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 180,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:1539435cd0298b9c"
+          }
+        }
+      },
+      {
+        "id": "q3_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q3",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 100,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:ff817e6014b56c29"
+          }
+        }
+      },
+      {
+        "id": "q3_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q3",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 500,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:6a50ee906dc457c4"
+          }
+        }
+      },
+      {
+        "id": "q3_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q3",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.1,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:79b514c910517583"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q3_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q3",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.16,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:fbb6bf23cc9c6a4a"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q4_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q4"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 3200,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:dad06195eba61056"
+          }
+        }
+      },
+      {
+        "id": "q4_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q4",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 2600,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:357c4d427bdc8994"
+          }
+        }
+      },
+      {
+        "id": "q4_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q4",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 4000,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:cb4baa8ea7f68d14"
+          }
+        }
+      },
+      {
+        "id": "q4_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q4",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.06,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:e965d4efaf4e9a85"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q4_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q4",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.18,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:ad8200ec9bd5ebe1"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q5_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q5"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 200,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:47f67a61d4afee11"
+          }
+        }
+      },
+      {
+        "id": "q5_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q5",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 100,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:e803474f38273da3"
+          }
+        }
+      },
+      {
+        "id": "q5_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q5",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 400,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:ad4e7001b160298c"
+          }
+        }
+      },
+      {
+        "id": "q5_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q5",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.12,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:5853bb9f4901bc09"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q5_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q5",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.31,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:181799618b1de2b4"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q6_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q6"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 50,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:44417c5023071733"
+          }
+        }
+      },
+      {
+        "id": "q6_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q6",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 26,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:f44c85303e8d3c01"
+          }
+        }
+      },
+      {
+        "id": "q6_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q6",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 100,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:9274c8b634df8ed7"
+          }
+        }
+      },
+      {
+        "id": "q6_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q6",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.2,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:1918ad5408b980e6"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q6_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q6",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.24,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:e99f7f5207bb98d6"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q7_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q7"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 50,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:6babd86905466a82"
+          }
+        }
+      },
+      {
+        "id": "q7_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q7",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 50,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:28bf3e70f9c1dad3"
+          }
+        }
+      },
+      {
+        "id": "q7_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q7",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 95,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:f6994c15723a9aaf"
+          }
+        }
+      },
+      {
+        "id": "q7_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q7",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.18,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:3a0dd1b603bb8065"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q7_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q7",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.28,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:690f4aeb9eb625a3"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q8_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q8"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 1.0,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:d210f61da69527a6"
+          }
+        }
+      },
+      {
+        "id": "q8_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q8",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 0.6,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:856f143c8814d609"
+          }
+        }
+      },
+      {
+        "id": "q8_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q8",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 5.05,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:9b804f299330f338"
+          }
+        }
+      },
+      {
+        "id": "q8_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q8",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.08,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:e682dd97b39f072e"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q8_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q8",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.52,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:95546dc9d25e467f"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q9_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q9"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 1889,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:3e777e760ad808fb"
+          }
+        }
+      },
+      {
+        "id": "q9_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q9",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 1870,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:21ed8d60db65e752"
+          }
+        }
+      },
+      {
+        "id": "q9_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q9",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 1900,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:8d1e8863e3440809"
+          }
+        }
+      },
+      {
+        "id": "q9_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q9",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.28,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:e9bc458ab0057d8c"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q9_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q9",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.08,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:6dd930360480b183"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q10_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q10"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 2000,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:e9c9be0894f4af62"
+          }
+        }
+      },
+      {
+        "id": "q10_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q10",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 1000,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:50db03a7393aa186"
+          }
+        }
+      },
+      {
+        "id": "q10_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q10",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 40000,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:56b0ac5d61411dc1"
+          }
+        }
+      },
+      {
+        "id": "q10_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q10",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.08,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:fa13c46a0e91a592"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q10_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q10",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.42,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:c18326bd780517ac"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q11_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q11"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 18,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:efa5f11f529bf209"
+          }
+        }
+      },
+      {
+        "id": "q11_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q11",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 10,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:758f61cb956b9ceb"
+          }
+        }
+      },
+      {
+        "id": "q11_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q11",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 20,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:6fd2c5277c06e0d8"
+          }
+        }
+      },
+      {
+        "id": "q11_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q11",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.18,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:f0a45c80e714aef9"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q11_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q11",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.2,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:0ee2f2497075a42c"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q12_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q12"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 50,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:74830bc6db3c327b"
+          }
+        }
+      },
+      {
+        "id": "q12_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q12",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 40,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:4feda905abb27460"
+          }
+        }
+      },
+      {
+        "id": "q12_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q12",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 60,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:84221f4110701abb"
+          }
+        }
+      },
+      {
+        "id": "q12_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q12",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.04,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:05b31618f5b26410"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q12_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q12",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.3,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:a2846f74188b5880"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q13_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q13"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 20,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:cf38e587e62eb910"
+          }
+        }
+      },
+      {
+        "id": "q13_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q13",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 20,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:4bb4851a11ae9421"
+          }
+        }
+      },
+      {
+        "id": "q13_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q13",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 40,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:570c0be65385a752"
+          }
+        }
+      },
+      {
+        "id": "q13_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q13",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.14,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:8714cd95b14f192d"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q13_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q13",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.12,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:99130c6d989c60bc"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q14_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q14"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 30,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:e0040a1b8c163a8e"
+          }
+        }
+      },
+      {
+        "id": "q14_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q14",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 30,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:3f69ce1b93876475"
+          }
+        }
+      },
+      {
+        "id": "q14_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q14",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 50,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:b77f42487adcd32a"
+          }
+        }
+      },
+      {
+        "id": "q14_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q14",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.22,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:d07fde63d652a34d"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q14_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q14",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.2,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:743383c999db3283"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q15_calib_median",
+        "unit": "calib_items",
+        "where": {
+          "q": "q15"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 16,
+          "n": 53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:9dde9f68126d79e5"
+          }
+        }
+      },
+      {
+        "id": "q15_low_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q15",
+          "dir": "low"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 16,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:b335e61c9959b7ad"
+          }
+        }
+      },
+      {
+        "id": "q15_high_median",
+        "unit": "anch_items",
+        "where": {
+          "q": "q15",
+          "dir": "high"
+        },
+        "field": "est",
+        "stat": "median",
+        "human": {
+          "value": 16,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:a87d0511769663f3"
+          }
+        }
+      },
+      {
+        "id": "q15_low_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q15",
+          "dir": "low"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.1,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:11508e724b49f08b"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "q15_high_extreme",
+        "unit": "anch_items",
+        "where": {
+          "q": "q15",
+          "dir": "high"
+        },
+        "field": "extreme",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.12,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "read": "image",
+            "note": "withheld:0c96f19af8d3a4a7"
+          }
+        },
+        "scale_note": "percent printed as a whole number; n per anchor not printed"
+      },
+      {
+        "id": "high_anchor_judged_low",
+        "unit": "anch_items",
+        "where": {
+          "dir": "high"
+        },
+        "field": "judg",
+        "stat": "share",
+        "success": "gt",
+        "human": {
+          "value": 0.27,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:56a3c2bfcf534563"
+          }
+        },
+        "role": "descriptive",
+        "reference_mismatch": "the human number is a mean over problems of per-problem extreme-estimate percentages, inferred for judgments; the target is a pooled share of judgments (equal only with equal n per problem x anchor, and n per version is missing)",
+        "scoring": "direction_only",
+        "scale_note": "duplicates the information of the 30 extreme-share targets and the anch_extreme_high_vs_low cells; descriptive so it is not counted twice (fidelity review 1 R1-S1)"
+      },
+      {
+        "id": "low_anchor_judged_high",
+        "unit": "anch_items",
+        "where": {
+          "dir": "low"
+        },
+        "field": "judg",
+        "stat": "share",
+        "success": "lt",
+        "human": {
+          "value": 0.14,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:0fd66ef9b484273f"
+          }
+        },
+        "role": "descriptive",
+        "reference_mismatch": "the human number is a mean over problems of per-problem extreme-estimate percentages, inferred for judgments; the target is a pooled share of judgments (equal only with equal n per problem x anchor, and n per version is missing)",
+        "scoring": "direction_only",
+        "scale_note": "duplicates the information of the 30 extreme-share targets and the anch_extreme_high_vs_low cells; descriptive so it is not counted twice (fidelity review 1 R1-S1)"
+      },
+      {
+        "id": "estimate_consistent_with_judgment",
+        "unit": "anch_items",
+        "field": "consistent",
+        "stat": "share",
+        "success": true,
+        "human": {
+          "value": 0.995,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:098c24758c5288a3"
+          }
+        }
+      }
+    ],
+    "blocked_arm_effects": [
+      {
+        "id": "anch_extreme_high_vs_low",
+        "studyId": "exp1",
+        "role": "test",
+        "unit": "subj",
+        "label": "Anchored subjects: share of estimates more extreme than the anchor, high-anchor quantities minus low-anchor quantities (within subject)",
+        "contrast": {
+          "kind": "paired",
+          "treatment": "ext_high",
+          "reference": "ext_low"
+        },
+        "compute": {
+          "op": "paired_difference",
+          "field": "ext_high",
+          "referenceField": "ext_low",
+          "where": {
+            "arm": "anch"
+          }
+        },
+        "reported": {
+          "cells": {
+            "ext_high": {
+              "mean": 0.27
+            },
+            "ext_low": {
+              "mean": 0.14
+            }
+          },
+          "test": {
+            "statistic": "t",
+            "value": 6.12,
+            "df": 102,
+            "p": 0.001,
+            "pRelation": "<",
+            "type": "paired"
+          },
+          "n": 103,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:daa484956b12c288"
+          }
+        }
+      },
+      {
+        "id": "conf_anch_vs_calib",
+        "studyId": "exp1",
+        "role": "test",
+        "unit": "subj",
+        "label": "Mean confidence rating: anchored group minus calibration group",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "anch",
+          "reference": "calib"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "conf_mean",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "anch": {
+              "n": 103,
+              "mean": 3.85
+            },
+            "calib": {
+              "n": 53,
+              "mean": 2.99
+            }
+          },
+          "test": {
+            "statistic": "t",
+            "value": 3.53,
+            "df": 154,
+            "p": 0.001,
+            "pRelation": "<"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:3bcb3e8c51802b82"
+          }
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "what": "transformed (percentile) estimates, high vs low anchors: medians 76 vs 36, t(102) = 7.99, p < .01 (p. 1163); Table 1 'Transformed Medians'",
+        "why": "needs each anchored estimate converted to its percentile in the calibration group's distribution (a cross-arm transform; ties/out-of-range rules: 'assigned values of 100 or 0', p. 1162); the engine has no such unit field (meta.engine_requests.calibration_percentile)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image"
+        }
+      },
+      {
+        "what": "Anchoring Index per problem (Table 1) and its means: overall .49, high .51, low .40 (p. 1163); highly-confident quartile AI .28 (p. 1165)",
+        "why": "a ratio of group medians and anchors: covered by the median targets (AI = (Mdn high - Mdn low) / (high - low), reproduced from the printed medians to 2 places by build_protocol.py); not a separate scored quantity. The confident-quartile AI needs a per-problem 25% split on confidence",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "read": "image"
+        }
+      },
+      {
+        "what": "mean point-biserial correlation of estimate and anchor over the 15 problems, .42 (p. 1163)",
+        "why": "an average of 15 item-level correlations (item-level aggregate; engine request item_aggregates)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3
+        }
+      },
+      {
+        "what": "correlation between AI and mean calibration confidence over the 15 problems, -.68, p < .05 (p. 1165)",
+        "why": "a correlation across items (n = 15) of item-level statistics (engine request item_aggregates)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5
+        }
+      },
+      {
+        "what": "mean within-problem correlation of transformed estimate and confidence: -.14 for high anchors (t(14) = 2.37, p < .05), .27 for low anchors (t(14) = 4.80, p < .001) (p. 1165)",
+        "why": "needs the percentile transform and item-level aggregation (engine requests)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5
+        }
+      },
+      {
+        "what": "confident vs less confident subjects' medians closer to the truth on 8 of 15 problems, farther on 5, equal on 2 (p. 1165)",
+        "why": "needs the true values (not given in the paper) and a per-problem confidence split",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5
+        }
+      },
+      {
+        "what": "the 'close replication ... with an added manipulation intended to discredit' the anchor (28% / 15%) and Green, Jacowitz, Kahneman & McFadden (1995) WTP study (p. 1164)",
+        "why": "other experiments, only summarised here; not part of this paper's study (the legacy build's exp_2_discredited_anchor / exp_3_wtp_estimation were dropped)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4
+        }
+      }
+    ]
+  },
+  "keyed": {
+    "why": "paper's pattern (scratch unblocked copy only; both arms blocked): high anchors judged low and exceeded more often than low anchors are undershot; estimates follow the judgment; anchored subjects more confident",
+    "answers": {
+      "calib_q.est": "data['items'][q]['calib_median']",
+      "calib_q.conf": "choice([2, 3])",
+      "anch_q.judg": "'gt' if ((1.2 if data['idx'][q] % 3 else 0.9) if dirs[data['idx'][q]] == 'high' else (0.8 if data['idx'][q] % 3 == 0 else 1.2)) > 1 else 'lt'",
+      "anch_q.est": "data['items'][q][dirs[data['idx'][q]]] * ((1.2 if data['idx'][q] % 3 else 0.9) if dirs[data['idx'][q]] == 'high' else (0.8 if data['idx'][q] % 3 == 0 else 1.2))",
+      "anch_q.conf": "choice([4, 5])"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {
+      "h1": {
+        "path": "/data/items/q1/table_label",
+        "source": "paper",
+        "kind": "text",
+        "length": 38,
+        "text_sha256": "d28a5744bf76c54b1f17041ca928b20509db92fcf24f20e0ea0d724a3aaef501",
+        "locator": {
+          "format": "image_reading",
+          "page": 3
+        }
+      },
+      "h2": {
+        "path": "/data/items/q2/table_label",
+        "source": "paper",
+        "kind": "text",
+        "length": 33,
+        "text_sha256": "96981fd444c1092f7da27678a6a60942c6fa6173712636dcfaa4ffd2d3055760",
+        "locator": {
+          "format": "image_reading",
+          "page": 3
+        }
+      },
+      "h3": {
+        "path": "/data/items/q3/table_label",
+        "source": "paper",
+        "kind": "text",
+        "length": 61,
+        "text_sha256": "90f0d6efe517b03adbba1a8c40b54983c9053c5b1c8205a15be2016912c88e3c",
+        "locator": {
+          "format": "image_reading",
+          "page": 3
+        }
+      },
+      "h4": {
+        "path": "/data/items/q4/table_label",
+        "source": "paper",
+        "kind": "text",
+        "length": 55,
+        "text_sha256": "8355a09c77f3ffd3b52784888bfffc31623700566603f34e56f53cab3c0da668",
+        "locator": {
+          "format": "image_reading",
+          "page": 3
+        }
+      },
+      "h5": {
+        "path": "/data/items/q5/table_label",
+        "source": "paper",
+        "kind": "text",
+        "length": 35,
+        "text_sha256": "53e3dd2589bb41377bd865fd983d61731761809f5c2aa7f385be9565c407cbea",
+        "locator": {
+          "format": "image_reading",
+          "page": 3
+        }
+      },
+      "h7": {
+        "path": "/data/items/q7/table_label",
+        "source": "paper",
+        "kind": "text",
+        "length": 69,
+        "text_sha256": "c78afb230c19c041e7ba96fa59af737333796eabf39bdfce12c0ae0178f7e406",
+        "locator": {
+          "format": "image_reading",
+          "page": 3
+        }
+      },
+      "h10": {
+        "path": "/data/items/q10/table_label",
+        "source": "paper",
+        "kind": "text",
+        "length": 58,
+        "text_sha256": "7069924a98585f0406c15bfedbdec68f3a5df5b11f4b1b28e36adb48541e6b23",
+        "locator": {
+          "format": "image_reading",
+          "page": 3
+        }
+      },
+      "h11": {
+        "path": "/data/items/q11/table_label",
+        "source": "paper",
+        "kind": "text",
+        "length": 46,
+        "text_sha256": "2f5d78f398de285e8a82b7a57b1d1e57eed4eb11416b35ab3242717e787954cd",
+        "locator": {
+          "format": "image_reading",
+          "page": 3
+        }
+      },
+      "h12": {
+        "path": "/data/items/q12/table_label",
+        "source": "paper",
+        "kind": "text",
+        "length": 61,
+        "text_sha256": "8351187bc531286114c8a20333f20be6d2baead6631555fea64b837eb9aa0883",
+        "locator": {
+          "format": "image_reading",
+          "page": 3
+        }
+      },
+      "h13": {
+        "path": "/data/items/q13/table_label",
+        "source": "paper",
+        "kind": "text",
+        "length": 30,
+        "text_sha256": "6675cb71c19c09f5a39a8c29719dcc07a90d829c7eeabb011e86f7b831bf4e30",
+        "locator": {
+          "format": "image_reading",
+          "page": 3
+        }
+      },
+      "h14": {
+        "path": "/data/items/q14/table_label",
+        "source": "paper",
+        "kind": "text",
+        "length": 55,
+        "text_sha256": "b964532f45db01c36051446e85c05c1ed9e5388589e0662b0b92b6bced4384e5",
+        "locator": {
+          "format": "image_reading",
+          "page": 3
+        }
+      }
+    },
+    "strict": false,
+    "attribution": []
+  },
+  "schema_version": "1"
+}

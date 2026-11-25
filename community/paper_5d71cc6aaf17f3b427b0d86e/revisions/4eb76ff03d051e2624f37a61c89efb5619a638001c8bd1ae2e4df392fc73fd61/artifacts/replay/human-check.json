@@ -1,0 +1,58 @@
+{
+  "package": "tesslerfranke2018",
+  "sessions": 826,
+  "valid": 826,
+  "arms": [
+    "exp1",
+    "exp2-lexical-multiple",
+    "exp2-lexical-single",
+    "exp2-morphological-multiple",
+    "exp2-morphological-single"
+  ],
+  "notMapped": [],
+  "exclusions": "Participants whose self-reported native language (subject_information 'language') is not an English variant are dropped (paper: Exp1 6 of 120, Exp2 35 of 750). Blank / 'n/a' answers and mixed answers ('spanish & english') count as not English; typos of 'english' are kept. This gives 7 (Exp1) and 37 (Exp2) exclusions, not exactly the paper's counts, because the paper does not list its coding.",
+  "effects": [
+    {
+      "id": "exp1_interaction",
+      "label": "Exp1: antonym-vs-negated-positive contrast, morphological minus lexical (lexical antonyms lower)",
+      "estimate": 0.0581858407079646,
+      "p": 3.5505434756443716e-05,
+      "reported": null
+    },
+    {
+      "id": "exp2_interaction_single",
+      "label": "Exp2 single: morphological minus lexical contrast",
+      "estimate": 0.0219431125391333,
+      "p": 0.0062364357694643865,
+      "reported": null
+    },
+    {
+      "id": "exp2_morphological_vs_negated_positive",
+      "label": "Exp2 single, morphological: negated positive minus antonym (paper: ~0)",
+      "estimate": -0.00028835063437139595,
+      "p": 0.9562029597193646,
+      "reported": null
+    },
+    {
+      "id": "exp2_lexical_vs_negated_positive",
+      "label": "Exp2 single, lexical: negated positive minus antonym (lexical more negative)",
+      "estimate": 0.02165476190476191,
+      "p": 0.0003884466236770014,
+      "reported": null
+    },
+    {
+      "id": "exp2_context_morphological",
+      "label": "Exp2 morphological: multiple-context makes antonym lower than single (single minus multiple contrast)",
+      "estimate": 0.06294093279399582,
+      "p": 8.781188972273434e-10,
+      "reported": null
+    },
+    {
+      "id": "exp2_three_way",
+      "label": "Exp2 three-way: context effect larger for morphological than lexical",
+      "estimate": 0.023954533611744547,
+      "p": 0.13470783194258273,
+      "reported": null
+    }
+  ]
+}

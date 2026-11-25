@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "706a1e7bdffb5fe0687ab63e7d02a7a49f1bf7f67c4e7154ba47b452d52ac8b7",
-  "previousRevision": null,
+  "revision": "0d27d102c28348686296dfd20c4cb6be8ec4b268dffe00ca7fe37588df38617b",
+  "previousRevision": "706a1e7bdffb5fe0687ab63e7d02a7a49f1bf7f67c4e7154ba47b452d52ac8b7",
   "paper": {
     "title": "The risk elicitation puzzle revisited: Across-methods (in)consistency?",
     "authors": [
@@ -33,43 +33,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "706a1e7bdffb5fe0687ab63e7d02a7a49f1bf7f67c4e7154ba47b452d52ac8b7",
-    "reviewer": "independent-agent:program_pilot_aiyer",
-    "reason": "Independent reading-layer review and public-export checks completed; source-backed summaries and explicit missing items retained. No protocol or raw source files are distributed.",
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Reading Program, reported findings, source references and public-content boundaries only. Not a Validated protocol or replication of human outcomes.",
-    "sourcePolicy": {
-      "publicFiles": [
-        "program.json"
-      ],
-      "sourceCredits": [
-        {
-          "title": "The risk elicitation puzzle revisited: Across-methods (in)consistency?",
-          "authors": [
-            "Felix Holzmeister",
-            "Matthias Stefan"
-          ],
-          "url": "https://doi.org/10.1007/s10683-020-09674-8",
-          "license": "CC-BY-4.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-          "attribution": "Felix Holzmeister; Matthias Stefan. The risk elicitation puzzle revisited: Across-methods (in)consistency? (2021).",
-          "changes": "Existing source-linked reading organized into scholarly Program; original source and protocol unchanged."
-        }
-      ],
-      "inputExportSha256": "6f7e67e11be142c5c2b43bd2813ed32e4e5df60c17402dd492778114639cbc03"
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Some held texts cannot be restored by the app (a picture, a file the researcher must supply, or text that cannot be located): the researcher pastes or captures them before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "0d27d102c28348686296dfd20c4cb6be8ec4b268dffe00ca7fe37588df38617b"
   },
   "validation": {
     "status": "passed",
@@ -77,7 +51,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -85,9 +59,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "bb61f0da12a60889d6c02712a4fe5bb0ed7332da5b50dacee362735f4e9b6c1c"
+    "protocolSha256": "f27c7ee59a0c6553a760f3a66fe7bf4a5d26ae639092226991126c2a74717c8c"
   }
 }

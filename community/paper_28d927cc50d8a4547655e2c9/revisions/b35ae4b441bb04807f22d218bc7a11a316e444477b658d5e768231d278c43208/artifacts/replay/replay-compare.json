@@ -1,0 +1,574 @@
+{
+  "package": "thomas2014",
+  "source": "study_core.py reproduce (method package, effects.json) on the pinned human data",
+  "humanSessions": 579,
+  "sample": "replication",
+  "tolerance": "a result is recovered when |computed - reported| <= max(0.05, 0.15 * |reported|)",
+  "humanMatchesPaper": [
+    1,
+    4
+  ],
+  "checks": [
+    {
+      "id": "exp1_knowledge_all_pay1",
+      "label": "Experiment 1: knowledge level (all four) and working together, $1 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_knowledge_all_pay2",
+      "label": "Experiment 1: knowledge level (all four) and working together, $2 payoff",
+      "role": "test",
+      "reported": 0.48,
+      "human": 0.245352,
+      "human_p": 0.00187835,
+      "basis": "computed cramers_v compared as reported phi: for a k x 2 table Cramer's V = sqrt(chi2 / N), which is the paper's phi = sqrt(chi2 / N) (Table note: chi-square of proportions, df 3)",
+      "humanMatchesPaper": false
+    },
+    {
+      "id": "exp1_knowledge_all_pay5",
+      "label": "Experiment 1: knowledge level (all four) and working together, $5 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_knowledge_all_pay10",
+      "label": "Experiment 1: knowledge level (all four) and working together, $10 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_secondary_vs_primary_pay1",
+      "label": "Experiment 1: secondary vs primary knowledge, working together, $1 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_secondary_vs_primary_pay2",
+      "label": "Experiment 1: secondary vs primary knowledge, working together, $2 payoff",
+      "role": "test",
+      "reported": 0.42,
+      "human": 0.0481345,
+      "human_p": 0.602607,
+      "basis": "same metric (phi)",
+      "humanMatchesPaper": false
+    },
+    {
+      "id": "exp1_secondary_vs_primary_pay5",
+      "label": "Experiment 1: secondary vs primary knowledge, working together, $5 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_secondary_vs_primary_pay10",
+      "label": "Experiment 1: secondary vs primary knowledge, working together, $10 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_tertiary_vs_secondary_pay1",
+      "label": "Experiment 1: tertiary vs secondary knowledge, working together, $1 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_tertiary_vs_secondary_pay2",
+      "label": "Experiment 1: tertiary vs secondary knowledge, working together, $2 payoff",
+      "role": "test",
+      "reported": 0.07,
+      "human": 0.113497,
+      "human_p": 0.206283,
+      "basis": "same metric (phi)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "exp1_tertiary_vs_secondary_pay5",
+      "label": "Experiment 1: tertiary vs secondary knowledge, working together, $5 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_tertiary_vs_secondary_pay10",
+      "label": "Experiment 1: tertiary vs secondary knowledge, working together, $10 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_common_vs_tertiary_pay1",
+      "label": "Experiment 1: common vs tertiary knowledge, working together, $1 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_common_vs_tertiary_pay2",
+      "label": "Experiment 1: common vs tertiary knowledge, working together, $2 payoff",
+      "role": "test",
+      "reported": 0.26,
+      "human": 0.159728,
+      "human_p": 0.0675239,
+      "basis": "same metric (phi)",
+      "humanMatchesPaper": false
+    },
+    {
+      "id": "exp1_common_vs_tertiary_pay5",
+      "label": "Experiment 1: common vs tertiary knowledge, working together, $5 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_common_vs_tertiary_pay10",
+      "label": "Experiment 1: common vs tertiary knowledge, working together, $10 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_knowledge_all_pay1",
+      "label": "Experiment 2: knowledge level (all four) and working together, $1 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_knowledge_all_pay2",
+      "label": "Experiment 2: knowledge level (all four) and working together, $2 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_knowledge_all_pay5",
+      "label": "Experiment 2: knowledge level (all four) and working together, $5 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_knowledge_all_pay10",
+      "label": "Experiment 2: knowledge level (all four) and working together, $10 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_secondary_vs_primary_pay1",
+      "label": "Experiment 2: secondary vs primary knowledge, working together, $1 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_secondary_vs_primary_pay2",
+      "label": "Experiment 2: secondary vs primary knowledge, working together, $2 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_secondary_vs_primary_pay5",
+      "label": "Experiment 2: secondary vs primary knowledge, working together, $5 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_secondary_vs_primary_pay10",
+      "label": "Experiment 2: secondary vs primary knowledge, working together, $10 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_tertiary_vs_secondary_pay1",
+      "label": "Experiment 2: tertiary vs secondary knowledge, working together, $1 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_tertiary_vs_secondary_pay2",
+      "label": "Experiment 2: tertiary vs secondary knowledge, working together, $2 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_tertiary_vs_secondary_pay5",
+      "label": "Experiment 2: tertiary vs secondary knowledge, working together, $5 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_tertiary_vs_secondary_pay10",
+      "label": "Experiment 2: tertiary vs secondary knowledge, working together, $10 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_common_vs_tertiary_pay1",
+      "label": "Experiment 2: common vs tertiary knowledge, working together, $1 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_common_vs_tertiary_pay2",
+      "label": "Experiment 2: common vs tertiary knowledge, working together, $2 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_common_vs_tertiary_pay5",
+      "label": "Experiment 2: common vs tertiary knowledge, working together, $5 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_common_vs_tertiary_pay10",
+      "label": "Experiment 2: common vs tertiary knowledge, working together, $10 payoff",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_common_vs_tertiary",
+      "label": "Experiment 3: common vs tertiary knowledge, working together",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_secondary_vs_primary",
+      "label": "Experiment 3: secondary vs primary knowledge, working together",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_tertiary_vs_secondary",
+      "label": "Experiment 3: tertiary vs secondary knowledge, working together",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_payoff_within_primary",
+      "label": "Experiment 1: payoff ($1/$2/$5/$10) and working together within primary knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_payoff_within_secondary",
+      "label": "Experiment 1: payoff ($1/$2/$5/$10) and working together within secondary knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_payoff_within_tertiary",
+      "label": "Experiment 1: payoff ($1/$2/$5/$10) and working together within tertiary knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp1_payoff_within_common",
+      "label": "Experiment 1: payoff ($1/$2/$5/$10) and working together within common knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_payoff_within_primary",
+      "label": "Experiment 2: payoff ($1/$2/$5/$10) and working together within primary knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_payoff_within_secondary",
+      "label": "Experiment 2: payoff ($1/$2/$5/$10) and working together within secondary knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_payoff_within_tertiary",
+      "label": "Experiment 2: payoff ($1/$2/$5/$10) and working together within tertiary knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp2_payoff_within_common",
+      "label": "Experiment 2: payoff ($1/$2/$5/$10) and working together within common knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "a row or column of the table is empty",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_errors_tertiary_vs_primary",
+      "label": "Experiment 3: knowledge-level report errors, tertiary vs primary knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no Experiment 3 sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_errors_tertiary_vs_secondary",
+      "label": "Experiment 3: knowledge-level report errors, tertiary vs secondary knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no Experiment 3 sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_errors_tertiary_vs_common",
+      "label": "Experiment 3: knowledge-level report errors, tertiary vs common knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no Experiment 3 sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_errors_common_vs_secondary",
+      "label": "Experiment 3: knowledge-level report errors, common vs secondary knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no Experiment 3 sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_tertiary_as_secondary_vs_common",
+      "label": "Experiment 3: tertiary knowledge mistaken for secondary vs for common knowledge",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no Experiment 3 sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_similarity_manipulation",
+      "label": "Experiment 3: perceived similarity, Similar vs Dissimilar partner (manipulation check)",
+      "role": "check",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no Experiment 3 sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_similarity_decision",
+      "label": "Experiment 3: perceived similarity and working together (logistic, Wald)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no Experiment 3 sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_agreeableness_interaction",
+      "label": "Experiment 3: knowledge x Agreeableness interaction on working together (logistic, Wald)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "The 50 Big Five items, response scale and scoring are not in the paper (issues iss_e3_big5, iss_e3_big5score); Agreeableness and Openness cannot be measured.",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_agreeableness_secondary",
+      "label": "Experiment 3: Agreeableness, worked together vs alone, secondary knowledge (post-hoc t)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "The 50 Big Five items, response scale and scoring are not in the paper (issues iss_e3_big5, iss_e3_big5score); Agreeableness and Openness cannot be measured.",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_agreeableness_tertiary",
+      "label": "Experiment 3: Agreeableness, worked together vs alone, tertiary knowledge (post-hoc t)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "The 50 Big Five items, response scale and scoring are not in the paper (issues iss_e3_big5, iss_e3_big5score); Agreeableness and Openness cannot be measured.",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_openness_interaction",
+      "label": "Experiment 3: knowledge x Openness interaction on working together (logistic, Wald)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "The 50 Big Five items, response scale and scoring are not in the paper (issues iss_e3_big5, iss_e3_big5score); Agreeableness and Openness cannot be measured.",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_openness_secondary",
+      "label": "Experiment 3: Openness, worked together vs alone, secondary knowledge (post-hoc t)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "The 50 Big Five items, response scale and scoring are not in the paper (issues iss_e3_big5, iss_e3_big5score); Agreeableness and Openness cannot be measured.",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "exp3_openness_tertiary",
+      "label": "Experiment 3: Openness, worked together vs alone, tertiary knowledge (post-hoc t)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "The 50 Big Five items, response scale and scoring are not in the paper (issues iss_e3_big5, iss_e3_big5score); Agreeableness and Openness cannot be measured.",
+      "humanMatchesPaper": null
+    }
+  ],
+  "agent": "The AI-participant results of the earlier pilot replay were removed: they were computed with an earlier evaluation and effect list. Run a replay to compare AI participants with these results."
+}

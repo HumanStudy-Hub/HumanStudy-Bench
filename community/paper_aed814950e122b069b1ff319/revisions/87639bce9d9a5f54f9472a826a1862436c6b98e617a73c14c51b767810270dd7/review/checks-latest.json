@@ -1,0 +1,165 @@
+{
+  "protocol_sha256": "ff7e4df3c20a4bc6dd5f52f70d65e7ba0014e770e5a9c814516ca312b8b6ab67",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 7000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [
+      "p10",
+      "p57_told"
+    ],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 0.0,
+    "population_excluded_sessions": {},
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "framing_lives",
+        "human": 0.5,
+        "keyed": 0.575,
+        "same_sign": true
+      },
+      {
+        "effect": "dominance_violation",
+        "human": 0.73,
+        "keyed": 0.76,
+        "same_sign": true
+      },
+      {
+        "effect": "mental_account_ticket",
+        "human": 0.42,
+        "keyed": 0.4,
+        "same_sign": true
+      },
+      {
+        "effect": "w_certainty_effect",
+        "human": 0.298,
+        "keyed": 0.285,
+        "same_sign": true
+      },
+      {
+        "effect": "w_pseudocertainty_effect",
+        "human": 0.302,
+        "keyed": 0.325,
+        "same_sign": true
+      },
+      {
+        "effect": "w_two_stage_vs_one_stage",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [
+      {
+        "source": "paper",
+        "pattern": "\\s*\\[\\d{1,3} percent\\]$",
+        "lines_changed": 0
+      }
+    ],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "paper"
+    ]
+  },
+  "reading_annotations": [
+    {
+      "source": "paper",
+      "pattern": "\\s*\\[\\d{1,3} percent\\]$",
+      "lines_changed": 0
+    }
+  ],
+  "coding": {},
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [],
+  "printed_item_tests": [],
+  "second_readings": [],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "p1_program_A",
+      "agent": 0.4670846394984326,
+      "n_agent": 957,
+      "k_agent": 447,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.72
+    },
+    {
+      "id": "p2_program_C",
+      "agent": 0.4910432033719705,
+      "n_agent": 949,
+      "k_agent": 466,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.22
+    },
+    {
+      "id": "p3_A",
+      "agent": 0.5021052631578947,
+      "n_agent": 950,
+      "k_agent": 477,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.84
+    }
+  ],
+  "effect_dropout_random": {
+    "w_certainty_effect": 0.866,
+    "w_two_stage_vs_one_stage": 0.866,
+    "w_pseudocertainty_effect": 0.864,
+    "dominance_violation": 0.733,
+    "mental_account_ticket": 0.731,
+    "framing_lives": 0.728
+  },
+  "PASS": true
+}

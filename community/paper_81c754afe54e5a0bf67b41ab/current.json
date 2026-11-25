@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "f931709f412efcdb90aaeca9cb5807827d145d6004077a6b1962e6fc5bcce57b",
-  "previousRevision": "aafd20a5b54edae7df87c609806d3ecdda6d2cba4d6043b98fa8d77f038a53fe",
+  "revision": "0705786b7c949c943b048a21072e908f7cd30f86ce638c1af38ac36b1a430861",
+  "previousRevision": "f931709f412efcdb90aaeca9cb5807827d145d6004077a6b1962e6fc5bcce57b",
   "paper": {
     "title": "Fighting COVID-19 Misinformation on Social Media: Experimental Evidence for a Scalable Accuracy-Nudge Intervention",
     "authors": [
@@ -35,40 +35,24 @@
   "capabilities": {
     "discoverable": true,
     "traceable": false,
-    "reanalyzable": true,
+    "reanalyzable": false,
     "replayable": true,
     "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "f931709f412efcdb90aaeca9cb5807827d145d6004077a6b1962e6fc5bcce57b",
-    "reviewer": "maintainer:assassin808",
-    "reason": "Audit 1 (desktop #57). m_headlines.items and m_s2_pretest.headlines relabelled 'derived' (veracity labels added; pretest headlines read from images in the Study 2 materials); m_covid_q and m_s2_pretest.question now hold the exact printed wording. Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
-    "checks": [
-      "check_program.py --complete",
-      "check_quotes.py against the paper and the cited supplements",
-      "effects.py check",
-      "study_core.py reproduce with effects.json on the pinned human data: pass [7, 7]",
-      "capabilities.py recomputed and --check",
-      "check_package.py",
-      "agent export self-test",
-      "audit.py (audit book 0.1) before and after",
-      "schema, package bindings and effects.json (validate_assets)"
-    ],
-    "verifiedCapabilities": {
-      "discoverable": true,
-      "traceable": false,
-      "reanalyzable": true,
-      "replayable": true,
-      "humanBenchmark": true
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Some held texts cannot be restored by the app (a picture, a file the researcher must supply, or text that cannot be located): the researcher pastes or captures them before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "0705786b7c949c943b048a21072e908f7cd30f86ce638c1af38ac36b1a430861"
   },
   "validation": {
     "status": "passed",
     "errors": [],
+    "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": true,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -76,9 +60,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "124ce8f602edece98ef7be1cdd8d63bbee221d3c7f7516be690191c48308d4c2"
+    "protocolSha256": "a26cba9409d4c9afb6ee513c217c8d4428502d0456180139c13d560b626faca1"
   }
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "c994ec2bcd5344dc83d13962dc918498bdcf85c9ddc95849e543d3c9bb088d4c",
-  "previousRevision": "b6840a3ba88663bc6702a0a09d9828a3d4a234d504606f35c108de240ec89f44",
+  "revision": "3d362d5b960966b7e7724198b62459e9091f07fe7bf6ca95a6ee950feb73e24e",
+  "previousRevision": "c994ec2bcd5344dc83d13962dc918498bdcf85c9ddc95849e543d3c9bb088d4c",
   "paper": {
     "title": "Large language models show amplified cognitive biases in moral decision-making",
     "authors": [
@@ -33,40 +33,36 @@
   "capabilities": {
     "discoverable": true,
     "traceable": false,
-    "reanalyzable": true,
+    "reanalyzable": false,
     "replayable": true,
     "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "c994ec2bcd5344dc83d13962dc918498bdcf85c9ddc95849e543d3c9bb088d4c",
-    "reviewer": "maintainer:assassin808",
-    "reason": "Audit 1 (desktop #57). Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
-    "checks": [
-      "check_program.py --complete",
-      "check_quotes.py against the paper and the cited supplements",
-      "effects.py check",
-      "study_core.py reproduce with effects.json on the pinned human data: pass [3, 3]",
-      "capabilities.py recomputed and --check",
-      "check_package.py",
-      "agent export self-test",
-      "audit.py (audit book 0.1) before and after",
-      "schema, package bindings and effects.json (validate_assets)"
-    ],
-    "verifiedCapabilities": {
-      "discoverable": true,
-      "traceable": false,
-      "reanalyzable": true,
-      "replayable": true,
-      "humanBenchmark": true
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Every held text is restored on the researcher's computer from their copy of the source, by its hash.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "3d362d5b960966b7e7724198b62459e9091f07fe7bf6ca95a6ee950feb73e24e"
   },
   "validation": {
     "status": "passed",
     "errors": [],
+    "warnings": [
+      "effects.json: program analysis a1_corr is not reachable from any hypothesis or effect",
+      "effects.json: program condition c2_p_exp_adv is not reachable from any hypothesis or effect",
+      "effects.json: program condition c2_p_exp_part is not reachable from any hypothesis or effect",
+      "effects.json: program condition c3_p_adv is not reachable from any hypothesis or effect",
+      "effects.json: program result r1_corr is not reachable from any hypothesis or effect",
+      "effects.json: program variable v1_agent is not reachable from any hypothesis or effect",
+      "effects.json: program variable v1_framing is not reachable from any hypothesis or effect",
+      "effects.json: program variable v2_agent is not reachable from any hypothesis or effect",
+      "effects.json: program variable v2_om is not reachable from any hypothesis or effect",
+      "effects.json: program variable v2_yn is not reachable from any hypothesis or effect",
+      "effects.json: program variable v3_fr is not reachable from any hypothesis or effect"
+    ],
     "checks": {
       "schema": true,
-      "packageBindings": true,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -74,9 +70,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "c64ea131fd9cdb309b7851f6627d63240318d654f5222a41695680875a376329"
+    "protocolSha256": "34a9ef676e1e44111e2eaaabd98a396a947353bba27b2a340fed854d5d10bbee"
   }
 }

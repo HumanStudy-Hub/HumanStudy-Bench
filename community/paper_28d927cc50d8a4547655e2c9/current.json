@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "02a08e8a867ee34f2c902a07183766edb4d51b5f16ac50acd83f3762389c72bb",
-  "previousRevision": "705f47727844fd0d6d4930f96e307f75831c65f21995e9b20cac287cc5cb593f",
+  "revision": "b35ae4b441bb04807f22d218bc7a11a316e444477b658d5e768231d278c43208",
+  "previousRevision": "02a08e8a867ee34f2c902a07183766edb4d51b5f16ac50acd83f3762389c72bb",
   "paper": {
     "title": "The Psychology of Coordination and Common Knowledge",
     "authors": [
@@ -35,40 +35,42 @@
   "capabilities": {
     "discoverable": true,
     "traceable": false,
-    "reanalyzable": true,
+    "reanalyzable": false,
     "replayable": true,
     "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "02a08e8a867ee34f2c902a07183766edb4d51b5f16ac50acd83f3762389c72bb",
-    "reviewer": "maintainer:assassin808",
-    "reason": "Audit 1 (desktop #57). mat_comp.payoff-set and know-set relabelled 'derived' (question texts are word for word from the survey, with numbering, a source prefix and summarised answer options added). Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
-    "checks": [
-      "check_program.py --complete",
-      "check_quotes.py against the paper and the cited supplements",
-      "effects.py check",
-      "study_core.py reproduce with effects.json on the pinned human data: partial [1, 4]",
-      "capabilities.py recomputed and --check",
-      "check_package.py",
-      "agent export self-test",
-      "audit.py (audit book 0.1) before and after",
-      "schema, package bindings and effects.json (validate_assets)"
-    ],
-    "verifiedCapabilities": {
-      "discoverable": true,
-      "traceable": false,
-      "reanalyzable": true,
-      "replayable": true,
-      "humanBenchmark": true
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Some held texts cannot be restored by the app (a picture, a file the researcher must supply, or text that cannot be located): the researcher pastes or captures them before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "b35ae4b441bb04807f22d218bc7a11a316e444477b658d5e768231d278c43208"
   },
   "validation": {
     "status": "passed",
     "errors": [],
+    "warnings": [
+      "effects.json: effect exp2_payoff_within_primary: the paper reports no number for it (reported is null)",
+      "effects.json: effect exp2_payoff_within_secondary: the paper reports no number for it (reported is null)",
+      "effects.json: effect exp2_payoff_within_tertiary: the paper reports no number for it (reported is null)",
+      "effects.json: effect exp2_payoff_within_common: the paper reports no number for it (reported is null)",
+      "effects.json: program analysis an_eff_e1 is not reachable from any hypothesis or effect",
+      "effects.json: program analysis an_eff_e2 is not reachable from any hypothesis or effect",
+      "effects.json: program variable cov_other_e3 is not reachable from any hypothesis or effect",
+      "effects.json: program variable dv_eff_e1 is not reachable from any hypothesis or effect",
+      "effects.json: program variable dv_eff_e2 is not reachable from any hypothesis or effect",
+      "effects.json: program variable iv_kn_e1 is not reachable from any hypothesis or effect",
+      "effects.json: program variable iv_kn_e2 is not reachable from any hypothesis or effect",
+      "effects.json: program variable iv_kn_e3 is not reachable from any hypothesis or effect",
+      "effects.json: program variable iv_pay_e1 is not reachable from any hypothesis or effect",
+      "effects.json: program variable iv_pay_e2 is not reachable from any hypothesis or effect",
+      "effects.json: program variable iv_sim_e3 is not reachable from any hypothesis or effect",
+      "effects.json: program condition pc_2_e3 is not reachable from any hypothesis or effect",
+      "effects.json: program result res_eff_e1 is not reachable from any hypothesis or effect"
+    ],
     "checks": {
       "schema": true,
-      "packageBindings": true,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -76,9 +78,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "75d3b89dbd2a87d00ae365ab0bc26b2d93fa986602dda5361ce09d16882be58c"
+    "protocolSha256": "7fe46922bd170025aed374af04742304ec3ab9f7811134d1ac5df10c86d55e69"
   }
 }

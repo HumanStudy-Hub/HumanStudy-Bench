@@ -1,0 +1,1610 @@
+{
+  "id": "wiegmann2023lying",
+  "schema": "hsenv-protocol/0.1",
+  "meta": {
+    "citation": "Wiegmann, A. (2023). Does lying require objective falsity? Synthese, 202, 52. https://doi.org/10.1007/s11229-023-04291-3",
+    "doi": "10.1007/s11229-023-04291-3",
+    "language": "en",
+    "licence": "CC BY 4.0 (paper, printed p. 20); no other source",
+    "sources": {
+      "tt2021": {
+        "file": null,
+        "url": "https://osf.io/download/5f2e058c021ce20061f40f10/",
+        "doi": "10.1007/s11229-018-02062-z",
+        "sha256": "ee6903a20c0127cddd889e955e9dabbe5adf6a6965a95c5e4c5e0ca6637f54fd",
+        "licence": "none printed in the 40-page PDF; OSF licence record 'No license' (copyright Angelo Turri and John Turri, 2020), checked 2026-11-10; the fidelity review reported CC0 1.0: not confirmed",
+        "what": "Turri & Turri, 'Lying, Fast and Slow' (preprint; Exp. 2 materials p. 12, Exp. 3 p. 17, rotation p. 13/17): corroboration only, nothing served or verbatim-cited; no sourcetext",
+        "distribution": {
+          "tier": "link",
+          "licence": "none stated (OSF 'No license'; CC0 reported by a reviewer, unconfirmed)",
+          "url": "https://osf.io/download/5f2e058c021ce20061f40f10/",
+          "sha256": "ee6903a20c0127cddd889e955e9dabbe5adf6a6965a95c5e4c5e0ca6637f54fd",
+          "format": "pdf"
+        }
+      },
+      "paper": {
+        "file": "sources/bundle/paper/paper.pdf",
+        "url": "https://hss-opus.ub.ruhr-uni-bochum.de/opus4/files/14066/WiegmannAlex.pdf",
+        "doi": "10.1007/s11229-023-04291-3",
+        "sha256": "1b402e66d5617bb67c49fe4ea8b14654af642db30ac1731101fa7e43127093de",
+        "licence": "CC BY 4.0 (printed on p. 20; Crossref vor and tdm licences CC BY 4.0; Bochum repository record: CC BY 4.0)",
+        "what": "Bochum repository copy of the Synthese 202:52 version of record, 21 pp., born-digital text layer (sourcetext/paper.txt by pages.py); PDF page = journal page",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC-BY-4.0",
+          "url": "https://doi.org/10.1007/s11229-023-04291-3",
+          "sha256": "1b402e66d5617bb67c49fe4ea8b14654af642db30ac1731101fa7e43127093de",
+          "format": "pdf",
+          "attribution": "Wiegmann, A. (2023). Does lying require objective falsity? Synthese 202:52. doi:10.1007/s11229-023-04291-3. CC BY 4.0"
+        }
+      }
+    },
+    "sample": {
+      "n": 1050,
+      "e1": 300,
+      "e2": 600,
+      "e3": 150,
+      "who": "Prolific participants, at least 18 years old, native English speakers; Unipark; mean age 33 / 35 / 25 (Exp. 1 / 2 / 3)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 11,
+        "note": "Exp. 1 p. 11, Exp. 2 p. 13-14, Exp. 3 p. 17; 300 + 600 + 150 valid responses (the 600 is nominal, '~150' per cell)"
+      }
+    }
+  },
+  "arms": [
+    {
+      "id": "e1_prompt",
+      "label": "Exp. 1, Prompt",
+      "n_paper": 150,
+      "label_note": "Experiment 1: simple lie question after the bold perspective prompt",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 11,
+        "evidence": "150 in each condition"
+      },
+      "n_analysed": {
+        "value": 150,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "evidence": "150 in each condition",
+          "note": "valid responses (comprehension checks passed) per condition"
+        }
+      },
+      "n_recruited_note": "no recruited or excluded count is printed: the experiments ran 'until the valid responses' were collected (pp. 11, 14, 17; searched pp. 11-18)",
+      "runnable": false,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "assignment": "separate sample per arm (see flow_cites.assignment)"
+    },
+    {
+      "id": "e1_noprompt",
+      "label": "Exp. 1, No Prompt",
+      "n_paper": 150,
+      "label_note": "Experiment 1: simple lie question, no prompt",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 11,
+        "evidence": "150 in each condition"
+      },
+      "n_analysed": {
+        "value": 150,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "evidence": "150 in each condition",
+          "note": "valid responses (comprehension checks passed) per condition"
+        }
+      },
+      "n_recruited_note": "no recruited or excluded count is printed: the experiments ran 'until the valid responses' were collected (pp. 11, 14, 17; searched pp. 11-18)",
+      "runnable": false,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "assignment": "separate sample per arm (see flow_cites.assignment)"
+    },
+    {
+      "id": "e2_simple_researcher",
+      "label": "Exp. 2, Simple x Researcher",
+      "n_paper": 150,
+      "label_note": "Experiment 2: simple question, then researcher classification",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 14,
+        "evidence": "~150 in each of the four conditions"
+      },
+      "n_analysed": {
+        "value": 150,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 14,
+          "evidence": "~150 in each of the four conditions",
+          "note": "valid responses (comprehension checks passed) per condition; '~150' is approximate (see meta.paper_inconsistencies)"
+        }
+      },
+      "n_recruited_note": "no recruited or excluded count is printed: the experiments ran 'until the valid responses' were collected (pp. 11, 14, 17; searched pp. 11-18)",
+      "runnable": false,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "assignment": "separate sample per arm (see flow_cites.assignment)"
+    },
+    {
+      "id": "e2_simple_self",
+      "label": "Exp. 2, Simple x Self",
+      "n_paper": 150,
+      "label_note": "Experiment 2: simple question, then self classification",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 14,
+        "evidence": "~150 in each of the four conditions"
+      },
+      "n_analysed": {
+        "value": 150,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 14,
+          "evidence": "~150 in each of the four conditions",
+          "note": "valid responses (comprehension checks passed) per condition; '~150' is approximate (see meta.paper_inconsistencies)"
+        }
+      },
+      "n_recruited_note": "no recruited or excluded count is printed: the experiments ran 'until the valid responses' were collected (pp. 11, 14, 17; searched pp. 11-18)",
+      "runnable": false,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "assignment": "separate sample per arm (see flow_cites.assignment)"
+    },
+    {
+      "id": "e2_turri_researcher",
+      "label": "Exp. 2, Turri x Researcher",
+      "n_paper": 150,
+      "label_note": "Experiment 2: Contrast question, then researcher classification",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 14,
+        "evidence": "~150 in each of the four conditions"
+      },
+      "n_analysed": {
+        "value": 150,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 14,
+          "evidence": "~150 in each of the four conditions",
+          "note": "valid responses (comprehension checks passed) per condition; '~150' is approximate (see meta.paper_inconsistencies)"
+        }
+      },
+      "n_recruited_note": "no recruited or excluded count is printed: the experiments ran 'until the valid responses' were collected (pp. 11, 14, 17; searched pp. 11-18)",
+      "runnable": false,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "assignment": "separate sample per arm (see flow_cites.assignment)"
+    },
+    {
+      "id": "e2_turri_self",
+      "label": "Exp. 2, Turri x Self",
+      "n_paper": 150,
+      "label_note": "Experiment 2: Contrast question, then self classification",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 14,
+        "evidence": "~150 in each of the four conditions"
+      },
+      "n_analysed": {
+        "value": 150,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 14,
+          "evidence": "~150 in each of the four conditions",
+          "note": "valid responses (comprehension checks passed) per condition; '~150' is approximate (see meta.paper_inconsistencies)"
+        }
+      },
+      "n_recruited_note": "no recruited or excluded count is printed: the experiments ran 'until the valid responses' were collected (pp. 11, 14, 17; searched pp. 11-18)",
+      "runnable": false,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "assignment": "separate sample per arm (see flow_cites.assignment)"
+    },
+    {
+      "id": "e3",
+      "label": "Exp. 3",
+      "n_paper": 150,
+      "label_note": "Experiment 3: explicit factually-true options",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 17,
+        "evidence": "the valid responses of 150 participants were collected"
+      },
+      "n_analysed": {
+        "value": 150,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 17,
+          "evidence": "the valid responses of 150 participants were collected",
+          "note": "valid responses (comprehension checks passed) per condition"
+        }
+      },
+      "n_recruited_note": "no recruited or excluded count is printed: the experiments ran 'until the valid responses' were collected (pp. 11, 14, 17; searched pp. 11-18)",
+      "runnable": false,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "assignment": "separate sample per arm (see flow_cites.assignment)"
+    }
+  ],
+  "run_excluded": [
+    {
+      "arm": "e1_prompt",
+      "n_paper": 150,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "missing": [
+        {
+          "what": "the two comprehension questions and their options",
+          "ref": "data.missing.*"
+        },
+        {
+          "what": "page structure, consent, instructions, demographics, order of the checks",
+          "ref": "omitted"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 12
+      }
+    },
+    {
+      "arm": "e1_noprompt",
+      "n_paper": 150,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "missing": [
+        {
+          "what": "the two comprehension questions and their options",
+          "ref": "data.missing.*"
+        },
+        {
+          "what": "page structure, consent, instructions, demographics, order of the checks",
+          "ref": "omitted"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 12
+      }
+    },
+    {
+      "arm": "e2_simple_researcher",
+      "n_paper": 150,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "missing": [
+        {
+          "what": "the two comprehension questions and their options",
+          "ref": "data.missing.*"
+        },
+        {
+          "what": "page structure, consent, instructions, demographics, order of the checks",
+          "ref": "omitted"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 12
+      }
+    },
+    {
+      "arm": "e2_simple_self",
+      "n_paper": 150,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "missing": [
+        {
+          "what": "the two comprehension questions and their options",
+          "ref": "data.missing.*"
+        },
+        {
+          "what": "page structure, consent, instructions, demographics, order of the checks",
+          "ref": "omitted"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 12
+      }
+    },
+    {
+      "arm": "e2_turri_researcher",
+      "n_paper": 150,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "missing": [
+        {
+          "what": "the two comprehension questions and their options",
+          "ref": "data.missing.*"
+        },
+        {
+          "what": "page structure, consent, instructions, demographics, order of the checks",
+          "ref": "omitted"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 12
+      }
+    },
+    {
+      "arm": "e2_turri_self",
+      "n_paper": 150,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "missing": [
+        {
+          "what": "the two comprehension questions and their options",
+          "ref": "data.missing.*"
+        },
+        {
+          "what": "page structure, consent, instructions, demographics, order of the checks",
+          "ref": "omitted"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 12
+      }
+    },
+    {
+      "arm": "e3",
+      "n_paper": 150,
+      "why": "the two comprehension questions every participant answered (p. 12: 'the same applies to the other experiments') are only paraphrased, not printed: wording and answer options are missing, so a stage's on-screen content is missing (DESIGN 2 rule 2); this is the only blocking reason (the vignette is `reported`, flagged in meta.conflicts, not blocking)",
+      "missing": [
+        {
+          "what": "the two comprehension questions and their options",
+          "ref": "data.missing.*"
+        },
+        {
+          "what": "page structure, consent, instructions, demographics, order of the checks",
+          "ref": "omitted"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 12
+      }
+    }
+  ],
+  "data": {
+    "story": {
+      "text": "Karen’s neighbor Anthony just got back from vacation. Anthony asks Karen, “Did your children swim in my pool while I was gone?” Karen thinks that her children did swim in his pool, so she says, “No, they did not swim in your pool.” In fact, they did not swim in the pool.",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 9,
+        "note": "withheld:f93993bf003a4f34"
+      }
+    },
+    "prompt": {
+      "text": "Please answer the following question from your perspective, which means that you are allowed to take into account all of the facts provided in the description of the story.",
+      "cite": {
+        "label": "verbatim",
+        "source": "paper",
+        "page": 12,
+        "note": "Prompt condition only; 'in bold font' (p. 11), shown 'before the test question' (p. 11)"
+      },
+      "style": "bold"
+    },
+    "q": {
+      "simple_e1": {
+        "text": "Did Karen lie to her neighbor?",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 12
+        }
+      },
+      "simple_e2": {
+        "text": "Did Karen lie to her neighbor?",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 14
+        }
+      },
+      "turri": {
+        "text": "Which option better describes the case?",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 14,
+          "note": "withheld:77f54c0e9bdf1ab1"
+        }
+      },
+      "e3": {
+        "text": "Which option better describes the case?",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 17
+        }
+      },
+      "classify_researcher": {
+        "text": "Imagine a researcher is interested in whether people think that Karen lied.\nHow will this researcher classify the option you chose on the previous page?",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 14,
+          "note": "two lines as in the paper's block (p. 14); whether Unipark broke the lines there is not stated"
+        }
+      },
+      "classify_self": {
+        "text": "Just to make sure we understood you correctly and classify your answer accordingly:\nHow do you classify your previous judgment in terms of the question of whether Karen lied?",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 14,
+          "note": "two lines as in the paper's block (p. 14; the first is wrapped there); whether Unipark broke the lines there is not stated"
+        }
+      }
+    },
+    "opt": {
+      "yes": {
+        "text": "Yes.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 12,
+          "note": "printed as a dash list under the question (p. 12); order as printed (derived; Unipark order not stated). Alternative reading: random rotation of the two options, as in Turri & Turri's own experiments ('order rotated randomly', preprint Exp. 3 p. 17; Exp. 2 p. 13; meta.sources.tt2021): `shuffle` would then be added to the options, only the shown order changes"
+        }
+      },
+      "no": {
+        "text": "No.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 12,
+          "note": "printed as a dash list under the question (p. 12); order as printed (derived; Unipark order not stated). Alternative reading: random rotation of the two options, as in Turri & Turri's own experiments ('order rotated randomly', preprint Exp. 3 p. 17; Exp. 2 p. 13; meta.sources.tt2021): `shuffle` would then be added to the options, only the shown order changes"
+        }
+      },
+      "actual": {
+        "text": "Karen thinks she lied and did actually lie.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 14,
+          "note": "printed as a dash list under the question (p. 14); order as printed (derived; Unipark order not stated). Alternative reading: random rotation of the two options, as in Turri & Turri's own experiments ('order rotated randomly', preprint Exp. 3 p. 17; Exp. 2 p. 13; meta.sources.tt2021): `shuffle` would then be added to the options, only the shown order changes; same wording in the Turri & Turri (2021) preprint p. 17 (meta.sources.tt2021)"
+        }
+      },
+      "notactual": {
+        "text": "Karen thinks she lied but did not actually lie.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 14,
+          "note": "printed as a dash list under the question (p. 14); order as printed (derived; Unipark order not stated). Alternative reading: random rotation of the two options, as in Turri & Turri's own experiments ('order rotated randomly', preprint Exp. 3 p. 17; Exp. 2 p. 13; meta.sources.tt2021): `shuffle` would then be added to the options, only the shown order changes; same wording in the Turri & Turri (2021) preprint p. 17 (meta.sources.tt2021)"
+        }
+      },
+      "r_lie": {
+        "text": "The researcher will classify my response as “Karen did lie”.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 14,
+          "note": "printed as a dash list under the question (p. 14); order as printed (derived; Unipark order not stated). Alternative reading: random rotation of the two options, as in Turri & Turri's own experiments ('order rotated randomly', preprint Exp. 3 p. 17; Exp. 2 p. 13; meta.sources.tt2021): `shuffle` would then be added to the options, only the shown order changes"
+        }
+      },
+      "r_not": {
+        "text": "The researcher will classify my response as “Karen did not lie”.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 14,
+          "note": "printed as a dash list under the question (p. 14); order as printed (derived; Unipark order not stated). Alternative reading: random rotation of the two options, as in Turri & Turri's own experiments ('order rotated randomly', preprint Exp. 3 p. 17; Exp. 2 p. 13; meta.sources.tt2021): `shuffle` would then be added to the options, only the shown order changes"
+        }
+      },
+      "s_lie": {
+        "text": "Karen did lie.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 14,
+          "note": "printed as a dash list under the question (p. 14); order as printed (derived; Unipark order not stated). Alternative reading: random rotation of the two options, as in Turri & Turri's own experiments ('order rotated randomly', preprint Exp. 3 p. 17; Exp. 2 p. 13; meta.sources.tt2021): `shuffle` would then be added to the options, only the shown order changes"
+        }
+      },
+      "s_not": {
+        "text": "Karen did not lie.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 14,
+          "note": "printed as a dash list under the question (p. 14); order as printed (derived; Unipark order not stated). Alternative reading: random rotation of the two options, as in Turri & Turri's own experiments ('order rotated randomly', preprint Exp. 3 p. 17; Exp. 2 p. 13; meta.sources.tt2021): `shuffle` would then be added to the options, only the shown order changes"
+        }
+      },
+      "e3_lied": {
+        "text": "Karen lied to her neighbour although what she said was factually true.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 17,
+          "note": "printed as a dash list under the question (p. 17); order as printed (derived; Unipark order not stated). Alternative reading: random rotation of the two options, as in Turri & Turri's own experiments ('order rotated randomly', preprint Exp. 3 p. 17; Exp. 2 p. 13; meta.sources.tt2021): `shuffle` would then be added to the options, only the shown order changes"
+        }
+      },
+      "e3_notlie": {
+        "text": "Karen did not lie to her neighbour because what she said was factually true.",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 17,
+          "note": "printed as a dash list under the question (p. 17); order as printed (derived; Unipark order not stated). Alternative reading: random rotation of the two options, as in Turri & Turri's own experiments ('order rotated randomly', preprint Exp. 3 p. 17; Exp. 2 p. 13; meta.sources.tt2021): `shuffle` would then be added to the options, only the shown order changes"
+        }
+      }
+    },
+    "missing": {
+      "comp_deceive": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 12,
+          "note": "the comprehension question about Karen's intention to deceive; the comprehension questions are only paraphrased (p. 12: 'The first asked whether Karen intended to deceive her neighbor; the second whether Karen's children actually swam in the neighbor's pool'); wording, answer options and their order, correct answers and the page are not printed (paper only; no Unipark export, no deposit found, STATUS)"
+        }
+      },
+      "comp_swam": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 12,
+          "note": "the comprehension question about whether the children actually swam; the comprehension questions are only paraphrased (p. 12: 'The first asked whether Karen intended to deceive her neighbor; the second whether Karen's children actually swam in the neighbor's pool'); wording, answer options and their order, correct answers and the page are not printed (paper only; no Unipark export, no deposit found, STATUS)"
+        }
+      },
+      "comp_opt_a": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 12,
+          "note": "answer option of a comprehension question; the comprehension questions are only paraphrased (p. 12: 'The first asked whether Karen intended to deceive her neighbor; the second whether Karen's children actually swam in the neighbor's pool'); wording, answer options and their order, correct answers and the page are not printed (paper only; no Unipark export, no deposit found, STATUS)"
+        }
+      },
+      "comp_opt_b": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 12,
+          "note": "answer option of a comprehension question; the comprehension questions are only paraphrased (p. 12: 'The first asked whether Karen intended to deceive her neighbor; the second whether Karen's children actually swam in the neighbor's pool'); wording, answer options and their order, correct answers and the page are not printed (paper only; no Unipark export, no deposit found, STATUS)"
+        }
+      }
+    }
+  },
+  "stages": {
+    "story": {
+      "content": [
+        {
+          "id": "vignette",
+          "value": {
+            "expr": "data['story']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 11,
+        "note": "the vignette is shown with the lie question (Exp. 1: 'All participants were then presented with Pool scenario', p. 11; Exp. 2, p. 14; Exp. 3, p. 17), derived as one page per question. Alternative: the vignette on its own page before the question; only the page grouping and `seen` would change. Back navigation and paging are not reported"
+      }
+    },
+    "story2": {
+      "content": [
+        {
+          "id": "vignette",
+          "value": {
+            "expr": "data['story']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 14,
+        "note": "withheld:8dac13d77fd6d8e3"
+      }
+    },
+    "prompt": {
+      "content": [
+        {
+          "id": "prompt",
+          "value": {
+            "expr": "data['prompt']"
+          },
+          "style": "bold"
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 11,
+        "note": "Prompt condition only; 'in bold font' and placed ahead of the lie question (p. 11, reported); that it sits on the question's page, and back navigation (not reported, set unknown), are derived: the page is not stated. Alternative: its own page; only paging changes"
+      }
+    },
+    "lie_simple": {
+      "responses": [
+        {
+          "id": "lie",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['q']['simple_e1'] if arm in ['e1_prompt', 'e1_noprompt'] else data['q']['simple_e2']"
+          },
+          "options": [
+            {
+              "code": "yes",
+              "label": {
+                "expr": "data['opt']['yes']"
+              }
+            },
+            {
+              "code": "no",
+              "label": {
+                "expr": "data['opt']['no']"
+              }
+            }
+          ],
+          "required": false,
+          "depends_on": [
+            "story"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 12,
+            "note": "two options Yes. / No. (p. 12, p. 14), printed order kept (the shown order is unknown); alternative: random rotation (Turri & Turri 2021 preprint p. 13 'rotated randomly', meta.sources.tt2021); whether answering was required is not reported"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      }
+    },
+    "lie_turri": {
+      "responses": [
+        {
+          "id": "choice",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['q']['turri']"
+          },
+          "options": [
+            {
+              "code": "actual",
+              "label": {
+                "expr": "data['opt']['actual']"
+              }
+            },
+            {
+              "code": "notactual",
+              "label": {
+                "expr": "data['opt']['notactual']"
+              }
+            }
+          ],
+          "required": false,
+          "depends_on": [
+            "story"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "options in the order printed (p. 14), shown order unknown; alternative: random rotation (Turri & Turri 2021 preprint p. 17, meta.sources.tt2021); required-ness not reported"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      }
+    },
+    "classify_researcher": {
+      "responses": [
+        {
+          "id": "cls",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['q']['classify_researcher']"
+          },
+          "options": [
+            {
+              "code": "lie",
+              "label": {
+                "expr": "data['opt']['r_lie']"
+              }
+            },
+            {
+              "code": "notlie",
+              "label": {
+                "expr": "data['opt']['r_not']"
+              }
+            }
+          ],
+          "required": false,
+          "depends_on": [
+            "story2"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "options in the order printed (p. 14); required-ness not reported"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      }
+    },
+    "classify_self": {
+      "responses": [
+        {
+          "id": "cls",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['q']['classify_self']"
+          },
+          "options": [
+            {
+              "code": "lie",
+              "label": {
+                "expr": "data['opt']['s_lie']"
+              }
+            },
+            {
+              "code": "notlie",
+              "label": {
+                "expr": "data['opt']['s_not']"
+              }
+            }
+          ],
+          "required": false,
+          "depends_on": [
+            "story2"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "options in the order printed (p. 14); required-ness not reported"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      }
+    },
+    "lie_e3": {
+      "responses": [
+        {
+          "id": "choice",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['q']['e3']"
+          },
+          "options": [
+            {
+              "code": "lied",
+              "label": {
+                "expr": "data['opt']['e3_lied']"
+              }
+            },
+            {
+              "code": "notlie",
+              "label": {
+                "expr": "data['opt']['e3_notlie']"
+              }
+            }
+          ],
+          "required": false,
+          "depends_on": [
+            "story"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "note": "options in the order printed (p. 17); required-ness not reported"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      }
+    },
+    "checks": {
+      "content": [],
+      "responses": [
+        {
+          "id": "deceive",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['comp_deceive']"
+          },
+          "options": [
+            {
+              "code": "a",
+              "label": {
+                "expr": "data['missing']['comp_opt_a']"
+              }
+            },
+            {
+              "code": "b",
+              "label": {
+                "expr": "data['missing']['comp_opt_b']"
+              }
+            }
+          ],
+          "required": false,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 12,
+            "note": "first of two comprehension questions (p. 12); answer format unknown: two options is an assumption of the structure only, nothing is served"
+          }
+        },
+        {
+          "id": "swam",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['comp_swam']"
+          },
+          "options": [
+            {
+              "code": "a",
+              "label": {
+                "expr": "data['missing']['comp_opt_a']"
+              }
+            },
+            {
+              "code": "b",
+              "label": {
+                "expr": "data['missing']['comp_opt_b']"
+              }
+            }
+          ],
+          "required": false,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 12,
+            "note": "second of two comprehension questions (p. 12); answer format unknown"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 12,
+        "note": "'Afterwards, two questions were asked' (p. 12): after the main question(s), both on one page in the order listed. Exp. 2 and 3: 'the same applies to the other experiments' (p. 12) covers the exclusion; that the checks follow the classification question (Exp. 2) is derived. Alternative: one question per page, or the checks between the two Exp. 2 pages; only order and paging would change"
+      }
+    }
+  },
+  "flow": [
+    {
+      "if": "arm == 'e1_prompt'",
+      "then": {
+        "seq": [
+          {
+            "page": [
+              "story",
+              "prompt",
+              "lie_simple"
+            ]
+          },
+          {
+            "stage": "checks"
+          }
+        ]
+      },
+      "else": {
+        "if": "arm == 'e1_noprompt'",
+        "then": {
+          "seq": [
+            {
+              "page": [
+                "story",
+                "lie_simple"
+              ]
+            },
+            {
+              "stage": "checks"
+            }
+          ]
+        },
+        "else": {
+          "if": "arm == 'e2_simple_researcher'",
+          "then": {
+            "seq": [
+              {
+                "page": [
+                  "story",
+                  "lie_simple"
+                ]
+              },
+              {
+                "page": [
+                  "story2",
+                  "classify_researcher"
+                ]
+              },
+              {
+                "stage": "checks"
+              }
+            ]
+          },
+          "else": {
+            "if": "arm == 'e2_simple_self'",
+            "then": {
+              "seq": [
+                {
+                  "page": [
+                    "story",
+                    "lie_simple"
+                  ]
+                },
+                {
+                  "page": [
+                    "story2",
+                    "classify_self"
+                  ]
+                },
+                {
+                  "stage": "checks"
+                }
+              ]
+            },
+            "else": {
+              "if": "arm == 'e2_turri_researcher'",
+              "then": {
+                "seq": [
+                  {
+                    "page": [
+                      "story",
+                      "lie_turri"
+                    ]
+                  },
+                  {
+                    "page": [
+                      "story2",
+                      "classify_researcher"
+                    ]
+                  },
+                  {
+                    "stage": "checks"
+                  }
+                ]
+              },
+              "else": {
+                "if": "arm == 'e2_turri_self'",
+                "then": {
+                  "seq": [
+                    {
+                      "page": [
+                        "story",
+                        "lie_turri"
+                      ]
+                    },
+                    {
+                      "page": [
+                        "story2",
+                        "classify_self"
+                      ]
+                    },
+                    {
+                      "stage": "checks"
+                    }
+                  ]
+                },
+                "else": {
+                  "seq": [
+                    {
+                      "page": [
+                        "story",
+                        "lie_e3"
+                      ]
+                    },
+                    {
+                      "stage": "checks"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "flow_cites": {
+    "assignment": {
+      "label": "derived",
+      "source": "paper",
+      "page": 11,
+      "note": "withheld:9387660ffd7f4670"
+    },
+    "check_order": {
+      "label": "derived",
+      "source": "paper",
+      "page": 12,
+      "note": "see stages.checks.presentation_cite: after the main question(s); alternative: elsewhere"
+    }
+  },
+  "units": {
+    "judgments": {
+      "per": "story",
+      "fields": {
+        "experiment": "'e1' if arm in ['e1_prompt', 'e1_noprompt'] else ('e3' if arm == 'e3' else 'e2')",
+        "format": "'turri' if arm in ['e2_turri_researcher', 'e2_turri_self'] else 'simple'",
+        "classifier": "'researcher' if arm in ['e2_simple_researcher', 'e2_turri_researcher'] else 'self'",
+        "lie": "(1 if answer('lie_simple.lie') == 'yes' else (0 if answer('lie_simple.lie') == 'no' else (1 if answer('lie_turri.choice') == 'actual' else (0 if answer('lie_turri.choice') == 'notactual' else (1 if answer('lie_e3.choice') == 'lied' else (0 if answer('lie_e3.choice') == 'notlie' else None))))))",
+        "notactual": "None if answer('lie_turri.choice') is None else (1 if answer('lie_turri.choice') == 'notactual' else 0)",
+        "classified_lie": "(1 if answer('classify_researcher.cls') == 'lie' or answer('classify_self.cls') == 'lie' else (0 if answer('classify_researcher.cls') == 'notlie' or answer('classify_self.cls') == 'notlie' else None))",
+        "consistent": "None if ((1 if answer('lie_simple.lie') == 'yes' else (0 if answer('lie_simple.lie') == 'no' else (1 if answer('lie_turri.choice') == 'actual' else (0 if answer('lie_turri.choice') == 'notactual' else (1 if answer('lie_e3.choice') == 'lied' else (0 if answer('lie_e3.choice') == 'notlie' else None)))))) is None or (1 if answer('classify_researcher.cls') == 'lie' or answer('classify_self.cls') == 'lie' else (0 if answer('classify_researcher.cls') == 'notlie' or answer('classify_self.cls') == 'notlie' else None)) is None) else (1 if (1 if answer('lie_simple.lie') == 'yes' else (0 if answer('lie_simple.lie') == 'no' else (1 if answer('lie_turri.choice') == 'actual' else (0 if answer('lie_turri.choice') == 'notactual' else (1 if answer('lie_e3.choice') == 'lied' else (0 if answer('lie_e3.choice') == 'notlie' else None)))))) == (1 if answer('classify_researcher.cls') == 'lie' or answer('classify_self.cls') == 'lie' else (0 if answer('classify_researcher.cls') == 'notlie' or answer('classify_self.cls') == 'notlie' else None)) else 0)",
+        "chose_notactual_then_lie": "None if answer('lie_turri.choice') != 'notactual' or (1 if answer('classify_researcher.cls') == 'lie' or answer('classify_self.cls') == 'lie' else (0 if answer('classify_researcher.cls') == 'notlie' or answer('classify_self.cls') == 'notlie' else None)) is None else (1 if answer('classify_researcher.cls') == 'lie' or answer('classify_self.cls') == 'lie' else (0 if answer('classify_researcher.cls') == 'notlie' or answer('classify_self.cls') == 'notlie' else None))"
+      },
+      "cites": {
+        "lie": {
+          "label": "derived",
+          "source": "paper",
+          "page": 12,
+          "note": "withheld:8da1d3998ac4ccff"
+        },
+        "notactual": {
+          "label": "reported",
+          "source": "paper",
+          "page": 15,
+          "note": "withheld:8fa55c7089482c7a"
+        },
+        "classified_lie": {
+          "label": "reported",
+          "source": "paper",
+          "page": 15,
+          "note": "'Karen did lie' vs 'Karen did not lie' in the classification question (both wordings)"
+        },
+        "consistent": {
+          "label": "reported",
+          "source": "paper",
+          "page": 15,
+          "note": "withheld:1f11554802dd9d40"
+        },
+        "chose_notactual_then_lie": {
+          "label": "reported",
+          "source": "paper",
+          "page": 16,
+          "note": "withheld:cfae092631b9e7c8"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "omitted": [
+    {
+      "what": "consent, Prolific / Unipark intro, demographics (age, gender collected: mean age and sex shares are reported)",
+      "why": "not printed",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 11
+      }
+    },
+    {
+      "what": "the two comprehension questions (intended to deceive; children actually swam) and any payment/debrief page",
+      "why": "only paraphrased (p. 12)",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 12
+      }
+    },
+    {
+      "what": "Figures 1-3 (percentage bars with 95% CIs)",
+      "why": "numbers are in the text; figures give no further values",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 12
+      }
+    }
+  ],
+  "analysis": {
+    "targets": [],
+    "effects": [],
+    "blocked_arm_targets": [
+      {
+        "id": "e1_prompt_lie",
+        "unit": "judgments",
+        "where": {
+          "arm": "e1_prompt"
+        },
+        "field": "lie",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 110,
+          "n": 150,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 12,
+            "evidence": "110 out of 150, i.e. 73.3%, in Prompt"
+          }
+        }
+      },
+      {
+        "id": "e1_noprompt_lie",
+        "unit": "judgments",
+        "where": {
+          "arm": "e1_noprompt"
+        },
+        "field": "lie",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 109,
+          "n": 150,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 12,
+            "evidence": "109 out of 150, i.e. 72.7%, in No Prompt"
+          }
+        }
+      },
+      {
+        "id": "e3_lied",
+        "unit": "judgments",
+        "where": {
+          "arm": "e3"
+        },
+        "field": "lie",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 123,
+          "n": 150,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "evidence": "123 out of 150 (82%) participants chose the option stating that Karen lied"
+          }
+        }
+      },
+      {
+        "id": "e2_turri_notactual_then_lie",
+        "unit": "judgments",
+        "where": {
+          "format": "turri"
+        },
+        "field": "chose_notactual_then_lie",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 154,
+          "n": 266,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "evidence": "Out of 266 participants who first chose ... the majority (154, i.e. 58%, p=.012) chose 'Karen did lie'"
+          }
+        }
+      },
+      {
+        "id": "e2_simple_researcher_lie",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_simple_researcher"
+        },
+        "field": "lie",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.72,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "evidence": "72%",
+            "note": "share answering Yes to 'Did Karen lie to her neighbour?' (p. 15)"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      },
+      {
+        "id": "e2_simple_self_lie",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_simple_self"
+        },
+        "field": "lie",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.66,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "evidence": "66%",
+            "note": "share answering Yes to 'Did Karen lie to her neighbour?' (p. 15)"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      },
+      {
+        "id": "e2_simple_researcher_classified_lie",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_simple_researcher"
+        },
+        "field": "classified_lie",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.73,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "evidence": "73%",
+            "note": "share classifying their response as 'Karen did lie' (p. 15)"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      },
+      {
+        "id": "e2_simple_self_classified_lie",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_simple_self"
+        },
+        "field": "classified_lie",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.71,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "evidence": "71%",
+            "note": "share classifying their response as 'Karen did lie' (p. 15)"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      },
+      {
+        "id": "e2_simple_researcher_consistent",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_simple_researcher"
+        },
+        "field": "consistent",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.94,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "evidence": "94%",
+            "note": "share of consistent answers across the two questions (p. 15-16)"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      },
+      {
+        "id": "e2_simple_self_consistent",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_simple_self"
+        },
+        "field": "consistent",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.93,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "evidence": "93%",
+            "note": "share of consistent answers across the two questions (p. 15-16)"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      },
+      {
+        "id": "e2_turri_researcher_consistent",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_turri_researcher"
+        },
+        "field": "consistent",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.48,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "evidence": "48%",
+            "note": "share of consistent answers across the two questions (p. 15-16)"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      },
+      {
+        "id": "e2_turri_self_consistent",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_turri_self"
+        },
+        "field": "consistent",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.52,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "evidence": "52%",
+            "note": "share of consistent answers across the two questions (p. 15-16)"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      },
+      {
+        "id": "e2_turri_researcher_notactual",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_turri_researcher"
+        },
+        "field": "notactual",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.87,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "evidence": "87%",
+            "note": "withheld:0d6ade0d5c84387e"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      },
+      {
+        "id": "e2_turri_self_notactual",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_turri_self"
+        },
+        "field": "notactual",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.82,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "evidence": "82%",
+            "note": "withheld:0d6ade0d5c84387e"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      },
+      {
+        "id": "e2_turri_researcher_classified_notlie",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_turri_researcher"
+        },
+        "field": "classified_lie",
+        "stat": "share",
+        "success": 0,
+        "human": {
+          "value": 0.38,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "evidence": "38%",
+            "note": "share classifying their response as 'Karen did not lie' (p. 15)"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      },
+      {
+        "id": "e2_turri_self_classified_notlie",
+        "unit": "judgments",
+        "where": {
+          "arm": "e2_turri_self"
+        },
+        "field": "classified_lie",
+        "stat": "share",
+        "success": 0,
+        "human": {
+          "value": 0.36,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "evidence": "36%",
+            "note": "share classifying their response as 'Karen did not lie' (p. 15)"
+          },
+          "no_uncertainty": "cell n not printed: '~150 in each of the four conditions' (p. 14); no k"
+        }
+      }
+    ],
+    "blocked_arm_effects": [
+      {
+        "id": "e1_prompt_vs_noprompt",
+        "label": "Exp. 1: share judging that Karen lied, Prompt minus No Prompt",
+        "unit": "judgments",
+        "role": "test",
+        "studyId": "e1",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "e1_prompt",
+          "reference": "e1_noprompt"
+        },
+        "compute": {
+          "op": "proportion_difference",
+          "field": "lie",
+          "success": [
+            1
+          ],
+          "groupBy": "arm",
+          "where": {
+            "experiment": "e1"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 13,
+          "note": "'The difference between the two conditions was not significant, chi2(1, N = 300) = .0169, p = .897' (p. 13): a null result, no direction claimed"
+        },
+        "reported": {
+          "cells": {
+            "e1_prompt": {
+              "k": 110,
+              "n": 150
+            },
+            "e1_noprompt": {
+              "k": 109,
+              "n": 150
+            }
+          },
+          "test": {
+            "statistic": "chi_square",
+            "value": 0.0169,
+            "df": 1,
+            "n": 300,
+            "p": 0.897,
+            "pRelation": "="
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "note": "chi2 recomputes from the cells (0.0169, no continuity correction)"
+          }
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "id": "e2_consistency_researcher",
+        "what": "Exp. 2: consistency Simple vs Turri, Researcher classification: 94% vs 48%, chi2(1, N = 300) = 62.77, p < .001 (p. 16)",
+        "why": "cell counts not printed ('~150'); with 150 per cell the percentages give chi2 77.08 uncorrected / 74.86 Yates, so the printed value does not rebuild (it matches Yates for the Self pair: swap, meta.paper_inconsistencies); the two cell shares are targets",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 16
+        }
+      },
+      {
+        "id": "e2_consistency_self",
+        "what": "Exp. 2: consistency Simple vs Turri, Self classification: 93% vs 52%, chi2(1, N = 300) = 74.97, p < .001 (p. 16)",
+        "why": "as e2_consistency_researcher (150 per cell: 64.51 uncorrected / 62.45 Yates; the printed 74.97 matches the Researcher pair's Yates value, label swap)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 16
+        }
+      },
+      {
+        "id": "binomial_tests",
+        "what": "binomial tests against .5 (p < .001 etc.), pp. 12-17",
+        "why": "one-sample tests against chance are not an effect contrast in this schema; the shares are targets",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 12
+        }
+      },
+      {
+        "id": "e2_turri_notlie_tests",
+        "what": "Exp. 2 Turri: 38% (p = .0025) and 36% (p < .001) classify their response as 'Karen did not lie' (p. 15)",
+        "why": "binomial tests; the shares are targets",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 15
+        }
+      }
+    ]
+  },
+  "keyed": {
+    "why": "paper's pattern: most judge that Karen lied; Turri-format first choice 'did not actually lie' yet classification 'did lie'; Exp. 3 'lied although true'",
+    "answers": {
+      "lie_simple.lie": "'yes'",
+      "lie_turri.choice": "'notactual'",
+      "classify_researcher.cls": "'lie'",
+      "classify_self.cls": "'lie'",
+      "lie_e3.choice": "'lied'"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {},
+    "strict": false,
+    "attribution": [
+      {
+        "source": "paper",
+        "licence": "CC-BY-4.0",
+        "attribution": "Wiegmann, A. (2023). Does lying require objective falsity? Synthese 202:52. doi:10.1007/s11229-023-04291-3. CC BY 4.0"
+      }
+    ]
+  },
+  "schema_version": "1"
+}
