@@ -634,8 +634,15 @@ def project(study_dir: Path) -> tuple[dict, dict]:
     for path, holder in _local_pictures(projected):
         if path in held_srcs or path.rsplit("/", 1)[0] in held_srcs:
             continue
+        if path.startswith("/meta/"):   # an operator's picture (a design note): not needed to run, never shipped
+            holder.pop("src")
+            continue
         digest = str(holder.get("sha256") or hashlib.sha256(holder["src"].encode()).hexdigest())
         cite = (release._cites(_own_cite(holder)) or [{}])[0]
+        if not isinstance(cite.get("source"), str):
+            cite = {"source": "materials"}
+            projected["meta"].setdefault("sources", {}).setdefault("materials", {
+                "what": "the researcher's own copy of the study materials", "distribution": {"tier": "user"}})
         hid = f"p{len(held_now) + 1}"
         while hid in held_now:
             hid += "x"
