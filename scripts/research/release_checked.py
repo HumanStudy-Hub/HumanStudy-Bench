@@ -309,7 +309,7 @@ _SENTENCE_END = re.compile(r"[.!?\u3002\uff01\uff1f]['\"\u201d\u2019)]*\s*$")
 # keys under which short texts are separate choices / labels (a scale, a table header), not pieces of prose
 LABEL_KEYS = frozenset(("options", "option", "anchors", "anchor", "choices", "choice", "labels", "label", "scale",
                         "columns", "column", "rows", "row", "headers", "header", "buttons", "button", "left", "right",
-                        "levels", "items_labels", "cells", "legend", "units", "unit"))
+                        "levels", "items_labels", "cells", "legend", "units", "unit", "equals", "validate"))
 
 
 def nwords_all(text) -> int:
@@ -355,8 +355,9 @@ def unhold_short(projected: dict, private: dict, unheld: list | None = None) -> 
         if not is_label(text):
             continue
         seq = groups.get(_sequence_key(entry["path"]) or "", [hid])
-        if len(seq) > 1 and not (LABEL_KEYS & set(entry["path"].split("/"))):
-            continue
+        if len(seq) > 1 and not (LABEL_KEYS & set(entry["path"].split("/"))) \
+                and not all(isinstance(texts[h], str) and not re.search(r"[^\W\d_]", texts[h]) for h in seq):
+            continue   # (a list of numbers / codes without letters is never prose)
         parent, key = entry["path"].rsplit("/", 1)
         cont = _pointer(projected, parent)
         key = key.replace("~1", "/").replace("~0", "~")
