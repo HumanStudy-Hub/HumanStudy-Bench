@@ -1,0 +1,2067 @@
+{
+  "id": "mandel2018framing",
+  "schema_version": "1",
+  "meta": {
+    "citation": "Mandel, D. R., & Kapler, I. V. (2018). Cognitive style and frame susceptibility in decision-making. Frontiers in Psychology, 9, 1461. https://doi.org/10.3389/fpsyg.2018.01461",
+    "doi": "10.3389/fpsyg.2018.01461",
+    "language": "en",
+    "language_cite": {
+      "label": "derived",
+      "source": "paper",
+      "page": 4,
+      "note": "the survey language is not stated; English quotations, a self-reported English-proficiency exclusion and Canadian samples make English the likely language. Alternative: French offered in Canada; unknown"
+    },
+    "licence": "CC BY (paper, printed p. 13); Haran et al. 2013 CC BY 3.0 (AOT items)",
+    "sources": {
+      "paper": {
+        "file": "sources/bundle/paper/paper.pdf",
+        "url": "https://www.frontiersin.org/articles/10.3389/fpsyg.2018.01461/pdf",
+        "doi": "10.3389/fpsyg.2018.01461",
+        "sha256": "6727d0db1f5c4c2f60ce169de1070b87bfbc2925885a88a44d9ff976f0a8a1d9",
+        "licence": "CC BY (printed on the last page, p. 13: 'distributed under the terms of the Creative Commons Attribution License (CC BY)'; Crossref lists CC BY 4.0)",
+        "what": "version of record, 13 pp., born-digital text layer (sourcetext/paper.txt by pages.py)",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC-BY-4.0",
+          "url": "https://doi.org/10.3389/fpsyg.2018.01461",
+          "sha256": "6727d0db1f5c4c2f60ce169de1070b87bfbc2925885a88a44d9ff976f0a8a1d9",
+          "format": "pdf",
+          "attribution": "Mandel, D. R., & Kapler, I. V. (2018). Cognitive style and frame susceptibility in decision-making. Frontiers in Psychology, 9:1461. doi:10.3389/fpsyg.2018.01461. Copyright (c) 2018 Her Majesty the Queen in Right of Canada, as represented by Defence Research and Development Canada. CC BY"
+        }
+      },
+      "haran": {
+        "file": "sources/haran/haran2013.pdf",
+        "url": "http://journal.sjdm.org/13/13124a/jdm13124a.pdf",
+        "doi": "10.1017/S1930297500005921",
+        "sha256": "27262d7817e878f14f6ea033e9a81a8fa3f3dac7d9af6659b47662aedfd1218c",
+        "licence": "CC BY 3.0 (printed on p. 1: 'The authors license this article under the terms of the Creative Commons Attribution 3.0 License')",
+        "what": "Haran, Ritov & Mellers (2013), JDM 8(3):188-201; the Appendix prints the 7 AOT items (p. 14 of the PDF). Used for the AOT item wording only",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC-BY-3.0",
+          "url": "http://journal.sjdm.org/13/13124a/jdm13124a.pdf",
+          "sha256": "27262d7817e878f14f6ea033e9a81a8fa3f3dac7d9af6659b47662aedfd1218c",
+          "format": "pdf",
+          "attribution": "Haran, U., Ritov, I., & Mellers, B. A. (2013). The role of actively open-minded thinking in information acquisition, accuracy, and calibration. Judgment and Decision Making, 8(3), 188-201. CC BY 3.0"
+        }
+      }
+    },
+    "sample": {
+      "n": 506,
+      "exp1": 190,
+      "exp2": 316,
+      "who": "Exp. 1: York University first-year psychology students, mean age 21.7 (SD 4.2), 74.2% female; Exp. 2: MTurk workers in Canada/US, mean age 30.4 (SD 6.7), 39.2% female",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "note": "Exp. 1 p. 4, Exp. 2 p. 6"
+      }
+    }
+  },
+  "arms": [
+    {
+      "id": "exp1",
+      "label": "Experiment 1: York University first-year psychology undergraduates, online (Qualtrics), course credit",
+      "n_paper": 190,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "note": "'We recruited 201 undergraduate students ... Data from the remaining 190 participants were analyzed'"
+      },
+      "n_recruited": {
+        "value": 201,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "'We recruited 201 undergraduate students enrolled in a first-year psychology course'"
+        }
+      },
+      "n_analysed": {
+        "value": 190,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "'Data from the remaining 190 participants were analyzed'"
+        }
+      },
+      "runnable": false,
+      "why": "the consent, demographics, choice and preference prompts, the CRT, SNS and NFC items and the AOT instruction are unpublished (missing); the uncertain-option-first wording is not printed; the author's description of the preference question is reported, not served (README Decided 11)",
+      "assignment": "2 (frame) x 2 (order) between, random (mechanism not reported)",
+      "exclusion_caveat": "the paper removed 11 of 201 (time under 4 min or over 24 h; self-reported English proficiency below 50%; implausible age, e.g. 10 years): completion time cannot be replayed (the engine has no clock) and the proficiency and age items are missing, so the replay's sample is not filtered",
+      "exclusion_caveat_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "note": "three exclusion criteria (a)-(c), 11 participants"
+      }
+    },
+    {
+      "id": "exp2",
+      "label": "Experiment 2: Amazon Mechanical Turk workers (US/Canada, 1,000+ HITs, 95%+ approval), $1.50",
+      "n_paper": 316,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "note": "'A sample of 323 Amazon Mechanical Turk (MTurk) workers ... Data from the remaining 316 participants were analyzed'"
+      },
+      "n_recruited": {
+        "value": 323,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "'A sample of 323 Amazon Mechanical Turk (MTurk) workers participated'"
+        }
+      },
+      "n_analysed": {
+        "value": 316,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "'Data from the remaining 316 participants were analyzed'"
+        }
+      },
+      "runnable": false,
+      "why": "as Experiment 1, and the ZPT items (20) are also unpublished; MTurk recruitment screens (location, HIT history) are not part of the questionnaire",
+      "assignment": "as Experiment 1",
+      "exclusion_caveat": "the paper removed 7 of 323 (time under 4 min or over 24 h; English proficiency below 50%): not replayable (no clock; proficiency item missing)",
+      "exclusion_caveat_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "note": "two exclusion criteria (a)-(b), 7 participants"
+      }
+    }
+  ],
+  "run_excluded": [
+    {
+      "arm": "exp1",
+      "n_paper": 190,
+      "why": "the consent, demographics, choice and preference prompts, the CRT, SNS and NFC items and the AOT instruction are unpublished (missing); the uncertain-option-first wording is not printed; the author's description of the preference question is reported, not served (README Decided 11)",
+      "missing": [
+        {
+          "what": "consent page",
+          "ref": "data.missing.consent"
+        },
+        {
+          "what": "demographic questionnaire",
+          "ref": "data.missing.demog"
+        },
+        {
+          "what": "the choice prompt and answer labels",
+          "ref": "data.missing.choice_prompt"
+        },
+        {
+          "what": "the preference question",
+          "ref": "data.missing.pref_prompt"
+        },
+        {
+          "what": "uncertain-option-first option paragraphs",
+          "ref": "data.missing.uf_first / uf_second"
+        },
+        {
+          "what": "CRT, SNS, AOT instruction, NFC (and ZPT in Exp. 2)",
+          "ref": "data.missing.crt / sns / aot_instruction / nfc / zpt"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "note": "'We recruited 201 undergraduate students ... Data from the remaining 190 participants were analyzed'"
+      }
+    },
+    {
+      "arm": "exp2",
+      "n_paper": 316,
+      "why": "as Experiment 1, and the ZPT items (20) are also unpublished; MTurk recruitment screens (location, HIT history) are not part of the questionnaire",
+      "missing": [
+        {
+          "what": "consent page",
+          "ref": "data.missing.consent"
+        },
+        {
+          "what": "demographic questionnaire",
+          "ref": "data.missing.demog"
+        },
+        {
+          "what": "the choice prompt and answer labels",
+          "ref": "data.missing.choice_prompt"
+        },
+        {
+          "what": "the preference question",
+          "ref": "data.missing.pref_prompt"
+        },
+        {
+          "what": "uncertain-option-first option paragraphs",
+          "ref": "data.missing.uf_first / uf_second"
+        },
+        {
+          "what": "CRT, SNS, AOT instruction, NFC (and ZPT in Exp. 2)",
+          "ref": "data.missing.crt / sns / aot_instruction / nfc / zpt"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "note": "'A sample of 323 Amazon Mechanical Turk (MTurk) workers ... Data from the remaining 316 participants were analyzed'"
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "id": "cond",
+      "factor": "frame (positive, negative) x option order (certain first, uncertain first)",
+      "levels": [
+        "pos_cf",
+        "pos_uf",
+        "neg_cf",
+        "neg_uf"
+      ],
+      "assignment": "between",
+      "note": "cell sizes are not printed",
+      "cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "'participants were randomly assigned to one of the four experimental conditions in a 2 (Frame: positive, negative) x 2 (Order: certain-option first, uncertain-option first) between-subjects design' (Exp. 1; Exp. 2 'identical'). Mechanism and cell sizes are not reported: an independent uniform draw. Alternative: a balanced (even-presentation) draw; the realised cell sizes would differ"
+      }
+    }
+  ],
+  "data": {
+    "stem": {
+      "pos": {
+        "text": "Imagine that a financial investment of yours worth $600 has gone sour. If you do nothing you will lose all of it for sure. However, you have two options that are not as bad:",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 4,
+          "evidence": "Imagine that a financial investment of yours",
+          "note": "positive-frame description, first paragraph"
+        }
+      },
+      "neg": {
+        "text": "Imagine that a financial investment of yours worth $600 has gone sour. If you do nothing you will lose all of it for sure. However, you have two options that are not as bad:",
+        "cite": [
+          {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 4,
+            "evidence": "Imagine that a financial investment of yours",
+            "note": "the stem as printed on p. 4 (positive-frame description, first paragraph)"
+          },
+          {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "p. 5: 'In the negative-frame condition, the options were alternatively described as follows' prints only the two option paragraphs; that the stem was the same is inferred (derived); the stem text is the one printed on p. 4 for the positive frame"
+          }
+        ]
+      }
+    },
+    "opts": {
+      "pos_cf": [
+        {
+          "text": "If you choose option A, you will keep exactly one-third ($200) of your investment for sure.",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 4,
+            "note": "positive frame, option A (certain), certain-option-first order; italic as typeset in the PDF: 'keep'"
+          },
+          "spans": [
+            {
+              "start": 33,
+              "end": 37,
+              "style": "italic"
+            }
+          ]
+        },
+        {
+          "text": "If you choose option B, you have exactly a one-third chance of keeping everything ($600) and a two-thirds chance of keeping nothing ($0).",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 5,
+            "note": "positive frame, option B (uncertain); italic as typeset in the PDF: 'keeping everything', 'keeping nothing'"
+          },
+          "spans": [
+            {
+              "start": 63,
+              "end": 81,
+              "style": "italic"
+            },
+            {
+              "start": 116,
+              "end": 131,
+              "style": "italic"
+            }
+          ]
+        }
+      ],
+      "neg_cf": [
+        {
+          "text": "If you choose option A, you will lose exactly two-thirds ($400) of your investment for sure.",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 5,
+            "note": "negative frame, option A (certain), certain-option-first order; italic as typeset in the PDF: 'lose'"
+          },
+          "spans": [
+            {
+              "start": 33,
+              "end": 37,
+              "style": "italic"
+            }
+          ]
+        },
+        {
+          "text": "If you choose option B, you have exactly a one-third chance of losing nothing ($0) and a two-thirds chance of losing everything ($600).",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 5,
+            "note": "negative frame, option B (uncertain); italic as typeset in the PDF: 'losing nothing', 'losing everything'"
+          },
+          "spans": [
+            {
+              "start": 63,
+              "end": 77,
+              "style": "italic"
+            },
+            {
+              "start": 110,
+              "end": 127,
+              "style": "italic"
+            }
+          ]
+        }
+      ]
+    },
+    "missing": {
+      "uf_first": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 4,
+          "note": "the first option paragraph in the uncertain-option-first order; the order was manipulated (p. 4: 'certain-option first, uncertain-option first') but the paper prints only the certain-first wording; whether the letters stayed with their content (uncertain = option B, listed first) or were swapped (uncertain = option A) is not stated; composing it from the printed paragraphs would be a converter-written screen. not published: no questionnaire, qsf or materials deposit (searched, see STATUS); the Supplementary Material is Data Sheet S1, participant-level data, never fetched"
+        }
+      },
+      "uf_second": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 4,
+          "note": "the second option paragraph in the uncertain-option-first order; as uf_first"
+        }
+      },
+      "consent": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 4,
+          "note": "the electronic informed consent page; described: 'participants completed electronic informed consent, where, after reading study details, they had the choice of proceeding with the study or quitting'; not published: no questionnaire, qsf or materials deposit (searched, see STATUS); the Supplementary Material is Data Sheet S1, participant-level data, never fetched"
+        }
+      },
+      "demog": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 4,
+          "note": "the short demographic questionnaire (age, sex, native language, self-reported English proficiency); items, options, formats and page structure not printed; not published: no questionnaire, qsf or materials deposit (searched, see STATUS); the Supplementary Material is Data Sheet S1, participant-level data, never fetched"
+        }
+      },
+      "choice_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "the choice prompt and the labels of the two answers; described: 'the first task was to choose one of the two options'; not published: no questionnaire, qsf or materials deposit (searched, see STATUS); the Supplementary Material is Data Sheet S1, participant-level data, never fetched"
+        }
+      },
+      "pref_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "the preference-strength question; described, not quoted: 'participants were asked how much they preferred their chosen option over the other option on a scale from 1 (no preference) to 7 (strong preference)'; wording, anchors on screen and whether the problem stayed visible are not printed. The author's description is reported and, being a description of a screen, is not served (README Decided 11). not published: no questionnaire, qsf or materials deposit (searched, see STATUS); the Supplementary Material is Data Sheet S1, participant-level data, never fetched"
+        }
+      },
+      "crt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "the 3-item Cognitive Reflection Test with its multiple-choice options and instructions; only one item is quoted as an example (the bat-and-ball problem) and 'participants were presented with multiple-choice response options'; the options, the other two items and the instructions are not printed. Frederick (2005) is the cited source (AEA copyright, no open licence); not served. not published: no questionnaire, qsf or materials deposit (searched, see STATUS); the Supplementary Material is Data Sheet S1, participant-level data, never fetched"
+        }
+      },
+      "sns": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "the 8-item Subjective Numeracy Scale as shown; two example items are quoted with the 6-point scale ends ('1 = Not at all good, 6 = Extremely good'); the eight items, their scale labels and instructions are not printed. Fagerlin et al. (2007) is cited (journal copyright, no open licence found); not served"
+        }
+      },
+      "nfc": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "the 18-item Need for Cognition scale as shown; two example items are quoted and the 9-point response scale ('4 = very strongly agree, 0 = neutral, -4 = very strongly disagree'); the 18 items and instructions are not printed. Cacioppo, Petty & Kao (1984) is cited (no open licence found); not served"
+        }
+      },
+      "zpt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 6,
+          "note": "the 20-item Zenhausern Preference Test (Experiment 2 only); 10 'right hemisphere' and 10 'left hemisphere' items, scored as a difference; items, format and position not printed. Morton (2002) is cited (no open copy found); not served"
+        }
+      }
+    },
+    "aot_instruction": {
+      "text": "Please rate your agreement or disagreement with each statement on a 1 to 7 scale, where 1 = Completely Dis-agree, 4 = Neutral, and 7 = Completely Agree.",
+      "cite": {
+        "label": "verbatim",
+        "source": "haran",
+        "page": 14,
+        "note": "instruction sentence printed above the AOT items in the Appendix of Haran, Ritov & Mellers (2013), on the same footing as the items: that it was the screen text in Mandel & Kapler is reported, not seen (p. 5 gives only the scale ends 1 / 4 / 7, which it matches). The bold line after it, '(LAST 4 should be reverse coded).', is a researcher's note and is not served"
+      }
+    },
+    "aot_items": [
+      {
+        "text": "Allowing oneself to be convinced by an opposing argument is a sign of good character.",
+        "cite": {
+          "label": "verbatim",
+          "source": "haran",
+          "page": 14,
+          "note": "AOT scale item 1 of the Appendix of Haran, Ritov & Mellers (2013); Mandel & Kapler (p. 5) say they used 'the 7-items used in Haran et al. (2013)'. That these were the screen texts is reported, not seen (the authors print only two examples: 'People should revise their beliefs in response to new information or evidence' and 'Intuition is the best guide in making decisions', both identical to Haran's items 3 and 5)"
+        }
+      },
+      {
+        "text": "People should take into consideration evidence that goes against their beliefs.",
+        "cite": {
+          "label": "verbatim",
+          "source": "haran",
+          "page": 14,
+          "note": "AOT scale item 2 of the Appendix of Haran, Ritov & Mellers (2013); Mandel & Kapler (p. 5) say they used 'the 7-items used in Haran et al. (2013)'. That these were the screen texts is reported, not seen (the authors print only two examples: 'People should revise their beliefs in response to new information or evidence' and 'Intuition is the best guide in making decisions', both identical to Haran's items 3 and 5)"
+        }
+      },
+      {
+        "text": "People should revise their beliefs in response to new information or evidence.",
+        "cite": {
+          "label": "verbatim",
+          "source": "haran",
+          "page": 14,
+          "note": "AOT scale item 3 of the Appendix of Haran, Ritov & Mellers (2013); Mandel & Kapler (p. 5) say they used 'the 7-items used in Haran et al. (2013)'. That these were the screen texts is reported, not seen (the authors print only two examples: 'People should revise their beliefs in response to new information or evidence' and 'Intuition is the best guide in making decisions', both identical to Haran's items 3 and 5)"
+        }
+      },
+      {
+        "text": "Changing your mind is a sign of weakness.",
+        "cite": {
+          "label": "verbatim",
+          "source": "haran",
+          "page": 14,
+          "note": "AOT scale item 4 of the Appendix of Haran, Ritov & Mellers (2013); Mandel & Kapler (p. 5) say they used 'the 7-items used in Haran et al. (2013)'. That these were the screen texts is reported, not seen (the authors print only two examples: 'People should revise their beliefs in response to new information or evidence' and 'Intuition is the best guide in making decisions', both identical to Haran's items 3 and 5)"
+        }
+      },
+      {
+        "text": "Intuition is the best guide in making decisions.",
+        "cite": {
+          "label": "verbatim",
+          "source": "haran",
+          "page": 14,
+          "note": "AOT scale item 5 of the Appendix of Haran, Ritov & Mellers (2013); Mandel & Kapler (p. 5) say they used 'the 7-items used in Haran et al. (2013)'. That these were the screen texts is reported, not seen (the authors print only two examples: 'People should revise their beliefs in response to new information or evidence' and 'Intuition is the best guide in making decisions', both identical to Haran's items 3 and 5)"
+        }
+      },
+      {
+        "text": "It is important to persevere in your beliefs even when evidence is brought to bear against them.",
+        "cite": {
+          "label": "verbatim",
+          "source": "haran",
+          "page": 14,
+          "note": "AOT scale item 6 of the Appendix of Haran, Ritov & Mellers (2013); Mandel & Kapler (p. 5) say they used 'the 7-items used in Haran et al. (2013)'. That these were the screen texts is reported, not seen (the authors print only two examples: 'People should revise their beliefs in response to new information or evidence' and 'Intuition is the best guide in making decisions', both identical to Haran's items 3 and 5)"
+        }
+      },
+      {
+        "text": "One should disregard evidence that conflicts with one’s established beliefs.",
+        "cite": {
+          "label": "verbatim",
+          "source": "haran",
+          "page": 14,
+          "note": "AOT scale item 7 of the Appendix of Haran, Ritov & Mellers (2013); Mandel & Kapler (p. 5) say they used 'the 7-items used in Haran et al. (2013)'. That these were the screen texts is reported, not seen (the authors print only two examples: 'People should revise their beliefs in response to new information or evidence' and 'Intuition is the best guide in making decisions', both identical to Haran's items 3 and 5)"
+        }
+      }
+    ]
+  },
+  "stages": {
+    "consent": {
+      "content": [
+        {
+          "id": "consent",
+          "value": {
+            "expr": "data['missing']['consent']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "consent page first (p. 4: 'First, participants completed electronic informed consent'). Page structure, back navigation and paging are not reported"
+      }
+    },
+    "demog": {
+      "content": [
+        {
+          "id": "demog",
+          "value": {
+            "expr": "data['missing']['demog']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "demographics follow consent (p. 4: 'Participants then were asked to fill out a short demographic questionnaire'), before the random assignment ('Next, participants were randomly assigned'). Page structure, back navigation and paging are not reported"
+      }
+    },
+    "adp": {
+      "content": [
+        {
+          "id": "stem",
+          "value": {
+            "expr": "data['stem'][frame]"
+          }
+        },
+        {
+          "id": "opt1",
+          "value": {
+            "expr": "data['opts'][cond][0] if order == 'cf' else data['missing']['uf_first']"
+          }
+        },
+        {
+          "id": "opt2",
+          "value": {
+            "expr": "data['opts'][cond][1] if order == 'cf' else data['missing']['uf_second']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "choice",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['choice_prompt']"
+          },
+          "options": [
+            {
+              "code": "certain",
+              "label": {
+                "expr": "data['missing']['choice_prompt']"
+              }
+            },
+            {
+              "code": "uncertain",
+              "label": {
+                "expr": "data['missing']['choice_prompt']"
+              }
+            }
+          ],
+          "required": false,
+          "depends_on": [
+            "adp"
+          ],
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "whether an answer was forced is not stated: optional (the default). Alternative: forced response; only what the engine accepts changes"
+          },
+          "options_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 4,
+            "note": "the order of the two answers in the response is not stated and is not tied to the order condition: always certain, uncertain (option letters/positions on screen are in the problem text, missing for the uncertain-first cells). Alternative reading: the answer list follows the order condition (uncertain first in those cells); only the listed order changes"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "'the first task was to choose one of the two options'; the answer labels and the prompt are missing; codes certain / uncertain are structure (analysis coding, p. 5)"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "the problem and the choice on one page, then the preference rating on the next (p. 5 'Subsequently, participants were asked'). Alternative reading: both questions on the same page as the problem; only paging and what is on screen at the rating change, not the unit fields. Back navigation unknown"
+      }
+    },
+    "pref": {
+      "content": [],
+      "responses": [
+        {
+          "id": "strength",
+          "kind": "scale",
+          "prompt": {
+            "expr": "data['missing']['pref_prompt']"
+          },
+          "range": [
+            1,
+            7
+          ],
+          "integer": true,
+          "required": false,
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "whether an answer was forced is not stated: optional (the default). Alternative: forced"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "'on a scale from 1 (no preference) to 7 (strong preference)'"
+          },
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "whole numbers only: inferred from a 1-7 scale, not stated"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "a page after the choice; whether the problem stayed visible is not reported (a rating of the 'chosen option' needs the options in view: alternative reading, problem shown again as in a Qualtrics side-by-side question)"
+      }
+    },
+    "crt": {
+      "content": [
+        {
+          "id": "crt",
+          "value": {
+            "expr": "data['missing']['crt']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "CRT first of the battery (p. 5). Page structure, back navigation and paging are not reported"
+      }
+    },
+    "sns": {
+      "content": [
+        {
+          "id": "sns",
+          "value": {
+            "expr": "data['missing']['sns']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "SNS second (p. 5). Page structure, back navigation and paging are not reported"
+      }
+    },
+    "aot": {
+      "content": [
+        {
+          "id": "instr",
+          "value": {
+            "expr": "data['aot_instruction']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "i1",
+          "kind": "scale",
+          "prompt": {
+            "expr": "data['aot_items'][0]"
+          },
+          "range": [
+            1,
+            7
+          ],
+          "integer": true,
+          "required": false,
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "whether an answer was forced is not stated: optional (the default). Alternative: forced"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "AOT 'using a 7-point scale (1 = completely disagree, 4 = neutral, and 7 = completely agree)'"
+          },
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "item order on screen is not printed: Haran's appendix order is used (derived). Alternative: a random order; only the order of the AOT items changes; whole numbers only is inferred from the 7-point scale"
+          }
+        },
+        {
+          "id": "i2",
+          "kind": "scale",
+          "prompt": {
+            "expr": "data['aot_items'][1]"
+          },
+          "range": [
+            1,
+            7
+          ],
+          "integer": true,
+          "required": false,
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "whether an answer was forced is not stated: optional (the default). Alternative: forced"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "AOT 'using a 7-point scale (1 = completely disagree, 4 = neutral, and 7 = completely agree)'"
+          },
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "item order on screen is not printed: Haran's appendix order is used (derived). Alternative: a random order; only the order of the AOT items changes; whole numbers only is inferred from the 7-point scale"
+          }
+        },
+        {
+          "id": "i3",
+          "kind": "scale",
+          "prompt": {
+            "expr": "data['aot_items'][2]"
+          },
+          "range": [
+            1,
+            7
+          ],
+          "integer": true,
+          "required": false,
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "whether an answer was forced is not stated: optional (the default). Alternative: forced"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "AOT 'using a 7-point scale (1 = completely disagree, 4 = neutral, and 7 = completely agree)'"
+          },
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "item order on screen is not printed: Haran's appendix order is used (derived). Alternative: a random order; only the order of the AOT items changes; whole numbers only is inferred from the 7-point scale"
+          }
+        },
+        {
+          "id": "i4",
+          "kind": "scale",
+          "prompt": {
+            "expr": "data['aot_items'][3]"
+          },
+          "range": [
+            1,
+            7
+          ],
+          "integer": true,
+          "required": false,
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "whether an answer was forced is not stated: optional (the default). Alternative: forced"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "AOT 'using a 7-point scale (1 = completely disagree, 4 = neutral, and 7 = completely agree)'"
+          },
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "item order on screen is not printed: Haran's appendix order is used (derived). Alternative: a random order; only the order of the AOT items changes; whole numbers only is inferred from the 7-point scale"
+          }
+        },
+        {
+          "id": "i5",
+          "kind": "scale",
+          "prompt": {
+            "expr": "data['aot_items'][4]"
+          },
+          "range": [
+            1,
+            7
+          ],
+          "integer": true,
+          "required": false,
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "whether an answer was forced is not stated: optional (the default). Alternative: forced"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "AOT 'using a 7-point scale (1 = completely disagree, 4 = neutral, and 7 = completely agree)'"
+          },
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "item order on screen is not printed: Haran's appendix order is used (derived). Alternative: a random order; only the order of the AOT items changes; whole numbers only is inferred from the 7-point scale"
+          }
+        },
+        {
+          "id": "i6",
+          "kind": "scale",
+          "prompt": {
+            "expr": "data['aot_items'][5]"
+          },
+          "range": [
+            1,
+            7
+          ],
+          "integer": true,
+          "required": false,
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "whether an answer was forced is not stated: optional (the default). Alternative: forced"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "AOT 'using a 7-point scale (1 = completely disagree, 4 = neutral, and 7 = completely agree)'"
+          },
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "item order on screen is not printed: Haran's appendix order is used (derived). Alternative: a random order; only the order of the AOT items changes; whole numbers only is inferred from the 7-point scale"
+          }
+        },
+        {
+          "id": "i7",
+          "kind": "scale",
+          "prompt": {
+            "expr": "data['aot_items'][6]"
+          },
+          "range": [
+            1,
+            7
+          ],
+          "integer": true,
+          "required": false,
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "whether an answer was forced is not stated: optional (the default). Alternative: forced"
+          },
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "AOT 'using a 7-point scale (1 = completely disagree, 4 = neutral, and 7 = completely agree)'"
+          },
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "item order on screen is not printed: Haran's appendix order is used (derived). Alternative: a random order; only the order of the AOT items changes; whole numbers only is inferred from the 7-point scale"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "p. 5: 'the four cognitive-style measures ... in the following order: CRT; SNS; AOT; and NFC'; each scale as one page is derived (paging, back navigation and whether the scales shared pages are not reported). item order on screen is not printed: Haran's appendix order is used (derived). Alternative: a random order; only the order of the AOT items changes"
+      }
+    },
+    "nfc": {
+      "content": [
+        {
+          "id": "nfc",
+          "value": {
+            "expr": "data['missing']['nfc']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "NFC-18 last of the common battery (p. 5). Page structure, back navigation and paging are not reported"
+      }
+    },
+    "zpt": {
+      "content": [
+        {
+          "id": "zpt",
+          "value": {
+            "expr": "data['missing']['zpt']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "ZPT 'added to the battery of cognitive-style measures' (p. 6) in Experiment 2; placed after the NFC (derived). Alternative: another position in the battery; only the order of the covariate pages changes. Page structure, back navigation and paging are not reported"
+      }
+    }
+  },
+  "flow": {
+    "seq": [
+      {
+        "stage": "consent"
+      },
+      {
+        "stage": "demog"
+      },
+      {
+        "set": {
+          "cond": {
+            "expr": "choice(['pos_cf', 'pos_uf', 'neg_cf', 'neg_uf'])"
+          }
+        }
+      },
+      {
+        "set": {
+          "frame": {
+            "expr": "cond[:3]"
+          },
+          "order": {
+            "expr": "cond[4:]"
+          }
+        }
+      },
+      {
+        "stage": "adp"
+      },
+      {
+        "stage": "pref"
+      },
+      {
+        "stage": "crt"
+      },
+      {
+        "stage": "sns"
+      },
+      {
+        "stage": "aot"
+      },
+      {
+        "stage": "nfc"
+      },
+      {
+        "if": "arm == 'exp2'",
+        "then": {
+          "stage": "zpt"
+        },
+        "else": {
+          "seq": []
+        }
+      }
+    ]
+  },
+  "flow_cites": {
+    "assignment": {
+      "label": "derived",
+      "source": "paper",
+      "page": 4,
+      "note": "'participants were randomly assigned to one of the four experimental conditions in a 2 (Frame: positive, negative) x 2 (Order: certain-option first, uncertain-option first) between-subjects design' (Exp. 1; Exp. 2 'identical'). Mechanism and cell sizes are not reported: an independent uniform draw. Alternative: a balanced (even-presentation) draw; the realised cell sizes would differ"
+    },
+    "battery_order": {
+      "label": "reported",
+      "source": "paper",
+      "page": 5,
+      "note": "CRT, SNS, AOT, NFC in that order (Exp. 1); ZPT position in Exp. 2 derived (stage zpt)"
+    }
+  },
+  "units": {
+    "participants": {
+      "per": "session",
+      "fields": {
+        "experiment": "arm",
+        "frame": "frame",
+        "order": "order",
+        "choice_certain": "None if answer('adp.choice') is None else (1 if answer('adp.choice') == 'certain' else 0)",
+        "certain_code": "None if answer('adp.choice') is None else (1 if answer('adp.choice') == 'certain' else -1)",
+        "fc01": "None if answer('adp.choice') is None else (1 if ((frame == 'pos') == (answer('adp.choice') == 'certain')) else 0)",
+        "fc": "None if answer('adp.choice') is None else (1 if ((frame == 'pos') == (answer('adp.choice') == 'certain')) else -1)",
+        "pref": "answer('pref.strength')",
+        "pw": "None if (answer('adp.choice') is None or answer('pref.strength') is None) else (answer('pref.strength') if ((frame == 'pos') == (answer('adp.choice') == 'certain')) else -answer('pref.strength'))",
+        "fc_first": "1 if ((frame == 'pos') == (order == 'cf')) else 0"
+      },
+      "cites": {
+        "choice_certain": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "positive frame: option A is the certain option, B the uncertain one (certain-first order); the answer is recoded by content (certain / uncertain)"
+        },
+        "certain_code": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "'Coding selections of the certain and uncertain options as 1 and -1, respectively' (p. 5)"
+        },
+        "fc01": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "'Choices were coded as frame-consistent if and only if they were (a) certain-option choices made in the positive-frame condition or (b) uncertain-option choices made in the negative-frame condition' (p. 5); the 0/1 form is the share the paper reports ('118 (62%)')"
+        },
+        "fc": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "'frame-consistent choices were dummy coded 1, whereas frame-inconsistent choices were dummy coded -1' (p. 5)"
+        },
+        "pref": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "preference strength 1 (no preference) to 7 (strong preference)"
+        },
+        "pw": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "'these values were multiplied by the strength of preference scores to provide a preference-weighted measure of frame consistency' (p. 5)"
+        },
+        "fc_first": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "'a binary measure of whether the frame-consistent choice was presented first or second': the frame-consistent option is the certain one in the positive frame and the uncertain one in the negative frame; certain-first order puts the certain option first (p. 4)"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "omitted": [
+    {
+      "what": "debriefing ('who were also debriefed following the experiment')",
+      "why": "not published",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4
+      }
+    },
+    {
+      "what": "MTurk HIT page, qualification and payment screens",
+      "why": "platform, not questionnaire content",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6
+      }
+    },
+    {
+      "what": "completion-time recording (4 min to 24 h rule; Exp. 1 mean 15 min, SD 12.50, p. 4)",
+      "why": "the engine has no clock; exclusion not replayed (meta.conflicts 'timing')",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4
+      }
+    }
+  ],
+  "analysis": {
+    "targets": [],
+    "effects": [],
+    "blocked_arm_targets": [
+      {
+        "id": "exp1_fc_overall",
+        "unit": "participants",
+        "where": {
+          "experiment": "exp1"
+        },
+        "field": "fc01",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 118,
+          "n": 190,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "118 of 190 (62%) made frame-consistent choices; exact binomial probability of this many or more 0.000521 (one-sided, 'or more')"
+          }
+        }
+      },
+      {
+        "id": "exp1_fc_pos",
+        "unit": "participants",
+        "where": {
+          "experiment": "exp1",
+          "frame": "pos"
+        },
+        "field": "fc01",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.75,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "proportion of frame-consistent choices in the positive-frame condition (0.75)"
+          },
+          "n_note": "the n per frame / per order cell is not printed"
+        }
+      },
+      {
+        "id": "exp1_fc_neg",
+        "unit": "participants",
+        "where": {
+          "experiment": "exp1",
+          "frame": "neg"
+        },
+        "field": "fc01",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.49,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "proportion of frame-consistent choices in the negative-frame condition (0.49)"
+          },
+          "n_note": "the n per frame / per order cell is not printed"
+        }
+      },
+      {
+        "id": "exp1_pw_overall",
+        "unit": "participants",
+        "where": {
+          "experiment": "exp1"
+        },
+        "field": "pw",
+        "stat": "mean",
+        "human": {
+          "value": 1.09,
+          "n": 190,
+          "lower": 0.4,
+          "upper": 1.8,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "mean preference-weighted choice M = 1.09, 95% CI [0.40, 1.80], one-sample t(189) = 3.13, d = 0.23, p = 0.002, test value 0"
+          },
+          "no_uncertainty": "the printed 95% CI and the one-sample t(189) = 3.13, p = 0.002 are the only uncertainty (no SD of the weighted measure for the whole sample)"
+        }
+      },
+      {
+        "id": "exp2_fc_overall",
+        "unit": "participants",
+        "where": {
+          "experiment": "exp2"
+        },
+        "field": "fc01",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 184,
+          "n": 316,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "184 of 316 (58.2%) made frame-consistent choices; exact binomial probability of this many or more 0.002 (one-sided, 'or more')"
+          }
+        }
+      },
+      {
+        "id": "exp2_fc_pos",
+        "unit": "participants",
+        "where": {
+          "experiment": "exp2",
+          "frame": "pos"
+        },
+        "field": "fc01",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.65,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "proportion of frame-consistent choices in the positive-frame condition (0.65)"
+          },
+          "n_note": "the n per frame / per order cell is not printed"
+        }
+      },
+      {
+        "id": "exp2_fc_neg",
+        "unit": "participants",
+        "where": {
+          "experiment": "exp2",
+          "frame": "neg"
+        },
+        "field": "fc01",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.52,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "proportion of frame-consistent choices in the negative-frame condition (0.52)"
+          },
+          "n_note": "the n per frame / per order cell is not printed"
+        }
+      },
+      {
+        "id": "exp2_pw_overall",
+        "unit": "participants",
+        "where": {
+          "experiment": "exp2"
+        },
+        "field": "pw",
+        "stat": "mean",
+        "human": {
+          "value": 0.9,
+          "n": 316,
+          "lower": 0.32,
+          "upper": 1.42,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "mean preference-weighted choice M = 0.90, 95% CI [0.32, 1.42], one-sample t(315) = 3.05, d = 0.17, p = 0.002, test value 0"
+          },
+          "no_uncertainty": "the printed 95% CI and the one-sample t(315) = 3.05, p = 0.002 are the only uncertainty (no SD of the weighted measure for the whole sample)"
+        }
+      }
+    ],
+    "blocked_arm_effects": [
+      {
+        "id": "exp1_certain_frame",
+        "label": "Experiment 1: certain-option choice coded 1 / -1, positive minus negative frame",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pos",
+          "reference": "neg"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "certain_code",
+          "groupBy": "frame",
+          "where": {
+            "experiment": "exp1"
+          }
+        },
+        "reported": {
+          "cells": {
+            "pos": {
+              "mean": 0.49,
+              "sd": 0.88
+            },
+            "neg": {
+              "mean": 0.02,
+              "sd": 1.01
+            }
+          },
+          "test": {
+            "statistic": "t",
+            "value": 3.43,
+            "df": 188,
+            "p": 0.001,
+            "pRelation": "="
+          },
+          "effect_size": {
+            "metric": "cohens_d",
+            "value": 0.5
+          },
+          "n_note": "the n per frame / per order cell is not printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "'traditional between groups test of the framing effect': mean 0.02 (SD 1.01) in the negative-frame condition and 0.49 (SD 0.88) in the positive-frame condition, t(188) = 3.43, d = 0.50, p = 0.001"
+          }
+        },
+        "direction": "positive"
+      },
+      {
+        "id": "exp1_fc_frame",
+        "label": "Experiment 1: share of frame-consistent choices, positive minus negative frame",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pos",
+          "reference": "neg"
+        },
+        "compute": {
+          "op": "proportion_difference",
+          "field": "fc01",
+          "groupBy": "frame",
+          "success": 1,
+          "where": {
+            "experiment": "exp1"
+          },
+          "compareAs": {
+            "metric": "log_odds_ratio",
+            "reason": "Table 2 Model 1 is a binary logistic regression of frame-consistent choice on frame alone: its coefficient is the log odds ratio between the two frames (frame coded negative = 1, positive = 2, derived from the constant: logit of the negative-frame share minus B)"
+          }
+        },
+        "reported": {
+          "estimates": [
+            {
+              "metric": "log_odds_ratio",
+              "value": 1.12,
+              "se": 0.31,
+              "variant": "Table 2 Model 1, Frame"
+            }
+          ],
+          "cells": {
+            "pos": {
+              "proportion": 0.75
+            },
+            "neg": {
+              "proportion": 0.49
+            }
+          },
+          "test": {
+            "statistic": "chi_square",
+            "value": 13.19,
+            "df": 1,
+            "p": 0.001,
+            "pRelation": "<",
+            "note": "likelihood-ratio chi-square of the one-parameter (frame) model, N = 190, not a 2x2 Pearson test"
+          },
+          "n_note": "the n per frame / per order cell is not printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "proportions 0.75 (positive) vs 0.49 (negative); one-parameter model chi2(1, N = 190) = 13.19, p < 0.001 (text p. 6); Table 2 p. 7"
+          }
+        },
+        "direction": "positive"
+      },
+      {
+        "id": "exp1_pw_frame",
+        "label": "Experiment 1: preference-weighted frame-consistent choice, positive minus negative frame",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pos",
+          "reference": "neg"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "pw",
+          "groupBy": "frame",
+          "where": {
+            "experiment": "exp1"
+          },
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "Table 3 Model 1 is an OLS regression of the weighted measure on frame alone (bootstrap): its Frame coefficient is the mean difference positive minus negative"
+          }
+        },
+        "model_note": "Model 1 has frame as the only predictor, so the coefficient IS the mean difference; compareAs states it. The printed coefficient (2.44) and the text means (2.28 - 0.16 = 2.12) disagree (meta.paper_inconsistencies)",
+        "reported": {
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 2.44,
+              "se": 0.67,
+              "variant": "Table 3 Model 1, Frame (B)"
+            }
+          ],
+          "cells": {
+            "pos": {
+              "mean": 2.28,
+              "sd": 4.43
+            },
+            "neg": {
+              "mean": 0.16,
+              "sd": 4.95
+            }
+          },
+          "test": {
+            "statistic": "t",
+            "value": 3.1,
+            "df": 188,
+            "p": 0.002,
+            "pRelation": "="
+          },
+          "effect_size": {
+            "metric": "cohens_d",
+            "value": 0.45
+          },
+          "n_note": "the n per frame / per order cell is not printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "mean 0.16 (SD 4.95) in the negative-frame and 2.28 (SD 4.43) in the positive-frame condition, t(188) = 3.10, d = 0.45, p = 0.002; Table 3 Model 1 Frame B = 2.44 (SE 0.67), F(1, 188) = 12.82 (Table p. 7)"
+          }
+        },
+        "direction": "positive",
+        "suspect": "printed negative-frame mean 0.16 / t(188) = 3.10 contradict Table 3 (B 2.44, constant -2.60, F 12.82): meta.paper_inconsistencies"
+      },
+      {
+        "id": "exp1_fc_order",
+        "label": "Experiment 1: share of frame-consistent choices, frame-consistent option first minus second",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "proportion_difference",
+          "field": "fc01",
+          "groupBy": "fc_first",
+          "success": 1,
+          "where": {
+            "experiment": "exp1"
+          }
+        },
+        "reported": {
+          "cells": {
+            "1": {
+              "proportion": 0.67
+            },
+            "0": {
+              "proportion": 0.58
+            }
+          },
+          "test": {
+            "statistic": "other",
+            "p": 0.23,
+            "pRelation": "=",
+            "note": "Fisher's two-sided exact test"
+          },
+          "n_note": "the n per frame / per order cell is not printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "proportion 0.67 when the frame-consistent option was presented first vs 0.58 second, p = 0.23 by Fisher's two-sided exact test"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "not significant; the General Discussion calls it 'faint evidence' for reachability bias (p. 10)"
+        }
+      },
+      {
+        "id": "exp1_fc_pref_corr",
+        "label": "Experiment 1: frame-consistent choice and preference strength (Pearson r)",
+        "unit": "participants",
+        "design": "correlational",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "association"
+        },
+        "compute": {
+          "op": "correlation",
+          "field": "fc01",
+          "withField": "pref",
+          "where": {
+            "experiment": "exp1"
+          }
+        },
+        "reported": {
+          "estimates": [
+            {
+              "metric": "correlation",
+              "value": -0.06,
+              "variant": "Table 1, row 1 x column 2"
+            }
+          ],
+          "no_uncertainty": "Table 1 prints r and significance stars only (none on this cell)",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "Pearson correlation of frame-consistent choice (coded 0/1 or 1/-1: same r) with preference strength; no star = p >= .05"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "not significant"
+        }
+      },
+      {
+        "id": "exp1_pw_order",
+        "label": "Experiment 1: preference-weighted choice, frame-consistent option first minus second",
+        "unit": "participants",
+        "design": "between",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "pw",
+          "groupBy": "fc_first",
+          "where": {
+            "experiment": "exp1"
+          }
+        },
+        "reported": {
+          "test": {
+            "statistic": "t",
+            "value": 0.97,
+            "df": 188,
+            "p": 0.34,
+            "pRelation": "="
+          },
+          "effect_size": {
+            "metric": "cohens_d",
+            "value": 0.14
+          },
+          "no_uncertainty": "group means and SDs of the order split are not printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "no significant effect of frame-consistent option order on preference-weighted choice, t(188) = 0.97, d = 0.14, p = 0.34"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "not significant"
+        }
+      },
+      {
+        "id": "exp2_certain_frame",
+        "label": "Experiment 2: certain-option choice coded 1 / -1, positive minus negative frame",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pos",
+          "reference": "neg"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "certain_code",
+          "groupBy": "frame",
+          "where": {
+            "experiment": "exp2"
+          }
+        },
+        "reported": {
+          "cells": {
+            "pos": {
+              "mean": 0.3,
+              "sd": 0.96
+            },
+            "neg": {
+              "mean": -0.03,
+              "sd": 1.0
+            }
+          },
+          "test": {
+            "statistic": "t",
+            "value": 3.0,
+            "df": 314,
+            "p": 0.003,
+            "pRelation": "="
+          },
+          "effect_size": {
+            "metric": "cohens_d",
+            "value": 0.34
+          },
+          "n_note": "the n per frame / per order cell is not printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "'traditional between groups test of the framing effect': mean -0.03 (SD 1.00) in the negative-frame condition and 0.30 (SD 0.96) in the positive-frame condition, t(314) = 3.00, d = 0.34, p = 0.003"
+          }
+        },
+        "direction": "positive"
+      },
+      {
+        "id": "exp2_fc_frame",
+        "label": "Experiment 2: share of frame-consistent choices, positive minus negative frame",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pos",
+          "reference": "neg"
+        },
+        "compute": {
+          "op": "proportion_difference",
+          "field": "fc01",
+          "groupBy": "frame",
+          "success": 1,
+          "where": {
+            "experiment": "exp2"
+          },
+          "compareAs": {
+            "metric": "log_odds_ratio",
+            "reason": "Table 5 Model 1 is a binary logistic regression of frame-consistent choice on frame alone: its coefficient is the log odds ratio between the two frames (frame coded negative = 1, positive = 2, derived from the constant: logit of the negative-frame share minus B)"
+          }
+        },
+        "reported": {
+          "estimates": [
+            {
+              "metric": "log_odds_ratio",
+              "value": 0.56,
+              "se": 0.23,
+              "variant": "Table 5 Model 1, Frame"
+            }
+          ],
+          "cells": {
+            "pos": {
+              "proportion": 0.65
+            },
+            "neg": {
+              "proportion": 0.52
+            }
+          },
+          "test": {
+            "statistic": "chi_square",
+            "value": 5.85,
+            "df": 1,
+            "p": 0.02,
+            "pRelation": "=",
+            "note": "likelihood-ratio chi-square of the one-parameter (frame) model, N = 316, not a 2x2 Pearson test"
+          },
+          "n_note": "the n per frame / per order cell is not printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "proportions 0.65 (positive) vs 0.52 (negative); one-parameter model chi2(1, N = 316) = 5.85, p = 0.02 (text p. 8); Table 5 p. 8"
+          }
+        },
+        "direction": "positive"
+      },
+      {
+        "id": "exp2_pw_frame",
+        "label": "Experiment 2: preference-weighted frame-consistent choice, positive minus negative frame",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pos",
+          "reference": "neg"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "pw",
+          "groupBy": "frame",
+          "where": {
+            "experiment": "exp2"
+          },
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "Table 6 Model 1 is an OLS regression of the weighted measure on frame alone (bootstrap): its Frame coefficient is the mean difference positive minus negative"
+          }
+        },
+        "model_note": "Model 1 has frame as the only predictor, so the coefficient IS the mean difference; compareAs states it. The printed coefficient (1.98) and the text means (1.89 - 0.09 = 1.80) disagree (meta.paper_inconsistencies)",
+        "reported": {
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 1.98,
+              "se": 0.56,
+              "variant": "Table 6 Model 1, Frame (B)"
+            }
+          ],
+          "cells": {
+            "pos": {
+              "mean": 1.89,
+              "sd": 5.07
+            },
+            "neg": {
+              "mean": 0.09,
+              "sd": 5.09
+            }
+          },
+          "test": {
+            "statistic": "t",
+            "value": 3.13,
+            "df": 314,
+            "p": 0.002,
+            "pRelation": "="
+          },
+          "effect_size": {
+            "metric": "cohens_d",
+            "value": 0.35
+          },
+          "n_note": "the n per frame / per order cell is not printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "mean 0.09 (SD 5.09) in the negative-frame and 1.89 (SD 5.07) in the positive-frame condition, t(314) = 3.13, d = 0.35, p = 0.002; Table 6 Model 1 Frame B = 1.98 (SE 0.56), F(1, 314) = 11.77 (Table p. 9)"
+          }
+        },
+        "direction": "positive",
+        "suspect": "printed negative-frame mean 0.09 / t(314) = 3.13 contradict Table 6 (B 1.98, constant -2.07): meta.paper_inconsistencies"
+      },
+      {
+        "id": "exp2_fc_order",
+        "label": "Experiment 2: share of frame-consistent choices, frame-consistent option first minus second",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "proportion_difference",
+          "field": "fc01",
+          "groupBy": "fc_first",
+          "success": 1,
+          "where": {
+            "experiment": "exp2"
+          }
+        },
+        "reported": {
+          "cells": {
+            "1": {
+              "proportion": 0.65
+            },
+            "0": {
+              "proportion": 0.55
+            }
+          },
+          "test": {
+            "statistic": "other",
+            "p": 0.31,
+            "pRelation": "=",
+            "note": "Fisher's two-sided exact test"
+          },
+          "n_note": "the n per frame / per order cell is not printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "proportion 0.65 when the frame-consistent option was presented first vs 0.55 second, p = 0.31 by Fisher's two-sided exact test"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "not significant; the General Discussion calls it 'faint evidence' for reachability bias (p. 10)"
+        },
+        "suspect": "printed .65 (frame-consistent option first) contradicts 184 / 316 and the pooled 63.1% (likely .61): meta.paper_inconsistencies"
+      },
+      {
+        "id": "exp2_fc_pref_corr",
+        "label": "Experiment 2: frame-consistent choice and preference strength (Pearson r)",
+        "unit": "participants",
+        "design": "correlational",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "association"
+        },
+        "compute": {
+          "op": "correlation",
+          "field": "fc01",
+          "withField": "pref",
+          "where": {
+            "experiment": "exp2"
+          }
+        },
+        "reported": {
+          "estimates": [
+            {
+              "metric": "correlation",
+              "value": 0.04,
+              "variant": "Table 4, row 1 x column 2"
+            }
+          ],
+          "no_uncertainty": "Table 4 prints r and significance stars only (none on this cell)",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "Pearson correlation of frame-consistent choice (coded 0/1 or 1/-1: same r) with preference strength; no star = p >= .05"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "not significant"
+        }
+      },
+      {
+        "id": "exp2_pw_order",
+        "label": "Experiment 2: preference-weighted choice, frame-consistent option first minus second",
+        "unit": "participants",
+        "design": "between",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "pw",
+          "groupBy": "fc_first",
+          "where": {
+            "experiment": "exp2"
+          }
+        },
+        "reported": {
+          "test": {
+            "statistic": "t",
+            "value": 1.05,
+            "df": 314,
+            "p": 0.3,
+            "pRelation": "="
+          },
+          "effect_size": {
+            "metric": "cohens_d",
+            "value": 0.12
+          },
+          "no_uncertainty": "group means and SDs of the order split are not printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 9,
+            "note": "no significant effect of frame-consistent option order on preference-weighted choice, t(314) = 1.05, d = 0.12, p = 0.30"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "note": "not significant"
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "id": "models_2_3_covariates",
+        "what": "Tables 2, 3, 5, 6, Models 2 and 3: logistic / bootstrap OLS regressions adding CRT, SNS, AOT, NFC (ZPT in Exp. 2), then sex and age; Model comparisons chi2(4, N = 190) = 7.13 p = .13 and chi2(2) = 1.38 p = .50 (Exp. 1), Fchange(4, 184) = 1.48 p = .21, Fchange(2, 182) = .73 p = .48; chi2(5, N = 316) = 8.89 p = .11, chi2(2) = 3.16 p = .21, Fchange(5, 309) = 2.04 p = .073, Fchange(2, 307) = 1.55 p = .22 (Exp. 2)",
+        "why": "needs a multiple-regression op (engine request regression_op) and the covariate scales, which are missing on screen (CRT, SNS, NFC, ZPT unpublished; the arms are not runnable); AOT alone is not enough",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "Tables 2, 3, 5, 6 and the text pp. 6, 8, 9"
+        }
+      },
+      {
+        "id": "correlation_tables",
+        "what": "Tables 1 and 4: Pearson correlations of frame-consistent choice and preference strength with CRT, SNS, AOT, NFC (ZPT) and among the covariates; partial correlation CRT x frame-consistent choice r(187) = .11 p = .12 (Exp. 1); combined-sample correlations (r = .02, -.05, .08, .08; N = 506); CRT intuitive-response correlations; factor scores",
+        "why": "every cell but fc x preference needs a covariate scale that is missing (the fc x preference cells are the fc_pref_corr effects); combined-sample and partial statistics need ops the engine lacks",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "Tables 1 and 4, pp. 6, 8; General Discussion p. 10"
+        }
+      },
+      {
+        "id": "order_pooled",
+        "what": "pooled order effect: 63.1% vs 56.1%, p = .057 by Fisher's one-sided test (N = 506)",
+        "why": "pooled over the two experiments (other-sample scope), one-sided",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "note": "General Discussion"
+        }
+      },
+      {
+        "id": "goodman_kruskal",
+        "what": "Goodman and Kruskal's tau = .008 (Exp. 1), .004 (Exp. 2)",
+        "why": "no op",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "pp. 5, 8"
+        }
+      },
+      {
+        "id": "meta_analytic_d",
+        "what": "meta-analytic framing effect d = .42, 95% CI [.22, .62]; comparison with Mandel (2014, Exp. 2) 57.9% (44 of 76)",
+        "why": "pooled over experiments / another study",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "note": "General Discussion"
+        }
+      },
+      {
+        "id": "scale_statistics",
+        "what": "scale descriptives and reliabilities (CRT, SNS, AOT, NFC, ZPT-L/-R) and the CRT difference across frames t(188) = 2.71, p = .007 (Exp. 1)",
+        "why": "covariate scales are missing on screen",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "pp. 5-7"
+        }
+      }
+    ]
+  },
+  "keyed": {
+    "why": "answers that make the paper's pattern true: the frame-consistent option is chosen with strength 4",
+    "answers": {
+      "adp.choice": "'certain' if frame == 'pos' else 'uncertain'",
+      "pref.strength": "4"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {},
+    "strict": false,
+    "attribution": [
+      {
+        "source": "haran",
+        "licence": "CC-BY-3.0",
+        "attribution": "Haran, U., Ritov, I., & Mellers, B. A. (2013). The role of actively open-minded thinking in information acquisition, accuracy, and calibration. Judgment and Decision Making, 8(3), 188-201. CC BY 3.0"
+      },
+      {
+        "source": "paper",
+        "licence": "CC-BY-4.0",
+        "attribution": "Mandel, D. R., & Kapler, I. V. (2018). Cognitive style and frame susceptibility in decision-making. Frontiers in Psychology, 9:1461. doi:10.3389/fpsyg.2018.01461. Copyright (c) 2018 Her Majesty the Queen in Right of Canada, as represented by Defence Research and Development Canada. CC BY"
+      }
+    ]
+  }
+}

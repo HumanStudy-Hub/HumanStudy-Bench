@@ -1,0 +1,3238 @@
+{
+  "id": "nagel1995guessing",
+  "schema": "hsenv-protocol/0.1",
+  "meta": {
+    "citation": "Nagel, R. (1995). Unraveling in guessing games: An experimental study. American Economic Review, 85(5), 1313-1326. https://www.jstor.org/stable/2950991",
+    "language": "de",
+    "licence": {
+      "paper": "closed licence: American Economic Review (American Economic Association) copyright; JSTOR copy; Bench SOURCE.json 'publisher copyright (no open license found)', OpenAlex closed access. Private research only"
+    },
+    "sources": {
+      "paper": {
+        "file": "sources/paper.pdf",
+        "sha256": "4aa3a743ab88608300d69a5c9c0d530a00d74c118cd1a8eca38644825168b8e5",
+        "url": "https://www.jstor.org/stable/2950991",
+        "what": "JSTOR scan (downloaded 2004): p. 1 JSTOR cover, pp. 2-15 = AER pp. 1313-1326. Image-only, no text layer. Cite pages are PDF pages (journal page = 1311 + PDF page)",
+        "licence": "closed (AEA copyright; JSTOR terms); private",
+        "distribution": {
+          "tier": "user"
+        }
+      }
+    },
+    "sample": {
+      "n": 166,
+      "p12": 48,
+      "p23": 67,
+      "p43": 51,
+      "sessions": 10,
+      "population": "not described (Bonn; DFG SFB 303 funding)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 7,
+        "read": "image",
+        "note": "withheld:3233564699d8f4b4"
+      }
+    },
+    "image_read": "the whole paper is an image scan without a text layer: every cite (procedure quotes, Figure 1 legends, Tables 1-2, text percentages) was read off the page images (read: image). No text is served on screen, so no verbatim text awaits a blind reading; the scored numbers are listed in STATUS for an optional blind check (pdf pp. 5, 6, 7, 9, 10, 11, 12)"
+  },
+  "arms": [
+    {
+      "id": "p12",
+      "label": "p = 1/2 (sessions 1-3)",
+      "n_paper": 3,
+      "group_size": 16,
+      "n_participants": 48,
+      "runnable": false,
+      "why": "every on-screen text is missing: the written instruction sheet (German; 'may be obtained from the author upon request', fn 10), the response card, the explanation sheet and the blackboard labels are not printed; the paper's English description of the game is an author's summary (reported), never served (DESIGN 2 rule 2; README Decided 11)",
+      "assignment": "between (session-level); 'A subject could participate in only one session' (p. 1315)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "read": "image",
+        "note": "withheld:c81d2958a25b40b4"
+      },
+      "n_participants_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 7,
+        "read": "image",
+        "note": "withheld:5ca85bbdb13bed44"
+      },
+      "group_size_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "withheld:d7a4492f5925e0a0"
+      }
+    },
+    {
+      "id": "p23",
+      "label": "p = 2/3 (sessions 4-7)",
+      "n_paper": 4,
+      "group_size": 17,
+      "n_participants": 67,
+      "runnable": false,
+      "why": "every on-screen text is missing: the written instruction sheet (German; 'may be obtained from the author upon request', fn 10), the response card, the explanation sheet and the blackboard labels are not printed; the paper's English description of the game is an author's summary (reported), never served (DESIGN 2 rule 2; README Decided 11)",
+      "assignment": "between (session-level); 'A subject could participate in only one session' (p. 1315)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "read": "image",
+        "note": "withheld:c81d2958a25b40b4"
+      },
+      "n_participants_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 7,
+        "read": "image",
+        "note": "withheld:5ca85bbdb13bed44"
+      },
+      "group_size_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "withheld:d2b1b2c40677ba20"
+      }
+    },
+    {
+      "id": "p43",
+      "label": "p = 4/3 (sessions 8-10)",
+      "n_paper": 3,
+      "group_size": 17,
+      "n_participants": 51,
+      "runnable": false,
+      "why": "every on-screen text is missing: the written instruction sheet (German; 'may be obtained from the author upon request', fn 10), the response card, the explanation sheet and the blackboard labels are not printed; the paper's English description of the game is an author's summary (reported), never served (DESIGN 2 rule 2; README Decided 11)",
+      "assignment": "between (session-level); 'A subject could participate in only one session' (p. 1315)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "read": "image",
+        "note": "withheld:c81d2958a25b40b4"
+      },
+      "n_participants_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 7,
+        "read": "image",
+        "note": "withheld:5ca85bbdb13bed44"
+      },
+      "group_size_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 4,
+        "note": "withheld:ccdd548ad31f29ee"
+      }
+    }
+  ],
+  "run_excluded": [
+    {
+      "arm": "p12",
+      "n_paper": 3,
+      "why": "every on-screen text is missing: the written instruction sheet (German; 'may be obtained from the author upon request', fn 10), the response card, the explanation sheet and the blackboard labels are not printed; the paper's English description of the game is an author's summary (reported), never served (DESIGN 2 rule 2; README Decided 11)",
+      "missing": [
+        "data.missing.instructions",
+        "data.missing.oral",
+        "data.missing.card",
+        "data.missing.explain",
+        "data.missing.board"
+      ],
+      "cite": {
+        "label": "missing",
+        "source": "paper",
+        "page": 4
+      }
+    },
+    {
+      "arm": "p23",
+      "n_paper": 4,
+      "why": "every on-screen text is missing: the written instruction sheet (German; 'may be obtained from the author upon request', fn 10), the response card, the explanation sheet and the blackboard labels are not printed; the paper's English description of the game is an author's summary (reported), never served (DESIGN 2 rule 2; README Decided 11)",
+      "missing": [
+        "data.missing.instructions",
+        "data.missing.oral",
+        "data.missing.card",
+        "data.missing.explain",
+        "data.missing.board"
+      ],
+      "cite": {
+        "label": "missing",
+        "source": "paper",
+        "page": 4
+      }
+    },
+    {
+      "arm": "p43",
+      "n_paper": 3,
+      "why": "every on-screen text is missing: the written instruction sheet (German; 'may be obtained from the author upon request', fn 10), the response card, the explanation sheet and the blackboard labels are not printed; the paper's English description of the game is an author's summary (reported), never served (DESIGN 2 rule 2; README Decided 11)",
+      "missing": [
+        "data.missing.instructions",
+        "data.missing.oral",
+        "data.missing.card",
+        "data.missing.explain",
+        "data.missing.board"
+      ],
+      "cite": {
+        "label": "missing",
+        "source": "paper",
+        "page": 4
+      }
+    }
+  ],
+  "data": {
+    "missing": {
+      "instructions": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:d5828e0693938a85"
+        }
+      },
+      "oral": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:2b1d64bb6270be03"
+        }
+      },
+      "card": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:23016b41b836474c"
+        }
+      },
+      "explain": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:ca469aac21f0f3fb"
+        }
+      },
+      "board": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": "4-5",
+          "note": "withheld:723050618049312c"
+        }
+      }
+    },
+    "p": {
+      "p12": 0.5,
+      "p23": 0.6666666666666666,
+      "p43": 1.3333333333333333
+    }
+  },
+  "stages": {
+    "instructions": {
+      "content": [
+        {
+          "id": "sheet",
+          "value": {
+            "expr": "data['missing']['instructions']"
+          },
+          "reviewable": true,
+          "note": "the sheet lay at each subject's place for the session (derived: reviewable)"
+        },
+        {
+          "id": "oral",
+          "value": {
+            "expr": "data['missing']['oral']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self",
+        "time_limit": "unknown"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "read": "image",
+        "note": "withheld:8ae70b651efa4625"
+      }
+    },
+    "card": {
+      "content": [
+        {
+          "id": "prev_layout",
+          "value": {
+            "expr": "data['missing']['board']"
+          },
+          "if": "r > 0"
+        },
+        {
+          "id": "prev_numbers",
+          "value": {
+            "expr": "b_numbers"
+          },
+          "if": "r > 0"
+        },
+        {
+          "id": "prev_mean",
+          "value": {
+            "expr": "b_mean"
+          },
+          "if": "r > 0"
+        },
+        {
+          "id": "prev_pmean",
+          "value": {
+            "expr": "b_pmean"
+          },
+          "if": "r > 0"
+        }
+      ],
+      "content_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 5,
+        "note": "withheld:10766508982ed3ba"
+      },
+      "responses": [
+        {
+          "id": "x",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['card']"
+          },
+          "validate": {
+            "min": 0,
+            "max": 100
+          },
+          "required": true,
+          "validate_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "read": "image",
+            "note": "withheld:b40b509d627f0067"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "read": "image",
+            "note": "withheld:cbf848e41f8d19fc"
+          },
+          "depends_on": [
+            "instructions.sheet"
+          ]
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self",
+        "time_limit": "unknown"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "read": "image",
+        "note": "withheld:8ae70b651efa4625"
+      }
+    },
+    "explain": {
+      "content": [],
+      "responses": [
+        {
+          "id": "comment",
+          "kind": "text",
+          "prompt": {
+            "expr": "data['missing']['explain']"
+          },
+          "required": false,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "read": "image",
+            "note": "withheld:4873f068855d6376"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self",
+        "time_limit": "unknown"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "read": "image",
+        "note": "withheld:8ae70b651efa4625"
+      }
+    },
+    "board": {
+      "content": [
+        {
+          "id": "layout",
+          "value": {
+            "expr": "data['missing']['board']"
+          }
+        },
+        {
+          "id": "numbers",
+          "value": {
+            "expr": "b_numbers"
+          }
+        },
+        {
+          "id": "mean",
+          "value": {
+            "expr": "b_mean"
+          }
+        },
+        {
+          "id": "pmean",
+          "value": {
+            "expr": "b_pmean"
+          }
+        },
+        {
+          "id": "winners",
+          "value": {
+            "expr": "b_winners"
+          }
+        },
+        {
+          "id": "prize",
+          "value": {
+            "expr": "b_prize"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self",
+        "time_limit": "unknown"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "read": "image",
+        "note": "withheld:e7842b9e359d5c47"
+      }
+    }
+  },
+  "flow": {
+    "seq": [
+      {
+        "set": {
+          "P": {
+            "expr": "data['p'][arm]"
+          },
+          "means": {
+            "expr": "[]"
+          },
+          "pays": {
+            "expr": "[]"
+          }
+        },
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "read": "image",
+          "note": "withheld:a0e7b0ee28a05385"
+        }
+      },
+      {
+        "stage": "instructions"
+      },
+      {
+        "loop": 4,
+        "as": "r",
+        "do": {
+          "seq": [
+            {
+              "stage": "card"
+            },
+            {
+              "stage": "explain"
+            },
+            {
+              "sync": "round",
+              "compute": {
+                "means": "[means + [mean(xs)] for xs in [group('card.x')] for pm in [P * mean(xs)] for dmin in [min([abs(y - pm) for y in xs])] for nwin in [len([y for y in xs if abs(y - pm) == dmin])]][0]",
+                "pays": "[pays + [(20 / nwin if abs(answer('card.x') - pm) == dmin else 0)] for xs in [group('card.x')] for pm in [P * mean(xs)] for dmin in [min([abs(y - pm) for y in xs])] for nwin in [len([y for y in xs if abs(y - pm) == dmin])]][0]",
+                "b_numbers": "[join(', ', [('%g' % round(y, 2)) for y in sorted(xs)]) for xs in [group('card.x')] for pm in [P * mean(xs)] for dmin in [min([abs(y - pm) for y in xs])] for nwin in [len([y for y in xs if abs(y - pm) == dmin])]][0]",
+                "b_mean": "[('%g' % round(mean(xs), 2)) for xs in [group('card.x')] for pm in [P * mean(xs)] for dmin in [min([abs(y - pm) for y in xs])] for nwin in [len([y for y in xs if abs(y - pm) == dmin])]][0]",
+                "b_pmean": "[('%g' % round(pm, 2)) for xs in [group('card.x')] for pm in [P * mean(xs)] for dmin in [min([abs(y - pm) for y in xs])] for nwin in [len([y for y in xs if abs(y - pm) == dmin])]][0]",
+                "b_winners": "[join(', ', [('%g' % round(y, 2)) for y in sorted(xs) if abs(y - pm) == dmin]) for xs in [group('card.x')] for pm in [P * mean(xs)] for dmin in [min([abs(y - pm) for y in xs])] for nwin in [len([y for y in xs if abs(y - pm) == dmin])]][0]",
+                "b_prize": "[('%g' % round(20 / nwin, 2)) for xs in [group('card.x')] for pm in [P * mean(xs)] for dmin in [min([abs(y - pm) for y in xs])] for nwin in [len([y for y in xs if abs(y - pm) == dmin])]][0]"
+              },
+              "events": [],
+              "cite": {
+                "label": "reported",
+                "source": "paper",
+                "page": 2,
+                "read": "image",
+                "note": "withheld:6bc60ba95af39c99"
+              }
+            },
+            {
+              "stage": "board"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "flow_cites": {
+    "rounds": {
+      "label": "reported",
+      "source": "paper",
+      "page": 2,
+      "read": "image",
+      "note": "withheld:a1309da5b5918ad1"
+    },
+    "payment": {
+      "label": "reported",
+      "source": "paper",
+      "page": 5,
+      "read": "image",
+      "note": "withheld:554e2f98206a27d2"
+    }
+  },
+  "units": {
+    "cards": {
+      "per": "card",
+      "fields": {
+        "round": "r",
+        "p_lt1": "1 if P < 1 else 0",
+        "x": "answer('card.x')",
+        "prev": "answer('card.x', r=r - 1) if r > 0 else None",
+        "down": "None if prev is None or x is None else (1 if x <= prev else 0)",
+        "up": "None if prev is None or x is None else (1 if x >= prev else 0)",
+        "gt50": "None if x is None else (1 if x > 50 else 0)",
+        "eq50": "None if x is None else (1 if x == 50 else 0)",
+        "gt67": "None if x is None else (1 if x > 67 else 0)",
+        "in6667": "None if x is None else (1 if x in (66, 67) else 0)",
+        "in_1_99_100": "None if x is None else (1 if x in (1, 99, 100) else 0)",
+        "lt10": "None if x is None else (1 if x < 10 else 0)",
+        "lt1": "None if x is None else (1 if x < 1 else 0)",
+        "eq0": "None if x is None else (1 if x == 0 else 0)",
+        "eq100": "None if x is None else (1 if x == 100 else 0)",
+        "won13": "None if r > 2 else (1 if pays[r] > 0 else 0)",
+        "ref": "means[r - 1] if r > 0 else None",
+        "step": "None if ref is None or x is None or P >= 1 else ('above' if x > ref else ('s0' if x > ref * P ** 0.5 else ('s1' if x > ref * P ** 1.5 else ('s2' if x > ref * P ** 2.5 else ('s3' if x > ref * P ** 3.5 else 'higher')))))"
+      },
+      "cites": {
+        "prev": {
+          "label": "derived",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:8a923c4e7bf3ed34"
+        },
+        "down": {
+          "label": "derived",
+          "source": "paper",
+          "page": 7,
+          "read": "image",
+          "note": "withheld:4fa7fc9e991de2c8"
+        },
+        "up": {
+          "label": "derived",
+          "source": "paper",
+          "page": 7,
+          "read": "image",
+          "note": "withheld:1e9ade72d6bed9b9"
+        },
+        "won13": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "read": "image",
+          "note": "withheld:8a0f6b04503bb2bc"
+        },
+        "step": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "read": "image",
+          "note": "withheld:49b60667e8d288d7"
+        },
+        "ref": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "read": "image",
+          "note": "withheld:518a1fee71f4c6c1"
+        }
+      }
+    },
+    "groups": {
+      "per": "group",
+      "fields": {
+        "p_lt1": "1 if P < 1 else 0",
+        "X": "[group('card.x', r=k) for k in range(4)]",
+        "G": "len(X[0])",
+        "Mn": "[mean(X[k]) for k in range(4)]",
+        "Md": "[(sorted(X[k])[len(X[k]) // 2] if len(X[k]) % 2 else (sorted(X[k])[len(X[k]) // 2 - 1] + sorted(X[k])[len(X[k]) // 2]) / 2) for k in range(4)]",
+        "mean_1": "Mn[0]",
+        "mean_2": "Mn[1]",
+        "mean_3": "Mn[2]",
+        "mean_4": "Mn[3]",
+        "med_1": "Md[0]",
+        "med_2": "Md[1]",
+        "med_3": "Md[2]",
+        "med_4": "Md[3]",
+        "w_mean": "(Mn[0] - Mn[3]) / Mn[0] if Mn[0] else None",
+        "w_med": "(Md[0] - Md[3]) / Md[0] if Md[0] else None",
+        "PMs": "[P * Mn[k] for k in range(4)]",
+        "Wn": "[[1 if abs(X[k][j] - PMs[k]) == min([abs(y - PMs[k]) for y in X[k]]) else 0 for j in range(G)] for k in range(4)]",
+        "REF": "[50, Mn[0], Mn[1], Mn[2]]",
+        "A": "[[(X[k][j] / REF[k] if REF[k] else None) for j in range(G)] for k in range(4)]",
+        "AO": "[(PMs[k] / REF[k] if REF[k] else None) for k in range(4)]",
+        "OBS": "[(t, j) for t in range(3) for j in range(G) if Wn[t][j] == 0 and A[t][j] is not None and A[t + 1][j] is not None and AO[t] is not None and A[t][j] != AO[t]]",
+        "ldt_share": "None if not OBS else mean([1 if ((A[t][j] > AO[t] and A[t + 1][j] < A[t][j]) or (A[t][j] < AO[t] and A[t + 1][j] > A[t][j])) else 0 for (t, j) in OBS])",
+        "dec_share": "None if not OBS else mean([1 if A[t + 1][j] < A[t][j] else 0 for (t, j) in OBS])",
+        "ldt_major": "None if ldt_share is None else (1 if ldt_share > 0.5 else 0)"
+      },
+      "cites": {
+        "mean_1": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "read": "image",
+          "note": "withheld:b15d0086b50d39f4"
+        },
+        "w_mean": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "read": "image",
+          "note": "withheld:a9299459ee54d2ea"
+        },
+        "w_med": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "read": "image",
+          "note": "withheld:35d648c275750e68"
+        },
+        "A": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "read": "image",
+          "note": "withheld:fe9abec5aace8f6d"
+        },
+        "AO": {
+          "label": "reported",
+          "source": "paper",
+          "page": 12,
+          "read": "image",
+          "note": "withheld:c555f0ae814f0e49"
+        },
+        "OBS": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "read": "image",
+          "note": "withheld:674e5192a0a400cb"
+        },
+        "ldt_share": {
+          "label": "reported",
+          "source": "paper",
+          "page": 12,
+          "read": "image",
+          "note": "withheld:66e169b561dca535"
+        },
+        "dec_share": {
+          "label": "reported",
+          "source": "paper",
+          "page": 12,
+          "read": "image",
+          "note": "withheld:1d76c00fd48de920"
+        },
+        "ldt_major": {
+          "label": "reported",
+          "source": "paper",
+          "page": 12,
+          "read": "image",
+          "note": "withheld:dd0e2573c00e6a49"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "analysis": {
+    "targets": [],
+    "effects": [],
+    "blocked_arm_targets": [
+      {
+        "id": "p1_median_p12",
+        "label": "Period 1 median choice, p = 1/2",
+        "unit": "cards",
+        "field": "x",
+        "stat": "median",
+        "where": {
+          "arm": "p12",
+          "round": 0
+        },
+        "human": {
+          "value": 17,
+          "n": 48,
+          "no_uncertainty": "no SD or SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:aeaf6ea79a71da8d"
+          }
+        }
+      },
+      {
+        "id": "p1_mean_p12",
+        "label": "Period 1 mean choice, p = 1/2",
+        "unit": "cards",
+        "field": "x",
+        "stat": "mean",
+        "where": {
+          "arm": "p12",
+          "round": 0
+        },
+        "human": {
+          "value": 27.05,
+          "n": 48,
+          "no_uncertainty": "no SD or SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:aeaf6ea79a71da8d"
+          }
+        }
+      },
+      {
+        "id": "p1_median_p23",
+        "label": "Period 1 median choice, p = 2/3",
+        "unit": "cards",
+        "field": "x",
+        "stat": "median",
+        "where": {
+          "arm": "p23",
+          "round": 0
+        },
+        "human": {
+          "value": 33,
+          "n": 67,
+          "no_uncertainty": "no SD or SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:7154b5b3aba13e58"
+          }
+        }
+      },
+      {
+        "id": "p1_mean_p23",
+        "label": "Period 1 mean choice, p = 2/3",
+        "unit": "cards",
+        "field": "x",
+        "stat": "mean",
+        "where": {
+          "arm": "p23",
+          "round": 0
+        },
+        "human": {
+          "value": 36.73,
+          "n": 67,
+          "no_uncertainty": "no SD or SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:7154b5b3aba13e58"
+          }
+        }
+      },
+      {
+        "id": "p1_median_p43",
+        "label": "Period 1 median choice, p = 4/3",
+        "unit": "cards",
+        "field": "x",
+        "stat": "median",
+        "where": {
+          "arm": "p43",
+          "round": 0
+        },
+        "human": {
+          "value": 66,
+          "n": 51,
+          "no_uncertainty": "no SD or SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:0b9dc343f8fdfc65"
+          }
+        }
+      },
+      {
+        "id": "p1_mean_p43",
+        "label": "Period 1 mean choice, p = 4/3",
+        "unit": "cards",
+        "field": "x",
+        "stat": "mean",
+        "where": {
+          "arm": "p43",
+          "round": 0
+        },
+        "human": {
+          "value": 60.12,
+          "n": 51,
+          "no_uncertainty": "no SD or SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:0b9dc343f8fdfc65"
+          }
+        }
+      },
+      {
+        "id": "p1_gt50_p12",
+        "label": "Period 1 share above 50 (weakly dominated), p = 1/2",
+        "unit": "cards",
+        "field": "gt50",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p12",
+          "round": 0
+        },
+        "human": {
+          "k": 3,
+          "n": 48,
+          "value": 0.0625,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:ce83ca51ee15d0e9"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:065ac51c47853a76"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "p1_eq50_p12",
+        "label": "Period 1 share choosing 50, p = 1/2",
+        "unit": "cards",
+        "field": "eq50",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p12",
+          "round": 0
+        },
+        "human": {
+          "k": 4,
+          "n": 48,
+          "value": 0.0833,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:8fc9b1e5a4cbf7c0"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:f58b268934127631"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "p1_gt67_p23",
+        "label": "Period 1 share above 67, p = 2/3",
+        "unit": "cards",
+        "field": "gt67",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p23",
+          "round": 0
+        },
+        "human": {
+          "k": 7,
+          "n": 67,
+          "value": 0.1045,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:cdced4fe842ec05d"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:ba0f852279e62e53"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "p1_6667_p23",
+        "label": "Period 1 share choosing 66 or 67, p = 2/3",
+        "unit": "cards",
+        "field": "in6667",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p23",
+          "round": 0
+        },
+        "human": {
+          "k": 4,
+          "n": 67,
+          "value": 0.0597,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:61d4fe5e9a6fc854"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:9aa8a022530f3e7d"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "p1_eq_1_99_100_p43",
+        "label": "Period 1 share choosing 99, 100 or 1, p = 4/3",
+        "unit": "cards",
+        "field": "in_1_99_100",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p43",
+          "round": 0
+        },
+        "human": {
+          "k": 5,
+          "n": 51,
+          "value": 0.098,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:fa958954680b5520"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:654702669136f772"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "p1_lt10_plt1",
+        "label": "Period 1 share below 10, p = 1/2 and 2/3 pooled",
+        "unit": "cards",
+        "field": "lt10",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "p_lt1": 1,
+          "round": 0
+        },
+        "human": {
+          "k": 7,
+          "n": 115,
+          "value": 0.0609,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:3861696003764ae3"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:66802a1c7882e7a2"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "p1_eq0_plt1",
+        "label": "Period 1 share choosing 0, p = 1/2 and 2/3 pooled",
+        "unit": "cards",
+        "field": "eq0",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "p_lt1": 1,
+          "round": 0
+        },
+        "human": {
+          "k": 0,
+          "n": 115,
+          "value": 0.0,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "read": "image",
+            "note": "withheld:4edfdff3688aac2a"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "trans_down_p12",
+        "label": "Transitions t -> t+1 below the diagonal (decrease; ties count), p = 1/2",
+        "unit": "cards",
+        "field": "down",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p12"
+        },
+        "human": {
+          "k": 135,
+          "n": 144,
+          "value": 0.9375,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:c1bb1caba556e254"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "trans_down_p23",
+        "label": "Transitions below the diagonal (decrease; ties count), p = 2/3",
+        "unit": "cards",
+        "field": "down",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p23"
+        },
+        "human": {
+          "k": 163,
+          "n": 201,
+          "value": 0.8109,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:e4c8ed47e9b5bdb2"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "trans_up_p43",
+        "label": "Transitions above the diagonal (increase; ties count), p = 4/3",
+        "unit": "cards",
+        "field": "up",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p43"
+        },
+        "human": {
+          "k": 133,
+          "n": 153,
+          "value": 0.8693,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:138b9aaa1ece2bdb"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "p4_eq0_p12",
+        "label": "Period 4 share choosing 0, p = 1/2",
+        "unit": "cards",
+        "field": "eq0",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p12",
+          "round": 3
+        },
+        "human": {
+          "k": 3,
+          "n": 48,
+          "value": 0.0625,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:381889163db26785"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "p4_lt1_p23",
+        "label": "Period 4 share below 1, p = 2/3",
+        "unit": "cards",
+        "field": "lt1",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p23",
+          "round": 3
+        },
+        "human": {
+          "k": 1,
+          "n": 67,
+          "value": 0.0149,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:ad03db42f72a2e80"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "p2_eq100_p43",
+        "label": "Period 2 share choosing 100, p = 4/3",
+        "unit": "cards",
+        "field": "eq100",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p43",
+          "round": 1
+        },
+        "human": {
+          "k": 8,
+          "n": 51,
+          "value": 0.1569,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:2e726928544f020f"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:c533d7ebce9c3fe3"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "p3_eq100_p43",
+        "label": "Period 3 share choosing 100, p = 4/3",
+        "unit": "cards",
+        "field": "eq100",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p43",
+          "round": 2
+        },
+        "human": {
+          "k": 30,
+          "n": 51,
+          "value": 0.5882,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:e9bb7350aae2341a"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:9d473114ed7ba9ba"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "p4_eq100_p43",
+        "label": "Period 4 share choosing 100, p = 4/3",
+        "unit": "cards",
+        "field": "eq100",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p43",
+          "round": 3
+        },
+        "human": {
+          "value": 0.68,
+          "n": 51,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:c6bb50b6388c5958"
+          }
+        },
+        "uncertainty": "binomial from the printed share and n"
+      },
+      {
+        "id": "p3_median_p43",
+        "label": "Period 3 median choice, p = 4/3",
+        "unit": "cards",
+        "field": "x",
+        "stat": "median",
+        "where": {
+          "arm": "p43",
+          "round": 2
+        },
+        "human": {
+          "value": 100,
+          "n": 51,
+          "no_uncertainty": "median, no interval printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:acb606565ed60929"
+          }
+        }
+      },
+      {
+        "id": "p4_median_p43",
+        "label": "Period 4 median choice, p = 4/3",
+        "unit": "cards",
+        "field": "x",
+        "stat": "median",
+        "where": {
+          "arm": "p43",
+          "round": 3
+        },
+        "human": {
+          "value": 100,
+          "n": 51,
+          "no_uncertainty": "median, no interval printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "read": "image",
+            "note": "withheld:acb606565ed60929"
+          }
+        }
+      },
+      {
+        "id": "won13_p12",
+        "label": "Choices with a positive payoff, periods 1-3, p = 1/2",
+        "unit": "cards",
+        "field": "won13",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p12"
+        },
+        "human": {
+          "k": 19,
+          "n": 144,
+          "value": 0.1319,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:a46b234df195a83d"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "won13_p23",
+        "label": "Choices with a positive payoff, periods 1-3, p = 2/3",
+        "unit": "cards",
+        "field": "won13",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "p23"
+        },
+        "human": {
+          "k": 23,
+          "n": 201,
+          "value": 0.1144,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:e985ed9219320e70"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p2_higher",
+        "label": "Table 2: share in 'Higher steps', period 2, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "higher",
+        "where": {
+          "arm": "p12",
+          "round": 1
+        },
+        "human": {
+          "k": 2,
+          "n": 48,
+          "value": 0.0417,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:2f4ff8cbf838d136"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:00778cef7ac56d6e"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p2_s3",
+        "label": "Table 2: share in 'Step 3', period 2, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s3",
+        "where": {
+          "arm": "p12",
+          "round": 1
+        },
+        "human": {
+          "k": 12,
+          "n": 48,
+          "value": 0.25,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:37bc5950f2e9ab05"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:84079b845c3d69fc"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p2_s2",
+        "label": "Table 2: share in 'Step 2', period 2, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s2",
+        "where": {
+          "arm": "p12",
+          "round": 1
+        },
+        "human": {
+          "k": 15,
+          "n": 48,
+          "value": 0.3125,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:7a7048862d8c2f42"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:1367dbc36c7a50ca"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p2_s1",
+        "label": "Table 2: share in 'Step 1', period 2, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s1",
+        "where": {
+          "arm": "p12",
+          "round": 1
+        },
+        "human": {
+          "k": 13,
+          "n": 48,
+          "value": 0.2708,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:2b891bd0a482a69f"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:5f46264597a3fb2a"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p2_s0",
+        "label": "Table 2: share in 'Step 0', period 2, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s0",
+        "where": {
+          "arm": "p12",
+          "round": 1
+        },
+        "human": {
+          "k": 1,
+          "n": 48,
+          "value": 0.0208,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:71c018781392db3c"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:50ad12c22b746cab"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p2_above",
+        "label": "Table 2: share in 'Above mean_t-1', period 2, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "above",
+        "where": {
+          "arm": "p12",
+          "round": 1
+        },
+        "human": {
+          "k": 5,
+          "n": 48,
+          "value": 0.1042,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:cc74fbd4cc668639"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:e5fe2e6982315ae7"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p3_higher",
+        "label": "Table 2: share in 'Higher steps', period 3, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "higher",
+        "where": {
+          "arm": "p12",
+          "round": 2
+        },
+        "human": {
+          "k": 2,
+          "n": 48,
+          "value": 0.0417,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:39612f286bfb0b42"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:00778cef7ac56d6e"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p3_s3",
+        "label": "Table 2: share in 'Step 3', period 3, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s3",
+        "where": {
+          "arm": "p12",
+          "round": 2
+        },
+        "human": {
+          "k": 6,
+          "n": 48,
+          "value": 0.125,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:41878b1523881997"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:5df6b9a1f32825f8"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p3_s2",
+        "label": "Table 2: share in 'Step 2', period 3, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s2",
+        "where": {
+          "arm": "p12",
+          "round": 2
+        },
+        "human": {
+          "k": 29,
+          "n": 48,
+          "value": 0.6042,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:e5252cfc51e4eb23"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:9fceaf0d2c287c8e"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p3_s1",
+        "label": "Table 2: share in 'Step 1', period 3, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s1",
+        "where": {
+          "arm": "p12",
+          "round": 2
+        },
+        "human": {
+          "k": 6,
+          "n": 48,
+          "value": 0.125,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:b67d54d82f5a2060"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:5df6b9a1f32825f8"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p3_s0",
+        "label": "Table 2: share in 'Step 0', period 3, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s0",
+        "where": {
+          "arm": "p12",
+          "round": 2
+        },
+        "human": {
+          "k": 2,
+          "n": 48,
+          "value": 0.0417,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:040d5c8ac538df7b"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:5d9052c53d35e32e"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p3_above",
+        "label": "Table 2: share in 'Above mean_t-1', period 3, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "above",
+        "where": {
+          "arm": "p12",
+          "round": 2
+        },
+        "human": {
+          "k": 3,
+          "n": 48,
+          "value": 0.0625,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:0a10c633a38ae0bc"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:c2b20df899442bba"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p4_higher",
+        "label": "Table 2: share in 'Higher steps', period 4, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "higher",
+        "where": {
+          "arm": "p12",
+          "round": 3
+        },
+        "human": {
+          "k": 10,
+          "n": 48,
+          "value": 0.2083,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:c8d69a3e5cc747e2"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:927f96901594ef46"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p4_s3",
+        "label": "Table 2: share in 'Step 3', period 4, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s3",
+        "where": {
+          "arm": "p12",
+          "round": 3
+        },
+        "human": {
+          "k": 11,
+          "n": 48,
+          "value": 0.2292,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:fd7e74a18ca452de"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:962511e221efcdff"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p4_s2",
+        "label": "Table 2: share in 'Step 2', period 4, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s2",
+        "where": {
+          "arm": "p12",
+          "round": 3
+        },
+        "human": {
+          "k": 14,
+          "n": 48,
+          "value": 0.2917,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:47ae98e7a966ff23"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:070385efbefb6a39"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p4_s1",
+        "label": "Table 2: share in 'Step 1', period 4, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s1",
+        "where": {
+          "arm": "p12",
+          "round": 3
+        },
+        "human": {
+          "k": 7,
+          "n": 48,
+          "value": 0.1458,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:253a6b66d63a7907"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:b96bcbbcab88394d"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p4_s0",
+        "label": "Table 2: share in 'Step 0', period 4, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s0",
+        "where": {
+          "arm": "p12",
+          "round": 3
+        },
+        "human": {
+          "k": 2,
+          "n": 48,
+          "value": 0.0417,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:6c996c49684aba34"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:00778cef7ac56d6e"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p12_p4_above",
+        "label": "Table 2: share in 'Above mean_t-1', period 4, p = 1/2",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "above",
+        "where": {
+          "arm": "p12",
+          "round": 3
+        },
+        "human": {
+          "k": 4,
+          "n": 48,
+          "value": 0.0833,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:9ca83567a43439cf"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:8c9a080102dcc55a"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p2_higher",
+        "label": "Table 2: share in 'Higher steps', period 2, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "higher",
+        "where": {
+          "arm": "p23",
+          "round": 1
+        },
+        "human": {
+          "k": 5,
+          "n": 67,
+          "value": 0.0746,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:ba428404df984325"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:53f16e2367037791"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p2_s3",
+        "label": "Table 2: share in 'Step 3', period 2, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s3",
+        "where": {
+          "arm": "p23",
+          "round": 1
+        },
+        "human": {
+          "k": 8,
+          "n": 67,
+          "value": 0.1194,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:f99cc6d1b55a3d4e"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:f7bc618b1c372247"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p2_s2",
+        "label": "Table 2: share in 'Step 2', period 2, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s2",
+        "where": {
+          "arm": "p23",
+          "round": 1
+        },
+        "human": {
+          "k": 21,
+          "n": 67,
+          "value": 0.3134,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:2313d64918574151"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:1e3be8034820b4d7"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p2_s1",
+        "label": "Table 2: share in 'Step 1', period 2, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s1",
+        "where": {
+          "arm": "p23",
+          "round": 1
+        },
+        "human": {
+          "k": 14,
+          "n": 67,
+          "value": 0.209,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:ca25c37195f61626"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:96b833f973d90116"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p2_s0",
+        "label": "Table 2: share in 'Step 0', period 2, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s0",
+        "where": {
+          "arm": "p23",
+          "round": 1
+        },
+        "human": {
+          "k": 10,
+          "n": 67,
+          "value": 0.1493,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:a45604e08b5e5ea6"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:9590c54b6500f0c2"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p2_above",
+        "label": "Table 2: share in 'Above mean_t-1', period 2, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "above",
+        "where": {
+          "arm": "p23",
+          "round": 1
+        },
+        "human": {
+          "k": 9,
+          "n": 67,
+          "value": 0.1343,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:ce259872494cb292"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:076aef4b76c19531"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p3_higher",
+        "label": "Table 2: share in 'Higher steps', period 3, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "higher",
+        "where": {
+          "arm": "p23",
+          "round": 2
+        },
+        "human": {
+          "k": 1,
+          "n": 67,
+          "value": 0.0149,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:fa603d1c7dc2a143"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:d868eae01207b5f9"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p3_s3",
+        "label": "Table 2: share in 'Step 3', period 3, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s3",
+        "where": {
+          "arm": "p23",
+          "round": 2
+        },
+        "human": {
+          "k": 12,
+          "n": 67,
+          "value": 0.1791,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:270d183a0bcf857e"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:7c192b7700e04ffd"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p3_s2",
+        "label": "Table 2: share in 'Step 2', period 3, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s2",
+        "where": {
+          "arm": "p23",
+          "round": 2
+        },
+        "human": {
+          "k": 31,
+          "n": 67,
+          "value": 0.4627,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:455a126a60a0a3d3"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:a42754487c55cee4"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p3_s1",
+        "label": "Table 2: share in 'Step 1', period 3, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s1",
+        "where": {
+          "arm": "p23",
+          "round": 2
+        },
+        "human": {
+          "k": 11,
+          "n": 67,
+          "value": 0.1642,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:8ddc64adc5aeb9cd"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:280357281e305f47"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p3_s0",
+        "label": "Table 2: share in 'Step 0', period 3, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s0",
+        "where": {
+          "arm": "p23",
+          "round": 2
+        },
+        "human": {
+          "k": 5,
+          "n": 67,
+          "value": 0.0746,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:42ed5701b2d27f87"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:53f16e2367037791"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p3_above",
+        "label": "Table 2: share in 'Above mean_t-1', period 3, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "above",
+        "where": {
+          "arm": "p23",
+          "round": 2
+        },
+        "human": {
+          "k": 7,
+          "n": 67,
+          "value": 0.1045,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:608c4263b19587ba"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:ab649a3d650e1d2b"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p4_higher",
+        "label": "Table 2: share in 'Higher steps', period 4, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "higher",
+        "where": {
+          "arm": "p23",
+          "round": 3
+        },
+        "human": {
+          "k": 5,
+          "n": 67,
+          "value": 0.0746,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:e7a2e4c04f813abc"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:53f16e2367037791"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p4_s3",
+        "label": "Table 2: share in 'Step 3', period 4, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s3",
+        "where": {
+          "arm": "p23",
+          "round": 3
+        },
+        "human": {
+          "k": 17,
+          "n": 67,
+          "value": 0.2537,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:392bdf85ff025a5f"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:e43797c5dd0eb442"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p4_s2",
+        "label": "Table 2: share in 'Step 2', period 4, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s2",
+        "where": {
+          "arm": "p23",
+          "round": 3
+        },
+        "human": {
+          "k": 32,
+          "n": 67,
+          "value": 0.4776,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:936c5d87929627fc"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:b2049826f7bbff08"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p4_s1",
+        "label": "Table 2: share in 'Step 1', period 4, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s1",
+        "where": {
+          "arm": "p23",
+          "round": 3
+        },
+        "human": {
+          "k": 7,
+          "n": 67,
+          "value": 0.1045,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:3b217cf4a9744644"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:7583f669b3babf2b"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p4_s0",
+        "label": "Table 2: share in 'Step 0', period 4, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "s0",
+        "where": {
+          "arm": "p23",
+          "round": 3
+        },
+        "human": {
+          "k": 2,
+          "n": 67,
+          "value": 0.0299,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:ed8c10c6d26be976"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:dbab8f5635a5fb35"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t2_p23_p4_above",
+        "label": "Table 2: share in 'Above mean_t-1', period 4, p = 2/3",
+        "unit": "cards",
+        "field": "step",
+        "stat": "share",
+        "success": "above",
+        "where": {
+          "arm": "p23",
+          "round": 3
+        },
+        "human": {
+          "k": 4,
+          "n": 67,
+          "value": 0.0597,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:53486e62caba3cd3"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 11,
+            "read": "image",
+            "note": "withheld:8af83941db2c8f0b"
+          }
+        },
+        "uncertainty": "binomial from k/n"
+      },
+      {
+        "id": "t1_p12_mean_1",
+        "label": "Table 1: session mean in period 1, averaged over sessions, p = 1/2",
+        "unit": "groups",
+        "field": "mean_1",
+        "stat": "mean",
+        "where": {
+          "arm": "p12"
+        },
+        "human": {
+          "value": 27.0333,
+          "se": 3.0867,
+          "n": 3,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:3476c4c43b6de4e1"
+          }
+        }
+      },
+      {
+        "id": "t1_p12_med_1",
+        "label": "Table 1: session median in period 1, averaged over sessions, p = 1/2",
+        "unit": "groups",
+        "field": "med_1",
+        "stat": "mean",
+        "where": {
+          "arm": "p12"
+        },
+        "human": {
+          "value": 20.3333,
+          "se": 4.9103,
+          "n": 3,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:d4166b592587f0e8"
+          }
+        }
+      },
+      {
+        "id": "t1_p12_mean_2",
+        "label": "Table 1: session mean in period 2, averaged over sessions, p = 1/2",
+        "unit": "groups",
+        "field": "mean_2",
+        "stat": "mean",
+        "where": {
+          "arm": "p12"
+        },
+        "human": {
+          "value": 11.0667,
+          "se": 0.5548,
+          "n": 3,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:63a6cbed5fab6901"
+          }
+        }
+      },
+      {
+        "id": "t1_p12_med_2",
+        "label": "Table 1: session median in period 2, averaged over sessions, p = 1/2",
+        "unit": "groups",
+        "field": "med_2",
+        "stat": "mean",
+        "where": {
+          "arm": "p12"
+        },
+        "human": {
+          "value": 7.6667,
+          "se": 1.2019,
+          "n": 3,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:b1080092c536e257"
+          }
+        }
+      },
+      {
+        "id": "t1_p12_mean_3",
+        "label": "Table 1: session mean in period 3, averaged over sessions, p = 1/2",
+        "unit": "groups",
+        "field": "mean_3",
+        "stat": "mean",
+        "where": {
+          "arm": "p12"
+        },
+        "human": {
+          "value": 3.8333,
+          "se": 0.8373,
+          "n": 3,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:d22ee5765266ea5a"
+          }
+        }
+      },
+      {
+        "id": "t1_p12_med_3",
+        "label": "Table 1: session median in period 3, averaged over sessions, p = 1/2",
+        "unit": "groups",
+        "field": "med_3",
+        "stat": "mean",
+        "where": {
+          "arm": "p12"
+        },
+        "human": {
+          "value": 2.8,
+          "se": 0.3606,
+          "n": 3,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:4fa2e4feb5cfe76f"
+          }
+        }
+      },
+      {
+        "id": "t1_p12_mean_4",
+        "label": "Table 1: session mean in period 4, averaged over sessions, p = 1/2",
+        "unit": "groups",
+        "field": "mean_4",
+        "stat": "mean",
+        "where": {
+          "arm": "p12"
+        },
+        "human": {
+          "value": 7.1667,
+          "se": 3.6671,
+          "n": 3,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:6b77c03c2aeef19b"
+          }
+        }
+      },
+      {
+        "id": "t1_p12_med_4",
+        "label": "Table 1: session median in period 4, averaged over sessions, p = 1/2",
+        "unit": "groups",
+        "field": "med_4",
+        "stat": "mean",
+        "where": {
+          "arm": "p12"
+        },
+        "human": {
+          "value": 0.9667,
+          "se": 0.5213,
+          "n": 3,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:9ae93706e82bde00"
+          }
+        }
+      },
+      {
+        "id": "t1_p23_mean_1",
+        "label": "Table 1: session mean in period 1, averaged over sessions, p = 2/3",
+        "unit": "groups",
+        "field": "mean_1",
+        "stat": "mean",
+        "where": {
+          "arm": "p23"
+        },
+        "human": {
+          "value": 36.675,
+          "se": 1.4297,
+          "n": 4,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:a2480da497f3d35d"
+          }
+        }
+      },
+      {
+        "id": "t1_p23_med_1",
+        "label": "Table 1: session median in period 1, averaged over sessions, p = 2/3",
+        "unit": "groups",
+        "field": "med_1",
+        "stat": "mean",
+        "where": {
+          "arm": "p23"
+        },
+        "human": {
+          "value": 32.25,
+          "se": 1.493,
+          "n": 4,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:abde65506bb8ba22"
+          }
+        }
+      },
+      {
+        "id": "t1_p23_mean_2",
+        "label": "Table 1: session mean in period 2, averaged over sessions, p = 2/3",
+        "unit": "groups",
+        "field": "mean_2",
+        "stat": "mean",
+        "where": {
+          "arm": "p23"
+        },
+        "human": {
+          "value": 23.9,
+          "se": 2.1506,
+          "n": 4,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:8bd28541c5c96046"
+          }
+        }
+      },
+      {
+        "id": "t1_p23_med_2",
+        "label": "Table 1: session median in period 2, averaged over sessions, p = 2/3",
+        "unit": "groups",
+        "field": "med_2",
+        "stat": "mean",
+        "where": {
+          "arm": "p23"
+        },
+        "human": {
+          "value": 21.0,
+          "se": 2.7386,
+          "n": 4,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:7c02e5f95ee9d02d"
+          }
+        }
+      },
+      {
+        "id": "t1_p23_mean_3",
+        "label": "Table 1: session mean in period 3, averaged over sessions, p = 2/3",
+        "unit": "groups",
+        "field": "mean_3",
+        "stat": "mean",
+        "where": {
+          "arm": "p23"
+        },
+        "human": {
+          "value": 15.9,
+          "se": 2.1327,
+          "n": 4,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:a42b3378df1e61f2"
+          }
+        }
+      },
+      {
+        "id": "t1_p23_med_3",
+        "label": "Table 1: session median in period 3, averaged over sessions, p = 2/3",
+        "unit": "groups",
+        "field": "med_3",
+        "stat": "mean",
+        "where": {
+          "arm": "p23"
+        },
+        "human": {
+          "value": 11.375,
+          "se": 1.1434,
+          "n": 4,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:2a7cb87f6e2fdff3"
+          }
+        }
+      },
+      {
+        "id": "t1_p23_mean_4",
+        "label": "Table 1: session mean in period 4, averaged over sessions, p = 2/3",
+        "unit": "groups",
+        "field": "mean_4",
+        "stat": "mean",
+        "where": {
+          "arm": "p23"
+        },
+        "human": {
+          "value": 9.225,
+          "se": 2.7885,
+          "n": 4,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:323ef3edf73488f3"
+          }
+        }
+      },
+      {
+        "id": "t1_p23_med_4",
+        "label": "Table 1: session median in period 4, averaged over sessions, p = 2/3",
+        "unit": "groups",
+        "field": "med_4",
+        "stat": "mean",
+        "where": {
+          "arm": "p23"
+        },
+        "human": {
+          "value": 7.25,
+          "se": 1.493,
+          "n": 4,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "read": "image",
+            "note": "withheld:d0595e538a987392"
+          }
+        }
+      },
+      {
+        "id": "ldt_share_plt1",
+        "label": "Share of adjustments in accordance with learning-direction theory, mean over the seven p < 1 sessions",
+        "unit": "groups",
+        "field": "ldt_share",
+        "stat": "mean",
+        "where": {
+          "p_lt1": 1
+        },
+        "human": {
+          "value": 0.73,
+          "n": 7,
+          "range": [
+            0.67,
+            0.78
+          ],
+          "no_uncertainty": "only the range over sessions is printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 12,
+            "read": "image",
+            "note": "withheld:a53634972d48dd33"
+          }
+        }
+      },
+      {
+        "id": "dec_share_plt1",
+        "label": "Share of decreased adjustment factors, mean over the seven p < 1 sessions",
+        "unit": "groups",
+        "field": "dec_share",
+        "stat": "mean",
+        "where": {
+          "p_lt1": 1
+        },
+        "human": {
+          "value": 0.58,
+          "n": 7,
+          "range": [
+            0.51,
+            0.69
+          ],
+          "no_uncertainty": "only the range is printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 12,
+            "read": "image",
+            "note": "withheld:f05322a8d987df6a"
+          }
+        }
+      }
+    ],
+    "blocked_arm_effects": [
+      {
+        "id": "p1_p12_vs_p23",
+        "role": "test",
+        "unit": "cards",
+        "design": "between",
+        "label": "Period 1 choices, p = 2/3 vs p = 1/2 (Mann-Whitney U)",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "p23",
+          "reference": "p12"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "x",
+          "groupBy": "arm",
+          "where": {
+            "round": 0
+          }
+        },
+        "reported": {
+          "cells": {
+            "p12": {
+              "mean": 27.05,
+              "median": 17,
+              "n": 48
+            },
+            "p23": {
+              "mean": 36.73,
+              "median": 33,
+              "n": 67
+            }
+          },
+          "test": {
+            "statistic": "U",
+            "p": 0.001,
+            "pRelation": "<",
+            "p_tail": "one-sided",
+            "note": "U not printed; alternative 'most of the chosen numbers in the 1/2 sessions tend to be smaller'"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "read": "image",
+            "note": "withheld:0c68ae71f58efbe0"
+          },
+          "no_uncertainty": "rank test (Mann-Whitney U; U not printed, only a p bound): no usable human SE (DESIGN 8.3; coordinator ruling 3, 2026-11-09)"
+        }
+      },
+      {
+        "id": "p1_p23_vs_p43",
+        "role": "test",
+        "unit": "cards",
+        "design": "between",
+        "label": "Period 1 choices, p = 4/3 vs p = 2/3 (Mann-Whitney U)",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "p43",
+          "reference": "p23"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "x",
+          "groupBy": "arm",
+          "where": {
+            "round": 0
+          }
+        },
+        "reported": {
+          "cells": {
+            "p23": {
+              "mean": 36.73,
+              "median": 33,
+              "n": 67
+            },
+            "p43": {
+              "mean": 60.12,
+              "median": 66,
+              "n": 51
+            }
+          },
+          "test": {
+            "statistic": "U",
+            "p": 0.0001,
+            "pRelation": "<",
+            "p_tail": "one-sided",
+            "note": "U not printed"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "read": "image",
+            "note": "withheld:cb73158c5283e6e4"
+          },
+          "no_uncertainty": "rank test (Mann-Whitney U; U not printed, only a p bound): no usable human SE (DESIGN 8.3; coordinator ruling 3, 2026-11-09)"
+        }
+      },
+      {
+        "id": "wmed_p12_vs_p23",
+        "role": "test",
+        "unit": "groups",
+        "design": "between",
+        "label": "Rate of decrease of session medians (period 1 to 4), p = 1/2 vs p = 2/3 (Mann-Whitney U, sessions)",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "p12",
+          "reference": "p23"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "w_med",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "p12": {
+              "mean": 0.9433,
+              "n": 3,
+              "values": [
+                0.88,
+                0.98,
+                0.97
+              ]
+            },
+            "p23": {
+              "mean": 0.77,
+              "n": 4,
+              "values": [
+                0.7,
+                0.91,
+                0.71,
+                0.76
+              ]
+            }
+          },
+          "value": 0.8333,
+          "value_note": "rank-biserial r = 2W/(n1 n2) - 1 with W = 11 derived from the printed Table 1 rates",
+          "test": {
+            "statistic": "W",
+            "value": 11,
+            "p": 0.05,
+            "pRelation": "<",
+            "p_tail": "one-sided",
+            "note": "W derived from the printed session rates; the exact one-sided p for W = 11 at n = 3, 4 is 2/35 = 0.057 (meta.paper_inconsistencies)"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 9,
+            "read": "image",
+            "note": "withheld:06838267b6a643e4"
+          },
+          "no_uncertainty": "rank test (Mann-Whitney on 3 vs 4 session rates; W derived from Table 1): no usable human SE (DESIGN 8.3; coordinator ruling 3, 2026-11-09)"
+        }
+      },
+      {
+        "id": "wmean_p12_vs_p23",
+        "role": "test",
+        "unit": "groups",
+        "design": "between",
+        "label": "Rate of decrease of session means, p = 1/2 vs p = 2/3 (n.s.)",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "p12",
+          "reference": "p23"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "w_mean",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "p12": {
+              "mean": 0.75,
+              "n": 3,
+              "values": [
+                0.66,
+                0.61,
+                0.98
+              ]
+            },
+            "p23": {
+              "mean": 0.7525,
+              "n": 4,
+              "values": [
+                0.58,
+                0.92,
+                0.75,
+                0.76
+              ]
+            }
+          },
+          "test": {
+            "statistic": "W",
+            "value": 6,
+            "p_note": "n.s.; exact one-sided p for the derived W = 6 is 0.5714"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 9,
+            "read": "image",
+            "note": "withheld:b70eef45ed397f87"
+          },
+          "no_uncertainty": "rank test (Mann-Whitney on 3 vs 4 session rates; W derived from Table 1): no usable human SE (DESIGN 8.3; coordinator ruling 3, 2026-11-09)"
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "read": "image",
+          "note": "withheld:484d1cb6db0d0973"
+        }
+      },
+      {
+        "id": "ldt_sessions",
+        "role": "test",
+        "unit": "groups",
+        "design": "between",
+        "label": "Sessions (p < 1) in which the majority of adjustments follow learning-direction theory (binomial test)",
+        "compute": {
+          "op": "proportion_vs_chance",
+          "field": "ldt_major",
+          "success": 1,
+          "chance": 0.5,
+          "where": {
+            "p_lt1": 1
+          }
+        },
+        "reported": {
+          "cells": {
+            "share": {
+              "k": 7,
+              "n": 7
+            }
+          },
+          "value": 0.5,
+          "value_note": "7/7 sessions minus chance 0.5 (each session 67-78% in accordance)",
+          "test": {
+            "statistic": "binomial",
+            "value": 7,
+            "p": 0.01,
+            "pRelation": "<",
+            "p_tail": "one-sided"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 12,
+            "read": "image",
+            "note": "withheld:0d989b062bfb5891"
+          }
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "what": "Figure 2 first-period interval classification and the one-sided binomial test that choices are more concentrated in neighbourhood intervals (p < .01 for 1/2 and 2/3, p < .05 for 4/3; p. 1318)",
+        "why": "the observed proportions are only plotted (bars); the chance level depends on interval boundaries given only as Figure 2 axis labels and the fn 12 rounding rule",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "read": "image"
+        }
+      },
+      {
+        "what": "'choices are mostly below 50 in the 1/2 and 2/3 sessions and mostly above 50 in the 4/3 sessions; ... significant at the 1-percent level, based on the binomial test' (p. 1318)",
+        "why": "the test's construction (which counts, which null) is not stated",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "read": "image"
+        }
+      },
+      {
+        "what": "fn 15 per-session binomial tests (below the previous mean; below p x mean in period 4)",
+        "why": "per-session counts not printed",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "read": "image"
+        }
+      },
+      {
+        "what": "fn 19 modal step per session and period; Figures 3-6 (plots)",
+        "why": "counts/values not printed",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "read": "image"
+        }
+      },
+      {
+        "what": "Table 2 'Area' columns",
+        "why": "properties of the classification (interval lengths), not behaviour",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "read": "image"
+        }
+      },
+      {
+        "what": "1/2 sessions: 'more than half of the observations were less than 1 in the fourth round'",
+        "why": "inequality only (share > 0.5)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "read": "image"
+        }
+      }
+    ]
+  },
+  "keyed": {
+    "why": "paper's pattern (scratch unblocked copy only; all arms blocked): period-1 choices near 50p^1-50p^2 and ordered by p (1/2 < 2/3 < 4/3); later choices move toward 0 (p < 1) faster for 1/2 or toward 100 (4/3); adjustment factors move toward the optimal factor (learning direction)",
+    "answers": {
+      "card.x": "(min(100, (40 if arm == 'p43' else 50 * P ** 1.5) + 6 * my_index / group_size + (25 if arm == 'p43' else 0))) if r == 0 else (min(100, 100 if arm == 'p43' and r > 1 else answer('card.x', r=r - 1) * 4 / 3 + 5) if arm == 'p43' else answer('card.x', r=r - 1) / ([50] + means)[r - 1] * means[r - 1] * (0.8 if answer('card.x', r=r - 1) > P * means[r - 1] else 1.25))",
+      "explain.comment": "''"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {},
+    "strict": false,
+    "attribution": []
+  },
+  "schema_version": "1"
+}

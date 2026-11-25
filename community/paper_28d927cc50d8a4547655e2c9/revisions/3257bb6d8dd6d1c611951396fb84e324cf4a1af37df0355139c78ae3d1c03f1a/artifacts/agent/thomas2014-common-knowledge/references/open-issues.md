@@ -1,0 +1,52 @@
+# Open issues
+
+What the paper does not state or what still needs a decision.
+
+- **Data and materials availability not stated** [check, `iss_openness`, lim_all]: The manuscript text does not state whether data or the full materials are shared. Suggested: Ask the authors or the researcher for the data and full instruments.
+- **Assignment of participants to cells and roles not described** [decision, `iss_e1_assign`, design_e1]: The paper says knowledge state and payoff were varied between subjects with 100 recruited per condition, but not how participants were assigned. Suggested: Confirm random, equal assignment to the 16 cells and to butcher/baker, or supply the mechanism.
+- **Blinding not reported** [check, `iss_e1_blind`, design_e1]: Not stated. Suggested: None needed unless the authors report otherwise.
+- **Number completing not reported** [check, `iss_e1_completed`, part_e1]: Only recruited (1600) and analysed (1033) are given. Suggested: Obtain completion counts if needed.
+- **Exclusion criterion for comprehension failures** [check, `iss_e1_excl`, part_e1]: The paper excludes participants with incorrect answers to the payoff comprehension questions but does not say whether any single error excluded them. Suggested: Confirm the criterion with the authors.
+- **Placeholder values in the common knowledge message** [decision, `iss_e1_ckvals`, mat_ck]: The printed message contains [today's price] and [earnings for working together]; the relation between the two amounts is not stated. Suggested: Decide the values (e.g. both set to the together-payoff). Recorded as a replay adaptation.
+- **Butcher-perspective wording not printed** [decision, `iss_e1_butcher`, mat_persp]: Messages are given from the baker's perspective only. Suggested: Researcher to approve a role swap (Butcher<->Baker, bakery<->butcher shop) or supply the original.
+- **Instruction wording not printed** [decision, `iss_e1_instr`, mat_e1_instr]: Instructions are described in prose, not printed. A supplied replication survey (Exeter, GBP) prints similar wording but is a different instrument. Suggested: Supply the original instruction text or approve the reported-content version.
+- **Instructions are a paraphrase** [check, `iss_e1_instr_check`, mat_e1_instr]: Field is labelled reported because the wording is not printed. Suggested: Review the paraphrase against the original materials.
+- **Payoff reveal wording in primary/secondary/tertiary not printed** [decision, `iss_e1_price`, mat_e1_reveal]: Only the common knowledge message prints the amount. Suggested: State the amount in the reveal (ten cents more than the sure profit); record as an adaptation.
+- **Silent loudspeaker wording** [check, `iss_e1_silent`, mat_prim]: The public box 'stated that the loudspeaker was silent'; exact wording not given. Suggested: Supply the original wording if available.
+- **Decision prompt not printed** [decision, `iss_e1_decprompt`, mat_e1_resp]: Prompt and option labels are not printed in the paper. Suggested: Supply original wording.
+- **Full comprehension sets not printed** [decision, `iss_e1_comp`, mat_comp]: Only one example of each question set is printed; the survey source gives a full set for a replication. Suggested: Approve survey wording or supply the original.
+- **Demographic items not printed** [check, `iss_e1_demo`, mat_demo]: Wording not printed. Suggested: None required for the replay.
+- **Cell percentages only in figures** [check, `iss_e1_cells`, res_main_e1]: Percentages per cell are shown in Figure 2 and not in text. Suggested: Read Figure 2 or obtain data.
+- **Expected earnings formula as printed** [check, `iss_e1_effdef`, dv_eff_e1]: The text says the successful-coordination proportion is 'the product of the proportion of participants that tried to work together and this proportion minus one', which is not a probability as written; p x p is the evident intent. Suggested: Confirm with the authors.
+- **Visibility during decision** [check, `iss_e1_vis`, exp1]: The paper says information was visible while answering the comprehension questions in Experiments 1-2; visibility during the decision is inferred. Suggested: Confirm.
+- **Efficiency values only in figure** [check, `iss_e1_effres`, res_eff_e1]: Figure 3a values are not in the text. Suggested: Read Figure 3a.
+- **Printed completion of Table 1 note** [check, `iss_e1_ph`, res_main_e1]: Table 1 note: all-levels tests have df 3 and adjacent tests df 1; n per comparison is the combined n of the compared cells. Suggested: None.
+- **Retained n per cell not reported** [check, `iss_e1_cellN`, part_e1]: Only the combined n of compared cells (Table 1) and per-knowledge totals are given; the retained n of each of the 16 cells after exclusions is not reported. Suggested: Obtain cell sizes from the data if needed.
+- **Eligibility not stated** [check, `iss_e2_elig`, part_e2]: US restriction is stated for Experiment 1 only. Suggested: None.
+- **Assignment not described** [decision, `iss_e2_assign`, design_e2]: Same gap as Experiment 1. Suggested: Confirm.
+- **Experiment 2 instruction wording not printed** [decision, `iss_e2_instr`, mat_e2_instr]: Only described in prose. Suggested: Supply or approve.
+- **Experiment 2 instructions are a paraphrase** [check, `iss_e2_instr_chk`, mat_e2_instr]: Labelled reported. Suggested: Review.
+- **Four-way success payoff not stated** [check, `iss_e2_amounts`, mat_e2_instr]: Inferred from 'all other aspects same as Experiment 1' and Table 2 headings. Suggested: Confirm +$0.10.
+- **Message substitution is mechanical** [check, `iss_e2_subst`, mat_prim_e2]: The paper says 'the Butcher' or 'the Baker' was replaced with 'the other merchants'; verbatim output is ungrammatical in places (e.g. 'the other merchants knows'). Suggested: Supply original Experiment 2 text.
+- **Four-person expected earnings computation not described** [check, `iss_e2_edef`, dv_eff_e2]: Figure 3b formula for four players is not given. Suggested: Confirm with the authors.
+- **No test for payoff sensitivity** [check, `iss_e2_paytest`, an_pay_e2]: Text reports sensitivity without statistics. Suggested: Read Figure 4 or obtain the data.
+- **Experiment 2 efficiency method** [check, `iss_e2_effmeth`, an_eff_e2]: Same gap. Suggested: Same.
+- **Cell percentages only in figures** [check, `iss_e2_cells`, res_main_e2]: Figure 4. Suggested: Read Figure 4.
+- **Efficiency values only in Figure 3** [check, `iss_e2_fig3`, res_pay_e2]: Not in text. Suggested: Read Figure 3b.
+- **Eligibility not stated** [check, `iss_e3_elig`, part_e3]: Not stated. Suggested: None.
+- **Assignment mechanism not described** [decision, `iss_e3_assign`, design_e3]: Evenly distributed across conditions only. Suggested: Confirm.
+- **Condition sizes derived from pairwise Ns** [check, `iss_e3_n`, part_e3]: Per-condition analysed n derived arithmetically. Suggested: Confirm with data.
+- **Order of similarity steps relative to scenario** [check, `iss_e3_order`, design_e3]: Similarity questions are 'at the beginning'; whether the statement and rating come before the scenario, and where the explanation/payoff comprehension items sit, is not stated. Suggested: Confirm.
+- **Partner matching truth** [decision, `iss_e3_match`, mat_sim_told]: The paper does not say whether participants were really matched on answers. Suggested: Decide how to present.
+- **Similarity statement wording** [check, `iss_e3_simtext`, mat_sim_told]: Wording not printed. Suggested: Supply original.
+- **Dissimilar statement wording** [check, `iss_e3_simtext2`, mat_sim_told]: Wording not printed. Suggested: Supply original.
+- **Rating prompt wording** [check, `iss_e3_rate`, mat_sim_told]: Not printed. Suggested: Supply original.
+- **Big Five items and scale not printed** [decision, `iss_e3_big5`, mat_big5]: The 50 items and response format are not in the paper. Suggested: Supply the Goldberg (1999) 50-item inventory and scale from the researcher; no web lookup was done.
+- **Big Five scoring not printed** [decision, `iss_e3_big5score`, cov_agree_e3]: Scoring not printed. Suggested: Supply scoring key.
+- **Experiment 3 comprehension wording** [decision, `iss_e3_compitems`, mat_e3_comp]: Wording of the harder test not printed. Suggested: Approve or supply.
+- **Scenario text inherited from Experiment 1** [check, `iss_e3_instr`, mat_e3_instr]: Derived from 'the $2 condition from Experiment 1'. Suggested: Confirm.
+- **Per-cell percentages only in figures** [check, `iss_e3_cells`, res_sim_e3]: Figures 5-7. Suggested: Read figures.
+- **Paper calls the four-person game Experiment 3** [check, `iss_paper_four`, find_all]: The General Discussion says 'the four-person game above (Experiment 3)' but the four-person game is Experiment 2. Suggested: None unless the authors say otherwise. (p. 33)
+- **Role-specific wording for the four Experiment 2 merchants not printed** [decision, `iss_e2_roles`, mat_e2_instr]: Only the baker-perspective messages are printed for Experiment 1; the paper does not give the cheese maker, produce vender or butcher versions for Experiment 2. Suggested: Supply role-specific wording or approve a role-swap.
+- **Reported-level classification rule is an implementation reading** [decision, `iss_e3_levelrule`, mat_e3_comp]: Table 3 note describes unclassifiable patterns but not the exact answer pattern per level. Suggested: Confirm or supply the original coding.
+- **AI participants cannot forget the earlier screens** [check, `iss_e3_memory`, mat_e3_comp]: Experiment 3 hid the information to make the comprehension test hard by relying on memory; a language model that receives its earlier screens in context has perfect recall. Suggested: Treat Table 3 replay as exploratory.

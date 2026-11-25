@@ -1,0 +1,6199 @@
+{
+  "id": "branasgarza2021topay",
+  "schema": "hsenv-protocol/0.1",
+  "meta": {
+    "citation": "Brañas-Garza, P., Estepa-Mohedano, L., Jorrat, D., Orozco, V., & Rascón-Ramírez, E. (2021). To pay or not to pay: Measuring risk preferences in lab and field. Judgment and Decision Making, 16(5), 1290-1313. doi:10.1017/S1930297500008433 (Study 1 only)",
+    "language": "es",
+    "language_cite": {
+      "label": "reported",
+      "source": "paper",
+      "page": 9,
+      "note": "withheld:f9c9022ac0128476"
+    },
+    "licence": {
+      "paper": "CC BY 3.0 (printed p. 1)",
+      "supp": "no licence printed",
+      "prereg": "no licence printed",
+      "mpra": "none seen"
+    },
+    "sources": {
+      "paper": {
+        "file": "sources/bundle/paper/paper.pdf",
+        "url": "https://sjdm.org/journal/21/210614/jdm210614.pdf",
+        "sha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+        "licence": "CC BY 3.0, printed on p. 1 of the PDF ('The authors license this article under the terms of the Creative Commons Attribution 3.0 License'); Crossref lists CC BY-NC-ND 3.0 for the version of record (bundle.json): this copy prints CC BY",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC-BY-3.0",
+          "url": "https://sjdm.org/journal/21/210614/jdm210614.pdf",
+          "sha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+          "format": "pdf",
+          "attribution": "Brañas-Garza, P., Estepa-Mohedano, L., Jorrat, D., Orozco, V., & Rascón-Ramírez, E. (2021). To pay or not to pay: Measuring risk preferences in lab and field. Judgment and Decision Making 16(5): 1290-1313. doi:10.1017/S1930297500008433. CC BY 3.0"
+        }
+      },
+      "supp": {
+        "url": "https://sjdm.org/journal/21/210614/supp.pdf",
+        "sha256": "2b96795947483bf7fd3b15f65ce61d1c4bb9ac13bc15f652ad194e152c277100",
+        "licence": "none printed (18 pages, SJDM supplement): read and cited by URL + sha256 + page, not stored; text layer is real on every page used (pp. 16-18 checked against the page images)",
+        "distribution": {
+          "tier": "link",
+          "licence": "none printed",
+          "url": "https://sjdm.org/journal/21/210614/supp.pdf",
+          "sha256": "2b96795947483bf7fd3b15f65ce61d1c4bb9ac13bc15f652ad194e152c277100",
+          "format": "pdf"
+        }
+      },
+      "mpra": {
+        "url": "https://mpra.ub.uni-muenchen.de/103088/1/MPRA_paper_103088.pdf",
+        "sha256": "8269a4f00da2b4d1f1df1e66cd2a907edebcb6fa6f6b261c29e30d80e5ad0c0e",
+        "licence": "none seen (MPRA working paper 103088, 28 pp., Sept 2020; earlier version with the HL10 comparison); read once for cross-checks, not stored, no sourcetext; page numbers are PDF pages (printed page = PDF page - 1)",
+        "distribution": {
+          "tier": "link",
+          "licence": "none seen",
+          "url": "https://mpra.ub.uni-muenchen.de/103088/1/MPRA_paper_103088.pdf",
+          "sha256": "8269a4f00da2b4d1f1df1e66cd2a907edebcb6fa6f6b261c29e30d80e5ad0c0e",
+          "format": "pdf"
+        }
+      },
+      "prereg": {
+        "url": "https://aspredicted.org/2ar2u.pdf",
+        "sha256": "a30943d5dce62d8f9c06aa3d3fa5509d827d9392e821bebedc58a2d271ac50f3",
+        "licence": "none printed (AsPredicted #21971, pre-registered 2019-04-10; HTML page fetched with a browser user agent; the PDF endpoint answers 406 to a plain client)",
+        "distribution": {
+          "tier": "link",
+          "licence": "none printed",
+          "url": "https://aspredicted.org/2ar2u.pdf",
+          "sha256": "a30943d5dce62d8f9c06aa3d3fa5509d827d9392e821bebedc58a2d271ac50f3",
+          "format": "html"
+        }
+      }
+    },
+    "sample": {
+      "note": "withheld:a90581b40a0bb2c0"
+    }
+  },
+  "arms": [
+    {
+      "id": "real",
+      "label": "Real payment (TR, p = 1)",
+      "n_paper": 60,
+      "language": "es",
+      "n_recruited": {
+        "value": 60,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "note": "withheld:d2507c9a3ec5a3a6"
+        }
+      },
+      "n_analysed": {
+        "value": 60,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "evidence": "Table 3 'Obs. 60 57 62'; no exclusions (AsPredicted: 'We don't expect to exclude participants'; none reported)"
+        }
+      },
+      "n_analysed_note": "60/57/62 for the all-subjects rows; the consistency analysis uses 61 hypothetical subjects (meta.paper_inconsistencies)",
+      "runnable": true,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 9,
+        "note": "Study 1, Spain lab; the arm's second-block instructions and table are verbatim in the Supplement pp. 16-18"
+      }
+    },
+    {
+      "id": "bris",
+      "label": "BRIS: one participant in ten paid (TB, p = 1/10)",
+      "n_paper": 57,
+      "language": "es",
+      "n_recruited": {
+        "value": 57,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "note": "withheld:d2507c9a3ec5a3a6"
+        }
+      },
+      "n_analysed": {
+        "value": 57,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "evidence": "Table 3 'Obs. 60 57 62'; no exclusions (AsPredicted: 'We don't expect to exclude participants'; none reported)"
+        }
+      },
+      "n_analysed_note": "60/57/62 for the all-subjects rows; the consistency analysis uses 61 hypothetical subjects (meta.paper_inconsistencies)",
+      "runnable": true,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 9,
+        "note": "Study 1, Spain lab; the arm's second-block instructions and table are verbatim in the Supplement pp. 16-18"
+      }
+    },
+    {
+      "id": "hyp",
+      "label": "Hypothetical (TH, p = 0)",
+      "n_paper": 62,
+      "language": "es",
+      "n_recruited": {
+        "value": 62,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "note": "withheld:d2507c9a3ec5a3a6"
+        }
+      },
+      "n_analysed": {
+        "value": 62,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "evidence": "Table 3 'Obs. 60 57 62'; no exclusions (AsPredicted: 'We don't expect to exclude participants'; none reported)"
+        }
+      },
+      "n_analysed_note": "60/57/62 for the all-subjects rows; the consistency analysis uses 61 hypothetical subjects (meta.paper_inconsistencies)",
+      "runnable": true,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 9,
+        "note": "Study 1, Spain lab; the arm's second-block instructions and table are verbatim in the Supplement pp. 16-18"
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "id": "payment",
+      "factor": "payment scheme",
+      "levels": {
+        "real": 60,
+        "bris": 57,
+        "hyp": 62
+      },
+      "assignment": "between",
+      "ratio": {
+        "real": 1,
+        "bris": 1,
+        "hyp": 1
+      },
+      "cite": [
+        {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:fdb96365feced40a"
+        },
+        {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "note": "n = 60/57/62 ('R: 60, B: 57, H: 62')"
+        },
+        {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:1955e32de9b17aea"
+        }
+      ]
+    }
+  ],
+  "data": {
+    "instr": {
+      "real": [
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 16,
+            "evidence": "withheld:9b718ac13be097d1"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 16,
+            "evidence": "withheld:9b718ac13be097d1",
+            "note": "withheld:9df081845185d0c6"
+          },
+          "spans": [
+            {
+              "start": 375,
+              "end": 376,
+              "style": "italic"
+            },
+            {
+              "start": 393,
+              "end": 398,
+              "style": "italic"
+            }
+          ]
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 16,
+            "evidence": "withheld:9b718ac13be097d1"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 16,
+            "evidence": "withheld:9b718ac13be097d1"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 16,
+            "evidence": "withheld:9b718ac13be097d1"
+          }
+        }
+      ],
+      "bris": [
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 17,
+            "evidence": "withheld:604d25b00903602a"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 17,
+            "evidence": "withheld:604d25b00903602a"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 17,
+            "evidence": "withheld:604d25b00903602a"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 17,
+            "evidence": "withheld:604d25b00903602a",
+            "note": "withheld:9df081845185d0c6"
+          },
+          "spans": [
+            {
+              "start": 89,
+              "end": 90,
+              "style": "italic"
+            },
+            {
+              "start": 107,
+              "end": 112,
+              "style": "italic"
+            }
+          ]
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 17,
+            "evidence": "withheld:604d25b00903602a"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 17,
+            "evidence": "withheld:604d25b00903602a"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 17,
+            "evidence": "withheld:604d25b00903602a"
+          }
+        }
+      ],
+      "hyp": [
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 16,
+            "evidence": "withheld:aace0a1024e02d63"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 16,
+            "evidence": "withheld:aace0a1024e02d63"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 16,
+            "evidence": "withheld:aace0a1024e02d63"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 16,
+            "evidence": "withheld:aace0a1024e02d63",
+            "note": "withheld:9df081845185d0c6"
+          },
+          "spans": [
+            {
+              "start": 89,
+              "end": 90,
+              "style": "italic"
+            },
+            {
+              "start": 107,
+              "end": 112,
+              "style": "italic"
+            }
+          ]
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 16,
+            "evidence": "withheld:aace0a1024e02d63"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 16,
+            "evidence": "withheld:aace0a1024e02d63"
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "supp",
+            "page": 17,
+            "evidence": "withheld:aace0a1024e02d63"
+          }
+        }
+      ]
+    },
+    "caption": {
+      "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "cite": {
+        "label": "verbatim",
+        "source": "supp",
+        "page": 18,
+        "evidence": "withheld:0dc03bfa8a6674b9"
+      }
+    },
+    "table": {
+      "rows": [
+        [
+          {
+            "text": "H1",
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:5302eb489823f4a3",
+              "note": "withheld:882ecdc3296c2ff8"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "spans": [
+              {
+                "start": 0,
+                "end": 9,
+                "style": "bold"
+              }
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:5302eb489823f4a3",
+              "note": "withheld:38525990a64dc1bd"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "spans": [
+              {
+                "start": 0,
+                "end": 9,
+                "style": "bold"
+              }
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:5302eb489823f4a3",
+              "note": "withheld:4f7af560f35a60c8"
+            }
+          },
+          {
+            "text": "1=Opción A\n2=Opción",
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:5302eb489823f4a3",
+              "note": "withheld:66cad0fa39dd7f98"
+            }
+          }
+        ],
+        [
+          {
+            "text": "H2",
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:7e94162d1c1a4be5",
+              "note": "withheld:882ecdc3296c2ff8"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "spans": [
+              {
+                "start": 0,
+                "end": 9,
+                "style": "bold"
+              }
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:7e94162d1c1a4be5",
+              "note": "withheld:38525990a64dc1bd"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "spans": [
+              {
+                "start": 0,
+                "end": 9,
+                "style": "bold"
+              }
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:7e94162d1c1a4be5",
+              "note": "withheld:4f7af560f35a60c8"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:7e94162d1c1a4be5",
+              "note": "withheld:66cad0fa39dd7f98"
+            }
+          }
+        ],
+        [
+          {
+            "text": "H3",
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:7c736acd21fe428b",
+              "note": "withheld:882ecdc3296c2ff8"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "spans": [
+              {
+                "start": 0,
+                "end": 9,
+                "style": "bold"
+              }
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:7c736acd21fe428b",
+              "note": "withheld:38525990a64dc1bd"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "spans": [
+              {
+                "start": 0,
+                "end": 9,
+                "style": "bold"
+              }
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:7c736acd21fe428b",
+              "note": "withheld:4f7af560f35a60c8"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:7c736acd21fe428b",
+              "note": "withheld:66cad0fa39dd7f98"
+            }
+          }
+        ],
+        [
+          {
+            "text": "H4",
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:f7ef07c53bcee4b2",
+              "note": "withheld:882ecdc3296c2ff8"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "spans": [
+              {
+                "start": 0,
+                "end": 9,
+                "style": "bold"
+              }
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:f7ef07c53bcee4b2",
+              "note": "withheld:38525990a64dc1bd"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "spans": [
+              {
+                "start": 0,
+                "end": 9,
+                "style": "bold"
+              }
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:f7ef07c53bcee4b2",
+              "note": "withheld:4f7af560f35a60c8"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:f7ef07c53bcee4b2",
+              "note": "withheld:66cad0fa39dd7f98"
+            }
+          }
+        ],
+        [
+          {
+            "text": "H5",
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:a4b0594b2f9deba7",
+              "note": "withheld:882ecdc3296c2ff8"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "spans": [
+              {
+                "start": 0,
+                "end": 9,
+                "style": "bold"
+              }
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:a4b0594b2f9deba7",
+              "note": "withheld:38525990a64dc1bd"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "spans": [
+              {
+                "start": 0,
+                "end": 9,
+                "style": "bold"
+              }
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:a4b0594b2f9deba7",
+              "note": "withheld:4f7af560f35a60c8"
+            }
+          },
+          {
+            "text": "░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "supp",
+              "page": 18,
+              "evidence": "withheld:a4b0594b2f9deba7",
+              "note": "withheld:66cad0fa39dd7f98"
+            }
+          }
+        ]
+      ]
+    },
+    "optA": {
+      "text": "Opción A",
+      "cite": {
+        "label": "verbatim",
+        "source": "supp",
+        "page": 18,
+        "evidence": "withheld:775f47da924ec0fb",
+        "note": "withheld:e163ac03308e5981"
+      }
+    },
+    "optB": {
+      "text": "Opción B",
+      "cite": {
+        "label": "verbatim",
+        "source": "supp",
+        "page": 18,
+        "evidence": "withheld:775f47da924ec0fb",
+        "note": "withheld:5334727a312884a7"
+      }
+    }
+  },
+  "stages": {
+    "instr": {
+      "content": [
+        {
+          "id": "p0",
+          "if": "len(data['instr'][arm]) > 0",
+          "reviewable": true,
+          "value": {
+            "expr": "data['instr'][arm][0]"
+          }
+        },
+        {
+          "id": "p1",
+          "if": "len(data['instr'][arm]) > 1",
+          "reviewable": true,
+          "value": {
+            "expr": "data['instr'][arm][1]"
+          }
+        },
+        {
+          "id": "p2",
+          "if": "len(data['instr'][arm]) > 2",
+          "reviewable": true,
+          "value": {
+            "expr": "data['instr'][arm][2]"
+          }
+        },
+        {
+          "id": "p3",
+          "if": "len(data['instr'][arm]) > 3",
+          "reviewable": true,
+          "value": {
+            "expr": "data['instr'][arm][3]"
+          }
+        },
+        {
+          "id": "p4",
+          "if": "len(data['instr'][arm]) > 4",
+          "reviewable": true,
+          "value": {
+            "expr": "data['instr'][arm][4]"
+          }
+        },
+        {
+          "id": "p5",
+          "if": "len(data['instr'][arm]) > 5",
+          "reviewable": true,
+          "value": {
+            "expr": "data['instr'][arm][5]"
+          }
+        },
+        {
+          "id": "p6",
+          "if": "len(data['instr'][arm]) > 6",
+          "reviewable": true,
+          "value": {
+            "expr": "data['instr'][arm][6]"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "supp",
+        "page": 16,
+        "note": "withheld:c4a386ed52d962cd"
+      }
+    },
+    "hl": {
+      "content": [
+        {
+          "id": "cap",
+          "value": {
+            "expr": "data['caption']"
+          }
+        },
+        {
+          "id": "tab",
+          "value": {
+            "expr": "data['table']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "r1",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['table']['rows'][0][0]"
+          },
+          "required": true,
+          "widget": "radio",
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['optA']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['optB']"
+              }
+            }
+          ],
+          "cite": {
+            "label": "derived",
+            "source": "supp",
+            "page": 16,
+            "note": "withheld:1575362efdaeef08"
+          }
+        },
+        {
+          "id": "r2",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['table']['rows'][1][0]"
+          },
+          "required": true,
+          "widget": "radio",
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['optA']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['optB']"
+              }
+            }
+          ],
+          "cite": {
+            "label": "derived",
+            "source": "supp",
+            "page": 16,
+            "note": "withheld:1575362efdaeef08"
+          }
+        },
+        {
+          "id": "r3",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['table']['rows'][2][0]"
+          },
+          "required": true,
+          "widget": "radio",
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['optA']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['optB']"
+              }
+            }
+          ],
+          "cite": {
+            "label": "derived",
+            "source": "supp",
+            "page": 16,
+            "note": "withheld:1575362efdaeef08"
+          }
+        },
+        {
+          "id": "r4",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['table']['rows'][3][0]"
+          },
+          "required": true,
+          "widget": "radio",
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['optA']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['optB']"
+              }
+            }
+          ],
+          "cite": {
+            "label": "derived",
+            "source": "supp",
+            "page": 16,
+            "note": "withheld:1575362efdaeef08"
+          }
+        },
+        {
+          "id": "r5",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['table']['rows'][4][0]"
+          },
+          "required": true,
+          "widget": "radio",
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['optA']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['optB']"
+              }
+            }
+          ],
+          "cite": {
+            "label": "derived",
+            "source": "supp",
+            "page": 16,
+            "note": "withheld:1575362efdaeef08"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "supp",
+        "page": 16,
+        "note": "withheld:c4a386ed52d962cd"
+      }
+    }
+  },
+  "flow": {
+    "seq": [
+      {
+        "stage": "instr"
+      },
+      {
+        "stage": "hl"
+      }
+    ]
+  },
+  "flow_cites": {
+    "order": {
+      "label": "derived",
+      "source": "supp",
+      "page": 16,
+      "note": "withheld:65f592a3a15e5e4a"
+    },
+    "assignment": {
+      "label": "reported",
+      "source": "paper",
+      "page": 8,
+      "note": "independent random assignment with probability 1/3 per arm (arms 60/57/62, not a quota)"
+    }
+  },
+  "units": {
+    "participants": {
+      "per": "session",
+      "fields": {
+        "payment": "arm",
+        "k_safe": "None if None in [answer('hl.r1'), answer('hl.r2'), answer('hl.r3'), answer('hl.r4'), answer('hl.r5')] else count([answer('hl.r1'), answer('hl.r2'), answer('hl.r3'), answer('hl.r4'), answer('hl.r5')], 'A')",
+        "consistent": "None if None in [answer('hl.r1'), answer('hl.r2'), answer('hl.r3'), answer('hl.r4'), answer('hl.r5')] else (0 if any([[answer('hl.r1'), answer('hl.r2'), answer('hl.r3'), answer('hl.r4'), answer('hl.r5')][i] == 'B' and [answer('hl.r1'), answer('hl.r2'), answer('hl.r3'), answer('hl.r4'), answer('hl.r5')][i + 1] == 'A' for i in range(4)]) else 1)",
+        "k_cons": "None if consistent != 1 else k_safe"
+      },
+      "cites": {
+        "k_safe": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "'Risk aversion (all): number of safe choices (A) for all subjects, taking values from 0 to 5'"
+        },
+        "consistent": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:a146bd69fb8537f3"
+        },
+        "k_cons": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:dc1d8ce9e1dc3469"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "omitted": [
+    {
+      "what": "withheld:fceeb98520c80c06",
+      "why": "withheld:6e708acc27b06ebc",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "supp",
+        "page": 16,
+        "note": "withheld:29dfbe34ad87e4d9"
+      }
+    },
+    {
+      "what": "payment procedure: selecting the paid decision, resolving the lottery, choosing the one participant in ten (BRIS), amounts paid, show-up fee",
+      "why": "post-task experimenter procedure; not on any printed page, and no source describes any screen or sheet after the table; nothing is served after it",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "supp",
+        "page": 16,
+        "note": "withheld:d2f25d503ac5ee66"
+      }
+    },
+    {
+      "what": "consent (wording), welcome, session logistics, end of session",
+      "why": "withheld:830e34b9857aa74d",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "mpra",
+        "page": 8
+      }
+    },
+    {
+      "what": "Studies 2 and 3 (Nigeria, Honduras)",
+      "why": "out of scope by the task: enumerator-read instructions (Spanish for Honduras is printed, Hausa for Nigeria is not) and field samples",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 8
+      }
+    }
+  ],
+  "analysis": {
+    "effects": [
+      {
+        "id": "cons_bris",
+        "label": "consistency (share of subjects with no B-to-A switch): BRIS minus hypothetical",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "bris",
+          "reference": "hyp"
+        },
+        "compute": {
+          "op": "proportion_difference",
+          "field": "consistent",
+          "groupBy": "arm",
+          "success": 1
+        },
+        "reported": {
+          "value": -0.009,
+          "value_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 4 (LPM): -0.009 (0.890); Supplement Table 1 column 1 (no controls): -0.009 (0.067) [0.890]; hypothetical cell n 61 (see target cons_hyp)"
+          },
+          "test": {
+            "statistic": "other",
+            "p": 0.89,
+            "pRelation": "="
+          },
+          "se": 0.067,
+          "n": 178,
+          "se_cite": {
+            "label": "reported",
+            "source": "supp",
+            "page": 2,
+            "evidence": "withheld:91012fd95e53e1ee"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 4 (LPM): -0.009 (0.890); Supplement Table 1 column 1 (no controls): -0.009 (0.067) [0.890]; hypothetical cell n 61 (see target cons_hyp)"
+          },
+          "cells": {
+            "bris": {
+              "k": 49,
+              "n": 57
+            },
+            "hyp": {
+              "k": 53,
+              "n": 61
+            }
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:b24a2a117e72495f"
+        }
+      },
+      {
+        "id": "cons_real",
+        "label": "consistency: Real minus hypothetical",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "real",
+          "reference": "hyp"
+        },
+        "compute": {
+          "op": "proportion_difference",
+          "field": "consistent",
+          "groupBy": "arm",
+          "success": 1
+        },
+        "reported": {
+          "value": -0.052,
+          "value_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 5 (LPM): -0.052 (0.428); Supplement Table 1 column 1: -0.052 (0.066) [0.428]; hypothetical cell n 61 (see target cons_hyp)"
+          },
+          "test": {
+            "statistic": "other",
+            "p": 0.428,
+            "pRelation": "="
+          },
+          "se": 0.066,
+          "n": 178,
+          "se_cite": {
+            "label": "reported",
+            "source": "supp",
+            "page": 2,
+            "evidence": "withheld:1979e627e9051ae2"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 5 (LPM): -0.052 (0.428); Supplement Table 1 column 1: -0.052 (0.066) [0.428]; hypothetical cell n 61 (see target cons_hyp)"
+          },
+          "cells": {
+            "real": {
+              "k": 49,
+              "n": 60
+            },
+            "hyp": {
+              "k": 53,
+              "n": 61
+            }
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:b24a2a117e72495f"
+        }
+      },
+      {
+        "id": "safe_cons_bris",
+        "label": "number of safe choices (consistent subjects): BRIS vs hypothetical",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "bris",
+          "reference": "hyp"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "k_cons",
+          "groupBy": "arm",
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "withheld:658cc4fcab7b7c75"
+          }
+        },
+        "reported": {
+          "value": -0.54,
+          "value_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 4, row 2: -0.540 (0.107); Supplement Table 2 column (1): -0.540 (0.335) [0.107]"
+          },
+          "test": {
+            "statistic": "other",
+            "p": 0.107,
+            "pRelation": "="
+          },
+          "se": 0.335,
+          "n": 152,
+          "se_cite": {
+            "label": "reported",
+            "source": "supp",
+            "page": 3,
+            "evidence": "withheld:ad0853f55f8a3282"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 4, row 2: -0.540 (0.107); Supplement Table 2 column (1): -0.540 (0.335) [0.107]"
+          },
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": -0.54,
+              "variant": "withheld:fe321770fb321b7e",
+              "estimateType": "model-based"
+            }
+          ]
+        },
+        "direction_claimed": true,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:178000cb1b007dd6"
+        }
+      },
+      {
+        "id": "safe_cons_real",
+        "label": "number of safe choices (consistent subjects): Real vs hypothetical",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "real",
+          "reference": "hyp"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "k_cons",
+          "groupBy": "arm",
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "withheld:7d79b74df1fdac23"
+          }
+        },
+        "reported": {
+          "value": 0.133,
+          "value_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 5, row 2: 0.133 (0.670); Supplement Table 2 column (1): 0.133 (0.312) [0.670]"
+          },
+          "test": {
+            "statistic": "other",
+            "p": 0.67,
+            "pRelation": "="
+          },
+          "se": 0.312,
+          "n": 152,
+          "se_cite": {
+            "label": "reported",
+            "source": "supp",
+            "page": 3,
+            "evidence": "withheld:6f6d993b23084f39"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 5, row 2: 0.133 (0.670); Supplement Table 2 column (1): 0.133 (0.312) [0.670]"
+          },
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 0.133,
+              "variant": "withheld:e4e111f77173f880",
+              "estimateType": "model-based"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:b24a2a117e72495f"
+        }
+      },
+      {
+        "id": "safe_all_bris",
+        "label": "number of safe choices (all subjects): BRIS vs hypothetical",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "bris",
+          "reference": "hyp"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "k_safe",
+          "groupBy": "arm",
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "withheld:c63f52c642171124"
+          }
+        },
+        "reported": {
+          "value": -0.46,
+          "value_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 4, row 3: -0.460 (0.135); Supplement Table 2 column (4): -0.460 (0.308) [0.135]"
+          },
+          "test": {
+            "statistic": "other",
+            "p": 0.135,
+            "pRelation": "="
+          },
+          "se": 0.308,
+          "n": 179,
+          "se_cite": {
+            "label": "reported",
+            "source": "supp",
+            "page": 3,
+            "evidence": "withheld:fa51b087af4cfc5b"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 4, row 3: -0.460 (0.135); Supplement Table 2 column (4): -0.460 (0.308) [0.135]"
+          },
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": -0.46,
+              "variant": "negative binomial average marginal effect, no controls, all subjects (Table 3 column 4)",
+              "estimateType": "model-based"
+            }
+          ]
+        },
+        "direction_claimed": true,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:178000cb1b007dd6"
+        }
+      },
+      {
+        "id": "safe_all_real",
+        "label": "number of safe choices (all subjects): Real vs hypothetical",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "real",
+          "reference": "hyp"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "k_safe",
+          "groupBy": "arm",
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "withheld:e4bcf232f312678f"
+          }
+        },
+        "reported": {
+          "value": 0.071,
+          "value_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 5, row 3: 0.071 (0.803); Supplement Table 2 column (4): 0.072 (0.287) [0.803]"
+          },
+          "test": {
+            "statistic": "other",
+            "p": 0.803,
+            "pRelation": "="
+          },
+          "se": 0.287,
+          "n": 179,
+          "se_cite": {
+            "label": "reported",
+            "source": "supp",
+            "page": 3,
+            "evidence": "withheld:7ac3db8b1eae7d64"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 column 5, row 3: 0.071 (0.803); Supplement Table 2 column (4): 0.072 (0.287) [0.803]"
+          },
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 0.071,
+              "variant": "negative binomial average marginal effect, no controls, all subjects (Table 3 column 5; Supplement Table 2 column (4) prints 0.072)",
+              "estimateType": "model-based"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:b24a2a117e72495f"
+        }
+      },
+      {
+        "id": "safe_cons_bris_vs_real",
+        "label": "number of safe choices (consistent subjects): BRIS vs Real",
+        "unit": "participants",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "bris",
+          "reference": "real"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "k_cons",
+          "groupBy": "arm",
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "withheld:37e25ebbf80d6da6"
+          }
+        },
+        "reported": {
+          "value": -0.673,
+          "value_cite": {
+            "label": "reported",
+            "source": "supp",
+            "page": 3,
+            "evidence": "withheld:c06a9d3cfac4ab92"
+          },
+          "test": {
+            "statistic": "other",
+            "p": 0.005,
+            "pRelation": "="
+          },
+          "n": 152,
+          "cite": {
+            "label": "reported",
+            "source": "supp",
+            "page": 3,
+            "evidence": "withheld:c06a9d3cfac4ab92"
+          },
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": -0.673,
+              "variant": "negative binomial average marginal effect of BRIS relative to Real, consistent subjects, no controls (Supplement Table 2 column (1), row 'beta_B - beta_R'); reproduced from the reconstructed means: 2.286 vs 2.938 gives -0.673",
+              "estimateType": "model-based"
+            }
+          ],
+          "no_uncertainty": "the supplement prints no SE for the B - R contrast, only its p"
+        },
+        "direction_claimed": true,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": "5, 11",
+          "note": "withheld:67799300a2e7c01d"
+        }
+      }
+    ],
+    "targets": [
+      {
+        "id": "cons_real",
+        "unit": "participants",
+        "field": "consistent",
+        "stat": "share",
+        "where": {
+          "arm": "real"
+        },
+        "success": 1,
+        "human": {
+          "k": 49,
+          "n": 60,
+          "value": 0.8167,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 row 1: consistent subjects 49, % 81.6",
+            "note": "49/60 = 81.7 percent; the paper prints 81.6 (truncated)"
+          }
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "cons_bris",
+        "unit": "participants",
+        "field": "consistent",
+        "stat": "share",
+        "where": {
+          "arm": "bris"
+        },
+        "success": 1,
+        "human": {
+          "k": 49,
+          "n": 57,
+          "value": 0.8596,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 row 1: consistent subjects 49, % 85.9",
+            "note": "49/57 = 86.0 percent; the paper prints 85.9 (truncated)"
+          }
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "cons_hyp",
+        "unit": "participants",
+        "field": "consistent",
+        "stat": "share",
+        "where": {
+          "arm": "hyp"
+        },
+        "success": 1,
+        "human": {
+          "k": 53,
+          "n": 61,
+          "value": 0.8689,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 row 1: consistent subjects 53, % 86.8",
+            "note": "n 61, not the arm size 62: 53/61 = 86.89 percent (printed 86.8, truncated), Supplement Table 1 column 1 prints 178 observations and constant 0.869; both LPM coefficients round-trip only with 61"
+          }
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "safe_cons_real",
+        "unit": "participants",
+        "field": "k_cons",
+        "stat": "mean",
+        "where": {
+          "arm": "real"
+        },
+        "human": {
+          "value": 2.938,
+          "sd": 1.068,
+          "n": 49,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 row 2 (number of safe choices, consistent subjects), Real column (144/49): mean 2.938, st. dev. 1.068"
+          }
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "safe_cons_bris",
+        "unit": "participants",
+        "field": "k_cons",
+        "stat": "mean",
+        "where": {
+          "arm": "bris"
+        },
+        "human": {
+          "value": 2.285,
+          "sd": 1.258,
+          "n": 49,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 row 2, third column printed 2.285 / 1.258 under the label H: mean 2.285, st. dev. 1.258",
+            "note": "Table 3 row 2 prints the BRIS and hypothetical columns swapped (meta.paper_inconsistencies): printed 'B' 2.796 / 1.219 is the hypothetical arm (151/54), printed 'H' 2.285 / 1.258 is BRIS (112/49); reconstruction reproduces the printed marginal effects -0.540 and 0.133; n 54 for the hypothetical arm from Supplement Table 2 column (1) (152 = 49 + 49 + 54); the printed digits 2.285 are served (the paper truncates: 112/49 = 2.28571, as 144/49 = 2.93878 is printed 2.938 and 53/61 = 86.89 is printed 86.8); only the column assignment is derived"
+          }
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "safe_cons_hyp",
+        "unit": "participants",
+        "field": "k_cons",
+        "stat": "mean",
+        "where": {
+          "arm": "hyp"
+        },
+        "human": {
+          "value": 2.796,
+          "sd": 1.219,
+          "n": 54,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 row 2, second column printed 2.796 / 1.219 under the label B: mean 2.796, st. dev. 1.219",
+            "note": "Table 3 row 2 prints the BRIS and hypothetical columns swapped (meta.paper_inconsistencies): printed 'B' 2.796 / 1.219 is the hypothetical arm (151/54), printed 'H' 2.285 / 1.258 is BRIS (112/49); reconstruction reproduces the printed marginal effects -0.540 and 0.133; n 54 for the hypothetical arm from Supplement Table 2 column (1) (152 = 49 + 49 + 54)"
+          }
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "safe_all_real",
+        "unit": "participants",
+        "field": "k_safe",
+        "stat": "mean",
+        "where": {
+          "arm": "real"
+        },
+        "human": {
+          "value": 2.85,
+          "sd": 1.07,
+          "n": 60,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 row 3 (number of safe choices, all subjects), Real column: mean 2.85, st. dev. 1.07"
+          }
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "safe_all_bris",
+        "unit": "participants",
+        "field": "k_safe",
+        "stat": "mean",
+        "where": {
+          "arm": "bris"
+        },
+        "human": {
+          "value": 2.333,
+          "sd": 1.285,
+          "n": 57,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 row 3, BRIS column: mean 2.333, st. dev. 1.285"
+          }
+        },
+        "reference": "replication"
+      },
+      {
+        "id": "safe_all_hyp",
+        "unit": "participants",
+        "field": "k_safe",
+        "stat": "mean",
+        "where": {
+          "arm": "hyp"
+        },
+        "human": {
+          "value": 2.774,
+          "sd": 1.151,
+          "n": 62,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "evidence": "Table 3 row 3, Hypothetical column: mean 2.774, st. dev. 1.151"
+          }
+        },
+        "reference": "replication"
+      }
+    ],
+    "unsupported": [
+      {
+        "what": "Goodman-Kruskal gamma per subject and its OLS coefficients (Table 3 row 4)",
+        "why": "gamma of five binary choices is undefined for constant sequences and the paper does not say how it handled them; no engine op",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10
+        }
+      },
+      {
+        "what": "Kolmogorov-Smirnov tests of the safe-choice distributions (BRIS vs H p = 0.03, BRIS vs R p = 0.02, R vs H p = 0.80), variance-ratio tests, Kendall test, equivalence tests (Table 8)",
+        "why": "no engine op for these tests; the regression rows above are the scored targets",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11
+        }
+      },
+      {
+        "what": "BRIS vs Real in the all-subjects negative binomial model and with controls (Supplement Table 2 row beta_B - beta_R, columns (2)-(6))",
+        "why": "the row is shifted in columns (4)-(6) (meta.paper_inconsistencies); only column (1) is an effect (safe_cons_bris_vs_real)",
+        "cite": {
+          "label": "reported",
+          "source": "supp",
+          "page": 3
+        }
+      },
+      {
+        "what": "regressions with controls and session fixed effects (Supplement Tables 1-2 columns 2-3, 5-6)",
+        "why": "age, gender, CRT and courses are not part of the served blocks (first block unknown)",
+        "cite": {
+          "label": "reported",
+          "source": "supp",
+          "page": 2
+        }
+      }
+    ]
+  },
+  "keyed": {
+    "why": "real arm mostly consistent with 3 safe choices (10 percent switch B to A), BRIS fewer safe choices and a few inconsistent sequences, hypothetical fully consistent with 2 safe choices: consistency Real, BRIS < hypothetical, safe choices BRIS < hypothetical < Real",
+    "answers": {
+      "hl.r1": "choice(['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'B']) if arm == 'real' else (choice(['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'B', 'B']) if arm == 'bris' else choice(['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']))",
+      "hl.r2": "choice(['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']) if arm == 'real' else (choice(['A', 'A', 'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B']) if arm == 'bris' else choice(['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']))",
+      "hl.r3": "choice(['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']) if arm == 'real' else (choice(['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B']) if arm == 'bris' else choice(['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B']))",
+      "hl.r4": "choice(['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B']) if arm == 'real' else (choice(['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B']) if arm == 'bris' else choice(['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B']))",
+      "hl.r5": "choice(['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B']) if arm == 'real' else (choice(['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B']) if arm == 'bris' else choice(['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B']))"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {
+      "h1": {
+        "path": "/data/instr/real/0/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 125,
+        "text_sha256": "d988f51531f21466329de4df0d0379d05b05fd3f780b6c6723490883c3553e8c",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                15,
+                15
+              ],
+              "canon_len": 109,
+              "canon_sha256": "caa7cc25391b4f00fecf3904ac7903aee28a15331014bb643a560c55228979e0",
+              "unique": false,
+              "before": 25,
+              "after": 1470
+            }
+          ],
+          "restore": [
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              43,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              66,
+              0,
+              " "
+            ],
+            [
+              68,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              77,
+              0,
+              " "
+            ],
+            [
+              86,
+              0,
+              " "
+            ],
+            [
+              93,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            16,
+            16
+          ],
+          "per_unit": true
+        }
+      },
+      "h2": {
+        "path": "/data/instr/real/1/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 399,
+        "text_sha256": "f14133e20ea7fb060c89e3ee7a31d4e69a5562de0a226c6b01d1b0b33004ea96",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                15,
+                15
+              ],
+              "canon_len": 330,
+              "canon_sha256": "cc2158214592805b61b9eef96b2a4a753e1402a6fa8d34d6d240146e81bbe513",
+              "unique": true,
+              "before": 134,
+              "after": 1140
+            }
+          ],
+          "restore": [
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              20,
+              0,
+              " "
+            ],
+            [
+              24,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              44,
+              0,
+              " "
+            ],
+            [
+              49,
+              0,
+              " "
+            ],
+            [
+              51,
+              0,
+              " "
+            ],
+            [
+              54,
+              0,
+              " "
+            ],
+            [
+              60,
+              0,
+              " "
+            ],
+            [
+              65,
+              0,
+              " "
+            ],
+            [
+              68,
+              0,
+              " "
+            ],
+            [
+              70,
+              0,
+              " "
+            ],
+            [
+              80,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ],
+            [
+              93,
+              0,
+              " "
+            ],
+            [
+              98,
+              0,
+              " "
+            ],
+            [
+              105,
+              0,
+              " "
+            ],
+            [
+              107,
+              0,
+              " "
+            ],
+            [
+              111,
+              0,
+              " "
+            ],
+            [
+              123,
+              0,
+              " "
+            ],
+            [
+              125,
+              0,
+              " "
+            ],
+            [
+              127,
+              0,
+              " "
+            ],
+            [
+              131,
+              0,
+              " "
+            ],
+            [
+              135,
+              0,
+              " "
+            ],
+            [
+              137,
+              0,
+              " "
+            ],
+            [
+              141,
+              0,
+              " "
+            ],
+            [
+              145,
+              0,
+              " "
+            ],
+            [
+              148,
+              0,
+              " "
+            ],
+            [
+              151,
+              0,
+              " "
+            ],
+            [
+              156,
+              0,
+              " "
+            ],
+            [
+              159,
+              0,
+              " "
+            ],
+            [
+              160,
+              0,
+              " "
+            ],
+            [
+              171,
+              0,
+              " "
+            ],
+            [
+              173,
+              0,
+              " "
+            ],
+            [
+              178,
+              0,
+              " "
+            ],
+            [
+              180,
+              0,
+              " "
+            ],
+            [
+              186,
+              0,
+              " "
+            ],
+            [
+              188,
+              0,
+              " "
+            ],
+            [
+              194,
+              0,
+              " "
+            ],
+            [
+              197,
+              0,
+              " "
+            ],
+            [
+              206,
+              0,
+              " "
+            ],
+            [
+              213,
+              0,
+              " "
+            ],
+            [
+              214,
+              0,
+              " "
+            ],
+            [
+              215,
+              0,
+              " "
+            ],
+            [
+              221,
+              0,
+              " "
+            ],
+            [
+              223,
+              0,
+              " "
+            ],
+            [
+              225,
+              0,
+              " "
+            ],
+            [
+              229,
+              0,
+              " "
+            ],
+            [
+              234,
+              0,
+              " "
+            ],
+            [
+              238,
+              0,
+              " "
+            ],
+            [
+              244,
+              0,
+              " "
+            ],
+            [
+              254,
+              0,
+              " "
+            ],
+            [
+              257,
+              0,
+              " "
+            ],
+            [
+              264,
+              0,
+              " "
+            ],
+            [
+              270,
+              0,
+              " "
+            ],
+            [
+              273,
+              0,
+              " "
+            ],
+            [
+              281,
+              0,
+              " "
+            ],
+            [
+              283,
+              0,
+              " "
+            ],
+            [
+              289,
+              0,
+              " "
+            ],
+            [
+              292,
+              0,
+              " "
+            ],
+            [
+              298,
+              0,
+              " "
+            ],
+            [
+              310,
+              0,
+              " "
+            ],
+            [
+              311,
+              0,
+              " "
+            ],
+            [
+              312,
+              0,
+              " "
+            ],
+            [
+              316,
+              0,
+              " "
+            ],
+            [
+              324,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            16,
+            16
+          ],
+          "per_unit": true
+        }
+      },
+      "h3": {
+        "path": "/data/instr/real/2/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 170,
+        "text_sha256": "b482c44fef56f89e69a6d125d8b496384ebf1bc8f54e53f01b9a446d55ad3fe7",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                15,
+                15
+              ],
+              "canon_len": 143,
+              "canon_sha256": "abe09dff7f2eef6ee8e6fc450fca7b6e4d45521bc9137b8a0eba1ad73d08cda0",
+              "unique": true,
+              "before": 464,
+              "after": 997
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              23,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              39,
+              0,
+              " "
+            ],
+            [
+              40,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              52,
+              0,
+              " "
+            ],
+            [
+              61,
+              0,
+              " "
+            ],
+            [
+              64,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              84,
+              0,
+              " "
+            ],
+            [
+              97,
+              0,
+              " "
+            ],
+            [
+              106,
+              0,
+              " "
+            ],
+            [
+              107,
+              0,
+              " "
+            ],
+            [
+              110,
+              0,
+              " "
+            ],
+            [
+              118,
+              0,
+              " "
+            ],
+            [
+              122,
+              0,
+              " "
+            ],
+            [
+              124,
+              0,
+              " "
+            ],
+            [
+              127,
+              0,
+              " "
+            ],
+            [
+              136,
+              0,
+              " "
+            ],
+            [
+              138,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            16,
+            16
+          ],
+          "per_unit": true
+        }
+      },
+      "h4": {
+        "path": "/data/instr/real/3/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 181,
+        "text_sha256": "2702bef7e4c9e9e6cfba7478017b2b5a6e91e0eebf6fbe557feb984e48fffc81",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                15,
+                15
+              ],
+              "canon_len": 146,
+              "canon_sha256": "3b177db811725eab6cd7f0424d417d29b4659f63422bdc6fa829d65831988ab1",
+              "unique": false,
+              "before": 607,
+              "after": 851
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              16,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              45,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              59,
+              0,
+              " "
+            ],
+            [
+              60,
+              0,
+              " "
+            ],
+            [
+              62,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              71,
+              0,
+              " "
+            ],
+            [
+              73,
+              0,
+              " "
+            ],
+            [
+              79,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ],
+            [
+              99,
+              0,
+              " "
+            ],
+            [
+              104,
+              0,
+              " "
+            ],
+            [
+              110,
+              0,
+              " "
+            ],
+            [
+              113,
+              0,
+              " "
+            ],
+            [
+              115,
+              0,
+              " "
+            ],
+            [
+              119,
+              0,
+              " "
+            ],
+            [
+              123,
+              0,
+              " "
+            ],
+            [
+              125,
+              0,
+              " "
+            ],
+            [
+              127,
+              0,
+              " "
+            ],
+            [
+              128,
+              0,
+              " "
+            ],
+            [
+              129,
+              0,
+              " "
+            ],
+            [
+              131,
+              0,
+              " "
+            ],
+            [
+              133,
+              0,
+              " "
+            ],
+            [
+              138,
+              0,
+              " "
+            ],
+            [
+              141,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            16,
+            16
+          ],
+          "per_unit": true
+        }
+      },
+      "h5": {
+        "path": "/data/instr/real/4/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 223,
+        "text_sha256": "413ccb44e8ceec5121e68a00513246eb973d39503ec587f7df04a66f22412166",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                15,
+                15
+              ],
+              "canon_len": 182,
+              "canon_sha256": "17c0e86ddb2f68827cc91cd802770ac0a99ba8718061810ec05d61742eb707a9",
+              "unique": false,
+              "before": 753,
+              "after": 669
+            }
+          ],
+          "restore": [
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              19,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              45,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              52,
+              0,
+              " "
+            ],
+            [
+              54,
+              0,
+              " "
+            ],
+            [
+              59,
+              0,
+              " "
+            ],
+            [
+              67,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              75,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              81,
+              0,
+              " "
+            ],
+            [
+              87,
+              0,
+              " "
+            ],
+            [
+              89,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              93,
+              0,
+              " "
+            ],
+            [
+              100,
+              0,
+              " "
+            ],
+            [
+              104,
+              0,
+              " "
+            ],
+            [
+              107,
+              0,
+              " "
+            ],
+            [
+              110,
+              0,
+              " "
+            ],
+            [
+              123,
+              0,
+              " "
+            ],
+            [
+              125,
+              0,
+              " "
+            ],
+            [
+              136,
+              0,
+              " "
+            ],
+            [
+              141,
+              0,
+              " "
+            ],
+            [
+              143,
+              0,
+              " "
+            ],
+            [
+              149,
+              0,
+              " "
+            ],
+            [
+              154,
+              0,
+              " "
+            ],
+            [
+              159,
+              0,
+              " "
+            ],
+            [
+              161,
+              0,
+              " "
+            ],
+            [
+              162,
+              0,
+              " "
+            ],
+            [
+              165,
+              0,
+              " "
+            ],
+            [
+              170,
+              0,
+              " "
+            ],
+            [
+              172,
+              0,
+              " "
+            ],
+            [
+              173,
+              0,
+              " "
+            ],
+            [
+              176,
+              0,
+              " "
+            ],
+            [
+              180,
+              0,
+              " "
+            ],
+            [
+              181,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            16,
+            16
+          ],
+          "per_unit": true
+        }
+      },
+      "h6": {
+        "path": "/data/instr/bris/0/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 125,
+        "text_sha256": "d988f51531f21466329de4df0d0379d05b05fd3f780b6c6723490883c3553e8c",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                16,
+                16
+              ],
+              "canon_len": 109,
+              "canon_sha256": "caa7cc25391b4f00fecf3904ac7903aee28a15331014bb643a560c55228979e0",
+              "unique": false,
+              "before": 202,
+              "after": 704
+            }
+          ],
+          "restore": [
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              43,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              66,
+              0,
+              " "
+            ],
+            [
+              68,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              77,
+              0,
+              " "
+            ],
+            [
+              86,
+              0,
+              " "
+            ],
+            [
+              93,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            17,
+            17
+          ],
+          "per_unit": true
+        }
+      },
+      "h7": {
+        "path": "/data/instr/bris/1/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 163,
+        "text_sha256": "c252f4effd8e206f4c6c7a4205b6bb950c3e6f45a9c9a45292c0474ae577c9f8",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                16,
+                16
+              ],
+              "canon_len": 133,
+              "canon_sha256": "cef57fae9af9b704148f2ffee7258c0cef79644e9a04f3e0f22f77614aa91ac9",
+              "unique": true,
+              "before": 311,
+              "after": 571
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              24,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              42,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              52,
+              0,
+              " "
+            ],
+            [
+              54,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              60,
+              0,
+              " "
+            ],
+            [
+              65,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              72,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              77,
+              0,
+              " "
+            ],
+            [
+              80,
+              0,
+              " "
+            ],
+            [
+              83,
+              0,
+              " "
+            ],
+            [
+              85,
+              0,
+              " "
+            ],
+            [
+              88,
+              0,
+              " "
+            ],
+            [
+              94,
+              0,
+              " "
+            ],
+            [
+              99,
+              0,
+              " "
+            ],
+            [
+              102,
+              0,
+              " "
+            ],
+            [
+              112,
+              0,
+              " "
+            ],
+            [
+              116,
+              0,
+              " "
+            ],
+            [
+              118,
+              0,
+              " "
+            ],
+            [
+              124,
+              0,
+              " "
+            ],
+            [
+              126,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            17,
+            17
+          ],
+          "per_unit": true
+        }
+      },
+      "h8": {
+        "path": "/data/instr/bris/2/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 139,
+        "text_sha256": "6d8c793525699b6fcf9750ca4ef8f5e4b095ac9f152d588a47fead0876770ec5",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                16,
+                16
+              ],
+              "canon_len": 111,
+              "canon_sha256": "9b5676389a1bfdf1f0126e09a98cc20085495726e19e4f8ddbc9379480d2d133",
+              "unique": false,
+              "before": 444,
+              "after": 460
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              33,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              57,
+              0,
+              " "
+            ],
+            [
+              63,
+              0,
+              " "
+            ],
+            [
+              65,
+              0,
+              " "
+            ],
+            [
+              71,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              83,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              92,
+              0,
+              " "
+            ],
+            [
+              98,
+              0,
+              " "
+            ],
+            [
+              100,
+              0,
+              " "
+            ],
+            [
+              102,
+              0,
+              " "
+            ],
+            [
+              106,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            17,
+            17
+          ],
+          "per_unit": true
+        }
+      },
+      "h9": {
+        "path": "/data/instr/bris/3/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 113,
+        "text_sha256": "fdc50214dcb09a5239d91f81f14b6876c6f309215bb629710192dbea8f4fd79f",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                16,
+                16
+              ],
+              "canon_len": 96,
+              "canon_sha256": "dad3ac0acc38d09e47daf462ec88199ff8686bc373dfa7a59a2f24371f5ae12f",
+              "unique": false,
+              "before": 555,
+              "after": 364
+            }
+          ],
+          "restore": [
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              20,
+              0,
+              " "
+            ],
+            [
+              23,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              39,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              49,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              64,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              77,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              82,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            17,
+            17
+          ],
+          "per_unit": true
+        }
+      },
+      "h10": {
+        "path": "/data/instr/bris/4/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 40,
+        "text_sha256": "07b43dfe9e5aa1630c544276f42cd64d05979b8c6aa71b31efe9f7d553c1b99d",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                16,
+                16
+              ],
+              "canon_len": 34,
+              "canon_sha256": "d965b404b1618dceef4aafe5c5d612671d3735743f0603be05472522cd2599b1",
+              "unique": false,
+              "before": 651,
+              "after": 330
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              23,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            17,
+            17
+          ],
+          "per_unit": true
+        }
+      },
+      "h11": {
+        "path": "/data/instr/bris/5/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 181,
+        "text_sha256": "2702bef7e4c9e9e6cfba7478017b2b5a6e91e0eebf6fbe557feb984e48fffc81",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                16,
+                16
+              ],
+              "canon_len": 146,
+              "canon_sha256": "3b177db811725eab6cd7f0424d417d29b4659f63422bdc6fa829d65831988ab1",
+              "unique": false,
+              "before": 685,
+              "after": 184
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              16,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              45,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              59,
+              0,
+              " "
+            ],
+            [
+              60,
+              0,
+              " "
+            ],
+            [
+              62,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              71,
+              0,
+              " "
+            ],
+            [
+              73,
+              0,
+              " "
+            ],
+            [
+              79,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ],
+            [
+              99,
+              0,
+              " "
+            ],
+            [
+              104,
+              0,
+              " "
+            ],
+            [
+              110,
+              0,
+              " "
+            ],
+            [
+              113,
+              0,
+              " "
+            ],
+            [
+              115,
+              0,
+              " "
+            ],
+            [
+              119,
+              0,
+              " "
+            ],
+            [
+              123,
+              0,
+              " "
+            ],
+            [
+              125,
+              0,
+              " "
+            ],
+            [
+              127,
+              0,
+              " "
+            ],
+            [
+              128,
+              0,
+              " "
+            ],
+            [
+              129,
+              0,
+              " "
+            ],
+            [
+              131,
+              0,
+              " "
+            ],
+            [
+              133,
+              0,
+              " "
+            ],
+            [
+              138,
+              0,
+              " "
+            ],
+            [
+              141,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            17,
+            17
+          ],
+          "per_unit": true
+        }
+      },
+      "h12": {
+        "path": "/data/instr/bris/6/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 223,
+        "text_sha256": "413ccb44e8ceec5121e68a00513246eb973d39503ec587f7df04a66f22412166",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                16,
+                16
+              ],
+              "canon_len": 182,
+              "canon_sha256": "17c0e86ddb2f68827cc91cd802770ac0a99ba8718061810ec05d61742eb707a9",
+              "unique": false,
+              "before": 0,
+              "after": 833
+            }
+          ],
+          "restore": [
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              19,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              45,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              52,
+              0,
+              " "
+            ],
+            [
+              54,
+              0,
+              " "
+            ],
+            [
+              59,
+              0,
+              " "
+            ],
+            [
+              67,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              75,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              81,
+              0,
+              " "
+            ],
+            [
+              87,
+              0,
+              " "
+            ],
+            [
+              89,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              93,
+              0,
+              " "
+            ],
+            [
+              100,
+              0,
+              " "
+            ],
+            [
+              104,
+              0,
+              " "
+            ],
+            [
+              107,
+              0,
+              " "
+            ],
+            [
+              110,
+              0,
+              " "
+            ],
+            [
+              123,
+              0,
+              " "
+            ],
+            [
+              125,
+              0,
+              " "
+            ],
+            [
+              136,
+              0,
+              " "
+            ],
+            [
+              141,
+              0,
+              " "
+            ],
+            [
+              143,
+              0,
+              " "
+            ],
+            [
+              149,
+              0,
+              " "
+            ],
+            [
+              154,
+              0,
+              " "
+            ],
+            [
+              159,
+              0,
+              " "
+            ],
+            [
+              161,
+              0,
+              " "
+            ],
+            [
+              162,
+              0,
+              " "
+            ],
+            [
+              165,
+              0,
+              " "
+            ],
+            [
+              170,
+              0,
+              " "
+            ],
+            [
+              172,
+              0,
+              " "
+            ],
+            [
+              173,
+              0,
+              " "
+            ],
+            [
+              176,
+              0,
+              " "
+            ],
+            [
+              180,
+              0,
+              " "
+            ],
+            [
+              181,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            17,
+            17
+          ],
+          "per_unit": true
+        }
+      },
+      "h13": {
+        "path": "/data/instr/hyp/0/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 125,
+        "text_sha256": "d988f51531f21466329de4df0d0379d05b05fd3f780b6c6723490883c3553e8c",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                15,
+                15
+              ],
+              "canon_len": 109,
+              "canon_sha256": "caa7cc25391b4f00fecf3904ac7903aee28a15331014bb643a560c55228979e0",
+              "unique": false,
+              "before": 25,
+              "after": 1470
+            }
+          ],
+          "restore": [
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              43,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              66,
+              0,
+              " "
+            ],
+            [
+              68,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              77,
+              0,
+              " "
+            ],
+            [
+              86,
+              0,
+              " "
+            ],
+            [
+              93,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            16,
+            16
+          ],
+          "per_unit": true
+        }
+      },
+      "h14": {
+        "path": "/data/instr/hyp/1/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 172,
+        "text_sha256": "e0a47a49651cae75e6582a516a040bb76df194569b43b4ed7a076fb60fbd4e61",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                15,
+                15
+              ],
+              "canon_len": 143,
+              "canon_sha256": "4b1cde9d1e7b034d8e587c619e1bc339f8b33a9bc238bc17ab6e54c8d170d80a",
+              "unique": true,
+              "before": 1072,
+              "after": 389
+            }
+          ],
+          "restore": [
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              20,
+              0,
+              " "
+            ],
+            [
+              24,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              33,
+              0,
+              " "
+            ],
+            [
+              45,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              56,
+              0,
+              " "
+            ],
+            [
+              61,
+              0,
+              " "
+            ],
+            [
+              64,
+              0,
+              " "
+            ],
+            [
+              68,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              84,
+              0,
+              " "
+            ],
+            [
+              89,
+              0,
+              " "
+            ],
+            [
+              96,
+              0,
+              " "
+            ],
+            [
+              99,
+              0,
+              " "
+            ],
+            [
+              105,
+              0,
+              " "
+            ],
+            [
+              109,
+              0,
+              " "
+            ],
+            [
+              112,
+              0,
+              " "
+            ],
+            [
+              122,
+              0,
+              " "
+            ],
+            [
+              126,
+              0,
+              " "
+            ],
+            [
+              128,
+              0,
+              " "
+            ],
+            [
+              134,
+              0,
+              " "
+            ],
+            [
+              136,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            16,
+            16
+          ],
+          "per_unit": true
+        }
+      },
+      "h15": {
+        "path": "/data/instr/hyp/2/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 139,
+        "text_sha256": "6d8c793525699b6fcf9750ca4ef8f5e4b095ac9f152d588a47fead0876770ec5",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                15,
+                15
+              ],
+              "canon_len": 111,
+              "canon_sha256": "9b5676389a1bfdf1f0126e09a98cc20085495726e19e4f8ddbc9379480d2d133",
+              "unique": false,
+              "before": 257,
+              "after": 1236
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              33,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              57,
+              0,
+              " "
+            ],
+            [
+              63,
+              0,
+              " "
+            ],
+            [
+              65,
+              0,
+              " "
+            ],
+            [
+              71,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              83,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              92,
+              0,
+              " "
+            ],
+            [
+              98,
+              0,
+              " "
+            ],
+            [
+              100,
+              0,
+              " "
+            ],
+            [
+              102,
+              0,
+              " "
+            ],
+            [
+              106,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            16,
+            16
+          ],
+          "per_unit": true
+        }
+      },
+      "h16": {
+        "path": "/data/instr/hyp/3/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 113,
+        "text_sha256": "fdc50214dcb09a5239d91f81f14b6876c6f309215bb629710192dbea8f4fd79f",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                15,
+                15
+              ],
+              "canon_len": 96,
+              "canon_sha256": "dad3ac0acc38d09e47daf462ec88199ff8686bc373dfa7a59a2f24371f5ae12f",
+              "unique": false,
+              "before": 368,
+              "after": 1140
+            }
+          ],
+          "restore": [
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              20,
+              0,
+              " "
+            ],
+            [
+              23,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              39,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              49,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              64,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              77,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              82,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            16,
+            16
+          ],
+          "per_unit": true
+        }
+      },
+      "h17": {
+        "path": "/data/instr/hyp/4/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 40,
+        "text_sha256": "07b43dfe9e5aa1630c544276f42cd64d05979b8c6aa71b31efe9f7d553c1b99d",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                15,
+                15
+              ],
+              "canon_len": 34,
+              "canon_sha256": "d965b404b1618dceef4aafe5c5d612671d3735743f0603be05472522cd2599b1",
+              "unique": false,
+              "before": 464,
+              "after": 1106
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              23,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            16,
+            16
+          ],
+          "per_unit": true
+        }
+      },
+      "h18": {
+        "path": "/data/instr/hyp/5/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 181,
+        "text_sha256": "2702bef7e4c9e9e6cfba7478017b2b5a6e91e0eebf6fbe557feb984e48fffc81",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                15,
+                15
+              ],
+              "canon_len": 146,
+              "canon_sha256": "3b177db811725eab6cd7f0424d417d29b4659f63422bdc6fa829d65831988ab1",
+              "unique": false,
+              "before": 607,
+              "after": 851
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              16,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              45,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              59,
+              0,
+              " "
+            ],
+            [
+              60,
+              0,
+              " "
+            ],
+            [
+              62,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              71,
+              0,
+              " "
+            ],
+            [
+              73,
+              0,
+              " "
+            ],
+            [
+              79,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ],
+            [
+              99,
+              0,
+              " "
+            ],
+            [
+              104,
+              0,
+              " "
+            ],
+            [
+              110,
+              0,
+              " "
+            ],
+            [
+              113,
+              0,
+              " "
+            ],
+            [
+              115,
+              0,
+              " "
+            ],
+            [
+              119,
+              0,
+              " "
+            ],
+            [
+              123,
+              0,
+              " "
+            ],
+            [
+              125,
+              0,
+              " "
+            ],
+            [
+              127,
+              0,
+              " "
+            ],
+            [
+              128,
+              0,
+              " "
+            ],
+            [
+              129,
+              0,
+              " "
+            ],
+            [
+              131,
+              0,
+              " "
+            ],
+            [
+              133,
+              0,
+              " "
+            ],
+            [
+              138,
+              0,
+              " "
+            ],
+            [
+              141,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            16,
+            16
+          ],
+          "per_unit": true
+        }
+      },
+      "h19": {
+        "path": "/data/instr/hyp/6/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 223,
+        "text_sha256": "413ccb44e8ceec5121e68a00513246eb973d39503ec587f7df04a66f22412166",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                16,
+                16
+              ],
+              "canon_len": 182,
+              "canon_sha256": "17c0e86ddb2f68827cc91cd802770ac0a99ba8718061810ec05d61742eb707a9",
+              "unique": false,
+              "before": 0,
+              "after": 833
+            }
+          ],
+          "restore": [
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              19,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              45,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              52,
+              0,
+              " "
+            ],
+            [
+              54,
+              0,
+              " "
+            ],
+            [
+              59,
+              0,
+              " "
+            ],
+            [
+              67,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              75,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              81,
+              0,
+              " "
+            ],
+            [
+              87,
+              0,
+              " "
+            ],
+            [
+              89,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              93,
+              0,
+              " "
+            ],
+            [
+              100,
+              0,
+              " "
+            ],
+            [
+              104,
+              0,
+              " "
+            ],
+            [
+              107,
+              0,
+              " "
+            ],
+            [
+              110,
+              0,
+              " "
+            ],
+            [
+              123,
+              0,
+              " "
+            ],
+            [
+              125,
+              0,
+              " "
+            ],
+            [
+              136,
+              0,
+              " "
+            ],
+            [
+              141,
+              0,
+              " "
+            ],
+            [
+              143,
+              0,
+              " "
+            ],
+            [
+              149,
+              0,
+              " "
+            ],
+            [
+              154,
+              0,
+              " "
+            ],
+            [
+              159,
+              0,
+              " "
+            ],
+            [
+              161,
+              0,
+              " "
+            ],
+            [
+              162,
+              0,
+              " "
+            ],
+            [
+              165,
+              0,
+              " "
+            ],
+            [
+              170,
+              0,
+              " "
+            ],
+            [
+              172,
+              0,
+              " "
+            ],
+            [
+              173,
+              0,
+              " "
+            ],
+            [
+              176,
+              0,
+              " "
+            ],
+            [
+              180,
+              0,
+              " "
+            ],
+            [
+              181,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            17,
+            17
+          ],
+          "per_unit": true
+        }
+      },
+      "h20": {
+        "path": "/data/caption/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 41,
+        "text_sha256": "a2fd527547f337886b13ae4e7b8636c469709b5e3c61445f146a98abc3b18ad5",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 35,
+              "canon_sha256": "12ab7b33f381f347953cab276c87a8484e56c57089bd6edd667f6f31155e5874",
+              "unique": true,
+              "before": 0,
+              "after": 616
+            }
+          ],
+          "restore": [
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              21,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h22": {
+        "path": "/data/table/rows/0/1/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 62,
+        "text_sha256": "a54e9240331027d349017c6998ccde9d38426229f6a870dec1118f00d291b632",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 50,
+              "canon_sha256": "6e81374d4af6da6ddd2e6ec2a355e1bce4f7ba19cea089c344d1950be1b5caa9",
+              "unique": true,
+              "before": 37,
+              "after": 564
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h23": {
+        "path": "/data/table/rows/0/2/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 65,
+        "text_sha256": "a200af00e21521e8f769965fe18e48ad65bd0f6051f672fbc82309352a26f361",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 53,
+              "canon_sha256": "6ebf6fb2c5c3af7b40dfb85dd48482dcfa76670b5759b89195c5ae6c24d1f210",
+              "unique": true,
+              "before": 87,
+              "after": 511
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h26": {
+        "path": "/data/table/rows/1/1/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 62,
+        "text_sha256": "dcf7908bebc02ebbcb5f399d86380a94e43176f1c2c7ef9b8167316e6fdc6c85",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 50,
+              "canon_sha256": "e7288514616207120b6693f3cd0e72a86ea4e23b12e3e472d7748dbbcbbbd6a8",
+              "unique": true,
+              "before": 159,
+              "after": 442
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h27": {
+        "path": "/data/table/rows/1/2/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 65,
+        "text_sha256": "b0a536b3f515b8d0d3d9599b7bda58432513a6116483bf0ff361017a7aa13b71",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 53,
+              "canon_sha256": "3915d5781ce9fd3598fbf985b1927bedd9e47d3525cc6b3c08094dcdfd22a316",
+              "unique": true,
+              "before": 209,
+              "after": 389
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h28": {
+        "path": "/data/table/rows/1/3/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 21,
+        "text_sha256": "97d4966d9c17f2ccf9cd83320b14ab96e460a249e156655b807edb39a384a05e",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 18,
+              "canon_sha256": "ec7361aef1c8c1d53cf302054bc81f2a7d32df5bfdb84c3d8732c8e2dddf8991",
+              "unique": true,
+              "before": 262,
+              "after": 371
+            }
+          ],
+          "restore": [
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              "\n"
+            ],
+            [
+              17,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h30": {
+        "path": "/data/table/rows/2/1/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 61,
+        "text_sha256": "d953ad77fedfe4bce499779f2c00fa8585a033c6174eb214aadd4cd1241d502e",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 50,
+              "canon_sha256": "fb9db5ff2abfb67627cb5c1863e6478e7dbf68051b3102f51b8340cd4bfc5bdc",
+              "unique": true,
+              "before": 282,
+              "after": 319
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h31": {
+        "path": "/data/table/rows/2/2/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 65,
+        "text_sha256": "8f205a6c143d95e623d8ffdec0a4d0e2833fb8448d3382af641ea10df61fb91a",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 53,
+              "canon_sha256": "b4f43bc50ef1679383cc2ff366762ce50bace876073eff02c68a096d65617dd0",
+              "unique": true,
+              "before": 332,
+              "after": 266
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h32": {
+        "path": "/data/table/rows/2/3/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 21,
+        "text_sha256": "97d4966d9c17f2ccf9cd83320b14ab96e460a249e156655b807edb39a384a05e",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 18,
+              "canon_sha256": "ec7361aef1c8c1d53cf302054bc81f2a7d32df5bfdb84c3d8732c8e2dddf8991",
+              "unique": true,
+              "before": 262,
+              "after": 371
+            }
+          ],
+          "restore": [
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              "\n"
+            ],
+            [
+              17,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h34": {
+        "path": "/data/table/rows/3/1/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 62,
+        "text_sha256": "785595f2ed9a3a7595018f31b74d2fe0006d16aa02a6148be5f99863601f53e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 50,
+              "canon_sha256": "779328eb795e761e18d7a4fa21713cf1e3b0d8735ec45327db3ff56887d574a4",
+              "unique": true,
+              "before": 405,
+              "after": 196
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h35": {
+        "path": "/data/table/rows/3/2/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 65,
+        "text_sha256": "8ad623ca6b9debe775b58ae9fdfb99b456e35945d08191ce815c60edea375eeb",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 53,
+              "canon_sha256": "fb7d3e169a1231082f015a0f1bcad0e5c54fb7efbefd5017e7b1e36810a69d2d",
+              "unique": true,
+              "before": 455,
+              "after": 143
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h36": {
+        "path": "/data/table/rows/3/3/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 21,
+        "text_sha256": "97d4966d9c17f2ccf9cd83320b14ab96e460a249e156655b807edb39a384a05e",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 18,
+              "canon_sha256": "ec7361aef1c8c1d53cf302054bc81f2a7d32df5bfdb84c3d8732c8e2dddf8991",
+              "unique": true,
+              "before": 262,
+              "after": 371
+            }
+          ],
+          "restore": [
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              "\n"
+            ],
+            [
+              17,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h38": {
+        "path": "/data/table/rows/4/1/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 62,
+        "text_sha256": "91ccec1c0a9b20e3545b807d412b59c7779b3e888da3e8caa8d82cabcf6ddaf4",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 50,
+              "canon_sha256": "6e77d7cb57592aece0227708e49d273b0a216843c2435c5a486ff85e30a9684a",
+              "unique": true,
+              "before": 528,
+              "after": 73
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h39": {
+        "path": "/data/table/rows/4/2/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 65,
+        "text_sha256": "7ccb176b69f048244dee6f9b6a6fc9bc42e5304997f2eaf883f1d29d10cadc3b",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 53,
+              "canon_sha256": "def148903c259eca4ef90b71c1f4ae9cc17868a0cdda12d6ae8ad1631c306fb6",
+              "unique": true,
+              "before": 578,
+              "after": 20
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      },
+      "h40": {
+        "path": "/data/table/rows/4/3/text",
+        "source": "supp",
+        "kind": "text",
+        "length": 21,
+        "text_sha256": "97d4966d9c17f2ccf9cd83320b14ab96e460a249e156655b807edb39a384a05e",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                17,
+                17
+              ],
+              "canon_len": 18,
+              "canon_sha256": "ec7361aef1c8c1d53cf302054bc81f2a7d32df5bfdb84c3d8732c8e2dddf8991",
+              "unique": true,
+              "before": 262,
+              "after": 371
+            }
+          ],
+          "restore": [
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              "\n"
+            ],
+            [
+              17,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            18,
+            18
+          ],
+          "per_unit": true
+        }
+      }
+    },
+    "strict": false,
+    "attribution": [
+      {
+        "source": "paper",
+        "licence": "CC-BY-3.0",
+        "attribution": "Brañas-Garza, P., Estepa-Mohedano, L., Jorrat, D., Orozco, V., & Rascón-Ramírez, E. (2021). To pay or not to pay: Measuring risk preferences in lab and field. Judgment and Decision Making 16(5): 1290-1313. doi:10.1017/S1930297500008433. CC BY 3.0"
+      }
+    ]
+  },
+  "schema_version": "1"
+}

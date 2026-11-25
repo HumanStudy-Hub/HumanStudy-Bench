@@ -1,0 +1,1944 @@
+{
+  "schemaVersion": 2,
+  "id": "ding2025partition",
+  "title": "Revisiting partition priming in judgement under uncertainty",
+  "intent": "reconstruct",
+  "source": {
+    "title": "Revisiting partition priming in judgement under uncertainty: replication and extension Registered Report of Fox and Rottenstreich (2003)",
+    "authors": "Kerou Ding and Gilad Feldman",
+    "venue": "Royal Society Open Science (2025)",
+    "doi": "10.1098/rsos.250669",
+    "filename": "sources/open/paper.pdf"
+  },
+  "studies": [
+    {
+      "id": "study-1a",
+      "title": "Study 1a · Three probability judgments",
+      "type": "empirical",
+      "description": "Weather, sport and stock judgments in the shared Prolific survey."
+    },
+    {
+      "id": "study-1b",
+      "title": "Study 1b · Weekday or weekend",
+      "type": "empirical",
+      "description": "A reversed prediction tested in the same Prolific participants."
+    },
+    {
+      "id": "study-3",
+      "title": "Study 3 · Job offer",
+      "type": "empirical",
+      "description": "A job-offer probability judgment with background information, in the same Prolific survey."
+    },
+    {
+      "id": "study-4",
+      "title": "Study 4 · Financial choice",
+      "type": "empirical",
+      "description": "A binary choice about the stock scenario in the same Prolific survey."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "background",
+      "kind": "background",
+      "title": "Can wording change a probability judgment?",
+      "studyIds": [
+        "study-1a",
+        "study-1b",
+        "study-3",
+        "study-4"
+      ],
+      "fields": [
+        {
+          "id": "motivation",
+          "label": "Research question",
+          "value": "When a question describes the same uncertain event in different ways, does the wording change which possibilities people compare and the probability they assign? The registered report revisits the effect across numerical judgments and a financial choice.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "definition",
+            "framing",
+            "main-conclusion"
+          ]
+        },
+        {
+          "id": "prior",
+          "label": "Ignorance priors",
+          "value": "With little relevant information, people may begin by assigning equal chances to possibilities they see as comparable. Binary case wording suggests two outcomes. Class wording calls attention to a larger set of possibilities.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "definition",
+            "prior-1a",
+            "framing"
+          ]
+        },
+        {
+          "id": "scope",
+          "label": "Scope of replication",
+          "value": "Four named studies from Fox and Rottenstreich (2003) were combined into one survey. The authors left the original Study 2 out because its classroom methods, procedure and results were scarcely described.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "scope",
+            "shared-design",
+            "original-samples"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "definition",
+        "framing",
+        "main-conclusion",
+        "prior-1a",
+        "scope",
+        "shared-design",
+        "original-samples"
+      ]
+    },
+    {
+      "id": "predictions",
+      "kind": "hypothesis",
+      "title": "What the authors expected",
+      "studyIds": [
+        "study-1a",
+        "study-1b",
+        "study-3",
+        "study-4"
+      ],
+      "fields": [
+        {
+          "id": "s1a",
+          "label": "Study 1a · Weather, sport and stocks",
+          "value": "Case wording (1/2) was expected to produce higher event probabilities than class wording (1/7 for weather and sport, 1/30 for stocks).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "prior-1a",
+            "means-w1",
+            "means-sp",
+            "means-st"
+          ],
+          "studyIds": [
+            "study-1a"
+          ]
+        },
+        {
+          "id": "s1b",
+          "label": "Study 1b · Weekday warmth",
+          "value": "The prediction reverses: class wording enumerates five weekdays out of seven and was expected to yield higher ratings than binary case wording (1/2).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "prior-1b",
+            "means-wb"
+          ],
+          "studyIds": [
+            "study-1b"
+          ]
+        },
+        {
+          "id": "s3",
+          "label": "Study 3 · Job offer",
+          "value": "Case wording was expected to produce higher ratings for a candidate’s job offer (case prior 1/2, class prior 1/10) even when people can use information about the candidate.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "prior-3",
+            "job",
+            "means-hr"
+          ],
+          "studyIds": [
+            "study-3"
+          ]
+        },
+        {
+          "id": "s4",
+          "label": "Study 4 · Riskier financial choice",
+          "value": "Participants under case wording were expected to choose the uncertain $50 option more often than those under class wording. The two primes suggest priors of 1/2 and 1/30 for the same uncertain option.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "prior-4",
+            "target-4"
+          ],
+          "studyIds": [
+            "study-4"
+          ]
+        },
+        {
+          "id": "extensions",
+          "label": "Exploratory complements",
+          "value": "The complementary-event analyses were exploratory, without specific predictions. The task-order test for Study 4 was planned; the parallel order analysis for Study 1a Item 3 was added after data collection.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "exploratory",
+            "order-prereg"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "prior-1a",
+        "means-w1",
+        "means-sp",
+        "means-st",
+        "prior-1b",
+        "means-wb",
+        "prior-3",
+        "job",
+        "means-hr",
+        "prior-4",
+        "target-4",
+        "exploratory",
+        "order-prereg"
+      ]
+    },
+    {
+      "id": "design",
+      "kind": "design",
+      "title": "One sample, two wordings, six scenario pages",
+      "studyIds": [
+        "study-1a",
+        "study-1b",
+        "study-3",
+        "study-4"
+      ],
+      "fields": [
+        {
+          "id": "assignment",
+          "label": "Between people",
+          "value": "Each participant was randomly assigned to case or class wording for the entire survey. The underlying target event was held constant across wordings. The analyzed groups were 300 case and 303 class.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "framing",
+            "allocation",
+            "n-groups"
+          ]
+        },
+        {
+          "id": "exposure",
+          "label": "Within each person",
+          "value": "Everyone received six randomly ordered pages: three Study 1a items, one Study 1b item, one Study 3 item and one Study 4 choice. The 2003 paper used separate samples for these studies.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "shared-design",
+            "allocation",
+            "original-samples"
+          ]
+        },
+        {
+          "id": "pairs",
+          "label": "Question order within a page",
+          "value": "Every probability scenario paired a happen rating with a not-happen rating. The procedure section and original Qualtrics order place happen first. The design section separately describes the order of the two questions as randomized.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "pair-order",
+            "pair-conflict",
+            "free-sum",
+            "qsf-pair-order",
+            "qsf-happen",
+            "qsf-not-happen"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "framing",
+        "allocation",
+        "n-groups",
+        "shared-design",
+        "original-samples",
+        "pair-order",
+        "pair-conflict",
+        "free-sum",
+        "qsf-pair-order",
+        "qsf-happen",
+        "qsf-not-happen"
+      ]
+    },
+    {
+      "id": "participants",
+      "kind": "participants",
+      "title": "Who took part?",
+      "studyIds": [
+        "study-1a",
+        "study-1b",
+        "study-3",
+        "study-4"
+      ],
+      "fields": [
+        {
+          "id": "sample",
+          "label": "Sample and exclusions",
+          "value": "603 US participants completed the survey, including 30 pretest participants. Of 707 people who began, 104 stopped at consent or verification. The authors kept all completers and classified no cases as outliers.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "sample",
+            "started",
+            "pretest",
+            "exclusions"
+          ]
+        },
+        {
+          "id": "payment",
+          "label": "Compensation",
+          "value": "Pretest participants received £0.95 and the remaining participants received a fixed £1.05. The Study 4 dollar options were scenario choices.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "pay",
+            "bet"
+          ]
+        },
+        {
+          "id": "filters",
+          "label": "Prolific screening",
+          "value": "The main paper and the supplement’s recruitment list report 100–10,000 prior submissions. Another line in the supplement reports 5,000–100,000 approved submissions. The applied count criterion needs confirmation.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "filters",
+            "filters-si-list",
+            "filters-si"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "sample",
+        "started",
+        "pretest",
+        "exclusions",
+        "pay",
+        "bet",
+        "filters",
+        "filters-si-list",
+        "filters-si"
+      ]
+    },
+    {
+      "id": "materials",
+      "kind": "material",
+      "title": "What participants evaluated",
+      "studyIds": [
+        "study-1a",
+        "study-1b",
+        "study-3",
+        "study-4"
+      ],
+      "fields": [
+        {
+          "id": "items-1a",
+          "label": "Study 1a · Three judgments",
+          "value": "The scenarios ask about the hottest day at O’Hare Airport, the University of Michigan winning a women’s lacrosse scoring title, and IBM outperforming the other Dow Jones stocks. The replication updated the sport and stock stimuli.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "weather-1a",
+            "michigan",
+            "sports-1a",
+            "ibm"
+          ],
+          "studyIds": [
+            "study-1a"
+          ]
+        },
+        {
+          "id": "item-1b",
+          "label": "Study 1b · A weekday versus the weekend",
+          "value": "The target event is that the warmest day next week is a weekday, where the class framing counts five of the seven days.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "weekday",
+            "prior-1b"
+          ],
+          "studyIds": [
+            "study-1b"
+          ]
+        },
+        {
+          "id": "item-3",
+          "label": "Study 3 · A job offer",
+          "value": "Participants learned ACME planned 10 job offers for 100 applicants. They read a recommendation excerpt about K.T. and judged whether K.T. would receive an offer.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "job",
+            "letter"
+          ],
+          "studyIds": [
+            "study-3"
+          ]
+        },
+        {
+          "id": "item-4",
+          "label": "Study 4 · A stock-linked choice",
+          "value": "The options are a certain $10 and a $50 payment contingent on IBM outperforming every other Dow Jones stock. The two options appeared in randomized order.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "bet",
+            "prior-4",
+            "qsf-choice-options",
+            "qsf-choice-order"
+          ],
+          "studyIds": [
+            "study-4"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "weather-1a",
+        "michigan",
+        "sports-1a",
+        "ibm",
+        "weekday",
+        "prior-1b",
+        "job",
+        "letter",
+        "bet",
+        "prior-4",
+        "qsf-choice-options",
+        "qsf-choice-order"
+      ]
+    },
+    {
+      "id": "procedure",
+      "kind": "procedure",
+      "title": "Participant experience",
+      "studyIds": [
+        "study-1a",
+        "study-1b",
+        "study-3",
+        "study-4"
+      ],
+      "fields": [
+        {
+          "id": "flow",
+          "label": "Survey sequence",
+          "value": "Participants consented and answered screening questions, received one framing condition, completed all six scenarios in randomized order, and answered follow-up and demographic questions.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "screening",
+            "allocation",
+            "pair-order",
+            "end",
+            "qsf-pair-order"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "screening",
+        "allocation",
+        "pair-order",
+        "end",
+        "qsf-pair-order"
+      ]
+    },
+    {
+      "id": "variables",
+      "kind": "variable",
+      "title": "What the study measured",
+      "studyIds": [
+        "study-1a",
+        "study-1b",
+        "study-3",
+        "study-4"
+      ],
+      "fields": [
+        {
+          "id": "framing",
+          "label": "Manipulation",
+          "value": "Case wording asks whether a specified event will occur. Class wording locates the same event in a set of alternatives.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "framing",
+            "definition"
+          ]
+        },
+        {
+          "id": "probabilities",
+          "label": "Probability judgments",
+          "value": "Participants entered 0–100% for each happen and not-happen prompt. They could enter both values freely. In exploratory analyses the authors compared the happen rating with the reverse-coded complement (100% minus the not-happen rating).",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "scale",
+            "pair-order",
+            "free-sum",
+            "exploratory"
+          ],
+          "studyIds": [
+            "study-1a",
+            "study-1b",
+            "study-3"
+          ]
+        },
+        {
+          "id": "choice",
+          "label": "Financial choice",
+          "value": "The outcome was which option the participant chose. It was recorded as a binary choice without asking for a numerical probability.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "option",
+            "bet"
+          ],
+          "studyIds": [
+            "study-4"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "framing",
+        "definition",
+        "scale",
+        "pair-order",
+        "free-sum",
+        "exploratory",
+        "option",
+        "bet"
+      ]
+    },
+    {
+      "id": "analysis",
+      "kind": "analysis",
+      "title": "How the authors evaluated replication",
+      "studyIds": [
+        "study-1a",
+        "study-1b",
+        "study-3",
+        "study-4"
+      ],
+      "fields": [
+        {
+          "id": "rating-tests",
+          "label": "Probability ratings",
+          "value": "For the five happen questions, the authors compared the two conditions with Mann–Whitney U and Welch’s t-tests. Chi-squared tests compared the share of responses within five percentage points of the case or class prior.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "mw-method",
+            "chi-method",
+            "windows",
+            "windows-b"
+          ],
+          "studyIds": [
+            "study-1a",
+            "study-1b",
+            "study-3"
+          ]
+        },
+        {
+          "id": "criteria",
+          "label": "How replication success was decided",
+          "value": "The preregistration defined success as three or four of the four studies showing a signal in the expected direction. After seeing the results, the authors adopted a two-of-three rule for Study 1a and designated Mann–Whitney as the primary test for its rating outcomes.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "criteria",
+            "change",
+            "test-priority"
+          ]
+        },
+        {
+          "id": "choice-test",
+          "label": "Choice comparison",
+          "value": "Study 4 compared the proportion choosing the contingent option across conditions using a two-proportion z-test.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "choice-result",
+            "funding-claim"
+          ],
+          "studyIds": [
+            "study-4"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "mw-method",
+        "chi-method",
+        "windows",
+        "windows-b",
+        "criteria",
+        "change",
+        "test-priority",
+        "choice-result",
+        "funding-claim"
+      ]
+    },
+    {
+      "id": "results-1a",
+      "kind": "result",
+      "title": "Study 1a · Weather, sport and stocks",
+      "studyIds": [
+        "study-1a"
+      ],
+      "fields": [
+        {
+          "id": "weather",
+          "label": "Item 1 · Weather",
+          "value": "Mean happen estimates were 31.93% (case) and 26.66% (class). Both the Mann–Whitney test (p = .013) and Welch test (p = .003) supported the expected direction. Both prior-alignment comparisons supported the prediction.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "means-w1",
+            "mw-p",
+            "welch-p",
+            "shares"
+          ]
+        },
+        {
+          "id": "sports",
+          "label": "Item 2 · Sports",
+          "value": "Means were 27.74% and 25.06%. Mann–Whitney supported a difference (p = .021); Welch did not (p = .075). Class-prior alignment supported the prediction; case-prior alignment did not.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "means-sp",
+            "mw-p",
+            "welch-p",
+            "share-single"
+          ]
+        },
+        {
+          "id": "stock",
+          "label": "Item 3 · IBM stock",
+          "value": "Means were 19.77% and 17.97%. Neither the Mann–Whitney (p = .092) nor the Welch test (p = .304) supported the overall effect; neither prior-alignment comparison supported it.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "means-st",
+            "mw-p",
+            "welch-p",
+            "shares-null"
+          ]
+        },
+        {
+          "id": "negative",
+          "label": "Complementary judgments",
+          "value": "The not-happen analyses supported a weather difference in both tests. For sports, the narrative describes Mann–Whitney support, but Table 15 prints p = .400 alongside a significance mark. The Welch test gives p = .133. The stock item had no clear between-condition difference.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "negative-summary",
+            "negative-mw",
+            "negative-u",
+            "negative-welch"
+          ]
+        },
+        {
+          "id": "order",
+          "label": "Stock question order",
+          "value": "The exploratory relative-order ANOVA found no clear evidence of an order effect or an order-by-framing interaction. When the stock item appeared first, the conditional Mann–Whitney comparison met the planned .005 threshold (p = .004) and Welch did not (p = .047). Both tests were inconclusive when another item appeared first.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "order-anova",
+            "order-alpha",
+            "first-mw",
+            "first-welch",
+            "later-mw",
+            "later-welch"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "means-w1",
+        "mw-p",
+        "welch-p",
+        "shares",
+        "means-sp",
+        "share-single",
+        "means-st",
+        "shares-null",
+        "negative-summary",
+        "negative-mw",
+        "negative-u",
+        "negative-welch",
+        "order-anova",
+        "order-alpha",
+        "first-mw",
+        "first-welch",
+        "later-mw",
+        "later-welch"
+      ]
+    },
+    {
+      "id": "results-1b",
+      "kind": "result",
+      "title": "Study 1b · Weekday versus weekend",
+      "studyIds": [
+        "study-1b"
+      ],
+      "fields": [
+        {
+          "id": "rating",
+          "label": "Event probabilities",
+          "value": "The mean happen rating was 56.83% under case wording and 66.91% under class wording, the predicted reverse direction. Mann–Whitney and Welch both gave p < .001. Both prior-alignment comparisons supported the prediction.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "means-wb",
+            "mw-p",
+            "welch-p",
+            "shares"
+          ]
+        },
+        {
+          "id": "negative",
+          "label": "Complementary judgment",
+          "value": "The mean not-happen ratings reversed that pattern: 45.20% in case and 32.58% in class. The exploratory Mann–Whitney and Welch comparisons both gave p < .001.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "wb-negative-means",
+            "negative-mw",
+            "negative-welch"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "means-wb",
+        "mw-p",
+        "welch-p",
+        "shares",
+        "wb-negative-means",
+        "negative-mw",
+        "negative-welch"
+      ]
+    },
+    {
+      "id": "results-3",
+      "kind": "result",
+      "title": "Study 3 · Job offer",
+      "studyIds": [
+        "study-3"
+      ],
+      "fields": [
+        {
+          "id": "rating",
+          "label": "Event probabilities",
+          "value": "The mean happen rating was 59.93% under case wording and 47.53% under class wording. Mann–Whitney and Welch both gave p < .001. The authors found support for class-prior alignment and no clear evidence for case-prior alignment.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "means-hr",
+            "mw-p",
+            "welch-p",
+            "share-single"
+          ]
+        },
+        {
+          "id": "negative",
+          "label": "Complementary judgment",
+          "value": "The mean not-happen rating was 40.95% in case and 50.47% in class. The exploratory Mann–Whitney and Welch comparisons both gave p < .001.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "hr-negative-means",
+            "negative-mw",
+            "negative-welch"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "means-hr",
+        "mw-p",
+        "welch-p",
+        "share-single",
+        "hr-negative-means",
+        "negative-mw",
+        "negative-welch"
+      ]
+    },
+    {
+      "id": "results-4",
+      "kind": "result",
+      "title": "Study 4 · Riskier choice",
+      "studyIds": [
+        "study-4"
+      ],
+      "fields": [
+        {
+          "id": "choice",
+          "label": "Share choosing the uncertain option",
+          "value": "The contingent $50 option was chosen by 21.00% of case-framed participants and 23.76% of class-framed participants. The two-proportion test gave p = .415. The result provided no clear support for the predicted greater risk-taking under case wording.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "choice-result",
+            "funding-claim"
+          ]
+        },
+        {
+          "id": "order",
+          "label": "Did task order affect choice?",
+          "value": "The logistic model provided no clear evidence for an effect of task order, framing or their interaction on the choice of the uncertain option.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "order-prereg",
+            "order-logit",
+            "order-summary"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "choice-result",
+        "funding-claim",
+        "order-prereg",
+        "order-logit",
+        "order-summary"
+      ]
+    },
+    {
+      "id": "complements",
+      "kind": "finding",
+      "title": "What the exploratory complement tests showed",
+      "studyIds": [
+        "study-1a",
+        "study-1b",
+        "study-3"
+      ],
+      "fields": [
+        {
+          "id": "joint",
+          "label": "Across the five estimation scenarios",
+          "value": "The mixed ANOVA found differences across scenarios, a scenario-by-framing interaction and an evaluation-type difference. It found no clear overall framing effect or three-way interaction.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "mixed-other",
+            "mixed-qt",
+            "mixed-et",
+            "mixed-no-main",
+            "mixed-three"
+          ]
+        },
+        {
+          "id": "stock",
+          "label": "Exception to complementary consistency",
+          "value": "In class framing for the IBM stock item, mean happen was 17.97%, while the mean of 100 minus not-happen was 24.46% (post hoc p < .001). This was the only highlighted pair with clear evidence of a difference.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "means-st",
+            "comp-pair",
+            "comp-pair-means"
+          ],
+          "studyIds": [
+            "study-1a"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "mixed-other",
+        "mixed-qt",
+        "mixed-et",
+        "mixed-no-main",
+        "mixed-three",
+        "means-st",
+        "comp-pair",
+        "comp-pair-means"
+      ]
+    },
+    {
+      "id": "conclusion",
+      "kind": "finding",
+      "title": "Where the framing effect held",
+      "studyIds": [
+        "study-1a",
+        "study-1b",
+        "study-3",
+        "study-4"
+      ],
+      "fields": [
+        {
+          "id": "overall",
+          "label": "Mostly successful, with variation by scenario",
+          "value": "After analysis the authors decided to use Mann–Whitney as the core test and to count Study 1a as supported if two of its three items showed the expected effect. Under those decisions, they counted Study 1a as supported and found support for Studies 1b and 3. The IBM stock judgment and Study 4 financial choice showed no consistent support. Most effects were weaker than those reported in the original paper.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "main-conclusion",
+            "main-conclusion-2",
+            "change",
+            "test-priority"
+          ]
+        }
+      ],
+      "evidenceIds": [
+        "main-conclusion",
+        "main-conclusion-2",
+        "change",
+        "test-priority"
+      ]
+    },
+    {
+      "id": "limitations",
+      "kind": "limitation",
+      "title": "What remains uncertain",
+      "studyIds": [
+        "study-1a",
+        "study-1b",
+        "study-3",
+        "study-4"
+      ],
+      "fields": [
+        {
+          "id": "scope",
+          "label": "Replicating across settings",
+          "value": "The replication combined four originally separate studies, updated stimuli and sampled adults through Prolific. The authors describe the replication as close to far, and note that their selected scenarios cover a limited part of the evidence.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "shared-design",
+            "original-samples",
+            "sample",
+            "closeness",
+            "limitations"
+          ]
+        },
+        {
+          "id": "original-order",
+          "label": "Exact ordering in the 2003 probability experiment",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "original-pair-gap"
+          ],
+          "extensions": {
+            "gapReason": "not_reported"
+          }
+        },
+        {
+          "id": "analysis-code",
+          "label": "Analysis-script provenance for this package",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "stated-code"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable"
+          }
+        }
+      ],
+      "evidenceIds": [
+        "shared-design",
+        "original-samples",
+        "sample",
+        "closeness",
+        "limitations",
+        "original-pair-gap",
+        "stated-code"
+      ]
+    }
+  ],
+  "steps": [],
+  "evidence": [
+    {
+      "id": "definition",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 2
+      },
+      "quote": "An ignorance prior denotes a default judgement that assigns equal probabilities to all potential possibilities in a given query, in the absence of any other relevant information.",
+      "verification": "unverified"
+    },
+    {
+      "id": "framing",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "The only distinction between the two experimental conditions was in its linguistic formulation, the target events remaining consistent in nature across both conditions.",
+      "verification": "unverified"
+    },
+    {
+      "id": "scope",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "We chose not to replicate Study 2 given that it was conducted in an in-class setting with almost no information provided about methods, procedure and results.",
+      "verification": "unverified"
+    },
+    {
+      "id": "prior-1a",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "questions presented in the binary (1/2) case-prime condition elicited higher ignorance priors compared to the N-fold (1/n) class-prime condition.",
+      "verification": "unverified"
+    },
+    {
+      "id": "prior-1b",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 3
+      },
+      "quote": "Study 1b involved a situation in which there were higher expected class-primed ignorance priors than case-primed ignorance priors.",
+      "verification": "unverified"
+    },
+    {
+      "id": "prior-3",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "under uncertainty (1/2 > 1/n)",
+      "verification": "unverified"
+    },
+    {
+      "id": "prior-4",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "ignorance prior of option 2: 1/2 ignorance prior of option 2: 1/30",
+      "verification": "unverified"
+    },
+    {
+      "id": "target-4",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "A larger proportion of participants in the case-prime condition made decisions favouring the risker choice when compared to those in the class-prime condition",
+      "verification": "unverified"
+    },
+    {
+      "id": "shared-design",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "We ran the four studies together in a single unified data collection, with all scenarios from the four studies presented in random order.",
+      "verification": "unverified"
+    },
+    {
+      "id": "original-samples",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Studies 1a, 1b, 3 and 4 were conducted separately with independent samples.",
+      "verification": "unverified"
+    },
+    {
+      "id": "sample",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "We recruited a total of 603 US American participants from Prolific",
+      "verification": "unverified"
+    },
+    {
+      "id": "started",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "707 subjects began the survey but 104 did not proceed beyond the consent and verifications.",
+      "verification": "unverified"
+    },
+    {
+      "id": "exclusions",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "We did not classify any cases as outliers. We included all the data collected in our analysis for those who successfully completed the entire study.",
+      "verification": "unverified"
+    },
+    {
+      "id": "pay",
+      "sourceId": "si",
+      "locator": {
+        "page": 36
+      },
+      "url": "https://osf.io/download/jcgyd/"
+    },
+    {
+      "id": "filters",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Minimum Submissions: 100, Maximum Submissions: 10 000",
+      "verification": "unverified"
+    },
+    {
+      "id": "filters-si",
+      "sourceId": "si",
+      "locator": {
+        "page": 36
+      },
+      "url": "https://osf.io/download/jcgyd/"
+    },
+    {
+      "id": "filters-si-list",
+      "sourceId": "si",
+      "locator": {
+        "page": 36
+      },
+      "url": "https://osf.io/download/jcgyd/"
+    },
+    {
+      "id": "pretest",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "We did not identify technical issues with the pretest.",
+      "verification": "unverified"
+    },
+    {
+      "id": "allocation",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "condition (‘evenly presented’ randomizer in Qualtrics). Within each condition, participants answered all scenarios from the four studies of the target article in a randomized order.",
+      "verification": "unverified"
+    },
+    {
+      "id": "screening",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Failing those attention checks meant that the participants did not indicate consent and therefore could not embark on the study.",
+      "verification": "unverified"
+    },
+    {
+      "id": "pair-order",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "presented the pairs in fixed order, where the ‘happen’ hypothesis is always presented first, and the ‘not happen’ hypothesis is always presented second.",
+      "verification": "unverified"
+    },
+    {
+      "id": "pair-conflict",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 7
+      },
+      "quote": "The presentation order of task items (happen versus not happen) was also randomized.",
+      "verification": "unverified"
+    },
+    {
+      "id": "free-sum",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 4
+      },
+      "quote": "decided to instead allow participants to enter whatever approximations",
+      "verification": "unverified"
+    },
+    {
+      "id": "end",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "At the end of the experiment, participants answered a number of funnelling and demographic questions.",
+      "verification": "unverified"
+    },
+    {
+      "id": "weather-1a",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "the noontime temperature at O’Hare airport on sunday will be higher than other days next week",
+      "verification": "unverified"
+    },
+    {
+      "id": "sports-1a",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Therefore, our ignorance prior for this item was set at 1/7.",
+      "verification": "unverified"
+    },
+    {
+      "id": "michigan",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "we adjusted this item to estimate the University of Michigan’s winning rate.",
+      "verification": "unverified"
+    },
+    {
+      "id": "ibm",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 8
+      },
+      "quote": "we have replaced GM with IBM, which at the time of data collection was a component of the DJIA (2024).",
+      "verification": "unverified"
+    },
+    {
+      "id": "weekday",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "the warmest day of the week next week (afternoon high temperature) will fall on a weekday (Mon–Fri) rather than the weekend (Sat–Sun)",
+      "verification": "unverified"
+    },
+    {
+      "id": "job",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "ACME Corporation plans to extend job offers to 10 out of 100 applicants.",
+      "verification": "unverified"
+    },
+    {
+      "id": "letter",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "read excerpts from a recommendation letter portraying applicant K.T. as cheerful, bright and hardworking, but somewhat set in her ways.",
+      "verification": "unverified"
+    },
+    {
+      "id": "bet",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "Study 4 examined decisions under ignorance.",
+      "verification": "unverified"
+    },
+    {
+      "id": "option",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "The decision outcome is either option 1 or option 2 (table 6).",
+      "verification": "unverified"
+    },
+    {
+      "id": "scale",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "The percentage scale ranged from 0% to 100%",
+      "verification": "unverified"
+    },
+    {
+      "id": "mw-method",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "To mirror the target article’s analyses, we conducted a series of Mann–Whitney U-tests and Welch’s t-tests to compare the case and class conditions on probability estimations in Studies 1a, 1b and 3.",
+      "verification": "unverified"
+    },
+    {
+      "id": "chi-method",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "we ran chi-squared tests to compare the case and class conditions on the prevalence of responses aligning with ignorance priors.",
+      "verification": "unverified"
+    },
+    {
+      "id": "windows",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "We pre-registered the decision to classify all responses falling within ±5% of the ignorance prior as influenced by partition priming",
+      "verification": "unverified"
+    },
+    {
+      "id": "windows-b",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "responses falling within the range of 66–76% were classified as class primed.",
+      "verification": "unverified"
+    },
+    {
+      "id": "criteria",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 12
+      },
+      "quote": "successful: three or four out of four studies; a failed replication: no studies; mixed findings: one or two studies.",
+      "verification": "unverified"
+    },
+    {
+      "id": "change",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 16
+      },
+      "quote": "We decided to conclude support for an effect if two out of three items were supported",
+      "verification": "unverified"
+    },
+    {
+      "id": "test-priority",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 16
+      },
+      "quote": "decided to focus on the main Mann–Whitney U-test as the most closely aligned with our pre-registration.",
+      "verification": "unverified"
+    },
+    {
+      "id": "n-groups",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "case prime (n = 300) class prime (n = 303)",
+      "verification": "unverified"
+    },
+    {
+      "id": "means-w1",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "23.75 31.93 22.00 1/7 (14%) 15.00 26.66 20.92",
+      "verification": "unverified"
+    },
+    {
+      "id": "means-sp",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "20.00 27.74 18.50 1/7 (14%) 15.00 25.06 18.41",
+      "verification": "unverified"
+    },
+    {
+      "id": "means-st",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "10.00 19.77 21.61 1/30 (3%) 5.00 17.97 21.18",
+      "verification": "unverified"
+    },
+    {
+      "id": "means-wb",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "60.00 56.83 23.39 5/7 (71%) 71.00 66.91 18.17",
+      "verification": "unverified"
+    },
+    {
+      "id": "means-hr",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 14
+      },
+      "quote": "70.00 59.93 29.54 1/10 (10%) 50.00 47.53 32.56",
+      "verification": "unverified"
+    },
+    {
+      "id": "mw-p",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "0.013 0.021 0.092 <0.001 <0.001",
+      "verification": "unverified"
+    },
+    {
+      "id": "welch-p",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "0.003 0.075 0.304 <0.001 <0.001",
+      "verification": "unverified"
+    },
+    {
+      "id": "shares",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "For Study 1a Q1 (weather) and 1b (weather), we found support for greater proportions of both",
+      "verification": "unverified"
+    },
+    {
+      "id": "share-single",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "For Study 1a Q2 (sports) and Study 3 (offer), we only found support for the class-primed responses",
+      "verification": "unverified"
+    },
+    {
+      "id": "shares-null",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 15
+      },
+      "quote": "For Study 1a Q3 (business), we found no evidence for alignment with either case-primed or class-primed responses.",
+      "verification": "unverified"
+    },
+    {
+      "id": "choice-result",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 16
+      },
+      "quote": "proportions of 21.00% (case) and 23.76% (class), z = 0.81, p = 0.415",
+      "verification": "unverified"
+    },
+    {
+      "id": "exploratory",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "had no specific predictions, and therefore classified this analysis as exploratory.",
+      "verification": "unverified"
+    },
+    {
+      "id": "mixed-no-main",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "F(1,601) = 2.05, p = 00.153",
+      "verification": "unverified"
+    },
+    {
+      "id": "mixed-three",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "F(4,2404) = 1.42, p = 0.227",
+      "verification": "unverified"
+    },
+    {
+      "id": "mixed-other",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "F(4,2404) = 446.96, p < 0.001",
+      "verification": "unverified"
+    },
+    {
+      "id": "mixed-qt",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "F(4,2404) = 24.32, p < 0.001",
+      "verification": "unverified"
+    },
+    {
+      "id": "mixed-et",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "F(1,601) = 19.32, p < 0.001",
+      "verification": "unverified"
+    },
+    {
+      "id": "comp-pair",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "Study 1a Q3 in the class condition (t = −16.24, p < 0.001).",
+      "verification": "unverified"
+    },
+    {
+      "id": "comp-pair-means",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "M = 24.46, s.e. = 1.54",
+      "verification": "unverified"
+    },
+    {
+      "id": "negative-summary",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 18
+      },
+      "quote": "conditions for Items 1 and 2 of Study 1a, Study 1b and Study 3, while no difference was found for Item 3 of Study 1a",
+      "verification": "unverified"
+    },
+    {
+      "id": "negative-mw",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 22
+      },
+      "quote": "0.022 0.400 0.786 <0.001 <0.001",
+      "verification": "unverified"
+    },
+    {
+      "id": "negative-u",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 22
+      },
+      "quote": "40 568* 41 078* 44 869 30 615*** 38 062***",
+      "verification": "unverified"
+    },
+    {
+      "id": "negative-welch",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 22
+      },
+      "quote": "0.010 0.133 0.536 <0.001 <0.001",
+      "verification": "unverified"
+    },
+    {
+      "id": "wb-negative-means",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 21
+      },
+      "quote": "45.50 45.20 23.48 2/7 (29%) 29.00 32.58 18.20",
+      "verification": "unverified"
+    },
+    {
+      "id": "hr-negative-means",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 21
+      },
+      "quote": "30.00 40.95 29.82 9/10 (90%) 50.00 50.47 32.19",
+      "verification": "unverified"
+    },
+    {
+      "id": "order-prereg",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 20
+      },
+      "quote": "We initially pre-registered to test this order effect only for Study 4",
+      "verification": "unverified"
+    },
+    {
+      "id": "order-logit",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 20
+      },
+      "quote": "z = −1.72, p = 0.085",
+      "verification": "unverified"
+    },
+    {
+      "id": "order-anova",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 20
+      },
+      "quote": "condition (F(1,599) = 0.67, p = 0.412).",
+      "verification": "unverified"
+    },
+    {
+      "id": "order-summary",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 24
+      },
+      "quote": "Our analyses revealed no clear indication for the impact of condition, order or their interaction on the findings of either study.",
+      "verification": "unverified"
+    },
+    {
+      "id": "order-alpha",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 20
+      },
+      "quote": "a stricter alpha of 0.005.",
+      "verification": "unverified"
+    },
+    {
+      "id": "first-welch",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 20
+      },
+      "quote": "t = 2.01, p = 0.047, Cohen’s d = 0.38",
+      "verification": "unverified"
+    },
+    {
+      "id": "first-mw",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 21
+      },
+      "quote": "U = 1068, p = 0.004.",
+      "verification": "unverified"
+    },
+    {
+      "id": "later-mw",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 21
+      },
+      "quote": "U = 29 325, p = 0.606.",
+      "verification": "unverified"
+    },
+    {
+      "id": "later-welch",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 21
+      },
+      "quote": "t = 0.20, p = 0.842, Cohen’s d = 0.02",
+      "verification": "unverified"
+    },
+    {
+      "id": "main-conclusion",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 21
+      },
+      "quote": "Overall, we concluded our replication as (mostly) successful with effects generally weaker than the ones reported in the target article.",
+      "verification": "unverified"
+    },
+    {
+      "id": "main-conclusion-2",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 21
+      },
+      "quote": "we successfully replicated Studies 1a Items 1 and 2 (2 out of 3 items), 1b and 3, and failed to find support for Study 1a Item 3 and for Study 4.",
+      "verification": "unverified"
+    },
+    {
+      "id": "limitations",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 24
+      },
+      "quote": "we only conducted a replication of a limited number of scenarios of the target article",
+      "verification": "unverified"
+    },
+    {
+      "id": "closeness",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 13
+      },
+      "quote": "a ‘close to far’ replication.",
+      "verification": "unverified"
+    },
+    {
+      "id": "original-pair-gap",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 9
+      },
+      "quote": "did not specify whether each pair was presented concurrently or if all six questions",
+      "verification": "unverified"
+    },
+    {
+      "id": "funding-claim",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 23
+      },
+      "quote": "our replication results did not provide evidence for partition dependence in decision making.",
+      "verification": "unverified"
+    },
+    {
+      "id": "cost-limit",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 24
+      },
+      "quote": "financial judgements and rewards versus everyday scenarios.",
+      "verification": "unverified"
+    },
+    {
+      "id": "stated-code",
+      "sourceId": "paper",
+      "path": "sources/open/paper.pdf",
+      "locator": {
+        "page": 5
+      },
+      "quote": "We provided all materials, data and code on: https://osf.io/g9czs/.",
+      "verification": "unverified"
+    },
+    {
+      "id": "qsf-choice-options",
+      "sourceId": "qsf",
+      "locator": {
+        "pointer": "/SurveyElements/70/Payload/Choices"
+      },
+      "url": "https://osf.io/download/w4r6p/"
+    },
+    {
+      "id": "qsf-choice-order",
+      "sourceId": "qsf",
+      "locator": {
+        "pointer": "/SurveyElements/70/Payload/Randomization"
+      },
+      "url": "https://osf.io/download/w4r6p/"
+    },
+    {
+      "id": "qsf-pair-order",
+      "sourceId": "qsf",
+      "locator": {
+        "pointer": "/SurveyElements/0/Payload/17/BlockElements"
+      },
+      "url": "https://osf.io/download/w4r6p/"
+    },
+    {
+      "id": "qsf-happen",
+      "sourceId": "qsf",
+      "locator": {
+        "pointer": "/SurveyElements/46/Payload/QuestionText"
+      },
+      "url": "https://osf.io/download/w4r6p/"
+    },
+    {
+      "id": "qsf-not-happen",
+      "sourceId": "qsf",
+      "locator": {
+        "pointer": "/SurveyElements/47/Payload/QuestionText"
+      },
+      "url": "https://osf.io/download/w4r6p/"
+    }
+  ],
+  "issues": [
+    {
+      "id": "original-order-gap",
+      "title": "Original paired-question order unspecified",
+      "severity": "check",
+      "reason": "The replication paper says the 2003 article did not specify whether pairs appeared together or the six questions were counterbalanced.",
+      "impact": "The 2025 survey establishes its own order. The original procedure remains uncertain.",
+      "suggestedAction": "Consult the original survey or author records if the 2003 order is needed.",
+      "nodeId": "limitations",
+      "fieldId": "original-order",
+      "evidenceIds": [
+        "original-pair-gap"
+      ]
+    },
+    {
+      "id": "analysis-script-gap",
+      "title": "Analysis scripts outside this package",
+      "severity": "check",
+      "reason": "The paper points to OSF scripts, which were outside the approved staged inputs.",
+      "impact": "This Program describes reported results. It does not establish raw-data or analysis-code reproduction.",
+      "suggestedAction": "Use the authors’ OSF project for an approved code review.",
+      "nodeId": "limitations",
+      "fieldId": "analysis-code",
+      "evidenceIds": [
+        "stated-code"
+      ]
+    },
+    {
+      "id": "reported-order-conflict",
+      "title": "Two descriptions of question order",
+      "severity": "check",
+      "reason": "The design section describes happen/not-happen order as randomized, while the procedure section and the administered survey use fixed order within each page.",
+      "impact": "The procedure description governs the 2025 instrument summary.",
+      "suggestedAction": "Read the original QSF flow and scenario blocks if auditing the implementation.",
+      "nodeId": "design",
+      "fieldId": "pairs",
+      "evidenceIds": [
+        "pair-conflict",
+        "pair-order",
+        "qsf-pair-order",
+        "qsf-happen",
+        "qsf-not-happen"
+      ]
+    },
+    {
+      "id": "recruitment-filter-conflict",
+      "title": "Submission thresholds differ across sources",
+      "severity": "check",
+      "reason": "The main Methods and the supplement’s filter list give 100–10,000 submissions, but an additional line of the supplement gives 5,000–100,000.",
+      "impact": "Exact recruitment-screen reproducibility requires clarification.",
+      "suggestedAction": "Confirm the filters used for this Prolific recruitment with the authors or original recruitment record.",
+      "nodeId": "participants",
+      "fieldId": "filters",
+      "evidenceIds": [
+        "filters",
+        "filters-si-list",
+        "filters-si"
+      ]
+    },
+    {
+      "id": "sports-p-conflict",
+      "title": "Sports complement p-value is inconsistent",
+      "severity": "check",
+      "reason": "Table 15 prints p = .400 with a significance mark and the narrative describes Mann–Whitney support.",
+      "impact": "The exact reported sports complement significance is unresolved.",
+      "suggestedAction": "Check the authors’ analysis output or request a correction.",
+      "nodeId": "results-1a",
+      "fieldId": "negative",
+      "evidenceIds": [
+        "negative-summary",
+        "negative-mw",
+        "negative-u"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "id": "motivation",
+      "from": "background",
+      "to": "predictions",
+      "type": "motivates"
+    },
+    {
+      "id": "design-test",
+      "from": "predictions",
+      "to": "design",
+      "type": "tested-by"
+    },
+    {
+      "id": "results-to-conclusion-1a",
+      "from": "results-1a",
+      "to": "conclusion",
+      "type": "informs"
+    },
+    {
+      "id": "results-to-conclusion-1b",
+      "from": "results-1b",
+      "to": "conclusion",
+      "type": "informs"
+    },
+    {
+      "id": "results-to-conclusion-3",
+      "from": "results-3",
+      "to": "conclusion",
+      "type": "informs"
+    },
+    {
+      "id": "results-to-conclusion-4",
+      "from": "results-4",
+      "to": "conclusion",
+      "type": "informs"
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "publication": "reading-only"
+    }
+  }
+}

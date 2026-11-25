@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "008d529d78847dec880ae790e901972549ba673287b908f93ca4473aa6608966",
-  "previousRevision": null,
+  "revision": "416a2e0a3b3e5302b1f3a5158be2194c87bbf662f0e7c9b7bef39c59cae22e71",
+  "previousRevision": "008d529d78847dec880ae790e901972549ba673287b908f93ca4473aa6608966",
   "paper": {
     "title": "Fairness in Simple Bargaining Experiments",
     "authors": [
@@ -50,30 +50,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "008d529d78847dec880ae790e901972549ba673287b908f93ca4473aa6608966",
-    "reviewer": "independent-agent:gpt-6-astra:/root/astra_public_program",
-    "reason": "Accepted exact candidate as a concise reading-only research summary with source locators and explicit scope limits. This is not full-instrument or executable-protocol approval.",
-    "checks": [
-      "Read source OCR for two game rules, pay/no-pay crossing, April/September replication waves, anonymous separate-room procedure and paid $5/$10 comparison.",
-      "Compared conclusions with paper abstract and tests: paid games differ, no-pay ultimatum unstable, no detected stake-size distribution difference within tested range.",
-      "Recomputed exact asset digest; inspected only Program and source manifest are included. No protocol, participant records, original PDF, credentials or executable materials included.",
-      "Independently re-reviewed added headline takeaway and prediction nodes against the already inspected primary source and rebound this acceptance to the refreshed full asset digest."
-    ],
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Primary-source comparison of the claims actually present in this concise reading summary, citation section/table locators, and public-asset privacy. Not exhaustive extraction, reanalysis, runtime testing, or historical-fidelity certification.",
-    "sourceAccessNote": "Original documents were reviewed locally using extracted text/OCR, and for study_016 via the author-uploaded publisher article on ResearchGate. Sources remain external; acceptance does not guarantee access without a library subscription or permanent availability of links."
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Some held texts cannot be restored by the app (a picture, a file the researcher must supply, or text that cannot be located): the researcher pastes or captures them before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "416a2e0a3b3e5302b1f3a5158be2194c87bbf662f0e7c9b7bef39c59cae22e71"
   },
   "validation": {
     "status": "passed",
@@ -81,7 +68,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -89,9 +76,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "79022de4d15eab4bfe7bb436d933b971e6b670f18a7868fcaa8e5fe192e7b13c"
+    "protocolSha256": "a80a9e3f088bc00260748d77327bc4de83aebf8635e6557c0d361ca894967f77"
   }
 }

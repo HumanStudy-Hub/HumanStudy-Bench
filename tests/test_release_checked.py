@@ -52,3 +52,14 @@ def test_long_uncited_screen_text_still_blocks():
                                                     {"path": "/data/b", "source": "paper"}]}
     out = rc.blocking_errors(report, {"data": dict(private["data"]), "distribution": {"held": {}}}, private)
     assert len(out) == 1 and "/data/b" in out[0] and "/data/a" not in out[0]
+
+
+def test_slim_drops_machine_paths_and_review_records():
+    p = {"id": "x", "meta": {"sources": {"paper": {"what": "/Users/someone/work/x/paper.pdf (sha256 ab)"}}},
+         "run_excluded": [{"arm": "a", "why": "not printed", "decision": "converter 2026-11-08: rule 2"}],
+         "coding": {"q": {"rule": "r", "decision": "coordinator decision", "heldout_probes": "review/h.json"}}}
+    out = rc.slim(p)
+    assert out["meta"]["sources"]["paper"]["what"] == "paper.pdf (sha256 ab)"
+    assert out["run_excluded"] == [{"arm": "a", "why": "not printed"}]
+    assert out["coding"] == {"q": {"rule": "r"}}
+    assert rc.local_paths({"a.json": b'{"p": "/Users/someone/x"}', "b.json": b"{}"}) == ["a.json"]

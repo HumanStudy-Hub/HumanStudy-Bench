@@ -1,0 +1,2724 @@
+{
+  "id": "sirota2015politeness",
+  "schema": "hsenv-protocol/0.1",
+  "schema_version": "1",
+  "meta": {
+    "citation": "Sirota, M., & Juanchich, M. (2015). A direct and comprehensive test of two postulates of politeness theory applied to uncertainty communication. Judgment and Decision Making, 10(3), 232-240. https://doi.org/10.1017/S1930297500004642",
+    "doi": "10.1017/S1930297500004642",
+    "language": "en",
+    "language_cite": {
+      "label": "derived",
+      "source": "paper",
+      "page": 234,
+      "note": "English-speaking Americans on Amazon Mechanical Turk (p. 234); the instrument language is not stated, English is the language of the scenarios the paper prints"
+    },
+    "licence": {
+      "paper": "CC BY 3.0 (printed on p. 232: 'The authors license this article under the terms of the Creative Commons Attribution 3.0 License'; jbaron.org page links creativecommons.org/licenses/by/3.0/)"
+    },
+    "sources": {
+      "paper": {
+        "file": "sources/bundle/paper/paper.pdf",
+        "url": "https://jbaron.org/journal/14/14220/jdm14220.pdf",
+        "doi": "10.1017/S1930297500004642",
+        "sha256": "f58b93d35ed2f35affc2c4d802dfbfecf9f38cb4471787100636c40e1079ab40",
+        "licence": "CC BY 3.0 (printed p. 232); the Cambridge copy (Crossref: BY-NC-ND 3.0) is not used",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC-BY-3.0",
+          "url": "https://jbaron.org/journal/14/14220/jdm14220.pdf",
+          "sha256": "f58b93d35ed2f35affc2c4d802dfbfecf9f38cb4471787100636c40e1079ab40",
+          "format": "pdf",
+          "attribution": "Sirota, M., & Juanchich, M. (2015). A direct and comprehensive test of two postulates of politeness theory applied to uncertainty communication. Judgment and Decision Making, 10(3), 232-240. CC BY 3.0"
+        }
+      },
+      "coding_r": {
+        "url": "https://jbaron.org/journal/14/14220/Coding.R",
+        "sha256": "00ef8b5f9392e1e1a5bcef51cf6d0bbdb8b6c5ce05ccad1042e4634aae371b98",
+        "licence": "none printed on the file (journal page: article CC BY 3.0); read, not stored (code file, no participant rows)",
+        "distribution": {
+          "tier": "link",
+          "licence": "unspecified",
+          "url": "https://jbaron.org/journal/14/14220/Coding.R",
+          "sha256": "00ef8b5f9392e1e1a5bcef51cf6d0bbdb8b6c5ce05ccad1042e4634aae371b98",
+          "format": "text",
+          "attribution": "Sirota, M., & Juanchich, M. (2015). A direct and comprehensive test of two postulates of politeness theory applied to uncertainty communication. Judgment and Decision Making, 10(3), 232-240. CC BY 3.0"
+        }
+      }
+    },
+    "sample": {
+      "n": 132,
+      "description": "132 Amazon Mechanical Turk workers, English-speaking Americans, $0.15 for a three-minute study; age 18-67 (M = 34.7, SD = 13.1), 60.6% female (5 subjects gave no demographics)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 234,
+        "note": "'we recruited 132 Amazon Mechanical Turk workers' (p. 234); Figure 2 caption 'n = 132' (p. 236)"
+      }
+    }
+  },
+  "arms": [
+    {
+      "id": "mturk",
+      "label": "MTurk speakers: car and investment scenarios, intention report, numerical translation",
+      "n_paper": 132,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 234,
+        "note": "'we recruited 132 Amazon Mechanical Turk workers' (p. 234); Figure 2 caption 'n = 132' (p. 236)"
+      },
+      "n_recruited": {
+        "value": 132,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 234,
+          "note": "'we recruited 132 Amazon Mechanical Turk workers' (p. 234); Figure 2 caption 'n = 132' (p. 236)"
+        }
+      },
+      "n_analysed": {
+        "value": 132,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 236,
+          "note": "Figure 2 caption: 'n = 132' (p. 236); Table 1 analyses 122 + 124 trials after dropping the 18 'other' intentions"
+        }
+      },
+      "runnable": false,
+      "why": "two on-screen items are not printed: the question stem of the intention item, and the display of the estimate slider's anchors (described in the paper, not shown: 'reported', README Decided 11). Unblocked by the text of the intention item and a screenshot or the anchor text of the slider",
+      "assignment": "single group; scenario order random per subject"
+    }
+  ],
+  "run_excluded": [
+    {
+      "arm": "mturk",
+      "n_paper": 132,
+      "why": "two on-screen items are not printed: the question stem of the intention item, and the display of the estimate slider's anchors (described in the paper, not shown: 'reported', README Decided 11). Unblocked by the text of the intention item and a screenshot or the anchor text of the slider",
+      "missing": [
+        {
+          "what": "question stem of the intention item",
+          "ref": "data.missing.intent_stem"
+        },
+        {
+          "what": "display of the slider's anchors (0% no chance, 50%, 100% certain; ticks by 10)",
+          "ref": "data.missing.est_anchors"
+        },
+        {
+          "what": "consent, demographics, HIT and debriefing pages",
+          "ref": "omitted"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 234
+      }
+    }
+  ],
+  "data": {
+    "verbal": [
+      {
+        "text": "a very small probability",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 234,
+          "note": "one of the seven expressions of the verbal probability scale (quoted list, p. 234)"
+        }
+      },
+      {
+        "text": "a small probability",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 234,
+          "note": "one of the seven expressions of the verbal probability scale (quoted list, p. 234)"
+        }
+      },
+      {
+        "text": "slightly probable",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 234,
+          "note": "one of the seven expressions of the verbal probability scale (quoted list, p. 234)"
+        }
+      },
+      {
+        "text": "evenly probable",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 234,
+          "note": "one of the seven expressions of the verbal probability scale (quoted list, p. 234)"
+        }
+      },
+      {
+        "text": "rather probable",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 234,
+          "note": "one of the seven expressions of the verbal probability scale (quoted list, p. 234)"
+        }
+      },
+      {
+        "text": "probable",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 234,
+          "note": "one of the seven expressions of the verbal probability scale (quoted list, p. 234)"
+        }
+      },
+      {
+        "text": "quite probable",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 234,
+          "note": "one of the seven expressions of the verbal probability scale (quoted list, p. 234)"
+        }
+      }
+    ],
+    "intent_options": [
+      {
+        "text": "I wanted to communicate the probability I had in mind",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 234,
+          "note": "option text; the authors' gloss '(measuring ...)' after it is not on the screen"
+        }
+      },
+      {
+        "text": "I tried to give my opinion in the most tactful way",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 234,
+          "note": "option text; the authors' gloss '(measuring ...)' after it is not on the screen"
+        }
+      },
+      {
+        "text": "I tried to be cautious, in case I could be wrong",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 234,
+          "note": "option text; the authors' gloss '(measuring ...)' after it is not on the screen"
+        }
+      },
+      {
+        "text": "other - please provide an explanation in the space available",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 234,
+          "note": "option text; the authors' gloss '(measuring ...)' after it is not on the screen"
+        }
+      }
+    ],
+    "est_q": {
+      "text": "In your opinion, what is the probability communicated by the expressions presented here?",
+      "cite": {
+        "label": "verbatim",
+        "source": "paper",
+        "page": 234,
+        "note": "quoted question of the estimate task"
+      }
+    },
+    "scen": {
+      "car": {
+        "text": {
+          "text": "Imagine that a friend of yours has just bought a new used car without a warranty. He is explaining to you that he thinks he made a good deal. Your friend is showing you the car and you examine it while discussing. After a while he asks your opinion about the car. You think that there is a 50% probability that the car will break down in the next few months.",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 240,
+            "note": "Appendix scenario text, label 'Car:' not served (heading of the Appendix entry)"
+          }
+        },
+        "select": {
+          "text": "Select the statement you judge most appropriate to respond to your friend:",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 240
+          }
+        },
+        "question": {
+          "text": "“Do you think the car will break down?”",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 240,
+            "note": "quoted in the Appendix"
+          }
+        },
+        "starter": {
+          "text": "“I think that . . . ”",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 240,
+            "note": "quoted in the Appendix; the seven expressions complete it"
+          }
+        }
+      },
+      "investment": {
+        "text": {
+          "text": "Imagine that a friend of yours has invested in the stock market all the savings he has accumulated over time. He is explaining to you that he may be a novice with such investments but that he thinks that the stocks he bought are very good. As he is nevertheless not completely confident in the value of the stocks, he asks your opinion. You think that there is a 50% probability that the stock will lose their values.",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 240,
+            "note": "Appendix scenario text, label 'Investment:' not served (heading of the Appendix entry)"
+          }
+        },
+        "select": {
+          "text": "Select the statement you judge most appropriate to respond to your friend:",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 240
+          }
+        },
+        "question": {
+          "text": "“Do you think my stocks will lose their values?”",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 240,
+            "note": "quoted in the Appendix"
+          }
+        },
+        "starter": {
+          "text": "“I think that . . . ”",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 240,
+            "note": "quoted in the Appendix; the seven expressions complete it"
+          }
+        }
+      }
+    },
+    "missing": {
+      "intent_stem": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 234,
+          "note": "the question or instruction line above the four intention options: the paper says only that subjects 'reported their communication intention, justifying their use of the specific verbal probability expression' (p. 234) and lists the four options; no stem is quoted"
+        }
+      },
+      "est_anchors": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 234,
+          "note": "the slider's anchor labels as displayed: described as 'incremental anchors by 10 and three additional verbal/numerical probability anchors: 0%, no chance, 50%, and 100%, certain' (p. 234); whether '0%' and 'no chance' were one label or two, their format and positions are not shown (no screenshot, no figure of the screen); the description is reported, never served (README Decided 11)"
+        }
+      }
+    }
+  },
+  "data_cites": {
+    "intent_code_order": {
+      "label": "derived",
+      "source": "paper",
+      "page": 234,
+      "note": "the options are served in the order the paper lists them (informative, hearer face-managing, speaker face-managing, other); no source states the on-screen order. Alternative reading: the deposited code order (1 hearer, 2 speaker, 3 informative, 4 other, Coding.R) or a random order; only the position of the options would change"
+    }
+  },
+  "stages": {
+    "vp_choice": {
+      "content": [
+        {
+          "id": "scenario",
+          "value": {
+            "expr": "data['scen'][sc]['text']"
+          }
+        },
+        {
+          "id": "select",
+          "value": {
+            "expr": "data['scen'][sc]['select']"
+          }
+        },
+        {
+          "id": "question",
+          "value": {
+            "expr": "data['scen'][sc]['question']"
+          }
+        },
+        {
+          "id": "starter",
+          "value": {
+            "expr": "data['scen'][sc]['starter']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "vp",
+          "kind": "choice",
+          "prompt": "",
+          "options": [
+            {
+              "code": 1,
+              "label": {
+                "expr": "data['verbal'][0]"
+              }
+            },
+            {
+              "code": 2,
+              "label": {
+                "expr": "data['verbal'][1]"
+              }
+            },
+            {
+              "code": 3,
+              "label": {
+                "expr": "data['verbal'][2]"
+              }
+            },
+            {
+              "code": 4,
+              "label": {
+                "expr": "data['verbal'][3]"
+              }
+            },
+            {
+              "code": 5,
+              "label": {
+                "expr": "data['verbal'][4]"
+              }
+            },
+            {
+              "code": 6,
+              "label": {
+                "expr": "data['verbal'][5]"
+              }
+            },
+            {
+              "code": 7,
+              "label": {
+                "expr": "data['verbal'][6]"
+              }
+            }
+          ],
+          "widget": "radio",
+          "required": false,
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 234,
+            "note": "forced or not is not stated; every analysed trial has an answer (Table 1 totals 122 + 124 = 246 non-'other' trials), so none is shown to have been skipped; not enforced here"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 234,
+            "note": "'ordered according to their probability magnitude, from low probability expressions to high probability ones' (p. 234): served low to high; a shuffled order is never mentioned for this scale (it is for the estimate task). The radio-list widget is our reading"
+          }
+        }
+      ],
+      "layout": [
+        "scenario",
+        "select",
+        "question",
+        "starter",
+        "vp"
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 234,
+        "note": "the paper describes the sequence (scenario and verbal probability, then the intention, p. 234) but not the page breaks, back navigation or whether the scenario or the chosen expression stayed on screen at the intention item. Served: scenario + choice on one page, the intention item on the next, back not allowed (derived). Alternative reading: all on one page; only the paging would change"
+      }
+    },
+    "intent": {
+      "content": [
+        {
+          "id": "stem",
+          "value": {
+            "expr": "data['missing']['intent_stem']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "intent",
+          "kind": "choice",
+          "prompt": "",
+          "options": [
+            {
+              "code": 3,
+              "label": {
+                "expr": "data['intent_options'][0]"
+              }
+            },
+            {
+              "code": 1,
+              "label": {
+                "expr": "data['intent_options'][1]"
+              }
+            },
+            {
+              "code": 2,
+              "label": {
+                "expr": "data['intent_options'][2]"
+              }
+            },
+            {
+              "code": 4,
+              "label": {
+                "expr": "data['intent_options'][3]"
+              },
+              "text_entry": true
+            }
+          ],
+          "widget": "radio",
+          "required": false,
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 234,
+            "note": "'Subjects could choose only one intention in each scenario' (p. 234); whether an answer was required is not stated"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 234,
+            "note": "'selecting only one intention from the following four options' (p. 234); the option 'other - please provide an explanation in the space available' carries a text box (text_entry; the box format is our reading). Option codes 1 hearer, 2 speaker, 3 informative, 4 other are the deposited codes (Coding.R)"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 234,
+        "note": "the paper describes the sequence (scenario and verbal probability, then the intention, p. 234) but not the page breaks, back navigation or whether the scenario or the chosen expression stayed on screen at the intention item. Served: scenario + choice on one page, the intention item on the next, back not allowed (derived). Alternative reading: all on one page; only the paging would change"
+      }
+    },
+    "est": {
+      "content": [
+        {
+          "id": "question",
+          "value": {
+            "expr": "data['est_q']"
+          }
+        },
+        {
+          "id": "anchors",
+          "value": {
+            "expr": "data['missing']['est_anchors']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "e1",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['verbal'][0]"
+          },
+          "range": [
+            0,
+            100
+          ],
+          "step": 1,
+          "required": false,
+          "widget": "hslider",
+          "shows_value": true,
+          "start": "unknown",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 234,
+            "note": "'positioning a cursor on a visual analog 0-100% probability scale (increments of 1)'; 'The estimated number was simultaneously depicted to subjects as they moved the slide' (p. 234). The paper gives neither the handle's start position nor whether moving was required; one slider per expression is our reading (alternative: one expression per page, see presentation_cite)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 234,
+            "note": "not stated; every analysed trial has an estimate (Table 1 totals), so none is shown skipped; not enforced here"
+          }
+        },
+        {
+          "id": "e2",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['verbal'][1]"
+          },
+          "range": [
+            0,
+            100
+          ],
+          "step": 1,
+          "required": false,
+          "widget": "hslider",
+          "shows_value": true,
+          "start": "unknown",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 234,
+            "note": "'positioning a cursor on a visual analog 0-100% probability scale (increments of 1)'; 'The estimated number was simultaneously depicted to subjects as they moved the slide' (p. 234). The paper gives neither the handle's start position nor whether moving was required; one slider per expression is our reading (alternative: one expression per page, see presentation_cite)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 234,
+            "note": "not stated; every analysed trial has an estimate (Table 1 totals), so none is shown skipped; not enforced here"
+          }
+        },
+        {
+          "id": "e3",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['verbal'][2]"
+          },
+          "range": [
+            0,
+            100
+          ],
+          "step": 1,
+          "required": false,
+          "widget": "hslider",
+          "shows_value": true,
+          "start": "unknown",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 234,
+            "note": "'positioning a cursor on a visual analog 0-100% probability scale (increments of 1)'; 'The estimated number was simultaneously depicted to subjects as they moved the slide' (p. 234). The paper gives neither the handle's start position nor whether moving was required; one slider per expression is our reading (alternative: one expression per page, see presentation_cite)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 234,
+            "note": "not stated; every analysed trial has an estimate (Table 1 totals), so none is shown skipped; not enforced here"
+          }
+        },
+        {
+          "id": "e4",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['verbal'][3]"
+          },
+          "range": [
+            0,
+            100
+          ],
+          "step": 1,
+          "required": false,
+          "widget": "hslider",
+          "shows_value": true,
+          "start": "unknown",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 234,
+            "note": "'positioning a cursor on a visual analog 0-100% probability scale (increments of 1)'; 'The estimated number was simultaneously depicted to subjects as they moved the slide' (p. 234). The paper gives neither the handle's start position nor whether moving was required; one slider per expression is our reading (alternative: one expression per page, see presentation_cite)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 234,
+            "note": "not stated; every analysed trial has an estimate (Table 1 totals), so none is shown skipped; not enforced here"
+          }
+        },
+        {
+          "id": "e5",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['verbal'][4]"
+          },
+          "range": [
+            0,
+            100
+          ],
+          "step": 1,
+          "required": false,
+          "widget": "hslider",
+          "shows_value": true,
+          "start": "unknown",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 234,
+            "note": "'positioning a cursor on a visual analog 0-100% probability scale (increments of 1)'; 'The estimated number was simultaneously depicted to subjects as they moved the slide' (p. 234). The paper gives neither the handle's start position nor whether moving was required; one slider per expression is our reading (alternative: one expression per page, see presentation_cite)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 234,
+            "note": "not stated; every analysed trial has an estimate (Table 1 totals), so none is shown skipped; not enforced here"
+          }
+        },
+        {
+          "id": "e6",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['verbal'][5]"
+          },
+          "range": [
+            0,
+            100
+          ],
+          "step": 1,
+          "required": false,
+          "widget": "hslider",
+          "shows_value": true,
+          "start": "unknown",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 234,
+            "note": "'positioning a cursor on a visual analog 0-100% probability scale (increments of 1)'; 'The estimated number was simultaneously depicted to subjects as they moved the slide' (p. 234). The paper gives neither the handle's start position nor whether moving was required; one slider per expression is our reading (alternative: one expression per page, see presentation_cite)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 234,
+            "note": "not stated; every analysed trial has an estimate (Table 1 totals), so none is shown skipped; not enforced here"
+          }
+        },
+        {
+          "id": "e7",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['verbal'][6]"
+          },
+          "range": [
+            0,
+            100
+          ],
+          "step": 1,
+          "required": false,
+          "widget": "hslider",
+          "shows_value": true,
+          "start": "unknown",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 234,
+            "note": "'positioning a cursor on a visual analog 0-100% probability scale (increments of 1)'; 'The estimated number was simultaneously depicted to subjects as they moved the slide' (p. 234). The paper gives neither the handle's start position nor whether moving was required; one slider per expression is our reading (alternative: one expression per page, see presentation_cite)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 234,
+            "note": "not stated; every analysed trial has an estimate (Table 1 totals), so none is shown skipped; not enforced here"
+          }
+        }
+      ],
+      "shuffle_responses": true,
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 234,
+        "note": "'the seven verbal probabilities used in the verbal probability scale but presented in a randomized order and without specific context' (p. 234, reported: order random per subject). Whether the seven sliders shared one page (the question says 'the expressions presented here') or came one per page is not stated: one page, derived. Alternative reading: one expression per page in random order; only the paging changes"
+      }
+    }
+  },
+  "flow": {
+    "seq": [
+      {
+        "for": "sc",
+        "in": [
+          "car",
+          "investment"
+        ],
+        "shuffle": true,
+        "do": {
+          "seq": [
+            {
+              "stage": "vp_choice"
+            },
+            {
+              "stage": "intent"
+            }
+          ]
+        }
+      },
+      {
+        "stage": "est"
+      }
+    ]
+  },
+  "flow_cites": {
+    "scenario_order": {
+      "label": "reported",
+      "source": "paper",
+      "page": 234,
+      "note": "'two different scenarios (car scenario and investment scenario), presented randomly to each subject'; the order had no effect on the intentions, chi2(2) = 2.04, p = .173, nor on the perceived probabilities, t(262) = 0.83, p = .405 (p. 234). Served as an independent random order per subject. Alternative reading: a counterbalanced (balanced) assignment; only the order counts would change (the deposited Order variable is 1 investment first / 2 car first, Coding.R)"
+    },
+    "sequence": {
+      "label": "reported",
+      "source": "paper",
+      "page": 234,
+      "note": "scenario, verbal probability, then intention for the first scenario; 'the same questions, presented in the same order, for the second scenario'; then the estimate task; 'Finally, subjects provided their socio-demographic information' (p. 234-235)"
+    }
+  },
+  "units": {
+    "trials": {
+      "per": "vp_choice",
+      "fields": {
+        "scenario": "sc",
+        "vp": "answer('vp_choice.vp', sc=sc)",
+        "intent_code": "answer('intent.intent', sc=sc)",
+        "intention": "None if intent_code is None or intent_code == 4 else ('hearer' if intent_code == 1 else ('speaker' if intent_code == 2 else 'informative'))",
+        "face_managing": "None if intent_code is None else (1 if intent_code in (1, 2) else 0)",
+        "category": "None if vp is None else ('under' if vp <= 3 else ('adequate' if vp == 4 else 'over'))",
+        "numeric": "None if vp is None else [answer('est.e1'), answer('est.e2'), answer('est.e3'), answer('est.e4'), answer('est.e5'), answer('est.e6'), answer('est.e7')][vp - 1]"
+      },
+      "cites": {
+        "scenario": {
+          "label": "reported",
+          "source": "paper",
+          "page": 234,
+          "note": "car and investment scenarios (p. 234; Appendix p. 240)"
+        },
+        "vp": {
+          "label": "reported",
+          "source": "paper",
+          "page": 234,
+          "note": "withheld:a7ab7916fca386a9"
+        },
+        "intent_code": {
+          "label": "reported",
+          "source": "paper",
+          "page": 234,
+          "note": "deposited codes of Intentions: 1 hearer, 2 speaker, 3 informative, 4 other (Coding.R)"
+        },
+        "intention": {
+          "label": "reported",
+          "source": "paper",
+          "page": 236,
+          "note": "'we have excluded these intentions [other] from the subsequent analyses' (p. 236): 'other' gives no intention here (Coding.R int_rec: other = NA)"
+        },
+        "face_managing": {
+          "label": "derived",
+          "source": "paper",
+          "page": 235,
+          "note": "hearer or speaker face-managing = 1 over ALL intentions incl. 'other' (41.6% of all intentions, p. 235: 110 / 264 = 41.7%, meta.paper_inconsistencies)"
+        },
+        "category": {
+          "label": "reported",
+          "source": "paper",
+          "page": 237,
+          "note": "withheld:cc045bd3b4a3b546"
+        },
+        "numeric": {
+          "label": "reported",
+          "source": "paper",
+          "page": 235,
+          "note": "'we translated the selection as' the subject's own estimate of the selected expression (subject 08: 'rather probable' = 60%), p. 235"
+        }
+      }
+    },
+    "persons": {
+      "per": "session",
+      "fields": {
+        "int_investment": "answer('intent.intent', sc='investment')",
+        "int_car": "answer('intent.intent', sc='car')"
+      },
+      "cites": {
+        "int_investment": {
+          "label": "reported",
+          "source": "paper",
+          "page": 236,
+          "note": "Figure 3: intentions in the Investment scenario (columns)"
+        },
+        "int_car": {
+          "label": "reported",
+          "source": "paper",
+          "page": 236,
+          "note": "Figure 3: intentions in the Car scenario (rows)"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "omitted": [
+    {
+      "what": "informed consent page ('After providing their informed consent', p. 234)",
+      "why": "text not printed",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 234
+      }
+    },
+    {
+      "what": "socio-demographic items (age, gender, occupation, education, ethnicity): 'Finally, subjects provided their socio-demographic information' (p. 235)",
+      "why": "wording, format and options not printed; the deposited Coding.R holds variable and value labels only (Gender male/female; ten Job, eight Edu, seven Ethnic categories) that are not known to be the screen's options; not scored",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 235
+      }
+    },
+    {
+      "what": "MTurk HIT page, payment page, debriefing",
+      "why": "not printed",
+      "label": "missing"
+    },
+    {
+      "what": "the label words 'Car:' / 'Investment:' before the scenario texts",
+      "why": "the Appendix's headings for its two entries; not known to be on the screen",
+      "cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 240
+      }
+    }
+  ],
+  "analysis": {
+    "targets": [],
+    "effects": [],
+    "blocked_arm_targets": [
+      {
+        "id": "t1_inv_hea_under",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "under",
+        "where": {
+          "scenario": "investment",
+          "intention": "hearer"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.265,
+          "k": 9,
+          "n": 34,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: investment hearer under = 26.5% (9)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_inv_hea_adequate",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "adequate",
+        "where": {
+          "scenario": "investment",
+          "intention": "hearer"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.382,
+          "k": 13,
+          "n": 34,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: investment hearer adequate = 38.2% (13)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_inv_hea_over",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "over",
+        "where": {
+          "scenario": "investment",
+          "intention": "hearer"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.353,
+          "k": 12,
+          "n": 34,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: investment hearer over = 35.3% (12)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_inv_spe_under",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "under",
+        "where": {
+          "scenario": "investment",
+          "intention": "speaker"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.471,
+          "k": 8,
+          "n": 17,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: investment speaker under = 47.1% (8)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_inv_spe_adequate",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "adequate",
+        "where": {
+          "scenario": "investment",
+          "intention": "speaker"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.235,
+          "k": 4,
+          "n": 17,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: investment speaker adequate = 23.5% (4)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_inv_spe_over",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "over",
+        "where": {
+          "scenario": "investment",
+          "intention": "speaker"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.294,
+          "k": 5,
+          "n": 17,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: investment speaker over = 29.4% (5)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_inv_inf_under",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "under",
+        "where": {
+          "scenario": "investment",
+          "intention": "informative"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.056,
+          "k": 4,
+          "n": 71,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: investment informative under = 5.6% (4)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_inv_inf_adequate",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "adequate",
+        "where": {
+          "scenario": "investment",
+          "intention": "informative"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.634,
+          "k": 45,
+          "n": 71,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: investment informative adequate = 63.4% (45)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_inv_inf_over",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "over",
+        "where": {
+          "scenario": "investment",
+          "intention": "informative"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.31,
+          "k": 22,
+          "n": 71,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: investment informative over = 31.0% (22)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_car_hea_under",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "under",
+        "where": {
+          "scenario": "car",
+          "intention": "hearer"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.514,
+          "k": 18,
+          "n": 35,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: car hearer under = 51.4% (18)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_car_hea_adequate",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "adequate",
+        "where": {
+          "scenario": "car",
+          "intention": "hearer"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.2,
+          "k": 7,
+          "n": 35,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: car hearer adequate = 20.0% (7)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_car_hea_over",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "over",
+        "where": {
+          "scenario": "car",
+          "intention": "hearer"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.286,
+          "k": 10,
+          "n": 35,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: car hearer over = 28.6% (10)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_car_spe_under",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "under",
+        "where": {
+          "scenario": "car",
+          "intention": "speaker"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.417,
+          "k": 10,
+          "n": 24,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: car speaker under = 41.7% (10)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_car_spe_adequate",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "adequate",
+        "where": {
+          "scenario": "car",
+          "intention": "speaker"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.167,
+          "k": 4,
+          "n": 24,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: car speaker adequate = 16.7% (4)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_car_spe_over",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "over",
+        "where": {
+          "scenario": "car",
+          "intention": "speaker"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.417,
+          "k": 10,
+          "n": 24,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: car speaker over = 41.7% (10)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_car_inf_under",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "under",
+        "where": {
+          "scenario": "car",
+          "intention": "informative"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.138,
+          "k": 9,
+          "n": 65,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: car informative under = 13.8% (9)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_car_inf_adequate",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "adequate",
+        "where": {
+          "scenario": "car",
+          "intention": "informative"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.477,
+          "k": 31,
+          "n": 65,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: car informative adequate = 47.7% (31)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "t1_car_inf_over",
+        "unit": "trials",
+        "field": "category",
+        "stat": "share",
+        "success": "over",
+        "where": {
+          "scenario": "car",
+          "intention": "informative"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.385,
+          "k": 25,
+          "n": 65,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "Table 1: car informative over = 38.5% (25)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 237,
+              "note": "the target value is k / n from the printed count; the printed percentage rounds from it"
+            }
+          ]
+        }
+      },
+      {
+        "id": "mean_num_inv_informative",
+        "unit": "trials",
+        "field": "numeric",
+        "stat": "mean",
+        "where": {
+          "scenario": "investment",
+          "intention": "informative"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 59.1,
+          "sd": 20.8,
+          "n": 71,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 238,
+              "note": "'(M = 59.1, SD = 20.8)' for informative intentions, investment scenario (p. 238)"
+            },
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "n = 71 informative trials, Table 1"
+            }
+          ]
+        }
+      },
+      {
+        "id": "mean_num_car_informative",
+        "unit": "trials",
+        "field": "numeric",
+        "stat": "mean",
+        "where": {
+          "scenario": "car",
+          "intention": "informative"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 55.9,
+          "sd": 22.6,
+          "n": 65,
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 238,
+              "note": "'(M = 55.9, SD = 22.6)' for informative intentions, car scenario (p. 238)"
+            },
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 237,
+              "note": "n = 65 informative trials, Table 1"
+            }
+          ]
+        }
+      },
+      {
+        "id": "share_face_managing",
+        "unit": "trials",
+        "field": "face_managing",
+        "stat": "share",
+        "success": 1,
+        "role": "descriptive",
+        "human": {
+          "value": 0.416,
+          "n": 264,
+          "k": 110,
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 237,
+            "note": "k = 34 + 17 + 35 + 24 = 110 hearer or speaker face-managing intentions, the Table 1 Total row; the paper prints only the percentage"
+          },
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 235,
+              "note": "'41.6% of all intentions' are face-managing"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 235,
+              "note": "n = 2 x 132 = 264 intentions (the text says 'Out of all 246'; 246 is the number of non-'other' intentions in Table 1; meta.paper_inconsistencies)"
+            }
+          ]
+        },
+        "no_uncertainty": "a single printed percentage"
+      },
+      {
+        "id": "int_inv_hearer",
+        "unit": "trials",
+        "field": "intent_code",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "scenario": "investment"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.258,
+          "k": 34,
+          "n": 132,
+          "k_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 237,
+            "note": "Table 1 Total row (investment scenario, hearer intentions = 34)"
+          },
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 236,
+              "note": "share = k / 132: every subject answered both scenarios (n = 132, Figure 2 caption); investment scenario, hearer intentions"
+            }
+          ]
+        },
+        "no_uncertainty": "the paper prints these as bars with 95% CIs (Figure 2), values not printed"
+      },
+      {
+        "id": "int_inv_speaker",
+        "unit": "trials",
+        "field": "intent_code",
+        "stat": "share",
+        "success": 2,
+        "where": {
+          "scenario": "investment"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.129,
+          "k": 17,
+          "n": 132,
+          "k_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 237,
+            "note": "Table 1 Total row (investment scenario, speaker intentions = 17)"
+          },
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 236,
+              "note": "share = k / 132: every subject answered both scenarios (n = 132, Figure 2 caption); investment scenario, speaker intentions"
+            }
+          ]
+        },
+        "no_uncertainty": "the paper prints these as bars with 95% CIs (Figure 2), values not printed"
+      },
+      {
+        "id": "int_inv_informative",
+        "unit": "trials",
+        "field": "intent_code",
+        "stat": "share",
+        "success": 3,
+        "where": {
+          "scenario": "investment"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.538,
+          "k": 71,
+          "n": 132,
+          "k_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 237,
+            "note": "Table 1 Total row (investment scenario, informative intentions = 71)"
+          },
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 236,
+              "note": "share = k / 132: every subject answered both scenarios (n = 132, Figure 2 caption); investment scenario, informative intentions"
+            }
+          ]
+        },
+        "no_uncertainty": "the paper prints these as bars with 95% CIs (Figure 2), values not printed"
+      },
+      {
+        "id": "int_inv_other",
+        "unit": "trials",
+        "field": "intent_code",
+        "stat": "share",
+        "success": 4,
+        "where": {
+          "scenario": "investment"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.076,
+          "k": 10,
+          "n": 132,
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 236,
+            "note": "k = 132 - 122 non-'other' trials of this scenario (Table 1 Total row) = 10; 18 'other' in all (p. 236)"
+          },
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 236,
+              "note": "share = k / 132: every subject answered both scenarios (n = 132, Figure 2 caption); investment scenario, other intentions"
+            }
+          ]
+        },
+        "no_uncertainty": "the paper prints these as bars with 95% CIs (Figure 2), values not printed"
+      },
+      {
+        "id": "int_car_hearer",
+        "unit": "trials",
+        "field": "intent_code",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "scenario": "car"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.265,
+          "k": 35,
+          "n": 132,
+          "k_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 237,
+            "note": "Table 1 Total row (car scenario, hearer intentions = 35)"
+          },
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 236,
+              "note": "share = k / 132: every subject answered both scenarios (n = 132, Figure 2 caption); car scenario, hearer intentions"
+            }
+          ]
+        },
+        "no_uncertainty": "the paper prints these as bars with 95% CIs (Figure 2), values not printed"
+      },
+      {
+        "id": "int_car_speaker",
+        "unit": "trials",
+        "field": "intent_code",
+        "stat": "share",
+        "success": 2,
+        "where": {
+          "scenario": "car"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.182,
+          "k": 24,
+          "n": 132,
+          "k_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 237,
+            "note": "Table 1 Total row (car scenario, speaker intentions = 24)"
+          },
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 236,
+              "note": "share = k / 132: every subject answered both scenarios (n = 132, Figure 2 caption); car scenario, speaker intentions"
+            }
+          ]
+        },
+        "no_uncertainty": "the paper prints these as bars with 95% CIs (Figure 2), values not printed"
+      },
+      {
+        "id": "int_car_informative",
+        "unit": "trials",
+        "field": "intent_code",
+        "stat": "share",
+        "success": 3,
+        "where": {
+          "scenario": "car"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.492,
+          "k": 65,
+          "n": 132,
+          "k_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 237,
+            "note": "Table 1 Total row (car scenario, informative intentions = 65)"
+          },
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 236,
+              "note": "share = k / 132: every subject answered both scenarios (n = 132, Figure 2 caption); car scenario, informative intentions"
+            }
+          ]
+        },
+        "no_uncertainty": "the paper prints these as bars with 95% CIs (Figure 2), values not printed"
+      },
+      {
+        "id": "int_car_other",
+        "unit": "trials",
+        "field": "intent_code",
+        "stat": "share",
+        "success": 4,
+        "where": {
+          "scenario": "car"
+        },
+        "role": "descriptive",
+        "human": {
+          "value": 0.061,
+          "k": 8,
+          "n": 132,
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 236,
+            "note": "k = 132 - 124 non-'other' trials of this scenario (Table 1 Total row) = 8; 18 'other' in all (p. 236)"
+          },
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 236,
+              "note": "share = k / 132: every subject answered both scenarios (n = 132, Figure 2 caption); car scenario, other intentions"
+            }
+          ]
+        },
+        "no_uncertainty": "the paper prints these as bars with 95% CIs (Figure 2), values not printed"
+      },
+      {
+        "id": "int_other_all",
+        "unit": "trials",
+        "field": "intent_code",
+        "stat": "share",
+        "success": 4,
+        "role": "descriptive",
+        "human": {
+          "value": 0.068,
+          "k": 18,
+          "n": 264,
+          "k_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 236,
+            "note": "'only a few subjects defined their own intentions ... n = 18' (p. 236)"
+          },
+          "cite": [
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 236,
+              "note": "share = 18 / (2 x 132)"
+            }
+          ]
+        },
+        "no_uncertainty": "a count with no interval"
+      }
+    ],
+    "blocked_arm_effects": [
+      {
+        "id": "chi_inv_all",
+        "label": "Investment: verbal probability category by intention (3 x 3)",
+        "unit": "trials",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "omnibus",
+          "groups": [
+            "hearer",
+            "speaker",
+            "informative"
+          ]
+        },
+        "compute": {
+          "op": "contingency",
+          "field": "category",
+          "groupBy": "intention",
+          "groups": [
+            "hearer",
+            "speaker",
+            "informative"
+          ],
+          "levels": [
+            "under",
+            "adequate",
+            "over"
+          ],
+          "where": {
+            "scenario": "investment"
+          }
+        },
+        "metric": "cramers_v",
+        "reported": {
+          "value": 0.3,
+          "metric": "cramers_v",
+          "test": {
+            "statistic": "chi_square",
+            "value": 21.95,
+            "df": 4,
+            "p": 0.001,
+            "pRelation": "<"
+          },
+          "no_uncertainty": "chi-square test, df 4; Cramer's V printed without interval",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "chi2(4) = 21.95, p < .001, Cramer's V = 0.30"
+          }
+        }
+      },
+      {
+        "id": "chi_car_all",
+        "label": "Car: verbal probability category by intention (3 x 3)",
+        "unit": "trials",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "omnibus",
+          "groups": [
+            "hearer",
+            "speaker",
+            "informative"
+          ]
+        },
+        "compute": {
+          "op": "contingency",
+          "field": "category",
+          "groupBy": "intention",
+          "groups": [
+            "hearer",
+            "speaker",
+            "informative"
+          ],
+          "levels": [
+            "under",
+            "adequate",
+            "over"
+          ],
+          "where": {
+            "scenario": "car"
+          }
+        },
+        "metric": "cramers_v",
+        "reported": {
+          "value": 0.29,
+          "metric": "cramers_v",
+          "test": {
+            "statistic": "chi_square",
+            "value": 20.77,
+            "df": 4,
+            "p": 0.001,
+            "pRelation": "<"
+          },
+          "no_uncertainty": "chi-square test, df 4; Cramer's V printed without interval",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "chi2(4) = 20.77, p < .001, Cramer's V = 0.29"
+          }
+        }
+      },
+      {
+        "id": "chi_inv_hearer_inf",
+        "label": "Investment: hearer FM vs informative",
+        "unit": "trials",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "hearer",
+          "reference": "informative"
+        },
+        "compute": {
+          "op": "contingency",
+          "field": "category",
+          "groupBy": "intention",
+          "groups": [
+            "hearer",
+            "informative"
+          ],
+          "levels": [
+            "under",
+            "adequate",
+            "over"
+          ],
+          "where": {
+            "scenario": "investment"
+          },
+          "success": "under"
+        },
+        "metric": "cramers_v",
+        "reported": {
+          "value": 0.32,
+          "metric": "cramers_v",
+          "test": {
+            "statistic": "chi_square",
+            "value": 10.8,
+            "df": 2,
+            "p": 0.004,
+            "pRelation": "="
+          },
+          "no_uncertainty": "chi-square test, df 2; Cramer's V printed without interval",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "chi2(2) = 10.80, p = .004, V = 0.32 (underestimation more often with hearer face-managing)"
+          }
+        },
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "'conveyed an underestimated probability more often than those adopting informative intentions' (p. 238)"
+        }
+      },
+      {
+        "id": "chi_inv_speaker_inf",
+        "label": "Investment: speaker FM vs informative",
+        "unit": "trials",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "speaker",
+          "reference": "informative"
+        },
+        "compute": {
+          "op": "contingency",
+          "field": "category",
+          "groupBy": "intention",
+          "groups": [
+            "speaker",
+            "informative"
+          ],
+          "levels": [
+            "under",
+            "adequate",
+            "over"
+          ],
+          "where": {
+            "scenario": "investment"
+          },
+          "success": "under"
+        },
+        "metric": "cramers_v",
+        "reported": {
+          "value": 0.49,
+          "metric": "cramers_v",
+          "test": {
+            "statistic": "chi_square",
+            "value": 21.18,
+            "df": 2,
+            "p": 0.001,
+            "pRelation": "<"
+          },
+          "no_uncertainty": "chi-square test, df 2; Cramer's V printed without interval",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "chi2(2) = 21.18, p < .001, V = 0.49"
+          }
+        },
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "'conveyed an underestimated probability more often than those adopting informative intentions' (p. 238)"
+        }
+      },
+      {
+        "id": "chi_inv_hearer_speaker",
+        "label": "Investment: hearer FM vs speaker FM",
+        "unit": "trials",
+        "design": "between",
+        "role": "check",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "hearer",
+          "reference": "speaker"
+        },
+        "compute": {
+          "op": "contingency",
+          "field": "category",
+          "groupBy": "intention",
+          "groups": [
+            "hearer",
+            "speaker"
+          ],
+          "levels": [
+            "under",
+            "adequate",
+            "over"
+          ],
+          "where": {
+            "scenario": "investment"
+          },
+          "success": "under"
+        },
+        "metric": "cramers_v",
+        "reported": {
+          "value": 0.21,
+          "metric": "cramers_v",
+          "test": {
+            "statistic": "chi_square",
+            "value": 2.29,
+            "df": 2,
+            "p": 0.424,
+            "pRelation": "="
+          },
+          "no_uncertainty": "chi-square test, df 2; Cramer's V printed without interval",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "chi2(2) = 2.29, p = .424, V = 0.21 (no difference)"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "no direction claimed for this contrast (p. 238)"
+        }
+      },
+      {
+        "id": "chi_car_hearer_inf",
+        "label": "Car: hearer FM vs informative",
+        "unit": "trials",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "hearer",
+          "reference": "informative"
+        },
+        "compute": {
+          "op": "contingency",
+          "field": "category",
+          "groupBy": "intention",
+          "groups": [
+            "hearer",
+            "informative"
+          ],
+          "levels": [
+            "under",
+            "adequate",
+            "over"
+          ],
+          "where": {
+            "scenario": "car"
+          },
+          "success": "under"
+        },
+        "metric": "cramers_v",
+        "reported": {
+          "value": 0.41,
+          "metric": "cramers_v",
+          "test": {
+            "statistic": "chi_square",
+            "value": 17.13,
+            "df": 2,
+            "p": 0.001,
+            "pRelation": "<"
+          },
+          "no_uncertainty": "chi-square test, df 2; Cramer's V printed without interval",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "chi2(2) = 17.13, p < .001, V = 0.41"
+          }
+        },
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "'conveyed an underestimated probability more often than those adopting informative intentions' (p. 238)"
+        }
+      },
+      {
+        "id": "chi_car_speaker_inf",
+        "label": "Car: speaker FM vs informative",
+        "unit": "trials",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "omnibus",
+          "groups": [
+            "speaker",
+            "informative"
+          ]
+        },
+        "compute": {
+          "op": "contingency",
+          "field": "category",
+          "groupBy": "intention",
+          "groups": [
+            "speaker",
+            "informative"
+          ],
+          "levels": [
+            "under",
+            "adequate",
+            "over"
+          ],
+          "where": {
+            "scenario": "car"
+          }
+        },
+        "metric": "cramers_v",
+        "reported": {
+          "value": 0.35,
+          "metric": "cramers_v",
+          "test": {
+            "statistic": "chi_square",
+            "value": 10.69,
+            "df": 2,
+            "p": 0.005,
+            "pRelation": "="
+          },
+          "no_uncertainty": "chi-square test, df 2; Cramer's V printed without interval",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "chi2(2) = 10.69, p = .005, V = 0.35 (underestimate or overestimate more often; the contrast is two-sided)"
+          }
+        },
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "'a tendency to underestimate or overestimate the probability more often' than informative (p. 238): two-sided, no direction"
+        }
+      },
+      {
+        "id": "chi_car_hearer_speaker",
+        "label": "Car: hearer FM vs speaker FM",
+        "unit": "trials",
+        "design": "between",
+        "role": "check",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "hearer",
+          "reference": "speaker"
+        },
+        "compute": {
+          "op": "contingency",
+          "field": "category",
+          "groupBy": "intention",
+          "groups": [
+            "hearer",
+            "speaker"
+          ],
+          "levels": [
+            "under",
+            "adequate",
+            "over"
+          ],
+          "where": {
+            "scenario": "car"
+          },
+          "success": "under"
+        },
+        "metric": "cramers_v",
+        "reported": {
+          "value": 0.14,
+          "metric": "cramers_v",
+          "test": {
+            "statistic": "chi_square",
+            "value": 1.09,
+            "df": 2,
+            "p": 0.648,
+            "pRelation": "="
+          },
+          "no_uncertainty": "chi-square test, df 2; Cramer's V printed without interval",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "chi2(2) = 1.09, p = .648, V = 0.14 (no difference)"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "no direction claimed for this contrast (p. 238)"
+        }
+      },
+      {
+        "id": "num_inv_hearer",
+        "label": "Investment: numerical translation, hearer FM minus informative",
+        "unit": "trials",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "hearer",
+          "reference": "informative"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "numeric",
+          "groupBy": "intention",
+          "where": {
+            "scenario": "investment"
+          }
+        },
+        "model_note": "the printed number is a contrast of a one-way linear model of the numerical translation on intention (F(2, 119) / F(2, 121)): OLS with intention dummies only, so the contrast is the same quantity as the difference of the two group means (informative = comparison group); the paper's p comes from the pooled-error model, the replay's from a Welch t",
+        "reported": {
+          "value": -7.3,
+          "metric": "mean_difference",
+          "ci": [
+            -15.8,
+            1.2
+          ],
+          "test": {
+            "statistic": "other",
+            "p": 0.093,
+            "pRelation": "="
+          },
+          "no_uncertainty": "the paper prints a 95% CI and p for the contrast, not a test statistic",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "-7.3, 95% CI [-15.8, 1.2], p = .093 (informative M = 59.1, SD = 20.8)"
+          }
+        },
+        "direction_claimed": true,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "'hearer face-managing subjects as well as speaker face-managing subjects conveyed a lower probability (respectively, ...) than those with informative intentions' (p. 238); claimed although the 95% CI includes 0 and p = 0.093 (meta.conflicts 'direction claimed with CI including 0')"
+        }
+      },
+      {
+        "id": "num_inv_speaker",
+        "label": "Investment: numerical translation, speaker FM minus informative",
+        "unit": "trials",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "speaker",
+          "reference": "informative"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "numeric",
+          "groupBy": "intention",
+          "where": {
+            "scenario": "investment"
+          }
+        },
+        "model_note": "the printed number is a contrast of a one-way linear model of the numerical translation on intention (F(2, 119) / F(2, 121)): OLS with intention dummies only, so the contrast is the same quantity as the difference of the two group means (informative = comparison group); the paper's p comes from the pooled-error model, the replay's from a Welch t",
+        "reported": {
+          "value": -12.9,
+          "metric": "mean_difference",
+          "ci": [
+            -23.9,
+            -1.8
+          ],
+          "test": {
+            "statistic": "other",
+            "p": 0.023,
+            "pRelation": "="
+          },
+          "no_uncertainty": "the paper prints a 95% CI and p for the contrast, not a test statistic",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "-12.9, 95% CI [-23.9, -1.8], p = .023"
+          }
+        },
+        "direction_claimed": true,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "'conveyed a lower probability' than informative intentions (p. 238)"
+        }
+      },
+      {
+        "id": "num_car_hearer",
+        "label": "Car: numerical translation, hearer FM minus informative",
+        "unit": "trials",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "hearer",
+          "reference": "informative"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "numeric",
+          "groupBy": "intention",
+          "where": {
+            "scenario": "car"
+          }
+        },
+        "model_note": "the printed number is a contrast of a one-way linear model of the numerical translation on intention (F(2, 119) / F(2, 121)): OLS with intention dummies only, so the contrast is the same quantity as the difference of the two group means (informative = comparison group); the paper's p comes from the pooled-error model, the replay's from a Welch t",
+        "reported": {
+          "value": -12.0,
+          "metric": "mean_difference",
+          "ci": [
+            -21.7,
+            -2.3
+          ],
+          "test": {
+            "statistic": "other",
+            "p": 0.016,
+            "pRelation": "="
+          },
+          "no_uncertainty": "the paper prints a 95% CI and p for the contrast, not a test statistic",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "-12.0, 95% CI [-21.7, -2.3], p = .016 (informative M = 55.9, SD = 22.6)"
+          }
+        },
+        "direction_claimed": true,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "'conveyed a lower probability' than informative intentions (p. 238)"
+        }
+      },
+      {
+        "id": "num_car_speaker",
+        "label": "Car: numerical translation, speaker FM minus informative",
+        "unit": "trials",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "speaker",
+          "reference": "informative"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "numeric",
+          "groupBy": "intention",
+          "where": {
+            "scenario": "car"
+          }
+        },
+        "model_note": "the printed number is a contrast of a one-way linear model of the numerical translation on intention (F(2, 119) / F(2, 121)): OLS with intention dummies only, so the contrast is the same quantity as the difference of the two group means (informative = comparison group); the paper's p comes from the pooled-error model, the replay's from a Welch t",
+        "reported": {
+          "value": -7.9,
+          "metric": "mean_difference",
+          "ci": [
+            -19.0,
+            3.1
+          ],
+          "test": {
+            "statistic": "other",
+            "p": 0.159,
+            "pRelation": "="
+          },
+          "no_uncertainty": "the paper prints a 95% CI and p for the contrast, not a test statistic",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "-7.9, 95% CI [-19.0, 3.1], p = .159"
+          }
+        },
+        "direction_claimed": true,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "'hearer face-managing subjects as well as speaker face-managing subjects conveyed a lower probability (respectively, ...) than those with informative intentions' (p. 238); claimed although the 95% CI includes 0 and p = 0.159 (meta.conflicts 'direction claimed with CI including 0')"
+        }
+      },
+      {
+        "id": "mixed_hearer",
+        "label": "Numerical translation, hearer FM vs informative (mixed model)",
+        "unit": "trials",
+        "design": "mixed",
+        "role": "paper_claim",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "hearer",
+          "reference": "informative"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "numeric",
+          "groupBy": "intention",
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "slope of hearer intention vs the reference level 'informative' (intercept b0 = 57.3) in a 2-level linear model with random intercept per subject, both scenarios pooled (p. 238); the replay's pooled-trial mean difference is the nearest computable quantity, it ignores the random intercept"
+          }
+        },
+        "model_note": "engine request 1 (mixed model with a random intercept); mean_difference over the pooled trials is the stand-in, labelled by compareAs",
+        "reported": {
+          "value": -6.8,
+          "metric": "regression_coefficient",
+          "ci": [
+            -12.5,
+            -1.0
+          ],
+          "test": {
+            "statistic": "t",
+            "value": -2.32,
+            "df": 191.142,
+            "p": 0.022,
+            "pRelation": "="
+          },
+          "no_uncertainty": "mixed-model coefficient with 95% CI and p as printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "b = -6.8, 95% CI [-12.5, -1.0], t(191.142) = -2.32, p = 0.022"
+          }
+        },
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "'subjects with face-managing intentions communicated a lower probability than informative speakers' (p. 238)"
+        }
+      },
+      {
+        "id": "mixed_speaker",
+        "label": "Numerical translation, speaker FM vs informative (mixed model)",
+        "unit": "trials",
+        "design": "mixed",
+        "role": "paper_claim",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "speaker",
+          "reference": "informative"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "numeric",
+          "groupBy": "intention",
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "slope of speaker intention vs the reference level 'informative' (intercept b0 = 57.3) in a 2-level linear model with random intercept per subject, both scenarios pooled (p. 238); the replay's pooled-trial mean difference is the nearest computable quantity, it ignores the random intercept"
+          }
+        },
+        "model_note": "engine request 1 (mixed model with a random intercept); mean_difference over the pooled trials is the stand-in, labelled by compareAs",
+        "reported": {
+          "value": -11.6,
+          "metric": "regression_coefficient",
+          "ci": [
+            -18.9,
+            -4.3
+          ],
+          "test": {
+            "statistic": "t",
+            "value": -3.14,
+            "df": 205.787,
+            "p": 0.002,
+            "pRelation": "="
+          },
+          "no_uncertainty": "mixed-model coefficient with 95% CI and p as printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 238,
+            "note": "b = -11.6, 95% CI [-18.9, -4.3], t(205.787) = -3.14, p = 0.002"
+          }
+        },
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238,
+          "note": "'subjects with face-managing intentions communicated a lower probability than informative speakers' (p. 238)"
+        }
+      },
+      {
+        "id": "consistency",
+        "label": "Intention in the Investment scenario by intention in the Car scenario (4 x 4)",
+        "unit": "persons",
+        "design": "within",
+        "role": "test",
+        "contrast": {
+          "kind": "association"
+        },
+        "compute": {
+          "op": "contingency",
+          "field": "int_car",
+          "groupBy": "int_investment",
+          "groups": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "levels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        "metric": "cramers_v",
+        "reported": {
+          "value": 0.24,
+          "metric": "cramers_v",
+          "test": {
+            "statistic": "chi_square",
+            "value": 22.53,
+            "df": 9,
+            "p": 0.008,
+            "pRelation": "="
+          },
+          "no_uncertainty": "chi-square test, df 9; Cramer's V printed without interval",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 236,
+            "note": "chi2(9) = 22.53, p = .008, Cramer's V = 0.24 (Figure 3)"
+          }
+        },
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 236,
+          "note": "an association (unsigned)"
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "id": "f_inv",
+        "what": "F(2, 119) = 3.33, p = .039, eta2 = .05 (Investment) and F(2, 121) = 3.23, p = .043, eta2 = .05 (Car): effect of intention on the numerical translation",
+        "why": "no omnibus one-way F op in the engine (engine request 2); the pairwise contrasts are scored instead",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238
+        }
+      },
+      {
+        "id": "intercept",
+        "what": "mixed-model intercept b0 = 57.3, 95% CI [52.9, 61.6], t(163.239) = 26.03, p < .001",
+        "why": "an intercept (the informative mean of the pooled model), not a contrast",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 238
+        }
+      },
+      {
+        "id": "fig3",
+        "what": "Figure 3 cells (Car rows x Investment columns; order Hearer FM, Speaker FM, Informative, Other): Car hearer 13 5 14 3; Car speaker 6 8 7 3; Car informative 13 4 45 3; Car other 2 0 5 1",
+        "why": "the 16 cells are printed in the figure (the text layer drops the 0 of the last row: '2 5 1'; it is the value the row sum 8 and the column sum 17 require, derived); a two-field cell share is not a target shape of the engine (engine request 4), the 4 x 4 association is scored as `consistency`; p. 235 'hearer face-managing slightly more common than speaker' is covered by int_*_hearer / int_*_speaker",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 236
+        }
+      },
+      {
+        "id": "order",
+        "what": "order of scenarios: chi2(2) = 2.04, p = .173 (intentions) and t(262) = 0.83, p = .405 (perceived probabilities)",
+        "why": "the order is not a recorded unit field; the t df (262) is 2 x 132 - 2, a test over trials that treats the two scenarios of a subject as independent",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 234
+        }
+      },
+      {
+        "id": "mh",
+        "what": "marginal homogeneity test, MH statistic M = 147.5, SD = 7.0, p = .476 (p. 235)",
+        "why": "no marginal-homogeneity op (engine request 3)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 235
+        }
+      },
+      {
+        "id": "fig1",
+        "what": "Figure 1: per-expression numerical translations (medians, 95% CIs; read off a bean plot)",
+        "why": "values are not printed, only drawn",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 235
+        }
+      },
+      {
+        "id": "other_text",
+        "what": "free-text explanations of the n = 18 'other' intentions (10 described a predefined intention, 4 'better safe than sorry', 4 hard to classify, p. 236)",
+        "why": "hand classification by the authors, rubric not printed; the replay records the text and codes no 'other' reply (no coding block)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 236
+        }
+      },
+      {
+        "id": "demographics",
+        "what": "age M = 34.7 SD = 13.1, 60.6% female, employment, education, ethnicity (p. 234)",
+        "why": "sample description, no scored hypothesis; the demographic items are not printed",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 234
+        }
+      }
+    ]
+  },
+  "keyed": {
+    "why": "the paper's signs: face-managing intentions go with lower verbal probabilities and lower numerical translations than informative ones. Keyed participant: verbal probabilities 4-7 are informative, 1-3 face-managing (hearer if the scenario is car and odd, speaker otherwise), numerical translation = 10 x the expression number",
+    "answers": {
+      "vp_choice.vp": "randint(1, 7)",
+      "intent.intent": "3 if answer('vp_choice.vp', sc=sc) >= 4 else (1 if answer('vp_choice.vp', sc=sc) % 2 == 1 else 2)",
+      "est.e1": "10",
+      "est.e2": "20",
+      "est.e3": "30",
+      "est.e4": "40",
+      "est.e5": "50",
+      "est.e6": "60",
+      "est.e7": "70"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {},
+    "strict": false,
+    "attribution": [
+      {
+        "source": "paper",
+        "licence": "CC-BY-3.0",
+        "attribution": "Sirota, M., & Juanchich, M. (2015). A direct and comprehensive test of two postulates of politeness theory applied to uncertainty communication. Judgment and Decision Making, 10(3), 232-240. CC BY 3.0"
+      }
+    ]
+  }
+}

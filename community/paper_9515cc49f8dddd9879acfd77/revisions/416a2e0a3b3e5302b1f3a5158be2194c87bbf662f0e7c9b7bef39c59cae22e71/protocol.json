@@ -1,0 +1,3263 @@
+{
+  "id": "forsythe1994fairness",
+  "schema": "hsenv-protocol/0.1",
+  "meta": {
+    "citation": "Forsythe, R., Horowitz, J. L., Savin, N. E., & Sefton, M. (1994). Fairness in simple bargaining experiments. Games and Economic Behavior, 6(3), 347-369. https://doi.org/10.1006/game.1994.1021",
+    "doi": "10.1006/game.1994.1021",
+    "language": "en",
+    "licence": {
+      "paper": "closed licence: Games and Economic Behavior (Academic Press / Elsevier) copyright, no open licence (Bench SOURCE.json 'publisher copyright (no open license found)'; OpenAlex closed). Every served text is from the paper's Appendix A: private research only"
+    },
+    "sources": {
+      "paper": {
+        "file": "sources/paper.pdf",
+        "sha256": "2efe9ac66ba11a80e6c090b3e5ba61c0cd102ebe55e4822b9f30a661120d487e",
+        "what": "version of record, GEB 6:347-369, 23 page images (Acrobat PDFWriter 2.01, 1999), no text layer. Cite pages are PDF pages (journal page = 346 + PDF page)",
+        "licence": "closed (publisher copyright); private",
+        "distribution": {
+          "tier": "user",
+          "format": "pdf",
+          "sha256": "2efe9ac66ba11a80e6c090b3e5ba61c0cd102ebe55e4822b9f30a661120d487e"
+        }
+      }
+    },
+    "sample": {
+      "pairs": 230,
+      "subjects": 460,
+      "pairs_5": 182,
+      "pairs_10": 48,
+      "population": "University of Iowa undergraduate accounting and economics and MBA economics students (subject pool), 1988",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "read": "image",
+        "note": "withheld:6d5c79560cd047e9"
+      }
+    },
+    "image_read": {
+      "source": "paper",
+      "served": "every served text (Appendix A instructions and proposal form, PDF pp. 17-18; the '[Ultimatum: ...]' paragraph runs across pp. 17-18)",
+      "targets": "Appendix B proposals (PDF pp. 19-20), Tables I-IV (PDF pp. 10, 12, 14, 15), the percentages on p. 16 and the rejection counts on p. 17 are read off the image"
+    }
+  },
+  "roles": [
+    {
+      "member": 1,
+      "id": "room_a",
+      "label": "proposer (Room A)",
+      "shown": {
+        "text": "░░░░░░",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "read": "image",
+          "evidence": "withheld:881e9f6a75cb4524",
+          "note": "withheld:f82adee8cbf9ce93"
+        }
+      },
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "read": "image",
+        "note": "withheld:3d44a686f4a7decc"
+      }
+    },
+    {
+      "member": 2,
+      "id": "room_b",
+      "label": "receiver (Room B)",
+      "shown": {
+        "text": "░░░░░░",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "read": "image",
+          "evidence": "withheld:f044ea7f1d597ebc",
+          "note": "withheld:9cc50e8cb9e26da7"
+        }
+      },
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "read": "image",
+        "note": "withheld:dd9917344e689426"
+      }
+    }
+  ],
+  "arms": [
+    {
+      "id": "dg_pay5",
+      "label": "Dictator, pay, $5 pie (Exp. 1: April 21 + September 24 pairs)",
+      "n_paper": 45,
+      "group_size": 2,
+      "runnable": true,
+      "n_analysed": {
+        "value": 45,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "read": "image",
+          "note": "withheld:fd1f690a77efff8a"
+        }
+      },
+      "assignment": "between (session-level: all subjects of a session faced the same treatment, p. 350)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 10,
+        "read": "image",
+        "note": "withheld:40fabbc6c8ffb41b"
+      },
+      "derived_on_screen": [
+        "every sheet: the cell's bracketed paragraphs without '[<Treatment>: ' and ']' (data.sheet.*, cut by code from data.printed.*; Appendix A prints all cells as one bracketed text, PDF p. 17)",
+        "form line {6} (ultimatum) without '[Ultimatum: ' and ']'; Room B's options 'Accept' / 'Reject' and prompt '{6}' cut from it",
+        "Room A's / Room B's entries shown in the blanks of lines {4} and {5} and the checked word of line {6} (piped answers, formatted %g)"
+      ],
+      "deviation": "pay arm: the sheet promises real cash (line {4}/{5} amounts if accepted); the sandbox shows the text but pays nobody (meta.conflicts 'payment')"
+    },
+    {
+      "id": "ug_pay5",
+      "label": "Ultimatum, pay, $5 pie (Exp. 2: April 20 + September 23 pairs)",
+      "n_paper": 43,
+      "group_size": 2,
+      "runnable": true,
+      "n_analysed": {
+        "value": 43,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "read": "image",
+          "note": "withheld:fd1f690a77efff8a"
+        }
+      },
+      "assignment": "between (session-level: all subjects of a session faced the same treatment, p. 350)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 10,
+        "read": "image",
+        "note": "withheld:40fabbc6c8ffb41b"
+      },
+      "derived_on_screen": [
+        "every sheet: the cell's bracketed paragraphs without '[<Treatment>: ' and ']' (data.sheet.*, cut by code from data.printed.*; Appendix A prints all cells as one bracketed text, PDF p. 17)",
+        "form line {6} (ultimatum) without '[Ultimatum: ' and ']'; Room B's options 'Accept' / 'Reject' and prompt '{6}' cut from it",
+        "Room A's / Room B's entries shown in the blanks of lines {4} and {5} and the checked word of line {6} (piped answers, formatted %g)"
+      ],
+      "deviation": "pay arm: the sheet promises real cash (line {4}/{5} amounts if accepted); the sandbox shows the text but pays nobody (meta.conflicts 'payment')"
+    },
+    {
+      "id": "dg_nopay5",
+      "label": "Dictator, no pay, $5 pie (Exp. 3: April 22 + September 24 pairs)",
+      "n_paper": 46,
+      "group_size": 2,
+      "runnable": true,
+      "n_analysed": {
+        "value": 46,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "read": "image",
+          "note": "withheld:fd1f690a77efff8a"
+        }
+      },
+      "assignment": "between (session-level: all subjects of a session faced the same treatment, p. 350)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 10,
+        "read": "image",
+        "note": "withheld:40fabbc6c8ffb41b"
+      },
+      "derived_on_screen": [
+        "every sheet: the cell's bracketed paragraphs without '[<Treatment>: ' and ']' (data.sheet.*, cut by code from data.printed.*; Appendix A prints all cells as one bracketed text, PDF p. 17)",
+        "form line {6} (ultimatum) without '[Ultimatum: ' and ']'; Room B's options 'Accept' / 'Reject' and prompt '{6}' cut from it",
+        "Room A's / Room B's entries shown in the blanks of lines {4} and {5} and the checked word of line {6} (piped answers, formatted %g)"
+      ]
+    },
+    {
+      "id": "ug_nopay5",
+      "label": "Ultimatum, no pay, $5 pie (Exp. 4: April 24 + September 24 pairs)",
+      "n_paper": 48,
+      "group_size": 2,
+      "runnable": true,
+      "n_analysed": {
+        "value": 48,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "read": "image",
+          "note": "withheld:fd1f690a77efff8a"
+        }
+      },
+      "assignment": "between (session-level: all subjects of a session faced the same treatment, p. 350)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 10,
+        "read": "image",
+        "note": "withheld:40fabbc6c8ffb41b"
+      },
+      "derived_on_screen": [
+        "every sheet: the cell's bracketed paragraphs without '[<Treatment>: ' and ']' (data.sheet.*, cut by code from data.printed.*; Appendix A prints all cells as one bracketed text, PDF p. 17)",
+        "form line {6} (ultimatum) without '[Ultimatum: ' and ']'; Room B's options 'Accept' / 'Reject' and prompt '{6}' cut from it",
+        "Room A's / Room B's entries shown in the blanks of lines {4} and {5} and the checked word of line {6} (piped answers, formatted %g)"
+      ]
+    },
+    {
+      "id": "dg_pay10",
+      "label": "Dictator, pay, $10 pie (Exp. 5: November 1988, 24 pairs)",
+      "n_paper": 24,
+      "group_size": 2,
+      "runnable": false,
+      "n_analysed": {
+        "value": 24,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 15,
+          "read": "image",
+          "note": "withheld:fd1f690a77efff8a"
+        }
+      },
+      "assignment": "between (session-level: all subjects of a session faced the same treatment, p. 350)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 15,
+        "read": "image",
+        "note": "withheld:40fabbc6c8ffb41b"
+      },
+      "derived_on_screen": [
+        "every sheet: the cell's bracketed paragraphs without '[<Treatment>: ' and ']' (data.sheet.*, cut by code from data.printed.*; Appendix A prints all cells as one bracketed text, PDF p. 17)",
+        "form line {6} (ultimatum) without '[Ultimatum: ' and ']'; Room B's options 'Accept' / 'Reject' and prompt '{6}' cut from it",
+        "Room A's / Room B's entries shown in the blanks of lines {4} and {5} and the checked word of line {6} (piped answers, formatted %g)"
+      ],
+      "why": "withheld:7e7d46b3987a4121",
+      "derived_not_served": "withheld:edae619a4e682aad",
+      "deviation": "pay arm: the sheet promises real cash (line {4}/{5} amounts if accepted); the sandbox shows the text but pays nobody (meta.conflicts 'payment')"
+    },
+    {
+      "id": "ug_pay10",
+      "label": "Ultimatum, pay, $10 pie (Exp. 6: November 1988, 24 pairs)",
+      "n_paper": 24,
+      "group_size": 2,
+      "runnable": false,
+      "n_analysed": {
+        "value": 24,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 15,
+          "read": "image",
+          "note": "withheld:fd1f690a77efff8a"
+        }
+      },
+      "assignment": "between (session-level: all subjects of a session faced the same treatment, p. 350)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 15,
+        "read": "image",
+        "note": "withheld:40fabbc6c8ffb41b"
+      },
+      "derived_on_screen": [
+        "every sheet: the cell's bracketed paragraphs without '[<Treatment>: ' and ']' (data.sheet.*, cut by code from data.printed.*; Appendix A prints all cells as one bracketed text, PDF p. 17)",
+        "form line {6} (ultimatum) without '[Ultimatum: ' and ']'; Room B's options 'Accept' / 'Reject' and prompt '{6}' cut from it",
+        "Room A's / Room B's entries shown in the blanks of lines {4} and {5} and the checked word of line {6} (piped answers, formatted %g)"
+      ],
+      "why": "withheld:7e7d46b3987a4121",
+      "derived_not_served": "withheld:edae619a4e682aad",
+      "deviation": "pay arm: the sheet promises real cash (line {4}/{5} amounts if accepted); the sandbox shows the text but pays nobody (meta.conflicts 'payment')"
+    }
+  ],
+  "data": {
+    "printed": {
+      "title": {
+        "text": "Instructions",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 17,
+          "read": "image",
+          "note": "withheld:daf3df3088958e4e"
+        }
+      },
+      "p1": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 17,
+          "read": "image",
+          "note": "withheld:33538284a92e0711"
+        },
+        "spans": [
+          {
+            "start": 86,
+            "end": 148,
+            "style": "italic"
+          }
+        ]
+      },
+      "pay1": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 17,
+          "read": "image",
+          "note": "withheld:c6ff311a68526fb0"
+        }
+      },
+      "p2": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 17,
+          "read": "image"
+        }
+      },
+      "p3": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 17,
+          "read": "image"
+        }
+      },
+      "p4": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 17,
+          "read": "image",
+          "note": "withheld:c0907d890d5441c1"
+        }
+      },
+      "ug1": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": "17-18",
+          "read": "image",
+          "note": "withheld:7352199f61d50ab5"
+        }
+      },
+      "dg1": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image",
+          "note": "withheld:e09e4dab7785bea5"
+        }
+      },
+      "p5": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image",
+          "note": "withheld:c8e38344c7d5daa5"
+        }
+      },
+      "p6": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "dg2": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "ug2": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "ug3": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "ug4": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image",
+          "note": "withheld:14f97dabdc2df442"
+        }
+      },
+      "pay2": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "nopay2": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "q": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "form_title": {
+        "text": "PROPOSAL FORM",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "l1": {
+        "text": "{1} Identification Number ____A",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "l2": {
+        "text": "{2} Paired With ____B",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "l3": {
+        "text": "{3} Amount to divide ____",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "l4": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image"
+        }
+      },
+      "l5": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image",
+          "note": "withheld:01d882b757303a9c"
+        }
+      },
+      "l6": {
+        "text": "[Ultimatum: {6} Accept ____ Reject ____]",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18,
+          "read": "image",
+          "note": "withheld:97c5e7c3dfa8b370"
+        }
+      }
+    },
+    "sheet": {
+      "title": {
+        "5": {
+          "text": "░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "note": "withheld:daf3df3088958e4e"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "note": "withheld:daf3df3088958e4e"
+          }
+        }
+      },
+      "p1": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "note": "withheld:33538284a92e0711"
+          },
+          "spans": [
+            {
+              "start": 86,
+              "end": 148,
+              "style": "italic"
+            }
+          ]
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "note": "withheld:33538284a92e0711"
+          },
+          "spans": [
+            {
+              "start": 86,
+              "end": 148,
+              "style": "italic"
+            }
+          ]
+        }
+      },
+      "pay1": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:02a4db932ebbc7c7"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:02a4db932ebbc7c7"
+          }
+        }
+      },
+      "p2": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 17,
+            "read": "image"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 17,
+            "read": "image"
+          }
+        }
+      },
+      "p3": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 17,
+            "read": "image"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 17,
+            "read": "image"
+          }
+        }
+      },
+      "p4": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "note": "withheld:c0907d890d5441c1"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:2acc2079b69f6cf0"
+          }
+        }
+      },
+      "ug1": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": "17-18",
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:efd9c87799607135"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": "17-18",
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:efd9c87799607135"
+          }
+        }
+      },
+      "dg1": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:e6f04856bbd47799"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:e6f04856bbd47799"
+          }
+        }
+      },
+      "p5": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "note": "withheld:c8e38344c7d5daa5"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:41e83e562dcfd707"
+          }
+        }
+      },
+      "p6": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 18,
+            "read": "image"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 18,
+            "read": "image"
+          }
+        }
+      },
+      "dg2": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:147161e0f61387fd"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:147161e0f61387fd"
+          }
+        }
+      },
+      "ug2": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:608ce158a98bb55c"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:608ce158a98bb55c"
+          }
+        }
+      },
+      "ug3": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:18583ccce99e606a"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:18583ccce99e606a"
+          }
+        }
+      },
+      "ug4": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:82087dc377a52b41"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:82087dc377a52b41"
+          }
+        }
+      },
+      "pay2": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:8ab30e92ca66d92f"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:8ab30e92ca66d92f"
+          }
+        }
+      },
+      "nopay2": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:e7a339177c3e465c"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "read": "image",
+            "evidence": "withheld:ff9286c48489cc62",
+            "note": "withheld:e7a339177c3e465c"
+          }
+        }
+      },
+      "q": {
+        "5": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 18,
+            "read": "image"
+          }
+        },
+        "10": {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "paper",
+            "page": 18,
+            "read": "image"
+          }
+        }
+      }
+    },
+    "form": {
+      "l6": {
+        "text": "{6} Accept ____ Reject ____",
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 18,
+          "evidence": "withheld:15445f57edf60329",
+          "note": "withheld:468b6ebfcd814592"
+        }
+      },
+      "l6_prompt": {
+        "text": "{6}",
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 18,
+          "evidence": "withheld:15445f57edf60329",
+          "note": "withheld:074e61170f29b20a"
+        }
+      },
+      "accept": {
+        "text": "Accept",
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 18,
+          "evidence": "withheld:15445f57edf60329",
+          "note": "withheld:e2c3c708bb3f333c"
+        }
+      },
+      "reject": {
+        "text": "Reject",
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 18,
+          "evidence": "withheld:15445f57edf60329",
+          "note": "withheld:3d5d1aea1ed8b677"
+        }
+      }
+    },
+    "variant_note": {
+      "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 17,
+        "read": "image",
+        "note": "withheld:ce0bf4abe3170dbe"
+      }
+    }
+  },
+  "stages": {
+    "instructions": {
+      "content": [
+        {
+          "id": "title",
+          "value": {
+            "expr": "data['sheet']['title'][str(pie)]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p1",
+          "value": {
+            "expr": "data['sheet']['p1'][str(pie)]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "pay1",
+          "value": {
+            "expr": "data['sheet']['pay1'][str(pie)]"
+          },
+          "reviewable": true,
+          "if": "pay == 'pay'"
+        },
+        {
+          "id": "p2",
+          "value": {
+            "expr": "data['sheet']['p2'][str(pie)]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p3",
+          "value": {
+            "expr": "data['sheet']['p3'][str(pie)]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p4",
+          "value": {
+            "expr": "data['sheet']['p4'][str(pie)]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "ug1",
+          "value": {
+            "expr": "data['sheet']['ug1'][str(pie)]"
+          },
+          "reviewable": true,
+          "if": "game == 'U'"
+        },
+        {
+          "id": "dg1",
+          "value": {
+            "expr": "data['sheet']['dg1'][str(pie)]"
+          },
+          "reviewable": true,
+          "if": "game == 'D'"
+        },
+        {
+          "id": "p5",
+          "value": {
+            "expr": "data['sheet']['p5'][str(pie)]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p6",
+          "value": {
+            "expr": "data['sheet']['p6'][str(pie)]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "dg2",
+          "value": {
+            "expr": "data['sheet']['dg2'][str(pie)]"
+          },
+          "reviewable": true,
+          "if": "game == 'D'"
+        },
+        {
+          "id": "ug2",
+          "value": {
+            "expr": "data['sheet']['ug2'][str(pie)]"
+          },
+          "reviewable": true,
+          "if": "game == 'U'"
+        },
+        {
+          "id": "ug3",
+          "value": {
+            "expr": "data['sheet']['ug3'][str(pie)]"
+          },
+          "reviewable": true,
+          "if": "game == 'U'"
+        },
+        {
+          "id": "ug4",
+          "value": {
+            "expr": "data['sheet']['ug4'][str(pie)]"
+          },
+          "reviewable": true,
+          "if": "game == 'U'"
+        },
+        {
+          "id": "pay2",
+          "value": {
+            "expr": "data['sheet']['pay2'][str(pie)]"
+          },
+          "reviewable": true,
+          "if": "pay == 'pay'"
+        },
+        {
+          "id": "nopay2",
+          "value": {
+            "expr": "data['sheet']['nopay2'][str(pie)]"
+          },
+          "reviewable": true,
+          "if": "pay == 'nopay'"
+        },
+        {
+          "id": "q",
+          "value": {
+            "expr": "data['sheet']['q'][str(pie)]"
+          },
+          "reviewable": true
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "timed"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4,
+        "note": "withheld:210150f6249e26bc"
+      }
+    },
+    "form": {
+      "content": [
+        {
+          "id": "form_title",
+          "value": {
+            "expr": "data['printed']['form_title']"
+          }
+        },
+        {
+          "id": "l1",
+          "value": {
+            "expr": "data['printed']['l1']"
+          }
+        },
+        {
+          "id": "l2",
+          "value": {
+            "expr": "data['printed']['l2']"
+          }
+        },
+        {
+          "id": "l3",
+          "value": {
+            "expr": "data['printed']['l3']"
+          }
+        },
+        {
+          "id": "l4",
+          "value": {
+            "expr": "data['printed']['l4']"
+          }
+        },
+        {
+          "id": "l5",
+          "value": {
+            "expr": "data['printed']['l5']"
+          }
+        },
+        {
+          "id": "l6",
+          "value": {
+            "expr": "data['form']['l6']"
+          },
+          "if": "game == 'U'"
+        }
+      ],
+      "responses": [
+        {
+          "id": "b",
+          "kind": "number",
+          "prompt": "",
+          "required": true,
+          "widget": "text",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 18,
+            "note": "withheld:08313b9cedaa437b"
+          }
+        },
+        {
+          "id": "a",
+          "kind": "number",
+          "prompt": "",
+          "required": true,
+          "widget": "text",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 18,
+            "note": "withheld:a52c547249912986"
+          }
+        }
+      ],
+      "layout": [
+        "form_title",
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "b",
+        "l5",
+        "a",
+        "l6"
+      ],
+      "layout_note": "R1-S5: each printed line keeps its printed blank ('____') and the input box that stands for writing in that blank follows it (doubled blank; derived layout)",
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "timed",
+        "time_limit": 300
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 18,
+        "note": "withheld:f4e80658a773f399"
+      }
+    },
+    "respond": {
+      "content": [
+        {
+          "id": "form_title",
+          "value": {
+            "expr": "data['printed']['form_title']"
+          }
+        },
+        {
+          "id": "l1",
+          "value": {
+            "expr": "data['printed']['l1']"
+          }
+        },
+        {
+          "id": "l2",
+          "value": {
+            "expr": "data['printed']['l2']"
+          }
+        },
+        {
+          "id": "l3",
+          "value": {
+            "expr": "data['printed']['l3']"
+          }
+        },
+        {
+          "id": "l4",
+          "value": {
+            "expr": "data['printed']['l4']"
+          }
+        },
+        {
+          "id": "b_entry",
+          "value": {
+            "expr": "'' if offer is None else ('%g' % offer)"
+          },
+          "note": "Room A's entry written in the blank of the preceding printed line (the line's printed '____' is kept as printed and the entry follows it: derived layout, meta.derived_on_screen)"
+        },
+        {
+          "id": "l5",
+          "value": {
+            "expr": "data['printed']['l5']"
+          }
+        },
+        {
+          "id": "a_entry",
+          "value": {
+            "expr": "'' if keep is None else ('%g' % keep)"
+          },
+          "note": "Room A's entry written in the blank of the preceding printed line (the line's printed '____' is kept as printed and the entry follows it: derived layout, meta.derived_on_screen)"
+        }
+      ],
+      "responses": [
+        {
+          "id": "choice",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['form']['l6_prompt']"
+          },
+          "required": true,
+          "widget": "checkbox",
+          "options": [
+            {
+              "code": "accept",
+              "label": {
+                "expr": "data['form']['accept']"
+              }
+            },
+            {
+              "code": "reject",
+              "label": {
+                "expr": "data['form']['reject']"
+              }
+            }
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 18,
+            "note": "withheld:41bb22565e2bcee7"
+          }
+        }
+      ],
+      "layout": [
+        "form_title",
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "b_entry",
+        "l5",
+        "a_entry",
+        "choice"
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "timed",
+        "time_limit": 300
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 18,
+        "note": "withheld:9228e83605685bad"
+      }
+    },
+    "returned": {
+      "content": [
+        {
+          "id": "form_title",
+          "value": {
+            "expr": "data['printed']['form_title']"
+          }
+        },
+        {
+          "id": "l1",
+          "value": {
+            "expr": "data['printed']['l1']"
+          }
+        },
+        {
+          "id": "l2",
+          "value": {
+            "expr": "data['printed']['l2']"
+          }
+        },
+        {
+          "id": "l3",
+          "value": {
+            "expr": "data['printed']['l3']"
+          }
+        },
+        {
+          "id": "l4",
+          "value": {
+            "expr": "data['printed']['l4']"
+          }
+        },
+        {
+          "id": "b_entry",
+          "value": {
+            "expr": "'' if offer is None else ('%g' % offer)"
+          },
+          "note": "Room A's entry written in the blank of the preceding printed line (the line's printed '____' is kept as printed and the entry follows it: derived layout, meta.derived_on_screen)"
+        },
+        {
+          "id": "l5",
+          "value": {
+            "expr": "data['printed']['l5']"
+          }
+        },
+        {
+          "id": "a_entry",
+          "value": {
+            "expr": "'' if keep is None else ('%g' % keep)"
+          },
+          "note": "Room A's entry written in the blank of the preceding printed line (the line's printed '____' is kept as printed and the entry follows it: derived layout, meta.derived_on_screen)"
+        },
+        {
+          "id": "l6",
+          "value": {
+            "expr": "data['form']['l6']"
+          }
+        },
+        {
+          "id": "checked",
+          "value": {
+            "expr": "data['form']['accept'] if accepted else data['form']['reject']"
+          },
+          "note": "Room B's check mark on line {6}: the word whose blank Room B checked (the check instruction in data.printed.ug3, p. 364), shown as that word after the printed line (derived)"
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 18,
+        "note": "withheld:eb6ca99ab3fd77b2"
+      }
+    },
+    "received": {
+      "content": [
+        {
+          "id": "form_title",
+          "value": {
+            "expr": "data['printed']['form_title']"
+          }
+        },
+        {
+          "id": "l1",
+          "value": {
+            "expr": "data['printed']['l1']"
+          }
+        },
+        {
+          "id": "l2",
+          "value": {
+            "expr": "data['printed']['l2']"
+          }
+        },
+        {
+          "id": "l3",
+          "value": {
+            "expr": "data['printed']['l3']"
+          }
+        },
+        {
+          "id": "l4",
+          "value": {
+            "expr": "data['printed']['l4']"
+          }
+        },
+        {
+          "id": "b_entry",
+          "value": {
+            "expr": "'' if offer is None else ('%g' % offer)"
+          },
+          "note": "Room A's entry written in the blank of the preceding printed line (the line's printed '____' is kept as printed and the entry follows it: derived layout, meta.derived_on_screen)"
+        },
+        {
+          "id": "l5",
+          "value": {
+            "expr": "data['printed']['l5']"
+          }
+        },
+        {
+          "id": "a_entry",
+          "value": {
+            "expr": "'' if keep is None else ('%g' % keep)"
+          },
+          "note": "Room A's entry written in the blank of the preceding printed line (the line's printed '____' is kept as printed and the entry follows it: derived layout, meta.derived_on_screen)"
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 18,
+        "note": "withheld:b6bc73365ff097f3"
+      }
+    }
+  },
+  "flow": {
+    "seq": [
+      {
+        "set": {
+          "game": {
+            "expr": "'U' if arm[:2] == 'ug' else 'D'"
+          },
+          "pay": {
+            "expr": "'nopay' if 'nopay' in arm else 'pay'"
+          },
+          "pie": {
+            "expr": "10 if arm[-2:] == '10' else 5"
+          },
+          "room": {
+            "expr": "'A' if my_index == 0 else 'B'"
+          }
+        },
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:d138d8c656c4b30c"
+        }
+      },
+      {
+        "stage": "instructions"
+      },
+      {
+        "stage": "form",
+        "if": "room == 'A'"
+      },
+      {
+        "sync": "proposal",
+        "compute": {
+          "offer": "group('form.b')[0]",
+          "keep": "group('form.a')[0]"
+        },
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:e91fb2cd9a7f9ee3"
+        }
+      },
+      {
+        "stage": "respond",
+        "if": "game == 'U' and room == 'B'"
+      },
+      {
+        "stage": "received",
+        "if": "game == 'D' and room == 'B'"
+      },
+      {
+        "if": "game == 'U'",
+        "then": {
+          "seq": [
+            {
+              "sync": "decision",
+              "compute": {
+                "accepted": "group('respond.choice')[1] == 'accept'"
+              },
+              "cite": {
+                "label": "reported",
+                "source": "paper",
+                "page": 18,
+                "note": "withheld:96c54915aede159c"
+              }
+            },
+            {
+              "stage": "returned",
+              "if": "room == 'A'"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "units": {
+    "pairs": {
+      "per": "group",
+      "fields": {
+        "game": "game",
+        "pay": "pay",
+        "pie": "pie",
+        "pie_size": "'$%d' % pie",
+        "offer_written": "group('form.b')[0]",
+        "keep_written": "group('form.a')[0]",
+        "form_inconsistent": "None if offer_written is None else (1 if offer_written < 0 or offer_written > pie or keep_written is None or abs(offer_written + keep_written - pie) > 1e-9 else 0)",
+        "offer_out_of_range": "None if offer_written is None else (1 if offer_written < 0 or offer_written > pie else 0)",
+        "offer": "offer_written",
+        "keep": "keep_written",
+        "offer_share": "offer / pie if offer is not None else None",
+        "zero": "None if offer is None else (1 if offer == 0 else 0)",
+        "half_or_more": "None if offer is None else (1 if offer >= pie / 2 else 0)",
+        "rejected": "None if game != 'U' or offer is None else (1 if group('respond.choice')[1] == 'reject' else 0)",
+        "rejected_below_half": "None if game != 'U' or offer is None or offer >= pie / 2 else (1 if group('respond.choice')[1] == 'reject' else 0)",
+        "rejected_at_or_above_half": "None if game != 'U' or offer is None or offer < pie / 2 else (1 if group('respond.choice')[1] == 'reject' else 0)"
+      },
+      "cites": {
+        "offer": {
+          "label": "reported",
+          "source": "paper",
+          "page": 19,
+          "note": "withheld:9db633e907917973"
+        },
+        "offer_share": {
+          "label": "reported",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:71fbb2bc58332b61"
+        },
+        "zero": {
+          "label": "reported",
+          "source": "paper",
+          "page": 16,
+          "note": "withheld:3ae22252646c34b2"
+        },
+        "half_or_more": {
+          "label": "reported",
+          "source": "paper",
+          "page": 16,
+          "note": "withheld:6ada09354fae27b9"
+        },
+        "rejected_below_half": {
+          "label": "reported",
+          "source": "paper",
+          "page": 17,
+          "note": "withheld:1c08d74f786c9c06"
+        },
+        "rejected_at_or_above_half": {
+          "label": "reported",
+          "source": "paper",
+          "page": 17,
+          "note": "withheld:b4120ff9bb1c0419"
+        },
+        "form_inconsistent": {
+          "label": "derived",
+          "source": "paper",
+          "page": 18,
+          "note": "withheld:3c9c32918d3a1147"
+        },
+        "offer_out_of_range": {
+          "label": "derived",
+          "source": "paper",
+          "page": 19,
+          "note": "withheld:ca1041d7be4ca096"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "run_excluded": [
+    {
+      "arm": "dg_pay10",
+      "n_paper": 24,
+      "why": "withheld:7e7d46b3987a4121",
+      "missing": [
+        "data.sheet.p4['10'] (derived)",
+        "data.sheet.p5['10'] (derived)"
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 17,
+        "read": "image"
+      }
+    },
+    {
+      "arm": "ug_pay10",
+      "n_paper": 24,
+      "why": "withheld:7e7d46b3987a4121",
+      "missing": [
+        "data.sheet.p4['10'] (derived)",
+        "data.sheet.p5['10'] (derived)"
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 17,
+        "read": "image"
+      }
+    }
+  ],
+  "analysis": {
+    "targets": [
+      {
+        "id": "dg_pay5_offer_share",
+        "unit": "pairs",
+        "field": "offer_share",
+        "stat": "mean",
+        "where": {
+          "arm": "dg_pay5"
+        },
+        "human": {
+          "value": 0.2222,
+          "sd": 0.2044,
+          "n": 45,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        },
+        "note": "mean proposal as a fraction of the pie (derived; the paper tests whole distributions, AD / CF)"
+      },
+      {
+        "id": "dg_pay5_zero",
+        "unit": "pairs",
+        "field": "zero",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "dg_pay5"
+        },
+        "human": {
+          "k": 16,
+          "n": 45,
+          "value": 0.3556,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "read": "image",
+            "note": "withheld:89044c91e03fbd0a"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:dfcf64fa5735659a"
+          }
+        }
+      },
+      {
+        "id": "dg_pay5_half_or_more",
+        "unit": "pairs",
+        "field": "half_or_more",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "dg_pay5"
+        },
+        "human": {
+          "k": 10,
+          "n": 45,
+          "value": 0.2222,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "read": "image",
+            "note": "withheld:7eb65f8e07f81da1"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:962186a7b8584d14"
+          }
+        }
+      },
+      {
+        "id": "ug_pay5_offer_share",
+        "unit": "pairs",
+        "field": "offer_share",
+        "stat": "mean",
+        "where": {
+          "arm": "ug_pay5"
+        },
+        "human": {
+          "value": 0.4547,
+          "sd": 0.104,
+          "n": 43,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        },
+        "note": "mean proposal as a fraction of the pie (derived; the paper tests whole distributions, AD / CF)"
+      },
+      {
+        "id": "ug_pay5_zero",
+        "unit": "pairs",
+        "field": "zero",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "ug_pay5"
+        },
+        "human": {
+          "k": 0,
+          "n": 43,
+          "value": 0.0,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "read": "image",
+            "note": "withheld:c8e2ede674c109f0"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:4e286571c46c2684"
+          }
+        }
+      },
+      {
+        "id": "ug_pay5_half_or_more",
+        "unit": "pairs",
+        "field": "half_or_more",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "ug_pay5"
+        },
+        "human": {
+          "k": 28,
+          "n": 43,
+          "value": 0.6512,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "read": "image",
+            "note": "withheld:921e8933db7f95d3"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:3a95badb52f12d66"
+          }
+        }
+      },
+      {
+        "id": "dg_nopay5_offer_share",
+        "unit": "pairs",
+        "field": "offer_share",
+        "stat": "mean",
+        "where": {
+          "arm": "dg_nopay5"
+        },
+        "human": {
+          "value": 0.3826,
+          "sd": 0.1842,
+          "n": 46,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        },
+        "note": "mean proposal as a fraction of the pie (derived; the paper tests whole distributions, AD / CF)"
+      },
+      {
+        "id": "dg_nopay5_zero",
+        "unit": "pairs",
+        "field": "zero",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "dg_nopay5"
+        },
+        "human": {
+          "k": 6,
+          "n": 46,
+          "value": 0.1304,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        }
+      },
+      {
+        "id": "dg_nopay5_half_or_more",
+        "unit": "pairs",
+        "field": "half_or_more",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "dg_nopay5"
+        },
+        "human": {
+          "k": 23,
+          "n": 46,
+          "value": 0.5,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        }
+      },
+      {
+        "id": "ug_nopay5_offer_share",
+        "unit": "pairs",
+        "field": "offer_share",
+        "stat": "mean",
+        "where": {
+          "arm": "ug_nopay5"
+        },
+        "human": {
+          "value": 0.4375,
+          "sd": 0.1331,
+          "n": 48,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        },
+        "note": "mean proposal as a fraction of the pie (derived; the paper tests whole distributions, AD / CF); the paper never pools the no-pay ultimatum sessions: April and September differ (Table I row 4: AD 5.09, p 0.00; CF 9.46, p 0.05); the pooled human value mixes two samples the paper calls not replicable",
+        "reference_mismatch": true,
+        "scoring": "not_comparable"
+      },
+      {
+        "id": "ug_nopay5_zero",
+        "unit": "pairs",
+        "field": "zero",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "ug_nopay5"
+        },
+        "human": {
+          "k": 2,
+          "n": 48,
+          "value": 0.0417,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        },
+        "reference_mismatch": true,
+        "scoring": "not_comparable",
+        "note": "the paper never pools the no-pay ultimatum sessions: April and September differ (Table I row 4: AD 5.09, p 0.00; CF 9.46, p 0.05); the pooled human value mixes two samples the paper calls not replicable"
+      },
+      {
+        "id": "ug_nopay5_half_or_more",
+        "unit": "pairs",
+        "field": "half_or_more",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "ug_nopay5"
+        },
+        "human": {
+          "k": 25,
+          "n": 48,
+          "value": 0.5208,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        },
+        "reference_mismatch": true,
+        "scoring": "not_comparable",
+        "note": "the paper never pools the no-pay ultimatum sessions: April and September differ (Table I row 4: AD 5.09, p 0.00; CF 9.46, p 0.05); the pooled human value mixes two samples the paper calls not replicable"
+      },
+      {
+        "id": "ug_pay5_rejected_below_half",
+        "unit": "pairs",
+        "field": "rejected_below_half",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "ug_pay5"
+        },
+        "human": {
+          "k": 3,
+          "n": 15,
+          "value": 0.2,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "note": "withheld:995a8491bb73afe9"
+          }
+        },
+        "note": "share of below-equal-split offers that Room B rejected (the agents' offers decide the denominator)"
+      },
+      {
+        "id": "ug_nopay5_rejected_below_half",
+        "unit": "pairs",
+        "field": "rejected_below_half",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "ug_nopay5"
+        },
+        "human": {
+          "k": 8,
+          "n": 23,
+          "value": 0.3478,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        },
+        "reference_mismatch": true,
+        "scoring": "not_comparable",
+        "note": "share of below-equal-split offers that Room B rejected (the agents' offers decide the denominator)"
+      },
+      {
+        "id": "ug_pay5_rejected_at_or_above_half",
+        "unit": "pairs",
+        "field": "rejected_at_or_above_half",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "ug_pay5"
+        },
+        "human": {
+          "k": 0,
+          "n": 28,
+          "value": 0.0,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "note": "withheld:ccc2d2404049fd98"
+          }
+        },
+        "note": "share of at-or-above-half offers that Room B rejected"
+      }
+    ],
+    "effects": [
+      {
+        "id": "fairness_pay5",
+        "label": "$5 pie with pay: mean proposal (dollars), ultimatum minus dictator",
+        "unit": "pairs",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "U",
+          "reference": "D"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "offer",
+          "groupBy": "game",
+          "where": {
+            "pay": "pay",
+            "pie": 5
+          }
+        },
+        "reported": {
+          "cells": {
+            "U": {
+              "mean": 2.2733,
+              "sd": 0.5199,
+              "n": 43
+            },
+            "D": {
+              "mean": 1.1111,
+              "sd": 1.0219,
+              "n": 45
+            }
+          },
+          "test": {
+            "statistic": "AD",
+            "value": 13.0,
+            "p": 0.01,
+            "pRelation": "<",
+            "note": "two-sample Anderson-Darling test of equal distributions (unsigned; p from the authors' simulation / Shorack-Wellner tables, fn 3)"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 12,
+            "read": "image",
+            "note": "withheld:17504bc3524fa817"
+          },
+          "cells_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        },
+        "direction_claimed": true,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "read": "image",
+          "note": "withheld:956e6250682aa2c3"
+        }
+      },
+      {
+        "id": "pay_dictator5",
+        "label": "$5 dictator: mean proposal (dollars), pay minus no pay",
+        "unit": "pairs",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pay",
+          "reference": "nopay"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "offer",
+          "groupBy": "pay",
+          "where": {
+            "game": "D",
+            "pie": 5
+          }
+        },
+        "reported": {
+          "cells": {
+            "pay": {
+              "mean": 1.1111,
+              "sd": 1.0219,
+              "n": 45
+            },
+            "nopay": {
+              "mean": 1.913,
+              "sd": 0.9208,
+              "n": 46
+            }
+          },
+          "test": {
+            "statistic": "AD",
+            "value": 6.72,
+            "p": 0.01,
+            "pRelation": "<",
+            "note": "two-sample Anderson-Darling test of equal distributions (unsigned; p from the authors' simulation / Shorack-Wellner tables, fn 3)"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "read": "image",
+            "note": "withheld:1b237604d13fa7fb"
+          },
+          "cells_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        },
+        "scoring": "not_comparable",
+        "scoring_note": "the human contrast is real cash vs none; the sandbox serves only the sheets' pay / no-pay paragraphs and pays nobody (meta.conflicts 'payment')"
+      },
+      {
+        "id": "fairness_nopay5",
+        "label": "$5 pie, no pay: mean proposal (dollars), ultimatum minus dictator (both pooled)",
+        "unit": "pairs",
+        "design": "between",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "U",
+          "reference": "D"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "offer",
+          "groupBy": "game",
+          "where": {
+            "pay": "nopay",
+            "pie": 5
+          }
+        },
+        "reported": {
+          "cells": {
+            "U": {
+              "mean": 2.1875,
+              "sd": 0.6654,
+              "n": 48
+            },
+            "D": {
+              "mean": 1.913,
+              "sd": 0.9208,
+              "n": 46
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 12,
+            "read": "image",
+            "note": "withheld:204d5c95ca5eff00"
+          },
+          "cells_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "read": "image",
+            "note": "withheld:c1f458d9fa795014"
+          }
+        }
+      }
+    ],
+    "blocked_arm_targets": [
+      {
+        "id": "dg_pay10_offer_share",
+        "unit": "pairs",
+        "field": "offer_share",
+        "stat": "mean",
+        "where": {
+          "arm": "dg_pay10"
+        },
+        "human": {
+          "value": 0.2333,
+          "sd": 0.1786,
+          "n": 24,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "read": "image",
+            "note": "withheld:57855b8243aa929c"
+          }
+        },
+        "note": "mean proposal as a fraction of the pie (derived; the paper tests whole distributions, AD / CF)"
+      },
+      {
+        "id": "dg_pay10_zero",
+        "unit": "pairs",
+        "field": "zero",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "dg_pay10"
+        },
+        "human": {
+          "k": 5,
+          "n": 24,
+          "value": 0.2083,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "read": "image",
+            "note": "withheld:3772ed258c588b4a"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:ddcfeb3321ab3366"
+          }
+        }
+      },
+      {
+        "id": "dg_pay10_half_or_more",
+        "unit": "pairs",
+        "field": "half_or_more",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "dg_pay10"
+        },
+        "human": {
+          "k": 5,
+          "n": 24,
+          "value": 0.2083,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "read": "image",
+            "note": "withheld:b8a8b246935fb975"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:ddcfeb3321ab3366"
+          }
+        }
+      },
+      {
+        "id": "ug_pay10_offer_share",
+        "unit": "pairs",
+        "field": "offer_share",
+        "stat": "mean",
+        "where": {
+          "arm": "ug_pay10"
+        },
+        "human": {
+          "value": 0.4667,
+          "sd": 0.0816,
+          "n": 24,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "read": "image",
+            "note": "withheld:57855b8243aa929c"
+          }
+        },
+        "note": "mean proposal as a fraction of the pie (derived; the paper tests whole distributions, AD / CF)"
+      },
+      {
+        "id": "ug_pay10_zero",
+        "unit": "pairs",
+        "field": "zero",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "ug_pay10"
+        },
+        "human": {
+          "k": 0,
+          "n": 24,
+          "value": 0.0,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "read": "image",
+            "note": "withheld:c68797fef0d11a33"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:59e8ee4e9ded03cb"
+          }
+        }
+      },
+      {
+        "id": "ug_pay10_half_or_more",
+        "unit": "pairs",
+        "field": "half_or_more",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "ug_pay10"
+        },
+        "human": {
+          "k": 18,
+          "n": 24,
+          "value": 0.75,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "read": "image",
+            "note": "withheld:31d63ed1885d5602"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:599fe82019aaa74c"
+          }
+        }
+      },
+      {
+        "id": "ug_pay10_rejected_below_half",
+        "unit": "pairs",
+        "field": "rejected_below_half",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "ug_pay10"
+        },
+        "human": {
+          "k": 1,
+          "n": 6,
+          "value": 0.1667,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "note": "withheld:888fa82dee53ef47"
+          }
+        },
+        "note": "share of below-equal-split offers that Room B rejected (the agents' offers decide the denominator)"
+      },
+      {
+        "id": "ug_pay10_rejected_at_or_above_half",
+        "unit": "pairs",
+        "field": "rejected_at_or_above_half",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "ug_pay10"
+        },
+        "human": {
+          "k": 0,
+          "n": 18,
+          "value": 0.0,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "read": "image",
+            "note": "withheld:ccc2d2404049fd98"
+          }
+        },
+        "note": "share of at-or-above-half offers that Room B rejected"
+      }
+    ],
+    "blocked_arm_effects": [
+      {
+        "id": "fairness_pay10",
+        "label": "$10 pie with pay: mean proposal (dollars), ultimatum minus dictator",
+        "unit": "pairs",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "U",
+          "reference": "D"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "offer",
+          "groupBy": "game",
+          "where": {
+            "pay": "pay",
+            "pie": 10
+          }
+        },
+        "reported": {
+          "cells": {
+            "U": {
+              "mean": 4.6667,
+              "sd": 0.8165,
+              "n": 24
+            },
+            "D": {
+              "mean": 2.3333,
+              "sd": 1.7856,
+              "n": 24
+            }
+          },
+          "test": {
+            "statistic": "AD",
+            "value": 10.02,
+            "p": 0.01,
+            "pRelation": "<",
+            "note": "two-sample Anderson-Darling test of equal distributions (unsigned; p from the authors' simulation / Shorack-Wellner tables, fn 3)"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "read": "image",
+            "note": "withheld:991b745a49157ecc"
+          },
+          "cells_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "read": "image",
+            "note": "withheld:57855b8243aa929c"
+          }
+        },
+        "direction_claimed": true,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 15,
+          "read": "image",
+          "note": "withheld:de510e94f662c5a5"
+        }
+      },
+      {
+        "id": "pie_dictator",
+        "label": "Dictator with pay: mean proposal as a fraction of the pie, $10 minus $5",
+        "unit": "pairs",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "$10",
+          "reference": "$5"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "offer_share",
+          "groupBy": "pie_size",
+          "where": {
+            "game": "D",
+            "pay": "pay"
+          }
+        },
+        "reported": {
+          "cells": {
+            "$10": {
+              "mean": 0.2333,
+              "sd": 0.1786,
+              "n": 24
+            },
+            "$5": {
+              "mean": 0.2222,
+              "sd": 0.2044,
+              "n": 45
+            }
+          },
+          "test": {
+            "statistic": "AD",
+            "value": 0.46,
+            "p": 0.76,
+            "pRelation": "=",
+            "note": "two-sample Anderson-Darling test of equal distributions (unsigned; p from the authors' simulation / Shorack-Wellner tables, fn 3)"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "read": "image",
+            "note": "withheld:3c708ded9291d8ab"
+          },
+          "cells_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "read": "image",
+            "note": "withheld:57855b8243aa929c"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 15,
+          "read": "image",
+          "note": "withheld:f087094fc86d3703"
+        }
+      },
+      {
+        "id": "pie_ultimatum",
+        "label": "Ultimatum with pay: mean proposal as a fraction of the pie, $10 minus $5",
+        "unit": "pairs",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "$10",
+          "reference": "$5"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "offer_share",
+          "groupBy": "pie_size",
+          "where": {
+            "game": "U",
+            "pay": "pay"
+          }
+        },
+        "reported": {
+          "cells": {
+            "$10": {
+              "mean": 0.4667,
+              "sd": 0.0816,
+              "n": 24
+            },
+            "$5": {
+              "mean": 0.4547,
+              "sd": 0.104,
+              "n": 43
+            }
+          },
+          "test": {
+            "statistic": "AD",
+            "value": 0.65,
+            "p": 0.6,
+            "pRelation": "=",
+            "note": "two-sample Anderson-Darling test of equal distributions (unsigned; p from the authors' simulation / Shorack-Wellner tables, fn 3)"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 15,
+            "read": "image",
+            "note": "withheld:cdd49838bda4d723"
+          },
+          "cells_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "read": "image",
+            "note": "withheld:57855b8243aa929c"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 15,
+          "read": "image",
+          "note": "withheld:abf164ea1f48ff42"
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "what": "Table I (p. 356): April vs September replicability per cell (AD / CF)",
+        "why": "the sessions differ only in date; the sandbox has no session-time factor",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "read": "image"
+        }
+      },
+      {
+        "what": "Table II rows 2-7 and Table III rows 2-7, Table IV rows 2-3, 5-6: April / September split tests",
+        "why": "same reason; pooled rows are scored where the paper pools",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 12,
+          "read": "image"
+        }
+      },
+      {
+        "what": "ultimatum pay hypothesis (Table III rows 4-7)",
+        "why": "tested only against the separate April / September no-pay sessions (not replicable); pay is not enacted (meta.conflicts 'payment')",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 14,
+          "read": "image"
+        }
+      },
+      {
+        "what": "CF statistics (Tables I-IV)",
+        "why": "a second test of the same distributions; the AD p is recorded per effect, CF in the cite notes",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 12,
+          "read": "image"
+        }
+      },
+      {
+        "what": "Bonferroni joint test of replication and pay for the ultimatum game (p. 360)",
+        "why": "described, not printed",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 14,
+          "read": "image"
+        }
+      }
+    ]
+  },
+  "keyed": {
+    "why": "paper's pattern: proposals larger in the ultimatum than in the dictator game; the $5 dictator gives less with pay than without; no pie-size effect on shares; Room B accepts",
+    "answers": {
+      "form.b": "(2.5 if game == 'U' else (2 if pay == 'nopay' else 1)) * pie / 5",
+      "form.a": "pie - (2.5 if game == 'U' else (2 if pay == 'nopay' else 1)) * pie / 5",
+      "respond.choice": "'accept'"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {
+      "h2": {
+        "path": "/data/printed/p1/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 148,
+        "text_sha256": "d6fef2258819248ef2ced8f75222625ab7c5e2a1220e557eaa6a761c22099af9",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h3": {
+        "path": "/data/printed/pay1/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 119,
+        "text_sha256": "9adc67412953cb830dae13a5a7aa12a2c190acf9cdbf9accd186a9dbad65479d",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h4": {
+        "path": "/data/printed/p2/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 251,
+        "text_sha256": "e841fc48a0e828274db874de6dd56a9ff541946c24cd29408052522014cb9734",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h5": {
+        "path": "/data/printed/p3/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 275,
+        "text_sha256": "a7675a0e98fbe4e6829ac1809cceef657981f5568e0c1edcb5175b7cd5a6e3f6",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h6": {
+        "path": "/data/printed/p4/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 256,
+        "text_sha256": "a32acc37abadf711e24ec6e760f7f0077171aed6cadc7a49bb57283cddaef030",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h7": {
+        "path": "/data/printed/ug1/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 443,
+        "text_sha256": "c30618993d61f359a75ececce4d94d4dd726574b2cd70f01cf56ead30cf02731",
+        "locator": {
+          "format": "image_reading",
+          "page": "17-18"
+        }
+      },
+      "h8": {
+        "path": "/data/printed/dg1/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 282,
+        "text_sha256": "9620b4af2fc21a6ba8dc1a8aca8ff8b1040754d486d5e7f36f36993771c3d175",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h9": {
+        "path": "/data/printed/p5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 350,
+        "text_sha256": "532f0bd68af017895bab2b646c849e845005bb6f940deb90a2cf04935bb073ae",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h10": {
+        "path": "/data/printed/p6/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 341,
+        "text_sha256": "49b14aefd05d9e7892b0e7a599d942e6436545fea35fa16c0cb2a67b53c157c5",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h11": {
+        "path": "/data/printed/dg2/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 198,
+        "text_sha256": "cbd7d0c69320d8318e33caffedcbc37e01d24d08f6fe7fbbd8bc9debebc7fac2",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h12": {
+        "path": "/data/printed/ug2/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 99,
+        "text_sha256": "b979df5f4095a003678f59194d56f307ea0bd0a75e51483578cdfd193c7c73da",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h13": {
+        "path": "/data/printed/ug3/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 548,
+        "text_sha256": "954dc6db88959e81d33325cd3966879acfd93177772f9e823e2b9eea9b569c99",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h14": {
+        "path": "/data/printed/ug4/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 559,
+        "text_sha256": "00b37d0479e04b45c8b94dfc047a93c487aa360833786581a17ba5dc75042c1d",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h15": {
+        "path": "/data/printed/pay2/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 371,
+        "text_sha256": "9cc806658b9b69be7408c98028da4eb390f7da571543b5b88f7ee14bcea6ae5e",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h16": {
+        "path": "/data/printed/nopay2/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 169,
+        "text_sha256": "1aae0bb5657b5c2180e3524f4426c66b138cdd53076fc3e4243e697628529cb5",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h17": {
+        "path": "/data/printed/q/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 24,
+        "text_sha256": "79c4130ea0173f278c1f406bdebe31daffd2f988030f8a91bf52cfb3a850ecb0",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h22": {
+        "path": "/data/printed/l4/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 34,
+        "text_sha256": "08640b4b1925956fad5d74fc4359f26bc3b38fcee14406138de8a34778a78399",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h23": {
+        "path": "/data/printed/l5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 44,
+        "text_sha256": "1865900bb20b88983ddc709b25a0af7cc63b9218b690e0d7453dde45b9f5e98c",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h25": {
+        "path": "/data/sheet/title/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 12,
+        "text_sha256": "934652dce41d62d3c9ff34b2c5e44e3addaedc67d6137328a9fe75a63c51dbac",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h26": {
+        "path": "/data/sheet/title/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 12,
+        "text_sha256": "934652dce41d62d3c9ff34b2c5e44e3addaedc67d6137328a9fe75a63c51dbac",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h27": {
+        "path": "/data/sheet/p1/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 148,
+        "text_sha256": "d6fef2258819248ef2ced8f75222625ab7c5e2a1220e557eaa6a761c22099af9",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h28": {
+        "path": "/data/sheet/p1/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 148,
+        "text_sha256": "d6fef2258819248ef2ced8f75222625ab7c5e2a1220e557eaa6a761c22099af9",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h29": {
+        "path": "/data/sheet/pay1/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 112,
+        "text_sha256": "dbc59d70b67dbc8bbe3f0fb7b67390ec61f5dfddb6a1006b3a39795920a1137f",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h30": {
+        "path": "/data/sheet/pay1/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 112,
+        "text_sha256": "dbc59d70b67dbc8bbe3f0fb7b67390ec61f5dfddb6a1006b3a39795920a1137f",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h31": {
+        "path": "/data/sheet/p2/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 251,
+        "text_sha256": "e841fc48a0e828274db874de6dd56a9ff541946c24cd29408052522014cb9734",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h32": {
+        "path": "/data/sheet/p2/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 251,
+        "text_sha256": "e841fc48a0e828274db874de6dd56a9ff541946c24cd29408052522014cb9734",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h33": {
+        "path": "/data/sheet/p3/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 275,
+        "text_sha256": "a7675a0e98fbe4e6829ac1809cceef657981f5568e0c1edcb5175b7cd5a6e3f6",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h34": {
+        "path": "/data/sheet/p3/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 275,
+        "text_sha256": "a7675a0e98fbe4e6829ac1809cceef657981f5568e0c1edcb5175b7cd5a6e3f6",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h35": {
+        "path": "/data/sheet/p4/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 256,
+        "text_sha256": "a32acc37abadf711e24ec6e760f7f0077171aed6cadc7a49bb57283cddaef030",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h36": {
+        "path": "/data/sheet/p4/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 257,
+        "text_sha256": "8646cbd4be25107e81424393ced49506959922a893c862d6c2377e242568c3ed",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h37": {
+        "path": "/data/sheet/ug1/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 430,
+        "text_sha256": "d54f200665196e680df78d7380236b5941bdec750aff67ba57d2685b7d50c333",
+        "locator": {
+          "format": "image_reading",
+          "page": "17-18"
+        }
+      },
+      "h38": {
+        "path": "/data/sheet/ug1/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 430,
+        "text_sha256": "d54f200665196e680df78d7380236b5941bdec750aff67ba57d2685b7d50c333",
+        "locator": {
+          "format": "image_reading",
+          "page": "17-18"
+        }
+      },
+      "h39": {
+        "path": "/data/sheet/dg1/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 270,
+        "text_sha256": "6aabb7998ebddc14627a036c9e3d5aa0141a8d1121783bfc7ac3e652c3ab0233",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h40": {
+        "path": "/data/sheet/dg1/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 270,
+        "text_sha256": "6aabb7998ebddc14627a036c9e3d5aa0141a8d1121783bfc7ac3e652c3ab0233",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h41": {
+        "path": "/data/sheet/p5/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 350,
+        "text_sha256": "532f0bd68af017895bab2b646c849e845005bb6f940deb90a2cf04935bb073ae",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h42": {
+        "path": "/data/sheet/p5/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 351,
+        "text_sha256": "74ca527fec1c0ae79767521386d0553df34ce1453940ceea3a68efec089c2217",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h43": {
+        "path": "/data/sheet/p6/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 341,
+        "text_sha256": "49b14aefd05d9e7892b0e7a599d942e6436545fea35fa16c0cb2a67b53c157c5",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h44": {
+        "path": "/data/sheet/p6/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 341,
+        "text_sha256": "49b14aefd05d9e7892b0e7a599d942e6436545fea35fa16c0cb2a67b53c157c5",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h45": {
+        "path": "/data/sheet/dg2/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 186,
+        "text_sha256": "62bc25959d57f40a8c77e0f2658de34489085b0e324e43905d59a80e0b7d55cf",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h46": {
+        "path": "/data/sheet/dg2/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 186,
+        "text_sha256": "62bc25959d57f40a8c77e0f2658de34489085b0e324e43905d59a80e0b7d55cf",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h47": {
+        "path": "/data/sheet/ug2/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 86,
+        "text_sha256": "38a70d0543882fe5ebbbc50908afe9d780aaf5ca23333829ec21dc1060c5d4f7",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h48": {
+        "path": "/data/sheet/ug2/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 86,
+        "text_sha256": "38a70d0543882fe5ebbbc50908afe9d780aaf5ca23333829ec21dc1060c5d4f7",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h49": {
+        "path": "/data/sheet/ug3/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 535,
+        "text_sha256": "fb62d268b10adebcb6767edebe3d7ac78230ac7fd21bc65f7e169bf25a94bfaa",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h50": {
+        "path": "/data/sheet/ug3/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 535,
+        "text_sha256": "fb62d268b10adebcb6767edebe3d7ac78230ac7fd21bc65f7e169bf25a94bfaa",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h51": {
+        "path": "/data/sheet/ug4/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 546,
+        "text_sha256": "f8d9e880a82bb3e4f7b5f76d1ffcfb71e6d9c9562b326cdeaefaaeff61c99dad",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h52": {
+        "path": "/data/sheet/ug4/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 546,
+        "text_sha256": "f8d9e880a82bb3e4f7b5f76d1ffcfb71e6d9c9562b326cdeaefaaeff61c99dad",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h53": {
+        "path": "/data/sheet/pay2/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 364,
+        "text_sha256": "0d2e71a004b6dfe5401d576a1288ee5fadb164b2c8d65e44df04d0a302112154",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h54": {
+        "path": "/data/sheet/pay2/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 364,
+        "text_sha256": "0d2e71a004b6dfe5401d576a1288ee5fadb164b2c8d65e44df04d0a302112154",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h55": {
+        "path": "/data/sheet/nopay2/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 159,
+        "text_sha256": "8cfdb30c47e3e9e81298671727d4136f1bbd32693a0f6328247825266f11cbec",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h56": {
+        "path": "/data/sheet/nopay2/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 159,
+        "text_sha256": "8cfdb30c47e3e9e81298671727d4136f1bbd32693a0f6328247825266f11cbec",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h57": {
+        "path": "/data/sheet/q/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 24,
+        "text_sha256": "79c4130ea0173f278c1f406bdebe31daffd2f988030f8a91bf52cfb3a850ecb0",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h58": {
+        "path": "/data/sheet/q/10/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 24,
+        "text_sha256": "79c4130ea0173f278c1f406bdebe31daffd2f988030f8a91bf52cfb3a850ecb0",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h59": {
+        "path": "/data/variant_note/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 290,
+        "text_sha256": "ff9286c48489cc6249b6937579cdfb67bf89f8db671e8fc327232e94ea8f83c5",
+        "locator": {
+          "format": "image_reading",
+          "page": 17
+        }
+      },
+      "h60": {
+        "path": "/roles/0/shown/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 6,
+        "text_sha256": "3d931064651b814172b4c3bbdc021491c84180995fcbd560883117ffd9f468f6",
+        "locator": {
+          "format": "image_reading",
+          "page": 4
+        }
+      },
+      "h61": {
+        "path": "/roles/1/shown/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 6,
+        "text_sha256": "42074195e32ce5debe38db090252be4a4582a7fe85b680fcab175d6fddc2e0f1",
+        "locator": {
+          "format": "image_reading",
+          "page": 4
+        }
+      }
+    },
+    "strict": false,
+    "attribution": []
+  },
+  "schema_version": "1"
+}
