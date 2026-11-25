@@ -805,7 +805,7 @@ def picture_sha(study_dir: Path, src: str) -> str | None:
 
 # parts of data / stages that participants never see: coding rules (patterns), cite evidence, presentation notes
 NOT_SHOWN = frozenset(("coding", "presentation", "evidence", "patterns", "pattern", "regex", "dcite", "cites",
-                       "keyed", "notes", "note"))
+                       "keyed", "notes", "note", "widget_params"))
 
 
 def uncited_screen_text(private: dict) -> list[str]:
@@ -815,9 +815,8 @@ def uncited_screen_text(private: dict) -> list[str]:
     cite_paths = release._cite_paths(private)
     out: list[str] = []
 
-    def cited(o):   # an object with a cite, or a cite itself (label + source)
-        return isinstance(o, dict) and (any(k == "cite" or k == "cites" or k.endswith(("_cite", "_cites")) for k in o)
-                                        or ("label" in o and "source" in o))
+    def cited(o):   # an object with its own cite (covers all of it), or a cite itself (label + source)
+        return isinstance(o, dict) and (bool(o.get("cite") or o.get("cites")) or ("label" in o and "source" in o))
 
     def walk(o, path, covered):
         if isinstance(o, dict):
@@ -831,13 +830,16 @@ def uncited_screen_text(private: dict) -> list[str]:
             return
         for k, v in items:
             if isinstance(v, str):
-                if covered or (isinstance(k, str) and (k in release._STRUCT or k.endswith("_cite") or k in ("cite",
+                own = isinstance(k, str) and isinstance(o, dict) and bool(o.get(k + "_cite") or o.get(k + "_cites"))
+                if covered or own or (isinstance(k, str) and release._NOTE_KEY.search(k)) or (isinstance(k, str) and (k in release._STRUCT or k.endswith("_cite") or k in ("cite",
                         "cites", "note", "notes"))) or release._computed(path, k, cite_paths) or release._is_withheld(v) \
                         or release._TOKEN.fullmatch(v.strip()) or is_label(v):
                     continue
                 out.append(release._ptr(path + [k]))
             else:
-                walk(v, path + [k], covered)
+                child = covered or (isinstance(k, str) and isinstance(o, dict)
+                                    and bool(o.get(k + "_cite") or o.get(k + "_cites")))
+                walk(v, path + [k], child)
     for top in ("data", "stages", "roles", "flow"):
         walk(private.get(top), [top], False)
     return out
@@ -847,13 +849,15 @@ def derived_unscanned(report: dict, private: dict, unscanned) -> list[str]:
     """Derived texts the engine shipped as our own wording while citing a source it could not scan."""
     out = []
     for path in report.get("derived_shipped") or []:
-        parent, key = path.rsplit("/", 1)
-        cont = _value(private, parent)
+        parts = path.split("/")
+        key = parts[-1]
         cites = []
-        if isinstance(cont, dict):
-            for k in ("cite", "cites", key + "_cite"):
-                if cont.get(k):
-                    cites += release._cites(cont[k])
+        for depth in range(len(parts) - 1, 0, -1):   # the text's own cite and every cite above it
+            cont = _value(private, "/".join(parts[:depth]))
+            if isinstance(cont, dict):
+                for k in ("cite", "cites") + ((key + "_cite", key + "_cites") if depth == len(parts) - 1 else ()):
+                    if cont.get(k):
+                        cites += release._cites(cont[k])
         if any(c.get("source") in unscanned for c in cites) and not is_label(_value(private, path)):
             out.append(path)
     return out
