@@ -33,6 +33,7 @@ from pathlib import Path
 from hsenv import distribution, release, schema_check
 
 from scripts.research import approx_text
+from scripts.research import protocols
 from scripts.research.protocols import validate_protocol_files
 from scripts.research.revisions import load_revision, revision_id, safe_path, validate_assets
 
@@ -163,7 +164,8 @@ def resolve_sources(study_dir: Path, protocol: dict) -> dict[str, bytes]:
         text = src if isinstance(src, str) else json.dumps(src, ensure_ascii=False) if isinstance(src, dict) else ""
         dist = (src.get("distribution") or {}) if isinstance(src, dict) else {}
         sha = (src.get("sha256") if isinstance(src, dict) else None) or dist.get("sha256")
-        if dist.get("tier") == "hosted" and isinstance(dist.get("sha256"), str):
+        if dist.get("tier") == "hosted" and isinstance(dist.get("sha256"), str) and \
+                release.hosted_licence_ok(dist.get("licence")):
             sha = dist["sha256"]   # a hosted source is judged by the exact file that is hosted
         if not isinstance(sha, str):
             m = SHA_PREFIX.search(text)
@@ -467,7 +469,8 @@ def hosted_unconfirmed(message: str, private: dict, sources: dict) -> list[str]:
                         units = distribution.units("text" if fmt in TEXT_FORMATS else fmt, sources[key],
                                                    {"pdf": distribution.pdfium_extractor()})
                         if fmt == "qsf":   # every string of the survey file, translations included
-                            units += [html.unescape(re.sub(r"<[^>]+>", " ", x))
+                            units += [html.unescape(re.sub(r"<[^>]+>", " ", re.sub(
+                                          r"(?is)<(script|style)\b.*?</\1\s*>|<!--.*?-->", " ", x)))
                                       for x in _all_strings(json.loads(sources[key].decode("utf-8-sig")))]
                         texts[key] = [_canon(u) for u in units]   # field by field, never joined
                     except Exception:
@@ -617,8 +620,7 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         cont = _value(projected, e["path"])
         holder, key = (cont, "src") if isinstance(cont, dict) else (_value(projected, e["path"].rsplit("/", 1)[0]),
                                                                       e["path"].rsplit("/", 1)[1])
-        if isinstance(holder, dict) and isinstance(holder.get(key), str) and \
-                not holder[key].startswith(("http://", "https://", "asset:")):
+        if isinstance(holder, dict) and isinstance(holder.get(key), str) and not holder[key].startswith("asset:"):
             digest = str(e.get("sha256") or hashlib.sha256(holder[key].encode()).hexdigest())
             e.setdefault("sha256", digest)
             holder[key] = "asset:" + digest[:16]
@@ -789,7 +791,9 @@ def build(paper_id: str, slug: str, private: Path, sessions: int, dry: bool = Fa
         "contributors": current.get("contributors") or [{"github": "assassin808"}],
     }
     study = {k: v for k, v in study.items() if v is not None}
-    files = {k: v for k, v in base.items() if not k.startswith(DROP_PREFIXES)}
+    # a protocol release ships only the engine's public paths (a legacy revision may carry a paper PDF)
+    files = {k: v for k, v in base.items() if not k.startswith(DROP_PREFIXES)
+             and any(protocols._match(k, pat) for pat in protocols.PUBLIC_PATHS)}
     files["protocol.json"] = dumps(protocol)
     files["study.json"] = dumps(study)
     files["review/checks-latest.json"] = dumps(report)
