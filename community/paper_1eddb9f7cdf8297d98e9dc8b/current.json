@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "cc37669cfe2c41903585bb6abd1f2b6d2e697ca41ba0ec2b6c4ce98f3a137238",
-  "previousRevision": "533c9885a47efc28800f012062a4857cb11d9a758fba813cb4fa7b687244ea84",
+  "revision": "09ead2bec37c73cd68c0bd33d1397ef03bf9ff6908b872080fe5e225fbba1ee9",
+  "previousRevision": "cc37669cfe2c41903585bb6abd1f2b6d2e697ca41ba0ec2b6c4ce98f3a137238",
   "paper": {
     "title": "Reasoning in Reference Games: Individual- vs. Population-Level Probabilistic Modeling",
     "authors": [
@@ -33,40 +33,33 @@
   "capabilities": {
     "discoverable": true,
     "traceable": false,
-    "reanalyzable": true,
+    "reanalyzable": false,
     "replayable": true,
     "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "cc37669cfe2c41903585bb6abd1f2b6d2e697ca41ba0ec2b6c4ce98f3a137238",
-    "reviewer": "maintainer:assassin808",
-    "reason": "Issue #57 follow-up. Evidence paths now point to sources/paper.pdf, where the paper is stored, so all 99 quotes can be checked against their pages. The six fixed-effects logit coefficient effects now give the real reason they are not compared: the paper reports mixed-effects coefficients (e.g. beta = .2, SE = .11, p < .08 on p. 12 of the PDF), while the package fits fixed effects only, without random effects, so the two numbers measure different quantities. replay-compare.json lists the value the package computes next to the paper's estimate for each of them.",
-    "checks": [
-      "check_program.py --complete",
-      "check_quotes.py against the paper and the cited supplements",
-      "effects.py check",
-      "study_core.py reproduce with effects.json on the pinned human data: pass [2, 2]",
-      "capabilities.py recomputed and --check",
-      "check_package.py",
-      "agent export self-test",
-      "audit.py (audit book 0.1) before and after",
-      "schema, package bindings and effects.json (validate_assets)"
-    ],
-    "verifiedCapabilities": {
-      "discoverable": true,
-      "traceable": false,
-      "reanalyzable": true,
-      "replayable": true,
-      "humanBenchmark": true
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Some held texts cannot be restored by the app (a picture, a file the researcher must supply, or text that cannot be located): the researcher pastes or captures them before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "09ead2bec37c73cd68c0bd33d1397ef03bf9ff6908b872080fe5e225fbba1ee9"
   },
   "validation": {
     "status": "passed",
     "errors": [],
+    "warnings": [
+      "effects.json: program condition e1_c_unamb is not reachable from any hypothesis or effect",
+      "effects.json: program variable e1_v_cond is not reachable from any hypothesis or effect",
+      "effects.json: program variable e1_v_cov is not reachable from any hypothesis or effect",
+      "effects.json: program condition e2_c_unamb is not reachable from any hypothesis or effect",
+      "effects.json: program variable e2_v_cond is not reachable from any hypothesis or effect",
+      "effects.json: program variable e2_v_cov is not reachable from any hypothesis or effect",
+      "effects.json: program result mc_r_post is not reachable from any hypothesis or effect",
+      "effects.json: program result mc_r_rsa is not reachable from any hypothesis or effect"
+    ],
     "checks": {
       "schema": true,
-      "packageBindings": true,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -74,9 +67,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "2e05e9d990fabfa8a7f3443ea60827a6ca7656ad53fbeb0850d4765cf6ffb6e6"
+    "protocolSha256": "4aa9a562fa4a16cc4bcd21f55632186125c737bc076f5d80a92b448a83fb7762"
   }
 }

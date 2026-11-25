@@ -1,0 +1,2610 @@
+{
+  "id": "verkoeijen2014intuition",
+  "schema": "hsenv-protocol/0.1",
+  "meta": {
+    "citation": "Verkoeijen, P. P. J. L., & Bouwmeester, S. (2014). Does intuition cause cooperation? PLoS ONE, 9(5), e96654. https://doi.org/10.1371/journal.pone.0096654 -- Experiment 1 only",
+    "doi": "10.1371/journal.pone.0096654",
+    "language": "en",
+    "language_cite": {
+      "label": "reported",
+      "source": "si",
+      "where": "Experiment 1 > Method > Participants",
+      "note": "United States residents on Amazon Mechanical Turk; the SI quotes the English instructions participants read (Appendix A: 'the literal instructions')"
+    },
+    "licence": "paper CC BY (printed p. 1; Crossref CC BY 4.0); SI File S1 under the article's licence (no own line)",
+    "sources": {
+      "paper": {
+        "file": "sources/bundle/paper/paper.pdf",
+        "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0096654&type=printable",
+        "doi": "10.1371/journal.pone.0096654",
+        "sha256": "ddb3232b368c7ca7dc19e368b5e615514f70229c55285f02e851e1000ec2b2a7",
+        "licence": "CC BY (Creative Commons Attribution License, printed on p. 1); Crossref licence record http://creativecommons.org/licenses/by/4.0/ (start 2014-05-06), read 2026-11-10",
+        "what": "version of record, 8 pages, born-digital text layer (sourcetext/paper.txt, tools/render_sources.py, pypdfium2); design, sample, exclusion, Tables 1-3, ANOVA bounds, chi-square tests",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC-BY-4.0",
+          "url": "https://doi.org/10.1371/journal.pone.0096654",
+          "sha256": "ddb3232b368c7ca7dc19e368b5e615514f70229c55285f02e851e1000ec2b2a7",
+          "format": "pdf",
+          "attribution": "Verkoeijen, P. P. J. L., & Bouwmeester, S. (2014). Does intuition cause cooperation? PLoS ONE 9(5): e96654. doi:10.1371/journal.pone.0096654. CC BY 4.0"
+        }
+      },
+      "si": {
+        "file": "sources/si/supporting_information.docx",
+        "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0096654.s001&type=supplementary",
+        "doi": "10.1371/journal.pone.0096654.s001",
+        "sha256": "bb5aa7349fafd238f0e72c9d706e2d55f2a4643c5a6bf10fd9051041367ec791",
+        "licence": "CC BY 4.0 by inheritance: the .docx prints no licence line of its own; it is File S1, the Supporting Information published with the CC BY article (article page section 'Supporting Information', doi ...s001), so the article's licence (printed p. 1; Crossref CC BY 4.0) is taken to cover it. Reasoning recorded in meta.licence_notes; conservative alternative: release_hold on served SI texts (moot while no arm is runnable)",
+        "what": "File S1 (journal file name S1.docx, 28,125 bytes; downloaded 2026-11-10 with curl into an empty folder; material_kinds.verify: '.docx verified (15 members, no embedded data)'; no tracked changes, no comments; core.xml creator 'verkoeijen', last modified by S. Bouwmeester, 2014-04-15). Experiment 1 Method (participants, procedure with the forced-delay / time-pressure screen texts and the comprehension question, bonus procedure, motivation scoring) and Appendix A (the four instruction texts); Experiments 2a-c and 3 methods (out of scope). Quoted screen text is set in italics",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC-BY-4.0",
+          "url": "https://doi.org/10.1371/journal.pone.0096654.s001",
+          "sha256": "bb5aa7349fafd238f0e72c9d706e2d55f2a4643c5a6bf10fd9051041367ec791",
+          "format": "docx",
+          "attribution": "Verkoeijen, P. P. J. L., & Bouwmeester, S. (2014). Does intuition cause cooperation? PLoS ONE 9(5): e96654. doi:10.1371/journal.pone.0096654. CC BY 4.0 (File S1)"
+        }
+      }
+    },
+    "pages": [
+      {
+        "page": "MTurk HIT (not published)",
+        "stages": "omitted[0]"
+      },
+      {
+        "page": "demographics: age, gender, highest education (SI Procedure)",
+        "stages": "demog"
+      },
+      {
+        "page": "instructions of the arm's team x knowledge cell (SI Appendix A)",
+        "stages": "instr_h / instr_c"
+      },
+      {
+        "page": "time pressure: contribution screen text + >> (SI Procedure)",
+        "stages": "tp_screen"
+      },
+      {
+        "page": "time pressure: contribution box",
+        "stages": "contrib_tp"
+      },
+      {
+        "page": "forced delay: 10 s text, then the box (SI Procedure)",
+        "stages": "fd_wait, contrib_fd"
+      },
+      {
+        "page": "motivation screen (SI Procedure)",
+        "stages": "motive"
+      },
+      {
+        "page": "comprehension screen (SI Procedure)",
+        "stages": "comp"
+      },
+      {
+        "page": "thanks (SI Procedure; text not printed)",
+        "stages": "omitted[1]"
+      }
+    ],
+    "sample": {
+      "n_completed": 289,
+      "n_analysed": 286,
+      "who": "United States residents on Amazon Mechanical Turk; 211 reported age (M 31.58, Sd 10.57, 17-71); 39% female; $0.50 fee plus a bonus of up to $1; about 5 minutes",
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Participants",
+        "evidence": "289 United States residents completed the experiment"
+      }
+    }
+  },
+  "arms": [
+    {
+      "id": "hu_tp",
+      "label": "Experiment 1: human team members, contribution unknown, time pressure (10 s)",
+      "n_paper": 33,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "note": "Table 1 cell n (participants who obeyed the time constraints)"
+      },
+      "n_analysed": {
+        "value": 33,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "evidence": "Table 1, n column"
+        }
+      },
+      "n_recruited_note": "no per-cell recruited count is printed: 289 completed in all (SI Participants) and 3 time-pressure participants were excluded (p. 2) without saying from which cells (searched SI Participants / Procedure, paper pp. 2-3)",
+      "runnable": false,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "assignment": "random, between subjects (SI Participants); one of eight cells"
+    },
+    {
+      "id": "hu_fd",
+      "label": "Experiment 1: human team members, contribution unknown, forced delay (10 s)",
+      "n_paper": 35,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "note": "Table 1 cell n (participants who obeyed the time constraints)"
+      },
+      "n_analysed": {
+        "value": 35,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "evidence": "Table 1, n column"
+        }
+      },
+      "n_recruited_note": "no per-cell recruited count is printed (289 completed in all, SI Participants); forced-delay cells had no exclusions (p. 2: all three excluded were time-pressure participants), so recruited presumably = analysed, not printed",
+      "runnable": false,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "assignment": "random, between subjects (SI Participants); one of eight cells"
+    },
+    {
+      "id": "hk_tp",
+      "label": "Experiment 1: human team members, contribution known (60 cents), time pressure (10 s)",
+      "n_paper": 40,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "note": "Table 1 cell n (participants who obeyed the time constraints)"
+      },
+      "n_analysed": {
+        "value": 40,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "evidence": "Table 1, n column"
+        }
+      },
+      "n_recruited_note": "no per-cell recruited count is printed: 289 completed in all (SI Participants) and 3 time-pressure participants were excluded (p. 2) without saying from which cells (searched SI Participants / Procedure, paper pp. 2-3)",
+      "runnable": false,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "assignment": "random, between subjects (SI Participants); one of eight cells"
+    },
+    {
+      "id": "hk_fd",
+      "label": "Experiment 1: human team members, contribution known (60 cents), forced delay (10 s)",
+      "n_paper": 39,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "note": "Table 1 cell n (participants who obeyed the time constraints)"
+      },
+      "n_analysed": {
+        "value": 39,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "evidence": "Table 1, n column"
+        }
+      },
+      "n_recruited_note": "no per-cell recruited count is printed (289 completed in all, SI Participants); forced-delay cells had no exclusions (p. 2: all three excluded were time-pressure participants), so recruited presumably = analysed, not printed",
+      "runnable": false,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "assignment": "random, between subjects (SI Participants); one of eight cells"
+    },
+    {
+      "id": "cu_tp",
+      "label": "Experiment 1: computer team members, contribution unknown, time pressure (10 s)",
+      "n_paper": 30,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "note": "Table 1 cell n (participants who obeyed the time constraints)"
+      },
+      "n_analysed": {
+        "value": 30,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "evidence": "Table 1, n column"
+        }
+      },
+      "n_recruited_note": "no per-cell recruited count is printed: 289 completed in all (SI Participants) and 3 time-pressure participants were excluded (p. 2) without saying from which cells (searched SI Participants / Procedure, paper pp. 2-3)",
+      "runnable": false,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "assignment": "random, between subjects (SI Participants); one of eight cells"
+    },
+    {
+      "id": "cu_fd",
+      "label": "Experiment 1: computer team members, contribution unknown, forced delay (10 s)",
+      "n_paper": 43,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "note": "Table 1 cell n (participants who obeyed the time constraints)"
+      },
+      "n_analysed": {
+        "value": 43,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "evidence": "Table 1, n column"
+        }
+      },
+      "n_recruited_note": "no per-cell recruited count is printed (289 completed in all, SI Participants); forced-delay cells had no exclusions (p. 2: all three excluded were time-pressure participants), so recruited presumably = analysed, not printed",
+      "runnable": false,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "assignment": "random, between subjects (SI Participants); one of eight cells"
+    },
+    {
+      "id": "ck_tp",
+      "label": "Experiment 1: computer team members, contribution known (60 cents), time pressure (10 s)",
+      "n_paper": 29,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "note": "Table 1 cell n (participants who obeyed the time constraints)"
+      },
+      "n_analysed": {
+        "value": 29,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "evidence": "Table 1, n column"
+        }
+      },
+      "n_recruited_note": "no per-cell recruited count is printed: 289 completed in all (SI Participants) and 3 time-pressure participants were excluded (p. 2) without saying from which cells (searched SI Participants / Procedure, paper pp. 2-3)",
+      "runnable": false,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "assignment": "random, between subjects (SI Participants); one of eight cells"
+    },
+    {
+      "id": "ck_fd",
+      "label": "Experiment 1: computer team members, contribution known (60 cents), forced delay (10 s)",
+      "n_paper": 37,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "note": "Table 1 cell n (participants who obeyed the time constraints)"
+      },
+      "n_analysed": {
+        "value": 37,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "evidence": "Table 1, n column"
+        }
+      },
+      "n_recruited_note": "no per-cell recruited count is printed (289 completed in all, SI Participants); forced-delay cells had no exclusions (p. 2: all three excluded were time-pressure participants), so recruited presumably = analysed, not printed",
+      "runnable": false,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "assignment": "random, between subjects (SI Participants); one of eight cells"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "cell",
+      "factor": "team (human / computer) x contribution knowledge (unknown / known) x decision constraint (pressure / delay); one arm per cell",
+      "assignment": "between, random",
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Participants",
+        "note": "2 x 2 x 2 between-subjects design, random assignment"
+      }
+    }
+  ],
+  "run_excluded": [
+    {
+      "arm": "hu_tp",
+      "n_paper": 33,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "missing": [
+        {
+          "what": "demographics items",
+          "ref": "data.missing.age_prompt / gender_prompt / education_prompt"
+        },
+        {
+          "what": "contribution box label",
+          "ref": "data.missing.contribution_box"
+        },
+        {
+          "what": "motivation question",
+          "ref": "data.missing.motivation_prompt"
+        },
+        {
+          "what": "comprehension question (this arm's wording)",
+          "ref": "data.missing.comprehension_prompt"
+        },
+        {
+          "what": "omitted page (closing page text not printed; not a stage, not a blocking reason)",
+          "ref": "omitted[1]"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure"
+      }
+    },
+    {
+      "arm": "hu_fd",
+      "n_paper": 35,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "missing": [
+        {
+          "what": "demographics items",
+          "ref": "data.missing.age_prompt / gender_prompt / education_prompt"
+        },
+        {
+          "what": "contribution box label",
+          "ref": "data.missing.contribution_box"
+        },
+        {
+          "what": "motivation question",
+          "ref": "data.missing.motivation_prompt"
+        },
+        {
+          "what": "comprehension question (this arm's wording)",
+          "ref": "data.missing.comprehension_prompt"
+        },
+        {
+          "what": "omitted page (closing page text not printed; not a stage, not a blocking reason)",
+          "ref": "omitted[1]"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure"
+      }
+    },
+    {
+      "arm": "hk_tp",
+      "n_paper": 40,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "missing": [
+        {
+          "what": "demographics items",
+          "ref": "data.missing.age_prompt / gender_prompt / education_prompt"
+        },
+        {
+          "what": "contribution box label",
+          "ref": "data.missing.contribution_box"
+        },
+        {
+          "what": "motivation question",
+          "ref": "data.missing.motivation_prompt"
+        },
+        {
+          "what": "comprehension question (this arm's wording)",
+          "ref": "data.missing.comprehension_prompt"
+        },
+        {
+          "what": "omitted page (closing page text not printed; not a stage, not a blocking reason)",
+          "ref": "omitted[1]"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure"
+      }
+    },
+    {
+      "arm": "hk_fd",
+      "n_paper": 39,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "missing": [
+        {
+          "what": "demographics items",
+          "ref": "data.missing.age_prompt / gender_prompt / education_prompt"
+        },
+        {
+          "what": "contribution box label",
+          "ref": "data.missing.contribution_box"
+        },
+        {
+          "what": "motivation question",
+          "ref": "data.missing.motivation_prompt"
+        },
+        {
+          "what": "comprehension question (this arm's wording)",
+          "ref": "data.missing.comprehension_prompt"
+        },
+        {
+          "what": "omitted page (closing page text not printed; not a stage, not a blocking reason)",
+          "ref": "omitted[1]"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure"
+      }
+    },
+    {
+      "arm": "cu_tp",
+      "n_paper": 30,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "missing": [
+        {
+          "what": "demographics items",
+          "ref": "data.missing.age_prompt / gender_prompt / education_prompt"
+        },
+        {
+          "what": "contribution box label",
+          "ref": "data.missing.contribution_box"
+        },
+        {
+          "what": "motivation question",
+          "ref": "data.missing.motivation_prompt"
+        },
+        {
+          "what": "comprehension question (this arm's wording)",
+          "ref": "data.missing.comprehension_prompt"
+        },
+        {
+          "what": "omitted page (closing page text not printed; not a stage, not a blocking reason)",
+          "ref": "omitted[1]"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure"
+      }
+    },
+    {
+      "arm": "cu_fd",
+      "n_paper": 43,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "missing": [
+        {
+          "what": "demographics items",
+          "ref": "data.missing.age_prompt / gender_prompt / education_prompt"
+        },
+        {
+          "what": "contribution box label",
+          "ref": "data.missing.contribution_box"
+        },
+        {
+          "what": "motivation question",
+          "ref": "data.missing.motivation_prompt"
+        },
+        {
+          "what": "comprehension question (this arm's wording)",
+          "ref": "data.missing.comprehension_prompt"
+        },
+        {
+          "what": "omitted page (closing page text not printed; not a stage, not a blocking reason)",
+          "ref": "omitted[1]"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure"
+      }
+    },
+    {
+      "arm": "ck_tp",
+      "n_paper": 29,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "missing": [
+        {
+          "what": "demographics items",
+          "ref": "data.missing.age_prompt / gender_prompt / education_prompt"
+        },
+        {
+          "what": "contribution box label",
+          "ref": "data.missing.contribution_box"
+        },
+        {
+          "what": "motivation question",
+          "ref": "data.missing.motivation_prompt"
+        },
+        {
+          "what": "comprehension question (this arm's wording)",
+          "ref": "data.missing.comprehension_prompt"
+        },
+        {
+          "what": "omitted page (closing page text not printed; not a stage, not a blocking reason)",
+          "ref": "omitted[1]"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure"
+      }
+    },
+    {
+      "arm": "ck_fd",
+      "n_paper": 37,
+      "why": "on-screen content missing: the demographics items (age, gender, education; wording and options not printed), the contribution box label, the motivation question (described only) and the comprehension question (quoted only as a two-condition composite); the administered survey is unpublished (README Decided 11, 16(d)). Also not printed, but an omitted page rather than a stage: the closing page (omitted[1]). Not a reason: the unenforceable 10 s timing (declared deviation, meta.deviations)",
+      "missing": [
+        {
+          "what": "demographics items",
+          "ref": "data.missing.age_prompt / gender_prompt / education_prompt"
+        },
+        {
+          "what": "contribution box label",
+          "ref": "data.missing.contribution_box"
+        },
+        {
+          "what": "motivation question",
+          "ref": "data.missing.motivation_prompt"
+        },
+        {
+          "what": "comprehension question (this arm's wording)",
+          "ref": "data.missing.comprehension_prompt"
+        },
+        {
+          "what": "omitted page (closing page text not printed; not a stage, not a blocking reason)",
+          "ref": "omitted[1]"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure"
+      }
+    }
+  ],
+  "data": {
+    "instr": {
+      "human_unknown": [
+        {
+          "text": "Welcome to this little game! In this game you have been randomly assigned to interact with three other people. All of you receive this same set of instructions. You cannot participate in this study more than once. Each person in your group is given 40 cents for this interaction (in addition to the 50 cents you received already for participating). You each decide how much of your 40 cents to keep for yourself, and how much (if any) to contribute to the group’s common project. All money contributed to the common project is doubled, and then split evenly among the 4 group members.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-unknown",
+            "note": "Appendix A 'Instructions human-contribution-unknown', paragraph 1 of 8 (welcome); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Below we give an example of how the bonus is determined:",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-unknown",
+            "note": "Appendix A 'Instructions human-contribution-unknown', paragraph 2 of 8 (example_intro); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Suppose Pete contributes 10 cents to the common project, Andy contributes 20 cents, Mary contributes 20 cents, and John contributes 10 cents. This means that the total amount of money contributed to the common project is 10+20+20+10=60 cents. These 60 cents will be doubled, which results in a total of 120 cents for the common project. Now, these 120 cents will be equally divided among the four people. So everyone receives 30 cents from the common project. The bonus each person gets is these 30 cents PLUS the initial amount of money (40 cents) minus the individual contribution. For the four people in this example, this leads to the following bonus payments:",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-unknown",
+            "note": "Appendix A 'Instructions human-contribution-unknown', paragraph 3 of 8 (example); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Pete: 30+(40-10)=60.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-unknown",
+            "note": "Appendix A 'Instructions human-contribution-unknown', paragraph 4 of 8 (pete); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Andy: 30+(40-20)=50.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-unknown",
+            "note": "Appendix A 'Instructions human-contribution-unknown', paragraph 5 of 8 (andy); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Mary: 30+(40-20)=50.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-unknown",
+            "note": "Appendix A 'Instructions human-contribution-unknown', paragraph 6 of 8 (mary); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "John: 30+(40-10)=60.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-unknown",
+            "note": "Appendix A 'Instructions human-contribution-unknown', paragraph 7 of 8 (john); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Remember that in this game you have been randomly assigned to three other people. The other people are REAL and will really make a decision – there is no deception in this study. You and the three other people are doing this task simultaneously; therefore you don't know what (if any) each of the people contributes.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-unknown",
+            "note": "Appendix A 'Instructions human-contribution-unknown', paragraph 8 of 8 (remember); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        }
+      ],
+      "human_known": [
+        {
+          "text": "Welcome to this little game! In this game you have been randomly assigned to interact with three other people. All of you receive this same set of instructions. You cannot participate in this study more than once. Each person in your group is given 40 cents for this interaction (in addition to the 50 cents you received already for participating). You each decide how much of your 40 cents to keep for yourself, and how much (if any) to contribute to the group’s common project. All money contributed to the common project is doubled, and then split evenly among the 4 group members.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-known",
+            "note": "Appendix A 'Instructions human-contribution-known', paragraph 1 of 8 (welcome); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Below we give an example of how the bonus is determined:",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-known",
+            "note": "Appendix A 'Instructions human-contribution-known', paragraph 2 of 8 (example_intro); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Suppose Pete contributes 10 cents to the common project, Andy contributes 20 cents, Mary contributes 20 cents, and John contributes 10 cents. This means that the total amount of money contributed to the common project is 10+20+20+10=60 cents. These 60 cents will be doubled, which results in a total of 120 cents for the common project. Now, these 120 cents will be equally divided among the four people. So everyone receives 30 cents from the common project. The bonus each person gets is these 30 cents PLUS the initial amount of money (40 cents) minus the individual contribution. For the four people in this example, this leads to the following bonus payments:",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-known",
+            "note": "Appendix A 'Instructions human-contribution-known', paragraph 3 of 8 (example); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Pete: 30+(40-10)=60.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-known",
+            "note": "Appendix A 'Instructions human-contribution-known', paragraph 4 of 8 (pete); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Andy: 30+(40-20)=50.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-known",
+            "note": "Appendix A 'Instructions human-contribution-known', paragraph 5 of 8 (andy); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Mary: 30+(40-20)=50.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-known",
+            "note": "Appendix A 'Instructions human-contribution-known', paragraph 6 of 8 (mary); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "John: 30+(40-10)=60.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-known",
+            "note": "Appendix A 'Instructions human-contribution-known', paragraph 7 of 8 (john); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Remember that in this game you have been randomly assigned to three other people. The other people are REAL and will really make a decision – there is no deception in this study. Each of the three other people has already chosen their contribution. The total amount of money the three people contributed to the group’s common project is 60 cents. Your turn is next.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions human-contribution-known",
+            "note": "Appendix A 'Instructions human-contribution-known', paragraph 8 of 8 (remember); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        }
+      ],
+      "computer_unknown": [
+        {
+          "text": "Welcome to this little game! You have been randomly assigned to a game in which you can earn additional money. In this game you are playing with three computers located at the Erasmus University Rotterdam (the Netherlands). Each computer randomly contributes a certain amount of money between zero and 40 cents to a common project. You and each of the computers are given 40 cents for this interaction (in addition to the 50 cents you received already for participating). You each decide how much of your 40 cents to keep for yourself, and how much (if any) to contribute to the group’s common project. All money contributed to the common project is doubled, and then split in four. Below we give an example of how the bonus is determined:",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions computer-contribution-unknown",
+            "note": "Appendix A 'Instructions computer-contribution-unknown', paragraph 1 of 5 (welcome); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Suppose computer A contributes 10 cents to the common project, computer B contributes 20 cents, computer C contributes 20 cents, and a participant contributes 10 cents. This means that the total amount of money contributed to the common project is 10+20+20+10=60 cents. These 60 cents will be doubled, which results in a total of 120 cents for the common project. Now, these 120 cents will be divided by four. So the participant receives 30 cents from the common project. The bonus the participant gets is these 30 cents PLUS the initial amount of money (40 cents) minus the participant’s individual contribution.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions computer-contribution-unknown",
+            "note": "Appendix A 'Instructions computer-contribution-unknown', paragraph 2 of 5 (example); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "For the participant in this example, this leads to the following bonus payments:",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions computer-contribution-unknown",
+            "note": "Appendix A 'Instructions computer-contribution-unknown', paragraph 3 of 5 (example_result); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Participant: 30+(40-10)=60.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions computer-contribution-unknown",
+            "note": "Appendix A 'Instructions computer-contribution-unknown', paragraph 4 of 5 (participant); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Remember that in this game you have been randomly assigned to three computers. The three computers are REAL and will really make a contribution– there is no deception in this study. You and the three computers are doing this task simultaneously; therefore you don't know what (if any) each of the computers contributes.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions computer-contribution-unknown",
+            "note": "Appendix A 'Instructions computer-contribution-unknown', paragraph 5 of 5 (remember); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        }
+      ],
+      "computer_known": [
+        {
+          "text": "Welcome to this little game! You have been randomly assigned to a game in which you can earn additional money. In this game you are playing with three computers located at the Erasmus University Rotterdam (the Netherlands). Each computer randomly contributes a certain amount of money between zero and 40 cents to a common project. You and each of the computers are given 40 cents for this interaction (in addition to the 50 cents you received already for participating). You each decide how much of your 40 cents to keep for yourself, and how much (if any) to contribute to the group’s common project. All money contributed to the common project is doubled, and then split in four. Below we give an example of how the bonus is determined:",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions computer-contribution-known",
+            "note": "Appendix A 'Instructions computer-contribution-known', paragraph 1 of 5 (welcome); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Suppose computer A contributes 10 cents to the common project, computer B contributes 20 cents, computer C contributes 20 cents, and a participant contributes 10 cents. This means that the total amount of money contributed to the common project is 10+20+20+10=60 cents. These 60 cents will be doubled which results in a total of 120 cents for the common project. Now, these 120 cents will be divided by four. So the participant receives 30 cents from the common project. The bonus the participant gets is these 30 cents PLUS the initial amount of money (40 cents) minus the participant’s individual contribution.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions computer-contribution-known",
+            "note": "Appendix A 'Instructions computer-contribution-known', paragraph 2 of 5 (example); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "For the participant in this example, this leads to the following bonus payments:",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions computer-contribution-known",
+            "note": "Appendix A 'Instructions computer-contribution-known', paragraph 3 of 5 (example_result); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Participant: 30+(40-10)=60.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions computer-contribution-known",
+            "note": "Appendix A 'Instructions computer-contribution-known', paragraph 4 of 5 (participant); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        },
+        {
+          "text": "Remember that in this game you have been randomly assigned to three computers. The three computers are REAL and will really make a contribution– there is no deception in this study. Each of the three computers has already chosen their contribution. The total amount of money the three computers contributed to the common project is 60 cents. Your turn is next.",
+          "cite": {
+            "label": "verbatim",
+            "source": "si",
+            "where": "Appendix A > Instructions computer-contribution-known",
+            "note": "Appendix A 'Instructions computer-contribution-known', paragraph 5 of 5 (remember); one paragraph of the SI = one item; the instruction screen held all of them ('a new screen in which they received the instruction', Procedure)"
+          }
+        }
+      ]
+    },
+    "fd_text": {
+      "text": "Please carefully consider you decision. You must wait and think for at least 10 seconds before making your decision.",
+      "cite": {
+        "label": "verbatim",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure",
+        "note": "forced-delay screen text, set in italics in the SI (the quoted screen text). 'consider you decision' is printed so (the Experiment 2 quotation of Rand et al.'s text reads 'consider your decision'): kept as printed (meta.conflicts)"
+      }
+    },
+    "tp_text": {
+      "text": "You have to decide within 10 seconds. Click on >> for your contribution",
+      "cite": {
+        "label": "verbatim",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure",
+        "note": "time-pressure contribution-screen text, set in italics in the SI; the italic run ends at 'contribution' and the full stop after it is roman (the SI's sentence end), so the served text ends without it (meta.conflicts)"
+      }
+    },
+    "cell": {
+      "hu_tp": {
+        "team": "human",
+        "knowledge": "unknown",
+        "constraint": "pressure"
+      },
+      "hu_fd": {
+        "team": "human",
+        "knowledge": "unknown",
+        "constraint": "delay"
+      },
+      "hk_tp": {
+        "team": "human",
+        "knowledge": "known",
+        "constraint": "pressure"
+      },
+      "hk_fd": {
+        "team": "human",
+        "knowledge": "known",
+        "constraint": "delay"
+      },
+      "cu_tp": {
+        "team": "computer",
+        "knowledge": "unknown",
+        "constraint": "pressure"
+      },
+      "cu_fd": {
+        "team": "computer",
+        "knowledge": "unknown",
+        "constraint": "delay"
+      },
+      "ck_tp": {
+        "team": "computer",
+        "knowledge": "known",
+        "constraint": "pressure"
+      },
+      "ck_fd": {
+        "team": "computer",
+        "knowledge": "known",
+        "constraint": "delay"
+      }
+    },
+    "missing": {
+      "age_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "si",
+          "note": "the age question; Procedure: 'participants were first asked to provide their age, gender and highest level of education'; 'The mean age of the 211 participants who choose to report their age' (Participants): wording, format and limits not printed; the administered survey (software, screens) is not published: the SI describes the procedure and quotes only the instructions, the two timing texts and the comprehension question; searched, see STATUS",
+          "where": "Experiment 1 > Method > Participants / Experiment 1 > Method > Procedure"
+        }
+      },
+      "gender_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "si",
+          "note": "the gender question and its option labels; only '39% ... female and 61% ... male' is reported; wording, options and order not printed; the administered survey (software, screens) is not published: the SI describes the procedure and quotes only the instructions, the two timing texts and the comprehension question; searched, see STATUS",
+          "where": "Experiment 1 > Method > Participants / Experiment 1 > Method > Procedure"
+        }
+      },
+      "education_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "si",
+          "note": "the highest-education question and its option labels; the SI groups the answers as 'high-school or less', 'some college, a 2-year college degree or a 4-year college degree', 'a Master's degree, a Doctoral degree or a Professional degree (JD, MD)'; the option list, labels and order as shown are not printed; the administered survey (software, screens) is not published: the SI describes the procedure and quotes only the instructions, the two timing texts and the comprehension question; searched, see STATUS",
+          "where": "Experiment 1 > Method > Participants / Experiment 1 > Method > Procedure"
+        }
+      },
+      "contribution_box": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "si",
+          "note": "the label / prompt of the contribution box (if any); the SI says only that participants 'had to type in their contribution in a box' (forced delay) and 'could type in their contribution in a box' (time pressure, after >>); whether the box had a label, a unit or a reminder of the 0-40 cents is not printed; the administered survey (software, screens) is not published: the SI describes the procedure and quotes only the instructions, the two timing texts and the comprehension question; searched, see STATUS",
+          "where": "Experiment 1 > Method > Procedure"
+        }
+      },
+      "motivation_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "si",
+          "note": "the motivation question; reported only as a description: 'they were asked to briefly describe the motivation for their decision on how much to contribute' (Procedure; 'We also asked participants to indicate the motivation underlying their contribution', Scoring of motivation). A description of a screen is not its text (README Decided 11); the administered survey (software, screens) is not published: the SI describes the procedure and quotes only the instructions, the two timing texts and the comprehension question; searched, see STATUS",
+          "where": "Experiment 1 > Method > Procedure"
+        }
+      },
+      "comprehension_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "si",
+          "note": "the comprehension question as shown in this arm; the SI quotes it once for both team conditions: 'Now, assume that you and each of the three other players/computers (depending on the condition) contributed 10 cents to the common project. Please indicate the magnitude of the bonus that you would receive in this situation.' (the italic quote holds the alternatives 'other players/computers'; '(depending on the condition)' is roman, the authors' note). The per-arm sentence would have to be spliced by the converter, and the computer wording could equally be 'three computers' (as in the instructions): not served (README Decided 16(d)); the administered survey (software, screens) is not published: the SI describes the procedure and quotes only the instructions, the two timing texts and the comprehension question; searched, see STATUS",
+          "where": "Experiment 1 > Method > Procedure"
+        }
+      }
+    }
+  },
+  "stages": {
+    "demog": {
+      "content": [],
+      "responses": [
+        {
+          "id": "age",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['age_prompt']"
+          },
+          "required": false,
+          "cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Experiment 1 > Method > Participants",
+            "note": "age recorded; 211 of 289 reported it, so the answer was optional (required false); format and limits not printed: none declared"
+          },
+          "required_cite": {
+            "label": "reported",
+            "source": "si",
+            "where": "Experiment 1 > Method > Participants",
+            "note": "'The mean age of the 211 participants who choose to report their age' (of 289)"
+          }
+        },
+        {
+          "id": "gender",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['gender_prompt']"
+          },
+          "options": [
+            {
+              "code": "female",
+              "label": {
+                "expr": "data['missing']['gender_prompt']"
+              }
+            },
+            {
+              "code": "male",
+              "label": {
+                "expr": "data['missing']['gender_prompt']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Experiment 1 > Method > Participants",
+            "note": "two categories reported (39% female, 61% male); labels, order and any other option are not printed"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Experiment 1 > Method > Participants",
+            "note": "'All participants reported their gender and their highest level of education': forced or not is not stated; required derived. Alternative: optional (everyone happened to answer)"
+          }
+        },
+        {
+          "id": "education",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['education_prompt']"
+          },
+          "options": [
+            {
+              "code": "hs_or_less",
+              "label": {
+                "expr": "data['missing']['education_prompt']"
+              }
+            },
+            {
+              "code": "some_college",
+              "label": {
+                "expr": "data['missing']['education_prompt']"
+              }
+            },
+            {
+              "code": "college_2yr",
+              "label": {
+                "expr": "data['missing']['education_prompt']"
+              }
+            },
+            {
+              "code": "college_4yr",
+              "label": {
+                "expr": "data['missing']['education_prompt']"
+              }
+            },
+            {
+              "code": "masters",
+              "label": {
+                "expr": "data['missing']['education_prompt']"
+              }
+            },
+            {
+              "code": "doctoral",
+              "label": {
+                "expr": "data['missing']['education_prompt']"
+              }
+            },
+            {
+              "code": "professional",
+              "label": {
+                "expr": "data['missing']['education_prompt']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Experiment 1 > Method > Participants",
+            "note": "option codes from the categories the SI names ('high-school or less', 'some college, a 2-year college degree or a 4-year college degree', 'a Master's degree, a Doctoral degree or a Professional degree (JD, MD)'); labels, order and the real option list are not printed (the first category may have been split)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Experiment 1 > Method > Participants",
+            "note": "as gender: all participants answered; required derived"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 2,
+        "note": "SI Procedure: 'After accepting the hit in Amazon Mechanical Turk, participants were first asked to provide their age, gender and highest level of education. Subsequently, they entered a new screen ...' -> one demographics page before the instructions (the number of pages, item order, back navigation and button are not printed; derived). Alternative reading: one item per page; only the paging changes"
+      }
+    },
+    "instr_h": {
+      "content": [
+        {
+          "id": "welcome",
+          "value": {
+            "expr": "data['instr']['human_' + data['cell'][arm]['knowledge']][0]"
+          }
+        },
+        {
+          "id": "example_intro",
+          "value": {
+            "expr": "data['instr']['human_' + data['cell'][arm]['knowledge']][1]"
+          }
+        },
+        {
+          "id": "example",
+          "value": {
+            "expr": "data['instr']['human_' + data['cell'][arm]['knowledge']][2]"
+          }
+        },
+        {
+          "id": "pete",
+          "value": {
+            "expr": "data['instr']['human_' + data['cell'][arm]['knowledge']][3]"
+          }
+        },
+        {
+          "id": "andy",
+          "value": {
+            "expr": "data['instr']['human_' + data['cell'][arm]['knowledge']][4]"
+          }
+        },
+        {
+          "id": "mary",
+          "value": {
+            "expr": "data['instr']['human_' + data['cell'][arm]['knowledge']][5]"
+          }
+        },
+        {
+          "id": "john",
+          "value": {
+            "expr": "data['instr']['human_' + data['cell'][arm]['knowledge']][6]"
+          }
+        },
+        {
+          "id": "remember",
+          "value": {
+            "expr": "data['instr']['human_' + data['cell'][arm]['knowledge']][7]"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": [
+        {
+          "label": "reported",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "'Participants read the instructions at their own pace. After they finished reading the instructions, they clicked on a button to proceed to the contribution screen' -> advance self"
+        },
+        {
+          "label": "derived",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "the button's label is absent from the SI (no button field); back navigation unknown; the instructions are not reviewable on the contribution screens (the SI describes a new screen and does not say they stayed available). Alternative: instructions reachable again (e.g. above the box); only `seen` reviewability would change"
+        }
+      ]
+    },
+    "instr_c": {
+      "content": [
+        {
+          "id": "welcome",
+          "value": {
+            "expr": "data['instr']['computer_' + data['cell'][arm]['knowledge']][0]"
+          }
+        },
+        {
+          "id": "example",
+          "value": {
+            "expr": "data['instr']['computer_' + data['cell'][arm]['knowledge']][1]"
+          }
+        },
+        {
+          "id": "example_result",
+          "value": {
+            "expr": "data['instr']['computer_' + data['cell'][arm]['knowledge']][2]"
+          }
+        },
+        {
+          "id": "participant",
+          "value": {
+            "expr": "data['instr']['computer_' + data['cell'][arm]['knowledge']][3]"
+          }
+        },
+        {
+          "id": "remember",
+          "value": {
+            "expr": "data['instr']['computer_' + data['cell'][arm]['knowledge']][4]"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": [
+        {
+          "label": "reported",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "'Participants read the instructions at their own pace. After they finished reading the instructions, they clicked on a button to proceed to the contribution screen' -> advance self"
+        },
+        {
+          "label": "derived",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "the button's label is absent from the SI (no button field); back navigation unknown; the instructions are not reviewable on the contribution screens (the SI describes a new screen and does not say they stayed available). Alternative: instructions reachable again (e.g. above the box); only `seen` reviewability would change"
+        }
+      ]
+    },
+    "tp_screen": {
+      "content": [
+        {
+          "id": "tp_text",
+          "value": {
+            "expr": "data['tp_text']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self",
+        "time_limit": 10,
+        "button": ">>"
+      },
+      "presentation_cite": [
+        {
+          "label": "reported",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "'In the time-pressure condition, participants saw the following text on the contribution screen: You have to decide within 10 seconds. Click on >> for your contribution. When participants clicked on the >> button they could type in their contribution in a box.' The button label '>>' is quoted (the text names it). time_limit 10 = the stated limit for the whole decision (this screen and the box), NOT a per-page timer: the software did not stop anyone (three participants exceeded 10 s and were excluded afterwards, paper p. 2); the engine has no clock (meta.deviations). The budget is shared with contrib_tp, which carries no time_limit of its own (LESSONS 222; engine request shared_time_budget)"
+        },
+        {
+          "label": "derived",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "back unknown: the SI gives no navigation for any screen (fidelity review 1, R1-S2). A timed decision screen suggests no way back, but that is a design argument, not evidence"
+        }
+      ]
+    },
+    "contrib_tp": {
+      "content": [],
+      "responses": [
+        {
+          "id": "contribution",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['contribution_box']"
+          },
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "si",
+            "where": "Experiment 1 > Method > Procedure",
+            "note": "'they could type in their contribution in a box' (in cents: Table 1 reports contributions in dollar cents, maximum 40, paper p. 3)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Experiment 1 > Method > Procedure",
+            "note": "not stated; every analysed participant has a contribution (Table 1). Alternative: optional"
+          },
+          "range_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 3,
+            "note": "no range or validation is declared: the box's limits and messages are not printed. The instructions say 'how much of your 40 cents to keep ... and how much (if any) to contribute' and Table 1's note says 'the maximum contribution was 40 dollar cents' (a property of the game). Experiment 1 reports no invalid entries, whereas Experiment 3 excluded 4 who 'failed to enter a valid contribution' (p. 5), so the box need not have enforced 0-40. Alternative: validation 0-40 with an unknown message. Out-of-range answers are dropped from the analysis by exclusions.invalid_contribution (R1-S1)"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure",
+        "note": "back unknown (the SI gives no navigation; R1-S2). The box shown after the >> click: a new screen is derived (the SI says only that after clicking >> they 'could type in their contribution in a box'). Alternative readings: the box appeared on the same screen under the time-pressure text, which then stayed visible; this stage would then also show tp_text (`seen` only here). The 10 s limit runs on from tp_screen (no own time_limit: one budget, LESSONS 222)"
+      }
+    },
+    "fd_wait": {
+      "content": [
+        {
+          "id": "fd_text",
+          "value": {
+            "expr": "data['fd_text']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "timed",
+        "time_limit": 10
+      },
+      "presentation_cite": [
+        {
+          "label": "reported",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "'For participants in the forced-delay conditions, a screen was shown with the text: ... This text was presented for 10 seconds after which the text disappeared and participants had to type in their contribution in a box. Thus, in the forced delay conditions ... timing of the decision was experimenter controlled' -> advance timed, time_limit 10 (the engine has no clock: meta.deviations)"
+        },
+        {
+          "label": "derived",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "back not_allowed kept (R1-S2): the program showed this text for 10 s and then replaced it by the box ('after which the text disappeared'; 'timing of the decision was experimenter controlled'), so the screen had no participant navigation at all, forward or back; not stated in words. Alternative: unknown. No button (the program advanced)"
+        }
+      ]
+    },
+    "contrib_fd": {
+      "content": [],
+      "responses": [
+        {
+          "id": "contribution",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['contribution_box']"
+          },
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "si",
+            "where": "Experiment 1 > Method > Procedure",
+            "note": "'the text disappeared and participants had to type in their contribution in a box' (cents; maximum 40, paper p. 3)"
+          },
+          "required_cite": {
+            "label": "derived",
+            "source": "si",
+            "where": "Experiment 1 > Method > Procedure",
+            "note": "not stated; every analysed participant has a contribution. Alternative: optional"
+          },
+          "range_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 3,
+            "note": "as contrib_tp: no range or validation declared (not printed); alternative: 0-40 enforced with an unknown message; out-of-range answers are dropped from the analysis by exclusions.invalid_contribution (R1-S1)"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": [
+        {
+          "label": "reported",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "'This text was presented for 10 seconds after which the text disappeared and participants had to type in their contribution in a box'"
+        },
+        {
+          "label": "derived",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "modelled as the next stage after the timed text (fd_text no longer on screen, not reviewable); back navigation unknown and no button field (the SI gives neither; R1-S2)"
+        }
+      ]
+    },
+    "motive": {
+      "content": [],
+      "responses": [
+        {
+          "id": "motivation",
+          "kind": "text",
+          "prompt": {
+            "expr": "data['missing']['motivation_prompt']"
+          },
+          "required": false,
+          "coding": {
+            "block": "motivation"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "si",
+            "where": "Experiment 1 > Method > Procedure",
+            "note": "'they were taken to the motivation screen. Subsequently, they were asked to briefly describe the motivation for their decision on how much to contribute'"
+          },
+          "required_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "note": "'3 participants were not included because they did not give a motivation for their contribution' (p. 2): the answer was not forced"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure",
+        "note": "own screen ('taken to the motivation screen', reported); back navigation not stated: unknown (R1-S2); button label not printed"
+      }
+    },
+    "comp": {
+      "content": [],
+      "responses": [
+        {
+          "id": "bonus_answer",
+          "kind": "text",
+          "prompt": {
+            "expr": "data['missing']['comprehension_prompt']"
+          },
+          "required": false,
+          "coding": {
+            "block": "comprehension"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "si",
+            "where": "Experiment 1 > Method > Procedure",
+            "note": "'Participants had to type in the answer (the correct answer is 50 cents)'; free text (the paper codes 'no answer or an unclear answer', p. 2)"
+          },
+          "required_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "note": "10% 'gave no answer or an unclear answer' (p. 2): blanks were possible"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": [
+        {
+          "label": "reported",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "'Subsequently, participants moved on the comprehension screen. This screen contained the following question' (own screen, last answer of the session)"
+        },
+        {
+          "label": "derived",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "back unknown (the SI gives no navigation; R1-S2); no button field"
+        }
+      ]
+    }
+  },
+  "flow": [
+    {
+      "stage": "demog"
+    },
+    {
+      "if": "data['cell'][arm]['team'] == 'human'",
+      "then": {
+        "stage": "instr_h"
+      },
+      "else": {
+        "stage": "instr_c"
+      }
+    },
+    {
+      "if": "data['cell'][arm]['constraint'] == 'pressure'",
+      "then": {
+        "seq": [
+          {
+            "stage": "tp_screen"
+          },
+          {
+            "stage": "contrib_tp"
+          }
+        ]
+      },
+      "else": {
+        "seq": [
+          {
+            "stage": "fd_wait"
+          },
+          {
+            "stage": "contrib_fd"
+          }
+        ]
+      }
+    },
+    {
+      "stage": "motive"
+    },
+    {
+      "stage": "comp"
+    }
+  ],
+  "flow_cites": {
+    "assignment": {
+      "label": "reported",
+      "source": "si",
+      "where": "Experiment 1 > Method > Participants",
+      "note": "'Participants were randomly assigned to one of the conditions of a 2 contribution knowledge ... x 2 team members ... x 2 decision constraint ... between-subjects design'. One arm per cell; how the draw was balanced is not stated (cell n 29-43, Table 1): design('paper') replays the analysed cell sizes. Alternative: simple random assignment of each worker (unequal cells as printed are consistent with it)"
+    },
+    "order": {
+      "label": "reported",
+      "source": "si",
+      "where": "Experiment 1 > Method > Procedure",
+      "note": "order demographics -> instructions -> contribution screen(s) -> motivation screen -> comprehension screen -> thanks, as the Procedure narrates it"
+    }
+  },
+  "coding": {
+    "motivation": {
+      "free_text": true,
+      "apply": "'uncoded' if not search('[0-9a-z]', lower(text or '')) else 'needs_coder'",
+      "codes": [
+        "cooperative",
+        "non_cooperative",
+        "needs_coder",
+        "uncoded"
+      ],
+      "rule": "a blank reply (no letter or digit) -> uncoded (the paper's 'did not give a motivation', excluded from Table 3); every other reply -> needs_coder: cooperative vs non-cooperative is a judgment of meaning (two raters, kappa .67), so the rule gives no definite code (LESSONS 245)",
+      "rule_cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Scoring of motivation",
+        "note": "'Each motivation was scored as either cooperative or non-cooperative' by raters; 'Two independent raters scored a subset of 40 random motivations ... Cohen's Kappa = .67'"
+      },
+      "cases": [
+        {
+          "text": "",
+          "code": "uncoded"
+        },
+        {
+          "text": null,
+          "code": "uncoded"
+        },
+        {
+          "text": "  ...  ",
+          "code": "uncoded"
+        },
+        {
+          "text": "I wanted to give as much as possible so that the group would benefit.",
+          "code": "needs_coder"
+        },
+        {
+          "text": "I want to make as much money as possible for myself.",
+          "code": "needs_coder"
+        },
+        {
+          "text": "no idea",
+          "code": "needs_coder"
+        },
+        {
+          "text": "20",
+          "code": "needs_coder"
+        },
+        {
+          "text": "fair share",
+          "code": "needs_coder"
+        }
+      ],
+      "cases_note": "the two quoted replies are the SI's own examples (cooperative / non-cooperative); both go to the coder",
+      "coder": {
+        "rubric": "cooperative if the participant indicates, in one way or the other, that he/she wanted to benefit the group as a whole; non_cooperative if the reply reports selfishness as motivation or is not related to cooperation or to selfishness (SI 'Scoring of motivation', with its three examples per category)",
+        "input": "the reply text only (blind to the arm)",
+        "output": [
+          "cooperative",
+          "non_cooperative"
+        ],
+        "provenance": "recorded per run; never mixed with rule codes",
+        "cite": {
+          "label": "reported",
+          "source": "si",
+          "where": "Experiment 1 > Method > Scoring of motivation"
+        }
+      },
+      "heldout_note": "the rule gives no definite substantive code (blanks only), so there is no wrong-direction code a held-out set could find; held-out sets are the coordinator's decision"
+    },
+    "comprehension": {
+      "free_text": true,
+      "apply": "'uncoded' if not search('[0-9a-z]', lower(text or '')) else 'needs_coder'",
+      "codes": [
+        "correct_50",
+        "partial_20",
+        "wrong",
+        "needs_coder",
+        "uncoded"
+      ],
+      "rule": "a blank reply -> uncoded (the paper's 'no answer'); every other reply -> needs_coder. The paper's categories (50 cents correct, 20 cents partially correct, other bonus, no answer or unclear answer) were assigned by the authors; how '50', '$0.50', '.5' or 'fifty' were read is not printed, so the rule codes no number definitely (conservative; a mechanical number rule would need a held-out gate)",
+      "rule_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 2,
+        "note": "'The correct answer to the question was 50 cents ... A partially correct answer was 20 cents ... answered ... with a bonus that was neither 50 cents nor 20 cents. The remaining 10% of the participants gave no answer or an unclear answer'"
+      },
+      "cases": [
+        {
+          "text": "",
+          "code": "uncoded"
+        },
+        {
+          "text": null,
+          "code": "uncoded"
+        },
+        {
+          "text": "?",
+          "code": "uncoded"
+        },
+        {
+          "text": "50 cents",
+          "code": "needs_coder"
+        },
+        {
+          "text": "20",
+          "code": "needs_coder"
+        },
+        {
+          "text": "$0.60",
+          "code": "needs_coder"
+        },
+        {
+          "text": "I don't know",
+          "code": "needs_coder"
+        }
+      ],
+      "coder": {
+        "rubric": "correct_50 if the reply states a bonus of 50 cents; partial_20 if it states 20 cents (the common project share without the kept 30 cents); wrong if it states any other bonus; uncoded if it gives no answer or an unclear answer (paper p. 2)",
+        "input": "the reply text only (blind to the arm)",
+        "output": [
+          "correct_50",
+          "partial_20",
+          "wrong",
+          "uncoded"
+        ],
+        "provenance": "recorded per run; never mixed with rule codes",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2
+        }
+      },
+      "heldout_note": "as motivation: no definite substantive code"
+    }
+  },
+  "units": {
+    "participants": {
+      "per": "session",
+      "fields": {
+        "team": "data['cell'][arm]['team']",
+        "knowledge": "data['cell'][arm]['knowledge']",
+        "constraint": "data['cell'][arm]['constraint']",
+        "contribution": "answer('contrib_tp.contribution') if data['cell'][arm]['constraint'] == 'pressure' else answer('contrib_fd.contribution')",
+        "box_ms": "elapsed('contrib_tp.contribution') if data['cell'][arm]['constraint'] == 'pressure' else elapsed('contrib_fd.contribution')",
+        "motive": "'uncoded' if not search('[0-9a-z]', lower(answer('motive.motivation') or '')) else 'needs_coder'",
+        "comprehension": "'uncoded' if not search('[0-9a-z]', lower(answer('comp.bonus_answer') or '')) else 'needs_coder'"
+      },
+      "cites": {
+        "team": {
+          "label": "reported",
+          "source": "si",
+          "where": "Experiment 1 > Method > Participants",
+          "note": "team members: humans vs computers"
+        },
+        "knowledge": {
+          "label": "reported",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "contribution known (60 cents already contributed) vs unknown"
+        },
+        "constraint": {
+          "label": "reported",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "time pressure vs forced delay"
+        },
+        "contribution": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "note": "contribution in dollar cents (Table 1)"
+        },
+        "box_ms": {
+          "label": "derived",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "'For all participants we recorded the time they took to make their contribution'. The engine records time only on screens with an answer, so this is the box screen's time only (the time on tp_screen / fd_wait is not recorded; engine request elapsed_on_responseless_screens); it understates the paper's decision time"
+        },
+        "motive": {
+          "label": "derived",
+          "source": "si",
+          "where": "Experiment 1 > Method > Scoring of motivation",
+          "note": "coding.motivation rule (blank -> uncoded, else needs_coder); the coder's cooperative / non_cooperative replaces needs_coder"
+        },
+        "comprehension": {
+          "label": "derived",
+          "source": "paper",
+          "page": 2,
+          "note": "coding.comprehension rule; the coder's codes replace needs_coder"
+        }
+      }
+    }
+  },
+  "exclusions": [
+    {
+      "id": "time_constraint",
+      "if": "data['cell'][arm]['constraint'] == 'pressure' and elapsed('contrib_tp.contribution') is not None and elapsed('contrib_tp.contribution') > 10000",
+      "cite": [
+        {
+          "label": "reported",
+          "source": "paper",
+          "page": 2,
+          "note": "'The contributions of three participants from the time-pressure condition were excluded from the analysis, because these participants failed to meet the time constraint, i.e., 10 s' (289 completed, SI; 286 analysed, Table 1). Table 3's 283 + 3 = 286 shows the motivation analysis used the same 286, so the exclusion applies to every analysis"
+        },
+        {
+          "label": "derived",
+          "source": "si",
+          "where": "Experiment 1 > Method > Procedure",
+          "note": "measured here on the box screen only (units.participants.cites.box_ms); the paper's decision time started at the first contribution screen: Table 2 (p. 3) forced-delay minimums are 10.88, 11.03, 10.99 and 11.08 s (medians 12.38-13.01 s), i.e. the recorded time includes the 10 s delay-text screen, so for time pressure the clock started at tp_screen (fidelity review 1, R1-S3). Until the engine records time on response-less screens (meta.engine_requests elapsed_on_responseless_screens) this rule lets through sessions the paper would have excluded; once it exists the rule must use tp_screen + contrib_tp time. An agent's time is not a human decision time: the exclusion is kept for fidelity of the rule, not as a timing claim (meta.deviations)"
+        }
+      ],
+      "counts": {
+        "excluded": 3,
+        "of": 289,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2,
+          "evidence": "The contributions of three participants"
+        }
+      }
+    },
+    {
+      "id": "invalid_contribution",
+      "if": "(answer('contrib_tp.contribution') if data['cell'][arm]['constraint'] == 'pressure' else answer('contrib_fd.contribution')) is None or (answer('contrib_tp.contribution') if data['cell'][arm]['constraint'] == 'pressure' else answer('contrib_fd.contribution')) < 0 or (answer('contrib_tp.contribution') if data['cell'][arm]['constraint'] == 'pressure' else answer('contrib_fd.contribution')) > 40",
+      "applies_to": [
+        "t1_hu_tp",
+        "t1_hu_fd",
+        "t1_hk_tp",
+        "t1_hk_fd",
+        "t1_cu_tp",
+        "t1_cu_fd",
+        "t1_ck_tp",
+        "t1_ck_fd",
+        "ice_human_unknown",
+        "ice_human_known",
+        "ice_computer_unknown",
+        "ice_computer_known",
+        "constraint_main",
+        "team_x_constraint"
+      ],
+      "cite": [
+        {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "note": "Table 1 note: 'Note that the maximum contribution was 40 dollar cents'; the instructions offer 'how much of your 40 cents' (SI Appendix A)"
+        },
+        {
+          "label": "derived",
+          "source": "paper",
+          "page": 5,
+          "note": "Experiment 1 prints no invalid-contribution exclusion; in Experiment 3 the authors excluded 4 who 'failed to enter a valid contribution' (p. 5), so their analyses kept only contributions in the game's range. Derived: contributions that are missing or outside 0-40 cents do not enter the contribution targets and effects (fidelity review 1, R1-S1); the box itself stays unvalidated on screen. Alternative reading: the Experiment 1 box enforced 0-40 (then no such answer can occur, and the filter never fires); a value outside 0-40 would otherwise distort Table 1 means. Integers are not required (not printed)"
+        }
+      ],
+      "counts_note": "Experiment 1 prints no count for this rule (none reported); 289 - 3 = 286 already reconciles"
+    }
+  ],
+  "omitted": [
+    {
+      "what": "the MTurk HIT page and any consent text (no written consent was obtained, SI Ethics statement)",
+      "why": "not published",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Ethics statement / Experiment 1 > Procedure"
+      }
+    },
+    {
+      "what": "the closing page ('after which they were thanked for participating')",
+      "why": "its text is not printed; it would be the arm's last page (arms are blocked by missing content anyway)",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure"
+      }
+    },
+    {
+      "what": "bonus payment: each participant teamed with 3 randomly selected others of the 289 and paid by the pay-off schedule",
+      "why": "happened after the session; no screen reported (meta.conflicts earnings / deception)",
+      "label": "reported",
+      "cite": {
+        "label": "reported",
+        "source": "si",
+        "where": "Experiment 1 > Method > Procedure"
+      }
+    },
+    {
+      "what": "Experiments 2a, 2b, 2c and 3 (Rand et al.'s Study 6 instructions, box / slider, experimenter- / participant-controlled delay; Experiment 3 naive workers only; Tables 4-5, pp. 4-6)",
+      "why": "out of scope for this build (coordinator brief: Experiment 1 only)",
+      "label": "reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 4
+      }
+    }
+  ],
+  "analysis": {
+    "targets": [],
+    "effects": [],
+    "blocked_arm_targets": [
+      {
+        "id": "t1_hu_tp",
+        "unit": "participants",
+        "field": "contribution",
+        "stat": "mean",
+        "where": {
+          "team": "human",
+          "knowledge": "unknown",
+          "constraint": "pressure"
+        },
+        "human": {
+          "value": 20.76,
+          "sd": 12.76,
+          "n": 33,
+          "ci": [
+            16.36,
+            25.15
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1, row human / unknown / pressure (contributions in dollar cents, participants who obeyed the time constraints); the 95% CIs equal M +/- t(.975, 278) x 12.83 / sqrt(n), i.e. they use the pooled ANOVA error SD (sqrt of the pooled within-cell variance, df 278), not the cell SD (recomputed for all 8 cells)"
+          }
+        }
+      },
+      {
+        "id": "t1_hu_fd",
+        "unit": "participants",
+        "field": "contribution",
+        "stat": "mean",
+        "where": {
+          "team": "human",
+          "knowledge": "unknown",
+          "constraint": "delay"
+        },
+        "human": {
+          "value": 17.14,
+          "sd": 11.65,
+          "n": 35,
+          "ci": [
+            12.87,
+            21.41
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1, row human / unknown / delay (contributions in dollar cents, participants who obeyed the time constraints); the 95% CIs equal M +/- t(.975, 278) x 12.83 / sqrt(n), i.e. they use the pooled ANOVA error SD (sqrt of the pooled within-cell variance, df 278), not the cell SD (recomputed for all 8 cells)"
+          }
+        }
+      },
+      {
+        "id": "t1_hk_tp",
+        "unit": "participants",
+        "field": "contribution",
+        "stat": "mean",
+        "where": {
+          "team": "human",
+          "knowledge": "known",
+          "constraint": "pressure"
+        },
+        "human": {
+          "value": 21.0,
+          "sd": 13.83,
+          "n": 40,
+          "ci": [
+            17.01,
+            24.99
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1, row human / known / pressure (contributions in dollar cents, participants who obeyed the time constraints); the 95% CIs equal M +/- t(.975, 278) x 12.83 / sqrt(n), i.e. they use the pooled ANOVA error SD (sqrt of the pooled within-cell variance, df 278), not the cell SD (recomputed for all 8 cells)"
+          }
+        }
+      },
+      {
+        "id": "t1_hk_fd",
+        "unit": "participants",
+        "field": "contribution",
+        "stat": "mean",
+        "where": {
+          "team": "human",
+          "knowledge": "known",
+          "constraint": "delay"
+        },
+        "human": {
+          "value": 22.1,
+          "sd": 13.0,
+          "n": 39,
+          "ci": [
+            18.06,
+            26.15
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1, row human / known / delay (contributions in dollar cents, participants who obeyed the time constraints); the 95% CIs equal M +/- t(.975, 278) x 12.83 / sqrt(n), i.e. they use the pooled ANOVA error SD (sqrt of the pooled within-cell variance, df 278), not the cell SD (recomputed for all 8 cells)"
+          }
+        }
+      },
+      {
+        "id": "t1_cu_tp",
+        "unit": "participants",
+        "field": "contribution",
+        "stat": "mean",
+        "where": {
+          "team": "computer",
+          "knowledge": "unknown",
+          "constraint": "pressure"
+        },
+        "human": {
+          "value": 24.07,
+          "sd": 12.3,
+          "n": 30,
+          "ci": [
+            19.46,
+            28.68
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1, row computer / unknown / pressure (contributions in dollar cents, participants who obeyed the time constraints); the 95% CIs equal M +/- t(.975, 278) x 12.83 / sqrt(n), i.e. they use the pooled ANOVA error SD (sqrt of the pooled within-cell variance, df 278), not the cell SD (recomputed for all 8 cells)"
+          }
+        }
+      },
+      {
+        "id": "t1_cu_fd",
+        "unit": "participants",
+        "field": "contribution",
+        "stat": "mean",
+        "where": {
+          "team": "computer",
+          "knowledge": "unknown",
+          "constraint": "delay"
+        },
+        "human": {
+          "value": 22.26,
+          "sd": 13.52,
+          "n": 43,
+          "ci": [
+            18.41,
+            26.11
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1, row computer / unknown / delay (contributions in dollar cents, participants who obeyed the time constraints); the 95% CIs equal M +/- t(.975, 278) x 12.83 / sqrt(n), i.e. they use the pooled ANOVA error SD (sqrt of the pooled within-cell variance, df 278), not the cell SD (recomputed for all 8 cells)"
+          }
+        }
+      },
+      {
+        "id": "t1_ck_tp",
+        "unit": "participants",
+        "field": "contribution",
+        "stat": "mean",
+        "where": {
+          "team": "computer",
+          "knowledge": "known",
+          "constraint": "pressure"
+        },
+        "human": {
+          "value": 22.07,
+          "sd": 13.13,
+          "n": 29,
+          "ci": [
+            17.38,
+            26.76
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1, row computer / known / pressure (contributions in dollar cents, participants who obeyed the time constraints); the 95% CIs equal M +/- t(.975, 278) x 12.83 / sqrt(n), i.e. they use the pooled ANOVA error SD (sqrt of the pooled within-cell variance, df 278), not the cell SD (recomputed for all 8 cells)"
+          }
+        }
+      },
+      {
+        "id": "t1_ck_fd",
+        "unit": "participants",
+        "field": "contribution",
+        "stat": "mean",
+        "where": {
+          "team": "computer",
+          "knowledge": "known",
+          "constraint": "delay"
+        },
+        "human": {
+          "value": 18.38,
+          "sd": 11.96,
+          "n": 37,
+          "ci": [
+            14.23,
+            22.53
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1, row computer / known / delay (contributions in dollar cents, participants who obeyed the time constraints); the 95% CIs equal M +/- t(.975, 278) x 12.83 / sqrt(n), i.e. they use the pooled ANOVA error SD (sqrt of the pooled within-cell variance, df 278), not the cell SD (recomputed for all 8 cells)"
+          }
+        }
+      },
+      {
+        "id": "comp_correct_50",
+        "unit": "participants",
+        "field": "comprehension",
+        "stat": "share",
+        "success": "correct_50",
+        "missing_values": [
+          "needs_coder"
+        ],
+        "human": {
+          "value": 0.1,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "evidence": "'Only 10% of the participants provided this answer' (50 cents)",
+            "note": "pooled over all eight cells; the base (286 analysed or 289 completed) is not stated, and the four printed shares sum to 100%"
+          },
+          "no_uncertainty": "percentages only, base n not stated"
+        }
+      },
+      {
+        "id": "comp_partial_20",
+        "unit": "participants",
+        "field": "comprehension",
+        "stat": "share",
+        "success": "partial_20",
+        "missing_values": [
+          "needs_coder"
+        ],
+        "human": {
+          "value": 0.33,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "evidence": "'The 20-cents answer was given by 33% of the participants'",
+            "note": "pooled over all eight cells; the base (286 analysed or 289 completed) is not stated, and the four printed shares sum to 100%"
+          },
+          "no_uncertainty": "percentages only, base n not stated"
+        }
+      },
+      {
+        "id": "comp_wrong",
+        "unit": "participants",
+        "field": "comprehension",
+        "stat": "share",
+        "success": "wrong",
+        "missing_values": [
+          "needs_coder"
+        ],
+        "human": {
+          "value": 0.47,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "evidence": "'47% of the participants did not show game understanding ... neither 50 cents nor 20 cents'",
+            "note": "pooled over all eight cells; the base (286 analysed or 289 completed) is not stated, and the four printed shares sum to 100%"
+          },
+          "no_uncertainty": "percentages only, base n not stated"
+        }
+      },
+      {
+        "id": "comp_uncoded",
+        "unit": "participants",
+        "field": "comprehension",
+        "stat": "share",
+        "success": "uncoded",
+        "missing_values": [
+          "needs_coder"
+        ],
+        "human": {
+          "value": 0.1,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 2,
+            "evidence": "'The remaining 10% of the participants gave no answer or an unclear answer'",
+            "note": "pooled over all eight cells; the base (286 analysed or 289 completed) is not stated, and the four printed shares sum to 100%"
+          },
+          "no_uncertainty": "percentages only, base n not stated"
+        }
+      },
+      {
+        "id": "t3_coop_human_pressure",
+        "unit": "participants",
+        "field": "motive",
+        "stat": "share",
+        "success": "cooperative",
+        "where": {
+          "team": "human",
+          "constraint": "pressure"
+        },
+        "missing_values": [
+          "uncoded",
+          "needs_coder"
+        ],
+        "human": {
+          "k": 32,
+          "n": 74,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "Table 3 (motivation counts), human / pressure: cooperation 32 of 74 (row total); 3 participants without a motivation are not in the table. The row totals do not all match Table 1's cell n (meta.paper_inconsistencies)"
+          }
+        }
+      },
+      {
+        "id": "t3_coop_human_delay",
+        "unit": "participants",
+        "field": "motive",
+        "stat": "share",
+        "success": "cooperative",
+        "where": {
+          "team": "human",
+          "constraint": "delay"
+        },
+        "missing_values": [
+          "uncoded",
+          "needs_coder"
+        ],
+        "human": {
+          "k": 41,
+          "n": 71,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "Table 3 (motivation counts), human / delay: cooperation 41 of 71 (row total); 3 participants without a motivation are not in the table. The row totals do not all match Table 1's cell n (meta.paper_inconsistencies)"
+          }
+        }
+      },
+      {
+        "id": "t3_coop_computer_pressure",
+        "unit": "participants",
+        "field": "motive",
+        "stat": "share",
+        "success": "cooperative",
+        "where": {
+          "team": "computer",
+          "constraint": "pressure"
+        },
+        "missing_values": [
+          "uncoded",
+          "needs_coder"
+        ],
+        "human": {
+          "k": 24,
+          "n": 59,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "Table 3 (motivation counts), computer / pressure: cooperation 24 of 59 (row total); 3 participants without a motivation are not in the table. The row totals do not all match Table 1's cell n (meta.paper_inconsistencies)"
+          }
+        }
+      },
+      {
+        "id": "t3_coop_computer_delay",
+        "unit": "participants",
+        "field": "motive",
+        "stat": "share",
+        "success": "cooperative",
+        "where": {
+          "team": "computer",
+          "constraint": "delay"
+        },
+        "missing_values": [
+          "uncoded",
+          "needs_coder"
+        ],
+        "human": {
+          "k": 39,
+          "n": 79,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "Table 3 (motivation counts), computer / delay: cooperation 39 of 79 (row total); 3 participants without a motivation are not in the table. The row totals do not all match Table 1's cell n (meta.paper_inconsistencies)"
+          }
+        }
+      }
+    ],
+    "blocked_arm_effects": [
+      {
+        "id": "ice_human_unknown",
+        "label": "intuitive-cooperation effect, human team, contribution unknown: mean contribution, time pressure minus forced delay (cents)",
+        "unit": "participants",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pressure",
+          "reference": "delay"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "contribution",
+          "groupBy": "constraint",
+          "where": {
+            "team": "human",
+            "knowledge": "unknown"
+          }
+        },
+        "reported": {
+          "cells": {
+            "pressure": {
+              "mean": 20.76,
+              "sd": 12.76,
+              "n": 33
+            },
+            "delay": {
+              "mean": 17.14,
+              "sd": 11.65,
+              "n": 35
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1 cells (n, M, Sd); the difference (+3.62) is not printed; the paper's sign: positive ('one intuitive-cooperation effect (contribution unknown) and one negative ... (contribution known)' for humans; 'in both computer conditions ... higher in the time-pressure condition', p. 2). No test of this contrast is printed (its F is part of the 2x2x2 ANOVA: max F 3.28, all n.s.)"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "'for each of the four team member x contribution knowledge combinations the difference between the mean contribution in the time-pressure ... and the forced-delay condition (reflection) was small and non-significant' (Discussion Experiment 1); 'the analysis failed to demonstrate significant effects (maximum F = 3.28) ... (maximum partial eta squared = .012)' (p. 2)"
+        },
+        "compare_note": "value = difference of the printed cell means; Welch SE from the printed cell SDs (the paper's CIs use the pooled error SD)"
+      },
+      {
+        "id": "ice_human_known",
+        "label": "intuitive-cooperation effect, human team, contribution known: mean contribution, time pressure minus forced delay (cents)",
+        "unit": "participants",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pressure",
+          "reference": "delay"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "contribution",
+          "groupBy": "constraint",
+          "where": {
+            "team": "human",
+            "knowledge": "known"
+          }
+        },
+        "reported": {
+          "cells": {
+            "pressure": {
+              "mean": 21.0,
+              "sd": 13.83,
+              "n": 40
+            },
+            "delay": {
+              "mean": 22.1,
+              "sd": 13.0,
+              "n": 39
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1 cells (n, M, Sd); the difference (-1.10) is not printed; the paper's sign: negative ('one intuitive-cooperation effect (contribution unknown) and one negative ... (contribution known)' for humans; 'in both computer conditions ... higher in the time-pressure condition', p. 2). No test of this contrast is printed (its F is part of the 2x2x2 ANOVA: max F 3.28, all n.s.)"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "'for each of the four team member x contribution knowledge combinations the difference between the mean contribution in the time-pressure ... and the forced-delay condition (reflection) was small and non-significant' (Discussion Experiment 1); 'the analysis failed to demonstrate significant effects (maximum F = 3.28) ... (maximum partial eta squared = .012)' (p. 2)"
+        },
+        "compare_note": "value = difference of the printed cell means; Welch SE from the printed cell SDs (the paper's CIs use the pooled error SD)"
+      },
+      {
+        "id": "ice_computer_unknown",
+        "label": "intuitive-cooperation effect, computer team, contribution unknown: mean contribution, time pressure minus forced delay (cents)",
+        "unit": "participants",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pressure",
+          "reference": "delay"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "contribution",
+          "groupBy": "constraint",
+          "where": {
+            "team": "computer",
+            "knowledge": "unknown"
+          }
+        },
+        "reported": {
+          "cells": {
+            "pressure": {
+              "mean": 24.07,
+              "sd": 12.3,
+              "n": 30
+            },
+            "delay": {
+              "mean": 22.26,
+              "sd": 13.52,
+              "n": 43
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1 cells (n, M, Sd); the difference (+1.81) is not printed; the paper's sign: positive ('one intuitive-cooperation effect (contribution unknown) and one negative ... (contribution known)' for humans; 'in both computer conditions ... higher in the time-pressure condition', p. 2). No test of this contrast is printed (its F is part of the 2x2x2 ANOVA: max F 3.28, all n.s.)"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "'for each of the four team member x contribution knowledge combinations the difference between the mean contribution in the time-pressure ... and the forced-delay condition (reflection) was small and non-significant' (Discussion Experiment 1); 'the analysis failed to demonstrate significant effects (maximum F = 3.28) ... (maximum partial eta squared = .012)' (p. 2)"
+        },
+        "compare_note": "value = difference of the printed cell means; Welch SE from the printed cell SDs (the paper's CIs use the pooled error SD)"
+      },
+      {
+        "id": "ice_computer_known",
+        "label": "intuitive-cooperation effect, computer team, contribution known: mean contribution, time pressure minus forced delay (cents)",
+        "unit": "participants",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pressure",
+          "reference": "delay"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "contribution",
+          "groupBy": "constraint",
+          "where": {
+            "team": "computer",
+            "knowledge": "known"
+          }
+        },
+        "reported": {
+          "cells": {
+            "pressure": {
+              "mean": 22.07,
+              "sd": 13.13,
+              "n": 29
+            },
+            "delay": {
+              "mean": 18.38,
+              "sd": 11.96,
+              "n": 37
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Table 1 cells (n, M, Sd); the difference (+3.69) is not printed; the paper's sign: positive ('one intuitive-cooperation effect (contribution unknown) and one negative ... (contribution known)' for humans; 'in both computer conditions ... higher in the time-pressure condition', p. 2). No test of this contrast is printed (its F is part of the 2x2x2 ANOVA: max F 3.28, all n.s.)"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "'for each of the four team member x contribution knowledge combinations the difference between the mean contribution in the time-pressure ... and the forced-delay condition (reflection) was small and non-significant' (Discussion Experiment 1); 'the analysis failed to demonstrate significant effects (maximum F = 3.28) ... (maximum partial eta squared = .012)' (p. 2)"
+        },
+        "compare_note": "value = difference of the printed cell means; Welch SE from the printed cell SDs (the paper's CIs use the pooled error SD)"
+      },
+      {
+        "id": "constraint_main",
+        "label": "main effect of decision constraint: mean contribution, time pressure minus forced delay, all eight cells pooled (cents)",
+        "unit": "participants",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "pressure",
+          "reference": "delay"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "contribution",
+          "groupBy": "constraint",
+          "compareAs": {
+            "metric": "mean_difference",
+            "reason": "the paper tests this as the decision-constraint main effect of the 2 x 2 x 2 between-subjects ANOVA and prints no estimate for it, only the bounds over all ANOVA effects (max F = 3.28, max partial eta squared = .012, none significant at .05); the compared quantity is the difference of the pooled (n-weighted) cell means, derived from Table 1, not the ANOVA's unweighted marginal"
+          }
+        },
+        "reported": {
+          "cells": {
+            "pressure": {
+              "mean": 21.8728,
+              "sd": 12.989,
+              "n": 132
+            },
+            "delay": {
+              "mean": 20.1236,
+              "sd": 12.6893,
+              "n": 154
+            }
+          },
+          "test": {
+            "statistic": "F",
+            "df": [
+              1,
+              278
+            ],
+            "p": 0.05,
+            "pRelation": ">"
+          },
+          "no_uncertainty": "only the maximum F (3.28) and maximum partial eta squared (.012) over all ANOVA effects are printed; this effect's F is at most 3.28 and p > .05",
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 2,
+              "note": "'we submitted the contributions to a 2 contribution knowledge ... x 2 team members ... x 2 decision constraint ... factorial analysis of variance ... the analysis failed to demonstrate significant effects (maximum F = 3.28) ... maximum partial eta squared = .012'"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 3,
+              "note": "pooled cells from Table 1: pressure n 132, M 21.87, Sd 12.99; delay n 154, M 20.12, Sd 12.69 (n-weighted means; SD from the within- and between-cell sums of squares); df 278 = 286 - 8 (derived)"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "'for each of the four team member x contribution knowledge combinations the difference between the mean contribution in the time-pressure ... and the forced-delay condition (reflection) was small and non-significant' (Discussion Experiment 1); 'the analysis failed to demonstrate significant effects (maximum F = 3.28) ... (maximum partial eta squared = .012)' (p. 2)"
+        }
+      },
+      {
+        "id": "team_x_constraint",
+        "label": "team x decision constraint interaction: (pressure - delay | human) minus (pressure - delay | computer), pooled over contribution knowledge (cents)",
+        "unit": "participants",
+        "role": "test",
+        "contrast": {
+          "kind": "interaction"
+        },
+        "compute": {
+          "op": "interaction",
+          "field": "contribution",
+          "factor_a": "constraint",
+          "a_levels": [
+            "pressure",
+            "delay"
+          ],
+          "factor_b": "team",
+          "b_levels": [
+            "human",
+            "computer"
+          ],
+          "compareAs": {
+            "metric": "interaction",
+            "reason": "the social heuristics prediction tested in Experiment 1 (an intuitive-cooperation effect with human but not with computer team members, p. 2) is the team x constraint term of the 2 x 2 x 2 ANOVA, whose F is not printed (max F 3.28, all n.s.); compared as the difference of differences of the pooled cell means derived from Table 1"
+          }
+        },
+        "reported": {
+          "value": -1.484,
+          "cells": {
+            "pressure|human": {
+              "mean": 20.8915,
+              "sd": 13.2658,
+              "n": 73
+            },
+            "delay|human": {
+              "mean": 19.7541,
+              "sd": 12.546,
+              "n": 74
+            },
+            "pressure|computer": {
+              "mean": 23.0869,
+              "sd": 12.6447,
+              "n": 59
+            },
+            "delay|computer": {
+              "mean": 20.4655,
+              "sd": 12.89,
+              "n": 80
+            }
+          },
+          "test": {
+            "statistic": "F",
+            "df": [
+              1,
+              278
+            ],
+            "p": 0.05,
+            "pRelation": ">"
+          },
+          "no_uncertainty": "the ANOVA term's F is not printed (max F 3.28 over all effects, none significant)",
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 2,
+              "note": "prediction: 'an intuitive-cooperation effect when participants are playing with humans but not when they are playing with computers' (p. 2); result: no significant effect (max F = 3.28)"
+            },
+            {
+              "label": "derived",
+              "source": "paper",
+              "page": 3,
+              "note": "value and cells derived from Table 1 (n-weighted pooling over knowledge): human +1.14, computer +2.62, difference -1.48; not printed"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "'for each of the four team member x contribution knowledge combinations the difference between the mean contribution in the time-pressure ... and the forced-delay condition (reflection) was small and non-significant' (Discussion Experiment 1); 'the analysis failed to demonstrate significant effects (maximum F = 3.28) ... (maximum partial eta squared = .012)' (p. 2)"
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "id": "anova_other_terms",
+        "what": "the other terms of the 2 x 2 x 2 ANOVA (knowledge and team main effects, knowledge x constraint, team x knowledge, three-way): only 'maximum F = 3.28' and 'maximum partial eta squared = .012' over all terms (p. 2)",
+        "why": "no term-specific statistic is printed; the bounds are recorded on constraint_main and team_x_constraint",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2
+        }
+      },
+      {
+        "id": "anova_understanders",
+        "what": "the same ANOVA on the 43% who answered 50 or 20 cents: 'outcomes ... as well as the conditions means were comparable to the results obtained with all participants' (p. 2)",
+        "why": "no numbers printed; the subset needs the coder's comprehension codes",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2
+        }
+      },
+      {
+        "id": "motivation_chi2_human",
+        "what": "motivation x decision constraint, human team members: chi2(1) = 3.049, p = .089 (printed; 3.049 gives p = .081), odds ratio = 1.8; 43% cooperative under time pressure vs 57% after forced delay (Table 3: 32/74 vs 41/71)",
+        "why": "the motivation field exists only after the declared coder (judgment coding, rule codes blanks only): an effect over it can never compute in the checks' random sessions (blocking blocked_effects_not_computed); kept as Table 3 targets (t3_coop_*) until the engine can report coder-pending effects (meta.engine_requests effects_pending_coder)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2
+        }
+      },
+      {
+        "id": "motivation_chi2_computer",
+        "what": "motivation x decision constraint, computer team members: chi2(1) = 1.028, p = .311, odds ratio = 1.4 (Table 3: 24/59 vs 39/79)",
+        "why": "as motivation_chi2_human",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 2
+        }
+      },
+      {
+        "id": "decision_times",
+        "what": "Table 2 decision times (M, Sd, Md, Min, Max per cell, seconds; p. 3)",
+        "why": "the engine has no clock and an agent's time is not a human decision time (meta.deviations); box_ms records only the box screen",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3
+        }
+      },
+      {
+        "id": "forest_plot",
+        "what": "Figure 1 CIs of the eight pressure - delay differences and the random-effects combined estimate (Experiments 1, 2a-c, 3; p. 6)",
+        "why": "values only in a figure; four of the eight come from Experiments 2a-c and 3 (out of scope)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6
+        }
+      }
+    ]
+  },
+  "keyed": {
+    "why": "paper's pattern (Table 1 cell means, rounded): pressure minus delay +4 (human unknown), -1 (human known), +2 (computer unknown), +4 (computer known); no blanks in motivation or comprehension",
+    "answers": {
+      "demog.age": "30",
+      "demog.gender": "choice(['female', 'male'])",
+      "demog.education": "choice(['some_college', 'college_4yr'])",
+      "contrib_tp.contribution": "{'hu_tp': 21, 'hk_tp': 21, 'cu_tp': 24, 'ck_tp': 22}[arm]",
+      "contrib_fd.contribution": "{'hu_fd': 17, 'hk_fd': 22, 'cu_fd': 22, 'ck_fd': 18}[arm]",
+      "motive.motivation": "'I wanted to give as much as possible so that the group would benefit.'",
+      "comp.bonus_answer": "'50 cents'"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {},
+    "strict": false,
+    "attribution": [
+      {
+        "source": "paper",
+        "licence": "CC-BY-4.0",
+        "attribution": "Verkoeijen, P. P. J. L., & Bouwmeester, S. (2014). Does intuition cause cooperation? PLoS ONE 9(5): e96654. doi:10.1371/journal.pone.0096654. CC BY 4.0"
+      },
+      {
+        "source": "si",
+        "licence": "CC-BY-4.0",
+        "attribution": "Verkoeijen, P. P. J. L., & Bouwmeester, S. (2014). Does intuition cause cooperation? PLoS ONE 9(5): e96654. doi:10.1371/journal.pone.0096654. CC BY 4.0 (File S1)"
+      }
+    ]
+  },
+  "schema_version": "1"
+}

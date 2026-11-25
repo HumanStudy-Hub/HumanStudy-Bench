@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "f8d3b9a033e244c2b7ae231ba64536ff142f8eed174c95570090fdd689d7a9c7",
-  "previousRevision": "cfc4fbf32113f3e5ecaeff817a0c844548eff05a2ea2dc4dc70d2b5fd65b6846",
+  "revision": "5438514985417ab460dd0b19814600ea732fa576dacd529355f51d43a1954861",
+  "previousRevision": "f8d3b9a033e244c2b7ae231ba64536ff142f8eed174c95570090fdd689d7a9c7",
   "paper": {
     "title": "Optimism where there is none: Asymmetric belief updating observed with valence-neutral life events",
     "authors": [
@@ -35,40 +35,55 @@
   "capabilities": {
     "discoverable": true,
     "traceable": false,
-    "reanalyzable": true,
+    "reanalyzable": false,
     "replayable": false,
     "humanBenchmark": false
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "f8d3b9a033e244c2b7ae231ba64536ff142f8eed174c95570090fdd689d7a9c7",
-    "reviewer": "maintainer:assassin808",
-    "reason": "Audit 1 (desktop #57). m-stimuli.quoted-examples now holds the four quoted events exactly as printed on p. 6 (added attributions moved to the label, a stray closing quote removed).",
-    "checks": [
-      "check_program.py --complete",
-      "check_quotes.py against the paper and the cited supplements",
-      "effects.py check",
-      "study_core.py reproduce with effects.json on the pinned human data: pass [3, 3]",
-      "capabilities.py recomputed and --check",
-      "check_package.py",
-      "agent export self-test",
-      "audit.py (audit book 0.1) before and after",
-      "schema, package bindings and effects.json (validate_assets)"
-    ],
-    "verifiedCapabilities": {
-      "discoverable": true,
-      "traceable": false,
-      "reanalyzable": true,
-      "replayable": false,
-      "humanBenchmark": false
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. The paper does not print every material: no arm runs as published; each arm states its gap and the researcher reconstructs it, labelled reconstructed, before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "5438514985417ab460dd0b19814600ea732fa576dacd529355f51d43a1954861"
   },
   "validation": {
     "status": "passed",
     "errors": [],
+    "warnings": [
+      "effects.json: effect table1_bayes_diff_study1: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_bayes_diff_study2: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_bayes_diff_study3: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_bayes_diff_agg123: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_bayes_ratio_study1: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_bayes_ratio_study2: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_bayes_ratio_study3: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_bayes_ratio_agg123: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_learning_rates_study1: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_learning_rates_study2: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_learning_rates_study3: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_learning_rates_agg123: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_regression_study1: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_regression_study2: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_regression_study3: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: effect table1_regression_agg123: outcome has no variableId, so the measure is not linked into the graph",
+      "effects.json: program condition cond-s1-e1first is not reachable from any hypothesis or effect",
+      "effects.json: program condition cond-s1-ebrfirst is not reachable from any hypothesis or effect",
+      "effects.json: program condition cond-s2-e1first is not reachable from any hypothesis or effect",
+      "effects.json: program condition cond-s2-ebrfirst is not reachable from any hypothesis or effect",
+      "effects.json: program condition cond-s3-e1first is not reachable from any hypothesis or effect",
+      "effects.json: program condition cond-s3-ebrfirst is not reachable from any hypothesis or effect",
+      "effects.json: program variable v-br is not reachable from any hypothesis or effect",
+      "effects.json: program variable v-brrecall is not reachable from any hypothesis or effect",
+      "effects.json: program variable v-direction is not reachable from any hypothesis or effect",
+      "effects.json: program variable v-e1 is not reachable from any hypothesis or effect",
+      "effects.json: program variable v-e2 is not reachable from any hypothesis or effect",
+      "effects.json: program variable v-ebr is not reachable from any hypothesis or effect",
+      "effects.json: program variable v-valence is not reachable from any hypothesis or effect",
+      "effects.json: program variable v-valrating is not reachable from any hypothesis or effect"
+    ],
     "checks": {
       "schema": true,
-      "packageBindings": true,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -79,6 +94,6 @@
       "replayable": false,
       "humanBenchmark": false
     },
-    "programDigest": "eee1b52a5e8e14b7280cc1e8361d19295d04c41011174a3d43f8e2e9eb3bdafe"
+    "protocolSha256": "468b09d51e619c99e422f2d65ff0f4ea1a45003032b66ba3c2ff5baf797c8836"
   }
 }

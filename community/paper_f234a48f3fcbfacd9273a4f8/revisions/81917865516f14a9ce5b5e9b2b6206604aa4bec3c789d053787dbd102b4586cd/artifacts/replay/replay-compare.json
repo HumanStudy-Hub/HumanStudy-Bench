@@ -1,0 +1,134 @@
+{
+  "package": "hoogeveen2020",
+  "source": "study_core.py reproduce (method package, effects.json) on the pinned human data",
+  "humanSessions": 233,
+  "sample": "original",
+  "tolerance": "a result is recovered when |computed - reported| <= max(0.05, 0.15 * |reported|)",
+  "humanMatchesPaper": [
+    5,
+    5
+  ],
+  "checks": [
+    {
+      "id": "accuracy_desc",
+      "label": "Accuracy of replication predictions, description only (chance = .50)",
+      "role": "test",
+      "reported": 0.59,
+      "human": 0.584678,
+      "human_p": 4.88287e-15,
+      "basis": "same metric (proportion)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "accuracy_evid",
+      "label": "Accuracy of replication predictions, description plus evidence (chance = .50)",
+      "role": "test",
+      "reported": 0.67,
+      "human": 0.670947,
+      "human_p": 2.01007e-36,
+      "basis": "same metric (proportion)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "accuracy_evid_vs_desc",
+      "label": "Accuracy: description plus evidence minus description only",
+      "role": "robustness",
+      "reported": 0.08000000000000007,
+      "human": 0.0862689,
+      "human_p": 2.626e-10,
+      "basis": "difference of the reported proportions",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "log_brier_evid_vs_desc",
+      "label": "Log Brier score: description plus evidence minus description only",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": 3.30609e-09,
+      "basis": "the paper reports no mean_difference for this effect",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "confidence_vs_replication_es_desc",
+      "label": "Study-level mean confidence vs replication effect size, description only",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "replication effect sizes (Camerer et al., 2018; Klein et al., 2018) are not printed in the paper (issue i-reff)",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "confidence_vs_replication_es_evid",
+      "label": "Study-level mean confidence vs replication effect size, description plus evidence",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "replication effect sizes (Camerer et al., 2018; Klein et al., 2018) are not printed in the paper (issue i-reff)",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "auc_desc",
+      "label": "Discriminability as AUC (equal-variance SDT), description only",
+      "role": "descriptive",
+      "reported": 0.62,
+      "human": 0.617349,
+      "human_p": null,
+      "basis": "same metric (auc)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "auc_evid",
+      "label": "Discriminability as AUC (equal-variance SDT), description plus evidence",
+      "role": "descriptive",
+      "reported": 0.74,
+      "human": 0.735362,
+      "human_p": null,
+      "basis": "same metric (auc)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "quality_check_accuracy",
+      "label": "Quality check: overall accuracy not below chance (both conditions)",
+      "role": "check",
+      "reported": null,
+      "human": null,
+      "human_p": 1.30031e-44,
+      "basis": "the paper reports no proportion for this effect",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "original_bf_vs_replication_es",
+      "label": "Original-study log Bayes factor vs replication effect size (27 studies)",
+      "role": "check",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "study-level analysis of the original Bayes factors and replication effect sizes; replication effect sizes are not in the package and no participant session holds them",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "expert_accuracy_ssrp",
+      "label": "Accuracy of expert forecasters in SSRP (published data)",
+      "role": "descriptive",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "expert predictions from the SSRP project are published data outside this study's sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "expert_accuracy_ml2",
+      "label": "Accuracy of expert forecasters in ML2 (published data)",
+      "role": "descriptive",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "expert predictions from the ML2 project are published data outside this study's sessions",
+      "humanMatchesPaper": null
+    }
+  ],
+  "agent": "The AI-participant results of the earlier pilot replay were removed: they were computed with an earlier evaluation and effect list. Run a replay to compare AI participants with these results."
+}

@@ -1,0 +1,219 @@
+{
+  "protocol_sha256": "142149eafcd5e8001f19deaf8b09e95deed246f2102ced7c17051fe1674d58e4",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 8000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 0.0,
+    "population_excluded_sessions": {},
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "c1_online_vs_lab",
+        "human": 4.22,
+        "keyed": 4.0,
+        "same_sign": true
+      },
+      {
+        "effect": "p1_online_vs_lab",
+        "human": 3.96,
+        "keyed": 4.0,
+        "same_sign": true
+      },
+      {
+        "effect": "c2_online_vs_lab",
+        "human": 0.89,
+        "keyed": 2.0,
+        "same_sign": true
+      },
+      {
+        "effect": "punfreq_online_vs_lab",
+        "human": -0.095,
+        "keyed": -0.098,
+        "same_sign": true
+      },
+      {
+        "effect": "eff_online_vs_lab",
+        "human": 4.27,
+        "keyed": 5.215,
+        "same_sign": true
+      },
+      {
+        "effect": "sev_online_vs_lab",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "pun_vs_nopun_lab",
+        "human": 7.96,
+        "keyed": 7.7,
+        "same_sign": true
+      },
+      {
+        "effect": "pun_vs_nopun_online",
+        "human": 4.63,
+        "keyed": 5.7,
+        "same_sign": true
+      },
+      {
+        "effect": "p11_vs_p10_lab",
+        "human": 8.31,
+        "keyed": 11.0,
+        "same_sign": true
+      },
+      {
+        "effect": "p11_vs_p10_online",
+        "human": 8.3,
+        "keyed": 9.0,
+        "same_sign": true
+      },
+      {
+        "effect": "quiz1_attempts_lab_vs_online",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "esm"
+    ]
+  },
+  "reading_annotations": [],
+  "coding": {},
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [
+    {
+      "effect": "c1_online_vs_lab",
+      "statistic": "mann_whitney"
+    },
+    {
+      "effect": "p1_online_vs_lab",
+      "statistic": "mann_whitney"
+    },
+    {
+      "effect": "c2_online_vs_lab",
+      "statistic": "mann_whitney"
+    },
+    {
+      "effect": "punfreq_online_vs_lab",
+      "statistic": "mann_whitney"
+    },
+    {
+      "effect": "eff_online_vs_lab",
+      "statistic": "mann_whitney"
+    },
+    {
+      "effect": "sev_online_vs_lab",
+      "statistic": "mann_whitney"
+    },
+    {
+      "effect": "pun_vs_nopun_lab",
+      "statistic": "mann_whitney"
+    },
+    {
+      "effect": "pun_vs_nopun_online",
+      "statistic": "mann_whitney"
+    },
+    {
+      "effect": "p11_vs_p10_lab",
+      "statistic": "mann_whitney"
+    },
+    {
+      "effect": "p11_vs_p10_online",
+      "statistic": "mann_whitney"
+    },
+    {
+      "effect": "quiz1_attempts_lab_vs_online",
+      "statistic": "mann_whitney"
+    }
+  ],
+  "printed_item_tests": [],
+  "second_readings": [],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "quiz1_errors_lab",
+      "agent": 0.0,
+      "n_agent": 4000,
+      "k_agent": null,
+      "sd_agent": 0.0,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 4.68
+    },
+    {
+      "id": "quiz1_errors_online",
+      "agent": 0.0,
+      "n_agent": 4000,
+      "k_agent": null,
+      "sd_agent": 0.0,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 4.46
+    },
+    {
+      "id": "g_c1_lab",
+      "agent": 10.048125,
+      "n_agent": 1000,
+      "k_agent": null,
+      "sd_agent": 0.9267623740058035,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 8.3
+    }
+  ],
+  "effect_dropout_random": {},
+  "PASS": true
+}

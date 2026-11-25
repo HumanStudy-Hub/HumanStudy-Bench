@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "919c1ce827f6a5d1bc7ca797540a25facb04b544a3f6a2d3cfcc606f70a8c1eb",
-  "previousRevision": null,
+  "revision": "eabd1215f7e6f1218da71c33088e19b1712d808c37a1487edccd4a71da0d8a11",
+  "previousRevision": "919c1ce827f6a5d1bc7ca797540a25facb04b544a3f6a2d3cfcc606f70a8c1eb",
   "paper": {
     "title": "Norms of assertion in the United States, Germany, and Japan",
     "authors": [
@@ -32,42 +32,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "919c1ce827f6a5d1bc7ca797540a25facb04b544a3f6a2d3cfcc606f70a8c1eb",
-    "reviewer": "independent-agent:program_pilot_aiyer",
-    "reason": "Independent reading-layer review and public-export checks completed; source-backed summaries and explicit missing items retained. No protocol or raw source files are distributed.",
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Reading Program, reported findings, source references and public-content boundaries only. Not a Validated protocol or replication of human outcomes.",
-    "sourcePolicy": {
-      "publicFiles": [
-        "program.json"
-      ],
-      "sourceCredits": [
-        {
-          "title": "Norms of assertion in the United States, Germany, and Japan",
-          "authors": [
-            "Kneer, M."
-          ],
-          "url": "https://doi.org/10.1073/pnas.2105365118",
-          "license": "CC-BY-4.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-          "attribution": "Kneer, M.. Norms of assertion in the United States, Germany, and Japan (2021). https://doi.org/10.1073/pnas.2105365118",
-          "changes": "Paper summarized into a reading Program; original paper and protocol unchanged."
-        }
-      ],
-      "inputExportSha256": "b992f535e10e7c32a8a52d42c953ec64444f398d22614d2f313e0976e8f2eccb"
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Every held text is restored on the researcher's computer from their copy of the source, by its hash.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "eabd1215f7e6f1218da71c33088e19b1712d808c37a1487edccd4a71da0d8a11"
   },
   "validation": {
     "status": "passed",
@@ -75,7 +50,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -83,9 +58,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "9c87b10424cd598e3102e04b55b74c1bedeb9a48753ad29fa6c561e27068cc3b"
+    "protocolSha256": "c62462b79f195bfa84c005b11ee77c8c596d28e6b1c6c7b6bf0ab46a2ee812c3"
   }
 }

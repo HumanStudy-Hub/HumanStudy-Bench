@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "1b3ae806b1db8226f183b178a97150d7078655b9d1f3da36a26d9656bc2cd03b",
-  "previousRevision": null,
+  "revision": "9cb108186304619e4352cb0ae44cea1d3bbdcfb482ce28c647001daca062f112",
+  "previousRevision": "1b3ae806b1db8226f183b178a97150d7078655b9d1f3da36a26d9656bc2cd03b",
   "paper": {
     "title": "Implicit and explicit influences of religious cognition on Dictator Game transfers",
     "authors": [
@@ -34,44 +34,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "1b3ae806b1db8226f183b178a97150d7078655b9d1f3da36a26d9656bc2cd03b",
-    "reviewer": "independent-agent:aiyer-pilot-reviewer",
-    "reason": "Independent reading-layer review and public-export checks completed; source-backed summaries and explicit missing items retained. No protocol or raw source files are distributed.",
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Reading Program, reported findings, source references and public-content boundaries only. Not a Validated protocol or replication of human outcomes.",
-    "sourcePolicy": {
-      "publicFiles": [
-        "program.json"
-      ],
-      "sourceCredits": [
-        {
-          "title": "Implicit and explicit influences of religious cognition on Dictator Game transfers",
-          "authors": [
-            "Billingsley, J.",
-            "Gomes, C. M.",
-            "McCullough, M. E."
-          ],
-          "url": "https://doi.org/10.1098/rsos.170238",
-          "license": "CC-BY-4.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-          "attribution": "Billingsley, J.; Gomes, C. M.; McCullough, M. E.. Implicit and explicit influences of religious cognition on Dictator Game transfers (2018). https://doi.org/10.1098/rsos.170238",
-          "changes": "Paper summarized into a reading Program; original paper and protocol unchanged."
-        }
-      ],
-      "inputExportSha256": "2f6d31772de9513b8d52515f4743e6667e595bcae9e58d3db8ed6a6104ce9f7f"
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Every held text is restored on the researcher's computer from their copy of the source, by its hash.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "9cb108186304619e4352cb0ae44cea1d3bbdcfb482ce28c647001daca062f112"
   },
   "validation": {
     "status": "passed",
@@ -79,7 +52,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -87,9 +60,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "58b2b1f988e3ae8885747dbec8c3403bbd0e06573a21ebac6ac5170eab52455b"
+    "protocolSha256": "5741d0832fe49299f2852ed33d8501ab6af0660f17beff3be8358b5948669513"
   }
 }

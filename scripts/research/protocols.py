@@ -192,8 +192,14 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
         # may not claim any fidelity verdict or signature.
         if fidelity:
             errors.append("study.json: a checked (unreviewed) release cannot carry a fidelity verdict or signature")
-        if not any(a.get("runnable", True) is not False and not a.get("release_hold")
-                   for a in protocol.get("arms") or [] if isinstance(a, dict)):
+        release_info = study.get("release") if isinstance(study.get("release"), dict) else {}
+        arms = [a for a in protocol.get("arms") or [] if isinstance(a, dict)]
+        if release_info.get("readiness") == "reconstruct":
+            # Owner 2026-11-24: a paper that does not print every material ships with no runnable arm; every arm
+            # states its gap and the researcher reconstructs it in their own copy before running.
+            if any(a.get("runnable", True) is not False for a in arms) or not all(a.get("why") for a in arms):
+                errors.append("protocol.json: a reconstruct release ships every arm not runnable, with its gap (why)")
+        elif not any(a.get("runnable", True) is not False and not a.get("release_hold") for a in arms):
             errors.append("protocol.json: a checked release needs at least one runnable arm")
     elif not draft and (quality != "high_fidelity" or fidelity.get("verdict") not in SIGNED_VERDICTS \
             or not fidelity.get("signed_by")):
@@ -215,6 +221,9 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
     if declared.get("path", "protocol.json") != "protocol.json":
         errors.append("study.json: protocol.path must be protocol.json")
     open_assets = {hashlib.sha256(raw).hexdigest()[:16] for n, raw in files.items() if n.startswith("sources/open/")}
+    # a held picture (distribution.held, kind image) is filled in from the researcher's own copy by its hash
+    open_assets |= {str(e.get("sha256"))[:16] for e in ((protocol.get("distribution") or {}).get("held") or {}).values()
+                    if isinstance(e, dict) and e.get("kind") == "image" and e.get("sha256")}
     for where, src in _image_sources(protocol):
         m = ASSET.match(src)
         if not (src.startswith(("https://", "http://")) or (m and m.group(1) in open_assets)):
@@ -272,8 +281,52 @@ def validate_protocol_files(files: dict[str, bytes], *, sessions: int = 0, seed:
             "protocolSha256": sha, "summary": summary(study, protocol), **({"replay": fuzz} if fuzz else {})}
 
 
+# A protocol with screening gates (attention checks, comprehension quizzes) completes few random-answer sessions, so
+# at a small session count some stage or effect is not reached by chance. Such a failure is re-run once with more
+# sessions; a larger run is a stricter coverage test, so this never relaxes the check.
+COVERAGE_RETRY_SESSIONS = 1000
+COVERAGE_RETRIES = (COVERAGE_RETRY_SESSIONS, 4000)   # a strict screen (1 in 27 random sessions completes) needs 4,000
+
+
 def public_checks(protocol: dict, sessions: int) -> dict:
-    """`python -m hsenv.checks <dir> --public --sessions N` on this protocol; its JSON report."""
+    """`python -m hsenv.checks <dir> --public --sessions N` on this protocol; its JSON report. A failure that is
+    only random-answer coverage (unreached stages / effects not computed) is re-run at COVERAGE_RETRY_SESSIONS."""
+    report = _public_checks(protocol, sessions)
+    for more in COVERAGE_RETRIES:
+        if more <= sessions:
+            continue
+        if report.get("PASS") is True or not coverage_only(report):
+            break
+        sessions = more
+        report = _public_checks(protocol, sessions)
+    return report
+
+
+def coverage_only(report: dict) -> bool:
+    """The report fails only on random-answer coverage: unreached stages / effects not computed (and the coverage
+    flag), with no leak, keyed, verbatim, coding or hold finding."""
+    fuzz = report.get("fuzz") or {}
+    if not (fuzz.get("unreached_stages") or fuzz.get("effects_not_computed")):
+        return False
+    other = [k for k in ("leaks", "state_expr_leaks", "unanswerable", "foreign_language_tokens", "problems",
+                         "blocked_arm_problems") if fuzz.get(k)]
+    keyed = report.get("keyed") or {}
+    if keyed.get("problems") or keyed.get("excluded_share") or keyed.get("state_expr_leaks"):
+        other.append("keyed")
+    if keyed.get("signs") and not all(x.get("same_sign") for x in keyed["signs"]):
+        other.append("keyed signs")   # (an effect not computed also shows here; it is re-checked by the larger run)
+    verbatim = report.get("verbatim") or {}
+    if verbatim.get("not_found") or verbatim.get("image_unconfirmed") or verbatim.get("bad_source") \
+            or verbatim.get("unchecked"):
+        other.append("verbatim")
+    if any((c or {}).get("mismatches") for c in (report.get("coding") or {}).values()) or report.get("release_hold"):
+        other.append("coding/hold")
+    not_computed = set(fuzz.get("effects_not_computed") or [])
+    return not other or other == ["keyed signs"] and all(
+        x.get("same_sign") or (x.get("effect") in not_computed and x.get("keyed") is None) for x in keyed["signs"])
+
+
+def _public_checks(protocol: dict, sessions: int) -> dict:
     import subprocess
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
@@ -300,7 +353,19 @@ def replay(protocol: dict, sessions: int, seed: int = 1) -> dict:
         return {"problems": [f"protocol does not load: {exc}"]}
     problems = list(checks.check_refs(p))
     _, probs, stats = checks.play(p, sessions, seed, "random")
-    problems += probs[:10]
+    earlier: list[str] = []
+    for more in COVERAGE_RETRIES:   # coverage only is re-run; every other finding of an earlier run is kept
+        if more <= sessions:
+            continue
+        if not stats.get("unreached_stages"):
+            break
+        earlier += probs + [f"{k}: {stats[k]}" for k in ("leaks", "state_expr_leaks") if stats.get(k)]
+        if stats.get("n_unanswerable"):
+            earlier.append(f"{stats['n_unanswerable']} unanswerable screens")
+        sessions = more
+        _, probs, stats = checks.play(p, sessions, seed, "random")
+    problems += [x for x in probs[:10] if x not in problems]
+    problems += [x for x in earlier if x not in problems]
     for key in ("unreached_stages", "leaks", "state_expr_leaks", "blocked_effects_not_computed"):
         if stats.get(key):
             problems.append(f"{key}: {stats[key]}")
@@ -354,20 +419,32 @@ def validate_revision_dir(folder: Path, *, sessions: int = 0) -> dict:
     return validate_protocol_files(files, sessions=sessions)
 
 
+def _validate_one(args):
+    d, sessions = args
+    return d, validate_revision_dir(d, sessions=sessions)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Validate protocol releases in community revisions")
     ap.add_argument("dirs", nargs="+", type=Path)
     ap.add_argument("--sessions", type=int, default=0, help="also replay N random sessions in the engine")
+    ap.add_argument("--jobs", type=int, default=1, help="revisions validated in parallel")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
     failed = False
-    for d in a.dirs:
-        result = validate_revision_dir(d, sessions=a.sessions)
+    work = [(d, a.sessions) for d in a.dirs]
+    if a.jobs > 1:
+        from concurrent.futures import ProcessPoolExecutor
+        with ProcessPoolExecutor(a.jobs) as pool:
+            results = list(pool.map(_validate_one, work))
+    else:
+        results = map(_validate_one, work)
+    for d, result in results:
         failed |= result["status"] != "passed"
         if a.json:
-            print(json.dumps({"dir": str(d), **result}, ensure_ascii=False))
+            print(json.dumps({"dir": str(d), **result}, ensure_ascii=False), flush=True)
             continue
-        print(f"{d}: {result['status']}")
+        print(f"{d}: {result['status']}", flush=True)
         for e in result["errors"]:
             print(f"::error file={d}/study.json::{e}")
         for w in result["warnings"]:

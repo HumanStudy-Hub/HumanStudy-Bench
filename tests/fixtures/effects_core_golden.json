@@ -2,6 +2,20 @@
   "source": "scripts/research/effects_core.py @ b34d214 (Bench copy, before hsenv); every community revision with effects.json",
   "vocab": "2.0.0",
   "revisions": {
+    "paper_1eddb9f7cdf8297d98e9dc8b/09ead2bec37c73cd68c0bd33d1397ef03bf9ff6908b872080fe5e225fbba1ee9": {
+      "problems": [],
+      "warnings": [
+        "program condition e1_c_unamb is not reachable from any hypothesis or effect",
+        "program variable e1_v_cond is not reachable from any hypothesis or effect",
+        "program variable e1_v_cov is not reachable from any hypothesis or effect",
+        "program condition e2_c_unamb is not reachable from any hypothesis or effect",
+        "program variable e2_v_cond is not reachable from any hypothesis or effect",
+        "program variable e2_v_cov is not reachable from any hypothesis or effect",
+        "program result mc_r_post is not reachable from any hypothesis or effect",
+        "program result mc_r_rsa is not reachable from any hypothesis or effect"
+      ],
+      "kg": "777fb1dd17f12d418d0f336fa8e14dfb7be114910fa939e4f2328987403bbf61"
+    },
     "paper_1eddb9f7cdf8297d98e9dc8b/4d809aacf7c35f85f6224e658faf67a56368cedfe0218735856510a24df30728": {
       "problems": [],
       "warnings": [
@@ -95,6 +109,29 @@
       ],
       "kg": "7d279b5a4e95c89bbd843906d5f281b87529956d2f9afa6ed32a9a20459c3a4f"
     },
+    "paper_28d927cc50d8a4547655e2c9/3257bb6d8dd6d1c611951396fb84e324cf4a1af37df0355139c78ae3d1c03f1a": {
+      "problems": [],
+      "warnings": [
+        "effect exp2_payoff_within_primary: the paper reports no number for it (reported is null)",
+        "effect exp2_payoff_within_secondary: the paper reports no number for it (reported is null)",
+        "effect exp2_payoff_within_tertiary: the paper reports no number for it (reported is null)",
+        "effect exp2_payoff_within_common: the paper reports no number for it (reported is null)",
+        "program analysis an_eff_e1 is not reachable from any hypothesis or effect",
+        "program analysis an_eff_e2 is not reachable from any hypothesis or effect",
+        "program variable cov_other_e3 is not reachable from any hypothesis or effect",
+        "program variable dv_eff_e1 is not reachable from any hypothesis or effect",
+        "program variable dv_eff_e2 is not reachable from any hypothesis or effect",
+        "program variable iv_kn_e1 is not reachable from any hypothesis or effect",
+        "program variable iv_kn_e2 is not reachable from any hypothesis or effect",
+        "program variable iv_kn_e3 is not reachable from any hypothesis or effect",
+        "program variable iv_pay_e1 is not reachable from any hypothesis or effect",
+        "program variable iv_pay_e2 is not reachable from any hypothesis or effect",
+        "program variable iv_sim_e3 is not reachable from any hypothesis or effect",
+        "program condition pc_2_e3 is not reachable from any hypothesis or effect",
+        "program result res_eff_e1 is not reachable from any hypothesis or effect"
+      ],
+      "kg": "7d279b5a4e95c89bbd843906d5f281b87529956d2f9afa6ed32a9a20459c3a4f"
+    },
     "paper_28d927cc50d8a4547655e2c9/705f47727844fd0d6d4930f96e307f75831c65f21995e9b20cac287cc5cb593f": {
       "problems": [],
       "warnings": [
@@ -148,6 +185,13 @@
       ],
       "kg": "c27aaebb52c474f964b693bcff86250ec4d79f9e2cffc029c3378f4dce3e84ae"
     },
+    "paper_5d71cc6aaf17f3b427b0d86e/4eb76ff03d051e2624f37a61c89efb5619a638001c8bd1ae2e4df392fc73fd61": {
+      "problems": [],
+      "warnings": [
+        "effect exp2_lex_antonym_vs_negpos_single: reported estimates[0].value = -0.011: only its absolute value is quoted; check the sign"
+      ],
+      "kg": "c27aaebb52c474f964b693bcff86250ec4d79f9e2cffc029c3378f4dce3e84ae"
+    },
     "paper_5d71cc6aaf17f3b427b0d86e/615188dc2e4ecd4dbb7a88eccf226fdf88832815754a82ce5b3b3ee665fdba7e": {
       "problems": [],
       "warnings": [
@@ -170,6 +214,42 @@
       "kg": "c27aaebb52c474f964b693bcff86250ec4d79f9e2cffc029c3378f4dce3e84ae"
     },
     "paper_658baaac05396303bb5fcba2/26c64ac52d2661680329e3dd9d5996bb3894c8ca2cca748e579034cf0db1c7e9": {
+      "problems": [],
+      "warnings": [
+        "effect table1_bayes_diff_study1: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_bayes_diff_study2: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_bayes_diff_study3: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_bayes_diff_agg123: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_bayes_ratio_study1: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_bayes_ratio_study2: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_bayes_ratio_study3: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_bayes_ratio_agg123: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_learning_rates_study1: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_learning_rates_study2: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_learning_rates_study3: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_learning_rates_agg123: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_regression_study1: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_regression_study2: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_regression_study3: outcome has no variableId, so the measure is not linked into the graph",
+        "effect table1_regression_agg123: outcome has no variableId, so the measure is not linked into the graph",
+        "program condition cond-s1-e1first is not reachable from any hypothesis or effect",
+        "program condition cond-s1-ebrfirst is not reachable from any hypothesis or effect",
+        "program condition cond-s2-e1first is not reachable from any hypothesis or effect",
+        "program condition cond-s2-ebrfirst is not reachable from any hypothesis or effect",
+        "program condition cond-s3-e1first is not reachable from any hypothesis or effect",
+        "program condition cond-s3-ebrfirst is not reachable from any hypothesis or effect",
+        "program variable v-br is not reachable from any hypothesis or effect",
+        "program variable v-brrecall is not reachable from any hypothesis or effect",
+        "program variable v-direction is not reachable from any hypothesis or effect",
+        "program variable v-e1 is not reachable from any hypothesis or effect",
+        "program variable v-e2 is not reachable from any hypothesis or effect",
+        "program variable v-ebr is not reachable from any hypothesis or effect",
+        "program variable v-valence is not reachable from any hypothesis or effect",
+        "program variable v-valrating is not reachable from any hypothesis or effect"
+      ],
+      "kg": "064a41318c4a57779ae692c233d4773e9711feb473f808686e6978ddb90ed08a"
+    },
+    "paper_658baaac05396303bb5fcba2/5438514985417ab460dd0b19814600ea732fa576dacd529355f51d43a1954861": {
       "problems": [],
       "warnings": [
         "effect table1_bayes_diff_study1: outcome has no variableId, so the measure is not linked into the graph",
@@ -277,6 +357,11 @@
       ],
       "kg": "064a41318c4a57779ae692c233d4773e9711feb473f808686e6978ddb90ed08a"
     },
+    "paper_81c754afe54e5a0bf67b41ab/0705786b7c949c943b048a21072e908f7cd30f86ce638c1af38ac36b1a430861": {
+      "problems": [],
+      "warnings": [],
+      "kg": "5825721da6af39ad65e396e266d33bf23f7cea22bb02bdb39ec73079259cfb34"
+    },
     "paper_81c754afe54e5a0bf67b41ab/67237cc4521b6ca536da56fdef94844375090945693c4899df337e9cc2ff24e4": {
       "problems": [],
       "warnings": [],
@@ -308,6 +393,21 @@
       "kg": "515987b37377a20bba17b5228289f96fef6a795d5c66b72197f043dec8c19354"
     },
     "paper_ac6ce7d3611fcd6f35348b67/6c297f421d68a66291c1e65556840c4c4dea75b3d8c040880800d118d7eefdcf": {
+      "problems": [],
+      "warnings": [
+        "program analysis a_anchor is not reachable from any hypothesis or effect",
+        "program analysis a_eng is not reachable from any hypothesis or effect",
+        "program analysis a_subcat is not reachable from any hypothesis or effect",
+        "program result res_anchor is not reachable from any hypothesis or effect",
+        "program result res_engage is not reachable from any hypothesis or effect",
+        "program result res_hs_tl is not reachable from any hypothesis or effect",
+        "program result res_subcat is not reachable from any hypothesis or effect",
+        "program variable v_engage is not reachable from any hypothesis or effect",
+        "program variable v_estimate is not reachable from any hypothesis or effect"
+      ],
+      "kg": "515987b37377a20bba17b5228289f96fef6a795d5c66b72197f043dec8c19354"
+    },
+    "paper_ac6ce7d3611fcd6f35348b67/b8588ecc6268231fb5f78ec8c5c0a3575182639a29c72d766d5c221cf8a9ccc3": {
       "problems": [],
       "warnings": [
         "program analysis a_anchor is not reachable from any hypothesis or effect",
@@ -428,6 +528,16 @@
         "program variable v_tf is not reachable from any hypothesis or effect"
       ],
       "kg": "5baa143ee6f5a053c89c5aad7a1b6e686b4c2b95d951419af9c45b831e11e3f7"
+    },
+    "paper_bc29ffa80c6477a6f6bd95ee/691ad59835de6bacb573d9a874e9c03f2069728ce23d44e1d4b995b6dba45365": {
+      "problems": [],
+      "warnings": [
+        "program result r_orig is not reachable from any hypothesis or effect",
+        "program variable v_load is not reachable from any hypothesis or effect",
+        "program variable v_site is not reachable from any hypothesis or effect",
+        "program variable v_tf is not reachable from any hypothesis or effect"
+      ],
+      "kg": "5a856abc303b523c150ee26f1523f7534a49e11e9ce64b13470d0bd308b60c44"
     },
     "paper_bc29ffa80c6477a6f6bd95ee/af0325074b80de2d9a922c130d3700e61af49b46a2d9595dc05e35b838464704": {
       "problems": [],
@@ -639,6 +749,23 @@
       ],
       "kg": "d4f22f72a7b086cab24a8125b83d718d34b05f6f687f7088c7b0ee06bfd57c36"
     },
+    "paper_df58653c96dd465802a99bc2/3d362d5b960966b7e7724198b62459e9091f07fe7bf6ca95a6ee950feb73e24e": {
+      "problems": [],
+      "warnings": [
+        "program analysis a1_corr is not reachable from any hypothesis or effect",
+        "program condition c2_p_exp_adv is not reachable from any hypothesis or effect",
+        "program condition c2_p_exp_part is not reachable from any hypothesis or effect",
+        "program condition c3_p_adv is not reachable from any hypothesis or effect",
+        "program result r1_corr is not reachable from any hypothesis or effect",
+        "program variable v1_agent is not reachable from any hypothesis or effect",
+        "program variable v1_framing is not reachable from any hypothesis or effect",
+        "program variable v2_agent is not reachable from any hypothesis or effect",
+        "program variable v2_om is not reachable from any hypothesis or effect",
+        "program variable v2_yn is not reachable from any hypothesis or effect",
+        "program variable v3_fr is not reachable from any hypothesis or effect"
+      ],
+      "kg": "387d389898f209fd3f4aa9892a74972a6819a84e336ee8ce10d750bc88dd5b15"
+    },
     "paper_df58653c96dd465802a99bc2/b6840a3ba88663bc6702a0a09d9828a3d4a234d504606f35c108de240ec89f44": {
       "problems": [],
       "warnings": [
@@ -699,6 +826,15 @@
       ],
       "kg": "e9433f657eb513ebd931e01f463a97da601d021b76310d2b27e8a63d3af45120"
     },
+    "paper_e1ccbfdc1d4fa86aab187f80/9d120072116301b574adec063e8ccfc9c27cf4e53a47c44e0bc8bfc061448624": {
+      "problems": [],
+      "warnings": [
+        "program analysis a-balance is not reachable from any hypothesis or effect",
+        "program result res-balance is not reachable from any hypothesis or effect",
+        "program variable v-crooked is not reachable from any hypothesis or effect"
+      ],
+      "kg": "e9433f657eb513ebd931e01f463a97da601d021b76310d2b27e8a63d3af45120"
+    },
     "paper_e1ccbfdc1d4fa86aab187f80/aa72101d2a8bfa44edd0f57b5e93944f2ce3e4a63261b5944c1114b4bda93e09": {
       "problems": [],
       "warnings": [
@@ -729,6 +865,17 @@
       "kg": "4d4f022856fd19249e515927cde216c468c449258a0ee15ee789c44883af316a"
     },
     "paper_f234a48f3fcbfacd9273a4f8/0f142f21c894bd2be495c10197fcd2508e1c630090f54902cf9f38d68158f678": {
+      "problems": [],
+      "warnings": [
+        "effect log_brier_evid_vs_desc: reported estimates[0].ci[1] = -0.68: only its absolute value is quoted; check the sign",
+        "effect quality_check_accuracy: the paper reports no number for it (reported is null)",
+        "program variable v-bf is not reachable from any hypothesis or effect",
+        "program variable v-cond is not reachable from any hypothesis or effect",
+        "program variable v-outcome is not reachable from any hypothesis or effect"
+      ],
+      "kg": "4d4f022856fd19249e515927cde216c468c449258a0ee15ee789c44883af316a"
+    },
+    "paper_f234a48f3fcbfacd9273a4f8/81917865516f14a9ce5b5e9b2b6206604aa4bec3c789d053787dbd102b4586cd": {
       "problems": [],
       "warnings": [
         "effect log_brier_evid_vs_desc: reported estimates[0].ci[1] = -0.68: only its absolute value is quoted; check the sign",

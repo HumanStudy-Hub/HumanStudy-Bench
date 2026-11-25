@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "4df00d8b28f939ea898d07b1437e664c9b232ee2d2284b7defbec425145ead33",
-  "previousRevision": null,
+  "revision": "5562025a5c81e704934887b65af0871014a4d08a13ef2df4e8f64b01b1c0a3e2",
+  "previousRevision": "4df00d8b28f939ea898d07b1437e664c9b232ee2d2284b7defbec425145ead33",
   "paper": {
     "title": "Revisiting partition priming in judgement under uncertainty: replication and extension Registered Report of Fox and Rottenstreich (2003)",
     "authors": [
@@ -31,31 +31,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "4df00d8b28f939ea898d07b1437e664c9b232ee2d2284b7defbec425145ead33",
-    "reviewer": "independent-agent:gpt-6-astra:/root/astra_public_program",
-    "reason": "Accepted as a reading-only scholarly reconstruction with stated source gaps and no runtime or reanalysis claim.",
-    "checks": [
-      "Four named tasks share N=603; original Study 2 is excluded; six scenario pages and hypothetical financial-choice scope preserved.",
-      "81 PDF quotations verified at cited physical pages. Weaker weather/sport/job effects, unsupported financial results and post-analysis Mann–Whitney/two-of-three decisions retained.",
-      "Archived supplement page 36 checked for compensation and conflicting recruitment thresholds. QSF inspected for choice randomization and happen-before-not-happen order."
-    ],
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Independent public-Program and primary-paper review, with original linked instrument claims checked against archived source files. No raw-data reproduction or protocol-fidelity attestation.",
-    "limitations": [
-      "Web tool could not open external download endpoints in this session; review of archived originals does not certify present remote endpoint availability."
-    ]
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Every held text is restored on the researcher's computer from their copy of the source, by its hash.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "5562025a5c81e704934887b65af0871014a4d08a13ef2df4e8f64b01b1c0a3e2"
   },
   "validation": {
     "status": "passed",
@@ -63,7 +49,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -71,9 +57,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "d04cc0403452186a6565248eeeb1002ff95cafa9f9b7e1e8c5a7ed1bf8101ec4"
+    "protocolSha256": "f4e2b0e37d2cfd4b17dce3a8c11c8f11063194b2a7e2bc7ed51b86364952fff1"
   }
 }

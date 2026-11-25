@@ -1,0 +1,4061 @@
+{
+  "id": "davis2011reserve",
+  "schema": "hsenv-protocol/0.1",
+  "meta": {
+    "citation": "Davis, A. M., Katok, E., & Kwasnica, A. M. (2011). Do auctioneers pick optimal reserve prices? Management Science, 57(1), 177-192. https://doi.org/10.1287/mnsc.1100.1258",
+    "language": "en",
+    "licence": {
+      "paper": "withheld:15d0eabc6f64a0d0",
+      "protocol": "private (release_hold on every arm)"
+    },
+    "sources": {
+      "paper": {
+        "file": "sources/davis2011.pdf",
+        "sha256": "1f1ac3153295f9118adf96a6fddac42ffc57635e5be12168094ada7ad3d8beee",
+        "url": "https://doi.org/10.1287/mnsc.1100.1258",
+        "pages": "17 PDF pages: p. 1 = INFORMS download cover; PDF p. k = journal p. 175 + k (cites use PDF pages)",
+        "licence": "INFORMS copyright, closed; private use",
+        "distribution": {
+          "tier": "user",
+          "format": "pdf",
+          "sha256": "1f1ac3153295f9118adf96a6fddac42ffc57635e5be12168094ada7ad3d8beee"
+        }
+      },
+      "ec": {
+        "file": null,
+        "sha256": null,
+        "url": "https://pubsonline.informs.org/doi/suppl/10.1287/mnsc.1100.1258/suppl_file/mnsc.1100.1258-sm-ec.pdf",
+        "what": "Electronic Companion: sample instructions (phase 1 and 2), fixed-effects tables, per-cell Table 4",
+        "licence": "INFORMS copyright (publisher supplement); private use only if obtained",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "reprep": {
+        "file": null,
+        "url": "https://web.archive.org/web/20240625045119id_/https://bpb-us-e2.wpmucdn.com/sites.utdallas.edu/dist/2/1186/files/2023/06/DavisEtAl2011_ReplicationReport.pdf",
+        "sha256": "325a12fa936ce83d7d9e55cf22d05c320e0c6b87ba7a07063e7fb514a8fb1a05",
+        "what": "MS Replication Project replication report (Long & Tong; Keppler & Leider), 3 pp.",
+        "licence": "no licence stated in the PDF: reference only, not stored in the study folder (PDF policy); a temporary copy exists in the converter's session scratchpad, outside the sandbox; no sourcetext; nothing on screen comes from it",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "feng": {
+        "file": null,
+        "url": "https://aclanthology.org/2025.emnlp-main.391.pdf",
+        "sha256": "42a554173aad979f714053c84e6f0e62e90d4319a37e5ec89a62570f0c8e883a",
+        "licence": "CC BY 4.0 (ACL Anthology)",
+        "what": "Feng, Choudhary & Shrestha (2025) EMNLP pp. 7693-7706; App. B = the legacy instruction text (adapted for LLMs); comparison only, never served",
+        "distribution": {
+          "tier": "user"
+        }
+      }
+    },
+    "sample": {
+      "n": 120,
+      "per_cell": 20,
+      "population": "withheld:0c689c623e5b5069",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "note": "withheld:895150bef724d0ac"
+      }
+    },
+    "image_read": []
+  },
+  "arms": [
+    {
+      "id": "noinfo_small_cuberoot",
+      "n_paper": 20,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      },
+      "runnable": false,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "label_note": "NoInfo, Cuberoot, n in {1,2,3,4}"
+    },
+    {
+      "id": "noinfo_small_cube",
+      "n_paper": 20,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      },
+      "runnable": false,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "label_note": "NoInfo, Cube, n in {1,2,3,4}"
+    },
+    {
+      "id": "noinfo_large_cuberoot",
+      "n_paper": 20,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      },
+      "runnable": false,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "label_note": "NoInfo, Cuberoot, n in {1,4,7,10}"
+    },
+    {
+      "id": "noinfo_large_cube",
+      "n_paper": 20,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      },
+      "runnable": false,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "label_note": "NoInfo, Cube, n in {1,4,7,10}"
+    },
+    {
+      "id": "fullinfo_cuberoot",
+      "n_paper": 20,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      },
+      "runnable": false,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "label_note": "FullInfo, Cuberoot, n in {1,4,7,10}"
+    },
+    {
+      "id": "fullinfo_cube",
+      "n_paper": 20,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      },
+      "runnable": false,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "label_note": "FullInfo, Cube, n in {1,4,7,10}"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "cell",
+      "factors": {
+        "info": [
+          "no",
+          "full"
+        ],
+        "dist": [
+          "cuberoot",
+          "cube"
+        ],
+        "nset": [
+          "small",
+          "large"
+        ]
+      },
+      "assignment": "between",
+      "note": "one cell per session (Table 1); FullInfo only with {1,4,7,10}",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      }
+    }
+  ],
+  "run_excluded": [
+    {
+      "arm": "noinfo_small_cuberoot",
+      "n_paper": 20,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "missing": [
+        {
+          "what": "phase-1 instructions, value table, histogram",
+          "ref": "data.missing.instructions1 / value_table / histogram"
+        },
+        {
+          "what": "decision screen wording (n announcement, reserve prompt)",
+          "ref": "data.missing.n_label / reserve_prompt"
+        },
+        {
+          "what": "testing field (FullInfo): wording, controls, output labels",
+          "ref": "data.missing.test_*"
+        },
+        {
+          "what": "period feedback labels",
+          "ref": "data.missing.fb_labels"
+        },
+        {
+          "what": "phase-2 instructions and lottery list (X of pairs 2-9)",
+          "ref": "data.missing.instructions2 / hl_rows"
+        },
+        {
+          "what": "lottery result screen",
+          "ref": "data.missing.hl_result"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      }
+    },
+    {
+      "arm": "noinfo_small_cube",
+      "n_paper": 20,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "missing": [
+        {
+          "what": "phase-1 instructions, value table, histogram",
+          "ref": "data.missing.instructions1 / value_table / histogram"
+        },
+        {
+          "what": "decision screen wording (n announcement, reserve prompt)",
+          "ref": "data.missing.n_label / reserve_prompt"
+        },
+        {
+          "what": "testing field (FullInfo): wording, controls, output labels",
+          "ref": "data.missing.test_*"
+        },
+        {
+          "what": "period feedback labels",
+          "ref": "data.missing.fb_labels"
+        },
+        {
+          "what": "phase-2 instructions and lottery list (X of pairs 2-9)",
+          "ref": "data.missing.instructions2 / hl_rows"
+        },
+        {
+          "what": "lottery result screen",
+          "ref": "data.missing.hl_result"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      }
+    },
+    {
+      "arm": "noinfo_large_cuberoot",
+      "n_paper": 20,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "missing": [
+        {
+          "what": "phase-1 instructions, value table, histogram",
+          "ref": "data.missing.instructions1 / value_table / histogram"
+        },
+        {
+          "what": "decision screen wording (n announcement, reserve prompt)",
+          "ref": "data.missing.n_label / reserve_prompt"
+        },
+        {
+          "what": "testing field (FullInfo): wording, controls, output labels",
+          "ref": "data.missing.test_*"
+        },
+        {
+          "what": "period feedback labels",
+          "ref": "data.missing.fb_labels"
+        },
+        {
+          "what": "phase-2 instructions and lottery list (X of pairs 2-9)",
+          "ref": "data.missing.instructions2 / hl_rows"
+        },
+        {
+          "what": "lottery result screen",
+          "ref": "data.missing.hl_result"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      }
+    },
+    {
+      "arm": "noinfo_large_cube",
+      "n_paper": 20,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "missing": [
+        {
+          "what": "phase-1 instructions, value table, histogram",
+          "ref": "data.missing.instructions1 / value_table / histogram"
+        },
+        {
+          "what": "decision screen wording (n announcement, reserve prompt)",
+          "ref": "data.missing.n_label / reserve_prompt"
+        },
+        {
+          "what": "testing field (FullInfo): wording, controls, output labels",
+          "ref": "data.missing.test_*"
+        },
+        {
+          "what": "period feedback labels",
+          "ref": "data.missing.fb_labels"
+        },
+        {
+          "what": "phase-2 instructions and lottery list (X of pairs 2-9)",
+          "ref": "data.missing.instructions2 / hl_rows"
+        },
+        {
+          "what": "lottery result screen",
+          "ref": "data.missing.hl_result"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      }
+    },
+    {
+      "arm": "fullinfo_cuberoot",
+      "n_paper": 20,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "missing": [
+        {
+          "what": "phase-1 instructions, value table, histogram",
+          "ref": "data.missing.instructions1 / value_table / histogram"
+        },
+        {
+          "what": "decision screen wording (n announcement, reserve prompt)",
+          "ref": "data.missing.n_label / reserve_prompt"
+        },
+        {
+          "what": "testing field (FullInfo): wording, controls, output labels",
+          "ref": "data.missing.test_*"
+        },
+        {
+          "what": "period feedback labels",
+          "ref": "data.missing.fb_labels"
+        },
+        {
+          "what": "phase-2 instructions and lottery list (X of pairs 2-9)",
+          "ref": "data.missing.instructions2 / hl_rows"
+        },
+        {
+          "what": "lottery result screen",
+          "ref": "data.missing.hl_result"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      }
+    },
+    {
+      "arm": "fullinfo_cube",
+      "n_paper": 20,
+      "why": "every on-screen text (phase-1 and phase-2 instructions, the value table and histogram, the decision and feedback screens, the testing field, the lottery list) is in the INFORMS e-companion, which could not be obtained (Cloudflare challenge on every scripted request, 2026-11-08); the paper only describes the screens (DESIGN 2 rule 2; README Decided 11)",
+      "missing": [
+        {
+          "what": "phase-1 instructions, value table, histogram",
+          "ref": "data.missing.instructions1 / value_table / histogram"
+        },
+        {
+          "what": "decision screen wording (n announcement, reserve prompt)",
+          "ref": "data.missing.n_label / reserve_prompt"
+        },
+        {
+          "what": "testing field (FullInfo): wording, controls, output labels",
+          "ref": "data.missing.test_*"
+        },
+        {
+          "what": "period feedback labels",
+          "ref": "data.missing.fb_labels"
+        },
+        {
+          "what": "phase-2 instructions and lottery list (X of pairs 2-9)",
+          "ref": "data.missing.instructions2 / hl_rows"
+        },
+        {
+          "what": "lottery result screen",
+          "ref": "data.missing.hl_result"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:a08626451f091d97"
+      }
+    }
+  ],
+  "data": {
+    "arms": {
+      "noinfo_small_cuberoot": {
+        "info": "no",
+        "dist": "cuberoot",
+        "a": 0.3333333333333333,
+        "set": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "noinfo_small_cube": {
+        "info": "no",
+        "dist": "cube",
+        "a": 3,
+        "set": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "noinfo_large_cuberoot": {
+        "info": "no",
+        "dist": "cuberoot",
+        "a": 0.3333333333333333,
+        "set": [
+          1,
+          4,
+          7,
+          10
+        ]
+      },
+      "noinfo_large_cube": {
+        "info": "no",
+        "dist": "cube",
+        "a": 3,
+        "set": [
+          1,
+          4,
+          7,
+          10
+        ]
+      },
+      "fullinfo_cuberoot": {
+        "info": "full",
+        "dist": "cuberoot",
+        "a": 0.3333333333333333,
+        "set": [
+          1,
+          4,
+          7,
+          10
+        ]
+      },
+      "fullinfo_cube": {
+        "info": "full",
+        "dist": "cube",
+        "a": 3,
+        "set": [
+          1,
+          4,
+          7,
+          10
+        ]
+      }
+    },
+    "dcite": {
+      "n_shown": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:e757ada213c4d725"
+      },
+      "test": {
+        "label": "derived",
+        "source": "paper",
+        "page": 5,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:6980e083763cf565"
+      },
+      "feedback": {
+        "label": "derived",
+        "source": "paper",
+        "page": 5,
+        "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "note": "withheld:6f6d01c837ce019c"
+      }
+    },
+    "missing": {
+      "instructions1": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:9d4834099c9f749e"
+        }
+      },
+      "value_table": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:bd5ac439fd3b8a04"
+        }
+      },
+      "histogram": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:79c0b334703e33aa"
+        }
+      },
+      "n_label": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:41868f38fe60909b"
+        }
+      },
+      "reserve_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:969f07a524f24f9d"
+        }
+      },
+      "test_intro": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:a9e1458f95438e7c"
+        }
+      },
+      "test_button": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:b67345a38ca6c9d8"
+        }
+      },
+      "submit_button": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:ba31dfacf1d8a98e"
+        }
+      },
+      "test_labels": {
+        "p_not_sold": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:1f4bce6a6a37dcae"
+          }
+        },
+        "p_sold_at_reserve": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:c91f4fb9e85c52a1"
+          }
+        },
+        "p_sold_above": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:8825d22111c04cc2"
+          }
+        },
+        "avg_price_if_sold": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:5e73d5b07de92836"
+          }
+        },
+        "avg_revenue": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:e88fb56a38c92cff"
+          }
+        }
+      },
+      "fb_labels": {
+        "dropouts": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:33d6aaa0686b9bb1"
+          }
+        },
+        "forced_out": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:63148cd551d113df"
+          }
+        },
+        "winning_bid": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:bcc27e03c16b10fe"
+          }
+        },
+        "profit": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:faf41ea377666ca7"
+          }
+        }
+      },
+      "instructions2": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:8ee93d89d42d0c0a"
+        }
+      },
+      "hl_rows": {
+        "1": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:170dcca1d61a62ab"
+          }
+        },
+        "2": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:cf82e576559564d6"
+          }
+        },
+        "3": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:e19338acfb07eb0d"
+          }
+        },
+        "4": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:b0f4d7465ab6a898"
+          }
+        },
+        "5": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:92f85826565e7e3c"
+          }
+        },
+        "6": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:df0fdf03cb38a244"
+          }
+        },
+        "7": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:0ae27872671a8ad3"
+          }
+        },
+        "8": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:bb3c25553c70bce7"
+          }
+        },
+        "9": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:6379fc6ea8345216"
+          }
+        },
+        "10": {
+          "text": null,
+          "cite": {
+            "label": "missing",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:e8ef28c9e77ec933"
+          }
+        }
+      },
+      "hl_A": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:7a86061c7b4ec331"
+        }
+      },
+      "hl_B": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:cc415c1e7c9c98a5"
+        }
+      },
+      "hl_result": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:5996137d7dbea86e"
+        }
+      }
+    }
+  },
+  "stages": {
+    "instructions1": {
+      "content": [
+        {
+          "id": "text",
+          "value": {
+            "expr": "data['missing']['instructions1']"
+          }
+        },
+        {
+          "id": "table",
+          "value": {
+            "expr": "data['missing']['value_table']"
+          }
+        },
+        {
+          "id": "histogram",
+          "value": {
+            "expr": "data['missing']['histogram']"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "timed"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "note": "withheld:4ee869c99f79f0cf"
+      }
+    },
+    "round": {
+      "content": [
+        {
+          "id": "n_label",
+          "value": {
+            "expr": "data['missing']['n_label']"
+          }
+        },
+        {
+          "id": "n_value",
+          "value": {
+            "expr": "{'text': str(ns[i]), 'cite': data['dcite']['n_shown']}"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "reserve",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['reserve_prompt']"
+          },
+          "validate": {
+            "min": 0,
+            "max": 100
+          },
+          "integer": true,
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:16477f03eac080ca"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 6,
+        "note": "withheld:890c05b06e18afbc"
+      }
+    },
+    "fi_period": {
+      "content": [
+        {
+          "id": "n_label",
+          "value": {
+            "expr": "data['missing']['n_label']"
+          }
+        },
+        {
+          "id": "n_value",
+          "value": {
+            "expr": "{'text': str(ns[i]), 'cite': data['dcite']['n_shown']}"
+          }
+        },
+        {
+          "id": "test_intro",
+          "value": {
+            "expr": "data['missing']['test_intro']"
+          }
+        },
+        {
+          "id": "t_p_not_sold_label",
+          "if": "attempt > 1",
+          "value": {
+            "expr": "data['missing']['test_labels']['p_not_sold']"
+          }
+        },
+        {
+          "id": "t_p_not_sold",
+          "if": "attempt > 1",
+          "value": {
+            "expr": "{'text': ('%.2f' % (round(((((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** ns[i]), 2) + 0.0)), 'cite': data['dcite']['test']}"
+          }
+        },
+        {
+          "id": "t_p_sold_at_reserve_label",
+          "if": "attempt > 1",
+          "value": {
+            "expr": "data['missing']['test_labels']['p_sold_at_reserve']"
+          }
+        },
+        {
+          "id": "t_p_sold_at_reserve",
+          "if": "attempt > 1",
+          "value": {
+            "expr": "{'text': ('%.2f' % (round((ns[i] * (1 - (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a'])) * (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** (ns[i] - 1)), 2) + 0.0)), 'cite': data['dcite']['test']}"
+          }
+        },
+        {
+          "id": "t_p_sold_above_label",
+          "if": "attempt > 1",
+          "value": {
+            "expr": "data['missing']['test_labels']['p_sold_above']"
+          }
+        },
+        {
+          "id": "t_p_sold_above",
+          "if": "attempt > 1",
+          "value": {
+            "expr": "{'text': ('%.2f' % (round((1 - ((((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** ns[i]) - (ns[i] * (1 - (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a'])) * (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** (ns[i] - 1))), 2) + 0.0)), 'cite': data['dcite']['test']}"
+          }
+        },
+        {
+          "id": "t_avg_price_if_sold_label",
+          "if": "attempt > 1",
+          "value": {
+            "expr": "data['missing']['test_labels']['avg_price_if_sold']"
+          }
+        },
+        {
+          "id": "t_avg_price_if_sold",
+          "if": "attempt > 1 and ((((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** ns[i]) < 1",
+          "value": {
+            "expr": "{'text': ('%.2f' % (round((((answer('fi_period.price', i=i, attempt=attempt - 1)) * (ns[i] * (1 - (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a'])) * (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** (ns[i] - 1)) + 100 - (answer('fi_period.price', i=i, attempt=attempt - 1)) * (ns[i] * (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** (ns[i] - 1) - (ns[i] - 1) * (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** ns[i]) - (ns[i] * 100 * (1 - ((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** (data['arms'][arm]['a'] * (ns[i] - 1) + 1)) / (data['arms'][arm]['a'] * (ns[i] - 1) + 1) - (ns[i] - 1) * 100 * (1 - ((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** (data['arms'][arm]['a'] * ns[i] + 1)) / (data['arms'][arm]['a'] * ns[i] + 1))) / (1 - ((((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** ns[i]))), 2) + 0.0)), 'cite': data['dcite']['test']}"
+          }
+        },
+        {
+          "id": "t_avg_revenue_label",
+          "if": "attempt > 1",
+          "value": {
+            "expr": "data['missing']['test_labels']['avg_revenue']"
+          }
+        },
+        {
+          "id": "t_avg_revenue",
+          "if": "attempt > 1",
+          "value": {
+            "expr": "{'text': ('%.2f' % (round(((answer('fi_period.price', i=i, attempt=attempt - 1)) * (ns[i] * (1 - (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a'])) * (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** (ns[i] - 1)) + 100 - (answer('fi_period.price', i=i, attempt=attempt - 1)) * (ns[i] * (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** (ns[i] - 1) - (ns[i] - 1) * (((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** data['arms'][arm]['a']) ** ns[i]) - (ns[i] * 100 * (1 - ((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** (data['arms'][arm]['a'] * (ns[i] - 1) + 1)) / (data['arms'][arm]['a'] * (ns[i] - 1) + 1) - (ns[i] - 1) * 100 * (1 - ((answer('fi_period.price', i=i, attempt=attempt - 1)) / 100) ** (data['arms'][arm]['a'] * ns[i] + 1)) / (data['arms'][arm]['a'] * ns[i] + 1))), 2) + 0.0)), 'cite': data['dcite']['test']}"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "price",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['reserve_prompt']"
+          },
+          "validate": {
+            "min": 0,
+            "max": 100
+          },
+          "integer": true,
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:99d904c5217c83d3"
+          }
+        },
+        {
+          "id": "action",
+          "kind": "choice",
+          "prompt": "",
+          "required": true,
+          "options": [
+            {
+              "code": "test",
+              "label": {
+                "expr": "data['missing']['test_button']"
+              }
+            },
+            {
+              "code": "submit",
+              "label": {
+                "expr": "data['missing']['submit_button']"
+              }
+            }
+          ],
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:a0d7f4368f3afc59"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 6,
+        "note": "withheld:890c05b06e18afbc"
+      }
+    },
+    "feedback": {
+      "content": [
+        {
+          "id": "fb_dropouts_label",
+          "value": {
+            "expr": "data['missing']['fb_labels']['dropouts']"
+          }
+        },
+        {
+          "id": "fb_dropouts",
+          "value": {
+            "expr": "{'text': join(', ', [('%.2f' % (round(v, 2) + 0.0)) for v in sorted(vals[i][:ns[i]], reverse=True)[1:] if v >= r_now]), 'cite': data['dcite']['feedback']}"
+          }
+        },
+        {
+          "id": "fb_forced_out_label",
+          "value": {
+            "expr": "data['missing']['fb_labels']['forced_out']"
+          },
+          "if": "any([v < r_now for v in vals[i][:ns[i]]])"
+        },
+        {
+          "id": "fb_winning_bid_label",
+          "value": {
+            "expr": "data['missing']['fb_labels']['winning_bid']"
+          }
+        },
+        {
+          "id": "fb_winning_bid",
+          "value": {
+            "expr": "{'text': ('%.2f' % (round(max([r_now] + [v for v in sorted(vals[i][:ns[i]])[:-1] if v >= r_now]), 2) + 0.0)), 'cite': data['dcite']['feedback']}"
+          },
+          "if": "max(vals[i][:ns[i]]) >= r_now"
+        },
+        {
+          "id": "fb_profit_label",
+          "value": {
+            "expr": "data['missing']['fb_labels']['profit']"
+          }
+        },
+        {
+          "id": "fb_profit",
+          "value": {
+            "expr": "{'text': ('%.2f' % (round((max([r_now] + [v for v in sorted(vals[i][:ns[i]])[:-1] if v >= r_now]) if max(vals[i][:ns[i]]) >= r_now else 0), 2) + 0.0)), 'cite': data['dcite']['feedback']}"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 6,
+        "note": "withheld:890c05b06e18afbc"
+      }
+    },
+    "instructions2": {
+      "content": [
+        {
+          "id": "text",
+          "value": {
+            "expr": "data['missing']['instructions2']"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "timed"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "note": "withheld:b42181f046fcbf24"
+      }
+    },
+    "hl": {
+      "content": [],
+      "responses": [
+        {
+          "id": "p1",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['hl_rows']['1']"
+          },
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['missing']['hl_A']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['missing']['hl_B']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:2601968854158813"
+          }
+        },
+        {
+          "id": "p2",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['hl_rows']['2']"
+          },
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['missing']['hl_A']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['missing']['hl_B']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:2601968854158813"
+          }
+        },
+        {
+          "id": "p3",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['hl_rows']['3']"
+          },
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['missing']['hl_A']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['missing']['hl_B']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:2601968854158813"
+          }
+        },
+        {
+          "id": "p4",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['hl_rows']['4']"
+          },
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['missing']['hl_A']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['missing']['hl_B']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:2601968854158813"
+          }
+        },
+        {
+          "id": "p5",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['hl_rows']['5']"
+          },
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['missing']['hl_A']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['missing']['hl_B']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:2601968854158813"
+          }
+        },
+        {
+          "id": "p6",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['hl_rows']['6']"
+          },
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['missing']['hl_A']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['missing']['hl_B']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:2601968854158813"
+          }
+        },
+        {
+          "id": "p7",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['hl_rows']['7']"
+          },
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['missing']['hl_A']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['missing']['hl_B']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:2601968854158813"
+          }
+        },
+        {
+          "id": "p8",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['hl_rows']['8']"
+          },
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['missing']['hl_A']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['missing']['hl_B']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:2601968854158813"
+          }
+        },
+        {
+          "id": "p9",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['hl_rows']['9']"
+          },
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['missing']['hl_A']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['missing']['hl_B']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:2601968854158813"
+          }
+        },
+        {
+          "id": "p10",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['hl_rows']['10']"
+          },
+          "options": [
+            {
+              "code": "A",
+              "label": {
+                "expr": "data['missing']['hl_A']"
+              }
+            },
+            {
+              "code": "B",
+              "label": {
+                "expr": "data['missing']['hl_B']"
+              }
+            }
+          ],
+          "required": true,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 5,
+            "note": "withheld:2601968854158813"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 5,
+        "note": "withheld:09e825bbb2d406c9"
+      }
+    },
+    "hl_result": {
+      "content": [
+        {
+          "id": "text",
+          "value": {
+            "expr": "data['missing']['hl_result']"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "note": "withheld:31b8a5857e8eb8d1"
+      }
+    }
+  },
+  "flow": [
+    {
+      "set": {
+        "ns": {
+          "expr": "[choice(data['arms'][arm]['set']) for k in range(60)]"
+        },
+        "vals": {
+          "expr": "[[100 * uniform(0, 1) ** (1 / data['arms'][arm]['a']) for m in range(10)] for k in range(60)]"
+        },
+        "r_now": null
+      }
+    },
+    {
+      "stage": "instructions1"
+    },
+    {
+      "if": "data['arms'][arm]['info'] == 'full'",
+      "then": {
+        "loop": 60,
+        "as": "i",
+        "do": [
+          {
+            "repeat": {
+              "stage": "fi_period"
+            },
+            "until": "answer('fi_period.action') == 'submit'",
+            "max": 30,
+            "on_max": "flag"
+          },
+          {
+            "set": {
+              "r_now": {
+                "expr": "(answer('fi_period.price') if answer('fi_period.action') == 'submit' else None)"
+              }
+            }
+          },
+          {
+            "stage": "feedback",
+            "if": "r_now is not None"
+          }
+        ]
+      },
+      "else": {
+        "loop": 60,
+        "as": "i",
+        "do": [
+          {
+            "stage": "round"
+          },
+          {
+            "set": {
+              "r_now": {
+                "expr": "answer('round.reserve')"
+              }
+            }
+          },
+          {
+            "stage": "feedback"
+          }
+        ]
+      }
+    },
+    {
+      "stage": "instructions2"
+    },
+    {
+      "stage": "hl"
+    },
+    {
+      "stage": "hl_result"
+    }
+  ],
+  "flow_cites": {
+    "bidder_counts": {
+      "label": "reported",
+      "source": "paper",
+      "page": 5,
+      "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "note": "withheld:8e0656d3ce3f5fe5"
+    },
+    "values": {
+      "label": "derived",
+      "source": "paper",
+      "page": 5,
+      "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "note": "withheld:5c639d4b9e9a4ca4"
+    },
+    "periods": {
+      "label": "reported",
+      "source": "paper",
+      "page": 5,
+      "evidence": "withheld:89af8f8801e33af2"
+    },
+    "tests": {
+      "label": "missing",
+      "source": "paper",
+      "page": 5,
+      "note": "withheld:b153df4f9d42fefe"
+    },
+    "phase2": {
+      "label": "reported",
+      "source": "paper",
+      "page": 5,
+      "note": "withheld:832ea50a8e764dc9"
+    }
+  },
+  "units": {
+    "sellers": {
+      "per": "session",
+      "fields": {
+        "info": "data['arms'][arm]['info']",
+        "dist": "data['arms'][arm]['dist']",
+        "nset": "'small' if data['arms'][arm]['set'] == [1, 2, 3, 4] else 'large'",
+        "rs": "[(answer('round.reserve', i=k) if data['arms'][arm]['info'] == 'no' else ([p for p, c in zip(answers('fi_period.price', i=k), answers('fi_period.action', i=k)) if c == 'submit'] + [None])[0]) for k in range(60)]",
+        "pn": "[ns[k] for k in range(60) if rs[k] is not None]",
+        "pp": "[k + 1 for k in range(60) if rs[k] is not None]",
+        "pr": "[r for r in rs if r is not None]",
+        "mean_r": "mean(pr) if pr else None",
+        "slope_n": "(sum((x - mean(pn)) * (y - mean_r) for x, y in zip(pn, pr)) / sum((x - mean(pn)) ** 2 for x in pn)) if len(pr) > 2 and sum((x - mean(pn)) ** 2 for x in pn) > 0 else None",
+        "slope_period": "(sum((x - mean(pp)) * (y - mean_r) for x, y in zip(pp, pr)) / sum((x - mean(pp)) ** 2 for x in pp)) if len(pr) > 2 else None",
+        "zero": "0",
+        "n_B": "(1 if answer('hl.p1') == 'B' else 0) + (1 if answer('hl.p2') == 'B' else 0) + (1 if answer('hl.p3') == 'B' else 0) + (1 if answer('hl.p4') == 'B' else 0) + (1 if answer('hl.p5') == 'B' else 0) + (1 if answer('hl.p6') == 'B' else 0) + (1 if answer('hl.p7') == 'B' else 0) + (1 if answer('hl.p8') == 'B' else 0) + (1 if answer('hl.p9') == 'B' else 0) + (1 if answer('hl.p10') == 'B' else 0)"
+      },
+      "cites": {
+        "slope_n": {
+          "label": "derived",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:25f630ce4b573dde"
+        },
+        "slope_period": {
+          "label": "derived",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:d76bc4c8849160f4"
+        },
+        "mean_r": {
+          "label": "derived",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:0bd928f8fb25b88c"
+        },
+        "n_B": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:a18c48a3c7ee6ab6"
+        },
+        "rs": {
+          "label": "derived",
+          "source": "paper",
+          "page": 5,
+          "note": "withheld:1df0d42dbb7d8e33"
+        }
+      }
+    },
+    "periods": {
+      "per": "feedback",
+      "fields": {
+        "info": "data['arms'][arm]['info']",
+        "dist": "data['arms'][arm]['dist']",
+        "nset": "'small' if data['arms'][arm]['set'] == [1, 2, 3, 4] else 'large'",
+        "n": "ns[i]",
+        "period": "i + 1",
+        "reserve": "(answer('round.reserve', i=i) if data['arms'][arm]['info'] == 'no' else ([p for p, c in zip(answers('fi_period.price', i=i), answers('fi_period.action', i=i)) if c == 'submit'] + [None])[0])"
+      },
+      "cites": {
+        "reserve": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "note": "withheld:b8df494ac399d990"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "omitted": [
+    {
+      "what": "consent, login, payment / earnings summary screen, exchange rate of profit points to dollars",
+      "why": "withheld:c72bdc5a6e13d259",
+      "label": "missing"
+    },
+    {
+      "what": "period header and any on-screen history of earlier periods",
+      "why": "not reported; z-Tree layout unknown",
+      "label": "missing"
+    },
+    {
+      "what": "demographics",
+      "why": "none reported",
+      "label": "missing"
+    }
+  ],
+  "analysis": {
+    "targets": [],
+    "effects": [],
+    "blocked_arm_targets": [
+      {
+        "id": "fig2_noinfo_cuberoot_n1",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cuberoot",
+          "n": 1
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 19.2,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:edc99b5ec80fa2a6"
+          },
+          "pooled_note": "NoInfo n = 1 occurs in both bidder sets ({1,2,3,4} and {1,4,7,10}); Figure 2(a) shows one bar; the paper does not say whether it pools both sets (readings)"
+        },
+        "readings": [
+          {
+            "reading": "pooled",
+            "where": {
+              "info": "no",
+              "dist": "cuberoot",
+              "n": 1
+            },
+            "cite": {
+              "label": "derived",
+              "source": "paper",
+              "page": 7,
+              "note": "withheld:f1e74dc091495b86"
+            }
+          },
+          {
+            "reading": "large_set_only",
+            "where": {
+              "info": "no",
+              "dist": "cuberoot",
+              "n": 1,
+              "nset": "large"
+            },
+            "cite": {
+              "label": "reported",
+              "source": "reprep",
+              "page": 3,
+              "note": "withheld:35590665b3a26472"
+            }
+          }
+        ],
+        "second_reading": {
+          "value": 19.2,
+          "where": {
+            "info": "no",
+            "dist": "cuberoot",
+            "n": 1,
+            "nset": "large"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "reprep",
+            "page": 3,
+            "note": "withheld:3345a61e32004555"
+          }
+        },
+        "reference_mismatch": "the bar may be pooled over both NoInfo bidder sets or come from the {1,4,7,10} cell only (replication report p. 3, Figure 1, plots the Cuberoot n = 1 and 4 bars as {1,4,7,10}-cell values); the scored sample is unsettled until the e-companion or the data say which",
+        "scoring": "direction_only"
+      },
+      {
+        "id": "fig2_noinfo_cuberoot_n2",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cuberoot",
+          "n": 2,
+          "nset": "small"
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 23.4,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:c5cb7cb70fbc8d9f"
+          }
+        }
+      },
+      {
+        "id": "fig2_noinfo_cuberoot_n3",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cuberoot",
+          "n": 3,
+          "nset": "small"
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 27.0,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:62a1cc372bc2a048"
+          }
+        }
+      },
+      {
+        "id": "fig2_noinfo_cuberoot_n4",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cuberoot",
+          "n": 4
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 29.5,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:7670f4c4189f12ca"
+          },
+          "pooled_note": "NoInfo n = 4 occurs in both bidder sets ({1,2,3,4} and {1,4,7,10}); Figure 2(a) shows one bar; the paper does not say whether it pools both sets (readings)"
+        },
+        "readings": [
+          {
+            "reading": "pooled",
+            "where": {
+              "info": "no",
+              "dist": "cuberoot",
+              "n": 4
+            },
+            "cite": {
+              "label": "derived",
+              "source": "paper",
+              "page": 7,
+              "note": "withheld:4f4fc83ef37755ca"
+            }
+          },
+          {
+            "reading": "large_set_only",
+            "where": {
+              "info": "no",
+              "dist": "cuberoot",
+              "n": 4,
+              "nset": "large"
+            },
+            "cite": {
+              "label": "reported",
+              "source": "reprep",
+              "page": 3,
+              "note": "withheld:446d0077c47d5ff3"
+            }
+          }
+        ],
+        "second_reading": {
+          "value": 29.5,
+          "where": {
+            "info": "no",
+            "dist": "cuberoot",
+            "n": 4,
+            "nset": "large"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "reprep",
+            "page": 3,
+            "note": "withheld:84921f0f5e270a8e"
+          }
+        },
+        "reference_mismatch": "the bar may be pooled over both NoInfo bidder sets or come from the {1,4,7,10} cell only (replication report p. 3, Figure 1, plots the Cuberoot n = 1 and 4 bars as {1,4,7,10}-cell values); the scored sample is unsettled until the e-companion or the data say which",
+        "scoring": "direction_only"
+      },
+      {
+        "id": "fig2_noinfo_cuberoot_n7",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cuberoot",
+          "n": 7,
+          "nset": "large"
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 38.7,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:e586ebe907424907"
+          }
+        }
+      },
+      {
+        "id": "fig2_noinfo_cuberoot_n10",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cuberoot",
+          "n": 10,
+          "nset": "large"
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 48.2,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:cb4b27e053267590"
+          }
+        }
+      },
+      {
+        "id": "fig2_noinfo_cube_n1",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cube",
+          "n": 1
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 52.7,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:ff6eb65a1180ceb7"
+          },
+          "pooled_note": "NoInfo n = 1 occurs in both bidder sets ({1,2,3,4} and {1,4,7,10}); Figure 2(a) shows one bar; the paper does not say whether it pools both sets (readings)"
+        },
+        "readings": [
+          {
+            "reading": "pooled",
+            "where": {
+              "info": "no",
+              "dist": "cube",
+              "n": 1
+            },
+            "cite": {
+              "label": "derived",
+              "source": "paper",
+              "page": 7,
+              "note": "withheld:f1e74dc091495b86"
+            }
+          },
+          {
+            "reading": "large_set_only",
+            "where": {
+              "info": "no",
+              "dist": "cube",
+              "n": 1,
+              "nset": "large"
+            },
+            "cite": {
+              "label": "derived",
+              "source": "paper",
+              "page": 7,
+              "note": "withheld:eb95a40406a2eaa1"
+            }
+          }
+        ],
+        "reference_mismatch": "the bar may be pooled over both NoInfo bidder sets or come from the {1,4,7,10} cell only (replication report p. 3, Figure 1, plots the Cuberoot n = 1 and 4 bars as {1,4,7,10}-cell values); the scored sample is unsettled until the e-companion or the data say which",
+        "scoring": "direction_only"
+      },
+      {
+        "id": "fig2_noinfo_cube_n2",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cube",
+          "n": 2,
+          "nset": "small"
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 55.5,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:62faeeef25c4b661"
+          }
+        }
+      },
+      {
+        "id": "fig2_noinfo_cube_n3",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cube",
+          "n": 3,
+          "nset": "small"
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 62.7,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:fc6861070efde016"
+          }
+        }
+      },
+      {
+        "id": "fig2_noinfo_cube_n4",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cube",
+          "n": 4
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 61.9,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:4d7f714c1fc79692"
+          },
+          "pooled_note": "NoInfo n = 4 occurs in both bidder sets ({1,2,3,4} and {1,4,7,10}); Figure 2(a) shows one bar; the paper does not say whether it pools both sets (readings)"
+        },
+        "readings": [
+          {
+            "reading": "pooled",
+            "where": {
+              "info": "no",
+              "dist": "cube",
+              "n": 4
+            },
+            "cite": {
+              "label": "derived",
+              "source": "paper",
+              "page": 7,
+              "note": "withheld:4f4fc83ef37755ca"
+            }
+          },
+          {
+            "reading": "large_set_only",
+            "where": {
+              "info": "no",
+              "dist": "cube",
+              "n": 4,
+              "nset": "large"
+            },
+            "cite": {
+              "label": "derived",
+              "source": "paper",
+              "page": 7,
+              "note": "withheld:eb95a40406a2eaa1"
+            }
+          }
+        ],
+        "reference_mismatch": "the bar may be pooled over both NoInfo bidder sets or come from the {1,4,7,10} cell only (replication report p. 3, Figure 1, plots the Cuberoot n = 1 and 4 bars as {1,4,7,10}-cell values); the scored sample is unsettled until the e-companion or the data say which",
+        "scoring": "direction_only"
+      },
+      {
+        "id": "fig2_noinfo_cube_n7",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cube",
+          "n": 7,
+          "nset": "large"
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 67.8,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:e90ac9f1d48ace54"
+          }
+        }
+      },
+      {
+        "id": "fig2_noinfo_cube_n10",
+        "unit": "periods",
+        "where": {
+          "info": "no",
+          "dist": "cube",
+          "n": 10,
+          "nset": "large"
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 73.9,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:19129d235a1e53fa"
+          }
+        }
+      },
+      {
+        "id": "fig2_fullinfo_cuberoot_n1",
+        "unit": "periods",
+        "where": {
+          "info": "full",
+          "dist": "cuberoot",
+          "n": 1
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 14.2,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:9205bb620451056e"
+          }
+        }
+      },
+      {
+        "id": "fig2_fullinfo_cuberoot_n4",
+        "unit": "periods",
+        "where": {
+          "info": "full",
+          "dist": "cuberoot",
+          "n": 4
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 29.1,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:1830630c0b00715e"
+          }
+        }
+      },
+      {
+        "id": "fig2_fullinfo_cuberoot_n7",
+        "unit": "periods",
+        "where": {
+          "info": "full",
+          "dist": "cuberoot",
+          "n": 7
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 42.4,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:976038b7d6314cfc"
+          }
+        }
+      },
+      {
+        "id": "fig2_fullinfo_cuberoot_n10",
+        "unit": "periods",
+        "where": {
+          "info": "full",
+          "dist": "cuberoot",
+          "n": 10
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 52.4,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:535ff8db7e6cd19f"
+          }
+        }
+      },
+      {
+        "id": "fig2_fullinfo_cube_n1",
+        "unit": "periods",
+        "where": {
+          "info": "full",
+          "dist": "cube",
+          "n": 1
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 48.4,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:36d369c6d213724b"
+          }
+        }
+      },
+      {
+        "id": "fig2_fullinfo_cube_n4",
+        "unit": "periods",
+        "where": {
+          "info": "full",
+          "dist": "cube",
+          "n": 4
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 60.2,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:3718f5d5681e60d2"
+          }
+        }
+      },
+      {
+        "id": "fig2_fullinfo_cube_n7",
+        "unit": "periods",
+        "where": {
+          "info": "full",
+          "dist": "cube",
+          "n": 7
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 67.1,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:cd9da5ed40058fac"
+          }
+        }
+      },
+      {
+        "id": "fig2_fullinfo_cube_n10",
+        "unit": "periods",
+        "where": {
+          "info": "full",
+          "dist": "cube",
+          "n": 10
+        },
+        "field": "reserve",
+        "stat": "mean",
+        "human": {
+          "value": 76.0,
+          "no_uncertainty": "bar label only; no SD/SE printed",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:bc2e59761625c0b9"
+          }
+        }
+      }
+    ],
+    "blocked_arm_effects": [
+      {
+        "id": "n_slope_noinfo_large_cuberoot",
+        "label": "NoInfo, Cuberoot, n in {1,4,7,10}: reserve price per additional bidder",
+        "unit": "sellers",
+        "role": "test",
+        "design": "within",
+        "contrast": {
+          "kind": "paired",
+          "treatment": "slope",
+          "reference": "zero"
+        },
+        "compute": {
+          "op": "paired_difference",
+          "field": "slope_n",
+          "referenceField": "zero",
+          "where": {
+            "info": "no",
+            "dist": "cuberoot",
+            "nset": "large"
+          },
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "mean of per-seller OLS slopes of the reserve on n: n is drawn independently of everything else and every seller has 60 periods, so it estimates the same within-seller slope as the random-intercept coefficient on n - nbar (the paper's model also has Per and Cube terms; Cube is constant within a seller)"
+          }
+        },
+        "reported": {
+          "value": 3.311,
+          "se": 0.104,
+          "metric": "regression_coefficient",
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 3.311,
+              "se": 0.104,
+              "variant": "random-intercept regression on n - nbar and Per - Per, original data of this cell (replication report)",
+              "estimateType": "model-based",
+              "scope": "replayed-sample"
+            }
+          ],
+          "test": {
+            "statistic": "z",
+            "p": 0.01,
+            "pRelation": "<"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "reprep",
+            "page": 3,
+            "note": "withheld:419d30aa1ecdb33e"
+          }
+        }
+      },
+      {
+        "id": "n_slope_noinfo_all",
+        "label": "NoInfo (all four cells): reserve price per additional bidder (Model 1)",
+        "unit": "sellers",
+        "role": "test",
+        "design": "within",
+        "contrast": {
+          "kind": "paired",
+          "treatment": "slope",
+          "reference": "zero"
+        },
+        "compute": {
+          "op": "paired_difference",
+          "field": "slope_n",
+          "referenceField": "zero",
+          "where": {
+            "info": "no"
+          },
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "mean of per-seller OLS slopes of the reserve on n. This equals the pooled random-intercept coefficient on n - nbar only if every seller has the same slope (homogeneous slopes across bidder sets and distributions): the pooled model weights sellers by their n variance (about 1.25 for {1,2,3,4}, 11.25 for {1,4,7,10}) and also uses between-seller variation, while this estimand weights every seller equally. Figure 2 implies different slopes per set, so the level is not comparable; the engine offers no weighted per-seller slope, so this effect is scored on direction only (scoring, reference_mismatch)"
+          }
+        },
+        "reported": {
+          "value": 2.98,
+          "se": 0.08,
+          "metric": "regression_coefficient",
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 2.98,
+              "se": 0.08,
+              "variant": "Table 2 Model (1): n - nbar, Per - Per, Cube; random effects for subjects",
+              "estimateType": "model-based",
+              "scope": "pooled"
+            }
+          ],
+          "test": {
+            "statistic": "z",
+            "p": 0.01,
+            "pRelation": "<"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:1ff1916a973ad9e5"
+          }
+        },
+        "reference_mismatch": "estimand mismatch: the printed coefficient is from a random-intercept model pooled over sellers with different n sets / distributions; the replay's unweighted mean of per-seller slopes matches it only under homogeneous slopes (fidelity review 1, R1-S2)",
+        "scoring": "direction_only"
+      },
+      {
+        "id": "n_slope_noinfo_cuberoot",
+        "label": "NoInfo Cuberoot (both bidder sets): reserve per additional bidder (Model 3)",
+        "unit": "sellers",
+        "role": "robustness",
+        "design": "within",
+        "contrast": {
+          "kind": "paired",
+          "treatment": "slope",
+          "reference": "zero"
+        },
+        "compute": {
+          "op": "paired_difference",
+          "field": "slope_n",
+          "referenceField": "zero",
+          "where": {
+            "info": "no",
+            "dist": "cuberoot"
+          },
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "mean of per-seller OLS slopes of the reserve on n. This equals the pooled random-intercept coefficient on n - nbar only if every seller has the same slope (homogeneous slopes across bidder sets and distributions): the pooled model weights sellers by their n variance (about 1.25 for {1,2,3,4}, 11.25 for {1,4,7,10}) and also uses between-seller variation, while this estimand weights every seller equally. Figure 2 implies different slopes per set, so the level is not comparable; the engine offers no weighted per-seller slope, so this effect is scored on direction only (scoring, reference_mismatch)"
+          }
+        },
+        "reported": {
+          "value": 3.24,
+          "se": 0.11,
+          "metric": "regression_coefficient",
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 3.24,
+              "se": 0.11,
+              "variant": "Table 2 Model (3) coefficient on n - nbar (Cube = 0; model also has #B and n x Cube)",
+              "estimateType": "model-based",
+              "scope": "pooled"
+            }
+          ],
+          "test": {
+            "statistic": "z",
+            "p": 0.01,
+            "pRelation": "<"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:1ff1916a973ad9e5"
+          }
+        },
+        "reference_mismatch": "estimand mismatch: the printed coefficient is from a random-intercept model pooled over sellers with different n sets / distributions; the replay's unweighted mean of per-seller slopes matches it only under homogeneous slopes (fidelity review 1, R1-S2)",
+        "scoring": "direction_only"
+      },
+      {
+        "id": "n_slope_fullinfo_all",
+        "label": "FullInfo (both distributions): reserve price per additional bidder (Model 4)",
+        "unit": "sellers",
+        "role": "test",
+        "design": "within",
+        "contrast": {
+          "kind": "paired",
+          "treatment": "slope",
+          "reference": "zero"
+        },
+        "compute": {
+          "op": "paired_difference",
+          "field": "slope_n",
+          "referenceField": "zero",
+          "where": {
+            "info": "full"
+          },
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "mean of per-seller OLS slopes of the reserve on n. This equals the pooled random-intercept coefficient on n - nbar only if every seller has the same slope (homogeneous slopes across bidder sets and distributions): the pooled model weights sellers by their n variance (about 1.25 for {1,2,3,4}, 11.25 for {1,4,7,10}) and also uses between-seller variation, while this estimand weights every seller equally. Figure 2 implies different slopes per set, so the level is not comparable; the engine offers no weighted per-seller slope, so this effect is scored on direction only (scoring, reference_mismatch)"
+          }
+        },
+        "reported": {
+          "value": 3.57,
+          "se": 0.08,
+          "metric": "regression_coefficient",
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 3.57,
+              "se": 0.08,
+              "variant": "Table 3 Model (4): n - nbar, Per - Per, Cube; random effects",
+              "estimateType": "model-based",
+              "scope": "pooled"
+            }
+          ],
+          "test": {
+            "statistic": "z",
+            "p": 0.01,
+            "pRelation": "<"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:66df6a5f0d82cb71"
+          }
+        },
+        "reference_mismatch": "estimand mismatch: the printed coefficient is from a random-intercept model pooled over sellers with different n sets / distributions; the replay's unweighted mean of per-seller slopes matches it only under homogeneous slopes (fidelity review 1, R1-S2)",
+        "scoring": "direction_only"
+      },
+      {
+        "id": "n_slope_fullinfo_cuberoot",
+        "label": "FullInfo Cuberoot: reserve per additional bidder (Model 6)",
+        "unit": "sellers",
+        "role": "robustness",
+        "design": "within",
+        "contrast": {
+          "kind": "paired",
+          "treatment": "slope",
+          "reference": "zero"
+        },
+        "compute": {
+          "op": "paired_difference",
+          "field": "slope_n",
+          "referenceField": "zero",
+          "where": {
+            "info": "full",
+            "dist": "cuberoot"
+          },
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "mean of per-seller OLS slopes of the reserve on n. This equals the pooled random-intercept coefficient on n - nbar only if every seller has the same slope (homogeneous slopes across bidder sets and distributions): the pooled model weights sellers by their n variance (about 1.25 for {1,2,3,4}, 11.25 for {1,4,7,10}) and also uses between-seller variation, while this estimand weights every seller equally. Figure 2 implies different slopes per set, so the level is not comparable; the engine offers no weighted per-seller slope, so this effect is scored on direction only (scoring, reference_mismatch)"
+          }
+        },
+        "reported": {
+          "value": 4.26,
+          "se": 0.12,
+          "metric": "regression_coefficient",
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 4.26,
+              "se": 0.12,
+              "variant": "Table 3 Model (6) coefficient on n - nbar (Cube = 0; model also has #B and n x Cube)",
+              "estimateType": "model-based",
+              "scope": "pooled"
+            }
+          ],
+          "test": {
+            "statistic": "z",
+            "p": 0.01,
+            "pRelation": "<"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:66df6a5f0d82cb71"
+          }
+        },
+        "reference_mismatch": "estimand mismatch: the printed coefficient is from a random-intercept model pooled over sellers with different n sets / distributions; the replay's unweighted mean of per-seller slopes matches it only under homogeneous slopes (fidelity review 1, R1-S2)",
+        "scoring": "direction_only"
+      },
+      {
+        "id": "cube_vs_cuberoot_noinfo",
+        "label": "NoInfo: mean reserve price, Cube minus Cuberoot",
+        "unit": "sellers",
+        "role": "test",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "cube",
+          "reference": "cuberoot"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "mean_r",
+          "groupBy": "dist",
+          "where": {
+            "info": "no"
+          },
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "the Cube dummy's coefficient is the Cube - Cuberoot difference in mean reserve at equal n and period; n is drawn from the same sets in both distributions"
+          }
+        },
+        "reported": {
+          "value": 31.78,
+          "se": 2.59,
+          "metric": "regression_coefficient",
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 31.78,
+              "se": 2.59,
+              "variant": "Table 2 Model (1) coefficient on Cube",
+              "estimateType": "model-based",
+              "scope": "pooled"
+            }
+          ],
+          "test": {
+            "statistic": "z",
+            "p": 0.01,
+            "pRelation": "<"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:1ff1916a973ad9e5"
+          }
+        }
+      },
+      {
+        "id": "cube_vs_cuberoot_fullinfo",
+        "label": "FullInfo: mean reserve price, Cube minus Cuberoot",
+        "unit": "sellers",
+        "role": "test",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "cube",
+          "reference": "cuberoot"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "mean_r",
+          "groupBy": "dist",
+          "where": {
+            "info": "full"
+          },
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "the Cube dummy's coefficient is the Cube - Cuberoot difference in mean reserve at equal n and period; n is drawn from the same sets in both distributions"
+          }
+        },
+        "reported": {
+          "value": 28.29,
+          "se": 5.15,
+          "metric": "regression_coefficient",
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 28.29,
+              "se": 5.15,
+              "variant": "Table 3 Model (4) coefficient on Cube",
+              "estimateType": "model-based",
+              "scope": "pooled"
+            }
+          ],
+          "test": {
+            "statistic": "z",
+            "p": 0.01,
+            "pRelation": "<"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:66df6a5f0d82cb71"
+          }
+        }
+      },
+      {
+        "id": "period_slope_noinfo",
+        "label": "NoInfo: change in reserve price per period",
+        "unit": "sellers",
+        "role": "test",
+        "design": "within",
+        "contrast": {
+          "kind": "paired",
+          "treatment": "slope",
+          "reference": "zero"
+        },
+        "compute": {
+          "op": "paired_difference",
+          "field": "slope_period",
+          "referenceField": "zero",
+          "where": {
+            "info": "no"
+          },
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "mean per-seller OLS slope on the period = within-seller time trend"
+          }
+        },
+        "reported": {
+          "value": 0.04,
+          "se": 0.011,
+          "metric": "regression_coefficient",
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 0.04,
+              "se": 0.011,
+              "variant": "Table 2 Model (1) coefficient on Per - Per",
+              "estimateType": "model-based",
+              "scope": "pooled"
+            }
+          ],
+          "test": {
+            "statistic": "z",
+            "p": 0.01,
+            "pRelation": "<"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:1ff1916a973ad9e5"
+          }
+        }
+      },
+      {
+        "id": "period_slope_fullinfo",
+        "label": "FullInfo: change in reserve price per period",
+        "unit": "sellers",
+        "role": "test",
+        "design": "within",
+        "contrast": {
+          "kind": "paired",
+          "treatment": "slope",
+          "reference": "zero"
+        },
+        "compute": {
+          "op": "paired_difference",
+          "field": "slope_period",
+          "referenceField": "zero",
+          "where": {
+            "info": "full"
+          },
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "mean per-seller OLS slope on the period = within-seller time trend"
+          }
+        },
+        "reported": {
+          "value": -0.1,
+          "se": 0.016,
+          "metric": "regression_coefficient",
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": -0.1,
+              "se": 0.016,
+              "variant": "Table 3 Model (4) coefficient on Per - Per",
+              "estimateType": "model-based",
+              "scope": "pooled"
+            }
+          ],
+          "test": {
+            "statistic": "z",
+            "p": 0.01,
+            "pRelation": "<"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:66df6a5f0d82cb71"
+          }
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "what": "Table 2 / Table 3 constants (29.45 [1.83], 34.86 [3.64]) and R2 (0.499 / 0.449); Models (2), (5) #B coefficients (1.40 [0.49]; -1.30 [0.97]) and the n x Cube interactions (-0.55 [0.15]; -1.38 [0.16])",
+        "why": "random-effects regressions need analysis code under sandbox_run; #B needs the lottery X values of pairs 2-9 (not printed)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:1ff1916a973ad9e5"
+        }
+      },
+      {
+        "what": "Table 4: 120 per-seller regressions classified by n effect (positive 73.3%) and average r (below 56.7%, above 31.7%), pooled over all six cells",
+        "why": "classification by per-seller significance and CI vs the optimum, pooled over all cells; the per-cell split is in the e-companion (not obtained)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:585fa5f59b24eae7"
+        }
+      },
+      {
+        "what": "Figure 3 CDFs of reserve prices at n = 1 ('approximately 25% ... between 0 and 10' NoInfo, ~50% FullInfo)",
+        "why": "approximate shares read off a figure",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:585fa5f59b24eae7"
+        }
+      },
+      {
+        "what": "withheld:abdf2bcc9f42f9aa",
+        "why": "model estimation; e-companion not obtained"
+      },
+      {
+        "what": "Feng et al. (2025) human aggregates (r = .42, mean 27.31, SD 23.22, sell-through .76, profit 32.83)",
+        "why": "another paper's summary of a different (2023 replication / legacy) sample; not used (meta.legacy)"
+      }
+    ]
+  },
+  "keyed": {
+    "why": "paper's pattern: reserve rises about 3 per bidder, Cube about 30 above Cuberoot, slight rise over periods in NoInfo and slight fall in FullInfo; FullInfo sellers test once, then submit",
+    "answers": {
+      "round.reserve": "min(100, (20 if data['arms'][arm]['dist'] == 'cuberoot' else 52) + 3 * ns[i] + (i // 20))",
+      "fi_period.price": "min(100, (15 if data['arms'][arm]['dist'] == 'cuberoot' else 45) + 4 * ns[i] + 2 - (i // 20))",
+      "fi_period.action": "'submit' if attempt > 1 else 'test'",
+      "hl.p1": "'A' if 1 < 5 else 'B'",
+      "hl.p2": "'A' if 2 < 5 else 'B'",
+      "hl.p3": "'A' if 3 < 5 else 'B'",
+      "hl.p4": "'A' if 4 < 5 else 'B'",
+      "hl.p5": "'A' if 5 < 5 else 'B'",
+      "hl.p6": "'A' if 6 < 5 else 'B'",
+      "hl.p7": "'A' if 7 < 5 else 'B'",
+      "hl.p8": "'A' if 8 < 5 else 'B'",
+      "hl.p9": "'A' if 9 < 5 else 'B'",
+      "hl.p10": "'A' if 10 < 5 else 'B'"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {
+      "h1": {
+        "path": "/arms/0/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h2": {
+        "path": "/arms/1/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h3": {
+        "path": "/arms/2/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h4": {
+        "path": "/arms/3/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h5": {
+        "path": "/arms/4/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h6": {
+        "path": "/arms/5/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h7": {
+        "path": "/conditions/0/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h8": {
+        "path": "/run_excluded/0/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h9": {
+        "path": "/run_excluded/1/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h10": {
+        "path": "/run_excluded/2/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h11": {
+        "path": "/run_excluded/3/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h12": {
+        "path": "/run_excluded/4/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h13": {
+        "path": "/run_excluded/5/cite/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 46,
+        "text_sha256": "5b43b20815e329a21d875c9de0811230ab95ff4fb38796dc1d4b26a051da11e6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 41,
+              "canon_sha256": "5b82c0f1a48b0bebe2fb1f68b314b6354f130004f4cea2328903427ef42c2de6",
+              "unique": true,
+              "before": 444,
+              "after": 4229
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      },
+      "h14": {
+        "path": "/data/dcite/n_shown/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 114,
+        "text_sha256": "098eb06df7f9edab37593785a23a284d7d3853933f0640c999ccf36a6d8027e8",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 95,
+              "canon_sha256": "d6e6aa8e61ca3b67556c615604b4006a264f0d2af71014b54f050e6b4d553a37",
+              "unique": true,
+              "before": 980,
+              "after": 2606
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              16,
+              0,
+              " "
+            ],
+            [
+              24,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              49,
+              0,
+              " "
+            ],
+            [
+              56,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              63,
+              0,
+              " "
+            ],
+            [
+              67,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              81,
+              0,
+              " "
+            ],
+            [
+              88,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            5,
+            5
+          ],
+          "per_unit": true
+        }
+      },
+      "h15": {
+        "path": "/data/dcite/test/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 102,
+        "text_sha256": "02f2c057d562dbba1d1e1852ad6ab87717857320d480db0129f4374ac62311f6",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 87,
+              "canon_sha256": "1e7679fc877c20286d562898632fee2b890858b235e0de2608126c6fdf9a75e4",
+              "unique": true,
+              "before": 1983,
+              "after": 1611
+            }
+          ],
+          "restore": [
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              40,
+              0,
+              " "
+            ],
+            [
+              49,
+              0,
+              " "
+            ],
+            [
+              60,
+              0,
+              " "
+            ],
+            [
+              63,
+              0,
+              " "
+            ],
+            [
+              67,
+              0,
+              " "
+            ],
+            [
+              75,
+              0,
+              " "
+            ],
+            [
+              82,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            5,
+            5
+          ],
+          "per_unit": true
+        }
+      },
+      "h16": {
+        "path": "/data/dcite/feedback/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 52,
+        "text_sha256": "1e5e7ec439e170cbd130b15da4f655d193ab7dad9ea22d40b5e8c30f9fd839cb",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 19,
+              "canon_sha256": "7445c0dac199efce66ec07b1ef7764b967877a3ea13531d41470896fb755f717",
+              "unique": true,
+              "before": 2480,
+              "after": 1182
+            },
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 26,
+              "canon_sha256": "a1fd0d29f1f0a6423961b9ce76197ed3dabf0c185750488d11b3424a60d61f02",
+              "unique": true,
+              "before": 2500,
+              "after": 1155
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              33,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            5,
+            5
+          ],
+          "per_unit": true
+        }
+      },
+      "h17": {
+        "path": "/flow_cites/bidder_counts/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 106,
+        "text_sha256": "402748b51d9a95a7e62d07aab354daed58b23cb6a1a472191c2e5131ffc08875",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 89,
+              "canon_sha256": "40f0177f4487fc645925659a833db853c0d69d49e94abbd0432595dcb2742169",
+              "unique": true,
+              "before": 1178,
+              "after": 2414
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              43,
+              0,
+              " "
+            ],
+            [
+              44,
+              0,
+              " "
+            ],
+            [
+              53,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              70,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              77,
+              0,
+              " "
+            ],
+            [
+              79,
+              0,
+              " "
+            ],
+            [
+              84,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            5,
+            5
+          ],
+          "per_unit": true
+        }
+      },
+      "h18": {
+        "path": "/flow_cites/values/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 50,
+        "text_sha256": "318d762c594c70769ab9fddf9a7afadaf90054a5463e04ae8be8505b86a9de33",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 44,
+              "canon_sha256": "6a9eadf3871d0ccbc6e28ed1a47ece319c144960372e8a4d7400fa50db98edd5",
+              "unique": true,
+              "before": 780,
+              "after": 2857
+            }
+          ],
+          "restore": [
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            5,
+            5
+          ],
+          "per_unit": true
+        }
+      },
+      "h19": {
+        "path": "/units/periods/cites/reserve/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 69,
+        "text_sha256": "a2bacbdf9fcea99fedbe0c51bff79d271f6418438e01175d482e9767fb8068e5",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                5,
+                5
+              ],
+              "canon_len": 58,
+              "canon_sha256": "4f826e09c0da4ad50dd37726e772c01c0ec08af4ca330a527618860763f36a44",
+              "unique": true,
+              "before": 2565,
+              "after": 2091
+            }
+          ],
+          "restore": [
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              41,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            6,
+            6
+          ],
+          "per_unit": true
+        }
+      }
+    },
+    "strict": false,
+    "attribution": []
+  },
+  "schema_version": "1"
+}

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "af0325074b80de2d9a922c130d3700e61af49b46a2d9595dc05e35b838464704",
-  "previousRevision": "1fb3fc66c7c59e119d6d9a936b77243523bd4136b22aaf4a29fa845e2a775d14",
+  "revision": "691ad59835de6bacb573d9a874e9c03f2069728ce23d44e1d4b995b6dba45365",
+  "previousRevision": "af0325074b80de2d9a922c130d3700e61af49b46a2d9595dc05e35b838464704",
   "paper": {
     "title": "Many Labs 5: Registered Multisite Replication of the Tempting-Fate Effects in Risen and Gilovich (2008)",
     "authors": [
@@ -35,40 +35,29 @@
   "capabilities": {
     "discoverable": true,
     "traceable": false,
-    "reanalyzable": true,
+    "reanalyzable": false,
     "replayable": true,
     "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "af0325074b80de2d9a922c130d3700e61af49b46a2d9595dc05e35b838464704",
-    "reviewer": "maintainer:assassin808",
-    "reason": "Audit 1 (desktop #57). Supplementary files cited by the evidence are recorded in sources/SOURCE.json#supplements as not included, each with sha256, size and (where found on OSF by hash) its download URL and license. artifacts/replay/replay-compare.json regenerated from the current study_core.py reproduce run (human data vs the paper, effects.json); the stale pilot comparison (replay-compare.md and its AI-participant results, computed with an earlier evaluation) removed. capabilities.json recomputed.",
-    "checks": [
-      "check_program.py --complete",
-      "check_quotes.py against the paper and the cited supplements",
-      "effects.py check",
-      "study_core.py reproduce with effects.json on the pinned human data: pass [2, 2]",
-      "capabilities.py recomputed and --check",
-      "check_package.py",
-      "agent export self-test",
-      "audit.py (audit book 0.1) before and after",
-      "schema, package bindings and effects.json (validate_assets)"
-    ],
-    "verifiedCapabilities": {
-      "discoverable": true,
-      "traceable": false,
-      "reanalyzable": true,
-      "replayable": true,
-      "humanBenchmark": true
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Some held texts cannot be restored by the app (a picture, a file the researcher must supply, or text that cannot be located): the researcher pastes or captures them before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "691ad59835de6bacb573d9a874e9c03f2069728ce23d44e1d4b995b6dba45365"
   },
   "validation": {
     "status": "passed",
     "errors": [],
+    "warnings": [
+      "effects.json: program result r_orig is not reachable from any hypothesis or effect",
+      "effects.json: program variable v_load is not reachable from any hypothesis or effect",
+      "effects.json: program variable v_site is not reachable from any hypothesis or effect",
+      "effects.json: program variable v_tf is not reachable from any hypothesis or effect"
+    ],
     "checks": {
       "schema": true,
-      "packageBindings": true,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -76,9 +65,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "16c61ec0ac470227238337577ecb63e9312d378b969b7dda44bd2ddf208d4a13"
+    "protocolSha256": "61832cea5b8a03eca447aa3257466cf2e08363d0c2e664ee19db30d7492576ab"
   }
 }

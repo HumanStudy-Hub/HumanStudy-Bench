@@ -1,0 +1,164 @@
+{
+  "package": "pennycook2020",
+  "source": "study_core.py reproduce (method package, effects.json) on the pinned human data",
+  "humanSessions": 1709,
+  "sample": "original",
+  "tolerance": "a result is recovered when |computed - reported| <= max(0.05, 0.15 * |reported|)",
+  "humanMatchesPaper": [
+    7,
+    7
+  ],
+  "checks": [
+    {
+      "id": "s1_veracity_x_condition",
+      "label": "Study 1: truth discernment in sharing vs accuracy condition (veracity x condition)",
+      "role": "test",
+      "reported": -0.504,
+      "human": -0.5204,
+      "human_p": 0.0,
+      "basis": "same metric (regression_coefficient)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "s1_veracity_accuracy",
+      "label": "Study 1: true vs false headlines within the accuracy condition",
+      "role": "descriptive",
+      "reported": 0.657,
+      "human": 0.6459,
+      "human_p": 0.0,
+      "basis": "computed regression_coefficient compared as reported standardized_mean_difference: ratings are z-scored over all ratings and veracity is coded -0.5/0.5, so the veracity coefficient within a condition is the true-minus-false mean difference in SD units, the d the paper prints",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "s1_veracity_sharing",
+      "label": "Study 1: true vs false headlines within the sharing condition",
+      "role": "descriptive",
+      "reported": 0.121,
+      "human": 0.1255,
+      "human_p": 0.010945,
+      "basis": "computed regression_coefficient compared as reported standardized_mean_difference: ratings are z-scored over all ratings and veracity is coded -0.5/0.5, so the veracity coefficient within a condition is the true-minus-false mean difference in SD units, the d the paper prints",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "s1_false_share_vs_accuracy",
+      "label": "Study 1, false headlines: share saying they would share vs share judging them accurate",
+      "role": "descriptive",
+      "reported": 32.4,
+      "human": 31.3767,
+      "human_p": null,
+      "basis": "same metric (percent_change)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "s1_crt_discernment_accuracy",
+      "label": "Study 1: CRT score x veracity within the accuracy condition",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "sessions hold no CRT or science-knowledge scores (the replay covers the news task only)",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_crt_discernment_sharing",
+      "label": "Study 1: CRT score x veracity within the sharing condition",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "sessions hold no CRT or science-knowledge scores (the replay covers the news task only)",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_crt_discernment_x_condition",
+      "label": "Study 1: CRT score x veracity x condition (difference in its link to discernment)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "sessions hold no CRT or science-knowledge scores (the replay covers the news task only)",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_sci_discernment_accuracy",
+      "label": "Study 1: science knowledge x veracity within the accuracy condition",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "sessions hold no CRT or science-knowledge scores (the replay covers the news task only)",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_sci_discernment_sharing",
+      "label": "Study 1: science knowledge x veracity within the sharing condition",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "sessions hold no CRT or science-knowledge scores (the replay covers the news task only)",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_sci_discernment_x_condition",
+      "label": "Study 1: science knowledge x veracity x condition (difference in its link to discernment)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "sessions hold no CRT or science-knowledge scores (the replay covers the news task only)",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_veracity_x_treatment",
+      "label": "Study 2: accuracy nudge raises sharing discernment (veracity x treatment)",
+      "role": "test",
+      "reported": 0.0343,
+      "human": 0.0359,
+      "human_p": 0.000199,
+      "basis": "same metric (regression_coefficient)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "s2_veracity_control",
+      "label": "Study 2: true vs false headlines within the control condition",
+      "role": "descriptive",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the evaluation fits no within-condition model for Study 2 and keeps no rating SD, so the paper's d cannot be formed from it",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_veracity_treatment",
+      "label": "Study 2: true vs false headlines within the treatment condition",
+      "role": "descriptive",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the evaluation fits no within-condition model for Study 2 and keeps no rating SD, so the paper's d cannot be formed from it",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_discernment_ratio",
+      "label": "Study 2: sharing discernment in treatment relative to control (ratio)",
+      "role": "descriptive",
+      "reported": 2.8,
+      "human": 2.913,
+      "human_p": null,
+      "basis": "same metric (ratio)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "items_accuracy_vs_treatment_effect",
+      "label": "Items: Study 1 perceived accuracy vs Study 2 treatment effect on sharing (r across 30 headlines)",
+      "role": "test",
+      "reported": 0.76,
+      "human": 0.757,
+      "human_p": 1e-06,
+      "basis": "same metric (correlation)",
+      "humanMatchesPaper": true
+    }
+  ],
+  "agent": "The AI-participant results of the earlier pilot replay were removed: they were computed with an earlier evaluation and effect list. Run a replay to compare AI participants with these results."
+}
