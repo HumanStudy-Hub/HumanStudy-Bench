@@ -348,8 +348,11 @@ def unhold_short(projected: dict, private: dict, unheld: list | None = None) -> 
     texts = {hid: _value(private, e["path"]) for hid, e in held.items() if e.get("kind") != "image" and e.get("path")}
     groups: dict[str, list] = {}
     for hid, e in held.items():
-        if hid in texts and _sequence_key(e["path"]):
-            groups.setdefault(_sequence_key(e["path"]), []).append(hid)
+        if hid in texts:
+            # siblings in one list (any field) and siblings in one object (a prefix and a suffix) are one sequence
+            for key in (_sequence_key(e["path"]), "obj:" + e["path"].rsplit("/", 1)[0]):
+                if key:
+                    groups.setdefault(key, []).append(hid)
     n = 0
     for hid, entry in list(held.items()):
         if hid not in texts or FRAGMENT_KEYS & set(entry["path"].split("/")):
@@ -357,7 +360,8 @@ def unhold_short(projected: dict, private: dict, unheld: list | None = None) -> 
         text = texts[hid]
         if not is_label(text):
             continue
-        seq = groups.get(_sequence_key(entry["path"]) or "", [hid])
+        seq = sorted(set(groups.get(_sequence_key(entry["path"]) or "", [hid])
+                         + groups.get("obj:" + entry["path"].rsplit("/", 1)[0], [hid])))
         if len(seq) > 1 and not (LABEL_KEYS & set(entry["path"].split("/"))) \
                 and not all(isinstance(texts[h], str) and NUMERIC.fullmatch(texts[h].strip()) for h in seq):
             continue   # (a list of numbers / codes without letters is never prose)
@@ -702,6 +706,12 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         if tiers.get(key) != "hosted" and raw[:5] == b"%PDF-" and key not in unscanned:
             if len("".join(distribution.pdfium_extractor()(raw)).strip()) < 2000:
                 unscanned.append(key)   # a scan without a text layer: the quote scan saw nothing
+    if unscanned:
+        loose = uncited_screen_text(protocol)
+        if loose:
+            raise ProjectionBlocked(f"source(s) {', '.join(unscanned[:6])} could not be scanned (no text or file), so "
+                                    f"{len(loose)} uncited on-screen text(s) of more than {SHORT_WORDS} words cannot be "
+                                    "checked against them: " + ", ".join(loose[:8]))
     # The engine reads one protocol format, schema_version "1"; builders wrote their own convention labels
     # ("hsenv-protocol/3.2", 3, 1). The schema check below decides whether the file is that format.
     projected["schema_version"] = "1"
@@ -791,6 +801,19 @@ def picture_sha(study_dir: Path, src: str) -> str | None:
         return None
     path = study_dir / rel   # a study's sources/ may be a link to the private checkout: followed, never escaped by ..
     return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
+
+
+def uncited_screen_text(private: dict) -> list[str]:
+    """Participant-facing text slots (the engine's slots under data / stages / roles / flow) with no cite at all and
+    more than SHORT_WORDS words: our own wording, or a quote nobody cited."""
+    out = []
+    for path, cont, key, cf, kind in release._slots(copy.deepcopy(private)):
+        if kind == "image" or path[:1] not in (["data"], ["stages"], ["roles"], ["flow"]) or release._cites(cf):
+            continue
+        value = cont.get(key) if isinstance(cont, dict) else None
+        if isinstance(value, str) and not is_label(value):
+            out.append(release._ptr(path))
+    return out
 
 
 def _own_cite(holder: dict):
