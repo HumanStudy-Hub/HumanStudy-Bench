@@ -312,6 +312,9 @@ LABEL_KEYS = frozenset(("options", "option", "anchors", "anchor", "choices", "ch
                         "levels", "items_labels", "cells", "legend", "units", "unit", "equals", "validate"))
 
 
+NUMERIC = re.compile(r"[0-9\s.,:;/+\-\u2212\u2013%()$\u20ac\u00a3#]*")
+
+
 def nwords_all(text) -> int:
     if not isinstance(text, str):
         return 10 ** 6
@@ -356,7 +359,7 @@ def unhold_short(projected: dict, private: dict, unheld: list | None = None) -> 
             continue
         seq = groups.get(_sequence_key(entry["path"]) or "", [hid])
         if len(seq) > 1 and not (LABEL_KEYS & set(entry["path"].split("/"))) \
-                and not all(isinstance(texts[h], str) and not re.search(r"[^\W\d_]", texts[h]) for h in seq):
+                and not all(isinstance(texts[h], str) and NUMERIC.fullmatch(texts[h].strip()) for h in seq):
             continue   # (a list of numbers / codes without letters is never prose)
         parent, key = entry["path"].rsplit("/", 1)
         cont = _pointer(projected, parent)
@@ -467,12 +470,13 @@ def hosted_unconfirmed(message: str, private: dict, sources: dict) -> list[str]:
                 elif key in sources and key not in texts:
                     fmt = ((msrc.get(key) or {}).get("distribution") or {}).get("format") or distribution.sniff(sources[key])
                     try:
-                        units = distribution.units("text" if fmt in TEXT_FORMATS else fmt, sources[key],
-                                                   {"pdf": distribution.pdfium_extractor()})
-                        if fmt == "qsf":   # every string of the survey file, translations included
+                        units = [] if fmt == "qsf" else distribution.units(
+                            "text" if fmt in TEXT_FORMATS else fmt, sources[key], {"pdf": distribution.pdfium_extractor()})
+                        if fmt == "qsf":   # what respondents see, translations included (hidden elements removed)
                             units += [html.unescape(re.sub(r"<[^>]+>", " ", re.sub(
                                           r"(?is)<(script|style|template|noscript|textarea|select|object|iframe|"
-                                          r"svg|head|title)\b.*?</\1\s*>|<!--.*?-->", " ", x)))
+                                          r"svg|head|title)\b.*?</\1\s*>|<!--.*?-->|<(\w+)[^>]*\b(hidden|display\s*:\s*none|"
+                                          r"visibility\s*:\s*hidden)[^>]*>.*?</\3\s*>", " ", x)))
                                       for x in _all_strings(json.loads(sources[key].decode("utf-8-sig")))]
                         texts[key] = [_canon(u) for u in units]   # field by field, never joined
                     except Exception:
@@ -623,11 +627,11 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         cont = _value(projected, e["path"])
         holder, key = (cont, "src") if isinstance(cont, dict) else (_value(projected, e["path"].rsplit("/", 1)[0]),
                                                                       e["path"].rsplit("/", 1)[1])
-        if isinstance(holder, dict) and isinstance(holder.get(key), str) and not holder[key].startswith("asset:"):
-            digest = str(e.get("sha256") or hashlib.sha256(holder[key].encode()).hexdigest())
+        if isinstance(holder, dict) and isinstance(holder.get(key), str):
             if not e.get("sha256"):
-                e["sha256"] = digest
-            holder[key] = "asset:" + digest[:16]
+                e["sha256"] = picture_sha(study_dir, holder[key])
+            if not holder[key].startswith("asset:") and e.get("sha256"):
+                holder[key] = "asset:" + str(e["sha256"])[:16]
     # A picture with a private file path that is not held (an openly licensed figure) cannot ship as a path: it is
     # held like the others (the researcher's copy of the source fills it in by its hash).
     held_srcs = {e.get("path") for e in held_now.values() if e.get("kind") == "image"}
@@ -637,15 +641,19 @@ def project(study_dir: Path) -> tuple[dict, dict]:
         if path.startswith("/meta/"):   # an operator's picture (a design note): not needed to run, never shipped
             holder.pop("src")
             continue
-        digest = str(holder.get("sha256") or hashlib.sha256(holder["src"].encode()).hexdigest())
+        digest = holder.get("sha256") or picture_sha(study_dir, holder["src"])
+        if not digest:   # the file is not here: nothing can verify it, so it is not shipped at all
+            holder.pop("src")
+            continue
         cite = (release._cites(_own_cite(holder)) or [{}])[0]
         if not isinstance(cite.get("source"), str):
             cite = {"source": "materials"}
             projected["meta"].setdefault("sources", {}).setdefault("materials", {
                 "what": "the researcher's own copy of the study materials", "distribution": {"tier": "user"}})
-        hid = f"p{len(held_now) + 1}"
-        while hid in held_now:
-            hid += "x"
+        n_ = len(held_now) + 1
+        while f"h{n_}" in held_now:
+            n_ += 1
+        hid = f"h{n_}"
         held_now[hid] = {"path": path.rsplit("/", 1)[0], "source": cite.get("source"), "kind": "image",
                          "sha256": digest, "locator": {"format": "image", "page": cite.get("page")}}
         holder["src"] = "asset:" + digest[:16]
@@ -740,6 +748,15 @@ def add_approx(projected: dict, private: dict, sources: dict) -> tuple[int, int]
         entry["approx"] = fp
         added += 1
     return added, missing
+
+
+def picture_sha(study_dir: Path, src: str) -> str | None:
+    """sha256 of a picture's bytes from its local path in the study folder (None when it is not there)."""
+    rel = Path(os.path.normpath(src.lstrip("/")))
+    if rel.is_absolute() or rel.parts[:1] == ("..",):
+        return None
+    path = study_dir / rel   # a study's sources/ may be a link to the private checkout: followed, never escaped by ..
+    return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
 
 
 def _own_cite(holder: dict):

@@ -293,13 +293,37 @@ def public_checks(protocol: dict, sessions: int) -> dict:
     only random-answer coverage (unreached stages / effects not computed) is re-run at COVERAGE_RETRY_SESSIONS."""
     report = _public_checks(protocol, sessions)
     for more in COVERAGE_RETRIES:
-        fuzz = report.get("fuzz") or {}
-        if report.get("PASS") is True or sessions >= more or not (
-                fuzz.get("unreached_stages") or fuzz.get("effects_not_computed")):
+        if more <= sessions:
+            continue
+        if report.get("PASS") is True or not coverage_only(report):
             break
         sessions = more
         report = _public_checks(protocol, sessions)
     return report
+
+
+def coverage_only(report: dict) -> bool:
+    """The report fails only on random-answer coverage: unreached stages / effects not computed (and the coverage
+    flag), with no leak, keyed, verbatim, coding or hold finding."""
+    fuzz = report.get("fuzz") or {}
+    if not (fuzz.get("unreached_stages") or fuzz.get("effects_not_computed")):
+        return False
+    other = [k for k in ("leaks", "state_expr_leaks", "unanswerable", "foreign_language_tokens", "problems",
+                         "blocked_arm_problems") if fuzz.get(k)]
+    keyed = report.get("keyed") or {}
+    if keyed.get("problems") or keyed.get("excluded_share") or keyed.get("state_expr_leaks"):
+        other.append("keyed")
+    if keyed.get("signs") and not all(x.get("same_sign") for x in keyed["signs"]):
+        other.append("keyed signs")   # (an effect not computed also shows here; it is re-checked by the larger run)
+    verbatim = report.get("verbatim") or {}
+    if verbatim.get("not_found") or verbatim.get("image_unconfirmed") or verbatim.get("bad_source") \
+            or verbatim.get("unchecked"):
+        other.append("verbatim")
+    if any((c or {}).get("mismatches") for c in (report.get("coding") or {}).values()) or report.get("release_hold"):
+        other.append("coding/hold")
+    not_computed = set(fuzz.get("effects_not_computed") or [])
+    return not other or other == ["keyed signs"] and all(
+        x.get("same_sign") or x.get("effect") in not_computed for x in keyed["signs"])
 
 
 def _public_checks(protocol: dict, sessions: int) -> dict:
@@ -329,13 +353,18 @@ def replay(protocol: dict, sessions: int, seed: int = 1) -> dict:
         return {"problems": [f"protocol does not load: {exc}"]}
     problems = list(checks.check_refs(p))
     _, probs, stats = checks.play(p, sessions, seed, "random")
-    for more in COVERAGE_RETRIES:   # coverage only is re-run; every other problem of the first run is kept
-        if sessions >= more or not stats.get("unreached_stages"):
+    earlier: list[str] = []
+    for more in COVERAGE_RETRIES:   # coverage only is re-run; every other finding of an earlier run is kept
+        if more <= sessions:
+            continue
+        if not stats.get("unreached_stages"):
             break
+        earlier += probs + [f"{k}: {stats[k]}" for k in ("leaks", "state_expr_leaks") if stats.get(k)]
+        if stats.get("n_unanswerable"):
+            earlier.append(f"{stats['n_unanswerable']} unanswerable screens")
         sessions = more
-        _, more_probs, stats = checks.play(p, sessions, seed, "random")
-        probs = probs + [x for x in more_probs if x not in probs]
-    problems += probs[:10]
+        _, probs, stats = checks.play(p, sessions, seed, "random")
+    problems += [x for x in earlier if x not in problems]
     for key in ("unreached_stages", "leaks", "state_expr_leaks", "blocked_effects_not_computed"):
         if stats.get(key):
             problems.append(f"{key}: {stats[key]}")
