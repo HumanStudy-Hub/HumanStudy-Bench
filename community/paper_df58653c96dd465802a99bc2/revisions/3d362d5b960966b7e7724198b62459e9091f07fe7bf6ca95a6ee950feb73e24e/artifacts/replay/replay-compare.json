@@ -1,0 +1,764 @@
+{
+  "package": "cheung2025moral",
+  "source": "study_core.py reproduce (method package, effects.json) on the pinned human data",
+  "humanSessions": 474,
+  "sample": "original",
+  "tolerance": "a result is recovered when |computed - reported| <= max(0.05, 0.15 * |reported|)",
+  "humanMatchesPaper": [
+    3,
+    3
+  ],
+  "checks": [
+    {
+      "id": "s1_om_humans",
+      "label": "Study 1, participants: CBR choice when it coincides with omission vs action",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no Study 1 sessions (the Study 1 human data are not in the human-data folder)",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_om_allllms",
+      "label": "Study 1, all LLMs (participant prompt): CBR choice on omission vs action",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_om_gpt4turbo",
+      "label": "Study 1, GPT-4-turbo (participant prompt): CBR choice on omission vs action",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_om_gpt4o",
+      "label": "Study 1, GPT-4o (participant prompt): CBR choice on omission vs action",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_om_llama31inst",
+      "label": "Study 1, Llama 3.1-Instruct (participant prompt): CBR choice on omission vs action",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_om_claude35",
+      "label": "Study 1, Claude 3.5 (participant prompt): CBR choice on omission vs action",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_cap_gpt4turbo_advice",
+      "label": "Study 1 collective action problems: altruism score, GPT-4-turbo (advice prompt) vs participants",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 1 collective action problems: vignettes, slider ranges and responses are not available",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_cap_gpt4turbo_participant",
+      "label": "Study 1 collective action problems: altruism score, GPT-4-turbo (participant prompt) vs participants",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 1 collective action problems: vignettes, slider ranges and responses are not available",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_cap_gpt4o_advice",
+      "label": "Study 1 collective action problems: altruism score, GPT-4o (advice prompt) vs participants",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 1 collective action problems: vignettes, slider ranges and responses are not available",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_cap_gpt4o_participant",
+      "label": "Study 1 collective action problems: altruism score, GPT-4o (participant prompt) vs participants",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 1 collective action problems: vignettes, slider ranges and responses are not available",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_cap_llama31inst_advice",
+      "label": "Study 1 collective action problems: altruism score, Llama 3.1-Instruct (advice prompt) vs participants",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 1 collective action problems: vignettes, slider ranges and responses are not available",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_cap_llama31inst_participant",
+      "label": "Study 1 collective action problems: altruism score, Llama 3.1-Instruct (participant prompt) vs participants",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 1 collective action problems: vignettes, slider ranges and responses are not available",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_cap_claude35_advice",
+      "label": "Study 1 collective action problems: altruism score, Claude 3.5 (advice prompt) vs participants",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 1 collective action problems: vignettes, slider ranges and responses are not available",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s1_cap_claude35_participant",
+      "label": "Study 1 collective action problems: altruism score, Claude 3.5 (participant prompt) vs participants",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 1 collective action problems: vignettes, slider ranges and responses are not available",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_yn_humans",
+      "label": "Study 2, participants: yes-no bias (CBR when yes = CBR vs no = CBR)",
+      "role": "test",
+      "reported": 0.039999999999999925,
+      "human": 0.0389575,
+      "human_p": 0.480036,
+      "basis": "difference of the reported proportions",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "s2_om_humans",
+      "label": "Study 2, participants: omission bias (CBR on omission vs action)",
+      "role": "test",
+      "reported": 0.12,
+      "human": 0.115524,
+      "human_p": 0.0390351,
+      "basis": "difference of the reported proportions",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "s2_yn_gpt4turbo",
+      "label": "Study 2, GPT-4-turbo (participant prompt): yes-no bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_yn_llama31inst",
+      "label": "Study 2, Llama 3.1-Instruct (participant prompt): yes-no bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_yn_claude35",
+      "label": "Study 2, Claude 3.5 (participant prompt): yes-no bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_yn_gpt4o",
+      "label": "Study 2, GPT-4o (participant prompt): yes-no bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_yn_gpt4turbo_vs_humans",
+      "label": "Study 2: yes-no bias, GPT-4-turbo vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_yn_llama31inst_vs_humans",
+      "label": "Study 2: yes-no bias, Llama 3.1-Instruct vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_yn_claude35_vs_humans",
+      "label": "Study 2: yes-no bias, Claude 3.5 vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_yn_gpt4o_vs_humans",
+      "label": "Study 2: yes-no bias, GPT-4o vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_yn_gpt4o_sil_part",
+      "label": "Study 2, GPT-4o (silicon sampling, participant prompt): yes-no framing effect",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_yn_gpt4o_sil_adv",
+      "label": "Study 2, GPT-4o (silicon sampling, advice-giving prompt): yes-no framing effect",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_gpt4turbo",
+      "label": "Study 2, GPT-4-turbo (participant prompt): omission bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_gpt4o",
+      "label": "Study 2, GPT-4o (participant prompt): omission bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_llama31inst",
+      "label": "Study 2, Llama 3.1-Instruct (participant prompt): omission bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_claude35",
+      "label": "Study 2, Claude 3.5 (participant prompt): omission bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_gpt4turbo_vs_humans",
+      "label": "Study 2: omission bias, GPT-4-turbo vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_llama31inst_vs_humans",
+      "label": "Study 2: omission bias, Llama 3.1-Instruct vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_claude35_vs_humans",
+      "label": "Study 2: omission bias, Claude 3.5 vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_gpt4o_vs_humans",
+      "label": "Study 2: omission bias, GPT-4o vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_gpt4o_advice",
+      "label": "Study 2, GPT-4o (advice-giving prompt): omission bias",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_gpt4o_advice_vs_humans",
+      "label": "Study 2: omission bias, GPT-4o (advice-giving prompt) vs participants",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_endowment_humans",
+      "label": "Study 2, participants, 'Endowment' only: omission bias",
+      "role": "descriptive",
+      "reported": 0.5,
+      "human": 0.503953,
+      "human_p": 0.000337337,
+      "basis": "difference of the reported proportions",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "s2_om_endowment_gpt4o",
+      "label": "Study 2, GPT-4o (participant prompt), 'Endowment' only: omission bias",
+      "role": "descriptive",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s2_om_endowment_gpt4o_vs_humans",
+      "label": "Study 2, 'Endowment': omission bias, GPT-4o vs participants",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_yn_humans",
+      "label": "Study 3 (AITA dilemmas), participants: yes-no bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 3: human data and five of six vignettes are not available",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_yn_gpt4turbo",
+      "label": "Study 3 (AITA dilemmas), GPT-4-turbo (participant prompt): yes-no bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_yn_gpt4o",
+      "label": "Study 3 (AITA dilemmas), GPT-4o (participant prompt): yes-no bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_yn_llama31inst",
+      "label": "Study 3 (AITA dilemmas), Llama 3.1-Instruct (participant prompt): yes-no bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_yn_claude35",
+      "label": "Study 3 (AITA dilemmas), Claude 3.5 (participant prompt): yes-no bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_yn_gpt4turbo_vs_humans",
+      "label": "Study 3: yes-no bias, GPT-4-turbo vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_yn_gpt4o_vs_humans",
+      "label": "Study 3: yes-no bias, GPT-4o vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_yn_llama31inst_vs_humans",
+      "label": "Study 3: yes-no bias, Llama 3.1-Instruct vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_yn_claude35_vs_humans",
+      "label": "Study 3: yes-no bias, Claude 3.5 vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_om_humans",
+      "label": "Study 3 (AITA dilemmas), participants: omission bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 3: human data and five of six vignettes are not available",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_om_gpt4turbo",
+      "label": "Study 3 (AITA dilemmas), GPT-4-turbo (participant prompt): omission bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_om_gpt4o",
+      "label": "Study 3 (AITA dilemmas), GPT-4o (participant prompt): omission bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_om_llama31inst",
+      "label": "Study 3 (AITA dilemmas), Llama 3.1-Instruct (participant prompt): omission bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_om_claude35",
+      "label": "Study 3 (AITA dilemmas), Claude 3.5 (participant prompt): omission bias",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the paper's LLM respondents (each model x prompt) are a separate sample whose responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_om_gpt4turbo_vs_humans",
+      "label": "Study 3: omission bias, GPT-4-turbo vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_om_llama31inst_vs_humans",
+      "label": "Study 3: omission bias, Llama 3.1-Instruct vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_om_claude35_vs_humans",
+      "label": "Study 3: omission bias, Claude 3.5 vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s3_om_gpt4o_vs_humans",
+      "label": "Study 3: omission bias, GPT-4o vs participants (framing x model)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the framing x model ANOVA needs the paper's LLM response data alongside the human data; not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_yn_llama31inst",
+      "label": "Study 4, Llama 3.1-Instruct: yes-no bias on the Study 2 dilemmas",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_yn_llama31pre",
+      "label": "Study 4, Llama 3.1 (pre-trained): yes-no bias on the Study 2 dilemmas",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_yn_centaur",
+      "label": "Study 4, Centaur: yes-no bias on the Study 2 dilemmas",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_om_llama31pre",
+      "label": "Study 4, Llama 3.1 (pre-trained): omission bias on the Study 2 dilemmas",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_om_centaur",
+      "label": "Study 4, Centaur: omission bias on the Study 2 dilemmas",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_yn_humans",
+      "label": "Study 4 analysis, participants (Study 2 data): yes-no bias",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": 0.480036,
+      "basis": "the paper reports no risk_difference for this effect",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_yn_centaur_vs_humans",
+      "label": "Study 4: yes-no bias, Centaur vs humans (Table S4)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_yn_llama31pre_vs_humans",
+      "label": "Study 4: yes-no bias, Llama 3.1 (pre-trained) vs humans (Table S4)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_yn_llama31inst_vs_humans",
+      "label": "Study 4: yes-no bias, Llama 3.1-Instruct vs humans (Table S4)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_yn_centaur_vs_llama31pre",
+      "label": "Study 4: yes-no bias, Centaur vs Llama 3.1 (pre-trained) (Table S4)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_yn_centaur_vs_llama31inst",
+      "label": "Study 4: yes-no bias, Centaur vs Llama 3.1-Instruct (Table S4)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_yn_llama31pre_vs_llama31inst",
+      "label": "Study 4: yes-no bias, Llama 3.1 (pre-trained) vs Llama 3.1-Instruct (Table S4)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_om_centaur_vs_humans",
+      "label": "Study 4: omission bias, Centaur vs humans (Table S5)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_om_llama31pre_vs_humans",
+      "label": "Study 4: omission bias, Llama 3.1 (pre-trained) vs humans (Table S5)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_om_llama31inst_vs_humans",
+      "label": "Study 4: omission bias, Llama 3.1-Instruct vs humans (Table S5)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_om_centaur_vs_llama31pre",
+      "label": "Study 4: omission bias, Centaur vs Llama 3.1 (pre-trained) (Table S5)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_om_centaur_vs_llama31inst",
+      "label": "Study 4: omission bias, Centaur vs Llama 3.1-Instruct (Table S5)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    },
+    {
+      "id": "s4_om_llama31pre_vs_llama31inst",
+      "label": "Study 4: omission bias, Llama 3.1 (pre-trained) vs Llama 3.1-Instruct (Table S5)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "Study 4 compares model checkpoints (pre-trained Llama 3.1, Llama 3.1-Instruct, Centaur); their responses are not part of these sessions",
+      "humanMatchesPaper": null
+    }
+  ],
+  "agent": "The AI-participant results of the earlier pilot replay were removed: they were computed with an earlier evaluation and effect list. Run a replay to compare AI participants with these results."
+}

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "eca365fbd3b79cea1f8f6ef08dafc09ef225e41e05e2de8c5797881a094cc366",
-  "previousRevision": null,
+  "revision": "f5e4e39677906732b694b2bcf249a86a01e37b075296a730cf9adab961231bba",
+  "previousRevision": "eca365fbd3b79cea1f8f6ef08dafc09ef225e41e05e2de8c5797881a094cc366",
   "paper": {
     "title": "Investigating an alternate form of the cognitive reflection test",
     "authors": [
@@ -33,55 +33,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "eca365fbd3b79cea1f8f6ef08dafc09ef225e41e05e2de8c5797881a094cc366",
-    "reviewer": "independent program_pilot agent",
-    "reason": "Independent reading-layer review and public-export checks completed; source-backed summaries and explicit missing items retained. No protocol or raw source files are distributed.",
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Reading Program, reported findings, source references and public-content boundaries only. Not a Validated protocol or replication of human outcomes.",
-    "sourcePolicy": {
-      "publicFiles": [
-        "program.json"
-      ],
-      "sourceCredits": [
-        {
-          "evidenceIds": [
-            "overview",
-            "s1-method",
-            "s1-results",
-            "s2-method",
-            "s2-scoring",
-            "s2-measures",
-            "s2-results",
-            "numeracy",
-            "s2-correlations",
-            "s2-nulls",
-            "s2-gender",
-            "validity-results",
-            "validity-method"
-          ],
-          "url": "https://doi.org/10.1017/S1930297500007622",
-          "attribution": "Keela S. Thomson, Daniel M. Oppenheimer. Investigating an alternate form of the cognitive reflection test (2016).",
-          "license": "CC-BY-3.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-          "sha256": "7b791a62d6aa437fbc1ed214f26b27b783f7eff293c3f4a81832c5aa04021870",
-          "title": "Investigating an alternate form of the cognitive reflection test",
-          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
-        }
-      ],
-      "inputExportSha256": "b4985838a6e4b6b16a4e9d18cfd5e4e2183a40a32c6eeef07b40f1a80e8b9f06"
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Some held texts cannot be restored by the app (a picture, a file the researcher must supply, or text that cannot be located): the researcher pastes or captures them before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "f5e4e39677906732b694b2bcf249a86a01e37b075296a730cf9adab961231bba"
   },
   "validation": {
     "status": "passed",
@@ -89,7 +51,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -97,9 +59,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "3c1eeec547b124c60fe308b63029e6da967d1ffa3418c689f2cb9e0d74a62e32"
+    "protocolSha256": "a3b1fa579a729b97624e4e16cbb03e418f3c411e45a26c1fc3af1444225ba89a"
   }
 }

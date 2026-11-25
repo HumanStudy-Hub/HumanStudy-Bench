@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "8e93ad2357552a30055ec12126a26d58671d44297b5a440e8f432fa3be395a45",
-  "previousRevision": null,
+  "revision": "87d30a123d0be3d513365e18cdcf899a1502365514f95b8bdac6e63a091a2801",
+  "previousRevision": "8e93ad2357552a30055ec12126a26d58671d44297b5a440e8f432fa3be395a45",
   "paper": {
     "title": "Subjective Probability: A Judgment of Representativeness",
     "authors": [
@@ -48,30 +48,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "8e93ad2357552a30055ec12126a26d58671d44297b5a440e8f432fa3be395a45",
-    "reviewer": "independent-agent:gpt-6-astra:/root/astra_public_program",
-    "reason": "Accepted exact candidate as a concise reading-only research summary with source locators and explicit scope limits. This is not full-instrument or executable-protocol approval.",
-    "checks": [
-      "Compared the three task families with source headings and sampling/posterior sections; revised printed-page ranges align with those sections.",
-      "Representativeness, irregularity, sample-size insensitivity and posterior/base-rate limitations are stated as descriptive findings rather than universal rules.",
-      "Recomputed exact asset digest; inspected only Program and source manifest are included. No protocol, participant records, original PDF, credentials or executable materials included.",
-      "Independently re-reviewed added headline takeaway and prediction nodes against the already inspected primary source and rebound this acceptance to the refreshed full asset digest."
-    ],
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Primary-source comparison of the claims actually present in this concise reading summary, citation section/table locators, and public-asset privacy. Not exhaustive extraction, reanalysis, runtime testing, or historical-fidelity certification.",
-    "sourceAccessNote": "Original documents were reviewed locally using extracted text/OCR, and for study_016 via the author-uploaded publisher article on ResearchGate. Sources remain external; acceptance does not guarantee access without a library subscription or permanent availability of links."
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Some held texts cannot be restored by the app (a picture, a file the researcher must supply, or text that cannot be located): the researcher pastes or captures them before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "87d30a123d0be3d513365e18cdcf899a1502365514f95b8bdac6e63a091a2801"
   },
   "validation": {
     "status": "passed",
@@ -79,7 +66,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -87,9 +74,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "6c15ec6852be583591744840783317ce69a6d464691ce913df56398a1bca55a0"
+    "protocolSha256": "02a083e7f9ef1e521b2751b1fb39bfb8a8b5837eb32852c3de583cb6f0fa5d77"
   }
 }

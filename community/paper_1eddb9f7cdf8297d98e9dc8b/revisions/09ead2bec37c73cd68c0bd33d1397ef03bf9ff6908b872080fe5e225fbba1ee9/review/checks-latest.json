@@ -1,0 +1,198 @@
+{
+  "protocol_sha256": "4aa9a562fa4a16cc4bcd21f55632186125c737bc076f5d80a92b448a83fb7762",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 2000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 1.0,
+    "population_excluded_sessions": {},
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "e1_harder_vs_simple",
+        "human": 1.28,
+        "keyed": 0.157,
+        "same_sign": true
+      },
+      {
+        "effect": "e1_ambig_vs_complex",
+        "human": 0.44,
+        "keyed": 0.314,
+        "same_sign": true
+      },
+      {
+        "effect": "e1_pos_middle",
+        "human": 1.28,
+        "keyed": 0.257,
+        "same_sign": true
+      },
+      {
+        "effect": "e1_pos_right",
+        "human": 0.74,
+        "keyed": 0.257,
+        "same_sign": true
+      },
+      {
+        "effect": "e1_msgtype",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "e2_harder_vs_simple",
+        "human": 1.63,
+        "keyed": 0.252,
+        "same_sign": true
+      },
+      {
+        "effect": "e2_ambig_vs_complex",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "e2_msgtype",
+        "human": 0.41,
+        "keyed": 0.385,
+        "same_sign": true
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "exp1",
+      "exp2"
+    ]
+  },
+  "reading_annotations": [],
+  "coding": {},
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [
+    {
+      "effect": "e1_harder_vs_simple",
+      "statistic": "Wald z (not printed)"
+    },
+    {
+      "effect": "e1_ambig_vs_complex",
+      "statistic": "Wald z (not printed)"
+    },
+    {
+      "effect": "e1_pos_middle",
+      "statistic": "Wald z (not printed)"
+    },
+    {
+      "effect": "e1_pos_right",
+      "statistic": "Wald z (not printed)"
+    },
+    {
+      "effect": "e1_msgtype",
+      "statistic": "Wald z (not printed)"
+    },
+    {
+      "effect": "e2_harder_vs_simple",
+      "statistic": "Wald z (not printed)"
+    },
+    {
+      "effect": "e2_ambig_vs_complex",
+      "statistic": "Wald z (not printed)"
+    },
+    {
+      "effect": "e2_msgtype",
+      "statistic": "Wald z (not printed)"
+    }
+  ],
+  "printed_item_tests": [],
+  "second_readings": [
+    "e2_unamb_target",
+    "e2_unamb_competitor",
+    "e2_ambig_target",
+    "e2_ambig_competitor"
+  ],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "e1_unamb_target",
+      "agent": null,
+      "n_agent": 0,
+      "k_agent": null,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": null,
+      "held_out": {},
+      "human": 0.99
+    },
+    {
+      "id": "e1_unamb_competitor",
+      "agent": null,
+      "n_agent": 0,
+      "k_agent": null,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": null,
+      "held_out": {},
+      "human": 0.0004
+    },
+    {
+      "id": "e1_ambig_target",
+      "agent": null,
+      "n_agent": 0,
+      "k_agent": null,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": null,
+      "held_out": {},
+      "human": 0.46
+    }
+  ],
+  "effect_dropout_random": {
+    "e1_harder_vs_simple": 0.5,
+    "e1_ambig_vs_complex": 0.5,
+    "e1_pos_middle": 0.5,
+    "e1_pos_right": 0.5,
+    "e1_msgtype": 0.5,
+    "e2_harder_vs_simple": 0.5,
+    "e2_ambig_vs_complex": 0.5,
+    "e2_msgtype": 0.5
+  },
+  "PASS": true
+}

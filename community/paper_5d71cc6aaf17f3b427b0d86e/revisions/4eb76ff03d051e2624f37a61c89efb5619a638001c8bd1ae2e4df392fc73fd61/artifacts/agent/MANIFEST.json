@@ -1,0 +1,90 @@
+{
+  "format": "humanstudy-agent-package/1",
+  "created": "2026-11-03T01:47:08Z",
+  "programId": "tesslerfranke2018",
+  "programSha256": "145dbb0d72308643f019daa9a6308ca0510db1e35a60f8d02394681afa4769f9",
+  "paperSha256": null,
+  "readiness": {
+    "status": "ready",
+    "blocking": []
+  },
+  "capabilities": {
+    "schemaVersion": 1,
+    "derivedFrom": {
+      "program": "145dbb0d72308643f019daa9a6308ca0510db1e35a60f8d02394681afa4769f9",
+      "package": "tesslerfranke2018"
+    },
+    "read": {
+      "status": "yes",
+      "reason": null
+    },
+    "run": {
+      "status": "yes",
+      "reason": null,
+      "modalities": [
+        "text"
+      ],
+      "excluded": []
+    },
+    "humanData": {
+      "status": "yes",
+      "coverage": [
+        "exp1",
+        "exp2-lexical-multiple",
+        "exp2-lexical-single",
+        "exp2-morphological-multiple",
+        "exp2-morphological-single"
+      ],
+      "sessions": 826,
+      "source": "Tessler & Franke (2018) public data, human-data/data/: expt1-trials.csv, expt1-subject_information.csv, expt2-trials.csv, expt2-subject_information.csv (MTurk participants; ratings on a 0-1 slider, rescaled to 0-100).",
+      "missing": [],
+      "key": {
+        "sample": "original",
+        "repository": "https://github.com/mhtess/negant",
+        "license": null,
+        "dataFiles": 4,
+        "fetchable": 4
+      },
+      "reason": "source pinned in package/tesslerfranke2018/human/key.json (4 of 4 data files downloadable from it)"
+    },
+    "authorCode": {
+      "status": "no",
+      "route": null,
+      "reason": "no author-code key recorded"
+    },
+    "reproduced": {
+      "package": null,
+      "author": null,
+      "detail": "no reported result could be compared with the human data"
+    },
+    "profiles": {
+      "status": "no",
+      "reason": "the runner does not sample participant profiles yet"
+    }
+  },
+  "skill": "tesslerfranke2018",
+  "mcpServer": "tesslerfranke2018/scripts/mcp_server.py",
+  "quoteCheck": {
+    "unchecked": 63
+  },
+  "files": {
+    "README.md": "e7266638c86cd76ec3e54c2cc7ccbc48b746ed42400bd69f93fd4fbdf3972b97",
+    "tesslerfranke2018/SKILL.md": "1241f3e1ac1c89ddb90e9346e2606802f62c020ad13b35a39d0175d60284215b",
+    "tesslerfranke2018/references/accuracy.md": "ad36f2102215f9b82552ddc2c5b5a7b0ee35f1b6d4cf747dbf4735acfe552d23",
+    "tesslerfranke2018/references/capabilities.md": "50ed4c2f15b8fd76cbbfed78d0238d8a59956e929e2f00b57e1af188dd89f162",
+    "tesslerfranke2018/references/open-issues.md": "2d64cda4b62ee82cfc0c48d774b2f93d6c57164b3ef52fa068e654760eb51016",
+    "tesslerfranke2018/references/paper.md": "d5a4bcbde7fe81c67c03de27f699dc64c8c4a8fa1328a7e95a5293067b12cfa9",
+    "tesslerfranke2018/references/sources.md": "8cb3c2dfb4915007391ca2c7ed2140f9c9498b3141c79a6fa8b9a09f843d3359",
+    "tesslerfranke2018/references/study-exp1.md": "99517845ddeef745a8bc2e462b6c13b41b1115338f15e73e88b6ac9735cb8db4",
+    "tesslerfranke2018/references/study-exp2.md": "5b21ededdce7ca8da609dfd75d93386ee8a7fb45b68301b81e2548c20fa9b421",
+    "tesslerfranke2018/scripts/effects_core.py": "cf86efc6ce63bc536c16b562ac11e95e2a176fe8bbcf93d15d0a0b03bee75cee",
+    "tesslerfranke2018/scripts/mcp_server.py": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+    "tesslerfranke2018/scripts/study_core.py": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675"
+  },
+  "sharedWithRevision": [
+    "program.json",
+    "package/",
+    "capabilities.json",
+    "effects.json"
+  ]
+}

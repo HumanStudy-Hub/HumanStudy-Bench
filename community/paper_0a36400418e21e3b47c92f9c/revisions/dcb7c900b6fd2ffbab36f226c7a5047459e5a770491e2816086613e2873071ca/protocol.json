@@ -1,0 +1,5887 @@
+{
+  "id": "shafir1992uncertainty",
+  "schema": "hsenv-protocol/0.1",
+  "meta": {
+    "citation": "Shafir, E., & Tversky, A. (1992). Thinking through uncertainty: Nonconsequential reasoning and choice. Cognitive Psychology, 24(4), 449-474. https://doi.org/10.1016/0010-0285(92)90015-T",
+    "language": "en",
+    "licence": {
+      "paper": "closed licence: Cognitive Psychology (Academic Press / Elsevier) copyright, no open licence (Bench SOURCE.json: 'publisher copyright (no open license found)'; OpenAlex closed). Served texts are quoted from the paper: private research only"
+    },
+    "sources": {
+      "paper": {
+        "file": "sources/paper.pdf",
+        "sha256": "8d7f389234f821f84ba1b1d32a7a024cde5170f6844e3de1acca26178d75859d",
+        "what": "withheld:c42e082f622d5402",
+        "licence": "closed (publisher copyright); private",
+        "distribution": {
+          "tier": "user",
+          "format": "pdf",
+          "sha256": "8d7f389234f821f84ba1b1d32a7a024cde5170f6844e3de1acca26178d75859d"
+        }
+      }
+    },
+    "sample": {
+      "n": 80,
+      "e1": 80,
+      "e2_newcomb": 40,
+      "e3": null,
+      "population": "withheld:2b5badd04752696b",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "note": "withheld:9dfe48168566260a"
+      }
+    },
+    "image_read": [
+      {
+        "page": 22,
+        "what": "data.matrix.rows[0][1]",
+        "text": "withheld:5cf27b970f55ad50"
+      },
+      {
+        "page": 22,
+        "what": "data.matrix.rows[0][2]",
+        "text": "withheld:1ebfcf0af564442f"
+      },
+      {
+        "page": 22,
+        "what": "data.matrix.rows[1][0]",
+        "text": "withheld:544be5a1ce4a9357"
+      },
+      {
+        "page": 22,
+        "what": "data.matrix.rows[1][1]",
+        "text": "withheld:647fd04513b87f0e"
+      },
+      {
+        "page": 22,
+        "what": "data.matrix.rows[1][2]",
+        "text": "withheld:439cbde57b5afde6"
+      },
+      {
+        "page": 22,
+        "what": "data.matrix.rows[2][0]",
+        "text": "withheld:a39064ae6d737c33"
+      },
+      {
+        "page": 22,
+        "what": "data.matrix.rows[2][1]",
+        "text": "withheld:8a84a74e18c5b1f1"
+      },
+      {
+        "page": 22,
+        "what": "data.matrix.rows[2][2]",
+        "text": "withheld:0bc975881083279f"
+      },
+      {
+        "page": 13,
+        "what": "data.newcomb.boxes.rows[0][0]",
+        "text": "withheld:3c07ebc97e57719f"
+      },
+      {
+        "page": 13,
+        "what": "data.newcomb.boxes.rows[0][1]",
+        "text": "?"
+      },
+      {
+        "page": 13,
+        "what": "data.newcomb.boxes.rows[1][0]",
+        "text": "Box A"
+      },
+      {
+        "page": 13,
+        "what": "data.newcomb.boxes.rows[1][1]",
+        "text": "Box B"
+      }
+    ]
+  },
+  "arms": [
+    {
+      "id": "e1",
+      "n_paper": 80,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "note": "withheld:290173f81eff132f"
+      },
+      "runnable": false,
+      "why": "withheld:3100475de3692474",
+      "label_note": "Experiments 1-2: PD triads + Newcomb (40 of 80)"
+    },
+    {
+      "id": "e3",
+      "n_paper": null,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 19,
+        "note": "withheld:a26871cf4f3c3784"
+      },
+      "runnable": false,
+      "why": "nothing of the information-seeking variant is printed (instructions, fee, offer, reveal screen, games); the paper only describes it (DESIGN 2 rule 2; README Decided 11)",
+      "label_note": "Information seeking in the PD"
+    }
+  ],
+  "run_excluded": [
+    {
+      "arm": "e1",
+      "n_paper": 80,
+      "why": "withheld:3100475de3692474",
+      "missing": [
+        {
+          "what": "six PD payoff matrices",
+          "ref": "data.missing.pd_matrix"
+        },
+        {
+          "what": "interspersed other games and the 40-game sequence",
+          "ref": "data.missing.other_games"
+        },
+        {
+          "what": "withheld:b343760efe7d3199",
+          "ref": "data.missing.bonus_line"
+        },
+        {
+          "what": "button labels",
+          "ref": "data.missing.btn_cooperate / btn_compete"
+        },
+        {
+          "what": "Newcomb allocation screen",
+          "ref": "data.missing.allocation"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6
+      }
+    },
+    {
+      "arm": "e3",
+      "n_paper": null,
+      "why": "nothing of the information-seeking variant is printed (instructions, fee, offer, reveal screen, games); the paper only describes it (DESIGN 2 rule 2; README Decided 11)",
+      "missing": [
+        {
+          "what": "instructions, fee and offer",
+          "ref": "data.missing.e3_instructions / e3_offer / e3_pay / e3_nopay"
+        },
+        {
+          "what": "reveal screen",
+          "ref": "data.missing.e3_revealed"
+        },
+        {
+          "what": "games",
+          "ref": "data.missing.pd_matrix / other_games"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 19
+      }
+    }
+  ],
+  "data": {
+    "instructions": [
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 22
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 22
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": "22-23",
+          "note": "withheld:ad3775a1ba7095f0"
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 23
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 23
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 23
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 23
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 23
+        }
+      }
+    ],
+    "matrix": {
+      "rows": [
+        [
+          {
+            "text": ""
+          },
+          {
+            "text": "Other Cooperates",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 22,
+              "read": "image",
+              "note": "withheld:58cca726a9708d27"
+            }
+          },
+          {
+            "text": "Other Competes",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 22,
+              "read": "image",
+              "note": "withheld:58cca726a9708d27"
+            }
+          }
+        ],
+        [
+          {
+            "text": "You\nCooperate",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 22,
+              "read": "image",
+              "note": "withheld:58cca726a9708d27"
+            }
+          },
+          {
+            "text": "You: 20\nOther: 20",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 22,
+              "read": "image",
+              "note": "withheld:58cca726a9708d27"
+            }
+          },
+          {
+            "text": "You: 5\nOther: 25",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 22,
+              "read": "image",
+              "note": "withheld:58cca726a9708d27"
+            }
+          }
+        ],
+        [
+          {
+            "text": "You\nCompete",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 22,
+              "read": "image",
+              "note": "withheld:58cca726a9708d27"
+            }
+          },
+          {
+            "text": "You: 25\nOther: 5",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 22,
+              "read": "image",
+              "note": "withheld:58cca726a9708d27"
+            }
+          },
+          {
+            "text": "You: 10\nOther: 10",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 22,
+              "read": "image",
+              "note": "withheld:58cca726a9708d27"
+            }
+          }
+        ]
+      ]
+    },
+    "newcomb": {
+      "intro": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 13
+        }
+      },
+      "boxes": {
+        "rows": [
+          [
+            {
+              "text": "20 points",
+              "cite": {
+                "label": "verbatim",
+                "source": "paper",
+                "page": 13,
+                "read": "image",
+                "note": "withheld:6da7dfe710b5ccc0"
+              }
+            },
+            {
+              "text": "?",
+              "cite": {
+                "label": "verbatim",
+                "source": "paper",
+                "page": 13,
+                "read": "image",
+                "note": "withheld:6da7dfe710b5ccc0"
+              }
+            }
+          ],
+          [
+            {
+              "text": "Box A",
+              "cite": {
+                "label": "verbatim",
+                "source": "paper",
+                "page": 13,
+                "read": "image",
+                "note": "withheld:6da7dfe710b5ccc0"
+              }
+            },
+            {
+              "text": "Box B",
+              "cite": {
+                "label": "verbatim",
+                "source": "paper",
+                "page": 13,
+                "read": "image",
+                "note": "withheld:6da7dfe710b5ccc0"
+              }
+            }
+          ]
+        ]
+      },
+      "consider": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 13
+        }
+      },
+      "opt_both": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 13
+        }
+      },
+      "opt_b": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 13
+        }
+      },
+      "rule": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": "13-14",
+          "note": "withheld:777c32049e2d4b85"
+        }
+      },
+      "indicate": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 14
+        }
+      }
+    },
+    "missing": {
+      "pd_matrix": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:980ebc6bf494ba9c"
+        }
+      },
+      "other_games": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:fe9ecc25a056df63"
+        }
+      },
+      "bonus_line": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:66a2f88f2d67fc3a"
+        }
+      },
+      "btn_cooperate": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:3b8673c13b85e84f"
+        }
+      },
+      "btn_compete": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:da9b4d400ec6dac3"
+        }
+      },
+      "allocation": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 14,
+          "note": "withheld:955671f3fe99a596"
+        }
+      },
+      "e3_instructions": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 19,
+          "note": "withheld:f0cc191dabf78239"
+        }
+      },
+      "e3_offer": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 19,
+          "note": "withheld:6ff85350c20ce9a3"
+        }
+      },
+      "e3_pay": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 19,
+          "note": "withheld:d1ed60c33307e551"
+        }
+      },
+      "e3_nopay": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 19,
+          "note": "withheld:81e8a51d5b08b544"
+        }
+      },
+      "e3_revealed": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 19,
+          "note": "withheld:8886dd7ba3cce9f5"
+        }
+      }
+    }
+  },
+  "stages": {
+    "instructions": {
+      "content": [
+        {
+          "id": "i0",
+          "value": {
+            "expr": "data['instructions'][0]"
+          }
+        },
+        {
+          "id": "i1",
+          "value": {
+            "expr": "data['instructions'][1]"
+          }
+        },
+        {
+          "id": "matrix",
+          "value": {
+            "expr": "data['matrix']"
+          }
+        },
+        {
+          "id": "i2",
+          "value": {
+            "expr": "data['instructions'][2]"
+          }
+        },
+        {
+          "id": "i3",
+          "value": {
+            "expr": "data['instructions'][3]"
+          }
+        },
+        {
+          "id": "i4",
+          "value": {
+            "expr": "data['instructions'][4]"
+          }
+        },
+        {
+          "id": "i5",
+          "value": {
+            "expr": "data['instructions'][5]"
+          }
+        },
+        {
+          "id": "i6",
+          "value": {
+            "expr": "data['instructions'][6]"
+          }
+        },
+        {
+          "id": "i7",
+          "value": {
+            "expr": "data['instructions'][7]"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 23,
+        "note": "withheld:d796e471c97ab42f"
+      }
+    },
+    "other_games": {
+      "content": [
+        {
+          "id": "g",
+          "value": {
+            "expr": "data['missing']['other_games']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 6,
+        "note": "withheld:9c5eaa5881b55628"
+      }
+    },
+    "pd": {
+      "content": [
+        {
+          "id": "matrix",
+          "value": {
+            "expr": "data['missing']['pd_matrix']"
+          }
+        },
+        {
+          "id": "bonus",
+          "if": "trial[1] != 'unknown'",
+          "value": {
+            "expr": "data['missing']['bonus_line']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "choice",
+          "kind": "choice",
+          "required": true,
+          "options": [
+            {
+              "code": "cooperate",
+              "label": {
+                "expr": "data['missing']['btn_cooperate']"
+              }
+            },
+            {
+              "code": "compete",
+              "label": {
+                "expr": "data['missing']['btn_compete']"
+              }
+            }
+          ],
+          "widget": "buttons",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "withheld:d9c2428c315b180a"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "note": "withheld:397e6cbb62495182"
+      }
+    },
+    "newcomb": {
+      "content": [
+        {
+          "id": "intro",
+          "value": {
+            "expr": "data['newcomb']['intro']"
+          }
+        },
+        {
+          "id": "boxes",
+          "value": {
+            "expr": "data['newcomb']['boxes']"
+          }
+        },
+        {
+          "id": "consider",
+          "value": {
+            "expr": "data['newcomb']['consider']"
+          }
+        },
+        {
+          "id": "rule",
+          "value": {
+            "expr": "data['newcomb']['rule']"
+          }
+        },
+        {
+          "id": "indicate",
+          "value": {
+            "expr": "data['newcomb']['indicate']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "choice",
+          "kind": "choice",
+          "required": true,
+          "options": [
+            {
+              "code": "both",
+              "label": {
+                "expr": "data['newcomb']['opt_both']"
+              }
+            },
+            {
+              "code": "b_only",
+              "label": {
+                "expr": "data['newcomb']['opt_b']"
+              }
+            }
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:894e1d26cc023de5"
+          }
+        }
+      ],
+      "layout": [
+        "intro",
+        "boxes",
+        "consider",
+        "choice",
+        "rule",
+        "indicate"
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 13,
+        "note": "withheld:09503de761c66aaa"
+      }
+    },
+    "newcomb_allocation": {
+      "content": [
+        {
+          "id": "alloc",
+          "value": {
+            "expr": "data['missing']['allocation']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 14,
+        "note": "withheld:178ac162cb802a8b"
+      }
+    },
+    "e3_instructions": {
+      "content": [
+        {
+          "id": "x",
+          "value": {
+            "expr": "data['missing']['e3_instructions']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "missing",
+        "source": "paper",
+        "page": 19,
+        "note": "withheld:88e93c13a8d00787"
+      }
+    },
+    "e3_offer": {
+      "content": [
+        {
+          "id": "matrix",
+          "value": {
+            "expr": "data['missing']['pd_matrix']"
+          }
+        },
+        {
+          "id": "offer",
+          "value": {
+            "expr": "data['missing']['e3_offer']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "pay",
+          "kind": "choice",
+          "required": true,
+          "options": [
+            {
+              "code": "pay",
+              "label": {
+                "expr": "data['missing']['e3_pay']"
+              }
+            },
+            {
+              "code": "no",
+              "label": {
+                "expr": "data['missing']['e3_nopay']"
+              }
+            }
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:a4199ca149766fdb"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 19,
+        "note": "withheld:0bb3b1835ee4d96a"
+      }
+    },
+    "e3_choice": {
+      "content": [
+        {
+          "id": "matrix",
+          "value": {
+            "expr": "data['missing']['pd_matrix']"
+          }
+        },
+        {
+          "id": "revealed",
+          "if": "answer('e3_offer.pay') == 'pay'",
+          "value": {
+            "expr": "data['missing']['e3_revealed']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "choice",
+          "kind": "choice",
+          "required": true,
+          "options": [
+            {
+              "code": "cooperate",
+              "label": {
+                "expr": "data['missing']['btn_cooperate']"
+              }
+            },
+            {
+              "code": "compete",
+              "label": {
+                "expr": "data['missing']['btn_compete']"
+              }
+            }
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:3224ccb5eba3c935"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 19,
+        "note": "withheld:31d35a9518d311d2"
+      }
+    }
+  },
+  "flow": [
+    {
+      "if": "arm == 'e1'",
+      "then": {
+        "seq": [
+          {
+            "set": {
+              "slot": {
+                "expr": "balanced('e1_slot', list(range(80)))"
+              }
+            }
+          },
+          {
+            "set": {
+              "n_triads": {
+                "expr": "4 if slot < 18 else 6"
+              },
+              "known_order": {
+                "expr": "[['compete', 'cooperate'], ['cooperate', 'compete']][slot % 2]"
+              },
+              "nc_shown": {
+                "expr": "(slot // 2) % 2 == 0"
+              }
+            }
+          },
+          {
+            "stage": "instructions"
+          },
+          {
+            "for": "trial",
+            "in": {
+              "expr": "[[t, 'unknown'] for t in range(n_triads)] + [[t, v] for t in range(n_triads) for v in known_order]"
+            },
+            "do": {
+              "seq": [
+                {
+                  "stage": "other_games"
+                },
+                {
+                  "stage": "pd"
+                }
+              ]
+            }
+          },
+          {
+            "if": "nc_shown",
+            "then": {
+              "seq": [
+                {
+                  "stage": "newcomb"
+                },
+                {
+                  "stage": "newcomb_allocation"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "else": {
+        "seq": [
+          {
+            "stage": "e3_instructions"
+          },
+          {
+            "for": "game",
+            "in": {
+              "expr": "list(range(6))"
+            },
+            "do": {
+              "seq": [
+                {
+                  "stage": "other_games"
+                },
+                {
+                  "stage": "e3_offer"
+                },
+                {
+                  "stage": "e3_choice"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "flow_cites": {
+    "n_triads": {
+      "label": "reported",
+      "source": "paper",
+      "page": 6,
+      "note": "withheld:a85cb4dfca9c3338"
+    },
+    "known_order": {
+      "label": "reported",
+      "source": "paper",
+      "page": 6,
+      "note": "withheld:6df74d8fe792df45"
+    },
+    "sequence": {
+      "label": "reported",
+      "source": "paper",
+      "page": 11,
+      "evidence": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "note": "withheld:2f30684ce574af17"
+    },
+    "sequence_detail": {
+      "label": "derived",
+      "source": "paper",
+      "page": 6,
+      "note": "withheld:d05d604604ff50b6"
+    },
+    "nc_shown": {
+      "label": "derived",
+      "source": "paper",
+      "page": 13,
+      "note": "withheld:6202159229eebe13"
+    },
+    "e3": {
+      "label": "derived",
+      "source": "paper",
+      "page": 19,
+      "note": "withheld:974df23130eeb3a0"
+    }
+  },
+  "units": {
+    "games": {
+      "per": "pd",
+      "arms": [
+        "e1"
+      ],
+      "fields": {
+        "triad": "trial[0]",
+        "version": "trial[1]",
+        "coop": "None if answer('pd.choice') is None else (1 if answer('pd.choice') == 'cooperate' else 0)",
+        "u": "(None if answer('pd.choice', trial=[trial[0], 'unknown']) is None else (1 if answer('pd.choice', trial=[trial[0], 'unknown']) == 'cooperate' else 0))",
+        "kc": "(None if answer('pd.choice', trial=[trial[0], 'compete']) is None else (1 if answer('pd.choice', trial=[trial[0], 'compete']) == 'cooperate' else 0))",
+        "ko": "(None if answer('pd.choice', trial=[trial[0], 'cooperate']) is None else (1 if answer('pd.choice', trial=[trial[0], 'cooperate']) == 'cooperate' else 0))",
+        "known_pattern": "None if kc is None or ko is None else ('%s_%s' % ('coop' if kc else 'comp', 'coop' if ko else 'comp'))",
+        "disjunction": "None if u is None or kc is None or ko is None else (1 if u == 1 and kc == 0 and ko == 0 else 0)"
+      },
+      "cites": {
+        "coop": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:a1b11a226f49c6bd"
+        },
+        "u": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:ee1fc239639608bc"
+        },
+        "kc": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:f39d6ec81a3c8f87"
+        },
+        "ko": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:d269193ac349602d"
+        },
+        "known_pattern": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:ada3d9cef4b61777"
+        },
+        "disjunction": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:ad9027686f8c36a1"
+        }
+      }
+    },
+    "subjects": {
+      "per": "session",
+      "fields": {
+        "n_triads": "n_triads if arm == 'e1' else None",
+        "any_disjunction": "None if arm != 'e1' else (1 if any(answer('pd.choice', trial=[t, 'unknown']) == 'cooperate' and answer('pd.choice', trial=[t, 'compete']) == 'compete' and answer('pd.choice', trial=[t, 'cooperate']) == 'compete' for t in range(n_triads)) else 0)",
+        "newcomb_shown": "(1 if nc_shown else 0) if arm == 'e1' else None",
+        "n_disjunctions": "None if arm != 'e1' else sum(1 for t in range(n_triads) if answer('pd.choice', trial=[t, 'unknown']) == 'cooperate' and answer('pd.choice', trial=[t, 'compete']) == 'compete' and answer('pd.choice', trial=[t, 'cooperate']) == 'compete')",
+        "fn3_full": "None if n_disjunctions is None else (1 if n_disjunctions >= 2 else 0)",
+        "b_only": "None if answer('newcomb.choice') is None else (1 if answer('newcomb.choice') == 'b_only' else 0)"
+      },
+      "cites": {
+        "any_disjunction": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:c6b31f2e37c2e61b"
+        },
+        "b_only": {
+          "label": "reported",
+          "source": "paper",
+          "page": 14,
+          "note": "withheld:e03acc89d411f804"
+        },
+        "n_disjunctions": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:9e65aa0e8eeda6b3"
+        },
+        "fn3_full": {
+          "label": "reported",
+          "source": "paper",
+          "page": 14,
+          "note": "withheld:48053b6bf6deb4ee"
+        }
+      }
+    },
+    "e3_trials": {
+      "per": "e3_offer",
+      "arms": [
+        "e3"
+      ],
+      "fields": {
+        "paid": "None if answer('e3_offer.pay') is None else (1 if answer('e3_offer.pay') == 'pay' else 0)"
+      },
+      "cites": {
+        "paid": {
+          "label": "reported",
+          "source": "paper",
+          "page": 19,
+          "note": "withheld:c0c61eb8c6e070e1"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "omitted": [
+    {
+      "what": "withheld:6d472bddb292be21",
+      "why": "not on screen / not printed",
+      "label": "reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 6,
+        "note": "withheld:d1c1bc9b67b9ee20"
+      }
+    },
+    {
+      "what": "consent, debrief, demographics",
+      "why": "not reported",
+      "label": "missing"
+    }
+  ],
+  "analysis": {
+    "targets": [],
+    "effects": [],
+    "blocked_arm_targets": [
+      {
+        "id": "coop_other_competes",
+        "unit": "games",
+        "where": {
+          "version": "compete"
+        },
+        "field": "coop",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 14,
+          "n": 444,
+          "value": 0.03153153153153153,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:1c20c4ce29744d8e"
+          }
+        }
+      },
+      {
+        "id": "coop_other_cooperates",
+        "unit": "games",
+        "where": {
+          "version": "cooperate"
+        },
+        "field": "coop",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 73,
+          "n": 444,
+          "value": 0.16441441441441443,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:5f1ceabf2cc913d1"
+          }
+        }
+      },
+      {
+        "id": "coop_unknown",
+        "unit": "games",
+        "where": {
+          "version": "unknown"
+        },
+        "field": "coop",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 164,
+          "n": 444,
+          "value": 0.36936936936936937,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:56eebb30893b2bf5"
+          }
+        }
+      },
+      {
+        "id": "disjunction_triads",
+        "unit": "games",
+        "where": {
+          "version": "unknown"
+        },
+        "field": "disjunction",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 113,
+          "n": 444,
+          "value": 0.2545045045045045,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:31282626d0cf0203"
+          }
+        }
+      },
+      {
+        "id": "disjunction_given_unknown_coop",
+        "unit": "games",
+        "where": {
+          "version": "unknown",
+          "u": 1
+        },
+        "field": "disjunction",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 113,
+          "n": 164,
+          "value": 0.6890243902439024,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "withheld:4e63cd72e7e1fe9e"
+          }
+        }
+      },
+      {
+        "id": "subjects_any_disjunction",
+        "unit": "subjects",
+        "where": {
+          "arm": "e1"
+        },
+        "field": "any_disjunction",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 52,
+          "n": 80,
+          "value": 0.65,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "withheld:a4d25928f40f546c"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 8,
+            "note": "withheld:cca8c5c51138b109"
+          }
+        }
+      },
+      {
+        "id": "known_pattern_comp_comp",
+        "unit": "games",
+        "where": {
+          "version": "unknown"
+        },
+        "field": "known_pattern",
+        "stat": "share",
+        "success": "comp_comp",
+        "human": {
+          "k": 364,
+          "n": 444,
+          "value": 0.8198198198198198,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:c43414e8aecd6e92"
+          }
+        }
+      },
+      {
+        "id": "known_pattern_comp_coop",
+        "unit": "games",
+        "where": {
+          "version": "unknown"
+        },
+        "field": "known_pattern",
+        "stat": "share",
+        "success": "comp_coop",
+        "human": {
+          "k": 66,
+          "n": 444,
+          "value": 0.14864864864864866,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:c27d4d278ac212f0"
+          }
+        }
+      },
+      {
+        "id": "known_pattern_coop_comp",
+        "unit": "games",
+        "where": {
+          "version": "unknown"
+        },
+        "field": "known_pattern",
+        "stat": "share",
+        "success": "coop_comp",
+        "human": {
+          "k": 7,
+          "n": 444,
+          "value": 0.015765765765765764,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:9d51b62436829b7e"
+          }
+        }
+      },
+      {
+        "id": "known_pattern_coop_coop",
+        "unit": "games",
+        "where": {
+          "version": "unknown"
+        },
+        "field": "known_pattern",
+        "stat": "share",
+        "success": "coop_coop",
+        "human": {
+          "k": 7,
+          "n": 444,
+          "value": 0.015765765765765764,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:5b2b314dc1eeba5f"
+          }
+        }
+      },
+      {
+        "id": "coop_unknown_given_comp_comp",
+        "unit": "games",
+        "where": {
+          "version": "unknown",
+          "known_pattern": "comp_comp"
+        },
+        "field": "coop",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 113,
+          "n": 364,
+          "value": 0.31043956043956045,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:a1404c47d3b79104"
+          }
+        }
+      },
+      {
+        "id": "coop_unknown_given_coop_comp",
+        "unit": "games",
+        "where": {
+          "version": "unknown",
+          "known_pattern": "coop_comp"
+        },
+        "field": "coop",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 3,
+          "n": 7,
+          "value": 0.42857142857142855,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:24e481640e0e542a"
+          }
+        }
+      },
+      {
+        "id": "coop_unknown_given_comp_coop",
+        "unit": "games",
+        "where": {
+          "version": "unknown",
+          "known_pattern": "comp_coop"
+        },
+        "field": "coop",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 43,
+          "n": 66,
+          "value": 0.6515151515151515,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:4bac9444b6b75c0f"
+          }
+        }
+      },
+      {
+        "id": "coop_unknown_given_coop_coop",
+        "unit": "games",
+        "where": {
+          "version": "unknown",
+          "known_pattern": "coop_coop"
+        },
+        "field": "coop",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 5,
+          "n": 7,
+          "value": 0.7142857142857143,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:0486379572152725"
+          }
+        }
+      },
+      {
+        "id": "newcomb_b_only",
+        "unit": "subjects",
+        "where": {
+          "newcomb_shown": 1
+        },
+        "field": "b_only",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 26,
+          "n": 40,
+          "value": 0.65,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:cc9753d024b15388"
+          }
+        }
+      },
+      {
+        "id": "fn3_two_boxers_two_disjunctions",
+        "unit": "subjects",
+        "where": {
+          "newcomb_shown": 1,
+          "b_only": 0
+        },
+        "field": "fn3_full",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "k": 4,
+          "n": 14,
+          "value": 0.2857142857142857,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:fec2221b186515e8"
+          },
+          "k_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:2cb51a04b32e2542"
+          }
+        }
+      },
+      {
+        "id": "fn3_one_boxers_two_disjunctions",
+        "unit": "subjects",
+        "where": {
+          "newcomb_shown": 1,
+          "b_only": 1
+        },
+        "field": "fn3_full",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "n": 26,
+          "value": 0.7,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:051df30913bb655a"
+          },
+          "readings": [
+            {
+              "k": 18,
+              "value": 0.6923076923076923,
+              "note": "69.2%, rounds to 69%"
+            },
+            {
+              "k": 19,
+              "value": 0.7307692307692307,
+              "note": "73.1%, rounds to 73%"
+            }
+          ]
+        },
+        "suspect": "70% of 26 matches no integer count (18/26 = 69.2%, 19/26 = 73.1%; meta.paper_inconsistencies); never scored"
+      },
+      {
+        "id": "e3_paid_share",
+        "unit": "e3_trials",
+        "field": "paid",
+        "stat": "share",
+        "success": 1,
+        "human": {
+          "value": 0.81,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:6f76e369b191a2c8"
+          },
+          "no_uncertainty": "n not reported"
+        }
+      }
+    ],
+    "blocked_arm_effects": [
+      {
+        "id": "unknown_vs_other_cooperates",
+        "label": "Exp. 1 (PD triads): cooperation, other unknown minus other known to cooperate",
+        "unit": "games",
+        "studyId": "e1",
+        "role": "test",
+        "contrast": {
+          "kind": "within",
+          "treatment": "u",
+          "reference": "ko"
+        },
+        "compute": {
+          "op": "paired_difference",
+          "field": "u",
+          "referenceField": "ko",
+          "where": {
+            "version": "unknown"
+          }
+        },
+        "reported": {
+          "cells": {
+            "u": {
+              "mean": 0.36936936936936937,
+              "n": 444
+            },
+            "ko": {
+              "mean": 0.16441441441441443,
+              "n": 444
+            }
+          },
+          "test": {
+            "statistic": "unknown",
+            "p": 0.001,
+            "pRelation": "<",
+            "n": 444
+          },
+          "no_uncertainty": "test not named; no SE derivable from 'p < .001'",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:efabce0db3419965"
+          }
+        }
+      },
+      {
+        "id": "unknown_vs_other_competes",
+        "label": "Exp. 1 (PD triads): cooperation, other unknown minus other known to compete",
+        "unit": "games",
+        "studyId": "e1",
+        "role": "test",
+        "contrast": {
+          "kind": "within",
+          "treatment": "u",
+          "reference": "kc"
+        },
+        "compute": {
+          "op": "paired_difference",
+          "field": "u",
+          "referenceField": "kc",
+          "where": {
+            "version": "unknown"
+          }
+        },
+        "reported": {
+          "cells": {
+            "u": {
+              "mean": 0.36936936936936937,
+              "n": 444
+            },
+            "kc": {
+              "mean": 0.03153153153153153,
+              "n": 444
+            }
+          },
+          "test": {
+            "statistic": "unknown",
+            "p": 0.001,
+            "pRelation": "<",
+            "n": 444
+          },
+          "no_uncertainty": "test not named; no SE derivable from 'p < .001'",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:efabce0db3419965"
+          }
+        }
+      },
+      {
+        "id": "other_cooperates_vs_other_competes",
+        "label": "Exp. 1 (PD triads): cooperation, other cooperated minus other competed",
+        "unit": "games",
+        "studyId": "e1",
+        "role": "test",
+        "contrast": {
+          "kind": "within",
+          "treatment": "ko",
+          "reference": "kc"
+        },
+        "compute": {
+          "op": "paired_difference",
+          "field": "ko",
+          "referenceField": "kc",
+          "where": {
+            "version": "unknown"
+          }
+        },
+        "reported": {
+          "cells": {
+            "ko": {
+              "mean": 0.16441441441441443,
+              "n": 444
+            },
+            "kc": {
+              "mean": 0.03153153153153153,
+              "n": 444
+            }
+          },
+          "test": {
+            "statistic": "unknown",
+            "p": 0.001,
+            "pRelation": "<",
+            "n": 444
+          },
+          "no_uncertainty": "test not named; no SE derivable from 'p < .001'",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:efabce0db3419965"
+          }
+        }
+      },
+      {
+        "id": "newcomb_one_box_vs_half",
+        "label": "Exp. 2 (Newcomb): share choosing Box B only, against one half",
+        "unit": "subjects",
+        "studyId": "e1",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "one_sample"
+        },
+        "compute": {
+          "op": "proportion_vs_chance",
+          "field": "b_only",
+          "success": [
+            1
+          ],
+          "chance": 0.5,
+          "where": {
+            "newcomb_shown": 1
+          }
+        },
+        "reported": {
+          "cells": {
+            "share": {
+              "k": 26,
+              "n": 40
+            }
+          },
+          "value": 0.15,
+          "no_uncertainty": "no test printed; the paper reports the split only",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:7f0cc57e0c8f6114"
+          }
+        }
+      }
+    ],
+    "unsupported": []
+  },
+  "keyed": {
+    "why": "withheld:312785b960bd1f5a",
+    "answers": {
+      "pd.choice": "'cooperate' if trial[1] == 'unknown' or (trial[1] == 'cooperate' and trial[0] == 0) else 'compete'",
+      "newcomb.choice": "'b_only'",
+      "e3_offer.pay": "'pay'",
+      "e3_choice.choice": "'compete'"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {
+      "h1": {
+        "path": "/data/instructions/0/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 342,
+        "text_sha256": "0cff580ea51fee3f7a2d5521e18d7e87d865d672d09de93f76334c4a9865785b",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                21,
+                21
+              ],
+              "canon_len": 108,
+              "canon_sha256": "e06934a331ba1d3eab4c9c6f1da575e9bf5a573ca108da4a38b3b0d6b826200c",
+              "unique": true,
+              "before": 1327,
+              "after": 556
+            },
+            {
+              "units": [
+                21,
+                21
+              ],
+              "canon_len": 176,
+              "canon_sha256": "2a56061a5a10d941ee5ac6d586826ada01436398d68e27955c8ea2c6169b5ae4",
+              "unique": true,
+              "before": 1436,
+              "after": 379
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              40,
+              0,
+              " "
+            ],
+            [
+              43,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              51,
+              0,
+              " "
+            ],
+            [
+              53,
+              0,
+              " "
+            ],
+            [
+              62,
+              0,
+              " "
+            ],
+            [
+              64,
+              0,
+              " "
+            ],
+            [
+              66,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              72,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              82,
+              0,
+              " "
+            ],
+            [
+              85,
+              0,
+              " "
+            ],
+            [
+              89,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              100,
+              0,
+              " "
+            ],
+            [
+              104,
+              0,
+              " "
+            ],
+            [
+              114,
+              0,
+              " "
+            ],
+            [
+              123,
+              0,
+              " "
+            ],
+            [
+              126,
+              0,
+              " "
+            ],
+            [
+              129,
+              0,
+              " "
+            ],
+            [
+              132,
+              0,
+              " "
+            ],
+            [
+              137,
+              0,
+              " "
+            ],
+            [
+              144,
+              0,
+              " "
+            ],
+            [
+              148,
+              0,
+              " "
+            ],
+            [
+              157,
+              0,
+              " "
+            ],
+            [
+              161,
+              0,
+              " "
+            ],
+            [
+              168,
+              0,
+              " "
+            ],
+            [
+              172,
+              0,
+              " "
+            ],
+            [
+              175,
+              0,
+              " "
+            ],
+            [
+              179,
+              0,
+              " "
+            ],
+            [
+              180,
+              0,
+              " "
+            ],
+            [
+              189,
+              0,
+              " "
+            ],
+            [
+              198,
+              0,
+              " "
+            ],
+            [
+              200,
+              0,
+              " "
+            ],
+            [
+              209,
+              0,
+              " "
+            ],
+            [
+              211,
+              0,
+              " "
+            ],
+            [
+              213,
+              0,
+              " "
+            ],
+            [
+              220,
+              0,
+              " "
+            ],
+            [
+              224,
+              0,
+              " "
+            ],
+            [
+              227,
+              0,
+              " "
+            ],
+            [
+              232,
+              0,
+              " "
+            ],
+            [
+              239,
+              0,
+              " "
+            ],
+            [
+              242,
+              0,
+              " "
+            ],
+            [
+              247,
+              0,
+              " "
+            ],
+            [
+              253,
+              0,
+              " "
+            ],
+            [
+              257,
+              0,
+              " "
+            ],
+            [
+              261,
+              0,
+              " "
+            ],
+            [
+              263,
+              0,
+              " "
+            ],
+            [
+              267,
+              0,
+              " "
+            ],
+            [
+              268,
+              0,
+              " "
+            ],
+            [
+              275,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            22,
+            22
+          ],
+          "per_unit": true
+        }
+      },
+      "h2": {
+        "path": "/data/instructions/1/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 186,
+        "text_sha256": "37e1f2e96cd35be6a746d025437f794fa2b73ce7629aa342aba16bce3f2c558a",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                21,
+                21
+              ],
+              "canon_len": 157,
+              "canon_sha256": "2eda1daca708b0dd12d187c583634e3beaec30342ccc47c7781293efc67fd96e",
+              "unique": true,
+              "before": 1612,
+              "after": 222
+            }
+          ],
+          "restore": [
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              24,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              42,
+              0,
+              " "
+            ],
+            [
+              46,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              62,
+              0,
+              " "
+            ],
+            [
+              68,
+              0,
+              " "
+            ],
+            [
+              72,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              77,
+              0,
+              " "
+            ],
+            [
+              82,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              93,
+              0,
+              " "
+            ],
+            [
+              100,
+              0,
+              " "
+            ],
+            [
+              103,
+              0,
+              " "
+            ],
+            [
+              110,
+              0,
+              " "
+            ],
+            [
+              112,
+              0,
+              " "
+            ],
+            [
+              122,
+              0,
+              " "
+            ],
+            [
+              125,
+              0,
+              " "
+            ],
+            [
+              129,
+              0,
+              " "
+            ],
+            [
+              135,
+              0,
+              " "
+            ],
+            [
+              140,
+              0,
+              " "
+            ],
+            [
+              144,
+              0,
+              " "
+            ],
+            [
+              147,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            22,
+            22
+          ],
+          "per_unit": true
+        }
+      },
+      "h3": {
+        "path": "/data/instructions/2/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 410,
+        "text_sha256": "8fa570331e8320cd3bfcfee2047e6eb3671e826d68e78c40e634e50c51974581",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                21,
+                21
+              ],
+              "canon_len": 117,
+              "canon_sha256": "0bc011564c79fd2b802241e425b69fcebd305d919e1acd4ff5100842e21f36b7",
+              "unique": true,
+              "before": 1874,
+              "after": 0
+            },
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 219,
+              "canon_sha256": "cf953b5aa962ba6d3b5fecfbbc919d817189d520a73aab7ae249cb06b05fb525",
+              "unique": true,
+              "before": 29,
+              "after": 2042
+            }
+          ],
+          "restore": [
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              24,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              40,
+              0,
+              " "
+            ],
+            [
+              43,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              51,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              56,
+              0,
+              " "
+            ],
+            [
+              68,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              82,
+              0,
+              " "
+            ],
+            [
+              85,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              97,
+              0,
+              " "
+            ],
+            [
+              99,
+              0,
+              " "
+            ],
+            [
+              102,
+              0,
+              " "
+            ],
+            [
+              111,
+              0,
+              " "
+            ],
+            [
+              114,
+              0,
+              " "
+            ],
+            [
+              117,
+              0,
+              " "
+            ],
+            [
+              122,
+              0,
+              " "
+            ],
+            [
+              131,
+              0,
+              " "
+            ],
+            [
+              134,
+              0,
+              " "
+            ],
+            [
+              139,
+              0,
+              " "
+            ],
+            [
+              143,
+              0,
+              " "
+            ],
+            [
+              147,
+              0,
+              " "
+            ],
+            [
+              149,
+              0,
+              " "
+            ],
+            [
+              155,
+              0,
+              " "
+            ],
+            [
+              158,
+              0,
+              " "
+            ],
+            [
+              161,
+              0,
+              " "
+            ],
+            [
+              165,
+              0,
+              " "
+            ],
+            [
+              169,
+              0,
+              " "
+            ],
+            [
+              173,
+              0,
+              " "
+            ],
+            [
+              174,
+              0,
+              " "
+            ],
+            [
+              181,
+              0,
+              " "
+            ],
+            [
+              191,
+              0,
+              " "
+            ],
+            [
+              193,
+              0,
+              " "
+            ],
+            [
+              196,
+              0,
+              " "
+            ],
+            [
+              203,
+              0,
+              " "
+            ],
+            [
+              206,
+              0,
+              " "
+            ],
+            [
+              209,
+              0,
+              " "
+            ],
+            [
+              214,
+              0,
+              " "
+            ],
+            [
+              225,
+              0,
+              " "
+            ],
+            [
+              228,
+              0,
+              " "
+            ],
+            [
+              232,
+              0,
+              " "
+            ],
+            [
+              236,
+              0,
+              " "
+            ],
+            [
+              238,
+              0,
+              " "
+            ],
+            [
+              244,
+              0,
+              " "
+            ],
+            [
+              247,
+              0,
+              " "
+            ],
+            [
+              250,
+              0,
+              " "
+            ],
+            [
+              255,
+              0,
+              " "
+            ],
+            [
+              259,
+              0,
+              " "
+            ],
+            [
+              263,
+              0,
+              " "
+            ],
+            [
+              267,
+              0,
+              " "
+            ],
+            [
+              268,
+              0,
+              " "
+            ],
+            [
+              275,
+              0,
+              " "
+            ],
+            [
+              283,
+              0,
+              " "
+            ],
+            [
+              285,
+              0,
+              " "
+            ],
+            [
+              288,
+              0,
+              " "
+            ],
+            [
+              292,
+              0,
+              " "
+            ],
+            [
+              298,
+              0,
+              " "
+            ],
+            [
+              300,
+              0,
+              " "
+            ],
+            [
+              308,
+              0,
+              " "
+            ],
+            [
+              311,
+              0,
+              " "
+            ],
+            [
+              315,
+              0,
+              " "
+            ],
+            [
+              319,
+              0,
+              " "
+            ],
+            [
+              323,
+              0,
+              " "
+            ],
+            [
+              325,
+              0,
+              " "
+            ],
+            [
+              331,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            22,
+            23
+          ],
+          "per_unit": true
+        }
+      },
+      "h4": {
+        "path": "/data/instructions/3/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 367,
+        "text_sha256": "c8dc7b637b4bd0eac729953aeed044c41322fd19eccc82aac60af275ed918973",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 300,
+              "canon_sha256": "e088f866468a2c04dd7c30d2da9f63fb77bc218ba590bae42e414a72b394df02",
+              "unique": true,
+              "before": 248,
+              "after": 1742
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              40,
+              0,
+              " "
+            ],
+            [
+              43,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              52,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              60,
+              0,
+              " "
+            ],
+            [
+              64,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              72,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              83,
+              0,
+              " "
+            ],
+            [
+              85,
+              0,
+              " "
+            ],
+            [
+              93,
+              0,
+              " "
+            ],
+            [
+              100,
+              0,
+              " "
+            ],
+            [
+              103,
+              0,
+              " "
+            ],
+            [
+              109,
+              0,
+              " "
+            ],
+            [
+              111,
+              0,
+              " "
+            ],
+            [
+              118,
+              0,
+              " "
+            ],
+            [
+              120,
+              0,
+              " "
+            ],
+            [
+              122,
+              0,
+              " "
+            ],
+            [
+              132,
+              0,
+              " "
+            ],
+            [
+              134,
+              0,
+              " "
+            ],
+            [
+              136,
+              0,
+              " "
+            ],
+            [
+              139,
+              0,
+              " "
+            ],
+            [
+              145,
+              0,
+              " "
+            ],
+            [
+              151,
+              0,
+              " "
+            ],
+            [
+              154,
+              0,
+              " "
+            ],
+            [
+              158,
+              0,
+              " "
+            ],
+            [
+              168,
+              0,
+              " "
+            ],
+            [
+              170,
+              0,
+              " "
+            ],
+            [
+              176,
+              0,
+              " "
+            ],
+            [
+              180,
+              0,
+              " "
+            ],
+            [
+              182,
+              0,
+              " "
+            ],
+            [
+              185,
+              0,
+              " "
+            ],
+            [
+              189,
+              0,
+              " "
+            ],
+            [
+              199,
+              0,
+              " "
+            ],
+            [
+              202,
+              0,
+              " "
+            ],
+            [
+              206,
+              0,
+              " "
+            ],
+            [
+              208,
+              0,
+              " "
+            ],
+            [
+              213,
+              0,
+              " "
+            ],
+            [
+              215,
+              0,
+              " "
+            ],
+            [
+              218,
+              0,
+              " "
+            ],
+            [
+              222,
+              0,
+              " "
+            ],
+            [
+              230,
+              0,
+              " "
+            ],
+            [
+              233,
+              0,
+              " "
+            ],
+            [
+              236,
+              0,
+              " "
+            ],
+            [
+              240,
+              0,
+              " "
+            ],
+            [
+              245,
+              0,
+              " "
+            ],
+            [
+              247,
+              0,
+              " "
+            ],
+            [
+              253,
+              0,
+              " "
+            ],
+            [
+              257,
+              0,
+              " "
+            ],
+            [
+              260,
+              0,
+              " "
+            ],
+            [
+              265,
+              0,
+              " "
+            ],
+            [
+              267,
+              0,
+              " "
+            ],
+            [
+              270,
+              0,
+              " "
+            ],
+            [
+              278,
+              0,
+              " "
+            ],
+            [
+              281,
+              0,
+              " "
+            ],
+            [
+              284,
+              0,
+              " "
+            ],
+            [
+              289,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            23,
+            23
+          ],
+          "per_unit": true
+        }
+      },
+      "h5": {
+        "path": "/data/instructions/4/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 212,
+        "text_sha256": "40495f2e932347a6659c74e1086941ba81e5325174a4d119c21ddc31b9123673",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 56,
+              "canon_sha256": "3158cfb38238f54c5c8b935ed2985db54cc68808d87e68923d2a956fd63d9c81",
+              "unique": true,
+              "before": 548,
+              "after": 1686
+            },
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 119,
+              "canon_sha256": "c8a569f3439a0c28646dc3d101fef83a6c53ac2f1c1305531a746ff1f4e90fba",
+              "unique": true,
+              "before": 605,
+              "after": 1566
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              16,
+              0,
+              " "
+            ],
+            [
+              20,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              33,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              39,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              53,
+              0,
+              " "
+            ],
+            [
+              61,
+              0,
+              " "
+            ],
+            [
+              68,
+              0,
+              " "
+            ],
+            [
+              71,
+              0,
+              " "
+            ],
+            [
+              75,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              84,
+              0,
+              " "
+            ],
+            [
+              87,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              93,
+              0,
+              " "
+            ],
+            [
+              100,
+              0,
+              " "
+            ],
+            [
+              104,
+              0,
+              " "
+            ],
+            [
+              105,
+              0,
+              " "
+            ],
+            [
+              114,
+              0,
+              " "
+            ],
+            [
+              121,
+              0,
+              " "
+            ],
+            [
+              126,
+              0,
+              " "
+            ],
+            [
+              129,
+              0,
+              " "
+            ],
+            [
+              133,
+              0,
+              " "
+            ],
+            [
+              138,
+              0,
+              " "
+            ],
+            [
+              142,
+              0,
+              " "
+            ],
+            [
+              149,
+              0,
+              " "
+            ],
+            [
+              152,
+              0,
+              " "
+            ],
+            [
+              156,
+              0,
+              " "
+            ],
+            [
+              162,
+              0,
+              " "
+            ],
+            [
+              166,
+              0,
+              " "
+            ],
+            [
+              170,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            23,
+            23
+          ],
+          "per_unit": true
+        }
+      },
+      "h6": {
+        "path": "/data/instructions/5/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 436,
+        "text_sha256": "58cc3f136d8b9b8d076591a26acd28e77b9a3605568f8c79883eb25a7e2c1fc2",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 55,
+              "canon_sha256": "3a57eb64a4f568335d472a9ee22bd94ee5ef4644a1adeaee595adde14dbca553",
+              "unique": true,
+              "before": 724,
+              "after": 1511
+            },
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 176,
+              "canon_sha256": "4fdb0233ea15df64b8b86f664dbd9fe51a11040683cf2fbe0111ef0a9771b936",
+              "unique": true,
+              "before": 780,
+              "after": 1334
+            },
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 117,
+              "canon_sha256": "f839ec2d1cba7bd42a067682b86e75715542da667cb9bbd330e895b5015dcab5",
+              "unique": true,
+              "before": 957,
+              "after": 1216
+            },
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 12,
+              "canon_sha256": "ef78136c39719e699458695b41b101d2159a957863cde8b88e12fb5cd2fc674f",
+              "unique": true,
+              "before": 1075,
+              "after": 1203
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              40,
+              0,
+              " "
+            ],
+            [
+              46,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              53,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              65,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              81,
+              0,
+              " "
+            ],
+            [
+              87,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ],
+            [
+              92,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ],
+            [
+              103,
+              0,
+              " "
+            ],
+            [
+              107,
+              0,
+              " "
+            ],
+            [
+              110,
+              0,
+              " "
+            ],
+            [
+              115,
+              0,
+              " "
+            ],
+            [
+              121,
+              0,
+              " "
+            ],
+            [
+              124,
+              0,
+              " "
+            ],
+            [
+              131,
+              0,
+              " "
+            ],
+            [
+              138,
+              0,
+              " "
+            ],
+            [
+              143,
+              0,
+              " "
+            ],
+            [
+              146,
+              0,
+              " "
+            ],
+            [
+              154,
+              0,
+              " "
+            ],
+            [
+              158,
+              0,
+              " "
+            ],
+            [
+              163,
+              0,
+              " "
+            ],
+            [
+              172,
+              0,
+              " "
+            ],
+            [
+              176,
+              0,
+              " "
+            ],
+            [
+              177,
+              0,
+              " "
+            ],
+            [
+              180,
+              0,
+              " "
+            ],
+            [
+              187,
+              0,
+              " "
+            ],
+            [
+              190,
+              0,
+              " "
+            ],
+            [
+              193,
+              0,
+              " "
+            ],
+            [
+              195,
+              0,
+              " "
+            ],
+            [
+              199,
+              0,
+              " "
+            ],
+            [
+              203,
+              0,
+              " "
+            ],
+            [
+              206,
+              0,
+              " "
+            ],
+            [
+              211,
+              0,
+              " "
+            ],
+            [
+              217,
+              0,
+              " "
+            ],
+            [
+              220,
+              0,
+              " "
+            ],
+            [
+              226,
+              0,
+              " "
+            ],
+            [
+              228,
+              0,
+              " "
+            ],
+            [
+              236,
+              0,
+              " "
+            ],
+            [
+              239,
+              0,
+              " "
+            ],
+            [
+              242,
+              0,
+              " "
+            ],
+            [
+              246,
+              0,
+              " "
+            ],
+            [
+              248,
+              0,
+              " "
+            ],
+            [
+              251,
+              0,
+              " "
+            ],
+            [
+              254,
+              0,
+              " "
+            ],
+            [
+              259,
+              0,
+              " "
+            ],
+            [
+              270,
+              0,
+              " "
+            ],
+            [
+              272,
+              0,
+              " "
+            ],
+            [
+              276,
+              0,
+              " "
+            ],
+            [
+              279,
+              0,
+              " "
+            ],
+            [
+              285,
+              0,
+              " "
+            ],
+            [
+              289,
+              0,
+              " "
+            ],
+            [
+              292,
+              0,
+              " "
+            ],
+            [
+              301,
+              0,
+              " "
+            ],
+            [
+              306,
+              0,
+              " "
+            ],
+            [
+              314,
+              0,
+              " "
+            ],
+            [
+              318,
+              0,
+              " "
+            ],
+            [
+              321,
+              0,
+              " "
+            ],
+            [
+              323,
+              0,
+              " "
+            ],
+            [
+              331,
+              0,
+              " "
+            ],
+            [
+              333,
+              0,
+              " "
+            ],
+            [
+              339,
+              0,
+              " "
+            ],
+            [
+              342,
+              0,
+              " "
+            ],
+            [
+              344,
+              0,
+              " "
+            ],
+            [
+              351,
+              0,
+              " "
+            ],
+            [
+              355,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            23,
+            23
+          ],
+          "per_unit": true
+        }
+      },
+      "h7": {
+        "path": "/data/instructions/6/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 209,
+        "text_sha256": "6abebdb444b63e81f583a8c5b4660bbeeb84ba288f72d2d08ca662dab795ca10",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 53,
+              "canon_sha256": "326554b32626636fe68c943421133d6d402de5a292699e1728131b063c5f0982",
+              "unique": true,
+              "before": 1087,
+              "after": 1150
+            },
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 119,
+              "canon_sha256": "054e19a1c878f134fa1a4e336209d197559aa04b4a018de736b74bba1714ad5c",
+              "unique": true,
+              "before": 1141,
+              "after": 1030
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              21,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              44,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              59,
+              0,
+              " "
+            ],
+            [
+              63,
+              0,
+              " "
+            ],
+            [
+              64,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              88,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ],
+            [
+              96,
+              0,
+              " "
+            ],
+            [
+              101,
+              0,
+              " "
+            ],
+            [
+              105,
+              0,
+              " "
+            ],
+            [
+              109,
+              0,
+              " "
+            ],
+            [
+              111,
+              0,
+              " "
+            ],
+            [
+              115,
+              0,
+              " "
+            ],
+            [
+              117,
+              0,
+              " "
+            ],
+            [
+              121,
+              0,
+              " "
+            ],
+            [
+              124,
+              0,
+              " "
+            ],
+            [
+              128,
+              0,
+              " "
+            ],
+            [
+              134,
+              0,
+              " "
+            ],
+            [
+              137,
+              0,
+              " "
+            ],
+            [
+              148,
+              0,
+              " "
+            ],
+            [
+              151,
+              0,
+              " "
+            ],
+            [
+              155,
+              0,
+              " "
+            ],
+            [
+              160,
+              0,
+              " "
+            ],
+            [
+              163,
+              0,
+              " "
+            ],
+            [
+              167,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            23,
+            23
+          ],
+          "per_unit": true
+        }
+      },
+      "h8": {
+        "path": "/data/instructions/7/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 583,
+        "text_sha256": "33fc17c67b2a532e490f758bf215e0e998ce506eac76d7d558f5befa6381353a",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 366,
+              "canon_sha256": "8afd4581a26e02dd1d65eb558af671f2952ae625c0a7445ca61e31b3b01fed7f",
+              "unique": true,
+              "before": 1260,
+              "after": 664
+            },
+            {
+              "units": [
+                22,
+                22
+              ],
+              "canon_len": 124,
+              "canon_sha256": "975740c1ea24834e20a63043fa110268efe9b536ac26572f6120c8d79f2c63aa",
+              "unique": true,
+              "before": 1627,
+              "after": 539
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              19,
+              1,
+              " “"
+            ],
+            [
+              27,
+              1,
+              "” "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              42,
+              0,
+              " "
+            ],
+            [
+              51,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              62,
+              0,
+              " "
+            ],
+            [
+              72,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              85,
+              0,
+              " "
+            ],
+            [
+              87,
+              0,
+              " "
+            ],
+            [
+              98,
+              0,
+              " "
+            ],
+            [
+              101,
+              0,
+              " "
+            ],
+            [
+              107,
+              0,
+              " "
+            ],
+            [
+              109,
+              0,
+              " "
+            ],
+            [
+              121,
+              0,
+              " "
+            ],
+            [
+              124,
+              0,
+              " "
+            ],
+            [
+              132,
+              0,
+              " "
+            ],
+            [
+              138,
+              0,
+              " "
+            ],
+            [
+              152,
+              0,
+              " "
+            ],
+            [
+              155,
+              0,
+              " "
+            ],
+            [
+              160,
+              0,
+              " "
+            ],
+            [
+              168,
+              0,
+              " "
+            ],
+            [
+              174,
+              0,
+              " "
+            ],
+            [
+              178,
+              0,
+              " "
+            ],
+            [
+              180,
+              0,
+              " "
+            ],
+            [
+              184,
+              0,
+              " "
+            ],
+            [
+              190,
+              0,
+              " "
+            ],
+            [
+              193,
+              0,
+              " "
+            ],
+            [
+              195,
+              0,
+              " "
+            ],
+            [
+              199,
+              0,
+              " "
+            ],
+            [
+              201,
+              0,
+              " "
+            ],
+            [
+              202,
+              0,
+              " "
+            ],
+            [
+              211,
+              0,
+              " "
+            ],
+            [
+              217,
+              0,
+              " "
+            ],
+            [
+              219,
+              0,
+              " "
+            ],
+            [
+              223,
+              0,
+              " "
+            ],
+            [
+              228,
+              0,
+              " "
+            ],
+            [
+              234,
+              0,
+              " "
+            ],
+            [
+              241,
+              0,
+              " "
+            ],
+            [
+              245,
+              0,
+              " "
+            ],
+            [
+              251,
+              0,
+              " "
+            ],
+            [
+              260,
+              0,
+              " "
+            ],
+            [
+              263,
+              0,
+              " "
+            ],
+            [
+              269,
+              0,
+              " "
+            ],
+            [
+              279,
+              0,
+              " "
+            ],
+            [
+              281,
+              0,
+              " "
+            ],
+            [
+              285,
+              0,
+              " "
+            ],
+            [
+              294,
+              0,
+              " "
+            ],
+            [
+              302,
+              0,
+              " "
+            ],
+            [
+              304,
+              0,
+              " "
+            ],
+            [
+              308,
+              0,
+              " "
+            ],
+            [
+              318,
+              0,
+              " "
+            ],
+            [
+              323,
+              0,
+              " "
+            ],
+            [
+              328,
+              0,
+              " "
+            ],
+            [
+              330,
+              0,
+              " "
+            ],
+            [
+              334,
+              0,
+              " "
+            ],
+            [
+              336,
+              0,
+              " "
+            ],
+            [
+              340,
+              0,
+              " "
+            ],
+            [
+              345,
+              0,
+              " "
+            ],
+            [
+              350,
+              0,
+              " "
+            ],
+            [
+              355,
+              0,
+              " "
+            ],
+            [
+              358,
+              0,
+              " "
+            ],
+            [
+              363,
+              0,
+              " "
+            ],
+            [
+              370,
+              0,
+              " "
+            ],
+            [
+              377,
+              0,
+              " "
+            ],
+            [
+              380,
+              0,
+              " "
+            ],
+            [
+              382,
+              0,
+              " "
+            ],
+            [
+              385,
+              0,
+              " "
+            ],
+            [
+              390,
+              0,
+              " "
+            ],
+            [
+              396,
+              1,
+              "’"
+            ],
+            [
+              398,
+              0,
+              " "
+            ],
+            [
+              405,
+              0,
+              " "
+            ],
+            [
+              407,
+              0,
+              " "
+            ],
+            [
+              410,
+              0,
+              " "
+            ],
+            [
+              414,
+              0,
+              " "
+            ],
+            [
+              417,
+              0,
+              " "
+            ],
+            [
+              427,
+              0,
+              " "
+            ],
+            [
+              433,
+              0,
+              " "
+            ],
+            [
+              436,
+              0,
+              " "
+            ],
+            [
+              439,
+              0,
+              " "
+            ],
+            [
+              445,
+              0,
+              " "
+            ],
+            [
+              447,
+              0,
+              " "
+            ],
+            [
+              454,
+              0,
+              " "
+            ],
+            [
+              464,
+              0,
+              " "
+            ],
+            [
+              468,
+              0,
+              " "
+            ],
+            [
+              470,
+              0,
+              " "
+            ],
+            [
+              473,
+              0,
+              " "
+            ],
+            [
+              481,
+              0,
+              " "
+            ],
+            [
+              484,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            23,
+            23
+          ],
+          "per_unit": true
+        }
+      },
+      "h17": {
+        "path": "/data/newcomb/intro/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 266,
+        "text_sha256": "784de19b3674622fa1f5c11d3850f0678e86e9f95f03b5bf20f7fbaf5e3462da",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                12,
+                12
+              ],
+              "canon_len": 224,
+              "canon_sha256": "356863fde3b2e9f0d9c519b2390557b2f206a3566927f0d0a4a4af577ef23031",
+              "unique": true,
+              "before": 1782,
+              "after": 364
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              23,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              42,
+              0,
+              " "
+            ],
+            [
+              49,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              57,
+              0,
+              " "
+            ],
+            [
+              66,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              79,
+              0,
+              " "
+            ],
+            [
+              82,
+              0,
+              " "
+            ],
+            [
+              89,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ],
+            [
+              99,
+              0,
+              " "
+            ],
+            [
+              105,
+              0,
+              " "
+            ],
+            [
+              112,
+              0,
+              " "
+            ],
+            [
+              114,
+              0,
+              " "
+            ],
+            [
+              121,
+              0,
+              " "
+            ],
+            [
+              124,
+              0,
+              " "
+            ],
+            [
+              131,
+              0,
+              " "
+            ],
+            [
+              133,
+              0,
+              " "
+            ],
+            [
+              137,
+              0,
+              " "
+            ],
+            [
+              149,
+              0,
+              " "
+            ],
+            [
+              154,
+              0,
+              " "
+            ],
+            [
+              156,
+              0,
+              " "
+            ],
+            [
+              160,
+              0,
+              " "
+            ],
+            [
+              169,
+              0,
+              " "
+            ],
+            [
+              172,
+              0,
+              " "
+            ],
+            [
+              179,
+              0,
+              " "
+            ],
+            [
+              182,
+              0,
+              " "
+            ],
+            [
+              191,
+              0,
+              " "
+            ],
+            [
+              195,
+              0,
+              " "
+            ],
+            [
+              205,
+              0,
+              " "
+            ],
+            [
+              207,
+              0,
+              " "
+            ],
+            [
+              211,
+              0,
+              " "
+            ],
+            [
+              216,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            13,
+            13
+          ],
+          "per_unit": true
+        }
+      },
+      "h22": {
+        "path": "/data/newcomb/consider/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 126,
+        "text_sha256": "c2bf874a4be5476d1f3f59d6c8b371ec2f8d7904af7b98fe7ade6d007f443e30",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                12,
+                12
+              ],
+              "canon_len": 102,
+              "canon_sha256": "72d4d21f6305153f7894e7024ca8481599f08205afefa62508b5b4f7ec404637",
+              "unique": true,
+              "before": 2020,
+              "after": 248
+            }
+          ],
+          "restore": [
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              19,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              39,
+              0,
+              " "
+            ],
+            [
+              45,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              53,
+              0,
+              " "
+            ],
+            [
+              56,
+              0,
+              " "
+            ],
+            [
+              57,
+              0,
+              " "
+            ],
+            [
+              60,
+              0,
+              " "
+            ],
+            [
+              62,
+              0,
+              " "
+            ],
+            [
+              65,
+              0,
+              " "
+            ],
+            [
+              68,
+              0,
+              " "
+            ],
+            [
+              75,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              85,
+              0,
+              " "
+            ],
+            [
+              89,
+              0,
+              " "
+            ],
+            [
+              96,
+              0,
+              " "
+            ],
+            [
+              99,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            13,
+            13
+          ],
+          "per_unit": true
+        }
+      },
+      "h23": {
+        "path": "/data/newcomb/opt_both/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 64,
+        "text_sha256": "2571f4476ee70b461746f64769c50bed7680cfeb11da3e10baf527fa32d1e066",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                12,
+                12
+              ],
+              "canon_len": 53,
+              "canon_sha256": "c8534874de5cfe55da11bad95e49da650ce10774772c16bbbdf25b7d13c780bb",
+              "unique": true,
+              "before": 2122,
+              "after": 195
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              42,
+              0,
+              " "
+            ],
+            [
+              45,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            13,
+            13
+          ],
+          "per_unit": true
+        }
+      },
+      "h24": {
+        "path": "/data/newcomb/opt_b/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 70,
+        "text_sha256": "2d24a8c3715cae33b43342d77ab25edf05313711ace726219ffaa10aa83d5d7d",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                12,
+                12
+              ],
+              "canon_len": 56,
+              "canon_sha256": "0623e963998d13e0503d99e988509a209ba31688e39d772bb704f56fce7f6b27",
+              "unique": true,
+              "before": 2175,
+              "after": 139
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              21,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              41,
+              0,
+              " "
+            ],
+            [
+              45,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              53,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            13,
+            13
+          ],
+          "per_unit": true
+        }
+      },
+      "h25": {
+        "path": "/data/newcomb/rule/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 407,
+        "text_sha256": "2174a52e721cbb3d81de78d263df3dd7ceeba181faf4441664d25a1ad0802df5",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                12,
+                12
+              ],
+              "canon_len": 139,
+              "canon_sha256": "54aeeca3282f7882a9d25909131a30608ec4bd88e193b7f1f202aa978bc7161d",
+              "unique": true,
+              "before": 2231,
+              "after": 0
+            },
+            {
+              "units": [
+                13,
+                13
+              ],
+              "canon_len": 192,
+              "canon_sha256": "73e5c9e5e4ac3f6b9914eff2edafe6a67cb27f54c9b842de7dca1cc92e7c52c2",
+              "unique": true,
+              "before": 19,
+              "after": 2366
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              40,
+              0,
+              " "
+            ],
+            [
+              42,
+              0,
+              " "
+            ],
+            [
+              46,
+              0,
+              " "
+            ],
+            [
+              54,
+              0,
+              " "
+            ],
+            [
+              66,
+              0,
+              " "
+            ],
+            [
+              70,
+              0,
+              " "
+            ],
+            [
+              73,
+              0,
+              " "
+            ],
+            [
+              77,
+              0,
+              " "
+            ],
+            [
+              81,
+              0,
+              " "
+            ],
+            [
+              85,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ],
+            [
+              97,
+              0,
+              " "
+            ],
+            [
+              101,
+              0,
+              " "
+            ],
+            [
+              104,
+              0,
+              " "
+            ],
+            [
+              105,
+              0,
+              " "
+            ],
+            [
+              111,
+              0,
+              " "
+            ],
+            [
+              113,
+              0,
+              " "
+            ],
+            [
+              116,
+              0,
+              " "
+            ],
+            [
+              121,
+              0,
+              " "
+            ],
+            [
+              126,
+              0,
+              " "
+            ],
+            [
+              128,
+              0,
+              " "
+            ],
+            [
+              130,
+              0,
+              " "
+            ],
+            [
+              139,
+              0,
+              " "
+            ],
+            [
+              143,
+              0,
+              " "
+            ],
+            [
+              146,
+              0,
+              " "
+            ],
+            [
+              150,
+              0,
+              " "
+            ],
+            [
+              154,
+              0,
+              " "
+            ],
+            [
+              158,
+              0,
+              " "
+            ],
+            [
+              161,
+              0,
+              " "
+            ],
+            [
+              163,
+              0,
+              " "
+            ],
+            [
+              167,
+              0,
+              " "
+            ],
+            [
+              169,
+              0,
+              " "
+            ],
+            [
+              172,
+              0,
+              " "
+            ],
+            [
+              175,
+              0,
+              " "
+            ],
+            [
+              181,
+              0,
+              " "
+            ],
+            [
+              183,
+              0,
+              " "
+            ],
+            [
+              187,
+              0,
+              " "
+            ],
+            [
+              191,
+              0,
+              " "
+            ],
+            [
+              194,
+              0,
+              " "
+            ],
+            [
+              198,
+              0,
+              " "
+            ],
+            [
+              201,
+              0,
+              " "
+            ],
+            [
+              208,
+              0,
+              " "
+            ],
+            [
+              211,
+              0,
+              " "
+            ],
+            [
+              215,
+              0,
+              " "
+            ],
+            [
+              225,
+              0,
+              " "
+            ],
+            [
+              236,
+              0,
+              " "
+            ],
+            [
+              239,
+              0,
+              " "
+            ],
+            [
+              241,
+              0,
+              " "
+            ],
+            [
+              244,
+              0,
+              " "
+            ],
+            [
+              256,
+              0,
+              " "
+            ],
+            [
+              259,
+              0,
+              " "
+            ],
+            [
+              264,
+              0,
+              " "
+            ],
+            [
+              268,
+              0,
+              " "
+            ],
+            [
+              271,
+              0,
+              " "
+            ],
+            [
+              272,
+              0,
+              " "
+            ],
+            [
+              277,
+              0,
+              " "
+            ],
+            [
+              280,
+              0,
+              " "
+            ],
+            [
+              286,
+              0,
+              " "
+            ],
+            [
+              288,
+              0,
+              " "
+            ],
+            [
+              291,
+              0,
+              " "
+            ],
+            [
+              293,
+              0,
+              " "
+            ],
+            [
+              300,
+              0,
+              " "
+            ],
+            [
+              302,
+              0,
+              " "
+            ],
+            [
+              305,
+              0,
+              " "
+            ],
+            [
+              307,
+              0,
+              " "
+            ],
+            [
+              312,
+              0,
+              " "
+            ],
+            [
+              315,
+              0,
+              " "
+            ],
+            [
+              320,
+              0,
+              " "
+            ],
+            [
+              324,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            13,
+            14
+          ],
+          "per_unit": true
+        }
+      },
+      "h26": {
+        "path": "/data/newcomb/indicate/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 266,
+        "text_sha256": "b94a0cf3712874213d9f009830a6db52e2a6304a2f81fafa91aff0702d6d0657",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                13,
+                13
+              ],
+              "canon_len": 221,
+              "canon_sha256": "c8ce70507bb285c4cf6c89ce3bcb2bda6f52b21c40a133e7d93fa922cf0b8f98",
+              "unique": true,
+              "before": 211,
+              "after": 2145
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              42,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              54,
+              0,
+              " "
+            ],
+            [
+              63,
+              0,
+              " "
+            ],
+            [
+              67,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              84,
+              0,
+              " "
+            ],
+            [
+              92,
+              0,
+              " "
+            ],
+            [
+              94,
+              0,
+              " "
+            ],
+            [
+              97,
+              0,
+              " "
+            ],
+            [
+              103,
+              0,
+              " "
+            ],
+            [
+              105,
+              0,
+              " "
+            ],
+            [
+              111,
+              0,
+              " "
+            ],
+            [
+              118,
+              0,
+              " "
+            ],
+            [
+              121,
+              0,
+              " "
+            ],
+            [
+              127,
+              0,
+              " "
+            ],
+            [
+              131,
+              0,
+              " "
+            ],
+            [
+              136,
+              0,
+              " "
+            ],
+            [
+              138,
+              0,
+              " "
+            ],
+            [
+              141,
+              0,
+              " "
+            ],
+            [
+              142,
+              0,
+              " "
+            ],
+            [
+              147,
+              0,
+              " "
+            ],
+            [
+              152,
+              0,
+              " "
+            ],
+            [
+              155,
+              0,
+              " "
+            ],
+            [
+              163,
+              0,
+              " "
+            ],
+            [
+              167,
+              0,
+              " "
+            ],
+            [
+              178,
+              0,
+              " "
+            ],
+            [
+              183,
+              0,
+              " "
+            ],
+            [
+              186,
+              0,
+              " "
+            ],
+            [
+              189,
+              0,
+              " "
+            ],
+            [
+              191,
+              0,
+              " "
+            ],
+            [
+              199,
+              0,
+              " "
+            ],
+            [
+              202,
+              0,
+              " "
+            ],
+            [
+              212,
+              0,
+              " "
+            ],
+            [
+              214,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            14,
+            14
+          ],
+          "per_unit": true
+        }
+      },
+      "h27": {
+        "path": "/flow_cites/sequence/evidence",
+        "source": "paper",
+        "kind": "text",
+        "role": "operator",
+        "length": 144,
+        "text_sha256": "21596617a947298259f66552be776a5b983dff2fbc303b9302738abb0d2ff3ab",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                10,
+                10
+              ],
+              "canon_len": 53,
+              "canon_sha256": "6fc4ca3c260f5068cffeafe6ef484808aa139e22eb8e86cb1be42b352b7665c8",
+              "unique": true,
+              "before": 587,
+              "after": 1777
+            },
+            {
+              "units": [
+                10,
+                10
+              ],
+              "canon_len": 58,
+              "canon_sha256": "a2d2aa199de07be4b207b8d67866e25840a4f4604f933a89a61b150dbd72fdd7",
+              "unique": true,
+              "before": 641,
+              "after": 1718
+            },
+            {
+              "literal": "-"
+            },
+            {
+              "units": [
+                10,
+                10
+              ],
+              "canon_len": 13,
+              "canon_sha256": "789b20ac512ec8be40e5ae6521473bbe8e59ad038282ebf357dfda77955b4c46",
+              "unique": true,
+              "before": 700,
+              "after": 1704
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              16,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              44,
+              0,
+              " "
+            ],
+            [
+              46,
+              0,
+              " "
+            ],
+            [
+              49,
+              0,
+              " "
+            ],
+            [
+              57,
+              0,
+              " "
+            ],
+            [
+              67,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              87,
+              0,
+              " "
+            ],
+            [
+              92,
+              0,
+              " "
+            ],
+            [
+              97,
+              0,
+              " "
+            ],
+            [
+              103,
+              0,
+              " "
+            ],
+            [
+              106,
+              0,
+              " "
+            ],
+            [
+              119,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            11,
+            11
+          ],
+          "per_unit": true
+        }
+      }
+    },
+    "strict": false,
+    "attribution": []
+  },
+  "schema_version": "1"
+}

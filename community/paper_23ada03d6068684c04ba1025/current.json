@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "8505d606233074e624ccebbed06ac514a6f15dccddd3c79acbafd337031405a5",
-  "previousRevision": null,
+  "revision": "3101c14022e51e7c07f1d4858f1ed60fd93d95f33fdb2287b8e76e6d0ba103b3",
+  "previousRevision": "8505d606233074e624ccebbed06ac514a6f15dccddd3c79acbafd337031405a5",
   "paper": {
     "title": "The black box as a control for payoff-based learning in economic games",
     "authors": [
@@ -33,43 +33,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "8505d606233074e624ccebbed06ac514a6f15dccddd3c79acbafd337031405a5",
-    "reviewer": "independent-agent:program_pilot_aiyer",
-    "reason": "Independent reading-layer review and public-export checks completed; source-backed summaries and explicit missing items retained. No protocol or raw source files are distributed.",
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Reading Program, reported findings, source references and public-content boundaries only. Not a Validated protocol or replication of human outcomes.",
-    "sourcePolicy": {
-      "publicFiles": [
-        "program.json"
-      ],
-      "sourceCredits": [
-        {
-          "title": "The black box as a control for payoff-based learning in economic games",
-          "authors": [
-            "Maxwell N. Burton-Chellew",
-            "Stuart A. West"
-          ],
-          "url": "https://doi.org/10.31235/osf.io/5k4ez",
-          "license": "CC-BY-4.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-          "attribution": "Maxwell N. Burton-Chellew; Stuart A. West. The black box as a control for payoff-based learning in economic games (2022).",
-          "changes": "Existing source-linked reading organized into scholarly Program; original source and protocol unchanged."
-        }
-      ],
-      "inputExportSha256": "ac92c086a4a7b85a40fb766b5c70a4307b5ab070363a9c6bdd6af0c3c2a5cdad"
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Some held texts cannot be restored by the app (a picture, a file the researcher must supply, or text that cannot be located): the researcher pastes or captures them before running.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "3101c14022e51e7c07f1d4858f1ed60fd93d95f33fdb2287b8e76e6d0ba103b3"
   },
   "validation": {
     "status": "passed",
@@ -77,7 +51,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -85,9 +59,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "0a7689bdfda84be5da5aee1d273380731a1cba46d3a1c98f54aaaa38bfbc0a52"
+    "protocolSha256": "1955f49c577e9a7d1c3692ca989c66353710cd01a7d043a0d4ae052b99f0d5ff"
   }
 }

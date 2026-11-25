@@ -1,0 +1,88 @@
+{
+  "format": "humanstudy-agent-package/1",
+  "created": "2026-11-02T21:12:51Z",
+  "programId": "hoogeveen2020-laypeople-replicability",
+  "programSha256": "765982e86f0418fd1e0040c5172d138dc7e8c434837c55f4bbc9bf3d991b582b",
+  "paperSha256": null,
+  "readiness": {
+    "status": "ready",
+    "blocking": [],
+    "note": "No blocking issues. Open decision/check issues are listed in audit/missing_information.json; the replay adapts them as described there."
+  },
+  "capabilities": {
+    "schemaVersion": 1,
+    "derivedFrom": {
+      "program": "765982e86f0418fd1e0040c5172d138dc7e8c434837c55f4bbc9bf3d991b582b",
+      "package": "hoogeveen2020"
+    },
+    "read": {
+      "status": "yes",
+      "reason": null
+    },
+    "run": {
+      "status": "yes",
+      "reason": null,
+      "modalities": [
+        "text"
+      ],
+      "excluded": []
+    },
+    "humanData": {
+      "status": "yes",
+      "coverage": [
+        "description_only",
+        "description_plus_evidence"
+      ],
+      "sessions": 233,
+      "source": "Data_MTurk_AN.csv, Data_Social_Media_AN.csv, Data_UvA_Lab_AN.csv (Qualtrics exports, one row per respondent) and DescriptionAndStatisticsPerStudy.csv (study numbers/IDs), the authors' OSF data release for the paper, in human-data/.",
+      "missing": [],
+      "key": {
+        "sample": "original",
+        "repository": "https://osf.io/wg9s3/",
+        "license": "CC-BY-4.0",
+        "dataFiles": 4,
+        "fetchable": 4
+      },
+      "reason": "source pinned in package/hoogeveen2020/human/key.json (4 of 4 data files downloadable from it)"
+    },
+    "authorCode": {
+      "status": "no",
+      "route": null,
+      "reason": "no author-code key recorded"
+    },
+    "reproduced": {
+      "package": "pass",
+      "author": null,
+      "detail": "5 of 5 reported results recovered by the package analysis from the connected human data (see humanData.source: it may be a replication sample, not the original participants)"
+    },
+    "profiles": {
+      "status": "no",
+      "reason": "the runner does not sample participant profiles yet"
+    }
+  },
+  "skill": "hoogeveen2020-laypeople-replicability",
+  "mcpServer": "hoogeveen2020-laypeople-replicability/scripts/mcp_server.py",
+  "quoteCheck": {
+    "unchecked": 81
+  },
+  "files": {
+    "README.md": "86f8d4728e4a5c57e5a673f4b5335d4d08f8e412b7844142da3c076d497849b5",
+    "hoogeveen2020-laypeople-replicability/SKILL.md": "157ea1ff1be1761547a1320f075116e696a1df348adf9a50d71190fe1f6a6e5a",
+    "hoogeveen2020-laypeople-replicability/references/accuracy.md": "6f1b1d5c5277e1f04ec06cdd272d3bd6c8fff2ca22f1c4c7dc2b2c554eeaa348",
+    "hoogeveen2020-laypeople-replicability/references/capabilities.md": "400ccd77c31fa7b8265031c0714b79ca76a23c3d1250e7f3308cdb60bd478b9a",
+    "hoogeveen2020-laypeople-replicability/references/open-issues.md": "d0f56126b328f696b3e22e42d9f64ce887acf89b49972acc6a513086cde89626",
+    "hoogeveen2020-laypeople-replicability/references/paper.md": "b7d73ce1da22c1c193e322c69f6280b98d4850a8e3071396316943061a85bfd2",
+    "hoogeveen2020-laypeople-replicability/references/sources.md": "91d8911c3d286eb6ee4988bd0f01b5ac3cd090038c8716cd322fb977d0e8dc44",
+    "hoogeveen2020-laypeople-replicability/references/study-s1.md": "1a5616db5d0baf07ab32d5d91647a71f7d378d79df0857bc6d1aeb25b75037bb",
+    "hoogeveen2020-laypeople-replicability/references/study-s2.md": "0f8f0234b2d1ade611bd2e7bfc8a2b1fa8a965499edef06301921f1453de0ff0",
+    "hoogeveen2020-laypeople-replicability/scripts/effects_core.py": "cf86efc6ce63bc536c16b562ac11e95e2a176fe8bbcf93d15d0a0b03bee75cee",
+    "hoogeveen2020-laypeople-replicability/scripts/mcp_server.py": "f80b87ebf2eb5f4f861f54f37408b31ce979f3efd2844e4abfa0241fcd70c69e",
+    "hoogeveen2020-laypeople-replicability/scripts/study_core.py": "77b24f07d39ac9382b858808c16b90feb79db39d48c27f002225ddd9e93ee675"
+  },
+  "sharedWithRevision": [
+    "program.json",
+    "package/",
+    "capabilities.json",
+    "effects.json"
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "db9e0e397c5c50048ccef049a218c981bd730efa665feabc95686adf1c292b84",
-  "previousRevision": null,
+  "revision": "2b8b8729540571174abe5f287ab9a5a5438199bde2fdde03be25e5a493d7e9c4",
+  "previousRevision": "db9e0e397c5c50048ccef049a218c981bd730efa665feabc95686adf1c292b84",
   "paper": {
     "title": "Short-sighted greed? Focusing on the future promotes reputation-based generosity",
     "authors": [
@@ -32,58 +32,17 @@
   ],
   "capabilities": {
     "discoverable": true,
-    "traceable": true,
+    "traceable": false,
     "reanalyzable": false,
-    "replayable": false,
-    "humanBenchmark": false
+    "replayable": true,
+    "humanBenchmark": true
   },
   "review": {
     "decision": "accept",
-    "candidateRevision": "db9e0e397c5c50048ccef049a218c981bd730efa665feabc95686adf1c292b84",
-    "reviewer": "Independent program_pilot agent",
-    "reason": "Independent reading-layer review and public-export checks completed; source-backed summaries and explicit missing items retained. No protocol or raw source files are distributed.",
-    "verifiedCapabilities": {
-      "traceable": true,
-      "replayable": false,
-      "reanalyzable": false,
-      "humanBenchmark": false
-    },
-    "reviewScope": "Reading Program, reported findings, source references and public-content boundaries only. Not a Validated protocol or replication of human outcomes.",
-    "sourcePolicy": {
-      "publicFiles": [
-        "program.json"
-      ],
-      "sourceCredits": [
-        {
-          "evidenceIds": [
-            "overview",
-            "hypotheses",
-            "s1-method",
-            "s1-material",
-            "s1-result-dg",
-            "s1-result-charity",
-            "s2-method",
-            "s2-result",
-            "s2-private",
-            "s2-null",
-            "s3-sample",
-            "s3-method",
-            "s3-exclusions",
-            "s3-results",
-            "limitations1",
-            "limitations2"
-          ],
-          "url": "https://doi.org/10.1017/S1930297500003430",
-          "attribution": "Hallgeir Sjåstad. Short-sighted greed? Focusing on the future promotes reputation-based generosity (2019).",
-          "license": "CC-BY-3.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-          "sha256": "1530bb9ce400bb89464d9941e254d1e309fc688a12211d9b9f1e2c1204b8c3b3",
-          "title": "Short-sighted greed? Focusing on the future promotes reputation-based generosity",
-          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
-        }
-      ],
-      "inputExportSha256": "455c46142cc36085bd75edefd1e6a3ea0a84c09af06044c456d6e175eb7ecaac"
-    }
+    "reviewer": "maintainer release (checked, unreviewed)",
+    "reason": "Protocol released from the maintainers' private study as an unreviewed (checked) release: engine checks pass; no independent fidelity review is claimed. Every held text is restored on the researcher's computer from their copy of the source, by its hash.",
+    "reviewScope": "Mechanical engine checks of the exact released protocol only.",
+    "candidateRevision": "2b8b8729540571174abe5f287ab9a5a5438199bde2fdde03be25e5a493d7e9c4"
   },
   "validation": {
     "status": "passed",
@@ -91,7 +50,7 @@
     "warnings": [],
     "checks": {
       "schema": true,
-      "packageBindings": false,
+      "protocol": true,
       "codeExecuted": false,
       "scientificReview": false
     },
@@ -99,9 +58,9 @@
       "discoverable": true,
       "traceable": false,
       "reanalyzable": false,
-      "replayable": false,
-      "humanBenchmark": false
+      "replayable": true,
+      "humanBenchmark": true
     },
-    "programDigest": "fc05c294dd5c85ac433715dd6d447e46c7b284bbacb81ca9b0d5c2bea3064a73"
+    "protocolSha256": "8468e545bcde53087ebc67a2bad394edd599e20cec7abd7aa069f82ca0660a5b"
   }
 }
