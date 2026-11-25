@@ -422,6 +422,11 @@ def _all_strings(o, shown=False):
             yield from _all_strings(v, shown)
 
 
+def _canon(text: str) -> str:
+    """The engine's canonical text with invisible characters removed (a PDF reader can put U+FFFE inside a word)."""
+    return distribution.canon_only(approx_text._INVISIBLE.sub("", text))
+
+
 def hosted_unconfirmed(message: str, private: dict, sources: dict) -> list[str]:
     """Of a 'cited to a hosted source but not in the hosted file' finding, the paths that may not ship: anything but
     a label or a text whose own cite (the engine's slot cite) says it was read from a picture of that source (a
@@ -464,10 +469,10 @@ def hosted_unconfirmed(message: str, private: dict, sources: dict) -> list[str]:
                         if fmt == "qsf":   # every string of the survey file, translations included
                             units += [html.unescape(re.sub(r"<[^>]+>", " ", x))
                                       for x in _all_strings(json.loads(sources[key].decode("utf-8-sig")))]
-                        texts[key] = [distribution.canon_only(u) for u in units]   # field by field, never joined
+                        texts[key] = [_canon(u) for u in units]   # field by field, never joined
                     except Exception:
                         texts[key] = []
-                if any(distribution.canon_only(value) in u for u in texts.get(key, [])):
+                if any(_canon(value) in u for u in texts.get(key, [])):
                     found = True
             if found:
                 continue
