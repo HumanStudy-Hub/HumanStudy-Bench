@@ -1073,6 +1073,8 @@ def build(paper_id: str, slug: str, private: Path, sessions: int, dry: bool = Fa
     if validation["status"] != "passed":
         return {"paper": paper_id, "slug": slug, "status": "invalid", "errors": validation["errors"][:8]}
     rid = revision_id(files)
+    if rid == current["revision"]:
+        return {"paper": paper_id, "slug": slug, "status": "unchanged", "revision": rid}
     if dry:
         return {"paper": paper_id, "slug": slug, "status": "would_release", "readiness": info["readiness"],
                 "held": info["held"], "short": info["short"], "needsText": info["needsText"], "approx": info["approx"]}
@@ -1113,6 +1115,8 @@ def main(argv=None) -> int:
     ap.add_argument("--only", nargs="*", default=None)
     ap.add_argument("--sessions", type=int, default=1000)
     ap.add_argument("--dry", action="store_true", help="check only; write nothing")
+    ap.add_argument("--rerelease", action="store_true",
+                    help="release again even when the current revision is already a protocol release")
     a = ap.parse_args(argv)
     mapping = json.loads(a.map.read_text())
     results = []
@@ -1123,7 +1127,7 @@ def main(argv=None) -> int:
         current = json.loads((COMMUNITY / paper_id / "current.json").read_text())
         if len(slugs) != 1:
             results.append({"paper": paper_id, "status": "no_private_study"})
-        elif "protocol.json" in load_revision(COMMUNITY / paper_id, current["revision"]):
+        elif not a.rerelease and "protocol.json" in load_revision(COMMUNITY / paper_id, current["revision"]):
             results.append({"paper": paper_id, "status": "already_runnable"})
         else:
             try:
