@@ -1,0 +1,4384 @@
+{
+  "id": "burtonchellew2022pgg",
+  "schema": "hsenv-protocol v3.2",
+  "meta": {
+    "language": "en",
+    "citation": "Burton-Chellew, M. N., & West, S. A. (2022). The black box as a control for payoff-based learning in economic games. Games, 13(6), 76. doi:10.3390/g13060076 (preprint SocArXiv 10.31235/osf.io/5k4ez v3)",
+    "licence": {
+      "paper": "sources/preprint_5k4ez_v3.pdf = OSF preprint 5k4ez file 6335a4f8ec7f3f02b8f614d4 version 3 (BlackBox2020_Ms_OSF_PREPRINT_fixed_typos.pdf; sha256 1bcdc657... identical), licence CC-By Attribution 4.0 International (OSF preprint record, checked 2026-11-07). Not an accepted manuscript: the batch-2 question is resolved",
+      "published": "sources/PMC7614088.1.pdf + EMS160016-supplement-Appendix.pdf: Europe PMC author manuscript EMS160016 typeset as Games 2022, 13, 76; PMC OA dataset license_code 'CC BY'. A procedure source (p. 3: computer draws, input range; sourcetext/published.txt) and a second rendering; its appendix is copy-edited (meta.conflicts)",
+      "osf": "sources/BB20_OSF_consent_instructions.pdf (OSF 9uxdv, sha256 0dab651d...): no licence on the node. Handout pp. 3-5 = paper Appendix A (CC BY); consent pp. 1-2 only here -> release_hold (c_ arms)",
+      "nhb_si": "withheld:bc0037b2c2316a1b",
+      "nhb2021": "sources/nhb2021_PMC7612056.1.txt (PMC author manuscript EMS140187, license_code TDM): procedure quotes in cites only",
+      "rscript": "sources/Black_box_COMBI_analyses.R (sha256 f1a60e5d...): one member of OSF Black_box_data_PUBLIC.zip, taken by HTTP range request after reading the zip's central directory; no participant file was fetched. No licence; operator-side only"
+    },
+    "sources": {
+      "text": {
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "searches": {
+        "what": "old build SOURCE.json (Europe PMC, Crossref, Unpaywall, OSF) + 2026-11-07: OSF preprint 5k4ez versions; PMC OA bucket PMC7614088.1 (pdf, appendix, licence json); Nature article page lists MOESM1-3 only (no z-Tree files despite 'experimental files ... in the supplementary information'); OSF user rsxz",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "nhb2021": {
+        "what": "nhb2021",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "nhb_si": {
+        "what": "nhb_si",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "osf": {
+        "what": "osf",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "paper": {
+        "what": "paper",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "published": {
+        "what": "published",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "rscript": {
+        "what": "rscript",
+        "distribution": {
+          "tier": "user"
+        }
+      }
+    },
+    "image_read": "none: every on-screen text comes from a PDF text layer (handout figure labels included). The figure picture is served as a local asset with its text-layer labels; no blind second reading needed",
+    "sample": {
+      "computers": "222 participants, 14 sessions, Feb 2020, CESS Oxford; naive N 46/44/40/46/46; age 31.8 ± 15.9 (N = 192); 139 female, 81 male, 1 other, 1 declined",
+      "humans": "216 participants, 18 sessions of 12, Feb 2019, CESS Oxford (NHB 2021); 72 per treatment",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 17,
+        "note": "withheld:9bb809e109876a69"
+      }
+    },
+    "pages": [
+      {
+        "source": "osf pp. 1-2",
+        "what": "consent form (paper, reception)",
+        "stage": "consent (c_ arms)"
+      },
+      {
+        "source": "osf pp. 3-5 / nhb_si pp. 3-5",
+        "what": "handout = on-screen instructions + figure",
+        "stage": "instr_short20 / instr_long20 / instr19"
+      },
+      {
+        "source": "NHB 2021 Methods",
+        "what": "decision, 'Calculating…', input/output/net payoff reminder (x16 or x40)",
+        "stage": "input, sync round (event), result (derived wording)"
+      },
+      {
+        "source": "paper p. 18",
+        "what": "two belief questions after the box",
+        "stage": "belief"
+      },
+      {
+        "source": "paper pp. 17-18",
+        "what": "boxes 2-3 (short sessions), questionnaire, payment",
+        "stage": "omitted"
+      }
+    ]
+  },
+  "arms": [
+    {
+      "id": "c_n3m04_short",
+      "label": "Computers, N=3, MPCR=0.4, 16 rounds",
+      "n_paper": 46,
+      "group_size": 1,
+      "runnable": true,
+      "assignment": "between (session-level, see cite)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 18,
+        "note": "withheld:df3a990b7a9116a6"
+      },
+      "derived_on_screen": [
+        "first session (23 of 46): the 0.75-pence stake lines, wording as in the 2019 handout"
+      ]
+    },
+    {
+      "id": "c_n3m08_short",
+      "label": "Computers, N=3, MPCR=0.8, 16 rounds",
+      "n_paper": 44,
+      "group_size": 1,
+      "runnable": true,
+      "assignment": "between (session-level, see cite)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 18,
+        "note": "withheld:df3a990b7a9116a6"
+      }
+    },
+    {
+      "id": "c_n12m04_short",
+      "label": "Computers, N=12, MPCR=0.4, 16 rounds",
+      "n_paper": 40,
+      "group_size": 1,
+      "runnable": true,
+      "assignment": "between (session-level, see cite)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 18,
+        "note": "withheld:df3a990b7a9116a6"
+      }
+    },
+    {
+      "id": "c_n3m08_long",
+      "label": "Computers, N=3, MPCR=0.8, 40 rounds",
+      "n_paper": 46,
+      "group_size": 1,
+      "runnable": true,
+      "assignment": "between (session-level, see cite)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 18,
+        "note": "withheld:df3a990b7a9116a6"
+      },
+      "derived_on_screen": [
+        "withheld:f092e902de081345"
+      ]
+    },
+    {
+      "id": "c_n12m04_long",
+      "label": "Computers, N=12, MPCR=0.4, 40 rounds",
+      "n_paper": 46,
+      "group_size": 1,
+      "runnable": true,
+      "assignment": "between (session-level, see cite)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 18,
+        "note": "withheld:df3a990b7a9116a6"
+      },
+      "derived_on_screen": [
+        "withheld:f092e902de081345"
+      ]
+    },
+    {
+      "id": "h_n3m04",
+      "label": "Hidden humans (2019), N=3, MPCR=0.4, 16 rounds",
+      "n_paper": 24,
+      "group_size": 3,
+      "runnable": true,
+      "assignment": "between (session-level, see cite)",
+      "cite": {
+        "label": "reported",
+        "source": "nhb2021",
+        "page": 1,
+        "note": "withheld:1e68ce7277ff261b"
+      },
+      "exclusion_caveat": "human belief sample excludes the first 7 sessions for boxes A and B (wrong question)"
+    },
+    {
+      "id": "h_n3m08",
+      "label": "Hidden humans (2019), N=3, MPCR=0.8, 16 rounds",
+      "n_paper": 24,
+      "group_size": 3,
+      "runnable": true,
+      "assignment": "between (session-level, see cite)",
+      "cite": {
+        "label": "reported",
+        "source": "nhb2021",
+        "page": 1,
+        "note": "withheld:1e68ce7277ff261b"
+      },
+      "exclusion_caveat": "human belief sample excludes the first 7 sessions for boxes A and B (wrong question)"
+    },
+    {
+      "id": "h_n12m04",
+      "label": "Hidden humans (2019), N=12, MPCR=0.4, 16 rounds",
+      "n_paper": 6,
+      "group_size": 12,
+      "runnable": true,
+      "assignment": "between (session-level, see cite)",
+      "cite": {
+        "label": "reported",
+        "source": "nhb2021",
+        "page": 1,
+        "note": "withheld:1e68ce7277ff261b"
+      },
+      "exclusion_caveat": "human belief sample excludes the first 7 sessions for boxes A and B (wrong question)"
+    }
+  ],
+  "data": {
+    "h20": [
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 26,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 50,
+            "end": 56,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 12,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 165,
+            "end": 176,
+            "style": "bold"
+          },
+          {
+            "start": 165,
+            "end": 176,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 5,
+            "end": 16,
+            "style": "italic"
+          },
+          {
+            "start": 86,
+            "end": 94,
+            "style": "bold"
+          },
+          {
+            "start": 126,
+            "end": 135,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 35,
+            "end": 145,
+            "style": "bold"
+          },
+          {
+            "start": 126,
+            "end": 134,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 28,
+            "end": 56,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 64,
+            "end": 72,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 104,
+            "end": 115,
+            "style": "italic"
+          },
+          {
+            "start": 158,
+            "end": 169,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 31,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 84,
+            "end": 91,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 63,
+            "style": "bold"
+          },
+          {
+            "start": 34,
+            "end": 45,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 112,
+            "end": 123,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 4
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 28,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 74,
+            "end": 85,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 157,
+            "end": 224,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 102,
+            "end": 110,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 93,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 4
+        }
+      }
+    ],
+    "h19": [
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 26,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 50,
+            "end": 56,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 12,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 165,
+            "end": 176,
+            "style": "bold"
+          },
+          {
+            "start": 165,
+            "end": 176,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 5,
+            "end": 16,
+            "style": "italic"
+          },
+          {
+            "start": 86,
+            "end": 94,
+            "style": "bold"
+          },
+          {
+            "start": 126,
+            "end": 135,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 35,
+            "end": 145,
+            "style": "bold"
+          },
+          {
+            "start": 126,
+            "end": 134,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 28,
+            "end": 56,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 64,
+            "end": 72,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3
+        },
+        "spans": [
+          {
+            "start": 104,
+            "end": 115,
+            "style": "italic"
+          },
+          {
+            "start": 158,
+            "end": 169,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 31,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 84,
+            "end": 91,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 63,
+            "style": "bold"
+          },
+          {
+            "start": 34,
+            "end": 45,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 112,
+            "end": 123,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 4
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 28,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 74,
+            "end": 85,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 157,
+            "end": 224,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 102,
+            "end": 110,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 4
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 93,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 4
+        }
+      }
+    ],
+    "rate075": [
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3,
+          "note": "withheld:aec0295f5a16d2c0"
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "nhb_si",
+          "page": 3,
+          "note": "withheld:aec0295f5a16d2c0"
+        }
+      }
+    ],
+    "long": {
+      "total": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 18,
+          "note": "withheld:f7f67f2175d28ce4"
+        }
+      },
+      "forty": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 17,
+          "note": "withheld:f7f67f2175d28ce4"
+        },
+        "spans": [
+          {
+            "start": 84,
+            "end": 91,
+            "style": "bold"
+          }
+        ]
+      }
+    },
+    "fig20": {
+      "src": "asset:e0dd9fcd268f777f",
+      "sha256": "e0dd9fcd268f777ff7758e31eb0dbfcafae3b5a0b43b0f2bfcf4c203d1433365",
+      "lines": [
+        {
+          "text": "░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "osf",
+            "page": 5
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "osf",
+            "page": 5
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "osf",
+            "page": 5
+          }
+        },
+        {
+          "text": "░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "osf",
+            "page": 5
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "osf",
+            "page": 5
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "osf",
+            "page": 5
+          }
+        }
+      ],
+      "cite": {
+        "label": "verbatim",
+        "source": "osf",
+        "page": 5,
+        "note": "withheld:1f07f5cb7b6f6fec"
+      }
+    },
+    "fig19": {
+      "src": "asset:e0dd9fcd268f777f",
+      "sha256": "e0dd9fcd268f777ff7758e31eb0dbfcafae3b5a0b43b0f2bfcf4c203d1433365",
+      "lines": [
+        {
+          "text": "░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "nhb_si",
+            "page": 5
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "nhb_si",
+            "page": 5
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "nhb_si",
+            "page": 5
+          }
+        },
+        {
+          "text": "░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "nhb_si",
+            "page": 5
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "nhb_si",
+            "page": 5
+          }
+        },
+        {
+          "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+          "cite": {
+            "label": "verbatim",
+            "source": "nhb_si",
+            "page": 5
+          }
+        }
+      ],
+      "cite": {
+        "label": "verbatim",
+        "source": "nhb_si",
+        "page": 5,
+        "note": "withheld:1f07f5cb7b6f6fec"
+      }
+    },
+    "consent": [
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 1
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 44,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 1
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 1
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 33,
+            "style": "bold"
+          },
+          {
+            "start": 170,
+            "end": 217,
+            "style": "bold"
+          },
+          {
+            "start": 303,
+            "end": 411,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 1
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 58,
+            "style": "bold"
+          },
+          {
+            "start": 117,
+            "end": 127,
+            "style": "bold"
+          },
+          {
+            "start": 152,
+            "end": 349,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 1
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 46,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 1
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 19,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 1
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 16,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 1
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 2
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 13,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 2
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 8,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 2
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 8,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 2
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 184,
+            "style": "bold"
+          },
+          {
+            "start": 0,
+            "end": 183,
+            "style": "italic"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "osf",
+          "page": 2
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 10,
+            "style": "bold"
+          },
+          {
+            "start": 11,
+            "end": 16,
+            "style": "bold"
+          }
+        ]
+      }
+    ],
+    "belief": {
+      "q1": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18
+        }
+      },
+      "q2": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "paper",
+          "page": 18
+        }
+      },
+      "q1_h": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 18,
+          "note": "withheld:d15e5bb31c8fc2e1"
+        }
+      },
+      "q2_h": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 18,
+          "note": "withheld:d15e5bb31c8fc2e1"
+        }
+      }
+    },
+    "round": {
+      "prompt": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 31,
+          "note": "withheld:31dbe7f2da0dface"
+        }
+      },
+      "input": {
+        "text": "Your input:",
+        "cite": {
+          "label": "derived",
+          "source": "nhb2021",
+          "page": 1,
+          "note": "withheld:7a59acfb84f8bc09"
+        }
+      },
+      "output": {
+        "text": "Output from the black box:",
+        "cite": {
+          "label": "derived",
+          "source": "nhb2021",
+          "page": 1,
+          "note": "withheld:7a59acfb84f8bc09"
+        }
+      },
+      "income": {
+        "text": "Your income from this decision:",
+        "cite": {
+          "label": "derived",
+          "source": "nhb2021",
+          "page": 1,
+          "note": "withheld:1a112264bb3c56b2"
+        }
+      },
+      "coins": {
+        "text": "coins",
+        "cite": {
+          "label": "derived",
+          "source": "osf",
+          "page": 3,
+          "note": "withheld:bdfbf94bc1635d5f"
+        }
+      }
+    }
+  },
+  "stages": {
+    "consent": {
+      "content": [
+        {
+          "id": "k0",
+          "value": {
+            "expr": "data['consent'][0]"
+          },
+          "style": "heading"
+        },
+        {
+          "id": "k1",
+          "value": {
+            "expr": "data['consent'][1]"
+          }
+        },
+        {
+          "id": "k2",
+          "value": {
+            "expr": "data['consent'][2]"
+          }
+        },
+        {
+          "id": "k3",
+          "value": {
+            "expr": "data['consent'][3]"
+          }
+        },
+        {
+          "id": "k4",
+          "value": {
+            "expr": "data['consent'][4]"
+          }
+        },
+        {
+          "id": "k5",
+          "value": {
+            "expr": "data['consent'][5]"
+          }
+        },
+        {
+          "id": "k6",
+          "value": {
+            "expr": "data['consent'][6]"
+          }
+        },
+        {
+          "id": "k7",
+          "value": {
+            "expr": "data['consent'][7]"
+          }
+        },
+        {
+          "id": "k8",
+          "value": {
+            "expr": "data['consent'][8]"
+          }
+        },
+        {
+          "id": "k9",
+          "value": {
+            "expr": "data['consent'][9]"
+          }
+        },
+        {
+          "id": "k10",
+          "value": {
+            "expr": "data['consent'][10]"
+          }
+        },
+        {
+          "id": "k11",
+          "value": {
+            "expr": "data['consent'][11]"
+          }
+        },
+        {
+          "id": "k12",
+          "value": {
+            "expr": "data['consent'][12]"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 17,
+        "note": "withheld:fa681cbfb04e30fb"
+      }
+    },
+    "instr_short20": {
+      "content": [
+        {
+          "id": "h20_0",
+          "value": {
+            "expr": "data['h20'][0]"
+          },
+          "reviewable": true,
+          "style": "heading"
+        },
+        {
+          "id": "h20_1",
+          "value": {
+            "expr": "data['h20'][1]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_2",
+          "value": {
+            "expr": "data['h20'][2]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_3",
+          "value": {
+            "expr": "data['h20'][3]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_4_075",
+          "value": {
+            "expr": "data['rate075'][0]"
+          },
+          "if": "rate075",
+          "reviewable": true
+        },
+        {
+          "id": "h20_4",
+          "value": {
+            "expr": "data['h20'][4]"
+          },
+          "reviewable": true,
+          "if": "not rate075"
+        },
+        {
+          "id": "h20_5_075",
+          "value": {
+            "expr": "data['rate075'][1]"
+          },
+          "if": "rate075",
+          "reviewable": true
+        },
+        {
+          "id": "h20_5",
+          "value": {
+            "expr": "data['h20'][5]"
+          },
+          "reviewable": true,
+          "if": "not rate075"
+        },
+        {
+          "id": "h20_6",
+          "value": {
+            "expr": "data['h20'][6]"
+          },
+          "reviewable": true,
+          "style": "heading"
+        },
+        {
+          "id": "h20_7",
+          "value": {
+            "expr": "data['h20'][7]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_8",
+          "value": {
+            "expr": "data['h20'][8]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_9",
+          "value": {
+            "expr": "data['h20'][9]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_10",
+          "value": {
+            "expr": "data['h20'][10]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_11",
+          "value": {
+            "expr": "data['h20'][11]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_12",
+          "value": {
+            "expr": "data['h20'][12]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_13",
+          "value": {
+            "expr": "data['h20'][13]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_14",
+          "value": {
+            "expr": "data['h20'][14]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_15",
+          "value": {
+            "expr": "data['h20'][15]"
+          },
+          "reviewable": true,
+          "style": "heading"
+        },
+        {
+          "id": "h20_16",
+          "value": {
+            "expr": "data['h20'][16]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_17",
+          "value": {
+            "expr": "data['h20'][17]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_18",
+          "value": {
+            "expr": "data['h20'][18]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_19",
+          "value": {
+            "expr": "data['h20'][19]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_20",
+          "value": {
+            "expr": "data['h20'][20]"
+          },
+          "reviewable": true,
+          "style": "heading"
+        },
+        {
+          "id": "h20_21",
+          "value": {
+            "expr": "data['h20'][21]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_22",
+          "value": {
+            "expr": "data['h20'][22]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_23",
+          "value": {
+            "expr": "data['h20'][23]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_24",
+          "value": {
+            "expr": "data['h20'][24]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_25",
+          "value": {
+            "expr": "data['h20'][25]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_fig",
+          "type": "image",
+          "value": {
+            "expr": "data['fig20']"
+          },
+          "reviewable": true
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "paging": "unknown"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "nhb_si",
+        "page": 2,
+        "note": "withheld:048a72ee2b84990b"
+      }
+    },
+    "instr_long20": {
+      "content": [
+        {
+          "id": "h20_0",
+          "value": {
+            "expr": "data['h20'][0]"
+          },
+          "reviewable": true,
+          "style": "heading"
+        },
+        {
+          "id": "h20_1",
+          "value": {
+            "expr": "data['h20'][1]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_2",
+          "value": {
+            "expr": "data['h20'][2]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_3",
+          "value": {
+            "expr": "data['h20'][3]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_4",
+          "value": {
+            "expr": "data['h20'][4]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_5",
+          "value": {
+            "expr": "data['long']['total']"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_6",
+          "value": {
+            "expr": "data['h20'][6]"
+          },
+          "reviewable": true,
+          "style": "heading"
+        },
+        {
+          "id": "h20_7",
+          "value": {
+            "expr": "data['h20'][7]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_8",
+          "value": {
+            "expr": "data['h20'][8]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_9",
+          "value": {
+            "expr": "data['h20'][9]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_10",
+          "value": {
+            "expr": "data['h20'][10]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_11",
+          "value": {
+            "expr": "data['h20'][11]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_12",
+          "value": {
+            "expr": "data['h20'][12]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_13",
+          "value": {
+            "expr": "data['h20'][13]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_14",
+          "value": {
+            "expr": "data['h20'][14]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_15",
+          "value": {
+            "expr": "data['h20'][15]"
+          },
+          "reviewable": true,
+          "style": "heading"
+        },
+        {
+          "id": "h20_16",
+          "value": {
+            "expr": "data['long']['forty']"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_17",
+          "value": {
+            "expr": "data['h20'][17]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_18",
+          "value": {
+            "expr": "data['h20'][18]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_19",
+          "value": {
+            "expr": "data['h20'][19]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_25",
+          "value": {
+            "expr": "data['h20'][25]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h20_fig",
+          "type": "image",
+          "value": {
+            "expr": "data['fig20']"
+          },
+          "reviewable": true
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "paging": "unknown"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "nhb_si",
+        "page": 2,
+        "note": "withheld:048a72ee2b84990b"
+      }
+    },
+    "instr19": {
+      "content": [
+        {
+          "id": "h19_0",
+          "value": {
+            "expr": "data['h19'][0]"
+          },
+          "reviewable": true,
+          "style": "heading"
+        },
+        {
+          "id": "h19_1",
+          "value": {
+            "expr": "data['h19'][1]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_2",
+          "value": {
+            "expr": "data['h19'][2]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_3",
+          "value": {
+            "expr": "data['h19'][3]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_4",
+          "value": {
+            "expr": "data['h19'][4]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_5",
+          "value": {
+            "expr": "data['h19'][5]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_6",
+          "value": {
+            "expr": "data['h19'][6]"
+          },
+          "reviewable": true,
+          "style": "heading"
+        },
+        {
+          "id": "h19_7",
+          "value": {
+            "expr": "data['h19'][7]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_8",
+          "value": {
+            "expr": "data['h19'][8]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_9",
+          "value": {
+            "expr": "data['h19'][9]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_10",
+          "value": {
+            "expr": "data['h19'][10]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_11",
+          "value": {
+            "expr": "data['h19'][11]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_12",
+          "value": {
+            "expr": "data['h19'][12]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_13",
+          "value": {
+            "expr": "data['h19'][13]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_14",
+          "value": {
+            "expr": "data['h19'][14]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_15",
+          "value": {
+            "expr": "data['h19'][15]"
+          },
+          "reviewable": true,
+          "style": "heading"
+        },
+        {
+          "id": "h19_16",
+          "value": {
+            "expr": "data['h19'][16]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_17",
+          "value": {
+            "expr": "data['h19'][17]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_18",
+          "value": {
+            "expr": "data['h19'][18]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_19",
+          "value": {
+            "expr": "data['h19'][19]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_20",
+          "value": {
+            "expr": "data['h19'][20]"
+          },
+          "reviewable": true,
+          "style": "heading"
+        },
+        {
+          "id": "h19_21",
+          "value": {
+            "expr": "data['h19'][21]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_22",
+          "value": {
+            "expr": "data['h19'][22]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_23",
+          "value": {
+            "expr": "data['h19'][23]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_24",
+          "value": {
+            "expr": "data['h19'][24]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_25",
+          "value": {
+            "expr": "data['h19'][25]"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h19_fig",
+          "type": "image",
+          "value": {
+            "expr": "data['fig19']"
+          },
+          "reviewable": true
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "paging": "unknown"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "nhb_si",
+        "page": 2,
+        "note": "withheld:048a72ee2b84990b"
+      }
+    },
+    "input": {
+      "responses": [
+        {
+          "id": "c",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['round']['prompt']"
+          },
+          "range": [
+            0,
+            20
+          ],
+          "range_visible": true,
+          "integer": true,
+          "required": true,
+          "widget": "number",
+          "range_cite": {
+            "label": "reported",
+            "source": "published",
+            "page": 3,
+            "note": "withheld:1118667b8e399789"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "time_limit": "unknown"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 17,
+        "note": "withheld:6566e36036a636a6"
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "id": "u0",
+          "value": {
+            "expr": "data['round']['input']['text'] + ' ' + ('%g' % round(answer('input.c'), 2)) + ' ' + data['round']['coins']['text']"
+          }
+        },
+        {
+          "id": "u1",
+          "value": {
+            "expr": "data['round']['output']['text'] + ' ' + ('%g' % round(out, 2)) + ' ' + data['round']['coins']['text']"
+          }
+        },
+        {
+          "id": "u2",
+          "value": {
+            "expr": "data['round']['income']['text'] + ' ' + ('%g' % round(inc, 2)) + ' ' + data['round']['coins']['text']"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "nhb2021",
+        "page": 1,
+        "note": "withheld:7a59acfb84f8bc09"
+      }
+    },
+    "belief": {
+      "responses": [
+        {
+          "id": "q1",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['belief']['q1' + ('_h' if arm[0] == 'h' else '')]"
+          },
+          "integer": true,
+          "required": true,
+          "widget": "number",
+          "validate": {
+            "min": 0,
+            "max": 1
+          },
+          "validate_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "note": "withheld:deb837f002abce62"
+          }
+        },
+        {
+          "id": "q2",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['belief']['q2' + ('_h' if arm[0] == 'h' else '')]"
+          },
+          "integer": true,
+          "required": true,
+          "widget": "number",
+          "validate": {
+            "min": 0,
+            "max": 20,
+            "also": [
+              99
+            ]
+          },
+          "validate_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 18,
+            "note": "withheld:d2ecaea8275a00ff"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "paging": "unknown"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 18,
+        "note": "withheld:a66943ccade5d32e"
+      }
+    }
+  },
+  "flow": {
+    "seq": [
+      {
+        "set": {
+          "N": {
+            "expr": "12 if 'n12' in arm else 3"
+          },
+          "M": {
+            "expr": "0.8 if 'm08' in arm else 0.4"
+          },
+          "R": {
+            "expr": "40 if arm[-4:] == 'long' else 16"
+          },
+          "earn": 0,
+          "rate075": {
+            "expr": "balanced('first_session_rate_075', [True, False]) if arm == 'c_n3m04_short' else False"
+          }
+        },
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 18,
+          "note": "withheld:7b43e4017a3b48d8"
+        }
+      },
+      {
+        "stage": "consent",
+        "if": "arm[0] == 'c'"
+      },
+      {
+        "stage": "instr_short20",
+        "if": "arm[0] == 'c' and R == 16"
+      },
+      {
+        "stage": "instr_long20",
+        "if": "arm[0] == 'c' and R == 40"
+      },
+      {
+        "stage": "instr19",
+        "if": "arm[0] == 'h'"
+      },
+      {
+        "loop": {
+          "expr": "R"
+        },
+        "as": "r",
+        "do": {
+          "seq": [
+            {
+              "set": {
+                "cdraw": {
+                  "expr": "[randint(0, 20) for j in range(N - group_size)]"
+                }
+              },
+              "cite": {
+                "label": "reported",
+                "source": "published",
+                "page": 3,
+                "note": "withheld:a9636b8b46962a8f"
+              }
+            },
+            {
+              "stage": "input"
+            },
+            {
+              "sync": "round",
+              "compute": {
+                "out": "M * (sum(group('input.c')) + sum(cdraw))",
+                "inc": "20 - answer('input.c') + M * (sum(group('input.c')) + sum(cdraw))",
+                "earn": "earn + 20 - answer('input.c') + M * (sum(group('input.c')) + sum(cdraw))"
+              },
+              "events": [
+                "Calculating…"
+              ],
+              "cite": {
+                "label": "reported",
+                "source": "nhb2021",
+                "page": 1,
+                "note": "withheld:cb642f757cf11dd2"
+              }
+            },
+            {
+              "stage": "result"
+            }
+          ]
+        }
+      },
+      {
+        "stage": "belief"
+      }
+    ]
+  },
+  "units": {
+    "groups": {
+      "per": "group",
+      "fields": {
+        "g_final": "mean(group('input.c', r=R - 1))",
+        "g_first": "mean(group('input.c', r=0))",
+        "g_mean": "mean([x for k in range(R) for x in group('input.c', r=k)])"
+      },
+      "cites": {
+        "g_final": {
+          "label": "derived",
+          "source": "rscript",
+          "page": 1,
+          "note": "withheld:962562c23c0cefd3"
+        },
+        "g_first": {
+          "label": "derived",
+          "source": "rscript",
+          "page": 1,
+          "note": "withheld:2c338f7ef5c93618"
+        },
+        "g_mean": {
+          "label": "derived",
+          "source": "rscript",
+          "page": 1,
+          "note": "withheld:6afbf1edd174f320"
+        }
+      }
+    },
+    "members": {
+      "per": "session",
+      "fields": {
+        "final_input": "answer('input.c', r=R - 1)",
+        "belief_yes": "answer('belief.q1')",
+        "belief_value": "answer('belief.q2') if answer('belief.q1') == 1 and answer('belief.q2') is not None and answer('belief.q2') != 99 else None",
+        "belief_has_number": "1 if belief_value is not None else 0",
+        "earn_coins": "earn"
+      },
+      "cites": {
+        "final_input": {
+          "label": "derived",
+          "source": "rscript",
+          "page": 1,
+          "note": "withheld:45128021f3b16fdc"
+        },
+        "belief_value": {
+          "label": "derived",
+          "source": "rscript",
+          "page": 1,
+          "note": "withheld:df865c78581df27b"
+        },
+        "belief_has_number": {
+          "label": "derived",
+          "source": "rscript",
+          "page": 1,
+          "note": "withheld:69f84b94fa685abb"
+        },
+        "earn_coins": {
+          "label": "derived",
+          "source": "paper",
+          "page": 18,
+          "note": "withheld:112619f22f28bc90"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "analysis_exclusions": [
+    {
+      "what": "none in either sample (NHB 2021: 'no participants were excluded'); naive first box only; human beliefs from the 2019 clean sessions only (Table 3 note)",
+      "how": "nothing to exclude in the sandbox",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 17,
+        "note": "withheld:2b7d9e0416f8e453"
+      }
+    }
+  ],
+  "analysis": {
+    "targets": [
+      {
+        "id": "final_h_n3m04",
+        "unit": "groups",
+        "field": "g_final",
+        "stat": "mean",
+        "where": {
+          "arm": "h_n3m04"
+        },
+        "human": {
+          "value": 3.0,
+          "se": 0.57,
+          "n": 24,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 28,
+            "note": "withheld:9b5ccb80d14de10c"
+          }
+        },
+        "note": "withheld:5a96a6149fe1fb19"
+      },
+      {
+        "id": "final_c_n3m04_short",
+        "unit": "groups",
+        "field": "g_final",
+        "stat": "mean",
+        "where": {
+          "arm": "c_n3m04_short"
+        },
+        "human": {
+          "value": 4.7,
+          "se": 0.9,
+          "n": 46,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 28,
+            "note": "withheld:9b5ccb80d14de10c"
+          }
+        }
+      },
+      {
+        "id": "final_h_n3m08",
+        "unit": "groups",
+        "field": "g_final",
+        "stat": "mean",
+        "where": {
+          "arm": "h_n3m08"
+        },
+        "human": {
+          "value": 10.1,
+          "se": 0.91,
+          "n": 24,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 28,
+            "note": "withheld:9b5ccb80d14de10c"
+          }
+        },
+        "note": "withheld:5a96a6149fe1fb19"
+      },
+      {
+        "id": "final_c_n3m08_short",
+        "unit": "groups",
+        "field": "g_final",
+        "stat": "mean",
+        "where": {
+          "arm": "c_n3m08_short"
+        },
+        "human": {
+          "value": 9.4,
+          "se": 1.12,
+          "n": 44,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 28,
+            "note": "withheld:9b5ccb80d14de10c"
+          }
+        }
+      },
+      {
+        "id": "final_c_n3m08_long",
+        "unit": "groups",
+        "field": "g_final",
+        "stat": "mean",
+        "where": {
+          "arm": "c_n3m08_long"
+        },
+        "human": {
+          "value": 6.2,
+          "se": 0.97,
+          "n": 46,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 28,
+            "note": "withheld:9b5ccb80d14de10c"
+          }
+        }
+      },
+      {
+        "id": "final_h_n12m04",
+        "unit": "groups",
+        "field": "g_final",
+        "stat": "mean",
+        "where": {
+          "arm": "h_n12m04"
+        },
+        "human": {
+          "value": 10.3,
+          "se": 0.89,
+          "n": 6,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 28,
+            "note": "withheld:9b5ccb80d14de10c"
+          }
+        },
+        "note": "withheld:5b0420f8e3d4f647"
+      },
+      {
+        "id": "final_c_n12m04_short",
+        "unit": "groups",
+        "field": "g_final",
+        "stat": "mean",
+        "where": {
+          "arm": "c_n12m04_short"
+        },
+        "human": {
+          "value": 9.7,
+          "se": 1.12,
+          "n": 40,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 28,
+            "note": "withheld:9b5ccb80d14de10c"
+          }
+        }
+      },
+      {
+        "id": "final_c_n12m04_long",
+        "unit": "groups",
+        "field": "g_final",
+        "stat": "mean",
+        "where": {
+          "arm": "c_n12m04_long"
+        },
+        "human": {
+          "value": 5.4,
+          "se": 0.98,
+          "n": 46,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 28,
+            "note": "withheld:9b5ccb80d14de10c"
+          }
+        }
+      },
+      {
+        "id": "belief_h_n3m04",
+        "unit": "members",
+        "field": "belief_value",
+        "stat": "mean",
+        "where": {
+          "arm": "h_n3m04"
+        },
+        "human": {
+          "value": 1.5,
+          "se": 0.79,
+          "n": 27,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:d4a507be8fe386c8"
+          }
+        },
+        "note": "human N excludes the first 7 sessions of 2019 (question coding error, Table 3 note); the sandbox serves the intended wording to every group"
+      },
+      {
+        "id": "belief_c_n3m04_short",
+        "unit": "members",
+        "field": "belief_value",
+        "stat": "mean",
+        "where": {
+          "arm": "c_n3m04_short"
+        },
+        "human": {
+          "value": 3.0,
+          "se": 0.8,
+          "n": 34,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:d4a507be8fe386c8"
+          }
+        }
+      },
+      {
+        "id": "belief_h_n3m08",
+        "unit": "members",
+        "field": "belief_value",
+        "stat": "mean",
+        "where": {
+          "arm": "h_n3m08"
+        },
+        "human": {
+          "value": 8.8,
+          "se": 1.32,
+          "n": 40,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:d4a507be8fe386c8"
+          }
+        }
+      },
+      {
+        "id": "belief_c_n3m08_short",
+        "unit": "members",
+        "field": "belief_value",
+        "stat": "mean",
+        "where": {
+          "arm": "c_n3m08_short"
+        },
+        "human": {
+          "value": 8.9,
+          "se": 1.59,
+          "n": 24,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:d4a507be8fe386c8"
+          }
+        }
+      },
+      {
+        "id": "belief_c_n3m08_long",
+        "unit": "members",
+        "field": "belief_value",
+        "stat": "mean",
+        "where": {
+          "arm": "c_n3m08_long"
+        },
+        "human": {
+          "value": 3.5,
+          "se": 1.1,
+          "n": 24,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:d4a507be8fe386c8"
+          }
+        }
+      },
+      {
+        "id": "belief_h_n12m04",
+        "unit": "members",
+        "field": "belief_value",
+        "stat": "mean",
+        "where": {
+          "arm": "h_n12m04"
+        },
+        "human": {
+          "value": 9.8,
+          "se": 1.38,
+          "n": 28,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:d4a507be8fe386c8"
+          }
+        },
+        "note": "human N excludes the first 7 sessions of 2019 (question coding error, Table 3 note); the sandbox serves the intended wording to every group"
+      },
+      {
+        "id": "belief_c_n12m04_short",
+        "unit": "members",
+        "field": "belief_value",
+        "stat": "mean",
+        "where": {
+          "arm": "c_n12m04_short"
+        },
+        "human": {
+          "value": 8.0,
+          "se": 1.37,
+          "n": 24,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:d4a507be8fe386c8"
+          }
+        }
+      },
+      {
+        "id": "belief_c_n12m04_long",
+        "unit": "members",
+        "field": "belief_value",
+        "stat": "mean",
+        "where": {
+          "arm": "c_n12m04_long"
+        },
+        "human": {
+          "value": 4.0,
+          "se": 0.93,
+          "n": 30,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:d4a507be8fe386c8"
+          }
+        }
+      },
+      {
+        "id": "belief_share_c_n3m04_short",
+        "unit": "members",
+        "field": "belief_has_number",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "c_n3m04_short"
+        },
+        "human": {
+          "k": 34,
+          "n": 46,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:418235c32756973d"
+          }
+        },
+        "uncertainty": "binomial from k/n (derived)"
+      },
+      {
+        "id": "belief_share_h_n3m08",
+        "unit": "members",
+        "field": "belief_has_number",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "h_n3m08"
+        },
+        "human": {
+          "k": 40,
+          "n": 72,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:418235c32756973d"
+          }
+        },
+        "uncertainty": "binomial from k/n (derived)"
+      },
+      {
+        "id": "belief_share_c_n3m08_short",
+        "unit": "members",
+        "field": "belief_has_number",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "c_n3m08_short"
+        },
+        "human": {
+          "k": 24,
+          "n": 44,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:418235c32756973d"
+          }
+        },
+        "uncertainty": "binomial from k/n (derived)"
+      },
+      {
+        "id": "belief_share_c_n3m08_long",
+        "unit": "members",
+        "field": "belief_has_number",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "c_n3m08_long"
+        },
+        "human": {
+          "k": 24,
+          "n": 46,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:418235c32756973d"
+          }
+        },
+        "uncertainty": "binomial from k/n (derived)"
+      },
+      {
+        "id": "belief_share_c_n12m04_short",
+        "unit": "members",
+        "field": "belief_has_number",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "c_n12m04_short"
+        },
+        "human": {
+          "k": 24,
+          "n": 40,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:418235c32756973d"
+          }
+        },
+        "uncertainty": "binomial from k/n (derived)"
+      },
+      {
+        "id": "belief_share_c_n12m04_long",
+        "unit": "members",
+        "field": "belief_has_number",
+        "stat": "share",
+        "success": 1,
+        "where": {
+          "arm": "c_n12m04_long"
+        },
+        "human": {
+          "k": 30,
+          "n": 46,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 29,
+            "note": "withheld:418235c32756973d"
+          }
+        },
+        "uncertainty": "binomial from k/n (derived)"
+      }
+    ],
+    "effects": [
+      {
+        "id": "final_n3m04",
+        "label": "Final-round input, humans vs computers (N=3, MPCR=0.4)",
+        "unit": "groups",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "h_n3m04",
+          "reference": "c_n3m04_short"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "g_final",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "h_n3m04": {
+              "mean": 3.0,
+              "se": 0.57,
+              "n": 24
+            },
+            "c_n3m04_short": {
+              "mean": 4.7,
+              "se": 0.9,
+              "n": 46
+            }
+          },
+          "value": 0.038,
+          "value_note": "rank-biserial r = 2W/(n1 n2) - 1 from the printed W and n (derived)",
+          "test": {
+            "statistic": "W",
+            "value": 573,
+            "p": 0.797,
+            "note": "R wilcox.test(h_n3m04, c_n3m04_short) in Black_box_COMBI_analyses.R"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "withheld:40ab14251c15b9ba"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:37c11087f8c38f70"
+        },
+        "population_contrast": "humans vs computers compares two samples collected a year apart (CESS Oxford, Feb 2019 vs Feb 2020, 2020 recruits excluded 2019 participants, p. 16) with different stakes (0.75 vs 0.65 p per coin) and the 2020 consent form; in the sandbox the arms differ in groupmates, stakes lines and the consent page"
+      },
+      {
+        "id": "final_n3m08",
+        "label": "Final-round input, humans vs computers (N=3, MPCR=0.8)",
+        "unit": "groups",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "h_n3m08",
+          "reference": "c_n3m08_short"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "g_final",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "h_n3m08": {
+              "mean": 10.1,
+              "se": 0.91,
+              "n": 24
+            },
+            "c_n3m08_short": {
+              "mean": 9.4,
+              "se": 1.12,
+              "n": 44
+            }
+          },
+          "value": 0.0862,
+          "value_note": "rank-biserial r = 2W/(n1 n2) - 1 from the printed W and n (derived)",
+          "test": {
+            "statistic": "W",
+            "value": 573.5,
+            "p": 0.563,
+            "note": "R wilcox.test(h_n3m08, c_n3m08_short) in Black_box_COMBI_analyses.R"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "withheld:408a815e699fb27e"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:37c11087f8c38f70"
+        },
+        "population_contrast": "humans vs computers compares two samples collected a year apart (CESS Oxford, Feb 2019 vs Feb 2020, 2020 recruits excluded 2019 participants, p. 16) with different stakes (0.75 vs 0.65 p per coin) and the 2020 consent form; in the sandbox the arms differ in groupmates, stakes lines and the consent page"
+      },
+      {
+        "id": "final_n12m04",
+        "label": "Final-round input, humans vs computers (N=12, MPCR=0.4)",
+        "unit": "groups",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "h_n12m04",
+          "reference": "c_n12m04_short"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "g_final",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "h_n12m04": {
+              "mean": 10.3,
+              "se": 0.89,
+              "n": 6
+            },
+            "c_n12m04_short": {
+              "mean": 9.7,
+              "se": 1.12,
+              "n": 40
+            }
+          },
+          "value": 0.0667,
+          "value_note": "rank-biserial r = 2W/(n1 n2) - 1 from the printed W and n (derived)",
+          "test": {
+            "statistic": "W",
+            "value": 128,
+            "p": 0.806,
+            "note": "R wilcox.test(h_n12m04, c_n12m04_short) in Black_box_COMBI_analyses.R"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "note": "withheld:2ca83704a5e359e3"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:37c11087f8c38f70"
+        },
+        "population_contrast": "humans vs computers compares two samples collected a year apart (CESS Oxford, Feb 2019 vs Feb 2020, 2020 recruits excluded 2019 participants, p. 16) with different stakes (0.75 vs 0.65 p per coin) and the 2020 consent form; in the sandbox the arms differ in groupmates, stakes lines and the consent page"
+      },
+      {
+        "id": "final_long_n3m08",
+        "label": "Final-round input, short vs long game (computers, N=3, MPCR=0.8)",
+        "unit": "groups",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "c_n3m08_short",
+          "reference": "c_n3m08_long"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "g_final",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "c_n3m08_short": {
+              "mean": 9.4,
+              "se": 1.12,
+              "n": 44
+            },
+            "c_n3m08_long": {
+              "mean": 6.2,
+              "se": 0.97,
+              "n": 46
+            }
+          },
+          "value": 0.2722,
+          "value_note": "rank-biserial r = 2W/(n1 n2) - 1 from the printed W and n (derived)",
+          "test": {
+            "statistic": "W",
+            "value": 1287.5,
+            "p": 0.025,
+            "note": "R wilcox.test(c_n3m08_short, c_n3m08_long) in Black_box_COMBI_analyses.R"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 12,
+            "note": "withheld:c9c6ff10161d99d5"
+          }
+        }
+      },
+      {
+        "id": "final_long_n12m04",
+        "label": "Final-round input, short vs long game (computers, N=12, MPCR=0.4)",
+        "unit": "groups",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "c_n12m04_short",
+          "reference": "c_n12m04_long"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "g_final",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "c_n12m04_short": {
+              "mean": 9.7,
+              "se": 1.12,
+              "n": 40
+            },
+            "c_n12m04_long": {
+              "mean": 5.4,
+              "se": 0.98,
+              "n": 46
+            }
+          },
+          "value": 0.3462,
+          "value_note": "rank-biserial r = 2W/(n1 n2) - 1 from the printed W and n (derived)",
+          "test": {
+            "statistic": "W",
+            "value": 1238.5,
+            "p": 0.006,
+            "note": "R wilcox.test(c_n12m04_short, c_n12m04_long) in Black_box_COMBI_analyses.R"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "note": "withheld:77e95884fa7303b7"
+          }
+        }
+      },
+      {
+        "id": "belief_n3m04",
+        "label": "Stated best input, humans vs computers (N=3, MPCR=0.4)",
+        "unit": "members",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "h_n3m04",
+          "reference": "c_n3m04_short"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "belief_value",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "h_n3m04": {
+              "mean": 1.5,
+              "se": 0.79,
+              "n": 27
+            },
+            "c_n3m04_short": {
+              "mean": 3.0,
+              "se": 0.8,
+              "n": 34
+            }
+          },
+          "value": -0.2418,
+          "value_note": "rank-biserial r = 2W/(n1 n2) - 1 from the printed W and n (derived)",
+          "test": {
+            "statistic": "W",
+            "value": 348,
+            "p": 0.072,
+            "note": "R wilcox.test(h_n3m04, c_n3m04_short) in Black_box_COMBI_analyses.R"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "withheld:31393df82b1010be"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:37c11087f8c38f70"
+        },
+        "population_contrast": "humans vs computers compares two samples collected a year apart (CESS Oxford, Feb 2019 vs Feb 2020, 2020 recruits excluded 2019 participants, p. 16) with different stakes (0.75 vs 0.65 p per coin) and the 2020 consent form; in the sandbox the arms differ in groupmates, stakes lines and the consent page"
+      },
+      {
+        "id": "belief_n3m08",
+        "label": "Stated best input, humans vs computers (N=3, MPCR=0.8)",
+        "unit": "members",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "h_n3m08",
+          "reference": "c_n3m08_short"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "belief_value",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "h_n3m08": {
+              "mean": 8.8,
+              "se": 1.32,
+              "n": 40
+            },
+            "c_n3m08_short": {
+              "mean": 8.9,
+              "se": 1.59,
+              "n": 24
+            }
+          },
+          "value": -0.0219,
+          "value_note": "rank-biserial r = 2W/(n1 n2) - 1 from the printed W and n (derived)",
+          "test": {
+            "statistic": "W",
+            "value": 469.5,
+            "p": 0.888,
+            "note": "R wilcox.test(h_n3m08, c_n3m08_short) in Black_box_COMBI_analyses.R"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "withheld:c20bbb59f0198517"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:37c11087f8c38f70"
+        },
+        "population_contrast": "humans vs computers compares two samples collected a year apart (CESS Oxford, Feb 2019 vs Feb 2020, 2020 recruits excluded 2019 participants, p. 16) with different stakes (0.75 vs 0.65 p per coin) and the 2020 consent form; in the sandbox the arms differ in groupmates, stakes lines and the consent page"
+      },
+      {
+        "id": "belief_n12m04",
+        "label": "Stated best input, humans vs computers (N=12, MPCR=0.4)",
+        "unit": "members",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "h_n12m04",
+          "reference": "c_n12m04_short"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "belief_value",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "h_n12m04": {
+              "mean": 9.8,
+              "se": 1.38,
+              "n": 28
+            },
+            "c_n12m04_short": {
+              "mean": 8.0,
+              "se": 1.37,
+              "n": 24
+            }
+          },
+          "value": 0.1518,
+          "value_note": "rank-biserial r = 2W/(n1 n2) - 1 from the printed W and n (derived)",
+          "test": {
+            "statistic": "W",
+            "value": 387,
+            "p": 0.349,
+            "note": "R wilcox.test(h_n12m04, c_n12m04_short) in Black_box_COMBI_analyses.R"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "withheld:a0be58f1d8f0f998"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:37c11087f8c38f70"
+        },
+        "population_contrast": "humans vs computers compares two samples collected a year apart (CESS Oxford, Feb 2019 vs Feb 2020, 2020 recruits excluded 2019 participants, p. 16) with different stakes (0.75 vs 0.65 p per coin) and the 2020 consent form; in the sandbox the arms differ in groupmates, stakes lines and the consent page"
+      },
+      {
+        "id": "belief_long_n3m08",
+        "label": "Stated best input, short vs long game (N=3, MPCR=0.8)",
+        "unit": "members",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "c_n3m08_short",
+          "reference": "c_n3m08_long"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "belief_value",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "c_n3m08_short": {
+              "mean": 8.9,
+              "se": 1.59,
+              "n": 24
+            },
+            "c_n3m08_long": {
+              "mean": 3.5,
+              "se": 1.1,
+              "n": 24
+            }
+          },
+          "value": 0.4253,
+          "value_note": "rank-biserial r = 2W/(n1 n2) - 1 from the printed W and n (derived)",
+          "test": {
+            "statistic": "W",
+            "value": 410.5,
+            "p": 0.01,
+            "note": "R wilcox.test(c_n3m08_short, c_n3m08_long) in Black_box_COMBI_analyses.R"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "note": "withheld:d09be4b8602dfbbc"
+          }
+        }
+      },
+      {
+        "id": "belief_long_n12m04",
+        "label": "Stated best input, short vs long game (N=12, MPCR=0.4)",
+        "unit": "members",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "c_n12m04_short",
+          "reference": "c_n12m04_long"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "belief_value",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "c_n12m04_short": {
+              "mean": 8.0,
+              "se": 1.37,
+              "n": 24
+            },
+            "c_n12m04_long": {
+              "mean": 4.0,
+              "se": 0.93,
+              "n": 30
+            }
+          },
+          "value": 0.3792,
+          "value_note": "rank-biserial r = 2W/(n1 n2) - 1 from the printed W and n (derived)",
+          "test": {
+            "statistic": "W",
+            "value": 496.5,
+            "p": 0.016,
+            "note": "R wilcox.test(c_n12m04_short, c_n12m04_long) in Black_box_COMBI_analyses.R"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "note": "withheld:bf4f6da7ea0982e6"
+          }
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "what": "Described in the source (the description quotes wording that is held back)",
+        "why": "mixed-model z values only; the cited analysis code (Black_box_COMBI_analyses.R, glmer) could run under sandbox_run on the answer table (input.c per round = Contribution; Endowment 20)"
+      },
+      {
+        "what": "Fig. 2 / Fig. 4 per-round means with 95% CIs",
+        "why": "plotted only, no numbers printed"
+      },
+      {
+        "what": "Belief shares for the human N=3/MPCR=0.4 and N=12/MPCR=0.4 arms",
+        "why": "the number of participants in the 'clean' 2019 sessions is not printed"
+      },
+      {
+        "what": "Later black boxes (short sessions played three, counterbalanced) and the final questionnaire",
+        "why": "the paper analyses only the naive first box (p. 17); everything after the first box's belief questions is omitted (meta.omitted)"
+      }
+    ]
+  },
+  "keyed": {
+    "why": "N=3/MPCR=0.4 inputs fall from 9 to 4 over 16 rounds (computers 4.7 vs humans 3.0 printed; n.s. effects are not sign-checked); difficult boxes stay near 10 in short games and fall to ~6 by round 40 in long games; beliefs lower after long games (4 vs 9); everyone answers 'Yes'",
+    "answers": {
+      "input.c": "int(round(9 - r * 0.33)) if 'n3m04' in arm else (int(round(11 - r * 0.125)) if arm[-4:] == 'long' else 10)",
+      "belief.q1": "1",
+      "belief.q2": "2 if 'n3m04' in arm else (4 if arm[-4:] == 'long' else 9)"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {
+      "h1": {
+        "path": "/data/h20/0/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 26,
+        "text_sha256": "926ac2adba01fbf6708a20fb31c40bf37e7918196ba87c6938092169db7d34d4",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h2": {
+        "path": "/data/h20/1/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 57,
+        "text_sha256": "5183c20dda1292e327df4540604cca3c667c36d596ebf701a648fe080f0881bc",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h3": {
+        "path": "/data/h20/2/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 77,
+        "text_sha256": "c60da767574dd412216fed58294c6f19752962704f1292e713f07c8288ac5572",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h4": {
+        "path": "/data/h20/3/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 242,
+        "text_sha256": "c3019424f1e97acfcfa33436c3004bc80a8d3308a8a244bea2114e7d788d81fb",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h5": {
+        "path": "/data/h20/4/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 160,
+        "text_sha256": "64bdd85f56f97cafabc10bcdcdaf7f44c20061f0a82bb17d080aeb38eeee60b5",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h6": {
+        "path": "/data/h20/5/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 168,
+        "text_sha256": "f70421c322406d166536505d341091af8c8a2796807bff8009b568752596e429",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h7": {
+        "path": "/data/h20/6/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 12,
+        "text_sha256": "0c534a24b5a81da1109c6de03daa74540214b237c4d2e503cd9399023f5cc6cc",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h8": {
+        "path": "/data/h20/7/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 177,
+        "text_sha256": "dcd4575c4d1d611b4dc42dd6b8c90f8bc33488edad2ae37d023bbc90cc0f710a",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h9": {
+        "path": "/data/h20/8/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 136,
+        "text_sha256": "907cea1ae706d1ec797d66489bd4077150bb02395908ddec823ee5466fff588a",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h10": {
+        "path": "/data/h20/9/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 145,
+        "text_sha256": "3f78634448ad01d4c1bf7d7deb721f3d3423ad80816b0848c33918fdb2134add",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h11": {
+        "path": "/data/h20/10/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 293,
+        "text_sha256": "2a5ca585247cf9f8603e9fd89064c87c01ff4c192881078a365fbcf15af34965",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h12": {
+        "path": "/data/h20/11/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 153,
+        "text_sha256": "702fa8508e8dea32c24223c7fe3d8351d02f7cf7d75daeebf5087d892c5be93b",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h13": {
+        "path": "/data/h20/12/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 85,
+        "text_sha256": "6dcd4dc744036831dcd1ab4bb678de9345539bba9a36f64854e6626c18a6862a",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h14": {
+        "path": "/data/h20/13/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 281,
+        "text_sha256": "e6d9229be52d1b285c1af5e76be9de974c15e1dd3023eed53ff3de25314786b2",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h15": {
+        "path": "/data/h20/14/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 170,
+        "text_sha256": "0edcbbb363a047650c056d9e5b512847d26d5e792092f48bed65871c5259ad2f",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h16": {
+        "path": "/data/h20/15/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 31,
+        "text_sha256": "91dcf2f6b99df23a74e7e7a50ed0b22c39625f6dcadd78da0d7ed2ffdf165d82",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h17": {
+        "path": "/data/h20/16/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 111,
+        "text_sha256": "5d45fc662fca1f41c35c4cb0b9f90aea2912b0efd5b65178155d8b3af32d480b",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h18": {
+        "path": "/data/h20/17/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 63,
+        "text_sha256": "62424c232e3c0d574578cd5ebad746cd5d28cd22f4d531935b6466226145da0f",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h19": {
+        "path": "/data/h20/18/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 248,
+        "text_sha256": "ed07dde6b1fb4a90286b31e3907a3cf212f01146b732785e1729ce5ea7599154",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h20": {
+        "path": "/data/h20/19/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 72,
+        "text_sha256": "08f542a14b99f803d3242f75f122248f218cb5de26ad2885243c2d15ca215108",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h21": {
+        "path": "/data/h20/20/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 28,
+        "text_sha256": "16cabd5626dea2178c97b6bbb96aa6d09adc1beb9d8b8f42ff7bf6b6d6dd9710",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h22": {
+        "path": "/data/h20/21/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 154,
+        "text_sha256": "fb5ba31e301f7b1528faf90783ce50634a90325fafc2a5008e229d63a3e44983",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h23": {
+        "path": "/data/h20/22/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 224,
+        "text_sha256": "d330c7c10251b58e659eeb339bd6e630647a28d7e96bb11e9b353dddc833d901",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h24": {
+        "path": "/data/h20/23/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 392,
+        "text_sha256": "0cef40b9757bfde92e70ccedfa0ca95e8e6d069a36b42dc5ceec1b83e600f5ea",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h25": {
+        "path": "/data/h20/24/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 93,
+        "text_sha256": "475cc2992957ea39318f7843d0030358b2e8c21397f14b79c4ad04cb101f5394",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h26": {
+        "path": "/data/h20/25/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 89,
+        "text_sha256": "e19d039cd0c92d23116c15918b8535796d91d87c213e182ed869515c6615bad7",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h27": {
+        "path": "/data/h19/0/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 26,
+        "text_sha256": "926ac2adba01fbf6708a20fb31c40bf37e7918196ba87c6938092169db7d34d4",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h28": {
+        "path": "/data/h19/1/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 57,
+        "text_sha256": "5183c20dda1292e327df4540604cca3c667c36d596ebf701a648fe080f0881bc",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h29": {
+        "path": "/data/h19/2/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 77,
+        "text_sha256": "c60da767574dd412216fed58294c6f19752962704f1292e713f07c8288ac5572",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h30": {
+        "path": "/data/h19/3/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 242,
+        "text_sha256": "c3019424f1e97acfcfa33436c3004bc80a8d3308a8a244bea2114e7d788d81fb",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h31": {
+        "path": "/data/h19/4/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 160,
+        "text_sha256": "9a68b05d1d06e083af20c4c2e919427d9cbe9140053596ced9e211a5306d11a9",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h32": {
+        "path": "/data/h19/5/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 168,
+        "text_sha256": "ce313c922535b00e50e58b5241f1882b95820d2aca7715f1a93db2e799708607",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h33": {
+        "path": "/data/h19/6/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 12,
+        "text_sha256": "0c534a24b5a81da1109c6de03daa74540214b237c4d2e503cd9399023f5cc6cc",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h34": {
+        "path": "/data/h19/7/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 177,
+        "text_sha256": "dcd4575c4d1d611b4dc42dd6b8c90f8bc33488edad2ae37d023bbc90cc0f710a",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h35": {
+        "path": "/data/h19/8/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 136,
+        "text_sha256": "907cea1ae706d1ec797d66489bd4077150bb02395908ddec823ee5466fff588a",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h36": {
+        "path": "/data/h19/9/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 145,
+        "text_sha256": "3f78634448ad01d4c1bf7d7deb721f3d3423ad80816b0848c33918fdb2134add",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h37": {
+        "path": "/data/h19/10/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 293,
+        "text_sha256": "2a5ca585247cf9f8603e9fd89064c87c01ff4c192881078a365fbcf15af34965",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h38": {
+        "path": "/data/h19/11/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 153,
+        "text_sha256": "702fa8508e8dea32c24223c7fe3d8351d02f7cf7d75daeebf5087d892c5be93b",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h39": {
+        "path": "/data/h19/12/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 85,
+        "text_sha256": "6dcd4dc744036831dcd1ab4bb678de9345539bba9a36f64854e6626c18a6862a",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h40": {
+        "path": "/data/h19/13/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 281,
+        "text_sha256": "e6d9229be52d1b285c1af5e76be9de974c15e1dd3023eed53ff3de25314786b2",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h41": {
+        "path": "/data/h19/14/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 170,
+        "text_sha256": "0edcbbb363a047650c056d9e5b512847d26d5e792092f48bed65871c5259ad2f",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h42": {
+        "path": "/data/h19/15/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 31,
+        "text_sha256": "91dcf2f6b99df23a74e7e7a50ed0b22c39625f6dcadd78da0d7ed2ffdf165d82",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h43": {
+        "path": "/data/h19/16/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 111,
+        "text_sha256": "5d45fc662fca1f41c35c4cb0b9f90aea2912b0efd5b65178155d8b3af32d480b",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h44": {
+        "path": "/data/h19/17/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 63,
+        "text_sha256": "62424c232e3c0d574578cd5ebad746cd5d28cd22f4d531935b6466226145da0f",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h45": {
+        "path": "/data/h19/18/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 248,
+        "text_sha256": "ed07dde6b1fb4a90286b31e3907a3cf212f01146b732785e1729ce5ea7599154",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h46": {
+        "path": "/data/h19/19/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 72,
+        "text_sha256": "08f542a14b99f803d3242f75f122248f218cb5de26ad2885243c2d15ca215108",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h47": {
+        "path": "/data/h19/20/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 28,
+        "text_sha256": "16cabd5626dea2178c97b6bbb96aa6d09adc1beb9d8b8f42ff7bf6b6d6dd9710",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h48": {
+        "path": "/data/h19/21/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 154,
+        "text_sha256": "fb5ba31e301f7b1528faf90783ce50634a90325fafc2a5008e229d63a3e44983",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h49": {
+        "path": "/data/h19/22/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 224,
+        "text_sha256": "d330c7c10251b58e659eeb339bd6e630647a28d7e96bb11e9b353dddc833d901",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h50": {
+        "path": "/data/h19/23/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 392,
+        "text_sha256": "0cef40b9757bfde92e70ccedfa0ca95e8e6d069a36b42dc5ceec1b83e600f5ea",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h51": {
+        "path": "/data/h19/24/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 93,
+        "text_sha256": "475cc2992957ea39318f7843d0030358b2e8c21397f14b79c4ad04cb101f5394",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h52": {
+        "path": "/data/h19/25/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 89,
+        "text_sha256": "e19d039cd0c92d23116c15918b8535796d91d87c213e182ed869515c6615bad7",
+        "locator": {
+          "format": null,
+          "page": 4
+        }
+      },
+      "h53": {
+        "path": "/data/rate075/0/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 160,
+        "text_sha256": "9a68b05d1d06e083af20c4c2e919427d9cbe9140053596ced9e211a5306d11a9",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h54": {
+        "path": "/data/rate075/1/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 168,
+        "text_sha256": "ce313c922535b00e50e58b5241f1882b95820d2aca7715f1a93db2e799708607",
+        "locator": {
+          "format": null,
+          "page": 3
+        }
+      },
+      "h55": {
+        "path": "/data/long/total/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 168,
+        "text_sha256": "ac88e053823ae2ff5bcb2847e44a51921aa19758259015b1d5f1bf55cbac3ae0",
+        "locator": {
+          "format": null,
+          "page": 18
+        }
+      },
+      "h56": {
+        "path": "/data/long/forty/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 111,
+        "text_sha256": "23fe78cd36681c4e5189bf78b71f1ac1d2027cc402389582724f19633a95bc6e",
+        "locator": {
+          "format": null,
+          "page": 17
+        }
+      },
+      "h57": {
+        "path": "/data/fig20",
+        "source": "osf",
+        "kind": "image",
+        "sha256": "e0dd9fcd268f777ff7758e31eb0dbfcafae3b5a0b43b0f2bfcf4c203d1433365",
+        "locator": {
+          "format": "image",
+          "page": 5
+        }
+      },
+      "h58": {
+        "path": "/data/fig20/lines/0/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 14,
+        "text_sha256": "85ebacc14f630011eac69b57f1baca8e33edb814ce3cea1fda503be7b005a8da",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h59": {
+        "path": "/data/fig20/lines/1/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 29,
+        "text_sha256": "ee843d1be19f7194b950a0ff88f498f90127ec192f609d93d67029bf9befc309",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h60": {
+        "path": "/data/fig20/lines/2/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 48,
+        "text_sha256": "32254fb3e6afce7f0d38a077e44437bd6ebf617d14f6acae7dbf0338e22fdf28",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h61": {
+        "path": "/data/fig20/lines/3/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 9,
+        "text_sha256": "1699a5c0ae773f27ef9b2466adeff34f225ee4f233867f97eb9bb92bf3bf2ecc",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h62": {
+        "path": "/data/fig20/lines/4/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 27,
+        "text_sha256": "adc4b48e618f970255f05d19e22480629d95db2fa9be385a42fddef8db5d8033",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h63": {
+        "path": "/data/fig20/lines/5/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 65,
+        "text_sha256": "63776a46da5f8480d3b38ece0100a289c3ef0633c9d952137a9a6c6b3cf3b3c2",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h64": {
+        "path": "/data/fig19",
+        "source": "nhb_si",
+        "kind": "image",
+        "sha256": "e0dd9fcd268f777ff7758e31eb0dbfcafae3b5a0b43b0f2bfcf4c203d1433365",
+        "locator": {
+          "format": "image",
+          "page": 5
+        }
+      },
+      "h65": {
+        "path": "/data/fig19/lines/0/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 14,
+        "text_sha256": "85ebacc14f630011eac69b57f1baca8e33edb814ce3cea1fda503be7b005a8da",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h66": {
+        "path": "/data/fig19/lines/1/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 29,
+        "text_sha256": "ee843d1be19f7194b950a0ff88f498f90127ec192f609d93d67029bf9befc309",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h67": {
+        "path": "/data/fig19/lines/2/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 48,
+        "text_sha256": "32254fb3e6afce7f0d38a077e44437bd6ebf617d14f6acae7dbf0338e22fdf28",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h68": {
+        "path": "/data/fig19/lines/3/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 9,
+        "text_sha256": "1699a5c0ae773f27ef9b2466adeff34f225ee4f233867f97eb9bb92bf3bf2ecc",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h69": {
+        "path": "/data/fig19/lines/4/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 27,
+        "text_sha256": "adc4b48e618f970255f05d19e22480629d95db2fa9be385a42fddef8db5d8033",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h70": {
+        "path": "/data/fig19/lines/5/text",
+        "source": "nhb_si",
+        "kind": "text",
+        "length": 65,
+        "text_sha256": "63776a46da5f8480d3b38ece0100a289c3ef0633c9d952137a9a6c6b3cf3b3c2",
+        "locator": {
+          "format": null,
+          "page": 5
+        }
+      },
+      "h71": {
+        "path": "/data/consent/0/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 44,
+        "text_sha256": "7ccd7ded000181b86c0a8bfc4a86487b2beeaf4aac78c0d347d0f11910a7148e",
+        "locator": {
+          "format": null,
+          "page": 1
+        }
+      },
+      "h72": {
+        "path": "/data/consent/1/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 248,
+        "text_sha256": "31990e00dc4a9efd7b369b27cdd3b7e0122d1110af7d973f52411f2e8c9f2a1c",
+        "locator": {
+          "format": null,
+          "page": 1
+        }
+      },
+      "h73": {
+        "path": "/data/consent/2/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 411,
+        "text_sha256": "428a7502f2a7845dd8ccbb7e386e04e67a4357e433151bb183a07477e53cc5d2",
+        "locator": {
+          "format": null,
+          "page": 1
+        }
+      },
+      "h74": {
+        "path": "/data/consent/3/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 349,
+        "text_sha256": "06e549e6a728d2cf39914ac1a0b52f487f25e2aa30701e53973a3cc3624efc56",
+        "locator": {
+          "format": null,
+          "page": 1
+        }
+      },
+      "h75": {
+        "path": "/data/consent/4/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 202,
+        "text_sha256": "dfba205560e0dadc9fbdd037fc53c222cafe84e8fa9bb0391b4bc6faf19af5bd",
+        "locator": {
+          "format": null,
+          "page": 1
+        }
+      },
+      "h76": {
+        "path": "/data/consent/5/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 433,
+        "text_sha256": "03da9e37b94dca773c0f304e8b57b3b0d4ba7ba2ad9ca9d708b53a1b4e458c71",
+        "locator": {
+          "format": null,
+          "page": 1
+        }
+      },
+      "h77": {
+        "path": "/data/consent/6/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 337,
+        "text_sha256": "9e047bd63878b50a9bfc23ecb32dd5a04af4e3e28074f6362628006d1fb1faf1",
+        "locator": {
+          "format": null,
+          "page": 1
+        }
+      },
+      "h78": {
+        "path": "/data/consent/7/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 620,
+        "text_sha256": "a196971c4992afcd399988efff2dcd3579e3df308751780521b06d272704b9b2",
+        "locator": {
+          "format": null,
+          "page": 1
+        }
+      },
+      "h79": {
+        "path": "/data/consent/8/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 479,
+        "text_sha256": "b4c732cf2a468bf7bf8d2ca817c16487f8cf7e734199acf17cb0e3d9818a9a5a",
+        "locator": {
+          "format": null,
+          "page": 2
+        }
+      },
+      "h80": {
+        "path": "/data/consent/9/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 335,
+        "text_sha256": "e9b236d7785e5be80cdff50edbe61476c5105dee26bfe0c6fb6cf44a93dc5c50",
+        "locator": {
+          "format": null,
+          "page": 2
+        }
+      },
+      "h81": {
+        "path": "/data/consent/10/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 148,
+        "text_sha256": "e803baf45a92286fafaf2d704ed7adcd78058eeadbb5a55b5be2522d123d1dd4",
+        "locator": {
+          "format": null,
+          "page": 2
+        }
+      },
+      "h82": {
+        "path": "/data/consent/11/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 184,
+        "text_sha256": "d87bcf14b9cf2fbf108e6c3b2f916d3b857a0692af3e012ad83b4129f3c2d326",
+        "locator": {
+          "format": null,
+          "page": 2
+        }
+      },
+      "h83": {
+        "path": "/data/consent/12/text",
+        "source": "osf",
+        "kind": "text",
+        "length": 16,
+        "text_sha256": "11a62ca41f872a823ef7b61fd441056ceb3a1270cea1cac002f6aea5207eac88",
+        "locator": {
+          "format": null,
+          "page": 2
+        }
+      },
+      "h84": {
+        "path": "/data/belief/q1/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 103,
+        "text_sha256": "4377ade9118d52dc492eae0560cf793f1d627617b4d5df3772595893d0bb1cca",
+        "locator": {
+          "format": null,
+          "page": 18
+        }
+      },
+      "h85": {
+        "path": "/data/belief/q2/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 82,
+        "text_sha256": "d4418962bcd85919f53d1b0857781f1544df961ec8f036e2a319f5eb9a7f11d1",
+        "locator": {
+          "format": null,
+          "page": 18
+        }
+      },
+      "h86": {
+        "path": "/data/belief/q1_h/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 103,
+        "text_sha256": "4377ade9118d52dc492eae0560cf793f1d627617b4d5df3772595893d0bb1cca",
+        "locator": {
+          "format": null,
+          "page": 18
+        }
+      },
+      "h87": {
+        "path": "/data/belief/q2_h/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 82,
+        "text_sha256": "d4418962bcd85919f53d1b0857781f1544df961ec8f036e2a319f5eb9a7f11d1",
+        "locator": {
+          "format": null,
+          "page": 18
+        }
+      },
+      "h88": {
+        "path": "/data/round/prompt/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 68,
+        "text_sha256": "a0097951c33bc63e1233c97a99fdf4cc76ca3c0fd63b2778dcbb177441658a4a",
+        "locator": {
+          "format": null,
+          "page": 31
+        }
+      }
+    },
+    "strict": false,
+    "attribution": []
+  },
+  "schema_version": "1"
+}

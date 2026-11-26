@@ -1,0 +1,190 @@
+{
+  "protocol_sha256": "b8660c2022209e94132ed598db3a0868a8e7cb20b9c15e9f93978d8cac0f34c7",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 1000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 0.0,
+    "population_excluded_sessions": {},
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "spearman_bret_cem",
+        "human": 0.222,
+        "keyed": 0.532,
+        "same_sign": true
+      },
+      {
+        "effect": "spearman_bret_mpl",
+        "human": 0.367,
+        "keyed": 0.729,
+        "same_sign": true
+      },
+      {
+        "effect": "spearman_bret_scl",
+        "human": 0.341,
+        "keyed": 0.386,
+        "same_sign": true
+      },
+      {
+        "effect": "spearman_cem_mpl",
+        "human": 0.244,
+        "keyed": 0.685,
+        "same_sign": true
+      },
+      {
+        "effect": "spearman_cem_scl",
+        "human": 0.338,
+        "keyed": 0.686,
+        "same_sign": true
+      },
+      {
+        "effect": "spearman_mpl_scl",
+        "human": 0.354,
+        "keyed": 0.599,
+        "same_sign": true
+      },
+      {
+        "effect": "psi_vs_comprehension",
+        "human": -0.089,
+        "keyed": -0.812,
+        "same_sign": true
+      },
+      {
+        "effect": "psi_vs_numeracy",
+        "human": 0.033,
+        "keyed": 0.812,
+        "same_sign": true
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "esm"
+    ]
+  },
+  "reading_annotations": [],
+  "coding": {},
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [
+    {
+      "effect": "spearman_bret_cem",
+      "statistic": "spearman"
+    },
+    {
+      "effect": "spearman_bret_mpl",
+      "statistic": "spearman"
+    },
+    {
+      "effect": "spearman_bret_scl",
+      "statistic": "spearman"
+    },
+    {
+      "effect": "spearman_cem_mpl",
+      "statistic": "spearman"
+    },
+    {
+      "effect": "spearman_cem_scl",
+      "statistic": "spearman"
+    },
+    {
+      "effect": "spearman_mpl_scl",
+      "statistic": "spearman"
+    },
+    {
+      "effect": "psi_vs_comprehension",
+      "statistic": "spearman"
+    },
+    {
+      "effect": "psi_vs_numeracy",
+      "statistic": "spearman"
+    }
+  ],
+  "printed_item_tests": [],
+  "second_readings": [],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "psi_mean",
+      "agent": 1.3512396694214877,
+      "n_agent": 726,
+      "k_agent": null,
+      "sd_agent": 1.111342080423808,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 2.8
+    },
+    {
+      "id": "dominated_any",
+      "agent": 0.274,
+      "n_agent": 1000,
+      "k_agent": 274,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.06565656565656566
+    },
+    {
+      "id": "dominated_bret",
+      "agent": 0.011,
+      "n_agent": 1000,
+      "k_agent": 11,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.005050505050505051
+    }
+  ],
+  "effect_dropout_random": {
+    "psi_vs_comprehension": 0.274,
+    "psi_vs_numeracy": 0.274
+  },
+  "PASS": true
+}
