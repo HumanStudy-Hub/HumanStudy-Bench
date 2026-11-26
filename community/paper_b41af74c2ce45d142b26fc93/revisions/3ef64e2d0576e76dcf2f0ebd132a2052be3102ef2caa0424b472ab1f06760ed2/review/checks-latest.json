@@ -1,0 +1,146 @@
+{
+  "protocol_sha256": "b0961d776c44ca1bc086ae4f37641e4e950677f8054aa24c38f15aaf19408ab1",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 2000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [
+      "births",
+      "births_q2",
+      "cards",
+      "cards_expl",
+      "marbles",
+      "oral",
+      "programs",
+      "sd_binom",
+      "sd_height",
+      "st_h1",
+      "st_h2",
+      "st_h3",
+      "st_payment"
+    ],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 0.0,
+    "population_excluded_sessions": {},
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "heights_single_person_higher",
+        "human": 0.248,
+        "keyed": 0.235,
+        "same_sign": true
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "paper",
+      "tk1971"
+    ]
+  },
+  "reading_annotations": [],
+  "coding": {},
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [
+    {
+      "effect": "heights_single_person_higher",
+      "statistic": "binomial"
+    },
+    {
+      "effect": "births_bgbbbb_less_likely",
+      "statistic": "binomial"
+    },
+    {
+      "effect": "programs_majority_guess",
+      "statistic": "binomial"
+    },
+    {
+      "effect": "marbles_irregular_more_likely",
+      "statistic": "binomial"
+    }
+  ],
+  "printed_item_tests": [],
+  "second_readings": [],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "psych_median_p",
+      "agent": 0.51,
+      "n_agent": 956,
+      "k_agent": null,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.85
+    },
+    {
+      "id": "psych_share_40_60",
+      "agent": 0.2280334728033473,
+      "n_agent": 956,
+      "k_agent": 218,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.10714285714285714
+    },
+    {
+      "id": "heights_median_odds_i",
+      "agent": 50.5,
+      "n_agent": 931,
+      "k_agent": null,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 8
+    }
+  ],
+  "effect_dropout_random": {
+    "heights_single_person_higher": 0.554
+  },
+  "PASS": true
+}

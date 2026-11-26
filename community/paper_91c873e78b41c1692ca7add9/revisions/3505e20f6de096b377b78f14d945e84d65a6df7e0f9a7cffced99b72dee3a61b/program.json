@@ -1,0 +1,752 @@
+{
+  "schemaVersion": 2,
+  "id": "branasgarza2021topay",
+  "title": "To pay or not to pay: Measuring risk preferences in lab and field",
+  "intent": "reconstruct",
+  "source": {
+    "title": "To pay or not to pay: Measuring risk preferences in lab and field",
+    "authors": "Brañas-Garza, P.; Estepa-Mohedano, L.; Jorrat, D.; Orozco, V.; Rascón-Ramírez, E.",
+    "doi": "10.1017/S1930297500008433",
+    "filename": "sources/bundle/paper/paper.pdf"
+  },
+  "studies": [
+    {
+      "id": "spain",
+      "title": "Study1 · Spanish laboratory",
+      "type": "empirical",
+      "description": "Student lottery choices under three payment schemes."
+    },
+    {
+      "id": "nigeria",
+      "title": "Study2 · Nigerian field",
+      "type": "empirical",
+      "description": "Household interviews in three rural villages."
+    },
+    {
+      "id": "honduras",
+      "title": "Study3 · Honduran field",
+      "type": "empirical",
+      "description": "Household interviews in four peri-urban districts."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "question",
+      "kind": "background",
+      "title": "Can risk preferences be measured without paying for lotteries?",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "abstract"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Can risk preferences be measured without paying for lotteries?",
+          "value": "Real or probabilistic payments add expense, time and possible fairness/safety problems in fieldwork. The paper compares shortened Holt–Laury choices under full payment, one-in-ten payment(BRIS), and hypothetical payment in one laboratory and two field studies.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "abstract"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hypothesis",
+      "kind": "hypothesis",
+      "title": "Compare payment schemes and practical equivalence",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "abstract",
+        "equivalence"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Compare payment schemes and practical equivalence",
+          "value": "The research asks whether incentives change consistency, safe choices or response time. In addition to difference tests, the authors test equivalence of safe-choice effects at bounds of±1, with±.75 and±.5 sensitivity bounds. A nonsignificant difference alone is not treated as proof of equivalence.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "abstract",
+            "equivalence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "kind": "design",
+      "title": "Three randomized arms in each of three settings",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "assignment"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Three randomized arms in each of three settings",
+          "value": "Within each study participants are randomly assigned with probability1/3 to real, BRIS or hypothetical payment and informed before choosing. The field allocation lists are prepared by researchers, not selected by enumerators. Setting/country is not randomized across studies.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "assignment"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "participants",
+      "kind": "participants",
+      "title": "Spanish students and Nigerian/Honduran households",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "spain",
+        "nigeria",
+        "nigeriasample",
+        "nigeriaresults",
+        "honduras"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Spanish students and Nigerian/Honduran households",
+          "value": "Spain reports178 in text but60/57/62 per-arm counts sum179. Nigeria samples360 households with a child aged6–9; its text and result table differ on BRIS/hypothetical arm counts. Honduras samples360 eligible households,109 real/126 BRIS/125 hypothetical. These source discrepancies remain visible.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "spain",
+            "nigeria",
+            "nigeriasample",
+            "nigeriaresults",
+            "honduras"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "materials",
+      "kind": "material",
+      "title": "Five safer-versus-riskier lottery choices",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "task",
+        "spain",
+        "variables"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Five safer-versus-riskier lottery choices",
+          "value": "The shortened task uses high-outcome probabilities .1,.4,.5,.6,.9. Safe choice counts range0–5, and switching from the riskier B back to A counts as inconsistent. Amounts are adapted to local currency. Spain uses A payouts€5/€4 and B€10/€.10.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "task",
+            "spain",
+            "variables"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "procedure",
+      "kind": "procedure",
+      "title": "Self-administered laboratory versus enumerator field tasks",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "assignment",
+        "nigeria",
+        "honduras"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Self-administered laboratory versus enumerator field tasks",
+          "value": "Spain uses a paper questionnaire in a laboratory. Trained enumerators administer household interviews using CAPI in Nigeria and paper in Honduras, with context-checked Hausa/Spanish translations. Risk is last of four modules in Nigeria and third in Honduras; treatment remains the same throughout each field interview.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "assignment",
+            "nigeria",
+            "honduras"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "variables",
+      "kind": "variable",
+      "title": "Consistency, safe choices and field response time",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "variables",
+        "labtable",
+        "nigeriaresults",
+        "hondurasresults"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Consistency, safe choices and field response time",
+          "value": "Outcomes are consistency, safe-choice count among consistent respondents and among all respondents, plus a gamma-based consistency measure. Response time is measured only in the two field studies; it is not a laboratory outcome.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "variables",
+            "labtable",
+            "nigeriaresults",
+            "hondurasresults"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analysis",
+      "kind": "analysis",
+      "title": "Difference, distribution and equivalence tests",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "labtable",
+        "nigeriaresults",
+        "labresults",
+        "equivalence"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Difference, distribution and equivalence tests",
+          "value": "Linear-probability models assess consistency, negative-binomial models safe-choice counts, and OLS gamma/log response time. Distribution comparisons use Kolmogorov–Smirnov tests. TOST equivalence bounds are reported separately from ordinary difference tests.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "labtable",
+            "nigeriaresults",
+            "labresults",
+            "equivalence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spain-results",
+      "kind": "result",
+      "title": "Study1: real versus hypothetical null, BRIS changes the distribution",
+      "studyIds": [
+        "spain"
+      ],
+      "evidenceIds": [
+        "labtable",
+        "labresults"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study1: real versus hypothetical null, BRIS changes the distribution",
+          "value": "Consistency comparisons are nonsignificant(BRIS p=.890,real p=.428); safe-count mean-model comparisons are also nonsignificant(.107/.670 among consistent respondents). However, safe-choice distributions differ for BRIS versus hypothetical(p=.03) and real(p=.02), while real versus hypothetical is null(p=.80). The authors interpret BRIS as inducing more risk taking.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "labtable",
+            "labresults"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nigeria-results",
+      "kind": "result",
+      "title": "Study2: no detected incentive effects",
+      "studyIds": [
+        "nigeria"
+      ],
+      "evidenceIds": [
+        "nigeriaresults"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study2: no detected incentive effects",
+          "value": "BRIS/real versus hypothetical consistency p=.227/.957 and consistent-subject safe counts p=.303/.832 are nonsignificant. Log response-time p=.561/.397 and gamma p=.337/.747 are also nonsignificant. This is the Nigerian field sample, not a pooled cross-country effect.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "nigeriaresults"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "honduras-results",
+      "kind": "result",
+      "title": "Study3: risk/consistency nulls, weak timing differences",
+      "studyIds": [
+        "honduras"
+      ],
+      "evidenceIds": [
+        "hondurasresults"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Study3: risk/consistency nulls, weak timing differences",
+          "value": "BRIS/real consistency p=.605/.378 and consistent-subject safe counts p=.392/.320 are nonsignificant. Response-time table values are p=.082/.054; the text rounds them to.08/.05 and calls the timing effects weak. Gamma p=.724/.585 is nonsignificant.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "hondurasresults"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "equivalence-results",
+      "kind": "result",
+      "title": "Equivalence depends on the chosen bound",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "equivalencetable",
+        "equivalence"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Equivalence depends on the chosen bound",
+          "value": "At±1 safe choice, real versus hypothetical is equivalent in all settings. Laboratory BRIS has a statistically different but within-bound effect(TD,p=.019), and becomes a relevant difference at±.5/.75. Narrow field bounds do not uniformly establish equivalence: Nigerian BRIS p=.104 and Honduran real p=.141 at±.5 are undetermined. The table labels Honduran BRIS p=.088 “E”; this conflicts with conventional.05 interpretation and is retained as a source issue.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "equivalencetable",
+            "equivalence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "kind": "finding",
+      "title": "Hypothetical elicitation is promising, not universally incentive-invariant",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "abstract",
+        "labresults",
+        "equivalence",
+        "equivalencetable"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Hypothetical elicitation is promising, not universally incentive-invariant",
+          "value": "The authors support inexpensive hypothetical field elicitation with the short task. Laboratory BRIS distribution effects, weaker narrow-bound evidence and timing differences qualify a blanket claim that every payment scheme is interchangeable.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "abstract",
+            "labresults",
+            "equivalence",
+            "equivalencetable"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "kind": "limitation",
+      "title": "A shortened task and selected settings",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "task",
+        "assignment"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "A shortened task and selected settings",
+          "value": "The shortened five-choice task changes precision and may increase consistency compared with the longer version. The paper compares payment schemes within this short task; field delivery and household populations differ from the laboratory.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "task",
+            "assignment"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "source-conflicts",
+      "kind": "limitation",
+      "title": "Sample, table and equivalence inconsistencies",
+      "studyIds": [
+        "spain",
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [
+        "spain",
+        "labtable",
+        "nigeriasample",
+        "nigeriaresults",
+        "equivalencetable"
+      ],
+      "fields": [
+        {
+          "id": "gap",
+          "label": "Sample, table and equivalence inconsistencies",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [
+            "spain",
+            "labtable",
+            "nigeriasample",
+            "nigeriaresults",
+            "equivalencetable"
+          ],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "Retain Spain178/179 and Nigerian arm-count discrepancies; the existing protocol additionally flags swapped Spanish table means and inconsistent consistent-subject denominators. Table8 labels Honduran BRIS p=.088 as equivalent at±.5. Original analysis evidence is needed before silently reconciling any value."
+          }
+        }
+      ]
+    },
+    {
+      "id": "field-protocol",
+      "kind": "limitation",
+      "title": "Field experiments are reading-only in this asset",
+      "studyIds": [
+        "nigeria",
+        "honduras"
+      ],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "gap",
+          "label": "Field experiments are reading-only in this asset",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable",
+            "note": "The retained executable protocol covers Spanish laboratory arms only. Nigerian/Honduran instruments, full interview modules and operational delivery are not certified by this Program."
+          }
+        }
+      ]
+    }
+  ],
+  "steps": [],
+  "evidence": [
+    {
+      "id": "abstract",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 1
+      },
+      "quote": "Measuring risk preferences in\nlab and field\nPablo Brañas-Garza∗ Lorenzo Estepa-Mohedano† Diego Jorrat‡\nVictor Orozco§ Ericka Rascón-Ramírez¶\nAbstract\nMeasuring risk preferences using monetary incentives is costly. In the field, it\nmight be also unfair and unsafe. The commonly used measure of Holt and Laury\n(2002) relies on a dozen lottery choices and payments, which make it time consuming\nand expensive. It also raises moral concerns as a result of the unequal payments\ngenerated by good and bad luck. Paying some but not all subjects may also create\ntensions between the researcher and subjects. In a pre-registered study in Honduras,\nNigeria and Spain, we use a short version of Holt and Laury where we address all\nthree concerns. We find in the field that not paying at all or paying with and without\nprobabilistic rules makes no difference. Our hypothetical and short version makes our\nmeasurement of risk cheaper, fairer and safer.",
+      "verification": "unverified"
+    },
+    {
+      "id": "task",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 6
+      },
+      "quote": "The use of a short (trimmed) version of the HL might have a direct impact on the\nelicitation of risk preferences; for instance, under the short version subjects are more likely\nto be consistent (never choosing A after B has been chosen once, reading down Table 1) than\nunder the long version. However, our main focus in this study is to compare the differences\nin risk preference profiles across payment schemes.8 Hence, we use in Study 1, 2 and 3 the\nHL5 measure. As in HL, every subject is asked to choose between two lotteries A and B.\nBoth A and B offer a low and high payment with probability 𝑞 and (1 − 𝑞).\nNote (Figure 1) that the first choice in Table 1 is “trivial” since the expected value of\nA is much higher than B (82N vs. 21.8N) while the opposite happens in decision 5 (98N\nvs. 180.2N). In decisions 2, 3 and 4 the expected values of A and B are much closer (88N\nvs. 81.2N, 90N vs. 101N, 92N vs. 120.8N, respectively) therefore subjects preferences for\nrisk — rather than expected value — might play a critical role in the choice between A\nand B. Under risk neutrality, subjects should select: 𝐴, 𝐴, 𝐵, 𝐵, 𝐵. Under consistency,\n𝐴, 𝐵, 𝐵, 𝐵, 𝐵 implies risk loving and 𝐵, 𝐵, 𝐵, 𝐵, 𝐵 strong risk loving behaviour. On the\ncontrary, 𝐴, 𝐴, 𝐴, 𝐵, 𝐵 is indicative of slight risk aversion, 𝐴, 𝐴, 𝐴, 𝐴, 𝐵 risk aversion and\n𝐴, 𝐴, 𝐴, 𝐴, 𝐴 reflects strong risk aversion. This means that only very risk loving individuals\nwould choose option B in the first decision and very risk-averse would choose A in the last\ndecision.",
+      "verification": "unverified"
+    },
+    {
+      "id": "variables",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 7
+      },
+      "quote": "2.1 Dimensions of Risk Preferences\nIn Studies 1, 2 and 3, we compare five dimensions of the elicitation of risk preference under\nthe three payment schemes. The first one is consistency, 𝐶𝑖, that is, whether subjects make\nconsistent choices. A typical example of inconsistency is multiple switching from A to B\nand then from B to A. Any switch from B to A is indeed another example of inconsistency\n(see Amador-Hidalgo et al. (2021) for a discussion). The second dimension is the number\nof safe choices or risk aversion, 𝑅𝐴𝑖 (A instead of B) under consistency. We also explore the\nnumber of safes choices for all subjects regardless of consistency, 𝑅𝐴𝑖 (𝑎𝑙𝑙). In the fourth\ndimension we compute response time (𝑅𝑇𝑖), that is, the duration of the task. This dimension\nwas measured only in Study 2 and 3.",
+      "verification": "unverified"
+    },
+    {
+      "id": "assignment",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 8
+      },
+      "quote": "2.2 Experimental Arms and Implementation\nEach of Studies 1, 2 and 3 has three experimental arms with probability 1/3. The main\ndifference across arms was the probability of receiving a payment with probability 𝑝:\n𝑇𝑅: 𝑝 = 1; 𝑇𝐵: 𝑝 = 1/10 ; 𝑇𝐻: 𝑝 = 0\nUnder 𝑇𝑅, all subjects are certain about receiving a payment, whereas under 𝑇𝐻 subjects are\ncertain of receiving no payment. For each study, the entire sample was randomly assigned\nto one out of three treatment arms: 𝑇𝑅 refers to real payments, 𝑇𝐵 to 1 out of 10 subjects gets\npaid and 𝑇𝐻 to hypothetical payments. Subjects were fully aware of their payment scheme\nbefore the elicitation of their preferences.\nStudy 1 was based on a self-administered questionnaire where subjects were invited to\na computer lab. Whereas Study 2 and 3 were conducted in the field by enumerators who\nwere trained by the authors. Using enumerators implied that subjects did not self-manage\nthe instructions. These were read and explained by the enumerator. Enumerators used\ncomputer-assisted personal interviewing (CAPI) questionnaires in Nigeria and paper-based\ninterviewing in Honduras. In both cases, enumerators received a list of households they\nhad to visit, including the type of questionnaire they had to apply (i.e., 𝑇𝑅, 𝑇𝐵 or 𝑇𝐻\nquestionnaire). The authors conducted the random allocation of treatments prior to the visit\nto the communities and the enumerators did not have any influence on such selection. For\nan additional check, a field coordinator monitored the correct use of the lists created by the\nresearchers in the ground.\nPrior to running both experiments, the authors piloted the risk preference questionnaire\nwith around 20 subjects to ensure the translations in Hausa (Nigeria) and Spanish (Honduras)\nwere appropriate to the context. All questionnaires and instructions were originally written\nin English. Data collection for both studies involved a one-day training of enumerators.\nTraining involved in all cases a theoretical explanation of risk preferences and enumerator-\nsubject role play to help enumerators to understand the questions. For both field experiments,\nenumerators conducted all face-to-face interviews in the households of the subjects. Only\none experimental subject was interviewed per household.",
+      "verification": "unverified"
+    },
+    {
+      "id": "spain",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 9
+      },
+      "quote": "3 Study 1 — Lab in Spain\nThis lab experiment was run in the School of Economics and Business at the University of\nSevilla, the largest public university in Andalusia (Southern Spain). The experiment used\npaper-based questionnaires and was conducted the last week of April 2019.\nIn most lab experiments, subjects are university students who are self-selected into the\nexperiment and hold high levels of education (see Exadaktylos et al. (2013)). The main\nadvantage of lab experiments is the absolute control of the conditions faced by the subject:\na) subjects cannot interact among them, unless interaction is required by the experiment;\nand b) there are no external distractions. For these reasons, a lab experiment is the cleanest\napproach to test our main research question: do monetary incentives make a difference in\nthe elicitation of risk preferences?\nThe HL5 used in the lab is identical to the MPL shown in section 2 in the example. We\njust adjusted the monetary values to be meaningful to Spanish subjects. Thus, for Study 1,\nlottery A offers 5 euros with 𝑞 probability and 4 euros with (1 − 𝑞); lottery B offers 10 and\n0.1 euros with probabilities 𝑞 and (1 − 𝑞), respectively.\n3.1 Sample and balance\nThe entire sample consisted of 𝑛=178 Spanish subjects11. Each subject was randomly\nassigned to one out of three payment schemes (𝑇𝑅: 60, 𝑇𝐵: 57, 𝑇𝐻: 62). Table 2 shows the\nbalance between sub-samples. Table 2 shows no differences across treatments regarding\nage, gender, cognitive reflection test (CRT) and courses (freshmen, sophomore, etc).",
+      "verification": "unverified"
+    },
+    {
+      "id": "labtable",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 10
+      },
+      "quote": "Table 3: Summary results in the Lab — Study 1, Spain\n(1) (2) (3) (4) (5)\nDimensions 𝑇𝑅 𝑇𝐵 𝑇𝐻 ˆ\n𝛽𝑇𝐵\nˆ\n𝛽𝑇𝑅\n𝐶𝑖 𝑛𝑐 49 49 53 –0.009 –0.052\n% 81.6 85.9 86.8 (0.890) (0.428)\n𝑅𝐴𝑖 mean 2.938 2.796 2.285 –0.540 0.133\nst. dev. 1.068 1.219 1.258 (0.107) (0.670)\n𝑅𝐴𝑖 (𝑎𝑙𝑙) mean 2.850 2.333 2.774 –0.460 0.071\nst. dev. 1.070 1.285 1.151 (0.135) (0.803)\n𝛾𝑖 mean 0.929 0.950 0.964 –0.014 –0.035\nst. dev. 0.184 0.133 0.110 (0.605) (0.185)\nObs. 60 57 62\nNote: Column 4 and 5 display LPM (𝐶𝑖), negative binomial coefficients (𝑅𝐴𝑖 &\n𝑅𝐴𝑖 (𝑎𝑙𝑙)) and OLS coefficients (𝛾𝑖) for each outcome variable (row) and for the Real\nand BRIS treatments (column). Our reference group is the hypothetical treatment\n(𝑇𝐻). In 𝑅𝐴𝑖 (𝑎𝑙𝑙) we use all subjects, while in 𝑅𝐴𝑖 only the consistent ones.\nColumns 1–3 show different statistics for each treatment. The percentage of subjects\nmaking consistent choices is shown in row 1. These percentages are not significantly\ndifferent between treatments. Row 2 and 3 show the mean and the standard deviation of the\nnumber of safe choices. Again, we do not observe significant differences either.\nFinally, columns 4 and 5 provide the regression coefficients of each treatment for the two\ntypes of outcome variables: consistency and risk aversion responses. For 𝐶𝑖, we estimate\na linear probability model (LPM), for both 𝑅𝐴𝑖 measures a negative binomial regression\nmodel and for 𝛾𝑖 an OLS.12 ˆ\n𝛽𝑇𝐵 refers to the comparison between BRIS and Hypothetical\npayoffs, whereas ˆ\n𝛽𝑇𝑅 to the comparison between Real and Hypothetical payoffs.",
+      "verification": "unverified"
+    },
+    {
+      "id": "labresults",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 11
+      },
+      "quote": "Figure 2 confirms the results found on the level of risk aversion (𝑅𝐴𝑖) for treatment 𝑇𝑅,\nbut not for 𝑇𝑅. While there is no difference between 𝑇𝐻 and 𝑇𝑅 (black and blue lines,\nrespectively), the cumulative distribution of 𝑇𝐵 is above these two. The latter suggests\nthat paying 1 out of 10 makes people choose less safe choices than the other two payment\nschemes. We performed a Kolmogorov-Smirnov test for equality of distributions between\nthe hypothetical and each of the incentivized schemes. The results confirm that there are\nno statistical differences between the distribution of safe choices under the Hypothetical\nand Real treatments; however, there are for the BRIS treatment when compared with the\nhypothetical and real payment scheme (𝑇𝐻 vs. 𝑇𝑅, 𝑝 = 0.80; 𝑇𝐻 vs. 𝑇𝐵, 𝑝 = 0.03; 𝑇𝑅 vs. 𝑇𝐵,\n𝑝 = 0.02). The same conclusion is found for 𝑅𝐴𝑖 (𝑎𝑙𝑙). Since 𝑇𝐵 involves two lotteries (to\nbe selected for payment and the HL), a possible explanation might be that subjects consider\nthat both lotteries are correlated.14\nOne particular feature highlighted by Camerer & Hogarth (1999) is higher variance\nin choices or in task performance when using hypothetical measures. To study this, we\nperformed a series of variance ratio tests. In all of them, we do not reject the null hypothesis\nof equal variance of our dimensions across treatments: 𝑅𝐴𝑖 (𝑇𝐻 vs. 𝑇𝑅, 𝑝 = 0.18; 𝑇𝐻 vs.\n𝑇𝐵, 𝑝 = 0.41; 𝑇𝑅 vs. 𝑇𝐵, 𝑝 = 0.13). The same conclusion is found for 𝑅𝐴𝑖 (𝑎𝑙𝑙) (𝑇𝐻 vs. 𝑇𝑅,\n𝑝 = 0.29; 𝑇𝐻 vs. 𝑇𝐵, 𝑝 = 0.41; 𝑇𝑅 vs. 𝑇𝐵, 𝑝 = 0.22).15\nTo summarize our main findings for Study 1:\nResult 1 — Lab (H vs. R): Compared to hypothetical payments in the lab: paying all\nthe subjects has no impact on consistency or number of safe choices.\nResult 2 — Lab (H vs. B): Compared to hypothetical payments in the lab: paying 1/10\nof the subjects has no impact on consistency, but decreases the level of risk aversion.",
+      "verification": "unverified"
+    },
+    {
+      "id": "nigeria",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 12
+      },
+      "quote": "4 Study 2 — Field in Nigeria\nThis study was conducted in Kano (Nigeria) in April 2019. We ran the field experiment\nin three rural villages in Kano: Dorayi, Ja’en and Gidan Maharba, where 360 households\nwere randomly selected. Our sample in each village was selected according to the eligibility\ncriterion of having at least one child between 6 and 9 years old. We selected households with\nthese characteristics as this experiment was used to inform the elicitation of risk preferences\nfor a large-scale impact evaluation that took place in rural areas in Northern Nigeria.\nThe experiment was composed of four modules: social norms (coordination games),\nsubjective expectations, time and risk preferences. The HL5 was the last module we elicited.\nRandom assignment to 𝑇𝑅, 𝑇𝐵 or 𝑇𝐻 treatments remained the same throughout the entire\nexperiment. Response time (𝑅𝑇𝑖) was collected using CAPI for all four modules.",
+      "verification": "unverified"
+    },
+    {
+      "id": "nigeriasample",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 13
+      },
+      "quote": "4.1 Sample and balance\nSample size is 𝑛 = 360 (by treatments, 𝑇𝑅: 120, 𝑇𝐵: 124, 𝑇𝐻: 116). In this sample,\n25% has no education, 8% has completed primary education and 32% has completed the\nsecondary education. Around 40% of the sample is female and the average age is 39 years\nold. This sample is quite different from the sample used in the lab, but reflects common\ncharacteristics of the populations studied in Development Economics, which are usually the\ntarget of interventions aiming at increasing savings and human capital investment.\nTable 4 shows the balance across treatments. We observe significant differences in age,\nwhere subjects in the real and BRIS treatment (𝑇𝑅 and 𝑇𝐵) have 2.8 years more than those\nin the hypothetical treatment (𝑇𝐻). However, these few differences are no longer significant\nafter adjusting p-values using Bonferroni corrections.",
+      "verification": "unverified"
+    },
+    {
+      "id": "nigeriaresults",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 14
+      },
+      "quote": "Table 5: Summary results in the field – Study 2, Nigeria\n(1) (2) (3) (4) (5)\nDimensions 𝑇𝑅 𝑇𝐵 𝑇𝐻 ˆ\n𝛽𝑇𝐵\nˆ\n𝛽𝑇𝑅\n𝐶𝑖 𝑛𝑐 117 119 111 –0.029 0.001\n% 97.5 94.4 97.4 (0.227) (0.957)\n𝑅𝐴𝑖 mean 3.085 2.899 3.135 –0.238 –0.049\nst. dev. 1.534 1.607 1.615 (0.303) (0.832)\n𝑅𝐴𝑖 (𝑎𝑙𝑙) mean 3.083 2.857 3.088 0.230 0.004\nst. dev. 1.515 1.578 1.621 (0.501) (0.990)\n𝑅𝑇𝑖 mean 3.345 3.385 3.469 –0.084 –0.124\nst. dev. 1.107 1.132 1.101 (0.561) (0.397)\n𝛾𝑖 mean 0.982 0.955 0.975 –0.020 –0.007\nst. dev. 0.121 0.199 0.152 (0.337) (0.747)\nObs (𝑛) 120 126 114\nNote: Column 4 and 5 display LPM (𝐶𝑖), negative binomial (𝑅𝐴𝑖 & 𝑅𝐴𝑖 (𝑎𝑙𝑙))\nand OLS coefficients (𝑅𝑇𝑖 in logs and 𝛾𝑖) for each outcome variable (row) and for\nthe Real and BRIS treatments (column). Our reference group is the hypothetical\ntreatment (𝑇𝐻). The time variable is expressed in logs.\nAs shown in Table 5 the fraction of consistent individuals, the mean of safe choices and\nthe response time are nearly the same across treatments, which implies that there are no\nsignificant differences. To test differences in coefficients across treatments, as in Study 1,\nwe ran LPM for 𝐶𝑖 and a negative binomial regression for 𝑅𝐴𝑖 and 𝑅𝐴𝑖 (𝑎𝑙𝑙). For 𝑅𝑇𝑖 and\n𝛾𝑖, we ran an OLS. The last two columns show the results of these regressions: column (4)\nfocuses on the BRIS treatment and column (5) on the real case. The reference group is the\nhypothetical payment in both cases.",
+      "verification": "unverified"
+    },
+    {
+      "id": "honduras",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 16
+      },
+      "quote": "5 Study 3 — Field in Honduras\nWe ran the same experiment in Honduras. Our aim with this sample was to test whether\nResults 3 and 4 replicate in a different location, having subjects with similar socioeconomic\ncharacteristics to the Nigerian sample, but living in peri-urban areas. Our goal responds\nto the increasing demand for replication and validation of experimental studies (Banerjee\net al., 2017; Peters et al., 2018; Al-Ubaydli et al., 2017). Study 3 took place in Santa Rosa\nde Copán (Honduras) between May 1 and 14, 2019 in the districts of Osorio, El Carmen,\nPrado Alto and Santa Teresa. We selected 360 households based on the same eligibility\ncriterion as the Nigerian sample: having a child between 6 and 9 years old.\nAs in Nigeria, the experiment consisted of four tasks (coordination, expectations, risk\nand time preferences). The main difference with the Nigerian experiment is that the risk\npreference task was the third one, instead of last one as in Study 2. The original random\nassignment of subjects to 𝑇𝑅, 𝑇𝐵 or 𝑇𝐻 remained the same for the entire experiment. 𝑅𝑇𝑖\nwas recorded by the enumerator for the entire block of risk preferences.\nTo elicit risk preferences, we used the same reduced HL task (HL5) as in Study 2 and\nStudy 3. We adapted our experiment to the local currency (Lempiras). On average, subjects\nearned 18 Lempiras in the HL5; for the first set of choices, in lottery A we paid 50L or\n40L (instead of 100N and 80N) and in lottery B 100L or 1L (instead of 200N and 2N). We\nfollowed the same structure of payments as described in see section 2.19\n5.1 Sample and balance\nThe total sample consisted of 360 subjects. Each subject was randomly assigned to 1 out\nof 3 arms resulting the following distribution. 𝑇𝑅: 109, 𝑇𝐵: 126, 𝑇𝐻: 125.",
+      "verification": "unverified"
+    },
+    {
+      "id": "hondurasresults",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 18
+      },
+      "quote": "Table 7: Summary results in the field — Study 3, Honduras\n(1) (2) (3) (4) (5)\nDimensions 𝑇𝑅 𝑇𝐵 𝑇𝐻 ˆ\n𝛽𝑇𝐵\nˆ\n𝛽𝑇𝑅\n𝐶𝑖 𝑛𝑐 80 102 98 0.027 –0.048\n% 73.4 80.9 78.2 (0.605) (0.378)\n𝑅𝐴𝑖 mean 1.787 1.833 2.030 –0.193 –0.241\nst. dev. 1.572 1.554 1.608 (0.392) (0.320)\n𝑅𝐴𝑖 (𝑎𝑙𝑙) mean 2.000 1.936 2.144 –0.206 –0.141\nst. dev. 1.472 1.479 1,468 (0.267) (0.462)\n𝑅𝑇𝑖 mean 5.120 5.104 4.994 0.110 0.126\nst. dev. 0.424 0.499 0.543 (0.082) (0.054)\n𝛾𝑖 mean 0.884 0.911 0.901 0.010 –0.016\nst. dev. 0.237 0.213 0.222 (0.724) (0.585)\nObs (𝑛) 109 126 125\nNote: Column 4 and 5 display LPM (𝐶𝑖), negative binomial (𝑅𝐴𝑖 & 𝑅𝐴𝑖 (𝑎𝑙𝑙))\nand OLS coefficients (𝑅𝑇𝑖 in logs and 𝛾𝑖) for each outcome variable (row) and for\nthe Real and BRIS treatments (column). Our reference group is the hypothetical\ntreatment (𝑇𝐻). The time variable is expressed in logs.\nincentives. Finally, for the 𝛾𝑖 consistency measure, we do not find significant differences\nbetween the incentivized measure (𝑇𝐵 and 𝑇𝑅) and the hypothetical one (𝑃 = 0.724 and\n𝑝 = 0.585, respectively). As before, these results are robust using the Kendall correlation\nbetween gamma and the categorical variable that distinguishes between treatments (𝑝 =\n0.46).\nOur main findings from Study 3 show that the payment scheme has no impact on\nconsistency or the number of safe options. We also find that there are no differences in the\ndistributions of neither of these variables. However, our results show that paying all or 1\nout of 10 subjects increase the time response by 20 and 15 seconds, respectively.\nTo summarize our main findings for Study 3:\nResult 5 — Honduras (H vs. R): Result 3 is partially replicated in Honduras: Compared\nto hypothetical payments in the field, paying all subjects has no impact on consistency or\nnumber of safe choices. R (weakly) increases response time.",
+      "verification": "unverified"
+    },
+    {
+      "id": "equivalence",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 20
+      },
+      "quote": "6 Equivalence Tests\nIn this section we test whether our estimates are different across treatments comparing\nestimates within a range instead of with respect to a point estimate.\nA possible alternative is to explore whether or not the observed effect is large enough\nto be deemed worthwhile. This procedure is called equivalence (Lakens, 2017; Wellek,\n2010). It testes whether the observed effect falls within or outside of an equivalence interval,\ndefined by two exogenous bounds: lower (−𝛾𝐿) and upper (𝛾𝑈). To test for equivalence, a\ntwo one-sided test (TOST) approach is applied. Two composite null hypotheses are tested:\n𝐻01 → 𝛾 ≤ −𝛾𝐿 and 𝐻02 → 𝛾 ≥ 𝛾𝑈. When both null hypotheses are rejected, we can\nconclude that −𝛾𝐿 < 𝛾 < 𝛾𝑈 or that the observed effect falls within the equivalence bounds\nand it is close enough to zero to be practically equivalent (Lakens, 2017).\nOur objective and exogenous bounds are defined based on Holt & Laury (2005) where\nthey found a difference of one in the average number of safe choices between real and\nhypothetical incentives. Hence, our equivalence level is equal to one where we define the\nequivalence interval for each TOST as 𝐻01 → 𝛾 ≤ −1 and 𝐻02 → 𝛾 ≥ 1. To check the\nrobustness of our results, we also use two additional equivalence levels: 0.50 and 0.75.\nTo consider a thorough analysis of our main findings, we use both the null hypothesis\nsignificance test (NHST) and the equivalence test (ET).21 Table 8 summarizes the results\nfrom the equivalence test. Panel A shows that in the lab, paying 1 out 10 subjects yield\nto relevant differences with respect to hypothetical decisions, while using real payments to\nequivalent results. In both field studies (panel B and C), equivalence tests suggest that both\ntreatments (real and BRIS) yield equivalent results to the hypothetical payment scheme.\nTo summarize the equivalence tests results:\nResult 7 — Equivalence (H vs. R): Hypothetical and real measures yield to equivalent\nresults in both the lab and field.\nResult 8 — Equivalence (H vs. B): BRIS and Hypothetical payment mechanisms yield\nto equivalent results only in the field.\n7 Conclusion",
+      "verification": "unverified"
+    },
+    {
+      "id": "equivalencetable",
+      "sourceId": "paper",
+      "path": "sources/bundle/paper/paper.pdf",
+      "url": "https://doi.org/10.1017/S1930297500008433",
+      "sourceSha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+      "locator": {
+        "page": 21
+      },
+      "quote": "Table 8: Equivalence testing results: Lab and Field.\nEquivalence level: 0.5 0.75 1\n𝑃 − 𝑣𝑎𝑙𝑢𝑒 Conclus. 𝑃 − 𝑣𝑎𝑙𝑢𝑒 Conclus. 𝑃 − 𝑣𝑎𝑙𝑢𝑒 Conclus.\nPanel A: Lab\n𝑇𝐵 0.518 RD 0.154 RD 0.019 TD\n𝑇𝑅 0.004 E 0.000 E 0.000 E\nPanel B: Nigeria\n𝑇𝐵 0.104 I 0.007 E 0.000 E\n𝑇𝑅 0.016 E 0.000 E 0.000 E\nPanel C: Honduras\n𝑇𝐵 0.088 E 0.007 E 0.000 E\n𝑇𝑅 0.141 I 0.017 E 0.000 E\nNote: P-value refers to the maximum p-value obtained from the two one-side test.\nConclus. shows the conclusion considering both test NHST and ET. The baseline is\nthe group making decisions with Hypothetical money (𝑇𝐻).",
+      "verification": "unverified"
+    }
+  ],
+  "relations": [],
+  "issues": [
+    {
+      "id": "source-conflicts-issue",
+      "severity": "check",
+      "title": "Sample, table and equivalence inconsistencies",
+      "reason": "Retain Spain178/179 and Nigerian arm-count discrepancies; the existing protocol additionally flags swapped Spanish table means and inconsistent consistent-subject denominators. Table8 labels Honduran BRIS p=.088 as equivalent at±.5. Original analysis evidence is needed before silently reconciling any value.",
+      "impact": "Source fidelity or exact reproduction remains uncertain.",
+      "suggestedAction": "Consult the original source and obtain the missing evidence before treating this scope as verified.",
+      "evidenceIds": [
+        "spain",
+        "labtable",
+        "nigeriasample",
+        "nigeriaresults",
+        "equivalencetable"
+      ],
+      "nodeId": "source-conflicts",
+      "fieldId": "gap"
+    },
+    {
+      "id": "field-protocol-issue",
+      "severity": "check",
+      "title": "Field experiments are reading-only in this asset",
+      "reason": "The retained executable protocol covers Spanish laboratory arms only. Nigerian/Honduran instruments, full interview modules and operational delivery are not certified by this Program.",
+      "impact": "Source fidelity or exact reproduction remains uncertain.",
+      "suggestedAction": "Consult the original source and obtain the missing evidence before treating this scope as verified.",
+      "evidenceIds": [],
+      "nodeId": "field-protocol",
+      "fieldId": "gap"
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "studyArms": {
+        "spain": [
+          "real",
+          "bris",
+          "hyp"
+        ],
+        "nigeria": [],
+        "honduras": []
+      },
+      "review": "Independent source and publication review pending; no simulation or protocol validation claimed."
+    },
+    "publication": {
+      "sources": [
+        {
+          "title": "To pay or not to pay: Measuring risk preferences in lab and field",
+          "authors": [
+            "Brañas-Garza, P.",
+            "Estepa-Mohedano, L.",
+            "Jorrat, D.",
+            "Orozco, V.",
+            "Rascón-Ramírez, E."
+          ],
+          "url": "https://doi.org/10.1017/S1930297500008433",
+          "license": "CC-BY-3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+          "attribution": "Brañas-Garza, P.; Estepa-Mohedano, L.; Jorrat, D.; Orozco, V.; Rascón-Ramírez, E.. To pay or not to pay: Measuring risk preferences in lab and field (2021). https://doi.org/10.1017/S1930297500008433",
+          "changes": "Paper summarized into a reading Program; original paper and protocol unchanged."
+        }
+      ]
+    },
+    "communityExport": {
+      "scope": "program-only",
+      "sources": [
+        {
+          "evidenceIds": [
+            "abstract",
+            "task",
+            "variables",
+            "assignment",
+            "spain",
+            "labtable",
+            "labresults",
+            "nigeria",
+            "nigeriasample",
+            "nigeriaresults",
+            "honduras",
+            "hondurasresults",
+            "equivalence",
+            "equivalencetable"
+          ],
+          "url": "https://doi.org/10.1017/S1930297500008433",
+          "attribution": "Brañas-Garza, P.; Estepa-Mohedano, L.; Jorrat, D.; Orozco, V.; Rascón-Ramírez, E.. To pay or not to pay: Measuring risk preferences in lab and field (2021). https://doi.org/10.1017/S1930297500008433",
+          "license": "CC-BY-3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+          "sha256": "7b0914319d516ee8583a1a75bb85c8ac893e77a4e542ffccde02a705053a9a03",
+          "title": "To pay or not to pay: Measuring risk preferences in lab and field",
+          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
+        }
+      ],
+      "withheldEvidenceQuotes": {
+        "ids": [],
+        "reason": "redistribution-unverified"
+      }
+    }
+  }
+}

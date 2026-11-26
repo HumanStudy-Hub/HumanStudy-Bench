@@ -1,0 +1,191 @@
+{
+  "protocol_sha256": "d2fda650bf7d00eba22c6d4270324e93ba48b80b317a370ec0ac5c7d7214f9f0",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 1000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 0.0,
+    "population_excluded_sessions": {},
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "r_oe_rp",
+        "human": -0.58,
+        "keyed": -0.87,
+        "same_sign": true
+      },
+      {
+        "effect": "r_oe_pf",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "r_oe_ioc",
+        "human": 0.34,
+        "keyed": 0.51,
+        "same_sign": true
+      },
+      {
+        "effect": "r_oe_riskprop",
+        "human": 0.29,
+        "keyed": 0.524,
+        "same_sign": true
+      },
+      {
+        "effect": "r_rp_pf",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "r_rp_ioc",
+        "human": -0.44,
+        "keyed": -0.56,
+        "same_sign": true
+      },
+      {
+        "effect": "r_rp_riskprop",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "r_pf_ioc",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "r_pf_riskprop",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "r_ioc_riskprop",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "paper"
+    ]
+  },
+  "reading_annotations": [],
+  "coding": {
+    "q8": {
+      "cases": 14,
+      "mismatches": [],
+      "n_mismatches": 0
+    }
+  },
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [],
+  "printed_item_tests": [],
+  "second_readings": [
+    "mean_planning_fallacy"
+  ],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "mean_opportunity_evaluation",
+      "agent": 12.063604240282686,
+      "n_agent": 849,
+      "k_agent": null,
+      "sd_agent": 3.020091013526248,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 12.97
+    },
+    {
+      "id": "mean_risk_perception",
+      "agent": 15.84320987654321,
+      "n_agent": 810,
+      "k_agent": null,
+      "sd_agent": 3.4617970951103483,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 19.04
+    },
+    {
+      "id": "mean_planning_fallacy",
+      "agent": 7.835706462212486,
+      "n_agent": 913,
+      "k_agent": null,
+      "sd_agent": 2.6227237351528414,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 10.41
+    }
+  ],
+  "effect_dropout_random": {
+    "r_rp_pf": 0.19,
+    "r_rp_ioc": 0.19,
+    "r_rp_riskprop": 0.19,
+    "r_oe_rp": 0.151,
+    "r_oe_pf": 0.151,
+    "r_oe_ioc": 0.151,
+    "r_oe_riskprop": 0.151,
+    "r_ioc_riskprop": 0.146,
+    "r_pf_ioc": 0.087,
+    "r_pf_riskprop": 0.087
+  },
+  "PASS": true
+}

@@ -1,0 +1,135 @@
+{
+  "protocol_sha256": "a5e9d888d3245f833b7178b21ce4b400c29fbd2a517fa63a37dc760a743c1cfb",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 1000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 0.988,
+    "population_excluded_sessions": {},
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "ck_vs_l1",
+        "human": 0.309,
+        "keyed": 0.86,
+        "same_sign": true
+      },
+      {
+        "effect": "ck_vs_l2",
+        "human": 0.268,
+        "keyed": 0.7,
+        "same_sign": true
+      },
+      {
+        "effect": "ck_vs_l3",
+        "human": 0.155,
+        "keyed": 0.5,
+        "same_sign": true
+      },
+      {
+        "effect": "knowledge_overall",
+        "human": 0.24,
+        "keyed": 0.651,
+        "same_sign": true
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "survey"
+    ]
+  },
+  "reading_annotations": [],
+  "coding": {},
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [],
+  "printed_item_tests": [],
+  "second_readings": [],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "together_L1",
+      "agent": 0.6666666666666666,
+      "n_agent": 3,
+      "k_agent": 2,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.39285714285714285
+    },
+    {
+      "id": "together_L2",
+      "agent": 0.0,
+      "n_agent": 2,
+      "k_agent": 0,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.43333333333333335
+    },
+    {
+      "id": "together_L3",
+      "agent": 0.5714285714285714,
+      "n_agent": 7,
+      "k_agent": 4,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.546875
+    }
+  ],
+  "effect_dropout_random": {
+    "ck_vs_l1": 0.503,
+    "ck_vs_l2": 0.503,
+    "ck_vs_l3": 0.503,
+    "knowledge_overall": 0.503
+  },
+  "PASS": true
+}

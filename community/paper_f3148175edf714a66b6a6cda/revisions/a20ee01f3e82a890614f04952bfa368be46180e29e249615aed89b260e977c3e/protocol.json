@@ -1,0 +1,3525 @@
+{
+  "id": "berg1995trust",
+  "schema": "hsenv-protocol/0.1",
+  "schema_version": "1",
+  "meta": {
+    "citation": "Berg, J., Dickhaut, J., & McCabe, K. (1995). Trust, reciprocity, and social history. Games and Economic Behavior, 10(1), 122-142. doi:10.1006/game.1995.1027",
+    "doi": "10.1006/game.1995.1027",
+    "language": "en",
+    "licence": {
+      "paper": "closed: publisher copyright (Academic Press 1995, 'All rights of reproduction in any form reserved', PDF p. 1); Bench SOURCE.json 'publisher copyright (no open license found)', OpenAlex closed. Private research only (arms release_hold)"
+    },
+    "sources": {
+      "paper": {
+        "file": "sources/berg_geb95.pdf",
+        "url": "https://doi.org/10.1006/game.1995.1027",
+        "sha256": "572621a62414bd6566d681567a58282a5326b433662edd7981a24112e514556f",
+        "licence": "closed (publisher copyright); private",
+        "pages": "21 PDF pages = GEB pp. 122-142; cites use PDF pages (printed = PDF + 121)",
+        "kind": "scan, image only: no text layer on any page (pdfplumber 0 characters per page); no sourcetext rendering. Served texts are image-read (cite.read 'image'); the blind second reading of PDF pp. 18-20 (sourcetext/paper#second.txt) confirms all of them",
+        "distribution": {
+          "tier": "user",
+          "format": "pdf",
+          "sha256": "572621a62414bd6566d681567a58282a5326b433662edd7981a24112e514556f"
+        }
+      }
+    },
+    "image_read": {
+      "source": "paper",
+      "pages": [
+        18,
+        19,
+        20
+      ],
+      "first_reading": "converter, 2026-11-08",
+      "blind_readings": "sourcetext/paper#second.txt (blind second reading, pp. 18-20, collected by the coordinator 2026-11-08): run_checks 2026-11-08 confirms 129 of 129 served image texts (0 unconfirmed, 0 disputed). The two review-1 disputes were reading-format artefacts, settled by the engine's pass-2 matching rules (page joins skip note lines and '[partial]' does not block a join: the p. 18-19 paragraph; 'a / b' two-line labels match the served 'A\\nB': the report label); fidelity review 2 checked both against the page image. No third reading needed"
+    },
+    "sample": {
+      "what": "University of Minnesota undergraduates recruited by phone, each had been in at least one unrelated paid experiment; $10 show-up ($3 if bumped); social-history subjects had not been in the earlier sessions; 60-90 min sessions",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 8,
+        "note": "withheld:6ecac4d2cdda909a"
+      }
+    },
+    "pages": [
+      {
+        "source": "paper pp. 18-19",
+        "what": "withheld:90126f7f42cecebc",
+        "stage": "instr_a"
+      },
+      {
+        "source": "paper p. 20 (top)",
+        "what": "withheld:24daa682c2155b55",
+        "stage": "instr_a (social_history only, last page)"
+      },
+      {
+        "source": "paper p. 7",
+        "what": "room B heard instructions (not printed)",
+        "stage": "instr_b (missing)"
+      },
+      {
+        "source": "paper pp. 7-8, 19",
+        "what": "decisions: room A envelope, room B envelope, room C mailbox",
+        "stage": "send, receive, mailbox"
+      }
+    ]
+  },
+  "roles": [
+    {
+      "member": 1,
+      "id": "room_a",
+      "label": "sender (room A)",
+      "shown": {
+        "text": "░░░░░░",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:d7fd049e658f9098"
+        }
+      },
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 8,
+        "note": "withheld:b3c65d4d2bd30c9e"
+      }
+    },
+    {
+      "member": 2,
+      "id": "room_b",
+      "label": "receiver (room B)",
+      "shown": {
+        "text": "░░░░░░",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:fa2c3414893b7b39"
+        }
+      },
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 8,
+        "note": "withheld:9cf0fdcf2760efe4"
+      }
+    }
+  ],
+  "arms": [
+    {
+      "id": "no_history",
+      "label": "No history",
+      "n_paper": 32,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 9,
+        "note": "withheld:3c3fe49b31af2d2d"
+      },
+      "n_analysed": {
+        "value": 32,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "note": "withheld:5f2ac17944264614"
+        }
+      },
+      "n_recruited": {
+        "value": 32,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "note": "withheld:4fc03ca1e1295ac0"
+        }
+      },
+      "group_size": 2,
+      "runnable": false,
+      "why": "withheld:2f9a7ad095ab2619",
+      "assignment": "between (session-level: separate sessions and a new subject pool for social history, pp. 3, 9, 11)",
+      "design": "pairs (group_size 2): p1 = room A (sender), p2 = room B (receiver); one pair = one room A and one room B subject, anonymously matched through the lettered envelopes (pp. 7-8); member p1 = room A, p2 = room B (stage roles operator-only; the State shows only the room each subject was told to report to, protocol roles)"
+    },
+    {
+      "id": "social_history",
+      "label": "Social history",
+      "n_paper": 28,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 11,
+        "note": "withheld:a56bb8b5420f4f63"
+      },
+      "n_analysed": {
+        "value": 28,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:912648f2f9e16094"
+        }
+      },
+      "n_recruited": {
+        "value": 28,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:f27ca16f896e2a40"
+        }
+      },
+      "group_size": 2,
+      "runnable": false,
+      "why": "withheld:2f9a7ad095ab2619",
+      "assignment": "between (session-level: separate sessions and a new subject pool for social history, pp. 3, 9, 11)",
+      "design": "pairs (group_size 2): p1 = room A (sender), p2 = room B (receiver); one pair = one room A and one room B subject, anonymously matched through the lettered envelopes (pp. 7-8); member p1 = room A, p2 = room B (stage roles operator-only; the State shows only the room each subject was told to report to, protocol roles)"
+    }
+  ],
+  "data": {
+    "cites": {
+      "envelope": {
+        "label": "derived",
+        "source": "paper",
+        "page": 8,
+        "note": "withheld:58a3fc5d2fa8768b"
+      },
+      "mailbox": {
+        "label": "derived",
+        "source": "paper",
+        "page": 8,
+        "note": "withheld:23cd6ff8b832f1eb"
+      }
+    },
+    "missing": {
+      "room_b_instructions": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:b47b1b85e31bb6ea"
+        }
+      }
+    }
+  },
+  "stages": {
+    "instr_a": {
+      "role": "room_a",
+      "content": [
+        {
+          "id": "head",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 18,
+              "read": "image",
+              "note": "withheld:301a7f69caf20f65"
+            }
+          },
+          "style": "italic",
+          "reviewable": true
+        },
+        {
+          "id": "p0",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 18,
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p1",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 18,
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p2",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 18,
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "sh",
+          "if": "arm == 'social_history'",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 18,
+              "read": "image",
+              "note": "withheld:93b7017806d6b93a"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p4",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 18,
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p5",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": "18-19",
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p6",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 19,
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p7",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 19,
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p8",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 19,
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p9",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 19,
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p10",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 19,
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p11",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 19,
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "p12",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 19,
+              "read": "image"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "report_title",
+          "if": "arm == 'social_history'",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 20,
+              "read": "image",
+              "note": "withheld:1e87c51e3c81b6cf"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "report",
+          "if": "arm == 'social_history'",
+          "type": "table",
+          "value": {
+            "rows": [
+              [
+                {
+                  "text": "Amount sent",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "1.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "3.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "4.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "5.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "6.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "7.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "8.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "9.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "10.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                }
+              ],
+              [
+                {
+                  "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "4",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "6",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "5",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "3",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "1",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "5",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                }
+              ],
+              [
+                {
+                  "text": "Average amount returned",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": ".50",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "3.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "1.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "7.17",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "4.80",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2.67",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "4.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                "",
+                {
+                  "text": "10.20",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                }
+              ],
+              [
+                {
+                  "text": "Amount sent",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "1.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "3.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "4.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "5.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "6.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "7.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "8.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                "",
+                {
+                  "text": "10.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                }
+              ],
+              [
+                {
+                  "text": "Average profit",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                "",
+                {
+                  "text": "−.50",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "−3.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2.17",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "−1.20",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "−4.33",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "−4.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                "",
+                {
+                  "text": "0.20",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                }
+              ]
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 20,
+              "read": "image",
+              "note": "withheld:88d550a14bcd9dac"
+            }
+          },
+          "reviewable": true
+        }
+      ],
+      "presentation": {
+        "back": "allowed",
+        "advance": "timed",
+        "stays": "whole_session"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 7,
+        "note": "withheld:31e0ec504995ce8d"
+      }
+    },
+    "instr_b": {
+      "role": "room_b",
+      "content": [
+        {
+          "id": "text",
+          "value": {
+            "expr": "data['missing']['room_b_instructions']"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "sh",
+          "if": "arm == 'social_history'",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 18,
+              "read": "image",
+              "note": "withheld:93b7017806d6b93a"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "report_title",
+          "if": "arm == 'social_history'",
+          "value": {
+            "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 20,
+              "read": "image",
+              "note": "withheld:1e87c51e3c81b6cf"
+            }
+          },
+          "reviewable": true
+        },
+        {
+          "id": "report",
+          "if": "arm == 'social_history'",
+          "type": "table",
+          "value": {
+            "rows": [
+              [
+                {
+                  "text": "Amount sent",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "1.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "3.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "4.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "5.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "6.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "7.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "8.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "9.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "10.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                }
+              ],
+              [
+                {
+                  "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "4",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "6",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "5",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "3",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "1",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "5",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                }
+              ],
+              [
+                {
+                  "text": "Average amount returned",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": ".50",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "3.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "1.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "7.17",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "4.80",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2.67",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "4.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                "",
+                {
+                  "text": "10.20",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                }
+              ],
+              [
+                {
+                  "text": "Amount sent",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "1.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "3.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "4.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "5.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "6.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "7.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "8.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                "",
+                {
+                  "text": "10.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                }
+              ],
+              [
+                {
+                  "text": "Average profit",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                "",
+                {
+                  "text": "−.50",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "0.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "−3.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "2.17",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "−1.20",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "−4.33",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                {
+                  "text": "−4.00",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                },
+                "",
+                {
+                  "text": "0.20",
+                  "cite": {
+                    "label": "verbatim",
+                    "source": "paper",
+                    "page": 20,
+                    "read": "image"
+                  }
+                }
+              ]
+            ],
+            "cite": {
+              "label": "verbatim",
+              "source": "paper",
+              "page": 20,
+              "read": "image",
+              "note": "withheld:88d550a14bcd9dac"
+            }
+          },
+          "reviewable": true
+        }
+      ],
+      "presentation": {
+        "back": "allowed",
+        "advance": "timed",
+        "stays": "whole_session"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 7,
+        "note": "withheld:297de6ceb62c134a"
+      }
+    },
+    "send": {
+      "role": "room_a",
+      "responses": [
+        {
+          "id": "x",
+          "kind": "number",
+          "integer": true,
+          "range": [
+            0,
+            10
+          ],
+          "range_visible": true,
+          "required": true,
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "withheld:13d22fcd744ad198"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:12d1ec63c3911bb8"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "time_limit": "none"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 7,
+        "note": "withheld:e4deebe1b635729a"
+      }
+    },
+    "receive": {
+      "role": "room_b",
+      "content": [
+        {
+          "id": "envelope",
+          "value": {
+            "expr": "{'text': str(received), 'cite': data['cites']['envelope']}"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "back",
+          "kind": "number",
+          "integer": true,
+          "range": {
+            "expr": "[0, received]"
+          },
+          "range_visible": true,
+          "required": true,
+          "range_cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 8,
+            "note": "withheld:beb901e279bc3aca"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "withheld:268eacf7eb36573d"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "time_limit": "none"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 8,
+        "note": "withheld:c677c9a235ba20fa"
+      }
+    },
+    "mailbox": {
+      "role": "room_a",
+      "content": [
+        {
+          "id": "payback",
+          "value": {
+            "expr": "{'text': str(returned), 'cite': data['cites']['mailbox']}"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 8,
+        "note": "withheld:aaa187cc3b3045ea"
+      }
+    }
+  },
+  "flow": [
+    {
+      "stage": "instr_a",
+      "if": "my_index == 0"
+    },
+    {
+      "stage": "instr_b",
+      "if": "my_index == 1"
+    },
+    {
+      "stage": "send",
+      "if": "my_index == 0"
+    },
+    {
+      "sync": "to_room_b",
+      "compute": {
+        "sent": "group('send.x')[0]",
+        "received": "3 * group('send.x')[0]"
+      },
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 8,
+        "note": "withheld:357cb02807c35424"
+      }
+    },
+    {
+      "stage": "receive",
+      "if": "my_index == 1"
+    },
+    {
+      "sync": "to_room_c",
+      "compute": {
+        "returned": "group('receive.back')[1]"
+      },
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 8,
+        "note": "withheld:f239d8ee9484b190"
+      }
+    },
+    {
+      "stage": "mailbox",
+      "if": "my_index == 0"
+    }
+  ],
+  "units": {
+    "pairs": {
+      "per": "group",
+      "fields": {
+        "arm": "arm",
+        "sent": "group('send.x')[0]",
+        "returned": "group('receive.back')[1]",
+        "share_ret": "group('receive.back')[1] / (3 * group('send.x')[0]) if group('send.x')[0] else None",
+        "zero_sent": "1 if group('send.x')[0] == 0 else 0",
+        "sent_5or10": "1 if group('send.x')[0] in (5, 10) else 0",
+        "ret_le1": "(1 if group('receive.back')[1] <= 1 else 0) if group('send.x')[0] > 1 else None",
+        "ret_gt_sent": "(1 if group('receive.back')[1] > group('send.x')[0] else 0) if group('send.x')[0] > 1 else None"
+      },
+      "cites": {
+        "sent": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:64613018d95614b0"
+        },
+        "returned": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "withheld:632e61630940c2c3"
+        },
+        "share_ret": {
+          "label": "derived",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:ad3c977795ec57dc"
+        },
+        "zero_sent": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "note": "withheld:27ea5300192642ef"
+        },
+        "sent_5or10": {
+          "label": "reported",
+          "source": "paper",
+          "page": 14,
+          "note": "withheld:4694fa71a26f3906"
+        },
+        "ret_le1": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "note": "withheld:a3c28b7d0c587e7b"
+        },
+        "ret_gt_sent": {
+          "label": "reported",
+          "source": "paper",
+          "page": 10,
+          "note": "withheld:d773c1ae4835cc64"
+        }
+      }
+    },
+    "pairs_nh": {
+      "per": "group",
+      "arms": [
+        "no_history"
+      ],
+      "fields": {
+        "sent": "group('send.x')[0] if arm == 'no_history' else None",
+        "share_ret": "(group('receive.back')[1] / (3 * group('send.x')[0]) if group('send.x')[0] else None) if arm == 'no_history' else None"
+      },
+      "cites": {
+        "share_ret": {
+          "label": "derived",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:3252179bd98d0423"
+        }
+      }
+    },
+    "pairs_sh": {
+      "per": "group",
+      "arms": [
+        "social_history"
+      ],
+      "fields": {
+        "sent": "group('send.x')[0] if arm == 'social_history' else None",
+        "share_ret": "(group('receive.back')[1] / (3 * group('send.x')[0]) if group('send.x')[0] else None) if arm == 'social_history' else None"
+      },
+      "cites": {
+        "share_ret": {
+          "label": "derived",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:3252179bd98d0423"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "omitted": [
+    {
+      "what": "monitor selection: subjects drew chips from a cup until the chip marked M appeared (pp. 8-9)",
+      "why": "monitors are extra subjects outside the pairs; nothing they decide enters the data"
+    },
+    {
+      "what": "recorder and monitor logistics between rooms (envelope transport, recording, room C locking)",
+      "why": "offstage: subjects only hear them described in the instructions (served verbatim)"
+    },
+    {
+      "what": "recruitment by phone, $3 for bumped subjects, show-up payment",
+      "why": "before the session; not a screen"
+    },
+    {
+      "what": "room C key procedure (open the KEY envelope, return the key to a drop box, exit)",
+      "why": "after the last decision; only the payback amount is modelled (stage mailbox)"
+    }
+  ],
+  "analysis": {
+    "targets": [],
+    "effects": [],
+    "blocked_arm_targets": [
+      {
+        "id": "sent_mean_nh",
+        "unit": "pairs",
+        "field": "sent",
+        "stat": "mean",
+        "where": {
+          "arm": "no_history"
+        },
+        "human": {
+          "value": 5.16,
+          "n": 32,
+          "sd": 2.941,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "note": "withheld:620253d92b07cee9"
+          },
+          "sd_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:33c2cb0549bb1440"
+          }
+        }
+      },
+      {
+        "id": "sent_mean_sh",
+        "unit": "pairs",
+        "field": "sent",
+        "stat": "mean",
+        "where": {
+          "arm": "social_history"
+        },
+        "human": {
+          "value": 5.36,
+          "n": 28,
+          "sd": 3.53,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "note": "withheld:e922ff85be8aea0b"
+          },
+          "sd_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:33c2cb0549bb1440"
+          }
+        }
+      },
+      {
+        "id": "returned_mean_nh",
+        "unit": "pairs",
+        "field": "returned",
+        "stat": "mean",
+        "where": {
+          "arm": "no_history"
+        },
+        "human": {
+          "value": 4.66,
+          "n": 32,
+          "sd": 5.551,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "note": "withheld:3ceb8845d8bfd1ee"
+          },
+          "sd_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:33c2cb0549bb1440"
+          }
+        }
+      },
+      {
+        "id": "returned_mean_sh",
+        "unit": "pairs",
+        "field": "returned",
+        "stat": "mean",
+        "where": {
+          "arm": "social_history"
+        },
+        "human": {
+          "value": 6.46,
+          "n": 28,
+          "sd": 6.191,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "note": "withheld:31d81547526f4dee"
+          },
+          "sd_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:33c2cb0549bb1440"
+          }
+        }
+      },
+      {
+        "id": "zero_sent_nh",
+        "unit": "pairs",
+        "field": "zero_sent",
+        "stat": "share",
+        "where": {
+          "arm": "no_history"
+        },
+        "human": {
+          "k": 2,
+          "n": 32,
+          "value": 0.0625,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "note": "withheld:3371c7ada46f23b9"
+          }
+        },
+        "success": 1
+      },
+      {
+        "id": "zero_sent_sh",
+        "unit": "pairs",
+        "field": "zero_sent",
+        "stat": "share",
+        "where": {
+          "arm": "social_history"
+        },
+        "human": {
+          "k": 3,
+          "n": 28,
+          "value": 0.1071,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:7ec79ffc4b00b2da"
+          }
+        },
+        "success": 1
+      },
+      {
+        "id": "sent_5or10_sh",
+        "unit": "pairs",
+        "field": "sent_5or10",
+        "stat": "share",
+        "where": {
+          "arm": "social_history"
+        },
+        "human": {
+          "k": 14,
+          "n": 28,
+          "value": 0.5,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:a26e9cc8965f739f"
+          }
+        },
+        "success": 1
+      },
+      {
+        "id": "sent_5or10_nh",
+        "unit": "pairs",
+        "field": "sent_5or10",
+        "stat": "share",
+        "where": {
+          "arm": "no_history"
+        },
+        "human": {
+          "k": 11,
+          "n": 32,
+          "value": 0.3438,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:4fa59368e68fb009"
+          }
+        },
+        "success": 1,
+        "role": "descriptive"
+      },
+      {
+        "id": "ret_le1_nh",
+        "unit": "pairs",
+        "field": "ret_le1",
+        "stat": "share",
+        "where": {
+          "arm": "no_history"
+        },
+        "human": {
+          "k": 12,
+          "n": 28,
+          "value": 0.4286,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "note": "withheld:5419dcbffbc5ffb2"
+          }
+        },
+        "success": 1
+      },
+      {
+        "id": "ret_le1_sh",
+        "unit": "pairs",
+        "field": "ret_le1",
+        "stat": "share",
+        "where": {
+          "arm": "social_history"
+        },
+        "human": {
+          "k": 6,
+          "n": 24,
+          "value": 0.25,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:8b8046fc3a43400f"
+          }
+        },
+        "success": 1
+      },
+      {
+        "id": "ret_gt_sent_nh",
+        "unit": "pairs",
+        "field": "ret_gt_sent",
+        "stat": "share",
+        "where": {
+          "arm": "no_history"
+        },
+        "human": {
+          "k": 11,
+          "n": 28,
+          "value": 0.3929,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "note": "withheld:bc9f6597ddc43e24"
+          }
+        },
+        "success": 1
+      },
+      {
+        "id": "ret_gt_sent_sh",
+        "unit": "pairs",
+        "field": "ret_gt_sent",
+        "stat": "share",
+        "where": {
+          "arm": "social_history"
+        },
+        "human": {
+          "k": 13,
+          "n": 24,
+          "value": 0.5417,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:096592deabd1b0f7"
+          }
+        },
+        "success": 1
+      },
+      {
+        "id": "payback_at5_nh",
+        "unit": "pairs",
+        "field": "returned",
+        "stat": "mean",
+        "where": {
+          "arm": "no_history",
+          "sent": 5
+        },
+        "human": {
+          "value": 7.17,
+          "n": 6,
+          "sd": 5.231,
+          "sd_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:848ed5c5ab381971"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "note": "withheld:d264826d938207b7"
+          }
+        },
+        "role": "descriptive"
+      },
+      {
+        "id": "payback_at10_nh",
+        "unit": "pairs",
+        "field": "returned",
+        "stat": "mean",
+        "where": {
+          "arm": "no_history",
+          "sent": 10
+        },
+        "human": {
+          "value": 10.2,
+          "n": 5,
+          "sd": 9.094,
+          "sd_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:bdc1b6eee7817f9e"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 10,
+            "note": "withheld:f01dfe66526d8628"
+          }
+        },
+        "role": "descriptive"
+      },
+      {
+        "id": "payback_at5_sh",
+        "unit": "pairs",
+        "field": "returned",
+        "stat": "mean",
+        "where": {
+          "arm": "social_history",
+          "sent": 5
+        },
+        "human": {
+          "value": 7.14,
+          "n": 7,
+          "sd": 3.671,
+          "sd_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:1c389b9b3b4df2d5"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:9d71cee959cf5609"
+          }
+        },
+        "role": "descriptive"
+      },
+      {
+        "id": "payback_at10_sh",
+        "unit": "pairs",
+        "field": "returned",
+        "stat": "mean",
+        "where": {
+          "arm": "social_history",
+          "sent": 10
+        },
+        "human": {
+          "value": 13.17,
+          "n": 7,
+          "sd": 4.821,
+          "sd_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 20,
+            "note": "withheld:b7653f0d24c2ea2c"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:61583fb8425705eb"
+          }
+        },
+        "role": "descriptive",
+        "suspect": "Appendix B gives 96 / 7 = 13.71 for the seven $10 pairs (15, 16, 15, 5, 20, 15, 10); the printed $13.17 is probably a digit transposition; Fig. 3 (PDF p. 12, GEB 133) independently shows the seven $10 pairs with paybacks 20, 16, 15, 15, 15, 10, 5 (= 96 / 7), agreeing with Appendix B (meta.conflicts '$13.17'); never scored"
+      }
+    ],
+    "blocked_arm_effects": [
+      {
+        "id": "payback_sh_vs_nh",
+        "label": "Payback, social history vs no history",
+        "unit": "pairs",
+        "design": "between",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "social_history",
+          "reference": "no_history"
+        },
+        "compute": {
+          "op": "rank_sum",
+          "field": "returned",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "social_history": {
+              "mean": 6.46,
+              "n": 28,
+              "sd": 6.191
+            },
+            "no_history": {
+              "mean": 4.66,
+              "n": 32,
+              "sd": 5.551
+            }
+          },
+          "test": {
+            "statistic": "other",
+            "value": 776,
+            "p": 0.1,
+            "tail": "one-sided",
+            "note": "printed 'r = 776', not reproducible as W or a rank sum. 'a one-sided Wilcoxon rank-sum test (r = 776) is significant at the p = 0.1 level' (p. 13, GEB 134). r = 776 is not reproduced from Appendix B (rank sum of social history 918, W 512; normal one-sided p about .17): meta.conflicts 'r = 776'"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "note": "withheld:7e515cfbd268cdc3"
+          }
+        },
+        "no_uncertainty": "the printed test is not reproduced by the paper's own item data: Appendix B gives rank sums 918 (SH) / 912 (NH), U = 512, tie-corrected normal one-sided p (continuity corrected) about .17, not 'r = 776, p = 0.1'; neither SE nor p is taken from it (meta.conflicts 'r = 776')",
+        "direction_claimed": true,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 16,
+          "note": "withheld:82ca837d8781c206"
+        }
+      },
+      {
+        "id": "sent_sh_vs_nh",
+        "label": "Amount sent, social history vs no history",
+        "unit": "pairs",
+        "design": "between",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "social_history",
+          "reference": "no_history"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "sent",
+          "groupBy": "arm"
+        },
+        "reported": {
+          "cells": {
+            "social_history": {
+              "mean": 5.36,
+              "n": 28,
+              "sd": 3.53
+            },
+            "no_history": {
+              "mean": 5.16,
+              "n": 32,
+              "sd": 2.941
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 16,
+            "note": "withheld:73f6190da9c09708"
+          }
+        }
+      },
+      {
+        "id": "rs_sent_share_nh",
+        "label": "Spearman rs, amount sent vs percentage returned (no history)",
+        "unit": "pairs_nh",
+        "role": "paper_claim",
+        "contrast": {
+          "kind": "association",
+          "valueMeans": "Spearman rank correlation of amount sent and share returned"
+        },
+        "compute": {
+          "op": "spearman",
+          "field": "sent",
+          "withField": "share_ret"
+        },
+        "reported": {
+          "cells": {},
+          "value": 0.01,
+          "n": 30,
+          "test": {
+            "statistic": "other",
+            "note": "Spearman rs"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 11,
+            "note": "withheld:9ffd2213164e7b2e"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 11,
+          "note": "withheld:c38fbd195fb4522c"
+        }
+      },
+      {
+        "id": "rs_sent_share_sh",
+        "label": "Spearman rs, amount sent vs percentage returned (social history)",
+        "unit": "pairs_sh",
+        "role": "paper_claim",
+        "contrast": {
+          "kind": "association",
+          "valueMeans": "Spearman rank correlation of amount sent and share returned"
+        },
+        "compute": {
+          "op": "spearman",
+          "field": "sent",
+          "withField": "share_ret"
+        },
+        "reported": {
+          "cells": {},
+          "value": 0.34,
+          "n": 25,
+          "test": {
+            "statistic": "other",
+            "note": "Spearman rs"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 14,
+            "note": "withheld:c8b7391c11071893"
+          }
+        },
+        "readings": [
+          {
+            "measure": "rs(sent, share returned), Ma > 0 (p. 11's stated measure; computed here)",
+            "no_history": 0.014,
+            "social_history": 0.252
+          },
+          {
+            "measure": "rs(sent, payback)",
+            "no_history": 0.421,
+            "social_history": 0.748
+          },
+          {
+            "measure": "rs(sent, payback - sent)",
+            "no_history": -0.157,
+            "social_history": 0.345
+          },
+          {
+            "note": "derived from Appendix B (the maintainers' review record); printed .01 matches only the first measure, printed .34 only the third"
+          }
+        ],
+        "suspect": "not reproduced from Appendix B under the stated measure (sent vs percentage returned, Ma > 0: rs = 0.25); Appendix B gives rs(sent, payback - sent) = 0.34, so the two printed rs may use different measures (meta.conflicts 'rs')"
+      }
+    ],
+    "unsupported": [
+      {
+        "what": "Approximate randomization tests of uniform room A choices over {0..10}: no history p = 0.29, social history p = .06 (pp. 10, 14)",
+        "why": "a goodness-of-fit resampling test with a custom statistic (sum (f_m - N/11)^2, 100,000 draws); no op; the paper's statistic definition sums m = 0..11 while amounts are 0..10 (p. 10)"
+      },
+      {
+        "what": "Resampling test of the change in rs between treatments, p = .06 (p. 14)",
+        "why": "difference of two Spearman correlations by a 5000-draw permutation; no op; and the printed rs disagree with App. B under one measure (effects rs_sent_share_sh)"
+      },
+      {
+        "what": "Room B types k = 0, 1/3, 1/2, 2/3 explain over 90% of the 60 pairs within $1 (p. 15, Fig. 5)",
+        "why": "a classification with a tolerance on joint earnings; the share is printed only as 'over 90%' (no number)"
+      },
+      {
+        "what": "Average net return -$0.50 (no history) vs +$1.10 (social history) (p. 16)",
+        "why": "= mean payback minus mean sent; follows from the four mean targets (no separate test)"
+      }
+    ],
+    "printed_items": {
+      "pairs": {
+        "rows": [
+          {
+            "arm": "no_history",
+            "sent": 7,
+            "returned": 1,
+            "share_ret": 0.047619047619047616,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 3,
+            "returned": 0,
+            "share_ret": 0.0,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 7,
+            "returned": 6,
+            "share_ret": 0.2857142857142857,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 5,
+            "returned": 11,
+            "share_ret": 0.7333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "no_history",
+            "sent": 3,
+            "returned": 1,
+            "share_ret": 0.1111111111111111,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 2,
+            "returned": 4,
+            "share_ret": 0.6666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "no_history",
+            "sent": 6,
+            "returned": 0,
+            "share_ret": 0.0,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 4,
+            "returned": 1,
+            "share_ret": 0.08333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 10,
+            "returned": 20,
+            "share_ret": 0.6666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "no_history",
+            "sent": 5,
+            "returned": 5,
+            "share_ret": 0.3333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 5,
+            "returned": 7,
+            "share_ret": 0.4666666666666667,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "no_history",
+            "sent": 10,
+            "returned": 0,
+            "share_ret": 0.0,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 5,
+            "returned": 0,
+            "share_ret": 0.0,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 8,
+            "returned": 4,
+            "share_ret": 0.16666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 5,
+            "returned": 15,
+            "share_ret": 1.0,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "no_history",
+            "sent": 0,
+            "returned": 0,
+            "share_ret": null,
+            "zero_sent": 1,
+            "sent_5or10": 0,
+            "ret_le1": null,
+            "ret_gt_sent": null
+          },
+          {
+            "arm": "no_history",
+            "sent": 7,
+            "returned": 1,
+            "share_ret": 0.047619047619047616,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 1,
+            "returned": 0,
+            "share_ret": 0.0,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": null,
+            "ret_gt_sent": null
+          },
+          {
+            "arm": "no_history",
+            "sent": 3,
+            "returned": 5,
+            "share_ret": 0.5555555555555556,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "no_history",
+            "sent": 2,
+            "returned": 0,
+            "share_ret": 0.0,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 6,
+            "returned": 12,
+            "share_ret": 0.6666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "no_history",
+            "sent": 10,
+            "returned": 15,
+            "share_ret": 0.5,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "no_history",
+            "sent": 3,
+            "returned": 6,
+            "share_ret": 0.6666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "no_history",
+            "sent": 6,
+            "returned": 8,
+            "share_ret": 0.4444444444444444,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "no_history",
+            "sent": 6,
+            "returned": 1,
+            "share_ret": 0.05555555555555555,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 10,
+            "returned": 15,
+            "share_ret": 0.5,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "no_history",
+            "sent": 10,
+            "returned": 1,
+            "share_ret": 0.03333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 6,
+            "returned": 3,
+            "share_ret": 0.16666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 4,
+            "returned": 1,
+            "share_ret": 0.08333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 0,
+            "returned": 0,
+            "share_ret": null,
+            "zero_sent": 1,
+            "sent_5or10": 0,
+            "ret_le1": null,
+            "ret_gt_sent": null
+          },
+          {
+            "arm": "no_history",
+            "sent": 5,
+            "returned": 5,
+            "share_ret": 0.3333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "no_history",
+            "sent": 1,
+            "returned": 1,
+            "share_ret": 0.3333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": null,
+            "ret_gt_sent": null
+          },
+          {
+            "arm": "social_history",
+            "sent": 5,
+            "returned": 11,
+            "share_ret": 0.7333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 10,
+            "returned": 15,
+            "share_ret": 0.5,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 2,
+            "returned": 2,
+            "share_ret": 0.3333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "social_history",
+            "sent": 5,
+            "returned": 8,
+            "share_ret": 0.5333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 0,
+            "returned": 0,
+            "share_ret": null,
+            "zero_sent": 1,
+            "sent_5or10": 0,
+            "ret_le1": null,
+            "ret_gt_sent": null
+          },
+          {
+            "arm": "social_history",
+            "sent": 2,
+            "returned": 1,
+            "share_ret": 0.16666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "social_history",
+            "sent": 10,
+            "returned": 16,
+            "share_ret": 0.5333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 10,
+            "returned": 15,
+            "share_ret": 0.5,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 5,
+            "returned": 5,
+            "share_ret": 0.3333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "social_history",
+            "sent": 9,
+            "returned": 0,
+            "share_ret": 0.0,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "social_history",
+            "sent": 3,
+            "returned": 0,
+            "share_ret": 0.0,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "social_history",
+            "sent": 2,
+            "returned": 0,
+            "share_ret": 0.0,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "social_history",
+            "sent": 10,
+            "returned": 5,
+            "share_ret": 0.16666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "social_history",
+            "sent": 2,
+            "returned": 0,
+            "share_ret": 0.0,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "social_history",
+            "sent": 5,
+            "returned": 0,
+            "share_ret": 0.0,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 1,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "social_history",
+            "sent": 5,
+            "returned": 10,
+            "share_ret": 0.6666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 8,
+            "returned": 3,
+            "share_ret": 0.125,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "social_history",
+            "sent": 5,
+            "returned": 8,
+            "share_ret": 0.5333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 0,
+            "returned": 0,
+            "share_ret": null,
+            "zero_sent": 1,
+            "sent_5or10": 0,
+            "ret_le1": null,
+            "ret_gt_sent": null
+          },
+          {
+            "arm": "social_history",
+            "sent": 1,
+            "returned": 1,
+            "share_ret": 0.3333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": null,
+            "ret_gt_sent": null
+          },
+          {
+            "arm": "social_history",
+            "sent": 10,
+            "returned": 20,
+            "share_ret": 0.6666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 7,
+            "returned": 14,
+            "share_ret": 0.6666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 10,
+            "returned": 15,
+            "share_ret": 0.5,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 3,
+            "returned": 6,
+            "share_ret": 0.6666666666666666,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 10,
+            "returned": 10,
+            "share_ret": 0.3333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 0
+          },
+          {
+            "arm": "social_history",
+            "sent": 6,
+            "returned": 8,
+            "share_ret": 0.4444444444444444,
+            "zero_sent": 0,
+            "sent_5or10": 0,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 5,
+            "returned": 8,
+            "share_ret": 0.5333333333333333,
+            "zero_sent": 0,
+            "sent_5or10": 1,
+            "ret_le1": 0,
+            "ret_gt_sent": 1
+          },
+          {
+            "arm": "social_history",
+            "sent": 0,
+            "returned": 0,
+            "share_ret": null,
+            "zero_sent": 1,
+            "sent_5or10": 0,
+            "ret_le1": null,
+            "ret_gt_sent": null
+          }
+        ],
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 20,
+          "note": "withheld:5e9706c1a44b309b"
+        }
+      },
+      "pairs_nh": {
+        "rows": [
+          {
+            "sent": 7,
+            "share_ret": 0.047619047619047616
+          },
+          {
+            "sent": 3,
+            "share_ret": 0.0
+          },
+          {
+            "sent": 7,
+            "share_ret": 0.2857142857142857
+          },
+          {
+            "sent": 5,
+            "share_ret": 0.7333333333333333
+          },
+          {
+            "sent": 3,
+            "share_ret": 0.1111111111111111
+          },
+          {
+            "sent": 2,
+            "share_ret": 0.6666666666666666
+          },
+          {
+            "sent": 6,
+            "share_ret": 0.0
+          },
+          {
+            "sent": 4,
+            "share_ret": 0.08333333333333333
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.6666666666666666
+          },
+          {
+            "sent": 5,
+            "share_ret": 0.3333333333333333
+          },
+          {
+            "sent": 5,
+            "share_ret": 0.4666666666666667
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.0
+          },
+          {
+            "sent": 5,
+            "share_ret": 0.0
+          },
+          {
+            "sent": 8,
+            "share_ret": 0.16666666666666666
+          },
+          {
+            "sent": 5,
+            "share_ret": 1.0
+          },
+          {
+            "sent": 0,
+            "share_ret": null
+          },
+          {
+            "sent": 7,
+            "share_ret": 0.047619047619047616
+          },
+          {
+            "sent": 1,
+            "share_ret": 0.0
+          },
+          {
+            "sent": 3,
+            "share_ret": 0.5555555555555556
+          },
+          {
+            "sent": 2,
+            "share_ret": 0.0
+          },
+          {
+            "sent": 6,
+            "share_ret": 0.6666666666666666
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.5
+          },
+          {
+            "sent": 3,
+            "share_ret": 0.6666666666666666
+          },
+          {
+            "sent": 6,
+            "share_ret": 0.4444444444444444
+          },
+          {
+            "sent": 6,
+            "share_ret": 0.05555555555555555
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.5
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.03333333333333333
+          },
+          {
+            "sent": 6,
+            "share_ret": 0.16666666666666666
+          },
+          {
+            "sent": 4,
+            "share_ret": 0.08333333333333333
+          },
+          {
+            "sent": 0,
+            "share_ret": null
+          },
+          {
+            "sent": 5,
+            "share_ret": 0.3333333333333333
+          },
+          {
+            "sent": 1,
+            "share_ret": 0.3333333333333333
+          }
+        ],
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 20,
+          "note": "withheld:ec5d088e30557f11"
+        }
+      },
+      "pairs_sh": {
+        "rows": [
+          {
+            "sent": 5,
+            "share_ret": 0.7333333333333333
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.5
+          },
+          {
+            "sent": 2,
+            "share_ret": 0.3333333333333333
+          },
+          {
+            "sent": 5,
+            "share_ret": 0.5333333333333333
+          },
+          {
+            "sent": 0,
+            "share_ret": null
+          },
+          {
+            "sent": 2,
+            "share_ret": 0.16666666666666666
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.5333333333333333
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.5
+          },
+          {
+            "sent": 5,
+            "share_ret": 0.3333333333333333
+          },
+          {
+            "sent": 9,
+            "share_ret": 0.0
+          },
+          {
+            "sent": 3,
+            "share_ret": 0.0
+          },
+          {
+            "sent": 2,
+            "share_ret": 0.0
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.16666666666666666
+          },
+          {
+            "sent": 2,
+            "share_ret": 0.0
+          },
+          {
+            "sent": 5,
+            "share_ret": 0.0
+          },
+          {
+            "sent": 5,
+            "share_ret": 0.6666666666666666
+          },
+          {
+            "sent": 8,
+            "share_ret": 0.125
+          },
+          {
+            "sent": 5,
+            "share_ret": 0.5333333333333333
+          },
+          {
+            "sent": 0,
+            "share_ret": null
+          },
+          {
+            "sent": 1,
+            "share_ret": 0.3333333333333333
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.6666666666666666
+          },
+          {
+            "sent": 7,
+            "share_ret": 0.6666666666666666
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.5
+          },
+          {
+            "sent": 3,
+            "share_ret": 0.6666666666666666
+          },
+          {
+            "sent": 10,
+            "share_ret": 0.3333333333333333
+          },
+          {
+            "sent": 6,
+            "share_ret": 0.4444444444444444
+          },
+          {
+            "sent": 5,
+            "share_ret": 0.5333333333333333
+          },
+          {
+            "sent": 0,
+            "share_ret": null
+          }
+        ],
+        "cite": {
+          "label": "derived",
+          "source": "paper",
+          "page": 20,
+          "note": "withheld:4851c1d2574d8226"
+        }
+      }
+    }
+  },
+  "keyed": {
+    "why": "paper pattern: social history sends a little more and pays back more; within each arm the share returned rises with the amount sent (rs > 0 printed in both arms)",
+    "answers": {
+      "send.x": "choice([5, 6, 8, 10]) if arm == 'social_history' else choice([2, 4, 5, 8])",
+      "receive.back": "int(round(received * (sent / 25 + (0.2 if arm == 'social_history' else 0.05))))"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {
+      "h1": {
+        "path": "/stages/instr_a/content/0/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 23,
+        "text_sha256": "b038a4b0ae5669479d02f6a7cd6d2f940cf786efbbbb465973de05e48e40f9d0",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h2": {
+        "path": "/stages/instr_a/content/1/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 352,
+        "text_sha256": "fb9d993c71a7967c69471c87afcb95f49d291758d1756eb6ed950914cf874b20",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h3": {
+        "path": "/stages/instr_a/content/2/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 676,
+        "text_sha256": "65cedc649a627390898daf975bc06a5ba22457e6b81a362c67cf8acfbd0dce66",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h4": {
+        "path": "/stages/instr_a/content/3/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 603,
+        "text_sha256": "0f50af4a5948d1ba5f9748ae70909f6073a438c61ca64829fd5ed7f414b0c5ba",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h5": {
+        "path": "/stages/instr_a/content/4/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 229,
+        "text_sha256": "fc290e10d5bcdf79650574f2bc0f9d4cc96162ce0a8767e69cd156a4135ccf24",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h6": {
+        "path": "/stages/instr_a/content/5/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 363,
+        "text_sha256": "4b70ad6c670a4525d7371e56e50fd6fdeb2ca62d252f02a8afe3276c073c4ab3",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h7": {
+        "path": "/stages/instr_a/content/6/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 892,
+        "text_sha256": "7eecf7d21da839fc38dc8c587d46769e2c59f68416fa61ff7b9006f2d8c9a1e3",
+        "locator": {
+          "format": "image_reading",
+          "page": "18-19"
+        }
+      },
+      "h8": {
+        "path": "/stages/instr_a/content/7/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 410,
+        "text_sha256": "e60a928d1e1306897313b5b270a55aa46886cc955c5cd467b726e03a58c04a09",
+        "locator": {
+          "format": "image_reading",
+          "page": 19
+        }
+      },
+      "h9": {
+        "path": "/stages/instr_a/content/8/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 377,
+        "text_sha256": "fdce387dfce9ca4d3ba830c8547d563ebcd0ae29aeeaa2a2bcd33efc4e17ec64",
+        "locator": {
+          "format": "image_reading",
+          "page": 19
+        }
+      },
+      "h10": {
+        "path": "/stages/instr_a/content/9/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 688,
+        "text_sha256": "650f4d9721ca27f30e25b76023585fae0e52c986c29a2b71ed239dd0037dfedc",
+        "locator": {
+          "format": "image_reading",
+          "page": 19
+        }
+      },
+      "h11": {
+        "path": "/stages/instr_a/content/10/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 1203,
+        "text_sha256": "cc8ea866c8dbd08b837cd3e31ff2117613b8d65eb0d4ce3451109259f3819c27",
+        "locator": {
+          "format": "image_reading",
+          "page": 19
+        }
+      },
+      "h12": {
+        "path": "/stages/instr_a/content/11/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 454,
+        "text_sha256": "b241be8e021831a7f9bd159ef6c8d1106fdb096718e75b31d05a62a1d881a270",
+        "locator": {
+          "format": "image_reading",
+          "page": 19
+        }
+      },
+      "h13": {
+        "path": "/stages/instr_a/content/12/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 882,
+        "text_sha256": "bf503d23f0196b4b64636725a7587d40b6096fedd73cd1d20b213811ef37df6d",
+        "locator": {
+          "format": "image_reading",
+          "page": 19
+        }
+      },
+      "h14": {
+        "path": "/stages/instr_a/content/13/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 112,
+        "text_sha256": "594020a25a2b0e13cd132aaa3586027c11dc237492a7230ee086b14a98285ee8",
+        "locator": {
+          "format": "image_reading",
+          "page": 19
+        }
+      },
+      "h15": {
+        "path": "/stages/instr_a/content/14/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 53,
+        "text_sha256": "d54dfe8d30b9b8900a7ac780aac4ffaf857158d524e36cb21f9a32c1f2c6feb5",
+        "locator": {
+          "format": "image_reading",
+          "page": 20
+        }
+      },
+      "h28": {
+        "path": "/stages/instr_a/content/15/value/rows/1/0/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 38,
+        "text_sha256": "32638de14239d07bffef9f9c3df4971461de63440429140c193a706a8a9e2488",
+        "locator": {
+          "format": "image_reading",
+          "page": 20
+        }
+      },
+      "h72": {
+        "path": "/stages/instr_b/content/1/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 229,
+        "text_sha256": "fc290e10d5bcdf79650574f2bc0f9d4cc96162ce0a8767e69cd156a4135ccf24",
+        "locator": {
+          "format": "image_reading",
+          "page": 18
+        }
+      },
+      "h73": {
+        "path": "/stages/instr_b/content/2/value/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 53,
+        "text_sha256": "d54dfe8d30b9b8900a7ac780aac4ffaf857158d524e36cb21f9a32c1f2c6feb5",
+        "locator": {
+          "format": "image_reading",
+          "page": 20
+        }
+      },
+      "h86": {
+        "path": "/stages/instr_b/content/3/value/rows/1/0/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 38,
+        "text_sha256": "32638de14239d07bffef9f9c3df4971461de63440429140c193a706a8a9e2488",
+        "locator": {
+          "format": "image_reading",
+          "page": 20
+        }
+      },
+      "h130": {
+        "path": "/roles/0/shown/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 6,
+        "text_sha256": "3d931064651b814172b4c3bbdc021491c84180995fcbd560883117ffd9f468f6",
+        "locator": {
+          "format": "pdf",
+          "page": 8
+        }
+      },
+      "h131": {
+        "path": "/roles/1/shown/text",
+        "source": "paper",
+        "kind": "text",
+        "length": 6,
+        "text_sha256": "42074195e32ce5debe38db090252be4a4582a7fe85b680fcab175d6fddc2e0f1",
+        "locator": {
+          "format": "pdf",
+          "page": 8
+        }
+      }
+    },
+    "strict": false,
+    "attribution": []
+  }
+}

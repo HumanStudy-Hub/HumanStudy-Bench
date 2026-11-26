@@ -1,0 +1,16 @@
+[
+  {
+    "pattern": "unsimulable-measure",
+    "where": "s12 (IAT)",
+    "what": "IAT reaction-time latencies are not a text response; the adapter has no parser for them.",
+    "fallback": "Label the IAT not run; never substitute a proxy.",
+    "suggestion": null
+  },
+  {
+    "pattern": "other",
+    "where": "s03 (anchoring)",
+    "what": "The anchor was randomised per question, but a session holds one condition, so participants with mixed anchors are left out of the human comparison.",
+    "fallback": "Compare participants with a single anchor condition only.",
+    "suggestion": "Allow conditions per item within a session."
+  }
+]

@@ -1,0 +1,48 @@
+{
+  "package": "thomas2014",
+  "sessions": 579,
+  "valid": 248,
+  "arms": [
+    "exp1/common/2",
+    "exp1/primary/2",
+    "exp1/secondary/2",
+    "exp1/tertiary/2"
+  ],
+  "unknownArms": [],
+  "notMapped": [
+    "exp1 arms with payoff $1, $5, $10: the data contain one payoff level only (GBP 1.60 alone)",
+    "exp2 (four-player game): not in the data",
+    "exp3 (similarity manipulation, Big Five, reported level): not in the data (no similarity or Big Five columns)"
+  ],
+  "exclusions": "Dropped: rows with no Cooperate decision or no Knowledge/Role (incomplete, 22 rows) and Qualtrics preview rows (DistributionChannel='preview'). Comprehension exclusion as in the paper (and the codebook's INCLUDE variable, which is not in the csv, so recomputed): sessions are kept in the data but flagged payoff_correct=False and valid=False unless all three payoff checks are right (CC1=1.80, CC2=0, CC3=1.60). evaluate() applies the exclusion via payoff_correct.",
+  "effects": [
+    {
+      "id": "exp1_omnibus",
+      "label": "Knowledge level omnibus, $2 (signed chi2, df 3)",
+      "estimate": 14.929,
+      "p": 0.0019,
+      "reported": 62.79
+    },
+    {
+      "id": "exp1_secondary_vs_primary",
+      "label": "Secondary > primary knowledge, $2 (chi2)",
+      "estimate": 0.271,
+      "p": 0.6026,
+      "reported": 23.27
+    },
+    {
+      "id": "exp1_tertiary_vs_secondary",
+      "label": "Tertiary vs secondary (predicted no difference), $2 (chi2)",
+      "estimate": 1.597,
+      "p": 0.2063,
+      "reported": 0.63
+    },
+    {
+      "id": "exp1_common_vs_tertiary",
+      "label": "Common > tertiary knowledge, $2 (chi2)",
+      "estimate": 3.342,
+      "p": 0.0675,
+      "reported": 7.12
+    }
+  ]
+}
