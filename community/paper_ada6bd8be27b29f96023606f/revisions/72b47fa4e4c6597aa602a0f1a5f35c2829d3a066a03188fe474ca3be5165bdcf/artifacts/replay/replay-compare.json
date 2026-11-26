@@ -1,0 +1,649 @@
+{
+  "package": "manylabs2",
+  "source": "study_core.py reproduce (method package, effects.json) on the pinned human data",
+  "humanSessions": 99736,
+  "sample": "original",
+  "tolerance": "a result is recovered when |computed - reported| <= max(0.05, 0.15 * |reported|)",
+  "humanMatchesPaper": [
+    14,
+    14
+  ],
+  "checks": [
+    {
+      "id": "huan",
+      "label": "Direction & SES: high- vs low-SES target, north-south click position (all samples)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "the response is a click on the map picture and the codebook gives no coordinate format; test not implemented here; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.4,
+          "variant": "aggregate replication sample (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "huan_north_hometown",
+      "label": "Direction & SES: focal test among participants whose hometown wealth is in the north",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the hometown wealth-location item to select participants; the sessions do not carry it; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.99,
+          "variant": "subsample: wealth in the north of the hometown"
+        }
+      ]
+    },
+    {
+      "id": "huan_weird",
+      "label": "Direction & SES: high- vs low-SES target, WEIRD samples",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the WEIRD / less WEIRD classification of each sample; the sessions do not carry the site; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.55,
+          "variant": "Table 2 replication global effect size (Cohen's d), weird samples"
+        }
+      ]
+    },
+    {
+      "id": "huan_less_weird",
+      "label": "Direction & SES: high- vs low-SES target, less WEIRD samples",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the WEIRD / less WEIRD classification of each sample; the sessions do not carry the site; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.03,
+          "variant": "Table 2 replication global effect size (Cohen's d), less weird samples"
+        }
+      ]
+    },
+    {
+      "id": "kay",
+      "label": "Structure vs random event: willingness to pursue the goal",
+      "role": "test",
+      "reported": -0.02,
+      "human": -0.0282335,
+      "human_p": 0.254839,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "alt",
+      "label": "Hard- vs easy-to-read font: syllogisms correct (English in-lab focal subsample)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "syllogism answer key and the font manipulation are not available to a text replay; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": -0.03,
+          "variant": "English in-lab subsample (focal test)"
+        }
+      ]
+    },
+    {
+      "id": "alt_aggregate",
+      "label": "Hard- vs easy-to-read font: syllogisms correct (all samples)",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "syllogism answer key and the font manipulation are not available to a text replay; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": -0.03,
+          "variant": "aggregate replication sample (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "grah",
+      "label": "Political ideology (right) with moral relevance of the binding foundations",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the ideology-by-foundation correlation with foundation coding of items from the paper (binding items 8-13 of the codebook); not implemented here; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "correlation",
+          "value": 0.14,
+          "p": 6.05e-34,
+          "pRelation": "=",
+          "variant": "aggregate replication sample (as printed)"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.29,
+          "variant": "Cohen's d converted from r (as printed)"
+        },
+        {
+          "metric": "cohens_q",
+          "value": 0.15,
+          "variant": "Cohen's q (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "rott",
+      "label": "1% chance vs certain outcome: choice of the affect-rich option (kiss)",
+      "role": "test",
+      "reported": 0.87,
+      "human": 0.865176,
+      "human_p": 0.0021247,
+      "basis": "same metric (odds_ratio)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "bau",
+      "label": "Individual vs consumer wording: trust that others conserve water",
+      "role": "test",
+      "reported": 0.12,
+      "human": 0.121181,
+      "human_p": 8.62564e-07,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "miya",
+      "label": "Pro vs anti capital punishment essay: inferred true attitude of the writer",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "paper's test controls for perceived constraint (covariate model) which is not implemented here; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 1.82,
+          "variant": "aggregate replication sample (as printed), controlling for perceived constraint"
+        }
+      ]
+    },
+    {
+      "id": "miya_weird",
+      "label": "Correspondence bias: pro vs anti essay, WEIRD samples",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the WEIRD / less WEIRD classification of each sample; the sessions do not carry the site; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 1.81,
+          "variant": "Table 2 replication global effect size (Cohen's d), weird samples"
+        }
+      ]
+    },
+    {
+      "id": "miya_less_weird",
+      "label": "Correspondence bias: pro vs anti essay, less WEIRD samples",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the WEIRD / less WEIRD classification of each sample; the sessions do not carry the site; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 1.84,
+          "variant": "Table 2 replication global effect size (Cohen's d), less weird samples"
+        }
+      ]
+    },
+    {
+      "id": "inba",
+      "label": "Gay kissing vs kissing: disgust sensitivity-intentionality correlation (Cohen's q)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs DS-R scoring and a difference between two correlations; scoring key not stated in the paper; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "cohens_q",
+          "value": 0.05,
+          "variant": "Cohen's q (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "inba_mean",
+      "label": "Gay kissing vs kissing: judged intentionality of the director",
+      "role": "descriptive",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "evaluate() does not compute the intentionality comparison of the inba conditions (inba is not mapped); the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": -0.02,
+          "variant": "aggregate replication sample (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "crit",
+      "label": "P97 vs P17 phone name: estimated share of sales in own region",
+      "role": "test",
+      "reported": 0.04,
+      "human": 0.0618603,
+      "human_p": 0.0103989,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "van",
+      "label": "Number of siblings with prosocial orientation (SVO slider)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "scoring is supplied (Murphy et al. 2011 angle from the six slider items), but the six slider choices sit on one page and the adapter parses a single choice per page; test not implemented here; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "correlation",
+          "value": -0.02,
+          "p": 0.18,
+          "pRelation": "=",
+          "variant": "aggregate replication sample (as printed)"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": -0.03,
+          "variant": "Table 2 replication global effect size (Cohen's d)"
+        }
+      ]
+    },
+    {
+      "id": "haus12",
+      "label": "Foreseen side effect vs greater good (Denise vs Frank): judged permissible",
+      "role": "test",
+      "reported": 11.54,
+      "human": 11.0404,
+      "human_p": 0.0,
+      "basis": "same metric (odds_ratio)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "and",
+      "label": "High vs low sociometric status comparison: subjective well-being",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "composition of the subjective well-being score is not stated in the paper; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": -0.04,
+          "variant": "aggregate replication sample (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "ross1",
+      "label": "False consensus (supermarket): estimated % choosing option 1, by own choice",
+      "role": "test",
+      "reported": 1.18,
+      "human": 1.20064,
+      "human_p": 0.0,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "ross2",
+      "label": "False consensus (traffic ticket): estimated % choosing option 1, by own choice",
+      "role": "test",
+      "reported": 0.95,
+      "human": 0.970156,
+      "human_p": 0.0,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "geis",
+      "label": "Long vs short vertical line: perceived power of the manager",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "picture stimulus is supplied, but the test needs the five power items and a vision-capable participant; not implemented here; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.03,
+          "variant": "aggregate replication sample (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "tver",
+      "label": "Cheap vs costly item on sale: would go to the other branch",
+      "role": "test",
+      "reported": 2.06,
+      "human": 2.06238,
+      "human_p": 1.80911e-50,
+      "basis": "same metric (odds_ratio)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "haus34",
+      "label": "Foreseen side effect vs greater good (Ned / Oscar): judged permissible",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "diagram is supplied, but which scenario (Ned or Oscar) is the greater-good one is not stated (issue iss-map-haus34); test not implemented here; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "odds_ratio",
+          "value": 1.58,
+          "variant": "aggregate replication sample (as printed), after removing responses under 4 s"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.25,
+          "variant": "Cohen's d converted from the odds ratio (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "rise",
+      "label": "Tempting fate vs not: likelihood of being called on",
+      "role": "test",
+      "reported": 0.18,
+      "human": 0.180583,
+      "human_p": 7.67062e-16,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "rise_undergrad",
+      "label": "Tempting fate vs not: undergraduate samples (key confirmatory test)",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the undergraduate-sample flag of each site; the sessions do not carry the site; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.22,
+          "variant": "undergraduate subsample"
+        }
+      ]
+    },
+    {
+      "id": "sava",
+      "label": "Personal vs interpersonal actions: construed as a choice (university samples)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "hierarchical logistic model with trial-level importance is not implemented here; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "regression_coefficient",
+          "value": -0.43,
+          "se": 0.03,
+          "variant": "hierarchical logistic regression, university samples"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": -0.24,
+          "variant": "Cohen's d (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "sava_india",
+      "label": "Personal vs interpersonal actions: Indian university samples (key confirmatory test)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the Indian university-lab sites; the sessions do not carry the site; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "regression_coefficient",
+          "value": -0.06,
+          "se": 0.17,
+          "variant": "hierarchical logistic regression, Indian university labs"
+        },
+        {
+          "metric": "standardized_mean_difference",
+          "value": -0.03,
+          "variant": "Cohen's d (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "sava_weird",
+      "label": "Personal vs interpersonal actions: WEIRD samples",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the WEIRD / less WEIRD classification of each sample; the sessions do not carry the site; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": -0.21,
+          "variant": "Table 2 replication global effect size (Cohen's d), weird samples"
+        }
+      ]
+    },
+    {
+      "id": "sava_less_weird",
+      "label": "Personal vs interpersonal actions: less WEIRD samples",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the WEIRD / less WEIRD classification of each sample; the sessions do not carry the site; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": -0.12,
+          "variant": "Table 2 replication global effect size (Cohen's d), less weird samples"
+        }
+      ]
+    },
+    {
+      "id": "nore",
+      "label": "'Belong to' vs 'similar to' question: percentage of rule-based classifications",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no sessions for this effect; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.86,
+          "variant": "aggregate replication sample (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "nore_weird",
+      "label": "'Belong to' vs 'similar to': rule-based classifications, WEIRD samples",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the WEIRD / less WEIRD classification of each sample; the sessions do not carry the site; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.95,
+          "variant": "Table 2 replication global effect size (Cohen's d), weird samples"
+        }
+      ]
+    },
+    {
+      "id": "nore_less_weird",
+      "label": "'Belong to' vs 'similar to': rule-based classifications, less WEIRD samples",
+      "role": "robustness",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "needs the WEIRD / less WEIRD classification of each sample; the sessions do not carry the site; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.56,
+          "variant": "Table 2 replication global effect size (Cohen's d), less weird samples"
+        }
+      ]
+    },
+    {
+      "id": "hsee",
+      "label": "Scarf ($45) vs coat ($55) gift: judged generosity of the giver",
+      "role": "test",
+      "reported": 0.78,
+      "human": 0.774159,
+      "human_p": 7.01781e-235,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "gray",
+      "label": "Adult harms baby vs baby harms adult: responsibility of the agent",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "pictures are supplied, but the test is not implemented here and needs a vision-capable participant; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.95,
+          "variant": "aggregate replication sample (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "zhon",
+      "label": "Unethical vs ethical account copied: desirability of cleansing products",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "which of the ten rated products are the cleansing products is not stated in the paper or the codebook (issue iss-score-zhon); the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.0,
+          "variant": "aggregate replication sample (as printed)"
+        }
+      ]
+    },
+    {
+      "id": "schw",
+      "label": "Specific-first vs general-first order: relationship-life satisfaction correlation (Cohen's q)",
+      "role": "test",
+      "reported": -0.07,
+      "human": -0.0702006,
+      "human_p": 0.00244334,
+      "basis": "same metric (cohens_q)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "shaf",
+      "label": "Award vs deny custody: extreme parent picked in both (sum of probabilities vs 100%)",
+      "role": "test",
+      "reported": -0.13,
+      "human": -0.137807,
+      "human_p": 9.95254e-10,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "zav",
+      "label": "Heat vs cold priming: concern about global warming",
+      "role": "test",
+      "reported": -0.03,
+      "human": -0.0200084,
+      "human_p": 0.517047,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "knob",
+      "label": "Harm vs help side effect: judged intentionality",
+      "role": "test",
+      "reported": 1.75,
+      "human": 1.74795,
+      "human_p": 0.0,
+      "basis": "same metric (standardized_mean_difference)",
+      "humanMatchesPaper": true
+    },
+    {
+      "id": "gati",
+      "label": "Similarity asymmetry: prominent country second minus first (similarity ratings)",
+      "role": "test",
+      "reported": null,
+      "human": null,
+      "human_p": null,
+      "basis": "no sessions for this effect; the paper's estimate is listed in paperEstimates",
+      "humanMatchesPaper": null,
+      "paperEstimates": [
+        {
+          "metric": "standardized_mean_difference",
+          "value": 0.01,
+          "variant": "one-sample d (as printed)"
+        }
+      ]
+    }
+  ],
+  "agent": "The AI-participant results of the earlier pilot replay were removed: they were computed with an earlier evaluation and effect list. Run a replay to compare AI participants with these results."
+}

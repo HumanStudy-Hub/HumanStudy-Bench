@@ -1,0 +1,186 @@
+{
+  "protocol_sha256": "c11498a5ca0ea56f00316eedbf15adf3022e3cbaf0cbf7b7ad883044173f078d",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 8000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 0.146,
+    "population_excluded_sessions": {},
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "s1_mc",
+        "human": 87.0,
+        "keyed": 87.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s1_dg",
+        "human": 8.02,
+        "keyed": 8.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s1_charity",
+        "human": 10.79,
+        "keyed": 10.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s2_dg_public",
+        "human": 7.33,
+        "keyed": 8.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s2_dg_private",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "s2_mc",
+        "human": 32.02,
+        "keyed": 32.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s3_mc",
+        "human": 9.44,
+        "keyed": 10.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s3_charity",
+        "human": 9.41,
+        "keyed": 9.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s3_rep_giving",
+        "human": 1.29,
+        "keyed": 2.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s3_rep_volunteer",
+        "human": 1.18,
+        "keyed": 2.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s2_interaction",
+        "human": 9.98,
+        "keyed": 11.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s3_volunteer",
+        "human": 0.172,
+        "keyed": 0.545,
+        "same_sign": true
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "osf_img"
+    ]
+  },
+  "reading_annotations": [],
+  "coding": {},
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [],
+  "printed_item_tests": [],
+  "second_readings": [],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "s1_mc_future",
+      "agent": 49.65687303252886,
+      "n_agent": 953,
+      "k_agent": null,
+      "sd_agent": 29.523114386340517,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 98.22
+    },
+    {
+      "id": "s1_mc_present",
+      "agent": 50.15424973767051,
+      "n_agent": 953,
+      "k_agent": null,
+      "sd_agent": 29.394954786489304,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 11.22
+    },
+    {
+      "id": "s1_dg_future",
+      "agent": 50.453,
+      "n_agent": 1000,
+      "k_agent": null,
+      "sd_agent": 28.83343819523017,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 28.82
+    }
+  ],
+  "effect_dropout_random": {
+    "s3_rep_giving": 0.191,
+    "s3_rep_volunteer": 0.183,
+    "s2_mc": 0.054,
+    "s3_volunteer": 0.053,
+    "s1_mc": 0.047,
+    "s3_mc": 0.047
+  },
+  "PASS": true
+}

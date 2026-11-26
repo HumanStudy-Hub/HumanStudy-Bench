@@ -1,0 +1,199 @@
+{
+  "protocol_sha256": "1d3cc72db598880a20b2b01620fc8c02231561f30483ff90afa3063696676f76",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 2000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [
+      "info_ctl",
+      "info_irr"
+    ],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 1.0,
+    "population_excluded_sessions": {
+      "excl_iqr3": 0
+    },
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "hb_feedback",
+        "human": -2.88,
+        "keyed": -3.188,
+        "same_sign": true
+      },
+      {
+        "effect": "hb_domain",
+        "human": -2.25,
+        "keyed": -2.105,
+        "same_sign": true
+      },
+      {
+        "effect": "tl_feedback",
+        "human": -6.59,
+        "keyed": -6.176,
+        "same_sign": true
+      },
+      {
+        "effect": "tl_domain",
+        "human": -3.71,
+        "keyed": -4.088,
+        "same_sign": true
+      },
+      {
+        "effect": "tl_feedback_vs_domain",
+        "human": -3.11,
+        "keyed": -2.088,
+        "same_sign": true
+      },
+      {
+        "effect": "hb_feedback_vs_domain",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "map_hb_feedback",
+        "human": 0.07,
+        "keyed": 0.077,
+        "same_sign": true
+      },
+      {
+        "effect": "map_tl_feedback",
+        "human": 0.06,
+        "keyed": 0.102,
+        "same_sign": true
+      },
+      {
+        "effect": "map_hb_domain",
+        "human": 0.03,
+        "keyed": 0.06,
+        "same_sign": true
+      },
+      {
+        "effect": "map_tl_domain",
+        "human": 0.05,
+        "keyed": 0.083,
+        "same_sign": true
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "paper"
+    ]
+  },
+  "reading_annotations": [],
+  "coding": {},
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [
+    {
+      "effect": "map_hb_feedback",
+      "statistic": "BF10"
+    },
+    {
+      "effect": "map_tl_feedback",
+      "statistic": "BF10"
+    },
+    {
+      "effect": "map_hb_domain",
+      "statistic": "BF10"
+    },
+    {
+      "effect": "map_tl_domain",
+      "statistic": "BF10"
+    },
+    {
+      "effect": "map_hb_control",
+      "statistic": "BF10"
+    },
+    {
+      "effect": "map_tl_control",
+      "statistic": "BF10"
+    },
+    {
+      "effect": "map_hb_irrelevant",
+      "statistic": "BF10"
+    },
+    {
+      "effect": "map_tl_irrelevant",
+      "statistic": "BF10"
+    }
+  ],
+  "printed_item_tests": [],
+  "second_readings": [],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "rho_oj_feedback",
+      "agent": null,
+      "n_agent": 0,
+      "k_agent": null,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": null,
+      "held_out": {},
+      "human": 0.63
+    },
+    {
+      "id": "rho_roj_feedback",
+      "agent": null,
+      "n_agent": 0,
+      "k_agent": null,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": null,
+      "held_out": {},
+      "human": 0.7
+    },
+    {
+      "id": "rho_nj_feedback",
+      "agent": null,
+      "n_agent": 0,
+      "k_agent": null,
+      "sd_agent": null,
+      "pending_share": 0.0,
+      "uncoded_share": null,
+      "held_out": {},
+      "human": 0.69
+    }
+  ],
+  "effect_dropout_random": {},
+  "PASS": true
+}

@@ -1,0 +1,184 @@
+{
+  "protocol_sha256": "af770cb67525094c3811b04692c30ef0fe2ec62713d38aaf7350ca41b13774b2",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 8000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [
+      "s4_second_dg",
+      "s4_second_pd"
+    ],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 0.973,
+    "population_excluded_sessions": {},
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "s1_nudged_vs_dg",
+        "human": 0.094,
+        "keyed": 0.1,
+        "same_sign": true
+      },
+      {
+        "effect": "s1_personal_vs_dg",
+        "human": 0.114,
+        "keyed": 0.1,
+        "same_sign": true
+      },
+      {
+        "effect": "s1_social_vs_dg",
+        "human": 0.074,
+        "keyed": 0.1,
+        "same_sign": true
+      },
+      {
+        "effect": "s1_personal_vs_social",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "s2_nudged_vs_pd",
+        "human": 0.151,
+        "keyed": 1.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s2_personal_vs_pd",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "s2_social_vs_pd",
+        "human": 0.188,
+        "keyed": 1.0,
+        "same_sign": true
+      },
+      {
+        "effect": "s2_personal_vs_social",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "s3_dg2_personal_vs_dg",
+        "human": 0.075,
+        "keyed": 0.1,
+        "same_sign": true
+      },
+      {
+        "effect": "s3_dg1_personal_vs_dg",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "si"
+    ]
+  },
+  "reading_annotations": [],
+  "coding": {},
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [],
+  "printed_item_tests": [],
+  "second_readings": [],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "s1_dg_mean",
+      "agent": 0.52,
+      "n_agent": 5,
+      "k_agent": null,
+      "sd_agent": 0.408656334834051,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.212
+    },
+    {
+      "id": "s1_nudged_mean",
+      "agent": 0.43571428571428567,
+      "n_agent": 14,
+      "k_agent": null,
+      "sd_agent": 0.3342204313073883,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.306
+    },
+    {
+      "id": "s1_personal_mean",
+      "agent": 0.5428571428571428,
+      "n_agent": 7,
+      "k_agent": null,
+      "sd_agent": 0.3735288603626359,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.326
+    }
+  ],
+  "effect_dropout_random": {
+    "s1_nudged_vs_dg": 0.994,
+    "s1_personal_vs_dg": 0.994,
+    "s1_social_vs_dg": 0.994,
+    "s1_personal_vs_social": 0.994,
+    "s3_dg2_personal_vs_dg": 0.993,
+    "s3_dg1_personal_vs_dg": 0.993,
+    "s2_nudged_vs_pd": 0.939,
+    "s2_personal_vs_pd": 0.939,
+    "s2_social_vs_pd": 0.939,
+    "s2_personal_vs_social": 0.939
+  },
+  "PASS": true
+}

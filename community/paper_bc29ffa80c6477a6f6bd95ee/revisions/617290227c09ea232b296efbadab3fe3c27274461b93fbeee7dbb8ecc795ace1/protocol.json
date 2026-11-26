@@ -1,0 +1,7172 @@
+{
+  "id": "manylabs5temptingfate",
+  "schema": "hsenv-protocol/0.1",
+  "meta": {
+    "citation": "Mathur, M. B., Bart-Plange, D.-J., Aczel, B., ... Frank, M. C. (2020). Many Labs 5: Registered multisite replication of the tempting-fate effects in Risen and Gilovich (2008). Advances in Methods and Practices in Psychological Science, 3(3), 394-404. doi:10.1177/2515245918785165",
+    "language": "en",
+    "licence": {
+      "materials": "CC-BY-4.0 (OSF project h5a9y licence, checked via the OSF API 2026-11-07)",
+      "rpp_qsf": "CC0-1.0 (OSF tr6kb / sg3su, checked via the OSF API 2026-11-07)",
+      "paper": "not printed in the copy used (sha256 142eb764...); only numbers are taken from it; no paper text is on screen"
+    },
+    "sources": {
+      "qsf": {
+        "file": "sources/osf/qualtrics_2016-11-7.qsf",
+        "sha256": "1b230540c0723e83b7539e34acf797053fdb823ed5e390f21d2b313f501bf081",
+        "distribution": {
+          "tier": "link",
+          "url": "https://osf.io/download/jw9vb/",
+          "sha256": "1b230540c0723e83b7539e34acf797053fdb823ed5e390f21d2b313f501bf081",
+          "format": "qsf"
+        }
+      },
+      "print": {
+        "file": "sources/osf/questionnaire_items_2016-11-7.pdf",
+        "sha256": "3a2e2dc8c202fc56c8031873e1442f6c12f3e003c42beff0ba2178f01377750a",
+        "distribution": {
+          "tier": "link",
+          "url": "https://osf.io/download/e42wj/",
+          "sha256": "3a2e2dc8c202fc56c8031873e1442f6c12f3e003c42beff0ba2178f01377750a",
+          "format": "pdf"
+        }
+      },
+      "hit": {
+        "file": "sources/osf/rpp_hit_html.txt",
+        "sha256": "b9cada4df46344100baec6da4d2f7fc5bb0bb7f18c0bc1fc72a1a65b91e8175c",
+        "distribution": {
+          "tier": "link",
+          "url": "https://osf.io/download/tkhbv/",
+          "sha256": "b9cada4df46344100baec6da4d2f7fc5bb0bb7f18c0bc1fc72a1a65b91e8175c",
+          "format": "text"
+        }
+      },
+      "faq": {
+        "file": "sources/osf/faqs_sites.docx",
+        "sha256": "4e88a4d9dde6940ad602061df7c92a4225a5338691ce67533865e3cecab04331",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "protocol": {
+        "file": "sources/osf/postreview_revised_protocol.docx",
+        "sha256": "8215eada74c32537ff46920d3c81510eaae7d39c54a42790a35339d340e6105a",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "original": {
+        "file": "sources/osf/original_materials_risen.doc",
+        "sha256": "46174589574fbd6bd7b9ec950be85690a3bd56f8ac2fe1749c7485f444bbf6e7",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "code": {
+        "what": "code",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "paper": {
+        "what": "paper",
+        "distribution": {
+          "tier": "user"
+        }
+      },
+      "rpp": {
+        "what": "rpp",
+        "distribution": {
+          "tier": "user"
+        }
+      }
+    },
+    "sample": {
+      "n_analysed_all": 4441,
+      "n_primary": 3727,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 8
+      }
+    },
+    "pages": [
+      "MTurk only: HIT page (hit) -> stage hit_page; stays open in its own tab",
+      "1 Consent QID57 (placeholder) -> omitted",
+      "2 Reveal randomization QID46 (pilot only) -> omitted",
+      "randomiser FL_26: (load, had.read) EvenPresentation; FL_15 mTurkCode 423000-423999",
+      "load: 3 Load pre-scenario QID32 -> directions; 4 scenario QID44/QID45 (one page: start number, lead-in, scenario, likelihood slider) -> scenario; 5 QID28 -> end_number; 6 QID29 -> effort_split; 7 QID52 -> difficulty; 8 QID53 -> effort (block BL_6oiG5PK7ZH6iS1L, page break before each)",
+      "no load: 3 scenario QID11/QID14 -> scenario",
+      "Academic pressure: QID56 -> importance; page break; QID58 -> negativity",
+      "Thank you QID16 -> thanks",
+      "MTurk only: confirmation field on the HIT page -> hit_submit",
+      "UC Berkeley = RP:P qsf (SV_eJbIBe4ysiC0vys): [password page omitted]; randomiser FL_6; load: QID1/QID6 -> directions; QID2 (unforced) -> scenario_unforced / QID7 -> scenario; QID3/QID8 -> end_number_rpp (unforced); QID4/QID9 -> effort_split; no load: QID11/QID14 -> scenario; QID16 -> thanks_rpp (page break before each)"
+    ]
+  },
+  "arms": [
+    {
+      "id": "mturk",
+      "n_paper": 3135,
+      "n_analysed": 2973,
+      "n_excluded": 162,
+      "what": "Amazon Mechanical Turk; paid U.S. online workers; English; online (RP:P protocol)",
+      "site_type": "mturk",
+      "assignment": "between: 2 x 2 cells, v1 BlockRandomizer SubSet 1 EvenPresentation",
+      "n_note": "n_paper = analysed + excluded (Table 2); recruited/started n not reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "withheld:f7b6a62f57f51061"
+      },
+      "instrument": "ML5 v1 qsf (deposited)",
+      "instrument_cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:b96d4fd2c96d745a",
+        "note": "withheld:d8a33c7997143295"
+      },
+      "exclusion_caveat": "workers who took part in Many Labs 2 were screened out (materials/Workers to exclude from ML2) and HITs limited to U.S. workers with >= 95% approval (RP:P HIT setup): eligibility, not applied by the sandbox",
+      "protocol": "RP:P protocol: online, no restriction on physical setting (Table 1, p. 3)",
+      "caveat": "withheld:b854b10be96432a5"
+    },
+    {
+      "id": "penn",
+      "n_paper": 359,
+      "n_analysed": 335,
+      "n_excluded": 24,
+      "what": "University of Pennsylvania; paid undergraduates, subject pool; lab with private cubicles (groups of about 20)",
+      "site_type": "similar",
+      "assignment": "between: 2 x 2 cells, v1 BlockRandomizer SubSet 1 EvenPresentation",
+      "n_note": "n_paper = analysed + excluded (Table 2); recruited/started n not reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "withheld:f7b6a62f57f51061"
+      },
+      "instrument": "ML5 v1 qsf (deposited)",
+      "instrument_cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:b96d4fd2c96d745a",
+        "note": "withheld:ad9f9e9a4d1492b2"
+      },
+      "protocol": "withheld:00bc201d9aeb8992"
+    },
+    {
+      "id": "ucb",
+      "n_paper": 223,
+      "n_analysed": 200,
+      "n_excluded": 23,
+      "what": "UC Berkeley; undergraduate business majors, credit; private cubicles (groups of 1-13)",
+      "site_type": "similar",
+      "assignment": "between: 2 x 2 cells, RP:P BlockRandomizer SubSet 4 (independent uniform draw, derived)",
+      "n_note": "n_paper = analysed + excluded (Table 2); recruited/started n not reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "withheld:f7b6a62f57f51061"
+      },
+      "instrument": "RP:P qsf (deposited: OSF tr6kb 'Qualtrics questionnaire.qsf', CC0; the only deposited version, LastModified 2016-07-19, before ML5 data collection; UCB's copy is identified by its export tags, not by date, so UCB may have run the live RP:P survey or a copy edited later)",
+      "instrument_cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:b96d4fd2c96d745a",
+        "note": "withheld:f12d99b4d148ce74"
+      },
+      "protocol": "withheld:00bc201d9aeb8992",
+      "note": "RP:P qsf: no consent block, no new measures (paper p. 11 fn. 6-7), likelihood not forced in the load/had-read cell, ending number not forced, thank-you without the red note",
+      "caveat": "the RP:P qsf has PasswordProtection 'Yes' (password 'mturk'); whether UC Berkeley kept the Qualtrics password page in the lab is not recorded, and its default text is not in the sources (omitted)"
+    },
+    {
+      "id": "uva",
+      "n_paper": 156,
+      "n_analysed": 151,
+      "n_excluded": 5,
+      "what": "University of Virginia; intro-psychology, credit; private rooms (groups of 1-4)",
+      "site_type": "similar",
+      "assignment": "between: 2 x 2 cells, v1 BlockRandomizer SubSet 1 EvenPresentation",
+      "n_note": "n_paper = analysed + excluded (Table 2); recruited/started n not reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "withheld:f7b6a62f57f51061"
+      },
+      "instrument": "another ML5 survey file (not deposited)",
+      "instrument_cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:b96d4fd2c96d745a",
+        "note": "withheld:81907cabf5218884"
+      },
+      "runnable": false,
+      "why": "the site ran another ML5 survey file (not deposited); its pages, labels, slider starts and forced-response settings are not documented, so serving the v1 qsf would present an undeposited version as the deposited one",
+      "protocol": "withheld:00bc201d9aeb8992"
+    },
+    {
+      "id": "stanford",
+      "n_paper": 69,
+      "n_analysed": 68,
+      "n_excluded": 1,
+      "what": "Stanford; intro-psychology, credit; lab room (individually)",
+      "site_type": "similar",
+      "assignment": "between: 2 x 2 cells, v1 BlockRandomizer SubSet 1 EvenPresentation",
+      "n_note": "n_paper = analysed + excluded (Table 2); recruited/started n not reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "withheld:f7b6a62f57f51061"
+      },
+      "instrument": "another ML5 survey file (not deposited)",
+      "instrument_cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:b96d4fd2c96d745a",
+        "note": "withheld:d1c8e7b2fa79663d"
+      },
+      "runnable": false,
+      "why": "the site ran another ML5 survey file (not deposited); its pages, labels, slider starts and forced-response settings are not documented, so serving the v1 qsf would present an undeposited version as the deposited one",
+      "protocol": "withheld:00bc201d9aeb8992"
+    },
+    {
+      "id": "elte",
+      "n_paper": 291,
+      "n_analysed": 284,
+      "n_excluded": 7,
+      "what": "ELTE Eotvos Lorand (Budapest); psychology undergraduates, credit; Hungarian; cubicles (5-20)",
+      "site_type": "dissimilar",
+      "assignment": "between: 2 x 2 cells, v1 BlockRandomizer SubSet 1 EvenPresentation",
+      "n_note": "n_paper = analysed + excluded (Table 2); recruited/started n not reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "withheld:f7b6a62f57f51061"
+      },
+      "instrument": "ML5 v1 qsf, translated (not deposited)",
+      "instrument_cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:b96d4fd2c96d745a",
+        "note": "withheld:5423487832f0d9c0"
+      },
+      "runnable": false,
+      "why": "questionnaire administered in Hungarian (translated, back-translated: paper p. 3); the translated survey is not deposited on OSF h5a9y (materials/ has the English qsf only)",
+      "exclusion_caveat": "7 post hoc exclusions of possible repeat participants (data_prep.Rmd; Table 2 note)",
+      "protocol": "withheld:00bc201d9aeb8992"
+    },
+    {
+      "id": "kul",
+      "n_paper": 127,
+      "n_analysed": 118,
+      "n_excluded": 9,
+      "what": "University of Leuven; subject pool, credit or pay; Dutch; cubicles (1-2)",
+      "site_type": "dissimilar",
+      "assignment": "between: 2 x 2 cells, v1 BlockRandomizer SubSet 1 EvenPresentation",
+      "n_note": "n_paper = analysed + excluded (Table 2); recruited/started n not reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "withheld:f7b6a62f57f51061"
+      },
+      "instrument": "ML5 v1 qsf, translated (not deposited)",
+      "instrument_cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:b96d4fd2c96d745a",
+        "note": "withheld:3a3f0be37a9dd50c"
+      },
+      "runnable": false,
+      "why": "questionnaire administered in Dutch (translated, back-translated: paper p. 3); the translated survey is not deposited on OSF h5a9y (materials/ has the English qsf only)",
+      "protocol": "withheld:00bc201d9aeb8992"
+    },
+    {
+      "id": "up",
+      "n_paper": 104,
+      "n_analysed": 91,
+      "n_excluded": 13,
+      "what": "University of Porto; intro-psychology, no compensation; Portuguese; cubicles (1-4)",
+      "site_type": "dissimilar",
+      "assignment": "between: 2 x 2 cells, v1 BlockRandomizer SubSet 1 EvenPresentation",
+      "n_note": "n_paper = analysed + excluded (Table 2); recruited/started n not reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "withheld:f7b6a62f57f51061"
+      },
+      "instrument": "ML5 v1 qsf, translated (not deposited)",
+      "instrument_cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:b96d4fd2c96d745a",
+        "note": "withheld:3edff5bcfa62772d"
+      },
+      "runnable": false,
+      "why": "questionnaire administered in Portuguese (translated, back-translated: paper p. 3); the translated survey is not deposited on OSF h5a9y (materials/ has the English qsf only)",
+      "protocol": "withheld:00bc201d9aeb8992"
+    },
+    {
+      "id": "byui",
+      "n_paper": 90,
+      "n_analysed": 84,
+      "n_excluded": 6,
+      "what": "BYU-Idaho; intro-psychology, credit and raffle; English; private rooms (1-2)",
+      "site_type": "dissimilar",
+      "assignment": "between: 2 x 2 cells, v1 BlockRandomizer SubSet 1 EvenPresentation",
+      "n_note": "n_paper = analysed + excluded (Table 2); recruited/started n not reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "withheld:f7b6a62f57f51061"
+      },
+      "instrument": "the site's own survey layout (not deposited)",
+      "instrument_cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:b96d4fd2c96d745a",
+        "note": "withheld:735e893cf643ddcd"
+      },
+      "runnable": false,
+      "why": "the site ran the site's own survey layout (not deposited); its pages, labels, slider starts and forced-response settings are not documented, so serving the v1 qsf would present an undeposited version as the deposited one",
+      "protocol": "withheld:00bc201d9aeb8992"
+    },
+    {
+      "id": "uri",
+      "n_paper": 90,
+      "n_analysed": 81,
+      "n_excluded": 9,
+      "what": "University of Rhode Island; psychology undergraduates, credit; English; cubicles (1-4)",
+      "site_type": "dissimilar",
+      "assignment": "between: 2 x 2 cells, v1 BlockRandomizer SubSet 1 EvenPresentation",
+      "n_note": "n_paper = analysed + excluded (Table 2); recruited/started n not reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "withheld:f7b6a62f57f51061"
+      },
+      "instrument": "ML5 v1 qsf (deposited)",
+      "instrument_cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:b96d4fd2c96d745a",
+        "note": "withheld:dc11bcf503bf2bd2"
+      },
+      "protocol": "withheld:00bc201d9aeb8992"
+    },
+    {
+      "id": "rhit",
+      "n_paper": 58,
+      "n_analysed": 56,
+      "n_excluded": 2,
+      "what": "Rose-Hulman IT; uncompensated peers of RAs; English; lab room (individually)",
+      "site_type": "dissimilar",
+      "assignment": "between: 2 x 2 cells, v1 BlockRandomizer SubSet 1 EvenPresentation",
+      "n_note": "n_paper = analysed + excluded (Table 2); recruited/started n not reported",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 5,
+        "evidence": "withheld:f7b6a62f57f51061"
+      },
+      "instrument": "another ML5 survey file (not deposited)",
+      "instrument_cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:b96d4fd2c96d745a",
+        "note": "withheld:4907da4d13c25de7"
+      },
+      "runnable": false,
+      "why": "the site ran another ML5 survey file (not deposited); its pages, labels, slider starts and forced-response settings are not documented, so serving the v1 qsf would present an undeposited version as the deposited one",
+      "protocol": "withheld:00bc201d9aeb8992"
+    }
+  ],
+  "data": {
+    "site_type": {
+      "mturk": "mturk",
+      "penn": "similar",
+      "ucb": "similar",
+      "uva": "similar",
+      "stanford": "similar",
+      "elte": "dissimilar",
+      "kul": "dissimilar",
+      "up": "dissimilar",
+      "byui": "dissimilar",
+      "uri": "dissimilar",
+      "rhit": "dissimilar"
+    },
+    "hit": {
+      "head": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "hit"
+        }
+      },
+      "consent_h": {
+        "text": "Consent",
+        "cite": {
+          "label": "verbatim",
+          "source": "hit"
+        }
+      },
+      "consent": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "hit"
+        }
+      },
+      "task_h": {
+        "text": "Your task",
+        "cite": {
+          "label": "verbatim",
+          "source": "hit"
+        }
+      },
+      "task": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "hit"
+        },
+        "spans": [
+          {
+            "start": 6,
+            "end": 45,
+            "style": "link"
+          },
+          {
+            "start": 93,
+            "end": 98,
+            "style": "bold italic"
+          }
+        ]
+      },
+      "code": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "hit"
+        }
+      },
+      "field": {
+        "text": "confirmation number:",
+        "cite": {
+          "label": "verbatim",
+          "source": "hit"
+        }
+      }
+    },
+    "directions": [
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "print",
+          "page": 1
+        },
+        "spans": [
+          {
+            "start": 0,
+            "end": 36,
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "print",
+          "page": 1
+        }
+      },
+      {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "print",
+          "page": 1
+        }
+      }
+    ],
+    "header_noload": {
+      "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "cite": {
+        "label": "verbatim",
+        "source": "print",
+        "page": 4
+      }
+    },
+    "start": {
+      "text": "Start with the number: 564",
+      "cite": {
+        "label": "verbatim",
+        "source": "qsf",
+        "note": "withheld:11220236b5d070c4"
+      },
+      "spans": [
+        {
+          "start": 23,
+          "end": 26,
+          "style": "bold large"
+        }
+      ]
+    },
+    "while": {
+      "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "cite": {
+        "label": "verbatim",
+        "source": "print",
+        "page": 2
+      }
+    },
+    "scenario": {
+      "tempted": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "print",
+          "page": 2
+        }
+      },
+      "not_tempted": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "print",
+          "page": 2
+        }
+      }
+    },
+    "question": {
+      "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "cite": {
+        "label": "verbatim",
+        "source": "print",
+        "page": 2
+      }
+    },
+    "thanks": {
+      "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "cite": {
+        "label": "verbatim",
+        "source": "print",
+        "page": 5
+      }
+    },
+    "mturk_code": {
+      "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "cite": {
+        "label": "verbatim",
+        "source": "print",
+        "page": 5
+      }
+    },
+    "mturk_pipe": {
+      "text": "${e://Field/mTurkCode}",
+      "cite": {
+        "label": "verbatim",
+        "source": "print",
+        "page": 5,
+        "note": "withheld:0d7d8eb733a16e4a"
+      }
+    },
+    "click": {
+      "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "cite": {
+        "label": "verbatim",
+        "source": "print",
+        "page": 5
+      }
+    },
+    "mturk_note": {
+      "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+      "cite": {
+        "label": "verbatim",
+        "source": "print",
+        "page": 5
+      }
+    },
+    "prompts": {
+      "hard": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "print",
+          "page": 3
+        }
+      },
+      "eff": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "print",
+          "page": 3
+        }
+      },
+      "imp": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "print",
+          "page": 5
+        }
+      },
+      "bad": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "print",
+          "page": 5
+        }
+      },
+      "split": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "print",
+          "page": 3
+        }
+      },
+      "end": {
+        "text": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+        "cite": {
+          "label": "verbatim",
+          "source": "print",
+          "page": 3
+        }
+      }
+    }
+  },
+  "stages": {
+    "hit_page": {
+      "content": [
+        {
+          "id": "h0",
+          "value": {
+            "expr": "data['hit']['head']"
+          },
+          "style": "bold",
+          "reviewable": true
+        },
+        {
+          "id": "h1",
+          "value": {
+            "expr": "data['hit']['consent_h']"
+          },
+          "style": "bold underline",
+          "reviewable": true
+        },
+        {
+          "id": "h2",
+          "value": {
+            "expr": "data['hit']['consent']"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h3",
+          "value": {
+            "expr": "data['hit']['task_h']"
+          },
+          "style": "underline",
+          "reviewable": true
+        },
+        {
+          "id": "h4",
+          "value": {
+            "expr": "data['hit']['task']"
+          },
+          "reviewable": true
+        },
+        {
+          "id": "h5",
+          "value": {
+            "expr": "data['hit']['code']"
+          },
+          "reviewable": true
+        }
+      ],
+      "presentation": {
+        "back": "allowed",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "hit",
+        "note": "withheld:178253e0a536084f"
+      }
+    },
+    "directions": {
+      "content": [
+        {
+          "id": "d0",
+          "value": {
+            "expr": "data['directions'][0]"
+          }
+        },
+        {
+          "id": "d1",
+          "value": {
+            "expr": "data['directions'][1]"
+          }
+        },
+        {
+          "id": "d2",
+          "value": {
+            "expr": "data['directions'][2]"
+          },
+          "style": "bold"
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:7f3f3efa6c11a9e3"
+      }
+    },
+    "scenario": {
+      "content": [
+        {
+          "id": "head",
+          "if": "load == 0",
+          "value": {
+            "expr": "data['header_noload']"
+          },
+          "style": "bold"
+        },
+        {
+          "id": "start",
+          "if": "load == 1",
+          "value": {
+            "expr": "data['start']"
+          }
+        },
+        {
+          "id": "while",
+          "if": "load == 1",
+          "value": {
+            "expr": "data['while']"
+          }
+        },
+        {
+          "id": "story",
+          "value": {
+            "expr": "data['scenario']['tempted' if tempt == 1 else 'not_tempted']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "lkl",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['question']"
+          },
+          "range": [
+            0,
+            10
+          ],
+          "integer": true,
+          "widget": "hslider",
+          "gridlines": 10,
+          "shows_value": true,
+          "required": true,
+          "anchors": {
+            "left": "Not at all likely",
+            "right": "Extremely likely"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "qsf",
+            "note": "withheld:e724fdd7915db1b7"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "qsf",
+            "note": "withheld:d5878879c978c7eb"
+          },
+          "start": {
+            "expr": "'unknown' if (load == 1 and tempt == 0) else 0"
+          },
+          "depends_on": [
+            "scenario.story"
+          ]
+        }
+      ],
+      "layout": [
+        "head",
+        "start",
+        "while",
+        "story",
+        "lkl"
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:7f3f3efa6c11a9e3"
+      }
+    },
+    "scenario_unforced": {
+      "content": [
+        {
+          "id": "head",
+          "if": "load == 0",
+          "value": {
+            "expr": "data['header_noload']"
+          },
+          "style": "bold"
+        },
+        {
+          "id": "start",
+          "if": "load == 1",
+          "value": {
+            "expr": "data['start']"
+          }
+        },
+        {
+          "id": "while",
+          "if": "load == 1",
+          "value": {
+            "expr": "data['while']"
+          }
+        },
+        {
+          "id": "story",
+          "value": {
+            "expr": "data['scenario']['tempted' if tempt == 1 else 'not_tempted']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "lkl",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['question']"
+          },
+          "range": [
+            0,
+            10
+          ],
+          "integer": true,
+          "widget": "hslider",
+          "gridlines": 10,
+          "shows_value": true,
+          "required": false,
+          "anchors": {
+            "left": "Not at all likely",
+            "right": "Extremely likely"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "qsf",
+            "note": "withheld:e724fdd7915db1b7"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "rpp",
+            "note": "withheld:c617b63e822695fb"
+          },
+          "start": "unknown",
+          "depends_on": [
+            "scenario_unforced.story"
+          ]
+        }
+      ],
+      "layout": [
+        "head",
+        "start",
+        "while",
+        "story",
+        "lkl"
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "rpp",
+        "note": "withheld:562bc7e03c52b1fb"
+      }
+    },
+    "end_number": {
+      "responses": [
+        {
+          "id": "end",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['prompts']['end']"
+          },
+          "widget": "text",
+          "required": true,
+          "depends_on": [
+            "scenario.start"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "qsf",
+            "note": "withheld:667aff91aefac39a"
+          },
+          "validation_note": "Qualtrics ValidNumber: accepts any number (decimals, negatives); its error message is Qualtrics' default and not in the sources"
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:7f3f3efa6c11a9e3"
+      }
+    },
+    "effort_split": {
+      "responses": [
+        {
+          "id": "split",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['prompts']['split']"
+          },
+          "range": [
+            0,
+            6
+          ],
+          "integer": true,
+          "widget": "hslider",
+          "gridlines": 6,
+          "shows_value": true,
+          "required": true,
+          "anchors": {
+            "left": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "middle": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
+            "right": "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "qsf",
+            "note": "withheld:a8df1fc24d2c8d37"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "qsf",
+            "note": "withheld:b60de4936175b96c"
+          },
+          "start": 0
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:7f3f3efa6c11a9e3"
+      }
+    },
+    "difficulty": {
+      "responses": [
+        {
+          "id": "hard",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['prompts']['hard']"
+          },
+          "range": [
+            0,
+            10
+          ],
+          "integer": true,
+          "widget": "hslider",
+          "gridlines": 10,
+          "shows_value": true,
+          "required": false,
+          "anchors": {
+            "left": "Not at all difficult",
+            "right": "Extremely difficult"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "qsf",
+            "note": "withheld:6462ea8a279769d5"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "qsf",
+            "note": "withheld:a8b9c8b09dac6f0e"
+          },
+          "start": "unknown"
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:7f3f3efa6c11a9e3"
+      }
+    },
+    "effort": {
+      "responses": [
+        {
+          "id": "eff",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['prompts']['eff']"
+          },
+          "range": [
+            0,
+            10
+          ],
+          "integer": true,
+          "widget": "hslider",
+          "gridlines": 10,
+          "shows_value": true,
+          "required": true,
+          "anchors": {
+            "left": "Very little effort",
+            "right": "A lot of effort"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "qsf",
+            "note": "withheld:a4080231db332b3b"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "qsf",
+            "note": "withheld:94011f2f746e83b2"
+          },
+          "start": "unknown"
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:7f3f3efa6c11a9e3"
+      }
+    },
+    "importance": {
+      "responses": [
+        {
+          "id": "imp",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['prompts']['imp']"
+          },
+          "range": [
+            0,
+            10
+          ],
+          "integer": true,
+          "widget": "hslider",
+          "gridlines": 10,
+          "shows_value": true,
+          "required": true,
+          "anchors": {
+            "left": "Not at all important",
+            "right": "Extremely important"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "qsf",
+            "note": "withheld:99a2e79c3178a053"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "qsf",
+            "note": "withheld:82179eba2891ab2c"
+          },
+          "start": 0,
+          "depends_on": [
+            "scenario.story"
+          ]
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:7f3f3efa6c11a9e3"
+      }
+    },
+    "negativity": {
+      "responses": [
+        {
+          "id": "bad",
+          "kind": "slider",
+          "prompt": {
+            "expr": "data['prompts']['bad']"
+          },
+          "range": [
+            0,
+            10
+          ],
+          "integer": true,
+          "widget": "hslider",
+          "gridlines": 10,
+          "shows_value": true,
+          "required": true,
+          "anchors": {
+            "left": "Not at all bad",
+            "right": "Very bad"
+          },
+          "anchors_cite": {
+            "label": "verbatim",
+            "source": "qsf",
+            "note": "withheld:17eafb4e68240fb7"
+          },
+          "cite": {
+            "label": "reported",
+            "source": "qsf",
+            "note": "withheld:ae2594f6970855cd"
+          },
+          "start": 0
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:7f3f3efa6c11a9e3"
+      }
+    },
+    "thanks": {
+      "content": [
+        {
+          "id": "t0",
+          "value": {
+            "expr": "data['thanks']"
+          }
+        },
+        {
+          "id": "t1",
+          "style": "red",
+          "value": {
+            "expr": "{'text': replace(data['mturk_code']['text'], data['mturk_pipe']['text'], str(mturk_code)), 'spans': [{'start': 34, 'end': 34 + len(str(mturk_code)) + 1, 'style': 'italic'}]}"
+          }
+        },
+        {
+          "id": "t1n",
+          "value": {
+            "expr": "data['mturk_note']"
+          },
+          "style": "red italic"
+        },
+        {
+          "id": "t2",
+          "value": {
+            "expr": "data['click']"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:7f3f3efa6c11a9e3"
+      }
+    },
+    "thanks_rpp": {
+      "content": [
+        {
+          "id": "t0",
+          "value": {
+            "expr": "data['thanks']"
+          }
+        },
+        {
+          "id": "t1",
+          "value": {
+            "expr": "{'text': replace(data['mturk_code']['text'], data['mturk_pipe']['text'], str(mturk_code)), 'spans': [{'start': 34, 'end': 34 + len(str(mturk_code)) + 1, 'style': 'italic'}]}"
+          }
+        },
+        {
+          "id": "t2",
+          "value": {
+            "expr": "data['click']"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "rpp",
+        "note": "withheld:c9afd86d7eacbb0c"
+      }
+    },
+    "hit_submit": {
+      "responses": [
+        {
+          "id": "code",
+          "kind": "text",
+          "prompt": {
+            "expr": "data['hit']['field']"
+          },
+          "widget": "textarea",
+          "required": false,
+          "cite": {
+            "label": "derived",
+            "source": "hit",
+            "note": "withheld:e7fbc3cb7089c6e8"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": "Submit"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "hit",
+        "note": "withheld:00ec420903b9e96c"
+      }
+    },
+    "end_number_rpp": {
+      "responses": [
+        {
+          "id": "end",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['prompts']['end']"
+          },
+          "widget": "text",
+          "required": false,
+          "depends_on": [
+            "scenario.start"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "rpp",
+            "note": "withheld:7485b734231958e3"
+          },
+          "validation_note": "Qualtrics ValidNumber: accepts any number (decimals, negatives); its error message is Qualtrics' default and not in the sources"
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:7f3f3efa6c11a9e3"
+      }
+    },
+    "end_number_rpp_u": {
+      "responses": [
+        {
+          "id": "end",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['prompts']['end']"
+          },
+          "widget": "text",
+          "required": false,
+          "depends_on": [
+            "scenario_unforced.start"
+          ],
+          "cite": {
+            "label": "reported",
+            "source": "rpp",
+            "note": "withheld:7485b734231958e3"
+          },
+          "validation_note": "Qualtrics ValidNumber: accepts any number (decimals, negatives); its error message is Qualtrics' default and not in the sources"
+        }
+      ],
+      "presentation": {
+        "back": "not_allowed",
+        "advance": "self",
+        "button": ">>"
+      },
+      "presentation_cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:7f3f3efa6c11a9e3"
+      }
+    }
+  },
+  "flow": {
+    "if": "arm == 'ucb'",
+    "then": {
+      "seq": [
+        {
+          "set": {
+            "mturk_code": {
+              "expr": "randint(4230000, 4239999)"
+            }
+          }
+        },
+        {
+          "set": {
+            "cell": {
+              "expr": "choice(['00', '10', '01', '11'])"
+            }
+          }
+        },
+        {
+          "set": {
+            "load": {
+              "expr": "int(cell[0])"
+            },
+            "tempt": {
+              "expr": "int(cell[1])"
+            }
+          }
+        },
+        {
+          "if": "load == 1",
+          "then": {
+            "seq": [
+              {
+                "stage": "directions"
+              },
+              {
+                "if": "tempt == 0",
+                "then": {
+                  "seq": [
+                    {
+                      "stage": "scenario_unforced"
+                    },
+                    {
+                      "stage": "end_number_rpp_u"
+                    }
+                  ]
+                },
+                "else": {
+                  "seq": [
+                    {
+                      "stage": "scenario"
+                    },
+                    {
+                      "stage": "end_number_rpp"
+                    }
+                  ]
+                }
+              },
+              {
+                "stage": "effort_split"
+              }
+            ]
+          },
+          "else": {
+            "stage": "scenario"
+          }
+        },
+        {
+          "stage": "thanks_rpp"
+        }
+      ]
+    },
+    "else": {
+      "seq": [
+        {
+          "set": {
+            "mturk_code": {
+              "expr": "randint(423000, 423999)"
+            }
+          }
+        },
+        {
+          "stage": "hit_page",
+          "if": "arm == 'mturk'"
+        },
+        {
+          "set": {
+            "cell": {
+              "expr": "balanced('cell_' + arm, ['00', '10', '01', '11'])"
+            }
+          }
+        },
+        {
+          "set": {
+            "load": {
+              "expr": "int(cell[0])"
+            },
+            "tempt": {
+              "expr": "int(cell[1])"
+            }
+          }
+        },
+        {
+          "if": "load == 1",
+          "then": {
+            "seq": [
+              {
+                "stage": "directions"
+              },
+              {
+                "stage": "scenario"
+              },
+              {
+                "stage": "end_number"
+              },
+              {
+                "stage": "effort_split"
+              },
+              {
+                "stage": "difficulty"
+              },
+              {
+                "stage": "effort"
+              }
+            ]
+          },
+          "else": {
+            "stage": "scenario"
+          }
+        },
+        {
+          "stage": "importance"
+        },
+        {
+          "stage": "negativity"
+        },
+        {
+          "stage": "thanks"
+        },
+        {
+          "stage": "hit_submit",
+          "if": "arm == 'mturk'"
+        }
+      ]
+    }
+  },
+  "units": {
+    "participants": {
+      "per": "session",
+      "fields": {
+        "site": "arm",
+        "site_type": "data['site_type'][arm]",
+        "mturk": "1 if arm == 'mturk' else 0",
+        "university": "0 if arm == 'mturk' else 1",
+        "load": "load",
+        "tempt": "tempt",
+        "lkl": "answer('scenario.lkl') if answer('scenario.lkl') is not None else answer('scenario_unforced.lkl')",
+        "end_num": "([x for x in [answer('end_number.end'), answer('end_number_rpp.end'), answer('end_number_rpp_u.end')] if x is not None] + [None])[0]",
+        "eff_split": "answer('effort_split.split')",
+        "count_hard": "answer('difficulty.hard')",
+        "count_eff": "answer('effort.eff')",
+        "importance": "answer('importance.imp')",
+        "badness": "answer('negativity.bad')"
+      },
+      "cites": {
+        "lkl": {
+          "label": "derived",
+          "source": "rpp",
+          "note": "withheld:87c8a1462a55cf6c"
+        },
+        "end_num": {
+          "label": "derived",
+          "source": "rpp",
+          "note": "withheld:1f792610712ade8f"
+        },
+        "tempt": {
+          "label": "derived",
+          "source": "code",
+          "note": "withheld:0e263d0c67f17b6e"
+        }
+      }
+    }
+  },
+  "exclusions": [
+    {
+      "id": "failed_instructions",
+      "if": "load == 1 and ((answer('effort_split.split') is not None and answer('effort_split.split') == 0) or ((([x for x in [answer('end_number.end'), answer('end_number_rpp.end'), answer('end_number_rpp_u.end')] if x is not None] + [None])[0]) is not None and (([x for x in [answer('end_number.end'), answer('end_number_rpp.end'), answer('end_number_rpp_u.end')] if x is not None] + [None])[0]) >= 561))",
+      "cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:78c0a003416f22fa",
+        "note": "withheld:228e542616dd6d82"
+      }
+    },
+    {
+      "id": "missing_likelihood",
+      "if": "(answer('scenario.lkl') if answer('scenario.lkl') is not None else answer('scenario_unforced.lkl')) is None",
+      "cite": {
+        "label": "reported",
+        "source": "code",
+        "evidence": "withheld:87528936dd8a286c",
+        "note": "withheld:745bdef4a506e78f"
+      }
+    }
+  ],
+  "omitted": [
+    {
+      "what": "consent page (QID57: '(Insert consent text here.)' in red)",
+      "why": "placeholder; each site inserted its own consent (FAQ); a Stanford template is in protocols/IRB materials but which text each site showed is not deposited; the MTurk consent is on the HIT page (served)",
+      "cite": {
+        "label": "verbatim",
+        "source": "qsf",
+        "note": "withheld:f774fff492c7f22b"
+      }
+    },
+    {
+      "what": "'Reveal randomization' page (QID46)",
+      "why": "pilot only by its own text (meta.conflicts)",
+      "cite": {
+        "label": "verbatim",
+        "source": "print",
+        "page": 1
+      }
+    },
+    {
+      "what": "MTurk HIT listing (title '\"Guess how likely\" game', description, reward, qualifications)",
+      "why": "only the 2012 RP:P HIT setup is deposited; the ML5 reward and listing are not stated",
+      "cite": {
+        "label": "verbatim",
+        "source": "hit"
+      }
+    },
+    {
+      "what": "Qualtrics end-of-survey message after the last '>>' (SurveyTermination: DefaultMessage, both files)",
+      "why": "Qualtrics' default text is not in the sources",
+      "cite": {
+        "label": "reported",
+        "source": "qsf",
+        "note": "withheld:660f6654ef87c1c5"
+      }
+    },
+    {
+      "what": "RP:P password page (UCB arm; PasswordProtection 'Yes', password 'mturk')",
+      "why": "Qualtrics' default page text is not in the sources and whether UCB kept it is not recorded (arm caveat)",
+      "cite": {
+        "label": "reported",
+        "source": "rpp",
+        "note": "withheld:d9dddec7cbe69eeb"
+      }
+    },
+    {
+      "what": "site-specific debriefing and recruitment wrappers",
+      "why": "not deposited (FAQ: sites customise)",
+      "cite": {
+        "label": "reported",
+        "source": "faq"
+      }
+    }
+  ],
+  "analysis": {
+    "targets": [
+      {
+        "id": "lkl_mturk_t0_l0",
+        "unit": "participants",
+        "field": "lkl",
+        "stat": "mean",
+        "where": {
+          "site_type": "mturk",
+          "tempt": 0,
+          "load": 0
+        },
+        "human": {
+          "value": 2.97,
+          "sd": 2.39,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "evidence": "withheld:a626a31ca2af5420",
+            "note": "withheld:ae13c6f1328bcb61"
+          },
+          "n": null
+        },
+        "reference": "replication",
+        "no_uncertainty": "cell n not printed for MTurk: only the no-load total (n = 1,661, Supplement p. 20) and N = 2,973, so the load cells total 1,312; per-cell SE cannot be derived"
+      },
+      {
+        "id": "lkl_mturk_t1_l0",
+        "unit": "participants",
+        "field": "lkl",
+        "stat": "mean",
+        "where": {
+          "site_type": "mturk",
+          "tempt": 1,
+          "load": 0
+        },
+        "human": {
+          "value": 3.19,
+          "sd": 2.41,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "evidence": "withheld:a626a31ca2af5420",
+            "note": "withheld:ae13c6f1328bcb61"
+          },
+          "n": null
+        },
+        "reference": "replication",
+        "no_uncertainty": "cell n not printed for MTurk: only the no-load total (n = 1,661, Supplement p. 20) and N = 2,973, so the load cells total 1,312; per-cell SE cannot be derived"
+      },
+      {
+        "id": "lkl_mturk_t0_l1",
+        "unit": "participants",
+        "field": "lkl",
+        "stat": "mean",
+        "where": {
+          "site_type": "mturk",
+          "tempt": 0,
+          "load": 1
+        },
+        "human": {
+          "value": 3.84,
+          "sd": 2.31,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "evidence": "withheld:a626a31ca2af5420",
+            "note": "withheld:ae13c6f1328bcb61"
+          },
+          "n": null
+        },
+        "reference": "replication",
+        "no_uncertainty": "cell n not printed for MTurk: only the no-load total (n = 1,661, Supplement p. 20) and N = 2,973, so the load cells total 1,312; per-cell SE cannot be derived"
+      },
+      {
+        "id": "lkl_mturk_t1_l1",
+        "unit": "participants",
+        "field": "lkl",
+        "stat": "mean",
+        "where": {
+          "site_type": "mturk",
+          "tempt": 1,
+          "load": 1
+        },
+        "human": {
+          "value": 3.85,
+          "sd": 2.32,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "evidence": "withheld:a626a31ca2af5420",
+            "note": "withheld:ae13c6f1328bcb61"
+          },
+          "n": null
+        },
+        "reference": "replication",
+        "no_uncertainty": "cell n not printed for MTurk: only the no-load total (n = 1,661, Supplement p. 20) and N = 2,973, so the load cells total 1,312; per-cell SE cannot be derived"
+      },
+      {
+        "id": "lkl_similar_t0_l0",
+        "unit": "participants",
+        "field": "lkl",
+        "stat": "mean",
+        "where": {
+          "site_type": "similar",
+          "tempt": 0,
+          "load": 0
+        },
+        "human": {
+          "value": 2.26,
+          "sd": 1.89,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "evidence": "withheld:a626a31ca2af5420",
+            "note": "withheld:ae13c6f1328bcb61"
+          },
+          "n": 199,
+          "n_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:8750c07b9d73ef15"
+          }
+        },
+        "reference": "replication",
+        "reference_mismatch": "printed for all four similar sites (N = 754); only Penn (v1) and UC Berkeley (RP:P file) are runnable (535 of 754); UVA and Stanford ran undeposited survey files",
+        "scoring": "not_comparable"
+      },
+      {
+        "id": "lkl_similar_t1_l0",
+        "unit": "participants",
+        "field": "lkl",
+        "stat": "mean",
+        "where": {
+          "site_type": "similar",
+          "tempt": 1,
+          "load": 0
+        },
+        "human": {
+          "value": 2.37,
+          "sd": 1.96,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "evidence": "withheld:a626a31ca2af5420",
+            "note": "withheld:ae13c6f1328bcb61"
+          },
+          "n": 206,
+          "n_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:8750c07b9d73ef15"
+          }
+        },
+        "reference": "replication",
+        "reference_mismatch": "printed for all four similar sites (N = 754); only Penn (v1) and UC Berkeley (RP:P file) are runnable (535 of 754); UVA and Stanford ran undeposited survey files",
+        "scoring": "not_comparable"
+      },
+      {
+        "id": "lkl_similar_t0_l1",
+        "unit": "participants",
+        "field": "lkl",
+        "stat": "mean",
+        "where": {
+          "site_type": "similar",
+          "tempt": 0,
+          "load": 1
+        },
+        "human": {
+          "value": 3.38,
+          "sd": 2.16,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "evidence": "withheld:a626a31ca2af5420",
+            "note": "withheld:ae13c6f1328bcb61"
+          },
+          "n": 175,
+          "n_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:8750c07b9d73ef15"
+          }
+        },
+        "reference": "replication",
+        "reference_mismatch": "printed for all four similar sites (N = 754); only Penn (v1) and UC Berkeley (RP:P file) are runnable (535 of 754); UVA and Stanford ran undeposited survey files",
+        "scoring": "not_comparable"
+      },
+      {
+        "id": "lkl_similar_t1_l1",
+        "unit": "participants",
+        "field": "lkl",
+        "stat": "mean",
+        "where": {
+          "site_type": "similar",
+          "tempt": 1,
+          "load": 1
+        },
+        "human": {
+          "value": 3.47,
+          "sd": 2.19,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "evidence": "withheld:a626a31ca2af5420",
+            "note": "withheld:ae13c6f1328bcb61"
+          },
+          "n": 174,
+          "n_cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:8750c07b9d73ef15"
+          }
+        },
+        "reference": "replication",
+        "reference_mismatch": "printed for all four similar sites (N = 754); only Penn (v1) and UC Berkeley (RP:P file) are runnable (535 of 754); UVA and Stanford ran undeposited survey files",
+        "scoring": "not_comparable"
+      }
+    ],
+    "effects": [
+      {
+        "id": "sim_tempt_noload",
+        "label": "Similar sites: tempting fate, no load (main effect)",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "lkl",
+          "groupBy": "tempt",
+          "where": {
+            "site_type": "similar",
+            "load": 0
+          }
+        },
+        "reported": {
+          "value": 0.10763,
+          "se": 0.20347,
+          "test": {
+            "statistic": "t",
+            "value": 0.529,
+            "df": 750,
+            "p": 0.597
+          },
+          "cells": {
+            "1": {
+              "mean": 2.37,
+              "sd": 1.96,
+              "n": 206
+            },
+            "0": {
+              "mean": 2.26,
+              "sd": 1.89,
+              "n": 199
+            }
+          },
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 19,
+              "evidence": "withheld:0088763ecc66d9c7"
+            },
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 17,
+              "evidence": "withheld:a626a31ca2af5420"
+            }
+          ],
+          "estimates": [
+            {
+              "model": "primary mixed model (Table 3, p. 8; Fig. 1, p. 6)",
+              "value": 0.11,
+              "ci": [
+                -0.34,
+                0.56
+              ],
+              "p": 0.64
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:6eefecf7a270ff35"
+        },
+        "reference_mismatch": "printed for all four similar sites (N = 754); only Penn (v1) and UC Berkeley (RP:P file) are runnable (535 of 754); UVA and Stanford ran undeposited survey files",
+        "scoring": "none"
+      },
+      {
+        "id": "sim_load_nottempt",
+        "label": "Similar sites: cognitive load among not-tempted subjects",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "lkl",
+          "groupBy": "load",
+          "where": {
+            "site_type": "similar",
+            "tempt": 0
+          }
+        },
+        "reported": {
+          "value": 1.12155,
+          "se": 0.21215,
+          "test": {
+            "statistic": "t",
+            "value": 5.287,
+            "df": 750,
+            "p": 1.63e-07
+          },
+          "cells": {
+            "1": {
+              "mean": 3.38,
+              "sd": 2.16,
+              "n": 175
+            },
+            "0": {
+              "mean": 2.26,
+              "sd": 1.89,
+              "n": 199
+            }
+          },
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 19,
+              "evidence": "withheld:048a9a3f9322f9dc"
+            },
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 17,
+              "evidence": "withheld:a626a31ca2af5420"
+            }
+          ]
+        },
+        "ci_derived": {
+          "ci": [
+            0.705,
+            1.538
+          ],
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 19,
+            "note": "withheld:0be5a0e1a8ae3015"
+          }
+        },
+        "note": "printed in the supplement's model output (and the ANOVA F = 55.0, p = 3.25e-13); not discussed in the main text",
+        "reference_mismatch": "printed for all four similar sites (N = 754); only Penn (v1) and UC Berkeley (RP:P file) are runnable (535 of 754); UVA and Stanford ran undeposited survey files",
+        "scoring": "direction_only"
+      },
+      {
+        "id": "mturk_tempt_noload",
+        "label": "MTurk: tempting fate, no load (main effect)",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "lkl",
+          "groupBy": "tempt",
+          "where": {
+            "site": "mturk",
+            "load": 0
+          }
+        },
+        "reported": {
+          "value": 0.21,
+          "ci": [
+            -0.01,
+            0.44
+          ],
+          "test": {
+            "p": 0.07
+          },
+          "cells": {
+            "1": {
+              "mean": 3.19,
+              "sd": 2.41
+            },
+            "0": {
+              "mean": 2.97,
+              "sd": 2.39
+            }
+          },
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 6,
+              "evidence": "withheld:1bbe341df6fa33df"
+            },
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 17,
+              "evidence": "withheld:a626a31ca2af5420"
+            }
+          ],
+          "estimates": [
+            {
+              "model": "primary mixed model (Table 3, p. 8)",
+              "value": 0.21,
+              "ci": [
+                -0.01,
+                0.43
+              ],
+              "p": 0.06
+            },
+            {
+              "model": "Table S1 (p. 13): SMD, t-test",
+              "value": 0.09,
+              "p": 0.07,
+              "metric": "cohens_d"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:6c3d927d72535034"
+        }
+      },
+      {
+        "id": "mturk_load_nottempt",
+        "label": "MTurk: cognitive load among not-tempted subjects (descriptive)",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "lkl",
+          "groupBy": "load",
+          "where": {
+            "site": "mturk",
+            "tempt": 0
+          }
+        },
+        "reported": {
+          "cells": {
+            "1": {
+              "mean": 3.84,
+              "sd": 2.31
+            },
+            "0": {
+              "mean": 2.97,
+              "sd": 2.39
+            }
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 17,
+            "evidence": "withheld:a626a31ca2af5420"
+          }
+        },
+        "role": "descriptive",
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 17,
+          "note": "withheld:52cf15384e8a0218"
+        }
+      },
+      {
+        "id": "mturk_tempt_load_smd",
+        "label": "mturk: tempting fate under load (SMD)",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "smd",
+          "field": "lkl",
+          "groupBy": "tempt",
+          "where": {
+            "site": "mturk",
+            "load": 1
+          }
+        },
+        "reported": {
+          "value": 0.01,
+          "test": {
+            "statistic": "t",
+            "p": 0.92
+          },
+          "metric": "cohens_d",
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 13,
+              "evidence": "withheld:e85e71130e6232cf"
+            },
+            {
+              "label": "reported",
+              "source": "code",
+              "evidence": "withheld:e221a46c386498fc",
+              "note": "withheld:f80cc88c595d797e"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 13,
+          "note": "withheld:815f387fb8b88987"
+        },
+        "compareAs": "cohens_d"
+      },
+      {
+        "id": "penn_tempt_noload",
+        "label": "penn: tempting fate, no load (main effect)",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "lkl",
+          "groupBy": "tempt",
+          "where": {
+            "site": "penn",
+            "load": 0
+          }
+        },
+        "reported": {
+          "value": 0.23,
+          "ci": [
+            -0.33,
+            0.8
+          ],
+          "test": {
+            "p": 0.42
+          },
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 6,
+              "evidence": "withheld:1bbe341df6fa33df"
+            },
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 13,
+              "evidence": "withheld:bb3c88f9e54dab1c"
+            }
+          ],
+          "estimates": [
+            {
+              "model": "Table S1: SMD, t-test (no load)",
+              "value": 0.13,
+              "p": 0.4,
+              "metric": "cohens_d"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:61b67eb1d87355e1"
+        }
+      },
+      {
+        "id": "penn_tempt_load_smd",
+        "label": "penn: tempting fate under load (SMD)",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "smd",
+          "field": "lkl",
+          "groupBy": "tempt",
+          "where": {
+            "site": "penn",
+            "load": 1
+          }
+        },
+        "reported": {
+          "value": 0.2,
+          "test": {
+            "statistic": "t",
+            "p": 0.2
+          },
+          "metric": "cohens_d",
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 13,
+              "evidence": "withheld:e85e71130e6232cf"
+            },
+            {
+              "label": "reported",
+              "source": "code",
+              "evidence": "withheld:e221a46c386498fc",
+              "note": "withheld:f80cc88c595d797e"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 13,
+          "note": "withheld:5191f0d53193c0a7"
+        },
+        "compareAs": "cohens_d"
+      },
+      {
+        "id": "ucb_tempt_noload",
+        "label": "ucb: tempting fate, no load (main effect)",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "lkl",
+          "groupBy": "tempt",
+          "where": {
+            "site": "ucb",
+            "load": 0
+          }
+        },
+        "reported": {
+          "value": -0.23,
+          "ci": [
+            -1.03,
+            0.58
+          ],
+          "test": {
+            "p": 0.58
+          },
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 6,
+              "evidence": "withheld:1bbe341df6fa33df"
+            },
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 13,
+              "evidence": "withheld:bb3c88f9e54dab1c"
+            }
+          ],
+          "estimates": [
+            {
+              "model": "Table S1: SMD, t-test (no load)",
+              "value": -0.11,
+              "p": 0.55,
+              "metric": "cohens_d"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:61b67eb1d87355e1"
+        }
+      },
+      {
+        "id": "ucb_tempt_load_smd",
+        "label": "ucb: tempting fate under load (SMD)",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "smd",
+          "field": "lkl",
+          "groupBy": "tempt",
+          "where": {
+            "site": "ucb",
+            "load": 1
+          }
+        },
+        "reported": {
+          "value": -0.3,
+          "test": {
+            "statistic": "t",
+            "p": 0.16
+          },
+          "metric": "cohens_d",
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 13,
+              "evidence": "withheld:e85e71130e6232cf"
+            },
+            {
+              "label": "reported",
+              "source": "code",
+              "evidence": "withheld:e221a46c386498fc",
+              "note": "withheld:f80cc88c595d797e"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 13,
+          "note": "withheld:c3d00c508833c6e1"
+        },
+        "compareAs": "cohens_d"
+      },
+      {
+        "id": "uri_tempt_noload",
+        "label": "uri: tempting fate, no load (main effect)",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "lkl",
+          "groupBy": "tempt",
+          "where": {
+            "site": "uri",
+            "load": 0
+          }
+        },
+        "reported": {
+          "value": 0.05,
+          "ci": [
+            -1.01,
+            1.1
+          ],
+          "test": {
+            "p": 0.93
+          },
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 6,
+              "evidence": "withheld:1bbe341df6fa33df"
+            },
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 13,
+              "evidence": "withheld:bb3c88f9e54dab1c"
+            }
+          ],
+          "estimates": [
+            {
+              "model": "Table S1: SMD, t-test (no load)",
+              "value": 0.03,
+              "p": 0.91,
+              "metric": "cohens_d"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 6,
+          "note": "withheld:61b67eb1d87355e1"
+        }
+      },
+      {
+        "id": "uri_tempt_load_smd",
+        "label": "uri: tempting fate under load (SMD)",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "smd",
+          "field": "lkl",
+          "groupBy": "tempt",
+          "where": {
+            "site": "uri",
+            "load": 1
+          }
+        },
+        "reported": {
+          "value": 0.02,
+          "test": {
+            "statistic": "t",
+            "p": 0.95
+          },
+          "metric": "cohens_d",
+          "cite": [
+            {
+              "label": "reported",
+              "source": "paper",
+              "page": 13,
+              "evidence": "withheld:e85e71130e6232cf"
+            },
+            {
+              "label": "reported",
+              "source": "code",
+              "evidence": "withheld:e221a46c386498fc",
+              "note": "withheld:f80cc88c595d797e"
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 13,
+          "note": "withheld:09c7435a264fe371"
+        },
+        "compareAs": "cohens_d"
+      },
+      {
+        "id": "importance_mturk_vs_similar",
+        "label": "Importance of answering correctly: MTurk minus similar sites",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "mturk",
+          "reference": "similar"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "importance",
+          "groupBy": "site_type",
+          "where": {}
+        },
+        "reported": {
+          "value": 1.02,
+          "ci": [
+            0.45,
+            1.59
+          ],
+          "test": {
+            "p": 0.0005
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 9,
+            "note": "withheld:183f19042f7209d0"
+          },
+          "sign_cite": {
+            "label": "reported",
+            "source": "code",
+            "evidence": "withheld:a34069b31d7d66f8",
+            "note": "withheld:4dc5b6895b8caa75"
+          }
+        },
+        "reference_mismatch": "mixed model with random site intercepts fitted on all sites incl. non-runnable ones; the runnable similar side is Penn only (UCB has no item; UVA, Stanford not runnable); the replay gives a naive difference of means. Scoring the sign would assume Penn alone lies below MTurk; no per-site importance means are printed, so that assumption is not in the sources",
+        "scoring": "none",
+        "note": "contrary to the authors' expectation (p. 9)"
+      },
+      {
+        "id": "negativity_mturk_vs_similar",
+        "label": "Negativity of answering incorrectly: MTurk minus similar sites",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "mturk",
+          "reference": "similar"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "badness",
+          "groupBy": "site_type",
+          "where": {}
+        },
+        "reported": {
+          "value": -0.03,
+          "ci": [
+            -0.52,
+            0.45
+          ],
+          "test": {
+            "p": 0.89
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 9,
+            "note": "withheld:cda68e1891661a56"
+          },
+          "sign_cite": {
+            "label": "reported",
+            "source": "code",
+            "evidence": "withheld:a71a599e3cb0b68b",
+            "note": "withheld:3b685cf82ab77480"
+          }
+        },
+        "reference_mismatch": "mixed model with random site intercepts; replay gives a naive difference",
+        "scoring": "none",
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "note": "withheld:01027f143ef8100b"
+        }
+      },
+      {
+        "id": "count_eff_mturk_vs_university",
+        "label": "count_eff among load subjects: MTurk minus all universities",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "count_eff",
+          "groupBy": "mturk",
+          "where": {
+            "load": 1
+          }
+        },
+        "reported": {
+          "value": 0.63,
+          "ci": [
+            -0.42,
+            1.68
+          ],
+          "test": {
+            "p": 0.24
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 9,
+            "note": "withheld:f5132799f9d91f48"
+          }
+        },
+        "reference_mismatch": "university side includes seven sites the sandbox cannot run (translated or undeposited survey files)",
+        "scoring": "none",
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "note": "withheld:2da8eb57228bf748"
+        }
+      },
+      {
+        "id": "count_hard_mturk_vs_university",
+        "label": "count_hard among load subjects: MTurk minus all universities",
+        "unit": "participants",
+        "design": "between",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "1",
+          "reference": "0"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "count_hard",
+          "groupBy": "mturk",
+          "where": {
+            "load": 1
+          }
+        },
+        "reported": {
+          "value": 0.51,
+          "ci": [
+            -0.11,
+            1.14
+          ],
+          "test": {
+            "p": 0.11
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 9,
+            "note": "withheld:144ad5eb5d2ab954"
+          }
+        },
+        "reference_mismatch": "university side includes seven sites the sandbox cannot run (translated or undeposited survey files)",
+        "scoring": "none",
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 9,
+          "note": "withheld:2da8eb57228bf748"
+        }
+      },
+      {
+        "id": "sim_interaction",
+        "label": "Similar sites: Tempting Fate x Cognitive Load (focal)",
+        "unit": "participants",
+        "design": "between",
+        "compute": {
+          "op": "interaction",
+          "field": "lkl",
+          "factor_a": "tempt",
+          "a_levels": [
+            1,
+            0
+          ],
+          "factor_b": "load",
+          "b_levels": [
+            1,
+            0
+          ],
+          "where": {
+            "site_type": "similar"
+          }
+        },
+        "reported": {
+          "value": -0.02497,
+          "se": 0.29905,
+          "test": {
+            "statistic": "t",
+            "value": -0.083,
+            "p": 0.933
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 19,
+            "evidence": "withheld:277daf979acd39c9"
+          },
+          "estimates": [
+            {
+              "model": "primary mixed model (Table 3)",
+              "value": -0.02,
+              "ci": [
+                -0.68,
+                0.63
+              ],
+              "p": 0.94
+            }
+          ]
+        },
+        "se_note": "printed se is OLS with pooled sigma 2.047; op interaction gives an SE from unpooled cell variances (close, not identical)",
+        "reference_mismatch": "printed for all four similar sites (N = 754); only Penn (v1) and UC Berkeley (RP:P file) are runnable (535 of 754); UVA and Stanford ran undeposited survey files",
+        "scoring": "none",
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "withheld:d3910e5dcbaa7196"
+        }
+      },
+      {
+        "id": "mturk_interaction",
+        "label": "MTurk: Tempting Fate x Cognitive Load",
+        "unit": "participants",
+        "design": "between",
+        "compute": {
+          "op": "interaction",
+          "field": "lkl",
+          "factor_a": "tempt",
+          "a_levels": [
+            1,
+            0
+          ],
+          "factor_b": "load",
+          "b_levels": [
+            1,
+            0
+          ],
+          "where": {
+            "site": "mturk"
+          }
+        },
+        "se_note": "Fig. 2 CI from per-site OLS with pooled residual sigma (analysis.R l. 42-49); op interaction uses unpooled cell variances (close, not identical)",
+        "reported": {
+          "value": -0.2,
+          "ci": [
+            -0.54,
+            0.14
+          ],
+          "test": {
+            "p": 0.25
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "evidence": "withheld:ed7ba0018c84d232"
+          },
+          "estimates": [
+            {
+              "model": "Table 3",
+              "value": -0.2,
+              "ci": [
+                -0.53,
+                0.13
+              ],
+              "p": 0.24
+            }
+          ]
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:68307148f34ecef7"
+        }
+      },
+      {
+        "id": "penn_interaction",
+        "label": "penn: Tempting Fate x Cognitive Load",
+        "unit": "participants",
+        "design": "between",
+        "compute": {
+          "op": "interaction",
+          "field": "lkl",
+          "factor_a": "tempt",
+          "a_levels": [
+            1,
+            0
+          ],
+          "factor_b": "load",
+          "b_levels": [
+            1,
+            0
+          ],
+          "where": {
+            "site": "penn"
+          }
+        },
+        "se_note": "Fig. 2 CI from per-site OLS with pooled residual sigma (analysis.R l. 42-49); op interaction uses unpooled cell variances (close, not identical)",
+        "reported": {
+          "value": 0.17,
+          "ci": [
+            -0.65,
+            1.0
+          ],
+          "test": {
+            "p": 0.68
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "evidence": "withheld:ed7ba0018c84d232"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:68307148f34ecef7"
+        }
+      },
+      {
+        "id": "ucb_interaction",
+        "label": "ucb: Tempting Fate x Cognitive Load",
+        "unit": "participants",
+        "design": "between",
+        "compute": {
+          "op": "interaction",
+          "field": "lkl",
+          "factor_a": "tempt",
+          "a_levels": [
+            1,
+            0
+          ],
+          "factor_b": "load",
+          "b_levels": [
+            1,
+            0
+          ],
+          "where": {
+            "site": "ucb"
+          }
+        },
+        "se_note": "Fig. 2 CI from per-site OLS with pooled residual sigma (analysis.R l. 42-49); op interaction uses unpooled cell variances (close, not identical)",
+        "reported": {
+          "value": -0.49,
+          "ci": [
+            -1.72,
+            0.74
+          ],
+          "test": {
+            "p": 0.43
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "evidence": "withheld:ed7ba0018c84d232"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:68307148f34ecef7"
+        }
+      },
+      {
+        "id": "uri_interaction",
+        "label": "uri: Tempting Fate x Cognitive Load",
+        "unit": "participants",
+        "design": "between",
+        "compute": {
+          "op": "interaction",
+          "field": "lkl",
+          "factor_a": "tempt",
+          "a_levels": [
+            1,
+            0
+          ],
+          "factor_b": "load",
+          "b_levels": [
+            1,
+            0
+          ],
+          "where": {
+            "site": "uri"
+          }
+        },
+        "se_note": "Fig. 2 CI from per-site OLS with pooled residual sigma (analysis.R l. 42-49); op interaction uses unpooled cell variances (close, not identical)",
+        "reported": {
+          "value": -0.01,
+          "ci": [
+            -1.59,
+            1.58
+          ],
+          "test": {
+            "p": 0.99
+          },
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "evidence": "withheld:ed7ba0018c84d232"
+          }
+        },
+        "direction_claimed": false,
+        "direction_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "withheld:68307148f34ecef7"
+        }
+      }
+    ],
+    "unsupported": [
+      {
+        "what": "Table 3 (p. 8): site-type differences (similar vs MTurk) in the main effect (-0.11 [-0.61, 0.39], p = .68) and the interaction (0.18 [-0.56, 0.91], p = .64); N = 3,727",
+        "why": "three-way interaction in a mixed model with by-site random slopes; needs analysis code (analysis.R) under sandbox_run"
+      },
+      {
+        "what": "Table 4 (p. 9) and Table S3 (p. 18): all-university models (e.g. dissimilar main effect 0.42 [-0.07, 0.90]; all universities 0.28 [-0.08, 0.63])",
+        "why": "include the three translated sites (arms not runnable); mixed models"
+      },
+      {
+        "what": "three-way interaction MTurk vs all universities b = -0.03 [-0.99, 0.93] (p. 9), SAT moderator (p. 10)",
+        "why": "mixed models over all sites incl. non-runnable arms; SAT is a site covariate"
+      },
+      {
+        "what": "Table S2 dissimilar-site cell means (2.74/2.02, 3.18/2.19, 3.64/2.10, 3.76/2.01)",
+        "why": "pool all six dissimilar sites; only URI is runnable",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 17,
+          "evidence": "withheld:a626a31ca2af5420"
+        }
+      },
+      {
+        "what": "Many Labs 2 comparison (Supplement pp. 20-24)",
+        "why": "analysis of another project's data, not an experiment"
+      }
+    ],
+    "reference_only": [
+      {
+        "site": "uva",
+        "fig1_main": [
+          0.04,
+          -0.93,
+          1.0,
+          0.94
+        ],
+        "fig2_interaction": [
+          0.1,
+          -1.28,
+          1.48,
+          0.89
+        ],
+        "tableS1": [
+          0.02,
+          0.94,
+          0.06,
+          0.79
+        ],
+        "why": "arm not runnable: the site ran another ML5 survey file (not deposited); its pages, labels, slider starts and forced-response settings are not documented, so serving the v1 qsf would present an undeposited version as the deposited one",
+        "cite": [
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "evidence": "withheld:6c6c4e362c3a0f58"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "evidence": "withheld:ed7ba0018c84d232"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "evidence": "withheld:bb3c88f9e54dab1c"
+          }
+        ]
+      },
+      {
+        "site": "stanford",
+        "fig1_main": [
+          0.67,
+          -0.63,
+          1.96,
+          0.31
+        ],
+        "fig2_interaction": [
+          -0.2,
+          -2.15,
+          1.75,
+          0.84
+        ],
+        "tableS1": [
+          0.4,
+          0.22,
+          0.2,
+          0.59
+        ],
+        "why": "arm not runnable: the site ran another ML5 survey file (not deposited); its pages, labels, slider starts and forced-response settings are not documented, so serving the v1 qsf would present an undeposited version as the deposited one",
+        "cite": [
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "evidence": "withheld:6c6c4e362c3a0f58"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "evidence": "withheld:ed7ba0018c84d232"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "evidence": "withheld:bb3c88f9e54dab1c"
+          }
+        ]
+      },
+      {
+        "site": "elte",
+        "fig1_main": [
+          1.06,
+          0.37,
+          1.75,
+          0.0
+        ],
+        "fig2_interaction": [
+          -0.99,
+          -1.96,
+          -0.01,
+          0.05
+        ],
+        "tableS1": [
+          0.5,
+          0.0,
+          0.03,
+          0.84
+        ],
+        "why": "arm not runnable: questionnaire administered in Hungarian (translated, back-translated: paper p. 3); the translated survey is not deposited on OSF h5a9y (materials/ has the English qsf only)",
+        "cite": [
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "evidence": "withheld:6c6c4e362c3a0f58"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "evidence": "withheld:ed7ba0018c84d232"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "evidence": "withheld:bb3c88f9e54dab1c"
+          }
+        ]
+      },
+      {
+        "site": "kul",
+        "fig1_main": [
+          0.1,
+          -0.66,
+          0.86,
+          0.8
+        ],
+        "fig2_interaction": [
+          0.71,
+          -0.4,
+          1.82,
+          0.21
+        ],
+        "tableS1": [
+          0.06,
+          0.81,
+          0.58,
+          0.03
+        ],
+        "why": "arm not runnable: questionnaire administered in Dutch (translated, back-translated: paper p. 3); the translated survey is not deposited on OSF h5a9y (materials/ has the English qsf only)",
+        "cite": [
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "evidence": "withheld:6c6c4e362c3a0f58"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "evidence": "withheld:ed7ba0018c84d232"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "evidence": "withheld:bb3c88f9e54dab1c"
+          }
+        ]
+      },
+      {
+        "site": "up",
+        "fig1_main": [
+          0.0,
+          -1.15,
+          1.15,
+          1.0
+        ],
+        "fig2_interaction": [
+          0.04,
+          -1.73,
+          1.81,
+          0.96
+        ],
+        "tableS1": [
+          0.0,
+          1.0,
+          0.02,
+          0.95
+        ],
+        "why": "arm not runnable: questionnaire administered in Portuguese (translated, back-translated: paper p. 3); the translated survey is not deposited on OSF h5a9y (materials/ has the English qsf only)",
+        "cite": [
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "evidence": "withheld:6c6c4e362c3a0f58"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "evidence": "withheld:ed7ba0018c84d232"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "evidence": "withheld:bb3c88f9e54dab1c"
+          }
+        ]
+      },
+      {
+        "site": "byui",
+        "fig1_main": [
+          0.09,
+          -1.19,
+          1.37,
+          0.89
+        ],
+        "fig2_interaction": [
+          -0.29,
+          -2.2,
+          1.62,
+          0.76
+        ],
+        "tableS1": [
+          0.04,
+          0.9,
+          -0.1,
+          0.76
+        ],
+        "why": "arm not runnable: the site ran the site's own survey layout (not deposited); its pages, labels, slider starts and forced-response settings are not documented, so serving the v1 qsf would present an undeposited version as the deposited one",
+        "cite": [
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "evidence": "withheld:6c6c4e362c3a0f58"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "evidence": "withheld:ed7ba0018c84d232"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "evidence": "withheld:bb3c88f9e54dab1c"
+          }
+        ]
+      },
+      {
+        "site": "rhit",
+        "fig1_main": [
+          0.26,
+          -1.52,
+          2.04,
+          0.77
+        ],
+        "fig2_interaction": [
+          -0.3,
+          -2.87,
+          2.28,
+          0.82
+        ],
+        "tableS1": [
+          0.1,
+          0.79,
+          -0.02,
+          0.97
+        ],
+        "why": "arm not runnable: the site ran another ML5 survey file (not deposited); its pages, labels, slider starts and forced-response settings are not documented, so serving the v1 qsf would present an undeposited version as the deposited one",
+        "cite": [
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 6,
+            "evidence": "withheld:6c6c4e362c3a0f58"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "evidence": "withheld:ed7ba0018c84d232"
+          },
+          {
+            "label": "reported",
+            "source": "paper",
+            "page": 13,
+            "evidence": "withheld:bb3c88f9e54dab1c"
+          }
+        ]
+      }
+    ]
+  },
+  "keyed": {
+    "why": "answers that make the scored signs true: load raises the likelihood rating (importance kept in the paper's direction, though no longer sign-scored); every load subject counts down (end number < 561) and splits effort (split > 0)",
+    "answers": {
+      "scenario.lkl": "4 if load == 1 else 2",
+      "scenario_unforced.lkl": "4",
+      "end_number.end": "540",
+      "end_number_rpp.end": "540",
+      "end_number_rpp_u.end": "540",
+      "effort_split.split": "3",
+      "importance.imp": "7 if arm == 'mturk' else 5"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {
+      "h1": {
+        "path": "/data/hit/head/text",
+        "source": "hit",
+        "kind": "text",
+        "length": 76,
+        "text_sha256": "07bde049ded7b421118be4fe9d16a37afc240d18ee0b47cdd2b45768a7821da4",
+        "locator": {
+          "format": "text",
+          "extractor": "hsenv-text/1",
+          "parts": [
+            {
+              "units": [
+                0,
+                0
+              ],
+              "canon_len": 64,
+              "canon_sha256": "f1c12770dda4dbe7799924b9bf76217b6ca9cc82b57f0db3144546f2084d2649",
+              "unique": true,
+              "before": 40,
+              "after": 16
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              46,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              52,
+              0,
+              " "
+            ],
+            [
+              61,
+              0,
+              " "
+            ]
+          ]
+        }
+      },
+      "h3": {
+        "path": "/data/hit/consent/text",
+        "source": "hit",
+        "kind": "text",
+        "length": 575,
+        "text_sha256": "c61942201aaa52d3beafa9f851d25dd6ef0675dd188ec47c0b56f36236276166",
+        "locator": {
+          "format": "text",
+          "extractor": "hsenv-text/1",
+          "parts": [
+            {
+              "units": [
+                6,
+                6
+              ],
+              "canon_len": 493,
+              "canon_sha256": "1a70f9616cf41d9e5d3469f01a337e773a3e423d6dfeb8f1e86e3bfa95d55b10",
+              "unique": true,
+              "before": 36,
+              "after": 11
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              23,
+              0,
+              " "
+            ],
+            [
+              33,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              39,
+              0,
+              " "
+            ],
+            [
+              52,
+              0,
+              " "
+            ],
+            [
+              54,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              60,
+              0,
+              " "
+            ],
+            [
+              65,
+              0,
+              " "
+            ],
+            [
+              74,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              85,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ],
+            [
+              97,
+              0,
+              " "
+            ],
+            [
+              100,
+              0,
+              " "
+            ],
+            [
+              108,
+              0,
+              " "
+            ],
+            [
+              118,
+              0,
+              " "
+            ],
+            [
+              120,
+              0,
+              " "
+            ],
+            [
+              131,
+              0,
+              " "
+            ],
+            [
+              133,
+              0,
+              " "
+            ],
+            [
+              136,
+              0,
+              " "
+            ],
+            [
+              140,
+              0,
+              " "
+            ],
+            [
+              149,
+              0,
+              " "
+            ],
+            [
+              154,
+              0,
+              " "
+            ],
+            [
+              158,
+              0,
+              " "
+            ],
+            [
+              167,
+              0,
+              " "
+            ],
+            [
+              173,
+              0,
+              " "
+            ],
+            [
+              180,
+              0,
+              " "
+            ],
+            [
+              182,
+              0,
+              " "
+            ],
+            [
+              184,
+              0,
+              " "
+            ],
+            [
+              211,
+              0,
+              " "
+            ],
+            [
+              215,
+              0,
+              " "
+            ],
+            [
+              228,
+              0,
+              " "
+            ],
+            [
+              230,
+              0,
+              " "
+            ],
+            [
+              234,
+              0,
+              " "
+            ],
+            [
+              242,
+              0,
+              " "
+            ],
+            [
+              244,
+              0,
+              " "
+            ],
+            [
+              254,
+              0,
+              " "
+            ],
+            [
+              257,
+              0,
+              " "
+            ],
+            [
+              260,
+              0,
+              " "
+            ],
+            [
+              267,
+              0,
+              " "
+            ],
+            [
+              269,
+              0,
+              " "
+            ],
+            [
+              275,
+              0,
+              " "
+            ],
+            [
+              278,
+              0,
+              " "
+            ],
+            [
+              280,
+              0,
+              " "
+            ],
+            [
+              283,
+              0,
+              " "
+            ],
+            [
+              285,
+              0,
+              " "
+            ],
+            [
+              288,
+              0,
+              " "
+            ],
+            [
+              297,
+              0,
+              " "
+            ],
+            [
+              307,
+              0,
+              " "
+            ],
+            [
+              310,
+              0,
+              " "
+            ],
+            [
+              313,
+              0,
+              " "
+            ],
+            [
+              320,
+              0,
+              " "
+            ],
+            [
+              327,
+              0,
+              " "
+            ],
+            [
+              341,
+              0,
+              " "
+            ],
+            [
+              343,
+              0,
+              " "
+            ],
+            [
+              346,
+              0,
+              " "
+            ],
+            [
+              351,
+              0,
+              " "
+            ],
+            [
+              358,
+              0,
+              " "
+            ],
+            [
+              365,
+              0,
+              " "
+            ],
+            [
+              378,
+              0,
+              " "
+            ],
+            [
+              382,
+              0,
+              " "
+            ],
+            [
+              391,
+              0,
+              " "
+            ],
+            [
+              393,
+              0,
+              " "
+            ],
+            [
+              401,
+              0,
+              " "
+            ],
+            [
+              404,
+              0,
+              " "
+            ],
+            [
+              415,
+              0,
+              " "
+            ],
+            [
+              418,
+              0,
+              " "
+            ],
+            [
+              422,
+              0,
+              " "
+            ],
+            [
+              431,
+              0,
+              " "
+            ],
+            [
+              435,
+              0,
+              " "
+            ],
+            [
+              448,
+              0,
+              " "
+            ],
+            [
+              452,
+              0,
+              " "
+            ],
+            [
+              455,
+              0,
+              " "
+            ],
+            [
+              462,
+              0,
+              " "
+            ],
+            [
+              465,
+              0,
+              " "
+            ],
+            [
+              473,
+              0,
+              " "
+            ],
+            [
+              484,
+              0,
+              " "
+            ],
+            [
+              489,
+              0,
+              " "
+            ]
+          ]
+        }
+      },
+      "h5": {
+        "path": "/data/hit/task/text",
+        "source": "hit",
+        "kind": "text",
+        "length": 99,
+        "text_sha256": "f5a1676e7d5ddb46eba6776ec1d3a239061cd7aef916128b04f2e51501e31b3f",
+        "locator": {
+          "format": "text",
+          "page": null
+        }
+      },
+      "h6": {
+        "path": "/data/hit/code/text",
+        "source": "hit",
+        "kind": "text",
+        "length": 124,
+        "text_sha256": "e09d2391611bea245407b510b33d876953048846ee516138f85432c41c8b164a",
+        "locator": {
+          "format": "text",
+          "extractor": "hsenv-text/1",
+          "parts": [
+            {
+              "units": [
+                14,
+                14
+              ],
+              "canon_len": 101,
+              "canon_sha256": "708f9d7b04eb5cd96fa894da3a40655e37f171d6c7aec587faea6d0a25b8ded4",
+              "unique": true,
+              "before": 36,
+              "after": 11
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              16,
+              0,
+              " "
+            ],
+            [
+              19,
+              0,
+              " "
+            ],
+            [
+              20,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              39,
+              0,
+              " "
+            ],
+            [
+              43,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              53,
+              0,
+              " "
+            ],
+            [
+              56,
+              0,
+              " "
+            ],
+            [
+              61,
+              0,
+              " "
+            ],
+            [
+              63,
+              0,
+              " "
+            ],
+            [
+              67,
+              0,
+              " "
+            ],
+            [
+              70,
+              0,
+              " "
+            ],
+            [
+              75,
+              0,
+              " "
+            ],
+            [
+              81,
+              0,
+              " "
+            ],
+            [
+              84,
+              0,
+              " "
+            ],
+            [
+              88,
+              0,
+              " "
+            ],
+            [
+              94,
+              0,
+              " "
+            ],
+            [
+              97,
+              0,
+              " "
+            ]
+          ]
+        }
+      },
+      "h8": {
+        "path": "/data/directions/0/text",
+        "source": "print",
+        "kind": "text",
+        "length": 37,
+        "text_sha256": "ed301a355fb66a1e8791680db71d9dc2cbb3e7fdf305736dd6f7be4b1887c528",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                0,
+                0
+              ],
+              "canon_len": 33,
+              "canon_sha256": "9b40e96004cec58ca693d403e34de9b7d0ef83e249032fe8a1655e0a29fe3f5f",
+              "unique": true,
+              "before": 242,
+              "after": 971
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              23,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            1,
+            1
+          ],
+          "per_unit": true
+        }
+      },
+      "h9": {
+        "path": "/data/directions/1/text",
+        "source": "print",
+        "kind": "text",
+        "length": 953,
+        "text_sha256": "d76ea193cabd62b0fe0741f69e58fdab6cadbbb3d92bdeca67e9039e32df5a6e",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                0,
+                0
+              ],
+              "canon_len": 784,
+              "canon_sha256": "1d023265e61ad3531973e6dd28a3e25c4e098d87cee997cc6f5b199f8bb52261",
+              "unique": true,
+              "before": 275,
+              "after": 187
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              20,
+              0,
+              " "
+            ],
+            [
+              24,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              33,
+              0,
+              " "
+            ],
+            [
+              41,
+              0,
+              " "
+            ],
+            [
+              44,
+              0,
+              " "
+            ],
+            [
+              49,
+              0,
+              " "
+            ],
+            [
+              64,
+              0,
+              " "
+            ],
+            [
+              68,
+              0,
+              " "
+            ],
+            [
+              73,
+              0,
+              " "
+            ],
+            [
+              77,
+              0,
+              " "
+            ],
+            [
+              81,
+              0,
+              " "
+            ],
+            [
+              83,
+              0,
+              " "
+            ],
+            [
+              85,
+              0,
+              " "
+            ],
+            [
+              89,
+              0,
+              " "
+            ],
+            [
+              92,
+              0,
+              " "
+            ],
+            [
+              100,
+              0,
+              " "
+            ],
+            [
+              102,
+              0,
+              " "
+            ],
+            [
+              105,
+              0,
+              " "
+            ],
+            [
+              114,
+              0,
+              " "
+            ],
+            [
+              118,
+              0,
+              " "
+            ],
+            [
+              121,
+              0,
+              " "
+            ],
+            [
+              127,
+              0,
+              " "
+            ],
+            [
+              130,
+              0,
+              " "
+            ],
+            [
+              138,
+              0,
+              " "
+            ],
+            [
+              142,
+              0,
+              " "
+            ],
+            [
+              149,
+              0,
+              " "
+            ],
+            [
+              152,
+              0,
+              " "
+            ],
+            [
+              156,
+              0,
+              " "
+            ],
+            [
+              162,
+              0,
+              " "
+            ],
+            [
+              166,
+              0,
+              " "
+            ],
+            [
+              170,
+              0,
+              " "
+            ],
+            [
+              172,
+              0,
+              " "
+            ],
+            [
+              174,
+              0,
+              " "
+            ],
+            [
+              188,
+              0,
+              " "
+            ],
+            [
+              193,
+              0,
+              " "
+            ],
+            [
+              202,
+              0,
+              " "
+            ],
+            [
+              204,
+              0,
+              " "
+            ],
+            [
+              207,
+              0,
+              " "
+            ],
+            [
+              211,
+              0,
+              " "
+            ],
+            [
+              216,
+              0,
+              " "
+            ],
+            [
+              219,
+              0,
+              " "
+            ],
+            [
+              223,
+              0,
+              " "
+            ],
+            [
+              233,
+              0,
+              " "
+            ],
+            [
+              235,
+              0,
+              " "
+            ],
+            [
+              238,
+              0,
+              " "
+            ],
+            [
+              244,
+              0,
+              " "
+            ],
+            [
+              246,
+              0,
+              " "
+            ],
+            [
+              250,
+              0,
+              " "
+            ],
+            [
+              252,
+              0,
+              " "
+            ],
+            [
+              255,
+              0,
+              " "
+            ],
+            [
+              261,
+              0,
+              " "
+            ],
+            [
+              265,
+              0,
+              " "
+            ],
+            [
+              272,
+              0,
+              " "
+            ],
+            [
+              275,
+              0,
+              " "
+            ],
+            [
+              279,
+              0,
+              " "
+            ],
+            [
+              287,
+              0,
+              " "
+            ],
+            [
+              297,
+              0,
+              " "
+            ],
+            [
+              302,
+              0,
+              " "
+            ],
+            [
+              305,
+              0,
+              " "
+            ],
+            [
+              311,
+              0,
+              " "
+            ],
+            [
+              315,
+              0,
+              " "
+            ],
+            [
+              318,
+              0,
+              " "
+            ],
+            [
+              327,
+              0,
+              " "
+            ],
+            [
+              330,
+              0,
+              " "
+            ],
+            [
+              334,
+              0,
+              " "
+            ],
+            [
+              338,
+              0,
+              " "
+            ],
+            [
+              340,
+              0,
+              " "
+            ],
+            [
+              346,
+              0,
+              " "
+            ],
+            [
+              349,
+              0,
+              " "
+            ],
+            [
+              355,
+              0,
+              " "
+            ],
+            [
+              359,
+              0,
+              " "
+            ],
+            [
+              362,
+              0,
+              " "
+            ],
+            [
+              365,
+              0,
+              " "
+            ],
+            [
+              368,
+              0,
+              " "
+            ],
+            [
+              371,
+              0,
+              " "
+            ],
+            [
+              379,
+              0,
+              " "
+            ],
+            [
+              381,
+              0,
+              " "
+            ],
+            [
+              384,
+              0,
+              " "
+            ],
+            [
+              387,
+              0,
+              " "
+            ],
+            [
+              392,
+              0,
+              " "
+            ],
+            [
+              394,
+              0,
+              " "
+            ],
+            [
+              399,
+              0,
+              " "
+            ],
+            [
+              403,
+              0,
+              " "
+            ],
+            [
+              406,
+              0,
+              " "
+            ],
+            [
+              409,
+              0,
+              " "
+            ],
+            [
+              412,
+              0,
+              " "
+            ],
+            [
+              417,
+              0,
+              " "
+            ],
+            [
+              426,
+              0,
+              " "
+            ],
+            [
+              428,
+              0,
+              " "
+            ],
+            [
+              430,
+              0,
+              " "
+            ],
+            [
+              435,
+              0,
+              " "
+            ],
+            [
+              439,
+              0,
+              " "
+            ],
+            [
+              442,
+              3,
+              "…"
+            ],
+            [
+              446,
+              0,
+              " "
+            ],
+            [
+              449,
+              0,
+              " "
+            ],
+            [
+              455,
+              0,
+              " "
+            ],
+            [
+              462,
+              0,
+              " "
+            ],
+            [
+              465,
+              0,
+              " "
+            ],
+            [
+              473,
+              0,
+              " "
+            ],
+            [
+              476,
+              0,
+              " "
+            ],
+            [
+              485,
+              0,
+              " "
+            ],
+            [
+              488,
+              0,
+              " "
+            ],
+            [
+              496,
+              0,
+              " "
+            ],
+            [
+              501,
+              0,
+              " "
+            ],
+            [
+              504,
+              0,
+              " "
+            ],
+            [
+              507,
+              0,
+              " "
+            ],
+            [
+              509,
+              0,
+              " "
+            ],
+            [
+              513,
+              0,
+              " "
+            ],
+            [
+              516,
+              0,
+              " "
+            ],
+            [
+              522,
+              0,
+              " "
+            ],
+            [
+              527,
+              0,
+              " "
+            ],
+            [
+              530,
+              0,
+              " "
+            ],
+            [
+              532,
+              0,
+              " "
+            ],
+            [
+              535,
+              0,
+              " "
+            ],
+            [
+              541,
+              0,
+              " "
+            ],
+            [
+              543,
+              0,
+              " "
+            ],
+            [
+              546,
+              0,
+              " "
+            ],
+            [
+              551,
+              0,
+              " "
+            ],
+            [
+              553,
+              0,
+              " "
+            ],
+            [
+              556,
+              0,
+              " "
+            ],
+            [
+              560,
+              0,
+              " "
+            ],
+            [
+              564,
+              0,
+              " "
+            ],
+            [
+              572,
+              0,
+              " "
+            ],
+            [
+              582,
+              0,
+              " "
+            ],
+            [
+              585,
+              0,
+              " "
+            ],
+            [
+              591,
+              0,
+              " "
+            ],
+            [
+              594,
+              0,
+              " "
+            ],
+            [
+              600,
+              0,
+              " "
+            ],
+            [
+              606,
+              0,
+              " "
+            ],
+            [
+              608,
+              0,
+              " "
+            ],
+            [
+              609,
+              0,
+              " "
+            ],
+            [
+              617,
+              0,
+              " "
+            ],
+            [
+              619,
+              0,
+              " "
+            ],
+            [
+              624,
+              0,
+              " "
+            ],
+            [
+              628,
+              0,
+              " "
+            ],
+            [
+              632,
+              0,
+              " "
+            ],
+            [
+              635,
+              0,
+              " "
+            ],
+            [
+              643,
+              0,
+              " "
+            ],
+            [
+              650,
+              0,
+              " "
+            ],
+            [
+              653,
+              0,
+              " "
+            ],
+            [
+              659,
+              0,
+              " "
+            ],
+            [
+              663,
+              0,
+              " "
+            ],
+            [
+              666,
+              0,
+              " "
+            ],
+            [
+              672,
+              0,
+              " "
+            ],
+            [
+              677,
+              0,
+              " "
+            ],
+            [
+              681,
+              0,
+              " "
+            ],
+            [
+              685,
+              0,
+              " "
+            ],
+            [
+              691,
+              0,
+              " "
+            ],
+            [
+              693,
+              0,
+              " "
+            ],
+            [
+              696,
+              0,
+              " "
+            ],
+            [
+              699,
+              0,
+              " "
+            ],
+            [
+              701,
+              0,
+              " "
+            ],
+            [
+              704,
+              0,
+              " "
+            ],
+            [
+              713,
+              0,
+              " "
+            ],
+            [
+              718,
+              0,
+              " "
+            ],
+            [
+              723,
+              0,
+              " "
+            ],
+            [
+              731,
+              0,
+              " "
+            ],
+            [
+              740,
+              0,
+              " "
+            ],
+            [
+              742,
+              0,
+              " "
+            ],
+            [
+              744,
+              0,
+              " "
+            ],
+            [
+              756,
+              0,
+              " "
+            ],
+            [
+              759,
+              0,
+              " "
+            ],
+            [
+              763,
+              0,
+              " "
+            ],
+            [
+              770,
+              0,
+              " "
+            ],
+            [
+              772,
+              0,
+              " "
+            ],
+            [
+              775,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            1,
+            1
+          ],
+          "per_unit": true
+        }
+      },
+      "h10": {
+        "path": "/data/directions/2/text",
+        "source": "print",
+        "kind": "text",
+        "length": 78,
+        "text_sha256": "5ae59ee92e0025748ae73d897e29aef9416a506ee63c38cf975b04184af02094",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                0,
+                0
+              ],
+              "canon_len": 64,
+              "canon_sha256": "062c3c8e20f85a5c155fb3f2917ed9d2d367cfeca5320fbcdbf77489b77b304d",
+              "unique": true,
+              "before": 1059,
+              "after": 123
+            }
+          ],
+          "restore": [
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              43,
+              0,
+              " "
+            ],
+            [
+              50,
+              0,
+              " "
+            ],
+            [
+              52,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              59,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            1,
+            1
+          ],
+          "per_unit": true
+        }
+      },
+      "h11": {
+        "path": "/data/header_noload/text",
+        "source": "print",
+        "kind": "text",
+        "length": 45,
+        "text_sha256": "0d30a460a6c62e591738685540ea2b0588cf8599dd4d61ff1ef6bd959fdd5329",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                3,
+                3
+              ],
+              "canon_len": 40,
+              "canon_sha256": "e349711274577dbbc5050d3fff0b5ce719876de9e946192188aa75e075b1f790",
+              "unique": true,
+              "before": 0,
+              "after": 1282
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            4,
+            4
+          ],
+          "per_unit": true
+        }
+      },
+      "h13": {
+        "path": "/data/while/text",
+        "source": "print",
+        "kind": "text",
+        "length": 54,
+        "text_sha256": "5d6271dec35e6d317f773f33f9058a1da099c975af5441cd1891c7de8cbc6469",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                1,
+                1
+              ],
+              "canon_len": 48,
+              "canon_sha256": "939c0d799254e4610b15ab2b5477d51743ade5bf8a87e946df7ba01dc35cdcc3",
+              "unique": true,
+              "before": 22,
+              "after": 1318
+            }
+          ],
+          "restore": [
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              23,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              39,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            2,
+            2
+          ],
+          "per_unit": true
+        }
+      },
+      "h14": {
+        "path": "/data/scenario/tempted/text",
+        "source": "print",
+        "kind": "text",
+        "length": 474,
+        "text_sha256": "3610c0a768aa3cc437fc09ef92296be653350d818059aa59353ff6784681f1ae",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                1,
+                1
+              ],
+              "canon_len": 387,
+              "canon_sha256": "39cea1c920d9da8805dbd6a3b1a675ddd49888df5cbfe658636eb7b7b68e2b56",
+              "unique": true,
+              "before": 682,
+              "after": 319
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              19,
+              0,
+              " "
+            ],
+            [
+              20,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              40,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              61,
+              0,
+              " "
+            ],
+            [
+              64,
+              0,
+              " "
+            ],
+            [
+              71,
+              0,
+              " "
+            ],
+            [
+              73,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              82,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              97,
+              0,
+              " "
+            ],
+            [
+              101,
+              0,
+              " "
+            ],
+            [
+              105,
+              0,
+              " "
+            ],
+            [
+              113,
+              0,
+              " "
+            ],
+            [
+              117,
+              0,
+              " "
+            ],
+            [
+              119,
+              0,
+              " "
+            ],
+            [
+              122,
+              0,
+              " "
+            ],
+            [
+              127,
+              0,
+              " "
+            ],
+            [
+              130,
+              0,
+              " "
+            ],
+            [
+              139,
+              0,
+              " "
+            ],
+            [
+              143,
+              0,
+              " "
+            ],
+            [
+              144,
+              0,
+              " "
+            ],
+            [
+              152,
+              0,
+              " "
+            ],
+            [
+              157,
+              0,
+              " "
+            ],
+            [
+              160,
+              0,
+              " "
+            ],
+            [
+              169,
+              0,
+              " "
+            ],
+            [
+              172,
+              0,
+              " "
+            ],
+            [
+              174,
+              0,
+              " "
+            ],
+            [
+              177,
+              0,
+              " "
+            ],
+            [
+              183,
+              0,
+              " "
+            ],
+            [
+              186,
+              0,
+              " "
+            ],
+            [
+              188,
+              0,
+              " "
+            ],
+            [
+              191,
+              0,
+              " "
+            ],
+            [
+              195,
+              0,
+              " "
+            ],
+            [
+              197,
+              0,
+              " "
+            ],
+            [
+              204,
+              0,
+              " "
+            ],
+            [
+              207,
+              0,
+              " "
+            ],
+            [
+              211,
+              0,
+              " "
+            ],
+            [
+              214,
+              0,
+              " "
+            ],
+            [
+              218,
+              0,
+              " "
+            ],
+            [
+              221,
+              0,
+              " "
+            ],
+            [
+              228,
+              0,
+              " "
+            ],
+            [
+              231,
+              0,
+              " "
+            ],
+            [
+              235,
+              0,
+              " "
+            ],
+            [
+              244,
+              0,
+              " "
+            ],
+            [
+              248,
+              0,
+              " "
+            ],
+            [
+              251,
+              0,
+              " "
+            ],
+            [
+              256,
+              0,
+              " "
+            ],
+            [
+              259,
+              0,
+              " "
+            ],
+            [
+              261,
+              0,
+              " "
+            ],
+            [
+              265,
+              0,
+              " "
+            ],
+            [
+              267,
+              0,
+              " "
+            ],
+            [
+              273,
+              0,
+              " "
+            ],
+            [
+              276,
+              0,
+              " "
+            ],
+            [
+              285,
+              0,
+              " "
+            ],
+            [
+              288,
+              0,
+              " "
+            ],
+            [
+              293,
+              0,
+              " "
+            ],
+            [
+              297,
+              0,
+              " "
+            ],
+            [
+              299,
+              0,
+              " "
+            ],
+            [
+              306,
+              0,
+              " "
+            ],
+            [
+              309,
+              0,
+              " "
+            ],
+            [
+              312,
+              0,
+              " "
+            ],
+            [
+              319,
+              0,
+              " "
+            ],
+            [
+              325,
+              0,
+              " "
+            ],
+            [
+              328,
+              0,
+              " "
+            ],
+            [
+              337,
+              0,
+              " "
+            ],
+            [
+              345,
+              0,
+              " "
+            ],
+            [
+              349,
+              0,
+              " "
+            ],
+            [
+              351,
+              0,
+              " "
+            ],
+            [
+              353,
+              0,
+              " "
+            ],
+            [
+              356,
+              0,
+              " "
+            ],
+            [
+              367,
+              0,
+              " "
+            ],
+            [
+              369,
+              0,
+              " "
+            ],
+            [
+              373,
+              0,
+              " "
+            ],
+            [
+              379,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            2,
+            2
+          ],
+          "per_unit": true
+        }
+      },
+      "h15": {
+        "path": "/data/scenario/not_tempted/text",
+        "source": "print",
+        "kind": "text",
+        "length": 516,
+        "text_sha256": "fa9f41edabe19904bfc43cc71ef89f0722fde94056847508909d49ca4781030b",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                1,
+                1
+              ],
+              "canon_len": 424,
+              "canon_sha256": "17267a7f8389d5fcffc5fb686810c23cb6361babe7d60c587ff0b2fbc8edf7f8",
+              "unique": true,
+              "before": 70,
+              "after": 894
+            }
+          ],
+          "restore": [
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              19,
+              0,
+              " "
+            ],
+            [
+              20,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ],
+            [
+              40,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              58,
+              0,
+              " "
+            ],
+            [
+              61,
+              0,
+              " "
+            ],
+            [
+              64,
+              0,
+              " "
+            ],
+            [
+              71,
+              0,
+              " "
+            ],
+            [
+              73,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              82,
+              0,
+              " "
+            ],
+            [
+              90,
+              0,
+              " "
+            ],
+            [
+              91,
+              0,
+              " "
+            ],
+            [
+              97,
+              0,
+              " "
+            ],
+            [
+              101,
+              0,
+              " "
+            ],
+            [
+              105,
+              0,
+              " "
+            ],
+            [
+              113,
+              0,
+              " "
+            ],
+            [
+              117,
+              0,
+              " "
+            ],
+            [
+              119,
+              0,
+              " "
+            ],
+            [
+              122,
+              0,
+              " "
+            ],
+            [
+              127,
+              0,
+              " "
+            ],
+            [
+              130,
+              0,
+              " "
+            ],
+            [
+              139,
+              0,
+              " "
+            ],
+            [
+              143,
+              0,
+              " "
+            ],
+            [
+              144,
+              0,
+              " "
+            ],
+            [
+              152,
+              0,
+              " "
+            ],
+            [
+              157,
+              0,
+              " "
+            ],
+            [
+              160,
+              0,
+              " "
+            ],
+            [
+              169,
+              0,
+              " "
+            ],
+            [
+              172,
+              0,
+              " "
+            ],
+            [
+              174,
+              0,
+              " "
+            ],
+            [
+              177,
+              0,
+              " "
+            ],
+            [
+              183,
+              0,
+              " "
+            ],
+            [
+              186,
+              0,
+              " "
+            ],
+            [
+              188,
+              0,
+              " "
+            ],
+            [
+              191,
+              0,
+              " "
+            ],
+            [
+              195,
+              0,
+              " "
+            ],
+            [
+              197,
+              0,
+              " "
+            ],
+            [
+              204,
+              0,
+              " "
+            ],
+            [
+              207,
+              0,
+              " "
+            ],
+            [
+              211,
+              0,
+              " "
+            ],
+            [
+              215,
+              0,
+              " "
+            ],
+            [
+              218,
+              0,
+              " "
+            ],
+            [
+              225,
+              0,
+              " "
+            ],
+            [
+              228,
+              0,
+              " "
+            ],
+            [
+              232,
+              0,
+              " "
+            ],
+            [
+              241,
+              0,
+              " "
+            ],
+            [
+              245,
+              0,
+              " "
+            ],
+            [
+              248,
+              0,
+              " "
+            ],
+            [
+              257,
+              0,
+              " "
+            ],
+            [
+              262,
+              0,
+              " "
+            ],
+            [
+              266,
+              0,
+              " "
+            ],
+            [
+              270,
+              0,
+              " "
+            ],
+            [
+              277,
+              0,
+              " "
+            ],
+            [
+              280,
+              0,
+              " "
+            ],
+            [
+              286,
+              0,
+              " "
+            ],
+            [
+              289,
+              0,
+              " "
+            ],
+            [
+              291,
+              0,
+              " "
+            ],
+            [
+              300,
+              0,
+              " "
+            ],
+            [
+              307,
+              0,
+              " "
+            ],
+            [
+              309,
+              0,
+              " "
+            ],
+            [
+              314,
+              0,
+              " "
+            ],
+            [
+              322,
+              0,
+              " "
+            ],
+            [
+              325,
+              0,
+              " "
+            ],
+            [
+              330,
+              0,
+              " "
+            ],
+            [
+              334,
+              0,
+              " "
+            ],
+            [
+              336,
+              0,
+              " "
+            ],
+            [
+              343,
+              0,
+              " "
+            ],
+            [
+              346,
+              0,
+              " "
+            ],
+            [
+              349,
+              0,
+              " "
+            ],
+            [
+              356,
+              0,
+              " "
+            ],
+            [
+              362,
+              0,
+              " "
+            ],
+            [
+              365,
+              0,
+              " "
+            ],
+            [
+              374,
+              0,
+              " "
+            ],
+            [
+              382,
+              0,
+              " "
+            ],
+            [
+              386,
+              0,
+              " "
+            ],
+            [
+              388,
+              0,
+              " "
+            ],
+            [
+              390,
+              0,
+              " "
+            ],
+            [
+              393,
+              0,
+              " "
+            ],
+            [
+              404,
+              0,
+              " "
+            ],
+            [
+              406,
+              0,
+              " "
+            ],
+            [
+              410,
+              0,
+              " "
+            ],
+            [
+              416,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            2,
+            2
+          ],
+          "per_unit": true
+        }
+      },
+      "h16": {
+        "path": "/data/question/text",
+        "source": "print",
+        "kind": "text",
+        "length": 127,
+        "text_sha256": "98e4875a396b16b5025d59dc3b006a289aba9687bd6a39bd4f6fd633caac369a",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                1,
+                1
+              ],
+              "canon_len": 105,
+              "canon_sha256": "a9494b4f0183ad447cca21ae0a536924ce54cfc046b696cf4a40d804df19ad14",
+              "unique": true,
+              "before": 494,
+              "after": 789
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              21,
+              0,
+              " "
+            ],
+            [
+              23,
+              0,
+              " "
+            ],
+            [
+              25,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              41,
+              0,
+              " "
+            ],
+            [
+              45,
+              0,
+              " "
+            ],
+            [
+              49,
+              0,
+              " "
+            ],
+            [
+              51,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              59,
+              0,
+              " "
+            ],
+            [
+              63,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              71,
+              0,
+              " "
+            ],
+            [
+              79,
+              0,
+              " "
+            ],
+            [
+              82,
+              0,
+              " "
+            ],
+            [
+              93,
+              0,
+              " "
+            ],
+            [
+              99,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            2,
+            2
+          ],
+          "per_unit": true
+        }
+      },
+      "h17": {
+        "path": "/data/thanks/text",
+        "source": "print",
+        "kind": "text",
+        "length": 42,
+        "text_sha256": "e07972e723553435a879ea82415f5267ae6640684af2490e2e2d500221bdd219",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 36,
+              "canon_sha256": "3390741fa73d02b64a243d5bc27344bccbb6852b197f5cbc3081097acf5b4d0a",
+              "unique": true,
+              "before": 219,
+              "after": 345
+            }
+          ],
+          "restore": [
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              8,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              24,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            5,
+            5
+          ],
+          "per_unit": true
+        }
+      },
+      "h18": {
+        "path": "/data/mturk_code/text",
+        "source": "print",
+        "kind": "text",
+        "length": 57,
+        "text_sha256": "0eeed05c22343e0aba267c9244cf17102b5c253605bbafbef45b8255966bcba0",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 51,
+              "canon_sha256": "ddb5f5ca0c56d86b4f669a7c972e04dce73780610637b76830ec2caa58b6ad08",
+              "unique": true,
+              "before": 255,
+              "after": 294
+            }
+          ],
+          "restore": [
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              21,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            5,
+            5
+          ],
+          "per_unit": true
+        }
+      },
+      "h20": {
+        "path": "/data/click/text",
+        "source": "print",
+        "kind": "text",
+        "length": 50,
+        "text_sha256": "41bb0bf33fd5b40ec98300055ad41e73c9b6c4973ede62fc2efe1cdb73f7fa6e",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 42,
+              "canon_sha256": "660fa946217a0f17c739172133605e22f1c0c2965f6fbecfe7b1a5672c41a093",
+              "unique": true,
+              "before": 366,
+              "after": 192
+            }
+          ],
+          "restore": [
+            [
+              6,
+              0,
+              " "
+            ],
+            [
+              11,
+              0,
+              " "
+            ],
+            [
+              14,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              33,
+              0,
+              " "
+            ],
+            [
+              37,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            5,
+            5
+          ],
+          "per_unit": true
+        }
+      },
+      "h21": {
+        "path": "/data/mturk_note/text",
+        "source": "print",
+        "kind": "text",
+        "length": 69,
+        "text_sha256": "fa539f8496412157e7f40d24b9fbbfa5dac52414f85b55f228073f82aaa4865b",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 60,
+              "canon_sha256": "b59a10e9cac20fd1b4847a2f6e04b6c23a901c6694537f5044d52ed724a98210",
+              "unique": true,
+              "before": 306,
+              "after": 234
+            }
+          ],
+          "restore": [
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              19,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              33,
+              0,
+              " "
+            ],
+            [
+              36,
+              0,
+              " "
+            ],
+            [
+              46,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            5,
+            5
+          ],
+          "per_unit": true
+        }
+      },
+      "h22": {
+        "path": "/data/prompts/hard/text",
+        "source": "print",
+        "kind": "text",
+        "length": 36,
+        "text_sha256": "2fcd273494764ecbe8ff4b35f53e23948613b9d0dc66a589d7e74f5efcfdb704",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                2,
+                2
+              ],
+              "canon_len": 31,
+              "canon_sha256": "884ec091e8e2e65367ea3a0ae7ce6665a7d7ca868ddd08bbdb4e90675b2e3216",
+              "unique": true,
+              "before": 185,
+              "after": 347
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              12,
+              0,
+              " "
+            ],
+            [
+              15,
+              0,
+              " "
+            ],
+            [
+              18,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            3,
+            3
+          ],
+          "per_unit": true
+        }
+      },
+      "h23": {
+        "path": "/data/prompts/eff/text",
+        "source": "print",
+        "kind": "text",
+        "length": 46,
+        "text_sha256": "832fb54fb6b05f5b62d086275eb8c1358660cc860eb722051a0959bb4b5fe774",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                2,
+                2
+              ],
+              "canon_len": 39,
+              "canon_sha256": "a41fdad0ce195f976d581d2cd5f55cfc0e8d0e13f14e8879bb003ec8ea6c7f06",
+              "unique": true,
+              "before": 216,
+              "after": 308
+            }
+          ],
+          "restore": [
+            [
+              3,
+              0,
+              " "
+            ],
+            [
+              7,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              16,
+              0,
+              " "
+            ],
+            [
+              19,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            3,
+            3
+          ],
+          "per_unit": true
+        }
+      },
+      "h24": {
+        "path": "/data/prompts/imp/text",
+        "source": "print",
+        "kind": "text",
+        "length": 128,
+        "text_sha256": "645cacdb06a3d8b283ba647d7ef3bf173194feca36a83a71c03568766ce825e3",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 104,
+              "canon_sha256": "4c10eed55b2076c56b545055af1a3e78c5e77abf0a69d05677770e86eb7c21bb",
+              "unique": true,
+              "before": 0,
+              "after": 496
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              19,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              27,
+              0,
+              " "
+            ],
+            [
+              30,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              38,
+              0,
+              " "
+            ],
+            [
+              44,
+              0,
+              " "
+            ],
+            [
+              47,
+              0,
+              " "
+            ],
+            [
+              56,
+              0,
+              " "
+            ],
+            [
+              61,
+              0,
+              " "
+            ],
+            [
+              63,
+              0,
+              " "
+            ],
+            [
+              65,
+              0,
+              " "
+            ],
+            [
+              67,
+              0,
+              " "
+            ],
+            [
+              70,
+              0,
+              " "
+            ],
+            [
+              72,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              87,
+              0,
+              " "
+            ],
+            [
+              96,
+              0,
+              " "
+            ],
+            [
+              98,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            5,
+            5
+          ],
+          "per_unit": true
+        }
+      },
+      "h25": {
+        "path": "/data/prompts/bad/text",
+        "source": "print",
+        "kind": "text",
+        "length": 132,
+        "text_sha256": "01c41c4a5393983a57bea67d192664da23b8beb784b0f6390984ef8384988617",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                4,
+                4
+              ],
+              "canon_len": 107,
+              "canon_sha256": "81b1d6567ff264f6b4447cf5c52871d11bcdcbdf8ff985d5445cd07ef71c875a",
+              "unique": true,
+              "before": 104,
+              "after": 389
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              5,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              10,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              19,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              28,
+              0,
+              " "
+            ],
+            [
+              31,
+              0,
+              " "
+            ],
+            [
+              34,
+              0,
+              " "
+            ],
+            [
+              39,
+              0,
+              " "
+            ],
+            [
+              42,
+              0,
+              " "
+            ],
+            [
+              46,
+              0,
+              " "
+            ],
+            [
+              48,
+              0,
+              " "
+            ],
+            [
+              51,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              61,
+              0,
+              " "
+            ],
+            [
+              63,
+              0,
+              " "
+            ],
+            [
+              65,
+              0,
+              " "
+            ],
+            [
+              68,
+              0,
+              " "
+            ],
+            [
+              78,
+              0,
+              " "
+            ],
+            [
+              81,
+              0,
+              " "
+            ],
+            [
+              87,
+              1,
+              "’"
+            ],
+            [
+              89,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ],
+            [
+              98,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            5,
+            5
+          ],
+          "per_unit": true
+        }
+      },
+      "h26": {
+        "path": "/data/prompts/split/text",
+        "source": "print",
+        "kind": "text",
+        "length": 179,
+        "text_sha256": "1a9c3fc5bd12b37611380a49a57762b6331610a7a72b0846431a69c3c288fc6c",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                2,
+                2
+              ],
+              "canon_len": 150,
+              "canon_sha256": "8f1c9677d87235ae1b36df5755a2be69b1dbf6b14fe587b4b7d704cbc256bc73",
+              "unique": true,
+              "before": 35,
+              "after": 378
+            }
+          ],
+          "restore": [
+            [
+              2,
+              0,
+              " "
+            ],
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              9,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              22,
+              0,
+              " "
+            ],
+            [
+              24,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ],
+            [
+              35,
+              0,
+              " "
+            ],
+            [
+              40,
+              0,
+              " "
+            ],
+            [
+              55,
+              0,
+              " "
+            ],
+            [
+              61,
+              0,
+              " "
+            ],
+            [
+              69,
+              0,
+              " "
+            ],
+            [
+              72,
+              0,
+              " "
+            ],
+            [
+              76,
+              0,
+              " "
+            ],
+            [
+              82,
+              0,
+              " "
+            ],
+            [
+              85,
+              0,
+              " "
+            ],
+            [
+              92,
+              0,
+              " "
+            ],
+            [
+              95,
+              0,
+              " "
+            ],
+            [
+              98,
+              0,
+              " "
+            ],
+            [
+              102,
+              0,
+              " "
+            ],
+            [
+              106,
+              0,
+              " "
+            ],
+            [
+              108,
+              0,
+              " "
+            ],
+            [
+              111,
+              0,
+              " "
+            ],
+            [
+              114,
+              0,
+              " "
+            ],
+            [
+              119,
+              0,
+              " "
+            ],
+            [
+              121,
+              0,
+              " "
+            ],
+            [
+              129,
+              0,
+              " "
+            ],
+            [
+              132,
+              0,
+              " "
+            ],
+            [
+              143,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            3,
+            3
+          ],
+          "per_unit": true
+        }
+      },
+      "h27": {
+        "path": "/data/prompts/end/text",
+        "source": "print",
+        "kind": "text",
+        "length": 42,
+        "text_sha256": "41a18d8f0385ab759d7dc35e7160a4ccf3949f709be70472747fe234f7e27688",
+        "locator": {
+          "format": "pdf",
+          "extractor": "pypdfium2/5.14.0+pdfium/156.0.8076.0",
+          "parts": [
+            {
+              "units": [
+                2,
+                2
+              ],
+              "canon_len": 35,
+              "canon_sha256": "850645c5fc2981bc982553e307463eef728754306670019e5a170cc27bf2711b",
+              "unique": true,
+              "before": 0,
+              "after": 528
+            }
+          ],
+          "restore": [
+            [
+              4,
+              0,
+              " "
+            ],
+            [
+              13,
+              0,
+              " "
+            ],
+            [
+              17,
+              0,
+              " "
+            ],
+            [
+              23,
+              0,
+              " "
+            ],
+            [
+              26,
+              0,
+              " "
+            ],
+            [
+              29,
+              0,
+              " "
+            ],
+            [
+              32,
+              0,
+              " "
+            ]
+          ],
+          "pages": [
+            3,
+            3
+          ],
+          "per_unit": true
+        }
+      },
+      "h36": {
+        "path": "/stages/effort_split/responses/0/anchors/left",
+        "source": "qsf",
+        "kind": "text",
+        "length": 32,
+        "text_sha256": "56cbd452c1a6b81beff5d9252204c45c36d86d14ccc6fc741f37e775ad85cdb2",
+        "locator": {
+          "format": "qsf",
+          "page": null
+        }
+      },
+      "h37": {
+        "path": "/stages/effort_split/responses/0/anchors/middle",
+        "source": "qsf",
+        "kind": "text",
+        "length": 46,
+        "text_sha256": "9a7b31ef8a987b34929e45075f4da4649854dcb9e8c22f8b0281fc619908f956",
+        "locator": {
+          "format": "qsf",
+          "page": null
+        }
+      },
+      "h38": {
+        "path": "/stages/effort_split/responses/0/anchors/right",
+        "source": "qsf",
+        "kind": "text",
+        "length": 33,
+        "text_sha256": "16d9e2b84f5310aca6bbf8da6c4a22cb7c590a6a3b7cbb0a574ce30df91690fa",
+        "locator": {
+          "format": "qsf",
+          "page": null
+        }
+      }
+    },
+    "strict": false,
+    "attribution": []
+  },
+  "schema_version": "1"
+}
