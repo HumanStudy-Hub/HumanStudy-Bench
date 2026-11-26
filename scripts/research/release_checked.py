@@ -306,6 +306,67 @@ def local_paths(files: dict) -> list[str]:
                   if re.search(rb"/Users/[^/\s\"']+/|/home/[^/\s\"']+/|/private/tmp/|/var/folders/", raw))
 
 
+# Maintainer prose (cite notes, reasons, licence and clearance records) names internal review files and process
+# roles that a reader of the release cannot open; those references are reworded, never the participant wording.
+PROSE_KEYS = frozenset(("note", "why", "what", "licence", "license", "clearance", "rule", "description", "image_read",
+                        "reason", "notes"))
+_PROSE_SUBS = (
+    (re.compile(r"\s*[;,]?\s*\bLESSONS\s+\d+(?:\s*[,/]\s*\d+)*"), ""),
+    (re.compile(r"\b(?:review|reviews)/(?:[\w.#-]+/)*[\w.#-]+\.\w+"), "the maintainers' review record"),
+    (re.compile(r"\blessons-pending(?:\.md)?\b"), "the maintainers' review record"),
+    (re.compile(r"\bsourcetext/(?:[\w.#-]+/)*([\w.#-]+)"), r"\1"),
+    (re.compile(r"\bcoordinators\b"), "maintainers"), (re.compile(r"\bCoordinators\b"), "Maintainers"),
+    (re.compile(r"\bcoordinator\b"), "maintainer"), (re.compile(r"\bCoordinator\b"), "Maintainer"),
+    (re.compile(r"\(\s*[;,]\s*"), "("), (re.compile(r"\s*[;,]\s*\)"), ")"), (re.compile(r"\s*\(\s*\)"), ""),
+    (re.compile(r"[ \t]{2,}"), " "),
+)
+
+
+def scrub_prose(text: str) -> str:
+    for pat, rep in _PROSE_SUBS:
+        text = pat.sub(rep, text)
+    return text.strip() if text.strip() else text
+
+
+def _scrub_prose_fields(o) -> None:
+    if isinstance(o, dict):
+        for k, v in o.items():
+            if isinstance(v, str) and k in PROSE_KEYS:
+                o[k] = scrub_prose(v)
+            elif isinstance(v, list) and k in PROSE_KEYS and all(isinstance(x, str) for x in v):
+                o[k] = [scrub_prose(x) for x in v]
+            else:
+                _scrub_prose_fields(v)
+    elif isinstance(o, list):
+        for v in o:
+            _scrub_prose_fields(v)
+
+
+# A reason the projection withheld because it quoted held text reads as an opaque token; a reader gets a plain sentence.
+_WITHHELD = re.compile(r"withheld:[0-9a-f]+")
+READABLE = {
+    ("run_excluded", "why"): "The reason quotes source wording that is held back; this arm needs the materials listed "
+                             "as missing.",
+    ("omitted", "what"): "A part of the procedure the paper describes (its description quotes held-back wording)",
+    ("omitted", "why"): "The reason quotes source wording that is held back.",
+    ("unsupported", "why"): "The reason quotes source wording that is held back.",
+}
+
+
+def readable_reasons(protocol: dict) -> int:
+    rows = [("run_excluded", e) for e in protocol.get("run_excluded") or []]
+    rows += [("omitted", e) for e in protocol.get("omitted") or []]
+    rows += [("unsupported", e) for e in (protocol.get("analysis") or {}).get("unsupported") or []]
+    n = 0
+    for where, e in rows:
+        for key in ("what", "why"):
+            text = READABLE.get((where, key))
+            if text and isinstance(e, dict) and isinstance(e.get(key), str) and _WITHHELD.fullmatch(e[key]):
+                e[key] = text
+                n += 1
+    return n
+
+
 def slim(protocol: dict) -> dict:
     """The private protocol as it may be projected: operator-only meta and top-level notes dropped, every string NFC,
     and every cited source declared (an undeclared one becomes a tier "user" source the researcher supplies)."""
@@ -323,6 +384,7 @@ def slim(protocol: dict) -> dict:
         if release._NOTE_KEY.search(k) or k in ("deviations", "alternatives"):
             protocol.pop(k)
     _drop_operator_notes(protocol)
+    _scrub_prose_fields(protocol)
     _walk_strings(protocol, lambda t: LOCAL_PATH.sub(lambda m: m.group(0).rstrip("/").rsplit("/", 1)[-1],
                                                      unicodedata.normalize("NFC", t)))
     for key in sorted(_cited_sources({k: v for k, v in protocol.items() if k != "meta"}, set()) - set(srcs)):
@@ -967,6 +1029,7 @@ def build(paper_id: str, slug: str, private: Path, sessions: int, dry: bool = Fa
     current = json.loads((paper_dir / "current.json").read_text())
     base = load_revision(paper_dir, current["revision"])
     protocol, info = project(private / slug)
+    readable_reasons(protocol)
     report = protocols.public_checks(protocol, sessions)   # with the same coverage re-runs as CI
     if report.get("PASS") is not True:
         return {"paper": paper_id, "slug": slug, "status": "checks_failed"}

@@ -63,3 +63,27 @@ def test_slim_drops_machine_paths_and_review_records():
     assert out["run_excluded"] == [{"arm": "a", "why": "not printed"}]
     assert out["coding"] == {"q": {"rule": "r"}}
     assert rc.local_paths({"a.json": b'{"p": "/Users/someone/x"}', "b.json": b"{}"}) == ["a.json"]
+
+
+def test_maintainer_prose_loses_internal_references_but_not_participant_text():
+    p = {"id": "x", "meta": {"sources": {"paper": {"what": "text layer (sourcetext/paper.txt)",
+                                                   "licence": "CC BY (coordinator instruction, fidelity review 1)"}}},
+         "stages": {"s": {"text": "Talk to the coordinator.",
+                          "presentation_cite": {"note": "page break (skip logic; LESSONS 38; flow_cites.x)"}}},
+         "analysis": {"unsupported": [{"why": "kept in review/m2-faithful-variant.json, so not run"}]}}
+    out = rc.slim(p)
+    assert out["meta"]["sources"]["paper"]["what"] == "text layer (paper.txt)"
+    assert out["meta"]["sources"]["paper"]["licence"] == "CC BY (maintainer instruction, fidelity review 1)"
+    assert out["stages"]["s"]["text"] == "Talk to the coordinator."   # participant wording untouched
+    assert out["stages"]["s"]["presentation_cite"]["note"] == "page break (skip logic; flow_cites.x)"
+    assert out["analysis"]["unsupported"][0]["why"] == "kept in the maintainers' review record, so not run"
+
+
+def test_withheld_reasons_become_readable():
+    p = {"run_excluded": [{"arm": "a", "why": "withheld:4be71abac526d72a"}, {"arm": "b", "why": "not printed"}],
+         "omitted": [{"what": "withheld:7b5d", "why": "withheld:72678f4b"}, {"what": "debriefing", "why": "not reported"}],
+         "data": {"q": {"cite": {"note": "withheld:aa11"}}}}
+    assert rc.readable_reasons(p) == 3
+    assert not p["run_excluded"][0]["why"].startswith("withheld:") and p["run_excluded"][1]["why"] == "not printed"
+    assert not p["omitted"][0]["what"].startswith("withheld:") and p["omitted"][1]["what"] == "debriefing"
+    assert p["data"]["q"]["cite"]["note"] == "withheld:aa11"   # a cite locator keeps its token
