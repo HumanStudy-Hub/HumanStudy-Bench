@@ -87,3 +87,30 @@ def test_withheld_reasons_become_readable():
     assert not p["run_excluded"][0]["why"].startswith("withheld:") and p["run_excluded"][1]["why"] == "not printed"
     assert not p["omitted"][0]["what"].startswith("withheld:") and p["omitted"][1]["what"] == "debriefing"
     assert p["data"]["q"]["cite"]["note"] == "withheld:aa11"   # a cite locator keeps its token
+
+
+def test_verified_source_urls_declare_link_sources():
+    table = {"x": {"qsf": {"url": "https://osf.io/download/abc/", "sha256": "ab" * 32, "format": "qsf"},
+                   "paper": {"url": "https://e.org/p.pdf", "sha256": "cd" * 32},
+                   "osf": {"url": "https://e.org/o", "sha256": "ef" * 32}}}
+    p = {"meta": {"sources": {"qsf": "sources/open/a.qsf",
+                              "paper": {"what": "Paper", "distribution": {"tier": "hosted", "sha256": "cd" * 32}},
+                              "osf": {"what": "O", "distribution": {"tier": "user", "sha256": "00" * 32}}}}}
+    assert rc.add_source_urls("x", p, table) == ["qsf"]
+    assert p["meta"]["sources"]["qsf"] == {"what": "sources/open/a.qsf", "distribution": {
+        "tier": "link", "url": "https://osf.io/download/abc/", "sha256": "ab" * 32, "format": "qsf"}}
+    assert p["meta"]["sources"]["paper"]["distribution"]["tier"] == "hosted"   # hosted stays hosted
+    assert p["meta"]["sources"]["osf"]["distribution"]["tier"] == "user"       # a different file is left alone
+
+
+def test_prose_under_maintainer_keys_and_withheld_reasons_anywhere():
+    p = {"analysis": {"x": {"precoder_bias": "see review/bias.json", "scoring_why": "LESSONS 4; ok"}},
+         "arms": [{"id": "a", "why": "withheld:ab12", "what": "withheld:cd34", "text": "the coordinator",
+                   "cite": {"what": "withheld:ff"}}],
+         "meta": {"sources": {"si": {"what": "withheld:ee"}}}}
+    out = rc.slim(p)
+    assert out["analysis"]["x"] == {"precoder_bias": "see the maintainers' review record", "scoring_why": "ok"}
+    assert out["arms"][0]["text"] == "the coordinator"
+    assert rc.readable_reasons(out) == 3
+    assert out["arms"][0]["cite"]["what"] == "withheld:ff"   # a cite locator keeps its token
+    assert not out["arms"][0]["why"].startswith("withheld:")

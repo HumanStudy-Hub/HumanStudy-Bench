@@ -1,0 +1,33 @@
+{
+  "package": "cheung2025moral",
+  "sessions": 474,
+  "valid": 474,
+  "arms": [
+    "s2_omission",
+    "s2_original",
+    "s2_yes_no"
+  ],
+  "notMapped": [
+    {
+      "arm": "s1_moral_sequential",
+      "reason": "Study 1 human data (N = 285, 13 sequential dilemmas) are not in human-data; data_p.csv is Study 2 only."
+    }
+  ],
+  "exclusions": "Preregistered attention check: dropped participants whose <Vignette>_Attn answer is not 1 (the correct scenario description; 27 of 501 dropped, leaving the paper's N = 474).",
+  "effects": [
+    {
+      "id": "yes_no_bias_1",
+      "label": "Study 2 yes-no bias, participants (CBR when yes=CBR minus when no=CBR; paper: 60% vs 56%, reported as no significant bias; sign flipped so positive = bias toward 'no')",
+      "estimate": -0.03895746520952914,
+      "p": 0.4800364917245261,
+      "reported": -0.04
+    },
+    {
+      "id": "omission_bias_1",
+      "label": "Study 2 omission bias, participants (CBR on omission minus on action)",
+      "estimate": 0.11552419354838717,
+      "p": 0.03903505887577425,
+      "reported": null
+    }
+  ]
+}

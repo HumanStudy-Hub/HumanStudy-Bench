@@ -309,7 +309,15 @@ def local_paths(files: dict) -> list[str]:
 # Maintainer prose (cite notes, reasons, licence and clearance records) names internal review files and process
 # roles that a reader of the release cannot open; those references are reworded, never the participant wording.
 PROSE_KEYS = frozenset(("note", "why", "what", "licence", "license", "clearance", "rule", "description", "image_read",
-                        "reason", "notes"))
+                        "reason", "notes", "precoder_bias", "no_uncertainty", "blind_readings", "supplement", "role",
+                        "copy_decision", "status"))
+# also any key that names a maintainer's reasoning by its ending (scoring_why, heldout_note, not_runnable_reason, decided5)
+_PROSE_KEY = re.compile(r"(?:^|_)(?:why|what|note|notes|reason|bias|decision|uncertainty|readings|licence|clearance)$"
+                        r"|^decided\d*$")
+
+
+def _prose_key(k) -> bool:
+    return isinstance(k, str) and (k in PROSE_KEYS or bool(_PROSE_KEY.search(k)))
 _PROSE_SUBS = (
     (re.compile(r"\s*[;,]?\s*\bLESSONS\s+\d+(?:\s*[,/]\s*\d+)*"), ""),
     (re.compile(r"\b(?:review|reviews)/(?:[\w.#-]+/)*[\w.#-]+\.\w+"), "the maintainers' review record"),
@@ -318,7 +326,7 @@ _PROSE_SUBS = (
     (re.compile(r"\bcoordinators\b"), "maintainers"), (re.compile(r"\bCoordinators\b"), "Maintainers"),
     (re.compile(r"\bcoordinator\b"), "maintainer"), (re.compile(r"\bCoordinator\b"), "Maintainer"),
     (re.compile(r"\(\s*[;,]\s*"), "("), (re.compile(r"\s*[;,]\s*\)"), ")"), (re.compile(r"\s*\(\s*\)"), ""),
-    (re.compile(r"[ \t]{2,}"), " "),
+    (re.compile(r"[ \t]{2,}"), " "), (re.compile(r"^\s*[;,]\s*"), ""),
 )
 
 
@@ -331,9 +339,9 @@ def scrub_prose(text: str) -> str:
 def _scrub_prose_fields(o) -> None:
     if isinstance(o, dict):
         for k, v in o.items():
-            if isinstance(v, str) and k in PROSE_KEYS:
+            if isinstance(v, str) and _prose_key(k):
                 o[k] = scrub_prose(v)
-            elif isinstance(v, list) and k in PROSE_KEYS and all(isinstance(x, str) for x in v):
+            elif isinstance(v, list) and _prose_key(k) and all(isinstance(x, str) for x in v):
                 o[k] = [scrub_prose(x) for x in v]
             else:
                 _scrub_prose_fields(v)
@@ -350,20 +358,29 @@ READABLE = {
     ("omitted", "what"): "A part of the procedure the paper describes (its description quotes held-back wording)",
     ("omitted", "why"): "The reason quotes source wording that is held back.",
     ("unsupported", "why"): "The reason quotes source wording that is held back.",
+    ("*", "why"): "The reason quotes source wording that is held back.",
+    ("*", "what"): "Described in the source (the description quotes wording that is held back)",
 }
 
 
 def readable_reasons(protocol: dict) -> int:
-    rows = [("run_excluded", e) for e in protocol.get("run_excluded") or []]
-    rows += [("omitted", e) for e in protocol.get("omitted") or []]
-    rows += [("unsupported", e) for e in (protocol.get("analysis") or {}).get("unsupported") or []]
+    """Every "why" / "what" the projection withheld (outside cite locators) becomes a plain sentence."""
     n = 0
-    for where, e in rows:
-        for key in ("what", "why"):
-            text = READABLE.get((where, key))
-            if text and isinstance(e, dict) and isinstance(e.get(key), str) and _WITHHELD.fullmatch(e[key]):
-                e[key] = text
-                n += 1
+
+    def walk(o, parent: str) -> None:
+        nonlocal n
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if k in ("why", "what") and isinstance(v, str) and _WITHHELD.fullmatch(v) and parent != "cite":
+                    o[k] = READABLE.get((parent, k)) or READABLE[("*", k)]
+                    n += 1
+                elif k != "distribution":
+                    walk(v, k)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v, parent)
+
+    walk(protocol, "")
     return n
 
 
@@ -708,8 +725,39 @@ def format_agrees(declared: str, raw: bytes) -> bool:
     return False   # an image, an archive or another binary format is never read as text
 
 
+SOURCE_URLS_FILE = Path(__file__).resolve().parent / "source_urls.json"
+
+
+def add_source_urls(slug: str, protocol: dict, table: dict | None = None) -> list[str]:
+    """Public URLs verified to serve a source's exact bytes (source_urls.json): the source is declared tier "link"
+    with that URL, so the app downloads and checks it on the researcher's computer. A hosted source is left as is."""
+    if table is None:
+        table = json.loads(SOURCE_URLS_FILE.read_text()).get("sources", {}) if SOURCE_URLS_FILE.is_file() else {}
+    srcs = (protocol.get("meta") or {}).get("sources") or {}
+    added = []
+    for key, e in sorted((table.get(slug) or {}).items()):
+        src = srcs.get(key)
+        if src is None:
+            continue
+        if isinstance(src, str):
+            src = {"what": src}
+        dist = src.setdefault("distribution", {})
+        if dist.get("tier") == "hosted":
+            continue
+        old = str(dist.get("sha256") or src.get("sha256") or "").lower()
+        if old and not e["sha256"].startswith(old):
+            continue   # the table is for another version of this file
+        dist.update({"tier": "link", "url": e["url"], "sha256": e["sha256"]})
+        if e.get("format") and not dist.get("format"):
+            dist["format"] = e["format"]
+        srcs[key] = src
+        added.append(key)
+    return added
+
+
 def project(study_dir: Path) -> tuple[dict, dict]:
     protocol = json.loads((study_dir / "protocol.json").read_text())
+    add_source_urls(study_dir.name, protocol)
     declared = copy.deepcopy(protocol)   # the full declarations: URLs and file paths may be written in notes
     # Plain-text sources declared by their file type (an R script, R Markdown, a .txt readme) are format "text" to
     # the engine; the projection reads, locates and restores them as text.

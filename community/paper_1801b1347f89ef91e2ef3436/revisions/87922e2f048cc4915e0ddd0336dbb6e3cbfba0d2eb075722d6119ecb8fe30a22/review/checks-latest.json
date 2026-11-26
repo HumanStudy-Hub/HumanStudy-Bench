@@ -1,0 +1,200 @@
+{
+  "protocol_sha256": "0a3f72bbd6fa1e631e41daf6c2a1a67ad710e244dd5664505e8b65b792a4ba2d",
+  "public": true,
+  "refs": [],
+  "fuzz": {
+    "sessions": 1000,
+    "unreached_stages": [],
+    "leaks": [],
+    "state_expr_leaks": [],
+    "n_state_expr_leaks": 0,
+    "foreign_language_tokens": [],
+    "stages_only_in_blocked_arms": [],
+    "unanswerable": [],
+    "n_unanswerable": 0,
+    "blocked_effects_not_computed": [],
+    "blocked_arm_problems": [],
+    "sessions_run": 1000,
+    "coverage_pass": false,
+    "problems": [],
+    "constant_images": [],
+    "table_spans_unserved": [],
+    "unprompted_responses": [],
+    "excluded_share": 0.85,
+    "population_excluded_sessions": {},
+    "effects_not_computed": [],
+    "pending_share": {},
+    "targets_pending_share": {}
+  },
+  "script_texts_not_served": [],
+  "keyed": {
+    "problems": [],
+    "excluded_share": 0.0,
+    "signs": [
+      {
+        "effect": "eval_outcome",
+        "human": 1.1,
+        "keyed": 2.54,
+        "same_sign": true
+      },
+      {
+        "effect": "eval_dm",
+        "human": 0.2,
+        "keyed": 0.64,
+        "same_sign": true
+      },
+      {
+        "effect": "eval_interaction",
+        "human": 0.5,
+        "keyed": 0.84,
+        "same_sign": true
+      },
+      {
+        "effect": "eval_outcome_physician",
+        "human": 1.36,
+        "keyed": 6.042,
+        "same_sign": true
+      },
+      {
+        "effect": "eval_outcome_patient",
+        "human": 0.86,
+        "keyed": 4.231,
+        "same_sign": true
+      },
+      {
+        "effect": "eval_dm_failure",
+        "human": -0.45,
+        "keyed": -2.123,
+        "same_sign": true
+      },
+      {
+        "effect": "eval_dm_success",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "imp_outcome_physician",
+        "human": 0.36,
+        "keyed": 1.158,
+        "same_sign": true
+      },
+      {
+        "effect": "imp_outcome_patient",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      },
+      {
+        "effect": "eval_outcome_lowimp",
+        "human": 0.75,
+        "keyed": 4.225,
+        "same_sign": true
+      },
+      {
+        "effect": "imp_outcome",
+        "human": 0.24,
+        "keyed": 1.07,
+        "same_sign": true
+      },
+      {
+        "effect": "resp_outcome",
+        "human": 0.5,
+        "keyed": 0.91,
+        "same_sign": true
+      },
+      {
+        "effect": "resp_dm",
+        "human": 0.39,
+        "keyed": 0.93,
+        "same_sign": true
+      },
+      {
+        "effect": "norms_outcome",
+        "human": 0.26,
+        "keyed": 1.08,
+        "same_sign": true
+      },
+      {
+        "effect": "norms_dm",
+        "human": null,
+        "keyed": null,
+        "same_sign": true,
+        "why": "direction_claimed: false (magnitude target only)"
+      }
+    ],
+    "state_expr_leaks": []
+  },
+  "source_text_control_chars": {},
+  "verbatim": {
+    "found": 0,
+    "not_found": [],
+    "unchecked": 0,
+    "unchecked_sources": [],
+    "bad_source": [],
+    "image_unconfirmed": [],
+    "image_disputed": [],
+    "image_uncertain_only": [],
+    "image_uncertain_legacy": [],
+    "reading_annotations": [],
+    "style_unserved": [],
+    "image_matches": [],
+    "image_match_rules": {},
+    "checked_privately": [
+      "qsf",
+      "ziano_supp"
+    ]
+  },
+  "reading_annotations": [],
+  "coding": {},
+  "paper_consistency_warnings": [],
+  "statistic_vocabulary": [],
+  "printed_item_tests": [],
+  "second_readings": [],
+  "release_hold": [],
+  "targets_random": [
+    {
+      "id": "evaluate_phs",
+      "agent": 0.47058823529411764,
+      "n_agent": 34,
+      "k_agent": null,
+      "sd_agent": 1.9730808722255269,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 1.81
+    },
+    {
+      "id": "evaluate_pts",
+      "agent": 0.14893617021276595,
+      "n_agent": 47,
+      "k_agent": null,
+      "sd_agent": 1.9888681881286732,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 1.76
+    },
+    {
+      "id": "evaluate_phf",
+      "agent": -0.4375,
+      "n_agent": 32,
+      "k_agent": null,
+      "sd_agent": 1.8826457018540896,
+      "pending_share": 0.0,
+      "uncoded_share": 0.0,
+      "held_out": {
+        "uncoded": 0.0
+      },
+      "human": 0.45
+    }
+  ],
+  "effect_dropout_random": {},
+  "PASS": true
+}
