@@ -1,0 +1,1145 @@
+{
+  "schemaVersion": 2,
+  "programId": "pennycook2020_covid_accuracy_nudge",
+  "topics": [
+    "misinformation",
+    "fake news",
+    "COVID-19",
+    "social media sharing",
+    "truth discernment",
+    "accuracy nudge",
+    "cognitive reflection"
+  ],
+  "hypotheses": [
+    {
+      "id": "h1",
+      "nodeId": "h_s1",
+      "status": "tested",
+      "backgroundIds": [
+        "n_background"
+      ],
+      "phenomena": [
+        "accuracy-sharing dissociation",
+        "inattention to accuracy",
+        "truth discernment",
+        "cognitive reflection and misinformation"
+      ]
+    },
+    {
+      "id": "h2",
+      "nodeId": "h_s2",
+      "status": "tested",
+      "backgroundIds": [
+        "n_background"
+      ],
+      "phenomena": [
+        "accuracy nudge",
+        "accuracy prompt",
+        "inattention to accuracy"
+      ]
+    },
+    {
+      "id": "h3",
+      "nodeId": "h_s3",
+      "status": "tested",
+      "backgroundIds": [
+        "n_background"
+      ],
+      "phenomena": [
+        "accuracy nudge",
+        "item-level analysis"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "s1_veracity_x_condition",
+      "label": "Study 1: truth discernment in sharing vs accuracy condition (veracity x condition)",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "mixed",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_resp_s1",
+        "type": "binary",
+        "scale": "yes / no per headline",
+        "higherMeans": "more 'yes' (judged accurate / would share)",
+        "treatedAs": "z-scored over all ratings, linear probability model at the rating level"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "sharing",
+        "reference": "accuracy",
+        "conditionIds": [
+          "cond_s1_sharing",
+          "cond_s1_accuracy"
+        ],
+        "valueMeans": "veracity effect (true minus false) in sharing minus in accuracy; veracity -0.5/0.5, condition -0.5 accuracy / 0.5 sharing"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "discernment higher for accuracy judgments than sharing intentions",
+        "evidenceIds": [
+          "ev_aim1",
+          "ev_s1_res1"
+        ]
+      },
+      "analysisIds": [
+        "a_s1_main"
+      ],
+      "resultIds": [
+        "res_s1_main",
+        "res_s1_supp"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_veracity_x_condition"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": -0.504,
+            "variant": "OLS, z-scored ratings, two-way clustered SEs, all headlines (Table S3 col 1, supplement p. 4)",
+            "evidenceIds": [
+              "ev_tbls3_row"
+            ]
+          },
+          {
+            "metric": "standardized_coefficient",
+            "value": -0.126,
+            "variant": "beta as printed in the main text (p. 4)",
+            "evidenceIds": [
+              "ev_s1_res1"
+            ]
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.503949,
+            "variant": "multilevel model, crossed random effects for subject and headline (Table S4, supplement p. 5)",
+            "evidenceIds": [
+              "ev_tbls4_row"
+            ]
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": -0.252,
+            "variant": "OLS on unstandardized 0/1 ratings, all subjects (Table S2 col 1, supplement p. 3); a different outcome scale than the main model",
+            "evidenceIds": [
+              "ev_tbls2_row"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 42.24,
+          "df": [
+            1,
+            25586
+          ],
+          "p": 0.0001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages are only plotted (Fig. 1)",
+          "standard error is not transcribed in the evidence"
+        ],
+        "evidenceIds": [
+          "ev_s1_res1",
+          "ev_tbls3_row",
+          "ev_tbls4_row",
+          "ev_tbls2_row"
+        ]
+      }
+    },
+    {
+      "id": "s1_veracity_accuracy",
+      "label": "Study 1: true vs false headlines within the accuracy condition",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "within",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_resp_s1",
+        "type": "binary",
+        "scale": "yes / no per headline",
+        "higherMeans": "more 'yes' (judged accurate / would share)",
+        "treatedAs": "z-scored over all ratings, linear probability model at the rating level"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "true",
+        "reference": "false",
+        "conditionIds": [
+          "cond_s1_accuracy"
+        ],
+        "valueMeans": "true minus false headlines, in SD units of all Study 1 ratings"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_s1_res2"
+        ]
+      },
+      "analysisIds": [
+        "a_s1_main"
+      ],
+      "resultIds": [
+        "res_s1_main"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_veracity_accuracy",
+        "compareAs": {
+          "metric": "standardized_mean_difference",
+          "reason": "ratings are z-scored over all ratings and veracity is coded -0.5/0.5, so the veracity coefficient within a condition is the true-minus-false mean difference in SD units, the d the paper prints"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.657,
+            "variant": "Cohen's d as printed (p. 4)",
+            "evidenceIds": [
+              "ev_s1_res2"
+            ],
+            "ci": [
+              0.477,
+              0.836
+            ],
+            "ciLevel": 0.95
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 42.24,
+          "df": [
+            1,
+            25586
+          ],
+          "p": 0.0001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell percentages are only plotted (Fig. 1)"
+        ],
+        "evidenceIds": [
+          "ev_s1_res2"
+        ]
+      }
+    },
+    {
+      "id": "s1_veracity_sharing",
+      "label": "Study 1: true vs false headlines within the sharing condition",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "within",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_resp_s1",
+        "type": "binary",
+        "scale": "yes / no per headline",
+        "higherMeans": "more 'yes' (judged accurate / would share)",
+        "treatedAs": "z-scored over all ratings, linear probability model at the rating level"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "true",
+        "reference": "false",
+        "conditionIds": [
+          "cond_s1_sharing"
+        ],
+        "valueMeans": "true minus false headlines, in SD units of all Study 1 ratings"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_s1_res2"
+        ]
+      },
+      "analysisIds": [
+        "a_s1_main"
+      ],
+      "resultIds": [
+        "res_s1_main"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_veracity_sharing",
+        "compareAs": {
+          "metric": "standardized_mean_difference",
+          "reason": "ratings are z-scored over all ratings and veracity is coded -0.5/0.5, so the veracity coefficient within a condition is the true-minus-false mean difference in SD units, the d the paper prints"
+        }
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.121,
+            "variant": "Cohen's d as printed (p. 4)",
+            "evidenceIds": [
+              "ev_s1_res2"
+            ],
+            "ci": [
+              0.03,
+              0.212
+            ],
+            "ciLevel": 0.95
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 6.74,
+          "df": [
+            1,
+            25586
+          ],
+          "p": 0.009,
+          "pRelation": "="
+        },
+        "missing": [
+          "cell percentages are only plotted (Fig. 1)"
+        ],
+        "evidenceIds": [
+          "ev_s1_res2"
+        ]
+      }
+    },
+    {
+      "id": "s1_false_share_vs_accuracy",
+      "label": "Study 1, false headlines: share saying they would share vs share judging them accurate",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "between",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_resp_s1",
+        "type": "binary",
+        "scale": "yes / no, false headlines only",
+        "higherMeans": "more 'yes'"
+      },
+      "contrast": {
+        "kind": "two_groups",
+        "treatment": "sharing",
+        "reference": "accuracy",
+        "conditionIds": [
+          "cond_s1_sharing",
+          "cond_s1_accuracy"
+        ],
+        "valueMeans": "relative increase in percent: 100 x (share 'yes' in sharing / share 'yes' in accuracy - 1)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_s1_res3"
+        ]
+      },
+      "analysisIds": [
+        "a_s1_main"
+      ],
+      "resultIds": [
+        "res_s1_main"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_false_share_vs_accuracy"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "percent_change",
+            "value": 32.4,
+            "variant": "'32.4% more people', read as a relative increase (p. 4)",
+            "evidenceIds": [
+              "ev_s1_res3"
+            ]
+          }
+        ],
+        "missing": [
+          "the two percentages themselves",
+          "no test"
+        ],
+        "evidenceIds": [
+          "ev_s1_res3"
+        ]
+      },
+      "notes": "Read as relative: with about 33% judging false headlines accurate and 43% willing to share them, the absolute gap is about 10 points, the relative gap about 31%."
+    },
+    {
+      "id": "s1_crt_discernment_accuracy",
+      "label": "Study 1: CRT score x veracity within the accuracy condition",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "correlational",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_resp_s1",
+        "type": "binary",
+        "scale": "yes / no per headline",
+        "higherMeans": "more 'yes' (judged accurate / would share)",
+        "treatedAs": "z-scored over all ratings, linear probability model at the rating level"
+      },
+      "contrast": {
+        "kind": "association",
+        "conditionIds": [
+          "cond_s1_accuracy"
+        ],
+        "valueMeans": "CRT score (z) x veracity coefficient: higher means CRT score goes with more discernment"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "CRT score positively related to discernment",
+        "evidenceIds": [
+          "ev_aim1b",
+          "ev_s1_crt"
+        ]
+      },
+      "analysisIds": [
+        "a_s1_indiff"
+      ],
+      "resultIds": [
+        "res_s1_crt",
+        "res_s1_t1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_crt_discernment_accuracy"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 34.95,
+          "df": [
+            1,
+            25582
+          ],
+          "p": 0.0001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "coefficient of the interaction (only F is printed; Table 1 gives simple effects per veracity x condition cell)",
+          "sign is given in words only"
+        ],
+        "evidenceIds": [
+          "ev_s1_crt"
+        ]
+      }
+    },
+    {
+      "id": "s1_crt_discernment_sharing",
+      "label": "Study 1: CRT score x veracity within the sharing condition",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "correlational",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_resp_s1",
+        "type": "binary",
+        "scale": "yes / no per headline",
+        "higherMeans": "more 'yes' (judged accurate / would share)",
+        "treatedAs": "z-scored over all ratings, linear probability model at the rating level"
+      },
+      "contrast": {
+        "kind": "association",
+        "conditionIds": [
+          "cond_s1_sharing"
+        ],
+        "valueMeans": "CRT score (z) x veracity coefficient: higher means CRT score goes with more discernment"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "CRT score positively related to discernment",
+        "evidenceIds": [
+          "ev_aim1b",
+          "ev_s1_crt"
+        ]
+      },
+      "analysisIds": [
+        "a_s1_indiff"
+      ],
+      "resultIds": [
+        "res_s1_crt",
+        "res_s1_t1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_crt_discernment_sharing"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 4.98,
+          "df": [
+            1,
+            25582
+          ],
+          "p": 0.026,
+          "pRelation": "="
+        },
+        "missing": [
+          "coefficient of the interaction (only F is printed; Table 1 gives simple effects per veracity x condition cell)",
+          "sign is given in words only"
+        ],
+        "evidenceIds": [
+          "ev_s1_crt"
+        ]
+      }
+    },
+    {
+      "id": "s1_crt_discernment_x_condition",
+      "label": "Study 1: CRT score x veracity x condition (difference in its link to discernment)",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "mixed",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_resp_s1",
+        "type": "binary",
+        "scale": "yes / no per headline",
+        "higherMeans": "more 'yes' (judged accurate / would share)",
+        "treatedAs": "z-scored over all ratings, linear probability model at the rating level"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "sharing",
+        "reference": "accuracy",
+        "conditionIds": [
+          "cond_s1_sharing",
+          "cond_s1_accuracy"
+        ],
+        "valueMeans": "CRT score x veracity coefficient in sharing minus in accuracy"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "relationship stronger for accuracy than sharing",
+        "evidenceIds": [
+          "ev_aim1b",
+          "ev_s1_crt"
+        ]
+      },
+      "analysisIds": [
+        "a_s1_indiff"
+      ],
+      "resultIds": [
+        "res_s1_crt",
+        "res_s1_t1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_crt_discernment_x_condition"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 14.68,
+          "df": [
+            1,
+            25582
+          ],
+          "p": 0.0001,
+          "pRelation": "="
+        },
+        "missing": [
+          "coefficient of the interaction (only F is printed; Table 1 gives simple effects per veracity x condition cell)",
+          "sign is given in words only"
+        ],
+        "evidenceIds": [
+          "ev_s1_crt"
+        ]
+      }
+    },
+    {
+      "id": "s1_sci_discernment_accuracy",
+      "label": "Study 1: science knowledge x veracity within the accuracy condition",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "correlational",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_resp_s1",
+        "type": "binary",
+        "scale": "yes / no per headline",
+        "higherMeans": "more 'yes' (judged accurate / would share)",
+        "treatedAs": "z-scored over all ratings, linear probability model at the rating level"
+      },
+      "contrast": {
+        "kind": "association",
+        "conditionIds": [
+          "cond_s1_accuracy"
+        ],
+        "valueMeans": "science knowledge (z) x veracity coefficient: higher means science knowledge goes with more discernment"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "science knowledge positively related to discernment",
+        "evidenceIds": [
+          "ev_aim1b",
+          "ev_s1_sci"
+        ]
+      },
+      "analysisIds": [
+        "a_s1_indiff"
+      ],
+      "resultIds": [
+        "res_s1_sci",
+        "res_s1_t1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_sci_discernment_accuracy"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 32.8,
+          "df": [
+            1,
+            25552
+          ],
+          "p": 0.0001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "coefficient of the interaction (only F is printed; Table 1 gives simple effects per veracity x condition cell)",
+          "sign is given in words only"
+        ],
+        "evidenceIds": [
+          "ev_s1_sci"
+        ]
+      }
+    },
+    {
+      "id": "s1_sci_discernment_sharing",
+      "label": "Study 1: science knowledge x veracity within the sharing condition",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "correlational",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_resp_s1",
+        "type": "binary",
+        "scale": "yes / no per headline",
+        "higherMeans": "more 'yes' (judged accurate / would share)",
+        "treatedAs": "z-scored over all ratings, linear probability model at the rating level"
+      },
+      "contrast": {
+        "kind": "association",
+        "conditionIds": [
+          "cond_s1_sharing"
+        ],
+        "valueMeans": "science knowledge (z) x veracity coefficient: higher means science knowledge goes with more discernment"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "science knowledge positively related to discernment",
+        "evidenceIds": [
+          "ev_aim1b",
+          "ev_s1_sci"
+        ]
+      },
+      "analysisIds": [
+        "a_s1_indiff"
+      ],
+      "resultIds": [
+        "res_s1_sci",
+        "res_s1_t1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_sci_discernment_sharing"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 10.02,
+          "df": [
+            1,
+            25552
+          ],
+          "p": 0.002,
+          "pRelation": "="
+        },
+        "missing": [
+          "coefficient of the interaction (only F is printed; Table 1 gives simple effects per veracity x condition cell)",
+          "sign is given in words only"
+        ],
+        "evidenceIds": [
+          "ev_s1_sci"
+        ]
+      }
+    },
+    {
+      "id": "s1_sci_discernment_x_condition",
+      "label": "Study 1: science knowledge x veracity x condition (difference in its link to discernment)",
+      "role": "test",
+      "hypothesisIds": [
+        "h1"
+      ],
+      "studyId": "study1",
+      "design": "mixed",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_resp_s1",
+        "type": "binary",
+        "scale": "yes / no per headline",
+        "higherMeans": "more 'yes' (judged accurate / would share)",
+        "treatedAs": "z-scored over all ratings, linear probability model at the rating level"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "sharing",
+        "reference": "accuracy",
+        "conditionIds": [
+          "cond_s1_sharing",
+          "cond_s1_accuracy"
+        ],
+        "valueMeans": "science knowledge x veracity coefficient in sharing minus in accuracy"
+      },
+      "prediction": {
+        "direction": "negative",
+        "text": "relationship stronger for accuracy than sharing",
+        "evidenceIds": [
+          "ev_aim1b",
+          "ev_s1_sci"
+        ]
+      },
+      "analysisIds": [
+        "a_s1_indiff"
+      ],
+      "resultIds": [
+        "res_s1_sci",
+        "res_s1_t1"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s1_sci_discernment_x_condition"
+      },
+      "reported": {
+        "test": {
+          "statistic": "F",
+          "value": 7.59,
+          "df": [
+            1,
+            25552
+          ],
+          "p": 0.006,
+          "pRelation": "="
+        },
+        "missing": [
+          "coefficient of the interaction (only F is printed; Table 1 gives simple effects per veracity x condition cell)",
+          "sign is given in words only"
+        ],
+        "evidenceIds": [
+          "ev_s1_sci"
+        ]
+      }
+    },
+    {
+      "id": "s2_veracity_x_treatment",
+      "label": "Study 2: accuracy nudge raises sharing discernment (veracity x treatment)",
+      "role": "test",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "study2",
+      "design": "mixed",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_share_s2",
+        "type": "ordinal",
+        "scale": "1-6, rescaled to 0-1",
+        "higherMeans": "more likely to share",
+        "treatedAs": "numeric 0-1, linear regression at the rating level"
+      },
+      "contrast": {
+        "kind": "interaction",
+        "treatment": "treatment",
+        "reference": "control",
+        "conditionIds": [
+          "cond_s2_treatment",
+          "cond_s2_control"
+        ],
+        "valueMeans": "sharing discernment (true minus false, 0-1 scale) in treatment minus in control; veracity 0/1, treatment 0/1"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_aim2",
+          "ev_s2_res1"
+        ]
+      },
+      "analysisIds": [
+        "a_s2_main"
+      ],
+      "resultIds": [
+        "res_s2_main",
+        "res_s2_supp"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s2_veracity_x_treatment"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "regression_coefficient",
+            "value": 0.0343,
+            "variant": "OLS, 0-1 ratings, two-way clustered SEs, all subjects (Table S5 col 1 = Table S6 col 1, supplement pp. 6, 8)",
+            "evidenceIds": [
+              "ev_tbls5_row"
+            ]
+          },
+          {
+            "metric": "standardized_coefficient",
+            "value": 0.039,
+            "variant": "beta as printed in the main text (p. 7)",
+            "evidenceIds": [
+              "ev_s2_res1"
+            ]
+          },
+          {
+            "metric": "regression_coefficient",
+            "value": 0.0343,
+            "variant": "multilevel model, crossed random effects for subject and headline (Table S7, supplement p. 9)",
+            "evidenceIds": [
+              "ev_tbls7_row"
+            ]
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 17.88,
+          "df": [
+            1,
+            25623
+          ],
+          "p": 0.0001,
+          "pRelation": "<"
+        },
+        "missing": [
+          "cell means are only plotted (Fig. 2, Fig. S1)",
+          "standard error is not transcribed in the evidence"
+        ],
+        "evidenceIds": [
+          "ev_s2_res1",
+          "ev_tbls5_row",
+          "ev_tbls7_row"
+        ]
+      }
+    },
+    {
+      "id": "s2_veracity_control",
+      "label": "Study 2: true vs false headlines within the control condition",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "study2",
+      "design": "within",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_share_s2",
+        "type": "ordinal",
+        "scale": "1-6, rescaled to 0-1",
+        "higherMeans": "more likely to share",
+        "treatedAs": "numeric 0-1, linear regression at the rating level"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "true",
+        "reference": "false",
+        "conditionIds": [
+          "cond_s2_control"
+        ],
+        "valueMeans": "true minus false headlines (Cohen's d)"
+      },
+      "prediction": {
+        "direction": "none",
+        "evidenceIds": [
+          "ev_s2_res2"
+        ]
+      },
+      "analysisIds": [
+        "a_s2_main"
+      ],
+      "resultIds": [
+        "res_s2_main"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s2_veracity_control"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.05,
+            "variant": "Cohen's d as printed (p. 7)",
+            "evidenceIds": [
+              "ev_s2_res2"
+            ],
+            "ci": [
+              -0.033,
+              0.133
+            ],
+            "ciLevel": 0.95
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 1.41,
+          "df": [
+            1,
+            25623
+          ],
+          "p": 0.24,
+          "pRelation": "="
+        },
+        "missing": [
+          "cell means are only plotted (Fig. 2)"
+        ],
+        "evidenceIds": [
+          "ev_s2_res2"
+        ]
+      }
+    },
+    {
+      "id": "s2_veracity_treatment",
+      "label": "Study 2: true vs false headlines within the treatment condition",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "study2",
+      "design": "within",
+      "unit": "rating",
+      "outcome": {
+        "variableId": "v_share_s2",
+        "type": "ordinal",
+        "scale": "1-6, rescaled to 0-1",
+        "higherMeans": "more likely to share",
+        "treatedAs": "numeric 0-1, linear regression at the rating level"
+      },
+      "contrast": {
+        "kind": "paired",
+        "treatment": "true",
+        "reference": "false",
+        "conditionIds": [
+          "cond_s2_treatment"
+        ],
+        "valueMeans": "true minus false headlines (Cohen's d)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_s2_res2"
+        ]
+      },
+      "analysisIds": [
+        "a_s2_main"
+      ],
+      "resultIds": [
+        "res_s2_main"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s2_veracity_treatment"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "standardized_mean_difference",
+            "value": 0.142,
+            "variant": "Cohen's d as printed (p. 7)",
+            "evidenceIds": [
+              "ev_s2_res2"
+            ],
+            "ci": [
+              0.049,
+              0.235
+            ],
+            "ciLevel": 0.95
+          }
+        ],
+        "test": {
+          "statistic": "F",
+          "value": 8.89,
+          "df": [
+            1,
+            25623
+          ],
+          "p": 0.003,
+          "pRelation": "="
+        },
+        "missing": [
+          "cell means are only plotted (Fig. 2)"
+        ],
+        "evidenceIds": [
+          "ev_s2_res2"
+        ]
+      }
+    },
+    {
+      "id": "s2_discernment_ratio",
+      "label": "Study 2: sharing discernment in treatment relative to control (ratio)",
+      "role": "descriptive",
+      "hypothesisIds": [
+        "h2"
+      ],
+      "studyId": "study2",
+      "design": "mixed",
+      "unit": "participant",
+      "outcome": {
+        "variableId": "v_discern_s2",
+        "type": "continuous",
+        "scale": "true minus false sharing likelihood",
+        "higherMeans": "more discerning sharing"
+      },
+      "contrast": {
+        "kind": "ratio",
+        "treatment": "treatment",
+        "reference": "control",
+        "conditionIds": [
+          "cond_s2_treatment",
+          "cond_s2_control"
+        ],
+        "valueMeans": "treatment discernment divided by control discernment (a ratio, not a difference)"
+      },
+      "prediction": {
+        "direction": "positive",
+        "text": "ratio above 1",
+        "evidenceIds": [
+          "ev_s2_res3",
+          "ev_find2"
+        ]
+      },
+      "analysisIds": [
+        "a_s2_main"
+      ],
+      "resultIds": [
+        "res_s2_main"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "s2_discernment_ratio"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "ratio",
+            "value": 2.8,
+            "variant": "ratio as printed (p. 7)",
+            "evidenceIds": [
+              "ev_s2_res3"
+            ]
+          }
+        ],
+        "missing": [
+          "the two discernment values",
+          "no test of the ratio"
+        ],
+        "evidenceIds": [
+          "ev_s2_res3"
+        ]
+      }
+    },
+    {
+      "id": "items_accuracy_vs_treatment_effect",
+      "label": "Items: Study 1 perceived accuracy vs Study 2 treatment effect on sharing (r across 30 headlines)",
+      "role": "test",
+      "hypothesisIds": [
+        "h3"
+      ],
+      "studyId": "study3_items",
+      "design": "correlational",
+      "unit": "item",
+      "outcome": {
+        "variableId": "v_item_effect",
+        "type": "continuous",
+        "scale": "treatment minus control mean sharing (0-1) per headline",
+        "higherMeans": "the nudge raised sharing of the headline more"
+      },
+      "contrast": {
+        "kind": "association",
+        "conditionIds": [
+          "cond_s1_accuracy",
+          "cond_s2_treatment",
+          "cond_s2_control"
+        ],
+        "valueMeans": "Pearson r between headline mean accuracy rating (Study 1) and treatment effect"
+      },
+      "prediction": {
+        "direction": "positive",
+        "evidenceIds": [
+          "ev_s3_why"
+        ]
+      },
+      "analysisIds": [
+        "a_s3"
+      ],
+      "resultIds": [
+        "res_s3"
+      ],
+      "compute": {
+        "op": "package",
+        "key": "items_accuracy_vs_treatment_effect"
+      },
+      "reported": {
+        "estimates": [
+          {
+            "metric": "correlation",
+            "value": 0.76,
+            "variant": "r(28) as printed (p. 8)",
+            "evidenceIds": [
+              "ev_s3_res"
+            ],
+            "df": 28,
+            "p": 0.0001,
+            "pRelation": "<"
+          }
+        ],
+        "test": {
+          "statistic": "other",
+          "df": 28,
+          "p": 0.0001,
+          "pRelation": "<",
+          "pText": "p < .0001"
+        },
+        "missing": [
+          "per-headline treatment effects are only plotted (Fig. 3)"
+        ],
+        "evidenceIds": [
+          "ev_s3_res"
+        ]
+      }
+    }
+  ]
+}

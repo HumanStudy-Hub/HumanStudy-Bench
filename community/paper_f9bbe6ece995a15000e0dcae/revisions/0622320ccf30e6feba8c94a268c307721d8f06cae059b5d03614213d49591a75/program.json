@@ -1,0 +1,589 @@
+{
+  "schemaVersion": 2,
+  "id": "ruggeri2022discounting",
+  "title": "The globalizability of temporal discounting",
+  "intent": "reconstruct",
+  "source": {
+    "title": "The globalizability of temporal discounting",
+    "authors": "Kai Ruggeri, Amma Panin, Milica Vdovic, and collaborators (full author list in the cited article)",
+    "doi": "10.1038/s41562-022-01392-w",
+    "filename": "sources/paper.pdf"
+  },
+  "studies": [
+    {
+      "id": "pilot",
+      "title": "Instrument pilot · Three countries",
+      "type": "empirical",
+      "description": "Quality/flow pilot, not a full hypothesis test."
+    },
+    {
+      "id": "main",
+      "title": "Global study · 61 countries",
+      "type": "empirical",
+      "description": "Country-adapted measures; retained executable protocol covers only the US English instrument."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "background",
+      "kind": "background",
+      "title": "Are discounting patterns shared across economic settings?",
+      "studyIds": [
+        "pilot",
+        "main"
+      ],
+      "evidenceIds": [
+        "question"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Are discounting patterns shared across economic settings?",
+          "value": "The project studies immediate versus delayed choices across countries, separating threshold differences from the prevalence of specific choice anomalies. It asks whether apparent low-income differences reflect distinct patterns or broader financial environments.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "question"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hypothesis",
+      "kind": "hypothesis",
+      "title": "Preregistered cross-country expectations",
+      "studyIds": [
+        "main"
+      ],
+      "evidenceIds": [
+        "question"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Preregistered cross-country expectations",
+          "value": "The authors preregister six primary hypotheses, expecting temporal discounting across countries, larger within-country than between-country variation, and associations with inequality. Extreme inflation is expected to relate more strongly to immediate preferences than moderate inflation differences.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "question"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "kind": "design",
+      "title": "Locally scaled hypothetical choices",
+      "studyIds": [
+        "main"
+      ],
+      "evidenceIds": [
+        "anomalies",
+        "procedure"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Locally scaled hypothetical choices",
+          "value": "The main study adapts monetary amounts to local currencies and national monthly income standards. It measures baseline gains, payments and larger gains, followed by five anomalies: absolute magnitude, gain–loss asymmetry, delay–speedup asymmetry, present bias and subadditivity. These are within-survey measures, not five independently recruited experiments.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "anomalies",
+            "procedure"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "participants",
+      "kind": "participants",
+      "title": "13,629 final responses across 61 countries",
+      "studyIds": [
+        "main"
+      ],
+      "evidenceIds": [
+        "sample"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "13,629 final responses across 61 countries",
+          "value": "The main dataset begins with 25,877 responses and retains 13,629 across 61 countries. Exclusions include failed attention checks, nonsensical responses, implausible ages, speed, spam/test IPs and incomplete surveys; criteria overlap and their counts must not be added as disjoint removals. Financial-variable analyses add further quality checks.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "sample"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "materials",
+      "kind": "material",
+      "title": "Adaptive amounts and five anomalies",
+      "studyIds": [
+        "main"
+      ],
+      "evidenceIds": [
+        "procedure",
+        "anomalies",
+        "languages"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Adaptive amounts and five anomalies",
+          "value": "For US participants the baseline compares $500 now with $550 in a year, then adjusts the delayed amount to $600/$750 or $510/$505. Losses and larger gains use related sets. Later anomaly questions incorporate the baseline threshold. Local versions span 40 languages; the private retained US instrument is not a complete multilingual asset.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "procedure",
+            "anomalies",
+            "languages"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "procedure",
+      "kind": "procedure",
+      "title": "Baseline choices before anomalies and background questions",
+      "studyIds": [
+        "main"
+      ],
+      "evidenceIds": [
+        "procedure",
+        "limit1"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Baseline choices before anomalies and background questions",
+          "value": "Participants complete the adaptive baseline sets, then anomaly scenarios, financial circumstances/risk/outlook questions and demographics. Local-language or English versions are offered. Choices are hypothetical rather than performance-contingent monetary payments.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "procedure",
+            "limit1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "variables",
+      "kind": "variable",
+      "title": "Discounting scores and distinct anomaly indicators",
+      "studyIds": [
+        "main"
+      ],
+      "evidenceIds": [
+        "analysis"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Discounting scores and distinct anomaly indicators",
+          "value": "The paper measures baseline choice preferences, proportions exhibiting each anomaly and a 0–19 discounting score. Individual debt/assets, age, education/employment and country GDP/inflation/inequality enter multilevel models. Financial circumstances are observed, not experimentally assigned.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "analysis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analysis",
+      "kind": "analysis",
+      "title": "Multilevel models and nonlinear financial associations",
+      "studyIds": [
+        "main"
+      ],
+      "evidenceIds": [
+        "analysis"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Multilevel models and nonlinear financial associations",
+          "value": "Mixed linear and generalized models predict standardized discount scores and anomaly indicators, adding individual/country covariates. Splines handle nonlinear debt, asset and inflation relationships; frequentist and Bayesian fits are compared. The paper’s analyses exceed the retained US-only protocol’s currently implemented scoring scope.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "analysis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pilot-result",
+      "kind": "result",
+      "title": "Pilot confirms usable variability, not hypothesis outcomes",
+      "studyIds": [
+        "pilot"
+      ],
+      "evidenceIds": [
+        "pilot"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Pilot confirms usable variability, not hypothesis outcomes",
+          "value": "The Prolific pilot involved 360 people in Australia, Canada and the US in April 2021. Responses varied across baseline and anomaly items and supported using baseline choices for trade-off values. Ethical approval limited the pilot to instrument assessment rather than full analysis/reporting of hypothesis results.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "pilot"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "main-result",
+      "kind": "result",
+      "title": "Anomalies appear broadly, with heterogeneous national estimates",
+      "studyIds": [
+        "main"
+      ],
+      "evidenceIds": [
+        "main-results"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Anomalies appear broadly, with heterogeneous national estimates",
+          "value": "Overall 54% show at least one anomaly, 33% multiple, and 2% four. Primary anomaly prevalence ranges from 13.8% (absolute magnitude) to 40.1% (gain–loss); subadditivity is 10.7% under stricter criteria. The aggregate discount score is 10.3 with prediction interval 6.8–13.8; all locations show anomalies, but that does not mean every individual does.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "main-results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inequality-result",
+      "kind": "result",
+      "title": "Country inequality differs from personal income position",
+      "studyIds": [
+        "main"
+      ],
+      "evidenceIds": [
+        "inequality"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Country inequality differs from personal income position",
+          "value": "Between-country differences explain at most 20% of score variance and 2–8% of anomaly variance. Country Gini positively relates to discounting (p=.002), but individual income inequality does not predict aggregate discounting scores (p=.121); small associations with present bias and absolute magnitude are exceptions among anomaly measures. Country-level correlations must not be treated as individual predictions.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "inequality"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inflation-result",
+      "kind": "result",
+      "title": "More discounting does not mean more of every anomaly",
+      "studyIds": [
+        "main"
+      ],
+      "evidenceIds": [
+        "economy"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "More discounting does not mean more of every anomaly",
+          "value": "Hyperinflation is strongly associated with discounting, especially gains rather than payments. Higher inflation is associated with lower prevalence of present bias, magnitude, delay–speedup and subadditivity, but higher gain–loss asymmetry. These differing directions qualify a single simple financial-stress effect.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "economy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "kind": "finding",
+      "title": "Broad generalizability without universal individual behavior",
+      "studyIds": [
+        "pilot",
+        "main"
+      ],
+      "evidenceIds": [
+        "interpretation"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Broad generalizability without universal individual behavior",
+          "value": "The authors emphasize consistent global patterns alongside larger within-country variation, and reject interpreting low-income people as inherently unstable decision-makers. The study’s observational economic associations do not identify causal effects of poverty or policy.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "interpretation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "kind": "limitation",
+      "title": "Hypothetical choices, uneven samples and brief measures",
+      "studyIds": [
+        "pilot",
+        "main"
+      ],
+      "evidenceIds": [
+        "limit1",
+        "limit2"
+      ],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Hypothetical choices, uneven samples and brief measures",
+          "value": "There are no choice-contingent payments; sample representativeness differs by country. The brief measures trade precise indifference thresholds for breadth across five anomalies. Larger, more detailed within-domain measures remain useful.",
+          "origin": "reported",
+          "state": "check",
+          "evidenceIds": [
+            "limit1",
+            "limit2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "instrument-scope",
+      "kind": "limitation",
+      "title": "Country instruments and scoring are not all available",
+      "studyIds": [
+        "main"
+      ],
+      "evidenceIds": [],
+      "fields": [
+        {
+          "id": "summary",
+          "label": "Country instruments and scoring are not all available",
+          "value": null,
+          "origin": "unknown",
+          "state": "missing",
+          "evidenceIds": [],
+          "extensions": {
+            "gapReason": "source_unavailable"
+          }
+        }
+      ]
+    }
+  ],
+  "steps": [],
+  "relations": [],
+  "issues": [
+    {
+      "id": "instrument-scope",
+      "title": "Country instruments and scoring are not all available",
+      "severity": "check",
+      "reason": "The existing protocol covers only the US English source; the other country versions are absent. US anomaly coding directions and total-score consistency remain unresolved, and the private survey/supplement licenses are not established. This public reading document contains only licensed article evidence.",
+      "impact": "Exact replay of this part remains limited; this is not a completed original replication.",
+      "suggestedAction": "Obtain the original source before reconstructing missing content.",
+      "nodeId": "instrument-scope",
+      "fieldId": "summary",
+      "evidenceIds": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "question",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 1
+      },
+      "quote": "In this research, we aimed to test how broadly generalizable pat-\nterns of temporal discounting are around the world, incorporating\nsocial and economic factors as well as multiple measures of inter-\ntemporal choice. With broader testing of more anomalies, rather\nthan being limited to indifference points (a threshold value for pre-\nferring now versus later), more robust conclusions can be drawn\nabout choice patterns. In this vein, the most comprehensive related\nstudy found that lower-income countries had lower trust in systems\nand had the steepest rates of discounting (that is, the threshold\nfor giving up an immediate gain for a later, larger one was much\nhigher)8,21\n. As the indifference point was the primary indicator,\nthese results are extremely important but do not necessarily mean\nthat lower-income populations have distinct decision-making pat-\nterns. Three similar studies also tested temporal choice in large,\nmulti-national populations, some including more than 50,000 par-\nticipants from more than 50 countries18,22\n. These studies largely\nfocused on smaller-sooner versus larger-later constructs of tem-\nporal discounting. Most concluded that lower income and wealth,\namong other micro and macro variables, were strong predictors\nof higher discounting (or lower patience). However, these studies\ndid not incorporate a broad range of temporal choice constructs, as\ntheir focus was typically specific to time preferences.\nTo avoid the limitations of relying only on indifference points\nand to assess the generalizability of temporal discounting on a\nnear-global scale, we used a similar method to those studies but\ntested multiple intertemporal choice domains. Our approach allows\nthe rates of certain anomalies to be considered along with specific\nvalue thresholds. Our aim was to test each of these patterns for\ngeneralizability while also factoring in multiple economic aspects\nacross populations, primarily wealth, inequality, debt and infla-\ntion. We pre-registered (https://osf.io/jfvh4) six primary hypoth-\neses, anticipating that temporal discounting would be observed in\nall countries to varying extents, though mean differences between\ncountries would be less extreme than variability within countries,\nboth overall and for specific anomalies. We also anticipated that\neconomic inequality would be a strong predictor of national dis-\ncounting averages.\nInflation, which tends to be higher in lower-income countries23\n, is\nalso associated with stronger preferences for immediate gains24,25\n. In\nour final hypothesis, we expected to confirm this pattern, indicating\nthat such preferences may be associated with increased probability\nthat future gains will be worth substantially less than their current\nvalue. We expected that this might be even more broadly impactful\nthan income or wealth, though each interacts in some way and all\nshould be considered. We limited our hypotheses to inflation versus\nextreme inflation: we expected that differences in preferences would\nemerge only at substantially larger inflation rates (over 10%) and\nhyperinflation (over 50%), and less so between regions with varied\nbut less extreme differences (substantively below 10%).",
+      "verification": "unverified"
+    },
+    {
+      "id": "anomalies",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 2
+      },
+      "quote": "• Absolute magnitude: Increased preference for delayed gains\nwhen values become substantially larger, even when relative dif-\nferences are constant (for example, prefer $500 now over $550 in\n12 months and prefer $5,500 in 12 months over $5,000 now4,7\n).\n• Gain–loss asymmetry: Gains are discounted more than losses,\nthough differences (real and relative) are constant (for example,\nprefer to receive $500 now over $550 in 12 months, but also pre-\nfer to pay $500 now over paying $550 in 12 months).\n• Delay–speedup asymmetry: Accepting an immediate, smaller\ngain if the delay is framed as added value, but preferring the\nlarger, later amount if an immediate gain is framed as a reduc-\ntion (for example, prefer to receive a gain of $500 rather than\nwait 12 months for an additional $50 and prefer to wait for 12\nmonths to receive $550 rather than to pay $50 and receive the\ngain now).\n• Present bias: Lower discounting over a given time interval when\nthe start of the interval is shifted to the future (for example, pre-\nfer $500 now over $550 in 12 months and prefer $550 in two\nyears over $500 in 12 months).\nWe also assess subadditivity27\neffects, which adds an interval of\nimmediate to 24 months, thereby allowing us to fully assess dis-\ncounting over three time intervals (0–12, 12–24 and 0–24 months)35\n.\nSubadditivity is considered present if discounting is higher for the\ntwo 12-month intervals than for the 24-month interval.",
+      "verification": "unverified"
+    },
+    {
+      "id": "procedure",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 2
+      },
+      "quote": "For the full study, all participants began with choosing either\napproximately 10% of the national monthly household income\naverage (either median or mean, depending on the local standard)\nimmediately, or 110% of that value in 12 months. For US partici-\npants, this translated into US$500 immediately or US$550 in one\nyear. Participants who chose the immediate option were shown the\nsame option set, but the delayed value was now 120% (US$600).\nIf they continued to prefer the immediate option, a final option\noffered 150% (US$750) as the delayed reward. If participants chose\nthe delayed option initially, subsequent choices were 102% (US$510)\nand 101% (US$505). This progression was then inverted for losses,\nwith the same values presented as payments, increasing for choosing\ndelayed and decreasing for choosing immediate. Finally, the origi-\nnal gain set was repeated using 100% of the average monthly income\nto represent higher-magnitude choices (Supplementary Table 1).\nAfter the baseline scenarios, the anomaly scenarios incorpo-\nrated the simplified indifference point (the largest value at which\nthe participants chose the delayed option in the baseline items; see\nSupplementary Methods). Finally, the participants answered ten\nquestions on financial circumstances, (simplified) risk preference,\neconomic outlook and demographics. The participants could choose\nbetween the local official language (or languages) and English. By\ncompletion, 61 countries (representing approximately 76% of the\nworld population) had participated (Supplementary Tables 2 and 3).",
+      "verification": "unverified"
+    },
+    {
+      "id": "analysis",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 2
+      },
+      "quote": "We assessed temporal choice patterns in three ways. First, we\nused the three baseline scenarios to determine preferences for\nimmediate or delayed gains (at two magnitudes) and losses (one).\nSecond, we calculated the proportion of participants who exhib-\nited the theoretically described anomaly for each anomaly scenario\n(Supplementary Table 4). We also calculated proportions of partici-\npants who exhibited inconsistent decisions even if not specifically\naligned with one of the defined anomalies. Finally, we computed a\ndiscounting score based on responses to all choice items, ranging\nfrom 0 (always prefer delayed gains or earlier losses) to 19 (always\nprefer immediate gains or delayed losses). The score then represents\nthe consistency of discounting behaviours, irrespective of the pres-\nence of other choice anomalies (see Supplementary Information for\ndetails on reliability and validity).\nTo explore individual and country-level differences, we per-\nformed a series of multilevel linear and generalized mixed mod-\nels that predicted standardized temporal discounting scores and\nanomalies, respectively. We ran a set of increasingly complex mod-\nels, including inequality indicators, while controlling for individual\ndebt and assets, age, education, employment, log per-capita gross\ndomestic product (GDP) and inflation at the individual and country\nlevels. Because the raw scores (0–19) have no standard to compare\nagainst, we primarily used standardized scores (with a mean of 0\nand standard deviation of 1) for analysis and visualization.\nWe detected several relevant nonlinear effects (debt, financial\nassets and inflation; Supplementary Tables 5–7), which we incor-\nporated into our final models via spline modelling36\n. The models\nwere estimated using both frequentist (Supplementary Tables 8\nand 9 and Supplementary Figs. 1 and 2) and Bayesian techniques\n(Supplementary Tables 10 and 11), assessing the consistency of the\nresults. Support for potential null effects was evaluated using a vari-\nety of Bayesian approaches (Supplementary Table 12).",
+      "verification": "unverified"
+    },
+    {
+      "id": "limit1",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 2
+      },
+      "quote": "There are some limitations in our approach. The most notewor-\nthy is that we are limited to hypothetical scenarios in which the\nparticipants had no motivation to give a particular answer, which\nmight have impacted responses had true monetary awards been\noffered. Though Japanese participants received payment, it was not\ncontingent on their choices, so the same limitation holds. While that\nmight have been an ideal approach, substantial evidence indicates\nthat such hypothetical scenarios do not differ substantively from",
+      "verification": "unverified"
+    },
+    {
+      "id": "limit2",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 3
+      },
+      "quote": "actual choices, and many such approaches have been validated to\ncorrelate with real-world behaviours37–42\n. Naturally, this does not\nprovide a perfect replacement for comprehensive real-world behav-\nioural observations, but there is sufficient evidence to indicate that\nhypothetical approaches yield reasonably valid results. The second\nlimitation is that our approach to minimizing bias through highly\nrandomized and broad data collection yielded demographics that\nvaried in representativeness. For indications of how this may have\nimpacted the results, we included a complementary demographics\ntable for comparison between the sample and true national charac-\nteristics (Supplementary Table 18).\nFinally, in terms of robustness in our methods, we opted for five\nanomalies tested in relatively short form rather than a smaller num-\nber of domains in long form. We did this in part because it would\nbe a meaningful contribution to the field as well as because it was\nmore important to demonstrate the existence of anomalies than to\nemphasize precise thresholds (for example, indifference points).\nThough it was impractical to do comprehensive, adaptive measures\nfor our approach, we strongly encourage future studies involving\nboth a broad number of choice domains and extensive measures\nwithin each to offer greater precision.",
+      "verification": "unverified"
+    },
+    {
+      "id": "main-results",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 4
+      },
+      "quote": "Between-countries random-effect meta-analyses estimated\npooled and unpooled effects for aggregate scores and individual\nanomalies (Supplementary Figs. 3–8). Temporal discounting was\npresent in all countries, with only modest variability in national\nmeans (aggregate mean, 10.3; prediction interval, (6.8, 13.8);\nfrom Japan (mean=7.1, s.d.=3.9) to Argentina (mean=14.1,\ns.d.=3.0); Fig. 4). Overall, 54% of participants showed at least one\nanomaly, with 33% presenting multiple and only 2% showing four\n(Supplementary Table 15). Anomalies were present in all locations,\nand aggregate values indicated the widespread presence of the four\nprimary anomalies (from 13.8% for absolute magnitude to 40.1%\nfor gain–loss asymmetry, Fig. 3). Gain–loss rates were the most\ncommon anomaly in 80.3% (49) of the countries, with substantially\nhigher rates observed than for the other anomalies. While only\n10.7% of the sample engaged in subadditivity behaviour (range,\n2.7% (Lebanon) to 20.7% (New Zealand)), the criteria were stricter\nfor this anomaly.",
+      "verification": "unverified"
+    },
+    {
+      "id": "inequality",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 5
+      },
+      "quote": "Despite between-country differences in mean scores and\nanomaly rates, there was substantial overlap between response\ndistributions. Accordingly, results from multilevel models indi-\ncated that no more than 20% of the variance was ever explained by\nbetween-country differences for scores and was between 2% (abso-\nlute magnitude) and 8% (present bias) for anomalies. We thus find\ntemporal discounting to be globally generalizable, robust and highly\nconsistent (in line with expectations) (Supplementary Table 6 and\nSupplementary Fig. 10), where within-country differences between\nindividuals are substantially greater than between-country differ-\nences. In other words, we find temporal discounting to be a global-\nizable (though not universal) construct. We also find that there is\nnothing WEIRD about intertemporal choice anomalies.\nInequality. We defined inequality at the level of the country and at\nthe level of the individual. For countries, we used the most recently\npublished Gini coefficients48\n. For individuals, we calculated the dif-\nference between their reported income and the adjusted net median\nlocal (country) income. At the country level, Gini had a positive\nrelationship with temporal discounting scores (β=0.09; P=0.002;\n95% confidence interval, (0.02, 0.06); Supplementary Table 8), yet\nno such pattern emerged for specific anomalies, as we observed\nno significant effect for the remaining cases (0.92<OR<1.01,\n0.023<P<0.825, Supplementary Table 8). Individual income\ninequality did not predict temporal discounting scores (β=−0.01;\nP=0.121; 95% confidence interval, (−0.03, 0.001)) or rates of\nanomalies (0.96<OR<1.04, 0.045<P<0.867, Supplementary\nTables 8 and 9), except two small effects for present bias (OR=1.07;\nP=0.006; 95% confidence interval, (1.03, 1.13)) and absolute mag-\nnitude (OR=0.92; P=0.006; 95% confidence interval, (0.87, 0.98);\nSupplementary Table 9).\nAs shown in Fig. 5, these patterns are largely in line with expecta-\ntions, indicating that, in aggregate, greater inequality is associated\nwith increased rates of discounting. However, as indicated in Fig. 3,\nintertemporal choice anomalies overall are not unique to a specific\nincome level, and worse financial circumstances may be associated\nwith more consistent choice patterns (that is, fewer anomalies) due\nto sustained preference for sooner gains. Whether this aligns with\narguments that scarcity leads individuals to focus on present chal-\nlenges is worthy of further exploration49\n. It also reiterates that pat-\nterns in population (that is, country) aggregates are not the same as\npredicting individual choices50\n.",
+      "verification": "unverified"
+    },
+    {
+      "id": "economy",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 7
+      },
+      "quote": "Inflation. We observed strong relationships between inflation rates\nand temporal discounting scores as well as all anomalies. There\nwas a particularly strong effect of hyperinflation on temporal dis-\ncounting (e.d.f.=1.81, P<0.0001, Supplementary Table 8 and\nSupplementary Fig. 1), with some levelling out at the extremes.\nCountries experiencing severe hyperinflation demonstrate extreme\ndiscounts only for gains but not for payments, which minimizes the\neffect on total scores. However, if limiting to only gains, the effect\nremains extreme, as indicated by the two gain scenarios in Fig. 3.\nWe observed a reverse trend of higher inflation being associated\nwith a lower likelihood of engaging in anomalies (Supplementary\nTable 9 and Supplementary Fig. 2)—namely, for present bias\n(e.d.f.=1.63, P<0.0001), absolute magnitude (e.d.f.=1.92,\nP<0.0001), delay–speedup (e.d.f.=1.75, P<0.0001) and subad-\nditivity (e.d.f.=1.37, P=0.0019). The only positive (but weaker)\neffect in the case of anomalies was found for gain–loss asymmetry\n(e.d.f.=1.675, P=0.0051).",
+      "verification": "unverified"
+    },
+    {
+      "id": "interpretation",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 8
+      },
+      "quote": "choice anomalies to be globally generalizable. This is largely based\non finding remarkable consistency and robustness in patterns of\nintertemporal choice across 61 countries, with substantially more\nvariability within each country than between their means. We\nemphasize that while discounting may be stronger in worse finan-\ncial circumstances, particularly those with poorer economic out-\nlooks, it exists in all locations at measurable levels.\nWe do not imply that temporal discounting and specific inter-\ntemporal choice anomalies are universal (that is, present in all\nindividuals at all times). Instead, our findings provide extreme con-\nfidence that the constructs tested are robust on a global level. In our\nview, they also disrupt some notions that lower-income individu-\nals are somehow inherently unstable decision-makers, as negative\nenvironments are widely influential. Under such circumstances, it\nis both rational and, as our data show, entirely typical to follow the\nchoice preferences we present.",
+      "verification": "unverified"
+    },
+    {
+      "id": "sample",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Participants. The final dataset was composed of 13,629 responses from 61\ncountries. The original sample size was 25,877, which was reduced almost by half\nafter we performed pre-registered data exclusions. We removed 6,141 participants\n(23.7%) who did not pass our attention check (a choice between receiving 10% of\nmonthly income now or paying the same amount in one year). We removed 69\nparticipants for presenting non-sensical responses to open data text (for example,\n‘helicopter’ as gender). We removed 13 participants claiming to be over 100 years\nold. We included additional filters to our original exclusion criteria. Regarding\nthe length of time for responses, individuals faster than three times the absolute\ndeviation below the median time or that took less than 120 seconds to respond\nwere removed. This criterion allowed us to identify 5,870 inappropriate responses.\nWe further removed responses from IP addresses identified as either ‘tests’ or\n‘spam’ by the Qualtrics service (264 answers identified). Lastly, we did not consider\nindividuals not completing over 90% of the survey (9,434 responses failed this\ncriterion). Note that these values add up to more than 100% because participants\ncould fail multiple criteria.\nFor analyses including income, assets and debt, we conducted additional\nquality checks. We first removed 38 extreme income, debt or assets (values\nlarger than 1×108\n) responses. Next, we removed extreme outliers larger than\n100 times the median absolute deviation above the country median for income\nand 1,000 times larger than the median absolute deviation for national median\nassets. We further removed anyone that simultaneously claimed no income while\nalso being employed full-time. These quality checks identified 54 problematic\nresponses, which were removed from the data. The final sample and target size are\npresented in Supplementary Table 2. We provide descriptive information on the\nfull and by-country samples in Supplementary Table 3 and the main variables in\nSupplementary Table 4.",
+      "verification": "unverified"
+    },
+    {
+      "id": "pilot",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 8
+      },
+      "quote": "To confirm the viability of our design, we assessed the overall variability\nof pilot study data from 360 participants from the United States, Australia and\nCanada. The responses showed that the items elicited reasonable answers, and\nthe three sets of baseline measures yielded responses that would be expected for\nthe three countries. Specifically, it was more popular to choose earlier gains over\nlarger, later ones for the smaller magnitude and closer to 50–50 for the larger\nmagnitude and the payment set. The subsequent choice anomalies also yielded\nvariability within items, which showed some variability between countries. These\nresults confirmed that using baseline choices to set trade-off values in anomaly\nitems was appropriate and would capture relevant differences. We did not analyse\nthese data in full per our Institutional Review Board approval, as we did not want\na detailed analysis of subsequent bias decisions. The pilot was completed in April\n2021 with participants on the Prolific platform (compensated for participation, not\nfor choices made).",
+      "verification": "unverified"
+    },
+    {
+      "id": "languages",
+      "sourceId": "paper",
+      "path": "sources/paper.pdf",
+      "url": "https://doi.org/10.1038/s41562-022-01392-w",
+      "locator": {
+        "page": 8
+      },
+      "quote": "Following data collection, 61 countries were fully included, using 40 languages.",
+      "verification": "unverified"
+    }
+  ],
+  "extensions": {
+    "scholarly": {
+      "profile": "scholarly-v1",
+      "status": "draft",
+      "studyArms": {
+        "main": [
+          "us_english"
+        ]
+      }
+    },
+    "communityExport": {
+      "scope": "program-only",
+      "sources": [
+        {
+          "evidenceIds": [
+            "question",
+            "anomalies",
+            "procedure",
+            "analysis",
+            "limit1",
+            "limit2",
+            "main-results",
+            "inequality",
+            "economy",
+            "interpretation",
+            "sample",
+            "pilot",
+            "languages"
+          ],
+          "url": "https://doi.org/10.1038/s41562-022-01392-w",
+          "attribution": "Kai Ruggeri, Amma Panin, Milica Vdovic, and collaborators (full author list in the cited article). The globalizability of temporal discounting (2022).",
+          "license": "CC-BY-4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sha256": "209ebac54259388c1bbe9aa3a7f126652052d03b9c1a817f4878ee653ffa29aa",
+          "title": "The globalizability of temporal discounting",
+          "changes": "Source information organized into a Human Study Program; evidence excerpts retained. Original source unchanged."
+        }
+      ],
+      "withheldEvidenceQuotes": {
+        "ids": [],
+        "reason": "redistribution-unverified"
+      }
+    }
+  }
+}

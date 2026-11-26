@@ -1,0 +1,1348 @@
+{
+  "id": "novakova2013stakes",
+  "schema": "hsenv-protocol/0.1",
+  "meta": {
+    "citation": "Novakova, J., & Flegr, J. (2013). How much is our fairness worth? The effect of raising stakes on offers by proposers and minimum acceptable offers in dictator and ultimatum games. PLOS ONE, 8(4), e60966. https://doi.org/10.1371/journal.pone.0060966",
+    "doi": "10.1371/journal.pone.0060966",
+    "language": "cs",
+    "language_cite": {
+      "label": "derived",
+      "source": "paper",
+      "page": 3,
+      "note": "the paper does not state the language: the sample is Czech undergraduates at Charles University filling in a paper questionnaire after an exam, so Czech is the likely language; the English quotations on p. 3 are the authors' rendering. Alternative: English questionnaire; the quotations would then be the administered text, and screens could be served once the authors confirm it"
+    },
+    "licence": "CC BY (paper, printed p. 1); no other source",
+    "sources": {
+      "paper": {
+        "file": "sources/bundle/paper/paper.pdf",
+        "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0060966&type=printable",
+        "doi": "10.1371/journal.pone.0060966",
+        "sha256": "4394e006e63c5f95f01230a7a64b99a82967879b455dd65f3fbaa664e9f1f6c0",
+        "licence": "CC BY (Creative Commons Attribution License, printed on p. 1; Crossref: CC BY 4.0)",
+        "what": "version of record, 9 pages, born-digital text layer (paper.txt by pages.py); PDF page = journal page",
+        "distribution": {
+          "tier": "hosted",
+          "licence": "CC-BY-4.0",
+          "url": "https://doi.org/10.1371/journal.pone.0060966",
+          "sha256": "4394e006e63c5f95f01230a7a64b99a82967879b455dd65f3fbaa664e9f1f6c0",
+          "format": "pdf",
+          "attribution": "Novakova, J., & Flegr, J. (2013). How much is our fairness worth? PLOS ONE 8(4): e60966. doi:10.1371/journal.pone.0060966. CC BY"
+        }
+      }
+    },
+    "sample": {
+      "n": 524,
+      "one": 423,
+      "five": 101,
+      "who": "undergraduates of the Faculty of Science, Charles University, mean age 20.88 (median 20, s.d. 2.11); printed '388 (71%)' female (inconsistent, meta.paper_inconsistencies)",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "evidence": "The sample consisted of 524 undergraduate students of the Faculty of Science of the Charles University"
+      }
+    }
+  },
+  "arms": [
+    {
+      "id": "one",
+      "label": "Treatment One: one of five amounts per student",
+      "n_paper": 423,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "evidence": "Another 423 students in Treatment One were divided into five groups"
+      },
+      "n_recruited_note": "the paper prints only the analysed samples (524 = 423 + 101; about 90% of the course students took the exam and about 95% of them consented, p. 3); no per-arm recruited count (searched p. 3-4)",
+      "n_analysed": {
+        "value": 423,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "evidence": "Another 423 students in Treatment One"
+        }
+      },
+      "runnable": false,
+      "why": "every screen is missing: the questionnaire is unpublished; the paper's English quotations of the rules and the three questions are the authors' rendering (language participants saw not stated) and are not served (README Decided 11, 16); layout, order, amount presentation and answer format are not printed",
+      "assignment": "one of five amounts per student (group sizes not reported)"
+    },
+    {
+      "id": "five",
+      "label": "Treatment Five: all five amounts per student, ascending",
+      "n_paper": 101,
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3,
+        "evidence": "in Treatment Five, 101 students were given a questionnaire"
+      },
+      "n_recruited_note": "as arm one: no per-arm recruited count printed (p. 3-4)",
+      "n_analysed": {
+        "value": 101,
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "evidence": "in Treatment Five, 101 students"
+        }
+      },
+      "runnable": false,
+      "why": "every screen is missing: the questionnaire is unpublished; the paper's English quotations of the rules and the three questions are the authors' rendering (language participants saw not stated) and are not served (README Decided 11, 16); layout, order, amount presentation and answer format are not printed",
+      "assignment": "all five amounts in ascending order (5 rows per student)"
+    }
+  ],
+  "run_excluded": [
+    {
+      "arm": "one",
+      "n_paper": 423,
+      "why": "every screen is missing: the questionnaire is unpublished; the paper's English quotations of the rules and the three questions are the authors' rendering (language participants saw not stated) and are not served (README Decided 11, 16); layout, order, amount presentation and answer format are not printed",
+      "missing": [
+        {
+          "what": "rules of the DG and UG as shown",
+          "ref": "data.missing.rules"
+        },
+        {
+          "what": "how the amount at stake was shown",
+          "ref": "data.missing.amount"
+        },
+        {
+          "what": "the three questions as asked",
+          "ref": "data.missing.dg_prompt / ug_prompt / mao_prompt"
+        },
+        {
+          "what": "gender and age questions",
+          "ref": "data.missing.sex_prompt / age_prompt"
+        },
+        {
+          "what": "layout, page structure, order of items, answer format, consent text",
+          "ref": "omitted"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3
+      }
+    },
+    {
+      "arm": "five",
+      "n_paper": 101,
+      "why": "every screen is missing: the questionnaire is unpublished; the paper's English quotations of the rules and the three questions are the authors' rendering (language participants saw not stated) and are not served (README Decided 11, 16); layout, order, amount presentation and answer format are not printed",
+      "missing": [
+        {
+          "what": "rules of the DG and UG as shown",
+          "ref": "data.missing.rules"
+        },
+        {
+          "what": "how the amount at stake was shown",
+          "ref": "data.missing.amount"
+        },
+        {
+          "what": "the three questions as asked",
+          "ref": "data.missing.dg_prompt / ug_prompt / mao_prompt"
+        },
+        {
+          "what": "gender and age questions",
+          "ref": "data.missing.sex_prompt / age_prompt"
+        },
+        {
+          "what": "layout, page structure, order of items, answer format, consent text",
+          "ref": "omitted"
+        }
+      ],
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3
+      }
+    }
+  ],
+  "data": {
+    "missing": {
+      "rules": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 3,
+          "note": "the rules of the Dictator and Ultimatum Games as shown in the questionnaire; rules as administered; the paper quotes a Dictator Game paragraph and an Ultimatum Game paragraph (p. 3, 'Rules of the Ultimatum and Dictator Games were explained to the subjects in the questionnaire as stated below') in English: authors' English rendering; the paper does not say which language participants saw (Czech students at Charles University: Czech is the likely language), so the quotation is reported, never served as verbatim; the questionnaire is not published (paper p. 3 quotes the rules and the three questions only; Dataset S1, the only supplement, is participant-level data; searched, see STATUS)"
+        }
+      },
+      "amount": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 3,
+          "note": "how the amount at stake (CZK 20 ... 200,000) was shown; the paper says only that the games were played for these amounts and that the hypothetical amounts ran from CZK 20 to CZK 200,000 (p. 3); the sentence, currency format and place in the questionnaire are not printed; the questionnaire is not published (paper p. 3 quotes the rules and the three questions only; Dataset S1, the only supplement, is participant-level data; searched, see STATUS)"
+        }
+      },
+      "dg_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 3,
+          "note": "the Dictator Game question; question as administered; described/quoted on p. 3 ('The experimental questions were ...'): authors' English rendering; the paper does not say which language participants saw (Czech students at Charles University: Czech is the likely language), so the quotation is reported, never served as verbatim: 'How much would you offer in the Dictator Game?'; the questionnaire is not published (paper p. 3 quotes the rules and the three questions only; Dataset S1, the only supplement, is participant-level data; searched, see STATUS)"
+        }
+      },
+      "ug_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 3,
+          "note": "the Ultimatum Game offer question; question as administered; described/quoted on p. 3 ('The experimental questions were ...'): authors' English rendering; the paper does not say which language participants saw (Czech students at Charles University: Czech is the likely language), so the quotation is reported, never served as verbatim: 'How much would you offer in the Ultimatum Game?'; the questionnaire is not published (paper p. 3 quotes the rules and the three questions only; Dataset S1, the only supplement, is participant-level data; searched, see STATUS)"
+        }
+      },
+      "mao_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 3,
+          "note": "the minimum acceptable offer question; question as administered; described/quoted on p. 3 ('The experimental questions were ...'): authors' English rendering; the paper does not say which language participants saw (Czech students at Charles University: Czech is the likely language), so the quotation is reported, never served as verbatim: 'What is the minimum offer you would accept in the Ultimatum Game?'; the questionnaire is not published (paper p. 3 quotes the rules and the three questions only; Dataset S1, the only supplement, is participant-level data; searched, see STATUS)"
+        }
+      },
+      "sex_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 8,
+          "note": "the gender question; Dataset S1 description lists sex_num (0 = female, 1 = male), so gender was recorded; the question, its options and its position are not printed; the questionnaire is not published (paper p. 3 quotes the rules and the three questions only; Dataset S1, the only supplement, is participant-level data; searched, see STATUS)"
+        }
+      },
+      "age_prompt": {
+        "text": null,
+        "cite": {
+          "label": "missing",
+          "source": "paper",
+          "page": 3,
+          "note": "the age question; mean age 20.88 (median 20, s.d. 2.11) is reported, so age was recorded; the question and its position are not printed; the questionnaire is not published (paper p. 3 quotes the rules and the three questions only; Dataset S1, the only supplement, is participant-level data; searched, see STATUS)"
+        }
+      }
+    }
+  },
+  "stages": {
+    "background": {
+      "content": [],
+      "responses": [
+        {
+          "id": "sex",
+          "kind": "choice",
+          "prompt": {
+            "expr": "data['missing']['sex_prompt']"
+          },
+          "options": [
+            {
+              "code": "female",
+              "label": {
+                "expr": "data['missing']['sex_prompt']"
+              }
+            },
+            {
+              "code": "male",
+              "label": {
+                "expr": "data['missing']['sex_prompt']"
+              }
+            }
+          ],
+          "required": false,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 8,
+            "note": "two categories coded 0 = female, 1 = male in Dataset S1 (p. 8); the labels, order and any other option are not printed"
+          }
+        },
+        {
+          "id": "age",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['age_prompt']"
+          },
+          "required": false,
+          "cite": {
+            "label": "derived",
+            "source": "paper",
+            "page": 3,
+            "note": "age recorded (mean 20.88, median 20, s.d. 2.11, p. 3); the format and limits are not printed: no range or validation is declared"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 3,
+        "note": "position of the gender and age items is not reported: placed first. Alternative reading: after the games (the usual end-of-questionnaire position); only the position changes (and the keyed gender answers would then need the games to precede it). Page structure, back navigation and paging are unknown"
+      }
+    },
+    "rules": {
+      "content": [
+        {
+          "id": "rules_text",
+          "value": {
+            "expr": "data['missing']['rules']"
+          }
+        }
+      ],
+      "responses": [],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 3,
+        "note": "the rules were 'explained to the subjects in the questionnaire' (p. 3); whether once at the start or repeated before each amount in Treatment Five is not reported: shown once, before the first game. Alternative reading: repeated on every game page in Treatment Five; only the number of rule screens changes. Page structure, back navigation and paging are unknown"
+      }
+    },
+    "game": {
+      "content": [
+        {
+          "id": "amount_line",
+          "value": {
+            "expr": "data['missing']['amount']"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "id": "dg",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['dg_prompt']"
+          },
+          "required": false,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Dictator Game offer question listed first of three (p. 3); authors' English rendering; the paper does not say which language participants saw (Czech students at Charles University: Czech is the likely language), so the quotation is reported, never served as verbatim"
+          }
+        },
+        {
+          "id": "ug",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['ug_prompt']"
+          },
+          "required": false,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "Ultimatum Game offer question listed second of three (p. 3); authors' English rendering; the paper does not say which language participants saw (Czech students at Charles University: Czech is the likely language), so the quotation is reported, never served as verbatim"
+          }
+        },
+        {
+          "id": "mao",
+          "kind": "number",
+          "prompt": {
+            "expr": "data['missing']['mao_prompt']"
+          },
+          "required": false,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 3,
+            "note": "minimum-acceptable-offer question listed third of three (p. 3); authors' English rendering; the paper does not say which language participants saw (Czech students at Charles University: Czech is the likely language), so the quotation is reported, never served as verbatim"
+          }
+        }
+      ],
+      "presentation": {
+        "back": "unknown",
+        "advance": "self"
+      },
+      "presentation_cite": {
+        "label": "derived",
+        "source": "paper",
+        "page": 3,
+        "note": "the three questions on one page per amount, in the order the paper lists them (DG offer, UG offer, UG minimum acceptable offer; p. 3). The real layout and order are not reported. Alternative reading: the questions of the two games grouped by game with the rules next to each; or the MAO before the UG offer; the unit fields do not depend on the order. Back navigation and paging unknown. Treatment Five: how the five amounts were laid out is not reported either; alternative reading: all five games on one sheet, visible together and revisable (cf. 'seeing the raising stakes', p. 3), instead of one game per page in ascending order; that would change what is on screen and `seen`, not the unit fields"
+      }
+    }
+  },
+  "flow": [
+    {
+      "stage": "background"
+    },
+    {
+      "stage": "rules"
+    },
+    {
+      "if": "arm == 'one'",
+      "then": {
+        "for": "amt",
+        "in": {
+          "expr": "[choice([20, 200, 2000, 20000, 200000])]"
+        },
+        "do": {
+          "stage": "game"
+        }
+      },
+      "else": {
+        "for": "amt",
+        "in": [
+          20,
+          200,
+          2000,
+          20000,
+          200000
+        ],
+        "do": {
+          "stage": "game"
+        }
+      }
+    }
+  ],
+  "flow_cites": {
+    "assignment_one": {
+      "label": "derived",
+      "source": "paper",
+      "page": 3,
+      "note": "Treatment One: 423 students 'divided into five groups and each one provided answers in a game with just one of these amounts' (p. 3). Group sizes and the way of dividing (random? by class?) are not reported: an independent uniform draw of the amount per participant. Alternative reading: five equal groups of about 85 (balanced quota) or groups by class/session; the amount-level counts would then differ"
+    },
+    "amount_order_five": {
+      "label": "reported",
+      "source": "paper",
+      "page": 3,
+      "note": "Treatment Five: 'five different games, each one with increasing amounts at stake' (introduction, p. 3) and 'seeing the raising stakes' (p. 3): ascending order CZK 20, 200, 2,000, 20,000, 200,000. The introduction states the ascending order; the Methods list the amounts in the same order"
+    },
+    "arm_allocation": {
+      "label": "derived",
+      "source": "paper",
+      "page": 3,
+      "note": "which of the two treatments a student got (random? by session?) is not reported; the arms are two separate samples, run by design(n) per arm (n_paper 423 and 101)"
+    }
+  },
+  "units": {
+    "games": {
+      "per": "game",
+      "fields": {
+        "treatment": "arm",
+        "amount": "amt",
+        "log_amount": "log(amt, 10)",
+        "sex": "answer('background.sex')",
+        "dg_share": "None if answer('game.dg', amt=amt) is None else answer('game.dg', amt=amt) / amt",
+        "ug_share": "None if answer('game.ug', amt=amt) is None else answer('game.ug', amt=amt) / amt",
+        "mao_share": "None if answer('game.mao', amt=amt) is None else answer('game.mao', amt=amt) / amt"
+      },
+      "cites": {
+        "treatment": {
+          "label": "reported",
+          "source": "paper",
+          "page": 3,
+          "note": "One vs Five (Dataset S1 variable Treatment, p. 8); which level the paper's model takes as reference is not stated (meta.paper_inconsistencies / effects)"
+        },
+        "amount": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "Dataset S1 variable amount: the amount at stake in every particular game"
+        },
+        "log_amount": {
+          "label": "derived",
+          "source": "paper",
+          "page": 8,
+          "note": "Dataset S1 has logamount, the base is not stated. log10 derived: over the four decades Table 1's shares drop by about 0.05 (DG), 0.09 (UG), 0.12 (MAO), the Table 2 slopes -0.016, -0.027, -0.023 x 4 decades fit log10 (natural log: x 9.2 would give -0.15, -0.25, -0.21). Alternative reading: natural log; Pearson r is the same, a slope would be per ln unit"
+        },
+        "sex": {
+          "label": "reported",
+          "source": "paper",
+          "page": 8,
+          "note": "Dataset S1 sex_num: 0 female, 1 male"
+        },
+        "dg_share": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "relative shares: 'expressed as a percentage of the amount at stake' (Table 1 footnote, p. 4); dictator_offer in Dataset S1 is 'a share offered' (p. 8); the answer format of the form (CZK or per cent) is not reported, so answer / amount is derived (no range or validation is declared on the game answers)"
+        },
+        "ug_share": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "as dg_share (Ultimatum Game offer, ult_offer, p. 8)"
+        },
+        "mao_share": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "as dg_share (minimum acceptable offer, ult_accept, p. 8)"
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "omitted": [
+    {
+      "what": "informed consent form (signed before the questionnaire), invitation during the courses, the optional written exam test that came first",
+      "why": "not published; the consent text is not printed",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3
+      }
+    },
+    {
+      "what": "answer validation (range 0..amount, whole CZK, error messages): the paper form had none that is reported",
+      "why": "not printed; none declared in the protocol",
+      "label": "missing",
+      "cite": {
+        "label": "reported",
+        "source": "paper",
+        "page": 3
+      }
+    },
+    {
+      "what": "any other questionnaire content (instructions beyond the rules, debriefing, other scales)",
+      "why": "not reported",
+      "label": "missing"
+    }
+  ],
+  "analysis": {
+    "targets": [],
+    "effects": [],
+    "blocked_arm_targets": [
+      {
+        "id": "t1_dg_20",
+        "unit": "games",
+        "where": {
+          "amount": 20
+        },
+        "field": "dg_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.28300000000000003,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "28.3%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_ug_20",
+        "unit": "games",
+        "where": {
+          "amount": 20
+        },
+        "field": "ug_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.45799999999999996,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "45.8%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_mao_20",
+        "unit": "games",
+        "where": {
+          "amount": 20
+        },
+        "field": "mao_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.419,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "41.9%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_dg_200",
+        "unit": "games",
+        "where": {
+          "amount": 200
+        },
+        "field": "dg_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.27899999999999997,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "27.9%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_ug_200",
+        "unit": "games",
+        "where": {
+          "amount": 200
+        },
+        "field": "ug_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.434,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "43.4%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_mao_200",
+        "unit": "games",
+        "where": {
+          "amount": 200
+        },
+        "field": "mao_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.379,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "37.9%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_dg_2000",
+        "unit": "games",
+        "where": {
+          "amount": 2000
+        },
+        "field": "dg_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.247,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "24.7%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_ug_2000",
+        "unit": "games",
+        "where": {
+          "amount": 2000
+        },
+        "field": "ug_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.4,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "40.0%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_mao_2000",
+        "unit": "games",
+        "where": {
+          "amount": 2000
+        },
+        "field": "mao_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.34700000000000003,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "34.7%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_dg_20000",
+        "unit": "games",
+        "where": {
+          "amount": 20000
+        },
+        "field": "dg_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.23600000000000002,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "23.6%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_ug_20000",
+        "unit": "games",
+        "where": {
+          "amount": 20000
+        },
+        "field": "ug_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.387,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "38.7%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_mao_20000",
+        "unit": "games",
+        "where": {
+          "amount": 20000
+        },
+        "field": "mao_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.33399999999999996,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "33.4%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_dg_200000",
+        "unit": "games",
+        "where": {
+          "amount": 200000
+        },
+        "field": "dg_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.233,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "23.3%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_ug_200000",
+        "unit": "games",
+        "where": {
+          "amount": 200000
+        },
+        "field": "ug_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.37200000000000005,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "37.2%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      },
+      {
+        "id": "t1_mao_200000",
+        "unit": "games",
+        "where": {
+          "amount": 200000
+        },
+        "field": "mao_share",
+        "stat": "mean",
+        "human": {
+          "value": 0.301,
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "evidence": "30.1%",
+            "note": "Table 1 (p. 4): mean relative shares 'expressed as a percentage of the amount at stake'. Which sample the means average over (both treatments, all 524?) is not stated: both treatments pooled, row-pooled over all game rows, is derived; the cell n are not printed. Alternative readings (meta.conflicts): Treatment One only (the one-game-per-student sample, n about 85 per amount) or the mean of the two per-treatment means (Five weighs 101 per amount against about 85, so row-pooling and mean-of-means differ little); each would change the target's population and value"
+          },
+          "no_uncertainty": "Table 1 prints means only: no SD, SE, CI or cell n"
+        }
+      }
+    ],
+    "blocked_arm_effects": [
+      {
+        "id": "slope_dg",
+        "label": "Dictator Game offer: relative share against the log of the amount at stake",
+        "unit": "games",
+        "role": "test",
+        "contrast": {
+          "kind": "association"
+        },
+        "compute": {
+          "op": "correlation",
+          "field": "dg_share",
+          "withField": "log_amount"
+        },
+        "model_note": "the printed number is a coefficient of a mixed linear model with Treatment, gender and the interaction; engine request: an OLS / mixed-model slope op (field on withField with fixed covariates and a per-treatment slope); `correlation` is the nearest computable quantity (sign and strength of the same relation) and is NOT the reported coefficient, so no compareAs is set",
+        "reported": {
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": -0.016,
+              "se": 0.007,
+              "variant": "Table 2: Logarithm of the stakes, mixed linear model (SPSS 18), dependent variable the relative share, explanatory variables log of the amount, Treatment, gender and Treatment x log amount; within-subject dependence in Treatment Five filtered 'in the model' (p. 3)"
+            }
+          ],
+          "test": {
+            "statistic": "t",
+            "value": -2.128,
+            "df": 541.308,
+            "p": 0.034,
+            "pRelation": "="
+          },
+          "n_participants": 524,
+          "n_note": "n = 524 participants (p. 3); the model rows are 928 game rows (423 Treatment One + 5 x 101 Treatment Five), and the printed df are fractional Satterthwaite-type values, so n is not t df + 2",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "Table 2, row 'Logarithm of the stakes' (minus sign typeset as U+2212, checked on the page image); text p. 3 (bottom of the right column): significant negative relationship (DG p = 0.034, UG p < 0.001, MAO p = 0.001). Effect = change of the relative share per unit of the log amount (base derived: log10, units.games.cites.log_amount)"
+          }
+        },
+        "direction": "negative"
+      },
+      {
+        "id": "gender_dg",
+        "label": "Dictator Game offer: relative share, female minus male",
+        "unit": "games",
+        "role": "test",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "female",
+          "reference": "male"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "dg_share",
+          "groupBy": "sex",
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "Gender term of the mixed linear model with log stakes, Treatment and their interaction; reference level not stated in the paper: sex_num 0 = female, 1 = male (p. 8), the positive DG estimate with 'women proved significantly more generous' (pp. 3-4) reads as female minus male. Gender is not manipulated, so the model term is close to, not equal to, the difference of the raw group means; the raw mean_difference over game rows also counts each Treatment Five person five times, whereas the paper's model filtered within-subject dependence (p. 3)"
+          }
+        },
+        "reported": {
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 0.044,
+              "se": 0.022,
+              "variant": "Table 2: Gender, mixed linear model (SPSS 18), dependent variable the relative share, explanatory variables log of the amount, Treatment, gender and Treatment x log amount; within-subject dependence in Treatment Five filtered 'in the model' (p. 3)"
+            }
+          ],
+          "test": {
+            "statistic": "t",
+            "value": 2.724,
+            "df": 814.412,
+            "p": 0.007,
+            "pRelation": "="
+          },
+          "n_participants": 524,
+          "n_note": "n = 524 participants (p. 3); the model rows are 928 game rows; the printed df are fractional, so n is not t df + 2",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "Table 2, row 'Gender'; text p. 3-4 ('In the DG, women proved significantly more generous than men (p = 0.007); this effect was not observed in the UG'). Sign convention derived from that sentence (the table does not name the reference level)"
+          },
+          "cite_sign": {
+            "label": "derived",
+            "source": "paper",
+            "page": 4,
+            "note": "positive estimate = women more generous (text p. 4)"
+          }
+        },
+        "direction": "positive"
+      },
+      {
+        "id": "extremes_dg",
+        "label": "Dictator Game offer: mean relative share, CZK 200,000 minus CZK 20",
+        "unit": "games",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "200000",
+          "reference": "20"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "dg_share",
+          "groupBy": "amount"
+        },
+        "reported": {
+          "cells": {
+            "200000": {
+              "mean": 0.233
+            },
+            "20": {
+              "mean": 0.28300000000000003
+            }
+          },
+          "no_uncertainty": "Table 1 prints means only (no n, SD): no SE; the paper does not test this contrast",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "Table 1 cells CZK 200,000 and CZK 20; the difference is not printed"
+          }
+        },
+        "direction": "negative"
+      },
+      {
+        "id": "slope_ug",
+        "label": "Ultimatum Game offer: relative share against the log of the amount at stake",
+        "unit": "games",
+        "role": "test",
+        "contrast": {
+          "kind": "association"
+        },
+        "compute": {
+          "op": "correlation",
+          "field": "ug_share",
+          "withField": "log_amount"
+        },
+        "model_note": "the printed number is a coefficient of a mixed linear model with Treatment, gender and the interaction; engine request: an OLS / mixed-model slope op (field on withField with fixed covariates and a per-treatment slope); `correlation` is the nearest computable quantity (sign and strength of the same relation) and is NOT the reported coefficient, so no compareAs is set",
+        "reported": {
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": -0.027,
+              "se": 0.006,
+              "variant": "Table 2: Logarithm of the stakes, mixed linear model (SPSS 18), dependent variable the relative share, explanatory variables log of the amount, Treatment, gender and Treatment x log amount; within-subject dependence in Treatment Five filtered 'in the model' (p. 3)"
+            }
+          ],
+          "test": {
+            "statistic": "t",
+            "value": -4.566,
+            "df": 517.635,
+            "p": 0.001,
+            "pRelation": "<"
+          },
+          "n_participants": 524,
+          "n_note": "n = 524 participants (p. 3); the model rows are 928 game rows (423 Treatment One + 5 x 101 Treatment Five), and the printed df are fractional Satterthwaite-type values, so n is not t df + 2",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "Table 2, row 'Logarithm of the stakes' (minus sign typeset as U+2212, checked on the page image); text p. 3 (bottom of the right column): significant negative relationship (DG p = 0.034, UG p < 0.001, MAO p = 0.001). Effect = change of the relative share per unit of the log amount (base derived: log10, units.games.cites.log_amount)"
+          }
+        },
+        "direction": "negative"
+      },
+      {
+        "id": "gender_ug",
+        "label": "Ultimatum Game offer: relative share, female minus male",
+        "unit": "games",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "female",
+          "reference": "male"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "ug_share",
+          "groupBy": "sex",
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "Gender term of the mixed linear model with log stakes, Treatment and their interaction; reference level not stated in the paper: sex_num 0 = female, 1 = male (p. 8), the positive DG estimate with 'women proved significantly more generous' (pp. 3-4) reads as female minus male. Gender is not manipulated, so the model term is close to, not equal to, the difference of the raw group means; the raw mean_difference over game rows also counts each Treatment Five person five times, whereas the paper's model filtered within-subject dependence (p. 3)"
+          }
+        },
+        "reported": {
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 0.023,
+              "se": 0.014,
+              "variant": "Table 2: Gender, mixed linear model (SPSS 18), dependent variable the relative share, explanatory variables log of the amount, Treatment, gender and Treatment x log amount; within-subject dependence in Treatment Five filtered 'in the model' (p. 3)"
+            }
+          ],
+          "test": {
+            "statistic": "t",
+            "value": 1.707,
+            "df": 813.467,
+            "p": 0.088,
+            "pRelation": "="
+          },
+          "n_participants": 524,
+          "n_note": "n = 524 participants (p. 3); the model rows are 928 game rows; the printed df are fractional, so n is not t df + 2",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "Table 2, row 'Gender'; text p. 3-4 ('In the DG, women proved significantly more generous than men (p = 0.007); this effect was not observed in the UG'). Sign convention derived from that sentence (the table does not name the reference level)"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "UG p = 0.088, MAO p = 0.587 (Table 2); the Results say the gender effect 'was not observed in the UG'. The Discussion (p. 8) says gender 'proved significant ... for the offers in both games', which Table 2 contradicts (meta.paper_inconsistencies)"
+        }
+      },
+      {
+        "id": "extremes_ug",
+        "label": "Ultimatum Game offer: mean relative share, CZK 200,000 minus CZK 20",
+        "unit": "games",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "200000",
+          "reference": "20"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "ug_share",
+          "groupBy": "amount"
+        },
+        "reported": {
+          "cells": {
+            "200000": {
+              "mean": 0.37200000000000005
+            },
+            "20": {
+              "mean": 0.45799999999999996
+            }
+          },
+          "no_uncertainty": "Table 1 prints means only (no n, SD): no SE; the paper does not test this contrast",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "Table 1 cells CZK 200,000 and CZK 20; the difference is not printed"
+          }
+        },
+        "direction": "negative"
+      },
+      {
+        "id": "slope_mao",
+        "label": "minimum acceptable offer in the Ultimatum Game: relative share against the log of the amount at stake",
+        "unit": "games",
+        "role": "test",
+        "contrast": {
+          "kind": "association"
+        },
+        "compute": {
+          "op": "correlation",
+          "field": "mao_share",
+          "withField": "log_amount"
+        },
+        "model_note": "the printed number is a coefficient of a mixed linear model with Treatment, gender and the interaction; engine request: an OLS / mixed-model slope op (field on withField with fixed covariates and a per-treatment slope); `correlation` is the nearest computable quantity (sign and strength of the same relation) and is NOT the reported coefficient, so no compareAs is set",
+        "reported": {
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": -0.023,
+              "se": 0.007,
+              "variant": "Table 2: Logarithm of the stakes, mixed linear model (SPSS 18), dependent variable the relative share, explanatory variables log of the amount, Treatment, gender and Treatment x log amount; within-subject dependence in Treatment Five filtered 'in the model' (p. 3)"
+            }
+          ],
+          "test": {
+            "statistic": "t",
+            "value": -3.406,
+            "df": 508.084,
+            "p": 0.001,
+            "pRelation": "="
+          },
+          "n_participants": 524,
+          "n_note": "n = 524 participants (p. 3); the model rows are 928 game rows (423 Treatment One + 5 x 101 Treatment Five), and the printed df are fractional Satterthwaite-type values, so n is not t df + 2",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "Table 2, row 'Logarithm of the stakes' (minus sign typeset as U+2212, checked on the page image); text p. 3 (bottom of the right column): significant negative relationship (DG p = 0.034, UG p < 0.001, MAO p = 0.001). Effect = change of the relative share per unit of the log amount (base derived: log10, units.games.cites.log_amount)"
+          }
+        },
+        "direction": "negative"
+      },
+      {
+        "id": "gender_mao",
+        "label": "minimum acceptable offer in the Ultimatum Game: relative share, female minus male",
+        "unit": "games",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "female",
+          "reference": "male"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "mao_share",
+          "groupBy": "sex",
+          "compareAs": {
+            "metric": "regression_coefficient",
+            "reason": "Gender term of the mixed linear model with log stakes, Treatment and their interaction; reference level not stated in the paper: sex_num 0 = female, 1 = male (p. 8), the positive DG estimate with 'women proved significantly more generous' (pp. 3-4) reads as female minus male. Gender is not manipulated, so the model term is close to, not equal to, the difference of the raw group means; the raw mean_difference over game rows also counts each Treatment Five person five times, whereas the paper's model filtered within-subject dependence (p. 3)"
+          }
+        },
+        "reported": {
+          "estimates": [
+            {
+              "metric": "regression_coefficient",
+              "value": 0.008,
+              "se": 0.015,
+              "variant": "Table 2: Gender, mixed linear model (SPSS 18), dependent variable the relative share, explanatory variables log of the amount, Treatment, gender and Treatment x log amount; within-subject dependence in Treatment Five filtered 'in the model' (p. 3)"
+            }
+          ],
+          "test": {
+            "statistic": "t",
+            "value": 0.544,
+            "df": 792.031,
+            "p": 0.587,
+            "pRelation": "="
+          },
+          "n_participants": 524,
+          "n_note": "n = 524 participants (p. 3); the model rows are 928 game rows; the printed df are fractional, so n is not t df + 2",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 7,
+            "note": "Table 2, row 'Gender'; text p. 3-4 ('In the DG, women proved significantly more generous than men (p = 0.007); this effect was not observed in the UG'). Sign convention derived from that sentence (the table does not name the reference level)"
+          }
+        },
+        "direction_claimed": false,
+        "direction_claimed_cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "UG p = 0.088, MAO p = 0.587 (Table 2); the Results say the gender effect 'was not observed in the UG'. The Discussion (p. 8) says gender 'proved significant ... for the offers in both games', which Table 2 contradicts (meta.paper_inconsistencies)"
+        }
+      },
+      {
+        "id": "extremes_mao",
+        "label": "minimum acceptable offer in the Ultimatum Game: mean relative share, CZK 200,000 minus CZK 20",
+        "unit": "games",
+        "role": "descriptive",
+        "contrast": {
+          "kind": "two_groups",
+          "treatment": "200000",
+          "reference": "20"
+        },
+        "compute": {
+          "op": "mean_difference",
+          "field": "mao_share",
+          "groupBy": "amount"
+        },
+        "reported": {
+          "cells": {
+            "200000": {
+              "mean": 0.301
+            },
+            "20": {
+              "mean": 0.419
+            }
+          },
+          "no_uncertainty": "Table 1 prints means only (no n, SD): no SE; the paper does not test this contrast",
+          "cite": {
+            "label": "reported",
+            "source": "paper",
+            "page": 4,
+            "note": "Table 1 cells CZK 200,000 and CZK 20; the difference is not printed"
+          }
+        },
+        "direction": "negative"
+      }
+    ],
+    "unsupported": [
+      {
+        "id": "treatment_dg",
+        "what": "Table 2 row 'Treatment', Dictator Game offer: est 0.045, SE 0.036, df 459.864, t 1.261, p 0.208 (not significant)",
+        "why": "needs a mixed model with Treatment, gender and the interaction (engine request in meta.engine_requests); the sign of the Treatment coding is not stated",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "Table 2"
+        }
+      },
+      {
+        "id": "interaction_dg",
+        "what": "Table 2 row 'Treatment * Logarithm of the stakes', Dictator Game offer: est 0.002, SE 0.011, df 523.646, t 0.158, p 0.874 (not significant)",
+        "why": "a Treatment x log-amount interaction slope-difference needs a model op (engine request); the paper claims no effect",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "Table 2"
+        }
+      },
+      {
+        "id": "treatment_ug",
+        "what": "Table 2 row 'Treatment', Ultimatum Game offer: est 0.045, SE 0.028, df 410.276, t 1.583, p 0.114 (not significant)",
+        "why": "needs a mixed model with Treatment, gender and the interaction (engine request in meta.engine_requests); the sign of the Treatment coding is not stated",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "Table 2"
+        }
+      },
+      {
+        "id": "interaction_ug",
+        "what": "Table 2 row 'Treatment * Logarithm of the stakes', Ultimatum Game offer: est 0.007, SE 0.009, df 497.794, t 0.794, p 0.428 (not significant)",
+        "why": "a Treatment x log-amount interaction slope-difference needs a model op (engine request); the paper claims no effect",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "Table 2"
+        }
+      },
+      {
+        "id": "treatment_mao",
+        "what": "Table 2 row 'Treatment', minimum acceptable offer in the Ultimatum Game: est 0.031, SE 0.031, df 390.537, t 1.011, p 0.313 (not significant)",
+        "why": "needs a mixed model with Treatment, gender and the interaction (engine request in meta.engine_requests); the sign of the Treatment coding is not stated",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "Table 2"
+        }
+      },
+      {
+        "id": "interaction_mao",
+        "what": "Table 2 row 'Treatment * Logarithm of the stakes', minimum acceptable offer in the Ultimatum Game: est -0.013, SE 0.01, df 486.923, t -1.391, p 0.165 (not significant)",
+        "why": "a Treatment x log-amount interaction slope-difference needs a model op (engine request); the paper claims no effect",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "Table 2"
+        }
+      },
+      {
+        "id": "intercept_dg",
+        "what": "Table 2 intercept, Dictator Game offer: 0.253",
+        "why": "a model intercept at log amount 0 and the reference levels, not a hypothesis of the paper",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "Table 2"
+        }
+      },
+      {
+        "id": "intercept_ug",
+        "what": "Table 2 intercept, Ultimatum Game offer: 0.453",
+        "why": "a model intercept at log amount 0 and the reference levels, not a hypothesis of the paper",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "Table 2"
+        }
+      },
+      {
+        "id": "intercept_mao",
+        "what": "Table 2 intercept, minimum acceptable offer in the Ultimatum Game: 0.434",
+        "why": "a model intercept at log amount 0 and the reference levels, not a hypothesis of the paper",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 7,
+          "note": "Table 2"
+        }
+      },
+      {
+        "id": "no_interaction_model",
+        "what": "the model without interactions: the Treatment effect 'significant in offers in both games (p < 0.001 in both cases)', lower in Treatment Five; the stakes and, in the DG, gender remained; MAO Treatment p = 0.567 (text p. 4, 6)",
+        "why": "estimates of that second model are not printed (only p values in the text); no engine op",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4
+        }
+      },
+      {
+        "id": "effect_sizes_figures",
+        "what": "estimated effect sizes per treatment from linear regressions (Figures 1-3, pp. 4-6): DG 0.8% / 1.2%, UG 3.2% / 3.0%, MAO 7.5% / 1.8% (One / Five)",
+        "why": "the effect-size measure is not defined in the paper (percentage of variance explained?); the Figure 3 caption says 'MAOs in the DG' (typo for UG)",
+        "cite": {
+          "label": "reported",
+          "source": "paper",
+          "page": 4,
+          "note": "figure captions pp. 4-6"
+        }
+      }
+    ]
+  },
+  "keyed": {
+    "why": "paper's pattern: relative offers and MAOs fall with the log of the amount; women offer more in the DG",
+    "answers": {
+      "game.dg": "round(amt * (0.36 - 0.02 * log(amt, 10) + (0.04 if answer('background.sex') == 'female' else 0)))",
+      "game.ug": "round(amt * (0.57 - 0.03 * log(amt, 10)))",
+      "game.mao": "round(amt * (0.5 - 0.025 * log(amt, 10)))",
+      "background.sex": "choice(['female', 'male'])",
+      "background.age": "20"
+    }
+  },
+  "distribution": {
+    "format": "hsenv-projection/1",
+    "hsenv": "0.8.1",
+    "placeholder": "░",
+    "held": {},
+    "strict": false,
+    "attribution": [
+      {
+        "source": "paper",
+        "licence": "CC-BY-4.0",
+        "attribution": "Novakova, J., & Flegr, J. (2013). How much is our fairness worth? PLOS ONE 8(4): e60966. doi:10.1371/journal.pone.0060966. CC BY"
+      }
+    ]
+  },
+  "schema_version": "1"
+}
